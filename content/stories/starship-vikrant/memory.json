@@ -1,0 +1,18 @@
+{
+  "storyId": "starship-vikrant",
+  "version": 1,
+  "shortTermWindow": 14,
+  "seedMemories": [
+    "User INS Vikrant ka sabse young cadet hai.",
+    "Teen-pulse alien signal mila hai.",
+    "Sirf young minds aliens se clearly baat kar sakte hain.",
+    "Hive-ship 6 ghante mein aa raha hai."
+  ],
+  "extractionHints": [
+    "Signal ko kya samjha (madad / gaana)",
+    "Pehla Sphatik shabd kya tha",
+    "Crystal-heart kaise bachaya",
+    "Hive ko kaise manaya"
+  ],
+  "neverRemember": ["Real-world personal data", "Earth politics beyond the story"]
+}

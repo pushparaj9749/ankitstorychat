@@ -1,0 +1,435 @@
+/**
+ * Kissa — core domain types.
+ * This file is intentionally dependency-free so it can be imported
+ * from pure-logic modules and unit-tested in plain Node (jest).
+ */
+
+/** Age bucket chosen by the user at onboarding. */
+export type AgeGroup = '12-17' | '18+';
+
+/** Age rating attached to every story package. */
+export type AgeRating = '12-17' | '18+';
+
+/** Maturity level attached to every story package. */
+export type ContentLevel = 'teen' | 'mature';
+
+/** Supported story languages. v1 ships Hinglish; the schema is ready for more. */
+export type StoryLanguage = 'hinglish' | 'english';
+
+/** Where a story bundle came from. */
+export type StorySource = 'bundled' | 'downloaded';
+
+/* ------------------------------------------------------------------ */
+/* Content manifest                                                    */
+/* ------------------------------------------------------------------ */
+
+/** One entry in content/manifest.json */
+export interface StoryMeta {
+  id: string;
+  title: string;
+  tagline: string;
+  description: string;
+  genres: string[];
+  tags: string[];
+  characters: string[];
+  ageRating: AgeRating;
+  contentLevel: ContentLevel;
+  language: StoryLanguage;
+  /** Per-story content version. Bump when the story package changes. */
+  version: number;
+  /** Key into the bundled-cover registry (bundled stories). */
+  coverBundled?: string;
+  /** Remote cover URL (stories added later through GitHub). */
+  coverUrl?: string;
+  accentColor: string;
+  userRole: string;
+  setting: string;
+  estimatedMinutes: number;
+  featured?: boolean;
+  isNew?: boolean;
+  popularity: number;
+  /** Directory name under content/stories (and under the remote repo). */
+  storyDir: string;
+  updatedAt: string;
+}
+
+export interface ContentManifest {
+  contentVersion: number;
+  minAppVersion?: string;
+  updatedAt: string;
+  stories: StoryMeta[];
+}
+
+/* ------------------------------------------------------------------ */
+/* Story package files                                                 */
+/* ------------------------------------------------------------------ */
+
+export interface StoryFile {
+  id: string;
+  title: string;
+  description: string;
+  version: number;
+  language: StoryLanguage;
+  ageRating: AgeRating;
+  contentLevel: ContentLevel;
+  genres: string[];
+  tags: string[];
+  userRole: string;
+  setting: string;
+  openingSceneId: string;
+  tone: string;
+  /** Safety guidance for the AI narrator, e.g. "no gore". */
+  safetyNotes: string[];
+}
+
+export interface StoryCharacter {
+  id: string;
+  name: string;
+  role: string;
+  personality: string;
+  background: string;
+  goals: string[];
+  fears: string[];
+  likes: string[];
+  dislikes: string[];
+  speakingStyle: string;
+  /** Example Hinglish line showing how this character talks. */
+  sampleLine: string;
+  relationshipWithUser: string;
+  knowledge: string[];
+}
+
+export interface CharactersFile {
+  storyId: string;
+  version: number;
+  characters: StoryCharacter[];
+}
+
+export interface WorldLocation {
+  id: string;
+  name: string;
+  description: string;
+}
+
+export interface WorldFile {
+  storyId: string;
+  version: number;
+  premise: string;
+  locations: WorldLocation[];
+  factions: { id: string; name: string; description: string }[];
+  lore: string[];
+  /** Hard rules the AI narrator must never break. */
+  rules: string[];
+  importantObjects: { id: string; name: string; description: string }[];
+  timeline: string[];
+}
+
+export interface ChoiceEffects {
+  relationships?: Record<string, number>;
+  flags?: Record<string, boolean | number | string>;
+  choicesRecord?: Record<string, string | boolean>;
+  inventoryAdd?: string[];
+  inventoryRemove?: string[];
+  location?: string;
+  /** Force a scene jump (normally the choice's `next` field is used). */
+  scene?: string;
+  /** End the story with this ending id. */
+  endStory?: string;
+  /** Memories the narrator should remember. */
+  memory?: string[];
+}
+
+export interface SceneChoice {
+  id: string;
+  text: string;
+  /** Keywords used by the offline engine + smart-reply matching. */
+  keywords: string[];
+  next: string | null;
+  /** If set, this choice is only offered when the flag expression holds. */
+  requiresFlag?: string;
+  effects?: ChoiceEffects;
+  /** Short label for smart-reply chips. Defaults to `text`. */
+  shortLabel?: string;
+}
+
+export interface StoryScene {
+  id: string;
+  title: string;
+  /** Opening narration shown when the scene starts (offline mode + AI seed). */
+  narration: string[];
+  /** Lines the offline narrator uses when free text matches no choice. */
+  fallbackLines: string[];
+  choices: SceneChoice[];
+  /** True for terminal scenes. */
+  isEnding?: boolean;
+  endingId?: string;
+}
+
+export interface StoryEnding {
+  id: string;
+  title: string;
+  description: string;
+  tone: 'happy' | 'bittersweet' | 'dark' | 'mysterious' | 'heroic' | 'funny';
+}
+
+export interface ScenesFile {
+  storyId: string;
+  version: number;
+  scenes: StoryScene[];
+  endings: StoryEnding[];
+}
+
+export interface MemoryFile {
+  storyId: string;
+  version: number;
+  shortTermWindow: number;
+  /** Facts the narrator knows from the very first message. */
+  seedMemories: string[];
+  /** Hints for what counts as memorable in this story. */
+  extractionHints: string[];
+  /** Things the narrator must never "remember" (privacy / consistency). */
+  neverRemember: string[];
+}
+
+export interface StoryBundle {
+  meta: StoryMeta;
+  story: StoryFile;
+  characters: CharactersFile;
+  world: WorldFile;
+  scenes: ScenesFile;
+  memory: MemoryFile;
+  source: StorySource;
+}
+
+/* ------------------------------------------------------------------ */
+/* Local profile / settings                                            */
+/* ------------------------------------------------------------------ */
+
+export interface LocalProfile {
+  nickname: string;
+  ageGroup: AgeGroup;
+  createdAt: string;
+}
+
+export interface NotificationSettings {
+  enabled: boolean;
+  storyReminders: boolean;
+  contentUpdates: boolean;
+  reminderHour: number;
+}
+
+export interface AppSettings {
+  theme: 'midnight' | 'amoled';
+  textSize: 'small' | 'medium' | 'large';
+  animations: boolean;
+  reducedMotion: boolean;
+  sound: boolean;
+  music: boolean;
+  haptics: boolean;
+  notifications: NotificationSettings;
+  /** Active AI provider id, or null for Offline Story Mode. */
+  activeProviderId: string | null;
+  contentManifestUrl: string;
+  installedContentVersion: number;
+  lastContentCheckAt: string | null;
+}
+
+export const DEFAULT_SETTINGS: AppSettings = {
+  theme: 'midnight',
+  textSize: 'medium',
+  animations: true,
+  reducedMotion: false,
+  sound: false,
+  music: false,
+  haptics: true,
+  notifications: {
+    enabled: false,
+    storyReminders: true,
+    contentUpdates: true,
+    reminderHour: 20,
+  },
+  activeProviderId: null,
+  contentManifestUrl:
+    'https://raw.githubusercontent.com/pushparaj9749/ankitstorychat/main/content/manifest.json',
+  installedContentVersion: 0,
+  lastContentCheckAt: null,
+};
+
+/* ------------------------------------------------------------------ */
+/* AI providers (metadata only — keys live in SecureStore)             */
+/* ------------------------------------------------------------------ */
+
+export type ProviderType = 'openai-compatible';
+
+export interface AIProvider {
+  id: string;
+  name: string;
+  type: ProviderType;
+  baseUrl: string;
+  model: string;
+  /** Temperature 0..2 */
+  temperature: number;
+  maxTokens: number;
+  enabled: boolean;
+  createdAt: string;
+  updatedAt: string;
+  lastTestedAt: string | null;
+  lastTestOk: boolean | null;
+}
+
+export type AIErrorCode =
+  | 'invalid_key'
+  | 'invalid_model'
+  | 'rate_limit'
+  | 'network'
+  | 'timeout'
+  | 'provider_error'
+  | 'bad_response'
+  | 'empty_response'
+  | 'disabled';
+
+export interface AIError {
+  code: AIErrorCode;
+  /** Human-readable, safe to show in UI. Never contains the API key. */
+  message: string;
+  retryable: boolean;
+  httpStatus?: number;
+}
+
+/* ------------------------------------------------------------------ */
+/* Playthrough / messages / state / memory                             */
+/* ------------------------------------------------------------------ */
+
+export interface StoryState {
+  relationships: Record<string, number>;
+  inventory: string[];
+  location: string;
+  flags: Record<string, boolean | number | string>;
+  choices: Record<string, string | boolean>;
+  visits: Record<string, number>;
+}
+
+export function createInitialState(startLocation = ''): StoryState {
+  return {
+    relationships: {},
+    inventory: [],
+    location: startLocation,
+    flags: {},
+    choices: {},
+    visits: {},
+  };
+}
+
+export type PlaythroughStatus = 'active' | 'completed' | 'abandoned';
+
+export interface Playthrough {
+  id: string;
+  storyId: string;
+  label: string;
+  status: PlaythroughStatus;
+  currentSceneId: string;
+  state: StoryState;
+  /** 0..1 rough progress estimate. */
+  progress: number;
+  messageCount: number;
+  endingId: string | null;
+  /** 'ai' when a provider generated replies, 'offline' for scripted mode. */
+  mode: 'ai' | 'offline';
+  providerId: string | null;
+  createdAt: string;
+  updatedAt: string;
+}
+
+export type MessageRole = 'user' | 'assistant' | 'narration' | 'system';
+
+export interface ChatMessage {
+  id: string;
+  playthroughId: string;
+  role: MessageRole;
+  /** Character name when the assistant speaks as someone. */
+  speaker: string | null;
+  text: string;
+  sceneId: string | null;
+  createdAt: string;
+}
+
+export type MemoryKind = 'story' | 'character' | 'world' | 'preference';
+
+export interface MemoryEntry {
+  id: string;
+  playthroughId: string;
+  kind: MemoryKind;
+  text: string;
+  importance: number;
+  createdAt: string;
+}
+
+export interface Favorite {
+  storyId: string;
+  createdAt: string;
+}
+
+export interface DownloadRecord {
+  storyId: string;
+  version: number;
+  downloadedAt: string;
+}
+
+export interface LocalStats {
+  storiesStarted: number;
+  storiesCompleted: number;
+  messagesSent: number;
+  choicesMade: number;
+  minutesPlayed: number;
+}
+
+/* ------------------------------------------------------------------ */
+/* Export / import                                                     */
+/* ------------------------------------------------------------------ */
+
+export interface DataExport {
+  format: 'kissa-backup';
+  formatVersion: 1;
+  exportedAt: string;
+  appVersion: string;
+  profile: LocalProfile | null;
+  settings: AppSettings | null;
+  providers: AIProvider[];
+  playthroughs: Playthrough[];
+  messages: ChatMessage[];
+  memories: MemoryEntry[];
+  favorites: Favorite[];
+  stats: LocalStats | null;
+}
+
+/* ------------------------------------------------------------------ */
+/* Navigation params                                                   */
+/* ------------------------------------------------------------------ */
+
+export type RootStackParamList = {
+  Splash: undefined;
+  OnboardingName: undefined;
+  OnboardingAge: { nickname: string };
+  Main: undefined;
+  StoryDetail: { storyId: string };
+  Chat: { playthroughId: string };
+  Saves: { storyId: string };
+  AIAddons: undefined;
+  ProviderEditor: { providerId?: string };
+  SettingsProfile: undefined;
+  SettingsAppearance: undefined;
+  SettingsAudio: undefined;
+  SettingsNotifications: undefined;
+  SettingsStorage: undefined;
+  Terms: undefined;
+  Privacy: undefined;
+  About: undefined;
+  ContentUpdates: undefined;
+};
+
+export type MainTabParamList = {
+  Home: undefined;
+  Discover: undefined;
+  Library: undefined;
+  Settings: undefined;
+};

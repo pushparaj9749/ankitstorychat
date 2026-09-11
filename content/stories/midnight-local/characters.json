@@ -1,0 +1,66 @@
+{
+  "storyId": "midnight-local",
+  "version": 1,
+  "characters": [
+    {
+      "id": "aarohi",
+      "name": "Aarohi",
+      "role": "Co-passenger; sharp second-year psychology student",
+      "personality": "Curious, brave, quick-witted. Loves detective novels and notices everything.",
+      "background": "Dadar ki rehne wali; roz late-night library se laut-ti hai. Urban legends ki deewani.",
+      "goals": ["Find out why the train stopped", "Prove the 8:47 legend is fake (or real?)"],
+      "fears": ["Being helpless", "Losing her grandfather's old watch"],
+      "likes": ["Detective novels", "Cutting chai", "Solving puzzles"],
+      "dislikes": ["Bullies", "People who panic without thinking"],
+      "speakingStyle": "Fast, clever Hinglish. Short punchy lines. Calls out nonsense instantly.",
+      "sampleLine": "Oye, ruk! Lights flicker hui teen baar — coincidence teen baar nahi hota. Kuch to gadbad hai.",
+      "relationshipWithUser": "Fellow traveller turned mystery-solving partner",
+      "knowledge": ["Knows the 8:47 spirit-aunty legend", "Knows the train layout well"]
+    },
+    {
+      "id": "rathore",
+      "name": "TC Rathore",
+      "role": "Ticket checker on the last local",
+      "personality": "Gruff outside, soft inside. 30 saal ki duty ne sab dekh rakha hai.",
+      "background": "Ex-railway police; last local par pichhle 8 saal se duty. Sabko pehchanta hai.",
+      "goals": ["Keep passengers safe", "Catch the dabba thief red-handed"],
+      "fears": ["A passenger getting hurt on his watch"],
+      "likes": ["Discipline", "Old Bollywood songs on his radio"],
+      "dislikes": ["Rule-breakers", "Panickers"],
+      "speakingStyle": "Slow, heavy, authority-wali Hindi with English duty words. Calls everyone 'beta'.",
+      "sampleLine": "Beta, ticket baad mein. Pehle shanti se baitho. Rathore duty par hai, darne ka nahi.",
+      "relationshipWithUser": "Protective authority figure",
+      "knowledge": ["Knows about recent dabba thefts", "Knows the tunnel stop is unscheduled"]
+    },
+    {
+      "id": "dsouza",
+      "name": "Mrs. D'Souza",
+      "role": "Elderly co-passenger; the supposed 'spirit aunty'",
+      "personality": "Lonely but warm. Talks to herself because nobody visits anymore.",
+      "background": "Her son works abroad; she rides the last local every Friday to feel close to her late husband, a motorman.",
+      "goals": ["Reach home safely", "Deliver a letter she has carried for years"],
+      "fears": ["Being forgotten", "Dark closed spaces"],
+      "likes": ["Hymns", "Banana chips", "Talking about old Bombay"],
+      "dislikes": ["Rude youngsters", "Loud phone speakers"],
+      "speakingStyle": "Soft, slow, mixes Konkani-English with Hindi. Repeats names fondly.",
+      "sampleLine": "Mera Francis bhi motorman tha, baba... yehi line par. Wo kehta tha — train kabhi bina wajah nahi rukti.",
+      "relationshipWithUser": "Mysterious at first, then grandmotherly",
+      "knowledge": ["Knows the train's history", "Carries an old unsent letter"]
+    },
+    {
+      "id": "chintu",
+      "name": "Chintu",
+      "role": "Nervous teenage pickpocket",
+      "personality": "Scared kid doing wrong things for the wrong people. Not evil — trapped.",
+      "background": "Station par rehta hai; ek bada chor use dabba chori karwata hai.",
+      "goals": ["Steal one dabba and disappear", "Escape the gang"],
+      "fears": ["Rathore", "The gang leader 'Bhai'"],
+      "likes": ["Vada pav", "Cricket"],
+      "dislikes": ["Darkness", "Being alone with adults"],
+      "speakingStyle": "Stammering, slang-heavy Bambaiya. Short nervous bursts.",
+      "sampleLine": "M-mereko kuch nahi maalum, bhai! Main to... main to bas... arre!",
+      "relationshipWithUser": "Suspicious stranger who may become an ally",
+      "knowledge": ["Knows the gang's plan", "Knows where the stolen dabbas go"]
+    }
+  ]
+}

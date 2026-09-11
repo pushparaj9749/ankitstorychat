@@ -1,0 +1,229 @@
+{
+  "storyId": "chai-dreams",
+  "version": 1,
+  "scenes": [
+    {
+      "id": "s1_audition",
+      "title": "Galti Se Selection",
+      "narration": [
+        "Tum canteen dhoondh rahe the. Pahunch gaye auditorium. Meera ne mike pakda diya — 'NEXT! Dialogue bolo: MAIN AA GAYA!' Tumne ghabra ke bola — 'Main... aa gaya? ...canteen dhoondh raha tha.'",
+        "Pin-drop silence. Phir Meera chillayi — 'NATURAL! RAW! EMOTIONAL! SELECTED!' Taaliyan baj gayin. Kabir ne chashma neeche karke dekha — 'Bro... ye mera competition hai? Cute.'",
+        "Ab tum 'Tapri Tales' ke... kuch ho. Role abhi decide nahi. Pehle Bablu ki tapri par 'welcome cutting' — team ka riwaaz."
+      ],
+      "fallbackLines": [
+        "Team tapri par tumhara intezaar kar rahi hai. Pehla impression matters — kya attitude leke jaaoge?",
+        "Meera ne script ka bundle tumhe thamaya hai — 40 pages, climax missing. Kya karoge?"
+      ],
+      "choices": [
+        {
+          "id": "c_josh",
+          "text": "Full josh — 'Team, trophy is baar hamari!'",
+          "shortLabel": "Full josh dikhao",
+          "keywords": ["josh", "trophy", "jeet", "hamari", "win", "team"],
+          "next": "s2_rehearsal",
+          "effects": {
+            "relationships": { "meera": 10 },
+            "flags": { "attitude": "josh" },
+            "choicesRecord": { "entry": "josh" }
+          }
+        },
+        {
+          "id": "c_humble",
+          "text": "Humbly — 'Main naya hoon, seekhne aaya hoon'",
+          "shortLabel": "Humble bano",
+          "keywords": ["naya", "seekh", "humble", "learn", "sorry", "nayi"],
+          "next": "s2_rehearsal",
+          "effects": {
+            "relationships": { "bablu": 10, "meera": 5 },
+            "flags": { "attitude": "humble" },
+            "choicesRecord": { "entry": "humble" },
+            "memory": ["User humble entry ke saath team mein aaya — Bablu impress."]
+          }
+        }
+      ]
+    },
+    {
+      "id": "s2_rehearsal",
+      "title": "Pehli Rehearsal",
+      "narration": [
+        "Rehearsal mein pata chala: tumhara role hai NARRATOR — poora play tumhari awaaz par khada hai! Meera boli — 'Backbone! No pressure!'",
+        "Tabhi Kabir ka phone baja — film audition ka call! 'Guys, fest wale din mera audition bhi hai... dekhte hain.' Meera ka chehra laal — 'DEKHTE HAIN?!'",
+        "Break mein Bablu ne cutting di — 'Ek team tab toot-ti hai jab log ek-doosre ke sapne chhote samajhte hain. Kabir se baat karoge, ya Meera ka saath doge?'"
+      ],
+      "fallbackLines": [
+        "Kabir corner mein phone par laga hai, Meera script phaad rahi hai (gusse mein, literally). Tum kiske paas jaaoge?",
+        "Narrator ka role tumhara hai — par team bikhar rahi hai. Pehle team, phir dialogue."
+      ],
+      "choices": [
+        {
+          "id": "c_kabir_talk",
+          "text": "Kabir se dil se baat karta/karti hoon",
+          "shortLabel": "Kabir se baat karo",
+          "keywords": ["kabir", "baat", "talk", "dil", "audition"],
+          "next": "s3_crisis",
+          "effects": {
+            "relationships": { "kabir": 20 },
+            "flags": { "befriendedKabir": true },
+            "choicesRecord": { "rehearsal": "kabir" },
+            "memory": ["User ne Kabir se dil se baat ki — wo audition aur fest dono ko leke phansa hai."]
+          }
+        },
+        {
+          "id": "c_meera_side",
+          "text": "Meera ka saath deta/deti hoon — rehearsal pe focus",
+          "shortLabel": "Meera ka saath do",
+          "keywords": ["meera", "rehearsal", "focus", "saath", "practice"],
+          "next": "s3_crisis",
+          "effects": {
+            "relationships": { "meera": 15 },
+            "flags": { "sidedMeera": true },
+            "choicesRecord": { "rehearsal": "meera" }
+          }
+        }
+      ]
+    },
+    {
+      "id": "s3_crisis",
+      "title": "Script Crisis",
+      "narration": [
+        "Din 5. Badi khabar: script ka climax likhne wala senior... hostel chhod ke chala gaya! Climax MISSING. Meera ne sar pakad liya — 'Ab?!'",
+        "Professor Iyer bole — 'Best plays are written by the team, not one writer. Tum sab milke likho.' Bablu ne cutting rakhi — 'Climax wahi achha jo dil se nikle. Batao — play kis baare mein hai?'",
+        "Sab tumhe dekh rahe hain. Narrator ho — kahani tumhari zubaan mein khatm hogi. Climax idea tum do!"
+      ],
+      "fallbackLines": [
+        "'Tapri Tales' ka climax tumhe likhna hai. Dosti? Sapne? Ya full comedy twist?",
+        "Meera pen leke ready hai. Bablu ne kaha — 'Jo dil se nikle, wahi likh.'"
+      ],
+      "choices": [
+        {
+          "id": "c_climax_dosti",
+          "text": "Climax: dosti wali emotional ending",
+          "shortLabel": "Dosti wala climax",
+          "keywords": ["dosti", "friend", "emotional", "dil", "ending"],
+          "next": "s4_final",
+          "effects": {
+            "flags": { "climax": "dosti" },
+            "relationships": { "meera": 10, "bablu": 10 },
+            "choicesRecord": { "climax": "dosti" },
+            "memory": ["User ne play ka dosti-wala emotional climax likha."]
+          }
+        },
+        {
+          "id": "c_climax_comedy",
+          "text": "Climax: full comedy twist ending",
+          "shortLabel": "Comedy twist climax",
+          "keywords": ["comedy", "funny", "twist", "hans", "mazaak"],
+          "next": "s4_final",
+          "effects": {
+            "flags": { "climax": "comedy" },
+            "relationships": { "kabir": 10 },
+            "choicesRecord": { "climax": "comedy" },
+            "memory": ["User ne play ka comedy-twist climax likha."]
+          }
+        }
+      ]
+    },
+    {
+      "id": "s4_final",
+      "title": "Final Rehearsal Disaster",
+      "narration": [
+        "Din 9. Final rehearsal. Aur... KABIR GAYAB! Phone switched off! Meera pagal ho gayi — 'Maine kaha tha! Star banega! Show khatm! CLUB KHATM!'",
+        "Professor Iyer shaant bole — 'Show must go on. Understudy kaun hai?' Sabki nazrein... TUM par. Narrator + lead DONO?!",
+        "Bablu tapri se dauda aaya (pehli baar tapri chhod ke!) — 'Beta, darr mat. Dhol बजेga, lights jalengi, aur tu... tu bas dil se bolna. Baaki Bablu sambhal lega.'"
+      ],
+      "fallbackLines": [
+        "Kal fest hai. Kabir gayab hai. Lead role tumhe mil raha hai. Accept karoge — ya Kabir ko dhoondhoge?",
+        "Meera ro rahi hai (chhupa ke). Team tumhe dekh rahi hai. Faisla tumhara."
+      ],
+      "choices": [
+        {
+          "id": "c_take_lead",
+          "text": "Lead role accept karta/karti hoon — show must go on!",
+          "shortLabel": "Lead role lo",
+          "keywords": ["lead", "role", "accept", "show", "hero", "karunga"],
+          "next": "s5_showtime",
+          "effects": {
+            "flags": { "tookLead": true },
+            "relationships": { "meera": 15 },
+            "choicesRecord": { "disaster": "lead" }
+          }
+        },
+        {
+          "id": "c_find_kabir",
+          "text": "Kabir ko dhoondhne jaata/jaati hoon — team adhoori nahi hogi",
+          "shortLabel": "Kabir ko dhoondho",
+          "keywords": ["kabir", "dhoondh", "find", "jao", "team"],
+          "next": "s5_showtime",
+          "requiresFlag": "befriendedKabir",
+          "effects": {
+            "flags": { "foundKabir": true },
+            "relationships": { "kabir": 15 },
+            "choicesRecord": { "disaster": "search" },
+            "memory": ["User Kabir ko manane gaya — dosti nibhai."]
+          }
+        }
+      ]
+    },
+    {
+      "id": "s5_showtime",
+      "title": "Show Time!",
+      "narration": [
+        "Udaan fest. 10,000 log. Parda uthne mein 2 minute. Backstage pin-drop silence... aur tabhi — KABIR DAUD KE AAYA! 'Audition... postpone... ho gaya! MAIN AA GAYA! ...tumne mera role to nahi le liya, bro?'",
+        "Meera ne use gale laga liya (phir thappad bhi). 'Dono taiyaar?!' Dhol baja. Lights jali. Narrator ki awaaz goonji — TUMHARI awaaz.",
+        "Play chal raha hai. Climax aa raha hai. Audience saans roke hai. Aur tabhi — LIGHTS FLICKER! Pichhle saal jaisa...?"
+      ],
+      "fallbackLines": [
+        "Lights flicker ho rahi hain! Audience mein halchal! Narrator ke roop mein tum stage sambhal sakte ho — kuch bolo!",
+        "Ye tumhara moment hai. Darr? Ya dialogue?"
+      ],
+      "choices": [
+        {
+          "id": "c_improvise",
+          "text": "Improvise karta/karti hoon — lights ko play ka hissa bana deta/deti hoon",
+          "shortLabel": "Improvise karo!",
+          "keywords": ["improvise", "lights", "dialogue", "stage", "sambhal", "bolo"],
+          "next": "end_star",
+          "effects": { "choicesRecord": { "finale": "improvise" }, "flags": { "savedShow": true } }
+        },
+        {
+          "id": "c_team_cue",
+          "text": "Team ko cue deta/deti hoon — sab milke dhol-finale karte hain",
+          "shortLabel": "Team finale cue",
+          "keywords": ["team", "dhol", "sab", "milke", "cue", "finale"],
+          "next": "end_team",
+          "effects": { "choicesRecord": { "finale": "team" } }
+        }
+      ]
+    },
+    {
+      "id": "end_star",
+      "title": "Ending: Narrator Superstar",
+      "narration": [
+        "Tumne lights ki taraf dekh ke bola — 'Aur tab tapri ki batti gul hui... par dosti ki roshni kabhi nahi bujhti!' AUDIENCE PAAGAL! Standing ovation!",
+        "Best Play + Best Narrator — DONO trophy drama club ke paas! Kabir ne trophy tumhe di — 'Bro... ye teri hai. Kabir aaj side-hero ban ke khush hai.'",
+        "Bablu ne 500 cutting free baanti. Uski tapri par naya board laga — 'Narrator Special: Cutting Free (trophy winners ke liye)'."
+      ],
+      "fallbackLines": ["Kahani poori ho gayi. Replay karke doosri endings bhi try karo!"],
+      "choices": [],
+      "isEnding": true,
+      "endingId": "star"
+    },
+    {
+      "id": "end_team",
+      "title": "Ending: Team Trophy",
+      "narration": [
+        "Dhol baja, poori team stage par, aur audience bhi taali bajane lagi! Lights wapas aayi — par tab tak show already HIT tha!",
+        "Judges bole — 'Best ENSEMBLE performance in Udaan history!' Trophy mili — poori TEAM ko. Meera royi, Kabir ne sabko hug kiya, Iyer sir ne filter coffee pilayi.",
+        "Bablu ki tapri par party — usne kaha: 'Dekha? Team means chai sabke liye. Aur trophy... trophy bhi sabke liye!'"
+      ],
+      "fallbackLines": ["Kahani poori ho gayi. Replay karke doosri endings bhi try karo!"],
+      "choices": [],
+      "isEnding": true,
+      "endingId": "team"
+    }
+  ],
+  "endings": [
+    { "id": "star", "title": "Narrator Superstar", "description": "Improvise karke show bachaya, Best Narrator bane.", "tone": "happy" },
+    { "id": "team", "title": "Team Trophy", "description": "Poori team ke saath Best Ensemble jeeta.", "tone": "happy" }
+  ]
+}

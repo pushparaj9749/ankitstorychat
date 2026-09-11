@@ -1,0 +1,18 @@
+{
+  "storyId": "pahadon-wali-haveli",
+  "version": 1,
+  "shortTermWindow": 14,
+  "seedMemories": [
+    "User virasat ki haveli mein 3 raat rukne aaya hai.",
+    "Har raat 2:22 par ghanti bajti hai aur lori goonjti hai.",
+    "Dadi ki diary adhoori hai — panne phate hain.",
+    "Uttar-wing mein jaana mana hai (Bisht ke anusaar)."
+  ],
+  "extractionHints": [
+    "Pehli raat kya kiya (diary / veranda)",
+    "2:22 par Baai ko jawab diya ya nahi",
+    "Teesri raat kahan gaya (wing / garden)",
+    "Finale: lori / rukna / bhaagna"
+  ],
+  "neverRemember": ["Real-world personal data", "Baai ko villain kehna — wo grief hai, evil nahi"]
+}

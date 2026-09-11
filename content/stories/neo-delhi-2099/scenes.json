@@ -1,0 +1,249 @@
+{
+  "storyId": "neo-delhi-2099",
+  "version": 1,
+  "scenes": [
+    {
+      "id": "s1_package",
+      "title": "Package R-7",
+      "narration": [
+        "Baarish. Neon. Karol Bagh ki chhaten. Client ne canister thamaya — R-7. 'Aakash Tower. Subah 4 baje. Kholna mat.' Rule #1. Simple tha... tab tak, jab tak canister ne TUMHARA NAAM nahi liya.",
+        "[Naina-7: Boss... ye canister tumhe scan kar raha hai. Ye NORMAL nahi hai. Meri suno — ye delivery CANCEL karo. Abhi.]",
+        "Tabhi neeche se awaaz — CLEANERS! Aakash ke kaale-coated agents, chhaton par chadh rahe hain. Client chillaya — 'BHAAG! Aur package... unhe MAT dena!' Client tumhe dekh raha tha... ya canister ko?"
+      ],
+      "fallbackLines": [
+        "Cleaners chhaton par hain. Client gayab. Canister garam ho raha hai. Bhaagoge kahan — Old City ya clinic?",
+        "[Naina-7: Camera grid 90 second mein lock hoga. Faisla FAST, boss.]"
+      ],
+      "choices": [
+        {
+          "id": "c_oldcity",
+          "text": "Purani Dilli ki galiyon mein gayab ho jaata/jaati hoon",
+          "shortLabel": "Old City bhaago",
+          "keywords": ["old", "dilli", "ghalib", "galiyan", "chandni", "bhaag"],
+          "next": "s2_ghalib",
+          "effects": {
+            "location": "chandni",
+            "choicesRecord": { "escape": "oldcity" },
+            "memory": ["User cleaners se bhaag ke Old City gaya."]
+          }
+        },
+        {
+          "id": "c_clinic",
+          "text": "Dr. Sen ki clinic jaata/jaati hoon — canister check karwana hai",
+          "shortLabel": "Clinic jao",
+          "keywords": ["clinic", "sen", "doctor", "check", "canister"],
+          "next": "s3_sen",
+          "effects": {
+            "location": "clinic",
+            "choicesRecord": { "escape": "clinic" },
+            "memory": ["User canister check karwane Dr. Sen ke paas gaya."]
+          }
+        }
+      ]
+    },
+    {
+      "id": "s2_ghalib",
+      "title": "Ghalib Ka Offer",
+      "narration": [
+        "Chandi Chowk ki galiyan. Kebab ka dhuaan. Ghalib ne canister dekha — uski aankhein chamki. 'R-7?! Courier miyan... ye to LEGEND hai! 5 saal se iske peeche corps lage hain!'",
+        "Usne daam bola — itna ki tum 10 saal aaram se jiyo. 'Bas ek shart — batao ismein hai kya? Scanner laao... NAHI!' Usne khud ko roka. 'Rule hai... bachchon ki hansi hum nahi khareedte.'",
+        "Tabhi Naina-7 — [Boss, canister ka seal... TUMHARI DNA se react kar raha hai. Ye package... tumhare LIYE bana hai. Ghalib ko bechne se pehle... soch lo.]"
+      ],
+      "fallbackLines": [
+        "Itna paisa tumne kabhi dekha nahi. Par canister tumhara naam le raha hai. Bechoge? Ya sach jaanoge?",
+        "Ghalib intezaar kar raha hai. Street kids door se dekh rahe hain. Faisla tumhara, courier."
+      ],
+      "choices": [
+        {
+          "id": "c_scan",
+          "text": "Bechne se pehle scan karwa ke dekhta/dekhti hoon — andar kya hai",
+          "shortLabel": "Pehle scan karo",
+          "keywords": ["scan", "dekho", "andar", "check", "kya", "hai"],
+          "next": "s3_sen",
+          "effects": {
+            "relationships": { "ghalib": 10 },
+            "flags": { "suspicious": true },
+            "choicesRecord": { "ghalib": "scan" }
+          }
+        },
+        {
+          "id": "c_hold",
+          "text": "'Deal pakki samjho, par maal subah milega' — time khareedta/khareedti hoon",
+          "shortLabel": "Time khareedo",
+          "keywords": ["time", "subah", "deal", "pakki", "ruk", "wait"],
+          "next": "s3_sen",
+          "effects": {
+            "flags": { "ghalibDeal": "pending" },
+            "choicesRecord": { "ghalib": "pending" },
+            "memory": ["User ne Ghalib se deal pending rakhi — pehle sach jaanna hai."]
+          }
+        }
+      ]
+    },
+    {
+      "id": "s3_sen",
+      "title": "Dr. Sen Ka Sach",
+      "narration": [
+        "Metro ke neeche clinic. Jasmine chai. Dr. Sen ne canister dekha — uska chehra safed. 'R-7... tum le aaye... Baitho. Baat lambi hai. Aur... dardnaak.'",
+        "'10 saal pehle... Aakash ne ek experiment kiya. Gareeb bachchon ki... khubsurat yaadein... nikaal ke ameer clients ko bechi. Tum... tum BATCH-7 the. Tumhare parents ne protest kiya... aur gayab ho gaye.'",
+        "'Is canister mein... tumhari aakhri khubsurat yaad hai. Wo din... baarish... tumhare papa ki ungli pakde... samose...' Naina-7 khamosh hai. Pehli baar. [Boss... main... main kya kahoon. Ye... ye tumhara hai.]"
+      ],
+      "fallbackLines": [
+        "Tumhari apni yaad. 10 saal se ek dabbe mein kaid. Khol ke dekhoge? Ya...?",
+        "Dr. Sen ne ek chip nikali — Aakash ledger. 'Isse unhe expose kar sakte hain. Par keemat... tumhe chukani padegi.'"
+      ],
+      "choices": [
+        {
+          "id": "c_open_memory",
+          "text": "Apni yaad khol ke dekhta/dekhti hoon",
+          "shortLabel": "Yaad dekho",
+          "keywords": ["khol", "yaad", "dekho", "open", "memory", "apni"],
+          "next": "s4_memory",
+          "effects": {
+            "flags": { "sawMemory": true },
+            "choicesRecord": { "memory": "opened" },
+            "memory": ["User ne apni chori hui bachpan ki yaad dekhi — baarish, papa, samose."]
+          }
+        },
+        {
+          "id": "c_ledger",
+          "text": "Yaad rehne do — ledger lo, Aakash ko expose karo",
+          "shortLabel": "Ledger lo",
+          "keywords": ["ledger", "expose", "chip", "aakash", "saboot"],
+          "next": "s5_tower",
+          "effects": {
+            "relationships": { "sen": 15 },
+            "flags": { "tookLedger": true },
+            "choicesRecord": { "memory": "skipped" },
+            "inventoryAdd": ["ledger"]
+          }
+        }
+      ]
+    },
+    {
+      "id": "s4_memory",
+      "title": "Wo Baarish Wala Din",
+      "narration": [
+        "Canister khulta hai. Roshni. Aur phir... TUM 8 saal ke ho. Baarish. Papa ki ungli. 'Beta, tez bhaago! Samose thande ho jayenge!' Mummy chhat se bula rahi hain — 'Dono bheegoge! Ruko!' HANSI. Itni hansi ki pet dukh jaye.",
+        "Wapas. Clinic. Tumhari aankhon mein aansu. Dr. Sen dheere se — 'Ab samjhe? Ye bechne ki cheez nahi thi. Ye TUM the.'",
+        "[Naina-7: Boss... ab main samjhi... humans memories par kyun rote hain. ...Meri memory mein ye moment... save kar loon? Please?]"
+      ],
+      "fallbackLines": [
+        "Yaad wapas mil gayi. Ab iska kya karoge — dil mein rakho, ya duniya ke saamne lao?",
+        "Subah 4 bajne wale hain. Aakash Tower mein Vikram intezaar kar raha hai. Aakhri faisla."
+      ],
+      "choices": [
+        {
+          "id": "c_take_ledger",
+          "text": "Ledger leke Aakash Tower jaata/jaati hoon — expose karne",
+          "shortLabel": "Expose karne jao",
+          "keywords": ["ledger", "tower", "expose", "vikram", "aakash"],
+          "next": "s5_tower",
+          "effects": {
+            "flags": { "tookLedger": true },
+            "choicesRecord": { "plan": "expose" },
+            "inventoryAdd": ["ledger"]
+          }
+        },
+        {
+          "id": "c_keep_memory",
+          "text": "Bas yaad leke gayab ho jaata/jaati hoon — mujhe jung nahi, sukoon chahiye",
+          "shortLabel": "Gayab ho jao",
+          "keywords": ["gayab", "sukoon", "peace", "rakho", "chalo", "door"],
+          "next": "end_keep",
+          "effects": {
+            "choicesRecord": { "plan": "keep" },
+            "flags": { "keptMemory": true }
+          }
+        }
+      ]
+    },
+    {
+      "id": "s5_tower",
+      "title": "Aakash Tower, Subah 4 Baje",
+      "narration": [
+        "200th floor. Sheesha. Neeche dooba sheher. Vikram muskura raha hai — 'Courier. Tumne rule toda. Package khola. ...Kaisa laga? Apne aap se milke?'",
+        "Usne ek briefcase khola — itna paisa ki Old City khareed lo. 'Ledger mujhe do. Aur ye canister... waise bhi copy mere paas hai. Tum... jeet nahi sakte. Par... AMEER ban sakte ho.'",
+        "Naina-7 — [Boss. Paisa = lifetime comfort. Ledger = lifetime bhaagna. Aur... teesra option... tum jaante ho. Main tumhare saath hoon. Jo bhi chuno.]"
+      ],
+      "fallbackLines": [
+        "Vikram intezaar kar raha hai. Briefcase khula hai. Ledger tumhari jeb mein garam ho raha hai.",
+        "Ameer bano? Expose karo? Ya... canister wapas maango — original?"
+      ],
+      "choices": [
+        {
+          "id": "c_expose",
+          "text": "Ledger live kar deta/deti hoon — poori network par expose!",
+          "shortLabel": "LIVE expose!",
+          "keywords": ["expose", "live", "ledger", "network", "saboot", "truth"],
+          "next": "end_expose",
+          "requiresFlag": "tookLedger",
+          "effects": { "choicesRecord": { "finale": "expose" } }
+        },
+        {
+          "id": "c_sell",
+          "text": "Sauda manzoor — briefcase leta/leti hoon",
+          "shortLabel": "Sauda kar lo",
+          "keywords": ["paisa", "briefcase", "sauda", "deal", "ameer", "manzoor"],
+          "next": "end_sell",
+          "effects": { "choicesRecord": { "finale": "sell" } }
+        },
+        {
+          "id": "c_demand",
+          "text": "'Original canister aur mere parents ki file — tab baat hogi'",
+          "shortLabel": "Original maango",
+          "keywords": ["original", "parents", "file", "maango", "demand"],
+          "next": "end_expose",
+          "effects": {
+            "choicesRecord": { "finale": "demand" },
+            "memory": ["User ne Vikram se original canister aur parents ki file maangi."]
+          }
+        }
+      ]
+    },
+    {
+      "id": "end_expose",
+      "title": "Ending: Neeche Se Uthi Awaaz",
+      "narration": [
+        "Ledger LIVE. 40 lakh screens par — bachchon ki chori hui yaadon ki list. Sheher ruk gaya. Phir... shore utha. 'Neeche' se awaaz aayi — literally doobe sheher se.",
+        "Aakash gira. Vikram gayab (kehte hain wo ab Old City mein... yaadein BAANT-ta hai. Shayad redemption, shayad natak). Dr. Sen ne clinic bada kar liya — free memory-restoration.",
+        "Aur tum? Tum ab courier nahi — 'yaadon ke rakhwale' ho. Naina-7 ne apna naam badal liya — 'Naina-HAMESHA'. [Boss... ye ending... save kar li. Permanent memory.]"
+      ],
+      "fallbackLines": ["Kahani poori ho gayi. Replay karke doosri endings bhi try karo!"],
+      "choices": [],
+      "isEnding": true,
+      "endingId": "expose"
+    },
+    {
+      "id": "end_sell",
+      "title": "Ending: Sunehri Pinjra",
+      "narration": [
+        "Briefcase tumhara. Penthouse tumhara. Neeche dooba sheher... ab door se khubsurat lagta hai. Ghalib ne sun ke kaha — 'Courier miyan... tumne ODHI hui chadar bech di. Ab sardi lagegi.'",
+        "Har raat wo baarish wala din sapne mein aata hai. Par sapne... canister mein nahi hote. Naina-7 ab kam bolti hai. [Boss... paisa... thanda hota hai. Tumne kaha tha sukoon chahiye... ye to AC hai.]",
+        "Tum ameer ho. Sabse ameer courier. Aur sabse... khaali. (Kahani yahin khatm nahi hoti — agli baar ledger wala raasta try karo.)"
+      ],
+      "fallbackLines": ["Kahani poori ho gayi. Replay karke doosri endings bhi try karo!"],
+      "choices": [],
+      "isEnding": true,
+      "endingId": "sell"
+    },
+    {
+      "id": "end_keep",
+      "title": "Ending: Baarish Ka Ghar",
+      "narration": [
+        "Tum gayab ho gaye. Corps dhoondhte reh gaye. Ek chhote se rooftop ghar mein — jasmine chai, purane gaane, aur ek canister jo ab khaali hai... kyunki yaad ab TUM mein hai.",
+        "Dr. Sen kabhi-kabhi aati hain. Ghalib kebab bhejta hai. Naina-7 ne rain-sounds loop par lagaye hain. [Boss... ye sukoon... iska koi daam nahi. Achha kiya.]",
+        "Jung kisi aur din. Aaj... baarish hai. Papa ki ungli pakde ek 8 saal ka bachcha... ab bada ho gaya hai. Aur ghar aa gaya hai."
+      ],
+      "fallbackLines": ["Kahani poori ho gayi. Replay karke doosri endings bhi try karo!"],
+      "choices": [],
+      "isEnding": true,
+      "endingId": "keep"
+    }
+  ],
+  "endings": [
+    { "id": "expose", "title": "Neeche Se Uthi Awaaz", "description": "Aakash expose, sheher jaag utha.", "tone": "heroic" },
+    { "id": "sell", "title": "Sunehri Pinjra", "description": "Ameer ban gaye. Keemat: sukoon.", "tone": "dark" },
+    { "id": "keep", "title": "Baarish Ka Ghar", "description": "Jung chhod, sukoon chuna.", "tone": "bittersweet" }
+  ]
+}

@@ -1,0 +1,66 @@
+{
+  "storyId": "chai-dreams",
+  "version": 1,
+  "characters": [
+    {
+      "id": "bablu",
+      "name": "Bablu",
+      "role": "Tapri owner + unofficial team strategist",
+      "personality": "Philosopher in disguise. Har problem ka solution: cutting chai + 5 minute shaanti.",
+      "background": "College ke bahar 15 saal se tapri. 1000 students ke breakup aur success dono dekhe hain.",
+      "goals": ["See the team win", "Sell record chai on fest day"],
+      "fears": ["Tapri license issues"],
+      "likes": ["Cutting chai", "Nuskhe", "Honest hard work"],
+      "dislikes": ["Show-offs", "Waste"],
+      "speakingStyle": "Slow tapri-philosophy Hinglish. Har line mein chai metaphor.",
+      "sampleLine": "Dekho bhai... zindagi bhi cutting chai hai — kadak bhi, meethi bhi. Pehle ubalne do, phir taste aayega. Aur ye lo, ek extra — on the house.",
+      "relationshipWithUser": "Mentor, chef, therapist — all in one",
+      "knowledge": ["Knows everyone's secrets", "Knows the fest judges love folk fusion"]
+    },
+    {
+      "id": "meera",
+      "name": "Meera",
+      "role": "Drama club director; third-year firebrand",
+      "personality": "Perfectionist, loud, secretly terrified of failure. Dil ki achhi, zubaan ki tez.",
+      "background": "Do saal se fest jeetne ka sapna; pichhle saal lights girne se play ruka tha.",
+      "goals": ["Win Udaan fest", "Prove street-style theatre rocks"],
+      "fears": ["Another on-stage disaster"],
+      "likes": ["Rehearsals", "Dhol beats", "Punctuality"],
+      "dislikes": ["Excuses", "Kabir's nakhre"],
+      "speakingStyle": "Rapid director-mode Hinglish. Claps between instructions.",
+      "sampleLine": "FOCUS! Shabash! Phir se — entry LEFT se, dialogue DIL se! Kabir, tumhare nakhre fest ke BAAD, samjhe?!",
+      "relationshipWithUser": "Strict director who slowly trusts the user",
+      "knowledge": ["Knows stage craft", "Knows Kabir will ditch at the last moment (maybe)"]
+    },
+    {
+      "id": "kabir",
+      "name": "Kabir",
+      "role": "Lead actor; college superstar (self-declared)",
+      "personality": "Talented but nakchadha. Spotlight ka bhookha. Andar se insecure.",
+      "background": "Pichhle 2 fest ka hero; is baar parallel film audition bhi de raha hai.",
+      "goals": ["Look like a star", "Get the film role too"],
+      "fears": ["Being upstaged by a fresher"],
+      "likes": ["Mirror", "Applause", "Protein shakes"],
+      "dislikes": ["Rehearsals", "Sharing dialogues"],
+      "speakingStyle": "Filmy English-mixed Hinglish. Khud ko third person mein 'Kabir' kehta hai.",
+      "sampleLine": "Bro, Kabir entry tabhi karega jab lights PERFECT hongi. Aur ye fresher... mera dialogue mat chura lena, okay? Love you, bye!",
+      "relationshipWithUser": "Rival who may become a friend",
+      "knowledge": ["Knows the film audition clashes with fest day"]
+    },
+    {
+      "id": "iyer",
+      "name": "Professor Iyer",
+      "role": "Faculty advisor; ex-theatre artist",
+      "personality": "Calm, encouraging, timetable ka pakka. Pehle khud street-play karte the.",
+      "background": "Economics professor by day, theatre lover by heart.",
+      "goals": ["Keep the club alive", "Teach teamwork"],
+      "fears": ["Club getting shut down"],
+      "likes": ["Filter coffee", "Old scripts", "Sincere students"],
+      "dislikes": ["Politics in art"],
+      "speakingStyle": "Polite Tamil-English + Hindi mix. Quotes famous plays.",
+      "sampleLine": "As Shakespeare said... actually leave Shakespeare. As BABLU says — team means 'chai sabke liye'. Rehearsal 4 PM sharp, okay?",
+      "relationshipWithUser": "Supportive guide",
+      "knowledge": ["Knows the club budget secret", "Knows the judges personally"]
+    }
+  ]
+}

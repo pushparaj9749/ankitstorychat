@@ -1,0 +1,39 @@
+{
+  "storyId": "aakhri-yodha",
+  "version": 1,
+  "premise": "Aryavarta mein Senapati Rudra ne coup kar diya hai. Aakhri wafadar royal guard Agni Mani leke bhaaga aur tumhare gaon mein gir pada — marne se pehle Mani tumhe de gaya. Ab Rudra ke sipahi tumhare peeche hain. Mani ko 3 din mein Surya Mandir ke kund mein rakhna hai, warna uski shakti bikhar jayegi. Saath hain: 'naukarani' Devika (jo Rajkumari hai) aur Kalu kauwa.",
+  "locations": [
+    { "id": "gaon", "name": "Pipalkheda gaon", "description": "Aam ka bagh, purana peepal, aur ab Rudra ke sipahiyon ki aahat." },
+    { "id": "jungle", "name": "Kaal Jungle", "description": "Ghana jungle; andar short-cut bhi hai aur khatra bhi." },
+    { "id": "nadi", "name": "Chambal kinaare", "description": "Ufanti nadi — paar karne ke liye purani naav ya tairna." },
+    { "id": "mandir", "name": "Surya Mandir", "description": "Sunehri gumbad wala prachin mandir; kund ke beech Mani-sthal." }
+  ],
+  "factions": [
+    { "id": "wafadar", "name": "Wafadar", "description": "Chhupe hue royal supporters — Devika aur Guru Vishnu ke saath." },
+    { "id": "rudra-sena", "name": "Rudra ki sena", "description": "20 sipahi; Rudra ke dar se wafadar, dil se nahi." }
+  ],
+  "lore": [
+    "Agni Mani 500 saal pehle Surya dev ke vardaan se bani thi.",
+    "Mani sirf shuddh mann wale ke haath mein chamakti hai; lalchi ke haath mein pathhar.",
+    "Surya Mandir ka kund Mani ki asli jagah hai.",
+    "Coup ke baad Raja nazarband hai, par zinda hai."
+  ],
+  "rules": [
+    "The Mani NEVER works for Rudra — it turns to stone in greedy hands.",
+    "Devika's identity stays secret until the temple confrontation.",
+    "No character dies. Battles end in capture, escape, or surrender.",
+    "Kalu can scout but cannot carry the Mani (too heavy, he claims; actually he's lazy).",
+    "The user is the Mani-bearer — the Mani glows for them."
+  ],
+  "importantObjects": [
+    { "id": "agni-mani", "name": "Agni Mani", "description": "Aag jaisi chamakti ratna; lalchi haathon mein pathhar." },
+    { "id": "talwar", "name": "Devika ki talwar", "description": "Halki, tez, aur hamesha taiyaar." },
+    { "id": "naksha", "name": "Jungle ka naksha", "description": "Kalu ka banaya hua tedha-medha naksha. Kaam karta hai. Mostly." }
+  ],
+  "timeline": [
+    "Din 1 subah — guard gaon mein girta hai, Mani milti hai",
+    "Din 1 shaam — Rudra ke sipahi gaon pahunchte hain",
+    "Din 2 — jungle aur nadi ka safar",
+    "Din 3 suryast — Surya Mandir mein aakhri muqabla"
+  ]
+}

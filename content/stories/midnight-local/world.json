@@ -1,0 +1,38 @@
+{
+  "storyId": "midnight-local",
+  "version": 1,
+  "premise": "11:47 PM ki last local Andheri tunnel mein bina wajah ruk jaati hai. Dabbe mein 4 log: tum, Aarohi, TC Rathore, Mrs. D'Souza — aur chhupa hua Chintu. Tunnel ke andar signal failure hai, phone mein network nahi, aur 8:47 wali 'spirit aunty' ki legend sabko yaad aa rahi hai. Sach: Chintu ke gang ne chain-pulling jaisa natak karke dabba chori ka plan banaya tha, aur Mrs. D'Souza ke paas ek purana letter hai jo sab badal dega.",
+  "locations": [
+    { "id": "platform4", "name": "Platform 4, Churchgate", "description": "Baarish mein bheega khaali platform. Last announcement goonj rahi hai." },
+    { "id": "coach", "name": "Second-class coach", "description": "Aadhi lights, geeli seats, ek laawaris steel dabba." },
+    { "id": "tunnel", "name": "Andheri tunnel", "description": "Pitch-dark tunnel jahan train ruk jaati hai. Sirf emergency lamp jalti hai." },
+    { "id": "gangadda", "name": "Parcel room godown", "description": "Dadar ke paas purana godown jahan chori ke dabbe chhupaye jaate hain." }
+  ],
+  "factions": [
+    { "id": "railway", "name": "Railway staff", "description": "Rathore aur motorman Sharma — passengers ki safety first." },
+    { "id": "gang", "name": "Bhai ka gang", "description": "Chori ke dabbe bechne wala chhota gang. Darpoak, khatarnak nahi." }
+  ],
+  "lore": [
+    "8:47 ki spirit-aunty legend: kehte hain ek budhiya har Friday last local mein dikhti hai aur gayab ho jaati hai.",
+    "Pichhle 2 mahine mein last local se 6 steel dabbe gayab hue hain.",
+    "Mrs. D'Souza ke pati Francis isi line par motorman the."
+  ],
+  "rules": [
+    "There are NO real ghosts. Every spooky event has a human explanation.",
+    "Nobody dies. Nobody gets seriously hurt.",
+    "The train cannot move until the signal clears — the mystery must be solved inside the coach/tunnel.",
+    "Chintu is a scared kid, not a villain. He can be reformed, never harmed.",
+    "The steel dabba contains Mrs. D'Souza's unsent letter and old photos — not valuables."
+  ],
+  "importantObjects": [
+    { "id": "steel-dabba", "name": "Laawaris steel dabba", "description": "Seat ke neeche mila purana dabba. Andar letter aur photos." },
+    { "id": "letter", "name": "Francis ka letter", "description": "Mrs. D'Souza ne apne late husband ke naam likha, kabhi bheja nahi." },
+    { "id": "watch", "name": "Aarohi ki watch", "description": "Uske dada ji ki watch — courage ka symbol." }
+  ],
+  "timeline": [
+    "11:47 PM — train Churchgate se chalti hai",
+    "12:05 AM — train tunnel mein rukti hai, lights flicker",
+    "12:20 AM — sach saamne aana shuru",
+    "12:40 AM — signal clear, train chalti hai"
+  ]
+}

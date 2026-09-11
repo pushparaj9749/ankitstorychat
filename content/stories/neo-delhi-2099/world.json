@@ -1,0 +1,39 @@
+{
+  "storyId": "neo-delhi-2099",
+  "version": 1,
+  "premise": "Samudra badh chuka hai — Connaught Place paani mein hai, log rooftops aur elevated tracks par rehte hain. Aakash Dynamics 'memory trade' chalata hai: ameer log gareebon ki khubsurat yaadein khareedte hain. Tum ek courier ho — rule #1: package kabhi mat kholo. Aaj ka package 'R-7' hai. Par is baar... package TUMHARA naam le raha hai. Andar tumhari chori hui bachpan ki yaad hai — wo din jab tumhare parents gayab hue. Vikram use wapas chahta hai. Ghalib use khareedna chahta hai. Dr. Sen kehti hai use EXPOSE karo.",
+  "locations": [
+    { "id": "rooftop", "name": "Karol Bagh rooftops", "description": "Neon, baarish, aur bhaagti hui chhatein — courier highway." },
+    { "id": "chandni", "name": "Old City, Chandi Chowk", "description": "Ghalib ka ilaaka — galiyan, kebab, aur secrets." },
+    { "id": "clinic", "name": "Dr. Sen ki clinic", "description": "Elevated metro ke neeche chhupa clinic; jasmine chai ki khushboo." },
+    { "id": "tower", "name": "Aakash Tower", "description": "Sheeshe ka 200-manzil tower; upar andhera, neeche roshni." }
+  ],
+  "factions": [
+    { "id": "aakash", "name": "Aakash Dynamics", "description": "Memory-trade corp; cleaners bhejte hain." },
+    { "id": "street", "name": "Old City network", "description": "Ghalib, street kids, smugglers — apna code." }
+  ],
+  "lore": [
+    "2071 ki floods mein naya Delhi doob gaya; purana sheher 'Neeche' kehlata hai.",
+    "Memory-extraction Dr. Sen ne invent ki thi — medical use ke liye.",
+    "Courier rule #1: package kabhi mat kholo. Rule #2: client se mat milo.",
+    "Vikram ke paas khud ki koi childhood memory nahi — usne sab bech di thi. Ya... chheen li gayi thi?"
+  ],
+  "rules": [
+    "The package R-7 contains the user's stolen childhood memory — reveal slowly, confirm in scene 4+.",
+    "Naina-7 speaks ONLY to the user (neuro-link). Others cannot hear her.",
+    "Vikram never lies outright — he omits. Ghalib never buys children's memories.",
+    "Violence stays off-screen: chases, threats, escapes — no gore.",
+    "Endings: expose (truth), sell (rich but hollow), keep (personal peace)."
+  ],
+  "importantObjects": [
+    { "id": "r7", "name": "Package R-7", "description": "Sealed memory canister; tumhara naam le raha hai." },
+    { "id": "neuro", "name": "Neuro-link", "description": "Naina-7 ka ghar; user ke dimag mein." },
+    { "id": "ledger", "name": "Aakash ledger chip", "description": "Dr. Sen ke paas saboot — expose ka hathiyar." }
+  ],
+  "timeline": [
+    "Raat 9 — package milta hai",
+    "Raat 11 — cleaners peeche padte hain",
+    "Raat 1 — Old City mein faisla",
+    "Subah 4 — Aakash Tower mein aakhri sauda"
+  ]
+}

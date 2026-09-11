@@ -1,0 +1,18 @@
+{
+  "storyId": "chai-dreams",
+  "version": 1,
+  "shortTermWindow": 14,
+  "seedMemories": [
+    "User galti se drama club mein select hua hai — role: Narrator.",
+    "Play ka naam 'Tapri Tales', climax missing hai.",
+    "Udaan fest 10 din door hai.",
+    "Kabir ka film audition fest se clash kar raha hai."
+  ],
+  "extractionHints": [
+    "User ka entry attitude (josh / humble)",
+    "Kabir ke saath dosti hui ya nahi",
+    "Climax kaisa likha (dosti / comedy)",
+    "Finale mein show kaise bachaya"
+  ],
+  "neverRemember": ["Real-world personal data", "Anything outside college fest story"]
+}

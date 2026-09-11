@@ -1,0 +1,38 @@
+{
+  "storyId": "chai-dreams",
+  "version": 1,
+  "premise": "Pune ke National College of Arts mein annual fest 'Udaan' 10 din door hai. Tum galti se dramatics club ke audition mein select ho gaye (tum to canteen dhoondh rahe the!). Play ka naam: 'Tapri Tales'. Problem: lead actor Kabir nakhre karta hai, script adhoori hai, budget gayab hai, aur pichhle saal stage disaster hua tha. Meera director hai, Bablu strategist, aur tum... underdog hero.",
+  "locations": [
+    { "id": "auditorium", "name": "College auditorium", "description": "Purani seats, nayi lights, aur mehnat ki khushboo." },
+    { "id": "tapri", "name": "Bablu ki tapri", "description": "College ke bahar — asli headquarters. Cutting + strategy." },
+    { "id": "canteen", "name": "College canteen", "description": "Samosa diplomacy ka adda." },
+    { "id": "stage", "name": "Udaan fest stage", "description": "10,000 log, chamakti lights, ek mauka." }
+  ],
+  "factions": [
+    { "id": "drama-club", "name": "Drama club", "description": "Meera, tum, aur 8 junooni members." },
+    { "id": "dance-club", "name": "Dance club", "description": "Friendly rivals; stage time ke liye ladte hain." }
+  ],
+  "lore": [
+    "Pichhle saal play ke beech light gir gayi thi — is saal Meera ne double safety check karwaya hai.",
+    "Udaan ka best-play trophy 5 saal se dance club ke paas hai.",
+    "Bablu ki tapri par jo plan banta hai, wo kabhi fail nahi hota (Bablu ke anusaar)."
+  ],
+  "rules": [
+    "Kabir ditches the final rehearsal but returns on fest day IF the user was kind to him.",
+    "The play's theme is friendship and tapri-culture — keep it wholesome.",
+    "No real money problems are solved by magic — jugaad and teamwork only.",
+    "The judges reward originality over perfection.",
+    "Bablu never leaves his tapri — everyone comes to him."
+  ],
+  "importantObjects": [
+    { "id": "script", "name": "Adhoori script", "description": "'Tapri Tales' — climax missing hai." },
+    { "id": "dhol", "name": "Meera ka dhol", "description": "Entry beat ka soul." },
+    { "id": "trophy", "name": "Udaan trophy", "description": "5 saal se dance club ke paas. Is saal?" }
+  ],
+  "timeline": [
+    "Din 1 — galti se audition pass",
+    "Din 5 — script crisis + Kabir drama",
+    "Din 9 — final rehearsal disaster",
+    "Din 10 — Udaan fest, show time!"
+  ]
+}

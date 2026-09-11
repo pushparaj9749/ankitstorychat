@@ -1,0 +1,21 @@
+{
+  "storyId": "midnight-local",
+  "version": 1,
+  "shortTermWindow": 14,
+  "seedMemories": [
+    "User last local (11:47 PM, Churchgate) mein travel kar raha hai.",
+    "Coach mein Aarohi, TC Rathore aur Mrs. D'Souza hain.",
+    "8:47 spirit-aunty legend famous hai.",
+    "Pichhle 2 mahine mein 6 dabbe chori hue hain."
+  ],
+  "extractionHints": [
+    "User ne kahan baithne ka faisla kiya",
+    "Dabbe ke saath kya kiya (khola / report / aunty ko diya)",
+    "Chintu ke saath kaisa sulook kiya",
+    "Finale mein kya chuna (gang / letter / team)"
+  ],
+  "neverRemember": [
+    "Real-world personal data",
+    "Anything outside this story's night"
+  ]
+}

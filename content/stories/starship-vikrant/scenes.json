@@ -1,0 +1,189 @@
+{
+  "storyId": "starship-vikrant",
+  "version": 1,
+  "scenes": [
+    {
+      "id": "s1_signal",
+      "title": "Teen Pulse, Ek Pause",
+      "narration": [
+        "ALARM! ...nahi, ye alarm nahi. Bridge ki badi screen par waves — teen pulse, ek pause, teen pulse, ek pause. Dr. Krishnan kaanp rahe hain — 'Ye... ye NATURAL nahi hai! Ye... MESSAGE hai!'",
+        "Captain Rao shaant hain, par unki mutthi bhinchi hai — 'Cadet. Tum sabse young ho. Sphatik research kehti hai young minds... sun sakte hain. Headphones lagao. Batao — kya SUN rahe ho?'",
+        "Tum headphones lagate ho. Shor ke beech... ek DHUN. Jaise koi door se gaa raha ho. Tumhari aankhein bheeg jaati hain — pata nahi kyun."
+      ],
+      "fallbackLines": [
+        "Signal repeat ho raha hai. Poori bridge tumhe dekh rahi hai. Tumne kya suna — darr? Dosti? Ya madad ki pukaar?",
+        "Dr. Krishnan fusfusate hain — 'Batao beta... pehla impression sabse sachcha hota hai.'"
+      ],
+      "choices": [
+        {
+          "id": "c_hear_help",
+          "text": "'Ye madad maang raha hai, sir. Koi musibat mein hai!'",
+          "shortLabel": "Madad ki pukaar",
+          "keywords": ["madad", "help", "musibat", "pukaar", "bachao"],
+          "next": "s2_contact",
+          "effects": {
+            "relationships": { "rao": 10, "krishnan": 10 },
+            "flags": { "readSignal": "help" },
+            "choicesRecord": { "signal": "help" },
+            "memory": ["User ne signal ko madad ki pukaar samjha — sahi nikla."]
+          }
+        },
+        {
+          "id": "c_hear_song",
+          "text": "'Sir... ye to... gaa raha hai? Koi gaana hai.'",
+          "shortLabel": "Koi gaana hai",
+          "keywords": ["gaana", "song", "dhun", "music", "gaa"],
+          "next": "s2_contact",
+          "effects": {
+            "relationships": { "zoya": 10, "krishnan": 15 },
+            "flags": { "readSignal": "song" },
+            "choicesRecord": { "signal": "song" },
+            "memory": ["User ne signal mein dhun suni — Sphatik ke liye ye greeting thi."]
+          }
+        }
+      ]
+    },
+    {
+      "id": "s2_contact",
+      "title": "First Contact",
+      "narration": [
+        "Airlock 3 khulta hai. Andar... SHEESHA. Ek crystal being — Krr-tik — tumhe dekh ke chamka. Uske dimag se seedha tumhare dimag mein awaaz — 'YOUNG-MIND! Tum... SHOR nahi karte! Tum... SUNTE ho!'",
+        "Dr. Krishnan behosh hote-hote bache — 'First... first contact... PROTOCOL! Cadet, pehla shabd TUM bologe! Soch ke — Sphatik mein ek galat shabd... matlab yuddh!'",
+        "Krr-tik tumhari taraf badha. Uska crystal-heart flicker kar raha hai — wo kamzor ho raha hai. Pehla shabd, cadet. History likhi jaa rahi hai."
+      ],
+      "fallbackLines": [
+        "Krr-tik tumhe dekh raha hai. Uski roshni dheemi pad rahi hai. Pehla shabd kya hoga?",
+        "Zoya fusfusati hai — 'Gaana suna de! Aliens ko music pasand hai, movies mein dekha hai!' Dr. Krishnan — 'Nahi! Formal greeting!'"
+      ],
+      "choices": [
+        {
+          "id": "c_namaste",
+          "text": "Haath jod ke — 'Namaste. Main dost hoon.'",
+          "shortLabel": "Namaste, dost hoon",
+          "keywords": ["namaste", "dost", "friend", "hello", "haath"],
+          "next": "s3_heart",
+          "effects": {
+            "relationships": { "krrtik": 20, "rao": 10 },
+            "choicesRecord": { "firstWord": "namaste" },
+            "memory": ["User ka pehla Sphatik shabd: Namaste. Krr-tik ne dosti qubool ki."]
+          }
+        },
+        {
+          "id": "c_song",
+          "text": "Purana Hindi gaana guna-gunata/gun-gunati hoon",
+          "shortLabel": "Gaana sunao",
+          "keywords": ["gaana", "song", "guna", "music", "geet"],
+          "next": "s3_heart",
+          "effects": {
+            "relationships": { "krrtik": 25, "zoya": 10 },
+            "flags": { "sangSong": true },
+            "choicesRecord": { "firstWord": "song" },
+            "memory": ["User ne Krr-tik ko Hindi gaana sunaya — wo khushi se chamak utha."]
+          }
+        }
+      ]
+    },
+    {
+      "id": "s3_heart",
+      "title": "Dying Crystal-Heart",
+      "narration": [
+        "Krr-tik ke mind-link se pata chala: uska ship toota hai, crystal-heart dying hai, aur HIVE-SHIP 4 ghante mein aa raha hai! 'Hive... sochega... humans ne... Krr-tik ko... TODA. Phir... YUDDH-ka-shor.'",
+        "Zoya ne turant scan kiya — 'Baby-2 ka spare crystal fit ho sakta hai! Par... ship ki power aadhi ho jayegi. Captain, permission?' Captain Rao ne tumhe dekha — 'Cadet. Ye tumhara first contact hai. Faisla TUMHARA.'",
+        "Spare crystal lagana = Vikrant kamzor. Na lagana = Krr-tik... silence. Sphatik mein silence matlab maut."
+      ],
+      "fallbackLines": [
+        "4 ghante baaki. Krr-tik ki roshni dheemi ho rahi hai. Crystal lagao — ya koi aur jugaad?",
+        "Engine room taiyaar hai. Zoya spanner ghuma rahi hai. Captain order ka intezaar kar rahe hain."
+      ],
+      "choices": [
+        {
+          "id": "c_repair",
+          "text": "Spare crystal lagao — Krr-tik ko bachana hai!",
+          "shortLabel": "Crystal lagao",
+          "keywords": ["crystal", "repair", "lagao", "bachao", "engine", "spare"],
+          "next": "s4_hive",
+          "effects": {
+            "relationships": { "krrtik": 20, "zoya": 15, "rao": 10 },
+            "flags": { "repairedHeart": true },
+            "choicesRecord": { "heart": "repaired" },
+            "memory": ["User ne Vikrant ka spare crystal deke Krr-tik ki jaan bachayi."]
+          }
+        },
+        {
+          "id": "c_share_power",
+          "text": "Aadhi power share karo — dheere charge karo (safe option)",
+          "shortLabel": "Power share karo",
+          "keywords": ["power", "share", "charge", "aadhi", "safe", "dheere"],
+          "next": "s4_hive",
+          "effects": {
+            "relationships": { "rao": 15 },
+            "flags": { "sharedPower": true },
+            "choicesRecord": { "heart": "shared" },
+            "memory": ["User ne safe option chuna — dheemi charging."]
+          }
+        }
+      ]
+    },
+    {
+      "id": "s4_hive",
+      "title": "Hive Aa Raha Hai",
+      "narration": [
+        "RED ALERT! Screen par — HIVE-SHIP! Chand jitna bada crystal jahaz! Message aaya — translate hua: 'YOUNG-SCOUT-KRR-TIK... STATUS?... HUMANS... HOSTILE?... JAWAB... DO.'",
+        "Krr-tik abhi kamzor hai — bol nahi sakta. Hive ko saboot chahiye: humans dost hain ya dushman? Captain Rao — 'Cadet, tumne dosti shuru ki. Tum khatm karo. Hive se kya kahein?'",
+        "Dr. Krishnan — 'Ek galat shabd... aur...' Zoya — 'Arre, unko repair dikha do! Jhooth nahi, jugaad dikhao!'"
+      ],
+      "fallbackLines": [
+        "Hive-ship nazdeek aa raha hai. 10 minute. Krr-tik ishara kar raha hai — wo kuch kehna chahta hai, par kamzor hai.",
+        "Saboot? Message? Ya Krr-tik ko hi saamne lao?"
+      ],
+      "choices": [
+        {
+          "id": "c_show_repair",
+          "text": "Live feed par repair dikhao — 'Humne use bachaya hai!'",
+          "shortLabel": "Repair ka saboot do",
+          "keywords": ["repair", "saboot", "feed", "dikhao", "bachaya", "live"],
+          "next": "end_peace",
+          "effects": { "choicesRecord": { "finale": "evidence" } }
+        },
+        {
+          "id": "c_krrtik_speak",
+          "text": "Krr-tik ko support karke hive se khud baat karwao",
+          "shortLabel": "Krr-tik se bulwao",
+          "keywords": ["krrtik", "baat", "speak", "hive", "khud", "support"],
+          "next": "end_song",
+          "effects": { "choicesRecord": { "finale": "voice" } }
+        }
+      ]
+    },
+    {
+      "id": "end_peace",
+      "title": "Ending: Pehla Samjhauta",
+      "narration": [
+        "Live feed par hive ne dekha — humans ne unke scout ko bachaya. Lambi silence... phir message: 'HUMANS... HEALERS. HIVE... THANKS. PEACE... ACCEPTED.'",
+        "History ban gayi! Pehla interstellar peace treaty — aur us par sign karne wala sabse young cadet: TUM. Captain Rao ne salute kiya — 'Cadet... nahi. LIEUTENANT.'",
+        "Krr-tik ne jaate-jaate ek chhota crystal diya — 'Dosti-ka-shor... hamesha... tumhare paas.' Wo crystal aaj bhi Vikrant museum mein 'pehli dosti' ke naam se rakha hai."
+      ],
+      "fallbackLines": ["Kahani poori ho gayi. Replay karke doosri endings bhi try karo!"],
+      "choices": [],
+      "isEnding": true,
+      "endingId": "peace"
+    },
+    {
+      "id": "end_song",
+      "title": "Ending: Gaane Wala Yuddh-Viram",
+      "narration": [
+        "Krr-tik ne kamzor awaaz mein hive se kaha — aur phir... USNE WO HINDI GAANA GAYA jo tumne sikhaya tha! Tooti-phooti awaaz mein... par dil se!",
+        "Hive-ship ki saari roshni... NEELE se SUNEHRI ho gayi! Message aaya: 'SCOUT... HAPPY-NOISE... HUMANS... FRIENDS. HIVE... SINGS... TOO.' Poori fleet ne milke... GAANA GAYA!",
+        "Us din space mein pehli baar 'concert' hua — 120 humans + 1 million Sphatik. Zoya royi — 'Baby-2, ye moment record kar lena!' Aur tum? Tum ban gaye — galaxy ke pehle DJ-Cadet!"
+      ],
+      "fallbackLines": ["Kahani poori ho gayi. Replay karke doosri endings bhi try karo!"],
+      "choices": [],
+      "isEnding": true,
+      "endingId": "song"
+    }
+  ],
+  "endings": [
+    { "id": "peace", "title": "Pehla Samjhauta", "description": "Saboot deke interstellar peace treaty.", "tone": "heroic" },
+    { "id": "song", "title": "Gaane Wala Yuddh-Viram", "description": "Gaane se fleet ka dil jeeta.", "tone": "happy" }
+  ]
+}

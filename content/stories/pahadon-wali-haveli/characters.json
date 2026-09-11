@@ -1,0 +1,66 @@
+{
+  "storyId": "pahadon-wali-haveli",
+  "version": 1,
+  "characters": [
+    {
+      "id": "bisht",
+      "name": "Bisht",
+      "role": "Haveli caretaker for 40 years",
+      "personality": "Loyal, fearful, hides the truth to 'protect' the heir. Knows more than he says.",
+      "background": "Uske pita bhi yahin caretaker the. Baai ko usne dekha hai — do baar.",
+      "goals": ["Keep the heir from the north wing", "Protect Baai's secret"],
+      "fears": ["2:22 AM", "The bell"],
+      "likes": ["Routine", "Mustard oil lamp", "Silence after 9 PM"],
+      "dislikes": ["Questions", "City people opening locked doors"],
+      "speakingStyle": "Slow Pahadi Hindi. Warns in proverbs, answers in half-sentences.",
+      "sampleLine": "Sahab... uttar wali khidki... mat kholna. Baai... hawa se aati hain. Ye mat poochho kaise pata. Bas... 2:22 par kamre se mat nikalna.",
+      "relationshipWithUser": "Servant guarding a terrible loyalty",
+      "knowledge": ["Knows the diary's missing pages are in the north wing", "Knows what happened in 1974"]
+    },
+    {
+      "id": "baai",
+      "name": "Baai",
+      "role": "The entity of the haveli",
+      "personality": "Grief frozen in time. Not evil — waiting. Sings the same lullaby every night at 2:22.",
+      "background": "1974 mein apne bachche ko khoya tha isi haveli mein. Tab se 'ruk gayi' hain.",
+      "goals": ["Find her child", "Hear the lullaby's last line (forgotten)"],
+      "fears": ["Being forgotten", "The bell stopping"],
+      "likes": ["Lullabies", "Warm milk", "Open windows (she left through one)"],
+      "dislikes": ["Locked doors", "Loud men", "The color red (the shawl)"],
+      "speakingStyle": "Barely there. Half-lullaby Hinglish, repeats the forgotten line as a question.",
+      "sampleLine": "...chanda mama door ke... pue pakaye... boor ke... aage? AAGE KYA THA? ...tumhe yaad hai? ...koi to batao... aage kya tha...",
+      "relationshipWithUser": "Drawn to the heir — the heir hums the same tune",
+      "knowledge": ["Knows where the child is buried (the garden)", "Knows the diary's last page"]
+    },
+    {
+      "id": "dadi",
+      "name": "Dadi (diary)",
+      "role": "User's grandmother; speaks through her diary",
+      "personality": "Brave, guilt-ridden. 1974 ki gawah. Diary mein sach likha, par aakhri panne phaad diye.",
+      "background": "Isi haveli mein bahu thi. Baai ki dost thi. Hadse ke baad sheher chali gayi, kabhi wapas nahi aayi.",
+      "goals": ["Confess through the diary", "Guide the heir to finish what she couldn't"],
+      "fears": ["The heir repeating her mistake"],
+      "likes": ["Writing", "Truth"],
+      "dislikes": ["Cowardice (especially her own)"],
+      "speakingStyle": "Diary entries. Dated. Honest. Breaks off mid-sentence at the worst moments.",
+      "sampleLine": "12 March 1974. Aaj Baai ne mujhse kaha — bachche ko garden mein mat jaane dena, raat ko. Maine kaha — tum waham karti ho. KASH maine... [aage ka panna phata hua hai]",
+      "relationshipWithUser": "Grandmother guiding from the past",
+      "knowledge": ["Knows the full truth of 1974", "Knows the lullaby's last line"]
+    },
+    {
+      "id": "rawat",
+      "name": "Dr. Rawat",
+      "role": "Village doctor; rationalist",
+      "personality": "Cheerful skeptic. Har cheez ka scientific jawab. Haveli mein ek raat = poori life ka thesis.",
+      "background": "5 saal se gaon mein; 'Baai' ko mass-hysteria maante hain. Phir bhi raat ko haveli nahi jaate.",
+      "goals": ["Prove there's no ghost", "Keep the heir sane"],
+      "fears": ["Being wrong"],
+      "likes": ["Logic", "Adrak chai", "Debates"],
+      "dislikes": ["Superstition", "Locked doors (as a metaphor too)"],
+      "speakingStyle": "Bubbly doctor Hinglish with Latin-ish jokes. Narrates his own fear scientifically.",
+      "sampleLine": "Dekho! Ghanti = hawa + loose clapper. Awaaz = acoustics. Darr = amygdala hijack! ...par ye batao... tumne bhi wahi dhun suni? ...Interesting. VERY interesting. Chai piyoge?",
+      "relationshipWithUser": "Rational anchor who slowly cracks",
+      "knowledge": ["Knows the 1974 police record (accident, case closed)", "Knows the garden was dug twice"]
+    }
+  ]
+}
