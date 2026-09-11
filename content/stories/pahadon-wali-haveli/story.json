@@ -1,0 +1,20 @@
+{
+  "id": "pahadon-wali-haveli",
+  "title": "Pahaadon Wali Haveli",
+  "description": "Viraasat mein mili haveli... aur usmein rehne wali 'Baai'. Horror mystery.",
+  "version": 1,
+  "language": "hinglish",
+  "ageRating": "18+",
+  "contentLevel": "mature",
+  "genres": ["Horror", "Mystery"],
+  "tags": ["horror", "haveli", "ghost", "hills", "diary"],
+  "userRole": "City heir visiting an inherited hill haveli",
+  "setting": "A 150-year-old haveli in the Uttarakhand hills",
+  "openingSceneId": "s1_arrival",
+  "tone": "Slow-burn hill horror. Fog, bells, diary pages. Dread, not gore.",
+  "safetyNotes": [
+    "Horror via atmosphere and dread; no gore detail.",
+    "No self-harm content.",
+    "The entity's tragedy resolves with empathy, not exorcism-violence."
+  ]
+}

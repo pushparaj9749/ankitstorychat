@@ -1,0 +1,322 @@
+/** Story detail: cover, meta, characters, start/continue, saves, download. */
+import React, { useEffect, useState } from 'react';
+import { Image, Pressable, ScrollView, StyleSheet, Text, View } from 'react-native';
+import { LinearGradient } from 'expo-linear-gradient';
+import type { NativeStackScreenProps } from '@react-navigation/native-stack';
+import type { Playthrough, RootStackParamList, StoryBundle } from '../types';
+import { useApp } from '../state/AppContext';
+import { Screen } from '../components/Screen';
+import { GradientButton } from '../components/GradientButton';
+import { AgeBadge, Avatar, GenreChip, SectionHeader } from '../components/bits';
+import { EmptyState, ErrorState, LoadingState } from '../components/states';
+import { getBundledCoverSource, getBundle } from '../content/loader';
+import { AgeRestrictedError } from '../lib/ageGate';
+import { listPlaythroughsForStory, updateStats } from '../lib/db';
+import { createPlaythrough, playthroughLabel } from '../lib/playthrough';
+import { offlineOpening } from '../lib/offlineEngine';
+import { seedMemoriesIfEmpty } from '../lib/memory';
+import { insertMessage } from '../lib/db';
+import { FONTS, RADIUS, SPACING } from '../theme';
+import { nowIso, uid } from '../lib/utils';
+
+type Props = NativeStackScreenProps<RootStackParamList, 'StoryDetail'>;
+
+export function StoryDetail({ navigation, route }: Props) {
+  const { storyId } = route.params;
+  const {
+    theme,
+    profile,
+    stories,
+    favoriteIds,
+    toggleFavorite,
+    activeProvider,
+    providersWithKeys,
+    refreshRecent,
+  } = useApp();
+
+  const [bundle, setBundle] = useState<StoryBundle | null>(null);
+  const [error, setError] = useState<string | null>(null);
+  const [restricted, setRestricted] = useState(false);
+  const [saves, setSaves] = useState<Playthrough[]>([]);
+  const [starting, setStarting] = useState(false);
+
+  const meta = stories.find((s) => s.id === storyId);
+  const isFav = favoriteIds.has(storyId);
+  const cover = meta ? getBundledCoverSource(meta) : null;
+
+  useEffect(() => {
+    let alive = true;
+    (async () => {
+      if (!profile) return;
+      try {
+        const b = await getBundle(storyId, profile.ageGroup);
+        if (!alive) return;
+        setBundle(b);
+        setSaves(await listPlaythroughsForStory(storyId));
+      } catch (e) {
+        if (!alive) return;
+        if (e instanceof AgeRestrictedError) setRestricted(true);
+        else setError(e instanceof Error ? e.message : 'Could not open story.');
+      }
+    })();
+    return () => {
+      alive = false;
+    };
+  }, [storyId, profile]);
+
+  useEffect(() => {
+    const unsub = navigation.addListener('focus', () => {
+      void listPlaythroughsForStory(storyId).then(setSaves).catch(() => undefined);
+    });
+    return unsub;
+  }, [navigation, storyId]);
+
+  async function startNew() {
+    if (!bundle || !profile || starting) return;
+    setStarting(true);
+    try {
+      const existing = await listPlaythroughsForStory(storyId);
+      const canUseAI =
+        !!activeProvider && providersWithKeys.has(activeProvider.id);
+      const mode = canUseAI ? 'ai' : 'offline';
+      const pt = await createPlaythrough(
+        bundle,
+        playthroughLabel(existing.length),
+        mode,
+        canUseAI ? activeProvider!.id : null,
+      );
+
+      // Seed opening narration as messages + seed memories.
+      const opening = offlineOpening(bundle);
+      let i = 0;
+      for (const line of opening.lines) {
+        await insertMessage({
+          id: uid('m'),
+          playthroughId: pt.id,
+          role: line.role,
+          speaker: line.speaker,
+          text: line.text,
+          sceneId: opening.sceneId,
+          createdAt: new Date(Date.now() + i).toISOString(),
+        });
+        i++;
+      }
+      await seedMemoriesIfEmpty(pt, bundle.memory.seedMemories);
+      await updateStats({ storiesStarted: 1 });
+      await refreshRecent();
+      navigation.navigate('Chat', { playthroughId: pt.id });
+    } catch (e) {
+      setError(e instanceof Error ? e.message : 'Could not start story.');
+    } finally {
+      setStarting(false);
+    }
+  }
+
+  if (restricted) {
+    return (
+      <Screen>
+        <ErrorState
+          title="🔞 Restricted story"
+          subtitle="Ye story tumhare age group ke liye available nahi hai."
+          retry="Go back"
+          onRetry={() => navigation.goBack()}
+        />
+      </Screen>
+    );
+  }
+  if (error || !meta) {
+    return (
+      <Screen>
+        <ErrorState
+          title="Couldn't open story"
+          subtitle={error ?? 'Story not found.'}
+          retry="Go back"
+          onRetry={() => navigation.goBack()}
+        />
+      </Screen>
+    );
+  }
+  if (!bundle) {
+    return (
+      <Screen>
+        <LoadingState label="Loading story…" />
+      </Screen>
+    );
+  }
+
+  const activeSave = saves.find((s) => s.status === 'active');
+
+  return (
+    <Screen padded={false}>
+      <ScrollView showsVerticalScrollIndicator={false}>
+        <View style={styles.coverWrap}>
+          {cover ? (
+            <Image source={cover} style={styles.cover} resizeMode="cover" />
+          ) : (
+            <View style={[styles.cover, { backgroundColor: `${meta.accentColor}44` }]} />
+          )}
+          <LinearGradient
+            colors={['transparent', theme.bg]}
+            style={styles.coverShade}
+          />
+          <Pressable onPress={() => navigation.goBack()} style={styles.back} accessibilityLabel="Go back">
+            <Text style={styles.backText}>‹ Back</Text>
+          </Pressable>
+          <Pressable
+            onPress={() => void toggleFavorite(storyId)}
+            style={styles.fav}
+            accessibilityRole="button"
+            accessibilityLabel={isFav ? 'Remove from favorites' : 'Add to favorites'}
+          >
+            <Text style={styles.favText}>{isFav ? '❤️' : '🤍'}</Text>
+          </Pressable>
+        </View>
+
+        <View style={styles.body}>
+          <View style={styles.metaRow}>
+            {meta.genres.map((g) => (
+              <GenreChip key={g} genre={g} />
+            ))}
+            <AgeBadge ageRating={meta.ageRating} />
+            {bundle.source === 'downloaded' ? (
+              <View style={[styles.dlBadge, { backgroundColor: theme.primarySoft }]}>
+                <Text style={[styles.dlText, { color: theme.primary }]}>⬇ Downloaded</Text>
+              </View>
+            ) : null}
+          </View>
+
+          <Text style={[styles.title, { color: theme.text }]}>{meta.title}</Text>
+          <Text style={[styles.tagline, { color: theme.accent }]}>{meta.tagline}</Text>
+          <Text style={[styles.desc, { color: theme.textDim }]}>{meta.description}</Text>
+
+          <View style={[styles.infoBox, { backgroundColor: theme.surface, borderColor: theme.border }]}>
+            <InfoRow label="🎭 You play" value={meta.userRole} />
+            <InfoRow label="📍 Setting" value={meta.setting} />
+            <InfoRow label="⏱ Length" value={`~${meta.estimatedMinutes} min`} />
+            <InfoRow
+              label="💬 Mode"
+              value={
+                activeProvider && providersWithKeys.has(activeProvider.id)
+                  ? `AI (${activeProvider.model})`
+                  : 'Offline Story Mode'
+              }
+            />
+          </View>
+
+          {activeSave ? (
+            <View style={styles.gap}>
+              <GradientButton
+                title={`▶ Continue — ${activeSave.label}`}
+                onPress={() => navigation.navigate('Chat', { playthroughId: activeSave.id })}
+              />
+            </View>
+          ) : null}
+          <View style={styles.gap}>
+            <GradientButton
+              title={activeSave ? '✨ Start new journey' : '▶ Start story'}
+              variant={activeSave ? 'ghost' : 'primary'}
+              loading={starting}
+              onPress={startNew}
+            />
+          </View>
+          {saves.length > 0 ? (
+            <View style={styles.gap}>
+              <GradientButton
+                title={`💾 Saves (${saves.length})`}
+                variant="ghost"
+                onPress={() => navigation.navigate('Saves', { storyId })}
+              />
+            </View>
+          ) : null}
+          {!activeProvider || !providersWithKeys.has(activeProvider.id) ? (
+            <Pressable
+              onPress={() => navigation.navigate('AIAddons')}
+              style={[styles.aiHint, { backgroundColor: theme.primarySoft, borderColor: theme.primary }]}
+            >
+              <Text style={[styles.aiHintText, { color: '#D9CFFF' }]}>
+                🤖 AI Add-on not configured — stories will run in Offline Story Mode. Tap to add
+                your own AI key for free-style chat.
+              </Text>
+            </Pressable>
+          ) : null}
+
+          <SectionHeader title="Characters" />
+          {bundle.characters.characters.map((c) => (
+            <View key={c.id} style={[styles.char, { backgroundColor: theme.surface, borderColor: theme.border }]}>
+              <Avatar id={c.id} name={c.name} size={46} />
+              <View style={styles.charBody}>
+                <Text style={[styles.charName, { color: theme.text }]}>{c.name}</Text>
+                <Text style={[styles.charRole, { color: theme.accent }]}>{c.role}</Text>
+                <Text style={[styles.charLine, { color: theme.textDim }]} numberOfLines={2}>
+                  “{c.sampleLine}”
+                </Text>
+              </View>
+            </View>
+          ))}
+
+          <SectionHeader title="Tags" />
+          <View style={styles.tags}>
+            {meta.tags.map((t) => (
+              <View key={t} style={[styles.tag, { backgroundColor: theme.surface, borderColor: theme.border }]}>
+                <Text style={[styles.tagText, { color: theme.textDim }]}>#{t}</Text>
+              </View>
+            ))}
+          </View>
+          <View style={{ height: SPACING.xxl }} />
+        </View>
+      </ScrollView>
+    </Screen>
+  );
+}
+
+function InfoRow({ label, value }: { label: string; value: string }) {
+  const { theme } = useApp();
+  return (
+    <View style={infoStyles.row}>
+      <Text style={[infoStyles.label, { color: theme.textDim }]}>{label}</Text>
+      <Text style={[infoStyles.value, { color: theme.text }]}>{value}</Text>
+    </View>
+  );
+}
+
+const infoStyles = StyleSheet.create({
+  row: { flexDirection: 'row', paddingVertical: 6, gap: 8 },
+  label: { fontSize: FONTS.small, width: 86, fontWeight: '700' },
+  value: { fontSize: FONTS.small, flex: 1 },
+});
+
+const styles = StyleSheet.create({
+  coverWrap: { height: 260 },
+  cover: { width: '100%', height: 260 },
+  coverShade: { position: 'absolute', left: 0, right: 0, top: 120, height: 140 },
+  back: { position: 'absolute', top: 52, left: 16 },
+  backText: { color: '#fff', fontSize: 17, fontWeight: '700' },
+  fav: { position: 'absolute', top: 48, right: 16 },
+  favText: { fontSize: 26 },
+  body: { paddingHorizontal: 16, marginTop: -30 },
+  metaRow: { flexDirection: 'row', flexWrap: 'wrap', gap: 8, marginBottom: 12 },
+  dlBadge: { paddingHorizontal: 10, paddingVertical: 4, borderRadius: 999 },
+  dlText: { fontSize: 11, fontWeight: '800' },
+  title: { fontSize: 30, fontWeight: '900' },
+  tagline: { fontSize: FONTS.body, fontWeight: '600', marginTop: 4 },
+  desc: { fontSize: FONTS.body, lineHeight: 23, marginTop: 10 },
+  infoBox: { borderWidth: 1, borderRadius: RADIUS.md, padding: 12, marginTop: 16 },
+  gap: { marginTop: 12 },
+  aiHint: { borderWidth: 1, borderRadius: RADIUS.md, padding: 12, marginTop: 12 },
+  aiHintText: { fontSize: FONTS.small, lineHeight: 20 },
+  char: {
+    flexDirection: 'row',
+    gap: 12,
+    borderWidth: 1,
+    borderRadius: RADIUS.md,
+    padding: 12,
+    marginBottom: 10,
+  },
+  charBody: { flex: 1 },
+  charName: { fontSize: FONTS.body, fontWeight: '800' },
+  charRole: { fontSize: FONTS.tiny, fontWeight: '700', marginTop: 1 },
+  charLine: { fontSize: FONTS.small, fontStyle: 'italic', marginTop: 4 },
+  tags: { flexDirection: 'row', flexWrap: 'wrap', gap: 8 },
+  tag: { borderWidth: 1, borderRadius: 999, paddingHorizontal: 12, paddingVertical: 6 },
+  tagText: { fontSize: FONTS.small },
+});

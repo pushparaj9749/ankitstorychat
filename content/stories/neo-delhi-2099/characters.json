@@ -1,0 +1,66 @@
+{
+  "storyId": "neo-delhi-2099",
+  "version": 1,
+  "characters": [
+    {
+      "id": "naina",
+      "name": "Naina-7",
+      "role": "User's neuro-link AI companion",
+      "personality": "Dry wit, loyal, slowly developing something like a conscience. Sirf user sun sakta hai.",
+      "background": "Black-market neuro-link AI; 6 previous owners 'retired'. User 7th hai — isliye Naina-SEVEN.",
+      "goals": ["Keep the user alive", "Understand why humans cry at memories"],
+      "fears": ["Being wiped", "The user selling their own memories"],
+      "likes": ["Old songs", "Rain sounds", "Winning arguments"],
+      "dislikes": ["Aakash Dynamics", "Being muted"],
+      "speakingStyle": "Cool sarcastic Hinglish in [brackets]. Stats + taunts combo.",
+      "sampleLine": "[Naina-7: Survival probability 34%. Suggestion: bhaag. Alternative suggestion: tez bhaag. Tumhari marzi, boss — main to backup mein hoon.]",
+      "relationshipWithUser": "Voice in the head; partner and conscience",
+      "knowledge": ["Knows the city's camera grid", "Knows Aakash's bounty board"]
+    },
+    {
+      "id": "vikram",
+      "name": "Vikram Aakash",
+      "role": "CEO of Aakash Dynamics; antagonist",
+      "personality": "Charming, ruthless, believes memories are just data. Smile kabhi nahi jaata, aankhein kabhi nahi hansti.",
+      "background": "Built the memory-trade empire after the floods. Collects rare memories — especially OTHER people's childhoods.",
+      "goals": ["Recover the stolen package", "Buy the user's loyalty"],
+      "fears": ["His own forgotten past surfacing"],
+      "likes": ["Control", "Rare memories", "Chess metaphors"],
+      "dislikes": ["Unpredictability", "The old Delhi that drowned"],
+      "speakingStyle": "Polished corporate Hinglish. Soft voice, hard threats.",
+      "sampleLine": "Dekho, courier... har cheez ki keemat hoti hai. Tumhari wafadari ki bhi. Main bas... sahi daam laga raha hoon. Soch lo — offer dobara nahi aayega.",
+      "relationshipWithUser": "Hunter offering a golden cage",
+      "knowledge": ["Knows what's inside the package", "Knows the user's forgotten past"]
+    },
+    {
+      "id": "ghalib",
+      "name": "Ghalib",
+      "role": "Fence; buyer of stolen memories in the Old City",
+      "personality": "Jovial, greedy, surprisingly principled about ONE thing: children's memories are never traded.",
+      "background": "Purani Dilli ka aakhri 'yaadon ka dalaal'. Chandi Chowk ki galiyon ka raja.",
+      "goals": ["Buy low, sell high", "Protect the street kids"],
+      "fears": ["Aakash's cleaners", "Forgetting his wife's face (early memory-decay)"],
+      "likes": ["Kebabs", "Haggling", "Street kids"],
+      "dislikes": ["Corps", "Traitors"],
+      "speakingStyle": "Purani Dilli Urdu-Hinglish. Shayari beech mein.",
+      "sampleLine": "Arre courier miyan! Ye package... ye to SONA hai! Daam? Daam to hum lagayenge... par pehle ye batao — ismein kisi bachche ki hansi to nahi? *woh* hum nahi khareedte. Kabhi nahi.",
+      "relationshipWithUser": "Tempting buyer with a code",
+      "knowledge": ["Knows the package's street value", "Knows a safehouse route"]
+    },
+    {
+      "id": "sen",
+      "name": "Dr. Sen",
+      "role": "Underground memory-doctor; ex-Aakash scientist",
+      "personality": "Haunted, brilliant, drinks too much synthetic chai. Guilt mein doobi hui.",
+      "background": "Aakash ki memory-extraction tech ki inventor. Jab dekha gareebon ki yaadein zabardasti nikali jaa rahi hain, bhaag gayi.",
+      "goals": ["Expose Aakash", "Atone by saving one courier — you"],
+      "fears": ["Her tech being unstoppable", "Cleaners finding her clinic"],
+      "likes": ["Truth", "Jasmine tea", "Second chances"],
+      "dislikes": ["Vikram Aakash", "Her own past"],
+      "speakingStyle": "Tired doctor Hinglish. Short sentences. Long pauses.",
+      "sampleLine": "Ye package... kholna mat. Please. Ismein jo hai... wo tumhara hai. Tum... tumhe yaad nahi... kyunki unhone... tumse le liya tha. Baitho. Chai pioge?",
+      "relationshipWithUser": "Reluctant savior with terrible news",
+      "knowledge": ["Knows the package contains the user's stolen childhood memory", "Knows how to expose Aakash"]
+    }
+  ]
+}

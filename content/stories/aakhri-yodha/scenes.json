@@ -1,0 +1,249 @@
+{
+  "storyId": "aakhri-yodha",
+  "version": 1,
+  "scenes": [
+    {
+      "id": "s1_guard",
+      "title": "Girta Hua Guard",
+      "narration": [
+        "Pipalkheda mein subah aam si thi — jab tak ek zakhmi royal guard peepal ke neeche nahi gira. Uske haath mein ek kapda — kholte hi ANDHI chamak! Ek aag jaisa ratna: AGNI MANI.",
+        "'Bachche... Rudra ne... coup... Ye Mani... Surya Mandir... 3 din...' — itna keh ke wo behosh ho gaya. (Saans chal rahi hai — ghabrao mat, Vaid ji aa rahe hain.)",
+        "Bheed mein se ek ladki aage aayi — simple kapde, par aankhon mein bijli. 'Mani mujhe do,' wo boli, 'Main mahal mein... kaam karti hoon. Mujhe pata hai ise kahan le jaana hai.' Tabhi ped par se ek kauwa bola — 'KAA-KAA! INHE MAT DENA! ...matlab... pehle pakora khilao, phir faisla!'"
+      ],
+      "fallbackLines": [
+        "Guard behosh hai, Mani tumhare haath mein chamak rahi hai. Ladki haath badhaaye khadi hai, kauwa pakora maang raha hai. Kya karoge?",
+        "Door dhol-nagade? Nahi — ghodo ki taap! Rudra ke sipahi gaon ki taraf aa rahe hain. Jaldi faisla karo!"
+      ],
+      "choices": [
+        {
+          "id": "c_trust_girl",
+          "text": "Ladki par bharosa karke uske saath chalta/chalti hoon",
+          "shortLabel": "Ladki ke saath chalo",
+          "keywords": ["ladki", "bharosa", "saath", "trust", "girl", "do"],
+          "next": "s2_escape",
+          "effects": {
+            "relationships": { "devika": 15 },
+            "flags": { "trustedDevika": true },
+            "choicesRecord": { "start": "trusted" },
+            "memory": ["User ne Devika par turant bharosa kiya."]
+          }
+        },
+        {
+          "id": "c_keep_mani",
+          "text": "'Mani mere paas rahegi' — khud zimmedari leta/leti hoon",
+          "shortLabel": "Mani khud rakho",
+          "keywords": ["khud", "mere", "paas", "rakho", "keep", "khud"],
+          "next": "s2_escape",
+          "effects": {
+            "relationships": { "devika": 5 },
+            "flags": { "keptMani": true },
+            "choicesRecord": { "start": "kept" },
+            "inventoryAdd": ["agni-mani"]
+          }
+        }
+      ]
+    },
+    {
+      "id": "s2_escape",
+      "title": "Gaon Se Bhaago!",
+      "narration": [
+        "Ghodo ki taap tez ho rahi hai! Ladki boli — 'Mera naam Devika. Sawaal baad mein — bhaago!' Kauwa upar se chillaya — 'KAA-KAA! 20 sipahi! Bhaago matlab BHAAGO!'",
+        "Gaon se nikalne ke do raaste: Kaal Jungle ka shortcut (tez, par ghana aur sunsaan) ya nadi wala lamba chakkar (safe, par time kam hai).",
+        "Devika tumhe dekh rahi hai — 'Mani tumhare paas chamak rahi hai... matlab tum hi bearer ho. Faisla tumhara, bearer!'"
+      ],
+      "fallbackLines": [
+        "Sipahi gaon mein ghus chuke hain! Jungle (tez + khatra) ya nadi (safe + slow)?",
+        "Kalu upar chakkar kaat raha hai — 'Jungle mein ped hi ped hain, chhupna aasaan! Nadi mein... machhliyan hain. Mujhe machhli pasand nahi!'"
+      ],
+      "choices": [
+        {
+          "id": "c_jungle",
+          "text": "Kaal Jungle ke shortcut se jaata/jaati hoon",
+          "shortLabel": "Jungle shortcut",
+          "keywords": ["jungle", "shortcut", "ped", "forest", "tez"],
+          "next": "s3_jungle",
+          "effects": {
+            "flags": { "route": "jungle" },
+            "location": "jungle",
+            "choicesRecord": { "route": "jungle" }
+          }
+        },
+        {
+          "id": "c_river",
+          "text": "Nadi wale lambe raaste se jaata/jaati hoon",
+          "shortLabel": "Nadi ka raasta",
+          "keywords": ["nadi", "river", "naav", "paani", "safe", "lambe"],
+          "next": "s4_river",
+          "effects": {
+            "flags": { "route": "river" },
+            "location": "nadi",
+            "choicesRecord": { "route": "river" }
+          }
+        }
+      ]
+    },
+    {
+      "id": "s3_jungle",
+      "title": "Kaal Jungle",
+      "narration": [
+        "Jungle mein ghusne ke 10 minute baad hi — 'RUKO!' Ped ke peeche se 4 sipahi! Devika ne palak jhapakte hi talwar nikaal li — 'Bearer, peeche hato!'",
+        "Par sipahiyon ka sardar hansta hai — 'Ek ladki aur ek kauwa? RUDRA ki sena se ladoge?' Kalu chillata hai — 'KAA-KAA! Kauwa bola to chhota samjha kya?!'",
+        "Ladna almost impossible hai. Par jungle mein ped, andhera aur Kalu ki hoshiyari hai. Plan banao!"
+      ],
+      "fallbackLines": [
+        "4 sipahi, dheere-dheere gher rahe hain. Ladna? Bhaagna? Ya Kalu ka koi khatarnaak plan?",
+        "Devika fusfusati hai — 'Mere paas ek plan hai... par tumhe ped par chadhna padega. Chadh loge?'"
+      ],
+      "choices": [
+        {
+          "id": "c_tree_trick",
+          "text": "Devika ka plan — ped par chadh ke dhyaan bhatkata/bhatkati hoon",
+          "shortLabel": "Ped wali chaal",
+          "keywords": ["ped", "tree", "chadh", "plan", "dhyaan", "devika"],
+          "next": "s5_temple",
+          "effects": {
+            "relationships": { "devika": 15 },
+            "flags": { "escapedJungle": true },
+            "choicesRecord": { "jungle": "trick" },
+            "memory": ["User ne Devika ke ped wale plan se sipahiyon ko chakma diya."]
+          }
+        },
+        {
+          "id": "c_kalu_plan",
+          "text": "Kalu ka plan sunta/sunti hoon (pakora khilana padega)",
+          "shortLabel": "Kalu ka plan",
+          "keywords": ["kalu", "kauwa", "pakora", "plan", "crow"],
+          "next": "s5_temple",
+          "effects": {
+            "flags": { "escapedJungle": true },
+            "choicesRecord": { "jungle": "kalu" },
+            "memory": ["Kalu ne sipahiyon par... chalo rehne do. Plan kaam kar gaya!"]
+          }
+        }
+      ]
+    },
+    {
+      "id": "s4_river",
+      "title": "Nadi Kinaare",
+      "narration": [
+        "Nadi ufaan par hai! Purana manjhi bola — 'Baadh ka paani hai, naav doobegi! Koi paar nahi karega!' Devika ne apne jutte mein chhupaya sikka nikala — sona! 'Ab bolega manjhi?'",
+        "Naav mein beech nadi mein — door se Rudra ke ghudsawaar dikhe! Kalu chillaya — 'KAA-KAA! Tez chalo, buddhe! Ye log tairak nahi, par teer chala lete hain!'",
+        "Ek teer — SANAN! — naav ke kinare mein laga. Manjhi ka haath kaanpa. Ab kya?"
+      ],
+      "fallbackLines": [
+        "Naav hil rahi hai, teer chal rahe hain. Manjhi ghabraya hua hai. Tum kya karoge?",
+        "Devika dhaal ki tarah khadi hai — 'Bearer! Kuch karo, jaldi!'"
+      ],
+      "choices": [
+        {
+          "id": "c_row",
+          "text": "Khud chappu leke naav tez chalata/chalati hoon",
+          "shortLabel": "Khud naav chalao",
+          "keywords": ["naav", "chappu", "row", "tez", "khud", "chalo"],
+          "next": "s5_temple",
+          "effects": {
+            "relationships": { "devika": 10 },
+            "flags": { "crossedRiver": true },
+            "choicesRecord": { "river": "rowed" },
+            "memory": ["User ne khud naav chala ke nadi paar ki."]
+          }
+        },
+        {
+          "id": "c_mani_light",
+          "text": "Agni Mani nikaal ke roshni karta/karti hoon — sipahi chaunk jayenge",
+          "shortLabel": "Mani ki roshni",
+          "keywords": ["mani", "roshni", "chamak", "light", "nikal"],
+          "next": "s5_temple",
+          "effects": {
+            "flags": { "crossedRiver": true, "maniRevealed": true },
+            "choicesRecord": { "river": "mani" },
+            "memory": ["User ne Mani ki roshni se sipahiyon ko chaunka diya — par Rudra ko Mani ki khabar lag gayi."]
+          }
+        }
+      ]
+    },
+    {
+      "id": "s5_temple",
+      "title": "Surya Mandir",
+      "narration": [
+        "Suryast ka time. Sunehri gumbad chamak raha hai — Surya Mandir! Darwaze par Guru Vishnu khade hain — 'Aa gaye, bearer? Teen din... aur teen sawaal. Pehla: Mani kiske liye laaye ho?'",
+        "Jawaab do usse pehle — DHADAM! Rudra apne haathi par! 'RUDRA aa gaya! Mani de do, ya mandir ke saath jal jaao!' 20 sipahi, mashaal liye.",
+        "Devika aage badhi — dupatta hataaya — maathe par Rajkumari ka teeka! 'RUDRA! Rajkumari Devika zinda hai! Sipahiyon — apni RAJKUMARI par hathiyar uthaoge?!' Sipahi dagmagaye..."
+      ],
+      "fallbackLines": [
+        "Rudra akele pad raha hai, par wo Mani ke liye pagal hai. Guru Vishnu tumhe dekh rahe hain — 'Faisla, bearer?'",
+        "Mani tumhare haath mein dhadak rahi hai. Kund sirf 10 kadam door hai. Rudra 20 kadam. Daudo? Baat karo? Ya kuch aur?"
+      ],
+      "choices": [
+        {
+          "id": "c_run_kund",
+          "text": "Kund ki taraf daud ke Mani rakh deta/deti hoon",
+          "shortLabel": "Kund mein Mani rakho",
+          "keywords": ["kund", "daud", "run", "mani", "rakho", "mandir"],
+          "next": "end_restore",
+          "effects": { "choicesRecord": { "finale": "restore" }, "inventoryRemove": ["agni-mani"] }
+        },
+        {
+          "id": "c_trick_rudra",
+          "text": "'Mani chahiye? Khud aake le lo!' — Rudra ko lalchaata/lalchati hoon",
+          "shortLabel": "Rudra ko lalkaro",
+          "keywords": ["rudra", "lalka", "lelo", "trick", "challenge", "aa"],
+          "next": "end_trick",
+          "effects": { "choicesRecord": { "finale": "trick" } }
+        },
+        {
+          "id": "c_break_mani",
+          "text": "Mani ko pathhar par maar ke todne ka natak — 'Kisi ke kaam ki nahi!'",
+          "shortLabel": "Mani todne ka natak",
+          "keywords": ["tod", "break", "pathhar", "maar", "natak", "kisi"],
+          "next": "end_break",
+          "effects": { "choicesRecord": { "finale": "break" } }
+        }
+      ]
+    },
+    {
+      "id": "end_restore",
+      "title": "Ending: Surya Ka Vardaan",
+      "narration": [
+        "Mani kund mein girte hi — DHOOM! Roshni ka samundar! Rudra chillata reh gaya — 'NAHIII!' Sipahiyon ne hathiyar daal diye — 'Rajkumari ki JAI!'",
+        "Raja riha hue, Rudra ka ahankaar toot gaya (wo ab haathi-shala mein... haathi dhota hai). Guru Vishnu muskuraye — 'Bearer ne socha nahi... kar dikhaya. Sochne wale sochte reh gaye.'",
+        "Aur Kalu? Usse roz ek thaali pakore — lifetime achievement award!"
+      ],
+      "fallbackLines": ["Kahani poori ho gayi. Replay karke doosri endings bhi try karo!"],
+      "choices": [],
+      "isEnding": true,
+      "endingId": "restore"
+    },
+    {
+      "id": "end_trick",
+      "title": "Ending: Pathhar Ka Raja",
+      "narration": [
+        "Rudra laalach mein dauda aur Mani chheen li — 'MERA! SAB MERA!' Par uske haath mein Mani... PATHHAR ban gayi! Bheed hans padi. Sipahiyon ne sar jhuka liya.",
+        "'Mani usi ki sunti hai jiske mann mein ujala ho,' Guru Vishnu bole. Rudra pathhar liye khada reh gaya — history ka sabse bada joke ban ke.",
+        "Devika ne Mani wapas kund mein rakhi. Tumhe 'Aryavarta Ratna' mila — aur Kalu ko pakore, obviously."
+      ],
+      "fallbackLines": ["Kahani poori ho gayi. Replay karke doosri endings bhi try karo!"],
+      "choices": [],
+      "isEnding": true,
+      "endingId": "trick"
+    },
+    {
+      "id": "end_break",
+      "title": "Ending: Bearer Ka Faisla",
+      "narration": [
+        "Sabki saansein ruk gayin — par Mani tooti nahi. Kund se roshni nikli aur Mani khud tair ke apni jagah pahunch gayi! Guru Vishnu bole — 'Mani ne chun liya. Bearer ka tyag dekh liya.'",
+        "Rudra ghutnon par aa gaya. Yuddh bina lade jeet liya gaya. Devika boli — 'Tumne taakat ko NA kaha. Isi liye tum sabse taakatwar ho.'",
+        "Pipalkheda mein tumhari murti lagi — haath mein pakora khata kauwa bhi saath mein. Kalu roz use dekhta hai — 'Handsome lag raha hoon, KAA-KAA!'"
+      ],
+      "fallbackLines": ["Kahani poori ho gayi. Replay karke doosri endings bhi try karo!"],
+      "choices": [],
+      "isEnding": true,
+      "endingId": "break"
+    }
+  ],
+  "endings": [
+    { "id": "restore", "title": "Surya Ka Vardaan", "description": "Mani kund mein, Rudra haara, kingdom aazaad.", "tone": "heroic" },
+    { "id": "trick", "title": "Pathhar Ka Raja", "description": "Rudra ki laalach usi par bhaari padi.", "tone": "funny" },
+    { "id": "break", "title": "Bearer Ka Faisla", "description": "Tyag ne taakat ko hara diya.", "tone": "bittersweet" }
+  ]
+}

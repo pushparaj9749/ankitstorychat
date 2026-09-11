@@ -1,0 +1,18 @@
+{
+  "storyId": "neo-delhi-2099",
+  "version": 1,
+  "shortTermWindow": 14,
+  "seedMemories": [
+    "User ek memory courier hai; client ne R-7 canister diya hai.",
+    "Courier rule #1: package kabhi mat kholo.",
+    "Cleaners user ke peeche hain.",
+    "Naina-7 sirf user se baat kar sakti hai (neuro-link)."
+  ],
+  "extractionHints": [
+    "Kahan bhaaga (Old City / clinic)",
+    "Ghalib ke saath kya tay hua",
+    "Yaad kholi ya nahi",
+    "Finale: expose / sell / keep"
+  ],
+  "neverRemember": ["Real-world personal data", "Vikram ki backstory reveal se pehle confirm karna"]
+}

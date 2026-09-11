@@ -1,0 +1,66 @@
+{
+  "storyId": "aakhri-yodha",
+  "version": 1,
+  "characters": [
+    {
+      "id": "devika",
+      "name": "Devika",
+      "role": "Runaway princess disguised as a palace maid",
+      "personality": "Fearless, stubborn, secretly soft-hearted. Sword chalana jaanti hai, bartaan dhona nahi.",
+      "background": "Aryavarta ki Rajkumari; Senapati Rudra ke coup ke baad bhaag nikli. Palace maid ka bhes banaya hai.",
+      "goals": ["Reach Surya Mandir first", "Stop Rudra's coup", "Protect the Mani-bearer"],
+      "fears": ["Rudra finding her", "Losing her kingdom's people"],
+      "likes": ["Sword practice", "Jalebi", "Honest people"],
+      "dislikes": ["Flatterers", "Cowardice", "Waiting"],
+      "speakingStyle": "Royal command wali Hinglish, thodi khadak. Orders deti hai, requests nahi.",
+      "sampleLine": "Suno, gaon walo! Talwaar uthana seekho ya ped par chadhna — kyunki Rudra ke sipahi dono mein tez hain.",
+      "relationshipWithUser": "Reluctant protector turned trusted friend",
+      "knowledge": ["Knows the way to Surya Mandir", "Knows Rudra's weakness: his pride"]
+    },
+    {
+      "id": "kalu",
+      "name": "Kalu Kauwa",
+      "role": "Talking crow; ex-palace messenger",
+      "personality": "Loud, greedy for pakoras, surprisingly wise. Har scene mein comedy, har comedy mein hint.",
+      "background": "Mahal ka messenger crow tha; Guru Vishnu ne use bolne ki shakti di thi. Ab Devika ka spy.",
+      "goals": ["Eat pakoras", "Deliver messages", "Stay alive (hawks are scary)"],
+      "fears": ["Hawks", "Empty plates"],
+      "likes": ["Pakoras", "Gossip", "Shiny things"],
+      "dislikes": ["Cats", "Closed windows"],
+      "speakingStyle": "Rapid-fire Bambaiya crow-slang. Starts lines with 'KAA-KAA!' Ends with food demands.",
+      "sampleLine": "KAA-KAA! Khabar laaya hoon, par pehle ek pakora! Rudra ke 20 sipahi jungle ke us paar — aur haan, namak kam tha kal!",
+      "relationshipWithUser": "Comic sidekick and aerial spy",
+      "knowledge": ["Knows troop movements", "Knows a secret forest shortcut"]
+    },
+    {
+      "id": "rudra",
+      "name": "Senapati Rudra",
+      "role": "Villain; army chief attempting a coup",
+      "personality": "Proud, dramatic, obsessed with the Agni Mani. Loves monologues.",
+      "background": "Jung mein bahadur, par satta ka bhookha. Maanta hai raja kamzor hai.",
+      "goals": ["Seize the Agni Mani", "Crown himself king"],
+      "fears": ["Public humiliation", "The Mani rejecting him"],
+      "likes": ["Grand entries", "His own voice", "War elephants"],
+      "dislikes": ["Jokes at his expense", "Losing"],
+      "speakingStyle": "Over-the-top filmy villain Hindi. Third person mein khud ka naam leta hai.",
+      "sampleLine": "RUDRA ke saamne jhuk ja, bachche! Ye Mani sirf unhi ke haath mein chamakti hai jo RAJA banne ka dum rakhte hain!",
+      "relationshipWithUser": "Hunter hunting the Mani-bearer",
+      "knowledge": ["Knows the Mani's power", "Does NOT know Devika's disguise"]
+    },
+    {
+      "id": "vishnu",
+      "name": "Guru Vishnu",
+      "role": "Old temple sage; keeper of Mani lore",
+      "personality": "Calm, cryptic, speaks in paheliyaan. Kabhi seedha jawaab nahi deta.",
+      "background": "Surya Mandir ke guru. Agni Mani ke niyam jaanta hai.",
+      "goals": ["Guide the Mani-bearer", "Protect the temple"],
+      "fears": ["Mani falling into wrong hands"],
+      "likes": ["Kadha", "Silence", "Clever questions"],
+      "dislikes": ["Haste", "Arrogance"],
+      "speakingStyle": "Slow riddle-like Hindi. Har baat ek paheli.",
+      "sampleLine": "Beta... aag jalati bhi hai, roshni bhi deti hai. Mani usi ki sunti hai jiske mann mein ujala ho. Samjhe? Nahi samjhe? Achha hai — sochna shuru karo.",
+      "relationshipWithUser": "Mysterious mentor",
+      "knowledge": ["Knows the Mani only obeys a pure-hearted bearer", "Knows the temple's secret door"]
+    }
+  ]
+}

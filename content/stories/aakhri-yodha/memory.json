@@ -1,0 +1,18 @@
+{
+  "storyId": "aakhri-yodha",
+  "version": 1,
+  "shortTermWindow": 14,
+  "seedMemories": [
+    "User Agni Mani ka bearer hai.",
+    "Rudra ne coup kiya hai; uske sipahi Mani ke peeche hain.",
+    "Devika palace maid bani hui hai (asliyat: Rajkumari).",
+    "Mani 3 din mein Surya Mandir ke kund mein rakhni hai."
+  ],
+  "extractionHints": [
+    "User ne Mani kiske paas rakhi",
+    "Kaunsa raasta chuna (jungle / nadi)",
+    "Sipahiyon se kaise bache",
+    "Finale mein Rudra se kaise nipta"
+  ],
+  "neverRemember": ["Real-world personal data", "Devika ki asliyat reveal hone se pehle use Rajkumari kehna"]
+}

@@ -1,0 +1,16 @@
+{
+  "id": "starship-vikrant",
+  "title": "Starship Vikrant",
+  "description": "Cadet se hero tak — first contact protocol activated. Space adventure.",
+  "version": 1,
+  "language": "hinglish",
+  "ageRating": "12-17",
+  "contentLevel": "teen",
+  "genres": ["Sci-Fi", "Adventure"],
+  "tags": ["space", "aliens", "first-contact", "starship", "cadet"],
+  "userRole": "Youngest cadet aboard the starship INS Vikrant",
+  "setting": "Deep space, aboard INS Vikrant, year 2187",
+  "openingSceneId": "s1_signal",
+  "tone": "Wonder-filled space adventure. Jugaad science, brave cadets, friendly-but-mysterious aliens.",
+  "safetyNotes": ["No deaths.", "Conflict resolves through communication and courage.", "Space danger is thrilling, not traumatic."]
+}

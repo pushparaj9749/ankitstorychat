@@ -1,0 +1,39 @@
+{
+  "storyId": "starship-vikrant",
+  "version": 1,
+  "premise": "Year 2187. INS Vikrant routine patrol par hai jab use milta hai ek signal — teen pulse, ek pause — jo insaanon ka bheja NAHI hai. Captain Rao protocol aur dil ke beech phanse hain. Signal bhej raha hai Krr-tik, ek young Sphatik alien, jiska crystal ship toot gaya hai. Uska hive-ship 6 ghante mein aa raha hai — aur agar use laga humans ne attack kiya, to yuddh! User sabse young cadet hai — aur aliens sirf young-minds se baat karna chahte hain (old minds 'too noisy').",
+  "locations": [
+    { "id": "bridge", "name": "Bridge", "description": "Ship ka command deck; badi screen par stars aur signal waves." },
+    { "id": "engine", "name": "Engine room", "description": "Zoya ka kingdom — garam, shor, aur jugaad ki khushboo." },
+    { "id": "airlock", "name": "Airlock 3", "description": "Krr-tik ke toote ship se judne wala chamber." },
+    { "id": "crystal", "name": "Sphatik ship", "description": "Sheeshe jaisa jahaz; beech mein dying crystal-heart." }
+  ],
+  "factions": [
+    { "id": "vikrant", "name": "INS Vikrant crew", "description": "120 humans; protocol vs dil ka sawaal." },
+    { "id": "hive", "name": "Sphatik Hive", "description": "Aati hui alien fleet; faisla information par hoga." }
+  ],
+  "lore": [
+    "Sphatik silicon-based lifeform hain — unka 'dil' ek crystal hai.",
+    "Sphatik culture mein silence = death. Rona bhi 'dukh-ka-shor' kehlata hai.",
+    "Pehla protocol (2089) kehta hai: alien signal par pehle observe, phir respond.",
+    "Captain Rao ne 20 saal pehle ek signal dekha tha — report dabaa di gayi thi."
+  ],
+  "rules": [
+    "Only the young cadet (user) can mind-link with Krr-tik clearly.",
+    "The hive judges by EVIDENCE, not fear — show them the truth and they stand down.",
+    "No weapons fired. Vikrant wins by communication, not combat.",
+    "The crystal-heart can be repaired with Vikrant's engine crystal + Zoya's jugaad.",
+    "Krr-tik learns Hindi film songs disturbingly fast."
+  ],
+  "importantObjects": [
+    { "id": "signal", "name": "Teen-pulse signal", "description": "Sphatik greeting: teen pulse, ek pause." },
+    { "id": "crystal-heart", "name": "Crystal-heart", "description": "Krr-tik ke ship ki jaan; dying." },
+    { "id": "engine-crystal", "name": "Vikrant engine crystal", "description": "Spare crystal — repair ka jugaad." }
+  ],
+  "timeline": [
+    "Hour 0 — signal milta hai",
+    "Hour 2 — Krr-tik se first contact",
+    "Hour 4 — crystal-heart dying, repair mission",
+    "Hour 6 — hive-ship aata hai, faisla"
+  ]
+}

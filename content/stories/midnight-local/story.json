@@ -1,0 +1,20 @@
+{
+  "id": "midnight-local",
+  "title": "Midnight Local",
+  "description": "Last local, andheri tunnel, aur ek raaz. Teen-safe mystery thriller.",
+  "version": 1,
+  "language": "hinglish",
+  "ageRating": "12-17",
+  "contentLevel": "teen",
+  "genres": ["Mystery", "Thriller"],
+  "tags": ["mumbai", "train", "mystery", "urban-legend", "suspense"],
+  "userRole": "First-year college student, late-night local traveller",
+  "setting": "Mumbai suburban railway, 11:47 PM, monsoon season",
+  "openingSceneId": "s1_platform",
+  "tone": "Suspenseful but warm; spooky-fun, never traumatizing. Humour via banter.",
+  "safetyNotes": [
+    "No gore or graphic violence.",
+    "The 'ghost' must turn out to be a human misunderstanding.",
+    "Theft is resolved through cleverness, never violence."
+  ]
+}
