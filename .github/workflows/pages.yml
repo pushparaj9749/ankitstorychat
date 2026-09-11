@@ -1,6 +1,13 @@
 name: Website (GitHub Pages)
 
 # Static site in /website — no backend. Deploys on push to main.
+#
+# One-time setup: GitHub Pages must be enabled on the repo
+# (Settings → Pages → Source: "GitHub Actions"). If a
+# PAGES_ADMIN_TOKEN secret is configured (PAT with repo scope
+# or Pages write), this workflow enables Pages automatically;
+# otherwise it fails with a clear, actionable error instead of
+# a raw API 404.
 
 on:
   push:
@@ -29,6 +36,27 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v4
+
+      # GitHub Pages must be enabled before configure-pages/deploy-pages
+      # can run. Enable it via API when an admin token is available,
+      # otherwise fail fast with a human-readable message.
+      - name: Ensure Pages is enabled
+        env:
+          GH_TOKEN: ${{ secrets.PAGES_ADMIN_TOKEN != '' && secrets.PAGES_ADMIN_TOKEN || github.token }}
+          PAGES_ADMIN_TOKEN: ${{ secrets.PAGES_ADMIN_TOKEN }}
+        run: |
+          set -euo pipefail
+          pages_url="https://api.github.com/repos/$GITHUB_REPOSITORY/pages"
+          if curl -fsS -o /dev/null -H "Authorization: Bearer $GH_TOKEN" "$pages_url"; then
+            echo "✅ GitHub Pages is enabled"
+          elif [ -n "$PAGES_ADMIN_TOKEN" ]; then
+            echo "⚠️  GitHub Pages is disabled — enabling it via PAGES_ADMIN_TOKEN…"
+            gh api -X POST "repos/$GITHUB_REPOSITORY/pages" -f build_type=workflow
+            echo "✅ GitHub Pages enabled (source: GitHub Actions)"
+          else
+            echo "::error title=GitHub Pages is not enabled::Enable Pages once in repo settings (Settings → Pages → Source: \"GitHub Actions\"): https://github.com/$GITHUB_REPOSITORY/settings/pages — or add a PAGES_ADMIN_TOKEN secret to auto-enable it."
+            exit 1
+          fi
 
       - name: Setup Pages
         uses: actions/configure-pages@v5
