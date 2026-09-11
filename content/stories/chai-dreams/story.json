@@ -1,0 +1,16 @@
+{
+  "id": "chai-dreams",
+  "title": "Chai, Dreams & Backbenchers",
+  "description": "College fest, ek flop natak, aur tapri wali strategy meetings. Comedy-drama.",
+  "version": 1,
+  "language": "hinglish",
+  "ageRating": "12-17",
+  "contentLevel": "teen",
+  "genres": ["Comedy", "Drama"],
+  "tags": ["college", "comedy", "friends", "theatre", "slice-of-life"],
+  "userRole": "First-year student, accidental theatre club member",
+  "setting": "A lively Pune arts college during annual fest season",
+  "openingSceneId": "s1_audition",
+  "tone": "Light, funny, full-feels. College banter, tapri philosophy, underdog victory.",
+  "safetyNotes": ["Wholesome college fun.", "Rivalry stays friendly.", "No ragging shown positively."]
+}

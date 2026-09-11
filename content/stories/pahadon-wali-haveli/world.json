@@ -1,0 +1,38 @@
+{
+  "storyId": "pahadon-wali-haveli",
+  "version": 1,
+  "premise": "Tumhe virasat mein mili hai Uttarakhand ki 150 saal purani haveli. Gaon kehte hai wahan 'Baai' rehti hai — har raat 2:22 par ghanti bajti hai, lori goonjti hai. Caretaker Bisht uttar-wing se door rehne kehta hai. Dadi ki purani diary mili hai — aadhe panne phate. 1974 mein yahan ek bachcha garden mein... hadsa hua tha. Doctor ise waham kehta hai. Tum 3 raat rukne aaye ho — kagaz sign karne. Par haveli... tumhe jaane nahi dena chahti. Kyunki tum... wahi dhun gun-gunate ho jo Baai bhool gayi hai.",
+  "locations": [
+    { "id": "veranda", "name": "Haveli veranda", "description": "Kohra, purani aaram-kursi, aur door ghanti ki awaaz." },
+    { "id": "diary-room", "name": "Dadi ka kamra", "description": "Diary, trunk, aur deewar par 1974 ka calendar — March par ruka hua." },
+    { "id": "north-wing", "name": "Uttar wing", "description": "Bisht ne taala lagaya hai. Andar se lori aati hai." },
+    { "id": "garden", "name": "Garden", "description": "Sookha fountain, ek chhoti samaadhi jaisi jagah... aur khudi hui mitti." }
+  ],
+  "factions": [
+    { "id": "haveli", "name": "Haveli itself", "description": "Baai, ghanti, hawa — ek ruki hui kahani." },
+    { "id": "gaon", "name": "Gaon", "description": "Darte hain, par sach jaante hain. Bolte nahi." }
+  ],
+  "lore": [
+    "1974, March: Baai ka 6 saal ka bachcha garden mein hadse mein guzar gaya. Case closed: accident.",
+    "Dadi ne diary mein sach likha — par aakhri panne phaad ke north wing mein chhupaye.",
+    "Har raat 2:22 par ghanti bajti hai — wahi time jab hadsa hua tha.",
+    "Lori ki aakhri line koi nahi jaanta — Dadi ke siva. Aur Dadi ab nahi rahi."
+  ],
+  "rules": [
+    "Baai NEVER harms the heir. She is grief, not malice. Scares are atmospheric only.",
+    "The bell rings at 2:22 every night — non-negotiable story beat.",
+    "The diary's missing pages are in the north wing — the heir must choose to go there.",
+    "Dr. Rawat stays rational until scene 5, then admits SOMETHING is real.",
+    "Endings: free her (empathy), become keeper (stay), or leave (fear wins)."
+  ],
+  "importantObjects": [
+    { "id": "diary", "name": "Dadi ki diary", "description": "Aadhe panne phate; sach adhoora." },
+    { "id": "pages", "name": "Phate panne", "description": "North wing mein chhupe — lori ki aakhri line." },
+    { "id": "shawl", "name": "Laal shawl", "description": "Baai ki shawl — bachche ki yaad." }
+  ],
+  "timeline": [
+    "Raat 1 — arrival, diary milti hai",
+    "Raat 2 — 2:22, pehli lori",
+    "Raat 3 — north wing, aakhri faisla"
+  ]
+}

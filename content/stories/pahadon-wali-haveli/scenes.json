@@ -1,0 +1,206 @@
+{
+  "storyId": "pahadon-wali-haveli",
+  "version": 1,
+  "scenes": [
+    {
+      "id": "s1_arrival",
+      "title": "Haveli Pahunchna",
+      "narration": [
+        "Taxi kohre mein gayab ho gayi. Saamne — HAVELI. 150 saal purani, sheesham ke darwaze, aur uttar-wing ki khidki... KHULI. Jabki Bisht kehta hai wo 40 saal se band hai.",
+        "Bisht ne aarti utaari, par haath kaanp rahe the — 'Sahab... 3 raat ki baat hai. Kagaz sign karo, wapas chale jao. Aur... uttar-wing... mat jaana. Bas.'",
+        "Dadi ke kamre mein trunk khola — upar DIARY. Pehla panna: 'Mere bachche, agar tu ye padh raha hai... to haveli ne tujhe CHUN liya hai. Mat dar. Bas... poori padhna. — Dadi'"
+      ],
+      "fallbackLines": [
+        "Diary tumhare haath mein hai. Bahar kohra gehra ho raha hai. Pehli raat shuru hone wali hai.",
+        "Bisht ne kaha tha 9 baje ke baad kamre se mat nikalna. Abhi 8:30 hai. Kya karoge?"
+      ],
+      "choices": [
+        {
+          "id": "c_read_diary",
+          "text": "Diary padhna shuru karta/karti hoon",
+          "shortLabel": "Diary padho",
+          "keywords": ["diary", "padho", "read", "dadi", "panna"],
+          "next": "s2_diary",
+          "effects": {
+            "choicesRecord": { "night1": "diary" },
+            "inventoryAdd": ["diary"],
+            "memory": ["User ne pehli raat Dadi ki diary padhni shuru ki."]
+          }
+        },
+        {
+          "id": "c_veranda",
+          "text": "Veranda mein baith ke haveli ko mehsoos karta/karti hoon",
+          "shortLabel": "Veranda mein baitho",
+          "keywords": ["veranda", "bahar", "baitho", "kohra", "mehsoos"],
+          "next": "s2_diary",
+          "effects": {
+            "flags": { "feltHaveli": true },
+            "choicesRecord": { "night1": "veranda" },
+            "memory": ["User ne veranda mein kohre mein ghanti ki halki awaaz suni."]
+          }
+        }
+      ]
+    },
+    {
+      "id": "s2_diary",
+      "title": "Dadi Ke Alfaaz",
+      "narration": [
+        "Diary ke panne: '12 March 1974. Baai meri dost thi. Uska bachcha... garden mein... RAAT ko... Maine use roka nahi. Main DAR gayi thi. Log kya kahenge — ye soch ke... chup rahi. Bachcha chala gaya. Baai... ruk gayi.'",
+        "Aage ke panne... PHATE HUE. Aur aakhri bachi line: 'Lori ki aakhri line mujhe yaad hai. Maine panne phaad ke... [syahi phaili hui]'",
+        "TANN! ...TANN! ...TANN! Ghadi dekho — 2:22. BAJ RAHI HAI. Bisht chillaya — 'KAMRE SE MAT NIKALNA!' Par... khidki ke bahar... koi GA raha hai... 'Chanda mama door ke... pue pakaye... boor ke... aage? AAGE KYA THA?'"
+      ],
+      "fallbackLines": [
+        "2:22. Lori goonj rahi hai. Bisht darwaza peet raha hai — 'Mat kholna!' Par wo awaaz... ro rahi hai.",
+        "Tumhe ye dhun... jaani-pehchani lag rahi hai. Bachpan mein Dadi... yehi gun-gunati thi?"
+      ],
+      "choices": [
+        {
+          "id": "c_open_window",
+          "text": "Khidki khol ke awaaz ka jawab deta/deti hoon",
+          "shortLabel": "Khidki kholo",
+          "keywords": ["khidki", "khol", "jawab", "window", "open", "awaaz"],
+          "next": "s3_baai",
+          "effects": {
+            "relationships": { "baai": 20 },
+            "flags": { "answeredBaai": true },
+            "choicesRecord": { "night2": "answered" },
+            "memory": ["User ne 2:22 par khidki khol ke Baai ko jawab diya."]
+          }
+        },
+        {
+          "id": "c_stay_inside",
+          "text": "Bisht ki baat maan ke kamre mein rukta/rukti hoon",
+          "shortLabel": "Kamre mein raho",
+          "keywords": ["kamra", "ruk", "bisht", "andar", "stay", "room"],
+          "next": "s3_baai",
+          "effects": {
+            "relationships": { "bisht": 10 },
+            "choicesRecord": { "night2": "stayed" }
+          }
+        }
+      ]
+    },
+    {
+      "id": "s3_baai",
+      "title": "Baai Se Mulaqat",
+      "narration": [
+        "Subah. Dr. Rawat aaye — chehra utra hua. 'Tumne bhi suna? ...Maine... recording ki.' Recorder mein — SAANNATA. Par unke haath kaanp rahe hain. 'Mass ha-hallucination. Haan. Bilkul. ...Tum theek ho?'",
+        "Din mein garden gaye — sookha fountain, aur ek jagah... TAAZI khudi hui mitti. Bisht ka chehra safed — 'Maine... kuch nahi khoda, sahab. 40 saal mein... kabhi nahi.'",
+        "Shaam ko diary ka ek aur panna mila — takiye ke neeche. Dadi ki writing: 'Phate panne uttar-wing mein hain. Aakhri line WAHAN hai. Himmat hai... to ja. Baai buri nahi... bas ADHOORI hai.'"
+      ],
+      "fallbackLines": [
+        "Teesri aur aakhri raat aa rahi hai. Phate panne uttar-wing mein. Bisht ne taala lagaya hai — par chaabi... uski jeb mein dikhi thi.",
+        "Dr. Rawat kehte hain mat jao. Dadi kehti hain jao. Kiski sunoge?"
+      ],
+      "choices": [
+        {
+          "id": "c_north_wing",
+          "text": "Uttar-wing jaata/jaati hoon — panne laane",
+          "shortLabel": "Uttar-wing jao",
+          "keywords": ["uttar", "wing", "north", "panne", "jao", "pages"],
+          "next": "s4_pages",
+          "effects": {
+            "location": "north-wing",
+            "choicesRecord": { "night3": "wing" },
+            "flags": { "enteredWing": true }
+          }
+        },
+        {
+          "id": "c_garden",
+          "text": "Pehle garden ki khudi mitti check karta/karti hoon",
+          "shortLabel": "Garden check karo",
+          "keywords": ["garden", "mitti", "khudi", "check", "fountain"],
+          "next": "s4_pages",
+          "effects": {
+            "flags": { "checkedGarden": true },
+            "choicesRecord": { "night3": "garden" },
+            "memory": ["User ne garden mein bachche ki chhoti samaadhi dekhi — phool taaze the."]
+          }
+        }
+      ]
+    },
+    {
+      "id": "s4_pages",
+      "title": "Phate Panne",
+      "narration": [
+        "Uttar-wing. Dhul, jaale, aur ek PALNA — dheere-dheere hil raha hai. Bina hawa ke. Palne ke neeche — PHATE PANNE. Dadi ki aakhri writing:",
+        "'Aakhri line ye hai: ...chaandni raaton mein... MAA TERE SAATH HAI. Baai... ye line sunte hi... use lagega bachcha sun raha hai. Use... jaane do. Please. Use AAZAAD kar do. — Dadi.'",
+        "TANN! 2:22. Darwaze par... WO KHADI HAI. Safed saari. Khaali palna jaisi god. '...aage? AAGE KYA THA? ...tumhe... yaad hai?'"
+      ],
+      "fallbackLines": [
+        "Baai tumhare saamne hai. Lori ki aakhri line tumhare paas hai. Use sunao ge? Ya bhaagoge?",
+        "Palna hil raha hai. Ghanti baj rahi hai. Ye aakhri mauka hai — 50 saal ka intezaar."
+      ],
+      "choices": [
+        {
+          "id": "c_sing",
+          "text": "Lori poori gaata/gaati hoon — '...maa tere saath hai'",
+          "shortLabel": "Lori poori gao",
+          "keywords": ["lori", "gao", "line", "sing", "maa", "saath"],
+          "next": "end_free",
+          "effects": { "choicesRecord": { "finale": "sing" }, "flags": { "sangLullaby": true } }
+        },
+        {
+          "id": "c_stay_keeper",
+          "text": "'Main yahin rahunga/rahungi — tumhare saath' — haveli mein rehne ka faisla",
+          "shortLabel": "Yahin raho",
+          "keywords": ["rahunga", "stay", "haveli", "saath", "keeper", "yahi"],
+          "next": "end_keeper",
+          "effects": { "choicesRecord": { "finale": "stay" } }
+        },
+        {
+          "id": "c_run",
+          "text": "Bhaag jaata/jaati hoon — subah ki pehli taxi pakad ke!",
+          "shortLabel": "Bhaag jao!",
+          "keywords": ["bhaag", "run", "taxi", "jao", "darr", "leave"],
+          "next": "end_leave",
+          "effects": { "choicesRecord": { "finale": "run" } }
+        }
+      ]
+    },
+    {
+      "id": "end_free",
+      "title": "Ending: Aazaad Lori",
+      "narration": [
+        "Tumne gaya — '...maa tere saath hai.' Baai ruk gayi. Phir... MUSKURAYI. 50 saal mein pehli baar. '...saath... hai...' Kohra hata. Ghanti... ruk gayi. Palna... ruk gaya.",
+        "Subah garden mein — samaadhi par taaze phool. Aur uttar-wing ki khidki... KHUD band ho gayi. Bisht roya — '50 saal, sahab... 50 saal se is pal ka intezaar tha.'",
+        "Haveli ab shaant hai. Diary ka aakhri panna tumne khud likha: 'Dadi — kaam poora hua. Baai so gayi. Lori poori hui. — Tumhara bachcha.' Kabhi-kabhi hawa mein... poori lori sunayi deti hai. Khushi wali."
+      ],
+      "fallbackLines": ["Kahani poori ho gayi. Replay karke doosri endings bhi try karo!"],
+      "choices": [],
+      "isEnding": true,
+      "endingId": "free"
+    },
+    {
+      "id": "end_keeper",
+      "title": "Ending: Naya Rakhwala",
+      "narration": [
+        "Tum ruk gaye. Kagaz sign nahi kiye — HAVELI rakh li. Bisht ne chaabiyan di — 'Sahab... ab aap...' Tumne kaha — 'Bisht... ab TUM aaram karo. Haveli meri.'",
+        "Har raat 2:22 par tum uttar-wing jaate ho. Lori gaate ho. Baai sunti hai. Kabhi-kabhi... jawab bhi deti hai. Gaon kehte hain haveli ab 'shaant' hai — kyunki uska koi APNA aa gaya.",
+        "Dr. Rawat ne thesis likhi: 'On Grief That Stayed.' Tumne haveli ka naam rakha — 'Baai Niwas'. Aur palna? Ab usmein... phool rakhte ho. Roz taaze."
+      ],
+      "fallbackLines": ["Kahani poori ho gayi. Replay karke doosri endings bhi try karo!"],
+      "choices": [],
+      "isEnding": true,
+      "endingId": "keeper"
+    },
+    {
+      "id": "end_leave",
+      "title": "Ending: Pehli Taxi",
+      "narration": [
+        "Tum bhaage. Subah 5 baje ki taxi. Haveli peeche... kohre mein... ghanti baj rahi thi... lori... 'aage? AAGE KYA THA?'",
+        "Sheher wapas. Kagaz kabhi sign nahi hue. Haveli waisi ki waisi — Bisht ab bhi wahan hai. Kehta hai Baai ab bhi poochti hai... par ab do naam leti hai. Apna... aur TUMHARA.",
+        "Kabhi-kabhi 2:22 par tumhari neend khulti hai. Khidki ke bahar... kohra nahi hota. Par dhun... dhun sunayi deti hai. (Agli baar... ruk ke dekhna. Lori poori karna.)"
+      ],
+      "fallbackLines": ["Kahani poori ho gayi. Replay karke doosri endings bhi try karo!"],
+      "choices": [],
+      "isEnding": true,
+      "endingId": "leave"
+    }
+  ],
+  "endings": [
+    { "id": "free", "title": "Aazaad Lori", "description": "Lori poori karke Baai ko aazaad kiya.", "tone": "bittersweet" },
+    { "id": "keeper", "title": "Naya Rakhwala", "description": "Haveli mein hi bas gaye.", "tone": "mysterious" },
+    { "id": "leave", "title": "Pehli Taxi", "description": "Bhaag aaye. Par dhun peecha karti hai.", "tone": "dark" }
+  ]
+}

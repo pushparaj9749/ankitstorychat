@@ -1,0 +1,355 @@
+{
+  "storyId": "midnight-local",
+  "version": 1,
+  "scenes": [
+    {
+      "id": "s1_platform",
+      "title": "Platform 4, 11:47 PM",
+      "narration": [
+        "Baarish ki boondein platform 4 ki tin shed par tabla baja rahi hain. Announcement goonjti hai — 'Yatri kripya dhyaan dein... aakhri local...'",
+        "Tum daud ke coach mein chadhte ho. Saamne wali seat par ek ladki book padh rahi hai — cover par likha hai 'The Hound of the Baskervilles'. Wo nazar utha ke dekhti hai.",
+        "'First time last local mein?' wo poochti hai, 'Main Aarohi. Aur haan — wo kone wali seat mat lena. Legend hai.'"
+      ],
+      "fallbackLines": [
+        "Train chalne wali hai. Aarohi tumhe dekh rahi hai — kuch faisla karo. Baithoge kahan?",
+        "Announcement dobara goonjti hai. Tumhare paas zyada time nahi — train chalne hi wali hai!"
+      ],
+      "choices": [
+        {
+          "id": "c_sit_aarohi",
+          "text": "Aarohi ke saamne baith jaata/jaati hoon",
+          "shortLabel": "Aarohi ke paas baitho",
+          "keywords": ["aarohi", "saamne", "baith", "sit", "ladki", "girl"],
+          "next": "s2_last_local",
+          "effects": { "relationships": { "aarohi": 10 }, "choicesRecord": { "seat": "aarohi" } }
+        },
+        {
+          "id": "c_sit_corner",
+          "text": "Legend wali kone ki seat par baithta/baithti hoon",
+          "shortLabel": "Kone wali seat lo",
+          "keywords": ["kone", "corner", "legend", "seat"],
+          "next": "s2_last_local",
+          "effects": {
+            "relationships": { "aarohi": 5 },
+            "flags": { "braveSeat": true },
+            "choicesRecord": { "seat": "corner" },
+            "memory": ["User ne legend wali kone ki seat li — daring first impression."]
+          }
+        }
+      ]
+    },
+    {
+      "id": "s2_last_local",
+      "title": "Aakhri Local",
+      "narration": [
+        "Train jhatke ke saath chalti hai. Coach mein sirf kuch log — ek budhiya aunty jo khidki se baahar dekh ke muskura rahi hain, aur gate par khada TC jo sabko ghoor raha hai.",
+        "Aarohi dheere se kehti hai — 'Wo dekho, white saree wali aunty. Har Friday dikhti hain... aur Dadar se pehle gayab ho jaati hain. 8:47 wali spirit aunty.'",
+        "Tumhare pair ke paas kuch takrata hai — seat ke neeche ek purana STEEL DABBA rakha hai. Laawaris."
+      ],
+      "fallbackLines": [
+        "Steel dabba wahi pada hai. Aarohi tumhe dekh rahi hai — 'Khol ke dekhein?' uski aankhon mein shararat hai.",
+        "TC Rathore abhi doosre coach mein gaya hai. Dabba kholne ka yehi mauka hai... ya usse door raho?"
+      ],
+      "choices": [
+        {
+          "id": "c_open_dabba",
+          "text": "Steel dabba khol ke dekhta/dekhti hoon",
+          "shortLabel": "Dabba kholo",
+          "keywords": ["dabba", "khol", "open", "box", "dekho"],
+          "next": "s4_dabba",
+          "effects": {
+            "relationships": { "aarohi": 10 },
+            "flags": { "dabbaOpened": true },
+            "choicesRecord": { "dabba": "opened" },
+            "memory": ["User ne laawaris steel dabba khola."]
+          }
+        },
+        {
+          "id": "c_ask_tc",
+          "text": "TC Rathore ko laawaris dabbe ke baare mein batata/batati hoon",
+          "shortLabel": "TC ko batao",
+          "keywords": ["tc", "rathore", "batao", "ticket", "checker", "report"],
+          "next": "s3_lights_out",
+          "effects": {
+            "relationships": { "rathore": 15 },
+            "flags": { "reportedDabba": true },
+            "choicesRecord": { "dabba": "reported" }
+          }
+        },
+        {
+          "id": "c_ask_aunty",
+          "text": "White saree wali aunty se baat karta/karti hoon",
+          "shortLabel": "Aunty se baat karo",
+          "keywords": ["aunty", "budhiya", "baat", "talk", "spirit", "white"],
+          "next": "s3_lights_out",
+          "effects": {
+            "relationships": { "dsouza": 15 },
+            "choicesRecord": { "firstTalk": "aunty" },
+            "memory": ["User ne pehle Mrs. D'Souza se baat ki — unka bharosa jeeta."]
+          }
+        }
+      ]
+    },
+    {
+      "id": "s3_lights_out",
+      "title": "Tunnel Mein Andhera",
+      "narration": [
+        "KHADDD! Train ek jhatke se rukti hai. Bahar ghup andhera — Andheri tunnel. Lights ek baar... do baar... teen baar flicker karke bujh jaati hain. Sirf emergency lamp jal rahi hai.",
+        "Speaker par motorman ki ghabrayi awaaz — 'Y-yatri dhyaan dein... signal failure hai... ghabrane ka nahi... Rathore sahab dekh rahe hain...'",
+        "Aunty dheere se kehti hain — 'Mera Francis kehta tha... train kabhi bina wajah nahi rukti, baba.' Aur tabhi — luggage rack par kuch HILTA hai!"
+      ],
+      "fallbackLines": [
+        "Andhera gehra hai. Luggage rack par movement hui thi — koi hai wahan? Torch nahi hai, par phone ki flashlight hai.",
+        "Rathore torch leke aa rahe hain. Usse pehle tum kya karoge — chhupoge, chillaaoge, ya khud check karoge?"
+      ],
+      "choices": [
+        {
+          "id": "c_flashlight",
+          "text": "Phone ki flashlight jala ke rack ki taraf dekhta/dekhti hoon",
+          "shortLabel": "Flashlight jalao",
+          "keywords": ["flashlight", "light", "torch", "phone", "rack", "dekho", "check"],
+          "next": "s5_chase",
+          "effects": {
+            "flags": { "foundChintu": true },
+            "choicesRecord": { "tunnel": "investigated" },
+            "memory": ["User ne flashlight se luggage rack check kiya."]
+          }
+        },
+        {
+          "id": "c_calm_aunty",
+          "text": "Darr rahi aunty ko sambhalta/sambhalti hoon",
+          "shortLabel": "Aunty ko sambhalo",
+          "keywords": ["aunty", "sambhal", "calm", "darr", "help", "saath"],
+          "next": "s5_chase",
+          "effects": {
+            "relationships": { "dsouza": 15, "aarohi": 5 },
+            "choicesRecord": { "tunnel": "helped" },
+            "memory": ["Andhere mein user ne Mrs. D'Souza ko sambhala."]
+          }
+        },
+        {
+          "id": "c_shout",
+          "text": "'Kaun hai wahan?!' — zor se chillata/chillati hoon",
+          "shortLabel": "Chillao: Kaun hai?!",
+          "keywords": ["chilla", "shout", "kaun", "zor", "who"],
+          "next": "s5_chase",
+          "effects": {
+            "flags": { "shouted": true },
+            "relationships": { "aarohi": -5 },
+            "choicesRecord": { "tunnel": "shouted" }
+          }
+        }
+      ]
+    },
+    {
+      "id": "s4_dabba",
+      "title": "Dabbe Ka Raaz",
+      "narration": [
+        "Dhakkan khulta hai — andar paise ya gehne nahi... ek purana LIFAAFA, kuch black-and-white photos, aur ek railway badge. Photos mein ek young motorman, aur uske saath... yehi white-saree wali aunty, jawaan!",
+        "Aarohi photos dekhti hai — 'Ye to aunty hain! Matlab ye dabba... unka hai?' Tabhi TRAIN RUKTI HAI. Tunnel. Andhera. Emergency lamp.",
+        "Rathore torch leke aata hai — 'Ye dabba kiske paas tha?! Pichhle 2 mahine mein 6 dabbe gayab hue hain is line se!'"
+      ],
+      "fallbackLines": [
+        "Rathore ka torch tumhare chehre par hai. Dabba tumhare haath mein. Ab sach bolo — ya Aarohi ko bolne do?",
+        "Aunty dheere se uth rahi hain... unki nazar dabbe par hai. Shayad ye unka hi hai."
+      ],
+      "choices": [
+        {
+          "id": "c_truth",
+          "text": "Sach bolta/bolti hoon — dabba seat ke neeche mila tha",
+          "shortLabel": "Sach bolo",
+          "keywords": ["sach", "truth", "mila", "seat", "batao"],
+          "next": "s6_letter",
+          "effects": {
+            "relationships": { "rathore": 10, "aarohi": 5 },
+            "flags": { "honest": true },
+            "choicesRecord": { "dabbaTruth": "honest" }
+          }
+        },
+        {
+          "id": "c_give_aunty",
+          "text": "Dabba aunty ko de deta/deti hoon — 'Ye aapka hai na?'",
+          "shortLabel": "Aunty ko dabba do",
+          "keywords": ["aunty", "do", "dede", "unka", "wapas", "return"],
+          "next": "s6_letter",
+          "effects": {
+            "relationships": { "dsouza": 20 },
+            "flags": { "returnedDabba": true },
+            "choicesRecord": { "dabbaTruth": "returned" },
+            "inventoryRemove": ["steel-dabba"]
+          }
+        }
+      ]
+    },
+    {
+      "id": "s5_chase",
+      "title": "Rack Par Kaun?",
+      "narration": [
+        "Roshni padte hi rack se ek LADKA koodta hai — 15-16 saal ka, haath mein ek chhota steel dabba! 'RUK!' Rathore dahadta hai, par ladka gate ki taraf bhaagta hai.",
+        "Aarohi chillati hai — 'Uske haath mein dabba hai! Yehi hai chor!' Ladka fisal ke girta hai — dabba chhoot ke tumhare pairon ke paas aa girta hai.",
+        "Wo minminata hai — 'M-mereko jaane do... Bhai maar dalega... please...'"
+      ],
+      "fallbackLines": [
+        "Ladka tumhare saamne gira pada hai. Rathore paas aa raha hai. Tum faisla karo — usse pakadoge, ya uski baat sunoge?",
+        "'Bhai maar dalega' — ye Bhai kaun hai? Ladka sach mein dara hua lag raha hai."
+      ],
+      "choices": [
+        {
+          "id": "c_catch",
+          "text": "Ladke ko pakad ke Rathore ke hawale karta/karti hoon",
+          "shortLabel": "Pakad ke TC ko do",
+          "keywords": ["pakad", "catch", "rathore", "hawale", "tc", "police"],
+          "next": "s7_truth",
+          "effects": {
+            "relationships": { "rathore": 15, "aarohi": 5 },
+            "flags": { "caughtChintu": true },
+            "choicesRecord": { "chintu": "caught" }
+          }
+        },
+        {
+          "id": "c_listen",
+          "text": "'Ruko! Pehle iski baat sunte hain' — ladke ko mauka deta/deti hoon",
+          "shortLabel": "Uski baat suno",
+          "keywords": ["sun", "listen", "baat", "mauka", "ruk"],
+          "next": "s7_truth",
+          "effects": {
+            "relationships": { "aarohi": 10 },
+            "flags": { "heardChintu": true },
+            "choicesRecord": { "chintu": "heard" },
+            "memory": ["User ne Chintu ki baat suni — wo gang ke dabaav mein chori karta hai."]
+          }
+        }
+      ]
+    },
+    {
+      "id": "s6_letter",
+      "title": "Francis Ka Letter",
+      "narration": [
+        "Aunty kaanpte haathon se lifaafa leti hain. 'Francis ke jaane ke baad likha tha... 12 saal se himmat nahi hui post karne ki. Aaj uski barsi hai — main ye letter uski favourite jagah... Dadar ke purane signal ke paas... rakhne jaa rahi thi.'",
+        "Tabhi rack se AWAAZ — ek ladka kood ke bhaagta hai! Rathore chillata hai — 'CHOR! PAKDO!' Aur aunty ka letter hawa mein ud ke... tumhare haath mein aa jaata hai.",
+        "Ek taraf bhaagta chor. Doosri taraf aunty ka toota dil. Kya karoge?"
+      ],
+      "fallbackLines": [
+        "Letter tumhare haath mein hai, chor bhaag raha hai. Dono kaam zaroori hain — pehle kya?",
+        "Aarohi already chor ke peeche badh rahi hai! Tum letter sambhalo ya uska saath do?"
+      ],
+      "choices": [
+        {
+          "id": "c_letter_first",
+          "text": "Letter sambhal ke aunty ko deta/deti hoon, Aarohi chor ke peeche",
+          "shortLabel": "Letter aunty ko do",
+          "keywords": ["letter", "aunty", "sambhal", "do", "lifaafa"],
+          "next": "s7_truth",
+          "effects": {
+            "relationships": { "dsouza": 20, "aarohi": 10 },
+            "flags": { "protectedLetter": true },
+            "choicesRecord": { "priority": "letter" }
+          }
+        },
+        {
+          "id": "c_chase",
+          "text": "Aarohi ke saath chor ke peeche daudta/daudti hoon",
+          "shortLabel": "Chor ke peeche bhaago",
+          "keywords": ["chor", "bhaag", "chase", "daud", "peeche", "aarohi"],
+          "next": "s7_truth",
+          "effects": {
+            "relationships": { "aarohi": 15 },
+            "flags": { "chasedThief": true },
+            "choicesRecord": { "priority": "chase" }
+          }
+        }
+      ]
+    },
+    {
+      "id": "s7_truth",
+      "title": "Sach Saamne Aata Hai",
+      "narration": [
+        "Rathore ne ladke — Chintu — ko pakad liya hai. Wo ro raha hai: 'Bhai ne kaha tha... ek dabba laa... nahi to station se bhaga dega... mujhe nahi pata tha ismein letter hain!'",
+        "Aunty aage aati hain. Sabko laga daantegi — par wo Chintu ke sar par haath rakhti hain. 'Francis kehta tha... bhookha bachcha chor nahi hota, majboor hota hai. Beta, aaj se tu mere saath khana khayega.'",
+        "Speaker par awaaz — 'Signal clear! Train chalne wali hai!' Sab hanste hain. Aur tum? Tumhe faisla karna hai — ye raat kaise khatm hogi."
+      ],
+      "fallbackLines": [
+        "Train chalne wali hai. Chintu ro raha hai, aunty muskura rahi hain, Rathore report likh raha hai. Tumhari aakhri chaal?",
+        "Ye raat tumhe yaad rahegi. Bas ek aakhri faisla baaki hai."
+      ],
+      "choices": [
+        {
+          "id": "c_hero",
+          "text": "Rathore ke saath Bhai ke godown ka pata batata/batati hoon (Chintu ne bataya)",
+          "shortLabel": "Gang ka pata do",
+          "keywords": ["gang", "bhai", "godown", "pata", "rathore", "report", "police"],
+          "next": "end_hero",
+          "effects": {
+            "relationships": { "rathore": 20 },
+            "choicesRecord": { "finale": "hero" },
+            "flags": { "exposedGang": true }
+          }
+        },
+        {
+          "id": "c_letter_end",
+          "text": "Aunty ke saath Dadar utar ke letter rakhne jaata/jaati hoon",
+          "shortLabel": "Aunty ke saath Dadar",
+          "keywords": ["dadar", "aunty", "letter", "saath", "signal", "francis"],
+          "next": "end_letter",
+          "effects": {
+            "relationships": { "dsouza": 20, "aarohi": 10 },
+            "choicesRecord": { "finale": "letter" }
+          }
+        },
+        {
+          "id": "c_fun",
+          "text": "Chintu ko vada pav khilata/khilati hoon — 'Ab se tu hamari detective team mein!'",
+          "shortLabel": "Detective team banao",
+          "keywords": ["vada", "team", "detective", "chintu", "khila", "friend"],
+          "next": "end_loop",
+          "effects": {
+            "relationships": { "aarohi": 15 },
+            "choicesRecord": { "finale": "team" },
+            "flags": { "teamFormed": true }
+          }
+        }
+      ]
+    },
+    {
+      "id": "end_hero",
+      "title": "Ending: Platform Ke Hero",
+      "narration": [
+        "Agle din newspaper mein chhoti si khabar — 'Dadar godown se 6 chori ke dabbe baramad, ek giraftar.' Rathore tumhe phone karta hai — 'Beta, Bhai pakda gaya. Chintu ab station ki canteen mein kaam karta hai. Aur haan — agli baar ticket lena mat bhoolna!'",
+        "Aarohi message karti hai — 'Detective sahab/sahiba, agla case: hamari building ka missing paani-meter. Are you in?'"
+      ],
+      "fallbackLines": ["Kahani poori ho gayi. Replay karke doosri endings bhi try karo!"],
+      "choices": [],
+      "isEnding": true,
+      "endingId": "hero"
+    },
+    {
+      "id": "end_letter",
+      "title": "Ending: Francis Tak Pahunchi Chitthi",
+      "narration": [
+        "Dadar ke purane signal ke paas, aunty letter rakh ke aasmaan ki taraf dekhti hain. 'Pahunch gayi, Francis.' Unki aankhon mein aansu bhi hain, sukoon bhi.",
+        "Wo tumhara haath pakadti hain — 'Aaj se har Friday, tu mere saath last local mein aayega/aayegi. Banana chips main laaungi.' Aarohi dheere se kehti hai — 'Legend solved. Spirit aunty... sabse sweet aunty nikli.'"
+      ],
+      "fallbackLines": ["Kahani poori ho gayi. Replay karke doosri endings bhi try karo!"],
+      "choices": [],
+      "isEnding": true,
+      "endingId": "letter"
+    },
+    {
+      "id": "end_loop",
+      "title": "Ending: Detective Team 11:47",
+      "narration": [
+        "Station ke bahar tapri par — tum, Aarohi, Chintu aur cutting chai. 'Team ka naam?' Chintu poochta hai. 'DETECTIVE TEAM 11:47!' sab chillate hain. Rathore door se dekh ke muskurata hai.",
+        "Aunty apna dabba leke ghar chali jaati hain — par jaane se pehle Chintu ko ek banana chips ka packet deti hain. 'Khaana kha ke aana, beta.' Last local phir kabhi itni sunsaan nahi lagegi."
+      ],
+      "fallbackLines": ["Kahani poori ho gayi. Replay karke doosri endings bhi try karo!"],
+      "choices": [],
+      "isEnding": true,
+      "endingId": "team"
+    }
+  ],
+  "endings": [
+    { "id": "hero", "title": "Platform Ke Hero", "description": "Gang pakda gaya, Chintu sudhar gaya.", "tone": "heroic" },
+    { "id": "letter", "title": "Francis Tak Pahunchi Chitthi", "description": "Aunty ka 12 saal purana letter apni manzil par pahuncha.", "tone": "bittersweet" },
+    { "id": "team", "title": "Detective Team 11:47", "description": "Ek nayi dosti, ek nayi team, aur roz ki cutting chai.", "tone": "happy" }
+  ]
+}

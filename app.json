@@ -1,0 +1,48 @@
+{
+  "expo": {
+    "name": "Kissa",
+    "slug": "kissa-ai-story-chat",
+    "version": "1.0.0",
+    "orientation": "portrait",
+    "icon": "./assets/icon.png",
+    "scheme": "kissa",
+    "userInterfaceStyle": "dark",
+    "splash": {
+      "image": "./assets/splash-icon.png",
+      "resizeMode": "contain",
+      "backgroundColor": "#0B0620"
+    },
+    "assetBundlePatterns": ["**/*"],
+    "ios": {
+      "supportsTablet": true,
+      "bundleIdentifier": "com.kissa.storychat"
+    },
+    "android": {
+      "package": "com.kissa.storychat",
+      "versionCode": 1,
+      "adaptiveIcon": {
+        "backgroundColor": "#0B0620",
+        "foregroundImage": "./assets/android-icon-foreground.png",
+        "backgroundImage": "./assets/android-icon-background.png"
+      },
+      "predictiveBackGestureEnabled": false
+    },
+    "web": {
+      "favicon": "./assets/favicon.png"
+    },
+    "plugins": [
+      "expo-splash-screen",
+      [
+        "expo-notifications",
+        {
+          "icon": "./assets/icon.png",
+          "color": "#8B5CF6"
+        }
+      ]
+    ],
+    "extra": {
+      "contentManifestUrl": "https://raw.githubusercontent.com/pushparaj9749/ankitstorychat/main/content/manifest.json",
+      "supportEmail": "support@example.com"
+    }
+  }
+}
