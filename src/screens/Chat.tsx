@@ -466,13 +466,13 @@ export function Chat({ navigation, route }: Props) {
           style={[
             styles.modeBtn,
             {
-              backgroundColor: playthrough.mode === 'ai' ? theme.primarySoft : theme.surface,
-              borderColor: playthrough.mode === 'ai' ? theme.primary : theme.border,
+              backgroundColor: aiReady ? theme.primarySoft : theme.surface,
+              borderColor: aiReady ? theme.primary : theme.border,
             },
           ]}
         >
-          <Text style={[styles.modeText, { color: playthrough.mode === 'ai' ? '#D9CFFF' : theme.textDim }]}>
-            {playthrough.mode === 'ai' ? '🤖 AI' : '📖 Offline'}
+          <Text style={[styles.modeText, { color: aiReady ? '#D9CFFF' : theme.textDim }]}>
+            {aiReady ? '🤖 AI' : '📖 Offline'}
           </Text>
         </Pressable>
       </View>

@@ -7,13 +7,7 @@
  * keyword-matched free text with fallback lines, and true endings.
  */
 import type { Playthrough, StoryBundle, StoryState } from '../types';
-import {
-  applyEffects,
-  availableChoices,
-  getScene,
-  matchChoice,
-  progressEstimate,
-} from './engine';
+import { applyEffects, availableChoices, getScene, matchChoice } from './engine';
 
 export interface OfflineLine {
   role: 'assistant' | 'narration';
@@ -107,7 +101,6 @@ export function offlineStep(
     ...state,
     visits: { ...state.visits, [nextScene.id]: (state.visits[nextScene.id] ?? 0) + 1 },
   };
-  void progressEstimate;
 
   const lines: OfflineLine[] = nextScene.narration.map((text) => ({
     role: 'assistant' as const,

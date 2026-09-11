@@ -196,9 +196,7 @@ export function Home({ navigation }: Props) {
                 key={c}
                 label={c}
                 selected={false}
-                onPress={() =>
-                  navigation.navigate('Discover', undefined as unknown as undefined)
-                }
+                onPress={() => navigation.navigate('Discover', { genre: c })}
               />
             ))}
           </View>

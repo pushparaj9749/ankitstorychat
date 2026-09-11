@@ -14,11 +14,17 @@ import { searchStories } from '../lib/search';
 type Props = BottomTabScreenProps<MainTabParamList, 'Discover'>;
 type Sort = 'Recommended' | 'Newest' | 'Popular';
 
-export function Discover({ navigation }: Props) {
+export function Discover({ navigation, route }: Props) {
   const { theme, stories } = useApp();
   const [query, setQuery] = useState('');
   const [genre, setGenre] = useState<string>('All');
   const [sort, setSort] = useState<Sort>('Recommended');
+
+  // Deep-linked genre from Home categories.
+  React.useEffect(() => {
+    const g = route.params?.genre;
+    if (g) setGenre(g);
+  }, [route.params?.genre]);
 
   const genres = useMemo(() => {
     const set = new Set<string>();

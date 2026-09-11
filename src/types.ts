@@ -429,7 +429,7 @@ export type RootStackParamList = {
 
 export type MainTabParamList = {
   Home: undefined;
-  Discover: undefined;
+  Discover: { genre?: string } | undefined;
   Library: undefined;
   Settings: undefined;
 };
