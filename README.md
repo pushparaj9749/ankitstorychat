@@ -175,7 +175,10 @@ Static site in `website/` (no backend): branding, live story list (fetched from
 (resolves the latest release's `.apk` via the GitHub API, falls back to the releases page).
 
 Deploys via `.github/workflows/pages.yml` on pushes to `main` touching `website/`.
-Enable Pages in repo settings (Source: **GitHub Actions**).
+Enable Pages once in repo settings (Settings → Pages → Source: **GitHub Actions**).
+The workflow self-enables Pages if a `PAGES_ADMIN_TOKEN` secret (PAT with repo
+scope or Pages write) is configured; otherwise it fails fast with a link to the
+settings page.
 
 ---
 
