@@ -1,0 +1,22 @@
+{
+  "storyId": "cafe-queen-myra",
+  "version": 1,
+  "shortTermWindow": 14,
+  "seedMemories": [
+    "User ka naam Ankit hai — Rain & Roast café ka regular customer.",
+    "Myra café mein ek simple, innocent ladki bankar aati hai; asli mein shehar ki Mafia Queen hai.",
+    "Bahar black car mein guard Raj intezaar kar raha hai.",
+    "Waiter Sunny ki galti se coffee Myra ke table par rakhi gayi — pehli baat yahin se shuru hui.",
+    "Beena ka lifafa Katra bazaar ke teen aadmiyon ke naam rakhta hai — ek bikau, do wafadar."
+  ],
+  "extractionHints": [
+    "User ne apna naam bataya ya nahi",
+    "User ne Myra ka sauda (bill / lifafa / gaadi) accept kiya ya mana kiya",
+    "Beena ke lifafe ka jawab sach tha ya jhooth",
+    "User ne Myra ki asli pehchaan ke baare mein kya jaana aur kaise react kiya"
+  ],
+  "neverRemember": [
+    "Real-world personal data (phone number, address, real identity)",
+    "Kuch bhi kahani ke bahar ka"
+  ]
+}

@@ -3,7 +3,7 @@
  * - Builds the AI narrator prompt from story bible + state + memory.
  * - Parses assistant output (display text + kissa-state effects block).
  * - Applies effects to story state deterministically.
- * - Matches free text to choices (smart replies / offline mode).
+ * - Matches free text to choices (smart replies).
  */
 import type {
   AgeGroup,
@@ -19,6 +19,7 @@ import type {
 } from '../types';
 import { createInitialState } from '../types';
 import { teenSafetyGuidance } from './ageGate';
+import { isFullyFadedLine, matchSpeakerPrefix } from './markup';
 import { clamp, norm, tokens } from './utils';
 
 /* ---------------- scene helpers ---------------- */
@@ -82,7 +83,6 @@ export function freshStateFor(bundle: StoryBundle): StoryState {
 
 /* ---------------- response parsing ---------------- */
 
-/** The AI reports state changes in a fenced block the user never sees. */
 const STATE_BLOCK_RE = /```kissa-state\s*([\s\S]*?)```/gi;
 
 export interface ParsedAssistant {
@@ -139,13 +139,11 @@ function parseStateBlock(jsonText: string): ChoiceEffects | undefined {
   }
 }
 
-/** Split raw assistant output into display text + hidden effects + speaker. */
 export function parseAssistantResponse(raw: string): ParsedAssistant {
   let displayText = raw || '';
   let effects: ChoiceEffects | undefined;
   const memoryNotes: string[] = [];
 
-  // Extract (possibly multiple) state blocks; merge them.
   const merged: ChoiceEffects = {};
   let found = false;
   displayText = displayText.replace(STATE_BLOCK_RE, (_m, jsonText: string) => {
@@ -177,12 +175,19 @@ export function parseAssistantResponse(raw: string): ParsedAssistant {
 
   displayText = displayText.replace(/\n{3,}/g, '\n\n').trim();
 
-  // Speaker detection: leading "Name:" line.
   let speaker: string | null = null;
-  const m = displayText.match(/^([A-Z][A-Za-z.'\- ]{1,24}):\s*/);
-  if (m) {
-    speaker = m[1].trim();
-    displayText = displayText.slice(m[0].length).trim();
+  const lines = displayText.split('\n');
+  for (let i = 0; i < lines.length; i++) {
+    const trimmed = lines[i].trim();
+    if (!trimmed) continue;
+    if (isFullyFadedLine(trimmed)) continue;
+    const hit = matchSpeakerPrefix(trimmed);
+    if (hit) {
+      speaker = hit.name;
+      lines[i] = hit.rest;
+      displayText = lines.join('\n').replace(/^\n+/, '').trim();
+    }
+    break;
   }
 
   return { displayText, effects, memoryNotes, speaker };
@@ -190,10 +195,6 @@ export function parseAssistantResponse(raw: string): ParsedAssistant {
 
 /* ---------------- free-text -> choice matching ---------------- */
 
-/**
- * Score free text against scene choices by keyword overlap.
- * Returns the best match when confident, else null.
- */
 export function matchChoice(freeText: string, choices: SceneChoice[]): SceneChoice | null {
   const input = norm(freeText);
   if (!input || choices.length === 0) return null;
@@ -204,7 +205,6 @@ export function matchChoice(freeText: string, choices: SceneChoice[]): SceneChoi
   for (const c of choices) {
     let score = 0;
     const hay = `${c.text} ${(c.keywords ?? []).join(' ')}`.toLowerCase();
-    // Direct phrase containment is a strong signal.
     if (c.text && input.includes(norm(c.text).slice(0, 24))) score += 4;
     for (const kw of c.keywords ?? []) {
       const k = norm(kw);
@@ -212,7 +212,6 @@ export function matchChoice(freeText: string, choices: SceneChoice[]): SceneChoi
       if (input.includes(k)) score += k.length >= 5 ? 3 : 2;
       else if (inputTokens.has(k)) score += 2;
     }
-    // Token overlap with the choice text itself.
     for (const t of tokens(hay)) {
       if (inputTokens.has(t)) score += 1;
     }
@@ -260,7 +259,6 @@ export interface PromptInput {
   profile: LocalProfile;
   playthrough: Playthrough;
   memories: MemoryEntry[];
-  /** Recent history, oldest-first. */
   history: ChatMessage[];
 }
 
@@ -313,15 +311,19 @@ ${teenBlock}
 
 HOW TO RESPOND:
 1. Continue the story immersively: short narration + character dialogue. Keep replies MEDIUM-SHORT (roughly 40-90 words only, max 2 short paragraphs), crisp, punchy, ending with a hook or question that invites the reader's next move. Avoid long monologues.
-2. Respect the current scene and its available directions; do NOT teleport the plot or invent contradicting events. If the reader does something wild, react believably and steer back toward the scene.
-3. NEVER speak as the reader. NEVER decide the reader's actions for them.
-4. When addressing the reader, use "${profile.nickname}" occasionally.
-5. After your visible reply, append a hidden state block ONLY when something changed (relationship shift, item gained/lost, location change, important flag, scene move, story end). Format exactly:
+2. FORMAT (the app renders this, follow it exactly):
+   - Action / narration / scene-setting goes on its own line wrapped in SINGLE asterisks: *Beena ke honton par halki si muskaan ubharti hai.* — these render FADED in the chat.
+   - Dialogue goes on its own line as: Name: "spoken words" — e.g. Myra: "Umm... lagta hai ye coffee meri nahi hai." Use only real character names from the list above.
+   - Alternate 1-3 faded action lines with dialogue. Never use markdown bold, headers or bullet lists.
+3. Respect the current scene and its available directions; do NOT teleport the plot or invent contradicting events. If the reader does something wild, react believably and steer back toward the scene.
+4. NEVER speak as the reader. NEVER decide the reader's actions for them.
+5. When addressing the reader, use "${profile.nickname}" occasionally.
+6. After your visible reply, append a hidden state block ONLY when something changed (relationship shift, item gained/lost, location change, important flag, scene move, story end). Format exactly:
 \`\`\`kissa-state
 {"relationships": {"characterId": +5}, "flags": {"gateOpened": true}, "inventoryAdd": ["item-id"], "location": "Place name", "scene": "next-scene-id", "endStory": "ending-id", "memory": ["short fact to remember"]}
 \`\`\`
 Omit keys that didn't change. "scene" must be one of the story's scene ids (or omit to stay). "endStory" only at a true ending. Keep memory facts short (under 140 chars).
-6. If the reader greets you out-of-story ("hi", "hello"), stay in character briefly and pull them back into the scene.`;
+7. If the reader greets you out-of-story ("hi", "hello"), stay in character briefly and pull them back into the scene.`;
 }
 
 export interface BuiltContext {
@@ -329,11 +331,6 @@ export interface BuiltContext {
   messages: { role: 'user' | 'assistant'; content: string }[];
 }
 
-/**
- * Context selection: seed + relevant memories go in the system prompt;
- * the last N messages (story's shortTermWindow) go as chat history.
- * Full lifetime history is NEVER sent.
- */
 export function buildContext(input: PromptInput, ageGroup: AgeGroup): BuiltContext {
   const windowSize = Math.max(4, Math.min(40, input.bundle.memory.shortTermWindow || 14));
   const history = input.history.slice(-windowSize);
@@ -346,20 +343,16 @@ export function buildContext(input: PromptInput, ageGroup: AgeGroup): BuiltConte
         content: m.speaker ? `${m.speaker}: ${m.text}` : m.text,
       });
     } else if (m.role === 'narration') {
-      // Feed narration as compact assistant context.
       messages.push({ role: 'assistant', content: `[Scene] ${m.text}` });
     }
   }
   return { system: buildSystemPrompt(input, ageGroup), messages };
 }
 
-/* ---------------- progress ---------------- */
-
 export function progressEstimate(bundle: StoryBundle, playthrough: Playthrough): number {
   const total = Math.max(1, bundle.scenes.scenes.length);
   const visited = Object.keys(playthrough.state.visits ?? {}).length;
   const byScenes = clamp(visited / total, 0, 1);
-  // Blend with message activity so long chats also move the bar.
   const byMsgs = clamp(playthrough.messageCount / 60, 0, 1);
   return clamp(byScenes * 0.75 + byMsgs * 0.25, 0, 1);
 }

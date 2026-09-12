@@ -14,7 +14,7 @@ moves the tale forward — with memory, relationships, branching, and multiple e
 ## ✨ Highlights
 
 - **100% local-first** — profile, chats, memories, saves, favorites, settings on-device (SQLite + SecureStore). No login, no cloud user DB.
-- **6 original Hinglish stories** (4 teen-safe, 2 mature) with scenes, choices, branching, endings.
+- **7 original Hinglish stories** (5 teen-safe, 2 mature) with scenes, choices, branching, endings.
 - **BYO AI** — configure your own OpenAI-compatible provider (OpenAI, OpenRouter, Groq, Together, custom). Key stays in device keystore.
 - **APP LIMIT = NONE** — the app never caps chat. Provider quotas are your provider's.
 - **Offline Story Mode** — fully playable scripted stories with zero network and zero key.
@@ -104,6 +104,28 @@ Key mechanics: `requiresFlag` (`"flag"` / `"!flag"`) gates choices; `effects` mu
 `relationships/inventory/location/flags/choices`; the AI reports changes via a hidden
 ` ```kissa-state {...} ` block that is parsed, validated, and stripped from display text.
 
+### Story text format (how lines are written *and* rendered)
+
+Every narration line in `scenes.json` — and everything the AI is asked to reply with —
+uses one format:
+
+```
+*Beena ke honton par halki si muskaan ubharti hai. Raja darwaaze ke paas khamosh khada hai.*   <- action
+Beena: "Achchha. Zubaan mein dum toh hai tumhare."                                            <- dialogue
+```
+
+- `*asterisked*` text is **action / scene-setting**: the chat UI renders it **faded + italic**
+  (`FADED_TEXT_OPACITY` in `src/theme.ts`), the markers are never shown.
+- `Name: "dialogue"` becomes a bubble with the character's name as its speaker label
+  (offline mode matches the prefix against that story's real character list, so
+  `Problem: sab kuch bigad gaya` never invents a character called *Problem*).
+- Opening narration is rendered in the **same bubble** as the dialogue below it, so the top of
+  a new story reads exactly like the rest of the conversation. `✦ Scene Title` stays a chapter
+  divider.
+- Pure logic lives in `src/lib/markup.ts` (`parseStoryMarkup`, `stripStoryMarkup`,
+  `splitSpeakerLine`) — covered by `__tests__/markup.test.ts`, `__tests__/storyFormat.test.ts`
+  and `__tests__/chatRender.test.tsx` (renders the real `ChatBubble`).
+
 ### Adding a new story (no app rebuild)
 
 ```bash
@@ -123,7 +145,7 @@ Requires Node 22. Android builds need Java 17 + Android SDK (handled in CI).
 ```bash
 npm ci
 npm run typecheck   # tsc --noEmit
-npm test            # jest (29 tests: engine, age-gate, search, ALL story content)
+npm test            # jest (engine, age-gate, search, markup, story format, chat UI, ALL story content)
 npm run content:validate
 npx expo start      # scan with Expo Go, or press `a` for emulator
 ```
