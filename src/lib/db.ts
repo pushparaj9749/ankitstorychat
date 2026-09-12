@@ -54,7 +54,7 @@ async function migrate(db: SQLite.SQLiteDatabase): Promise<void> {
       progress REAL NOT NULL DEFAULT 0,
       message_count INTEGER NOT NULL DEFAULT 0,
       ending_id TEXT,
-      mode TEXT NOT NULL DEFAULT 'offline',
+      mode TEXT NOT NULL DEFAULT 'ai',
       provider_id TEXT,
       created_at TEXT NOT NULL,
       updated_at TEXT NOT NULL
@@ -231,7 +231,7 @@ function rowToPlaythrough(r: PlaythroughRow): Playthrough {
     progress: r.progress,
     messageCount: r.message_count,
     endingId: r.ending_id,
-    mode: (r.mode === 'ai' ? 'ai' : 'offline') as Playthrough['mode'],
+    mode: 'ai' as Playthrough['mode'],
     providerId: r.provider_id,
     createdAt: r.created_at,
     updatedAt: r.updated_at,

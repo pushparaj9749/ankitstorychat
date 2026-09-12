@@ -1,6 +1,6 @@
-/** Story detail: cover, meta, characters, start/continue, saves, download. */
+/** Story detail: cover, meta, characters, start/continue, saves, download. AI-only now. */
 import React, { useEffect, useState } from 'react';
-import { Image, Pressable, ScrollView, StyleSheet, Text, View } from 'react-native';
+import { Alert, Image, Pressable, ScrollView, StyleSheet, Text, View } from 'react-native';
 import { LinearGradient } from 'expo-linear-gradient';
 import type { NativeStackScreenProps } from '@react-navigation/native-stack';
 import type { Playthrough, RootStackParamList, StoryBundle } from '../types';
@@ -13,7 +13,6 @@ import { getBundledCoverSource, getBundle } from '../content/loader';
 import { AgeRestrictedError } from '../lib/ageGate';
 import { listPlaythroughsForStory, updateStats } from '../lib/db';
 import { createPlaythrough, playthroughLabel } from '../lib/playthrough';
-import { offlineOpening } from '../lib/offlineEngine';
 import { seedMemoriesIfEmpty } from '../lib/memory';
 import { insertMessage } from '../lib/db';
 import { FONTS, RADIUS, SPACING } from '../theme';
@@ -73,30 +72,38 @@ export function StoryDetail({ navigation, route }: Props) {
 
   async function startNew() {
     if (!bundle || !profile || starting) return;
+
+    const canUseAI = !!activeProvider && providersWithKeys.has(activeProvider.id);
+    if (!canUseAI) {
+      Alert.alert('AI Setup Required 🤖', 'Story khelne ke liye pehle AI provider add karo. Offline mode ab hataya gaya hai.', [
+        { text: 'Cancel', style: 'cancel' },
+        { text: 'Add AI', onPress: () => navigation.navigate('AIAddons') },
+      ]);
+      return;
+    }
+
     setStarting(true);
     try {
       const existing = await listPlaythroughsForStory(storyId);
-      const canUseAI =
-        !!activeProvider && providersWithKeys.has(activeProvider.id);
-      const mode = canUseAI ? 'ai' : 'offline';
+      const mode = 'ai' as const;
       const pt = await createPlaythrough(
         bundle,
         playthroughLabel(existing.length),
         mode,
-        canUseAI ? activeProvider!.id : null,
+        activeProvider!.id,
       );
 
-      // Seed opening narration as messages + seed memories.
-      const opening = offlineOpening(bundle);
+      // Seed opening narration as messages + seed memories (from bundle directly, no offline engine).
+      const openingScene = bundle.scenes.scenes.find((s) => s.id === bundle.story.openingSceneId) ?? bundle.scenes.scenes[0];
       let i = 0;
-      for (const line of opening.lines) {
+      for (const line of openingScene.narration) {
         await insertMessage({
           id: uid('m'),
           playthroughId: pt.id,
-          role: line.role,
-          speaker: line.speaker,
-          text: line.text,
-          sceneId: opening.sceneId,
+          role: i === 0 ? 'narration' : 'assistant',
+          speaker: null,
+          text: line,
+          sceneId: openingScene.id,
           createdAt: new Date(Date.now() + i).toISOString(),
         });
         i++;
@@ -145,6 +152,7 @@ export function StoryDetail({ navigation, route }: Props) {
   }
 
   const activeSave = saves.find((s) => s.status === 'active');
+  const hasAI = !!activeProvider && providersWithKeys.has(activeProvider.id);
 
   return (
     <Screen padded={false}>
@@ -195,11 +203,7 @@ export function StoryDetail({ navigation, route }: Props) {
             <InfoRow label="⏱ Length" value={`~${meta.estimatedMinutes} min`} />
             <InfoRow
               label="💬 Mode"
-              value={
-                activeProvider && providersWithKeys.has(activeProvider.id)
-                  ? `AI (${activeProvider.model})`
-                  : 'Offline Story Mode'
-              }
+              value={hasAI ? `AI • ${activeProvider!.model}` : 'AI Required'}
             />
           </View>
 
@@ -228,14 +232,13 @@ export function StoryDetail({ navigation, route }: Props) {
               />
             </View>
           ) : null}
-          {!activeProvider || !providersWithKeys.has(activeProvider.id) ? (
+          {!hasAI ? (
             <Pressable
               onPress={() => navigation.navigate('AIAddons')}
               style={[styles.aiHint, { backgroundColor: theme.primarySoft, borderColor: theme.primary }]}
             >
               <Text style={[styles.aiHintText, { color: '#D9CFFF' }]}>
-                🤖 AI Add-on not configured — stories will run in Offline Story Mode. Tap to add
-                your own AI key for free-style chat.
+                🤖 AI provider setup karo to play. Offline mode hata diya gaya hai. Tap to add your own AI key.
               </Text>
             </Pressable>
           ) : null}

@@ -1,12 +1,13 @@
 /**
- * Chat — the core interactive-fiction experience.
- * - AI mode: free chat with the user's own provider (OpenAI-compatible).
- * - Offline mode: scripted storyteller walking the story's scenes.
- * - Choices double as smart replies; free text always allowed.
+ * Chat — AI-only interactive-fiction experience.
+ * Offline mode removed as per requirement.
+ * - Only AI mode, free chat with user's own provider (OpenAI-compatible).
+ * - No recommended chips above input.
+ * - Keyboard now correctly pushes input up (KeyboardAvoidingView fixed).
+ * - AI replies are medium-short (40-90 words).
  */
 import React, { useEffect, useMemo, useRef, useState } from 'react';
 import {
-  Alert,
   FlatList,
   KeyboardAvoidingView,
   Platform,
@@ -27,20 +28,18 @@ import type {
   StoryBundle,
 } from '../types';
 import { useApp } from '../state/AppContext';
-import { ChatBubble, ChoiceChips, TypingIndicator } from '../components/chat';
+import { ChatBubble, TypingIndicator } from '../components/chat';
 import { ErrorState, LoadingState } from '../components/states';
 import { getBundle } from '../content/loader';
 import { getApiKey } from '../lib/secureKeys';
 import { aiErrorMessage, chatCompletion } from '../lib/ai';
 import {
   applyEffects,
-  availableChoices,
   buildContext,
   getScene,
   parseAssistantResponse,
   progressEstimate,
 } from '../lib/engine';
-import { offlineChoose, offlineStep } from '../lib/offlineEngine';
 import {
   extractPreferenceNotes,
   rememberMany,
@@ -57,10 +56,10 @@ import {
   updateStats,
 } from '../lib/db';
 import { completePlaythrough } from '../lib/playthrough';
-import { FONTS, RADIUS, SPACING } from '../theme';
+import { FONTS, RADIUS } from '../theme';
 import { nowIso, uid } from '../lib/utils';
-import { playReceive, playSend } from '../lib/sound';
-import { successBuzz, tapTick } from '../lib/haptics';
+import { playReceive } from '../lib/sound';
+import { successBuzz } from '../lib/haptics';
 
 type Props = NativeStackScreenProps<RootStackParamList, 'Chat'>;
 
@@ -85,11 +84,8 @@ export function Chat({ navigation, route }: Props) {
 
   const aiReady =
     !!playthrough &&
-    playthrough.mode === 'ai' &&
     !!activeProvider &&
     providersWithKeys.has(activeProvider.id);
-
-  /* ---------------- load ---------------- */
 
   useEffect(() => {
     let alive = true;
@@ -102,6 +98,9 @@ export function Chat({ navigation, route }: Props) {
         const first = await listMessages(pt.id, PAGE);
         const total = await countMessages(pt.id);
         if (!alive) return;
+        if (pt.mode !== 'ai') {
+          pt.mode = 'ai';
+        }
         setPlaythrough(pt);
         setBundle(b);
         setMessages(first);
@@ -121,13 +120,6 @@ export function Chat({ navigation, route }: Props) {
     () => (bundle && playthrough ? getScene(bundle, playthrough.currentSceneId) : null),
     [bundle, playthrough],
   );
-  const choices = useMemo(
-    () =>
-      scene && playthrough && playthrough.status === 'active'
-        ? availableChoices(scene, playthrough.state)
-        : [],
-    [scene, playthrough],
-  );
 
   async function loadMore() {
     if (!playthrough || loadingMore || !hasMore) return;
@@ -144,8 +136,6 @@ export function Chat({ navigation, route }: Props) {
       setLoadingMore(false);
     }
   }
-
-  /* ---------------- persistence helpers ---------------- */
 
   async function persistAssistantLines(
     pt: Playthrough,
@@ -170,7 +160,6 @@ export function Chat({ navigation, route }: Props) {
     return saved;
   }
 
-  /** Apply effects + scene moves + endings; returns updated playthrough. */
   async function applyTurnEffects(
     pt: Playthrough,
     b: StoryBundle,
@@ -180,7 +169,6 @@ export function Chat({ navigation, route }: Props) {
   ): Promise<{ pt: Playthrough; sceneChanged: boolean }> {
     let state = applyEffects(pt.state, effects);
     let newSceneId = explicitSceneId ?? effects?.scene ?? pt.currentSceneId;
-    // Validate scene id — never jump to a scene that doesn't exist.
     if (!b.scenes.scenes.some((s) => s.id === newSceneId)) newSceneId = pt.currentSceneId;
     const sceneChanged = newSceneId !== pt.currentSceneId;
     if (sceneChanged) {
@@ -209,10 +197,8 @@ export function Chat({ navigation, route }: Props) {
     return { pt: next, sceneChanged };
   }
 
-  /* ---------------- AI turn ---------------- */
-
-  async function aiTurn(pt: Playthrough, b: StoryBundle, userText: string, deterministic?: ChoiceEffects) {
-    if (!profile || !activeProvider) throw new Error('AI not configured.');
+  async function aiTurn(pt: Playthrough, b: StoryBundle, userText: string) {
+    if (!profile || !activeProvider) throw new Error('AI not configured. Please add API key in AI Add-ons.');
     const apiKey = await getApiKey(activeProvider.id);
     if (!apiKey) throw new Error('API key missing. Re-enter it in AI Add-ons.');
 
@@ -237,29 +223,6 @@ export function Chat({ navigation, route }: Props) {
     const parsed = parseAssistantResponse(raw);
     const displayText = parsed.displayText || '...';
 
-    // Deterministic choice effects take precedence over AI-suggested ones.
-    const merged: ChoiceEffects = { ...(parsed.effects ?? {}) };
-    if (deterministic) {
-      if (deterministic.relationships) {
-        merged.relationships = { ...(merged.relationships ?? {}) };
-        for (const [k, v] of Object.entries(deterministic.relationships)) {
-          merged.relationships[k] = (merged.relationships[k] ?? 0) + v;
-        }
-      }
-      if (deterministic.flags) merged.flags = { ...(merged.flags ?? {}), ...deterministic.flags };
-      if (deterministic.choicesRecord) {
-        merged.choicesRecord = { ...(merged.choicesRecord ?? {}), ...deterministic.choicesRecord };
-      }
-      if (deterministic.inventoryAdd) merged.inventoryAdd = [...(merged.inventoryAdd ?? []), ...deterministic.inventoryAdd];
-      if (deterministic.inventoryRemove) {
-        merged.inventoryRemove = [...(merged.inventoryRemove ?? []), ...deterministic.inventoryRemove];
-      }
-      if (deterministic.location) merged.location = deterministic.location;
-      if (deterministic.scene) merged.scene = deterministic.scene;
-      if (deterministic.endStory) merged.endStory = deterministic.endStory;
-      if (deterministic.memory) parsed.memoryNotes.push(...deterministic.memory);
-    }
-
     const saved = await persistAssistantLines(
       pt,
       [{ role: 'assistant', speaker: parsed.speaker, text: displayText }],
@@ -268,7 +231,7 @@ export function Chat({ navigation, route }: Props) {
     const { pt: next, sceneChanged } = await applyTurnEffects(
       pt,
       b,
-      Object.keys(merged).length ? merged : undefined,
+      parsed.effects,
       parsed.memoryNotes,
     );
     let extra: ChatMessage[] = [];
@@ -283,60 +246,9 @@ export function Chat({ navigation, route }: Props) {
     return { saved: [...extra, ...saved], next };
   }
 
-  /* ---------------- offline turn ---------------- */
-
-  async function offlineTurn(pt: Playthrough, b: StoryBundle, userText: string, choiceId?: string) {
-    const res = choiceId ? offlineChoose(b, pt, choiceId) : offlineStep(b, pt, userText);
-    if (!res && choiceId) {
-      // Stale chip — fall back to free-text handling.
-      return offlineTurn(pt, b, userText, undefined);
-    }
-    if (!res) throw new Error('Offline engine hiccup. Try again.');
-    const { step, state } = res;
-    const saved = await persistAssistantLines(pt, step.lines, step.newSceneId);
-    let next: Playthrough = {
-      ...pt,
-      currentSceneId: step.newSceneId,
-      state,
-      messageCount: pt.messageCount + 1,
-      updatedAt: nowIso(),
-    };
-    next = { ...next, progress: progressEstimate(b, next) };
-    let extra: ChatMessage[] = [];
-    if (step.sceneChanged && !step.ended) {
-      const sc = getScene(b, step.newSceneId);
-      extra = await persistAssistantLines(
-        next,
-        [{ role: 'narration', speaker: null, text: `✦ ${sc.title}` }],
-        step.newSceneId,
-      );
-    }
-    if (step.ended) {
-      next = await completePlaythrough(next, step.endingId);
-      await updateStats({ storiesCompleted: 1 });
-    } else {
-      await updatePlaythrough(next);
-    }
-    if (step.matchedChoiceId) await updateStats({ choicesMade: 1 });
-    return { saved: [...extra, ...saved], next };
-  }
-
-  /* ---------------- send ---------------- */
-
-  async function send(userText: string, choiceId?: string) {
+  async function send(userText: string) {
     const text = userText.trim();
     if (!text || !playthrough || !bundle || sending) return;
-    if (playthrough.status === 'completed' && playthrough.mode === 'offline' && !choiceId) {
-      // Completed offline journeys stay completed — gentle nudge.
-      Alert.alert('Journey complete ✨', 'Replay karke doosri endings try karo!', [
-        { text: 'OK' },
-        {
-          text: 'View saves',
-          onPress: () => navigation.navigate('Saves', { storyId: playthrough.storyId }),
-        },
-      ]);
-      return;
-    }
     setSending(true);
     setAiError(null);
     setLastUserText(text);
@@ -355,23 +267,10 @@ export function Chat({ navigation, route }: Props) {
       setInput('');
       await updateStats({ messagesSent: 1 });
 
-      // Heuristic preference memory (runs offline too).
       const prefs = extractPreferenceNotes(text);
       if (prefs.length) await rememberMany(playthrough.id, prefs, 'preference', 2);
-      if (choiceId) {
-        const ch = choices.find((c) => c.id === choiceId);
-        if (ch) await rememberMany(playthrough.id, [`Chose: "${ch.text}"`], 'story', 1);
-      }
 
-      const useAI =
-        playthrough.mode === 'ai' && activeProvider && providersWithKeys.has(activeProvider.id);
-      let result: { saved: ChatMessage[]; next: Playthrough };
-      if (useAI) {
-        const ch = choiceId ? choices.find((c) => c.id === choiceId) : undefined;
-        result = await aiTurn(playthrough, bundle, text, ch?.effects);
-      } else {
-        result = await offlineTurn(playthrough, bundle, text, choiceId);
-      }
+      const result = await aiTurn(playthrough, bundle, text);
       setPlaythrough(result.next);
       setMessages((prev) => [...result.saved, ...prev]);
       playReceive(settings.sound);
@@ -385,11 +284,7 @@ export function Chat({ navigation, route }: Props) {
             message: e instanceof Error ? e.message : 'Something went wrong.',
             retryable: true,
           };
-      // AI errors show the inline error card; offline/unknown errors show alert text.
-      if (playthrough.mode === 'ai') setAiError(err);
-      else {
-        Alert.alert('Oops', err.message);
-      }
+      setAiError(err);
     } finally {
       setSending(false);
     }
@@ -398,31 +293,6 @@ export function Chat({ navigation, route }: Props) {
   function retry() {
     if (lastUserText) void send(lastUserText);
   }
-
-  async function toggleMode() {
-    if (!playthrough || !bundle) return;
-    if (playthrough.mode === 'ai') {
-      const next = { ...playthrough, mode: 'offline' as const, updatedAt: nowIso() };
-      await updatePlaythrough(next);
-      setPlaythrough(next);
-      return;
-    }
-    // Switch to AI — needs a configured provider.
-    if (activeProvider && providersWithKeys.has(activeProvider.id)) {
-      const next = {
-        ...playthrough,
-        mode: 'ai' as const,
-        providerId: activeProvider.id,
-        updatedAt: nowIso(),
-      };
-      await updatePlaythrough(next);
-      setPlaythrough(next);
-    } else {
-      navigation.navigate('AIAddons');
-    }
-  }
-
-  /* ---------------- render ---------------- */
 
   if (loading) {
     return (
@@ -445,8 +315,7 @@ export function Chat({ navigation, route }: Props) {
   }
 
   return (
-    <SafeAreaView style={[styles.safe, { backgroundColor: theme.bg }]} edges={['top', 'left', 'right']}>
-      {/* Header */}
+    <SafeAreaView style={[styles.safe, { backgroundColor: theme.bg }]} edges={['top', 'left', 'right', 'bottom']}>
       <View style={[styles.header, { borderColor: theme.border }]}>
         <Pressable onPress={() => navigation.goBack()} hitSlop={10} accessibilityLabel="Go back">
           <Text style={[styles.back, { color: theme.text }]}>‹</Text>
@@ -459,10 +328,7 @@ export function Chat({ navigation, route }: Props) {
             {scene?.title ?? playthrough.label} • {playthrough.label}
           </Text>
         </View>
-        <Pressable
-          onPress={toggleMode}
-          accessibilityRole="button"
-          accessibilityLabel={playthrough.mode === 'ai' ? 'Switch to offline mode' : 'Switch to AI mode'}
+        <View
           style={[
             styles.modeBtn,
             {
@@ -472,31 +338,33 @@ export function Chat({ navigation, route }: Props) {
           ]}
         >
           <Text style={[styles.modeText, { color: aiReady ? '#D9CFFF' : theme.textDim }]}>
-            {aiReady ? '🤖 AI' : '📖 Offline'}
+            🤖 AI
           </Text>
-        </Pressable>
+        </View>
       </View>
 
       <KeyboardAvoidingView
-        behavior={Platform.OS === 'ios' ? 'padding' : undefined}
+        behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
         style={styles.flex}
-        keyboardVerticalOffset={0}
+        keyboardVerticalOffset={Platform.OS === 'ios' ? 0 : 0}
       >
         <FlatList
           ref={listRef}
           data={messages}
           keyExtractor={(m) => m.id}
           inverted
+          keyboardShouldPersistTaps="handled"
+          keyboardDismissMode="interactive"
           contentContainerStyle={styles.list}
           onEndReached={loadMore}
           onEndReachedThreshold={0.4}
           initialNumToRender={20}
           maxToRenderPerBatch={20}
           windowSize={10}
-          removeClippedSubviews
+          removeClippedSubviews={false}
           ListHeaderComponent={
             <>
-              {sending ? <TypingIndicator label={aiReady ? 'AI soch raha hai…' : '…'} /> : null}
+              {sending ? <TypingIndicator label="AI soch raha hai…" /> : null}
               {aiError ? (
                 <View style={[styles.errCard, { backgroundColor: theme.surface, borderColor: theme.danger }]}>
                   <Text style={[styles.errTitle, { color: theme.text }]}>
@@ -518,13 +386,7 @@ export function Chat({ navigation, route }: Props) {
                       onPress={() => navigation.navigate('AIAddons')}
                       style={[styles.errBtn, { backgroundColor: theme.surface2 }]}
                     >
-                      <Text style={[styles.errBtnText, { color: theme.text }]}>Settings</Text>
-                    </Pressable>
-                    <Pressable
-                      onPress={toggleMode}
-                      style={[styles.errBtn, { backgroundColor: theme.surface2 }]}
-                    >
-                      <Text style={[styles.errBtnText, { color: theme.text }]}>Go Offline</Text>
+                      <Text style={[styles.errBtnText, { color: theme.text }]}>AI Settings</Text>
                     </Pressable>
                   </View>
                 </View>
@@ -539,20 +401,6 @@ export function Chat({ navigation, route }: Props) {
           renderItem={({ item }) => <ChatBubble message={item} />}
         />
 
-        {/* Choices / smart replies */}
-        {choices.length > 0 && !sending ? (
-          <View style={styles.chipsBar}>
-            <ChoiceChips
-              choices={choices.map((c) => ({ id: c.id, label: c.shortLabel || c.text }))}
-              onPick={(id) => {
-                const ch = choices.find((x) => x.id === id);
-                if (ch) void send(ch.text, ch.id);
-              }}
-            />
-          </View>
-        ) : null}
-
-        {/* Input */}
         <View style={[styles.inputBar, { borderColor: theme.border, backgroundColor: theme.bgSoft }]}>
           <TextInput
             value={input}
@@ -609,7 +457,6 @@ const styles = StyleSheet.create({
   modeText: { fontSize: FONTS.small, fontWeight: '700' },
   list: { paddingHorizontal: 12, paddingVertical: 8 },
   more: { textAlign: 'center', fontSize: FONTS.tiny, padding: 8 },
-  chipsBar: { paddingHorizontal: 12 },
   inputBar: {
     flexDirection: 'row',
     alignItems: 'flex-end',

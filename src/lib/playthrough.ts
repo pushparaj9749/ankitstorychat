@@ -7,7 +7,7 @@ import { nowIso, uid } from './utils';
 export async function createPlaythrough(
   bundle: StoryBundle,
   label: string,
-  mode: 'ai' | 'offline',
+  mode: 'ai',
   providerId: string | null,
 ): Promise<Playthrough> {
   const now = nowIso();
