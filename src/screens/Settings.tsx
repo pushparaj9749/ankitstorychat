@@ -51,8 +51,8 @@ export function Settings({ navigation }: Props) {
         <SectionHeader title="AI" />
         {row(
           '🤖',
-          'AI Add-ons',
-          activeProvider ? `${activeProvider.name} • ${activeProvider.model}` : 'Offline Story Mode — tap to add AI',
+          'AI Setup',
+          activeProvider ? `${activeProvider.name} • ${activeProvider.model}` : 'AI Required — tap to add API key',
           'AIAddons',
         )}
 

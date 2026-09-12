@@ -1,9 +1,9 @@
 /**
  * AI Add-ons: user configures their OWN AI provider.
- * Explains clearly: APP LIMIT = none; PROVIDER LIMITS = provider's own.
+ * Offline mode removed — AI is now mandatory.
  */
 import React, { useEffect, useState } from 'react';
-import { Alert, FlatList, Pressable, StyleSheet, Switch, Text, View } from 'react-native';
+import { Alert, FlatList, Pressable, StyleSheet, Text, View } from 'react-native';
 import type { NativeStackScreenProps } from '@react-navigation/native-stack';
 import type { RootStackParamList } from '../types';
 import { useApp } from '../state/AppContext';
@@ -59,48 +59,24 @@ export function AIAddons({ navigation }: Props) {
     ]);
   }
 
-  const offlineActive = !settings.activeProviderId;
-
   return (
     <Screen>
-      <Text style={[styles.title, { color: theme.text }]}>🤖 AI Add-ons</Text>
+      <Text style={[styles.title, { color: theme.text }]}>🤖 AI Setup</Text>
       <View style={[styles.info, { backgroundColor: theme.surface, borderColor: theme.border }]}>
         <Text style={[styles.infoText, { color: theme.textDim }]}>
-          <Text style={{ color: theme.success, fontWeight: '800' }}>APP LIMIT: NONE</Text>
-          {' — Kissa tumhari chat kabhi limit nahi karta. Koi coins, koi energy, koi daily cap nahi.\n\n'}
-          <Text style={{ color: theme.accent, fontWeight: '800' }}>PROVIDER LIMITS:</Text>
-          {' — tum apni API key lagate ho; us provider ke apne rates/limits apply honge. Key sirf tumhare device par rehti hai 🔒'}
+          <Text style={{ color: theme.success, fontWeight: '800' }}>AI ONLY MODE</Text>
+          {' — Offline mode hata diya gaya hai. Ab sirf AI chat available hai.\n\n'}
+          <Text style={{ color: theme.accent, fontWeight: '800' }}>API KEY:</Text>
+          {' — tum apni API key lagate ho; key sirf tumhare device par rehti hai 🔒 Provider ke rates apply honge.'}
         </Text>
       </View>
-
-      <SectionHeader title="Mode" />
-      <Pressable
-        onPress={() => void setActive(null)}
-        disabled={busy}
-        style={[
-          styles.card,
-          {
-            backgroundColor: offlineActive ? theme.primarySoft : theme.surface,
-            borderColor: offlineActive ? theme.primary : theme.border,
-          },
-        ]}
-      >
-        <Text style={styles.emoji}>📖</Text>
-        <View style={styles.body}>
-          <Text style={[styles.name, { color: theme.text }]}>Offline Story Mode</Text>
-          <Text style={[styles.sub, { color: theme.textDim }]}>
-            Bina AI key ke scripted kahaniyan. Hamesha free, hamesha offline.
-          </Text>
-        </View>
-        <Switch value={offlineActive} onValueChange={() => void setActive(null)} disabled={busy} />
-      </Pressable>
 
       <SectionHeader title="Your providers" />
       {providers.length === 0 ? (
         <EmptyState
           emoji="🔑"
           title="No AI provider yet"
-          subtitle="Apni API key add karo for free-style AI chat with story characters."
+          subtitle="Apni API key add karo. Bina iske chat nahi chalega."
         />
       ) : (
         <FlatList
@@ -156,6 +132,11 @@ export function AIAddons({ navigation }: Props) {
       <View style={{ height: SPACING.md }} />
       <GradientButton title="+ Add AI provider" onPress={() => navigation.navigate('ProviderEditor', {})} />
       <View style={{ height: SPACING.md }} />
+      {!settings.activeProviderId && providers.length > 0 ? (
+        <Text style={[styles.hint, { color: theme.textFaint }]}>
+          Tip: Kisi provider par 'Use' tap karo to active banao.
+        </Text>
+      ) : null}
     </Screen>
   );
 }
@@ -173,11 +154,11 @@ const styles = StyleSheet.create({
     gap: 10,
     marginBottom: 10,
   },
-  emoji: { fontSize: 26 },
   body: { flex: 1 },
   name: { fontSize: FONTS.body, fontWeight: '800' },
   sub: { fontSize: FONTS.small, marginTop: 2 },
   actions: { gap: 6, alignItems: 'flex-end' },
   link: { paddingVertical: 2, paddingHorizontal: 4 },
   linkText: { fontWeight: '700', fontSize: FONTS.small },
+  hint: { fontSize: FONTS.tiny, textAlign: 'center', marginTop: 8 },
 });

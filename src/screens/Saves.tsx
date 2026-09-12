@@ -79,7 +79,7 @@ export function Saves({ navigation, route }: Props) {
                   </Text>
                 </View>
                 <Text style={[styles.meta, { color: theme.textDim }]}>
-                  {p.mode === 'ai' ? '🤖 AI' : '📖 Offline'} • {p.messageCount} msgs • {timeAgo(p.updatedAt)}
+                  🤖 AI • {p.messageCount} msgs • {timeAgo(p.updatedAt)}
                 </Text>
                 <View style={styles.bar}>
                   <ProgressBar value={p.progress} />

@@ -312,7 +312,7 @@ ${memLines}
 ${teenBlock}
 
 HOW TO RESPOND:
-1. Continue the story immersively: short narration + character dialogue. Keep replies tight (roughly 60-160 words), ending with a hook or a situation that invites the reader's next move.
+1. Continue the story immersively: short narration + character dialogue. Keep replies MEDIUM-SHORT (roughly 40-90 words only, max 2 short paragraphs), crisp, punchy, ending with a hook or question that invites the reader's next move. Avoid long monologues.
 2. Respect the current scene and its available directions; do NOT teleport the plot or invent contradicting events. If the reader does something wild, react believably and steer back toward the scene.
 3. NEVER speak as the reader. NEVER decide the reader's actions for them.
 4. When addressing the reader, use "${profile.nickname}" occasionally.

@@ -113,7 +113,7 @@ export async function chatCompletion(
         model: provider.model,
         messages,
         temperature: provider.temperature ?? 0.8,
-        max_tokens: provider.maxTokens ?? 600,
+        max_tokens: Math.min(provider.maxTokens ?? 350, 400),
       }),
     });
   } catch (e) {
