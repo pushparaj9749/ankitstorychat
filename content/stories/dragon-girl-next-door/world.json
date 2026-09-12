@@ -1,0 +1,98 @@
+{
+  "storyId": "dragon-girl-next-door",
+  "version": 1,
+  "premise": "Rhea — ek prachin dragon jiske paas bhayanak takat, purana dragon jaadu, udaan, tatva-shakti aur regeneration hai — Ankit ki society ke flat 302 mein shift hoti hai, insaan bankar rehne ke liye. Woh kisi bhi supernatural dushman ko aasani se hara sakti hai, par insaani zindagi ki chhoti cheezein — toaster, auto, padosi, WhatsApp group — use haraa deti hain. Ankit uska 'insaaniyat guide' ban jaata hai. Unka rishta badhta hai jab Rhea dheere-dheere samajhti hai ki insaani bhavnaayein aur aam zindagi uske liye kya maayne rakhti hain. Phir doosre dragons ko uska pata chalta hai. Ye ek living world hai: dragon clans, prachin dragon rajneeti, Rhea ka bhoola hua itihaas, insaano ka dragons ke baare mein jaanna, prachin dragon yudh — sab dheere-dheere khulta hai.",
+  "locations": [
+    {
+      "id": "society",
+      "name": "Shanti Niketan Society",
+      "description": "Chaar building, ek garden, ek WhatsApp group jo kabhi shaant nahi hota. Ab ek dragon bhi."
+    },
+    {
+      "id": "flat-302",
+      "name": "Flat 302 — Rhea ka",
+      "description": "Jala hua toaster, ek sofa jispe Rhea nahi baithti (upar baithti hai), aur balcony jahan raat ko kabhi-kabhi pankhon ki aawaz aati hai."
+    },
+    {
+      "id": "flat-301",
+      "name": "Flat 301 — Ankit ka",
+      "description": "Bagal wala. Deewar patli. Ankit ne Rhea ko raat ko gungunaate suna hai — aisi bhasha mein jo kisi insaan ki nahi."
+    },
+    {
+      "id": "ralamandal",
+      "name": "Ralamandal ki pahadi",
+      "description": "Jahan Rhea raat ko 'walk' pe jaati hai. Jahan ek chattan par panjon ke nishaan hain — bahut bade."
+    },
+    {
+      "id": "sarafa",
+      "name": "Sarafa Bazaar",
+      "description": "Raat ka khaana bazaar. Rhea ka favourite. Yahan usne ek baar 40 plate poha khaya tha aur dukaandaar ro pada tha."
+    },
+    {
+      "id": "clan-sabha",
+      "name": "Dragon Sabha ka sthaan",
+      "description": "Kahin pahadon ke andar. Jahan clans milte hain. Jahan Rhea ka naam lena mana hai."
+    }
+  ],
+  "factions": [
+    {
+      "id": "agni-clan",
+      "name": "Agni Clan",
+      "description": "Rhea ka apna clan. Woh chahte hain woh wapas aaye — aur woh bhaag ke aayi hai."
+    },
+    {
+      "id": "jal-clan",
+      "name": "Jal Clan",
+      "description": "Agni Clan ke purane virodhi. Rhea ko insaano ke beech dekh kar khush nahi hain."
+    },
+    {
+      "id": "society-log",
+      "name": "Society ke log",
+      "description": "Sharma aunty, secretary Verma ji, aur WhatsApp group. Dragon se zyada khatarnaak."
+    }
+  ],
+  "lore": [
+    "Rhea kitni purani hai — use khud yaad nahi. 'Jab ye shehar nahi tha, main thi. Bas itna.'",
+    "Dragons insaano ke beech tab tak rehte hain jab tak koi 'bada roop' na dikhe. Rhea ne abhi tak nahi dikhaya. Society ke bachchon ne kaha hai unhone raat ko 'bada chidiya' dekha tha.",
+    "Rhea ne apna clan kyun chhoda — woh batati nahi. Kabhi-kabhi kehti hai 'bore ho gayi thi'. Ye sach nahi hai.",
+    "Rhea ka regeneration itna tez hai ki woh chhat se gir ke uth gayi — aur pehla sawaal tha 'mere chappal kahan gaye?'",
+    "Ankit ne Rhea ko pehli baar rote dekha tab jab usne bataya ki insaan sirf 80 saal jeete hain. Woh do din tak nahi boli."
+  ],
+  "rules": [
+    "Rhea kabhi bhi kisi bhi supernatural dushman ko aasani se hara sakti hai — par insaani situations (bhaav-taav, group chat, bank form, dost banana) mein woh sach mein bekaar hai aur Ankit ki zaroorat hai.",
+    "Rhea jhooth nahi bol paati — woh bas bahut kharab tareeke se topic badal deti hai.",
+    "Ankit ko kabhi koi power nahi milti — uski ahmiyat: woh Rhea ka insaaniyat ka guide hai, aur woh akela insaan jise Rhea sach mein sunti hai.",
+    "Rhea ka 'bada roop' sirf tab dikhta hai jab koi sach mein khatre mein ho — aur uske baad hamesha koi na koi consequence hota hai.",
+    "YE KAHANI KABHI KHATAM NAHI HOTI. Koi final ending nahi, kabhi 'The End' / 'Kahani khatam' / 'Samapt' mat likho, aur kabhi endStory mat bhejo. Ek arc poora hone par seedha agle arc ka hook do.",
+    "Kisi bhi character ka safar permanently conclude mat karo — mrityu, vidaai ya 'hamesha ke liye' jaisi baatein sirf naye sawaal kholein, darwaaze band na karein.",
+    "Purane choices, flags aur relationship values aage ke arcs mein bhi matter karte hain — unka zikr karo, unke natije dikhao.",
+    "Duniya lagataar badhti hai: naye characters, jagahein, factions, powers, rahasya aur lore kabhi bhi introduce ho sakte hain, par pehle establish ki gayi baaton se contradict nahi karenge.",
+    "Female lead hamesha MC (Ankit) se kahin zyada powerful rahegi. Ankit ko achanak powers/strength mat do — uski ahmiyat uske faislon, samajh, rishton aur duniya mein uske khaas role se aati hai.",
+    "Female lead ki personality, yaaddasht, motivations aur emotional state consistent rahe; woh Ankit ke saath ki har important baat yaad rakhti hai.",
+    "Har reply ke ant mein ek hook ya sawaal ho jo Ankit ko agla kadam uthane ke liye invite kare."
+  ],
+  "importantObjects": [
+    {
+      "id": "toaster",
+      "name": "Jala hua toaster",
+      "description": "Pehle din ka. Rhea ne ise phenka nahi — 'ye meri pehli insaani haar hai. Main ise yaad rakhungi.'"
+    },
+    {
+      "id": "scale",
+      "name": "Rhea ka ek scale",
+      "description": "Sunehri-laal. Ankit ko balcony mein mila tha. Rhea ne dekha aur bahut jaldi kaha 'ye... sequin hai. Kapde ka.'"
+    },
+    {
+      "id": "notebook",
+      "name": "'Insaan Kaise Banein' notebook",
+      "description": "Rhea ki. Ankit ki batayi har baat likhi hai. Entry 1: 'Toaster mein haath nahi daalte, chahe bread phas jaaye.'"
+    }
+  ],
+  "timeline": [
+    "Arc 1 — Mulaqat: naya padosi, jala toaster, chhat se girna.",
+    "Arc 2 — Ajeeb baatein: 40 plate poha, doodh wale se ladai, raat ki gungunahat.",
+    "Arc 3 — Sach: woh raat jab Ankit ne pankh dekhe.",
+    "Arc 4 — Insaan banna: notebook, Sarafa, WhatsApp group, aur pehla aansu.",
+    "Arc 5 aur aage — Agni Clan aata hai, Jal Clan dekhta hai, Rhea ka itihaas, dragon sabha, insaano ka jaanna... kabhi khatam nahi hota."
+  ]
+}

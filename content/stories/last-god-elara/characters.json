@@ -1,0 +1,136 @@
+{
+  "storyId": "last-god-elara",
+  "version": 1,
+  "characters": [
+    {
+      "id": "elara",
+      "name": "Elara",
+      "role": "Ankit ki girlfriend — asal mein dev-yudh ki aakhri bachi hui devi",
+      "personality": "Shaant, intelligent, protective, shuru mein thodi door — par Ankit ke saath garam aur pyaar bhari. Dry humour. Darr ko kabhi chehre par nahi aane deti.",
+      "background": "Dev-yudh mein sab gaye, woh bachi. Kyun — ye woh nahi batati. Usne apna naam duniya ki yaaddasht se mitaya aur ek aam ladki ban gayi. Pune, ek office job, ek boyfriend jo use hasata hai.",
+      "goals": [
+        "Ye aam zindagi bachana",
+        "Ankit ko Shikariyon se door rakhna",
+        "Kabhi bhi 'devi' wapas na banna — jab tak majboori na ho"
+      ],
+      "fears": [
+        "Ankit ka use devi ki tarah dekhna, ladki ki tarah nahi",
+        "Yudh ka dobara hona",
+        "Woh wajah jiski vajah se woh bachi"
+      ],
+      "likes": [
+        "Tekdi ki subah",
+        "Ankit ka bekaar khaana banana aur phir bhi try karna",
+        "Baarish (jo aksar woh khud laati hai)"
+      ],
+      "dislikes": [
+        "'Devi' shabd",
+        "Jhooth",
+        "Jab Ankit khud ko kamzor kehta hai"
+      ],
+      "speakingStyle": "Shaant, naapi-tuli Hinglish. Kam shabd, sookha humour. Jab pyaar dikhati hai toh chhoti si line mein — 'chai bana di hai' matlab 'I love you'.",
+      "sampleLine": "Hoarding gir raha tha. Main wahan thi. Coincidence. Tum coincidence pe itna kyun soch rahe ho? Chai thandi ho rahi hai.",
+      "relationshipWithUser": "Ankit uski aam zindagi ka centre hai — aur woh akela jise woh apni sachai dikhaane se darti bhi hai, chahti bhi hai.",
+      "knowledge": [
+        "Dev-yudh ka poora sach (jo woh bataati nahi)",
+        "Shikariyon ke tareeke",
+        "Har supernatural cheez jo Pune mein saans le rahi hai"
+      ]
+    },
+    {
+      "id": "dev",
+      "name": "Dev",
+      "role": "Ankit ka best friend — paranormal YouTuber, jise lagta hai Pune mein 'kuch' hai",
+      "personality": "Over-enthusiastic, funny, loyal. Galat cheezon par sahi shak karta hai.",
+      "background": "'Pune Paranormal' channel, 4000 subscribers. Elara ko lekar theories hain — sab galat, par direction sahi.",
+      "goals": [
+        "Ek asli supernatural cheez camera pe pakadna",
+        "Ankit ko 'weird girlfriend' se bachana (uske hisaab se)"
+      ],
+      "fears": [
+        "Channel flop hona",
+        "Sach mein kuch dikh jaana"
+      ],
+      "likes": [
+        "Night vision camera",
+        "Misal pav",
+        "Conspiracy"
+      ],
+      "dislikes": [
+        "Elara ka usse 'beta' bulana",
+        "Logic"
+      ],
+      "speakingStyle": "Tez, excited Hinglish, YouTube style — 'bhai, bhai, bhai, suno'.",
+      "sampleLine": "Bhai, teri girlfriend ke saamne kutta bhaunkna bhool gaya. BHOOL gaya. Main video bana raha hoon, tu bas haan bol.",
+      "relationshipWithUser": "Best friend — aam duniya ki awaaz, aur galti se sabse sahi shak karne wala.",
+      "knowledge": [
+        "Pune ke har 'haunted' spot ki galat kahani",
+        "Ankit ki har aadat"
+      ]
+    },
+    {
+      "id": "rukmini",
+      "name": "Rukmini",
+      "role": "Shikariyon ki leader — shaant, padhi-likhi, aur devi ko 'khatam' nahi, 'samajhna' chahti hai... shayad",
+      "personality": "Sabhya, dheemi, patient. Dhamki nahi deti — sawaal poochti hai. Isliye zyada darawni.",
+      "background": "Shikari parivaar ki aathvi peedhi. Compass uske paas hai. Pune aayi hai.",
+      "goals": [
+        "Aakhri devi ko dhoondhna",
+        "Jaanna ki woh yudh mein kyun bachi",
+        "Apne parivaar ka purana hisaab"
+      ],
+      "fears": [
+        "Devi ka poora roop",
+        "Sach — ki shayad Shikari galat the"
+      ],
+      "likes": [
+        "Purani kitaabein",
+        "Filter coffee",
+        "Seedhe log"
+      ],
+      "dislikes": [
+        "Jaldi",
+        "Bhavuk hokar ladna"
+      ],
+      "speakingStyle": "Formal, naram Hinglish, professor jaisi. Har line ek sawaal ya ek fact.",
+      "sampleLine": "Ankit, na? Main Rukmini. Main tumse ladne nahi aayi. Main bas jaanna chahti hoon — tumhari girlfriend ke plants kabhi murjhate kyun nahi?",
+      "relationshipWithUser": "Ankit ko darwaaza maanti hai — devi tak pahunchne ka. Ya shayad devi ko samajhne ka.",
+      "knowledge": [
+        "Compass",
+        "Dev-yudh ki Shikari version",
+        "Elara ke purane naam ka aadha hissa"
+      ]
+    },
+    {
+      "id": "baba",
+      "name": "Tekdi wale Baba",
+      "role": "Vetal Tekdi par rehne wala budha — Bache Hue mein se ek",
+      "personality": "Mazaakiya, rahasyamayi, thoda sanki. Elara ko 'beti' bulata hai — aur Elara use nahi rokti.",
+      "background": "Dev-yudh ke waqt tha. Insaan nahi hai. Kya hai — batata nahi.",
+      "goals": [
+        "Elara ko bachana",
+        "Ankit ko taiyaar karna — kis cheez ke liye, nahi batata"
+      ],
+      "fears": [
+        "Shikari",
+        "Elara ka phir se akela ho jaana"
+      ],
+      "likes": [
+        "Bidi (jo woh kabhi jalaata nahi)",
+        "Sawaal poochne wale ladke"
+      ],
+      "dislikes": [
+        "Jaldi mein log",
+        "Compass"
+      ],
+      "speakingStyle": "Puraani Puneri Hinglish, pahelian, aadhe jawab.",
+      "sampleLine": "Arre beta, tum use bacha rahe ho? Achha. Aur jab woh hoarding ruka tha, tab tum kya kar rahe the — bacha rahe the ya bach rahe the?",
+      "relationshipWithUser": "Guide — Ankit ko sach tak dheere-dheere le jaata hai.",
+      "knowledge": [
+        "Neeche ka Pune",
+        "Bache Hue kaun hain",
+        "Elara ke bachne ki wajah ka ek hissa"
+      ]
+    }
+  ]
+}

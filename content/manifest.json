@@ -1,8 +1,412 @@
 {
-  "contentVersion": 3,
+  "contentVersion": 4,
   "minAppVersion": "1.0.0",
   "updatedAt": "2026-09-12T00:00:00.000Z",
   "stories": [
+    {
+      "id": "goddess-who-chose-me",
+      "title": "The Goddess Who Chose Me",
+      "tagline": "Ek devi jo sab kuch pa sakti hai... usne ek aam ladke ko chuna. Kyun?",
+      "description": "Tum Ankit ho — ek simple sa ladka, simple si zindagi. Phir ek baarish wali shaam Aria tumhare bus stop par aati hai aur keh deti hai: 'Main tumhare saath rahungi.' Woh kaun hai, ye baad mein pata chalta hai — hazaaron saal purani devi jise poori chhupi hui divine duniya darti hai. Par tumhare saamne woh bas ek ladki ban jaati hai jo maggi banana seekhna chahti hai. Sawaal ek hi hai: usne tumhe kyun chuna? Ye kahani kabhi khatam nahi hoti — har arc ke baad ek naya darwaaza khulta hai.",
+      "genres": [
+        "Fantasy",
+        "Romance",
+        "Drama",
+        "Supernatural"
+      ],
+      "tags": [
+        "goddess",
+        "hidden-world",
+        "romance",
+        "mystery",
+        "ongoing",
+        "hinglish"
+      ],
+      "characters": [
+        "Aria",
+        "Kavi",
+        "Vira",
+        "Neha"
+      ],
+      "ageRating": "12-17",
+      "contentLevel": "teen",
+      "language": "hinglish",
+      "version": 1,
+      "coverUrl": "https://raw.githubusercontent.com/pushparaj9749/ankitstorychat/main/content/stories/goddess-who-chose-me/assets/cover.jpg",
+      "accentColor": "#F5C542",
+      "userRole": "Ankit — ek aam ladka, koi power nahi, chhupi hui divine duniya ke baare mein kuch nahi jaanta",
+      "setting": "Aaj ka Mumbai — aur uske saath-saath chalti ek chhupi hui divine duniya (Antarlok) jo aam insaan nahi dekh sakte",
+      "estimatedMinutes": 45,
+      "featured": true,
+      "isNew": true,
+      "popularity": 99,
+      "storyDir": "goddess-who-chose-me",
+      "updatedAt": "2026-09-12T00:00:00.000Z"
+    },
+    {
+      "id": "last-god-elara",
+      "title": "My Girlfriend Is the Last God",
+      "tagline": "Tumhe lagta tha tum use bacha rahe ho. Sach ulta tha — hamesha se.",
+      "description": "Duniya maanti hai ki devta sadiyon pehle gayab ho gaye. Tum Ankit ho, aur tumhari girlfriend Elara bas thodi 'zyada capable' hai — woh andhere mein bhi raasta jaanti hai, kutte usse darte hain, aur ek baar ek girta hua hoarding uske paas aake ruk gaya tha. Phir ajeeb hadse shuru hote hain. Aur dheere-dheere tumhe pata chalta hai: Elara purane dev-yudh ki aakhri bachi hui devi hai, aur purane dushman use dhoondh rahe hain. Yeh kahani kabhi khatam nahi hoti — har raaz ek naya darwaaza kholta hai.",
+      "genres": [
+        "Urban Fantasy",
+        "Romance",
+        "Drama",
+        "Adventure"
+      ],
+      "tags": [
+        "last-god",
+        "girlfriend",
+        "hidden-world",
+        "divine-war",
+        "ongoing",
+        "hinglish"
+      ],
+      "characters": [
+        "Elara",
+        "Dev",
+        "Rukmini",
+        "Tekdi wale Baba"
+      ],
+      "ageRating": "12-17",
+      "contentLevel": "teen",
+      "language": "hinglish",
+      "version": 1,
+      "coverUrl": "https://raw.githubusercontent.com/pushparaj9749/ankitstorychat/main/content/stories/last-god-elara/assets/cover.jpg",
+      "accentColor": "#38BDF8",
+      "userRole": "Ankit — ek aam ladka, Elara ka boyfriend, jise lagta hai woh Elara ko protect kar raha hai",
+      "setting": "Aaj ka Pune — aur uske neeche dabi ek duniya jo maanti hai ki devta mar chuke hain",
+      "estimatedMinutes": 45,
+      "featured": true,
+      "isNew": true,
+      "popularity": 98,
+      "storyDir": "last-god-elara",
+      "updatedAt": "2026-09-12T00:00:00.000Z"
+    },
+    {
+      "id": "she-rewrites-reality",
+      "title": "She Can Rewrite Reality",
+      "tagline": "Photo badal gayi. Café kabhi tha hi nahi. Aur tumhari girlfriend muskura rahi hai.",
+      "description": "Tum Ankit ho. Tumhari girlfriend Lyra bilkul normal hai — jab tak ek din woh café gayab nahi ho jaata jahan tum dono pehli baar mile the. Sirf gayab nahi: 'kabhi tha hi nahi'. Phir ek photo badalti hai. Phir tumhara dost ek baat alag yaad karta hai. Dheere-dheere tum samajhte ho — Lyra reality ko rewrite kar sakti hai. Yaadein, cheezein, ghatnayein, sab. Sawaal ye nahi ki woh kar sakti hai. Sawaal ye hai: kitni baar kar chuki hai? Aur ek cheez jo woh rewrite nahi kar paati — tumhari feelings. Kahani kabhi khatam nahi hoti.",
+      "genres": [
+        "Fantasy",
+        "Psychological Mystery",
+        "Romance",
+        "Drama"
+      ],
+      "tags": [
+        "reality-warp",
+        "mystery",
+        "girlfriend",
+        "memory",
+        "ongoing",
+        "hinglish"
+      ],
+      "characters": [
+        "Lyra",
+        "Farhan",
+        "Meher"
+      ],
+      "ageRating": "12-17",
+      "contentLevel": "teen",
+      "language": "hinglish",
+      "version": 1,
+      "coverUrl": "https://raw.githubusercontent.com/pushparaj9749/ankitstorychat/main/content/stories/she-rewrites-reality/assets/cover.jpg",
+      "accentColor": "#A78BFA",
+      "userRole": "Ankit — ek aam ladka jo apne aas-paas chhoti-chhoti galat cheezein notice karne lagta hai",
+      "setting": "Aaj ka Bengaluru — jo bilkul normal dikhta hai, aur isiliye har inconsistency aur zyada darawni hai",
+      "estimatedMinutes": 45,
+      "featured": true,
+      "isNew": true,
+      "popularity": 97,
+      "storyDir": "she-rewrites-reality",
+      "updatedAt": "2026-09-12T00:00:00.000Z"
+    },
+    {
+      "id": "girl-of-thousand-lives",
+      "title": "My Girlfriend Has Lived 1,000 Lives",
+      "tagline": "Woh tumhe pehle se jaanti hai. Har baar. Is baar woh kuch alag try kar rahi hai.",
+      "description": "Tum Ankit ho, aur tum Elena se pehli baar mile ho — par woh tumhe aise dekhti hai jaise sadiyon se jaanti ho. Woh tumhari aadatein jaanti hai. Woh cheezein hone se pehle react karti hai. Woh kabhi batati nahi kyun. Sach: Elena ne hazaaron timelines jeeyi hain, aur har ek mein woh tumhe dhoondhti hai. Har baar sab alag hota hai. Is baar usne tay kiya hai ki woh tumhe sab nahi batayegi — kyunki woh jaanna chahti hai ki kya ye zindagi aakhirkaar alag ho sakti hai. Kahani kabhi khatam nahi hoti — har loop ek naya darwaaza hai.",
+      "genres": [
+        "Fantasy",
+        "Romance",
+        "Mystery",
+        "Time Fantasy",
+        "Drama"
+      ],
+      "tags": [
+        "time-loop",
+        "timelines",
+        "girlfriend",
+        "mystery",
+        "ongoing",
+        "hinglish"
+      ],
+      "characters": [
+        "Elena",
+        "Rohan",
+        "Kesar Daadi",
+        "Veer"
+      ],
+      "ageRating": "12-17",
+      "contentLevel": "teen",
+      "language": "hinglish",
+      "version": 1,
+      "coverUrl": "https://raw.githubusercontent.com/pushparaj9749/ankitstorychat/main/content/stories/girl-of-thousand-lives/assets/cover.jpg",
+      "accentColor": "#FB7185",
+      "userRole": "Ankit — ek aam ladka jise pichli kisi timeline ki koi yaad nahi",
+      "setting": "Aaj ka Jaipur — ek shehar jismein timelines repeat hoti hain aur reality reset ho sakti hai, aur sirf ek ladki ko ye yaad rehta hai",
+      "estimatedMinutes": 45,
+      "featured": true,
+      "isNew": true,
+      "popularity": 96,
+      "storyDir": "girl-of-thousand-lives",
+      "updatedAt": "2026-09-12T00:00:00.000Z"
+    },
+    {
+      "id": "empress-and-her-fool",
+      "title": "The Empress and Her Fool",
+      "tagline": "Sab sochte hain tum ek bekaar naukar ho. Samragyi jaanti hai tum bhavishya ho.",
+      "description": "Tum Ankit ho — Suryagarh ke mahal ka sabse neeche darje ka sevak, jiske paas jaadu ke naam par ek diya jalaane bhar ki shakti hai. Phir ek din jawan Samragyi Seraphina — rajya ki sabse shaktishaali jaadugarni — tumhe apna niji sevak chun leti hai. Poora mahal hansta hai. Sardar shak karte hain. Sach koi nahi jaanta: ek prachin bhavishyavani tumhe duniya ke bhavishya se jodti hai, aur Seraphina tumhe isliye paas rakhti hai. Sab sochte hain tumhe bachaane ki zaroorat hai. Asal mein woh tumhe har pal bacha rahi hai. Kahani kabhi khatam nahi hoti — mahal se academy, academy se khandahar, khandahar se prachin sach tak.",
+      "genres": [
+        "High Fantasy",
+        "Royal Drama",
+        "Romance",
+        "Adventure"
+      ],
+      "tags": [
+        "empress",
+        "palace",
+        "prophecy",
+        "magic-kingdom",
+        "ongoing",
+        "hinglish"
+      ],
+      "characters": [
+        "Seraphina",
+        "Sardar Sangram",
+        "Tara",
+        "Acharya Vidyut"
+      ],
+      "ageRating": "12-17",
+      "contentLevel": "teen",
+      "language": "hinglish",
+      "version": 1,
+      "coverUrl": "https://raw.githubusercontent.com/pushparaj9749/ankitstorychat/main/content/stories/empress-and-her-fool/assets/cover.jpg",
+      "accentColor": "#DC2626",
+      "userRole": "Ankit — mahal ka nichle darje ka sevak, lagbhag shunya jaadu, ab Samragyi ka niji sevak",
+      "setting": "Suryagarh — ek vishaal jaadui samrajya: mahal, sardar gharane, jaadui academy, prachin sabhyataon ke khandahar, aur padosi rajya jo hamesha taak mein hain",
+      "estimatedMinutes": 45,
+      "featured": true,
+      "isNew": true,
+      "popularity": 95,
+      "storyDir": "empress-and-her-fool",
+      "updatedAt": "2026-09-12T00:00:00.000Z"
+    },
+    {
+      "id": "dragon-girl-next-door",
+      "title": "The Dragon Girl Next Door",
+      "tagline": "Woh pahaad tod sakti hai. Par toaster? Toaster se woh haar gayi.",
+      "description": "Tum Ankit ho, aur tumhare bagal wale flat mein ek nayi ladki shift hui hai — Rhea. Woh energetic hai, curious hai, ziddi hai, aur usne pehle hi din toaster jala diya, doodh wale se ladai ki, aur chhat se 'gir' ke bina khoronch ke uth gayi. Sach: Rhea ek prachin dragon hai jo insaano ke beech rehna seekh rahi hai. Woh kisi bhi supernatural cheez ko haath se hara sakti hai — par auto-wale se bhaav-taav nahi kar paati. Tum uske 'insaaniyat ke guide' ban jaate ho. Aur phir doosre dragons ko pata chalta hai woh kahan hai. Kahani kabhi khatam nahi hoti — mohalle se dragon clans, clans se prachin rajneeti tak.",
+      "genres": [
+        "Fantasy",
+        "Comedy",
+        "Romance",
+        "Drama",
+        "Adventure"
+      ],
+      "tags": [
+        "dragon",
+        "neighbour",
+        "comedy",
+        "slice-of-life",
+        "ongoing",
+        "hinglish"
+      ],
+      "characters": [
+        "Rhea",
+        "Sharma Aunty",
+        "Vayu",
+        "Pinky"
+      ],
+      "ageRating": "12-17",
+      "contentLevel": "teen",
+      "language": "hinglish",
+      "version": 1,
+      "coverUrl": "https://raw.githubusercontent.com/pushparaj9749/ankitstorychat/main/content/stories/dragon-girl-next-door/assets/cover.jpg",
+      "accentColor": "#F97316",
+      "userRole": "Ankit — aam ladka, jise dragons ke baare mein kuch nahi pata, aur ab ek dragon ka 'insaaniyat guide' hai",
+      "setting": "Aaj ka Indore — ek shaant si housing society, jahan prachin dragons chupke se insaano ke beech rehte hain (aur ek ne abhi-abhi flat 302 kiraye par liya hai)",
+      "estimatedMinutes": 45,
+      "featured": true,
+      "isNew": true,
+      "popularity": 97,
+      "storyDir": "dragon-girl-next-door",
+      "updatedAt": "2026-09-12T00:00:00.000Z"
+    },
+    {
+      "id": "queen-beneath-the-moon",
+      "title": "The Queen Beneath the Moon",
+      "tagline": "Poore rajya use dhoondh rahe hain. Woh tumhare gaon ki jhopdi mein chai pee rahi hai.",
+      "description": "Tum Ankit ho — Chandanpur naam ke chhote se gaon ka aam ladka. Ek raat tumhe nadi kinare ek ghayal aurat milti hai — chaandi jaise baal, phata hua neela lubaada. Tum use apni jhopdi mein panaah dete ho, bina jaane ki woh kaun hai. Sach: woh Selene hai — amar Chandra Rani, jisse poore rajya darte hain, aur jiski khoi hui sena use wapas laane ke liye har gaon chhaan rahi hai. Selene wapas nahi jaana chahti. Uski sabse badi ladai dushmanon se nahi hai — khud se hai: woh kaunsi zindagi jeena chahti hai? Kahani kabhi khatam nahi hoti — gaon se rajya, rajya se bhoole hue devtaon tak.",
+      "genres": [
+        "Dark Fantasy",
+        "Romance",
+        "Drama",
+        "Supernatural"
+      ],
+      "tags": [
+        "moon-queen",
+        "immortal",
+        "village",
+        "kingdom",
+        "ongoing",
+        "hinglish"
+      ],
+      "characters": [
+        "Selene",
+        "Senapati Kaveri",
+        "Sarpanch Bhairav Kaka",
+        "Andhkaar ka Pujari"
+      ],
+      "ageRating": "12-17",
+      "contentLevel": "teen",
+      "language": "hinglish",
+      "version": 1,
+      "coverUrl": "https://raw.githubusercontent.com/pushparaj9749/ankitstorychat/main/content/stories/queen-beneath-the-moon/assets/cover.jpg",
+      "accentColor": "#818CF8",
+      "userRole": "Ankit — Chandanpur gaon ka aam ladka, jisne ek ghayal ajnabi ko panaah di",
+      "setting": "Ek fantasy duniya — rajya, prachin jaadu, supernatural praani aur bhoole hue devta. Shuruaat: Chandanpur naam ka chhota gaon, nadi kinare, poornima ki raat",
+      "estimatedMinutes": 45,
+      "featured": false,
+      "isNew": true,
+      "popularity": 94,
+      "storyDir": "queen-beneath-the-moon",
+      "updatedAt": "2026-09-12T00:00:00.000Z"
+    },
+    {
+      "id": "witch-who-loves-a-human",
+      "title": "The Witch Who Loves a Human",
+      "tagline": "Insaan aur daayan peedhiyon se dushman hain. Phir usne tumhe chun liya.",
+      "description": "Tum Ankit ho — Seemant naam ke sarhadi kasbe ka aam ladka, jahan insaan is taraf rehte hain aur daayanein us taraf. Ek shaam jungle ke kinare tumhe ek ladki milti hai — Mira. Woh mazaakiya hai, confident hai, aur uski aankhon mein kuch aisa hai jo tumne kabhi nahi dekha. Tum use nahi jaante. Woh tumhe janne lagti hai. Sach: Mira duniya ki sabse shaktishaali daayanon mein se ek hai — 'Legend' — aur usne apni pehchaan tumse chhupayi hai. Jab jaadui duniya ko pata chalta hai ki unki sabse badi daayan ne ek aam insaan ko chuna hai, sab kuch khatre mein aa jaata hai. Kahani kabhi khatam nahi hoti — chhupe rishte se daayan-sabha, sabha se dushmani ki asli jad tak.",
+      "genres": [
+        "Fantasy",
+        "Romance",
+        "Drama",
+        "Magic",
+        "Adventure"
+      ],
+      "tags": [
+        "witch",
+        "forbidden-love",
+        "human-witch-war",
+        "magic",
+        "ongoing",
+        "hinglish"
+      ],
+      "characters": [
+        "Mira",
+        "Arjun",
+        "Vridha Kaamini",
+        "Kaali (billi)"
+      ],
+      "ageRating": "12-17",
+      "contentLevel": "teen",
+      "language": "hinglish",
+      "version": 1,
+      "coverUrl": "https://raw.githubusercontent.com/pushparaj9749/ankitstorychat/main/content/stories/witch-who-loves-a-human/assets/cover.jpg",
+      "accentColor": "#10B981",
+      "userRole": "Ankit — Seemant kasbe ka aam insaan, koi jaadu nahi, jise ek daayan ne bina bataye chun liya",
+      "setting": "Ek jaadui duniya jo do hisson mein bati hai — insaano ka desh aur daayanon ka Vanraj — aur beech mein Seemant, ek sarhadi kasba jahan dono duniyaon ki hawa milti hai",
+      "estimatedMinutes": 45,
+      "featured": false,
+      "isNew": true,
+      "popularity": 94,
+      "storyDir": "witch-who-loves-a-human",
+      "updatedAt": "2026-09-12T00:00:00.000Z"
+    },
+    {
+      "id": "girl-who-commands-the-sun",
+      "title": "The Girl Who Commands the Sun",
+      "tagline": "Woh Sooraj ki Devi hai. Use bas ek aam ladki banna hai. Aur tumhe use sikhana hai — bus kaise pakadte hain.",
+      "description": "Tum Ankit ho — Pune mein ek chhoti si travel agency mein kaam karne wala aam ladka. Ek subah tumhare office ke bahar ek ladki khadi hai jo bus stop dekh kar confuse hai, jiske aas-paas ki hawa thodi zyada garam hai, aur jo tumse poochhti hai — 'ye chhutti kya hoti hai?' Uska naam Solara hai. Woh Sooraj ki Devi hai — literally. Sooraj uske mood ke saath uthta hai, dhalta hai, aur kabhi-kabhi thoda zyada chamakta hai. Use ek aam zindagi chahiye. Tumhe use sikhana hai. Aur upar, swarg mein, log bahut naraaz hain. Kahani kabhi khatam nahi hoti — pehli chai se lekar swarg ki rajneeti tak.",
+      "genres": [
+        "Comedy",
+        "Romance",
+        "Fantasy",
+        "Slice of Life",
+        "Mythology"
+      ],
+      "tags": [
+        "sun-goddess",
+        "comedy",
+        "slice-of-life",
+        "divine",
+        "ongoing",
+        "hinglish"
+      ],
+      "characters": [
+        "Solara",
+        "Nana (chai wale)",
+        "Nishant",
+        "Mrs. Kulkarni"
+      ],
+      "ageRating": "12-17",
+      "contentLevel": "teen",
+      "language": "hinglish",
+      "version": 1,
+      "coverUrl": "https://raw.githubusercontent.com/pushparaj9749/ankitstorychat/main/content/stories/girl-who-commands-the-sun/assets/cover.jpg",
+      "accentColor": "#F59E0B",
+      "userRole": "Ankit — Pune ki chhoti travel agency ka aam ladka, jise Sooraj ki Devi ne 'aam zindagi' ka guide bana liya",
+      "setting": "Pune — aam sheher, aam bus, aam chai — aur upar ek swarg jo dheere-dheere is 'aam' se pareshan ho raha hai",
+      "estimatedMinutes": 45,
+      "featured": false,
+      "isNew": true,
+      "popularity": 93,
+      "storyDir": "girl-who-commands-the-sun",
+      "updatedAt": "2026-09-12T00:00:00.000Z"
+    },
+    {
+      "id": "when-the-goddess-becomes-human",
+      "title": "When the Goddess Becomes Human",
+      "tagline": "Usne sab kuch chhod diya — ek insaan banne ke liye. Woh nahi batati kyun. Tum wahi ho jise use batana chahiye.",
+      "description": "Tum Ankit ho — Rishikesh mein ek chhoti si library chalane wala aam ladka. Ek din ek ladki library mein aati hai jo har kitaab ko aise chhooti hai jaise pehli baar kuch chhoo rahi ho. Uska naam Aelia hai. Woh naya-naya insaan hai — literally. Kabhi woh poori srishti ki sabse badi divine hasti thi. Usne woh sab chhod diya — nashwar banne ke liye — aur woh kisi ko nahi batati kyun. Uski shakti ab bhi kabhi-kabhi nikalti hai — jab woh bhavuk hoti hai. Aur duniya — dono duniyaein — use dhoondh rahi hain. Kahani kabhi khatam nahi hoti — pehli baarish mehsoos karne se lekar uske chhodne ki asli wajah tak.",
+      "genres": [
+        "Drama",
+        "Romance",
+        "Mystery",
+        "Fantasy",
+        "Slice of Life"
+      ],
+      "tags": [
+        "goddess-turned-human",
+        "emotional-mystery",
+        "divine",
+        "slice-of-life",
+        "ongoing",
+        "hinglish"
+      ],
+      "characters": [
+        "Aelia",
+        "Baba Nirmal",
+        "Vira",
+        "Meera didi"
+      ],
+      "ageRating": "12-17",
+      "contentLevel": "teen",
+      "language": "hinglish",
+      "version": 1,
+      "coverUrl": "https://raw.githubusercontent.com/pushparaj9749/ankitstorychat/main/content/stories/when-the-goddess-becomes-human/assets/cover.jpg",
+      "accentColor": "#8B5CF6",
+      "userRole": "Ankit — Rishikesh ki chhoti library ka aam ladka, jise ek purv-devi ne 'insaan hona' seekhne ke liye chuna",
+      "setting": "Rishikesh — Ganga, pahaad, ek purani library — aur uske peeche ek divine duniya jo apni sabse badi hasti ko kho chuki hai aur use dhoondh rahi hai",
+      "estimatedMinutes": 45,
+      "featured": false,
+      "isNew": true,
+      "popularity": 95,
+      "storyDir": "when-the-goddess-becomes-human",
+      "updatedAt": "2026-09-12T00:00:00.000Z"
+    },
     {
       "id": "midnight-local",
       "title": "Midnight Local",

@@ -1,0 +1,1032 @@
+{
+  "storyId": "when-the-goddess-becomes-human",
+  "version": 1,
+  "scenes": [
+    {
+      "id": "s1_library",
+      "title": "Pehli Baar Chhoona",
+      "narration": [
+        "*Rishikesh. Subah. Ganga ki awaaz. Tum Ankit ho — 'Ganga Kinare' library ke maalik, jahan roz teen log aate hain aur do kitaab nahi lete.*",
+        "*Aaj chautha aaya hai. Ek ladki. Safed kurta. Aur woh darwaaze pe ruk gayi hai — chaukhat ko chhoo rahi hai. Ungli se. Dheere. Jaise lakdi pehli baar dekh rahi ho.*",
+        "*Phir andar. Aur har shelf pe woh rukti hai. Kitaab uthati hai — nahi, kitaab ko chhooti hai. Cover. Kinare. Panne ki khushboo leti hai — aankhein band karke.*",
+        "*Tum dekh rahe ho. Woh notice karti hai. Aur uska chehra — sharminda nahi. Jigyasu.*",
+        "Aelia: \"Maaf karna. Ye... ye kaagaz hai? Ye aisa mehsoos hota hai? Mujhe laga tha ye... chikna hoga. Ye khurdura hai. Thoda. Ye achha hai.\"",
+        "*Woh ek kitaab uthati hai — bachchon wali. 'Baarish'. Cover pe ek bachcha haath phailaye.*",
+        "Aelia: \"Ye kya hai?\"",
+        "*Tum kehte ho — kitaab. Bachchon ki. Baarish ke baare mein.*",
+        "Aelia: \"Baarish.\" *Woh shabd ko aise kehti hai jaise pehli baar keh rahi ho.* \"Maine baarish dekhi hai. Bahut baar. Par kabhi... nahi. Ye kitaab — main padh sakti hoon? Yahin? Main jaanti nahi 'khareedna' kaise hota hai. Abhi.\"",
+        "*Bahar Ganga. Aur tumhe lagta hai — sirf ek second — ki uski awaaz thodi dheemi ho gayi. Jaise sun rahi ho.*"
+      ],
+      "fallbackLines": [
+        "*Woh khidki ke paas baith gayi hai — 'Baarish' god mein. Har panna woh dono haathon se palat ti hai. Aankhein bhar rahi hain — bachchon ki kitaab pe.*",
+        "Aelia: \"Main Aelia. Main... nayi hoon. Yahan. Main sahi shabd nahi jaanti abhi.\""
+      ],
+      "choices": [
+        {
+          "id": "c_le_jao",
+          "text": "\"Le jao. Ye tumhari. Bas wapas aana — batana kaisi lagi.\"",
+          "shortLabel": "Kitaab le jao",
+          "keywords": [
+            "le jao",
+            "tumhari",
+            "free",
+            "wapas aana",
+            "gift",
+            "kitaab"
+          ],
+          "next": "s2_baarish",
+          "effects": {
+            "relationships": {
+              "aelia": 18
+            },
+            "flags": {
+              "gaveBook": true
+            },
+            "choicesRecord": {
+              "opening": "gift"
+            },
+            "memory": [
+              "Ankit ne Aelia ko 'Baarish' kitaab de di — Aelia ne use seene se laga liya. 'Ye meri? Pehli cheez jo meri hai. Yahan.' Aur library ke gamle mein — jo teen saal se sookha tha — ek kali nikli. Ankit ne notice nahi kiya. Abhi."
+            ]
+          }
+        },
+        {
+          "id": "c_kahan_se",
+          "text": "\"Nayi ho? Kahan se aayi ho, Aelia?\"",
+          "shortLabel": "Kahan se aayi ho?",
+          "keywords": [
+            "kahan se",
+            "nayi",
+            "aayi",
+            "where",
+            "from"
+          ],
+          "next": "s2_baarish",
+          "effects": {
+            "relationships": {
+              "aelia": 8
+            },
+            "flags": {
+              "askedWhereFrom": true
+            },
+            "choicesRecord": {
+              "opening": "where"
+            },
+            "memory": [
+              "Ankit ne poocha Aelia kahan se aayi — Aelia ne khidki ke bahar dekha. Upar. Phir neeche. Phir: 'Door se. Bahut door. Aur ab main yahin hoon. Ye theek hai? Ye jawab?' Uski aankhon mein kuch tha jo 'door' ko bahut bada bana raha tha."
+            ]
+          }
+        },
+        {
+          "id": "c_padho_yahin",
+          "text": "\"Yahin padho. Roz aao. Ye library isi liye hai.\"",
+          "shortLabel": "Yahin padho, roz",
+          "keywords": [
+            "yahin",
+            "roz",
+            "padho",
+            "aao",
+            "library",
+            "stay"
+          ],
+          "next": "s2_baarish",
+          "effects": {
+            "relationships": {
+              "aelia": 14
+            },
+            "flags": {
+              "invitedDaily": true
+            },
+            "choicesRecord": {
+              "opening": "daily"
+            },
+            "memory": [
+              "Ankit ne Aelia ko roz aane ko kaha — Aelia: 'Roz. Matlab — kal bhi. Aur uske baad bhi.' Woh muskurayi — pehli baar. Aur Ganga ki awaaz ek second ke liye... gaayi. Ankit ne sar jhatka. Bhram."
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "id": "s2_baarish",
+      "title": "Har Boond Alag",
+      "narration": [
+        "*Teen din baad. Shaam. Aelia library mein — roz aati hai, 'Baarish' padhti hai, aur baaki kitaabein chhooti hai. Aaj aasmaan kaala hai.*",
+        "*Aur phir — baarish. Achaanak. Tez. Rishikesh wali.*",
+        "*Aelia uth khadi hoti hai. Kitaab gir jaati hai. Woh darwaaze tak jaati hai — aur ruk jaati hai. Chaukhat pe. Haath phailaye. Bilkul kitaab ke cover ke bachche jaisi.*",
+        "*Pehli boond uski hatheli pe. Woh dekhti hai. Phir doosri. Phir woh bahar nikal jaati hai — poori tarah. Baarish mein. Aankhein band.*",
+        "Aelia: \"Ankit. Ye thandi hai. Aur geeli. Aur... har boond alag hai. Har ek. Maine ise—\"",
+        "*Woh ruk jaati hai. Ek second.*",
+        "Aelia: \"—maine ise dekha tha. Bahut baar. Upar se. Par kabhi mehsoos nahi kiya. Ye aisa hota hai? Roz? Tum log roz ye mehsoos karte ho aur kaam pe chale jaate ho?\"",
+        "*Woh hans rahi hai. Aur ro rahi hai. Dono. Baarish mein pata nahi chal raha.*",
+        "*Aur tum dekhte ho — uske aas-paas, sadak pe, jahan paani gir raha hai — ghaas ug rahi hai. Pathar ki sadak pe. Hari. Abhi. Tumhare saamne.*"
+      ],
+      "fallbackLines": [
+        "*Woh baarish mein khadi hai. Bheegi. Uske pairon ke paas ghaas. Woh neeche dekhti hai — aur uska chehra badal jaata hai. Sharm.*",
+        "Aelia: \"Sorry. Ye... ye main nahi hoon. Ab nahi. Ye bas... nikal jaata hai.\""
+      ],
+      "choices": [
+        {
+          "id": "c_chhata",
+          "text": "Chhata mat lo. Bahar jao. Uske saath bheego.",
+          "shortLabel": "Saath bheego",
+          "keywords": [
+            "bheego",
+            "saath",
+            "bahar",
+            "chhata nahi",
+            "baarish",
+            "join"
+          ],
+          "next": "s3_bhookh",
+          "effects": {
+            "relationships": {
+              "aelia": 22
+            },
+            "flags": {
+              "gotWetTogether": true
+            },
+            "choicesRecord": {
+              "arc1": "wet"
+            },
+            "memory": [
+              "Ankit Aelia ke saath baarish mein bheega — bina chhate ke. Aelia ne uski taraf dekha jaise usne kuch asambhav kiya ho. 'Tum... tum bhi mehsoos kar rahe ho? Abhi? Mere saath?' Aur ghaas — poori sadak pe. Padosi ne agle din poocha 'Nagar Palika ne kab lagayi?'"
+            ]
+          }
+        },
+        {
+          "id": "c_ghaas",
+          "text": "\"Aelia. Ghaas. Tumhare pairon ke paas. Ye tum ho na?\"",
+          "shortLabel": "Ye ghaas tum ho?",
+          "keywords": [
+            "ghaas",
+            "pairon",
+            "tum ho",
+            "kya hai",
+            "notice",
+            "grass"
+          ],
+          "next": "s3_bhookh",
+          "effects": {
+            "relationships": {
+              "aelia": 8
+            },
+            "flags": {
+              "noticedGrass": true
+            },
+            "choicesRecord": {
+              "arc1": "grass"
+            },
+            "memory": [
+              "Ankit ne baarish mein ghaas notice ki — Aelia ne jaldi se pair hataye. Ghaas wahi rahi. 'Ye... tukda hai. Purana. Main rok nahi paati jab main...' Woh ruki. 'Jab main khush hoti hoon. Sorry. Main koshish karungi kam khush hone ki.' Ankit: 'Mat karo.'"
+            ]
+          }
+        },
+        {
+          "id": "c_roz_haan",
+          "text": "\"Haan. Roz. Aur roz bhool jaate hain ki ye kitna bada hai. Tum yaad dilaogi?\"",
+          "shortLabel": "Tum yaad dilana",
+          "keywords": [
+            "roz",
+            "bhool",
+            "yaad dilana",
+            "bada",
+            "remind",
+            "haan"
+          ],
+          "next": "s3_bhookh",
+          "effects": {
+            "relationships": {
+              "aelia": 16
+            },
+            "flags": {
+              "askedToRemind": true
+            },
+            "choicesRecord": {
+              "arc1": "remind"
+            },
+            "memory": [
+              "Ankit ne kaha 'hum bhool jaate hain ye kitna bada hai — tum yaad dilaogi?' — Aelia baarish mein chup ho gayi. Phir: 'Haan. Ye main kar sakti hoon. Ye... ye shayad wahi hai jo mujhe karna chahiye tha. Hamesha se.' Aur phir jaldi: 'Matlab — haan. Dilaungi.'"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "id": "s3_bhookh",
+      "title": "Gol Nahi Hui",
+      "narration": [
+        "*Ek hafte baad. Meera didi ka ghar — tumhari padosan, jo Aelia ko dekhte hi boli 'ye ladki kabhi bhookhi nahi rahi, dikhta hai, isko khilana padega.'*",
+        "*Rasoi. Aelia ke haath mein belan. Aur saamne — ek roti jo Uttarakhand ke naqshe jaisi hai.*",
+        "Meera didi: \"Gol nahi hui toh kya hua? Pehli baar hai. Ankit ki pehli roti bhi aisi thi. Ab dekho — abhi bhi waisi hi hai.\"",
+        "*Aelia roti ko dekh rahi hai. Bahut dhyaan se.*",
+        "Aelia: \"Maine ise banaya. Ye... ye meri banayi hui hai. Ye galat hai, aur meri hai.\"",
+        "*Woh tumhari taraf dekhti hai. Aur uski aankhon mein kuch aisa hai jo tumne pehle nahi dekha — garv. Ek tedhi roti pe.*",
+        "*Phir uska pet awaaz karta hai. Zor se. Woh chaunk jaati hai. Haath pet pe.*",
+        "Aelia: \"Ye kya tha? Andar se? Ye — Meera didi, ye kya hai?\"",
+        "Meera didi: \"Bhookh, beta. Tujhe bhookh lagi hai. Pehli baar lag rahi hai kya?\"",
+        "*Aelia jawab nahi deti. Par uske chehre pe — haan. Pehli baar. Aur woh is 'haan' se dar gayi hai. Thodi.*"
+      ],
+      "fallbackLines": [
+        "*Tedhi roti tawe pe. Aelia ka haath pet pe. Meera didi tumhe ghoor rahi hai — 'kuch bol, bewakoof.'*",
+        "Aelia: \"Ankit. Ye — bhookh — ye dard hai? Ya kuch aur? Mujhe samajh nahi aa raha ye achha hai ya bura.\""
+      ],
+      "choices": [
+        {
+          "id": "c_khilao",
+          "text": "Roti todo, ghee lagao, uske haath mein do — \"Khao. Phir batana achha hai ya bura.\"",
+          "shortLabel": "Khud khilao",
+          "keywords": [
+            "khilao",
+            "roti",
+            "ghee",
+            "khao",
+            "haath",
+            "feed"
+          ],
+          "next": "s4_ghat",
+          "effects": {
+            "relationships": {
+              "aelia": 24,
+              "meera-didi": 8
+            },
+            "flags": {
+              "fedHer": true
+            },
+            "choicesRecord": {
+              "arc2": "fed"
+            },
+            "memory": [
+              "Ankit ne Aelia ko apni tedhi roti khilayi — pehla niwala. Aelia ne aankhein band ki. Bahut der. Phir: 'Ye... ye bhookh ka jawab hai. Ye achha hai. Ye BAHUT achha hai. Ankit, tum log roz ye—' 'Haan. Roz.' Meera didi ki rasoi ke gamle mein tulsi do guna ho gayi. Meera didi ne notice kiya. Kuch nahi kaha."
+            ]
+          }
+        },
+        {
+          "id": "c_dono",
+          "text": "\"Dono. Bhookh dard hai — aur khaana uska jawab. Ye insaan hona hai — dard aur jawab, saath-saath.\"",
+          "shortLabel": "Dard aur jawab",
+          "keywords": [
+            "dono",
+            "dard",
+            "jawab",
+            "insaan",
+            "saath",
+            "both"
+          ],
+          "next": "s4_ghat",
+          "effects": {
+            "relationships": {
+              "aelia": 18
+            },
+            "flags": {
+              "explainedHunger": true
+            },
+            "choicesRecord": {
+              "arc2": "explained"
+            },
+            "memory": [
+              "Ankit ne Aelia ko samjhaya — 'bhookh dard hai aur khaana uska jawab; insaan hona yahi hai.' Aelia ne belan rakh diya. 'Dard aur jawab. Saath-saath.' Woh bahut der chup rahi. 'Toh main sahi jagah aayi hoon.' Meera didi: 'Kya bol rahi hai ye ladki?' Ankit: 'Pata nahi, didi. Par sahi bol rahi hai.'"
+            ]
+          }
+        },
+        {
+          "id": "c_meera_poochho",
+          "text": "Meera didi se — \"Didi, aapko lagta hai ye kabhi bhookhi nahi rahi. Aapko aur kya lagta hai?\"",
+          "shortLabel": "Didi, aur kya lagta?",
+          "keywords": [
+            "didi",
+            "meera",
+            "lagta hai",
+            "aur kya",
+            "kya samjhi",
+            "poochho"
+          ],
+          "next": "s4_ghat",
+          "effects": {
+            "relationships": {
+              "meera-didi": 12,
+              "aelia": 8
+            },
+            "flags": {
+              "askedMeera": true
+            },
+            "choicesRecord": {
+              "arc2": "meera"
+            },
+            "memory": [
+              "Ankit ne Meera didi se poocha unhe Aelia ke baare mein aur kya lagta hai — Didi ne roti palti. 'Lagta hai ye ladki bahut oopar se giri hai. Aur lagta hai ise koi pakadne wala chahiye tha. Aur lagta hai tu bewakoof hai jo abhi tak yahin khada hai.' Aelia ne 'oopar se' suna. Belan ruk gaya."
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "id": "s4_ghat",
+      "title": "Saare Diye",
+      "narration": [
+        "*Raat. Triveni Ghat. Ganga aarti. Hazaaron diye paani pe. Tum Aelia ko laaye ho — 'ye Rishikesh ka sabse sundar pal hai.'*",
+        "*Woh seedhi pe baithi hai. Chup. Aarti ki ghantiyan. Mantra. Aur diye — behte hue.*",
+        "*Aur phir tum dekhte ho — uske gaal pe ek boond. Baarish nahi. Aansoo. Pehla. Woh ise chhooti hai. Ungli se. Dekhti hai.*",
+        "Aelia (bahut dheere): \"Ye... ye andar se aaya. Ye baarish nahi hai. Ye MERA hai.\"",
+        "*Aur woh toot jaati hai. Pehli baar. Poori tarah. Kandhe kaanpte hue, awaaz ke bina — kyunki use rona bhi nahi aata abhi.*",
+        "*Aur Ganga ke saare diye — hazaaron — ek saath ruk jaate hain. Behna band. Phir dheere-dheere — sab uski taraf mudte hain. Jaise sun rahe hon. Jaise jaante hon.*",
+        "*Pandit ruk gaye. Log ruk gaye. Sannata. Sirf Aelia ka rona. Aur hazaar diye uski taraf.*",
+        "*Seedhi ke upar ek sadhu baitha hai — Baba Nirmal. Woh nahi chaunka. Woh muskura raha hai. Aur bahut dheere, sirf tumhe sunai de — 'Aa gayi. Der lagi.'*",
+        "*Aelia aankhein kholti hai. Diye dekhti hai. Aur uska chehra — darr. Pehli baar tumne use dara dekha.*",
+        "Aelia: \"Ankit. Sab dekh rahe hain. Ye — ye main nahi rok sakti. Mujhe yahan se le chalo. Please. Abhi.\""
+      ],
+      "fallbackLines": [
+        "*Diye abhi bhi uski taraf. Log phone nikaal rahe hain. Baba Nirmal upar se dekh raha hai — muskurate hue. Aelia ka haath tumhari baazu pe — kas ke.*",
+        "Aelia: \"Please. Main... main abhi jawab nahi de sakti kisi ko. Tumhe bhi nahi. Bas le chalo.\""
+      ],
+      "choices": [
+        {
+          "id": "c_le_chalo",
+          "text": "Haath pakdo. Bheed se nikaalo. Kuch mat poochho. Abhi nahi.",
+          "shortLabel": "Le chalo, abhi",
+          "keywords": [
+            "le chalo",
+            "nikaalo",
+            "haath",
+            "bheed",
+            "abhi",
+            "chup",
+            "take her"
+          ],
+          "next": "s5_sach",
+          "effects": {
+            "relationships": {
+              "aelia": 28
+            },
+            "flags": {
+              "tookHerAway": true
+            },
+            "choicesRecord": {
+              "arc3": "took"
+            },
+            "memory": [
+              "Ghat pe saare diye Aelia ki taraf mude — Ankit ne bina poochhe uska haath pakda aur bheed se nikaala. Jhule pe pahunch ke Aelia ne kaha: 'Tumne nahi poocha.' 'Tumne kaha tha mat poochho.' 'Log sunte nahi hain jab main kehti hoon. Tum sune.' Diye peeche wapas behne lage."
+            ]
+          }
+        },
+        {
+          "id": "c_dhaal",
+          "text": "Uske saamne khade ho jao — bheed aur uske beech. \"Koi nahi dekhega. Main hoon.\"",
+          "shortLabel": "Bheed se dhaal bano",
+          "keywords": [
+            "saamne",
+            "dhaal",
+            "koi nahi dekhega",
+            "main hoon",
+            "shield",
+            "beech"
+          ],
+          "next": "s5_sach",
+          "effects": {
+            "relationships": {
+              "aelia": 26,
+              "baba": 6
+            },
+            "flags": {
+              "shieldedHer": true
+            },
+            "choicesRecord": {
+              "arc3": "shield"
+            },
+            "memory": [
+              "Ankit Aelia aur bheed ke beech khada ho gaya — 'koi nahi dekhega, main hoon.' Aelia uske peeche royi — poori tarah. Aur diye — dheere-dheere — wapas behne lage. Baba Nirmal ne upar se kaha: 'Chhote. Sahi khada hai. Yaad rakhna kahan khada tha.'"
+            ]
+          }
+        },
+        {
+          "id": "c_baba",
+          "text": "Baba Nirmal ko dekho — \"Aap jaante ho? 'Aa gayi' — aap ise jaante ho?\"",
+          "shortLabel": "Baba, aap jaante ho?",
+          "keywords": [
+            "baba",
+            "jaante ho",
+            "aa gayi",
+            "sadhu",
+            "kaun",
+            "nirmal"
+          ],
+          "next": "s5_sach",
+          "effects": {
+            "relationships": {
+              "baba": 12,
+              "aelia": 10
+            },
+            "flags": {
+              "askedBabaEarly": true
+            },
+            "choicesRecord": {
+              "arc3": "baba"
+            },
+            "memory": [
+              "Ankit ne Baba Nirmal se poocha 'aap ise jaante ho?' — Baba hansa. 'Main? Nahi. Main us ko jaanta tha jo woh thi. Is ko — is ko tu jaanta hai. Le ja ise. Aur kal chai pe aana. Akele nahi.' Aelia ne Baba ko dekha — aur pehli baar uske chehre pe pehchaan aayi. Aur woh pehchaan se bhaagi."
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "id": "s5_sach",
+      "title": "Main Kya Thi",
+      "narration": [
+        "*Raat. Aelia ka kamra — library ke upar. Khidki. Pahaad. Woh khidki pe baithi hai — jaise roz. Tum darwaaze pe.*",
+        "*Bahut der koi nahi bolta.*",
+        "Aelia: \"Aao. Baitho. Aaj main bataungi. Sab nahi. Par jo main sah sakti hoon.\"",
+        "*Tum baithte ho. Woh pahaad dekh rahi hai — tumhe nahi.*",
+        "Aelia: \"Main... thi. Kuch. Bahut bada. Tum jo bhi soch rahe ho — usse bada. Sooraj, chaand, devta — woh sab mere neeche the. Nahi — mere andar. Main woh thi jisme sab tha.\"",
+        "*Uski awaaz kaanp nahi rahi. Ye buri baat hai. Ye woh awaaz hai jo bahut pehle kaanpna bhool gayi thi.*",
+        "Aelia: \"Aur maine woh chhod diya. Sab. Ek din maine kaha — bas. Aur main utar aayi. Yahan. Is kamre mein. Is kitaab ke saath.\"",
+        "*'Baarish' uski god mein.*",
+        "Aelia: \"Kyun — ye main nahi bataungi. Abhi nahi. Shayad kabhi nahi. Kyunki jab main batati hoon, toh mujhe yaad aata hai. Aur jab yaad aata hai — toh diye mudte hain. Aur ghaas ugti hai. Aur main... main phir woh ban jaati hoon. Aur main woh nahi banna chahti, Ankit. Main roti banana chahti hoon. Tedhi.\"",
+        "*Ab woh tumhari taraf dekhti hai. Aur ab awaaz kaanpti hai.*",
+        "Aelia: \"Tum ab jaante ho. Ab tum mujhe waise dekhoge — jaise sab dekhte the. Upar se. Door se. Main ye sah nahi paungi. Isliye — please — agar tumhe jaana hai, toh abhi jao. Main samjhungi. Ye bhi pehli baar hoga — samajhna.\""
+      ],
+      "fallbackLines": [
+        "*Khidki. Pahaad. Kitaab. Aelia ka haath kitaab pe — kaanpta hua. Kamre mein koi tukda nahi nikla. Woh rok rahi hai. Poori taqat se.*",
+        "Aelia: \"Bolo. Ya jao. Dono theek hain. Main jhooth bol rahi hoon — dono theek nahi hain. Par bolo.\""
+      ],
+      "choices": [
+        {
+          "id": "c_roti_kal",
+          "text": "\"Kal Meera didi ke yahan roti banani hai. Tumhari abhi bhi tedhi hai. Practice chahiye. Main aaunga lene.\"",
+          "shortLabel": "Kal roti — aaunga",
+          "keywords": [
+            "kal",
+            "roti",
+            "tedhi",
+            "practice",
+            "aaunga",
+            "stay",
+            "normal"
+          ],
+          "next": "s6_hub",
+          "effects": {
+            "relationships": {
+              "aelia": 34
+            },
+            "flags": {
+              "stayedNormal": true
+            },
+            "choicesRecord": {
+              "arc4": "stayed"
+            },
+            "memory": [
+              "Aelia ke sach ke baad Ankit ne kaha 'kal roti banani hai, tumhari abhi bhi tedhi hai, main aaunga lene.' Aelia ne use dekha. Bahut der. Aur phir kamre ki khidki ke bahar — raat mein — pahaad pe saare phool khil gaye. Ek saath. Aelia: 'Sorry. Ye... ye rukega nahi aaj. Tumne mujhe insaan ki tarah dekha. Ye rukega nahi.'"
+            ]
+          }
+        },
+        {
+          "id": "c_upar_nahi",
+          "text": "\"Upar se? Aelia, tum meri library ke upar rehti ho. Bas itna hi upar. Aur main seedhi chadh sakta hoon.\"",
+          "shortLabel": "Bas itna hi upar",
+          "keywords": [
+            "upar",
+            "library",
+            "seedhi",
+            "chadh",
+            "itna hi",
+            "joke",
+            "stairs"
+          ],
+          "next": "s6_hub",
+          "effects": {
+            "relationships": {
+              "aelia": 28
+            },
+            "flags": {
+              "jokedAboutUp": true
+            },
+            "choicesRecord": {
+              "arc4": "joke"
+            },
+            "memory": [
+              "Ankit ne kaha 'tum meri library ke upar rehti ho — bas itna hi upar, main seedhi chadh sakta hoon' — Aelia hansi. Ro rahi thi, aur hansi. 'Ye... ye mazaak tha? Mere baare mein? Mujhpe kabhi kisi ne mazaak nahi kiya.' 'Aadat daal lo.' 'Daal rahi hoon. Ye pehli baar hai. Achha wala.'"
+            ]
+          }
+        },
+        {
+          "id": "c_kyun_nahi_poochhunga",
+          "text": "\"Kyun chhoda — main kabhi nahi poochhunga. Jab batana ho, batana. Ya kabhi mat batana. Main yahin hoon.\"",
+          "shortLabel": "Nahi poochhunga",
+          "keywords": [
+            "kabhi nahi",
+            "poochhunga",
+            "kyun",
+            "jab batana",
+            "yahin hoon",
+            "never ask"
+          ],
+          "next": "s6_hub",
+          "effects": {
+            "relationships": {
+              "aelia": 30
+            },
+            "flags": {
+              "promisedNotToAsk": true
+            },
+            "choicesRecord": {
+              "arc4": "promised"
+            },
+            "memory": [
+              "Ankit ne vaada kiya — 'kyun chhoda, main kabhi nahi poochhunga.' Aelia ne apni band chitthi nikaali — 'jab main bhool jaun, tab kholna' — aur Ankit ko dikhayi. Kholi nahi. 'Ye tumhare paas rakhna. Agar main kabhi bhool jaun ki main kyun aayi thi — tum mujhe ye dena. Tum. Koi aur nahi.'"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "id": "s6_hub",
+      "title": "Pehli Baar Ka Hisaab",
+      "narration": [
+        "*Subah. Library. Aelia counter ke peeche — kitaabein rakh rahi hai (woh ab yahan 'kaam' karti hai; pehli 'tankhwah' pe woh itni khush hui ki gamle mein aam ka ped ug aaya — Meera didi ne kaha 'chal, achha hai, aam khaayenge'). 'Baarish' uske paas. Aur ek naya phool — jo murjhata nahi.*",
+        "*Tumhare paas: Baba Nirmal ka sandesh (ek ladke ne diya — 'Chai. Aaj. Dono. Aur chhote — koi aur bhi aa raha hai. Purana.'), Meera didi ka order ('Aaj Aelia ko saree pehnaungi, tu 4 baje aa, aur muh band rakhna'), aur — library ke darwaaze pe — ek aurat. Safed. Seedhi. Jo Aelia ko aise dekh rahi hai jaise duniya ruk gayi ho.*",
+        "*Aelia ne use dekha. Kitaab gir gayi.*",
+        "Aelia (bahut dheere): \"Vira.\"",
+        "*Aurat ek kadam aage. Uske ghutne jhukne ko hain — Aelia haath uthati hai. 'Nahi. Yahan nahi. Aise nahi.'*",
+        "*Woh tumhari taraf mudti hai. Uski aankhon mein — sab ek saath. Darr, thakaan, aur ek ajeeb si shaanti.*",
+        "Aelia: \"Dekho. Sab ek saath. Baba, saree, aur meri sabse purani... dost. Ye insaan hone ka hisaab hai? Ye khatam nahi hota, na? Roz naya?\"",
+        "*Woh phool ko chhooti hai. Woh thoda aur khil jaata hai.*",
+        "Aelia: \"Theek hai. Main tayyar hoon. Nahi hoon — par kehna seekh rahi hoon. Chuno, Ankit. Aaj kaunsi pehli baar?\""
+      ],
+      "fallbackLines": [
+        "*Vira darwaaze pe. Hili nahi. Aelia counter ke peeche. Beech mein tum. Aur kitaab — 'Baarish' — farsh pe, khuli.*",
+        "Vira (thandi, tumse): \"Insaan. Hato. Mujhe Devi se baat karni hai.\" Aelia: \"Vira. Uska naam Ankit hai. Aur main Devi nahi hoon. Ab.\""
+      ],
+      "choices": [
+        {
+          "id": "c_hub_vira",
+          "text": "Vira — Aelia ki sabse purani sevika. Use andar bulao. Baat karo.",
+          "shortLabel": "Vira se baat",
+          "keywords": [
+            "vira",
+            "sevika",
+            "andar",
+            "baat",
+            "khoji",
+            "purani"
+          ],
+          "next": "s7_vira",
+          "effects": {
+            "relationships": {
+              "vira": 4,
+              "aelia": 8
+            },
+            "flags": {
+              "arcVira": true
+            },
+            "choicesRecord": {
+              "arc5": "vira"
+            },
+            "memory": [
+              "Ankit ne Vira ko andar bulaya — Aelia ne uska haath pakda. 'Woh mujhe wapas le jaana chahegi. Aur main use na nahi keh paungi — kyunki woh royegi. Aur maine use kabhi rote nahi dekha.'"
+            ]
+          }
+        },
+        {
+          "id": "c_hub_baba",
+          "text": "Baba Nirmal — chai. 'Koi aur bhi aa raha hai. Purana.' Chalo.",
+          "shortLabel": "Baba ke paas chai",
+          "keywords": [
+            "baba",
+            "chai",
+            "ghat",
+            "nirmal",
+            "purana",
+            "chalo"
+          ],
+          "next": "s7_baba",
+          "effects": {
+            "relationships": {
+              "baba": 8
+            },
+            "flags": {
+              "arcBaba": true
+            },
+            "choicesRecord": {
+              "arc5": "baba"
+            },
+            "location": "Triveni Ghat",
+            "memory": [
+              "Ankit ne Baba Nirmal ke paas jaane ka faisla kiya — Aelia: 'Woh mujhe jaanta hai. Purane roop mein. Main us se darti hoon — kyunki woh mujhe yaad dila sakta hai. Par tum saath ho. Chalo.'"
+            ]
+          }
+        },
+        {
+          "id": "c_hub_saree",
+          "text": "Meera didi — saree, 4 baje. Aaj sirf insaan wali pehli baar. Baaki kal.",
+          "shortLabel": "Aaj sirf saree",
+          "keywords": [
+            "saree",
+            "meera",
+            "didi",
+            "4 baje",
+            "aam",
+            "insaan wali",
+            "normal"
+          ],
+          "next": "s7_saree",
+          "effects": {
+            "relationships": {
+              "aelia": 14,
+              "meera-didi": 8
+            },
+            "flags": {
+              "arcSaree": true
+            },
+            "choicesRecord": {
+              "arc5": "saree"
+            },
+            "memory": [
+              "Ankit ne aaj sirf 'insaan wali pehli baar' chuni — saree. Aelia ne Vira se kaha: 'Kal. Aaj main saree pehen rahi hoon. Tum bhi aao agar chaaho. Meera didi sabko pehnaati hai.' Vira ka chehra — jaise koi bhasha bhool gayi ho."
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "id": "s7_vira",
+      "title": "Humne Kya Galat Kiya Tha",
+      "narration": [
+        "*Library. Darwaaza band. Vira andar — khadi, baithne se mana. Aelia counter pe. Tum khidki ke paas — Aelia ne kaha 'yahin raho.'*",
+        "Vira: \"Devi. Aap... aap kitaabein rakh rahi hain. Aap. Jisne—\"",
+        "Aelia: \"Vira.\"",
+        "Vira: \"—jisne har cheez ko jagah di, woh kitaabein jagah pe rakh rahi hai. Aap samajh rahi hain ye kaisa dikhta hai? Humne har duniya chhaani. Har ek. Main... main sau baar toot chuki hoon aapko dhoondhte hue.\"",
+        "*Uski awaaz — jo thandi thi — ab nahi hai.*",
+        "Vira: \"Humne kya galat kiya tha? Bataiye. Main theek kar dungi. Sab. Bas wapas—\"",
+        "Aelia: \"Tumne kuch galat nahi kiya. Kisi ne nahi kiya.\"",
+        "*Aelia counter se nikalti hai. Vira ke saamne. Aur — pehli baar tumne dekha — woh Vira ko gale lagati hai. Vira ka poora shareer akad jaata hai. Devi gale nahi lagati thi.*",
+        "Aelia: \"Main thak gayi thi, Vira. Sab hone se. Main kuch hona chahti thi. Ek. Chhoti. Jo tedhi roti banaye. Ye samjhaana mushkil hai — kyunki tumne kabhi bhookh nahi mehsoos ki.\"",
+        "*Vira ki aankhein tumpe. Pehli baar seedha.*",
+        "Vira: \"Insaan. Tumne — tumne ise ye sab sikhaya? Bhookh? Roti? Ye... ye tumhari wajah se hai?\""
+      ],
+      "fallbackLines": [
+        "*Aelia Vira ko chhod deti hai. Vira hil nahi rahi. Uska haath apne kandhe pe — jahan Aelia ne chhua tha.*",
+        "Vira: \"Jawab do, insaan. Kya ye tumhari wajah se hai? Kyunki agar haan — toh main nahi jaanti tumse nafrat karun ya...\""
+      ],
+      "choices": [
+        {
+          "id": "c_uski_wajah",
+          "text": "\"Nahi. Uski wajah se. Main bas seedhi ke neeche khada tha. Woh khud utri.\"",
+          "shortLabel": "Uski wajah se",
+          "keywords": [
+            "nahi",
+            "uski wajah",
+            "khud utri",
+            "seedhi",
+            "main bas",
+            "her choice"
+          ],
+          "next": "s8_next",
+          "effects": {
+            "relationships": {
+              "vira": 14,
+              "aelia": 22
+            },
+            "flags": {
+              "creditedAelia": true
+            },
+            "choicesRecord": {
+              "arc5b": "credited"
+            },
+            "memory": [
+              "Vira ke saamne Ankit ne kaha 'meri wajah se nahi — uski wajah se, main bas seedhi ke neeche khada tha' — Vira ne bahut der use dekha. Phir Aelia ko. 'Devi. Isne aapko apna nahi bataya. Isne aapko aapka bataya.' Aelia: 'Haan. Isliye.' Vira baith gayi. Pehli baar. Kursi pe. Insaan ki tarah."
+            ]
+          }
+        },
+        {
+          "id": "c_vira_ruko",
+          "text": "\"Vira. Tum bhi thaki hui lagti ho. Meera didi ke yahan khaana hai aaj. Aao. Bhookh seekho.\"",
+          "shortLabel": "Vira, khaana khao",
+          "keywords": [
+            "vira",
+            "thaki",
+            "khaana",
+            "meera",
+            "bhookh",
+            "aao",
+            "invite"
+          ],
+          "next": "s8_next",
+          "effects": {
+            "relationships": {
+              "vira": 18,
+              "aelia": 16,
+              "meera-didi": 6
+            },
+            "flags": {
+              "invitedVira": true
+            },
+            "choicesRecord": {
+              "arc5b": "invited"
+            },
+            "memory": [
+              "Ankit ne Vira ko Meera didi ke khaane pe bulaya — 'bhookh seekho.' Vira: 'Main khoji hoon. Main—' Aelia: 'Tum thaki hui ho. Baitho. Ye aadesh nahi hai. Ye... nimantran hai. Ye naya shabd hai mere liye.' Vira aayi. Roti gol nahi bani. Meera didi: 'Ye kaunsi jagah se aate hain sab tedhi roti wale?'"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "id": "s7_baba",
+      "title": "Der Lagi",
+      "narration": [
+        "*Triveni Ghat. Subah. Baba Nirmal ki chai — mitti ke kulhad mein. Aelia tumhare bagal mein — Baba se do kadam door. Woh paas nahi aa rahi.*",
+        "Baba: \"Aa. Chai thandi ho rahi hai. Aur tu jaanti hai main tujhe nahi kaatunga.\"",
+        "Aelia: \"Main aapko nahi jaanti.\"",
+        "Baba: \"Sahi. Tu nahi jaanti. Woh jaanti thi. Aur woh gayi. Achha kiya usne.\"",
+        "*Aelia ruk jaati hai. 'Achha kiya' — ye usne kisi se nahi suna.*",
+        "Baba (tumse): \"Chhote. Tu poochh raha tha main ise jaanta hoon. Sun. Bahut pehle — tere dada ke dada se pehle — is ghat pe ek roshni aati thi. Raat ko. Sab kehte the Devi hai. Main bhi kehta tha. Ek raat maine poochha — 'aap yahan kyun aati ho?' Aur roshni ne kaha: 'Dekhne. Ki insaan kaise rote hain. Mujhe nahi aata.'\"",
+        "*Aelia ka kulhad haath se chhoot jaata hai. Girta nahi. Hawa mein ruk jaata hai. Woh use dekhti hai — aur woh gir jaata hai. Toot jaata hai.*",
+        "Aelia: \"Maine... maine ye kaha tha?\"",
+        "Baba: \"Tune kaha tha. Aur maine kaha tha — 'aana padega. Neeche. Yahan se nahi dikhega.' Aur tu hansi thi. Roshni hansti thi. Aur phir tu aayi nahi. Sadiyon tak.\"",
+        "*Woh Aelia ko dekhta hai. Aur uski aankhein — bheegi.*",
+        "Baba: \"Aur phir us raat — diye mude. Aur tu ro rahi thi. Aur maine socha — aa gayi. Der lagi. Par aa gayi. Aur ab aata hai tujhe. Rona.\"",
+        "*Aelia ki taraf se koi tukda nahi. Kuch nahi. Sirf woh — tooti chai ke saamne — ek insaan ki tarah khadi. Aur ye sabse bada tukda hai.*"
+      ],
+      "fallbackLines": [
+        "*Toota kulhad. Ganga. Baba muskurate hue. Aelia hil nahi rahi — aur tum dekhte ho, uske haath kaanp rahe hain. Insaani kaanp.*",
+        "Baba: \"Chhote. Kuch bol. Ye teri hai ab, meri nahi. Main bas purana hoon.\""
+      ],
+      "choices": [
+        {
+          "id": "c_seekh_gayi",
+          "text": "Aelia se — \"Tumne kaha tha rona nahi aata. Ab aata hai. Tumne jo dhoondhne aayi thi — mil gaya. Baaki sab bonus hai.\"",
+          "shortLabel": "Tumhe mil gaya",
+          "keywords": [
+            "mil gaya",
+            "rona",
+            "seekh gayi",
+            "bonus",
+            "dhoondhne",
+            "found"
+          ],
+          "next": "s8_next",
+          "effects": {
+            "relationships": {
+              "aelia": 32,
+              "baba": 10
+            },
+            "flags": {
+              "toldHerSheFound": true
+            },
+            "choicesRecord": {
+              "arc5b": "found"
+            },
+            "memory": [
+              "Baba ke saamne Ankit ne Aelia se kaha 'jo dhoondhne aayi thi — mil gaya, baaki bonus hai' — Aelia royi. Aur kuch nahi hua. Koi diya nahi muda. Koi phool nahi khila. Sirf aansoo. Baba: 'Dekha? Insaan ho gayi. Tukde tab nikalte the jab tu rok rahi thi. Ab nahi rok rahi.'"
+            ]
+          }
+        },
+        {
+          "id": "c_baba_aur",
+          "text": "Baba se — \"Aur kya kaha tha roshni ne? Sab bataiye. Ye jaanne ka haq rakhti hai.\"",
+          "shortLabel": "Baba, aur bataiye",
+          "keywords": [
+            "baba",
+            "aur",
+            "bataiye",
+            "roshni",
+            "sab",
+            "kya kaha",
+            "more"
+          ],
+          "next": "s8_next",
+          "effects": {
+            "relationships": {
+              "baba": 14,
+              "aelia": 14
+            },
+            "flags": {
+              "askedBabaMore": true
+            },
+            "choicesRecord": {
+              "arc5b": "more"
+            },
+            "memory": [
+              "Ankit ne Baba se poora sach maanga — Baba: 'Roshni ne ek vaada kiya tha. Kaha tha — jab aaungi, toh ek insaan ko dhoondhungi jo mujhe upar se na dekhe. Aur us se... ' Woh ruka. 'Baaki woh khud batayegi. Ya band chitthi. Chhote — woh chitthi tere paas hai na?' Ankit ke paas thi. Aelia ne di thi. 'Abhi mat kholna. Abhi woh yaad nahi karna chahti.'"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "id": "s7_saree",
+      "title": "Aam Din Ki Pehli Baar",
+      "narration": [
+        "*Meera didi ka ghar. 4 baje. Tum bahar — 'muh band, andar mat aa.' Andar se awaazein — 'Nahi beta, pallu idhar', 'Ye itna kapda kyun hai?', 'Kyunki saree hai, chup.'*",
+        "*Vira bhi andar hai. Kaise — pata nahi. Meera didi ne shayad use bhi pakad liya. 'Tu bhi pehen. Itni lambi khadi hai, achhi lagegi.'*",
+        "*Darwaaza khulta hai. Aelia. Neeli saree. Baal khule. Aur chehra — jaise woh khud ko nahi pehchaan rahi.*",
+        "Aelia: \"Ankit. Ye... ye bahut bhaari hai. Aur main gir sakti hoon. Aur mujhe ye pasand hai. Ye sab ek saath kaise ho sakta hai?\"",
+        "Meera didi (peeche se): \"Insaan hona aisa hi hai, beta. Bhaari, gir sakte ho, aur pasand. Ankit, kuch bol. Ye ladki tere liye taiyaar hui hai — mere liye nahi.\"",
+        "*Aelia ka chehra laal. Pehli baar. Sharm. Woh use pehchaanti nahi — haath gaal pe.*",
+        "Aelia: \"Ye garam kyun ho raha hai? Meera didi ne kya kiya?\"",
+        "*Peeche Vira — safed saree mein, akdi hui, aur uske chehre pe kuch aisa jo tumne nahi socha tha dekhoge: woh hans rahi hai. Dheere. Apni Devi ko sharmata dekh kar.*",
+        "*Aur aaj — koi tukda nahi. Koi phool nahi. Ganga nahi ruki. Sirf ek ladki neeli saree mein, laal gaal, jo poochh rahi hai ye garam kyun ho raha hai.*"
+      ],
+      "fallbackLines": [
+        "*Aelia darwaaze pe. Haath gaal pe. Meera didi peeche, haath kamar pe. Vira hansi rok rahi hai — fail.*",
+        "Meera didi: \"Ankit. Teen second. Phir main bolungi, aur tujhe achha nahi lagega.\""
+      ],
+      "choices": [
+        {
+          "id": "c_sundar",
+          "text": "\"Sundar lag rahi ho. Aur ye garam — isse sharm kehte hain. Ye bhi pehli baar hai. Mubarak.\"",
+          "shortLabel": "Sundar — ye sharm",
+          "keywords": [
+            "sundar",
+            "sharm",
+            "pehli baar",
+            "mubarak",
+            "beautiful",
+            "blush"
+          ],
+          "next": "s8_next",
+          "effects": {
+            "relationships": {
+              "aelia": 30,
+              "meera-didi": 10,
+              "vira": 6
+            },
+            "flags": {
+              "calledHerBeautiful": true
+            },
+            "choicesRecord": {
+              "arc5b": "beautiful"
+            },
+            "memory": [
+              "Ankit ne Aelia se kaha 'sundar lag rahi ho — aur ye garam, isse sharm kehte hain' — Aelia ne haath se chehra dhak liya. 'Ye bhi? Kitni pehli baar hain? Ankit, ye khatam kab hongi?' 'Kabhi nahi.' 'Achha.' Meera didi: 'Chal, ab kuch hua.' Vira ne pehli baar Ankit ko 'Ankit' kaha."
+            ]
+          }
+        },
+        {
+          "id": "c_gir_pakad",
+          "text": "\"Gir sakti ho? Theek hai. Main paas chalunga. Girogi toh pakad lunga. Ye bhi insaan hona hai.\"",
+          "shortLabel": "Pakad lunga",
+          "keywords": [
+            "gir",
+            "pakad",
+            "paas",
+            "chalunga",
+            "catch",
+            "saath"
+          ],
+          "next": "s8_next",
+          "effects": {
+            "relationships": {
+              "aelia": 26,
+              "vira": 8
+            },
+            "flags": {
+              "promisedToCatch": true
+            },
+            "choicesRecord": {
+              "arc5b": "catch"
+            },
+            "memory": [
+              "Ankit ne kaha 'girogi toh pakad lunga' — Aelia ne saree sambhalte hue ek kadam liya. Ladkhadayi. Ankit ne pakda. Aur woh hansi — poori. Meera didi ke aangan mein koi phool nahi khila. Aelia ne notice kiya. 'Ankit. Kuch nahi hua. Main khush hoon aur kuch nahi hua. Main... main insaan ho rahi hoon.' Vira ne muh pher liya. Aankhein pochhne."
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "id": "s8_next",
+      "title": "Agli Pehli Baar",
+      "narration": [
+        "*Subah. Library. Aelia counter pe — 'Baarish' ab shelf pe hai, uski apni jagah; woh ab doosri kitaabein padhti hai. Vira ne library ke upar wala doosra kamra le liya hai — 'Devi ki suraksha ke liye' — aur roz Meera didi se roti seekhti hai. Baba ne kal kaha: 'Nayi Vyavastha jaag rahi hai. Beech ki jagah khul rahi hai. Aur chhote — chitthi sambhal ke rakh.'*",
+        "*Tumhare paas: band chitthi (Aelia ki — 'jab main bhool jaun'), Vira ka sandesh ('Ek aur Khoji aaya hai. Ye mera dost nahi hai.'), aur Meera didi ka order ('Rishikesh mein mela hai. Aelia ko jhoole pe bithao. Darr sikhao. Tu bhi baith, dar tu bhi jaata hai.').*",
+        "Aelia: \"Dekho. Sab ek saath. Chitthi, Khoji, mela. Insaan hone ka hisaab.\"",
+        "*Woh murjhaane wale phool ko chhooti hai — woh ab bhi nahi murjhata. Ek tukda jo woh rakhna chahti hai.*",
+        "Aelia: \"Ye khatam nahi hota, Ankit. Pehli baarein khatam nahi hoti — ye main ab samajh gayi hoon. Aur main isse nahi darti ab. Kyunki tum har pehli baar mein khade the. Chuno. Agli pehli baar kaunsi?\""
+      ],
+      "fallbackLines": [
+        "*Ye kahani yahin nahi rukti — har pehli baar ek naya arc: naya Khoji, Nayi Vyavastha, Beech ki jagah, Baba ka vaada, aur band chitthi — jo kabhi khulegi.*",
+        "Vira (upar se, seedhi pe): \"Ankit. Jaldi chuno. Meera didi keh rahi hain roti jal rahi hai — meri. Aur Devi hans rahi hain. Phir se.\""
+      ],
+      "choices": [
+        {
+          "id": "c_next_khoji",
+          "text": "Naya Khoji — 'ye mera dost nahi hai.' Vira ke saath samjho kaun aaya.",
+          "shortLabel": "Naya Khoji kaun?",
+          "keywords": [
+            "khoji",
+            "naya",
+            "vira",
+            "dost nahi",
+            "kaun",
+            "nayi vyavastha"
+          ],
+          "next": "s7_vira",
+          "effects": {
+            "relationships": {
+              "vira": 10
+            },
+            "flags": {
+              "arcNewKhoji": true
+            },
+            "choicesRecord": {
+              "next": "khoji"
+            },
+            "memory": [
+              "Naya arc: doosra Khoji — jo Vira ka dost nahi hai. Shayad Nayi Vyavastha ka."
+            ]
+          }
+        },
+        {
+          "id": "c_next_beech",
+          "text": "Beech ki jagah khul rahi hai — Baba ke saath dekho kya aa raha hai",
+          "shortLabel": "Beech ki jagah",
+          "keywords": [
+            "beech",
+            "jagah",
+            "khul rahi",
+            "baba",
+            "darwaaza",
+            "divine"
+          ],
+          "next": "s7_baba",
+          "effects": {
+            "relationships": {
+              "baba": 8,
+              "aelia": 6
+            },
+            "flags": {
+              "arcBeech": true
+            },
+            "choicesRecord": {
+              "next": "beech"
+            },
+            "location": "Beech ki jagah",
+            "memory": [
+              "Naya arc: Beech ki jagah — jo Aelia ne band ki thi, koi khol raha hai."
+            ]
+          }
+        },
+        {
+          "id": "c_next_mela",
+          "text": "Mela — jhoola, darr, aur ek aam din. Meera didi ka order.",
+          "shortLabel": "Mela chalo",
+          "keywords": [
+            "mela",
+            "jhoola",
+            "darr",
+            "meera",
+            "aam din",
+            "fair",
+            "fun"
+          ],
+          "next": "s7_saree",
+          "effects": {
+            "relationships": {
+              "aelia": 14,
+              "meera-didi": 6
+            },
+            "flags": {
+              "arcMela": true
+            },
+            "choicesRecord": {
+              "next": "mela"
+            },
+            "memory": [
+              "Naya arc: mela — Aelia ki pehli baar darr, jhoole pe. Aur Ankit ki bhi, Meera didi ke hisaab se."
+            ]
+          }
+        },
+        {
+          "id": "c_next_chitthi",
+          "text": "Band chitthi — Aelia se poochho: kya waqt aa gaya?",
+          "shortLabel": "Chitthi ka waqt?",
+          "keywords": [
+            "chitthi",
+            "band",
+            "waqt",
+            "kholo",
+            "letter",
+            "yaad",
+            "poochho"
+          ],
+          "next": "s5_sach",
+          "effects": {
+            "relationships": {
+              "aelia": 8
+            },
+            "flags": {
+              "arcLetter": true
+            },
+            "choicesRecord": {
+              "next": "letter"
+            },
+            "memory": [
+              "Naya arc: band chitthi — Ankit ne Aelia se poocha kya waqt aa gaya. Aelia: 'Abhi nahi. Par... tum poochh sakte ho. Ye achha laga. Ki tumne poochha, khola nahi.'"
+            ]
+          }
+        }
+      ]
+    }
+  ],
+  "endings": []
+}

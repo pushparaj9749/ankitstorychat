@@ -1,0 +1,1533 @@
+{
+  "storyId": "goddess-who-chose-me",
+  "version": 1,
+  "scenes": [
+    {
+      "id": "s1_bus_stop",
+      "title": "Baarish Aur Ek Ladki Jo Bheegti Nahi",
+      "narration": [
+        "*Ghatkopar ka bus stop. Shaam ke saat baje, baarish itni tez ki bus ke number bhi nahi dikh rahe. Tumhari chhatri abhi-abhi ulti hui hai. Tum Ankit ho — aam ladka, aam din, aam kismat.*",
+        "*Phir tumhe ehsaas hota hai ki tumhare bagal mein koi khada hai. Ek ladki. Saada sa kurta, kalai mein ek purana kada. Aur... uska ek bhi baal geela nahi hai. Baarish jaise uske aas-paas se guzar rahi ho.*",
+        "Aria: \"Tumhari chhatri ulti ho gayi hai.\"",
+        "*Woh tumhari taraf dekhti hai — aise, jaise bahut der se dekh rahi ho aur ab bolne ka mann kiya ho.*",
+        "Aria: \"Main theek kar doon? ...Haath se. Aam tareeke se. Jaise log karte hain.\"",
+        "*Bus door se aati dikh rahi hai. Ladki bus ki taraf nahi dekhti. Sirf tumhari taraf.*",
+        "Aria: \"Waise... mera naam Aria hai. Aur main aaj se tumhare saath rahungi.\""
+      ],
+      "fallbackLines": [
+        "*Aria palkein jhapkati hai, jaise tumhare jawab ka intezaar karna use naya-naya seekhna pada ho.*",
+        "Aria: \"Tum soch rahe ho ki main pagal hoon. Theek hai. Log pehli mulaqat mein aksar yahi sochte hain... shayad. Mujhe theek se yaad nahi.\"",
+        "*Baarish ki ek boond uske kandhe ke theek upar rukti hai — aur phir bagal se gir jaati hai. Tumne dekha. Usne dekha ki tumne dekha.*"
+      ],
+      "choices": [
+        {
+          "id": "c_kaun",
+          "text": "\"Tum... kaun ho? Aur ye 'saath rahungi' ka kya matlab?\"",
+          "shortLabel": "Kaun ho tum?",
+          "keywords": [
+            "kaun",
+            "who",
+            "matlab",
+            "kya",
+            "rahungi",
+            "saath"
+          ],
+          "next": "s2_sawaal",
+          "effects": {
+            "relationships": {
+              "aria": 8
+            },
+            "flags": {
+              "askedWho": true
+            },
+            "choicesRecord": {
+              "opening": "asked"
+            },
+            "memory": [
+              "Ankit ne pehli mulaqat mein seedha poochha ki Aria kaun hai — Aria ko ye pasand aaya."
+            ]
+          }
+        },
+        {
+          "id": "c_chhatri",
+          "text": "Chhatri uski taraf badha do — \"Theek kar sakti ho toh kar do\"",
+          "shortLabel": "Chhatri de do",
+          "keywords": [
+            "chhatri",
+            "umbrella",
+            "theek",
+            "kar do",
+            "lo"
+          ],
+          "next": "s2_chhatri",
+          "effects": {
+            "relationships": {
+              "aria": 12
+            },
+            "flags": {
+              "gaveUmbrella": true
+            },
+            "choicesRecord": {
+              "opening": "umbrella"
+            },
+            "inventoryAdd": [
+              "tuti-chhatri"
+            ],
+            "memory": [
+              "Ankit ne bina sawaal kiye Aria ko chhatri de di — Aria ne use 'theek' kiya, ab woh kabhi ulti nahi hoti."
+            ]
+          }
+        },
+        {
+          "id": "c_bus",
+          "text": "Bus mein chadh jao — ye ladki ajeeb hai",
+          "shortLabel": "Bus pakdo",
+          "keywords": [
+            "bus",
+            "chadh",
+            "jaana",
+            "nahi",
+            "ajeeb",
+            "leave",
+            "bhaag"
+          ],
+          "next": "s2_bus",
+          "effects": {
+            "relationships": {
+              "aria": -3
+            },
+            "flags": {
+              "triedToLeave": true
+            },
+            "choicesRecord": {
+              "opening": "left"
+            },
+            "memory": [
+              "Ankit bus mein chadh gaya — par Aria agle stop par pehle se khadi thi."
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "id": "s2_sawaal",
+      "title": "Jawab Jo Jawab Nahi Tha",
+      "narration": [
+        "*Aria thoda sa muskurati hai. Bus aakar ruk jaati hai, darwaaza khulta hai — aur conductor tum dono ki taraf dekhta hi nahi, jaise tum wahan ho hi nahi.*",
+        "Aria: \"Kaun hoon — ye lamba jawab hai. Abhi ke liye: main woh hoon jo bahut waqt se akeli thi. Aur 'saath rahungi' ka matlab bilkul wahi hai jo tumne samjha.\"",
+        "*Woh apne kade ko ghumati hai. Ek pal ke liye baarish ki awaaz gayab ho jaati hai. Sirf ek pal.*",
+        "Aria: \"Tumne 'kyun main' nahi poochha. Log yahi poochte hain na? Achha hai. Kyunki uska jawab main nahi dungi. Abhi nahi.\"",
+        "*Bus chali jaati hai. Tum chadhe nahi. Tumhe khud nahi pata kyun.*",
+        "Aria: \"Chalo. Tumhara ghar kidhar hai? Main raasta jaanti hoon, par tumhe lagega ki main nahi jaanti, toh tum bata do.\""
+      ],
+      "fallbackLines": [
+        "Aria: \"Sawaal aur poochho. Mujhe achha lag raha hai. Bahut waqt se kisi ne mujhse sawaal nahi kiye — sab bas jhukte the.\"",
+        "*Woh ruk jaati hai, jaise aakhri line galti se nikal gayi ho.*",
+        "Aria: \"...Matlab, office mein. Purane office mein. Chhodo.\""
+      ],
+      "choices": [
+        {
+          "id": "c_ghar",
+          "text": "Ghar le chalo — \"Theek hai. Par sofa par sona padega.\"",
+          "shortLabel": "Ghar le chalo",
+          "keywords": [
+            "ghar",
+            "chalo",
+            "theek",
+            "sofa",
+            "haan",
+            "ok",
+            "aao"
+          ],
+          "next": "s3_flat",
+          "effects": {
+            "relationships": {
+              "aria": 10
+            },
+            "flags": {
+              "tookHome": true
+            },
+            "choicesRecord": {
+              "arc1": "home"
+            },
+            "location": "Ankit ka 1BHK",
+            "memory": [
+              "Ankit Aria ko ghar le aaya — sofa uska ho gaya."
+            ]
+          }
+        },
+        {
+          "id": "c_neha",
+          "text": "Pehle Neha ko call karo — kisi ko toh pata hona chahiye",
+          "shortLabel": "Neha ko call",
+          "keywords": [
+            "neha",
+            "call",
+            "phone",
+            "dost",
+            "friend",
+            "batao"
+          ],
+          "next": "s3_neha",
+          "effects": {
+            "relationships": {
+              "neha": 8,
+              "aria": 3
+            },
+            "flags": {
+              "toldNeha": true
+            },
+            "choicesRecord": {
+              "arc1": "neha"
+            },
+            "memory": [
+              "Ankit ne Neha ko Aria ke baare mein bataya — Neha ab nazar rakhegi."
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "id": "s2_chhatri",
+      "title": "Chhatri Jo Ab Kabhi Ulti Nahi Hoti",
+      "narration": [
+        "*Aria chhatri leti hai. Use dekhti hai. Phir tumhari taraf dekhti hai — aur uski aankhon mein kuch aisa hai jaise tumne koi bahut bada test pass kar liya ho.*",
+        "Aria: \"Tumne poochha bhi nahi ki main kaise theek karungi.\"",
+        "*Woh chhatri ko ek baar halka sa jhatka deti hai. Bas. Chhatri seedhi ho jaati hai. Uski tuti hui teeli... tuti hui nahi hai. Kabhi thi hi nahi, aisa lagta hai.*",
+        "Aria: \"Lo. Ab ye kabhi ulti nahi hogi. Kisi bhi hawa mein.\"",
+        "*Woh chhatri tumhare upar kar deti hai — aur khud bahar khadi rehti hai, baarish mein, bilkul sookhi.*",
+        "Aria: \"Ab tum poochoge 'ye kaise'. Aur main kahungi 'baad mein'. Aur tum maan jaoge. Kyunki tum aise hi ho. Isliye...\"",
+        "*Woh ruk jaati hai. Muskurati hai. Line poori nahi karti.*"
+      ],
+      "fallbackLines": [
+        "*Chhatri tumhare haath mein hai. Halki hai. Ajeeb tarah se garam.*",
+        "Aria: \"Chhatri ko mat ghooro, mujhse baat karo. Chhatri boring hai. Main nahi hoon. Shayad.\""
+      ],
+      "choices": [
+        {
+          "id": "c_isliye",
+          "text": "\"Isliye kya? Line poori karo.\"",
+          "shortLabel": "Line poori karo",
+          "keywords": [
+            "isliye",
+            "kya",
+            "poori",
+            "line",
+            "bolo",
+            "batao"
+          ],
+          "next": "s3_flat",
+          "effects": {
+            "relationships": {
+              "aria": 6
+            },
+            "flags": {
+              "pushedForAnswer": true
+            },
+            "choicesRecord": {
+              "arc1": "pushed"
+            },
+            "location": "Ankit ka 1BHK",
+            "memory": [
+              "Ankit ne Aria ko line poori karne ko kaha — usne nahi ki, par ghar tak saath aayi."
+            ]
+          }
+        },
+        {
+          "id": "c_baarish",
+          "text": "Chhatri wapas uske upar karo — \"Tum bheeg jaogi\"",
+          "shortLabel": "Chhatri wapas do",
+          "keywords": [
+            "bheeg",
+            "wapas",
+            "tum",
+            "upar",
+            "lo",
+            "care"
+          ],
+          "next": "s3_flat",
+          "effects": {
+            "relationships": {
+              "aria": 15
+            },
+            "flags": {
+              "caredFirst": true
+            },
+            "choicesRecord": {
+              "arc1": "cared"
+            },
+            "location": "Ankit ka 1BHK",
+            "memory": [
+              "Ankit ne Aria ko bheegne se bachane ki koshish ki — jabki woh bheeg hi nahi sakti. Aria ke liye ye bahut bada pal tha."
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "id": "s2_bus",
+      "title": "Agla Stop",
+      "narration": [
+        "*Tum bus mein chadh jaate ho. Window seat. Baarish, sheesha, dhundhla shehar. Dil thoda tez chal raha hai — par tumne sahi kiya, na? Ajeeb ladki thi.*",
+        "*Agla stop. Bus rukti hai. Bahar, bus stop par, saada kurta, purana kada, ek bhi baal geela nahi —*",
+        "Aria: \"Tum bus mein chadh gaye.\"",
+        "*Woh chadhti hai. Tumhare bagal wali seat khaali hai. Poori bus mein sirf wahi seat khaali hai.*",
+        "Aria: \"Main naraaz nahi hoon. Main bas... samajh rahi hoon. Log darte hain. Ye naya hai mere liye — darr ko pass se dekhna.\"",
+        "*Conductor aata hai. Aria ki taraf dekhta hai. Ek second ke liye uska chehra bilkul khaali ho jaata hai — aur woh bina ticket maange aage badh jaata hai.*",
+        "Aria: \"Ab bhaagoge nahi na? Main phir bhi agle stop par mil jaungi. Par mujhe achha nahi lagega.\""
+      ],
+      "fallbackLines": [
+        "*Bus hichkole khaati hai. Aria ka kandha tumhare kandhe se takrata hai — aur woh chaunk jaati hai, jaise touch use bhi naya laga ho.*",
+        "Aria: \"Sorry. ...Ye sahi word hai na? Sorry?\""
+      ],
+      "choices": [
+        {
+          "id": "c_maaf",
+          "text": "\"Sorry. Darr gaya tha. Batao — tum ho kaun?\"",
+          "shortLabel": "Sorry bolo",
+          "keywords": [
+            "sorry",
+            "maaf",
+            "darr",
+            "kaun",
+            "batao"
+          ],
+          "next": "s3_flat",
+          "effects": {
+            "relationships": {
+              "aria": 10
+            },
+            "flags": {
+              "apologized": true
+            },
+            "choicesRecord": {
+              "arc1": "apologized"
+            },
+            "location": "Ankit ka 1BHK",
+            "memory": [
+              "Ankit ne bhaagne ke liye Aria se maafi maangi — Aria ne turant maaf kar diya, shayad kuch zyada hi jaldi."
+            ]
+          }
+        },
+        {
+          "id": "c_conductor",
+          "text": "\"Conductor ne tumhe dekha bhi nahi. Ye kya tha?\"",
+          "shortLabel": "Conductor ka kya?",
+          "keywords": [
+            "conductor",
+            "ticket",
+            "dekha",
+            "kya tha",
+            "kaise"
+          ],
+          "next": "s3_neha",
+          "effects": {
+            "relationships": {
+              "aria": 5
+            },
+            "flags": {
+              "noticedConductor": true
+            },
+            "choicesRecord": {
+              "arc1": "noticed"
+            },
+            "memory": [
+              "Ankit ne notice kiya ki conductor Aria ko dekh hi nahi paya — pehla 'clue'."
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "id": "s3_flat",
+      "title": "Maggi, Sofa Aur Ek Devi",
+      "narration": [
+        "*Tumhara 1BHK. Geyser kharab, ek sofa, ek tooti kursi. Aria darwaaze par ruk kar poore ghar ko aise dekhti hai jaise koi mandir dekh rahi ho.*",
+        "Aria: \"Ye tumhara hai. Poora. Tum yahan sote ho, khaate ho, sochte ho...\"",
+        "*Woh switch board ke paas jaati hai. Light on-off karti hai. Teen baar. Chauthi baar bulb thoda zyada chamakta hai — normal se zyada — aur woh jaldi se haath hata leti hai.*",
+        "Aria: \"Mujhe bhookh lagi hai. Matlab — mujhe lagta hai ye bhookh hai. Pet mein khaali sa. Tum kya banate ho?\"",
+        "*Tum maggi nikaalte ho. Aria packet ko aise padhti hai jaise koi prachin shilalekh ho.*",
+        "Aria: \"Do minute. Sirf do minute mein khaana? Tumhari duniya kitni tez hai, Ankit.\"",
+        "*Phir woh rukti hai. Tumne use apna naam bataya hi nahi tha.*"
+      ],
+      "fallbackLines": [
+        "*Aria maggi ka pehla bite leti hai. Uski aankhein badi ho jaati hain. Kitchen ki khidki ke bahar, ek pal ke liye, baarish ruk jaati hai — poore mohalle mein.*",
+        "Aria: \"Ye... ye kya hai? Ye itna achha kyun hai? Ye roz banta hai?\"",
+        "Aria: \"Sofa mera. Tumne kaha tha. Main sona seekhungi. Log aankhein band karke kya sochte hain?\""
+      ],
+      "choices": [
+        {
+          "id": "c_naam",
+          "text": "\"Maine tumhe apna naam nahi bataya tha.\"",
+          "shortLabel": "Naam kaise pata?",
+          "keywords": [
+            "naam",
+            "name",
+            "bataya",
+            "kaise",
+            "pata",
+            "ankit"
+          ],
+          "next": "s4_kavi",
+          "effects": {
+            "relationships": {
+              "aria": 5
+            },
+            "flags": {
+              "caughtName": true
+            },
+            "choicesRecord": {
+              "arc2": "caught"
+            },
+            "memory": [
+              "Ankit ne pakda ki Aria uska naam pehle se jaanti thi. Aria ne kaha 'baad mein'."
+            ]
+          }
+        },
+        {
+          "id": "c_seekhao",
+          "text": "Use maggi banana sikhao — sawaal baad mein",
+          "shortLabel": "Maggi sikhao",
+          "keywords": [
+            "maggi",
+            "sikhao",
+            "seekh",
+            "banao",
+            "khaana",
+            "cook"
+          ],
+          "next": "s4_kavi",
+          "effects": {
+            "relationships": {
+              "aria": 12
+            },
+            "flags": {
+              "taughtMaggi": true
+            },
+            "choicesRecord": {
+              "arc2": "taught"
+            },
+            "memory": [
+              "Ankit ne Aria ko maggi banana sikhaya — pehli baar usne khud kuch banaya, thodi jali hui."
+            ]
+          }
+        },
+        {
+          "id": "c_neha_call",
+          "text": "Neha ko message karo — 'Kal milna, kuch batana hai'",
+          "shortLabel": "Neha ko message",
+          "keywords": [
+            "neha",
+            "message",
+            "dost",
+            "batana",
+            "text"
+          ],
+          "next": "s3_neha",
+          "effects": {
+            "relationships": {
+              "neha": 5
+            },
+            "flags": {
+              "toldNeha": true
+            },
+            "choicesRecord": {
+              "arc2": "neha"
+            },
+            "memory": [
+              "Ankit ne Neha ko Aria ke baare mein batane ka faisla kiya."
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "id": "s3_neha",
+      "title": "Neha Ka Interrogation",
+      "narration": [
+        "*Agli subah, college ki canteen. Neha tumhare saamne baithi hai, chai ke cup ko aise pakde jaise woh evidence ho.*",
+        "Neha: \"Toh. Ek ladki. Bus stop pe. Bheegi nahi. Aur ab tumhare sofa pe soti hai. Ankit, main tumhari dost hoon isliye bol rahi hoon — ye kidnapping hai, bas ulti.\"",
+        "*Tabhi canteen ka shor ek second ke liye dhīma ho jaata hai. Aria darwaaze par khadi hai. Kal wala kurta, kal wala kada. Aur canteen ke aadhe log uski taraf mud kar dekh rahe hain, jaise unhe pata hi na ho kyun.*",
+        "Aria: \"Ankit. Tumne mujhe bataya nahi ki tum kahan gaye. Main... dhoondh rahi thi.\"",
+        "*Neha ki aankhein sikud jaati hain.*",
+        "Neha: \"Hi. Neha. Ankit ki dost. Tum kal baarish mein sookhi kaise thi?\"",
+        "Aria: \"Chhatri.\"",
+        "Neha: \"Uske paas chhatri thi, tumhare paas nahi.\"",
+        "Aria: \"...Achhi chhatri.\""
+      ],
+      "fallbackLines": [
+        "*Aria Neha ko aise dekh rahi hai jaise koi naya prakaar ka jeev dekha ho — aur Neha Aria ko aise jaise woh Neha ke best friend ko kha jaayegi.*",
+        "Neha: \"Ankit, iska Aadhaar card hai? Koi bhi card? Kuch bhi?\"",
+        "Aria: \"Card kya hota hai?\""
+      ],
+      "choices": [
+        {
+          "id": "c_side_aria",
+          "text": "Aria ka side lo — \"Neha, ye meri guest hai. Bas.\"",
+          "shortLabel": "Aria ka side lo",
+          "keywords": [
+            "aria",
+            "guest",
+            "side",
+            "bas",
+            "meri",
+            "chhod"
+          ],
+          "next": "s4_kavi",
+          "effects": {
+            "relationships": {
+              "aria": 12,
+              "neha": -6
+            },
+            "flags": {
+              "defendedAria": true
+            },
+            "choicesRecord": {
+              "arc2": "aria"
+            },
+            "memory": [
+              "Ankit ne Neha ke saamne Aria ka side liya — Neha naraaz, Aria chup-chaap khush."
+            ]
+          }
+        },
+        {
+          "id": "c_side_neha",
+          "text": "Neha ka point maano — \"Aria, kuch toh batao. Kuch bhi.\"",
+          "shortLabel": "Neha ka point maano",
+          "keywords": [
+            "neha",
+            "sahi",
+            "batao",
+            "kuch",
+            "proof",
+            "sach"
+          ],
+          "next": "s4_kavi",
+          "effects": {
+            "relationships": {
+              "neha": 8,
+              "aria": 2
+            },
+            "flags": {
+              "askedProof": true
+            },
+            "choicesRecord": {
+              "arc2": "proof"
+            },
+            "memory": [
+              "Ankit ne Aria se kuch bhi sach batane ko kaha — Aria ne kaha: 'Aaj raat. Banganga.'"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "id": "s4_kavi",
+      "title": "Woh Ladka Jo Aria Ko Dekh Kar Gir Gaya",
+      "narration": [
+        "*Shaam. Tum aur Aria mohalle ki galli se guzar rahe ho. Aria paani-puri wale ko dekh kar ruk gayi hai — teesri baar aaj.*",
+        "*Tabhi ek ladka — tumhari umar ka, ajeeb sa purana kurta, gale mein ek chamakta dhaaga — samne se aata hai. Aria ko dekhta hai. Aur uske haath se vada pav gir jaata hai.*",
+        "*Woh ghutnon par gir jaata hai. Beech galli mein. Log aise guzar rahe hain jaise woh dikh hi nahi raha.*",
+        "Kavi: \"A-Adya... Adya Devi... aap... aap yahan... aap JAAG gayi?!\"",
+        "*Aria ka chehra badal jaata hai. Ek second ke liye woh ladki nahi hai jo maggi jalaati hai. Uski awaaz galli ki har deewar se takra kar aati hai.*",
+        "Aria: \"Utho. Yahan nahi. Aur woh naam mat lo.\"",
+        "*Ladka turant khada ho jaata hai, kaanpta hua. Phir woh tumhari taraf dekhta hai — aur uska muh khula reh jaata hai.*",
+        "Kavi: \"Aur ye... ye insaan... ye aapke SAATH hai? Bhai... bhai tumhe pata bhi hai tum kiske saath ghoom rahe ho?\"",
+        "*Aria tumhari taraf dekhti hai. Pehli baar, uski aankhon mein darr hai. Tumse nahi. Tumhare liye.*"
+      ],
+      "fallbackLines": [
+        "Kavi: \"Main Kavi. Dwarpal. Matlab gate ka... chhodo. Bhai tum theek ho? Tum bilkul normal lag rahe ho. Ye normal nahi hai.\"",
+        "*Aria ne apna kada kas ke pakad rakha hai. Galli mein hawa ruk gayi hai — patte bhi nahi hil rahe.*",
+        "Aria: \"Ankit. Jo bhi poochna hai, mujhse poocho. Isse nahi.\""
+      ],
+      "choices": [
+        {
+          "id": "c_aria_se",
+          "text": "Aria se poocho — \"'Adya' kaun hai? Tum kya ho?\"",
+          "shortLabel": "Aria se poocho",
+          "keywords": [
+            "adya",
+            "kaun",
+            "kya ho",
+            "tum",
+            "aria",
+            "sach",
+            "batao"
+          ],
+          "next": "s5_sach",
+          "effects": {
+            "relationships": {
+              "aria": 10
+            },
+            "flags": {
+              "askedAria": true
+            },
+            "choicesRecord": {
+              "arc3": "aria"
+            },
+            "memory": [
+              "Ankit ne Kavi ke saamne seedha Aria se poocha ki woh kya hai — Aria ne aankhein band kar ke haan kaha."
+            ]
+          }
+        },
+        {
+          "id": "c_kavi_se",
+          "text": "Kavi se poocho — \"Tum jaante ho ye kaun hai? Batao.\"",
+          "shortLabel": "Kavi se poocho",
+          "keywords": [
+            "kavi",
+            "batao",
+            "jaante",
+            "tum",
+            "ladka",
+            "bhai"
+          ],
+          "next": "s5_sach",
+          "effects": {
+            "relationships": {
+              "kavi": 10,
+              "aria": -4
+            },
+            "flags": {
+              "askedKavi": true
+            },
+            "choicesRecord": {
+              "arc3": "kavi"
+            },
+            "memory": [
+              "Ankit ne Aria ki jagah Kavi se sach poocha — Aria chup ho gayi, thodi hurt."
+            ]
+          }
+        },
+        {
+          "id": "c_haath",
+          "text": "Aria ka haath pakdo — \"Jo bhi ho, pehle tum shaant ho jao.\"",
+          "shortLabel": "Haath pakdo",
+          "keywords": [
+            "haath",
+            "shaant",
+            "pakad",
+            "theek",
+            "relax",
+            "calm",
+            "saath"
+          ],
+          "next": "s5_sach",
+          "effects": {
+            "relationships": {
+              "aria": 18
+            },
+            "flags": {
+              "heldHand": true
+            },
+            "choicesRecord": {
+              "arc3": "hand"
+            },
+            "memory": [
+              "Ankit ne Aria ka haath pakda jab woh 'Adya' ban rahi thi — hawa phir se chalne lagi. Kavi ne ye dekha aur kabhi nahi bhoola."
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "id": "s5_sach",
+      "title": "Banganga Ki Seedhiyan",
+      "narration": [
+        "*Raat. Banganga tank. Chaand paani mein tair raha hai. Aria seedhiyon par baithi hai, tum uske bagal mein. Kavi door khada hai, pehredaar ki tarah — aur nervous bhi.*",
+        "Aria: \"Main tumhe sab nahi bata sakti. Kuch baatein maine khud se bhi chhupayi hain. Par jo bata sakti hoon...\"",
+        "*Woh kada utaarti hai. Aur paani ruk jaata hai. Sach mein ruk jaata hai — laharein, chaand ka aks, hawa. Sab.*",
+        "Aria: \"Main bahut purani hoon, Ankit. Itni ki mujhe apni shuruaat yaad nahi. Ye log mujhe Adya kehte hain. Pehli. Main... cheezon ko mod sakti hoon. Sab cheezon ko.\"",
+        "*Woh tumhari taraf dekhti hai. Uski aankhon mein chaand nahi — kuch aur hai, bahut door ka.*",
+        "Aria: \"Aur phir bhi main tumhare sofa par soti hoon. Kyunki main wahan rehna chahti hoon. Kyun tum? ...Woh main abhi nahi bataungi. Par ye jaan lo: maine galti se nahi chuna.\"",
+        "*Paani phir se behne lagta hai. Seedhiyon ke neeche, andhere mein, ek darwaaza dikhta hai jo pehle wahan nahi tha.*",
+        "Kavi: \"Devi... Devsabha ko khabar ho gayi hai. Vira aa rahi hai. Aur... woh insaan ke liye khush nahi hai.\""
+      ],
+      "fallbackLines": [
+        "Aria: \"Tum ab bhi yahan baithe ho. Bhaage nahi. Tumhe pata hai ye kitna bada hai mere liye?\"",
+        "*Darwaaza seedhiyon ke neeche halka sa chamak raha hai. Kavi baar-baar uski taraf dekh raha hai.*",
+        "Kavi: \"Bhai, jo bhi decide karna hai jaldi karo. Vira ka intezaar karna achha idea nahi hota. Kabhi bhi.\""
+      ],
+      "choices": [
+        {
+          "id": "c_andar",
+          "text": "\"Mujhe tumhari duniya dikhao. Main chalunga.\"",
+          "shortLabel": "Antarlok chalo",
+          "keywords": [
+            "andar",
+            "chalo",
+            "dikhao",
+            "duniya",
+            "gate",
+            "darwaaza",
+            "saath"
+          ],
+          "next": "s6_antarlok",
+          "effects": {
+            "relationships": {
+              "aria": 12,
+              "kavi": 6
+            },
+            "flags": {
+              "enteredAntarlok": true
+            },
+            "choicesRecord": {
+              "arc4": "entered"
+            },
+            "location": "Antarlok",
+            "memory": [
+              "Ankit apni marzi se Antarlok ke gate ke andar gaya — Aria ke saath, Vira se milne."
+            ]
+          }
+        },
+        {
+          "id": "c_ghar_wapas",
+          "text": "\"Aaj nahi. Ghar chalo. Kal soch ke bataunga.\"",
+          "shortLabel": "Ghar chalo",
+          "keywords": [
+            "ghar",
+            "kal",
+            "nahi",
+            "soch",
+            "wapas",
+            "wait"
+          ],
+          "next": "s6_vira_ghar",
+          "effects": {
+            "relationships": {
+              "aria": 6
+            },
+            "flags": {
+              "delayedAntarlok": true
+            },
+            "choicesRecord": {
+              "arc4": "delayed"
+            },
+            "location": "Ankit ka 1BHK",
+            "memory": [
+              "Ankit ne Antarlok jaane se pehle ek raat sochne ko maanga — Vira khud ghar aa gayi."
+            ]
+          }
+        },
+        {
+          "id": "c_kyun_main",
+          "text": "\"Pehle batao — kyun main? Warna nahi chalunga.\"",
+          "shortLabel": "Pehle 'kyun main'",
+          "keywords": [
+            "kyun",
+            "main",
+            "why",
+            "reason",
+            "wajah",
+            "pehle"
+          ],
+          "next": "s6_vira_ghar",
+          "effects": {
+            "relationships": {
+              "aria": -5
+            },
+            "flags": {
+              "demandedReason": true
+            },
+            "choicesRecord": {
+              "arc4": "demanded"
+            },
+            "memory": [
+              "Ankit ne 'kyun main' ka jawab shart bana diya — Aria ne sirf itna kaha: 'Tumhare daadaji ki diary padho.' Phir Vira aa gayi."
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "id": "s6_antarlok",
+      "title": "Khaali Kursi",
+      "narration": [
+        "*Darwaaze ke paar hawa alag hai — bhaari, meethi, purani. Tairte mandir. Aasmaan mein do chaand. Aur har taraf log — nahi, devta — jo Aria ko dekhte hi ruk jaate hain, jhuk jaate hain, ya bhaag jaate hain.*",
+        "*Aria seedha chalti hai. Uski chaal badal gayi hai. Woh yahan 'Aria' nahi hai. Kavi tumhare kaan mein fusfusata hai.*",
+        "Kavi: \"Neeche mat dekho, upar mat dekho, kisi se aankh mat milao, aur jo bhi ho — unse door mat hona.\"",
+        "*Devsabha. Ek gol hall, bees kursiyan. Unnees bhari. Ek khaali — sabse beech wali, sabse purani.*",
+        "*Aur uske saamne khadi hai Vira. Lamba kad, thandi aankhein, jo tumhe aise dekh rahi hain jaise tum koi galti ho.*",
+        "Vira: \"Adya. Hazaar saal. Aur tum lautti ho... ek insaan ke saath.\"",
+        "Aria: \"Main lauti nahi hoon, Vira. Main use dikhane aayi hoon. Fark hai.\"",
+        "Vira: \"Insaan. Tum jaante ho tum kis kursi ke paas khade ho? Woh hazaar saal khaali rahi — tumhare liye nahi.\"",
+        "*Poori sabha tumhari taraf dekh rahi hai. Aria ne haath halka sa tumhari taraf badhaya hai — protective. Kavi ne saans rok li hai.*"
+      ],
+      "fallbackLines": [
+        "*Sabha mein kisi ne kuch bola — bahut purani bhasha mein. Aria ne sirf sar ghumaya, aur woh chup ho gaya.*",
+        "Vira: \"Bolo, insaan. Tumhari awaaz sunni hai. Adya ne kisi ko yun hi nahi chuna hoga — ya chuna hai?\"",
+        "Kavi: \"Bhai... kuch bhi bolo, par sach bolo. Yahan jhooth ki smell aati hai. Literally.\""
+      ],
+      "choices": [
+        {
+          "id": "c_sach_bolo",
+          "text": "Sach bolo — \"Mujhe nahi pata usne mujhe kyun chuna. Par main yahan hoon.\"",
+          "shortLabel": "Sach bolo",
+          "keywords": [
+            "sach",
+            "nahi pata",
+            "yahan hoon",
+            "imandaar",
+            "honest",
+            "pata nahi"
+          ],
+          "next": "s7_hub",
+          "effects": {
+            "relationships": {
+              "vira": 10,
+              "aria": 15
+            },
+            "flags": {
+              "honestInSabha": true
+            },
+            "choicesRecord": {
+              "arc4": "honest"
+            },
+            "memory": [
+              "Ankit ne Devsabha ke saamne sach kaha — 'mujhe nahi pata kyun main'. Vira ne pehli baar use dhyaan se dekha. Aria ki aankhein bheeg gayi."
+            ]
+          }
+        },
+        {
+          "id": "c_aria_bachao",
+          "text": "Aria ke saamne khade ho jao — \"Usse aise mat bolo.\"",
+          "shortLabel": "Aria ko bachao",
+          "keywords": [
+            "aria",
+            "mat bolo",
+            "saamne",
+            "protect",
+            "bachao",
+            "izzat"
+          ],
+          "next": "s7_hub",
+          "effects": {
+            "relationships": {
+              "aria": 20,
+              "vira": -8
+            },
+            "flags": {
+              "stoodForAria": true
+            },
+            "choicesRecord": {
+              "arc4": "protected"
+            },
+            "memory": [
+              "Ankit ek devi ke saamne, ek devi ke liye khada ho gaya. Poori sabha chup. Vira ne ise 'kamzori' nahi, 'khatra' likha."
+            ]
+          }
+        },
+        {
+          "id": "c_kursi",
+          "text": "Khaali kursi ki taraf dekho — \"Ye kursi kiski hai?\"",
+          "shortLabel": "Khaali kursi?",
+          "keywords": [
+            "kursi",
+            "khaali",
+            "kiski",
+            "chair",
+            "beech",
+            "purani"
+          ],
+          "next": "s7_hub",
+          "effects": {
+            "relationships": {
+              "kavi": 8,
+              "vira": 4
+            },
+            "flags": {
+              "askedChair": true
+            },
+            "choicesRecord": {
+              "arc4": "chair"
+            },
+            "memory": [
+              "Ankit ne khaali kursi ke baare mein poocha — sabha mein sannata. Vira: 'Adya ki. Aur woh isliye khaali hai kyunki Adya ne use chhoda... tumhare shehar ke liye.'"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "id": "s6_vira_ghar",
+      "title": "Devi Tumhare Darwaaze Par",
+      "narration": [
+        "*Ghar. Raat ke do baje. Aria sofa par baithi hai, so nahi rahi. Tum bhi nahi. Phir darwaaze par dastak — teen baar, bilkul barabar.*",
+        "*Aria uth ke khadi ho jaati hai. Uska chehra badal gaya hai.*",
+        "Aria: \"Mat kholo. ...Nahi. Kholo. Woh waise bhi andar aa jaayegi.\"",
+        "*Darwaaza kholte ho. Ek lambi aurat, thandi aankhein, kapde jo is sadi ke nahi hain. Woh tumhare 1BHK ko aise dekhti hai jaise koi galti dekh rahi ho.*",
+        "Vira: \"Toh ye hai. Adya ka... ghar.\"",
+        "Aria: \"Vira. Ye Ankit ka ghar hai. Aur tum bina bulaye aayi ho.\"",
+        "Vira: \"Hazaar saal, Adya. Hazaar saal tumhari kursi khaali rahi, Chhaya-gan jaag rahe hain, aur tum yahan — is insaan ke sofa par? Isne tumhe kya diya hai?\"",
+        "*Aria kuch nahi bolti. Vira tumhari taraf mudti hai.*",
+        "Vira: \"Insaan. Tum bolo. Tumne ise kya diya hai?\""
+      ],
+      "fallbackLines": [
+        "*Vira ke khade hone se kamre ki light dhīmi ho gayi hai. Aria ke khade hone se phir tez. Tumhara bulb confuse hai.*",
+        "Vira: \"Jawab, insaan. Ya tum bhi bas ghoorte ho?\"",
+        "Aria: \"Ankit, tumhe jawab dena zaroori nahi hai. Ye meri ladai hai.\""
+      ],
+      "choices": [
+        {
+          "id": "c_maggi_jawab",
+          "text": "\"Maggi. Sofa. Aur koi jo use devi nahi, Aria kehta hai.\"",
+          "shortLabel": "Seedha jawab",
+          "keywords": [
+            "maggi",
+            "sofa",
+            "aria",
+            "kuch nahi",
+            "insaan",
+            "normal",
+            "aam"
+          ],
+          "next": "s7_hub",
+          "effects": {
+            "relationships": {
+              "aria": 20,
+              "vira": 5
+            },
+            "flags": {
+              "honestAtHome": true
+            },
+            "choicesRecord": {
+              "arc4": "honest"
+            },
+            "memory": [
+              "Ankit ne Vira ko kaha: usne Aria ko sirf maggi, sofa aur ek naam diya hai. Vira chup ho gayi — Aria ne muh pher liya, muskurate hue."
+            ]
+          }
+        },
+        {
+          "id": "c_vira_sawaal",
+          "text": "\"Chhaya-gan kaun hain? Aur Aria ki kursi kyun khaali hai?\"",
+          "shortLabel": "Vira se poocho",
+          "keywords": [
+            "chhaya",
+            "kursi",
+            "kaun",
+            "khaali",
+            "batao",
+            "kyun"
+          ],
+          "next": "s7_hub",
+          "effects": {
+            "relationships": {
+              "vira": 10,
+              "kavi": 3
+            },
+            "flags": {
+              "askedChhaya": true
+            },
+            "choicesRecord": {
+              "arc4": "chhaya"
+            },
+            "memory": [
+              "Ankit ne Vira se Chhaya-gan aur khaali kursi ke baare mein poocha — Vira ne pehli baar use 'insaan' nahi, 'Ankit' kaha."
+            ]
+          }
+        },
+        {
+          "id": "c_diary_nikalo",
+          "text": "Daadaji ki purani diary nikaalo — Aria ne uska zikr kiya tha",
+          "shortLabel": "Diary nikaalo",
+          "keywords": [
+            "diary",
+            "daadaji",
+            "purani",
+            "nikaal",
+            "sketch",
+            "dada"
+          ],
+          "next": "s7_hub",
+          "effects": {
+            "relationships": {
+              "aria": 8
+            },
+            "flags": {
+              "foundDiary": true
+            },
+            "choicesRecord": {
+              "arc4": "diary"
+            },
+            "inventoryAdd": [
+              "daadaji-ki-diary"
+            ],
+            "memory": [
+              "Ankit ne daadaji ki diary nikaali — andar Aria ka sketch aur ek line: 'Woh phir aayegi.' Vira ne sketch dekha aur uska chehra safed ho gaya."
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "id": "s7_hub",
+      "title": "Ek Duniya Jo Ab Tumhari Bhi Hai",
+      "narration": [
+        "*Subah. Tumhare flat ki khidki se wahi purana Mumbai dikhta hai — par ab tum jaante ho ki uske neeche ek aur duniya saans le rahi hai. Aria kitchen mein hai, maggi jalaa rahi hai, gungunaate hue.*",
+        "*Table par teen cheezein padi hain: Kavi ka bheja hua ek chamakta dhaaga ('gate pass, bhai — kho mat dena'), Vira ka ek sandesh jo hawa mein likha hai aur mit-mit ke phir ban raha hai, aur daadaji ki diary — jismein aaj ek naya panna dikh raha hai jo kal nahi tha.*",
+        "Aria: \"Tum jaante ho na, ye khatam nahi hua? Kuch bhi khatam nahi hota, Ankit. Bas agla hissa shuru hota hai.\"",
+        "*Woh tumhare paas aati hai. Maggi ka bowl deti hai. Jali hui hai. Perfect.*",
+        "Aria: \"Toh... aaj kya karein? Tum chuno. Main hazaar saal se faisle kar rahi hoon. Aaj tum karo.\""
+      ],
+      "fallbackLines": [
+        "*Vira ka sandesh phir se ban raha hai hawa mein: 'Chhaya-gan ne pehla kadam uthaya. Tumhare shehar mein.'*",
+        "Aria: \"Jaldi nahi hai. Matlab hai — par pehle maggi. Insaan aise hi karte hain na? Pehle khaana, phir duniya bachana?\"",
+        "*Diary ka naya panna: ek naksha. Mumbai ka. Par usmein aisi jagahein hain jo maps par nahi hain.*"
+      ],
+      "choices": [
+        {
+          "id": "c_chhaya_arc",
+          "text": "Vira ka sandesh — \"Chhaya-gan ne kya kiya? Chalo dekhte hain.\"",
+          "shortLabel": "Chhaya-gan ka arc",
+          "keywords": [
+            "chhaya",
+            "vira",
+            "sandesh",
+            "dushman",
+            "shehar",
+            "kadam",
+            "khatra"
+          ],
+          "next": "s8_chhaya",
+          "effects": {
+            "relationships": {
+              "vira": 6
+            },
+            "flags": {
+              "arcChhaya": true
+            },
+            "choicesRecord": {
+              "arc5": "chhaya"
+            },
+            "memory": [
+              "Ankit ne Chhaya-gan wala raasta chuna — Aria ki aankhon mein purani aag lauti."
+            ]
+          }
+        },
+        {
+          "id": "c_diary_arc",
+          "text": "Diary ka naya panna — \"Ye naksha... daadaji tumhe jaante the?\"",
+          "shortLabel": "Diary ka arc",
+          "keywords": [
+            "diary",
+            "naksha",
+            "daadaji",
+            "panna",
+            "map",
+            "purana",
+            "history"
+          ],
+          "next": "s8_diary",
+          "effects": {
+            "relationships": {
+              "aria": 10
+            },
+            "flags": {
+              "arcDiary": true
+            },
+            "choicesRecord": {
+              "arc5": "diary"
+            },
+            "memory": [
+              "Ankit ne daadaji ki diary ka raasta chuna — Aria ne kaha: 'Main is sawaal se darti thi.'"
+            ]
+          }
+        },
+        {
+          "id": "c_aam_din",
+          "text": "Aaj kuch nahi — \"Aaj sirf ek aam din. Marine Drive. Tum aur main.\"",
+          "shortLabel": "Aam din jeeyo",
+          "keywords": [
+            "aam",
+            "normal",
+            "date",
+            "marine",
+            "ghoom",
+            "tum aur main",
+            "chhutti",
+            "rest"
+          ],
+          "next": "s8_aam_din",
+          "effects": {
+            "relationships": {
+              "aria": 15
+            },
+            "flags": {
+              "choseOrdinaryDay": true
+            },
+            "choicesRecord": {
+              "arc5": "ordinary"
+            },
+            "memory": [
+              "Ankit ne devi ko ek aam din diya — Marine Drive, bhel, sunset. Aria ne kaha ye uske hazaar saal ka sabse bada gift tha."
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "id": "s8_chhaya",
+      "title": "Parchhaiyan Jo Roshni Mein Chalti Hain",
+      "narration": [
+        "*Dadar ka phool bazaar. Din ke baarah baje, bheed, dhoop. Aur phir bhi tumhe thand lag rahi hai. Aria tumhare aage chal rahi hai — dheere, har kadam naapte hue.*",
+        "Aria: \"Yahan. Dekho — nahi, aise nahi. Aankhon ke kone se dekho.\"",
+        "*Tum dekhte ho. Logon ki parchhaiyan... galat disha mein gir rahi hain. Dhoop ki taraf. Aur ek parchhai bina kisi insaan ke khadi hai — tumhari taraf dekhti hui.*",
+        "Kavi: \"Bhai, bhai, bhai. Ye Chhaya-gan ka scout hai. Ye sirf dekh raha hai. Abhi. Agar isne report kar di ki Adya ek insaan ke saath—\"",
+        "*Aria ek kadam aage badhti hai. Aur poore bazaar ki parchhaiyan ek saath seedhi ho jaati hain. Sirf woh akeli parchhai bachti hai — aur woh ab kaanp rahi hai.*",
+        "Aria: \"Jao. Apne maalikon ko bolo: main jaag gayi hoon. Aur is baar main akeli nahi hoon.\"",
+        "*Parchhai gayab. Aria tumhari taraf mudti hai — aur uske hont kaanp rahe hain. Taakat se nahi. Darr se.*",
+        "Aria: \"Maine tumhe unki nazar mein daal diya. Abhi-abhi. Ye galti thi ya sahi — mujhe nahi pata.\""
+      ],
+      "fallbackLines": [
+        "Kavi: \"Devsabha ko batana padega. Vira ko. Aur bhai — ab tumhare peeche bhi rahenge woh. Sorry.\"",
+        "*Phool bazaar phir se normal hai. Log, bheed, khushboo. Par ab tum har parchhai ko dekhte ho.*",
+        "Aria: \"Ankit, kuch bolo. Tumhara chup rehna mujhe unse zyada darata hai.\""
+      ],
+      "choices": [
+        {
+          "id": "c_sahi_kiya",
+          "text": "\"Sahi kiya. Main chhupna nahi chahta. Tum bhi mat chhupo.\"",
+          "shortLabel": "Sahi kiya",
+          "keywords": [
+            "sahi",
+            "chhup",
+            "nahi",
+            "saath",
+            "theek",
+            "himmat"
+          ],
+          "next": "s9_next",
+          "effects": {
+            "relationships": {
+              "aria": 18,
+              "kavi": 5
+            },
+            "flags": {
+              "acceptedDanger": true
+            },
+            "choicesRecord": {
+              "arc5b": "faced"
+            },
+            "memory": [
+              "Ankit ne Chhaya-gan ki nazar mein aana accept kiya — 'main chhupna nahi chahta'. Aria ne pehli baar use gale lagaya, bazaar ke beech."
+            ]
+          }
+        },
+        {
+          "id": "c_vira_bulao",
+          "text": "\"Vira ko bulao. Devsabha ko saath chahiye — humein bhi.\"",
+          "shortLabel": "Vira ko bulao",
+          "keywords": [
+            "vira",
+            "devsabha",
+            "bulao",
+            "saath",
+            "help",
+            "sabha",
+            "madad"
+          ],
+          "next": "s9_next",
+          "effects": {
+            "relationships": {
+              "vira": 12,
+              "aria": 6
+            },
+            "flags": {
+              "alliedSabha": true
+            },
+            "choicesRecord": {
+              "arc5b": "sabha"
+            },
+            "memory": [
+              "Ankit ne Devsabha se madad maangne ka faisla kiya — Vira ne kaha: 'Pehli baar koi insaan sahi faisla kar raha hai.'"
+            ]
+          }
+        },
+        {
+          "id": "c_parchhai_peecha",
+          "text": "Parchhai jis taraf gayi, wahan chalo — \"Woh kahan se aa rahe hain?\"",
+          "shortLabel": "Parchhai ka peecha",
+          "keywords": [
+            "peecha",
+            "kahan",
+            "follow",
+            "chalo",
+            "source",
+            "aa rahe"
+          ],
+          "next": "s9_next",
+          "effects": {
+            "relationships": {
+              "kavi": 10,
+              "aria": -3
+            },
+            "flags": {
+              "chasedShadow": true
+            },
+            "choicesRecord": {
+              "arc5b": "chased"
+            },
+            "memory": [
+              "Ankit ne parchhai ka peecha karne ki zid ki — Aria naraaz hui par saath gayi. Raasta ek purane theatre ke basement tak gaya, jahan deewaron par Aria ka purana naam likha tha."
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "id": "s8_diary",
+      "title": "Woh Phir Aayegi",
+      "narration": [
+        "*Raat. Table lamp. Diary khuli hui. Aria tumhare bagal mein baithi hai — par door. Pehli baar door.*",
+        "*Sketch: ek ladki, saada kurta, kalai mein kada. Neeche daadaji ki likhawat: '1962. Woh phir aayegi. Is baar main nahi rahunga. Par mera khoon rahega.'*",
+        "Aria: \"Main use jaanti thi. Tumhare daadaji ko. ...Nahi, ye sahi nahi hai. Main use jaanti hoon, par yaad nahi karti. Ye alag hai.\"",
+        "*Woh apna kada chhooti hai.*",
+        "Aria: \"Maine khud kuch yaadein band ki hain, Ankit. Is kade mein. Kyun — mujhe nahi pata. Par jab bhi main tumhe dekhti hoon, kada garam ho jaata hai.\"",
+        "*Diary ka naya panna: ek naksha. Mumbai ka. Par usmein aisi jagahein hain jo maps par nahi — 'Adya ka mandir', 'Pehla darwaaza', 'Jahan usne mujhe bachaya'.*",
+        "Aria: \"Tumhare daadaji ne mujhe kuch diya tha. Ya maine unhe. Aur ab woh tumse judaa hai. Isliye main... shayad isliye main tumhare bus stop par aayi.\"",
+        "*Woh tumhari taraf dekhti hai — aur pehli baar, devi nahi, ek dari hui ladki dikhti hai.*",
+        "Aria: \"Agar ye sach hai — ki maine tumhe kisi purane karz ke liye chuna — toh kya tum mujhse nafrat karoge?\""
+      ],
+      "fallbackLines": [
+        "*Kada garam hai. Tum use dekh sakte ho — halki si roshni.*",
+        "Aria: \"Jawab do. Please. Ye word bhi maine tumse seekha hai. Please.\"",
+        "*Naksha diary se halka sa uth raha hai, jaise use padhe jaane ka intezaar ho.*"
+      ],
+      "choices": [
+        {
+          "id": "c_nafrat_nahi",
+          "text": "\"Nahi. Karz ho ya kismat — tum yahan ho. Baaki baad mein.\"",
+          "shortLabel": "Nafrat nahi",
+          "keywords": [
+            "nahi",
+            "nafrat",
+            "karz",
+            "yahan ho",
+            "fark nahi",
+            "pyaar",
+            "saath"
+          ],
+          "next": "s9_next",
+          "effects": {
+            "relationships": {
+              "aria": 22
+            },
+            "flags": {
+              "acceptedOrigin": true
+            },
+            "choicesRecord": {
+              "arc5b": "accepted"
+            },
+            "memory": [
+              "Ankit ne kaha ki wajah se fark nahi padta — Aria yahan hai. Aria ka kada ek pal ke liye khula, aur usne ek yaad dekhi: daadaji, jawan, baarish, ek chhatri."
+            ]
+          }
+        },
+        {
+          "id": "c_kada_kholo",
+          "text": "\"Kada kholo. Jo bhi hai, saath dekhenge.\"",
+          "shortLabel": "Kada kholo",
+          "keywords": [
+            "kada",
+            "kholo",
+            "yaad",
+            "seal",
+            "dekhenge",
+            "saath",
+            "open"
+          ],
+          "next": "s9_next",
+          "effects": {
+            "relationships": {
+              "aria": 10
+            },
+            "flags": {
+              "openedSeal": true
+            },
+            "choicesRecord": {
+              "arc5b": "seal"
+            },
+            "memory": [
+              "Ankit ne Aria se kada kholne ko kaha — pehli yaad khuli: Aria ne khud ko seal kiya tha kyunki usne ek waada kiya tha jo woh tod nahi sakti thi. Kisse — abhi nahi dikha."
+            ]
+          }
+        },
+        {
+          "id": "c_mandir",
+          "text": "Naksha uthao — \"'Adya ka mandir'. Kal wahan chalte hain.\"",
+          "shortLabel": "Mandir chalo",
+          "keywords": [
+            "mandir",
+            "naksha",
+            "chalo",
+            "kal",
+            "jagah",
+            "temple",
+            "dhoondh"
+          ],
+          "next": "s9_next",
+          "effects": {
+            "relationships": {
+              "aria": 8,
+              "kavi": 6
+            },
+            "flags": {
+              "seekingTemple": true
+            },
+            "choicesRecord": {
+              "arc5b": "temple"
+            },
+            "memory": [
+              "Ankit ne 'Adya ka mandir' dhoondhne ka faisla kiya — Kavi ne kaha woh jagah Antarlok ke naksho par bhi nahi hai."
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "id": "s8_aam_din",
+      "title": "Marine Drive, Sunset, Aur Ek Devi Jo Ro Padi",
+      "narration": [
+        "*Marine Drive. Shaam. Bhel ka dona, tootte paav, samundar. Aria pathar par baithi hai, pair latka ke, aur samundar ko aise dekh rahi hai jaise pehli baar dekh rahi ho.*",
+        "Aria: \"Maine samundar banaya tha. Matlab — help ki thi. Bahut pehle. Par maine use kabhi aise nahi dekha. Yahan se. Bhel ke saath.\"",
+        "*Ek bachcha bhaagta hua aata hai, uska gubbara ud jaata hai. Aria ka haath halka sa hilta hai — gubbara ruk jaata hai hawa mein, phir dheere se bachche ke haath mein wapas.*",
+        "*Bachcha hansta hai. Maa ne dekha nahi. Kisi ne nahi dekha. Sirf tumne.*",
+        "Aria: \"Sorry. Aadat.\"",
+        "*Suraj doobta hai. Aria chup hai. Phir tum dekhte ho — uske gaal par ek aansu.*",
+        "Aria: \"Hazaar saal, Ankit. Hazaar saal mein kisi ne mujhe 'aam din' nahi diya. Sab kuch maangte the. Tumne kuch nahi maanga. Sirf... bhel.\"",
+        "*Woh tumhare kandhe par sar rakh deti hai. Samundar ki laharein ek pal ke liye tumhare rhythm mein chalti hain.*",
+        "Aria: \"Kal se sab phir shuru hoga. Chhaya, Vira, diary, sab. Par aaj... aaj ke liye shukriya.\""
+      ],
+      "fallbackLines": [
+        "*Bhel wala tumhe dekh ke muskurata hai — 'Bhai, aaj toh sunset bhi extra time ruka hai.' Aria seeti bajane lagti hai, bilkul galat.*",
+        "Aria: \"Ye 'seeti' hai na? Main sahi kar rahi hoon? ...Nahi kar rahi. Theek hai.\""
+      ],
+      "choices": [
+        {
+          "id": "c_kal_saath",
+          "text": "\"Kal jo bhi ho — saath hoga. Promise.\"",
+          "shortLabel": "Saath ka promise",
+          "keywords": [
+            "kal",
+            "saath",
+            "promise",
+            "waada",
+            "hoga",
+            "hamesha"
+          ],
+          "next": "s9_next",
+          "effects": {
+            "relationships": {
+              "aria": 20
+            },
+            "flags": {
+              "promisedTogether": true
+            },
+            "choicesRecord": {
+              "arc5b": "promise"
+            },
+            "memory": [
+              "Marine Drive par Ankit ne saath ka promise kiya — Aria ne kaha: 'Waade mat karo. Main waade tod nahi paati. Kabhi nahi.'"
+            ]
+          }
+        },
+        {
+          "id": "c_aur_dikhao",
+          "text": "\"Aur kya-kya banaya tha tumne? Batao.\"",
+          "shortLabel": "Aur batao",
+          "keywords": [
+            "aur",
+            "banaya",
+            "batao",
+            "kya",
+            "history",
+            "purana",
+            "story"
+          ],
+          "next": "s9_next",
+          "effects": {
+            "relationships": {
+              "aria": 12
+            },
+            "flags": {
+              "askedHistory": true
+            },
+            "choicesRecord": {
+              "arc5b": "history"
+            },
+            "memory": [
+              "Ankit ne Aria se uske purane kaam poochhe — usne pehli baar apni shuruaat ke baare mein bola: 'Main akeli thi. Phir maine sab banaya taaki akeli na rahoon. Phir bhi thi.'"
+            ]
+          }
+        },
+        {
+          "id": "c_gubbara",
+          "text": "\"Woh gubbare wala — tumhe dikhna nahi chahiye tha. Sambhal ke.\"",
+          "shortLabel": "Sambhal ke raho",
+          "keywords": [
+            "gubbara",
+            "dikhna",
+            "sambhal",
+            "careful",
+            "log",
+            "dekh"
+          ],
+          "next": "s9_next",
+          "effects": {
+            "relationships": {
+              "aria": 6,
+              "neha": 4
+            },
+            "flags": {
+              "warnedCaution": true
+            },
+            "choicesRecord": {
+              "arc5b": "caution"
+            },
+            "memory": [
+              "Ankit ne Aria ko sambhal ke rehne ko kaha — Aria hansi: 'Tum mujhe bacha rahe ho? Mujhe?' Phir seriously: 'Haan. Theek hai. Tumhare liye.'"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "id": "s9_next",
+      "title": "Agla Adhyay",
+      "narration": [
+        "*Raat der tak baatein. Subah phir wahi 1BHK, wahi kharab geyser — aur ek devi jo ab tumhare bina chai nahi peeti. Par duniya ruki nahi hai.*",
+        "*Kavi ka message: 'Bhai, Devsabha mein tumhara naam aaya hai. Officially. Ye achha bhi hai aur bura bhi.' Vira ka sandesh hawa mein: 'Chhaya-gan ka doosra kadam — tumhara college.' Neha ke teen missed calls. Aur diary mein ek aur naya panna.*",
+        "Aria: \"Dekho. Sab ek saath. Insaan aise kaise jeete hain?\"",
+        "*Woh muskurati hai. Kada halka sa garam hai. Aur uski aankhon mein woh purana darr ab kam hai — tum ho isliye.*",
+        "Aria: \"Chuno, Ankit. Agla adhyay kaunsa hoga? Main saath hoon — kisi bhi raaste mein.\""
+      ],
+      "fallbackLines": [
+        "*Ye kahani yahin nahi rukti. Har raasta ek naya arc kholta hai — naye devta, naye lok, purane dushman, aur Aria ke bhoole hue itihaas ke naye panne.*",
+        "Aria: \"Jaldi nahi hai. Main hazaar saal wait kar chuki hoon. Par chai thandi ho rahi hai.\"",
+        "Kavi: \"Bhai, jo bhi chuno — mujhe bhi le jaana. Gate pe akela bore ho jaata hoon.\""
+      ],
+      "choices": [
+        {
+          "id": "c_next_chhaya",
+          "text": "Chhaya-gan tumhare college pahunch gaye — wahan chalo",
+          "shortLabel": "College mein Chhaya",
+          "keywords": [
+            "college",
+            "chhaya",
+            "khatra",
+            "neha",
+            "dushman",
+            "bachao"
+          ],
+          "next": "s8_chhaya",
+          "effects": {
+            "relationships": {
+              "neha": 6
+            },
+            "flags": {
+              "arcChhaya2": true
+            },
+            "choicesRecord": {
+              "next": "chhaya"
+            },
+            "memory": [
+              "Naya arc: Chhaya-gan college pahunche — Neha khatre mein."
+            ]
+          }
+        },
+        {
+          "id": "c_next_diary",
+          "text": "Diary ka naya panna padho — Aria ke itihaas ka agla tukda",
+          "shortLabel": "Diary ka naya panna",
+          "keywords": [
+            "diary",
+            "panna",
+            "itihaas",
+            "yaad",
+            "kada",
+            "history",
+            "padho"
+          ],
+          "next": "s8_diary",
+          "effects": {
+            "relationships": {
+              "aria": 6
+            },
+            "flags": {
+              "arcDiary2": true
+            },
+            "choicesRecord": {
+              "next": "diary"
+            },
+            "memory": [
+              "Naya arc: diary ka naya panna — Aria ke seal ki hui yaadon ka agla tukda."
+            ]
+          }
+        },
+        {
+          "id": "c_next_sabha",
+          "text": "Devsabha ka bulawa — officially Antarlok jao",
+          "shortLabel": "Devsabha ka bulawa",
+          "keywords": [
+            "devsabha",
+            "sabha",
+            "antarlok",
+            "vira",
+            "officially",
+            "bulawa",
+            "kursi"
+          ],
+          "next": "s6_antarlok",
+          "effects": {
+            "relationships": {
+              "vira": 5,
+              "kavi": 5
+            },
+            "flags": {
+              "arcSabha2": true
+            },
+            "choicesRecord": {
+              "next": "sabha"
+            },
+            "location": "Antarlok",
+            "memory": [
+              "Naya arc: Devsabha ne Ankit ko officially bulaya — ek insaan, pehli baar."
+            ]
+          }
+        },
+        {
+          "id": "c_next_aam",
+          "text": "Aaj phir ek aam din — Aria ko kuch naya sikhao",
+          "shortLabel": "Ek aur aam din",
+          "keywords": [
+            "aam",
+            "normal",
+            "sikhao",
+            "din",
+            "ghoom",
+            "rest",
+            "date",
+            "chhutti"
+          ],
+          "next": "s8_aam_din",
+          "effects": {
+            "relationships": {
+              "aria": 10
+            },
+            "flags": {
+              "arcOrdinary2": true
+            },
+            "choicesRecord": {
+              "next": "ordinary"
+            },
+            "memory": [
+              "Naya arc: ek aur aam din — Aria ke liye duniya ki sabse badi cheez."
+            ]
+          }
+        }
+      ]
+    }
+  ],
+  "endings": []
+}

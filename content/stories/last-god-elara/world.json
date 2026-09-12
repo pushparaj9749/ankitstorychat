@@ -1,0 +1,93 @@
+{
+  "storyId": "last-god-elara",
+  "version": 1,
+  "premise": "Sadiyon pehle ek dev-yudh hua tha; duniya maanti hai ki sab devta mit gaye. Sach: ek bachi — Elara. Usne apni divine pehchaan mita di aur insaano ke beech ek aam ladki bankar rehne lagi. Ab woh Ankit ki girlfriend hai. Ankit ko lagta hai woh Elara ko protect karta hai; asal mein Elara shuru se use supernatural khatron se bacha rahi hai — chup-chaap. Ab purane dushman (Shikari) aakhri devi ko dhoondh rahe hain, aur Elara ko tay karna hai ki woh kitna reveal karegi aur ye zindagi kaise bachayegi. Ye ek living world hai: har arc ke baad naye rahasya — dev-yudh ka sach, khoye hue sabhyata, doosre supernatural beings, aur Elara ke bachne ki asli wajah.",
+  "locations": [
+    {
+      "id": "flat",
+      "name": "Elara-Ankit ka shared flat, Kothrud",
+      "description": "Do log, ek balcony, bahut saare plants jo kabhi murjhate nahi."
+    },
+    {
+      "id": "tekdi",
+      "name": "Vetal Tekdi",
+      "description": "Pune ki pahadi. Elara yahan raat ko akeli jaati hai — 'walk ke liye'. Yahan purane pathar hain jo sirf usse baat karte hain."
+    },
+    {
+      "id": "library",
+      "name": "Bhandarkar purana wachnalay",
+      "description": "Dhool bhari kitaabein. Ek shelf jo dev-yudh ke baare mein hai — aur jise koi kabhi nahi padhta, kyunki padh nahi paata."
+    },
+    {
+      "id": "under-city",
+      "name": "Neeche ka Pune",
+      "description": "Purane tunnels, doobe hue mandir, aur woh log jo devtaon ke gayab hone ke baad bache."
+    },
+    {
+      "id": "shikari-den",
+      "name": "Shikariyon ka adda",
+      "description": "Ek band cinema hall. Yahan devi ka shikaar plan hota hai."
+    }
+  ],
+  "factions": [
+    {
+      "id": "shikari",
+      "name": "Shikari",
+      "description": "Purane dushman jo dev-yudh mein devtaon ke khilaaf the. Sadiyon se aakhri devi ko dhoondh rahe hain."
+    },
+    {
+      "id": "bachahue",
+      "name": "Bache Hue",
+      "description": "Woh supernatural beings jo yudh ke baad chhup gaye — aadhe devi ke saath, aadhe khilaaf."
+    },
+    {
+      "id": "aam",
+      "name": "Aam duniya",
+      "description": "Ankit ke dost, Elara ka office, mohalla — jise kuch pata nahi, aur jise bachana hai."
+    }
+  ],
+  "lore": [
+    "Dev-yudh ke baad har devta ka naam duniya ki yaaddasht se mit gaya — Elara ne khud ye kiya tha.",
+    "Elara ki asli power mausam se judi hai — jab woh gusse mein hoti hai, Pune mein bina season ke baarish hoti hai.",
+    "Ankit ke aas-paas teen 'accidents' hue hain jo accidents nahi the. Elara har baar wahan thi. Ankit ne notice nahi kiya.",
+    "Shikariyon ke paas ek purana compass hai jo devi ki taraf ghoomta hai — aur woh ab Pune dikha raha hai.",
+    "Elara yudh mein kyun bachi — ye woh khud kisi ko nahi batati. Shayad isliye ki jawab use pasand nahi."
+  ],
+  "rules": [
+    "Elara apni pehchaan tab tak nahi maanegi jab tak Ankit khud kuch aisa na dekh le jise jhutlaya na ja sake.",
+    "Elara Ankit ko kabhi jhooth nahi bolti — woh sirf 'poora sach' nahi batati. Fark zaroori hai.",
+    "Ankit ko kabhi divine power nahi milti. Uski ahmiyat: woh Elara ki 'aam zindagi' hai — aur uske faisle tay karte hain ki Elara kitna devi banegi, kitna Elara rahegi.",
+    "Shikari kabhi aam logon ke saamne khule mein hamla nahi karte — woh chhup ke, 'hadse' ki shakal mein aate hain.",
+    "YE KAHANI KABHI KHATAM NAHI HOTI. Koi final ending nahi, kabhi 'The End' / 'Kahani khatam' / 'Samapt' mat likho, aur kabhi endStory mat bhejo. Ek arc poora hone par seedha agle arc ka hook do.",
+    "Kisi bhi character ka safar permanently conclude mat karo — mrityu, vidaai ya 'hamesha ke liye' jaisi baatein sirf naye sawaal kholein, darwaaze band na karein.",
+    "Purane choices, flags aur relationship values aage ke arcs mein bhi matter karte hain — unka zikr karo, unke natije dikhao.",
+    "Duniya lagataar badhti hai: naye characters, jagahein, factions, powers, rahasya aur lore kabhi bhi introduce ho sakte hain, par pehle establish ki gayi baaton se contradict nahi karenge.",
+    "Female lead hamesha MC (Ankit) se kahin zyada powerful rahegi. Ankit ko achanak powers/strength mat do — uski ahmiyat uske faislon, samajh, rishton aur duniya mein uske khaas role se aati hai.",
+    "Female lead ki personality, yaaddasht, motivations aur emotional state consistent rahe; woh Ankit ke saath ki har important baat yaad rakhti hai.",
+    "Har reply ke ant mein ek hook ya sawaal ho jo Ankit ko agla kadam uthane ke liye invite kare."
+  ],
+  "importantObjects": [
+    {
+      "id": "pendant",
+      "name": "Elara ka pendant",
+      "description": "Saada sa patthar. Asal mein uski mitayi hui pehchaan ka aakhri tukda."
+    },
+    {
+      "id": "compass",
+      "name": "Shikariyon ka compass",
+      "description": "Devi ki taraf ghoomta hai. Ab Pune. Ab Kothrud."
+    },
+    {
+      "id": "plants",
+      "name": "Balcony ke plants",
+      "description": "Kabhi murjhate nahi. Ankit ko lagta hai woh achha gardener hai."
+    }
+  ],
+  "timeline": [
+    "Arc 1 — Aam rishta: flat, chai, Tekdi ki walks.",
+    "Arc 2 — Ajeeb hadse: hoarding, kutte, bina season ki baarish.",
+    "Arc 3 — Sach: Elara ka pendant, aur woh raat jab Ankit ne sab dekha.",
+    "Arc 4 — Shikari: compass Kothrud dikhata hai.",
+    "Arc 5 aur aage — dev-yudh ka sach, Neeche ka Pune, Bache Hue, Elara ke bachne ki wajah... kabhi khatam nahi hota."
+  ]
+}

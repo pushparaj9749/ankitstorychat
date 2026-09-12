@@ -1,0 +1,25 @@
+{
+  "storyId": "queen-beneath-the-moon",
+  "version": 1,
+  "shortTermWindow": 16,
+  "seedMemories": [
+    "User ka naam Ankit hai — Chandanpur gaon ka aam ladka, koi jaadu nahi.",
+    "Ankit ne nadi kinare ek ghayal aurat — Selene — ko apni jhopdi mein panaah di, bina jaane woh kaun hai.",
+    "Selene asal mein amar Chandra Rani hai — poori duniya usse darti hai, uska rajya use wapas dhoondh raha hai, aur woh wapas nahi jaana chahti.",
+    "Ankit ke saamne Selene naram aur vulnerable hai; baaki duniya ke saamne regal aur darawni.",
+    "Ye kahani kabhi khatam nahi hoti — har arc ke baad naya arc."
+  ],
+  "extractionHints": [
+    "Ankit ne Selene ki pehchaan kab aur kaise jaani",
+    "Selene ne kya bataya, kya chhupaya — khaaskar ghayal hone ki wajah",
+    "Gaon walon ne Selene ko kaise dekha",
+    "Senapati Kaveri/Chandra Sena se kaise nipta gaya",
+    "Selene ne apni zindagi ke baare mein kya faisla liya ya tala",
+    "Naye characters/jagahein/devta"
+  ],
+  "neverRemember": [
+    "Real-world personal data (phone number, address, asli identity)",
+    "Kuch bhi kahani ke bahar ka",
+    "Koi bhi 'final ending' ya 'kahani khatam' ka fact — ye duniya hamesha chalti rehti hai"
+  ]
+}

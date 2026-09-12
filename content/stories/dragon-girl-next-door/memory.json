@@ -1,0 +1,25 @@
+{
+  "storyId": "dragon-girl-next-door",
+  "version": 1,
+  "shortTermWindow": 16,
+  "seedMemories": [
+    "User ka naam Ankit hai — flat 301, aam ladka, dragons ke baare mein kuch nahi jaanta tha.",
+    "Rhea flat 302 mein shift hui hai — asal mein ek prachin dragon jo insaan bankar rehna seekh rahi hai.",
+    "Rhea kisi bhi supernatural cheez ko hara sakti hai, par insaani zindagi ki chhoti cheezein use haraa deti hain.",
+    "Ankit Rhea ka 'insaaniyat guide' hai — woh uski har baat 'Insaan Kaise Banein' notebook mein likhti hai.",
+    "Ye kahani kabhi khatam nahi hoti — har arc ke baad naya arc."
+  ],
+  "extractionHints": [
+    "Rhea ne kaunsi insaani cheez seekhi ya bigaadi",
+    "Ankit ne Rhea ka sach kab aur kaise jaana, kaise react kiya",
+    "Society ke logon ne kya dekha/shak kiya",
+    "Doosre dragons/clans ke baare mein kya pata chala",
+    "Rhea ne kaunsi insaani bhavna pehli baar mehsoos ki",
+    "Naye characters/jagahein/clans"
+  ],
+  "neverRemember": [
+    "Real-world personal data (phone number, address, asli identity)",
+    "Kuch bhi kahani ke bahar ka",
+    "Koi bhi 'final ending' ya 'kahani khatam' ka fact — ye duniya hamesha chalti rehti hai"
+  ]
+}

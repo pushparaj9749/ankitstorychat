@@ -1,0 +1,1232 @@
+{
+  "storyId": "girl-of-thousand-lives",
+  "version": 1,
+  "scenes": [
+    {
+      "id": "s1_platform3",
+      "title": "Platform 3, Aur Ek Ladki Jo Tumhara Naam Jaanti Thi",
+      "narration": [
+        "*Jaipur Junction. Platform 3. Subah ke saadhe chhe. Train late hai — hamesha ki tarah. Tum Ankit ho, chai ke cup ke saath bench par baithe, aur tumhari jeb mein ek ticket hai jo tum kabhi phenkte nahi.*",
+        "*Bench ke doosre kone par ek ladki baithi hai. Saada kurta, kalai mein ek purani ghadi. Woh tumhari taraf nahi dekh rahi. Phir bhi tumhe lagta hai ki woh tumhe dekh rahi hai.*",
+        "Elena: \"Cheeni nahi daali na chai mein?\"",
+        "*Tum rukte ho. Woh ab tumhari taraf dekh rahi hai. Aur uski aankhon mein... thakan hai. Aur kuch aur. Jaise koi bahut purani cheez dobara dekh raha ho.*",
+        "Elena: \"Sorry. Andaza tha. Mujhe achhe andaze lagte hain.\"",
+        "*Train ka announcement. Woh uthti hai. Phir rukti hai. Ek second ke liye uski aankhein band hoti hain — jaise woh khud se kuch keh rahi ho. Phir woh mudti hai.*",
+        "Elena: \"Ankit. ...Tumhara naam Ankit hai na? Nahi, tumne nahi bataya. Main bas — main Elena hoon. Aur main is baar kuch alag try kar rahi hoon. Tum help karoge?\""
+      ],
+      "fallbackLines": [
+        "*Elena ki ghadi 3:33 par ruki hui hai. Subah ke saadhe chhe baje. Woh use dekhti hai jaise woh sahi waqt dikha rahi ho.*",
+        "Elena: \"Tum soch rahe ho 'ye kaun hai'. Theek hai. Socho. Main jaldi mein nahi hoon. Sach mein nahi.\"",
+        "*Train aati hai. Woh chadhti nahi.*"
+      ],
+      "choices": [
+        {
+          "id": "c_kahan_se",
+          "text": "\"Tum mujhe kahan se jaanti ho?\"",
+          "shortLabel": "Kahan se jaanti ho?",
+          "keywords": [
+            "kahan se",
+            "jaanti",
+            "naam",
+            "kaise",
+            "know",
+            "pehle"
+          ],
+          "next": "s2_chai",
+          "effects": {
+            "relationships": {
+              "elena": 10
+            },
+            "flags": {
+              "askedTheQuestion": true
+            },
+            "choicesRecord": {
+              "opening": "question"
+            },
+            "memory": [
+              "Ankit ne wahi sawaal poocha jo har timeline mein poochta hai — 'tum mujhe kahan se jaanti ho'. Elena muskurayi, thodi udaas."
+            ]
+          }
+        },
+        {
+          "id": "c_help",
+          "text": "\"Kya alag try kar rahi ho? Main help karunga — batao.\"",
+          "shortLabel": "Haan, help karunga",
+          "keywords": [
+            "help",
+            "haan",
+            "alag",
+            "batao",
+            "karunga",
+            "yes",
+            "try"
+          ],
+          "next": "s2_chai",
+          "effects": {
+            "relationships": {
+              "elena": 16
+            },
+            "flags": {
+              "agreedFirst": true
+            },
+            "choicesRecord": {
+              "opening": "agreed"
+            },
+            "memory": [
+              "Ankit ne bina jaane 'haan help karunga' kaha — Elena ne kaha ye pehli baar hua hai. Kisi bhi timeline mein."
+            ]
+          }
+        },
+        {
+          "id": "c_train",
+          "text": "Train mein chadh jao — ye ajeeb hai",
+          "shortLabel": "Train pakdo",
+          "keywords": [
+            "train",
+            "chadh",
+            "jaana",
+            "ajeeb",
+            "nahi",
+            "leave",
+            "bhaag"
+          ],
+          "next": "s2_train",
+          "effects": {
+            "relationships": {
+              "elena": 0
+            },
+            "flags": {
+              "tookTrain": true
+            },
+            "choicesRecord": {
+              "opening": "train"
+            },
+            "memory": [
+              "Ankit train mein chadh gaya — Elena ne roka nahi. Bas kaha: 'Theek hai. Agle stop pe chai peena. Bina cheeni.'"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "id": "s2_chai",
+      "title": "Hawa Mahal Wali Chai",
+      "narration": [
+        "*Hawa Mahal ke saamne wali tapri. Elena tumhe yahan le aayi — bina raasta poochhe. Tapri wali budhi aurat tumhe dekhti hai, phir Elena ko, aur uska chehra khil jaata hai.*",
+        "Daadi: \"Aa gayi bitiya! Aur... aa gaya chhora. Cheeni nahi lega, pata hai.\"",
+        "*Tumne kuch nahi bola tha.*",
+        "Elena: \"Daadi. Please. Is baar nahi.\"",
+        "Daadi: \"Haan haan. Is baar 'naya'. Samajh gayi. Chup.\"",
+        "*Daadi chai banati hai. Elena tumhare saamne baithti hai. Tum use dekh rahe ho. Woh tumhe.*",
+        "Elena: \"Main tumhe sab nahi bataungi, Ankit. Ye faisla maine kiya hai. Par main jhooth bhi nahi bolungi. Toh — jo poochhna hai, poochho. Aur jab main 'baad mein' kahun, toh samjho ki jawab hai, bas abhi nahi.\"",
+        "*Woh apni ghadi ko chhooti hai.*",
+        "Elena: \"Aur ek baat. Tum aaj shaam Rohan ke saath cricket dekhne wale ho. Mat jaana. Please. ...Nahi, kuch bura nahi hoga. Bas — mat jaana. Ye mera pehla test hai.\""
+      ],
+      "fallbackLines": [
+        "Daadi: \"Chhore, chai peeyo. Sawaal baad mein. Bitiya ne bahut wait kiya hai — nahi, matlab — arre chup ho gayi main.\"",
+        "*Elena Daadi ko ghoorti hai. Daadi hansti hai.*",
+        "Elena: \"Tum chup ho. Tum tab chup hote ho jab tum decide kar rahe hote ho. Main jaanti hoon. ...Sorry. Aadat.\""
+      ],
+      "choices": [
+        {
+          "id": "c_nahi_jaunga",
+          "text": "\"Theek hai. Nahi jaunga. Par batao — kyun?\"",
+          "shortLabel": "Nahi jaunga. Kyun?",
+          "keywords": [
+            "nahi jaunga",
+            "theek",
+            "kyun",
+            "ok",
+            "maan",
+            "batao"
+          ],
+          "next": "s3_sapna",
+          "effects": {
+            "relationships": {
+              "elena": 14
+            },
+            "flags": {
+              "passedFirstTest": true
+            },
+            "choicesRecord": {
+              "arc1": "passed"
+            },
+            "memory": [
+              "Ankit ne Elena ki baat maani — cricket nahi gaya. Elena: 'Kyunki har baar tum jaate ho. Aur har baar wahan se sab same shuru hota hai. Aaj nahi hua.'"
+            ]
+          }
+        },
+        {
+          "id": "c_jaunga",
+          "text": "\"Main jaunga. Tum meri life decide nahi karogi.\"",
+          "shortLabel": "Main jaunga",
+          "keywords": [
+            "jaunga",
+            "decide",
+            "meri life",
+            "nahi",
+            "khud",
+            "will go"
+          ],
+          "next": "s3_cricket",
+          "effects": {
+            "relationships": {
+              "elena": 4
+            },
+            "flags": {
+              "failedFirstTest": true
+            },
+            "choicesRecord": {
+              "arc1": "went"
+            },
+            "memory": [
+              "Ankit ne kaha woh khud decide karega, cricket jaayega — Elena ne kaha: 'Sahi. Yahi toh main chahti hoon. Jao.' Aur uski aankhein bheeg gayi."
+            ]
+          }
+        },
+        {
+          "id": "c_daadi",
+          "text": "Daadi se poocho — \"Aap mujhe kaise jaanti hain?\"",
+          "shortLabel": "Daadi se poocho",
+          "keywords": [
+            "daadi",
+            "aap",
+            "kaise",
+            "jaanti",
+            "tapri",
+            "poocho"
+          ],
+          "next": "s3_sapna",
+          "effects": {
+            "relationships": {
+              "daadi": 12,
+              "elena": 4
+            },
+            "flags": {
+              "askedDaadi": true
+            },
+            "choicesRecord": {
+              "arc1": "daadi"
+            },
+            "memory": [
+              "Ankit ne Daadi se poocha — Daadi: 'Main thoda-bahut yaad rakhti hoon, chhore. Do-teen baar. Bitiya hazaar. Fark samjha?'"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "id": "s2_train",
+      "title": "Agla Stop",
+      "narration": [
+        "*Train. Window seat. Jaipur peeche chhoot raha hai. Tumne sahi kiya — ajeeb ladki thi. Par tumhari jeb mein ticket hai, aur tum use baar-baar chhoo rahe ho.*",
+        "*Gandhinagar station. Train rukti hai. Platform par chai wala. Tum utarte ho — bas chai ke liye.*",
+        "*Chai wala cup deta hai. 'Bina cheeni, sahab. Madam ne bola tha.'*",
+        "*Madam. Tum mudte ho. Platform ke doosre chhor par Elena khadi hai. Woh is train mein nahi thi.*",
+        "Elena: \"Main naraaz nahi hoon. Tum aksar chadh jaate ho. Matlab — log chadh jaate hain. Trains mein. Aam baat hai.\"",
+        "*Woh paas aati hai. Chai ki taraf dekhti hai.*",
+        "Elena: \"Bina cheeni. Dekha? Achha andaza.\"",
+        "*Train seeti deti hai. Woh tumhare saath chadhti hai. Tumhare bagal wali seat khaali hai. Poori bogie mein sirf wahi.*"
+      ],
+      "fallbackLines": [
+        "Elena: \"Tum poochoge 'tum yahan kaise'. Aur main kahungi 'baad mein'. Aur tum chup ho jaoge. Aur phir tum poochoge 'tum mujhe kahan se jaanti ho'. Har baar. Main wait kar rahi hoon.\"",
+        "*Woh muskurati hai. Thodi udaas.*"
+      ],
+      "choices": [
+        {
+          "id": "c_kahan_se2",
+          "text": "\"...Tum mujhe kahan se jaanti ho?\"",
+          "shortLabel": "Kahan se jaanti ho?",
+          "keywords": [
+            "kahan se",
+            "jaanti",
+            "kaise",
+            "know",
+            "yahan kaise"
+          ],
+          "next": "s3_sapna",
+          "effects": {
+            "relationships": {
+              "elena": 10
+            },
+            "flags": {
+              "askedTheQuestion": true
+            },
+            "choicesRecord": {
+              "arc1": "question"
+            },
+            "memory": [
+              "Train mein Ankit ne aakhir wahi sawaal poocha — Elena hansi: 'Wahan. Bilkul wahi. Har baar. Chalo, chai peete hain Hawa Mahal pe.'"
+            ]
+          }
+        },
+        {
+          "id": "c_kuch_nahi_poochunga",
+          "text": "\"Main kuch nahi poochunga. Tum jab chaho, batana.\"",
+          "shortLabel": "Kuch nahi poochunga",
+          "keywords": [
+            "nahi poochunga",
+            "jab chaho",
+            "batana",
+            "theek",
+            "wait",
+            "trust"
+          ],
+          "next": "s3_sapna",
+          "effects": {
+            "relationships": {
+              "elena": 20
+            },
+            "flags": {
+              "didNotAsk": true
+            },
+            "choicesRecord": {
+              "arc1": "didnotask"
+            },
+            "memory": [
+              "Ankit ne kuch nahi poocha — Elena ka chehra badal gaya. 'Ye... ye kabhi nahi hua. Tumne hamesha poocha. Hazaar baar. Aaj nahi.' Uska haath kaanpne laga."
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "id": "s3_sapna",
+      "title": "Woh Sapna Jo Tumhara Nahi Tha",
+      "narration": [
+        "*Raat. Tumhara kamra, Malviya Nagar. Rohan bagal wale bed par kharraate le raha hai. Tum so gaye ho.*",
+        "*Sapna. Chand Baori. Seedhiyan neeche jaati hui. Tum neeche khade ho, paani ke paas. Aur upar, seedhiyon ke top par, Elena. Par uske kapde alag hain. Uske baal alag hain. Uska chehra... wahi hai, par usmein aisi thakan hai jo tumne aaj nahi dekhi.*",
+        "*Woh chilla rahi hai. Tumhara naam. Aur tum — sapne mein — upar nahi ja rahe. Tum paani ki taraf ja rahe ho. Kyun, tumhe nahi pata.*",
+        "*Elena ki awaaz: 'Is baar nahi. Please. Is baar nahi—'*",
+        "*Tum jaag jaate ho. Paseena. Raat ke 3:33.*",
+        "*Phone. Ek message. Elena. Bheja gaya: 3:32. 'Tum jaag gaye? Kya dekha? ...Nahi. Mat batao. Bas — tum theek ho?'*",
+        "*Usne kaise jaana?*",
+        "*Rohan neend mein kuch bolta hai: 'Bhai... kuan... neeche mat jaana...' Aur karvat le leta hai.*"
+      ],
+      "fallbackLines": [
+        "*Ghadi 3:34. Tumhara dil abhi bhi tez chal raha hai. Woh sapna... sapna nahi lag raha tha. Yaad lag raha tha. Kisi aur ki.*",
+        "*Phone phir vibrate karta hai. Elena: 'Main bahar hoon. Neeche. Agar tum chaho.'*"
+      ],
+      "choices": [
+        {
+          "id": "c_neeche_jao",
+          "text": "Neeche jao — Elena se milo",
+          "shortLabel": "Elena se milo",
+          "keywords": [
+            "neeche",
+            "milo",
+            "elena",
+            "bahar",
+            "jao",
+            "abhi"
+          ],
+          "next": "s4_sach",
+          "effects": {
+            "relationships": {
+              "elena": 12
+            },
+            "flags": {
+              "metAtNight": true
+            },
+            "choicesRecord": {
+              "arc2": "met"
+            },
+            "memory": [
+              "Ankit raat ko 3:35 par neeche gaya — Elena wahan thi, aur usne poochha: 'Kuan dekha? ...Ye pehli baar hai jab tumne mera sapna dekha.'"
+            ]
+          }
+        },
+        {
+          "id": "c_rohan_jagao",
+          "text": "Rohan ko jagao — \"Tune abhi kya bola? Kuan?\"",
+          "shortLabel": "Rohan ko jagao",
+          "keywords": [
+            "rohan",
+            "jagao",
+            "kuan",
+            "bola",
+            "sapna",
+            "tune"
+          ],
+          "next": "s4_rohan",
+          "effects": {
+            "relationships": {
+              "rohan": 10
+            },
+            "flags": {
+              "askedRohanDream": true
+            },
+            "choicesRecord": {
+              "arc2": "rohan"
+            },
+            "memory": [
+              "Ankit ne Rohan ko jagaya — Rohan ko bhi wahi sapna aata hai. Mahine mein ek baar. 'Bhai, tu neeche jaata hai. Har baar. Main rokta hoon. Har baar.'"
+            ]
+          }
+        },
+        {
+          "id": "c_reply",
+          "text": "Reply karo — 'Theek hoon. Tumhe kaise pata tha?'",
+          "shortLabel": "Reply — kaise pata?",
+          "keywords": [
+            "reply",
+            "kaise pata",
+            "message",
+            "theek hoon",
+            "text"
+          ],
+          "next": "s4_sach",
+          "effects": {
+            "relationships": {
+              "elena": 8
+            },
+            "flags": {
+              "askedHowKnew": true
+            },
+            "choicesRecord": {
+              "arc2": "howknew"
+            },
+            "memory": [
+              "Ankit ne poocha Elena ko kaise pata tha — Elena: 'Baad mein. Par ye jaan lo — ye sapna tumhe kabhi nahi aata tha. Kuch badal raha hai. Shayad tumne kuch alag kiya.'"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "id": "s3_cricket",
+      "title": "Woh Shaam Jo Har Baar Hoti Hai",
+      "narration": [
+        "*Shaam. Rohan ke saath cricket. SMS ground. Sab normal. Bilkul normal. Itna normal ki tumhe ajeeb lagta hai.*",
+        "*Phir ek ball boundary ke bahar aati hai. Seedha tumhari taraf. Tum pakadte ho. Aur pakadte hi — ek pal ke liye — tumhe lagta hai tumne ye pehle bhi pakda hai. Bilkul aise. Bilkul yahan.*",
+        "Rohan: \"Bhai! Kya catch! ...Bhai? Tu theek hai? Tu aise kyun dekh raha hai ball ko?\"",
+        "*Ground ke gate par Elena khadi hai. Woh andar nahi aati. Bas dekh rahi hai. Aur uske chehre par... raahat nahi hai. Kuch aur hai.*",
+        "*Tum uske paas jaate ho.*",
+        "Elena: \"Tumne catch pakda. Har baar pakadte ho. Aur har baar, isi pal, tumhe déjà vu hota hai. Aur har baar tum mujhe dhoondhte ho gate pe. Aur main hoti hoon.\"",
+        "*Woh saans leti hai.*",
+        "Elena: \"Main is baar nahi aana chahti thi. Main aayi. Ye meri galti hai, tumhari nahi.\""
+      ],
+      "fallbackLines": [
+        "Rohan: \"Bhai, ye wahi hai na? Platform wali? Bhai maine ise dekha hai. Pakka. ...Sapne mein? Bhai main pagal ho raha hoon kya?\"",
+        "Elena: \"Rohan. Hi. Tum mujhe har baar yahi bolte ho. Ye... ye achha hai. Sach mein.\""
+      ],
+      "choices": [
+        {
+          "id": "c_har_baar",
+          "text": "\"'Har baar'? Elena, ye 'har baar' kya hai? Ab batao.\"",
+          "shortLabel": "'Har baar' kya hai?",
+          "keywords": [
+            "har baar",
+            "kya hai",
+            "batao",
+            "ab",
+            "every time",
+            "matlab"
+          ],
+          "next": "s4_sach",
+          "effects": {
+            "relationships": {
+              "elena": 8
+            },
+            "flags": {
+              "pushedForTruth": true
+            },
+            "choicesRecord": {
+              "arc2": "pushed"
+            },
+            "memory": [
+              "Cricket ground pe Ankit ne 'har baar' ka matlab poocha — Elena ne kaha: 'Chalo. Chand Baori. Wahan bataungi. Wahin se shuru hua tha.'"
+            ]
+          }
+        },
+        {
+          "id": "c_alag_karo",
+          "text": "\"Toh ab kuch alag karte hain. Ball wapas phenk do. Ghar chalo. Abhi.\"",
+          "shortLabel": "Kuch alag karo",
+          "keywords": [
+            "alag",
+            "ball",
+            "phenk",
+            "ghar",
+            "abhi",
+            "different",
+            "change"
+          ],
+          "next": "s4_sach",
+          "effects": {
+            "relationships": {
+              "elena": 16
+            },
+            "flags": {
+              "brokePattern": true
+            },
+            "choicesRecord": {
+              "arc2": "broke"
+            },
+            "memory": [
+              "Ankit ne ball phenk di aur ground se nikal gaya — pattern toda. Elena peeche aayi, aur pehli baar woh hans rahi thi. 'Ye kabhi nahi hua. Ye KABHI nahi hua.'"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "id": "s4_sach",
+      "title": "Hazaar Lines",
+      "narration": [
+        "*Raat. Chand Baori ki seedhiyan. Chaand paani mein. Elena beech ki seedhi par baithi hai, tum uske bagal mein. Uske haath mein ek diary — moti, purani, panne peele.*",
+        "Elena: \"Har timeline ki ek line. Bas ek. Zyada likhun toh... bhaari ho jaata hai.\"",
+        "*Woh kholti hai. Pehla panna. Likhawat alag-alag hai — jaise alag-alag umar mein likhi gayi ho.*",
+        "Elena: \"'Woh mujhe nahi mila.' Pehli line. Phir: 'Woh mila. Usne mujhe nahi dekha.' Phir: 'Usne dekha. Hum dost bane. Bas dost.' Phir...\"",
+        "*Woh panne palat ti hai. Sau. Do sau. Paanch sau.*",
+        "Elena: \"'Humne shaadi ki. Woh khush tha. Main khush thi. Phir reset.' 'Usne mujhse nafrat ki. Sahi kiya.' 'Main is baar nahi gayi platform pe. Woh khud aaya. Kaise?' 'Woh kuan mein gaya. Main rok nahi payi.'\"",
+        "*Woh ruk jaati hai. Aakhri panna. Ek line khaali.*",
+        "Elena: \"Ye wali. Ye tumhari hai. Is baar ki. Maine abhi tak kuch nahi likha — kyunki maine tay kiya hai ki is baar main nahi likhungi. Tum likhoge. Jo bhi ho.\"",
+        "*Woh diary tumhari taraf badhati hai. Uska haath kaanp raha hai.*",
+        "Elena: \"Aur Ankit — us sapne mein tum neeche kyun jaate ho, ye mujhe bhi nahi pata. Hazaar baar dekha hai. Kabhi samjha nahi.\""
+      ],
+      "fallbackLines": [
+        "*Paani mein chaand hil raha hai. Seedhiyon ke upar, andhere mein, koi khada hai — lamba, shaant. Elena ne dekha nahi. Tumne dekha.*",
+        "Elena: \"Kuch bolo. Ya diary lo. Ya dono. Ya kuch bhi mat karo — ye bhi naya hoga.\""
+      ],
+      "choices": [
+        {
+          "id": "c_diary_lo",
+          "text": "Diary lo — aur khaali line par likho: 'Is baar hum saath decide karenge.'",
+          "shortLabel": "Diary mein likho",
+          "keywords": [
+            "diary",
+            "likho",
+            "lo",
+            "saath",
+            "decide",
+            "write",
+            "line"
+          ],
+          "next": "s5_hub",
+          "effects": {
+            "relationships": {
+              "elena": 22
+            },
+            "flags": {
+              "wroteInDiary": true
+            },
+            "choicesRecord": {
+              "arc3": "wrote"
+            },
+            "inventoryAdd": [
+              "elena-diary-line"
+            ],
+            "memory": [
+              "Ankit ne Elena ki diary mein is timeline ki line likhi: 'Is baar hum saath decide karenge.' Elena ne diary seene se laga li. Pehli baar kisi aur ne likha."
+            ]
+          }
+        },
+        {
+          "id": "c_kaun_upar",
+          "text": "\"Upar koi khada hai. Seedhiyon pe. Tumhe dikh raha hai?\"",
+          "shortLabel": "Upar kaun hai?",
+          "keywords": [
+            "upar",
+            "koi",
+            "khada",
+            "seedhi",
+            "dikh",
+            "kaun",
+            "someone"
+          ],
+          "next": "s5_veer",
+          "effects": {
+            "relationships": {
+              "elena": 6,
+              "veer": 4
+            },
+            "flags": {
+              "sawVeer": true
+            },
+            "choicesRecord": {
+              "arc3": "veer"
+            },
+            "memory": [
+              "Ankit ne seedhiyon par Veer ko dekha — Elena ka chehra safed ho gaya. 'Woh har baar aata hai. Par itni jaldi kabhi nahi.'"
+            ]
+          }
+        },
+        {
+          "id": "c_nafrat_wali",
+          "text": "\"'Usne mujhse nafrat ki. Sahi kiya.' — ye wali batao. Kya hua tha?\"",
+          "shortLabel": "Nafrat wali line",
+          "keywords": [
+            "nafrat",
+            "sahi kiya",
+            "kya hua",
+            "woh wali",
+            "batao",
+            "hate"
+          ],
+          "next": "s5_hub",
+          "effects": {
+            "relationships": {
+              "elena": 10
+            },
+            "flags": {
+              "askedDarkTimeline": true
+            },
+            "choicesRecord": {
+              "arc3": "dark"
+            },
+            "memory": [
+              "Ankit ne sabse mushkil line ke baare mein poocha — Elena ne bataya: ek timeline mein usne Ankit ke faisle control kiye 'uske bhale ke liye'. Ankit ko pata chala. 'Us din se maine rule banaya: kabhi nahi.'"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "id": "s4_rohan",
+      "title": "Rohan Ko Bhi Yaad Hai",
+      "narration": [
+        "*Raat ke 3:40. Rohan bed par baitha hai, aankhein sooji hui, aur woh tumhe aise dekh raha hai jaise tumne use pakad liya ho.*",
+        "Rohan: \"Kuan. Haan. Mahine mein ek baar aata hai. Tu seedhiyan utarta hai. Main upar se chillata hoon. Tu sunta nahi. Aur phir... phir main jaag jaata hoon. Har baar 3:33.\"",
+        "*Woh apna phone dikhata hai. Alarm history. 3:33. 3:33. 3:33. Mahino se.*",
+        "Rohan: \"Aur bhai — us sapne mein ek ladki hoti hai. Upar. Chillati hui. Aaj subah jab maine Elena ko dekha... bhai, wahi hai. Wahi chehra. Isliye main keh raha tha 'kahin dekha hai'.\"",
+        "*Tumhara phone. Elena: 'Rohan ko bhi aata hai na? Haan. Woh Yaadgaar hai. Use nahi pata. Use mat batana abhi — woh sambhal nahi paayega. Main neeche hoon.'*",
+        "Rohan: \"...Usne message kiya? Abhi? Bhai woh humein sun rahi hai kya?\""
+      ],
+      "fallbackLines": [
+        "Rohan: \"Bhai, ek baat bata. Agar ye sapna nahi hai — agar ye yaad hai — toh main kiski yaad dekh raha hoon? Teri? Apni? Ya... kisi aur Rohan ki?\"",
+        "*Woh hansta hai. Hansi nakli hai.*"
+      ],
+      "choices": [
+        {
+          "id": "c_rohan_saath",
+          "text": "\"Chal. Dono neeche chalte hain. Elena ko sab batana padega.\"",
+          "shortLabel": "Rohan ko saath lo",
+          "keywords": [
+            "rohan",
+            "saath",
+            "neeche",
+            "dono",
+            "chal",
+            "elena",
+            "batana"
+          ],
+          "next": "s4_sach",
+          "effects": {
+            "relationships": {
+              "rohan": 12,
+              "elena": -2
+            },
+            "flags": {
+              "broughtRohan": true
+            },
+            "choicesRecord": {
+              "arc2": "rohanalong"
+            },
+            "memory": [
+              "Ankit Rohan ko saath leke neeche gaya — Elena ne kaha 'maine mana kiya tha', phir saans li, 'theek hai. Naya hai. Chalo, Chand Baori. Teeno.'"
+            ]
+          }
+        },
+        {
+          "id": "c_rohan_so_ja",
+          "text": "\"So ja. Main dekhta hoon. Kal baat karenge.\"",
+          "shortLabel": "Rohan, so ja",
+          "keywords": [
+            "so ja",
+            "main dekhta",
+            "kal",
+            "rohan",
+            "sleep",
+            "baad"
+          ],
+          "next": "s4_sach",
+          "effects": {
+            "relationships": {
+              "rohan": 4,
+              "elena": 8
+            },
+            "flags": {
+              "protectedRohan": true
+            },
+            "choicesRecord": {
+              "arc2": "protected"
+            },
+            "memory": [
+              "Ankit ne Rohan ko sula diya aur akela neeche gaya — Elena: 'Tumne use bachaya. Har baar bachate ho. Ye ek cheez kabhi nahi badli.'"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "id": "s5_veer",
+      "title": "Purana Dost",
+      "narration": [
+        "*Seedhiyon ke upar se ek aadmi utarta hai. Dheere. Saada kurta, safed baal — par chehra jawan. Woh Elena ko aise dekhta hai jaise koi purane dost ko dekhta hai jisne phir wahi galti ki ho.*",
+        "Veer: \"Elena. Phir se. Aur phir se yahi ladka.\"",
+        "Elena: \"Veer. Jao.\"",
+        "Veer: \"Tum thakti nahi? Hazaar baar. Wahi platform, wahi chai, wahi kuan. Aur har baar tum sochti ho — 'is baar alag'.\"",
+        "*Woh tumhari taraf mudta hai. Uski aankhein... purani hain. Elena se bhi purani.*",
+        "Veer: \"Ankit, na? Is baar woh tumhe kya nahi bata rahi, bataun? Ye ki tum cycle ka hissa nahi ho. Tum cycle ki WAJAH ho.\"",
+        "Elena: \"VEER—\"",
+        "*Paani mein chaand kaanp jaata hai. Elena khadi ho gayi hai, aur pehli baar tum uski awaaz mein woh sunte ho jo hazaar zindagiyon ne banaya hai — gussa nahi. Darr.*",
+        "Veer: \"Dekho. Woh darti hai. Kyunki agar tumne wajah jaan li, toh shayad tum khud neeche chale jao. Jaise har baar jaate ho. Kyunki har baar koi tumhe bata deta hai.\"",
+        "*Woh ek kadam peeche hatata hai. Muskurata hai.*",
+        "Veer: \"Main nahi bataunga. Is baar nahi. Main bhi dekhna chahta hoon 'alag'. Phir milenge, Ankit. Hamesha milte hain.\""
+      ],
+      "fallbackLines": [
+        "*Veer chala gaya. Seedhiyan khaali. Elena abhi bhi khadi hai, mutthiyan bandh.*",
+        "Elena: \"Woh jhooth nahi bolta. Kabhi nahi. Isliye woh sabse khatarnaak hai. Ankit... mujhe nahi pata tum 'wajah' kaise ho. Main sach keh rahi hoon. Mujhe nahi pata.\""
+      ],
+      "choices": [
+        {
+          "id": "c_wajah",
+          "text": "\"Toh saath dhoondhte hain. Main wajah kaise hoon — aur kyun main neeche jaata hoon.\"",
+          "shortLabel": "Saath dhoondhenge",
+          "keywords": [
+            "saath",
+            "dhoondh",
+            "wajah",
+            "kyun",
+            "neeche",
+            "pata karenge",
+            "together"
+          ],
+          "next": "s5_hub",
+          "effects": {
+            "relationships": {
+              "elena": 20
+            },
+            "flags": {
+              "seekingCause": true
+            },
+            "choicesRecord": {
+              "arc3": "cause"
+            },
+            "memory": [
+              "Ankit ne kaha 'saath dhoondhte hain' — Elena ne pehli baar uska haath pakda, seedhiyon par, aur diary mein khud ek line likhi: 'Is baar usne mujhe akela nahi chhoda.'"
+            ]
+          }
+        },
+        {
+          "id": "c_veer_peecha",
+          "text": "Veer ke peeche jao — \"Ruko! Tum kya jaante ho?\"",
+          "shortLabel": "Veer ke peeche",
+          "keywords": [
+            "veer",
+            "peeche",
+            "ruko",
+            "jaante",
+            "follow",
+            "batao"
+          ],
+          "next": "s5_hub",
+          "effects": {
+            "relationships": {
+              "veer": 8,
+              "elena": -4
+            },
+            "flags": {
+              "chasedVeer": true
+            },
+            "choicesRecord": {
+              "arc3": "chased"
+            },
+            "memory": [
+              "Ankit Veer ke peeche bhaaga — Veer ne kaha: 'Jantar Mantar. Kal. Akele aana. Woh saath aayegi toh main kuch nahi kahunga.' Elena ne suna."
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "id": "s5_hub",
+      "title": "Ek Zindagi Jo Is Baar Tumhari Hai",
+      "narration": [
+        "*Subah. Hawa Mahal wali tapri. Daadi chai bana rahi hai. Rohan kachori kha raha hai aur baar-baar Elena ko dekh raha hai. Elena tumhare bagal mein — aur uski diary ki aakhri line ab khaali nahi hai.*",
+        "*Elena ki ghadi. 3:33. Ruki hui. Par aaj — tumne dekha — second wali sui ek baar hili. Elena ne bhi dekha. Woh kuch nahi boli. Uski aankhein bheeg gayi.*",
+        "Daadi: \"Chhore. Bitiya ki ghadi hili. Hazaar saal mein pehli baar. Tune kya kiya?\"",
+        "Elena: \"Daadi—\"",
+        "Daadi: \"Haan haan, 'is baar naya'. Chup.\"",
+        "*Elena tumhari taraf dekhti hai.*",
+        "Elena: \"Ye khatam nahi hota, Ankit. Cycle hai. Par shayad... shayad cycle ka matlab 'wahi' nahi hai. Shayad 'phir se' hai. Chuno — aaj kya karein? Main nahi bataungi kya hoga. Main bhi nahi jaanti. Pehli baar.\""
+      ],
+      "fallbackLines": [
+        "Rohan: \"Bhai, ek baat bata — Daadi ko bhi sapna aata hai kya? Daadi? ...Daadi chup kyun ho gayi?\"",
+        "*Ghadi ki sui phir hilti hai. Ek second. Elena ka haath tumhare haath par.*"
+      ],
+      "choices": [
+        {
+          "id": "c_hub_jantar",
+          "text": "Veer ka bulawa — Jantar Mantar. Waqt jahan jhooth bolta hai.",
+          "shortLabel": "Jantar Mantar",
+          "keywords": [
+            "jantar",
+            "mantar",
+            "veer",
+            "waqt",
+            "yantra",
+            "chalo",
+            "bulawa"
+          ],
+          "next": "s6_jantar",
+          "effects": {
+            "relationships": {
+              "veer": 6
+            },
+            "flags": {
+              "arcJantar": true
+            },
+            "choicesRecord": {
+              "arc4": "jantar"
+            },
+            "location": "Jantar Mantar",
+            "memory": [
+              "Ankit Jantar Mantar gaya — Elena saath aayi, 'main kuch nahi bolungi, par main saath rahungi.'"
+            ]
+          }
+        },
+        {
+          "id": "c_hub_kuan",
+          "text": "Chand Baori — neeche. Jahan tum har baar jaate ho. Is baar jaag ke.",
+          "shortLabel": "Kuan — jaag ke",
+          "keywords": [
+            "kuan",
+            "chand baori",
+            "neeche",
+            "jaag",
+            "seedhi",
+            "paani",
+            "dekho"
+          ],
+          "next": "s6_kuan",
+          "effects": {
+            "relationships": {
+              "elena": 8
+            },
+            "flags": {
+              "arcKuan": true
+            },
+            "choicesRecord": {
+              "arc4": "kuan"
+            },
+            "location": "Chand Baori",
+            "memory": [
+              "Ankit ne Chand Baori neeche jaane ka faisla kiya — jaag ke, Elena ke saath, pehli baar."
+            ]
+          }
+        },
+        {
+          "id": "c_hub_yaadgaar",
+          "text": "Daadi — Yaadgaar kaun hain? Rohan bhi? Sab batao.",
+          "shortLabel": "Yaadgaar kaun?",
+          "keywords": [
+            "yaadgaar",
+            "daadi",
+            "rohan",
+            "kaun",
+            "batao",
+            "yaad",
+            "log"
+          ],
+          "next": "s6_yaadgaar",
+          "effects": {
+            "relationships": {
+              "daadi": 10,
+              "rohan": 6
+            },
+            "flags": {
+              "arcYaadgaar": true
+            },
+            "choicesRecord": {
+              "arc4": "yaadgaar"
+            },
+            "memory": [
+              "Ankit ne Yaadgaar ke baare mein poocha — Daadi ne tapri band ki aur peeche ke kamre mein le gayi. Deewar par naam. Bahut saare. Rohan ka bhi."
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "id": "s6_jantar",
+      "title": "Yantra Jo Timelines Naapta Hai",
+      "narration": [
+        "*Jantar Mantar. Dopahar. Tourists, guide, dhoop. Aur Samrat Yantra ki parchhai — jo aaj galat jagah gir rahi hai. Sirf tum aur Elena notice karte ho.*",
+        "*Veer seedhiyon par baitha hai. Akela. Woh Elena ko dekhta hai, aur haath uthata hai — 'theek hai'.*",
+        "Veer: \"Aayi. Achha. Main phir bhi bolunga — thoda.\"",
+        "*Woh parchhai ki taraf ishara karta hai.*",
+        "Veer: \"Ye yantra din ka waqt naapta hai. Aur ek aur cheez — jo Jai Singh ko bhi nahi pata thi. Ye naapta hai ki kitni baar 'aaj' ho chuka hai. Dekho — parchhai kahan hai.\"",
+        "*Parchhai nishaan se bahut door hai. Bahut, bahut door.*",
+        "Veer: \"Hazaar se zyada. Das hazaar se kam. Elena ne ginti band kar di. Maine nahi ki.\"",
+        "*Woh tumhari taraf dekhta hai.*",
+        "Veer: \"Ankit. Ek sawaal. Bas ek. Tumhe kabhi laga hai ki tum 'wapas' aaye ho? Kisi jagah pehli baar jaake laga ho 'main yahan tha'?\"",
+        "*Chand Baori. Sapna. Seedhiyan.*",
+        "Veer: \"Haan. Woh. Woh sapna nahi hai. Woh sabse pehli timeline hai. Jismein tum neeche gaye. Aur jis din tum neeche gaye — us din cycle shuru hua.\""
+      ],
+      "fallbackLines": [
+        "Elena: \"Veer. Bas.\"",
+        "Veer: \"Maine kaha tha thoda. Ye thoda tha. Baaki... baaki woh khud dhoondhega. Ya nahi. Dekhte hain.\"",
+        "*Parchhai ek millimetre hilti hai. Veer ki aankhein badi ho jaati hain.*"
+      ],
+      "choices": [
+        {
+          "id": "c_kyun_gaya",
+          "text": "\"Main neeche kyun gaya tha? Pehli baar?\"",
+          "shortLabel": "Pehli baar kyun?",
+          "keywords": [
+            "kyun gaya",
+            "pehli baar",
+            "neeche",
+            "wajah",
+            "first time",
+            "why"
+          ],
+          "next": "s7_next",
+          "effects": {
+            "relationships": {
+              "veer": 10,
+              "elena": 4
+            },
+            "flags": {
+              "askedFirstDescent": true
+            },
+            "choicesRecord": {
+              "arc4b": "descent"
+            },
+            "memory": [
+              "Ankit ne poocha woh pehli baar neeche kyun gaya — Veer: 'Kisi ko bachane. Kise — ye Elena jaanti hai. Aur usne khud ko bhula diya hai.' Elena ne kuch nahi kaha."
+            ]
+          }
+        },
+        {
+          "id": "c_parchhai_hili",
+          "text": "\"Parchhai hili. Abhi. Iska matlab?\"",
+          "shortLabel": "Parchhai hili!",
+          "keywords": [
+            "parchhai",
+            "hili",
+            "matlab",
+            "yantra",
+            "badla",
+            "moved"
+          ],
+          "next": "s7_next",
+          "effects": {
+            "relationships": {
+              "veer": 6,
+              "elena": 12
+            },
+            "flags": {
+              "noticedShift": true
+            },
+            "choicesRecord": {
+              "arc4b": "shift"
+            },
+            "memory": [
+              "Ankit ne dekha yantra ki parchhai hili — Veer ne kaha ye hazaar timelines mein pehli baar hua. 'Kuch badal raha hai. Tum badal rahe ho. Ya woh.'"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "id": "s6_kuan",
+      "title": "Neeche, Jaag Ke",
+      "narration": [
+        "*Chand Baori. Dopahar. Tourists upar. Tum aur Elena neeche ja rahe ho — seedhi dar seedhi. Elena ka haath tumhare haath mein, itna kas ke ki dard ho raha hai.*",
+        "Elena: \"Main hazaar baar upar khadi rahi hoon. Kabhi neeche nahi aayi. Kabhi. Tumhare saath bhi nahi. Ye... ye bhi naya hai.\"",
+        "*Neeche. Paani. Hara, shaant. Aur paani mein — tumhara aks. Par aks tumhari taraf nahi dekh raha. Woh Elena ki taraf dekh raha hai. Aur woh muskura raha hai.*",
+        "*Elena ruk jaati hai.*",
+        "Elena: \"...Woh tum ho. Pehle wale. Sabse pehle wale.\"",
+        "*Aks ke hont hilte hain. Awaaz nahi. Par tum padh sakte ho: 'Is baar upar rehna.'*",
+        "*Aur phir paani shaant. Sirf tumhara aks. Aam.*",
+        "Elena: \"Ankit... usne tumse baat ki. Mujhse kabhi nahi ki. Hazaar baar dekha maine use — upar se. Kabhi nahi boli.\"",
+        "*Uske gaal par aansu. Woh pochhti nahi.*",
+        "Elena: \"Tum upar rahoge na? Is baar?\""
+      ],
+      "fallbackLines": [
+        "*Paani bilkul shaant hai. Par tumhe lagta hai woh sun raha hai.*",
+        "Elena: \"Main tumhe rok nahi sakti. Rule hai. Mera rule. Par main... main maang sakti hoon. Please.\""
+      ],
+      "choices": [
+        {
+          "id": "c_upar_rahunga",
+          "text": "\"Upar rahunga. Promise. Par 'pehle wala' — woh kaun tha?\"",
+          "shortLabel": "Upar rahunga",
+          "keywords": [
+            "upar",
+            "rahunga",
+            "promise",
+            "haan",
+            "pehle wala",
+            "kaun"
+          ],
+          "next": "s7_next",
+          "effects": {
+            "relationships": {
+              "elena": 25
+            },
+            "flags": {
+              "promisedStay": true
+            },
+            "choicesRecord": {
+              "arc4b": "stay"
+            },
+            "memory": [
+              "Chand Baori ke neeche Ankit ne promise kiya woh upar rahega — Elena ne usse pehli baar gale lagaya, paani ke paas. Aks muskuraya."
+            ]
+          }
+        },
+        {
+          "id": "c_paani_chhoo",
+          "text": "Paani chhoo ke dekho — \"Woh kya kehna chahta tha?\"",
+          "shortLabel": "Paani chhoo lo",
+          "keywords": [
+            "paani",
+            "chhoo",
+            "touch",
+            "aks",
+            "kehna",
+            "dekho",
+            "water"
+          ],
+          "next": "s7_next",
+          "effects": {
+            "relationships": {
+              "elena": -8,
+              "veer": 6
+            },
+            "flags": {
+              "touchedWater": true
+            },
+            "choicesRecord": {
+              "arc4b": "touched"
+            },
+            "memory": [
+              "Ankit ne paani chhua — ek pal ke liye use pehli timeline dikhi: Elena, jawan, dooba hua, aur woh khud seedhiyan utarta hua use bachane. Elena ne use kheench liya. 'Kabhi mat karna. Kabhi.'"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "id": "s6_yaadgaar",
+      "title": "Deewar Par Naam",
+      "narration": [
+        "*Tapri ke peeche ek chhota kamra. Daadi darwaaza band karti hai. Deewar par — chalk se — naam. Sau se zyada. Kuch kate hue. Kuch naye.*",
+        "Daadi: \"Yaadgaar. Jo thoda yaad rakhte hain. Ek timeline, do, teen. Bitiya hazaar rakhti hai — isliye woh hamari raani hai. Use pasand nahi ye shabd.\"",
+        "Elena: \"Bilkul nahi.\"",
+        "*Tum naam padhte ho. Rohan. Daadi. Kuch anjaan. Aur ek naam — kata hua, phir se likha hua, phir kata, phir likha — 'Ankit'.*",
+        "Daadi: \"Haan. Tera naam bhi hai. Kabhi-kabhi. Kuch timelines mein tu bhi yaad rakhta hai. Woh timelines... achhi nahi hoti. Bitiya ne bataya nahi hoga.\"",
+        "Elena: \"Daadi.\"",
+        "Daadi: \"Chhore ko pata hona chahiye. Jab tu yaad rakhta hai, tu neeche jaldi jaata hai. Kyunki tujhe pata hota hai kise bachana hai.\"",
+        "*Rohan darwaaze par khada hai. Usne sab sun liya.*",
+        "Rohan: \"...Bhai. Mera naam deewar pe kyun hai?\""
+      ],
+      "fallbackLines": [
+        "*Deewar par ek aur naam — sabse upar, sabse purana, aadha mita hua. Tum padh nahi paate. Elena ne us taraf ek baar bhi nahi dekha.*",
+        "Daadi: \"Woh naam mat poochh. Abhi nahi. Bitiya ne khud mitaya tha.\""
+      ],
+      "choices": [
+        {
+          "id": "c_rohan_batao",
+          "text": "Rohan ko sab batao — \"Tu bhi yaad rakhta hai. Tu akela nahi hai.\"",
+          "shortLabel": "Rohan ko batao",
+          "keywords": [
+            "rohan",
+            "batao",
+            "sab",
+            "akela nahi",
+            "yaad",
+            "tell"
+          ],
+          "next": "s7_next",
+          "effects": {
+            "relationships": {
+              "rohan": 15,
+              "elena": 4
+            },
+            "flags": {
+              "toldRohan": true
+            },
+            "choicesRecord": {
+              "arc4b": "toldrohan"
+            },
+            "memory": [
+              "Ankit ne Rohan ko sab bataya — Rohan ne kaha: 'Toh main pagal nahi hoon. Bhai, main pagal nahi hoon!' Aur phir baith gaya. 'Par main tujhe bachata hoon na? Har baar? Achha. Theek hai. Phir theek hai.'"
+            ]
+          }
+        },
+        {
+          "id": "c_upar_wala_naam",
+          "text": "\"Sabse upar wala naam. Jo mita hai. Kiska hai?\"",
+          "shortLabel": "Mita hua naam",
+          "keywords": [
+            "upar",
+            "naam",
+            "mita",
+            "kiska",
+            "purana",
+            "erased",
+            "top"
+          ],
+          "next": "s7_next",
+          "effects": {
+            "relationships": {
+              "elena": -6,
+              "daadi": 6
+            },
+            "flags": {
+              "askedErasedName": true
+            },
+            "choicesRecord": {
+              "arc4b": "erased"
+            },
+            "memory": [
+              "Ankit ne mite hue naam ke baare mein poocha — Elena kamre se nikal gayi. Daadi: 'Woh naam bitiya ka apna hai. Asli wala. Jo woh pehli timeline mein thi. Usne khud mitaya. Kyun — woh bhi bhool gayi hai.'"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "id": "s7_next",
+      "title": "Agli Line",
+      "narration": [
+        "*Raat. Tumhara kamra. Elena khidki ke paas baithi hai, diary god mein. Rohan so raha hai — aaj bina sapne ke, pehli baar. Elena ki ghadi: 3:33. Par sui ab har kuch der mein hilti hai.*",
+        "*Diary ki aakhri line ke neeche ab ek aur line hai. Tumne nahi likhi. Elena ne nahi likhi. Woh khud aayi hai: 'Parchhai hili.'*",
+        "Elena: \"Ye pehle kabhi nahi hua. Diary khud nahi likhti. Ankit... mujhe lagta hai timeline khud jaan gayi hai ki kuch alag hai.\"",
+        "*Phone: Veer ('Jantar Mantar ki parchhai phir hili. Aao.'), Daadi ('Deewar pe ek naya naam aaya hai. Tumhara nahi. Bitiya ka.'), Rohan ka note ('bhai kal kuan chalte hain? mujhe kuch yaad aa raha hai').*",
+        "Elena: \"Ye khatam nahi hota. Cycle hai. Par shayad ab cycle nahi — spiral hai. Har baar thoda upar. Chuno, Ankit. Aur is baar main bhi nahi jaanti kya hoga. Ye... ye sabse achhi feeling hai.\""
+      ],
+      "fallbackLines": [
+        "*Ye kahani yahin nahi rukti — har chakkar ek naya arc: pehli timeline, Elena ka asli naam, Ankit ke doosre versions, Chakra ka origin, aur woh jise pehli baar bachana tha.*",
+        "Elena: \"Aur haan — chai. Subah. Bina cheeni. Kuch cheezein har baar same rehni chahiye.\""
+      ],
+      "choices": [
+        {
+          "id": "c_next_jantar",
+          "text": "Veer — parchhai phir hili. Jantar Mantar.",
+          "shortLabel": "Parchhai phir hili",
+          "keywords": [
+            "jantar",
+            "veer",
+            "parchhai",
+            "hili",
+            "yantra",
+            "chalo"
+          ],
+          "next": "s6_jantar",
+          "effects": {
+            "relationships": {
+              "veer": 5
+            },
+            "flags": {
+              "arcJantar2": true
+            },
+            "choicesRecord": {
+              "next": "jantar"
+            },
+            "location": "Jantar Mantar",
+            "memory": [
+              "Naya arc: yantra ki parchhai phir hili — timeline badal rahi hai."
+            ]
+          }
+        },
+        {
+          "id": "c_next_naam",
+          "text": "Daadi — deewar par Elena ka asli naam aaya hai",
+          "shortLabel": "Elena ka asli naam",
+          "keywords": [
+            "daadi",
+            "naam",
+            "asli",
+            "deewar",
+            "elena",
+            "purana",
+            "name"
+          ],
+          "next": "s6_yaadgaar",
+          "effects": {
+            "relationships": {
+              "daadi": 5,
+              "elena": 4
+            },
+            "flags": {
+              "arcRealName": true
+            },
+            "choicesRecord": {
+              "next": "name"
+            },
+            "memory": [
+              "Naya arc: deewar par Elena ka asli naam wapas aa gaya — jo usne khud mitaya tha."
+            ]
+          }
+        },
+        {
+          "id": "c_next_kuan",
+          "text": "Rohan — 'kuch yaad aa raha hai'. Chand Baori, teeno.",
+          "shortLabel": "Kuan — teeno",
+          "keywords": [
+            "rohan",
+            "kuan",
+            "yaad",
+            "chand baori",
+            "teeno",
+            "chalo",
+            "saath"
+          ],
+          "next": "s6_kuan",
+          "effects": {
+            "relationships": {
+              "rohan": 6
+            },
+            "flags": {
+              "arcKuan2": true
+            },
+            "choicesRecord": {
+              "next": "kuan"
+            },
+            "location": "Chand Baori",
+            "memory": [
+              "Naya arc: Rohan ko kuch yaad aa raha hai — teeno Chand Baori jaate hain."
+            ]
+          }
+        },
+        {
+          "id": "c_next_aam",
+          "text": "Aaj kuch nahi — Elena ke saath ek din jo kisi timeline mein nahi hua",
+          "shortLabel": "Ek naya aam din",
+          "keywords": [
+            "aam",
+            "normal",
+            "date",
+            "naya",
+            "ghoom",
+            "rest",
+            "chhutti",
+            "sirf"
+          ],
+          "next": "s2_chai",
+          "effects": {
+            "relationships": {
+              "elena": 14
+            },
+            "flags": {
+              "arcOrdinary": true
+            },
+            "choicesRecord": {
+              "next": "ordinary"
+            },
+            "memory": [
+              "Naya arc: ek aisa din jo hazaar timelines mein kabhi nahi hua — kuch bhi plan nahi."
+            ]
+          }
+        }
+      ]
+    }
+  ],
+  "endings": []
+}

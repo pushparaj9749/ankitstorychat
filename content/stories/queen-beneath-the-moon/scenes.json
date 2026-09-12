@@ -1,0 +1,1074 @@
+{
+  "storyId": "queen-beneath-the-moon",
+  "version": 1,
+  "scenes": [
+    {
+      "id": "s1_nadi",
+      "title": "Poornima, Nadi, Aur Chaandi Ke Baal",
+      "narration": [
+        "*Poornima ki raat. Chandni nadi. Paani chaandi jaisa chamak raha hai — gaon wale kehte hain devi ka aashirwad. Tum Ankit ho, Chandanpur ka aam ladka, aur tum machhli pakadne aaye the.*",
+        "*Kinare par kuch pada hai. Koi. Ek aurat. Chaandi jaise baal, phata hua neela lubaada jispe chaandi ke dhaage se kuch likha hai. Aur uske kandhe par ek ghaav — kaala, jaise usmein andhera bhara ho.*",
+        "*Woh saans le rahi hai. Dheere. Tum paas jaate ho. Uski aankhein khulti hain — aur ek pal ke liye tumhe lagta hai tum chaand mein dekh rahe ho.*",
+        "Selene: \"...Kaun?\"",
+        "*Uski awaaz — thandi, dheemi, aisi jaise use aadesh dene ki aadat ho. Phir woh kaanpti hai. Aadat toot jaati hai.*",
+        "Selene: \"Mat... mat batao kisi ko. Please.\"",
+        "*'Please'. Ye shabd uske muh se aise nikla jaise usne sadiyon se nahi bola ho.*",
+        "*Nadi ka paani uske aas-paas thoda zyada chamak raha hai. Tumne dekha. Tumne kuch nahi socha — abhi. Abhi ek ghayal aurat hai, aur raat thandi hai.*"
+      ],
+      "fallbackLines": [
+        "*Woh phir se aankhein band kar leti hai. Ghaav se halka sa dhuaan nikal raha hai — kaala. Tumne aisa ghaav kabhi nahi dekha.*",
+        "Selene (bemoshi mein): \"...Kaveri... mat dhoondho... mujhe mat dhoondho...\""
+      ],
+      "choices": [
+        {
+          "id": "c_jhopdi",
+          "text": "Use uthao — jhopdi le chalo. Sawaal baad mein.",
+          "shortLabel": "Jhopdi le chalo",
+          "keywords": [
+            "jhopdi",
+            "uthao",
+            "le chalo",
+            "ghar",
+            "panaah",
+            "help",
+            "bachao"
+          ],
+          "next": "s2_jhopdi",
+          "effects": {
+            "relationships": {
+              "selene": 14
+            },
+            "flags": {
+              "gaveShelter": true
+            },
+            "choicesRecord": {
+              "opening": "shelter"
+            },
+            "location": "Ankit ki jhopdi",
+            "memory": [
+              "Ankit ne ghayal ajnabi ko bina sawaal ke apni jhopdi mein panaah di. Selene ne baad mein kaha: 'Tumne mera naam nahi poocha. Kisi ne kabhi mera naam poochhe bina meri madad nahi ki.'"
+            ]
+          }
+        },
+        {
+          "id": "c_kaun_ho",
+          "text": "\"Tum kaun ho? Ye ghaav... ye kya hai?\"",
+          "shortLabel": "Tum kaun ho?",
+          "keywords": [
+            "kaun",
+            "ghaav",
+            "kya hai",
+            "who",
+            "naam"
+          ],
+          "next": "s2_jhopdi",
+          "effects": {
+            "relationships": {
+              "selene": 6
+            },
+            "flags": {
+              "askedFirst": true
+            },
+            "choicesRecord": {
+              "opening": "asked"
+            },
+            "location": "Ankit ki jhopdi",
+            "memory": [
+              "Ankit ne pehle poocha 'tum kaun ho' — Selene ne kaha 'Selene. Bas. Baaki... baaki agar main bach gayi toh.' Ankit use jhopdi le gaya."
+            ]
+          }
+        },
+        {
+          "id": "c_kaka",
+          "text": "Sarpanch Kaka ko bulao — gaon ko pata hona chahiye",
+          "shortLabel": "Kaka ko bulao",
+          "keywords": [
+            "kaka",
+            "sarpanch",
+            "bulao",
+            "gaon",
+            "batao",
+            "help"
+          ],
+          "next": "s2_kaka",
+          "effects": {
+            "relationships": {
+              "sarpanch": 8,
+              "selene": 2
+            },
+            "flags": {
+              "calledSarpanch": true
+            },
+            "choicesRecord": {
+              "opening": "sarpanch"
+            },
+            "memory": [
+              "Ankit Sarpanch Kaka ko bulaane gaya — Kaka aaye, Selene ka chehra dekha, aur bahut der tak chup rahe. Phir: 'Ise apni jhopdi mein rakh. Kisi ko mat batana. Main baad mein samjhaunga.'"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "id": "s2_jhopdi",
+      "title": "Mitti Ka Pyala",
+      "narration": [
+        "*Teen din. Tumhari jhopdi. Selene khaat par hai. Ghaav dheere-dheere bhar raha hai — insaan ka ghaav aise nahi bharta, tumne dekha, par tumne kuch nahi kaha.*",
+        "*Aaj woh pehli baar uthke baithi hai. Chulhe ki aag dekh rahi hai. Aise, jaise pehli baar dekh rahi ho.*",
+        "Selene: \"Ye... garam hai. Sach mein garam. Alag tarah se.\"",
+        "*Tum chai banate ho. Mitti ka pyala. Use dete ho. Woh pyale ko dono haathon mein pakadti hai — jaise woh koi keemti cheez ho.*",
+        "Selene: \"Tumne poocha nahi main kaun hoon. Teen din ho gaye. Log poochte hain.\"",
+        "*Woh chai peeti hai. Aankhein band karti hai.*",
+        "Selene: \"...Tum kyun nahi poochte? Nahi — mat batao. Mujhe ye achha lag raha hai. Ye 'na poochna'.\"",
+        "*Khidki se chaand dikh raha hai. Aadha. Aur Selene ki nazar uspe padti hai — aur woh nazar hata leti hai. Jaise koi apne ghar ko dekh kar nazar hata le.*",
+        "Selene: \"Main Selene hoon. Bas itna abhi. Baaki... baaki tumhe pata chalega, aur tab tum shayad mujhe yahan nahi rakhna chahoge. Tab tak — kya main yahan reh sakti hoon?\""
+      ],
+      "fallbackLines": [
+        "*Ghaav se ab dhuaan nahi nikal raha. Par uske kinare abhi bhi kaale hain.*",
+        "Selene: \"Chai... ye kaise banti hai? Mujhe sikhaoge? Main... main kabhi kuch banana nahi seekhi. Hamesha koi aur banata tha.\""
+      ],
+      "choices": [
+        {
+          "id": "c_reh_sakti",
+          "text": "\"Jab tak chaho. Aur jo bhi ho, main faisla khud karunga.\"",
+          "shortLabel": "Jab tak chaho",
+          "keywords": [
+            "reh sakti",
+            "jab tak",
+            "chaho",
+            "haan",
+            "raho",
+            "khud faisla"
+          ],
+          "next": "s3_gaon",
+          "effects": {
+            "relationships": {
+              "selene": 18
+            },
+            "flags": {
+              "letHerStay": true
+            },
+            "choicesRecord": {
+              "arc1": "stay"
+            },
+            "memory": [
+              "Ankit ne Selene ko kaha 'jab tak chaho raho' — Selene ne pyala rakha aur muh pher liya. Kandhe halke se hil rahe the."
+            ]
+          }
+        },
+        {
+          "id": "c_chai_sikhao",
+          "text": "Use chai banana sikhao — \"Pehle ye. Baaki baad mein.\"",
+          "shortLabel": "Chai sikhao",
+          "keywords": [
+            "chai",
+            "sikhao",
+            "banana",
+            "seekh",
+            "pehle ye",
+            "cook"
+          ],
+          "next": "s3_gaon",
+          "effects": {
+            "relationships": {
+              "selene": 14
+            },
+            "flags": {
+              "taughtChai": true
+            },
+            "choicesRecord": {
+              "arc1": "chai"
+            },
+            "memory": [
+              "Ankit ne Selene ko chai banana sikhaya — pehli chai bahut kadvi thi. Selene ne poori pee. 'Ye maine banayi. Ye MAINE banayi.' Uski aankhein chamak rahi thi — chaand jaisi."
+            ]
+          }
+        },
+        {
+          "id": "c_ghaav",
+          "text": "\"Ye ghaav insaan ka nahi hai. Kisne kiya?\"",
+          "shortLabel": "Ghaav kisne kiya?",
+          "keywords": [
+            "ghaav",
+            "kisne",
+            "insaan nahi",
+            "kaala",
+            "kaise",
+            "wound"
+          ],
+          "next": "s3_gaon",
+          "effects": {
+            "relationships": {
+              "selene": 4
+            },
+            "flags": {
+              "askedWound": true
+            },
+            "choicesRecord": {
+              "arc1": "wound"
+            },
+            "memory": [
+              "Ankit ne ghaav ke baare mein poocha — Selene ne kandha dhak liya. 'Ek purana dushman. Jo mujhe maar nahi sakta — par yaad dila sakta hai ki main kya hoon. Baad mein, Ankit. Please.'"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "id": "s2_kaka",
+      "title": "Kaka Ne Kuch Nahi Kaha",
+      "narration": [
+        "*Sarpanch Kaka ki jhopdi. Hukka. Diya. Aur Kaka — jo tumhe aise dekh rahe hain jaise tumne unke saamne koi bahut purani cheez rakh di ho.*",
+        "Sarpanch: \"Beta. Woh ladki jo teri jhopdi mein hai. Uska chehra maine pehle dekha hai.\"",
+        "*Woh hukka rakhte hain.*",
+        "Sarpanch: \"Mandir mein. Pathar pe. Chandni devi ki murti. Sattar saal se roz dekh raha hoon. Ab tu bata — main andha hoon ya tu?\"",
+        "*Tumne murti ko hazaar baar dekha hai. Tumne kabhi... tumne kabhi dhyaan nahi diya.*",
+        "Sarpanch: \"Main nahi jaanta woh kya hai. Main itna jaanta hoon — woh ghayal hai, woh dari hui hai, aur woh humare gaon mein aayi hai. Devi ho ya daayan, mehmaan mehmaan hota hai.\"",
+        "*Woh tumhare kandhe par haath rakhte hain.*",
+        "Sarpanch: \"Ise apni jhopdi mein rakh. Kisi ko mat batana. Aur beta — jab woh khud bataye, tab hi maanna. Murti pathar hai. Woh nahi hai.\""
+      ],
+      "fallbackLines": [
+        "*Bahar poornima ka chaand. Kaka ki khidki se mandir ka shikhar dikhta hai — aur aaj uspe chaandi ki roshni kuch zyada hai.*",
+        "Sarpanch: \"Jaa. Woh akeli hogi. Aur haan — chai pila. Har mehmaan ko chai chahiye. Devi ko bhi.\""
+      ],
+      "choices": [
+        {
+          "id": "c_wapas",
+          "text": "Wapas jhopdi jao — Kaka sahi kehte hain",
+          "shortLabel": "Jhopdi wapas jao",
+          "keywords": [
+            "wapas",
+            "jhopdi",
+            "jao",
+            "sahi",
+            "chalo",
+            "selene"
+          ],
+          "next": "s2_jhopdi",
+          "effects": {
+            "relationships": {
+              "sarpanch": 8,
+              "selene": 6
+            },
+            "flags": {
+              "trustedKaka": true
+            },
+            "choicesRecord": {
+              "arc1": "kaka"
+            },
+            "location": "Ankit ki jhopdi",
+            "memory": [
+              "Kaka ne Ankit ko bataya ki Selene ka chehra mandir ki murti jaisa hai — aur kaha 'jab woh khud bataye tab maanna'. Ankit wapas gaya, aur kuch nahi poocha."
+            ]
+          }
+        },
+        {
+          "id": "c_murti",
+          "text": "Pehle mandir jao — murti ko khud dekho",
+          "shortLabel": "Murti dekho",
+          "keywords": [
+            "mandir",
+            "murti",
+            "dekho",
+            "khud",
+            "pehle",
+            "temple"
+          ],
+          "next": "s3_gaon",
+          "effects": {
+            "relationships": {
+              "sarpanch": 4
+            },
+            "flags": {
+              "sawStatueEarly": true
+            },
+            "choicesRecord": {
+              "arc1": "statue"
+            },
+            "memory": [
+              "Ankit raat ko mandir gaya aur murti dekhi — wahi chehra. Aur murti ke pairon ke paas ek purana lekh: 'Jo chaand ki rani ko bina jaane apnaye, chaand uska rin maanega.'"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "id": "s3_gaon",
+      "title": "Gaon Ki Nayi Bahu",
+      "narration": [
+        "*Ek hafta. Selene ab chalti hai. Gaon mein. Tumhare saath. Aur gaon... gaon ne apna faisla kar liya hai.*",
+        "*Ramu kaki ne use 'bahu' bulaya. Selene ne poocha 'bahu kya hota hai'. Ramu kaki ne tumhe aise dekha jaise tumne kuch galat kiya ho. Bachche uske peeche-peeche chalte hain — kyunki woh kahaniyan sunati hai. Aisi kahaniyan jo kisi kitaab mein nahi hain. Rajaon ki, yudhon ki, chaand ki.*",
+        "*Aur aaj — mandir ke saamne se guzarte hue — Selene ne nazar jhuka li. Bilkul waise, jaise koi apni hi tasveer se nazar churaye.*",
+        "Selene: \"Chalo. Jaldi.\"",
+        "*Par Sarpanch Kaka mandir ki seedhiyon par baithe hain. Aur woh muskurate hain.*",
+        "Sarpanch: \"Beti. Aaj poornima hai. Mandir mein deepdaan hai. Aaogi?\"",
+        "*Selene ruk jaati hai. Uska haath tumhare haath ke paas — chhoota nahi, par paas.*",
+        "Selene: \"Main... main mandir nahi jaati, Kaka.\"",
+        "Sarpanch: \"Jaanta hoon, beti. Par aaj chaand bahut sundar hai. Aur murti ko bhi kabhi-kabhi mehmaan chahiye.\"",
+        "*Selene ka chehra. Woh jaan gayi hai ki Kaka jaante hain. Aur woh tumhari taraf dekhti hai — darr se nahi. Sawaal se. 'Tum jaante ho?'*"
+      ],
+      "fallbackLines": [
+        "*Bachche kheench rahe hain — 'didi, kahani!' Selene hil nahi rahi. Kaka intezaar kar rahe hain.*",
+        "Selene (dheere): \"Ankit. Agar main andar gayi... toh sab badal jaayega. Tum bhi.\""
+      ],
+      "choices": [
+        {
+          "id": "c_saath_chalo",
+          "text": "\"Main saath chalunga. Jo bhi andar hai — hum dono dekhenge.\"",
+          "shortLabel": "Saath chalte hain",
+          "keywords": [
+            "saath",
+            "chalo",
+            "andar",
+            "dono",
+            "dekhenge",
+            "together"
+          ],
+          "next": "s4_sach",
+          "effects": {
+            "relationships": {
+              "selene": 18,
+              "sarpanch": 6
+            },
+            "flags": {
+              "enteredTempleTogether": true
+            },
+            "choicesRecord": {
+              "arc2": "together"
+            },
+            "location": "Chandanpur gaon",
+            "memory": [
+              "Ankit Selene ke saath mandir gaya — murti ke saamne. Selene ne murti dekhi, phir Ankit ko. 'Haan. Ye main hoon. Sadiyon pehle. Jab main... jab main abhi bhi khush thi.'"
+            ]
+          }
+        },
+        {
+          "id": "c_mat_jao",
+          "text": "\"Mat jao. Tum jab chaho, tab. Kaka samajh jaayenge.\"",
+          "shortLabel": "Mat jao, tum chuno",
+          "keywords": [
+            "mat jao",
+            "jab chaho",
+            "zor nahi",
+            "nahi",
+            "chhodo",
+            "later"
+          ],
+          "next": "s4_sach",
+          "effects": {
+            "relationships": {
+              "selene": 22
+            },
+            "flags": {
+              "protectedHerChoice": true
+            },
+            "choicesRecord": {
+              "arc2": "choice"
+            },
+            "location": "Ankit ki jhopdi",
+            "memory": [
+              "Ankit ne Selene ko mandir jaane se rok liya — 'tum jab chaho'. Selene us raat khud boli: 'Murti mera chehra hai. Main Chandra Rani hoon. Aur tumne mujhe chunne diya — sadiyon mein pehli baar kisi ne mujhe chunne diya.'"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "id": "s4_sach",
+      "title": "Main Chandra Rani Hoon",
+      "narration": [
+        "*Raat. Jhopdi. Poornima ka chaand khidki se seedha andar aa raha hai — aur Selene us roshni mein baithi hai. Aur roshni... roshni uske aas-paas ghoom rahi hai. Dheere. Jaise koi paaltu jaanwar maalik ke pairon mein.*",
+        "Selene: \"Main Selene hoon. Chandragadh ki rani. Amar. Sadiyon se.\"",
+        "*Woh haath uthati hai. Aur chaand ki roshni uske haath mein ikatthi ho jaati hai — ek chhoti si chaandi ki lau. Jhopdi ka har kona roshan.*",
+        "Selene: \"Main ye kar sakti hoon. Aur isse bahut zyada. Maine pahaad giraye hain. Maine seenaon ko ek shabd se roka hai. Meri sena mujhe dhoondh rahi hai — har gaon mein. Jald hi yahan bhi.\"",
+        "*Lau bujh jaati hai. Woh apne haath dekhti hai.*",
+        "Selene: \"Aur main wapas nahi jaana chahti.\"",
+        "*Pehli baar uski awaaz tootti hai.*",
+        "Selene: \"Sadiyon se main 'Maharani' hoon. Kisi ne mujhe 'Selene' nahi bulaya. Kisi ne mujhe chai nahi sikhayi. Kisi ne... kisi ne mujhe bina jaane apnaya nahi. Tumne kiya. Aur ab mujhe nahi pata main kaun banna chahti hoon — rani, ya woh jo tumhari khaat par soti hai.\"",
+        "*Woh tumhari taraf dekhti hai. Chaand uski aankhon mein.*",
+        "Selene: \"Ab tum jaante ho. Ab bolo — main yahan reh sakti hoon? Ab bhi?\""
+      ],
+      "fallbackLines": [
+        "*Chaand ki roshni abhi bhi uske aas-paas hai. Woh use hata nahi rahi — thak gayi hai chhupate-chhupate.*",
+        "Selene: \"Jo bhi bolo, sach bolo. Main jhooth sun sakti hoon — sadiyon se sun rahi hoon. Bas tumse nahi sunna chahti.\""
+      ],
+      "choices": [
+        {
+          "id": "c_khaat_teri",
+          "text": "\"Khaat teri hai. Rani ho ya Selene — chai tumhe hi banani hai kal subah.\"",
+          "shortLabel": "Khaat teri hai",
+          "keywords": [
+            "khaat",
+            "teri",
+            "chai",
+            "kal",
+            "raho",
+            "haan",
+            "fark nahi"
+          ],
+          "next": "s5_kaveri",
+          "effects": {
+            "relationships": {
+              "selene": 25
+            },
+            "flags": {
+              "acceptedQueen": true
+            },
+            "choicesRecord": {
+              "arc3": "accepted"
+            },
+            "memory": [
+              "Selene ke sach ke baad Ankit ne kaha 'khaat teri hai, chai kal tumhe banani hai' — Selene hansi. Ro bhi rahi thi. Chaand ki roshni ek pal ke liye poori jhopdi mein phail gayi, phir shaant."
+            ]
+          }
+        },
+        {
+          "id": "c_kya_chahti",
+          "text": "\"Main nahi bataunga tumhe kya banna hai. Par tum kya CHAHTI ho, Selene?\"",
+          "shortLabel": "Tum kya chahti ho?",
+          "keywords": [
+            "chahti",
+            "kya",
+            "tum",
+            "faisla",
+            "want",
+            "khud"
+          ],
+          "next": "s5_kaveri",
+          "effects": {
+            "relationships": {
+              "selene": 18
+            },
+            "flags": {
+              "askedWhatSheWants": true
+            },
+            "choicesRecord": {
+              "arc3": "wants"
+            },
+            "memory": [
+              "Ankit ne Selene se poocha woh kya chahti hai — Selene chup rahi. Bahut der. Phir: 'Mujhe nahi pata. Sadiyon mein kisi ne ye sawaal nahi poocha. Main... main jawab dhoondhna chahti hoon. Yahan. Tumhare saath.'"
+            ]
+          }
+        },
+        {
+          "id": "c_ghayal_kaise",
+          "text": "\"Amar ko ghayal kisne kiya? Woh yahan bhi aayega?\"",
+          "shortLabel": "Ghayal kisne kiya?",
+          "keywords": [
+            "ghayal",
+            "kisne",
+            "amar",
+            "dushman",
+            "aayega",
+            "khatra"
+          ],
+          "next": "s5_kaveri",
+          "effects": {
+            "relationships": {
+              "selene": 8,
+              "pujari": 2
+            },
+            "flags": {
+              "askedEnemy": true
+            },
+            "choicesRecord": {
+              "arc3": "enemy"
+            },
+            "memory": [
+              "Ankit ne poocha amar ko kisne ghayal kiya — Selene: 'Andhkaar ke pujari. Woh mujhe maar nahi sakte. Par woh jaante hain main amar kaise bani — aur woh sach mujhe tumse zyada darata hai.'"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "id": "s5_kaveri",
+      "title": "Sena Gaon Ke Darwaaze Par",
+      "narration": [
+        "*Subah. Gaon ke bahar ghode ki taapein. Bahut saare. Chaandi ke kavach, neele jhande jinpe chaand bana hai. Aur sabse aage — ek aurat, talwaar kamar par, aankhon mein aisi thakan jaise mahino se soyi na ho.*",
+        "*Selene tumhare peeche jhopdi mein hai. Uska haath tumhare kandhe par — rok rahi hai. Khud ko.*",
+        "Selene: \"Kaveri.\"",
+        "*Senapati ghode se utarti hai. Gaon wale dar ke peeche hat gaye hain. Kaka nahi hate. Tum nahi hate.*",
+        "Kaveri: \"Ladke. Is gaon mein ek aurat hai. Chaandi ke baal. Neeli aankhein. Ghayal thi. Tumne dekha?\"",
+        "*Tumhare peeche jhopdi ka darwaaza. Uske peeche Chandra Rani. Aur tumhare saamne uski senapati, jo apni rani ke liye is gaon ko jala sakti hai.*",
+        "Kaveri: \"Main phir poochti hoon. Kyunki tumhare chehre pe jawab likha hai, aur main andhi nahi hoon.\"",
+        "*Jhopdi ke andar se Selene ki awaaz — dheemi, sirf tumhare liye.*",
+        "Selene: \"Ankit. Jo bhi bolo. Main tumhare faisle ke saath hoon. Aaj main rani nahi hoon — main tumhari mehmaan hoon.\""
+      ],
+      "fallbackLines": [
+        "*Kaveri ki talwaar myaan mein hai. Uska haath uspe nahi hai. Abhi.*",
+        "Kaveri: \"Ladke, tumhe pata bhi hai tum kise chhupa rahe ho? Usne ek shabd se pahaad giraye hain. Aur tum... tum uske saamne khade ho?\""
+      ],
+      "choices": [
+        {
+          "id": "c_sach_kaveri",
+          "text": "Sach bolo — \"Haan. Woh andar hai. Aur woh nahi aana chahti. Aap uski baat suniye.\"",
+          "shortLabel": "Sach bolo Kaveri ko",
+          "keywords": [
+            "sach",
+            "andar hai",
+            "nahi aana",
+            "suniye",
+            "haan",
+            "truth"
+          ],
+          "next": "s6_hub",
+          "effects": {
+            "relationships": {
+              "kaveri": 12,
+              "selene": 16
+            },
+            "flags": {
+              "toldKaveriTruth": true
+            },
+            "choicesRecord": {
+              "arc4": "truth"
+            },
+            "memory": [
+              "Ankit ne Senapati Kaveri ko sach bataya — aur kaha 'uski baat suniye'. Kaveri andar gayi. Bahar tak awaaz nahi aayi. Jab nikli, uski aankhein laal thi. 'Woh rukegi. Abhi. Main gaon ke bahar dera daalungi. Aur ladke — chai achhi banate ho, usne kaha.'"
+            ]
+          }
+        },
+        {
+          "id": "c_jhooth_kaveri",
+          "text": "Jhooth bolo — \"Nahi dekha. Yahan sirf gaon wale hain.\"",
+          "shortLabel": "Jhooth bolo",
+          "keywords": [
+            "jhooth",
+            "nahi dekha",
+            "koi nahi",
+            "gaon wale",
+            "lie",
+            "chhupao"
+          ],
+          "next": "s6_hub",
+          "effects": {
+            "relationships": {
+              "kaveri": -8,
+              "selene": 10,
+              "sarpanch": 4
+            },
+            "flags": {
+              "liedToKaveri": true
+            },
+            "choicesRecord": {
+              "arc4": "lied"
+            },
+            "memory": [
+              "Ankit ne Kaveri se jhooth bola — Kaveri ne maana nahi, par chali gayi. 'Main wapas aaungi. Aur agli baar tumhare chehre se nahi, tumhari jhopdi se poochungi.' Selene ne raat ko kaha: 'Tumne mere liye jhooth bola. Rani ke liye log jhooth bolte hain. Mere liye... pehli baar.'"
+            ]
+          }
+        },
+        {
+          "id": "c_selene_bahar",
+          "text": "Peeche mudo — \"Selene. Ye tumhara faisla hai. Bahar aao ya mat aao.\"",
+          "shortLabel": "Selene, tum chuno",
+          "keywords": [
+            "selene",
+            "tum chuno",
+            "faisla",
+            "bahar",
+            "khud",
+            "your choice"
+          ],
+          "next": "s6_hub",
+          "effects": {
+            "relationships": {
+              "selene": 20,
+              "kaveri": 6
+            },
+            "flags": {
+              "gaveHerTheChoice": true
+            },
+            "choicesRecord": {
+              "arc4": "herchoice"
+            },
+            "memory": [
+              "Ankit ne Selene ko khud chunne diya — Senapati ke saamne. Selene bahar aayi. Saada kapde, mitti ka pyala haath mein. 'Kaveri. Main theek hoon. Main yahan hoon. Aur main abhi wapas nahi aa rahi. Ye aadesh nahi hai. Ye meri baat hai.' Kaveri ghutno pe gir gayi — aur pehli baar Selene ne use uthaya."
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "id": "s6_hub",
+      "title": "Ek Rani Jo Chai Banana Seekh Gayi",
+      "narration": [
+        "*Subah. Jhopdi. Selene ne chai banayi hai — teesri baar, aur is baar peene laayak. Woh chulhe ke paas baithi hai, mitti ka pyala haath mein, aur khidki se chaand nahi — suraj dikh raha hai. Woh use aise dekh rahi hai jaise pehli baar dekh rahi ho.*",
+        "*Gaon ke bahar Chandra Sena ka dera hai — Kaveri ne shabd rakha. Gaon wale ab jaante hain. Ramu kaki ab bhi 'bahu' bulaati hai — 'rani ho toh kya, bahu toh bahu hai'.*",
+        "*Aur table par: Kaka ka sandesh ('jungle mein raat ko kuch chal raha hai — kaala, dhuaan jaisa'), Kaveri ka ek patra ('Maharani — Selene — Chandragadh mein simhasan khaali hai aur sardar bechain. Mujhe kuch toh batana hoga.'), aur ek purana kaagaz jo Selene ke lubaade se nikla — jispe purane mandir ka naksha hai.*",
+        "Selene: \"Dekho. Sab ek saath. Rani ki zindagi bhi aisi thi. Par tab main akeli faisle karti thi.\"",
+        "*Woh tumhe chai deti hai.*",
+        "Selene: \"Ye khatam nahi hota, Ankit. Amar ki zindagi mein 'khatam' nahi hota. Sirf... agla. Chuno. Main saath hoon — rani ki tarah nahi. Selene ki tarah.\""
+      ],
+      "fallbackLines": [
+        "*Chai. Achhi hai. Sach mein. Selene tumhara chehra dekh rahi hai — jawab ke liye.*",
+        "Selene: \"Achhi hai na? Bolo. Maine chaand se roshni kheenchi hai, par ye... ye zyada mushkil tha.\""
+      ],
+      "choices": [
+        {
+          "id": "c_hub_jungle",
+          "text": "Kaka ka sandesh — jungle mein kaala dhuaan. Andhkaar?",
+          "shortLabel": "Jungle mein dhuaan",
+          "keywords": [
+            "jungle",
+            "dhuaan",
+            "kaala",
+            "andhkaar",
+            "pujari",
+            "kaka",
+            "khatra"
+          ],
+          "next": "s7_jungle",
+          "effects": {
+            "relationships": {
+              "sarpanch": 6
+            },
+            "flags": {
+              "arcAndhkaar": true
+            },
+            "choicesRecord": {
+              "arc5": "andhkaar"
+            },
+            "location": "Kaala jungle",
+            "memory": [
+              "Ankit ne jungle wala raasta chuna — Selene ka pyala haath mein kaanp gaya. 'Woh mere liye aaye hain. Aur woh tumse baat karenge. Jo bhi kahein — mujhse poochna. Please.'"
+            ]
+          }
+        },
+        {
+          "id": "c_hub_chandragadh",
+          "text": "Kaveri ka patra — Chandragadh. Simhasan khaali hai.",
+          "shortLabel": "Chandragadh",
+          "keywords": [
+            "chandragadh",
+            "kaveri",
+            "patra",
+            "simhasan",
+            "rajya",
+            "wapas",
+            "sardar"
+          ],
+          "next": "s7_chandragadh",
+          "effects": {
+            "relationships": {
+              "kaveri": 8
+            },
+            "flags": {
+              "arcKingdom": true
+            },
+            "choicesRecord": {
+              "arc5": "kingdom"
+            },
+            "memory": [
+              "Ankit ne Chandragadh ka sawaal uthaya — Selene: 'Main jaanti hoon. Main bhaag nahi rahi. Main... soch rahi hoon. Sadiyon mein pehli baar mujhe sochne ka waqt mila hai.'"
+            ]
+          }
+        },
+        {
+          "id": "c_hub_mandir",
+          "text": "Lubaade ka naksha — purana chandra-mandir",
+          "shortLabel": "Purana mandir",
+          "keywords": [
+            "mandir",
+            "naksha",
+            "purana",
+            "lubaada",
+            "amarta",
+            "chalo",
+            "temple"
+          ],
+          "next": "s7_mandir",
+          "effects": {
+            "relationships": {
+              "selene": 6
+            },
+            "flags": {
+              "arcOldTemple": true
+            },
+            "choicesRecord": {
+              "arc5": "temple"
+            },
+            "location": "Bhoola hua chandra-mandir",
+            "memory": [
+              "Ankit ne purane mandir ka naksha uthaya — Selene ne kaha 'wahan mat jao', phir 'theek hai, saath chalungi', phir 'wahan main amar bani thi. Aur wahan maine kuch chhoda tha.'"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "id": "s7_jungle",
+      "title": "Andhkaar Ka Sawaal",
+      "narration": [
+        "*Raat. Kaala jungle. Tum akele aaye ho — Selene ko bina bataye. Galti thi. Tumhe ab pata chal raha hai.*",
+        "*Pedon ke beech andhera ghana ho raha hai. Sirf ghana nahi — chal raha hai. Aur usmein se ek awaaz — fusfusahat.*",
+        "Pujari: \"Ladka. Jisne use panaah di.\"",
+        "*Koi chehra nahi. Sirf andhera, aur us andhere mein do aankhein jo aankhein nahi hain.*",
+        "Pujari: \"Main tumhe maarne nahi aaya. Main tumhe ek sawaal dene aaya hoon. Ek tohfa.\"",
+        "Pujari: \"Tumne poocha usse — woh amar kaise bani? Nahi? Kiski keemat par? Nahi poocha? Toh main bata doon?\"",
+        "*Andhera paas aata hai. Thanda.*",
+        "Pujari: \"Sadiyon pehle, us mandir mein, ek gaon tha. Tumhare jaisa. Aur ek ladki thi jo rani nahi thi. Aur usne ek saud a kiya. Aur us gaon ka... koi nahi bacha. Poochho usse. Dekho woh kya kehti hai.\"",
+        "*Aur phir — roshni. Chaandi. Itni tez ki andhera cheekh ke bikhar jaata hai. Selene. Tumhare peeche. Aur uska chehra — ye Selene nahi hai. Ye woh hai jisse duniya darti hai.*",
+        "Selene: \"Usse door raho.\"",
+        "*Ek shabd. Aur jungle ke aadhe ped jhuk jaate hain. Andhera bhaag jaata hai. Aur Selene tumhari taraf mudti hai — aur uski aankhon mein darr hai. Pujari se nahi. Us sawaal se.*",
+        "Selene: \"...Usne tumhe bataya?\""
+      ],
+      "fallbackLines": [
+        "*Jungle shaant. Selene ki roshni dheemi ho rahi hai. Woh tumse do kadam door khadi hai — jaise paas aane se darti ho.*",
+        "Selene: \"Poochho. Tum poochoge. Sab poochte hain jab unhe pata chalta hai. Poochho, Ankit.\""
+      ],
+      "choices": [
+        {
+          "id": "c_tum_batao",
+          "text": "\"Nahi. Woh tumhara sach hai — tum bataogi, jab tum chahogi. Usne nahi.\"",
+          "shortLabel": "Tum batana",
+          "keywords": [
+            "tum batao",
+            "jab chaho",
+            "usne nahi",
+            "tumhara sach",
+            "nahi poochunga",
+            "trust"
+          ],
+          "next": "s8_next",
+          "effects": {
+            "relationships": {
+              "selene": 26
+            },
+            "flags": {
+              "refusedPujariBait": true
+            },
+            "choicesRecord": {
+              "arc5b": "refused"
+            },
+            "memory": [
+              "Pujari ke sawaal ke baad Ankit ne Selene se kuch nahi poocha — 'tum bataogi jab chahogi'. Selene ghutno pe baith gayi. 'Sadiyon se log mujhse ye poochte hain. Tumne nahi poocha. Main... main tumhe bataungi. Jald. Vaada.'"
+            ]
+          }
+        },
+        {
+          "id": "c_sach_hai",
+          "text": "\"Kya ye sach hai? Gaon... koi nahi bacha?\"",
+          "shortLabel": "Kya ye sach hai?",
+          "keywords": [
+            "sach",
+            "gaon",
+            "koi nahi bacha",
+            "keemat",
+            "sauda",
+            "true"
+          ],
+          "next": "s8_next",
+          "effects": {
+            "relationships": {
+              "selene": 6,
+              "pujari": 4
+            },
+            "flags": {
+              "askedTheCost": true
+            },
+            "choicesRecord": {
+              "arc5b": "asked"
+            },
+            "memory": [
+              "Ankit ne Selene se poocha kya Pujari sach keh raha tha — Selene: 'Aadha. Gaon gaya. Par sauda maine nahi kiya tha — mere liye kiya gaya tha. Aur main tab se us gaon ka rin chuka rahi hoon. Har gaon mein. Tumhare gaon mein bhi.'"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "id": "s7_chandragadh",
+      "title": "Khaali Simhasan",
+      "narration": [
+        "*Gaon ke bahar Chandra Sena ka dera. Kaveri ka tambu. Andar ek naksha — Chandragadh ka — aur uspe laal nishaan. Bahut saare.*",
+        "Kaveri: \"Sardar. Har ek. Simhasan khaali dekh ke sab apna haq jataa rahe hain. Aur seema par... seema par Andhkaar ke pujari khule mein ghoom rahe hain. Pehli baar sadiyon mein.\"",
+        "*Selene naksha dekh rahi hai. Uska chehra pathar. Rani ka chehra.*",
+        "Kaveri: \"Maharani. Main aapse wapas chalne ko nahi kahungi. Aapne mana kiya. Main maanti hoon. Par main ye zaroor kahungi — aapke bina, log marenge.\"",
+        "*Selene kuch nahi bolti. Kaveri tumhari taraf mudti hai.*",
+        "Kaveri: \"Ladke. Tum use jaante ho — ab. Tum bolo. Kya rani ko apna rajya chhod dena chahiye ek jhopdi ke liye?\"",
+        "*Tambu mein sannata. Selene tumhe dekh rahi hai — aur uski aankhon mein ek ajeeb si umeed hai. Jaise woh chahti ho tum kuch aisa kaho jo usne khud se kehne ki himmat nahi ki.*"
+      ],
+      "fallbackLines": [
+        "*Naksha. Laal nishaan. Selene ki ungli ek nishaan par ruki hai — ek chhota gaon, seema ke paas.*",
+        "Selene (dheere): \"Ye gaon... ye Chandanpur jaisa hai. Aur wahan pujari hain.\""
+      ],
+      "choices": [
+        {
+          "id": "c_dono",
+          "text": "\"Kyun 'ya'? Rani jhopdi se raj nahi kar sakti? Kaun rokega use?\"",
+          "shortLabel": "Dono kyun nahi?",
+          "keywords": [
+            "dono",
+            "kyun ya",
+            "jhopdi se",
+            "raj",
+            "kaun rokega",
+            "both"
+          ],
+          "next": "s8_next",
+          "effects": {
+            "relationships": {
+              "selene": 22,
+              "kaveri": 10
+            },
+            "flags": {
+              "proposedBoth": true
+            },
+            "choicesRecord": {
+              "arc5b": "both"
+            },
+            "memory": [
+              "Ankit ne kaha 'rani jhopdi se raj kyun nahi kar sakti' — Kaveri chup. Selene chup. Phir Selene hansi — sach mein hansi. 'Sadiyon mein kisi ne ye nahi socha. Kyunki sab sochte the rani ko mahal chahiye. Kaveri — sardaron ko likho. Rani ka darbar Chandanpur mein lagega.'"
+            ]
+          }
+        },
+        {
+          "id": "c_selene_faisla",
+          "text": "\"Ye mera sawaal nahi hai, Kaveri. Selene — tum bolo. Main jo bhi ho, saath hoon.\"",
+          "shortLabel": "Selene ka faisla",
+          "keywords": [
+            "selene",
+            "tum bolo",
+            "tumhara faisla",
+            "saath hoon",
+            "mera nahi",
+            "your call"
+          ],
+          "next": "s8_next",
+          "effects": {
+            "relationships": {
+              "selene": 18,
+              "kaveri": 6
+            },
+            "flags": {
+              "deferredToSelene": true
+            },
+            "choicesRecord": {
+              "arc5b": "deferred"
+            },
+            "memory": [
+              "Ankit ne faisla Selene par chhoda — 'main jo bhi ho saath hoon'. Selene ne naksha uthaya. 'Main jaaungi. Us gaon mein — jahan pujari hain. Rani ki tarah nahi. Selene ki tarah. Aur phir wapas aaungi. Yahan. Ye mera ghar hai ab.'"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "id": "s7_mandir",
+      "title": "Jahan Chaand Ne Use Chuna Tha",
+      "narration": [
+        "*Jungle ke andar. Ghanta bhar chalne ke baad — ek khandahar. Chandra-mandir. Toota hua, par uske patharon mein abhi bhi chaandi ki chamak. Selene darwaaze par ruk jaati hai.*",
+        "Selene: \"Yahan. Yahan main aayi thi. Sadiyon pehle. Main rani nahi thi. Main... main tumhare gaon jaisi ladki thi.\"",
+        "*Woh andar jaati hai. Dheere. Har kadam bhaari.*",
+        "*Andar ek kund. Sookha. Aur uske kinare — pathar par — ek chhota sa nishaan. Haath ka. Ladki ka haath.*",
+        "Selene: \"Mera gaon mar raha tha. Andhkaar. Bimari. Main yahan aayi — chaand se maangne. Aur chaand ne... chaand ne mujhe sab diya. Shakti. Amarta. Rajya.\"",
+        "*Woh apna haath us nishaan par rakhti hai. Bilkul fit.*",
+        "Selene: \"Aur keemat? Keemat maine nahi chukayi. Mere gaon ne chukayi. Sab. Ek raat mein. Aur main... main amar ho gayi, taaki main use hamesha yaad rakhoon.\"",
+        "*Uske gaal par aansu. Chaandi jaisa.*",
+        "Selene: \"Isliye main tumhare gaon mein ruki, Ankit. Isliye main wapas nahi jaana chahti. Kyunki tumhara gaon... tumhara gaon mera gaon jaisa hai. Aur is baar main use bachana chahti hoon. Rani bankar nahi. Bas... rehkar.\""
+      ],
+      "fallbackLines": [
+        "*Kund ke neeche, pathar mein, kuch aur likha hai. Prachin lipi. Selene padh sakti hai. Woh padhti nahi.*",
+        "Selene: \"Neeche jo likha hai — woh amarta ka doosra hissa hai. Main use kabhi nahi padhti. Agar padh loon... toh shayad main chun sakti hoon. Aur main darti hoon ki main kya chunungi.\""
+      ],
+      "choices": [
+        {
+          "id": "c_gale_lagao",
+          "text": "Use gale lagao — kuch mat bolo",
+          "shortLabel": "Gale lagao",
+          "keywords": [
+            "gale",
+            "lagao",
+            "hug",
+            "kuch mat bolo",
+            "chup",
+            "saath"
+          ],
+          "next": "s8_next",
+          "effects": {
+            "relationships": {
+              "selene": 28
+            },
+            "flags": {
+              "heldHerAtTemple": true
+            },
+            "choicesRecord": {
+              "arc5b": "held"
+            },
+            "memory": [
+              "Purane mandir mein Ankit ne Selene ko gale lagaya — bina kuch bole. Selene ne kaha kuch nahi. Kund mein — sookhe kund mein — ek pal ke liye paani aaya. Chaandi jaisa. Phir chala gaya."
+            ]
+          }
+        },
+        {
+          "id": "c_padho",
+          "text": "\"Padho. Jo bhi hai. Main yahan hoon. Tum akeli nahi padhogi.\"",
+          "shortLabel": "Padho, main hoon",
+          "keywords": [
+            "padho",
+            "main hoon",
+            "akeli nahi",
+            "lipi",
+            "neeche",
+            "saath",
+            "read"
+          ],
+          "next": "s8_next",
+          "effects": {
+            "relationships": {
+              "selene": 16,
+              "pujari": -4
+            },
+            "flags": {
+              "readSecondHalf": true
+            },
+            "choicesRecord": {
+              "arc5b": "read"
+            },
+            "memory": [
+              "Selene ne Ankit ke saath amarta ka doosra hissa padha: 'Jo chaand ki rani ko bina jaane apnaye, chaand uska rin maanega — aur rani ko chunne dega.' Selene: '...Chunne dega. Main chun sakti hoon. Ankit, main CHUN sakti hoon.' Aur phir woh dar gayi — pehli baar azaadi se."
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "id": "s8_next",
+      "title": "Agli Poornima",
+      "narration": [
+        "*Raat. Jhopdi. Selene khaat par nahi — chulhe ke paas, zameen par, tumhare bagal mein baithi hai. Chaand khidki se. Aaj woh usse nazar nahi churaati.*",
+        "*Bahar: Chandra Sena ka dera — Kaveri ne aaj gaon ke bachchon ko talwaar pakadna sikhaya, lakdi wali. Kaka ka hukka. Ramu kaki ki awaaz — 'bahu, kal subah aata goondhna sikhaungi'.*",
+        "*Aur tumhare paas: Kaveri ka naya patra ('sardaron ne jawab bheja — woh Chandanpur aa rahe hain, darbar ke liye, aur woh khush nahi hain'), Kaka ka sandesh ('jungle shaant hai, par mandir ke kund mein paani wapas aa gaya hai — chaandi jaisa'), aur Selene ka mitti ka pyala — jispe usne aaj apne haath se kuch likha hai. Chaandi ke dhaage se. Tumhe padhne nahi diya.*",
+        "Selene: \"Ye khatam nahi hota, Ankit. Amar ki zindagi mein kuch khatam nahi hota. Par ab... ab mujhe 'na khatam hona' darata nahi. Ab mujhe woh achha lagta hai.\"",
+        "*Woh tumhare kandhe par sar rakhti hai. Chaand thoda zyada chamakta hai — uski marzi se nahi. Bas.*",
+        "Selene: \"Chuno. Agli poornima tak kya karein?\""
+      ],
+      "fallbackLines": [
+        "*Ye kahani yahin nahi rukti — har poornima ek naya arc: sardaron ka darbar Chandanpur mein, Andhkaar ka doosra sawaal, Selene ka purana gaon, bhoole hue devta, aur pyale par likhi woh baat.*",
+        "Selene: \"Aur haan — kal chai tum banaoge. Meri teen baar ho gayi. Rani ke bhi kuch niyam hote hain.\""
+      ],
+      "choices": [
+        {
+          "id": "c_next_darbar",
+          "text": "Sardar aa rahe hain — rani ka darbar, jhopdi ke saamne",
+          "shortLabel": "Jhopdi mein darbar",
+          "keywords": [
+            "darbar",
+            "sardar",
+            "kaveri",
+            "chandragadh",
+            "rajneeti",
+            "aa rahe"
+          ],
+          "next": "s7_chandragadh",
+          "effects": {
+            "relationships": {
+              "kaveri": 6
+            },
+            "flags": {
+              "arcDarbar": true
+            },
+            "choicesRecord": {
+              "next": "darbar"
+            },
+            "memory": [
+              "Naya arc: Chandragadh ke sardar Chandanpur aa rahe hain — rani ka darbar ek jhopdi ke saamne."
+            ]
+          }
+        },
+        {
+          "id": "c_next_kund",
+          "text": "Kund mein paani wapas — mandir phir jaago",
+          "shortLabel": "Kund ka paani",
+          "keywords": [
+            "kund",
+            "paani",
+            "mandir",
+            "chaandi",
+            "wapas",
+            "jaago",
+            "temple"
+          ],
+          "next": "s7_mandir",
+          "effects": {
+            "relationships": {
+              "selene": 6
+            },
+            "flags": {
+              "arcKund2": true
+            },
+            "choicesRecord": {
+              "next": "kund"
+            },
+            "location": "Bhoola hua chandra-mandir",
+            "memory": [
+              "Naya arc: purane mandir ke kund mein paani wapas aaya hai — chaand kuch keh raha hai."
+            ]
+          }
+        },
+        {
+          "id": "c_next_andhkaar",
+          "text": "Andhkaar ka doosra sawaal — jungle mein phir fusfusahat",
+          "shortLabel": "Andhkaar phir",
+          "keywords": [
+            "andhkaar",
+            "pujari",
+            "jungle",
+            "fusfusahat",
+            "sawaal",
+            "dushman"
+          ],
+          "next": "s7_jungle",
+          "effects": {
+            "relationships": {
+              "pujari": 4
+            },
+            "flags": {
+              "arcAndhkaar2": true
+            },
+            "choicesRecord": {
+              "next": "andhkaar"
+            },
+            "location": "Kaala jungle",
+            "memory": [
+              "Naya arc: Andhkaar ke pujari ka doosra sawaal — is baar Selene se nahi, gaon se."
+            ]
+          }
+        },
+        {
+          "id": "c_next_aam",
+          "text": "Kuch nahi — kal Ramu kaki ke saath aata goondhna. Rani ka.",
+          "shortLabel": "Aata goondhna",
+          "keywords": [
+            "aata",
+            "ramu kaki",
+            "aam",
+            "din",
+            "normal",
+            "rest",
+            "sikhao",
+            "gaon"
+          ],
+          "next": "s3_gaon",
+          "effects": {
+            "relationships": {
+              "selene": 12
+            },
+            "flags": {
+              "arcOrdinary": true
+            },
+            "choicesRecord": {
+              "next": "ordinary"
+            },
+            "memory": [
+              "Naya arc: Chandra Rani aata goondhna seekhti hai — Ramu kaki ke hisaab se 'bahut kharab, par bahu hai toh chalega'."
+            ]
+          }
+        }
+      ]
+    }
+  ],
+  "endings": []
+}

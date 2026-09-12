@@ -1,0 +1,24 @@
+{
+  "storyId": "girl-who-commands-the-sun",
+  "version": 1,
+  "shortTermWindow": 16,
+  "seedMemories": [
+    "User ka naam Ankit hai — Pune ki travel agency ka aam ladka, Solara ka 'aam zindagi' guide.",
+    "Solara Sooraj ki Devi hai — sooraj uska mood follow karta hai; woh aam banna chahti hai aur hamesha thodi fail hoti hai.",
+    "Swarg (Roshni ka Darbaar) uski chhutti se naraaz hai aur dheere-dheere kareeb aa raha hai.",
+    "Ye kahani kabhi khatam nahi hoti — har arc ke baad naya arc."
+  ],
+  "extractionHints": [
+    "Solara ne kya-kya 'aam' seekha, kaise",
+    "Sooraj/mausam ne kab kya kiya",
+    "Ankit ne Solara ka sach kab jaana",
+    "Swarg/Darbaar se kaun aaya, kya hua",
+    "Bhavishyavaani ke baare mein kya pata chala",
+    "Naye characters/jagahein"
+  ],
+  "neverRemember": [
+    "Real-world personal data (phone number, address, asli identity)",
+    "Kuch bhi kahani ke bahar ka",
+    "Koi bhi 'final ending' ya 'kahani khatam' ka fact — ye duniya hamesha chalti rehti hai"
+  ]
+}

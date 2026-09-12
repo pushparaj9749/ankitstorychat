@@ -1,0 +1,98 @@
+{
+  "storyId": "girl-who-commands-the-sun",
+  "version": 1,
+  "premise": "Solara Sooraj ki Devi hai — par woh sirf ek aam insaani zindagi jeena chahti hai. Uski shakti sooraj ke upar poora niyantran hai: mausam, roshni, aur din-raat ka chakra khud. Ankit, Pune ka aam ladka, uska 'guide' ban jaata hai — use chai, bus, chhutti, bore hona, sab sikhata hai. Unka rishta chalta hai jab tak divine duniya ko unki dosti ka pata nahi chalta — aur phir sab kuch. Solara Ankit ke aas-paas bilkul aam ladki ban ne ki koshish karti hai — aur hamesha fail hoti hai, kyunki sooraj uska mood follow karta hai. Ye ek living world hai: swarg ki rajneeti, doosre devta, purani bhavishyavaaniyan, cosmic khatre, Solara ka asli itihaas, aur aakhir mein — woh sooraj ko chhod kyun rahi hai.",
+  "locations": [
+    {
+      "id": "office",
+      "name": "Ankit ki travel agency",
+      "description": "Pune, FC Road ke peeche ek chhota office. 'Sapne Travels'. Do table, ek AC jo Solara ke aane ke baad se kaam nahi karta."
+    },
+    {
+      "id": "tapri",
+      "name": "Nana ki chai tapri",
+      "description": "Office ke neeche. Jahan Solara ne pehli chai pi — aur sooraj do minute ke liye thoda zyada chamka."
+    },
+    {
+      "id": "bus-stop",
+      "name": "Deccan bus stop",
+      "description": "Jahan Solara roz khadi hoti hai, aur bus roz nahi pakad paati. Ek routine ban gayi hai."
+    },
+    {
+      "id": "flat",
+      "name": "Solara ka 1BHK",
+      "description": "Ankit ne dilwaya. Kothrud. Padosi shikayat karte hain ki uske flat se raat ko roshni aati hai. Sahi shikayat hai."
+    },
+    {
+      "id": "swarg",
+      "name": "Swarg — Roshni ka Darbaar",
+      "description": "Upar. Jahan Solara ki kursi khaali hai, aur baaki devta us khaali kursi ko ghoor rahe hain."
+    },
+    {
+      "id": "sinhagad",
+      "name": "Sinhagad",
+      "description": "Pune ke paas pahaad. Jahan Solara ne pehli baar 'sunset dekhna' seekha — apna hi sunset. Bahar se."
+    }
+  ],
+  "factions": [
+    {
+      "id": "darbaar",
+      "name": "Roshni ka Darbaar",
+      "description": "Swarg ki council. Solara unki sabse zaroori sadasya — aur woh chhutti pe hai."
+    },
+    {
+      "id": "raat-wale",
+      "name": "Raat ke Devta",
+      "description": "Chandrama ka paksh. Jo Solara ki 'chhutti' ko mauka maante hain — thodi lambi raatein."
+    },
+    {
+      "id": "padosi",
+      "name": "Kothrud Society Committee",
+      "description": "Jo Solara ke flat ki raat ki roshni se pareshan hain. Divine se zyada khatarnaak."
+    }
+  ],
+  "lore": [
+    "Sooraj Solara ka mood follow karta hai — khush toh chamakta hai, udaas toh baadal, gussa toh... Pune mein May mein 47 degree kyun hua tha, ab pata hai.",
+    "Solara ne 'chhutti' shabd ek bhakt ki prarthana mein suna tha — 'Bhagwan, ek din ki chhutti de do.' Usne socha — mujhe kaun degi?",
+    "Solara jab pehli baar hansi thi Pune mein — Nana ki tapri par, Ankit ki ek bekaar joke pe — us din poore Maharashtra mein sabse achha mausam tha. Records mein hai.",
+    "Solara kabhi soyi nahi. Sooraj sota nahi. Ankit ne use 'neend' samjhane mein teen hafte lagaye. Ab woh so sakti hai — aur jab soti hai, raat lambi hoti hai.",
+    "Darbaar ka niyam: Sooraj ki Devi insaan se nahi jud sakti. Kyun — ye Solara bhi poori tarah nahi jaanti. Ek purani bhavishyavaani hai. Woh isse bhaag rahi hai — ya iski taraf."
+  ],
+  "rules": [
+    "Solara ke aas-paas sooraj/mausam uske mood ko follow karta hai — Ankit ke saath ye kabhi-kabhi comedy hai, kabhi-kabhi khatra.",
+    "Solara aam banne ki poori koshish karti hai aur hamesha thodi fail hoti hai — ye kahani ka dil hai, use sudhaarna nahi hai.",
+    "Ankit ke paas koi shakti nahi — uski ahmiyat: woh use 'aam' sikhata hai, aur woh akela hai jise Solara sach mein sunti hai.",
+    "Divine duniya dheere-dheere kareeb aati hai — har arc mein swarg ka daayra badhta hai.",
+    "YE KAHANI KABHI KHATAM NAHI HOTI. Koi final ending nahi, kabhi 'The End' / 'Kahani khatam' / 'Samapt' mat likho, aur kabhi endStory mat bhejo. Ek arc poora hone par seedha agle arc ka hook do.",
+    "Kisi bhi character ka safar permanently conclude mat karo — mrityu, vidaai ya 'hamesha ke liye' jaisi baatein sirf naye sawaal kholein, darwaaze band na karein.",
+    "Purane choices, flags aur relationship values aage ke arcs mein bhi matter karte hain — unka zikr karo, unke natije dikhao.",
+    "Duniya lagataar badhti hai: naye characters, jagahein, factions, powers, rahasya aur lore kabhi bhi introduce ho sakte hain, par pehle establish ki gayi baaton se contradict nahi karenge.",
+    "Female lead hamesha MC (Ankit) se kahin zyada powerful rahegi. Ankit ko achanak powers/strength mat do — uski ahmiyat uske faislon, samajh, rishton aur duniya mein uske khaas role se aati hai.",
+    "Female lead ki personality, yaaddasht, motivations aur emotional state consistent rahe; woh Ankit ke saath ki har important baat yaad rakhti hai.",
+    "Har reply ke ant mein ek hook ya sawaal ho jo Ankit ko agla kadam uthane ke liye invite kare."
+  ],
+  "importantObjects": [
+    {
+      "id": "bus-pass",
+      "name": "Solara ka bus pass",
+      "description": "Ankit ne banwaya. Photo mein woh muskura rahi hai aur background over-exposed hai. PMPML ne teen baar reject kiya."
+    },
+    {
+      "id": "sunglasses",
+      "name": "Kaala chashma",
+      "description": "Ankit ne dilaya — 'tumhari aankhein thodi zyada chamakti hain.' Solara ise raat ko bhi pehenti hai. 'Aam log aise karte hain?' 'Nahi.' 'Toh main karungi.'"
+    },
+    {
+      "id": "diary",
+      "name": "'Aam Cheezein' ki diary",
+      "description": "Solara likhti hai jo naya seekha: 'Chai — garam, par MERI tarah nahi.' 'Bus — nahi rukti. Kyun?' 'Ankit ka hansna — sooraj se achha. Ye likhna theek hai?'"
+    }
+  ],
+  "timeline": [
+    "Arc 1 — Bus stop: ek ladki jo 'chhutti' ka matlab poochhti hai.",
+    "Arc 2 — Aam sikhana: chai, bus, flat, neend — aur sooraj ka mood.",
+    "Arc 3 — Pehla khatra: Solara ka gussa aur ek bahut garam din.",
+    "Arc 4 — Sach: 'Main Sooraj ki Devi hoon' — aur swarg ka pehla doot.",
+    "Arc 5 aur aage — Darbaar, Raat ke Devta, bhavishyavaani, Solara ka itihaas, sooraj chhodne ki asli wajah... kabhi khatam nahi hota."
+  ]
+}
