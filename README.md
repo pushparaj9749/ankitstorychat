@@ -14,7 +14,7 @@ moves the tale forward — with memory, relationships, branching, and multiple e
 ## ✨ Highlights
 
 - **100% local-first** — profile, chats, memories, saves, favorites, settings on-device (SQLite + SecureStore). No login, no cloud user DB.
-- **12 original Hinglish stories** (9 teen-safe, 3 mature) with scenes, choices, branching, endings.
+- **22 original Hinglish stories** (19 teen-safe, 3 mature) with scenes, choices, branching, endings — including 10 ongoing "endless" romance-fantasy sagas.
 - **New stories arrive without an app update** — `content/manifest.json` v3 added 5 full story packs
   (Hawa-Band Dhaba, Crush on the Roof, Pani @ 72, Gully Final, Night Courier); existing installs get them
   from **Settings → Content Updates**, or straight from the story page ("Download" button).

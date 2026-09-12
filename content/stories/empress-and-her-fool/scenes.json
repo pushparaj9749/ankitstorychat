@@ -1,0 +1,1027 @@
+{
+  "storyId": "empress-and-her-fool",
+  "version": 1,
+  "scenes": [
+    {
+      "id": "s1_diya",
+      "title": "Ek Diya Jo Bujhta Nahi",
+      "narration": [
+        "*Suryagarh ka mahal. Raat. Sevak kaksh — sabse neeche, sabse thanda. Tum Ankit ho: nichle darje ke sevak, jiska poora jaadu ek diya jalaane bhar ka hai. Bina teeli ke. Bas itna.*",
+        "*Tum diya jalaate ho. Khidki se hawa aati hai — tez, sard. Diya nahi bujhta. Kabhi nahi bujhta. Tumne ispe kabhi socha nahi.*",
+        "*Darwaaza khulta hai. Bina dastak. Aur kaksh ki har mombatti ek saath jhuk jaati hai — jaise jhuk rahi ho.*",
+        "*Samragyi Seraphina. Khud. Sevak kaksh mein. Laal-sunehra vastra, aankhon mein woh roshni jisse sardar darte hain. Uske peeche rakshak Tara, haath talwaar par.*",
+        "Seraphina: \"Ye diya. Tumne jalaya?\"",
+        "*Tum ghutnon par gir jaate ho. Sar neeche.*",
+        "Seraphina: \"Maine ye nahi poochha ki tum jhuk sakte ho ya nahi. Maine poochha — ye diya tumne jalaya?\"",
+        "*Woh ek kadam aage aati hai. Diye ki taraf haath badhati hai. Aur rukti hai. Uski ungliyan halki si kaanpti hain. Tara ne dekha. Tumne dekha.*",
+        "Seraphina: \"Kal subah se tum mere niji sevak ho. Tara, iska saamaan upar bhijwao. Aur Ankit — diya saath laana.\""
+      ],
+      "fallbackLines": [
+        "*Woh chali gayi. Mombattiyan phir seedhi. Tara darwaaze par ek pal rukti hai.*",
+        "Tara: \"Ladke. Mujhe nahi pata usne tujhe kyun chuna. Par agar tune use kabhi dukh diya, toh diya jalaane wala haath nahi bachega. Samjha? Achha. Chal, saamaan utha.\"",
+        "*Tumhara diya jal raha hai. Shaant. Jaise kuch hua hi na ho.*"
+      ],
+      "choices": [
+        {
+          "id": "c_kyun_main",
+          "text": "Himmat karke poocho — \"Mahamahim... kyun main?\"",
+          "shortLabel": "Kyun main?",
+          "keywords": [
+            "kyun",
+            "main",
+            "why",
+            "mahamahim",
+            "kyun mujhe",
+            "wajah"
+          ],
+          "next": "s2_kaksh",
+          "effects": {
+            "relationships": {
+              "seraphina": 10
+            },
+            "flags": {
+              "askedWhy": true
+            },
+            "choicesRecord": {
+              "opening": "asked"
+            },
+            "memory": [
+              "Ankit ne pehli raat hi Samragyi se 'kyun main' poocha — Seraphina ruki, muskurayi (pehli baar), aur boli: 'Kyunki tumne poocha. Baaki sab bas jhukte.'"
+            ]
+          }
+        },
+        {
+          "id": "c_chup",
+          "text": "Chup raho, sar jhukaye — jo aadesh ho",
+          "shortLabel": "Chup rehke maano",
+          "keywords": [
+            "ji",
+            "aadesh",
+            "chup",
+            "theek",
+            "haan",
+            "jo hukum",
+            "maan"
+          ],
+          "next": "s2_kaksh",
+          "effects": {
+            "relationships": {
+              "seraphina": 4,
+              "tara": 6
+            },
+            "flags": {
+              "obeyedSilently": true
+            },
+            "choicesRecord": {
+              "opening": "obeyed"
+            },
+            "memory": [
+              "Ankit chup rehke Samragyi ka aadesh maana — Tara ko pasand aaya. Seraphina ko nahi. 'Kal se sawaal poochna seekho.'"
+            ]
+          }
+        },
+        {
+          "id": "c_diya_do",
+          "text": "Diya uthao aur uski taraf badhao — \"Ye aapka hai, Mahamahim.\"",
+          "shortLabel": "Diya bhent karo",
+          "keywords": [
+            "diya",
+            "do",
+            "bhent",
+            "aapka",
+            "lo",
+            "gift",
+            "de do"
+          ],
+          "next": "s2_kaksh",
+          "effects": {
+            "relationships": {
+              "seraphina": 14
+            },
+            "flags": {
+              "offeredDiya": true
+            },
+            "choicesRecord": {
+              "opening": "offered"
+            },
+            "memory": [
+              "Ankit ne diya Samragyi ko bhent kiya — Seraphina ne nahi liya. 'Nahi. Ye tumhara hai. Isiliye jalta hai.' Uski awaaz ek pal ke liye Samragyi ki nahi thi."
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "id": "s2_kaksh",
+      "title": "Sera",
+      "narration": [
+        "*Subah. Samragyi ka niji kaksh. Itna bada ki tumhara poora sevak kaksh iske ek kone mein aa jaaye. Khidkiyon se poora Suryagarh. Aur beech mein Seraphina — bina taj ke, baal khule, ek kitaab god mein, pair sofe par.*",
+        "Seraphina: \"Aa gaye. Chai banao. Adrak wali. Raj-rasoi wale bekaar banate hain — sab darte hain zyada adrak daalne se.\"",
+        "*Tum chai banate ho. Haath kaanp rahe hain. Woh dekh rahi hai — kitaab ke upar se.*",
+        "Seraphina: \"Ankit. Ek niyam. Darbar mein, sardaron ke saamne, main Samragyi hoon. Tum sevak ho. Tum jhukoge, main nahi dekhungi. Theek hai?\"",
+        "*Tum haan mein sar hilate ho.*",
+        "Seraphina: \"Aur yahan — jab koi nahi hai — 'Sera'. Sirf Sera. 'Mahamahim' bologe toh main tumhe Sardar Sangram ke saath raat ka khaana khila dungi. Woh saza hai, mazaak nahi.\"",
+        "*Woh kitaab band karti hai. Ek pal ke liye uska chehra thaka hua dikhta hai. Phir nahi.*",
+        "Seraphina: \"Chai laao. Aur diya wahan rakho — khidki ke paas. Hawa mein. Main dekhna chahti hoon.\""
+      ],
+      "fallbackLines": [
+        "*Diya khidki ke paas. Hawa tez. Diya shaant. Seraphina use aise dekh rahi hai jaise woh koi purana sawaal ho.*",
+        "Seraphina: \"Chai achhi hai. Bahut achhi. Ye baat sardaron ko mat batana — woh tumhe zeher dene ki koshish karenge. Mazaak kar rahi hoon. ...Aadha.\""
+      ],
+      "choices": [
+        {
+          "id": "c_sera",
+          "text": "\"...Sera. Chai.\"",
+          "shortLabel": "'Sera' bolo",
+          "keywords": [
+            "sera",
+            "chai",
+            "lo",
+            "theek",
+            "ok"
+          ],
+          "next": "s3_darbar",
+          "effects": {
+            "relationships": {
+              "seraphina": 16
+            },
+            "flags": {
+              "calledHerSera": true
+            },
+            "choicesRecord": {
+              "arc1": "sera"
+            },
+            "memory": [
+              "Ankit ne pehli baar 'Sera' kaha — Seraphina ne chai li aur muh pher liya. Tara ne baad mein kaha: 'Woh muskura rahi thi. Maine dekha. Tu mat batana usse.'"
+            ]
+          }
+        },
+        {
+          "id": "c_diya_kyun",
+          "text": "\"Sera... aap diye ko aise kyun dekh rahi hain?\"",
+          "shortLabel": "Diye mein kya hai?",
+          "keywords": [
+            "diya",
+            "kyun",
+            "dekh",
+            "kya hai",
+            "rahasya",
+            "aise"
+          ],
+          "next": "s3_darbar",
+          "effects": {
+            "relationships": {
+              "seraphina": 8
+            },
+            "flags": {
+              "askedDiyaEarly": true
+            },
+            "choicesRecord": {
+              "arc1": "diya"
+            },
+            "memory": [
+              "Ankit ne poocha Sera diye ko aise kyun dekhti hai — Seraphina: 'Kyunki maine ek kitaab mein iske baare mein padha hai. Bahut purani kitaab. Aur woh kitaab galat nahi hoti. Kabhi.'"
+            ]
+          }
+        },
+        {
+          "id": "c_kyun_sevak",
+          "text": "\"Main bekaar sevak hoon. Mahal hans raha hai. Aap kyun—\"",
+          "shortLabel": "Mahal hans raha hai",
+          "keywords": [
+            "bekaar",
+            "hans",
+            "mahal",
+            "kyun",
+            "sevak",
+            "log"
+          ],
+          "next": "s3_darbar",
+          "effects": {
+            "relationships": {
+              "seraphina": 6,
+              "tara": 4
+            },
+            "flags": {
+              "worriedAboutMockery": true
+            },
+            "choicesRecord": {
+              "arc1": "mockery"
+            },
+            "memory": [
+              "Ankit ne kaha mahal us par hans raha hai — Seraphina: 'Hansne do. Jab woh hanste hain, woh sochte nahi. Aur main chahti hoon woh na sochein. Abhi.'"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "id": "s3_darbar",
+      "title": "Surya Darbar",
+      "narration": [
+        "*Surya Darbar. Sone ka simhasan. Sat sardar, sat gharane. Aur Seraphina — taj ke saath, aankhon mein woh roshni. Tum uske peeche khade ho, do kadam. Hamesha do kadam.*",
+        "*Sardar Sangram aage aata hai. Muskurata hua. Jhukta hua.*",
+        "Sangram: \"Mahamahim. Parishad ko ek chhoti si chinta hai. Aapka naya niji sevak. Nichle darje ka. Bina jaadu ka. Sardaron ko lagta hai... ye rajya ki garima ke khilaaf hai.\"",
+        "*Darbar mein halki hansi. Tumhare kaan garam.*",
+        "Seraphina: \"Sardar Sangram. Aapko lagta hai meri garima ek sevak se tay hoti hai?\"",
+        "*Hansi band. Ek pal mein.*",
+        "Sangram: \"Nahi, Mahamahim. Bilkul nahi. Par log baatein karte hain. Kehte hain — 'bujhta diya'.\"",
+        "*Seraphina ki ungli simhasan ke haathe par ek baar thapki deti hai. Darbar ki har mashaal ek pal ke liye neeli ho jaati hai. Phir wapas.*",
+        "Seraphina: \"Log baatein karte hain. Aap unhe rokte nahi. Dilchasp. Ankit — paani.\"",
+        "*Woh tumhari taraf nahi dekhti. Tum paani laate ho. Aur Sangram tumhe dekhta hai — muskurate hue — jaise koi kasai bakre ko dekhta hai.*"
+      ],
+      "fallbackLines": [
+        "*Darbar khatam. Sardar jaa rahe hain. Sangram tumhare paas se guzarta hai, dheere se.*",
+        "Sangram: \"Ankit, beta. Kripa hawa jaisi hoti hai. Aaj hai, kal kaun jaane. Diya sambhal ke rakhna.\"",
+        "*Seraphina ne suna. Uski peeth tumhari taraf hai. Uski mutthi band hai.*"
+      ],
+      "choices": [
+        {
+          "id": "c_sambhal_ke",
+          "text": "Sangram ko jawab do — \"Diya bujhta nahi, Sardar ji. Aap aazma lijiye.\"",
+          "shortLabel": "Sangram ko jawab",
+          "keywords": [
+            "jawab",
+            "bujhta nahi",
+            "aazma",
+            "sardar",
+            "diya",
+            "reply"
+          ],
+          "next": "s4_paas",
+          "effects": {
+            "relationships": {
+              "seraphina": 14,
+              "sangram": -10,
+              "tara": 8
+            },
+            "flags": {
+              "defiedSangram": true
+            },
+            "choicesRecord": {
+              "arc2": "defied"
+            },
+            "memory": [
+              "Ankit ne darbar mein Sardar Sangram ko jawab diya — 'diya bujhta nahi, aazma lijiye'. Darbar sannata. Seraphina ne baad mein kaha: 'Pagal ho. Aur... shukriya.'"
+            ]
+          }
+        },
+        {
+          "id": "c_chup_darbar",
+          "text": "Chup raho. Sar jhukao. Sevak ki tarah.",
+          "shortLabel": "Chup raho",
+          "keywords": [
+            "chup",
+            "jhuk",
+            "sevak",
+            "kuch nahi",
+            "silent",
+            "maan"
+          ],
+          "next": "s4_paas",
+          "effects": {
+            "relationships": {
+              "tara": 4,
+              "sangram": 2
+            },
+            "flags": {
+              "stayedSilentDarbar": true
+            },
+            "choicesRecord": {
+              "arc2": "silent"
+            },
+            "memory": [
+              "Ankit darbar mein chup raha — sahi sevak ki tarah. Seraphina ne akele mein kaha: 'Sahi kiya. Mujhe achha nahi laga, par sahi kiya.'"
+            ]
+          }
+        },
+        {
+          "id": "c_sera_dekho",
+          "text": "Seraphina ki taraf dekho — sirf ek pal, sirf ek nazar",
+          "shortLabel": "Sera ko dekho",
+          "keywords": [
+            "dekho",
+            "sera",
+            "nazar",
+            "aankh",
+            "look",
+            "seraphina"
+          ],
+          "next": "s4_paas",
+          "effects": {
+            "relationships": {
+              "seraphina": 10,
+              "sangram": -4
+            },
+            "flags": {
+              "lookedAtSera": true
+            },
+            "choicesRecord": {
+              "arc2": "looked"
+            },
+            "memory": [
+              "Darbar mein Ankit ne Seraphina ki taraf dekha — aur Seraphina ne, ek pal ke liye, wapas dekha. Sangram ne ye dekha. Aur likh liya."
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "id": "s4_paas",
+      "title": "Raat Ka Mahal",
+      "narration": [
+        "*Raat. Mahal so gaya hai. Seraphina ke kaksh ki balcony. Woh railing par baithi hai — Samragyi railing par nahi baithti. Sera baithti hai.*",
+        "Seraphina: \"Aaj Sangram ne tumhe dhamki di. Maine suna. Main use ek shabd mein raakh kar sakti hoon. Tumhe pata hai main kyun nahi karti?\"",
+        "*Tum nahi jaante.*",
+        "Seraphina: \"Kyunki tab sat gharane ek ho jaayenge. Aur main akeli hoon. Hamesha se. Pita gaye, toh main 19 ki thi. Us din se... akeli.\"",
+        "*Woh neeche dekhti hai. Suryagarh ki roshniyan.*",
+        "Seraphina: \"Phir maine ek sevak ko diya jalaate dekha. Aur ek kitaab yaad aayi. Aur pehli baar... pehli baar mujhe laga ki shayad akeli nahi hoon.\"",
+        "*Woh tumhari taraf mudti hai. Uski aankhon mein ab woh darbar wali roshni nahi hai. Kuch aur hai — bahut zyada insaani.*",
+        "Seraphina: \"Ankit. Main tumhe sab nahi bata sakti. Abhi nahi. Par ye jaan lo — main tumhe apne paas 'kripa' se nahi rakhti. Main tumhe... zaroorat se rakhti hoon. Meri zaroorat. Rajya ki nahi.\"",
+        "*Woh ruk jaati hai. Aur turant muskura deti hai — mazaak wali muskaan.*",
+        "Seraphina: \"Chai. Abhi. Ye baat maine kabhi nahi kahi. Samjhe?\""
+      ],
+      "fallbackLines": [
+        "*Hawa chal rahi hai. Balcony par tumhara diya rakha hai. Shaant.*",
+        "Seraphina: \"Tum chup ho. Sevak chup rehte hain, par tum 'aise' chup ho. Ye alag hai. Bolo.\""
+      ],
+      "choices": [
+        {
+          "id": "c_akeli_nahi",
+          "text": "\"Aap akeli nahi hain, Sera. Main bekaar hoon — par main hoon.\"",
+          "shortLabel": "Akeli nahi ho",
+          "keywords": [
+            "akeli nahi",
+            "main hoon",
+            "saath",
+            "bekaar",
+            "hoon",
+            "alone"
+          ],
+          "next": "s5_chaal",
+          "effects": {
+            "relationships": {
+              "seraphina": 22
+            },
+            "flags": {
+              "toldHerNotAlone": true
+            },
+            "choicesRecord": {
+              "arc2": "notalone"
+            },
+            "memory": [
+              "Balcony par Ankit ne kaha 'aap akeli nahi hain, main hoon' — Seraphina ne uski taraf peeth kar li. 'Chai. Abhi.' Uski awaaz kaanp rahi thi."
+            ]
+          }
+        },
+        {
+          "id": "c_kitaab",
+          "text": "\"Kaunsi kitaab, Sera? Diye ke baare mein kya likha hai?\"",
+          "shortLabel": "Kaunsi kitaab?",
+          "keywords": [
+            "kitaab",
+            "kaunsi",
+            "likha",
+            "diya",
+            "book",
+            "bhavishya"
+          ],
+          "next": "s5_chaal",
+          "effects": {
+            "relationships": {
+              "seraphina": 8
+            },
+            "flags": {
+              "askedProphecy": true
+            },
+            "choicesRecord": {
+              "arc2": "prophecy"
+            },
+            "memory": [
+              "Ankit ne kitaab ke baare mein poocha — Seraphina: 'Bhavishyavani. Aur usmein tumhara naam nahi hai. Tumhara diya hai. Baaki... baaki jab tum taiyaar hoge.'"
+            ]
+          }
+        },
+        {
+          "id": "c_zaroorat",
+          "text": "\"'Zaroorat' — kaisi zaroorat, Sera?\"",
+          "shortLabel": "Kaisi zaroorat?",
+          "keywords": [
+            "zaroorat",
+            "kaisi",
+            "matlab",
+            "need",
+            "kya"
+          ],
+          "next": "s5_chaal",
+          "effects": {
+            "relationships": {
+              "seraphina": 12
+            },
+            "flags": {
+              "pushedOnNeed": true
+            },
+            "choicesRecord": {
+              "arc2": "need"
+            },
+            "memory": [
+              "Ankit ne 'zaroorat' ka matlab poocha — Seraphina hansi, laal hui, aur boli: 'Sevak ko itne sawaal nahi poochne chahiye.' Phir dheere se: 'Baad mein. Vaada.'"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "id": "s5_chaal",
+      "title": "Sardar Ki Pehli Chaal",
+      "narration": [
+        "*Teen din baad. Subah. Tum Sera ke liye chai le jaa rahe ho — aur seedhiyon par Tara tumhe rok leti hai. Uska chehra sakht hai.*",
+        "Tara: \"Ruk. Chai neeche rakh. Abhi.\"",
+        "*Woh cup uthati hai. Soonghti hai. Uski aankhein sikud jaati hain.*",
+        "Tara: \"Neel-kantak. Zeher. Dheema. Ek mahine mein maarta hai. Tune banaya?\"",
+        "*Tumne banaya. Bilkul waise hi jaise roz. Par adrak... adrak aaj rasoi mein nayi thi. Kisi ne rakhi thi.*",
+        "Tara: \"Sangram. Sevak ki chai mein zeher, sevak pakda jaaye, Samragyi 'bach' jaaye, aur sevak... Ladke, ye pehli chaal hai. Aur ye chaal tere liye thi, uske liye nahi.\"",
+        "*Peeche se awaaz. Sera. Bina taj. Bina rakshak. Aur uske aas-paas ki hawa kaanp rahi hai.*",
+        "Seraphina: \"Kaunsi adrak?\"",
+        "*Tara use dekhti hai. Tum use dekhte ho. Tumne kabhi use aisa nahi dekha. Ye Sera nahi hai. Ye Samragyi bhi nahi hai. Ye kuch aur hai — jisse sardar sach mein darte hain.*",
+        "Seraphina: \"Ankit. Mere kaksh mein jao. Darwaaza band karo. Tara — Sangram ko darbar mein bulao. Abhi.\""
+      ],
+      "fallbackLines": [
+        "Tara: \"Ladke, jaa. Jab woh aisi hoti hai, toh main bhi door rehti hoon. Tu... tu bas jaa.\"",
+        "*Seedhiyon ke pathar Sera ke pairon ke neeche halke se garam ho rahe hain.*"
+      ],
+      "choices": [
+        {
+          "id": "c_roko",
+          "text": "Sera ko roko — \"Nahi. Agar aap Sangram ko raakh karengi, toh sardar ek ho jaayenge. Aapne khud kaha tha.\"",
+          "shortLabel": "Sera ko roko",
+          "keywords": [
+            "roko",
+            "nahi",
+            "sangram",
+            "ek ho",
+            "khud kaha",
+            "socho",
+            "stop"
+          ],
+          "next": "s6_hub",
+          "effects": {
+            "relationships": {
+              "seraphina": 20,
+              "tara": 10,
+              "sangram": 2
+            },
+            "flags": {
+              "stoppedSera": true
+            },
+            "choicesRecord": {
+              "arc3": "stopped"
+            },
+            "memory": [
+              "Ankit ne krodh mein Samragyi ko roka — uski apni baat yaad dilakar. Seraphina ruki. 'Tum... tum sahi ho. Aur main tumse nafrat karti hoon iske liye.' Phir: 'Nahi karti. Chai dobara banao. Main saath chalungi rasoi.'"
+            ]
+          }
+        },
+        {
+          "id": "c_jao",
+          "text": "Jaisa kaha, waisa karo — kaksh mein jao",
+          "shortLabel": "Kaksh mein jao",
+          "keywords": [
+            "jao",
+            "kaksh",
+            "theek",
+            "aadesh",
+            "band",
+            "maan"
+          ],
+          "next": "s6_hub",
+          "effects": {
+            "relationships": {
+              "seraphina": 4,
+              "tara": 6
+            },
+            "flags": {
+              "obeyedDuringRage": true
+            },
+            "choicesRecord": {
+              "arc3": "obeyed"
+            },
+            "memory": [
+              "Ankit kaksh mein chala gaya. Us din darbar mein kya hua, kisi ne nahi bataya — par Sangram ek hafte tak darbar nahi aaya, aur uski daadhi ka ek hissa safed ho gaya tha."
+            ]
+          }
+        },
+        {
+          "id": "c_khud_jawab",
+          "text": "\"Mujhe darbar le chaliye. Main Sangram ke saamne khud chai piyunga — asli wali.\"",
+          "shortLabel": "Khud jawab dunga",
+          "keywords": [
+            "darbar",
+            "khud",
+            "chai piyunga",
+            "saamne",
+            "main",
+            "face",
+            "jawab"
+          ],
+          "next": "s6_hub",
+          "effects": {
+            "relationships": {
+              "seraphina": 16,
+              "sangram": -8,
+              "tara": 12
+            },
+            "flags": {
+              "facedSangram": true
+            },
+            "choicesRecord": {
+              "arc3": "faced"
+            },
+            "memory": [
+              "Ankit darbar gaya aur Sangram ke saamne nayi chai banakar pee — 'Sardar ji, aap bhi lenge?' Sangram ne mana kiya. Poore darbar ne dekha. Seraphina ne kuch nahi kaha — kehne ki zaroorat nahi thi."
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "id": "s6_hub",
+      "title": "Mahal Ke Baahar Bhi Duniya Hai",
+      "narration": [
+        "*Subah. Sera ka kaksh. Chai — tumhari banayi, Tara ki jaanchi hui. Sera sofe par, pair upar, aur uske haath mein teen chitthiyan.*",
+        "Seraphina: \"Ek — Acharya Vidyut ki. Academy se. Woh tumhe dekhna chahte hain. 'Diya laana', likha hai. Bees saal mein pehli baar unhone kisi sevak ko bulaya hai.\"",
+        "Seraphina: \"Do — Chandragarh ke rajkumar ki. Woh Suryagarh aa raha hai. 'Shanti vaarta' ke liye. Uske paas... kuch hai jo mujhe chahiye.\"",
+        "Seraphina: \"Teen — bina naam ki. Khandahar se. Kisi ne wahan kuch khoda hai. Aur jo mila, uspe tumhare diye jaisa nishaan hai.\"",
+        "*Woh chitthiyan tumhari taraf badhati hai.*",
+        "Seraphina: \"Samragyi faisla karti hai. Roz. Aaj Sera thak gayi hai. Tum chuno, Ankit. Aur jo bhi chuno — main saath hoon. Do kadam aage, is baar.\""
+      ],
+      "fallbackLines": [
+        "*Tumhara diya khidki par. Aaj uski lau thodi lambi hai. Sera ne dekha. Kuch nahi boli.*",
+        "Seraphina: \"Jaldi nahi hai. Chai khatam karo. Rajya thoda intezaar kar sakta hai — usne mujhse bahut karwaya hai.\""
+      ],
+      "choices": [
+        {
+          "id": "c_hub_academy",
+          "text": "Academy — Acharya Vidyut aur diya",
+          "shortLabel": "Academy chalo",
+          "keywords": [
+            "academy",
+            "acharya",
+            "vidyut",
+            "diya",
+            "jaadu",
+            "chalo",
+            "padhai"
+          ],
+          "next": "s7_academy",
+          "effects": {
+            "relationships": {
+              "acharya": 6
+            },
+            "flags": {
+              "arcAcademy": true
+            },
+            "choicesRecord": {
+              "arc4": "academy"
+            },
+            "location": "Agnipath Academy",
+            "memory": [
+              "Ankit ne Academy chuna — Seraphina: 'Wahan sab tumse zyada jaadu jaante hain. Aur ek bhi tumhare jaisa nahi hai. Yaad rakhna.'"
+            ]
+          }
+        },
+        {
+          "id": "c_hub_chandragarh",
+          "text": "Chandragarh ka rajkumar — shanti vaarta",
+          "shortLabel": "Rajkumar se milo",
+          "keywords": [
+            "chandragarh",
+            "rajkumar",
+            "vaarta",
+            "shanti",
+            "padosi",
+            "milo"
+          ],
+          "next": "s7_chandragarh",
+          "effects": {
+            "relationships": {
+              "seraphina": 4
+            },
+            "flags": {
+              "arcChandragarh": true
+            },
+            "choicesRecord": {
+              "arc4": "chandragarh"
+            },
+            "memory": [
+              "Ankit ne Chandragarh ke rajkumar wali vaarta chuni — Sera: 'Woh mujhse shaadi ka prastaav laayega. Har saal laata hai. Is baar tum peeche khade rehna — do kadam.'"
+            ]
+          }
+        },
+        {
+          "id": "c_hub_khandahar",
+          "text": "Khandahar — diye jaisa nishaan",
+          "shortLabel": "Khandahar chalo",
+          "keywords": [
+            "khandahar",
+            "nishaan",
+            "purani",
+            "sabhyata",
+            "khoda",
+            "chalo",
+            "ruins"
+          ],
+          "next": "s7_khandahar",
+          "effects": {
+            "relationships": {
+              "tara": 6
+            },
+            "flags": {
+              "arcKhandahar": true
+            },
+            "choicesRecord": {
+              "arc4": "khandahar"
+            },
+            "location": "Purani Sabhyata ke khandahar",
+            "memory": [
+              "Ankit ne khandahar chuna — Tara saath, Sera bhi. 'Samragyi khandahar nahi jaati.' 'Sera jaati hai.'"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "id": "s7_academy",
+      "title": "Bujhta Diya, Jaadugaron Ke Beech",
+      "narration": [
+        "*Agnipath Academy. Vishaal aangan. Chhatra hawa mein aag ke gole bana rahe hain, paani ko pathar. Aur tum — ek diya haath mein — beech mein khade ho. Hansi. Har taraf se.*",
+        "Chhatra: \"Ye hai Samragyi ka sevak? Bujhta diya? Arre koi phoonk maaro!\"",
+        "*Ek chhatra phoonk maarta hai — jaadui hawa, itni tez ki aangan ke ped jhuk jaate hain. Diya shaant.*",
+        "*Doosra chhatra paani phenkta hai. Diya bheeg jaata hai. Aur jalta rehta hai. Paani ke andar.*",
+        "*Hansi band.*",
+        "*Acharya Vidyut seedhiyon se utarte hain. Budhe, tez, aankhein chhoti. Woh diye ko dekhte hain. Bees second. Kuch nahi bolte. Phir tumhe.*",
+        "Acharya: \"Ladke. Bees saal. Hazaar chhatra jo pahaad tod sakte hain. Ek bhi aisa nahi jo ek diya na bujha sake. Tum... tum kya ho?\"",
+        "*Tumhe nahi pata.*",
+        "Acharya: \"'Mujhe nahi pata.' Achha. Imandaari. Durlabh. Andar aao. Mere paas ek kitaab hai — aadhi. Aur usmein tumhare diye ka chitra hai. Hazaar saal purana.\""
+      ],
+      "fallbackLines": [
+        "*Chhatra ab tumhe alag nazron se dekh rahe hain. Hansi nahi. Kuch aur. Thoda darr.*",
+        "Acharya: \"Aur haan — Samragyi ne mujhe likha tha 'use koi chhoo na paaye'. Maine socha woh sevak ki suraksha ki baat kar rahi hai. Ab lagta hai woh hamari suraksha ki baat kar rahi thi.\""
+      ],
+      "choices": [
+        {
+          "id": "c_kitaab_dekho",
+          "text": "\"Kitaab dikhaiye, Acharya. Poori.\"",
+          "shortLabel": "Kitaab dikhao",
+          "keywords": [
+            "kitaab",
+            "dikhao",
+            "poori",
+            "chitra",
+            "book",
+            "padho"
+          ],
+          "next": "s8_next",
+          "effects": {
+            "relationships": {
+              "acharya": 12
+            },
+            "flags": {
+              "sawProphecyHalf": true
+            },
+            "choicesRecord": {
+              "arc4b": "book"
+            },
+            "memory": [
+              "Acharya ne Ankit ko bhavishyavani ka aadha paath dikhaya: 'Jab Surya ki sabse tez lau ek bujhte diye ko chunegi, tab duniya ka rukh badlega.' Aur neeche — ek line kati hui. Seraphina ke haath se."
+            ]
+          }
+        },
+        {
+          "id": "c_sera_ne_kya",
+          "text": "\"Samragyi ne aapko aur kya likha tha? Mere baare mein?\"",
+          "shortLabel": "Sera ne kya likha?",
+          "keywords": [
+            "samragyi",
+            "likha",
+            "kya",
+            "mere baare",
+            "chitthi",
+            "sera"
+          ],
+          "next": "s8_next",
+          "effects": {
+            "relationships": {
+              "acharya": 8,
+              "seraphina": 6
+            },
+            "flags": {
+              "askedSeraLetter": true
+            },
+            "choicesRecord": {
+              "arc4b": "letter"
+            },
+            "memory": [
+              "Acharya ne bataya Seraphina ne likha tha: 'Agar ise kuch hua, toh Academy ko main khud girau ngi. Ye dhamki nahi hai. Ye vaada hai.' Acharya: 'Maine use 19 saal ki umar se padhaya hai. Usne kabhi kisi ke liye aisa nahi likha.'"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "id": "s7_chandragarh",
+      "title": "Rajkumar Aur Do Kadam",
+      "narration": [
+        "*Surya Darbar. Chandragarh ka rajkumar Devraj — lamba, sundar, chaandi ke vastra, aur ek muskaan jo darbar ki har ladki ko pighla rahi hai. Seraphina ko nahi.*",
+        "Devraj: \"Samragyi Seraphina. Har saal main aata hoon. Har saal aap mana karti hain. Is saal main kuch aur laaya hoon.\"",
+        "*Woh ek chhota sa sandook rakhta hai. Kholta hai. Andar — ek phata hua kaagaz. Purana. Aur uspe... tumhare diye ka chitra.*",
+        "Devraj: \"Bhavishyavani ka doosra aadha hissa. Chandragarh ke paas sadiyon se. Main ise aapko dunga — shaadi ke tohfe mein.\"",
+        "*Darbar mein sannata. Sangram ki aankhein chamak rahi hain. Seraphina ka chehra pathar.*",
+        "*Aur phir Devraj ki nazar tumpe padti hai. Do kadam peeche. Diya haath mein.*",
+        "Devraj: \"...Aur ye? Ye wahi hai na? 'Bujhta diya'? Samragyi, aap ise darbar mein rakhti hain? Khule mein? Kya aapko pata hai ye kya hai?\"",
+        "Seraphina: \"Rajkumar. Aap mere sevak ki baat kar rahe hain. Sambhal ke.\"",
+        "*Uski awaaz mein woh cheez hai jisse darbar ki mashaalein neeli ho jaati hain. Devraj muskurata hai. Woh nahi darta. Ye naya hai.*",
+        "Devraj: \"Sevak. Haan. Bilkul. Toh sevak — tumhe pata hai tumhare diye ke baare mein bhavishyavani ka doosra aadha kya kehta hai? Nahi? Samragyi ne nahi bataya? Dilchasp.\""
+      ],
+      "fallbackLines": [
+        "*Seraphina ki mutthi simhasan ke haathe par. Pathar mein halki si daraar.*",
+        "Devraj: \"Main jaldi mein nahi hoon, Samragyi. Main ek hafta rukunga. Sevak se baat karne ka mann hai.\""
+      ],
+      "choices": [
+        {
+          "id": "c_devraj_jawab",
+          "text": "Devraj ko seedha jawab do — \"Rajkumar, mujhe nahi pata. Par mujhe jispe bharosa hai, use pata hai. Kaafi hai.\"",
+          "shortLabel": "Devraj ko jawab",
+          "keywords": [
+            "jawab",
+            "bharosa",
+            "nahi pata",
+            "kaafi",
+            "rajkumar",
+            "reply"
+          ],
+          "next": "s8_next",
+          "effects": {
+            "relationships": {
+              "seraphina": 20,
+              "sangram": -4
+            },
+            "flags": {
+              "answeredDevraj": true
+            },
+            "choicesRecord": {
+              "arc4b": "answered"
+            },
+            "memory": [
+              "Ankit ne darbar mein Devraj ko kaha: 'Jispe bharosa hai, use pata hai.' Devraj ne taali bajayi. Seraphina ne us raat kaha: 'Tumne mujhe darbar mein rula diya hota. Kabhi mat karna. ...Phir se karna.'"
+            ]
+          }
+        },
+        {
+          "id": "c_doosra_aadha",
+          "text": "\"Rajkumar — doosra aadha kya kehta hai? Boliye. Sabke saamne.\"",
+          "shortLabel": "Doosra aadha batao",
+          "keywords": [
+            "doosra",
+            "aadha",
+            "kehta",
+            "bolo",
+            "sabke saamne",
+            "batao",
+            "prophecy"
+          ],
+          "next": "s8_next",
+          "effects": {
+            "relationships": {
+              "seraphina": -8,
+              "acharya": 6
+            },
+            "flags": {
+              "demandedSecondHalf": true
+            },
+            "choicesRecord": {
+              "arc4b": "demanded"
+            },
+            "memory": [
+              "Ankit ne Devraj se sabke saamne doosra aadha poocha — Devraj ne sirf ek line padhi: 'Aur diya jalega, jab tak lau use chunti rahegi. Jis din lau mudegi—' Seraphina ne use rok diya. Ek shabd se. Darbar ki saari mashaalein bujh gayi. Sirf diya jalta raha."
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "id": "s7_khandahar",
+      "title": "Neeche Ka Suryagarh",
+      "narration": [
+        "*Mahal ke neeche. Purani seedhiyan jo kisi naksha par nahi. Tara aage, mashaal leke. Tum beech mein, diya leke. Sera peeche — bina taj, saada vastra, aur phir bhi deewaron ke pathar uske guzarne par halke se chamak rahe hain.*",
+        "*Neeche. Ek vishaal hall. Khambe. Aur deewaron par chitra — hazaar saal purane. Ek aurat, sunehri lau ke saath. Aur uske bagal mein... ek aadmi, diya haath mein.*",
+        "Tara: \"...Ye toh tum dono ho.\"",
+        "Seraphina: \"Nahi. Ye hum nahi hain. Ye woh hain jo humse pehle the.\"",
+        "*Woh chitra ke paas jaati hai. Chhooti hai. Aur poora hall jal uthta hai — roshni se, aag se nahi. Har khambe par ek diya. Sab jal rahe hain. Hazaar saal se.*",
+        "Seraphina: \"Bhavishyavani pehli baar nahi hui, Ankit. Ye... ye pehle bhi hua hai. Lau aur diya. Aur phir kuch hua. Kuch jo maine kitaab se kaat diya, kyunki main nahi chahti thi tum padho.\"",
+        "*Woh tumhari taraf mudti hai. Roshni mein uska chehra — dara hua. Sera. Sirf Sera.*",
+        "Seraphina: \"Main tumhe yahan isliye laayi kyunki tum jaanne ke haqdaar ho. Par main tumse ek cheez maangti hoon — mujhse mat poochho ki pichli baar kya hua. Abhi nahi. Please.\""
+      ],
+      "fallbackLines": [
+        "*Deewar ka chitra: aurat aur aadmi. Uske neeche kuch likha hai, prachin lipi mein. Tara padh nahi paati. Tum bhi nahi. Sera padh sakti hai — aur padhti nahi.*",
+        "Tara: \"Ladke. Usne 'please' bola. Samragyi 'please' nahi bolti. Kabhi. Samjha?\""
+      ],
+      "choices": [
+        {
+          "id": "c_nahi_poochunga",
+          "text": "\"Nahi poochunga, Sera. Jab aap chahengi. Par main yahan hoon — jaise chitra wala tha.\"",
+          "shortLabel": "Nahi poochunga",
+          "keywords": [
+            "nahi poochunga",
+            "jab chaho",
+            "yahan hoon",
+            "saath",
+            "wait",
+            "trust"
+          ],
+          "next": "s8_next",
+          "effects": {
+            "relationships": {
+              "seraphina": 24,
+              "tara": 8
+            },
+            "flags": {
+              "respectedHerFear": true
+            },
+            "choicesRecord": {
+              "arc4b": "respected"
+            },
+            "memory": [
+              "Khandahar mein Ankit ne Sera se kuch nahi poocha — 'jab aap chahengi'. Sera ne uska haath pakda — pehli baar, Tara ke saamne. Hall ke saare diye ek saath tez ho gaye."
+            ]
+          }
+        },
+        {
+          "id": "c_lipi",
+          "text": "\"Neeche kya likha hai? Bas itna batao — kya woh khush the?\"",
+          "shortLabel": "Kya woh khush the?",
+          "keywords": [
+            "likha",
+            "lipi",
+            "khush",
+            "the",
+            "neeche",
+            "padho",
+            "happy"
+          ],
+          "next": "s8_next",
+          "effects": {
+            "relationships": {
+              "seraphina": 12,
+              "acharya": 4
+            },
+            "flags": {
+              "askedIfHappy": true
+            },
+            "choicesRecord": {
+              "arc4b": "happy"
+            },
+            "memory": [
+              "Ankit ne bas itna poocha ki chitra wale khush the ya nahi — Sera ne lipi padhi, aur boli: 'Haan. Bahut. Aakhir tak.' Aur 'aakhir' shabd par uski awaaz toot gayi."
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "id": "s8_next",
+      "title": "Agla Adhyay",
+      "narration": [
+        "*Raat. Sera ka kaksh. Chai. Tumhari. Sera sofe par, pair tumhare bagal mein — Samragyi aise nahi baithti, Sera baithti hai. Tumhara diya khidki par — aur uski lau ab pehle se zyada lambi hai. Roz thodi zyada.*",
+        "*Table par: Acharya ki chitthi ('kitaab ka doosra panna khud khul gaya — aao'), Devraj ka sandesh ('ek hafta, sevak — main abhi bhi yahan hoon'), Tara ka note ('Sangram ka chhaya-sevak aaj tere kaksh ke bahar tha — maine dekha, usne nahi'), aur khandahar se ek pathar jo Sera laayi thi — uspe tumhara naam. Prachin lipi mein. Hazaar saal purana.*",
+        "Seraphina: \"Ye kabhi khatam nahi hota, Ankit. Samragyi ki zindagi mein 'khatam' nahi hota. Sirf agla darbar. Agla dushman. Agla raaz.\"",
+        "*Woh tumhari taraf dekhti hai. Muskurati hai. Asli wali.*",
+        "Seraphina: \"Par ab 'agla' mujhe darata nahi. Chuno. Aur 'Mahamahim' mat bolna.\""
+      ],
+      "fallbackLines": [
+        "*Ye kahani yahin nahi rukti — har raasta ek naya arc: bhavishyavani ka poora paath, pichli 'lau aur diya' ka anjaam, Seraphina ke pita ka yudh, Chandragarh, aur Ankit ka naam pathar par.*",
+        "Tara: \"Ladke. Jo bhi chune, kal subah talwaar ki practice hai. Tu bekaar hai, par practice hai.\""
+      ],
+      "choices": [
+        {
+          "id": "c_next_academy",
+          "text": "Acharya — kitaab ka doosra panna khud khul gaya",
+          "shortLabel": "Kitaab ka panna",
+          "keywords": [
+            "acharya",
+            "kitaab",
+            "panna",
+            "khula",
+            "academy",
+            "bhavishyavani"
+          ],
+          "next": "s7_academy",
+          "effects": {
+            "relationships": {
+              "acharya": 5
+            },
+            "flags": {
+              "arcAcademy2": true
+            },
+            "choicesRecord": {
+              "next": "academy"
+            },
+            "location": "Agnipath Academy",
+            "memory": [
+              "Naya arc: bhavishyavani ka doosra panna khud khul gaya — kisi ne nahi khola."
+            ]
+          }
+        },
+        {
+          "id": "c_next_devraj",
+          "text": "Devraj — ek hafta. Woh tumse akele milna chahta hai.",
+          "shortLabel": "Devraj se milo",
+          "keywords": [
+            "devraj",
+            "rajkumar",
+            "milo",
+            "akele",
+            "chandragarh",
+            "hafta"
+          ],
+          "next": "s7_chandragarh",
+          "effects": {
+            "relationships": {
+              "seraphina": -2
+            },
+            "flags": {
+              "arcDevraj2": true
+            },
+            "choicesRecord": {
+              "next": "devraj"
+            },
+            "memory": [
+              "Naya arc: Devraj Ankit se akele milna chahta hai — Sera ne mana nahi kiya. 'Tum bachche nahi ho. Par Tara saath jaayegi. Ye bhi bahas nahi hai.'"
+            ]
+          }
+        },
+        {
+          "id": "c_next_chhaya",
+          "text": "Tara — Sangram ka chhaya-sevak. Pakdo use.",
+          "shortLabel": "Chhaya-sevak pakdo",
+          "keywords": [
+            "tara",
+            "chhaya",
+            "sevak",
+            "sangram",
+            "pakdo",
+            "jasoos",
+            "spy"
+          ],
+          "next": "s5_chaal",
+          "effects": {
+            "relationships": {
+              "tara": 8,
+              "sangram": -6
+            },
+            "flags": {
+              "arcSpy": true
+            },
+            "choicesRecord": {
+              "next": "spy"
+            },
+            "memory": [
+              "Naya arc: Sangram ka chhaya-sevak — Tara aur Ankit use pakadne nikle."
+            ]
+          }
+        },
+        {
+          "id": "c_next_pathar",
+          "text": "Khandahar ka pathar — tumhara naam, hazaar saal purana",
+          "shortLabel": "Pathar ka naam",
+          "keywords": [
+            "pathar",
+            "naam",
+            "khandahar",
+            "hazaar saal",
+            "lipi",
+            "mera naam",
+            "purana"
+          ],
+          "next": "s7_khandahar",
+          "effects": {
+            "relationships": {
+              "seraphina": 8
+            },
+            "flags": {
+              "arcStone": true
+            },
+            "choicesRecord": {
+              "next": "stone"
+            },
+            "location": "Purani Sabhyata ke khandahar",
+            "memory": [
+              "Naya arc: pathar par Ankit ka naam — hazaar saal purana. Sera: 'Main jaanti thi. Isliye maine tumhe chuna. Aur isliye main darti hoon.'"
+            ]
+          }
+        }
+      ]
+    }
+  ],
+  "endings": []
+}

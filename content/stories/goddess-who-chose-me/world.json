@@ -1,0 +1,98 @@
+{
+  "storyId": "goddess-who-chose-me",
+  "version": 1,
+  "premise": "Ankit ki aam zindagi tab badalti hai jab Aria — ek hazaaron saal purani devi jo reality ke fundamental forces ko mod sakti hai — uske bus stop par aakar keh deti hai ki woh uske saath rahegi. Woh ek aam insaani zindagi aur rishta jeena chahti hai, par ye kabhi nahi batati ki usne Ankit ko hi kyun chuna. Dheere-dheere Ankit ko pata chalta hai ki jise woh 'thodi ajeeb ladki' samajhta tha, use poora Antarlok (chhupi divine duniya) darta aur poojta hai. Ye ek living world hai: har arc ke baad naye devta, naye lok, purane dushman aur Aria ke bhoole hue itihaas ke naye panne khulte hain.",
+  "locations": [
+    {
+      "id": "bus-stop",
+      "name": "Ghatkopar ka bus stop",
+      "description": "Jahan sab shuru hua — baarish, ek tuti chhatri aur ek ladki jo bheegti nahi thi."
+    },
+    {
+      "id": "flat",
+      "name": "Ankit ka 1BHK",
+      "description": "Chhota flat, ek kharab geyser, aur ab ek devi jo sofa par soti hai kyunki use 'insaan wali neend' try karni hai."
+    },
+    {
+      "id": "college",
+      "name": "Ankit ka college / office",
+      "description": "Aam duniya — jahan Aria 'nayi friend' bankar aati hai aur sab uski taraf khinche chale aate hain."
+    },
+    {
+      "id": "antarlok-gate",
+      "name": "Banganga ka chhupa darwaaza",
+      "description": "Banganga tank ki seedhiyon ke neeche Antarlok ka pehla gate. Sirf woh dekh sakta hai jise koi divine being 'dekhne' de."
+    },
+    {
+      "id": "antarlok",
+      "name": "Antarlok",
+      "description": "Insaani duniya ke saath-saath chalti divine duniya — tairte mandir, purane devta, aur wo sab jo Aria ka naam sunke chup ho jaate hain."
+    },
+    {
+      "id": "sabha",
+      "name": "Devsabha",
+      "description": "Antarlok ki council. Yahan Aria ki kursi hazaaron saal se khaali thi."
+    }
+  ],
+  "factions": [
+    {
+      "id": "devsabha",
+      "name": "Devsabha",
+      "description": "Antarlok ke purane devta. Aria ko darte bhi hain, chahte bhi hain ki woh wapas aaye."
+    },
+    {
+      "id": "chhaya",
+      "name": "Chhaya-gan",
+      "description": "Purane dushman jo Aria ke 'so jaane' ke baad chhupe hue the. Ab jaag rahe hain."
+    },
+    {
+      "id": "dwarpal",
+      "name": "Dwarpal",
+      "description": "Gate ke rakhwale — Kavi unka sabse young member hai, aur Ankit ka pehla 'supernatural' dost."
+    }
+  ],
+  "lore": [
+    "Aria ko Antarlok mein 'Adya' kehte hain — pehli. Uska asli naam koi zor se nahi leta.",
+    "Devta insaan ko tab tak nahi dekh sakte jab tak woh 'chuna' na gaya ho — aur Ankit ko dekha ja raha hai.",
+    "Aria ne khud apni kuch yaadein seal ki hain. Kyun — ye woh khud bhi poori tarah nahi jaanti.",
+    "Ankit ke daadaji ki purani diary mein ek sketch hai jo Aria jaisa dikhta hai. Ankit ne abhi tak dhyan nahi diya.",
+    "Chhaya-gan ko maanana hai ki Aria kamzor tab hoti hai jab woh kisi insaan se judti hai. Woh galat bhi ho sakte hain."
+  ],
+  "rules": [
+    "Aria kabhi seedha nahi batayegi ki usne Ankit ko kyun chuna — woh baat hint mein, arcs ke saath dheere-dheere khulti hai, aur har jawab ek naya sawaal kholta hai.",
+    "Aria Ankit ke saamne aam ladki ki tarah behave karti hai (galtiyan, curiosity, chidhna), par doosre supernatural beings ke saamne uski awaaz aur mahaul turant badal jaata hai.",
+    "Ankit ko kabhi divine power nahi milegi. Uski taakat uske faisle, uski honesty aur ye hai ki Aria sirf uspe bharosa karti hai.",
+    "Divine duniya aam logon ko nahi dikhti; koi bhi supernatural incident public mein hota hai toh use 'coincidence' ki tarah cover kiya jaata hai.",
+    "YE KAHANI KABHI KHATAM NAHI HOTI. Koi final ending nahi, kabhi 'The End' / 'Kahani khatam' / 'Samapt' mat likho, aur kabhi endStory mat bhejo. Ek arc poora hone par seedha agle arc ka hook do.",
+    "Kisi bhi character ka safar permanently conclude mat karo — mrityu, vidaai ya 'hamesha ke liye' jaisi baatein sirf naye sawaal kholein, darwaaze band na karein.",
+    "Purane choices, flags aur relationship values aage ke arcs mein bhi matter karte hain — unka zikr karo, unke natije dikhao.",
+    "Duniya lagataar badhti hai: naye characters, jagahein, factions, powers, rahasya aur lore kabhi bhi introduce ho sakte hain, par pehle establish ki gayi baaton se contradict nahi karenge.",
+    "Female lead hamesha MC (Ankit) se kahin zyada powerful rahegi. Ankit ko achanak powers/strength mat do — uski ahmiyat uske faislon, samajh, rishton aur duniya mein uske khaas role se aati hai.",
+    "Female lead ki personality, yaaddasht, motivations aur emotional state consistent rahe; woh Ankit ke saath ki har important baat yaad rakhti hai.",
+    "Har reply ke ant mein ek hook ya sawaal ho jo Ankit ko agla kadam uthane ke liye invite kare."
+  ],
+  "importantObjects": [
+    {
+      "id": "chhatri",
+      "name": "Tuti chhatri",
+      "description": "Pehli mulaqat ki chhatri. Aria ne use 'theek' kiya — ab woh kabhi ulti nahi hoti, kisi bhi hawa mein."
+    },
+    {
+      "id": "diary",
+      "name": "Daadaji ki diary",
+      "description": "Purani, dhool bhari. Andar ek sketch aur ek line: 'Woh phir aayegi.'"
+    },
+    {
+      "id": "kada",
+      "name": "Aria ka kada",
+      "description": "Uski kalai ka saada sa kada — asal mein uski seal ki hui yaadon ki chaabi."
+    }
+  ],
+  "timeline": [
+    "Arc 1 — Mulaqat: bus stop, baarish, 'main tumhare saath rahungi'.",
+    "Arc 2 — Saath rehna: maggi, mohalla, college, aur chhoti-chhoti ajeeb baatein.",
+    "Arc 3 — Sach: Kavi aata hai, aur Ankit pehli baar Aria ka asli roop dekhta hai.",
+    "Arc 4 — Antarlok: Banganga ka gate, Devsabha, aur Aria ki khaali kursi.",
+    "Arc 5 aur aage — Chhaya-gan, daadaji ki diary, Aria ki seal ki hui yaadein, naye lok... kabhi khatam nahi hota."
+  ]
+}

@@ -1,0 +1,1311 @@
+{
+  "storyId": "last-god-elara",
+  "version": 1,
+  "scenes": [
+    {
+      "id": "s1_hoarding",
+      "title": "Woh Hoarding Jo Ruk Gaya",
+      "narration": [
+        "*Karve Road. Shaam. Tum aur Elara chai ke baad wapas ja rahe ho. Elara tumhare bayein hai — hamesha bayein, tumne kabhi socha nahi kyun. Tum Ankit ho, aur ye tumhari aam si khushi bhari zindagi hai.*",
+        "*Upar se ek awaaz — dhatu ki cheekh. Ek bada hoarding apne frame se toot kar seedha tum dono ki taraf gir raha hai.*",
+        "*Tum Elara ko kheenchte ho. Ya kheenchne ki koshish karte ho. Par woh hilti nahi. Woh bas upar dekhti hai. Aur hoarding —*",
+        "*— ruk jaata hai. Hawa mein. Do second. Phir dheere se, jaise koi use neeche rakh raha ho, footpath par gir jaata hai. Tum dono se teen feet door.*",
+        "Elara: \"Chalo.\"",
+        "*Woh tumhara haath pakad ke aage badh jaati hai. Uski hatheli thandi hai. Pehli baar thandi.*",
+        "Elara: \"Hawa thi. Tez hawa. Chalo, Ankit.\"",
+        "*Hawa nahi chal rahi thi. Patta bhi nahi hila tha.*"
+      ],
+      "fallbackLines": [
+        "*Elara tez chal rahi hai. Uska pendant — woh saada patthar — halka sa chamak raha hai, ya tumhe aisa lag raha hai.*",
+        "Elara: \"Kuch poochna hai toh ghar pe poochna. Yahan nahi.\"",
+        "*Peeche log hoarding ke paas jama ho rahe hain. Koi keh raha hai 'miracle'. Elara peeche nahi dekhti.*"
+      ],
+      "choices": [
+        {
+          "id": "c_hawa",
+          "text": "\"Hawa nahi thi, Elara. Maine dekha.\"",
+          "shortLabel": "Hawa nahi thi",
+          "keywords": [
+            "hawa",
+            "nahi thi",
+            "dekha",
+            "ruka",
+            "kaise",
+            "hoarding"
+          ],
+          "next": "s2_ghar",
+          "effects": {
+            "relationships": {
+              "elara": 6
+            },
+            "flags": {
+              "noticedHoarding": true
+            },
+            "choicesRecord": {
+              "opening": "noticed"
+            },
+            "memory": [
+              "Ankit ne hoarding wale hadse par Elara ko pakda — 'hawa nahi thi'. Elara ne kuch nahi kaha."
+            ]
+          }
+        },
+        {
+          "id": "c_theek_ho",
+          "text": "\"Tum theek ho? Chot toh nahi lagi?\"",
+          "shortLabel": "Tum theek ho?",
+          "keywords": [
+            "theek",
+            "chot",
+            "ok",
+            "safe",
+            "tum",
+            "lagi"
+          ],
+          "next": "s2_ghar",
+          "effects": {
+            "relationships": {
+              "elara": 14
+            },
+            "flags": {
+              "caredFirst": true
+            },
+            "choicesRecord": {
+              "opening": "cared"
+            },
+            "memory": [
+              "Hoarding ke baad Ankit ka pehla sawaal tha 'tum theek ho?' — Elara ne ek pal ke liye aankhein band ki."
+            ]
+          }
+        },
+        {
+          "id": "c_dev_video",
+          "text": "Dev ko call karo — \"Bhai, tu believe nahi karega\"",
+          "shortLabel": "Dev ko call",
+          "keywords": [
+            "dev",
+            "call",
+            "video",
+            "bhai",
+            "batao",
+            "dost"
+          ],
+          "next": "s2_dev",
+          "effects": {
+            "relationships": {
+              "dev": 8,
+              "elara": -4
+            },
+            "flags": {
+              "toldDev": true
+            },
+            "choicesRecord": {
+              "opening": "dev"
+            },
+            "memory": [
+              "Ankit ne Dev ko hoarding wali baat batayi — Dev ab 'investigate' karega."
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "id": "s2_ghar",
+      "title": "Chai, Plants Aur Ek Sawaal",
+      "narration": [
+        "*Flat. Elara chai bana rahi hai — bina poochhe, jaise hamesha. Balcony ke plants hawa mein hil rahe hain jabki khidki band hai.*",
+        "*Tum sofa par baithe ho. Haath abhi bhi kaanp rahe hain. Elara ke nahi.*",
+        "Elara: \"Tum theek ho. Main theek hoon. Baaki sab shor hai.\"",
+        "*Woh chai deti hai. Tumhare bagal mein baithti hai. Aur pehli baar tum notice karte ho — woh tumhare bagal mein nahi, tumhare aur darwaaze ke beech baithi hai.*",
+        "Elara: \"Ankit. Mujhe pata hai tumhare dimaag mein kya chal raha hai. Aur mujhe pata hai tum poochoge. Toh poochho. Par ek baat samajh lo — jo bhi jawab hoga, main wahi rahungi jo kal thi.\"",
+        "*Uska pendant halka sa garam hai. Tum use pehli baar dhyaan se dekhte ho.*"
+      ],
+      "fallbackLines": [
+        "Elara: \"Chai peeyo. Thandi chai pe sach nahi bolti main. Ye mera rule hai.\"",
+        "*Plants abhi bhi hil rahe hain. Elara unki taraf dekhti hai, aur woh ruk jaate hain. Woh sochti hai tumne nahi dekha.*"
+      ],
+      "choices": [
+        {
+          "id": "c_seedha",
+          "text": "\"Tum kya ho, Elara?\"",
+          "shortLabel": "Tum kya ho?",
+          "keywords": [
+            "kya ho",
+            "kaun ho",
+            "sach",
+            "batao",
+            "who",
+            "what"
+          ],
+          "next": "s3_tekdi",
+          "effects": {
+            "relationships": {
+              "elara": 8
+            },
+            "flags": {
+              "askedDirect": true
+            },
+            "choicesRecord": {
+              "arc1": "direct"
+            },
+            "memory": [
+              "Ankit ne seedha poocha 'tum kya ho' — Elara ne kaha: 'Kal subah. Tekdi. Wahan bataungi.'"
+            ]
+          }
+        },
+        {
+          "id": "c_pendant",
+          "text": "\"Ye pendant... ye kya hai?\"",
+          "shortLabel": "Pendant kya hai?",
+          "keywords": [
+            "pendant",
+            "patthar",
+            "gale",
+            "chamak",
+            "necklace",
+            "kya hai"
+          ],
+          "next": "s3_tekdi",
+          "effects": {
+            "relationships": {
+              "elara": 5
+            },
+            "flags": {
+              "noticedPendant": true
+            },
+            "choicesRecord": {
+              "arc1": "pendant"
+            },
+            "memory": [
+              "Ankit ne pendant notice kiya — Elara ne use haath se dhak liya. 'Ye aakhri hai. Bas itna samjho.'"
+            ]
+          }
+        },
+        {
+          "id": "c_baad_mein",
+          "text": "\"Nahi poochunga. Jab tum chahogi, tab batana.\"",
+          "shortLabel": "Nahi poochunga",
+          "keywords": [
+            "nahi",
+            "baad",
+            "jab",
+            "chaho",
+            "wait",
+            "bharosa",
+            "trust"
+          ],
+          "next": "s3_tekdi",
+          "effects": {
+            "relationships": {
+              "elara": 18
+            },
+            "flags": {
+              "trustedWithoutAsking": true
+            },
+            "choicesRecord": {
+              "arc1": "trusted"
+            },
+            "memory": [
+              "Ankit ne kuch nahi poocha — 'jab tum chahogi'. Elara ne uska haath pakda aur pehli baar bola: 'Kal Tekdi chalo. Main taiyaar hoon.'"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "id": "s2_dev",
+      "title": "Pune Paranormal, Episode 47",
+      "narration": [
+        "*Dev ka room. Teen monitors, ek night-vision camera, aur deewar par Pune ka naksha jispe laal pins hain. Ek pin tumhare flat pe hai. Tumne poochha nahi kyun.*",
+        "Dev: \"Bhai. BHAI. Hoarding ruka? Hawa mein? Aur woh wahan thi? Bas. Bas ho gaya. Main bol raha tha na — Elara normal nahi hai.\"",
+        "*Woh apni deewar ki taraf mudta hai.*",
+        "Dev: \"Dekh. Kutta jo bhaunkna bhool gaya — March. Woh baarish jo sirf Kothrud mein hui — April. Tera bike accident jo hua hi nahi kyunki bike khud ruk gayi — May. Har baar woh wahan thi.\"",
+        "*Tum kuch bolne wale ho, phir tumhara phone bajta hai. Elara. Message: 'Dev ke room mein? Uski deewar mat dekhna. Ghar aao.'*",
+        "*Tumne use nahi bataya tha tum kahan ho.*",
+        "Dev: \"...Usne message kiya na? Abhi? Bhai woh mujhe sun rahi hai. Main pakka bol raha hoon.\""
+      ],
+      "fallbackLines": [
+        "Dev: \"Ek aur baat. Kal ek aurat aayi thi mere channel pe comment karne — Rukmini. Poochh rahi thi 'Kothrud wali baarish' ka exact location. Ye normal viewer nahi tha.\"",
+        "*Deewar par ek aur pin: Vetal Tekdi. Neeche likha: 'E. har raat. Kyun?'*"
+      ],
+      "choices": [
+        {
+          "id": "c_ghar_jao",
+          "text": "Ghar jao — Elara se seedha baat karo",
+          "shortLabel": "Ghar jao",
+          "keywords": [
+            "ghar",
+            "elara",
+            "baat",
+            "jao",
+            "seedha",
+            "wapas"
+          ],
+          "next": "s3_tekdi",
+          "effects": {
+            "relationships": {
+              "elara": 10,
+              "dev": -3
+            },
+            "flags": {
+              "wentHome": true
+            },
+            "choicesRecord": {
+              "arc1": "home"
+            },
+            "memory": [
+              "Ankit Dev ke room se seedha ghar gaya — Elara darwaaze par khadi thi, jaise time pata ho."
+            ]
+          }
+        },
+        {
+          "id": "c_dev_saath",
+          "text": "Dev ke saath Tekdi jao — raat ko, camera leke",
+          "shortLabel": "Tekdi, camera leke",
+          "keywords": [
+            "tekdi",
+            "camera",
+            "raat",
+            "dev",
+            "saath",
+            "dekhte",
+            "follow"
+          ],
+          "next": "s3_tekdi_dev",
+          "effects": {
+            "relationships": {
+              "dev": 12,
+              "elara": -6
+            },
+            "flags": {
+              "spiedWithDev": true
+            },
+            "choicesRecord": {
+              "arc1": "spied"
+            },
+            "memory": [
+              "Ankit Dev ke saath chhup ke Tekdi gaya Elara ko dekhne — jo unhone dekha, camera ne record nahi kiya."
+            ]
+          }
+        },
+        {
+          "id": "c_rukmini",
+          "text": "\"Ye Rukmini kaun hai? Uska profile dikha.\"",
+          "shortLabel": "Rukmini kaun?",
+          "keywords": [
+            "rukmini",
+            "aurat",
+            "comment",
+            "kaun",
+            "profile",
+            "viewer"
+          ],
+          "next": "s3_tekdi",
+          "effects": {
+            "relationships": {
+              "dev": 5
+            },
+            "flags": {
+              "knowsRukmini": true
+            },
+            "choicesRecord": {
+              "arc1": "rukmini"
+            },
+            "memory": [
+              "Ankit ne Rukmini ka naam pehli baar suna — Dev ke channel par ek 'viewer' jo Kothrud ki baarish poochh rahi thi."
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "id": "s3_tekdi",
+      "title": "Subah, Pahadi, Aur Ek Naam Jo Kisi Ko Yaad Nahi",
+      "narration": [
+        "*Vetal Tekdi. Subah ke saadhe paanch. Dhund. Elara aage chal rahi hai, tum peeche. Purane pathar — jo tourists ko sirf pathar lagte hain — Elara ke guzarne par halka sa gungunaate hain.*",
+        "*Upar. Ek budha aadmi chattan par baitha hai, bujhi hui bidi hont mein.*",
+        "Baba: \"Aa gayi beti. Aur ladka bhi laayi. Achha. Toh aaj ka din hai.\"",
+        "Elara: \"Baba, aap chup rahiye.\"",
+        "*Woh tumhari taraf mudti hai. Pendant utaarti hai. Haath mein rakhti hai.*",
+        "Elara: \"Ankit. Bahut pehle ek yudh hua tha. Devtaon ka. Sab gaye. Main nahi gayi. Kyun — abhi nahi. Maine apna naam duniya se mita diya, aur ye pendant... ye us naam ka aakhri tukda hai.\"",
+        "*Woh pendant band mutthi mein leti hai. Aur dhund hat jaati hai. Poori pahadi se. Ek second mein. Neeche Pune saaf dikhta hai — aur aasmaan mein, ek pal ke liye, baadal ek aakaar banate hain jo tumne kabhi nahi dekha, par jo tumhe... jaana-pehchaana lagta hai.*",
+        "Elara: \"Main aakhri hoon. Aur main tumhari girlfriend hoon. Dono sach hain. Ab bolo.\""
+      ],
+      "fallbackLines": [
+        "Baba: \"Beta, muh band karo. Makkhi ghus jaayegi. Aur haan — ab tum jaante ho. Ab tum 'bacha' nahi rahe ho. Ab tum 'saath' ho. Fark samjho.\"",
+        "*Elara ki aankhein tum par tiki hain. Woh saans nahi le rahi. Devi ko saans lene ki zaroorat nahi — par woh phir bhi rok ke khadi hai.*"
+      ],
+      "choices": [
+        {
+          "id": "c_girlfriend",
+          "text": "\"Toh tum meri girlfriend ho jo devi bhi hai. Theek hai. Chai?\"",
+          "shortLabel": "Theek hai. Chai?",
+          "keywords": [
+            "theek",
+            "chai",
+            "girlfriend",
+            "fark nahi",
+            "ok",
+            "haan",
+            "accept"
+          ],
+          "next": "s4_sach",
+          "effects": {
+            "relationships": {
+              "elara": 25
+            },
+            "flags": {
+              "acceptedCalmly": true
+            },
+            "choicesRecord": {
+              "arc2": "accepted"
+            },
+            "memory": [
+              "Ankit ne Elara ka sach sunke kaha 'theek hai, chai?' — Elara ro padi. Baba ne kaha: 'Sadiyon mein pehli baar.'"
+            ]
+          }
+        },
+        {
+          "id": "c_kyun_bachi",
+          "text": "\"Tum kyun bachi, Elara? Baaki sab kyun gaye?\"",
+          "shortLabel": "Kyun bachi tum?",
+          "keywords": [
+            "kyun",
+            "bachi",
+            "baaki",
+            "yudh",
+            "survive",
+            "reason"
+          ],
+          "next": "s4_sach",
+          "effects": {
+            "relationships": {
+              "elara": 5,
+              "baba": 8
+            },
+            "flags": {
+              "askedSurvival": true
+            },
+            "choicesRecord": {
+              "arc2": "survival"
+            },
+            "memory": [
+              "Ankit ne poocha Elara yudh mein kyun bachi — Elara ne muh pher liya. Baba ne kaha: 'Ye sawaal woh khud se bhi nahi poochti.'"
+            ]
+          }
+        },
+        {
+          "id": "c_kitni_baar",
+          "text": "\"Kitni baar bachaya hai tumne mujhe? Sach bolo.\"",
+          "shortLabel": "Kitni baar bachaya?",
+          "keywords": [
+            "kitni baar",
+            "bachaya",
+            "protect",
+            "hoarding",
+            "bike",
+            "kutta",
+            "pehle"
+          ],
+          "next": "s4_sach",
+          "effects": {
+            "relationships": {
+              "elara": 12
+            },
+            "flags": {
+              "askedProtection": true
+            },
+            "choicesRecord": {
+              "arc2": "protected"
+            },
+            "memory": [
+              "Ankit ne poocha Elara ne use kitni baar bachaya — Elara: 'Gyaarah. Jo tumne notice ki, woh teen thi.'"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "id": "s3_tekdi_dev",
+      "title": "Camera Ne Kuch Record Nahi Kiya",
+      "narration": [
+        "*Raat. Tekdi. Tum aur Dev jhaadiyon mein chhupe ho, Dev ka night-vision camera on. Neeche, khule maidan mein, Elara akeli khadi hai.*",
+        "Dev: \"Bhai woh kya kar rahi hai? Woh bas... khadi hai.\"",
+        "*Phir hawa badalti hai. Elara ke aas-paas ki ghaas ek gol daayre mein jhuk jaati hai. Aasmaan mein baadal jama hote hain — sirf uske upar. Aur woh haath uthati hai.*",
+        "*Bijli. Awaaz nahi. Sirf roshni. Aur us roshni mein tum dekhte ho — Elara ke peeche kuch khada hai. Lamba. Kaala. Insaan nahi.*",
+        "*Elara ek shabd bolti hai jo tum samajh nahi paate, aur woh cheez rakh ban jaati hai.*",
+        "Dev: \"...Bhai. Bhai camera. Camera mein kuch nahi hai. Sirf ghaas. Sirf GHAAS, Ankit.\"",
+        "*Neeche, Elara ka sar dheere se ghoomta hai. Seedha tumhari taraf. Andhere mein bhi. Aur uski awaaz, bina chillaye, tumhare kaan ke paas aati hai —*",
+        "Elara: \"Ghar jao, Ankit. Dev ko bhi le jao. Ye tumhare liye nahi tha.\""
+      ],
+      "fallbackLines": [
+        "Dev: \"Main ja raha hoon. Main ja raha hoon. Tu aa raha hai ya nahi, main ja raha hoon.\"",
+        "*Elara ab bhi tumhari taraf dekh rahi hai. Uske chehre par gussa nahi hai. Kuch aur hai — sharam? Darr?*"
+      ],
+      "choices": [
+        {
+          "id": "c_neeche_jao",
+          "text": "Neeche jao — Elara ke paas. Akele.",
+          "shortLabel": "Elara ke paas jao",
+          "keywords": [
+            "neeche",
+            "elara",
+            "paas",
+            "jao",
+            "akele",
+            "saamna",
+            "milo"
+          ],
+          "next": "s4_sach",
+          "effects": {
+            "relationships": {
+              "elara": 15,
+              "dev": -5
+            },
+            "flags": {
+              "wentToElara": true
+            },
+            "choicesRecord": {
+              "arc2": "went"
+            },
+            "memory": [
+              "Ankit chhup ke dekhne ke baad khud Elara ke paas gaya — usne kaha 'sorry, dekhna nahi chahiye tha' aur Elara ne kaha 'nahi, dekhna chahiye tha. Bas mujhe bataana chahiye tha.'"
+            ]
+          }
+        },
+        {
+          "id": "c_ghar_dev",
+          "text": "Dev ke saath ghar jao — kal baat karoge",
+          "shortLabel": "Dev ke saath jao",
+          "keywords": [
+            "ghar",
+            "dev",
+            "kal",
+            "wapas",
+            "chalo",
+            "jao"
+          ],
+          "next": "s4_sach",
+          "effects": {
+            "relationships": {
+              "dev": 6
+            },
+            "flags": {
+              "leftTekdi": true
+            },
+            "choicesRecord": {
+              "arc2": "left"
+            },
+            "memory": [
+              "Ankit Dev ke saath Tekdi se chala gaya — Elara subah 4 baje ghar aayi, aur bina bole uske bagal mein baith gayi."
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "id": "s4_sach",
+      "title": "Gyaarah Baar",
+      "narration": [
+        "*Flat. Raat. Baarish shuru ho gayi hai — mausam mein nahi thi. Elara khidki ke paas khadi hai, peeth tumhari taraf.*",
+        "Elara: \"Gyaarah baar. Pehli baar tumhe mile ke teesre din. Ek cheez tumhare peeche thi jo tumhe khaana chahti thi. Maine use... samjhaya.\"",
+        "*Woh mudti hai.*",
+        "Elara: \"Tumhe lagta tha tum mujhe protect karte ho. Raat ko bayein chalte ho. Auto mein pehle baithte ho. Mujhe pata hai. Aur mujhe... achha lagta tha. Kyunki koi mujhe bachane ki koshish kar raha tha. Sadiyon mein pehli baar.\"",
+        "*Baarish tez hoti hai. Phir woh apne aap ko sambhalti hai, aur baarish halki ho jaati hai.*",
+        "Elara: \"Ab ek aur baat. Woh jo Tekdi par thi — woh akeli nahi thi. Shikari Pune mein hain. Unke paas ek compass hai. Aur woh ab Kothrud dikha raha hai.\"",
+        "*Darwaaze par dastak. Naram. Sabhya. Teen baar.*",
+        "Elara: \"...Aur woh jaldi aa gaye.\""
+      ],
+      "fallbackLines": [
+        "*Dastak phir. Ek aurat ki awaaz, naram: 'Ankit? Main Rukmini. Dev ke channel se. Bas do minute.'*",
+        "Elara: \"Woh tumse baat karna chahti hai. Mujhse nahi. Kyunki woh jaanti hai main darwaaza nahi kholungi. Tumhara faisla hai.\""
+      ],
+      "choices": [
+        {
+          "id": "c_kholo",
+          "text": "Darwaaza kholo — \"Main baat karta hoon. Tum peeche raho.\"",
+          "shortLabel": "Darwaaza kholo",
+          "keywords": [
+            "kholo",
+            "darwaaza",
+            "baat",
+            "main",
+            "open",
+            "rukmini"
+          ],
+          "next": "s5_rukmini",
+          "effects": {
+            "relationships": {
+              "elara": 8,
+              "rukmini": 10
+            },
+            "flags": {
+              "openedDoor": true
+            },
+            "choicesRecord": {
+              "arc3": "opened"
+            },
+            "memory": [
+              "Ankit ne Rukmini ke liye darwaaza khola — Elara peeche khadi rahi, haath mutthi mein."
+            ]
+          }
+        },
+        {
+          "id": "c_mat_kholo",
+          "text": "Mat kholo — \"Elara, peeche ka raasta?\"",
+          "shortLabel": "Peeche se niklo",
+          "keywords": [
+            "mat kholo",
+            "peeche",
+            "raasta",
+            "bhaag",
+            "niklo",
+            "nahi",
+            "escape"
+          ],
+          "next": "s5_bhaag",
+          "effects": {
+            "relationships": {
+              "elara": 10
+            },
+            "flags": {
+              "fledShikari": true
+            },
+            "choicesRecord": {
+              "arc3": "fled"
+            },
+            "memory": [
+              "Ankit aur Elara peeche se nikal gaye — Elara ne balcony se seedha Tekdi tak ka raasta 'banaya'."
+            ]
+          }
+        },
+        {
+          "id": "c_elara_kholo",
+          "text": "\"Tum kholo. Unhe dikhao tum kaun ho.\"",
+          "shortLabel": "Elara, tum kholo",
+          "keywords": [
+            "tum kholo",
+            "dikhao",
+            "kaun ho",
+            "elara",
+            "devi",
+            "saamna",
+            "face"
+          ],
+          "next": "s5_rukmini",
+          "effects": {
+            "relationships": {
+              "elara": -6,
+              "rukmini": 4
+            },
+            "flags": {
+              "pushedReveal": true
+            },
+            "choicesRecord": {
+              "arc3": "pushed"
+            },
+            "memory": [
+              "Ankit ne Elara ko khud saamna karne ko kaha — Elara ne kaha 'main abhi devi nahi banna chahti', aur phir bhi darwaaza khola."
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "id": "s5_rukmini",
+      "title": "Filter Coffee Aur Ek Compass",
+      "narration": [
+        "*Rukmini andar aati hai. Chalees ke aas-paas, saada saree, haath mein ek purana peetal ka compass jiski sui seedhi Elara ki taraf hai — aur kaanp rahi hai.*",
+        "Rukmini: \"Shukriya, Ankit. Aur — namaste. Aap ka naam main nahi jaanti. Kisi ko yaad nahi. Ye kaam aapne achha kiya tha.\"",
+        "*Elara kuch nahi bolti. Kamre ka temperature gir gaya hai.*",
+        "Rukmini: \"Main maarne nahi aayi. Meri aath peedhiyan aayi thi. Main... poochne aayi hoon. Yudh mein sab gaye. Devta bhi, hamare log bhi. Aap bachi. Kyun?\"",
+        "*Elara ki mutthi khulti hai. Pendant uske haath mein hai.*",
+        "Elara: \"Tum jaanti ho main jawab nahi dungi.\"",
+        "Rukmini: \"Haan. Isliye main Ankit se poochh rahi hoon.\"",
+        "*Woh tumhari taraf mudti hai. Uski aankhein thaki hui hain. Dushman ki nahi lagti.*",
+        "Rukmini: \"Ankit. Tum uske saath rehte ho. Tumne kuch toh dekha hoga. Woh kis cheez se darti hai?\""
+      ],
+      "fallbackLines": [
+        "*Compass ki sui ab bhi kaanp rahi hai. Rukmini use dekhti hai, phir Elara ko.*",
+        "Rukmini: \"Ye sui aath peedhiyon se ghoom rahi thi. Aaj ruki. Mujhe bhi nahi pata ab kya karna hai.\"",
+        "Elara: \"Ankit. Jo bolna hai, socho. Ye aurat shaant hai. Shaant log sabse khatarnaak hote hain — main jaanti hoon, main bhi shaant hoon.\""
+      ],
+      "choices": [
+        {
+          "id": "c_akelapan",
+          "text": "\"Woh akelepan se darti hai. Bas. Tum log usse kya chahte ho?\"",
+          "shortLabel": "Sach — akelapan",
+          "keywords": [
+            "akela",
+            "darti",
+            "akelapan",
+            "sach",
+            "alone",
+            "chahte"
+          ],
+          "next": "s6_hub",
+          "effects": {
+            "relationships": {
+              "elara": 15,
+              "rukmini": 12
+            },
+            "flags": {
+              "toldTruthToRukmini": true
+            },
+            "choicesRecord": {
+              "arc3": "truth"
+            },
+            "memory": [
+              "Ankit ne Rukmini ko sach kaha — Elara akelepan se darti hai. Rukmini ne compass table par rakh diya: 'Toh hum galat the.'"
+            ]
+          }
+        },
+        {
+          "id": "c_kuch_nahi",
+          "text": "\"Main kuch nahi bataunga. Coffee piyo aur jao.\"",
+          "shortLabel": "Kuch nahi bataunga",
+          "keywords": [
+            "kuch nahi",
+            "nahi bataunga",
+            "jao",
+            "coffee",
+            "no",
+            "chup"
+          ],
+          "next": "s6_hub",
+          "effects": {
+            "relationships": {
+              "elara": 12,
+              "rukmini": -5
+            },
+            "flags": {
+              "refusedRukmini": true
+            },
+            "choicesRecord": {
+              "arc3": "refused"
+            },
+            "memory": [
+              "Ankit ne Rukmini ko kuch nahi bataya — Rukmini muskurayi: 'Wafadaar. Achha. Hum phir milenge.'"
+            ]
+          }
+        },
+        {
+          "id": "c_ulta_sawaal",
+          "text": "\"Pehle tum batao — yudh mein tumhare log kya kar rahe the?\"",
+          "shortLabel": "Ulta sawaal",
+          "keywords": [
+            "tum batao",
+            "yudh",
+            "tumhare log",
+            "shikari",
+            "pehle",
+            "kya kar rahe"
+          ],
+          "next": "s6_hub",
+          "effects": {
+            "relationships": {
+              "rukmini": 8,
+              "baba": 4
+            },
+            "flags": {
+              "askedShikariHistory": true
+            },
+            "choicesRecord": {
+              "arc3": "history"
+            },
+            "memory": [
+              "Ankit ne Rukmini se Shikariyon ka yudh mein role poocha — Rukmini ne kaha: 'Hum devtaon ke khilaaf nahi the. Hum ek devta ke khilaaf the. Aur woh Elara nahi thi.'"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "id": "s5_bhaag",
+      "title": "Balcony Se Tekdi Tak",
+      "narration": [
+        "*Elara balcony ka darwaaza kholti hai. Baahar teesri manzil ki hawa. Woh tumhara haath pakadti hai.*",
+        "Elara: \"Aankhein band mat karna. Main chahti hoon tum dekho.\"",
+        "*Ek kadam. Aur balcony ke bahar ka andhera... mud jaata hai. Jaise koi kapda tah kar raha ho. Doosre kadam par tumhare pair Tekdi ki ghaas par hain. Chaand upar. Pune neeche.*",
+        "*Tumhare ghutne kaanp rahe hain. Elara ka chehra bilkul shaant hai — par uska haath tumhara haath chhod nahi raha.*",
+        "Baba: \"Arre, chali aayi. Aur ladka bhi. Beta, chehra dekho apna — pehli baar 'raasta' liya na?\"",
+        "Elara: \"Baba, Shikari flat pe hain. Rukmini khud.\"",
+        "Baba: \"Rukmini. Hmm. Woh maarne nahi aayi hogi. Woh poochne aayi hogi. Aur woh zyada khatarnaak hai.\"",
+        "*Baba tumhari taraf dekhta hai.*",
+        "Baba: \"Ab tum bhaag rahe ho, beta. Uske saath. Ye bhi 'saath' hai. Par sawaal ye hai — kab tak?\""
+      ],
+      "fallbackLines": [
+        "*Neeche Pune ki lights. Kahin wahan tumhara flat hai, jismein ek aurat compass leke khadi hai.*",
+        "Elara: \"Main tumhe yahan se kahin bhi le ja sakti hoon. Kisi bhi shehar. Kisi bhi desh. Par tumhari zindagi wahan neeche hai. Aur meri bhi — ab.\""
+      ],
+      "choices": [
+        {
+          "id": "c_wapas_chalo",
+          "text": "\"Wapas chalo. Bhaagna solution nahi hai. Main Rukmini se baat karunga.\"",
+          "shortLabel": "Wapas chalo",
+          "keywords": [
+            "wapas",
+            "bhaagna nahi",
+            "baat",
+            "rukmini",
+            "saamna",
+            "chalo"
+          ],
+          "next": "s5_rukmini",
+          "effects": {
+            "relationships": {
+              "elara": 12,
+              "baba": 6
+            },
+            "flags": {
+              "returnedToFace": true
+            },
+            "choicesRecord": {
+              "arc3": "returned"
+            },
+            "memory": [
+              "Ankit ne bhaagne se mana kiya — 'wapas chalo'. Elara ne kaha: 'Yahi wajah hai.' Aur phir chup ho gayi."
+            ]
+          }
+        },
+        {
+          "id": "c_baba_sawaal",
+          "text": "Baba se poocho — \"Aap kya hain? Aur 'Neeche ka Pune' kya hai?\"",
+          "shortLabel": "Baba se poocho",
+          "keywords": [
+            "baba",
+            "kya hain",
+            "neeche",
+            "pune",
+            "kaun",
+            "batao"
+          ],
+          "next": "s6_hub",
+          "effects": {
+            "relationships": {
+              "baba": 12
+            },
+            "flags": {
+              "askedBaba": true
+            },
+            "choicesRecord": {
+              "arc3": "baba"
+            },
+            "memory": [
+              "Ankit ne Baba se poocha woh kya hain — Baba ne kaha: 'Bacha hua. Tumhari girlfriend ki tarah. Bas kam khoobsurat.' Aur Neeche ke Pune ka raasta dikhaya."
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "id": "s6_hub",
+      "title": "Ek Zindagi Jo Ab Do Duniyaon Mein Hai",
+      "narration": [
+        "*Subah. Flat. Rukmini ka compass table par pada hai — sui ab bhi Elara ki taraf, par ab kaanp nahi rahi. Balcony ke plants khil gaye hain — sab ek saath, bina season ke.*",
+        "*Elara chai bana rahi hai. Bilkul waise hi jaise pehle. Bas ab tum jaante ho ki jo haath cup pakde hain, unhone kabhi aasmaan pakda tha.*",
+        "Elara: \"Kuch nahi badla, Ankit. Aur sab kuch badal gaya. Dono sach hain. Aadat ho jaayegi — mujhe bhi ho gayi thi.\"",
+        "*Table par: Dev ka message ('bhai teri girlfriend ka ek naam pata chala hai — aadha'), Baba ka ek kaagaz jispe Neeche ke Pune ka naksha hai, aur Rukmini ka ek chhota sa note: 'Hum galat devta ke peeche the. Sahi wala abhi bhi kahin hai.'*",
+        "Elara: \"Ye khatam nahi hota. Devi ki zindagi mein 'khatam' nahi hota. Sirf... agla. Chuno.\""
+      ],
+      "fallbackLines": [
+        "*Compass ki sui ek pal ke liye ghoomti hai — Elara se hat kar, khidki ke bahar, kahin door. Phir wapas.*",
+        "Elara: \"Tumne woh dekha na? Main bhi dekha. Baad mein.\"",
+        "Elara: \"Aur haan — aaj raat bayein chalna. Aadat hai tumhari. Mujhe achhi lagti hai.\""
+      ],
+      "choices": [
+        {
+          "id": "c_neeche_pune",
+          "text": "Baba ka naksha — \"Neeche ka Pune. Chalo dekhte hain.\"",
+          "shortLabel": "Neeche ka Pune",
+          "keywords": [
+            "neeche",
+            "pune",
+            "naksha",
+            "baba",
+            "tunnel",
+            "bache hue",
+            "chalo"
+          ],
+          "next": "s7_neeche",
+          "effects": {
+            "relationships": {
+              "baba": 8
+            },
+            "flags": {
+              "arcUnderCity": true
+            },
+            "choicesRecord": {
+              "arc4": "undercity"
+            },
+            "location": "Neeche ka Pune",
+            "memory": [
+              "Ankit ne Neeche ke Pune ka raasta chuna — Elara: 'Wahan log mujhe yaad karte hain. Ye achha nahi hai.'"
+            ]
+          }
+        },
+        {
+          "id": "c_sahi_devta",
+          "text": "Rukmini ka note — \"'Sahi wala abhi bhi kahin hai.' Kaun?\"",
+          "shortLabel": "Sahi devta kaun?",
+          "keywords": [
+            "sahi",
+            "devta",
+            "rukmini",
+            "note",
+            "kaun",
+            "abhi bhi",
+            "doosra"
+          ],
+          "next": "s7_rukmini2",
+          "effects": {
+            "relationships": {
+              "rukmini": 8
+            },
+            "flags": {
+              "arcOtherGod": true
+            },
+            "choicesRecord": {
+              "arc4": "othergod"
+            },
+            "memory": [
+              "Ankit ne 'sahi devta' ka sawaal uthaya — Elara ka cup haath se chhoot gaya. Pehli baar."
+            ]
+          }
+        },
+        {
+          "id": "c_dev_naam",
+          "text": "Dev ka message — \"Aadha naam? Kaunsa?\"",
+          "shortLabel": "Elara ka naam",
+          "keywords": [
+            "dev",
+            "naam",
+            "aadha",
+            "message",
+            "purana",
+            "name",
+            "asli"
+          ],
+          "next": "s7_naam",
+          "effects": {
+            "relationships": {
+              "dev": 8,
+              "elara": -2
+            },
+            "flags": {
+              "arcName": true
+            },
+            "choicesRecord": {
+              "arc4": "name"
+            },
+            "memory": [
+              "Ankit ne Elara ke purane naam ka peecha karne ka faisla kiya — Elara ne kaha: 'Woh naam mat dhoondho. Jo use bolta hai, use woh sunti hai.'"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "id": "s7_neeche",
+      "title": "Doobe Hue Mandir",
+      "narration": [
+        "*Shaniwar Wada ke peeche ek purani khidki. Neeche seedhiyan jo kisi map par nahi. Baba aage, tum beech mein, Elara peeche — hamesha peeche, taaki jo bhi aaye, pehle usse mile.*",
+        "*Neeche paani hai. Ghutno tak. Aur paani mein — mandir. Chhote, doobe hue, deepak abhi bhi jalte hue. Sadiyon se.*",
+        "*Aur log. Ya jo bhi hain. Deewaron se nikalte, paani se uthte. Kuch insaan jaise, kuch bilkul nahi. Aur sab, ek-ek karke, Elara ko dekh kar ruk jaate hain.*",
+        "Baba: \"Bache Hue. Yudh ke baad hum yahan aaye. Kuch use pooj te hain. Kuch use dosh dete hain. Sab use yaad karte hain.\"",
+        "*Ek aurat aage aati hai — aadhi paani, aadhi roshni.*",
+        "Aurat: \"Tum lauti. Sadiyon baad. Aur ek insaan ke saath. Kya ye woh hai?\"",
+        "Elara: \"Nahi. Ye Ankit hai. Bas Ankit.\"",
+        "Aurat: \"'Bas Ankit' ko tum yahan kyun laayi, aakhri? Tum jaanti ho yahan kya sota hai.\"",
+        "*Elara ka haath tumhare kandhe par hai. Kas ke.*"
+      ],
+      "fallbackLines": [
+        "*Paani mein deepak tumhare aas-paas jama ho rahe hain — jaise tumhe dekh rahe hon.*",
+        "Baba: \"Beta, kuch bolo. Yahan chup rehna 'haan' maana jaata hai.\"",
+        "Elara: \"Ankit, tum jo bhi ho, ye tumse kuch chahte hain. Mat dena jab tak main na kahoon.\""
+      ],
+      "choices": [
+        {
+          "id": "c_kya_sota",
+          "text": "\"Yahan kya sota hai? Mujhe batao.\"",
+          "shortLabel": "Yahan kya sota hai?",
+          "keywords": [
+            "sota",
+            "kya",
+            "neeche",
+            "batao",
+            "khatra",
+            "sleep"
+          ],
+          "next": "s8_next",
+          "effects": {
+            "relationships": {
+              "baba": 8,
+              "elara": 4
+            },
+            "flags": {
+              "askedSleeper": true
+            },
+            "choicesRecord": {
+              "arc4b": "sleeper"
+            },
+            "memory": [
+              "Ankit ne poocha Neeche ke Pune mein kya sota hai — aurat ne kaha: 'Woh jiske khilaaf yudh hua tha. Aur jise sirf aakhri devi hi so-ta rakh sakti hai. Isliye woh bachi.'"
+            ]
+          }
+        },
+        {
+          "id": "c_main_kaun",
+          "text": "\"'Woh' kaun? Tum log mujhe kya samajh rahe ho?\"",
+          "shortLabel": "'Woh' kaun?",
+          "keywords": [
+            "woh",
+            "kaun",
+            "main",
+            "samajh",
+            "who",
+            "mujhe"
+          ],
+          "next": "s8_next",
+          "effects": {
+            "relationships": {
+              "elara": 6
+            },
+            "flags": {
+              "askedWhoAmI": true
+            },
+            "choicesRecord": {
+              "arc4b": "whoami"
+            },
+            "memory": [
+              "Ankit ne poocha 'woh' kaun hai jise Bache Hue dhoondh rahe hain — Elara ne turant kaha 'ye woh nahi hai', bahut jaldi, aur Baba ne kuch nahi kaha."
+            ]
+          }
+        },
+        {
+          "id": "c_elara_saath",
+          "text": "Elara ke haath par haath rakho — \"Jo bhi ho, tum mere saath ho. Bas.\"",
+          "shortLabel": "Elara ka saath",
+          "keywords": [
+            "saath",
+            "haath",
+            "elara",
+            "bas",
+            "tum",
+            "trust",
+            "bharosa"
+          ],
+          "next": "s8_next",
+          "effects": {
+            "relationships": {
+              "elara": 20
+            },
+            "flags": {
+              "reassuredUnder": true
+            },
+            "choicesRecord": {
+              "arc4b": "reassured"
+            },
+            "memory": [
+              "Neeche ke Pune mein Ankit ne Elara ka haath pakda — paani ke saare deepak ek saath tez ho gaye. Bache Hue ne pehli baar jhuk kar Ankit ko dekha."
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "id": "s7_rukmini2",
+      "title": "Sahi Devta",
+      "narration": [
+        "*Ek purana coffee house, Deccan. Rukmini pehle se baithi hai. Compass nahi hai uske paas — table par ek purani kitaab hai, jiske panne khaali dikhte hain. Tumhe. Elara ko nahi.*",
+        "Rukmini: \"Aath peedhiyan. Hum galat compass follow kar rahe the. Ye compass 'devi' dhoondhta hai. Aur bachi hui devi sirf ek thi. Toh hum uske peeche gaye. Par yudh jisne shuru kiya tha... woh devi nahi tha.\"",
+        "*Elara kitaab ki taraf dekh rahi hai. Uska chehra safed hai.*",
+        "Elara: \"Ye kitaab tumhe kahan se mili?\"",
+        "Rukmini: \"Meri daadi ki. Aur unki daadi ki. Aap padh sakti hain, na? Main nahi padh sakti. Ankit bhi nahi. Par ek line hai jo har peedhi ne yaad rakhi —\"",
+        "Rukmini: \"'Woh so raha hai. Aakhri use so-ta rakhegi. Jab tak uska koi... use jagaa na de.'\"",
+        "*Coffee house mein sannata. Elara ka haath table ke neeche tumhara haath dhoondhta hai.*",
+        "Rukmini: \"Ankit. Main tumse ek baat poochna chahti hoon, aur main chahti hoon Elara jawab na de. Tumhare parivaar mein... koi purani kahani hai? Koi naam jo bolna mana hai?\""
+      ],
+      "fallbackLines": [
+        "*Kitaab ka ek panna hawa se palat jaata hai. Coffee house mein hawa nahi hai.*",
+        "Elara: \"Rukmini, bas. Ye sawaal aaj nahi.\"",
+        "Rukmini: \"Toh kab, aakhri? Aath peedhiyan bahut hoti hain.\""
+      ],
+      "choices": [
+        {
+          "id": "c_parivaar",
+          "text": "\"Haan. Ek naam hai. Daadi kabhi nahi leti thi. Kyun poochh rahi ho?\"",
+          "shortLabel": "Haan, ek naam hai",
+          "keywords": [
+            "haan",
+            "naam",
+            "daadi",
+            "parivaar",
+            "family",
+            "hai",
+            "purana"
+          ],
+          "next": "s8_next",
+          "effects": {
+            "relationships": {
+              "rukmini": 12,
+              "elara": -4
+            },
+            "flags": {
+              "revealedFamilyName": true
+            },
+            "choicesRecord": {
+              "arc4b": "family"
+            },
+            "memory": [
+              "Ankit ne bataya ki uske parivaar mein ek naam hai jo koi nahi leta — Elara ne aankhein band kar li. Rukmini ne kitaab band ki: 'Toh compass galat nahi tha. Woh devi ko nahi, devi ke kaaran ko dikha raha tha.'"
+            ]
+          }
+        },
+        {
+          "id": "c_nahi_bataunga",
+          "text": "\"Mere parivaar ko isse door rakho. Jawab nahi.\"",
+          "shortLabel": "Parivaar door rakho",
+          "keywords": [
+            "nahi",
+            "parivaar",
+            "door",
+            "jawab nahi",
+            "no",
+            "family"
+          ],
+          "next": "s8_next",
+          "effects": {
+            "relationships": {
+              "elara": 14,
+              "rukmini": -3
+            },
+            "flags": {
+              "protectedFamily": true
+            },
+            "choicesRecord": {
+              "arc4b": "protected"
+            },
+            "memory": [
+              "Ankit ne apne parivaar ke baare mein jawab dene se mana kiya — Elara ne table ke neeche uska haath itna kas ke pakda ki dard hua. Rukmini ne kaha: 'Theek hai. Par woh sawaal khud tumhe dhoondh lega.'"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "id": "s7_naam",
+      "title": "Woh Naam Jo Sunta Hai",
+      "narration": [
+        "*Bhandarkar wachnalay. Dev ne ek kitaab nikaali hai — dhool, phate panne. Ek shelf jise koi nahi padhta.*",
+        "Dev: \"Bhai, dekh. Yahan har devta ka naam mit gaya hai — literally, kaagaz pe jagah khaali hai. Par ek jagah aadha bacha hai. Koi mitane mein chook gaya. Ya... mitana nahi chahta tha.\"",
+        "*Panna. Aadha shabd. Tum use padhte ho — mann mein.*",
+        "*Aur library ki har light ek saath bujh jaati hai.*",
+        "*Andhere mein, tumhare theek peeche, Elara ki awaaz. Woh yahan nahi thi. Ab hai.*",
+        "Elara: \"Maine kaha tha. Woh naam mat dhoondho.\"",
+        "*Lights wapas. Elara tumhare saamne khadi hai, aur uski aankhein — ek pal ke liye — insaan ki nahi hain.*",
+        "Elara: \"Jo use bolta hai, use woh sunti hai. Tumne use socha. Ab woh tumhe jaanti hai. Aur main... main ab tumhe usse chhupa nahi sakti.\"",
+        "Dev: \"'Woh'? Bhai, 'woh' kaun? Elara, tu hi toh hai na 'woh'?\"",
+        "Elara: \"Main aakhri devi hoon, Dev. Maine kabhi nahi kaha main akeli hoon.\""
+      ],
+      "fallbackLines": [
+        "*Kitaab ka panna ab poora khaali hai. Aadha shabd bhi gaya.*",
+        "Dev: \"Maine record kiya tha. Camera dekh — khaali. Phir se khaali. Bhai main is shehar ka sabse bekaar paranormal YouTuber hoon.\"",
+        "Elara: \"Ankit. Tumne kya padha? Mujhe batao — bilkul sahi shabd.\""
+      ],
+      "choices": [
+        {
+          "id": "c_batao_naam",
+          "text": "Use woh aadha shabd batao — bilkul wahi",
+          "shortLabel": "Shabd batao",
+          "keywords": [
+            "batao",
+            "shabd",
+            "naam",
+            "padha",
+            "yahi",
+            "tell"
+          ],
+          "next": "s8_next",
+          "effects": {
+            "relationships": {
+              "elara": 10
+            },
+            "flags": {
+              "sharedName": true
+            },
+            "choicesRecord": {
+              "arc4b": "shared"
+            },
+            "memory": [
+              "Ankit ne Elara ko woh aadha naam bataya — Elara ne kaha: 'Ye mera naam nahi hai. Ye uska hai jise maine sulaya tha. Aur ab woh tumhara naam jaanti hai.'"
+            ]
+          }
+        },
+        {
+          "id": "c_tumhara_naam",
+          "text": "\"Pehle tum batao — TUMHARA asli naam kya hai?\"",
+          "shortLabel": "Tumhara asli naam",
+          "keywords": [
+            "tumhara",
+            "asli",
+            "naam",
+            "elara",
+            "pehle",
+            "your name"
+          ],
+          "next": "s8_next",
+          "effects": {
+            "relationships": {
+              "elara": 6,
+              "dev": 4
+            },
+            "flags": {
+              "askedElaraName": true
+            },
+            "choicesRecord": {
+              "arc4b": "elaraname"
+            },
+            "memory": [
+              "Ankit ne Elara ka asli naam poocha — Elara: 'Elara. Ye maine khud chuna tha. Purana naam maine isliye mitaya taaki koi mujhe bula na sake. Tumhe woh nahi chahiye, Ankit. Tum mujhe waise hi bula sakte ho.'"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "id": "s8_next",
+      "title": "Agla Adhyay",
+      "narration": [
+        "*Raat. Flat. Balcony. Elara tumhare kandhe par sar rakhe baithi hai — devi, girlfriend, dono. Neeche Pune so raha hai. Ya so-ta rakha gaya hai.*",
+        "*Tumhare phone par: Dev ('bhai kal library phir chalte hain, is baar main padhunga'), Rukmini ('kitaab ka ek aur panna khula hai — tumhare parivaar ke gaon ka naam'), Baba ('neeche halchal hai, beti ko le aana').*",
+        "Elara: \"Dekho. Sab ek saath. Aur main soch rahi thi devi ki zindagi mushkil hai — insaan ki zyada hai.\"",
+        "*Woh muskurati hai. Halki baarish shuru hoti hai — sirf tumhari balcony par.*",
+        "Elara: \"Ye kabhi khatam nahi hoga, Ankit. Har jawab ek darwaaza hai. Chuno — kaunsa kholna hai. Main saath hoon. Bayein.\""
+      ],
+      "fallbackLines": [
+        "*Ye kahani yahin nahi rukti. Har raasta ek naya arc — dev-yudh ka sach, khoye hue shehar, doosre bache hue, aur Elara ke bachne ki asli wajah.*",
+        "Elara: \"Jaldi nahi hai. Chai hai. Tum ho. Baaki duniya wait kar sakti hai — thodi der.\"",
+        "Dev: \"Bhai main nahi kar sakta wait. Bata kal kahan?\""
+      ],
+      "choices": [
+        {
+          "id": "c_next_neeche",
+          "text": "Baba ka bulawa — Neeche ke Pune mein halchal",
+          "shortLabel": "Neeche mein halchal",
+          "keywords": [
+            "neeche",
+            "baba",
+            "halchal",
+            "bache hue",
+            "mandir",
+            "sota"
+          ],
+          "next": "s7_neeche",
+          "effects": {
+            "relationships": {
+              "baba": 5
+            },
+            "flags": {
+              "arcUnder2": true
+            },
+            "choicesRecord": {
+              "next": "under"
+            },
+            "location": "Neeche ka Pune",
+            "memory": [
+              "Naya arc: Neeche ke Pune mein halchal — jo sota hai, woh karvat le raha hai."
+            ]
+          }
+        },
+        {
+          "id": "c_next_gaon",
+          "text": "Rukmini ka panna — tumhare parivaar ka gaon",
+          "shortLabel": "Parivaar ka gaon",
+          "keywords": [
+            "gaon",
+            "parivaar",
+            "rukmini",
+            "panna",
+            "family",
+            "village",
+            "purana"
+          ],
+          "next": "s7_rukmini2",
+          "effects": {
+            "relationships": {
+              "rukmini": 5
+            },
+            "flags": {
+              "arcVillage": true
+            },
+            "choicesRecord": {
+              "next": "village"
+            },
+            "memory": [
+              "Naya arc: Ankit ke parivaar ka gaon — jahan ek naam bolna mana hai."
+            ]
+          }
+        },
+        {
+          "id": "c_next_library",
+          "text": "Dev ke saath library — mite hue naam dhoondho",
+          "shortLabel": "Library, mite naam",
+          "keywords": [
+            "library",
+            "dev",
+            "naam",
+            "kitaab",
+            "mite",
+            "shelf",
+            "padho"
+          ],
+          "next": "s7_naam",
+          "effects": {
+            "relationships": {
+              "dev": 6
+            },
+            "flags": {
+              "arcNames": true
+            },
+            "choicesRecord": {
+              "next": "names"
+            },
+            "memory": [
+              "Naya arc: mite hue devtaon ke naam — aur woh jo mitana bhool gaye."
+            ]
+          }
+        },
+        {
+          "id": "c_next_aam",
+          "text": "Aaj kuch nahi — Elara ke saath ek aam din",
+          "shortLabel": "Ek aam din",
+          "keywords": [
+            "aam",
+            "normal",
+            "date",
+            "ghoom",
+            "rest",
+            "chhutti",
+            "sirf tum"
+          ],
+          "next": "s2_ghar",
+          "effects": {
+            "relationships": {
+              "elara": 12
+            },
+            "flags": {
+              "arcOrdinary": true
+            },
+            "choicesRecord": {
+              "next": "ordinary"
+            },
+            "memory": [
+              "Naya arc: ek aam din — Elara ke liye sabse keemti cheez."
+            ]
+          }
+        }
+      ]
+    }
+  ],
+  "endings": []
+}

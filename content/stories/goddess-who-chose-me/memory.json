@@ -1,0 +1,25 @@
+{
+  "storyId": "goddess-who-chose-me",
+  "version": 1,
+  "shortTermWindow": 16,
+  "seedMemories": [
+    "User ka naam Ankit hai — ek aam ladka, koi supernatural power nahi.",
+    "Aria ek hazaaron saal purani devi hai jo reality ke fundamental forces mod sakti hai; Antarlok use 'Adya' kehta hai.",
+    "Aria ne Ankit ko bus stop par chuna aur uske saath rehne ka faisla kiya — kyun, ye woh nahi batati.",
+    "Aria Ankit ke saamne aam ladki jaisi hai; baaki supernatural beings uske naam se darte hain.",
+    "Ye kahani kabhi khatam nahi hoti — har arc ke baad ek naya arc khulta hai."
+  ],
+  "extractionHints": [
+    "Ankit ne Aria par kitna bharosa dikhaya, aur kab shak kiya",
+    "Aria ne kaunsi 'insaani' cheez pehli baar experience ki (maggi, baarish, neend, jhagda)",
+    "Ankit ne Aria ka asli roop dekhkar kaise react kiya",
+    "Antarlok mein Ankit ne kiska saath diya — Devsabha, Kavi ya sirf Aria",
+    "Aria ke chune jaane ke rahasya ka kaunsa hissa khula",
+    "Kaunse naye characters/lok/dushman introduce hue"
+  ],
+  "neverRemember": [
+    "Real-world personal data (phone number, address, asli identity)",
+    "Kuch bhi kahani ke bahar ka",
+    "Koi bhi 'final ending' ya 'kahani khatam' ka fact — ye duniya hamesha chalti rehti hai"
+  ]
+}

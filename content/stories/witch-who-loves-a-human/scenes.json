@@ -1,0 +1,1029 @@
+{
+  "storyId": "witch-who-loves-a-human",
+  "version": 1,
+  "scenes": [
+    {
+      "id": "s1_dukaan",
+      "title": "Woh Ladki Jo Kitaab Kabhi Nahi Khareedti",
+      "narration": [
+        "*Seemant kasba. Shaam. Tumhari kitaabon ki dukaan — dhool, purani almaariyan, aur Kaali billi jo khidki mein so rahi hai. Tum Ankit ho, aur ye tumhari aam si zindagi hai.*",
+        "*Ghanti bajti hai. Woh phir aayi hai. Teesre din. Ek ladki — hare dupatte mein, aankhon mein shararat, aur ek chaal jaise use pata ho har cheez kahan rakhi hai.*",
+        "*Woh seedha usi shelf par jaati hai. Wahi kitaab — 'Insaano ke Tyohaar'. Kholti hai. Padhne lagti hai. Khadi-khadi.*",
+        "*Kaali uthti hai. Kaali kabhi kisi ke liye nahi uthti. Woh seedha ladki ke pairon mein jaake baith jaati hai.*",
+        "Mira: \"Tumhari billi mujhe pasand karti hai. Tum nahi karte — tum mujhe roz 'khareed lo' bolte ho.\"",
+        "*Woh tumhari taraf dekhti hai. Muskurati hai.*",
+        "Mira: \"Main Mira. Aur main ye kitaab nahi khareedungi. Kyunki khareed loongi toh aane ka bahana kaise banaungi?\"",
+        "*Bahar, jungle ki taraf, shaam ka andhera thoda jaldi utar raha hai. Mira ne us taraf ek baar bhi nahi dekha. Jaise jaanboojh kar.*"
+      ],
+      "fallbackLines": [
+        "*Mira panna palat ti hai. 'Diwali' wala chapter. Uski aankhein chamak rahi hain — kitaab ki roshni se zyada.*",
+        "Mira: \"Ye sach hai? Tum log ghar ke bahar diye jalaate ho? Sab ek saath? Aur kisi ko darr nahi lagta ki... ki koi dekh lega?\"",
+        "*Woh ruk jaati hai. Bahut jaldi topic badalti hai.*",
+        "Mira: \"Matlab — achha lagta hoga. Dekhne mein.\""
+      ],
+      "choices": [
+        {
+          "id": "c_free",
+          "text": "Kitaab uske haath mein do — \"Le jao. Free. Bas aana band mat karna.\"",
+          "shortLabel": "Kitaab free do",
+          "keywords": [
+            "free",
+            "le jao",
+            "kitaab",
+            "de do",
+            "gift",
+            "aana band mat"
+          ],
+          "next": "s2_pul",
+          "effects": {
+            "relationships": {
+              "mira": 16
+            },
+            "flags": {
+              "gaveBook": true
+            },
+            "choicesRecord": {
+              "opening": "gift"
+            },
+            "memory": [
+              "Ankit ne Mira ko kitaab free de di — 'bas aana band mat karna'. Mira ne kitaab li, phir wapas shelf par rakh di. 'Nahi. Yahin rahegi. Main yahin padhungi. Ye zyada achha bahana hai.'"
+            ]
+          }
+        },
+        {
+          "id": "c_kahan_se",
+          "text": "\"Tum kahan se ho, Mira? Maine tumhe kasbe mein kabhi nahi dekha.\"",
+          "shortLabel": "Kahan se ho?",
+          "keywords": [
+            "kahan se",
+            "kasba",
+            "kabhi nahi dekha",
+            "where",
+            "rehti"
+          ],
+          "next": "s2_pul",
+          "effects": {
+            "relationships": {
+              "mira": 6
+            },
+            "flags": {
+              "askedWhereFrom": true
+            },
+            "choicesRecord": {
+              "opening": "where"
+            },
+            "memory": [
+              "Ankit ne poocha Mira kahan se hai — Mira: 'Door se. Us taraf se.' Ek second ruki. 'Matlab — kasbe ke us taraf se. Pahadi wale. Haan.' Kaali ne aankhein ghumayi."
+            ]
+          }
+        },
+        {
+          "id": "c_diwali",
+          "text": "\"Diwali dekhi nahi kabhi? Agle mahine hai. Aana.\"",
+          "shortLabel": "Diwali pe aana",
+          "keywords": [
+            "diwali",
+            "dekhi nahi",
+            "aana",
+            "tyohaar",
+            "agle mahine",
+            "invite"
+          ],
+          "next": "s2_pul",
+          "effects": {
+            "relationships": {
+              "mira": 20
+            },
+            "flags": {
+              "invitedDiwali": true
+            },
+            "choicesRecord": {
+              "opening": "diwali"
+            },
+            "memory": [
+              "Ankit ne Mira ko Diwali pe bulaya — Mira chup ho gayi. Bahut der. Phir: 'Haan. Aaungi. Chahe kuch bhi ho.' Uski awaaz mein kuch aisa tha jo 'kuch bhi' ko bahut bada bana raha tha."
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "id": "s2_pul",
+      "title": "Pul Ke Beech",
+      "narration": [
+        "*Raat. Purana pul. Niyam hai — insaan is taraf, jungle us taraf, aur pul par koi nahi. Mira ne kaha tha 'raat ko pul pe milna'. Tum aaye ho. Bewakoofi hai. Tum jaante ho.*",
+        "*Woh pul ke beech khadi hai. Bilkul beech. Na is taraf, na us taraf.*",
+        "Mira: \"Aa gaye. Maine socha nahi aaoge. Log darte hain pul se.\"",
+        "*Woh ungli uthati hai. Aur uski ungli ke sire par ek chhota sa jugnu ban jaata hai. Roshni. Halki, hari.*",
+        "Mira: \"Ye mera ek chhota sa... tareeka hai. Bas itna. Zyada nahi.\"",
+        "*Jugnu tumhare paas aata hai. Tumhare kandhe par baithta hai. Garam hai.*",
+        "Mira: \"Ab tum jaante ho main 'us taraf' se hoon. Ab bhaago. Ya mat bhaago. Main dono ke liye taiyaar hoon — nahi hoon, par kehna padta hai.\"",
+        "*Uska mazaak ruk gaya hai. Aur ruka hua mazaak — tumhe pata chal raha hai — uska sabse imandaar chehra hai.*"
+      ],
+      "fallbackLines": [
+        "*Jugnu tumhare kandhe par hai. Mira do kadam door. Jungle ki taraf se hawa aa rahi hai — meethi, ajeeb.*",
+        "Mira: \"Bolo kuch. Tumhari billi hoti toh ab tak bol chuki hoti.\""
+      ],
+      "choices": [
+        {
+          "id": "c_ek_aur",
+          "text": "\"Ek aur banao. Ye akela lag raha hai.\"",
+          "shortLabel": "Ek aur jugnu",
+          "keywords": [
+            "ek aur",
+            "jugnu",
+            "banao",
+            "akela",
+            "aur",
+            "more"
+          ],
+          "next": "s3_bhai",
+          "effects": {
+            "relationships": {
+              "mira": 22
+            },
+            "flags": {
+              "askedForMore": true
+            },
+            "choicesRecord": {
+              "arc1": "more"
+            },
+            "memory": [
+              "Mira ke jugnu ke baad Ankit ne kaha 'ek aur banao, ye akela lag raha hai' — Mira hansi, aur pul par sau jugnu ban gaye. 'Ye... ye bewakoofi thi. Koi dekh lega. Par tumne maanga tha.'"
+            ]
+          }
+        },
+        {
+          "id": "c_daayan",
+          "text": "\"Tum daayan ho. Theek hai. Mera bhai Rakshak hai — ye problem hai.\"",
+          "shortLabel": "Bhai Rakshak hai",
+          "keywords": [
+            "daayan",
+            "bhai",
+            "rakshak",
+            "problem",
+            "theek hai",
+            "witch"
+          ],
+          "next": "s3_bhai",
+          "effects": {
+            "relationships": {
+              "mira": 12,
+              "arjun": -2
+            },
+            "flags": {
+              "toldAboutArjun": true
+            },
+            "choicesRecord": {
+              "arc1": "arjun"
+            },
+            "memory": [
+              "Ankit ne Mira ko bataya uska bhai Rakshak hai — Mira: 'Jaanti hoon. Arjun. Maine use dekha hai. Pul ke us paar se. Woh achha aadmi hai. Isliye ye aur mushkil hai.'"
+            ]
+          }
+        },
+        {
+          "id": "c_kitna",
+          "text": "\"'Zyada nahi'? Mira, tum kitna kar sakti ho? Sach.\"",
+          "shortLabel": "Kitna kar sakti ho?",
+          "keywords": [
+            "kitna",
+            "zyada",
+            "sach",
+            "power",
+            "kar sakti",
+            "how much"
+          ],
+          "next": "s3_bhai",
+          "effects": {
+            "relationships": {
+              "mira": 6
+            },
+            "flags": {
+              "askedPowerEarly": true
+            },
+            "choicesRecord": {
+              "arc1": "power"
+            },
+            "memory": [
+              "Ankit ne poocha Mira kitna jaadu kar sakti hai — Mira ne jugnu bujha diya. 'Kaafi. Itna ki main tumhe nahi dikhaungi. Kyunki jis din dikhaya, us din tum mujhe aise nahi dekhoge.'"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "id": "s3_bhai",
+      "title": "Geeli Mitti",
+      "narration": [
+        "*Subah. Ghar. Arjun table par baitha hai — Rakshak ki wardi mein — aur uske saamne tumhare joote rakhe hain. Geeli mitti. Pul wali.*",
+        "Arjun: \"Ankit. Tu raat ko pul ke paas tha.\"",
+        "*Uski awaaz shaant hai. Ye buri baat hai.*",
+        "Arjun: \"Mat jhooth bol. Maine tere joote dekhe hain. Ye mitti sirf pul ke beech wali hai. Kaun hai?\"",
+        "*Woh khada hota hai.*",
+        "Arjun: \"Insaan hai na? Bol ki insaan hai. Bol, Ankit.\"",
+        "*Uske haath mein ek purana kaagaz hai — pita ka patra. Aadha phata. Woh ise tab nikaalta hai jab woh sach mein dar jaata hai.*",
+        "Arjun: \"Papa ko unhone maara tha. Ye yaad hai na tujhe? Ya kitaabon mein bhool gaya?\"",
+        "*Khidki ke bahar, dukaan ki taraf, Kaali billi baithi hai. Aur uski god mein — nahi. Uske bagal mein — ek jugnu. Din mein. Arjun ne nahi dekha.*"
+      ],
+      "fallbackLines": [
+        "Arjun: \"Main tujhse gussa nahi hoon. Main dar raha hoon. Fark samajh. Bol de — main sambhal lunga. Jo bhi hai.\"",
+        "*Patra uske haath mein kaanp raha hai.*"
+      ],
+      "choices": [
+        {
+          "id": "c_sach_bhai",
+          "text": "Sach bolo — \"Insaan nahi hai, bhai. Par woh Papa waali nahi hai.\"",
+          "shortLabel": "Bhai ko sach",
+          "keywords": [
+            "sach",
+            "insaan nahi",
+            "papa waali nahi",
+            "bhai",
+            "batao",
+            "truth"
+          ],
+          "next": "s4_jaadu",
+          "effects": {
+            "relationships": {
+              "arjun": -10,
+              "mira": 14
+            },
+            "flags": {
+              "toldArjunTruth": true
+            },
+            "choicesRecord": {
+              "arc2": "truth"
+            },
+            "memory": [
+              "Ankit ne Arjun ko sach bataya — 'insaan nahi hai'. Arjun ne patra table par rakha, aur bina bole chala gaya. Wardi pehen ke. Raat ko wapas nahi aaya."
+            ]
+          }
+        },
+        {
+          "id": "c_jhooth_bhai",
+          "text": "Jhooth bolo — \"Insaan hai. Pahadi wali. Tumhe milwaunga.\"",
+          "shortLabel": "Jhooth — insaan hai",
+          "keywords": [
+            "jhooth",
+            "insaan hai",
+            "pahadi",
+            "milwaunga",
+            "lie",
+            "bahana"
+          ],
+          "next": "s4_jaadu",
+          "effects": {
+            "relationships": {
+              "arjun": 4,
+              "mira": 4
+            },
+            "flags": {
+              "liedToArjun": true
+            },
+            "choicesRecord": {
+              "arc2": "lied"
+            },
+            "memory": [
+              "Ankit ne Arjun se jhooth bola — 'insaan hai, pahadi wali'. Arjun ne maan liya. Ya maanne ka natak kiya. 'Theek hai. Milwana. Jaldi.' Mira ne suna toh kaha: 'Pahadi wali. Achha. Main pahadi ban sakti hoon. Kitne din?'"
+            ]
+          }
+        },
+        {
+          "id": "c_patra",
+          "text": "\"Papa ka patra. Doosra aadha kahan hai, bhai? Tumne kabhi dhoondha?\"",
+          "shortLabel": "Doosra aadha patra",
+          "keywords": [
+            "patra",
+            "doosra aadha",
+            "papa",
+            "kahan",
+            "dhoondha",
+            "letter"
+          ],
+          "next": "s4_jaadu",
+          "effects": {
+            "relationships": {
+              "arjun": 6,
+              "vridha": 2
+            },
+            "flags": {
+              "askedAboutLetter": true
+            },
+            "choicesRecord": {
+              "arc2": "letter"
+            },
+            "memory": [
+              "Ankit ne pita ke patre ka doosra aadha poocha — Arjun ka chehra badal gaya. 'Nahi dhoondha. Aur nahi dhoondhunga. Kyunki mujhe darr hai usmein kya likha hai.' Ye pehli baar tha jab Arjun ne 'darr' kaha."
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "id": "s4_jaadu",
+      "title": "Jab Mazaak Ruk Gaya",
+      "narration": [
+        "*Raat. Pul. Mira aayi hai — par aaj woh muskura nahi rahi. Aur uske peeche, jungle ki taraf, andhera ghana hai. Bahut ghana.*",
+        "Mira: \"Ankit. Aaj tumhe ghar jaana chahiye. Abhi.\"",
+        "*Phir jungle se awaaz. Cheekh nahi — gurrahat. Aur pedon ke beech se kuch nikalta hai. Bada. Kaala. Aankhein laal. Ye daayan nahi hai. Ye kuch aur hai — jise daayanein bhi nahi paalti.*",
+        "Mira: \"Kaale Panne ka jaanwar. Ye mere liye nahi aaya hai.\"",
+        "*Woh tumhari taraf dekhti hai.*",
+        "Mira: \"Ye tumhare liye aaya hai. Kyunki kisi ko pata chal gaya hai ki main kise dekhne aati hoon.\"",
+        "*Jaanwar pul par chadhta hai. Pul kaanpta hai. Tum peeche hatna chahte ho — pair nahi hilte.*",
+        "*Aur Mira aage badhti hai. Ek kadam. Uska dupatta hawa mein. Aur uske aas-paas ki hawa... badal jaati hai. Hari roshni. Pul ke har pathar se. Jungle ke har ped se. Nadi ke paani se. Sab uski taraf aa raha hai.*",
+        "*Woh ek haath uthati hai. Bas ek. Aur jaanwar — ruk jaata hai. Hawa mein. Phir sikudta hai. Chhota hota jaata hai. Jab tak ki wahan sirf ek kaala patta na bache — jo Mira ke pairon mein gir jaata hai.*",
+        "*Sannata. Roshni gayab. Mira tumhari taraf mudti hai — aur uske chehre par woh hai jisse woh sabse zyada darti thi: tumhara chehra dekhne ka darr.*",
+        "Mira: \"...Ab tum jaante ho. 'Zyada nahi' jhooth tha. Ab bolo. Main sun sakti hoon.\""
+      ],
+      "fallbackLines": [
+        "*Kaala patta uske pairon mein. Pul ke pathar abhi bhi halke garam. Mira hil nahi rahi.*",
+        "Mira: \"Please. Kuch bolo. Ye chuppi... ye main nahi sambhal paungi. Jaanwar sambhal liya, ye nahi.\""
+      ],
+      "choices": [
+        {
+          "id": "c_theek_ho",
+          "text": "\"Tum theek ho? Woh tumhe chot toh nahi—\"",
+          "shortLabel": "Tum theek ho?",
+          "keywords": [
+            "theek ho",
+            "chot",
+            "tum",
+            "ok",
+            "hurt",
+            "safe"
+          ],
+          "next": "s5_legend",
+          "effects": {
+            "relationships": {
+              "mira": 28
+            },
+            "flags": {
+              "askedIfSheWasOk": true
+            },
+            "choicesRecord": {
+              "arc3": "cared"
+            },
+            "memory": [
+              "Mira ka poora jaadu dekhne ke baad Ankit ka pehla sawaal tha 'tum theek ho?' — Mira ne pul ki railing pakad li. 'Tumne... tumne mujhse poocha? Mujhse? Maine abhi ek Kaale Panne ka jaanwar mitaya, aur tum poochh rahe ho MAIN theek hoon?' Aur phir woh ro padi. Pul par. Legend."
+            ]
+          }
+        },
+        {
+          "id": "c_kaun_ho",
+          "text": "\"Tum kaun ho, Mira? Aam daayan ye nahi kar sakti.\"",
+          "shortLabel": "Tum kaun ho, Mira?",
+          "keywords": [
+            "kaun ho",
+            "aam nahi",
+            "kya ho",
+            "sach",
+            "legend",
+            "who"
+          ],
+          "next": "s5_legend",
+          "effects": {
+            "relationships": {
+              "mira": 10
+            },
+            "flags": {
+              "askedWhoSheIs": true
+            },
+            "choicesRecord": {
+              "arc3": "who"
+            },
+            "memory": [
+              "Ankit ne poocha Mira kaun hai — 'aam daayan ye nahi kar sakti'. Mira: 'Nahi. Nahi kar sakti. Mujhe... mujhe Legend kehte hain. Main is naam se nafrat karti hoon. Aur ab tum bhi mujhe aise dekhoge.'"
+            ]
+          }
+        },
+        {
+          "id": "c_kisko_pata",
+          "text": "\"Kisko pata chala? Kaun bhej raha hai ye cheezein?\"",
+          "shortLabel": "Kisne bheja?",
+          "keywords": [
+            "kisko pata",
+            "kaun",
+            "bheja",
+            "kaale panne",
+            "dushman",
+            "who sent"
+          ],
+          "next": "s5_legend",
+          "effects": {
+            "relationships": {
+              "mira": 8,
+              "vridha": 2
+            },
+            "flags": {
+              "askedWhoSent": true
+            },
+            "choicesRecord": {
+              "arc3": "whosent"
+            },
+            "memory": [
+              "Ankit ne poocha jaanwar kisne bheja — Mira: 'Kaale Panne. Ek prachin sanghathan jo dushmani ko zinda rakhna chahta hai. Aur agar unhe pata hai... toh Sabha ko bhi pata hoga. Kal tak. Aur Sabha... Sabha zyada khatarnaak hai.'"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "id": "s5_legend",
+      "title": "Sabha Ka Bulawa",
+      "narration": [
+        "*Agli subah. Dukaan. Tum khol rahe ho — aur andar pehle se koi baitha hai. Ek budhi aurat. Kaale kapde. Aur Kaali billi — jo kabhi kisi se nahi darti — almaari ke peeche chhupi hai.*",
+        "Vridha: \"Insaan. Baitho. Ye tumhari dukaan hai, main jaanti hoon. Phir bhi — baitho.\"",
+        "*Tum baithte ho. Tumhare pair khud baith gaye.*",
+        "Vridha: \"Main Kaamini. Daayan Sabha ki sabse purani. Aur Mira ki guru. Tum jaante ho tumhare saamne kaun baithi hai roz kitaab padhte hue?\"",
+        "*Woh 'Insaano ke Tyohaar' uthati hai. Shelf se. Bina chhue — kitaab khud aayi.*",
+        "Vridha: \"Usne ek sena roki thi. Akele. Bees saal pehle. Bina kisi ko chot pahunchaye. Tumhare Rakshak use aaj bhi sapne mein dekhte hain. Aur tum use 'kitaab khareed lo' kehte ho.\"",
+        "*Darwaaze ki ghanti. Mira. Aur uska chehra — tumne kabhi nahi dekha. Ye Legend hai.*",
+        "Mira: \"Guru. Meri dukaan se bahar.\"",
+        "Vridha: \"Tumhari dukaan? Mira, tumne suna khud ko? 'Tumhari'?\"",
+        "Mira: \"Haan. Suna. Aur phir bologi toh phir sunungi.\"",
+        "*Kitaab Vridha ke haath se nikal kar wapas shelf par chali jaati hai. Mira ne haath bhi nahi hilaya.*",
+        "Vridha: \"Sabha ne bulaya hai. Tumhe. Aur — pehli baar itihaas mein — is insaan ko. Kal. Vanraj. Aao, ya mat aao — par mat aane ka matlab tum dono jaante ho.\""
+      ],
+      "fallbackLines": [
+        "*Vridha chali gayi. Kaali almaari se nikal kar seedha Mira ki god mein. Mira uska sar sehlaa rahi hai — aur uska haath kaanp raha hai.*",
+        "Mira: \"Ankit. Tumhe jaane ki zaroorat nahi. Main akeli jaungi. Main hamesha akeli gayi hoon.\""
+      ],
+      "choices": [
+        {
+          "id": "c_saath_jaunga",
+          "text": "\"Hamesha akeli gayi ho. Is baar nahi. Main chalunga.\"",
+          "shortLabel": "Main chalunga",
+          "keywords": [
+            "saath",
+            "chalunga",
+            "akeli nahi",
+            "is baar",
+            "jaunga",
+            "vanraj"
+          ],
+          "next": "s6_hub",
+          "effects": {
+            "relationships": {
+              "mira": 24,
+              "vridha": 4
+            },
+            "flags": {
+              "goingToSabha": true
+            },
+            "choicesRecord": {
+              "arc4": "going"
+            },
+            "location": "Vanraj",
+            "memory": [
+              "Ankit ne Sabha mein saath jaane ka faisla kiya — 'hamesha akeli gayi ho, is baar nahi'. Mira: 'Tum pagal ho. Bilkul pagal.' Aur phir usne Ankit ka haath pakda. Dukaan mein. Din mein. Pehli baar."
+            ]
+          }
+        },
+        {
+          "id": "c_arjun_batao",
+          "text": "\"Pehle bhai ko batana hoga. Agar main Vanraj gaya aur usne suna...\"",
+          "shortLabel": "Pehle Arjun ko",
+          "keywords": [
+            "arjun",
+            "bhai",
+            "batana",
+            "pehle",
+            "rakshak",
+            "suna"
+          ],
+          "next": "s6_hub",
+          "effects": {
+            "relationships": {
+              "arjun": 8,
+              "mira": 8
+            },
+            "flags": {
+              "toldArjunBeforeSabha": true
+            },
+            "choicesRecord": {
+              "arc4": "arjun"
+            },
+            "memory": [
+              "Ankit ne Vanraj jaane se pehle Arjun ko bataya — sab. Arjun ne bahut der tak kuch nahi kaha. Phir: 'Agar tu wapas nahi aaya, main poori Rakshak sena leke aaunga. Aur agar tu wapas aaya... toh main usse milunga. Ek baar. Sirf ek baar.'"
+            ]
+          }
+        },
+        {
+          "id": "c_kyun_main_sabha",
+          "text": "\"Sabha mujhe kyun bula rahi hai? Main toh bas ek dukaandaar hoon.\"",
+          "shortLabel": "Mujhe kyun bulaya?",
+          "keywords": [
+            "kyun",
+            "mujhe",
+            "bulaya",
+            "dukaandaar",
+            "insaan",
+            "why me"
+          ],
+          "next": "s6_hub",
+          "effects": {
+            "relationships": {
+              "mira": 10,
+              "vridha": 6
+            },
+            "flags": {
+              "askedWhySummoned": true
+            },
+            "choicesRecord": {
+              "arc4": "why"
+            },
+            "location": "Vanraj",
+            "memory": [
+              "Ankit ne poocha Sabha use kyun bula rahi hai — Mira: 'Kyunki woh dekhna chahte hain ki Legend ne kisko chuna. Aur kyunki... kyunki tumhare pita ka naam unki kitaabon mein hai. Main tumhe ye batana nahi chahti thi. Aise nahi.'"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "id": "s6_hub",
+      "title": "Do Duniyaon Ke Beech",
+      "narration": [
+        "*Subah. Dukaan. Mira counter par baithi hai — Legend, Sabha ki sabse upar wali kursi ki maalkin — aur woh 'Insaano ke Tyohaar' padh rahi hai. Kaali god mein. Bilkul waise, jaise pehle din.*",
+        "*Par ab sab jaante hain. Kasbe mein log dukaan ke saamne se guzarte hue andar dekhte hain. Kuch darr se. Kuch curiosity se. Ramlal halwai ne aaj subah Mira ke liye jalebi bheji — 'daayan ho toh kya, roz aati hai, grahak hai.'*",
+        "*Table par: Vridha ka sandesh ('Sabha ka faisla tala gaya hai — abhi. Kaale Panne ne Vanraj mein ek aur jaanwar chhoda hai.'), Arjun ka note ('Aaj shaam. Pul. Main aaunga. Akela. Use bhi bulana.'), aur pita ke patre ka doosra aadha — jo Mira raat ko Vanraj se laayi thi, aur jo abhi tak band hai.*",
+        "Mira: \"Dekho. Sab ek saath. Insaan aise hi jeete hain na? Kitaab mein likha tha.\"",
+        "*Woh kitaab band karti hai. Tumhe dekhti hai. Mazaak nahi — sirf Mira.*",
+        "Mira: \"Ye khatam nahi hota, Ankit. Do duniyaon ke beech khade ho — ye kabhi khatam nahi hota. Par ab main akeli nahi khadi hoon. Chuno. Aaj kya karein?\""
+      ],
+      "fallbackLines": [
+        "*Kaali Mira ki god se uthke patre ke upar baith jaati hai. Jaise keh rahi ho — 'ye pehle'.*",
+        "Mira: \"Tumhari billi ki raay hai. Main sehmat nahi hoon. Par woh aksar sahi hoti hai. Ye pareshan karne wali baat hai.\""
+      ],
+      "choices": [
+        {
+          "id": "c_hub_arjun",
+          "text": "Arjun — aaj shaam, pul. Bhai aur Mira, aamne-saamne.",
+          "shortLabel": "Arjun se milwao",
+          "keywords": [
+            "arjun",
+            "bhai",
+            "pul",
+            "shaam",
+            "milwao",
+            "saamne"
+          ],
+          "next": "s7_arjun",
+          "effects": {
+            "relationships": {
+              "arjun": 8
+            },
+            "flags": {
+              "arcArjunMeets": true
+            },
+            "choicesRecord": {
+              "arc5": "arjun"
+            },
+            "memory": [
+              "Ankit ne Arjun aur Mira ki mulaqat chuni — Mira: 'Main Sabha se nahi dari. Main tumhare bhai se dar rahi hoon. Ye ajeeb hai.'"
+            ]
+          }
+        },
+        {
+          "id": "c_hub_patra",
+          "text": "Pita ka patra — doosra aadha. Kholo.",
+          "shortLabel": "Patra kholo",
+          "keywords": [
+            "patra",
+            "papa",
+            "doosra aadha",
+            "kholo",
+            "sach",
+            "letter",
+            "padho"
+          ],
+          "next": "s7_patra",
+          "effects": {
+            "relationships": {
+              "mira": 6
+            },
+            "flags": {
+              "arcLetter": true
+            },
+            "choicesRecord": {
+              "arc5": "letter"
+            },
+            "memory": [
+              "Ankit ne pita ka patra kholne ka faisla kiya — Mira ne uska haath pakda. 'Jo bhi likha hai — main wahan thi. Us raat. Main tumhe bataungi jo maine dekha. Par pehle padho.'"
+            ]
+          }
+        },
+        {
+          "id": "c_hub_vanraj",
+          "text": "Vridha — Kaale Panne ka jaanwar Vanraj mein. Chalo.",
+          "shortLabel": "Vanraj chalo",
+          "keywords": [
+            "vanraj",
+            "vridha",
+            "kaale panne",
+            "jaanwar",
+            "sabha",
+            "chalo",
+            "help"
+          ],
+          "next": "s7_vanraj",
+          "effects": {
+            "relationships": {
+              "vridha": 8
+            },
+            "flags": {
+              "arcVanraj": true
+            },
+            "choicesRecord": {
+              "arc5": "vanraj"
+            },
+            "location": "Vanraj",
+            "memory": [
+              "Ankit ne Vanraj jaane ka faisla kiya — Kaale Panne se ladne. Mira: 'Tum jaadu nahi kar sakte. Tum wahan kya karoge?' Ankit: 'Wahi jo yahan karta hoon. Tumhare saath khada rahunga.'"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "id": "s7_arjun",
+      "title": "Bhai, Daayan, Aur Ek Pul",
+      "narration": [
+        "*Shaam. Pul. Arjun ek taraf — wardi mein nahi, aam kapdon mein. Mira doosri taraf — dupatte mein, bina jaadu ke. Tum beech mein. Bilkul beech.*",
+        "*Koi nahi bolta. Ek minute. Do.*",
+        "Arjun: \"Tumne meri sena roki thi. Bees saal pehle. Main wahan tha. Solah saal ka. Maine tumhe dekha tha.\"",
+        "Mira: \"Haan. Aur maine tumhe. Tum sabse aage the. Sabse chhote. Aur sabse dare hue. Maine isliye kisi ko chot nahi pahunchayi — kyunki tumhara chehra dekha tha.\"",
+        "*Arjun ka chehra. Woh ye nahi jaanta tha.*",
+        "Arjun: \"...Papa. Us raat. Tum wahan thi?\"",
+        "*Mira tumhari taraf dekhti hai. Phir Arjun ki taraf.*",
+        "Mira: \"Haan. Aur jo tumhe bataya gaya — woh poora sach nahi hai. Tumhare pita ko daayan ne nahi maara tha, Arjun. Tumhare pita ek daayan ko bacha rahe the. Kaale Panne se. Aur Kaale Panne mein... dono taraf ke log hain.\"",
+        "*Arjun ke haath mutthi ban jaate hain. Phir khul jaate hain. Phir woh pul ki railing pakad leta hai.*",
+        "Arjun: \"Ankit. Ye sach bol rahi hai?\"",
+        "*Woh tumse poochh raha hai. Daayan se nahi — bhai se.*"
+      ],
+      "fallbackLines": [
+        "*Pul ke neeche nadi. Upar chaand. Arjun ki aankhein bheegi hain — aur woh unhe pochh nahi raha.*",
+        "Mira (dheere): \"Ankit, tum bolo. Ye tumhara bhai hai. Meri baat woh nahi maanega. Tumhari maanega.\""
+      ],
+      "choices": [
+        {
+          "id": "c_sach_hai_bhai",
+          "text": "\"Haan bhai. Aur Papa ka patra bhi yahi kehta hai. Doosra aadha mere paas hai.\"",
+          "shortLabel": "Haan, sach hai",
+          "keywords": [
+            "haan",
+            "sach",
+            "patra",
+            "papa",
+            "bhai",
+            "doosra aadha",
+            "yes"
+          ],
+          "next": "s8_next",
+          "effects": {
+            "relationships": {
+              "arjun": 18,
+              "mira": 14
+            },
+            "flags": {
+              "arjunBelieved": true
+            },
+            "choicesRecord": {
+              "arc5b": "believed"
+            },
+            "memory": [
+              "Ankit ne Arjun ko kaha 'haan, sach hai' aur patre ka doosra aadha diya. Arjun ne padha. Pul par baith gaya. Aur pehli baar bees saal mein — roya. Mira ne uski taraf ek jugnu bheja. Arjun ne use hataya nahi."
+            ]
+          }
+        },
+        {
+          "id": "c_khud_dekho",
+          "text": "\"Main nahi bataunga. Tum khud dekho — uski aankhon mein. Jaise mujhe dekha tha.\"",
+          "shortLabel": "Khud dekho, bhai",
+          "keywords": [
+            "khud dekho",
+            "aankhon",
+            "bhai",
+            "faisla",
+            "tum",
+            "look"
+          ],
+          "next": "s8_next",
+          "effects": {
+            "relationships": {
+              "arjun": 12,
+              "mira": 10
+            },
+            "flags": {
+              "letArjunDecide": true
+            },
+            "choicesRecord": {
+              "arc5b": "decided"
+            },
+            "memory": [
+              "Ankit ne Arjun ko khud faisla karne diya — Arjun ne Mira ko dekha. Bahut der. Phir: 'Tumne mere bhai par kabhi jaadu kiya?' Mira: 'Kabhi nahi.' Arjun: '...Theek hai. Theek hai. Main tumse nafrat karna chahta hoon. Nahi kar paa raha. Ye tumhara jaadu hai?' Mira: 'Nahi. Ye tumhara bhai hai.'"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "id": "s7_patra",
+      "title": "Doosra Aadha",
+      "narration": [
+        "*Raat. Dukaan. Diya. Pita ka patra — dono aadhe, pehli baar ek saath. Mira tumhare bagal mein, Kaali tumhari god mein. Arjun nahi hai — tumne use nahi bulaya. Abhi.*",
+        "*Pita ki likhawat. Jaldi mein. Kaanpti hui.*",
+        "*'Arjun, Ankit. Agar ye tum padh rahe ho, toh main nahi hoon. Sun lo — jo tumhe batayenge, woh jhooth hoga. Daayanon ne mujhe nahi maara. Main ek daayan ko bacha raha tha. Ek bachchi. Kaale Panne uske peeche the — kyunki woh bachchi kuch aisa kar sakti thi jo unhe darata tha.'*",
+        "*Mira ka haath tumhare haath par. Kas ke.*",
+        "*'Uska naam Mira hai. Agar kabhi mile — use batana ki us raat usne kuch galat nahi kiya. Woh bachchi thi. Aur main apni marzi se gaya.'*",
+        "*Sannata. Diya. Kaali ki gurrahat.*",
+        "*Tum Mira ki taraf dekhte ho. Woh nahi dekh rahi. Woh diye ko dekh rahi hai. Aur uske gaal geele hain.*",
+        "Mira: \"Main sat saal ki thi. Woh mujhe bacha rahe the. Aur main... maine unhe bacha liya hota. Agar mujhe tab pata hota main kya kar sakti hoon. Bees saal se main tumhari dukaan ke saamne se guzarti thi. Andar aane ki himmat nahi thi. Phir ek din... phir ek din maine kitaab dekhi. 'Insaano ke Tyohaar'. Aur maine socha — ek baar. Bas ek baar andar jaungi.\"",
+        "*Woh tumhari taraf mudti hai.*",
+        "Mira: \"Maine tumhe isliye nahi chuna ki tum unke bete ho, Ankit. Maine tumhe chuna, aur PHIR yaad aaya ki tum unke bete ho. Please... please ye fark samjho.\""
+      ],
+      "fallbackLines": [
+        "*Patra table par. Diya. Mira ka haath abhi bhi tumhare haath par — par ab dheela. Jaise woh taiyaar ho ki tum haath kheench lo.*",
+        "Mira: \"Bolo. Jo bhi ho. Main sun sakti hoon. Bees saal se sun rahi hoon — apne andar.\""
+      ],
+      "choices": [
+        {
+          "id": "c_fark_samjha",
+          "text": "\"Samjha. Aur Papa ne likha — tumne kuch galat nahi kiya. Main unki baat maanta hoon.\"",
+          "shortLabel": "Fark samjha",
+          "keywords": [
+            "samjha",
+            "fark",
+            "papa",
+            "galat nahi",
+            "maanta",
+            "understand"
+          ],
+          "next": "s8_next",
+          "effects": {
+            "relationships": {
+              "mira": 30
+            },
+            "flags": {
+              "forgaveMira": true
+            },
+            "choicesRecord": {
+              "arc5b": "forgave"
+            },
+            "memory": [
+              "Patra padhne ke baad Ankit ne Mira se kaha 'Papa ne likha tumne kuch galat nahi kiya — main unki baat maanta hoon.' Mira toot gayi. Dukaan mein sau jugnu. Kaali ne pehli baar awaaz nikaali — jaise 'aakhirkaar'."
+            ]
+          }
+        },
+        {
+          "id": "c_bhai_ko_dikhao",
+          "text": "\"Ye Arjun ko dikhana hoga. Aaj raat. Tum saath aaogi?\"",
+          "shortLabel": "Arjun ko dikhao",
+          "keywords": [
+            "arjun",
+            "bhai",
+            "dikhao",
+            "aaj raat",
+            "saath",
+            "show"
+          ],
+          "next": "s8_next",
+          "effects": {
+            "relationships": {
+              "arjun": 12,
+              "mira": 14
+            },
+            "flags": {
+              "showingArjunLetter": true
+            },
+            "choicesRecord": {
+              "arc5b": "showarjun"
+            },
+            "memory": [
+              "Ankit ne patra Arjun ko dikhane ka faisla kiya — Mira ke saath. Mira: 'Woh mujhe maarna chahega.' Ankit: 'Nahi chahega. Woh Papa ka beta hai.' Mira: '...Tum bhi ho. Isliye main yahan hoon.'"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "id": "s7_vanraj",
+      "title": "Tairte Deepak",
+      "narration": [
+        "*Vanraj. Jungle ke paar. Tairte deepak, bolte ped, aur hawa jo meethi hai — itni meethi ki tumhara sar ghoomta hai. Mira tumhare aage — aur yahan woh alag chalti hai. Seedhi. Legend.*",
+        "*Daayanein rukti hain. Dekhti hain. Kuch jhukti hain. Kuch muh pher leti hain. Aur sab — sab tumhe dekhti hain. Insaan. Vanraj mein. Legend ke saath.*",
+        "*Phir cheekh. Door. Aur Mira bhaagti hai — tumhe kaha 'yahin raho', tum nahi rukte.*",
+        "*Ek maidan. Aur usmein — Kaale Panne ka jaanwar. Pehle wale se bada. Aur uske saamne — Vridha Kaamini. Akeli. Uska jaadu jaanwar ko rok raha hai — bas rok raha hai.*",
+        "Vridha: \"Mira! Ye tumhare liye nahi hai — ye insaan ke liye hai! Use door karo!\"",
+        "*Jaanwar tumhari taraf mudta hai. Laal aankhein. Aur Mira tumhare aur uske beech aa jaati hai.*",
+        "Mira: \"Nahi.\"",
+        "*Ek shabd. Aur Vanraj ke saare tairte deepak — hazaaron — ek saath Mira ki taraf aate hain. Roshni ka toofan. Jaanwar cheekhta hai. Sikudta hai. Patta.*",
+        "*Sannata. Mira khadi hai — haanfti hui. Pehli baar tumne use thaka dekha. Aur poora Vanraj use dekh raha hai — aur tumhe. Jiske liye Legend ne saare deepak bulaye.*",
+        "Vridha: \"...Bees saal mein maine use ye karte nahi dekha. Insaan. Tum kya ho?\""
+      ],
+      "fallbackLines": [
+        "*Deepak dheere-dheere wapas apni jagah ja rahe hain. Mira tumhara haath pakde hai — Vanraj ke beech, sabke saamne.*",
+        "Mira: \"Ab Sabha ko koi shak nahi rahega. Ab sab jaante hain. Theek hai. Chhupna waise bhi thakaane wala tha.\""
+      ],
+      "choices": [
+        {
+          "id": "c_kuch_nahi_hoon",
+          "text": "Vridha ko jawab do — \"Kuch nahi. Ek dukaandaar. Jise aapki student roz kitaab padhne aati hai.\"",
+          "shortLabel": "Kuch nahi hoon",
+          "keywords": [
+            "kuch nahi",
+            "dukaandaar",
+            "kitaab",
+            "aam",
+            "insaan",
+            "nothing"
+          ],
+          "next": "s8_next",
+          "effects": {
+            "relationships": {
+              "vridha": 14,
+              "mira": 16
+            },
+            "flags": {
+              "humbleBeforeVridha": true
+            },
+            "choicesRecord": {
+              "arc5b": "humble"
+            },
+            "memory": [
+              "Vanraj mein Ankit ne Vridha ko kaha 'main kuch nahi hoon, ek dukaandaar' — Vridha ne pehli baar use 'Ankit' kaha. 'Kuch nahi wale ke liye Legend ne hazaar deepak bulaye. Ya toh tum jhooth bol rahe ho, ya woh... ya woh sach mein badal gayi hai. Dono se main darti hoon.'"
+            ]
+          }
+        },
+        {
+          "id": "c_mira_sambhalo",
+          "text": "Mira ko sambhalo — \"Tum thak gayi ho. Baitho. Baaki baad mein.\"",
+          "shortLabel": "Mira ko sambhalo",
+          "keywords": [
+            "mira",
+            "thak",
+            "baitho",
+            "sambhalo",
+            "baad mein",
+            "rest",
+            "care"
+          ],
+          "next": "s8_next",
+          "effects": {
+            "relationships": {
+              "mira": 22,
+              "vridha": 6
+            },
+            "flags": {
+              "caredForMiraVanraj": true
+            },
+            "choicesRecord": {
+              "arc5b": "cared"
+            },
+            "memory": [
+              "Poore Vanraj ke saamne Ankit ne Legend ko baithaya — 'tum thak gayi ho'. Mira baith gayi. Uske kandhe par sar rakha. Vanraj ne dekha. Vridha ne dekha. Aur kisi ne kuch nahi kaha — kyunki kehne ko kuch bacha nahi tha."
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "id": "s8_next",
+      "title": "Agla Panna",
+      "narration": [
+        "*Raat. Dukaan. Diya. Mira counter par — pair upar, kitaab god mein, Kaali kitaab ke upar. 'Insaano ke Tyohaar' — Diwali wala chapter. Agle hafte hai. Woh aa rahi hai. 'Chahe kuch bhi ho.'*",
+        "*Tumhare paas: Arjun ka note ('Diwali pe main bhi aaunga. Use bolna jalebi laaye — Ramlal ki nahi, Vanraj ki. Suna hai alag hoti hai.'), Vridha ka sandesh ('Sabha ne faisla liya — insaan ko Vanraj mein aane ki anumati. Pehli baar. Mujhe ye pasand nahi. Par maine haan kaha.'), aur ek kaala kaagaz jo dukaan ke darwaaze ke neeche se aaya — Kaale Panne ka. Jispe sirf ek line: 'Ye dushmani humne shuru ki thi. Aur hum hi khatam karenge — tum dono se.'*",
+        "Mira: \"Dekho. Sab ek saath. Aur ek dhamki bhi. Insaani zindagi kitni busy hai.\"",
+        "*Woh kitaab band karti hai. Tumhe dekhti hai — aur uski aankhon mein ab woh darr nahi hai jo pehle din tha.*",
+        "Mira: \"Ye khatam nahi hota, Ankit. Do duniyaon ke beech khade rehna — ye kabhi khatam nahi hota. Par ab main jaanti hoon main kahan khadi hoon. Yahan. Is dukaan mein. Chuno — agla panna kaunsa?\""
+      ],
+      "fallbackLines": [
+        "*Ye kahani yahin nahi rukti — har panna ek naya arc: Diwali, Kaale Panne ka chehra, dushmani ki asli jad, Purani Deewar ke khandahar, aur Kaali billi ka raaz.*",
+        "Mira: \"Aur haan — kitaab main ab bhi nahi khareedungi. Ye bahana ab bhi kaam karta hai. Mujhe pasand hai.\""
+      ],
+      "choices": [
+        {
+          "id": "c_next_kaale",
+          "text": "Kaale Panne ka kaagaz — 'humne shuru ki thi'. Kaun hain ye?",
+          "shortLabel": "Kaale Panne kaun?",
+          "keywords": [
+            "kaale panne",
+            "kaagaz",
+            "dhamki",
+            "kaun",
+            "shuru",
+            "dushman"
+          ],
+          "next": "s7_vanraj",
+          "effects": {
+            "relationships": {
+              "vridha": 4,
+              "mira": 4
+            },
+            "flags": {
+              "arcKaalePanne": true
+            },
+            "choicesRecord": {
+              "next": "kaale"
+            },
+            "location": "Vanraj",
+            "memory": [
+              "Naya arc: Kaale Panne ka chehra — jo dushmani shuru karne ka daawa karte hain."
+            ]
+          }
+        },
+        {
+          "id": "c_next_diwali",
+          "text": "Diwali — Mira, Arjun, aur poora kasba. Pehli baar.",
+          "shortLabel": "Diwali ki taiyaari",
+          "keywords": [
+            "diwali",
+            "tyohaar",
+            "arjun",
+            "kasba",
+            "diye",
+            "taiyaari",
+            "celebrate"
+          ],
+          "next": "s7_arjun",
+          "effects": {
+            "relationships": {
+              "mira": 14,
+              "arjun": 8
+            },
+            "flags": {
+              "arcDiwali": true
+            },
+            "choicesRecord": {
+              "next": "diwali"
+            },
+            "memory": [
+              "Naya arc: Diwali — Legend pehli baar insaano ke tyohaar mein. Vanraj ki jalebi ke saath."
+            ]
+          }
+        },
+        {
+          "id": "c_next_deewar",
+          "text": "Purani Deewar ke khandahar — dushmani ki asli jad wahan hai",
+          "shortLabel": "Purani Deewar",
+          "keywords": [
+            "deewar",
+            "khandahar",
+            "jad",
+            "purani",
+            "itihaas",
+            "chalo",
+            "ruins"
+          ],
+          "next": "s7_patra",
+          "effects": {
+            "relationships": {
+              "mira": 6,
+              "vridha": 4
+            },
+            "flags": {
+              "arcOldWall": true
+            },
+            "choicesRecord": {
+              "next": "wall"
+            },
+            "location": "Purani Deewar ke khandahar",
+            "memory": [
+              "Naya arc: Purani Deewar — jahan insaan aur daayan sabse pehle lade the. Ya saath rehte the."
+            ]
+          }
+        },
+        {
+          "id": "c_next_kaali",
+          "text": "Kaali billi — Mira kehti hai 'ye aam billi nahi'. Pata karo.",
+          "shortLabel": "Kaali ka raaz",
+          "keywords": [
+            "kaali",
+            "billi",
+            "aam nahi",
+            "raaz",
+            "cat",
+            "pata karo"
+          ],
+          "next": "s1_dukaan",
+          "effects": {
+            "relationships": {
+              "billi": 10
+            },
+            "flags": {
+              "arcCat": true
+            },
+            "choicesRecord": {
+              "next": "cat"
+            },
+            "memory": [
+              "Naya arc: Kaali billi ka raaz — jo kabhi budhi nahi hui, aur jo Vridha se darti hai."
+            ]
+          }
+        }
+      ]
+    }
+  ],
+  "endings": []
+}

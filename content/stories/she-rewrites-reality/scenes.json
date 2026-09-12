@@ -1,0 +1,1152 @@
+{
+  "storyId": "she-rewrites-reality",
+  "version": 1,
+  "scenes": [
+    {
+      "id": "s1_cafe_gone",
+      "title": "Woh Café Jo Kabhi Tha Hi Nahi",
+      "narration": [
+        "*Sunday. Indiranagar. Tum Lyra ke saath us café ja rahe ho jahan tum dono pehli baar mile the — Third Wave, corner wala, jahan woh cold brew ko 'punishment' kehti thi. Tum Ankit ho, aur aaj tumhari saalgirah hai — rishte ki.*",
+        "*Corner. Wahan ek pharmacy hai. Purani. Board par: 'Since 2019'.*",
+        "*Tum rukte ho. Lyra nahi rukti. Woh do kadam aage jaake mud ti hai.*",
+        "Lyra: \"Kya hua?\"",
+        "*Tum board dekhte ho. Phir usse.*",
+        "Lyra: \"Café? Kaunsa café, Ankit? Hum toh... hum toh library mein mile the. Yaad hai na?\"",
+        "*Woh muskurati hai. Bilkul normal muskaan. Aur tumhare wallet mein — tum jaante ho — ek purani receipt hai. Third Wave. Ek cold brew, ek filter kaapi. Tumne kabhi nahi phenki.*",
+        "Lyra: \"...Tum aise kyun dekh rahe ho?\""
+      ],
+      "fallbackLines": [
+        "*Pharmacy wala bahar aata hai — 'Sir, kuch chahiye?' Uske chehre par koi confusion nahi. Woh yahan sat saal se hai. Uske liye.*",
+        "Lyra: \"Chalo na. Library chalte hain phir. Wahi jahan hum mile the.\"",
+        "*Uska haath tumhare haath ki taraf badhta hai. Halka sa kaanp raha hai.*"
+      ],
+      "choices": [
+        {
+          "id": "c_receipt",
+          "text": "Wallet se receipt nikaalo — \"Toh ye kya hai?\"",
+          "shortLabel": "Receipt dikhao",
+          "keywords": [
+            "receipt",
+            "wallet",
+            "dikhao",
+            "ye kya",
+            "proof",
+            "bill"
+          ],
+          "next": "s2_receipt",
+          "effects": {
+            "relationships": {
+              "lyra": -4
+            },
+            "flags": {
+              "showedReceipt": true
+            },
+            "choicesRecord": {
+              "opening": "receipt"
+            },
+            "inventoryAdd": [
+              "cafe-receipt"
+            ],
+            "memory": [
+              "Ankit ne Lyra ko Third Wave ki receipt dikhayi — Lyra ka chehra ek second ke liye bilkul khaali ho gaya."
+            ]
+          }
+        },
+        {
+          "id": "c_library",
+          "text": "\"Haan... library. Sahi hai. Chalo.\" — par mann mein likh lo",
+          "shortLabel": "Haan, library...",
+          "keywords": [
+            "library",
+            "haan",
+            "chalo",
+            "theek",
+            "ok",
+            "sahi"
+          ],
+          "next": "s2_library",
+          "effects": {
+            "relationships": {
+              "lyra": 6
+            },
+            "flags": {
+              "playedAlong": true
+            },
+            "choicesRecord": {
+              "opening": "along"
+            },
+            "memory": [
+              "Ankit ne 'haan library' keh diya, par café aur pharmacy ko notebook mein likh liya — pehla entry."
+            ]
+          }
+        },
+        {
+          "id": "c_farhan",
+          "text": "Farhan ko message karo — 'Third Wave yaad hai?'",
+          "shortLabel": "Farhan se poocho",
+          "keywords": [
+            "farhan",
+            "message",
+            "yaad",
+            "poocho",
+            "dost",
+            "confirm"
+          ],
+          "next": "s2_farhan",
+          "effects": {
+            "relationships": {
+              "farhan": 8
+            },
+            "flags": {
+              "askedFarhan": true
+            },
+            "choicesRecord": {
+              "opening": "farhan"
+            },
+            "memory": [
+              "Ankit ne Farhan se poocha Third Wave yaad hai — Farhan: 'Macha, obviously. Cold brew. Punishment. Kyun?'"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "id": "s2_receipt",
+      "title": "Ek Kaagaz Jo Nahi Badla",
+      "narration": [
+        "*Lyra receipt ko dekhti hai. Chhooti nahi. Bas dekhti hai. Aur tum pehli baar notice karte ho — uske haath ki ungliyan halki si hil rahi hain, jaise woh kuch pakadne ki koshish kar rahi ho jo wahan nahi hai.*",
+        "Lyra: \"Ye... ye kahin ki bhi ho sakti hai, Ankit.\"",
+        "*Receipt par saaf likha hai: Third Wave Café, 100 Ft Road, Indiranagar. Tareekh. Ek cold brew. Ek filter kaapi.*",
+        "*Lyra ki aankhein band. Ek second. Do. Aur tumhe lagta hai — sirf lagta hai — ki hawa mein kuch khinch raha hai.*",
+        "*Phir woh aankhein kholti hai. Receipt dekhti hai. Aur uska chehra safed ho jaata hai.*",
+        "Lyra: \"...Ye badli nahi.\"",
+        "*Woh ye tumse nahi, khud se bolti hai. Phir ehsaas hota hai ki usne zor se bola.*",
+        "Lyra: \"Ankit. Ghar chalo. Please. Main... main tumhe kuch bataana chahti hoon. Par yahan nahi. Yahan bahut log hain jo... sun sakte hain.\""
+      ],
+      "fallbackLines": [
+        "*Pharmacy ka board ek pal ke liye flicker karta hai — 'Since 2019', 'Since 2024', 'Since 2019'. Lyra ne dekha. Tumne dekha. Kisi aur ne nahi.*",
+        "Lyra: \"Please. Ghar.\""
+      ],
+      "choices": [
+        {
+          "id": "c_ghar_sach",
+          "text": "\"Theek hai. Ghar. Par wahan sab bataogi.\"",
+          "shortLabel": "Ghar — sab batao",
+          "keywords": [
+            "ghar",
+            "batao",
+            "sab",
+            "sach",
+            "theek",
+            "chalo"
+          ],
+          "next": "s3_sach",
+          "effects": {
+            "relationships": {
+              "lyra": 8
+            },
+            "flags": {
+              "demandedTruth": true
+            },
+            "choicesRecord": {
+              "arc1": "truth"
+            },
+            "location": "Ankit ka flat",
+            "memory": [
+              "Ankit ghar chala — shart: sab sach. Lyra ne haan kaha, aur raaste bhar uska haath nahi chhoda."
+            ]
+          }
+        },
+        {
+          "id": "c_yahan_bolo",
+          "text": "\"Nahi. Yahin bolo. Kaun sun sakta hai?\"",
+          "shortLabel": "Yahin bolo",
+          "keywords": [
+            "yahin",
+            "abhi",
+            "kaun",
+            "sun",
+            "nahi",
+            "bolo"
+          ],
+          "next": "s3_seam",
+          "effects": {
+            "relationships": {
+              "lyra": -3,
+              "meher": 5
+            },
+            "flags": {
+              "refusedToLeave": true
+            },
+            "choicesRecord": {
+              "arc1": "here"
+            },
+            "memory": [
+              "Ankit ne wahin jawab maanga — aur galli ke corner par ek aurat khadi thi jo un dono ko 'padh' rahi thi. Meher."
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "id": "s2_library",
+      "title": "Notebook Ka Pehla Panna",
+      "narration": [
+        "*Library. City Central. Lyra tumhe wahi table dikhati hai — 'yahan. Tum Murakami padh rahe the, main tumhare saamne baithi thi.' Sab sahi lagta hai. Table, kursi, khidki.*",
+        "*Sirf ek baat: tumne kabhi Murakami nahi padha.*",
+        "*Tum notebook nikaalte ho. Bathroom mein. Likhte ho: 'Third Wave → pharmacy. Since 2019. Lyra: library. Murakami — maine kabhi nahi padha. Receipt wallet mein hai.'*",
+        "*Wapas aate ho. Lyra table par baithi hai, aur uske saamne ek kitaab hai. Murakami. Purani. Uske andar pehle panne par tumhari likhawat mein tumhara naam.*",
+        "Lyra: \"Dekho! Yahi wali. Tumne mujhe ye di thi. Yaad aaya?\"",
+        "*Tumhari likhawat. Bilkul. Par tumne ye kabhi nahi likha.*",
+        "*Lyra tumhe dekh rahi hai. Umeed se. Aur uske peeche, khidki ke bahar, ek pal ke liye sadak ka naam badal jaata hai — aur wapas.*"
+      ],
+      "fallbackLines": [
+        "Lyra: \"Tum chup ho. Tum chup tab hote ho jab tum kuch soch rahe hote ho jo mujhe pasand nahi aayega.\"",
+        "*Kitaab garam hai. Naye print ki tarah. Purani nahi.*"
+      ],
+      "choices": [
+        {
+          "id": "c_kitaab_garam",
+          "text": "\"Ye kitaab nayi hai, Lyra. Garam hai. Abhi bani hai.\"",
+          "shortLabel": "Kitaab nayi hai",
+          "keywords": [
+            "kitaab",
+            "garam",
+            "nayi",
+            "abhi",
+            "book",
+            "fresh"
+          ],
+          "next": "s3_sach",
+          "effects": {
+            "relationships": {
+              "lyra": 2
+            },
+            "flags": {
+              "caughtBook": true
+            },
+            "choicesRecord": {
+              "arc1": "book"
+            },
+            "location": "Ankit ka flat",
+            "memory": [
+              "Ankit ne pakda ki Murakami ki kitaab 'abhi' bani thi — Lyra ne kitaab band ki aur kaha: 'Ghar chalo. Main haar gayi.'"
+            ]
+          }
+        },
+        {
+          "id": "c_khelo",
+          "text": "Kitaab uthao — \"Haan, yaad aaya.\" — aur dekho woh kya karti hai",
+          "shortLabel": "Khel jaari rakho",
+          "keywords": [
+            "haan",
+            "yaad",
+            "theek",
+            "khelo",
+            "dekho",
+            "pretend"
+          ],
+          "next": "s3_seam",
+          "effects": {
+            "relationships": {
+              "lyra": 4,
+              "farhan": 4
+            },
+            "flags": {
+              "playedAlongTwice": true
+            },
+            "choicesRecord": {
+              "arc1": "played"
+            },
+            "memory": [
+              "Ankit ne jhooth-mooth 'yaad aaya' kaha — Lyra relax ho gayi, aur usi pal khidki ke bahar ek aurat ne library ki taraf dekha, jaise kuch 'suna' ho."
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "id": "s2_farhan",
+      "title": "Macha, Café Tha",
+      "narration": [
+        "*Farhan ka PG. Biryani ke dabbe, ek purana laptop. Farhan tumhare saamne baitha hai, aur uska chehra aisa hai jaise tumne use bataya ho ki dharti chaukor hai.*",
+        "Farhan: \"Macha. Café THA. Third Wave. Tu cold brew leta tha. Woh kehti thi 'ye coffee nahi, punishment hai'. Main wahan tha. Pehli baar tune mujhe usse milwaya tha — laal dupatta, yaad hai?\"",
+        "*Laal dupatta. Tumhare flat ki deewar wali photo mein Lyra ka dupatta neela hai. Tumne aaj subah dekha tha.*",
+        "Farhan: \"Aur ab tu keh raha hai pharmacy hai? Sat saal se? Da, main pichle saal wahan tha.\"",
+        "*Woh laptop kholta hai. Google Maps. Third Wave Café — 'Permanently closed'. Nahi — reload — 'No results'.*",
+        "Farhan: \"...Ye abhi-abhi badla. Maine dekha. 'Permanently closed' se 'no results'. Ankit. Ye abhi hua.\"",
+        "*Tumhara phone. Lyra: 'Kahan ho? Farhan ke yahan? ...Usse zyada baat mat karo aaj. Please.'*"
+      ],
+      "fallbackLines": [
+        "Farhan: \"Woh jaanti hai tu yahan hai. Tune bataya? Nahi bataya. Macha, main dar raha hoon, aur main kabhi nahi darta.\"",
+        "*Laptop screen par Maps phir flicker karta hai. Farhan screenshot leta hai. Screenshot mein — 'Permanently closed'. Screen par — 'No results'.*"
+      ],
+      "choices": [
+        {
+          "id": "c_screenshot",
+          "text": "\"Screenshot bhej. Ye proof hai. Main Lyra se baat karta hoon.\"",
+          "shortLabel": "Screenshot lo",
+          "keywords": [
+            "screenshot",
+            "proof",
+            "bhej",
+            "baat",
+            "lyra",
+            "evidence"
+          ],
+          "next": "s3_sach",
+          "effects": {
+            "relationships": {
+              "farhan": 10
+            },
+            "flags": {
+              "hasScreenshot": true
+            },
+            "choicesRecord": {
+              "arc1": "proof"
+            },
+            "inventoryAdd": [
+              "farhan-screenshot"
+            ],
+            "location": "Ankit ka flat",
+            "memory": [
+              "Farhan ka screenshot Ankit ke paas hai — 'Permanently closed'. Ye badla nahi. Abhi tak."
+            ]
+          }
+        },
+        {
+          "id": "c_farhan_kyun",
+          "text": "\"Tu kyun yaad karta hai? Sab bhool gaye, tu nahi.\"",
+          "shortLabel": "Tu kyun yaad karta?",
+          "keywords": [
+            "kyun",
+            "tu",
+            "yaad",
+            "sab bhool",
+            "akela",
+            "why you"
+          ],
+          "next": "s3_sach",
+          "effects": {
+            "relationships": {
+              "farhan": 8,
+              "lyra": 2
+            },
+            "flags": {
+              "askedAnchor": true
+            },
+            "choicesRecord": {
+              "arc1": "anchor"
+            },
+            "location": "Ankit ka flat",
+            "memory": [
+              "Ankit ne poocha Farhan akela kyun yaad rakhta hai — Farhan ko nahi pata. Baad mein Meher ne ise 'Sthir' kaha."
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "id": "s3_sach",
+      "title": "Main Cheezein Badal Sakti Hoon",
+      "narration": [
+        "*Flat. Raat. Lyra sofa par baithi hai, ghutne seene se lagaye. Deewar par photo — dupatta neela. Tum use dekh rahe ho. Woh tumhe.*",
+        "Lyra: \"Laal tha. Photo mein. Maine badla. Kyunki laal wale din humne jhagda kiya tha, aur main nahi chahti thi tum us din ko yaad karo.\"",
+        "*Woh saans leti hai.*",
+        "Lyra: \"Main cheezein badal sakti hoon, Ankit. Ghatnayein. Cheezein. Log kya yaad rakhte hain. Café isliye gaya kyunki... wahan ek aadmi tha jo tumhe dhoondh raha tha. Toh maine café ko kabhi hone hi nahi diya. Aur pharmacy wale ko sat saal ka business mil gaya. Ye keemat thi.\"",
+        "*Woh tumhari taraf dekhti hai. Aankhein bheegi.*",
+        "Lyra: \"Aur ek cheez hai jo main kabhi nahi badal payi. Tum. Tumhara mujhse pyaar karna ya na karna. Maine ek baar try kiya tha — pehle jhagde ke baad — ki tum bhool jao. Tum nahi bhoole. Tum wapas aaye, khud. Main us din se darti hoon. Aur us din se... main tumhare saath hoon.\"",
+        "*Khamoshi. Photo mein dupatta dheere se laal ho jaata hai. Usne wapas kiya.*",
+        "Lyra: \"Ab tum faisla karo. Main ye faisla nahi badal sakti. Main ise badalna bhi nahi chahti.\""
+      ],
+      "fallbackLines": [
+        "*Uske haath kaanp rahe hain. Woh unhe ghutno ke beech daba leti hai.*",
+        "Lyra: \"Kuch bolo. Ya mat bolo. Par jaao mat bina bole. Woh... woh main sambhal nahi paungi.\""
+      ],
+      "choices": [
+        {
+          "id": "c_kitni_baar",
+          "text": "\"Kitni baar, Lyra? Hamari pehli mulaqat — kitni baar badli?\"",
+          "shortLabel": "Kitni baar?",
+          "keywords": [
+            "kitni baar",
+            "pehli",
+            "mulaqat",
+            "badli",
+            "how many",
+            "times"
+          ],
+          "next": "s4_versions",
+          "effects": {
+            "relationships": {
+              "lyra": 4
+            },
+            "flags": {
+              "askedHowMany": true
+            },
+            "choicesRecord": {
+              "arc2": "howmany"
+            },
+            "memory": [
+              "Ankit ne poocha pehli mulaqat kitni baar badli — Lyra: 'Teen. Jo tumhe yaad hai woh teesri hai. Pehli mein tumne mujhe dekha bhi nahi tha.'"
+            ]
+          }
+        },
+        {
+          "id": "c_ruk_jao",
+          "text": "\"Main jaa nahi raha. Par ab kuch mat badalna. Kuch bhi. Promise karo.\"",
+          "shortLabel": "Kuch mat badalna",
+          "keywords": [
+            "nahi jaa",
+            "promise",
+            "mat badalna",
+            "kuch bhi",
+            "ruk",
+            "stay",
+            "waada"
+          ],
+          "next": "s4_versions",
+          "effects": {
+            "relationships": {
+              "lyra": 18
+            },
+            "flags": {
+              "promiseNoRewrite": true
+            },
+            "choicesRecord": {
+              "arc2": "promise"
+            },
+            "memory": [
+              "Ankit ruka — shart: ab koi rewrite nahi. Lyra ne promise kiya. Uske haath kaanpna band ho gaye."
+            ]
+          }
+        },
+        {
+          "id": "c_keemat",
+          "text": "\"Keemat kaun chukata hai? Har baar? Mujhe sab batao.\"",
+          "shortLabel": "Keemat kaun chukata?",
+          "keywords": [
+            "keemat",
+            "kaun",
+            "chukata",
+            "consequence",
+            "price",
+            "kisko"
+          ],
+          "next": "s4_versions",
+          "effects": {
+            "relationships": {
+              "lyra": 6,
+              "meher": 4
+            },
+            "flags": {
+              "askedCost": true
+            },
+            "choicesRecord": {
+              "arc2": "cost"
+            },
+            "memory": [
+              "Ankit ne poocha rewrite ki keemat kaun chukata hai — Lyra ne ek list nikaali. Haath se likhi. Bees naam. 'Main hisaab rakhti hoon. Har ek ka.'"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "id": "s3_seam",
+      "title": "Woh Aurat Jo Padh Rahi Thi",
+      "narration": [
+        "*Galli ka corner. Ek aurat — tees ke aas-paas, saada kurta, haath mein ek purani diary — tum dono ko aise dekh rahi hai jaise koi kitaab padh raha ho.*",
+        "*Lyra use dekhti hai. Aur pehli baar tum Lyra ke chehre par kuch aisa dekhte ho jo tumne kabhi nahi dekha — darr nahi. Pehchaan.*",
+        "Lyra: \"Ankit. Chalo. Abhi.\"",
+        "Meher: \"Ruk jao. Please. Main ladne nahi aayi.\"",
+        "*Aurat aage aati hai. Lyra ko nahi dekhti. Tumhe dekhti hai.*",
+        "Meher: \"Tum. Tum bahut interesting ho. Is galli mein pichle ek ghante mein teen baar reality badli hai, aur tum... tum bilkul wahi ho. Ek bhi baal nahi hila.\"",
+        "*Woh apni diary kholti hai. Usmein — tum dekh sakte ho — page khud likh raha hai. Tumhara naam.*",
+        "Meher: \"Main Meher. Lekhak. Hum badlaav padhte hain. Aur tum, Ankit — tum mere career ki pehli cheez ho jo padhi nahi ja rahi.\""
+      ],
+      "fallbackLines": [
+        "Lyra: \"Woh tumse kuch nahi chahti, Ankit. Woh mujhse kuch chahti hai, aur tum uska raasta ho. Mat suno.\"",
+        "Meher: \"Galat. Main dono se kuch chahti hoon. Par pehle — Ankit, tumhare wallet mein ek receipt hai na? Woh bhi nahi badli. Tumhare paas jo hai, woh nahi badalta. Kyun?\""
+      ],
+      "choices": [
+        {
+          "id": "c_meher_suno",
+          "text": "\"Bolo. Do minute. Phir hum jaayenge.\"",
+          "shortLabel": "Meher ko suno",
+          "keywords": [
+            "bolo",
+            "suno",
+            "do minute",
+            "meher",
+            "batao",
+            "listen"
+          ],
+          "next": "s4_versions",
+          "effects": {
+            "relationships": {
+              "meher": 10,
+              "lyra": -5
+            },
+            "flags": {
+              "listenedMeher": true
+            },
+            "choicesRecord": {
+              "arc2": "meher"
+            },
+            "memory": [
+              "Ankit ne Meher ko do minute diye — usne kaha: 'Tumhari girlfriend ne is mahine bees baar reality badli. Tum har baar wahi rahe. Tum Sthir ho — ya usse bhi kuch zyada.'"
+            ]
+          }
+        },
+        {
+          "id": "c_lyra_saath",
+          "text": "Lyra ka haath pakdo — \"Hum ja rahe hain.\"",
+          "shortLabel": "Lyra ke saath jao",
+          "keywords": [
+            "lyra",
+            "haath",
+            "ja rahe",
+            "chalo",
+            "nahi",
+            "leave"
+          ],
+          "next": "s3_sach",
+          "effects": {
+            "relationships": {
+              "lyra": 15,
+              "meher": -3
+            },
+            "flags": {
+              "leftMeher": true
+            },
+            "choicesRecord": {
+              "arc2": "left"
+            },
+            "location": "Ankit ka flat",
+            "memory": [
+              "Ankit Meher ko chhod kar Lyra ke saath gaya — Meher ne peeche se kaha: 'Notebook likhte rehna, Ankit. Woh tumhara akela sach hai.'"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "id": "s4_versions",
+      "title": "Teen Pehli Mulaqaatein",
+      "narration": [
+        "*Flat. Raat der. Lyra ne ek purani diary nikaali hai — apni. Usmein teen entries hain, ek hi tareekh ki.*",
+        "Lyra: \"Pehli. Third Wave. Tum cold brew le rahe the. Maine tumhe dekha. Tumne mujhe nahi dekha. Tum chale gaye. Maine... maine us din ko wapas kiya.\"",
+        "Lyra: \"Doosri. Wahi café. Is baar maine tumhare saamne wali seat li. Tumne dekha. Baat ki. Aur phir tumne poochha — 'tum pehle kahin mili ho?' Aur main dar gayi. Maine phir wapas kiya.\"",
+        "Lyra: \"Teesri. Jo tumhe yaad hai. Cold brew, punishment, Farhan. Maine kuch nahi kiya us din. Sirf baithi rahi. Aur tumne khud baat shuru ki.\"",
+        "*Woh diary band karti hai.*",
+        "Lyra: \"Teesri wali asli hai, Ankit. Kyunki usmein maine kuch nahi badla. Tumne mujhe chuna. Main sirf... wahan thi. Baar-baar.\"",
+        "*Deewar par photo. Dupatta laal. Aur photo ke kone mein — tumne pehle kabhi nahi dekha — background mein ek aurat, table par baithi, diary likhti hui. Meher. Teen saal pehle.*",
+        "Lyra: \"...Woh wahan thi? Us din bhi?\""
+      ],
+      "fallbackLines": [
+        "*Lyra photo ko ghoor rahi hai. Pehli baar woh kuch aisa dekh rahi hai jo usne nahi likha.*",
+        "Lyra: \"Ankit, ye maine nahi kiya. Ye photo maine bees baar dekhi hai. Woh aurat kabhi nahi thi. Koi aur bhi... likh raha hai.\""
+      ],
+      "choices": [
+        {
+          "id": "c_meher_dhoondo",
+          "text": "\"Meher ko dhoondhte hain. Woh teen saal se tumhe dekh rahi hai.\"",
+          "shortLabel": "Meher ko dhoondo",
+          "keywords": [
+            "meher",
+            "dhoondo",
+            "teen saal",
+            "lekhak",
+            "aurat",
+            "find"
+          ],
+          "next": "s5_hub",
+          "effects": {
+            "relationships": {
+              "meher": 8,
+              "lyra": 4
+            },
+            "flags": {
+              "seekMeher": true
+            },
+            "choicesRecord": {
+              "arc3": "meher"
+            },
+            "memory": [
+              "Ankit ne Meher ko dhoondhne ka faisla kiya — 'woh teen saal se dekh rahi hai, use pata hoga'."
+            ]
+          }
+        },
+        {
+          "id": "c_pehli_wali",
+          "text": "\"Pehli wali. Jahan maine tumhe nahi dekha. Mujhe woh din dekhna hai.\"",
+          "shortLabel": "Pehla version dekho",
+          "keywords": [
+            "pehli",
+            "pehla",
+            "version",
+            "dekhna",
+            "us din",
+            "original",
+            "first"
+          ],
+          "next": "s5_hub",
+          "effects": {
+            "relationships": {
+              "lyra": 10
+            },
+            "flags": {
+              "seekFirstVersion": true
+            },
+            "choicesRecord": {
+              "arc3": "first"
+            },
+            "memory": [
+              "Ankit ne pehla version dekhne ki maang ki — Lyra: 'Main dikha sakti hoon. Par jo dekhoge woh wapas nahi hoga. Aur us din... us din tumhare saath koi aur tha.'"
+            ]
+          }
+        },
+        {
+          "id": "c_archive",
+          "text": "\"Farhan ne kaha Archive mein kuch records nahi badalte. Chalo.\"",
+          "shortLabel": "Archive chalo",
+          "keywords": [
+            "archive",
+            "records",
+            "farhan",
+            "chalo",
+            "purana",
+            "file"
+          ],
+          "next": "s5_hub",
+          "effects": {
+            "relationships": {
+              "farhan": 8
+            },
+            "flags": {
+              "seekArchive": true
+            },
+            "choicesRecord": {
+              "arc3": "archive"
+            },
+            "location": "State Archive",
+            "memory": [
+              "Ankit Archive jaane ka faisla karta hai — jahan Lyra ke naam ki ek file 40 saal purani tareekh ke saath hai."
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "id": "s5_hub",
+      "title": "Ek Duniya Jo Roz Thodi Badalti Hai",
+      "narration": [
+        "*Subah. Flat. Notebook table par — ab bees pannay bhar chuke hain. Deewar wali photo: dupatta laal. Tum roz check karte ho. Lyra ne promise rakha hai. Abhi tak.*",
+        "*Lyra kitchen mein hai. Woh coffee bana rahi hai — aam tareeke se, dheere, galti karte hue. Woh ab galtiyan theek nahi karti. Tumhare liye.*",
+        "Lyra: \"Aaj Farhan ne message kiya — usne ek aur cheez alag yaad ki. Meher ne ek address bheja — Seam ka. Aur Archive se... ek chitthi aayi hai. Mere naam. 1984 ki.\"",
+        "*Woh coffee deti hai. Thodi kadvi. Perfect.*",
+        "Lyra: \"Ye kabhi khatam nahi hoga, na? Har jawab ke peeche ek aur version. Theek hai. Main taiyaar hoon — jab tak tum wahi rehte ho. Chuno.\""
+      ],
+      "fallbackLines": [
+        "*Photo mein, ek second ke liye, background wali aurat palkein jhapkati hai. Tumne dekha. Lyra ne nahi.*",
+        "Lyra: \"Aur haan — coffee kharab hai na? Main jaanti hoon. Maine nahi badli. Tumhe pata hai ye kitna mushkil hai?\""
+      ],
+      "choices": [
+        {
+          "id": "c_hub_seam",
+          "text": "Meher ka address — Seam. Jahan do realities theek se nahi judi.",
+          "shortLabel": "Seam chalo",
+          "keywords": [
+            "seam",
+            "meher",
+            "address",
+            "galli",
+            "reality",
+            "judi",
+            "chalo"
+          ],
+          "next": "s6_seam",
+          "effects": {
+            "relationships": {
+              "meher": 6
+            },
+            "flags": {
+              "arcSeam": true
+            },
+            "choicesRecord": {
+              "arc4": "seam"
+            },
+            "location": "Seam",
+            "memory": [
+              "Ankit ne Seam chuna — Lyra: 'Wahan mat jao... theek hai. Saath chalungi. Par wahan mera haath mat chhodna.'"
+            ]
+          }
+        },
+        {
+          "id": "c_hub_archive",
+          "text": "Archive ki chitthi — 1984. Lyra ka naam.",
+          "shortLabel": "1984 ki chitthi",
+          "keywords": [
+            "archive",
+            "chitthi",
+            "1984",
+            "naam",
+            "purana",
+            "letter",
+            "file"
+          ],
+          "next": "s6_archive",
+          "effects": {
+            "relationships": {
+              "lyra": 8
+            },
+            "flags": {
+              "arcArchive": true
+            },
+            "choicesRecord": {
+              "arc4": "archive"
+            },
+            "location": "State Archive",
+            "memory": [
+              "Ankit ne Archive ki chitthi chuni — Lyra ne kaha woh 1984 mein paida bhi nahi hui thi. Ya... use aisa yaad hai."
+            ]
+          }
+        },
+        {
+          "id": "c_hub_farhan",
+          "text": "Farhan — usne kya alag yaad kiya is baar?",
+          "shortLabel": "Farhan ki yaad",
+          "keywords": [
+            "farhan",
+            "yaad",
+            "alag",
+            "kya",
+            "anchor",
+            "dost",
+            "message"
+          ],
+          "next": "s6_farhan",
+          "effects": {
+            "relationships": {
+              "farhan": 8
+            },
+            "flags": {
+              "arcFarhan": true
+            },
+            "choicesRecord": {
+              "arc4": "farhan"
+            },
+            "memory": [
+              "Ankit ne Farhan ki nayi yaad chuni — 'Macha, tere flat mein ek teesra kamra tha. Tha. Ab nahi hai.'"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "id": "s6_seam",
+      "title": "Woh Galli Jo Thodi Off Hai",
+      "narration": [
+        "*Shivajinagar ke peeche ek galli. Aam dikhti hai. Par tumhare pair kehte hain zameen thodi tirchi hai, aur tumhari aankhein kehti hain seedhi. Lyra ka haath tumhare haath mein — kas ke.*",
+        "Meher: \"Aa gaye. Achha. Dekho — nahi, aankhon se nahi. Chalke dekho.\"",
+        "*Tum chalte ho. Aur galli ke beech mein — ek kadam par tumhari shirt neeli hai, agle kadam par safed. Peeche dekho: neeli. Aage: safed. Tum dono ho. Ek saath.*",
+        "Meher: \"Ye Seam hai. Yahan do versions ek doosre se theek se nahi jude. Kisi ne yahan bada rewrite kiya tha — aur keemat theek se nahi chukayi.\"",
+        "*Lyra ka haath thanda ho gaya hai.*",
+        "Lyra: \"Maine nahi kiya. Ankit, ye maine nahi kiya. Main itna bada... main kabhi nahi karti.\"",
+        "Meher: \"Main jaanti hoon. Isliye tumhe laayi. Ye tumse pehle ka hai. Bahut pehle ka. Aur Ankit —\"",
+        "*Woh tumhari taraf mudti hai.*",
+        "Meher: \"— Seam ke doosri taraf, safed shirt wale version mein, tum Lyra ko nahi jaante. Wahan tumhare saath koi aur hai. Dekhna chahoge?\""
+      ],
+      "fallbackLines": [
+        "*Galli ke doosre chhor par ek aadmi khada hai. Tumhari kad-kaathi. Safed shirt. Uske bagal mein koi — dhundhla. Woh tumhari taraf dekhta hai. Tum uski taraf.*",
+        "Lyra: \"Mat dekho. Please. Woh tum ho — par woh tum nahi ho. Main... main us version se bhaag ke aayi thi.\""
+      ],
+      "choices": [
+        {
+          "id": "c_dekho",
+          "text": "Aage badho — doosra version dekho",
+          "shortLabel": "Doosra version dekho",
+          "keywords": [
+            "dekho",
+            "aage",
+            "doosra",
+            "version",
+            "safed",
+            "badho",
+            "look"
+          ],
+          "next": "s7_next",
+          "effects": {
+            "relationships": {
+              "meher": 10,
+              "lyra": -6
+            },
+            "flags": {
+              "sawOtherVersion": true
+            },
+            "choicesRecord": {
+              "arc4b": "saw"
+            },
+            "memory": [
+              "Ankit ne Seam ke paar apna doosra version dekha — jismein uske saath Lyra nahi thi. Doosre Ankit ne use dekha aur kaha: 'Tum bhi? Woh tumhe bhi mili?'"
+            ]
+          }
+        },
+        {
+          "id": "c_lyra_bhaag_kyun",
+          "text": "Ruko — \"Tum us version se bhaag ke aayi thi? Kyun?\"",
+          "shortLabel": "Kyun bhaagi thi?",
+          "keywords": [
+            "bhaag",
+            "kyun",
+            "us version",
+            "lyra",
+            "ruko",
+            "why"
+          ],
+          "next": "s7_next",
+          "effects": {
+            "relationships": {
+              "lyra": 12
+            },
+            "flags": {
+              "askedWhyFled": true
+            },
+            "choicesRecord": {
+              "arc4b": "fled"
+            },
+            "memory": [
+              "Ankit ne Lyra se poocha woh doosre version se kyun bhaagi — Lyra: 'Kyunki wahan tumne mujhe chuna tha. Aur phir maine sab kharab kar diya. Ye... ye meri doosri koshish hai.'"
+            ]
+          }
+        },
+        {
+          "id": "c_meher_band",
+          "text": "\"Meher, ye Seam band ho sakti hai? Kaise?\"",
+          "shortLabel": "Seam band karo",
+          "keywords": [
+            "band",
+            "seam",
+            "kaise",
+            "meher",
+            "fix",
+            "close",
+            "theek"
+          ],
+          "next": "s7_next",
+          "effects": {
+            "relationships": {
+              "meher": 12,
+              "lyra": 4
+            },
+            "flags": {
+              "askedCloseSeam": true
+            },
+            "choicesRecord": {
+              "arc4b": "close"
+            },
+            "memory": [
+              "Ankit ne Seam band karne ka tareeka poocha — Meher: 'Keemat chukake. Jo original rewrite ne nahi chukayi. Aur woh keemat... ek insaan ki yaad hoti hai.'"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "id": "s6_archive",
+      "title": "File No. 1984/L",
+      "narration": [
+        "*State Archive. Dhool, purani almaariyan, ek clerk jo tumhe aise dekhta hai jaise tum galat kamre mein aa gaye ho. Lyra tumhare peeche — pehli baar peeche.*",
+        "*File. Bhoora cover. 'L.' Tareekh: 12 March 1984. Andar ek photo — kaali-safed. Ek ladki. Lyra. Bilkul Lyra. Wahi chehra. Wahi aankhein. 1984 mein.*",
+        "Lyra: \"...Ye main nahi hoon.\"",
+        "*Uski awaaz kaanp rahi hai.*",
+        "Lyra: \"Main 1984 mein... main tab thi hi nahi. Mujhe yaad hai. Mujhe apna bachpan yaad hai. Mujhe—\"",
+        "*Woh ruk jaati hai. Kyunki woh jaanti hai — yaadein badli ja sakti hain. Usne khud badli hain. Kiski? Kisne?*",
+        "*Photo ke peeche ek line: 'Subject L. Rewrite detected. Anchor: unknown. Note: subject does not remember previous iteration.'*",
+        "Lyra: \"Ankit... agar maine apni yaad badli hai... toh main kaun hoon? Aur agar kisi aur ne badli hai...\"",
+        "*Clerk khaansta hai. 'Sir, madam. Ye file kisi ne 40 saal se nahi kholi. Aap kaise jaante the ye yahan hai?'*"
+      ],
+      "fallbackLines": [
+        "*Lyra photo ko chhooti hai. Kuch nahi hota. Woh ise badal nahi sakti — ya badalna nahi chahti.*",
+        "Lyra: \"Main isse nahi badal sakti. Maine try kiya. Abhi. Ye Archive... ye sab se bahar hai.\""
+      ],
+      "choices": [
+        {
+          "id": "c_tum_lyra_ho",
+          "text": "\"Tum Lyra ho. Jo mere saath coffee kharab banati hai. Baaki baad mein.\"",
+          "shortLabel": "Tum Lyra ho",
+          "keywords": [
+            "tum lyra",
+            "lyra ho",
+            "coffee",
+            "baaki",
+            "baad",
+            "fark nahi",
+            "tum ho"
+          ],
+          "next": "s7_next",
+          "effects": {
+            "relationships": {
+              "lyra": 22
+            },
+            "flags": {
+              "anchoredLyra": true
+            },
+            "choicesRecord": {
+              "arc4b": "anchored"
+            },
+            "memory": [
+              "Archive mein Ankit ne Lyra se kaha 'tum Lyra ho, baaki baad mein' — Lyra ne file band ki. 'Tum meri Anchor ho. Ab samajh aaya. Isliye tum badalte nahi.'"
+            ]
+          }
+        },
+        {
+          "id": "c_aur_files",
+          "text": "\"Aur files hain? 'Previous iteration' — kitni?\"",
+          "shortLabel": "Aur files dhoondo",
+          "keywords": [
+            "aur",
+            "files",
+            "iteration",
+            "kitni",
+            "previous",
+            "dhoondo",
+            "more"
+          ],
+          "next": "s7_next",
+          "effects": {
+            "relationships": {
+              "meher": 6,
+              "lyra": 2
+            },
+            "flags": {
+              "seekMoreFiles": true
+            },
+            "choicesRecord": {
+              "arc4b": "files"
+            },
+            "memory": [
+              "Ankit ne aur files dhoondhi — teen aur. 1962, 1941, 1919. Har ek mein 'L'. Har ek mein wahi chehra. Har ek mein: 'Anchor: unknown'. Sirf 1984 wali mein ek naam kata hua tha."
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "id": "s6_farhan",
+      "title": "Teesra Kamra",
+      "narration": [
+        "*Tumhara flat. Farhan deewar ke saamne khada hai — wahan jahan ek deewar hai. Bas deewar.*",
+        "Farhan: \"Macha, yahan darwaaza tha. Teesra kamra. Tera study. Tune mujhe wahan biryani khilayi thi, aur tune kaha tha 'yahan Lyra nahi aati, ye mera hai.'\"",
+        "*Lyra darwaaze par khadi hai. Uska chehra... confused. Sach mein confused.*",
+        "Lyra: \"Farhan, yahan kabhi kamra nahi tha. Maine — maine ye nahi kiya. Mujhe pata hota.\"",
+        "Farhan: \"Toh kisne kiya?\"",
+        "*Tum deewar chhoote ho. Thandi. Aam. Aur phir tumhari ungli ek jagah rukti hai — plaster ke neeche kuch hai. Ek switch board ka aakaar. Jahan koi switch board nahi hai.*",
+        "*Notebook. Tum pichle panne palatte ho. Aur wahan — tumhari likhawat mein, jo tumhe yaad nahi likhna — 'Study mein Meher ki diary chhupayi hai. Lyra ko mat batana.'*",
+        "Lyra: \"...Ankit? Ye kya hai?\""
+      ],
+      "fallbackLines": [
+        "Farhan: \"Da, teri notebook mein tune khud likha hai, aur tujhe yaad nahi. Ab bata — kaun paagal hai, main ya tu?\"",
+        "*Lyra deewar ko ghoor rahi hai. Uske haath kaanp rahe hain — par is baar taakat se nahi. Darr se.*",
+        "Lyra: \"Koi aur hai, Ankit. Koi aur jo likh raha hai. Aur woh tumhare bahut kareeb hai.\""
+      ],
+      "choices": [
+        {
+          "id": "c_deewar_todo",
+          "text": "\"Deewar todte hain. Abhi. Jo bhi andar hai.\"",
+          "shortLabel": "Deewar todo",
+          "keywords": [
+            "deewar",
+            "todo",
+            "andar",
+            "abhi",
+            "break",
+            "kholo",
+            "kamra"
+          ],
+          "next": "s7_next",
+          "effects": {
+            "relationships": {
+              "farhan": 12,
+              "lyra": 4
+            },
+            "flags": {
+              "brokeWall": true
+            },
+            "choicesRecord": {
+              "arc4b": "wall"
+            },
+            "memory": [
+              "Ankit aur Farhan ne deewar todi — andar ek chhota kamra, ek diary (Meher ki nahi — kisi aur Lekhak ki), aur deewar par Ankit ki likhawat: 'Agar tum ye padh rahe ho, toh usne phir se kiya. Par is baar Lyra ne nahi.'"
+            ]
+          }
+        },
+        {
+          "id": "c_lyra_se_poocho",
+          "text": "Lyra se poocho — \"Tumne sach mein nahi kiya? Mujhe tumhari aankhon mein dekhna hai.\"",
+          "shortLabel": "Lyra, sach?",
+          "keywords": [
+            "lyra",
+            "sach",
+            "aankhon",
+            "tumne",
+            "nahi kiya",
+            "dekhna",
+            "truth"
+          ],
+          "next": "s7_next",
+          "effects": {
+            "relationships": {
+              "lyra": 10
+            },
+            "flags": {
+              "trustedLyraOnWall": true
+            },
+            "choicesRecord": {
+              "arc4b": "trusted"
+            },
+            "memory": [
+              "Ankit ne Lyra ki aankhon mein dekh kar poocha — Lyra: 'Nahi. Aur pehli baar main chahti hoon ki tum mujh par bharosa na karo, taaki tum mujhe check karo, taaki mujhe bhi pata chale ki main sach bol rahi hoon.'"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "id": "s7_next",
+      "title": "Agla Version",
+      "narration": [
+        "*Raat. Flat. Notebook ab pachaas pannon ki hai. Lyra tumhare bagal mein soyi hai — pehli baar sach mein soyi, kyunki aaj usne kuch nahi badla, aur kuch na badalna thaka deta hai.*",
+        "*Deewar par photo: dupatta laal. Background mein Meher. Aur ab — tumne aaj dekha — Meher ke bagal mein ek aur kursi khaali hai. Kal thi ya nahi, tumhe yaad nahi. Tum notebook mein likhte ho.*",
+        "*Phone: Farhan ('macha, deewar ke andar wali diary padh li — tu believe nahi karega'), Meher ('Seam phail rahi hai. Tumhare flat tak.'), Archive ka clerk ('Sir, ek aur file mili hai. Aapke naam ki.').*",
+        "*Lyra neend mein tumhara haath pakadti hai.*",
+        "Lyra: \"...mat badalna. Tum mat badalna.\"",
+        "*Ye kabhi khatam nahi hota. Har version ke peeche ek aur. Chuno.*"
+      ],
+      "fallbackLines": [
+        "*Ye kahani yahin nahi rukti — har jawab ek naya version kholta hai: original timeline, doosre Lekhak, purane 'L', aur Ankit ka apna raaz.*",
+        "Lyra: \"Subah. Please. Subah chuno. Abhi... abhi bas yahin raho.\""
+      ],
+      "choices": [
+        {
+          "id": "c_next_file",
+          "text": "Archive — tumhare naam ki file",
+          "shortLabel": "Tumhari file",
+          "keywords": [
+            "archive",
+            "file",
+            "mere naam",
+            "ankit",
+            "clerk",
+            "record"
+          ],
+          "next": "s6_archive",
+          "effects": {
+            "relationships": {
+              "lyra": 4
+            },
+            "flags": {
+              "arcOwnFile": true
+            },
+            "choicesRecord": {
+              "next": "ownfile"
+            },
+            "location": "State Archive",
+            "memory": [
+              "Naya arc: Archive mein Ankit ke naam ki file — 'Anchor. Iteration: 4.'"
+            ]
+          }
+        },
+        {
+          "id": "c_next_seam",
+          "text": "Meher — Seam flat tak phail rahi hai",
+          "shortLabel": "Seam phail rahi",
+          "keywords": [
+            "seam",
+            "meher",
+            "phail",
+            "flat",
+            "khatra",
+            "spread"
+          ],
+          "next": "s6_seam",
+          "effects": {
+            "relationships": {
+              "meher": 5
+            },
+            "flags": {
+              "arcSeam2": true
+            },
+            "choicesRecord": {
+              "next": "seam"
+            },
+            "location": "Seam",
+            "memory": [
+              "Naya arc: Seam Ankit ke flat tak pahunch rahi hai — do versions ek hi ghar mein."
+            ]
+          }
+        },
+        {
+          "id": "c_next_diary",
+          "text": "Farhan — deewar wali diary mein kya likha hai",
+          "shortLabel": "Deewar wali diary",
+          "keywords": [
+            "farhan",
+            "diary",
+            "deewar",
+            "likha",
+            "padh",
+            "lekhak",
+            "kya"
+          ],
+          "next": "s6_farhan",
+          "effects": {
+            "relationships": {
+              "farhan": 5
+            },
+            "flags": {
+              "arcWallDiary": true
+            },
+            "choicesRecord": {
+              "next": "diary"
+            },
+            "memory": [
+              "Naya arc: deewar ke andar wali diary — ek Lekhak jo Meher se pehle Lyra ko dekh raha tha."
+            ]
+          }
+        },
+        {
+          "id": "c_next_aam",
+          "text": "Aaj kuch nahi — Lyra ke saath ek aam din, bina notebook",
+          "shortLabel": "Aam din",
+          "keywords": [
+            "aam",
+            "normal",
+            "date",
+            "notebook nahi",
+            "rest",
+            "chhutti",
+            "sirf"
+          ],
+          "next": "s5_hub",
+          "effects": {
+            "relationships": {
+              "lyra": 14
+            },
+            "flags": {
+              "arcOrdinary": true
+            },
+            "choicesRecord": {
+              "next": "ordinary"
+            },
+            "memory": [
+              "Naya arc: ek aam din — bina notebook, bina check kiye. Lyra ke liye sabse bada bharosa."
+            ]
+          }
+        }
+      ]
+    }
+  ],
+  "endings": []
+}

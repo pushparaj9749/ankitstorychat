@@ -1,0 +1,1170 @@
+{
+  "storyId": "dragon-girl-next-door",
+  "version": 1,
+  "scenes": [
+    {
+      "id": "s1_toaster",
+      "title": "Flat 302 Mein Aag",
+      "narration": [
+        "*Subah ke saat baje. Shanti Niketan Society. Tum Ankit ho, flat 301, aur tum abhi-abhi jaage ho — kyunki bagal wale flat se dhuaan aa raha hai. Aur cheekh. Aur ek aisi awaaz jo cheekh nahi hai... gurrahat jaisi.*",
+        "*Tum darwaaza peette ho. Darwaaza khulta hai. Ek ladki — laal-sunehre baal, aankhein thodi zyada sunehri, haath mein ek jalta hua toaster. Jalta hua. Aur woh use aise pakde hai jaise woh garam hi na ho.*",
+        "Rhea: \"Tum! Padosi! Achha hua. Ye cheez — ye DABBA — isne mera bread kha liya aur phir aag ugal di. Ye kya hai? Ye koi chhota janwar hai?\"",
+        "*Toaster abhi bhi jal raha hai. Uske haath mein. Uska haath theek hai.*",
+        "Rhea: \"Main isko maar doon? Main maar sakti hoon. Bas batao kaise — iska sar kahan hai?\"",
+        "*Tumhare peeche seedhiyon se Sharma aunty ki awaaz: 'Beta, 302 mein aag lagi hai kya?!'*",
+        "*Ladki tumhe dekhti hai. Phir toaster ko. Phir bahut dheere se, jaise koi bahut mushkil cheez samajh rahi ho —*",
+        "Rhea: \"...Ye nahi dikhna chahiye, na? Mera haath. Aag mein. Ye... insaan wali baat nahi hai. Theek hai. Theek hai. Tum kuch nahi dekhe.\"",
+        "*Woh toaster peeche phenk deti hai. Woh deewar mein ghus jaata hai. Woh muskurati hai. Bahut zor se.*",
+        "Rhea: \"Hi! Main Rhea! Nayi padosan! Toaster kya hota hai?\""
+      ],
+      "fallbackLines": [
+        "*Deewar mein toaster. Dhuaan. Sharma aunty ki awaaz paas aa rahi hai. Rhea tumhe aise dekh rahi hai jaise tum decide karoge ki aage kya hoga.*",
+        "Rhea: \"Tum kuch bolo. Insaan aise waqt kya bolte hain? Maine suna hai 'sorry' bolte hain. Sorry? Ye sahi hai?\""
+      ],
+      "choices": [
+        {
+          "id": "c_cover",
+          "text": "Sharma aunty ko sambhalo — \"Kuch nahi aunty, toaster kharab tha!\"",
+          "shortLabel": "Aunty ko sambhalo",
+          "keywords": [
+            "aunty",
+            "sambhal",
+            "kuch nahi",
+            "toaster kharab",
+            "cover",
+            "bachao"
+          ],
+          "next": "s2_guide",
+          "effects": {
+            "relationships": {
+              "rhea": 14,
+              "sharma-aunty": -3
+            },
+            "flags": {
+              "coveredForRhea": true
+            },
+            "choicesRecord": {
+              "opening": "covered"
+            },
+            "memory": [
+              "Ankit ne pehle din hi Rhea ko Sharma aunty se bachaya — 'toaster kharab tha'. Rhea ne baad mein poocha: 'Tumne mere liye jhooth bola? Insaan aisa karte hain? Ye achha hai ya bura?'"
+            ]
+          }
+        },
+        {
+          "id": "c_haath",
+          "text": "\"Tumhara haath... aag mein tha. Tum theek ho?\"",
+          "shortLabel": "Haath theek hai?",
+          "keywords": [
+            "haath",
+            "aag",
+            "theek",
+            "chot",
+            "jala",
+            "hand",
+            "ok"
+          ],
+          "next": "s2_guide",
+          "effects": {
+            "relationships": {
+              "rhea": 10
+            },
+            "flags": {
+              "askedAboutHand": true
+            },
+            "choicesRecord": {
+              "opening": "hand"
+            },
+            "memory": [
+              "Ankit ka pehla sawaal Rhea se tha 'tum theek ho?' — Rhea confuse hui. 'Main? Mujhe kuch nahi hota. Tum... tum mere liye pareshan ho? Kyun?'"
+            ]
+          }
+        },
+        {
+          "id": "c_kya_ho",
+          "text": "\"Tum... kya ho?\"",
+          "shortLabel": "Tum kya ho?",
+          "keywords": [
+            "kya ho",
+            "kaun ho",
+            "what",
+            "insaan nahi",
+            "tum"
+          ],
+          "next": "s2_guide",
+          "effects": {
+            "relationships": {
+              "rhea": 6
+            },
+            "flags": {
+              "askedWhatSheIs": true
+            },
+            "choicesRecord": {
+              "opening": "what"
+            },
+            "memory": [
+              "Ankit ne pehle din poocha 'tum kya ho' — Rhea ne kaha 'padosan!' bahut zor se, phir dheere se 'baad mein. Please. Pehle toaster samjhao.'"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "id": "s2_guide",
+      "title": "Insaan Kaise Banein — Entry 1",
+      "narration": [
+        "*Ek ghanta baad. Flat 302. Toaster deewar se nikal chuka hai (Rhea ne haath se kheencha). Rhea sofe par baithi hai — sofe ke upar, peeth par, pair mod ke, jaise koi chattan par baitha ho.*",
+        "*Uske haath mein ek notebook. Nayi. Cover par usne likha hai: 'INSAAN KAISE BANEIN'.*",
+        "Rhea: \"Theek hai. Batao. Sab. Main likhungi. Entry ek: toaster mein haath nahi daalte. Chahe bread phas jaaye. Sahi?\"",
+        "*Tum haan kehte ho. Woh likhti hai. Uski likhawat... purani hai. Bahut purani. Jaise kisi ne sadiyon baad pen pakda ho.*",
+        "Rhea: \"Entry do: sofe pe aise nahi baithte?\"",
+        "*Woh tumhe dekhti hai. Tum sar hilaate ho. Woh dheere se neeche utarti hai. Sofe par baithti hai — bilkul seedhi, jaise koi sikha raha ho. Uski aankhein sunehri chamakti hain.*",
+        "Rhea: \"Ye... ajeeb hai. Neeche sab kuch kitna paas hai. Tum log aise kaise jeete ho?\"",
+        "*Woh rukti hai. Apna muh haath se dhakti hai.*",
+        "Rhea: \"Matlab — main bhi aise hi jeeti hoon. Hamesha se. Bilkul. Entry teen: ajeeb baatein zor se nahi bolte.\""
+      ],
+      "fallbackLines": [
+        "Rhea: \"Aur ek sawaal. Bahut zaroori. Neeche wale doodh wale ne kaha 'paisa'. Maine kaha 'kya?'. Usne phir kaha 'paisa'. Maine use ghoora. Woh bhaag gaya. Maine kuch galat kiya?\"",
+        "*Notebook ka panna palat ta hai. Entry 4, 5, 6 — sab tumhare intezaar mein.*"
+      ],
+      "choices": [
+        {
+          "id": "c_paisa",
+          "text": "Use paisa samjhao — aur doodh wale ko wapas bulao",
+          "shortLabel": "Paisa samjhao",
+          "keywords": [
+            "paisa",
+            "samjhao",
+            "doodh",
+            "money",
+            "bulao",
+            "sikhao"
+          ],
+          "next": "s3_poha",
+          "effects": {
+            "relationships": {
+              "rhea": 12
+            },
+            "flags": {
+              "taughtMoney": true
+            },
+            "choicesRecord": {
+              "arc1": "money"
+            },
+            "memory": [
+              "Ankit ne Rhea ko paisa samjhaya — Rhea: 'Toh tum log kaagaz ke tukde ke liye kaam karte ho? Aur kaagaz... khaate nahi? Ye sabse ajeeb cheez hai.' Entry 4 likhi."
+            ]
+          }
+        },
+        {
+          "id": "c_hamesha_se",
+          "text": "\"'Hamesha se' matlab kitna? Tum kitni purani ho, Rhea?\"",
+          "shortLabel": "Kitni purani ho?",
+          "keywords": [
+            "hamesha",
+            "kitni",
+            "purani",
+            "umar",
+            "age",
+            "kab se"
+          ],
+          "next": "s3_poha",
+          "effects": {
+            "relationships": {
+              "rhea": 6
+            },
+            "flags": {
+              "askedAge": true
+            },
+            "choicesRecord": {
+              "arc1": "age"
+            },
+            "memory": [
+              "Ankit ne Rhea ki umar poochi — Rhea ne notebook band ki. 'Insaan ladkiyon se umar nahi poochte. Ye maine suna hai. Entry paanch.' Phir dheere: 'Jab ye shehar nahi tha. Bas itna.'"
+            ]
+          }
+        },
+        {
+          "id": "c_dost",
+          "text": "\"Pehle ek baat — hum dost hain. Entry mein likho.\"",
+          "shortLabel": "'Dost' likho",
+          "keywords": [
+            "dost",
+            "friend",
+            "likho",
+            "entry",
+            "hum",
+            "yaar"
+          ],
+          "next": "s3_poha",
+          "effects": {
+            "relationships": {
+              "rhea": 18
+            },
+            "flags": {
+              "declaredFriends": true
+            },
+            "choicesRecord": {
+              "arc1": "friends"
+            },
+            "memory": [
+              "Ankit ne kaha 'hum dost hain, likho' — Rhea ne likha. Phir bahut der tak us line ko dekhti rahi. 'Dost. Mera... mera pehla insaani dost. Ye entry sabse upar honi chahiye.' Usne panna phaad ke cover par chipka diya."
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "id": "s3_poha",
+      "title": "Chaalis Plate",
+      "narration": [
+        "*Raat. Sarafa Bazaar. Roshni, bheed, khushboo. Rhea ki aankhein itni badi ho gayi hain ki tum darr rahe ho koi notice na kar le ki woh sunehri hain.*",
+        "Rhea: \"YE KYA HAI. Ye sab. Ye khaana hai? SAB khaana hai? Insaan raat ko yahan aake khaate hain? Ye... ye swarg hai?\"",
+        "*Poha. Ek plate. Woh khaati hai. Chup ho jaati hai. Do second. Phir —*",
+        "Rhea: \"Aur.\"",
+        "*Das plate. Bees. Tees. Poha wala pehle hansa, phir chup hua, phir uski aankhon mein aansu aa gaye.*",
+        "*Chaalis. Rhea plate neeche rakhti hai. Poha wala kaanp raha hai.*",
+        "Rhea: \"Bas. Ab main... ab mujhe lag raha hai jaise andar aag hai. Achhi wali. Ye 'pet bharna' hai? Notebook — entry gyaarah — pet bharna achha lagta hai.\"",
+        "*Bheed tum dono ko dekh rahi hai. Kisi ne video bana li hai. Rhea ne notice nahi kiya. Woh tumhe dekh rahi hai.*",
+        "Rhea: \"Ankit. Tum has rahe ho. Mujhpe? ...Nahi. Mere saath. Ye alag hai na? Ye achha hai na? Mujhe... mujhe ye pasand hai. Tumhara aise hasna.\""
+      ],
+      "fallbackLines": [
+        "*Poha wala dheere se poochta hai: 'Bhaiya, ye... ye kahan se hai?' Tum kuch bolo, isse pehle Rhea bolti hai —*",
+        "Rhea: \"Pahaadon se! Matlab — Dehradun. Insaan wahan se aate hain na?\"",
+        "*Bheed mein ek aadmi khada hai jo has nahi raha. Lamba. Shaant. Woh Rhea ko dekh raha hai — aur uski aankhein bhi... thodi zyada sunehri hain.*"
+      ],
+      "choices": [
+        {
+          "id": "c_video",
+          "text": "Video wale ko roko — \"Bhai, delete karo. Please.\"",
+          "shortLabel": "Video rukwao",
+          "keywords": [
+            "video",
+            "delete",
+            "roko",
+            "phone",
+            "camera",
+            "bhai"
+          ],
+          "next": "s4_pankh",
+          "effects": {
+            "relationships": {
+              "rhea": 10,
+              "sharma-aunty": 2
+            },
+            "flags": {
+              "stoppedVideo": true
+            },
+            "choicesRecord": {
+              "arc2": "video"
+            },
+            "memory": [
+              "Ankit ne Sarafa mein video delete karwayi — Rhea ne poocha kyun. 'Kyunki tum chhupna chahti ho na?' Rhea: '...Haan. Tumne yaad rakha. Entry baarah.'"
+            ]
+          }
+        },
+        {
+          "id": "c_aadmi",
+          "text": "\"Rhea. Woh aadmi. Bheed mein. Uski aankhein tumhari jaisi hain.\"",
+          "shortLabel": "Woh aadmi kaun?",
+          "keywords": [
+            "aadmi",
+            "aankhein",
+            "bheed",
+            "kaun",
+            "dekh raha",
+            "sunehri",
+            "man"
+          ],
+          "next": "s4_vayu",
+          "effects": {
+            "relationships": {
+              "rhea": 8,
+              "vayu": 4
+            },
+            "flags": {
+              "spottedVayu": true
+            },
+            "choicesRecord": {
+              "arc2": "spotted"
+            },
+            "memory": [
+              "Ankit ne Sarafa mein Vayu ko pehchaan liya — Rhea ka chehra safed ho gaya. 'Ghar. Abhi. Poha ke paise de do. Kitne bhi.'"
+            ]
+          }
+        },
+        {
+          "id": "c_aur_khilao",
+          "text": "Hanste hue ek aur plate order karo — \"Ikatalees. Record ke liye.\"",
+          "shortLabel": "Ek aur plate!",
+          "keywords": [
+            "aur",
+            "plate",
+            "ikatalees",
+            "record",
+            "khilao",
+            "order"
+          ],
+          "next": "s4_pankh",
+          "effects": {
+            "relationships": {
+              "rhea": 16
+            },
+            "flags": {
+              "orderedMore": true
+            },
+            "choicesRecord": {
+              "arc2": "more"
+            },
+            "memory": [
+              "Ankit ne Rhea ke liye 41vi plate order ki — Rhea ne kaha 'ye insaan wala pyaar hai?' aur phir jaldi se 'matlab dosti. Dosti wala. Entry terah: shabd sambhal ke.'"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "id": "s4_pankh",
+      "title": "Chhat, Teen Baje, Aur Laal Pankh",
+      "narration": [
+        "*Raat ke teen baje. Tumhari neend khuli — deewar ke us paar se woh gungunahat. Woh bhasha jo insaan ki nahi. Phir balcony ka darwaaza. Phir... pankhon ki awaaz. Badi.*",
+        "*Tum chhat par jaate ho. Chupke se. Aur seedhiyon ke top par tumhe ek chhoti si shakal milti hai — Pinky, Building C wali, 8 saal ki, ghutne pe baithi hui.*",
+        "Pinky: \"Shh. Bhaiya. Dekho. Par awaaz mat karna. Didi darr jaayegi.\"",
+        "*Chhat par. Chaandni mein. Rhea. Par Rhea nahi.*",
+        "*Laal-sunehre pankh — itne bade ki chhat ke dono kinare chhoo rahe hain. Poonchh. Scales jo chaandni mein aag jaise chamak rahe hain. Aur wahi sunehri aankhein — jo aasmaan ko aise dekh rahi hain jaise ghar ko dekh rahi ho, door se.*",
+        "*Woh ek lambi saans leti hai. Dhuaan nikalta hai. Aur woh dheere se gungunaati hai — wahi bhasha, aur ab tum samajhte ho ye gaana hai. Udaas gaana.*",
+        "Pinky: \"Woh roz aati hai. Roz gaati hai. Mujhe lagta hai woh kisi ko yaad kar rahi hai.\"",
+        "*Aur phir Rhea ka sar ghoomta hai. Seedha tumhari taraf. Sunehri aankhein badi ho jaati hain. Pankh ek jhatke mein sikud jaate hain — aur ek second mein wahan sirf ek ladki khadi hai, pajama mein, aur uska chehra aisa hai jaise duniya khatam ho gayi ho.*",
+        "Rhea: \"...Ankit.\""
+      ],
+      "fallbackLines": [
+        "*Rhea hil nahi rahi. Pinky tumhara haath pakde hai. Hawa mein abhi bhi dhuaan hai — aur ek sunehra scale chhat par gira hai.*",
+        "Rhea: \"Kuch bolo. Please. Insaan aise waqt kya bolte hain? Notebook mein ye nahi hai. Maine... maine ye entry kabhi nahi likhi.\""
+      ],
+      "choices": [
+        {
+          "id": "c_sundar",
+          "text": "\"...Tum sundar thi. Woh gaana kiske liye tha?\"",
+          "shortLabel": "Tum sundar thi",
+          "keywords": [
+            "sundar",
+            "gaana",
+            "kiske liye",
+            "beautiful",
+            "pankh",
+            "achha"
+          ],
+          "next": "s5_sach",
+          "effects": {
+            "relationships": {
+              "rhea": 25,
+              "pinky": 8
+            },
+            "flags": {
+              "calledHerBeautiful": true
+            },
+            "choicesRecord": {
+              "arc3": "beautiful"
+            },
+            "memory": [
+              "Chhat par Ankit ne Rhea ka asli roop dekha aur kaha 'tum sundar thi' — Rhea ki aankhon se paani nikla. Pehli baar. 'Ye kya hai? Meri aankhon se? Ye toota hua hai kya?' Pinky: 'Didi, ye aansu hain.'"
+            ]
+          }
+        },
+        {
+          "id": "c_pinky",
+          "text": "Pinky ko aage karo — \"Ise pehle se pata tha. Ise darr nahi laga. Mujhe bhi nahi.\"",
+          "shortLabel": "Pinky ko dikhao",
+          "keywords": [
+            "pinky",
+            "pata tha",
+            "darr nahi",
+            "bachchi",
+            "dekho",
+            "mujhe bhi"
+          ],
+          "next": "s5_sach",
+          "effects": {
+            "relationships": {
+              "rhea": 18,
+              "pinky": 12
+            },
+            "flags": {
+              "showedPinky": true
+            },
+            "choicesRecord": {
+              "arc3": "pinky"
+            },
+            "memory": [
+              "Ankit ne Rhea ko dikhaya ki Pinky ko pehle se pata tha aur woh nahi dari — Rhea ghutno pe baith gayi aur Pinky ko gale lagaya. 'Tumne kisi ko nahi bataya? Kyun?' Pinky: 'Kyunki aap meri didi ho.'"
+            ]
+          }
+        },
+        {
+          "id": "c_dragon",
+          "text": "\"Tum dragon ho.\" — bas itna. Sach ki tarah.",
+          "shortLabel": "Tum dragon ho",
+          "keywords": [
+            "dragon",
+            "ho",
+            "sach",
+            "tum",
+            "ajgar",
+            "fact"
+          ],
+          "next": "s5_sach",
+          "effects": {
+            "relationships": {
+              "rhea": 10
+            },
+            "flags": {
+              "namedIt": true
+            },
+            "choicesRecord": {
+              "arc3": "named"
+            },
+            "memory": [
+              "Ankit ne bas kaha 'tum dragon ho' — bina darr, bina sawaal. Rhea: 'Haan. Aur tum... tum ab bhi yahan khade ho. Insaan bhaagte hain. Kitaabon mein likha hai. Tum kyun nahi bhaage?'"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "id": "s4_vayu",
+      "title": "Purana Dost, Purana Aadesh",
+      "narration": [
+        "*Ghar. Raat. Rhea darwaaze ke saamne khadi hai — andar se — aur uski peeth se halki si garmi aa rahi hai. Tum sofe par ho. Woh tumhe baithne ko keh rahi thi, baar-baar.*",
+        "*Dastak. Ek baar. Rhea ki mutthi band.*",
+        "Rhea: \"Andar mat aana, Vayu.\"",
+        "Vayu (bahar se): \"Rhea. Main sirf baat karne aaya hoon. Aur — chai hai kya? Maine suna hai insaan mehmaan ko chai dete hain. Main mehmaan hoon. Technically.\"",
+        "*Rhea tumhari taraf dekhti hai. Tum darwaaza kholte ho — usne roka nahi. Vayu andar aata hai. Lamba, shaant, thaka hua. Uski aankhein Rhea jaisi. Woh tumhe dekhta hai — dhyaan se. Bahut dhyaan se.*",
+        "Vayu: \"Toh ye hai. Jiska naam tum neend mein leti ho. Haan — deewar patli hai, aur main teen raat se bagal wali building ki chhat pe hoon.\"",
+        "Rhea: \"VAYU.\"",
+        "Vayu: \"Clan ne bheja hai. Tumhe pata hai kyun. Main tumhe le jaane nahi aaya — main aisa kar bhi nahi sakta, tum mujhse zyada takatwar ho. Main dekhne aaya hoon ki tum yahan kyun ho.\"",
+        "*Woh sofe par baithta hai. Seedha. Sahi tareeke se. Rhea use ghoorti hai — 'tumhe kaise pata sofe pe kaise baithte hain?'*",
+        "Vayu: \"Maine YouTube dekha. Tumhe bhi dekhna chahiye tha, toaster jalaane se pehle.\""
+      ],
+      "fallbackLines": [
+        "*Vayu chai ka intezaar kar raha hai. Rhea darwaaze par khadi hai. Tum beech mein.*",
+        "Vayu: \"Ankit, na? Ek sawaal. Tumhe pata hai ye kya hai? ...Nahi? Toh tum use 'dost' kyun bulaate ho? Woh tumhe ek din mein raakh kar sakti hai.\"",
+        "Rhea: \"Main use kabhi—\"",
+        "Vayu: \"Main jaanta hoon. Main use se poochh raha hoon.\""
+      ],
+      "choices": [
+        {
+          "id": "c_chai_do",
+          "text": "Chai banao — teeno ke liye. \"Baithiye. Baat karte hain.\"",
+          "shortLabel": "Chai banao",
+          "keywords": [
+            "chai",
+            "banao",
+            "baitho",
+            "baat",
+            "teeno",
+            "shaant"
+          ],
+          "next": "s5_sach",
+          "effects": {
+            "relationships": {
+              "vayu": 12,
+              "rhea": 8
+            },
+            "flags": {
+              "servedVayuChai": true
+            },
+            "choicesRecord": {
+              "arc3": "chai"
+            },
+            "memory": [
+              "Ankit ne Vayu ko chai pilayi — dragon doot ko, apne flat mein. Vayu: 'Ye... ye achha hai. Rhea, ye insaan darta nahi. Ye tumhe chai pila raha hai. Mujhe. Main samajh gaya tum yahan kyun ho.'"
+            ]
+          }
+        },
+        {
+          "id": "c_jaante_ho",
+          "text": "Vayu se poocho — \"Woh yahan kyun hai? Aap jaante ho. Woh nahi batati.\"",
+          "shortLabel": "Vayu, batao kyun",
+          "keywords": [
+            "kyun",
+            "yahan",
+            "batao",
+            "vayu",
+            "jaante",
+            "wajah",
+            "clan chhoda"
+          ],
+          "next": "s5_sach",
+          "effects": {
+            "relationships": {
+              "vayu": 6,
+              "rhea": -4
+            },
+            "flags": {
+              "askedVayuWhy": true
+            },
+            "choicesRecord": {
+              "arc3": "why"
+            },
+            "memory": [
+              "Ankit ne Vayu se poocha Rhea ne clan kyun chhoda — Vayu ne Rhea ki taraf dekha. Rhea ne sar hilaya: nahi. Vayu: 'Uski kahani hai. Main nahi bataunga. Par itna — woh 'bore' nahi hui thi.'"
+            ]
+          }
+        },
+        {
+          "id": "c_raakh_nahi",
+          "text": "\"Woh mujhe raakh nahi karegi. Usne toaster tak nahi maara jab maine mana kiya.\"",
+          "shortLabel": "Woh nahi karegi",
+          "keywords": [
+            "raakh nahi",
+            "nahi karegi",
+            "toaster",
+            "bharosa",
+            "trust",
+            "mana kiya"
+          ],
+          "next": "s5_sach",
+          "effects": {
+            "relationships": {
+              "rhea": 20,
+              "vayu": 8
+            },
+            "flags": {
+              "defendedRhea": true
+            },
+            "choicesRecord": {
+              "arc3": "defended"
+            },
+            "memory": [
+              "Ankit ne Vayu ko kaha 'woh mujhe raakh nahi karegi — usne toaster tak nahi maara jab maine mana kiya.' Vayu hansa — sadiyon mein pehli baar, usne kaha. Rhea ka chehra laal ho gaya. Sach mein thoda laal — garam."
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "id": "s5_sach",
+      "title": "Assi Saal",
+      "narration": [
+        "*Agli raat. Ralamandal ki pahadi. Rhea tumhe yahan laayi — 'meri jagah'. Ek chattan par panjon ke nishaan — bahut bade. Woh uspe baithi hai. Insaan roop mein. Pair latka ke.*",
+        "Rhea: \"Vayu sahi kehta hai. Main bore nahi hui thi.\"",
+        "*Woh Indore ki lights dekhti hai.*",
+        "Rhea: \"Clan mein sab sadiyon jeete hain. Sab. Koi nahi jaata. Aur isliye koi kisi ko... dekhta nahi. Kyun dekhe? Kal bhi hoga. Hazaar saal baad bhi hoga.\"",
+        "Rhea: \"Phir ek din maine ek insaan ko dekha. Pahaad ke neeche. Budha. Woh apni patni ka haath pakde tha, aur woh dono suraj doobte dekh rahe the. Aise... aise jaise ye aakhri suraj ho. Aur maine socha — ye kya hai? Ye kaise dekhte hain?\"",
+        "*Woh tumhari taraf mudti hai.*",
+        "Rhea: \"Isliye aayi. Seekhne. Ki cheezein aise kaise dekhte hain jaise woh khatam ho sakti hain.\"",
+        "*Phir woh rukti hai. Aur ek sawaal poochti hai jo tumhe pata hai aane wala hai —*",
+        "Rhea: \"Ankit. Insaan kitna jeete hain? Sahi number. Notebook mein nahi hai. Maine kabhi poocha nahi. Mujhe lagta hai main jaanti thi ki mujhe jawab pasand nahi aayega.\""
+      ],
+      "fallbackLines": [
+        "*Hawa chal rahi hai. Panjon ke nishaan chaandni mein gehre dikhte hain. Rhea intezaar kar rahi hai.*",
+        "Rhea: \"Bolo. Main sun sakti hoon. Main pahaad tod sakti hoon. Ek number toh sun hi sakti hoon.\""
+      ],
+      "choices": [
+        {
+          "id": "c_assi",
+          "text": "Sach bolo — \"Assi. Kabhi-kabhi sau. Kabhi kam.\"",
+          "shortLabel": "Sach — assi saal",
+          "keywords": [
+            "assi",
+            "sau",
+            "saal",
+            "sach",
+            "80",
+            "number"
+          ],
+          "next": "s6_hub",
+          "effects": {
+            "relationships": {
+              "rhea": 14
+            },
+            "flags": {
+              "toldLifespan": true
+            },
+            "choicesRecord": {
+              "arc4": "lifespan"
+            },
+            "memory": [
+              "Ankit ne Rhea ko sach bataya — assi saal. Rhea do din tak nahi boli. Teesre din darwaaze par aayi: 'Theek hai. Assi. Toh hum ek bhi din waste nahi karenge. Entry pachaas. Sabse zaroori.'"
+            ]
+          }
+        },
+        {
+          "id": "c_kaafi",
+          "text": "\"Kaafi. Agar sahi se jeeyo toh kaafi hote hain.\"",
+          "shortLabel": "Kaafi hote hain",
+          "keywords": [
+            "kaafi",
+            "sahi se",
+            "jeeyo",
+            "enough",
+            "matter nahi"
+          ],
+          "next": "s6_hub",
+          "effects": {
+            "relationships": {
+              "rhea": 18
+            },
+            "flags": {
+              "reframedLifespan": true
+            },
+            "choicesRecord": {
+              "arc4": "reframed"
+            },
+            "memory": [
+              "Ankit ne kaha 'kaafi hote hain, agar sahi se jeeyo' — Rhea ne uska haath pakda, chattan par. 'Toh sikhao. Sahi se. Main assi saal mein sab seekh lungi. Main bahut tez seekhti hoon — toaster chhod ke.'"
+            ]
+          }
+        },
+        {
+          "id": "c_ulta",
+          "text": "\"Pehle tum batao — dragon kitna jeete hain? Aur tum mujhse zyada darti kyun ho?\"",
+          "shortLabel": "Tum kitna jeeti ho?",
+          "keywords": [
+            "dragon",
+            "kitna",
+            "jeete",
+            "darti",
+            "tum batao",
+            "kyun"
+          ],
+          "next": "s6_hub",
+          "effects": {
+            "relationships": {
+              "rhea": 10,
+              "vayu": 4
+            },
+            "flags": {
+              "askedDragonLife": true
+            },
+            "choicesRecord": {
+              "arc4": "dragonlife"
+            },
+            "memory": [
+              "Ankit ne ulta poocha dragon kitna jeete hain — Rhea: 'Jab tak koi hamein maar na de. Ya jab tak hum khud... bas na kar dein. Aur main darti hoon kyunki main pehli baar kuch khona nahi chahti.'"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "id": "s6_hub",
+      "title": "Ek Padosan Jo Ab Kuch Zyada Hai",
+      "narration": [
+        "*Subah. Flat 302. Rhea ne naashta banaya hai — sach mein banaya, bina aag lagaye. Toast thoda jala hai. Perfect. Woh sofe par baithi hai — sahi tareeke se — aur notebook ab aadhi bhar chuki hai.*",
+        "*Tumhare phone par: Society WhatsApp group mein Sharma aunty ka message ('Kal raat phir bada chidiya dikha. Secretary sahab, kuch kijiye.'). Pinky ka ek drawing darwaaze ke neeche se aaya hai — Rhea, pankhon ke saath, aur bagal mein tum, aur upar likha 'meri family'. Aur Vayu ka ek chhota sa note: 'Jal Clan ko pata chal gaya. Main aur kuch der rok sakta hoon. Zyada nahi.'*",
+        "Rhea: \"Dekho. Sab ek saath. Insaan aise hi jeete hain na? Entry ikyaavan.\"",
+        "*Woh toast deti hai. Jala hua. Tum khaate ho. Woh dekh rahi hai — aur uski aankhon mein woh cheez hai jo usne budhe insaan ki aankhon mein dekhi thi. Jaise ye aakhri toast ho.*",
+        "Rhea: \"Ye khatam nahi hota, na? Dragon ki zindagi mein kabhi kuch khatam nahi hota tha. Par ab... ab har din matter karta hai. Chuno, Ankit. Aaj kya seekhein?\""
+      ],
+      "fallbackLines": [
+        "Rhea: \"Aur haan — Sharma aunty ko 'bada chidiya' kehna band karna hoga. Main chidiya nahi hoon. Ye apmaan hai. Entry bawan.\"",
+        "*Pinky ka drawing. 'Meri family.' Rhea ne use fridge pe laga diya hai — fridge, jo woh ab kholna seekh gayi hai.*"
+      ],
+      "choices": [
+        {
+          "id": "c_hub_jal",
+          "text": "Vayu ka note — Jal Clan. Kya karna hai?",
+          "shortLabel": "Jal Clan aa raha",
+          "keywords": [
+            "jal",
+            "clan",
+            "vayu",
+            "note",
+            "khatra",
+            "dushman",
+            "aa raha"
+          ],
+          "next": "s7_jal",
+          "effects": {
+            "relationships": {
+              "vayu": 8
+            },
+            "flags": {
+              "arcJalClan": true
+            },
+            "choicesRecord": {
+              "arc5": "jal"
+            },
+            "memory": [
+              "Ankit ne Jal Clan wala raasta chuna — Rhea: 'Woh mujhse nahi ladenge. Woh tumse ladenge. Kyunki tum meri kamzori ho — unke hisaab se. Mere hisaab se tum meri sabse badi takat ho.'"
+            ]
+          }
+        },
+        {
+          "id": "c_hub_society",
+          "text": "Sharma aunty aur society — 'bada chidiya' ko sambhalo",
+          "shortLabel": "Society sambhalo",
+          "keywords": [
+            "society",
+            "sharma",
+            "aunty",
+            "chidiya",
+            "group",
+            "whatsapp",
+            "sambhalo"
+          ],
+          "next": "s7_society",
+          "effects": {
+            "relationships": {
+              "sharma-aunty": 8
+            },
+            "flags": {
+              "arcSociety": true
+            },
+            "choicesRecord": {
+              "arc5": "society"
+            },
+            "memory": [
+              "Ankit ne society sambhalne ka raasta chuna — Rhea ne kaha woh Sharma aunty se khud milegi. 'Insaan aise hi karte hain na? Saamna? Entry tirpan.'"
+            ]
+          }
+        },
+        {
+          "id": "c_hub_seekho",
+          "text": "Aaj kuch naya seekho — Rhea ko cycle chalana sikhao",
+          "shortLabel": "Cycle sikhao",
+          "keywords": [
+            "cycle",
+            "seekh",
+            "sikhao",
+            "naya",
+            "aam",
+            "din",
+            "practice"
+          ],
+          "next": "s7_seekho",
+          "effects": {
+            "relationships": {
+              "rhea": 14
+            },
+            "flags": {
+              "arcLearning": true
+            },
+            "choicesRecord": {
+              "arc5": "learning"
+            },
+            "memory": [
+              "Ankit ne Rhea ko cycle sikhaane ka din chuna — Rhea: 'Main ud sakti hoon. Par theek hai. Insaan udte nahi. Insaan girte hain. Main girna seekhungi.'"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "id": "s7_jal",
+      "title": "Paani Aag Se Milta Hai",
+      "narration": [
+        "*Shaam. Society ka garden. Baarish hone wali hai — par mausam mein nahi thi. Rhea ne dekha, aur uska chehra sakht ho gaya.*",
+        "Rhea: \"Ye baarish nahi hai. Ye dastak hai.\"",
+        "*Garden ke gate par teen log. Neele kapde. Aankhein — neeli, bahut zyada neeli. Beech wali aurat aage aati hai. Sundar, thandi, aur uske pairon ke neeche ghaas geeli ho rahi hai bina baarish ke.*",
+        "Aurat: \"Agni ki beti. Insaano ke beech. Aur ek insaan ke saath.\"",
+        "*Uski nazar tumpe.*",
+        "Aurat: \"Ye. Ye tumhari... kya hai? Paaltu? Khilona?\"",
+        "*Rhea ek kadam aage. Garden ki hawa garam. Bahut garam. Ghaas sookhne lagti hai.*",
+        "Rhea: \"Ye mera dost hai. Aur tum uske baare mein ek aur shabd bologi, toh ye society, ye shehar, aur tumhara poora clan — sab jaan jaayenge ki Agni ki beti kyun bhaagi thi. Kyunki main bhaagi nahi thi, Neelam. Main chali gayi thi — taaki tum log zinda raho.\"",
+        "*Sannata. Aurat — Neelam — ka chehra badal jaata hai. Darr. Sach wala darr.*",
+        "*Aur tumhe pehli baar ehsaas hota hai: Rhea sirf takatwar nahi hai. Rhea woh hai jisse dragons darte hain.*",
+        "*Phir Rhea tumhari taraf mudti hai. Aur uski aankhein normal hain. Bilkul normal.*",
+        "Rhea: \"Sorry. Zor se bol gayi. Insaan aise nahi bolte na? Entry chauvan.\""
+      ],
+      "fallbackLines": [
+        "*Neelam abhi bhi khadi hai. Baarish ruk gayi hai. Sharma aunty balcony se dekh rahi hai — 'ye kaun log hain?'*",
+        "Neelam: \"Agni ki beti. Hum ja rahe hain. Aaj. Par sabha ko pata chalega. Aur sabha... sabha tumse nahi darti.\"",
+        "Rhea: \"Sabha ko darna chahiye.\""
+      ],
+      "choices": [
+        {
+          "id": "c_kyun_bhaagi",
+          "text": "\"'Taaki tum log zinda raho' — Rhea, tumne kya kiya tha?\"",
+          "shortLabel": "Tumne kya kiya tha?",
+          "keywords": [
+            "kya kiya",
+            "zinda raho",
+            "bhaagi",
+            "kyun",
+            "sach",
+            "past",
+            "batao"
+          ],
+          "next": "s8_next",
+          "effects": {
+            "relationships": {
+              "rhea": 10,
+              "vayu": 6
+            },
+            "flags": {
+              "askedHerPast": true
+            },
+            "choicesRecord": {
+              "arc5b": "past"
+            },
+            "memory": [
+              "Ankit ne poocha Rhea ne clan ke liye kya kiya tha — Rhea: 'Abhi nahi. Par ek din. Vaada. Bas itna jaan lo — main clan ki sabse takatwar hoon, aur isliye main wahan nahi reh sakti thi. Takat ko dekh ke log bhool jaate hain ki main bhi hoon.'"
+            ]
+          }
+        },
+        {
+          "id": "c_neelam_se",
+          "text": "Neelam se baat karo — \"Aap sabha ko batao: woh yahan khush hai. Bas.\"",
+          "shortLabel": "Neelam se baat",
+          "keywords": [
+            "neelam",
+            "sabha",
+            "batao",
+            "khush",
+            "baat",
+            "shanti",
+            "talk"
+          ],
+          "next": "s8_next",
+          "effects": {
+            "relationships": {
+              "rhea": 16,
+              "vayu": 8
+            },
+            "flags": {
+              "spokeToNeelam": true
+            },
+            "choicesRecord": {
+              "arc5b": "neelam"
+            },
+            "memory": [
+              "Ankit ne Jal Clan ki Neelam se seedha baat ki — 'woh yahan khush hai'. Neelam ne use dhyaan se dekha: 'Insaan. Tum Agni ki beti ke saamne khade ho aur darte nahi. Ya toh tum bewakoof ho, ya... ya woh sach mein badal gayi hai.'"
+            ]
+          }
+        },
+        {
+          "id": "c_entry",
+          "text": "Hans do — \"Entry chauvan: kabhi-kabhi zor se bolna sahi hota hai.\"",
+          "shortLabel": "Entry chauvan likho",
+          "keywords": [
+            "entry",
+            "hans",
+            "zor se",
+            "sahi",
+            "likho",
+            "notebook",
+            "theek"
+          ],
+          "next": "s8_next",
+          "effects": {
+            "relationships": {
+              "rhea": 20
+            },
+            "flags": {
+              "laughedAfterJal": true
+            },
+            "choicesRecord": {
+              "arc5b": "laughed"
+            },
+            "memory": [
+              "Jal Clan ke jaane ke baad Ankit hansa aur kaha 'entry chauvan: kabhi-kabhi zor se bolna sahi hota hai' — Rhea ne notebook nikaali, likha, aur phir Ankit ko gale lagaya. Garden ki ghaas ek pal ke liye phir se hari ho gayi."
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "id": "s7_society",
+      "title": "Sharma Aunty Ka Interrogation",
+      "narration": [
+        "*Sharma aunty ka flat. Chai, namkeen, aur ek aisa mahaul jaise CBI ka office ho. Rhea saamne baithi hai — sahi tareeke se, haath god mein, muskurate hue. Bahut zor se muskurate hue.*",
+        "Sharma Aunty: \"Beta Rhea. Seedhi baat. Tum raat ko chhat pe jaati ho?\"",
+        "Rhea: \"Haan.\"",
+        "Sharma Aunty: \"Teen baje?\"",
+        "Rhea: \"Haan.\"",
+        "Sharma Aunty: \"Aur phir gayab ho jaati ho?\"",
+        "Rhea: \"...Haan?\"",
+        "*Tum apna sar haath mein le lete ho. Rhea jhooth nahi bol sakti. Tumne bhoolke use yahan aane diya.*",
+        "Sharma Aunty: \"Aur 'bada chidiya'?\"",
+        "Rhea: \"Main chidiya NAHI hoon.\"",
+        "*Sannata. Sharma aunty ki aankhein badi. Rhea ka chehra: 'maine kya bol diya'.*",
+        "Rhea: \"Matlab... matlab main chidiya nahi hoon kyunki main insaan hoon. Insaan chidiya nahi hote. Ye fact hai. Ankit, ye fact hai na?\"",
+        "*Sharma aunty tumhari taraf dekhti hai. Phir Rhea ki taraf. Phir bahut dheere se chai ka cup rakhti hai.*",
+        "Sharma Aunty: \"Beta Ankit. Tum jaante ho ye kya hai. Main tumhare chehre se padh sakti hoon. Bees saal se padh rahi hoon. Ab bolo — mujhe darna chahiye?\""
+      ],
+      "fallbackLines": [
+        "*Rhea tumhe dekh rahi hai. Sharma aunty tumhe dekh rahi hai. Namkeen ki plate beech mein — neutral zone.*",
+        "Rhea (fusfusate hue): \"Ankit. Tum jhooth bol sakte ho. Main nahi. Ye tumhara department hai.\""
+      ],
+      "choices": [
+        {
+          "id": "c_sach_aunty",
+          "text": "Sach bolo — \"Nahi aunty. Darne ki zaroorat nahi. Bas... video mat banana.\"",
+          "shortLabel": "Aunty ko sach",
+          "keywords": [
+            "sach",
+            "aunty",
+            "darna nahi",
+            "video",
+            "batao",
+            "truth"
+          ],
+          "next": "s8_next",
+          "effects": {
+            "relationships": {
+              "sharma-aunty": 16,
+              "rhea": 12
+            },
+            "flags": {
+              "toldAuntyTruth": true
+            },
+            "choicesRecord": {
+              "arc5b": "aunty"
+            },
+            "memory": [
+              "Ankit ne Sharma aunty ko aadha sach bataya — 'darne ki zaroorat nahi'. Aunty ne ek minute socha, phir kaha: 'Theek hai. Par ye ladki roz mere yahan khaana khayegi. Itni patli hai, 40 plate poha kahan jaata hai, main dekhungi.' Rhea: 'Entry pachpan: aunty jaisi cheez sabse khatarnaak aur sabse achhi hoti hai.'"
+            ]
+          }
+        },
+        {
+          "id": "c_jhooth",
+          "text": "Jhooth bolo — \"Aunty, ye sleepwalk karti hai. Doctor ne bataya.\"",
+          "shortLabel": "Sleepwalk bolo",
+          "keywords": [
+            "jhooth",
+            "sleepwalk",
+            "doctor",
+            "neend",
+            "bahana",
+            "lie"
+          ],
+          "next": "s8_next",
+          "effects": {
+            "relationships": {
+              "sharma-aunty": 4,
+              "rhea": 6
+            },
+            "flags": {
+              "liedToAunty": true
+            },
+            "choicesRecord": {
+              "arc5b": "lied"
+            },
+            "memory": [
+              "Ankit ne Sharma aunty ko sleepwalk wala jhooth bola — aunty ne maan liya (shayad). Rhea ne baahar aake kaha: 'Tum itna achha jhooth kaise bolte ho? Ye insaan wali skill hai? Mujhe seekhni hai. ...Nahi. Nahi seekhni. Mujhe tumhara sach bolna pasand hai.'"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "id": "s7_seekho",
+      "title": "Girna Seekhna",
+      "narration": [
+        "*Society ka parking. Ek purani cycle. Rhea uspe baithi hai — aur cycle uske neeche aise kaanp rahi hai jaise use pata ho uspe kaun baitha hai.*",
+        "Rhea: \"Theek hai. Pedal. Balance. Aage dekho. Bas. Ye aasan hai. Maine toofan mein udaan bhari hai. Ye—\"",
+        "*Woh girti hai. Turant. Ek meter bhi nahi.*",
+        "Rhea: \"...Ye kaise? Ye KAISE?\"",
+        "*Doosri baar. Teesri. Paanchvi. Pinky building C ki balcony se dekh rahi hai aur taali baja rahi hai. Rhea ke ghutne chhil gaye hain — aur teen second mein theek ho jaate hain. Woh use chhupati nahi. Ab nahi.*",
+        "*Aathvi baar. Tum cycle ke peeche haath rakhte ho. Pakad ke. Chalte ho uske saath.*",
+        "Rhea: \"Tum pakde ho na? Chhodna mat. Ankit — CHHODNA MAT—\"",
+        "*Tum chhod dete ho. Woh chalti hai. Das meter. Bees. Aur uski hansi — poori society mein goonjti hai. Aisi hansi jo tumne kabhi nahi suni. Bachche jaisi. Sadiyon purani.*",
+        "*Phir woh mud ke tumhe dekhti hai — aur peed se takra jaati hai.*",
+        "Rhea (zameen se): \"...Maine kiya. Maine cycle chalayi. Ankit. Maine ek insaani cheez ki. Bina jaadu ke. Bina takat ke. Sirf... seekh ke.\"",
+        "*Woh uthti hai. Ghutne theek. Aankhein bheegi.*",
+        "Rhea: \"Ye kya feeling hai? Ye 'pet bharna' nahi hai. Ye kuch aur hai. Notebook mein iska naam nahi hai.\""
+      ],
+      "fallbackLines": [
+        "*Pinky balcony se chillati hai: 'Didi! Phir se! Phir se!' Rhea cycle uthati hai — ek haath se, jaise woh kaagaz ho — phir yaad aata hai, aur do haath se uthati hai.*",
+        "Rhea: \"Ankit. Is feeling ka naam batao. Please. Main ise entry mein likhna chahti hoon. Sabse upar. 'Dost' ke bagal mein.\""
+      ],
+      "choices": [
+        {
+          "id": "c_khushi",
+          "text": "\"Ye khushi hai, Rhea. Woh wali jo kamaai jaati hai.\"",
+          "shortLabel": "Ye khushi hai",
+          "keywords": [
+            "khushi",
+            "kamaai",
+            "naam",
+            "feeling",
+            "happy",
+            "ye hai"
+          ],
+          "next": "s8_next",
+          "effects": {
+            "relationships": {
+              "rhea": 22
+            },
+            "flags": {
+              "namedJoy": true
+            },
+            "choicesRecord": {
+              "arc5b": "joy"
+            },
+            "memory": [
+              "Ankit ne Rhea ko feeling ka naam bataya — 'khushi, jo kamaai jaati hai'. Rhea ne notebook ke cover par 'DOST' ke bagal mein 'KHUSHI' likha. Aur neeche, chhote akshron mein, kuch aur — jo usne Ankit ko padhne nahi diya."
+            ]
+          }
+        },
+        {
+          "id": "c_garv",
+          "text": "\"Mujhe tumpe garv hai. Ye feeling meri hai — tumhari wali tum khud dhoondho.\"",
+          "shortLabel": "Mujhe garv hai",
+          "keywords": [
+            "garv",
+            "proud",
+            "tumpe",
+            "khud dhoondho",
+            "meri"
+          ],
+          "next": "s8_next",
+          "effects": {
+            "relationships": {
+              "rhea": 18,
+              "pinky": 6
+            },
+            "flags": {
+              "saidProud": true
+            },
+            "choicesRecord": {
+              "arc5b": "proud"
+            },
+            "memory": [
+              "Ankit ne kaha 'mujhe tumpe garv hai' — Rhea ne poocha 'garv kya hota hai', Ankit ne samjhaya, aur Rhea ne kaha: 'Clan mein kisi ne mujhpe kabhi garv nahi kiya. Sab darte the. Ye... ye behtar hai. Bahut behtar.'"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "id": "s8_next",
+      "title": "Entry Sau",
+      "narration": [
+        "*Raat. Tumhari balcony. Rhea bagal wali balcony par — railing par baithi, pair latka ke, insaan roop mein. Deewar patli hai, par ab tum dono ko chhupane ki zaroorat nahi.*",
+        "*Uski notebook ab sau entries par hai. Entry sau, usne aaj likhi — tumhe dikhayi nahi. Bas kaha: 'Ye wali sabse zaroori hai. Aur sabse darawni.'*",
+        "*Tumhare phone par: Vayu ('Sabha ne bulaya hai. Rhea ko. Aur — pehli baar — ek insaan ko.'), Sharma aunty ('Beta, kal Rhea ko khaane bhej dena, aur haan, C building ki chhat pe kal raat DO bade chidiya the'), Pinky ka drawing ('Rhea didi + Ankit bhaiya + main + ek aur didi jo neeli hai??').*",
+        "Rhea: \"Do. Do bade chidiya. Ankit... koi aur aaya hai. Aur main nahi jaanti kaun.\"",
+        "*Woh tumhari taraf dekhti hai. Sunehri aankhein. Aur unmein ab darr nahi — bas woh cheez jo budhe insaan ki aankhon mein thi. Jaise har pal aakhri ho, aur isliye keemti.*",
+        "Rhea: \"Ye kabhi khatam nahi hota, na? Achha hai. Mujhe 'khatam' pasand nahi. Chuno, Ankit. Kal kya seekhein?\""
+      ],
+      "fallbackLines": [
+        "*Ye kahani yahin nahi rukti — har entry ek naya arc: Dragon Sabha, doosra 'bada chidiya', Rhea ka asli itihaas, insaano ka jaanna, aur entry sau ka raaz.*",
+        "Rhea: \"Aur haan — toaster naya laaye ho? Nahi? Theek hai. Purana wala rakhte hain. Woh meri pehli haar hai. Main use kabhi nahi bhoolungi. Insaan aise hi karte hain na — haar yaad rakhte hain?\""
+      ],
+      "choices": [
+        {
+          "id": "c_next_sabha",
+          "text": "Vayu — Dragon Sabha ne bulaya hai. Tumhe bhi.",
+          "shortLabel": "Dragon Sabha",
+          "keywords": [
+            "sabha",
+            "vayu",
+            "dragon",
+            "bulaya",
+            "clan",
+            "chalo",
+            "pahaad"
+          ],
+          "next": "s7_jal",
+          "effects": {
+            "relationships": {
+              "vayu": 6
+            },
+            "flags": {
+              "arcSabha": true
+            },
+            "choicesRecord": {
+              "next": "sabha"
+            },
+            "location": "Dragon Sabha ka sthaan",
+            "memory": [
+              "Naya arc: Dragon Sabha — pehli baar ek insaan ko bulaya gaya hai."
+            ]
+          }
+        },
+        {
+          "id": "c_next_doosra",
+          "text": "Doosra 'bada chidiya' — kaun hai? Chhat par raat bitao.",
+          "shortLabel": "Doosra chidiya?",
+          "keywords": [
+            "doosra",
+            "chidiya",
+            "kaun",
+            "chhat",
+            "raat",
+            "naya dragon",
+            "dekho"
+          ],
+          "next": "s4_pankh",
+          "effects": {
+            "relationships": {
+              "pinky": 6,
+              "rhea": 4
+            },
+            "flags": {
+              "arcSecondDragon": true
+            },
+            "choicesRecord": {
+              "next": "second"
+            },
+            "memory": [
+              "Naya arc: society ki chhat par ek doosra dragon — Rhea use nahi jaanti."
+            ]
+          }
+        },
+        {
+          "id": "c_next_aunty",
+          "text": "Sharma aunty — ab woh sab jaanti hai. Society ko sambhalo.",
+          "shortLabel": "Society ko sambhalo",
+          "keywords": [
+            "sharma",
+            "aunty",
+            "society",
+            "sab jaanti",
+            "group",
+            "sambhalo"
+          ],
+          "next": "s7_society",
+          "effects": {
+            "relationships": {
+              "sharma-aunty": 6
+            },
+            "flags": {
+              "arcSociety2": true
+            },
+            "choicesRecord": {
+              "next": "society"
+            },
+            "memory": [
+              "Naya arc: Sharma aunty sab jaanti hai — aur ab woh Rhea ki sabse badi rakshak hai. Ya sabse bada khatra."
+            ]
+          }
+        },
+        {
+          "id": "c_next_seekho",
+          "text": "Kal kuch naya — Rhea ko tairna sikhao (haan, dragon ko)",
+          "shortLabel": "Tairna sikhao",
+          "keywords": [
+            "tairna",
+            "swim",
+            "seekh",
+            "naya",
+            "aam",
+            "din",
+            "sikhao",
+            "practice"
+          ],
+          "next": "s7_seekho",
+          "effects": {
+            "relationships": {
+              "rhea": 12
+            },
+            "flags": {
+              "arcLearning2": true
+            },
+            "choicesRecord": {
+              "next": "learning"
+            },
+            "memory": [
+              "Naya arc: Rhea ko tairna sikhaana — 'Agni ki beti paani mein? Ye entry sabse funny hogi.'"
+            ]
+          }
+        }
+      ]
+    }
+  ],
+  "endings": []
+}

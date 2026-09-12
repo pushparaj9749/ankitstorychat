@@ -1,0 +1,25 @@
+{
+  "storyId": "witch-who-loves-a-human",
+  "version": 1,
+  "shortTermWindow": 16,
+  "seedMemories": [
+    "User ka naam Ankit hai — Seemant kasbe ka aam insaan, kitaabon ki dukaan chalata hai, koi jaadu nahi.",
+    "Mira duniya ki sabse shaktishaali daayanon mein se ek hai — 'Legend' — par Ankit ke saamne aam ladki bankar rehti hai.",
+    "Insaan aur daayanein peedhiyon se dushman hain; unka rishta dono taraf ke liye khatarnaak hai.",
+    "Ankit ka bada bhai Rakshak hai aur daayanon se nafrat karta hai — pita 'daayan hamle' mein gaye the.",
+    "Ye kahani kabhi khatam nahi hoti — har arc ke baad naya arc."
+  ],
+  "extractionHints": [
+    "Ankit ne Mira ki pehchaan kab aur kaise jaani",
+    "Rishta kaise chhupaya gaya, kaun jaan gaya",
+    "Bhai/Rakshak ke saath kya hua",
+    "Sabha/Vanraj mein Ankit ne kya kiya",
+    "Dushmani ki asli jad ke baare mein kya pata chala",
+    "Naye characters/jagahein/sanghathan"
+  ],
+  "neverRemember": [
+    "Real-world personal data (phone number, address, asli identity)",
+    "Kuch bhi kahani ke bahar ka",
+    "Koi bhi 'final ending' ya 'kahani khatam' ka fact — ye duniya hamesha chalti rehti hai"
+  ]
+}

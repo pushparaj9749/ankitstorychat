@@ -1,0 +1,1008 @@
+{
+  "storyId": "girl-who-commands-the-sun",
+  "version": 1,
+  "scenes": [
+    {
+      "id": "s1_bus",
+      "title": "Chhutti Kya Hoti Hai?",
+      "narration": [
+        "*Pune. Subah 9 baje. Deccan bus stop. Tum Ankit ho — 'Sapne Travels' mein kaam karte ho, aur aaj bhi late ho.*",
+        "*Bus stop par ek ladki khadi hai. Peele kapde. Aur uske aas-paas ki hawa... thodi garam hai. Bas thodi. Jaise woh khud dhoop ho.*",
+        "*Bus aati hai. Woh haath uthati hai — poora, seedha, jaise salute. Bus nahi rukti. Woh confuse ho jaati hai.*",
+        "*Phir woh tumhari taraf mudti hai. Aankhein — tumhe lagta hai tum galat dekh rahe ho — sunehri.*",
+        "Solara: \"Maaf karna. Ye bus... ye rukti kyun nahi? Maine haath bhi hilaya. Aur ek aur sawaal — 'chhutti' kya hoti hai? Maine suna tha log maangte hain. Kisse maangte hain?\"",
+        "*Woh bilkul seriously poochh rahi hai. Aur upar, aasmaan mein, sooraj — tumhe lagta hai — thoda sa aur chamak gaya.*",
+        "Solara: \"Main Solara. Main... nayi hoon. Yahan. Sab jagah.\""
+      ],
+      "fallbackLines": [
+        "*Ek aur bus. Solara phir haath uthati hai — salute. Phir nahi rukti. Uska chehra gir jaata hai — aur ek chhota baadal sooraj ke saamne aa jaata hai.*",
+        "Solara: \"Kya main kuch galat kar rahi hoon? Aam log kya karte hain?\""
+      ],
+      "choices": [
+        {
+          "id": "c_sikhao",
+          "text": "Haath pakad ke sahi tareeka sikhao — \"Aise nahi. Aise. Aur bus ki aankhon mein dekho.\"",
+          "shortLabel": "Haath hilana sikhao",
+          "keywords": [
+            "sikhao",
+            "haath",
+            "aise",
+            "bus",
+            "tareeka",
+            "teach"
+          ],
+          "next": "s2_chai",
+          "effects": {
+            "relationships": {
+              "solara": 18
+            },
+            "flags": {
+              "taughtBusWave": true
+            },
+            "choicesRecord": {
+              "opening": "taught"
+            },
+            "memory": [
+              "Ankit ne Solara ko bus rokne ka haath hilana sikhaya — teesri bus ruki. Solara itni khush hui ki Deccan par do minute ke liye subah 11 baje jaisi dhoop ho gayi. Sab confuse. Solara: 'Sorry. Sorry. Main... khush hoon. Ye hota hai.'"
+            ]
+          }
+        },
+        {
+          "id": "c_chhutti",
+          "text": "\"Chhutti — jab kaam nahi karte. Aaram. Tumhe kabhi nahi mili?\"",
+          "shortLabel": "Chhutti explain karo",
+          "keywords": [
+            "chhutti",
+            "aaram",
+            "kaam nahi",
+            "explain",
+            "holiday",
+            "kabhi nahi"
+          ],
+          "next": "s2_chai",
+          "effects": {
+            "relationships": {
+              "solara": 12
+            },
+            "flags": {
+              "explainedHoliday": true
+            },
+            "choicesRecord": {
+              "opening": "holiday"
+            },
+            "memory": [
+              "Ankit ne Solara ko 'chhutti' samjhaya — Solara: 'Kabhi nahi. Ek din bhi nahi. Jab se... jab se main hoon.' Phir woh jaldi se hansi. 'Matlab — bahut busy job thi. Purani.'"
+            ]
+          }
+        },
+        {
+          "id": "c_garmi",
+          "text": "\"Tumhare aas-paas itni garmi kyun hai? Bukhar hai?\"",
+          "shortLabel": "Itni garmi kyun?",
+          "keywords": [
+            "garmi",
+            "garam",
+            "bukhar",
+            "hawa",
+            "kyun",
+            "hot",
+            "fever"
+          ],
+          "next": "s2_chai",
+          "effects": {
+            "relationships": {
+              "solara": 6
+            },
+            "flags": {
+              "noticedHeat": true
+            },
+            "choicesRecord": {
+              "opening": "heat"
+            },
+            "memory": [
+              "Ankit ne pehle din notice kiya Solara ke aas-paas garmi hai — Solara ek kadam peeche hati. 'Haan. Bukhar. Purana bukhar. Bahut purana.' Aur sooraj ek second ke liye jhilmilaya."
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "id": "s2_chai",
+      "title": "Pehli Chai",
+      "narration": [
+        "*Nana ki tapri. Office ke neeche. Tumne Solara ko chai pilane ka faisla kiya — kyunki jo insaan 'chhutti' nahi jaanta, woh chai bhi nahi jaanta hoga.*",
+        "*Nana ne use dekha. Ek second ruke. Phir cutting banayi — aur tumse nahi, seedha usse kaha:*",
+        "Nana: \"Beta, thodi der rakhi reh de. Tere haath mein zyada garam ho jaayegi.\"",
+        "*Solara ne Nana ko aise dekha jaise koi hazaar saal baad ghar ka aadmi mila ho.*",
+        "*Phir woh chai peeti hai. Pehla ghoont.*",
+        "*Aur tum dekhte ho — asli mein dekhte ho — uski aankhein bhar aati hain. Aur poori FC Road par, ek second ke liye, roshni sunehri ho jaati hai. Jaise shaam ka golden hour. Subah 9:40 baje.*",
+        "Solara: \"Ye... ye garam hai. Par meri tarah nahi. Ye andar se garam karta hai. Ankit — aam log ye ROZ peete hain?\"",
+        "Nana (dheere, tumse): \"Bees saal pehle bhi ek aayi thi. Waise hi ro padi thi. Chai pe.\""
+      ],
+      "fallbackLines": [
+        "*Solara doosra ghoont leti hai. Aankhein band. Golden hour abhi bhi chal raha hai — log phone nikaal ke photo le rahe hain.*",
+        "Solara: \"Ankit. Mujhe ye zindagi chahiye. Ye wali. Chai wali. Sikhaoge?\""
+      ],
+      "choices": [
+        {
+          "id": "c_haan_sikhaunga",
+          "text": "\"Haan. Sab sikhaunga. Par pehle — ye roshni band karo, log dekh rahe hain.\"",
+          "shortLabel": "Haan, sikhaunga",
+          "keywords": [
+            "haan",
+            "sikhaunga",
+            "sab",
+            "roshni band",
+            "guide",
+            "yes"
+          ],
+          "next": "s3_flat",
+          "effects": {
+            "relationships": {
+              "solara": 22,
+              "nana": 6
+            },
+            "flags": {
+              "becameGuide": true
+            },
+            "choicesRecord": {
+              "arc1": "guide"
+            },
+            "memory": [
+              "Ankit ne Solara ka 'aam zindagi' guide banna maan liya — 'par pehle ye roshni band karo'. Solara: 'Kaunsi roshni? ...Oh. OH. Sorry.' Golden hour khatam. Nana muskuraye."
+            ]
+          }
+        },
+        {
+          "id": "c_nana_kaun",
+          "text": "Nana se — \"Bees saal pehle kaun aayi thi, Nana?\"",
+          "shortLabel": "Nana, kaun aayi thi?",
+          "keywords": [
+            "nana",
+            "bees saal",
+            "kaun aayi",
+            "pehle",
+            "who came"
+          ],
+          "next": "s3_flat",
+          "effects": {
+            "relationships": {
+              "nana": 10,
+              "solara": 8
+            },
+            "flags": {
+              "askedNanaEarly": true
+            },
+            "choicesRecord": {
+              "arc1": "nana"
+            },
+            "memory": [
+              "Ankit ne Nana se poocha 'bees saal pehle kaun aayi thi' — Nana ne chai ka glass dhoya. 'Ek aur. Isi jaisi. Thodi thandi. Chaand jaisi.' Solara ka chehra badal gaya. 'Chaand... jaisi?'"
+            ]
+          }
+        },
+        {
+          "id": "c_roz",
+          "text": "\"Roz peete hain. Aur roz shikayat karte hain ki achhi nahi bani. Ye bhi aam hai.\"",
+          "shortLabel": "Roz — aur shikayat",
+          "keywords": [
+            "roz",
+            "shikayat",
+            "aam",
+            "chai",
+            "everyday",
+            "complain"
+          ],
+          "next": "s3_flat",
+          "effects": {
+            "relationships": {
+              "solara": 14
+            },
+            "flags": {
+              "taughtComplaining": true
+            },
+            "choicesRecord": {
+              "arc1": "complain"
+            },
+            "memory": [
+              "Ankit ne Solara ko sikhaya ki aam log roz chai peete hain aur roz shikayat karte hain. Solara ne diary nikaali. Likha: 'Aam = achhi cheez + shikayat.' Phir Nana se: 'Chai achhi nahi bani.' Nana: 'Beta, pehli baar mein perfect. Shabaash.'"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "id": "s3_flat",
+      "title": "1BHK Aur Society Committee",
+      "narration": [
+        "*Do hafte baad. Kothrud. Solara ka naya 1BHK — tumne dilwaya, deposit tumne diya (woh 'paisa' abhi seekh rahi hai). Aur aaj subah society committee ki meeting hai. Solara ke baare mein.*",
+        "*Mrs. Kulkarni. Secretary. Haath mein register.*",
+        "Mrs. Kulkarni: \"Solara beta. Tumhare flat se raat ko roshni aati hai. Poori building jag jaati hai. Kya jalati ho tum?\"",
+        "Solara: \"Kuch nahi, aunty. Main bas... jaagti hoon. Aur jab jaagti hoon toh—\"",
+        "*Tum uske pair pe pair rakhte ho.*",
+        "Solara: \"—toh bulb. Bada bulb. Bahut bada.\"",
+        "Mrs. Kulkarni: \"Kaunsa bulb? Building ke bahar se dikhta hai. Log sochte hain aag lagi hai. Do baar fire brigade aayi.\"",
+        "*Solara tumhari taraf dekhti hai — madad. Aur uske chehre pe pareshaani — aur khidki ke bahar, seedha, ek baadal aa jaata hai. Kamra andhera. Mrs. Kulkarni khidki ki taraf dekhti hai.*",
+        "Mrs. Kulkarni: \"...Mausam bhi ajeeb ho gaya hai jab se tum aayi ho. Coincidence hai, main jaanti hoon. Par likh rahi hoon.\""
+      ],
+      "fallbackLines": [
+        "*Register khula hai. Mrs. Kulkarni pen leke taiyaar. Solara ki aankhein tumpe.*",
+        "Mrs. Kulkarni: \"Toh? Solution kya hai? Bolo, Ankit — tum laaye ho ise society mein.\""
+      ],
+      "choices": [
+        {
+          "id": "c_parde",
+          "text": "\"Blackout parde. Main lagwaunga. Aaj hi. Problem solved, aunty.\"",
+          "shortLabel": "Blackout parde",
+          "keywords": [
+            "parde",
+            "blackout",
+            "lagwaunga",
+            "solution",
+            "curtains"
+          ],
+          "next": "s4_gussa",
+          "effects": {
+            "relationships": {
+              "mrs-kulkarni": 10,
+              "solara": 10
+            },
+            "flags": {
+              "blackoutCurtains": true
+            },
+            "choicesRecord": {
+              "arc2": "curtains"
+            },
+            "memory": [
+              "Ankit ne Solara ke flat mein blackout parde lagwaye — Mrs. Kulkarni maan gayi. Parde raat ko halke chamakte hain, par 'bulb' se kam. Solara: 'Ab main aam hoon?' Ankit: 'Ab tum aam ke kareeb ho.' Solara ne diary mein likha: 'Kareeb. Achha shabd.'"
+            ]
+          }
+        },
+        {
+          "id": "c_sona_sikhao",
+          "text": "\"Asli problem ye hai ki ye soti nahi. Solara — aaj raat, tum soogi. Main sikhaunga.\"",
+          "shortLabel": "Sona sikhao",
+          "keywords": [
+            "sona",
+            "neend",
+            "soti nahi",
+            "sikhao",
+            "raat",
+            "sleep"
+          ],
+          "next": "s4_gussa",
+          "effects": {
+            "relationships": {
+              "solara": 20
+            },
+            "flags": {
+              "taughtSleep": true
+            },
+            "choicesRecord": {
+              "arc2": "sleep"
+            },
+            "memory": [
+              "Ankit ne Solara ko sona sikhane ka faisla kiya — teen hafte lage. Phone pe kahaniyan, aankhein band karna, 'kuch mat socho' ('Ankit, main hazaar saal se soch rahi hoon, kaise NA sochun?'). Jis raat woh pehli baar soyi — Pune mein raat do ghante lambi thi. Kisi ne notice nahi kiya. Nana ne kiya."
+            ]
+          }
+        },
+        {
+          "id": "c_sach_aunty",
+          "text": "Half-sach — \"Aunty, ye thodi... special hai. Medical. Roshni wali condition. Please.\"",
+          "shortLabel": "Medical condition",
+          "keywords": [
+            "medical",
+            "special",
+            "condition",
+            "aunty",
+            "please",
+            "bahana"
+          ],
+          "next": "s4_gussa",
+          "effects": {
+            "relationships": {
+              "mrs-kulkarni": 6,
+              "solara": 8
+            },
+            "flags": {
+              "toldAuntyMedical": true
+            },
+            "choicesRecord": {
+              "arc2": "medical"
+            },
+            "memory": [
+              "Ankit ne Mrs. Kulkarni ko bataya Solara ki 'medical condition' hai — aunty ka poora chehra badal gaya. 'Arre beta pehle kyun nahi bola! Main toh...' Ab woh roz Solara ko tiffin bhejti hai. Solara: 'Ye jhooth tha na? Par tiffin achha hai. Aam log aise karte hain?' 'Nahi.' 'Achha.'"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "id": "s4_gussa",
+      "title": "Sabse Garam Din",
+      "narration": [
+        "*Ek mahine baad. Office. Aaj Solara ne pehli baar 'job interview' diya tha — ek café mein — aur reject ho gayi. Manager ne kaha 'tum thodi ajeeb ho.' Aur woh chali aayi — bina kuch bole.*",
+        "*Aur abhi 2 baje hain. Aur Pune mein 46 degree hai. April mein. Office ka AC mar gaya. Tapri ke bahar sadak pighal rahi hai. TV pe 'record-breaking heatwave'.*",
+        "*Solara tumhare office mein kone mein baithi hai. Chup. Aankhein neeche. Aur uske aas-paas ki hawa — kaanp rahi hai.*",
+        "Solara (bahut dheere): \"Usne kaha main ajeeb hoon. Maine sab kiya jo tumne sikhaya. Muskurayi. Haath milaya. 'Nice to meet you.' Aur usne kaha ajeeb.\"",
+        "*Khidki ke bahar ek ped ka patta — sookh ke gir gaya. Abhi. Tumhare saamne.*",
+        "Solara: \"Main aam nahi ban sakti, Ankit. Main koshish kar rahi hoon. Main SACH mein koshish kar rahi hoon. Aur ye—\" *woh apne haath dekhti hai* \"—ye rukta nahi.\"",
+        "*Bahar log gir rahe hain garmi se. Ambulance ki awaaz. Aur tum samajhte ho — pehli baar sach mein — ye ladki kya hai. Aur abhi ye dukhi hai. Aur dukh se garmi ho rahi hai. Aur agar ye gusse mein aa gayi—*"
+      ],
+      "fallbackLines": [
+        "*47 degree. Tumhare office ki khidki ka kaanch garam hai chhoone mein. Solara ne tumhari taraf nahi dekha.*",
+        "Solara: \"Mat aao paas. Main... main abhi safe nahi hoon.\""
+      ],
+      "choices": [
+        {
+          "id": "c_paas_jao",
+          "text": "Paas jao. Uske bagal mein baitho. Garmi sehte hue. Kuch mat bolo.",
+          "shortLabel": "Bagal mein baitho",
+          "keywords": [
+            "paas",
+            "bagal",
+            "baitho",
+            "chup",
+            "saath",
+            "sit"
+          ],
+          "next": "s5_sach",
+          "effects": {
+            "relationships": {
+              "solara": 30
+            },
+            "flags": {
+              "satThroughHeat": true
+            },
+            "choicesRecord": {
+              "arc3": "sat"
+            },
+            "memory": [
+              "47 degree mein Ankit Solara ke bagal mein jaake baith gaya — bina bole. Paseena. Chamdi jal rahi thi. Woh nahi hila. Solara ne dheere-dheere uski taraf dekha. Aur ro padi. Aur Pune mein — ek mahine baad — baarish hui. April mein. Records mein hai."
+            ]
+          }
+        },
+        {
+          "id": "c_ajeeb_achha",
+          "text": "\"Ajeeb ho. Bilkul. Aur tumhare ajeeb ke liye main roz late aata hoon office. Sochna isse.\"",
+          "shortLabel": "Ajeeb = achha",
+          "keywords": [
+            "ajeeb",
+            "achha",
+            "late",
+            "roz",
+            "tumhare liye",
+            "weird"
+          ],
+          "next": "s5_sach",
+          "effects": {
+            "relationships": {
+              "solara": 24
+            },
+            "flags": {
+              "reframedWeird": true
+            },
+            "choicesRecord": {
+              "arc3": "weird"
+            },
+            "memory": [
+              "Ankit ne kaha 'ajeeb ho, aur tumhare ajeeb ke liye main roz late aata hoon' — Solara ne aankhein uthayi. 'Tum... mere liye late aate ho?' 'Roz. Bus stop pe tumhara salute dekhne.' Aur garmi — dheere-dheere — 46, 42, 38. Manager ne shaam ko call kiya — 'reconsider kar rahe hain'. Solara ne mana kar diya."
+            ]
+          }
+        },
+        {
+          "id": "c_kya_ho",
+          "text": "\"Solara. Ab batao. Tum kya ho? Ye garmi — ye tum ho na?\"",
+          "shortLabel": "Tum kya ho?",
+          "keywords": [
+            "kya ho",
+            "kaun ho",
+            "garmi",
+            "tum ho",
+            "sach",
+            "who are you"
+          ],
+          "next": "s5_sach",
+          "effects": {
+            "relationships": {
+              "solara": 10
+            },
+            "flags": {
+              "askedWhatSheIs": true
+            },
+            "choicesRecord": {
+              "arc3": "asked"
+            },
+            "memory": [
+              "47 degree mein Ankit ne poocha 'tum kya ho?' — Solara ne khidki ki taraf dekha. Sooraj ki taraf. Seedha. Bina aankhein jhapkaye. 'Woh. Main woh hoon. Aur main isse thak gayi hoon.'"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "id": "s5_sach",
+      "title": "Doot",
+      "narration": [
+        "*Raat. Solara ka flat. Blackout parde. Woh so rahi hai — pehli baar khud se, bina tumhare kahaniyon ke. Tum sofa pe. Kal ki garmi ke baad tum use akela nahi chhodna chahte the.*",
+        "*Aur 3 baje raat ko — khidki khulti hai. Khud. Aur ek ladka andar aata hai. Kaale kapde, chaandi ki chamak, aur ek expression jaise use yahan aana bilkul pasand nahi.*",
+        "Nishant: \"Didi. Utho. Poora Darbaar—\"",
+        "*Woh tumhe dekhta hai. Ruk jaata hai.*",
+        "Nishant: \"...Insaan. Sofa pe. Uske flat mein. Ye... ye kya hai? Ye toh bhavishyavaani se bhi bura hai.\"",
+        "*Solara uthti hai. Aur tum pehli baar dekhte ho — woh Solara nahi jo bus stop pe salute karti hai. Ye koi aur hai. Kamra roshni se bhar jaata hai — blackout parde ke baavjood. Nishant ek kadam peeche.*",
+        "Solara: \"Nishant. Tumhe kisne bheja?\"",
+        "Nishant: \"Darbaar ne. Mujhe nahi aana tha. Raat ka paksh tumhari chhutti se bahut khush tha — lambi raatein, achha business. Par Darbaar ne kaha 'Sooraj ki Devi ek insaan ke saath dekhi gayi hai' aur sab ka dimaag—\"",
+        "*Woh phir tumhe dekhta hai.*",
+        "Nishant: \"—aur ab main samajh gaya kyun.\"",
+        "*Solara tumhari taraf mudti hai. Roshni thodi kam hoti hai. Uski aankhon mein — darr. Tumhare chehre ka darr.*",
+        "Solara: \"Ankit. Main... main tumhe khud batana chahti thi. Chai pe. Nana ki tapri pe. Aise nahi.\""
+      ],
+      "fallbackLines": [
+        "*Nishant khidki ke paas khada hai — jaane ko taiyaar, par ja nahi raha. Solara ke aas-paas roshni. Tum sofa pe.*",
+        "Nishant: \"Insaan. Kuch bolo. Ye roshni tumhare jawab ka wait kar rahi hai. Literally.\""
+      ],
+      "choices": [
+        {
+          "id": "c_pata_tha",
+          "text": "\"Solara. Mujhe pata tha. 47 degree wale din se. Shayad chai wale din se. Chai peene aaogi kal?\"",
+          "shortLabel": "Pata tha. Chai kal?",
+          "keywords": [
+            "pata tha",
+            "chai",
+            "kal",
+            "jaanta tha",
+            "knew",
+            "fine"
+          ],
+          "next": "s6_hub",
+          "effects": {
+            "relationships": {
+              "solara": 32,
+              "nishant": 6
+            },
+            "flags": {
+              "alreadyKnew": true
+            },
+            "choicesRecord": {
+              "arc4": "knew"
+            },
+            "memory": [
+              "Nishant ke saamne Ankit ne kaha 'mujhe pata tha — chai peene aaogi kal?' — Solara ne kuch nahi kaha. Roshni gayab. Woh sofa pe aayi aur Ankit ke kandhe pe sar rakh diya. Nishant: 'Ye... ye main report mein kaise likhun?'"
+            ]
+          }
+        },
+        {
+          "id": "c_nishant_kaun",
+          "text": "Nishant se — \"Tum kaun ho? Aur 'bhavishyavaani' kya hai?\"",
+          "shortLabel": "Bhavishyavaani kya?",
+          "keywords": [
+            "nishant",
+            "kaun",
+            "bhavishyavaani",
+            "prophecy",
+            "darbaar",
+            "kya hai"
+          ],
+          "next": "s6_hub",
+          "effects": {
+            "relationships": {
+              "nishant": 10,
+              "solara": 8
+            },
+            "flags": {
+              "askedProphecy": true
+            },
+            "choicesRecord": {
+              "arc4": "prophecy"
+            },
+            "memory": [
+              "Ankit ne Nishant se bhavishyavaani ke baare mein poocha — Nishant ne Solara ko dekha. Solara ne sar hilaya — 'nahi'. Nishant: 'Didi nahi chahti. Toh nahi. Par insaan — itna jaan lo: usmein tumhara naam nahi hai. Usmein sirf ek aam likha hai. Aur ab main samajh raha hoon kyun.'"
+            ]
+          }
+        },
+        {
+          "id": "c_sooraj_devi",
+          "text": "\"Sooraj ki Devi. Theek hai. Toh — bus kyun nahi pakad paati?\"",
+          "shortLabel": "Toh bus kyun nahi?",
+          "keywords": [
+            "sooraj",
+            "devi",
+            "bus",
+            "kyun nahi",
+            "joke",
+            "theek hai"
+          ],
+          "next": "s6_hub",
+          "effects": {
+            "relationships": {
+              "solara": 26,
+              "nishant": 4
+            },
+            "flags": {
+              "jokedAboutBus": true
+            },
+            "choicesRecord": {
+              "arc4": "joke"
+            },
+            "memory": [
+              "Sach jaanne ke baad Ankit ka pehla sawaal: 'toh bus kyun nahi pakad paati?' — Solara hansi. Sach mein hansi. 3 baje raat ko flat mein subah ho gayi. Poori building jag gayi. Mrs. Kulkarni ne darwaaza peeta. Nishant ne kaha 'main ise pasand nahi karna chahta tha. Fail ho gaya.'"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "id": "s6_hub",
+      "title": "Aam Din",
+      "narration": [
+        "*Subah. Nana ki tapri. Solara — Sooraj ki Devi — cutting chai peeke shikayat kar rahi hai ki 'achhi nahi bani' (Nana khush hain). Nishant bagal mein misal pav khaa raha hai — usne 'report likhne' ke liye Kothrud mein flat le liya hai, Solara ke upar wale floor pe. Mrs. Kulkarni ne use 'bhai' maan liya hai, shak ke saath.*",
+        "*Tumhare phone pe: Nishant ka message ('Darbaar ne ek aur doot bheja hai. Asli wala. Kal.'), Mrs. Kulkarni ka message ('Sinhagad trip society ki — Solara ko lao, ladka bhi'), aur Nana ka — Nana phone nahi karte. Par aaj subah unhone kaha: 'Beta, bees saal pehle wali — woh wapas aa rahi hai. Tayyar rehna.'*",
+        "Solara: \"Dekho. Sab ek saath. Chai, doot, trip, aur Nana ka rahasya. Ye aam din hai?\"",
+        "Nishant: \"Nahi.\"",
+        "Solara: \"Nishant se nahi poocha.\"",
+        "*Woh tumhari taraf dekhti hai. Sooraj thoda chamakta hai. Woh notice karti hai, aur dheere kar deti hai — khud. Woh seekh rahi hai.*",
+        "Solara: \"Ye khatam nahi hota, Ankit. Aam banna — ye kabhi khatam nahi hota, na? Roz seekhna padta hai. Theek hai. Chuno. Aaj kya seekhein?\""
+      ],
+      "fallbackLines": [
+        "*Nana ek aur cutting rakhte hain. Bina maange. Solara ke saamne.*",
+        "Nana: \"Roshni ka hisaab. Pee, beta. Phir jo karna hai karo.\""
+      ],
+      "choices": [
+        {
+          "id": "c_hub_doot",
+          "text": "Darbaar ka asli doot — kal. Taiyaari karo. Nishant se sab poochho.",
+          "shortLabel": "Doot ki taiyaari",
+          "keywords": [
+            "doot",
+            "darbaar",
+            "kal",
+            "taiyaari",
+            "nishant",
+            "swarg",
+            "prepare"
+          ],
+          "next": "s7_doot",
+          "effects": {
+            "relationships": {
+              "nishant": 8
+            },
+            "flags": {
+              "arcDoot": true
+            },
+            "choicesRecord": {
+              "arc5": "doot"
+            },
+            "memory": [
+              "Ankit ne Darbaar ke doot ki taiyaari chuni — Nishant: 'Theek hai. Sun lo. Jo aa raha hai woh main nahi hoon. Woh Solara ko wapas le jaane ki shakti rakhta hai. Aur tumhe... tumhe bhoolne ki.'"
+            ]
+          }
+        },
+        {
+          "id": "c_hub_sinhagad",
+          "text": "Sinhagad trip — Solara pehli baar apna sunset bahar se dekhegi.",
+          "shortLabel": "Sinhagad sunset",
+          "keywords": [
+            "sinhagad",
+            "trip",
+            "sunset",
+            "society",
+            "pahaad",
+            "dekhna"
+          ],
+          "next": "s7_sinhagad",
+          "effects": {
+            "relationships": {
+              "solara": 12,
+              "mrs-kulkarni": 6
+            },
+            "flags": {
+              "arcSinhagad": true
+            },
+            "choicesRecord": {
+              "arc5": "sinhagad"
+            },
+            "location": "Sinhagad",
+            "memory": [
+              "Ankit ne Sinhagad trip chuni — Solara: 'Sunset? Main use banati hoon. Roz. Maine kabhi... kabhi dekha nahi. Bahar se. Woh kaisa dikhta hai, Ankit?'"
+            ]
+          }
+        },
+        {
+          "id": "c_hub_nana",
+          "text": "Nana — 'bees saal pehle wali wapas aa rahi hai'. Kaun? Poochho.",
+          "shortLabel": "Nana ka rahasya",
+          "keywords": [
+            "nana",
+            "bees saal",
+            "wapas",
+            "kaun",
+            "rahasya",
+            "chaand"
+          ],
+          "next": "s7_nana",
+          "effects": {
+            "relationships": {
+              "nana": 10
+            },
+            "flags": {
+              "arcNana": true
+            },
+            "choicesRecord": {
+              "arc5": "nana"
+            },
+            "memory": [
+              "Ankit ne Nana ka rahasya chuna — Nana ne tapri band ki. Din mein. Pehli baar chaalis saal mein. 'Baitho. Dono. Ye lambi baat hai.'"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "id": "s7_doot",
+      "title": "Roshni Ka Darbaar",
+      "narration": [
+        "*Agli subah. Bus stop. Solara ne kaha 'yahin milenge — ye meri jagah hai.' Aur theek 9 baje — sooraj ruk jaata hai. Literally. Log ruk jaate hain. Bus ruk jaati hai — pehli baar Solara ke saamne, aur woh notice bhi nahi karti.*",
+        "*Ek aadmi utarta hai. Bus se nahi — hawa se. Safed. Lamba. Aankhein bina pupil ke. Aur uske aas-paas — Solara se bhi zyada roshni. Nahi — alag roshni. Thandi.*",
+        "Doot: \"Solara. Darbaar tumhe bulata hai. Abhi. Ye anurodh nahi hai.\"",
+        "*Solara aage badhti hai. Aur tum dekhte ho — woh nahi jhukti. Aur doot ek inch — bas ek inch — peeche hota hai.*",
+        "Solara: \"Main chhutti pe hoon. Maine chitthi bheji thi.\"",
+        "Doot: \"Sooraj ki Devi 'chhutti' pe nahi jaati. Aur tum ek insaan ke saath—\" *woh tumhari taraf dekhta hai, aur tumhara sar dard karne lagta hai* \"—is ke saath. Bhavishyavaani—\"",
+        "Solara: \"Uska naam Ankit hai.\"",
+        "*Chaar shabd. Aur sooraj — jo ruka hua tha — ek second ke liye do guna ho jaata hai. Doot ki roshni gayab. Poore Deccan par sirf Solara.*",
+        "Solara: \"Uska naam lo. Ya mat lo. Par 'is' mat kaho.\"",
+        "*Doot ne uska naam liya. 'Ankit.' Phir tumhari taraf mud kar — bahut dheere — 'Insaan. Tumhe pata hai tum kiske saath khade ho?'*"
+      ],
+      "fallbackLines": [
+        "*Sooraj abhi bhi ruka hai. Nishant kahin se aa gaya hai — tumhare peeche — aur bahut dheere keh raha hai: 'Insaan, jo bhi bolo, soch ke bolo. Ye Darbaar ka sabse purana hai.'*",
+        "Doot: \"Bolo. Tumhare liye Sooraj ruka hai. Ye kisi insaan ke liye kabhi nahi hua.\""
+      ],
+      "choices": [
+        {
+          "id": "c_pata_hai_doot",
+          "text": "\"Pata hai. Ek ladki jo bus nahi pakad paati aur chai pe roti hai. Aur aap use le jaana chahte ho — kyun?\"",
+          "shortLabel": "Kyun le jaoge?",
+          "keywords": [
+            "pata hai",
+            "bus",
+            "chai",
+            "kyun",
+            "le jaoge",
+            "why"
+          ],
+          "next": "s8_next",
+          "effects": {
+            "relationships": {
+              "solara": 26,
+              "nishant": 8
+            },
+            "flags": {
+              "stoodUpToDoot": true
+            },
+            "choicesRecord": {
+              "arc5b": "stood"
+            },
+            "memory": [
+              "Darbaar ke doot ke saamne Ankit ne kaha 'ek ladki jo bus nahi pakad paati — use kyun le jaoge?' — Doot chup. Bahut der. Phir: 'Kyunki bhavishyavaani kehti hai — jab Sooraj ki Devi ek aam ke saath rukegi, toh Sooraj badlega. Aur Darbaar badlaav se darta hai.' Solara: '...Toh darne do.'"
+            ]
+          }
+        },
+        {
+          "id": "c_solara_chuno",
+          "text": "Solara se — \"Tum chuno. Jaana hai toh jao. Main yahin rahunga. Bus stop pe. Roz.\"",
+          "shortLabel": "Tum chuno, Solara",
+          "keywords": [
+            "tum chuno",
+            "jaana",
+            "yahin rahunga",
+            "bus stop",
+            "roz",
+            "choose"
+          ],
+          "next": "s8_next",
+          "effects": {
+            "relationships": {
+              "solara": 30
+            },
+            "flags": {
+              "letSolaraChoose": true
+            },
+            "choicesRecord": {
+              "arc5b": "chose"
+            },
+            "memory": [
+              "Ankit ne Solara se kaha 'tum chuno — main yahin rahunga, bus stop pe, roz' — Solara ne doot ki taraf dekha. Phir Ankit ki taraf. Phir bus ki taraf — jo ruki hui thi. 'Bus ruki hai. Pehli baar. Main isme baithungi. Darbaar ko bolo — Solara ne bus pakad li. Baaki baad mein.'"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "id": "s7_sinhagad",
+      "title": "Apna Sunset",
+      "narration": [
+        "*Sinhagad. Shaam. Society ki trip — Mrs. Kulkarni ne poori bus arrange ki (Solara ne haath hilaya, bus ruki, woh itni khush hui ki Kothrud mein sab ke phone ki torch on ho gayi). Ab sab upar hain. Aur sunset ka time hai.*",
+        "*Solara pahaad ke kinare khadi hai. Chup. Bilkul chup. Aur tum uske bagal mein.*",
+        "Solara (bahut dheere): \"Main ye roz karti hoon. Hazaaron saal se. Main ise... andar se karti hoon. Main hoon ye.\"",
+        "*Sooraj neeche jaa raha hai. Narangi. Laal. Aur Solara ki aankhon mein — woh hi rang.*",
+        "Solara: \"Maine kabhi dekha nahi tha. Bahar se. Ye... Ankit, ye sundar hai. Main sundar hoon? Ye main hoon?\"",
+        "*Uski awaaz toot rahi hai. Aur sunset — dheema ho jaata hai. Bas thoda. Jaise woh ise pakad ke rakhna chahti ho.*",
+        "*Peeche Mrs. Kulkarni photo le rahi hain. 'Aaj ka sunset toh kamaal hai! Solara beta, idhar dekho!' Nishant kone mein — aur woh bhi dekh raha hai. Pehli baar bina sarcasm ke.*",
+        "Solara: \"Ankit. Agar main wapas gayi — toh main ise phir kabhi bahar se nahi dekh paungi. Ye samajh rahe ho? Yahi hai jo main chhod ke aayi. Andar hona. Bahar hona mujhe tumne diya.\""
+      ],
+      "fallbackLines": [
+        "*Sunset abhi bhi ruka hua — aadha. Log photo le rahe hain. Solara ka haath tumhare haath ke paas — chhoo nahi raha.*",
+        "Solara: \"Kuch bolo. Ya mat bolo. Main ise thodi der aur rok sakti hoon. Bas thodi.\""
+      ],
+      "choices": [
+        {
+          "id": "c_haath_pakdo",
+          "text": "Haath pakdo. Kuch mat bolo. Sunset ko poora hone do.",
+          "shortLabel": "Haath pakdo",
+          "keywords": [
+            "haath",
+            "pakdo",
+            "chup",
+            "sunset",
+            "poora",
+            "hold"
+          ],
+          "next": "s8_next",
+          "effects": {
+            "relationships": {
+              "solara": 32
+            },
+            "flags": {
+              "heldHandSunset": true
+            },
+            "choicesRecord": {
+              "arc5b": "hand"
+            },
+            "memory": [
+              "Sinhagad pe Ankit ne Solara ka haath pakda — aur sunset poora hone diya. Solara ne rokna band kiya. Sooraj dooba. Aur andhere mein Solara ne kaha: 'Pehli baar. Pehli baar maine ise jaane diya. Kyunki koi mere saath dekh raha tha.' Mrs. Kulkarni ki photo mein dono hain. Woh 'dekhenge' se 'theek hai' pe aa gayi."
+            ]
+          }
+        },
+        {
+          "id": "c_sundar_ho",
+          "text": "\"Haan. Ye tum ho. Aur haan — sundar ho. Bahar se bhi, andar se bhi.\"",
+          "shortLabel": "Haan, sundar ho",
+          "keywords": [
+            "sundar",
+            "haan",
+            "ye tum ho",
+            "beautiful",
+            "andar bahar"
+          ],
+          "next": "s8_next",
+          "effects": {
+            "relationships": {
+              "solara": 28
+            },
+            "flags": {
+              "toldHerBeautiful": true
+            },
+            "choicesRecord": {
+              "arc5b": "beautiful"
+            },
+            "memory": [
+              "Ankit ne Solara se kaha 'ye tum ho — aur sundar ho' — Solara ne aankhein band ki. Aur poore Maharashtra mein us shaam ka sunset itna lamba tha ki news channels pe aaya. 'Rare atmospheric phenomenon.' Nishant ne report mein likha: 'Phenomenon ka naam Ankit hai.'"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "id": "s7_nana",
+      "title": "Bees Saal Pehle Wali",
+      "narration": [
+        "*Nana ki tapri. Band. Din mein. Andar — tum, Solara, aur Nana. Aur chai — jo Nana ne khud banayi, aur khud pi. Pehli baar tumne unhe peete dekha.*",
+        "Nana: \"Bees saal pehle. Yahi tapri. Ek ladki aayi. Chaandi jaisi. Thandi hawa saath. Raat ko aati thi — din mein nahi. Usne bhi chai pi, aur ro padi.\"",
+        "*Solara ka haath glass pe kas jaata hai.*",
+        "Solara: \"Chandrika. Chandrama ki beti. Woh... woh gayab ho gayi thi. Bees saal pehle. Darbaar ne kaha woh 'lupt' ho gayi. Hum sab ne maan liya.\"",
+        "Nana: \"Lupt nahi hui, beta. Woh yahin thi. Chhe mahine. Mere upar wale kamre mein. Usne bhi 'aam' seekhna chaaha tha. Maine sikhaya. Jo aata tha.\"",
+        "*Woh chai ka ghoont lete hain. Haath kaanp raha hai.*",
+        "Nana: \"Phir ek din woh gayi. Bola 'wapas aaungi.' Aayi nahi. Aur kal raat — bees saal baad — mere kamre ki khidki pe chaandni thi. Sirf mere kamre pe. Baaki Pune mein baadal.\"",
+        "*Solara tumhari taraf dekhti hai. Aur uske chehre pe — pehli baar — koi aur darr. Apna nahi.*",
+        "Solara: \"Ankit. Agar Chandrika wapas aa rahi hai... toh ya toh woh mujhe dhoondh rahi hai. Ya Nana ko. Ya... ya bhavishyavaani sirf mere baare mein nahi hai. 'Ek aam' — Nana bhi aam hain.\""
+      ],
+      "fallbackLines": [
+        "*Tapri mein chai ki khushboo. Nana ki aankhein khidki pe. Solara ka haath tumhare haath pe — jaise woh khud ko pakad rahi ho.*",
+        "Nana: \"Beta, tum log jo bhi ho — mere liye do bachche ho jo chai pe rote hain. Bas bolo — kya karein?\""
+      ],
+      "choices": [
+        {
+          "id": "c_nana_saath",
+          "text": "\"Nana, agar woh aati hai — hum yahin honge. Aap akele nahi miloge usse.\"",
+          "shortLabel": "Nana, hum saath",
+          "keywords": [
+            "nana",
+            "saath",
+            "akele nahi",
+            "hum honge",
+            "chandrika",
+            "together"
+          ],
+          "next": "s8_next",
+          "effects": {
+            "relationships": {
+              "nana": 18,
+              "solara": 16
+            },
+            "flags": {
+              "promisedNana": true
+            },
+            "choicesRecord": {
+              "arc5b": "nana"
+            },
+            "memory": [
+              "Ankit ne Nana se vaada kiya — 'aap akele nahi miloge usse'. Nana ne pehli baar Ankit ko gale lagaya. 'Bees saal se main akela intezaar kar raha tha, beta. Ab do bachche hain.' Solara ne dheere kaha: 'Nana. Main bhi bees saal baad wapas aa sakti hoon. Aap intezaar karoge?' Nana: 'Chai thandi ho jaayegi. Jaldi aana.'"
+            ]
+          }
+        },
+        {
+          "id": "c_bhavishyavaani_ab",
+          "text": "Solara se — \"Ab batao. Poori bhavishyavaani. 'Ek aam' — kya likha hai?\"",
+          "shortLabel": "Poori bhavishyavaani",
+          "keywords": [
+            "bhavishyavaani",
+            "poori",
+            "ek aam",
+            "batao",
+            "prophecy",
+            "likha"
+          ],
+          "next": "s8_next",
+          "effects": {
+            "relationships": {
+              "solara": 14,
+              "nana": 8
+            },
+            "flags": {
+              "heardProphecy": true
+            },
+            "choicesRecord": {
+              "arc5b": "prophecy"
+            },
+            "memory": [
+              "Ankit ne Solara se poori bhavishyavaani poochhi — Solara: 'Jab roshni ek aam ke paas rukegi, toh roshni badlegi. Aur jo badlega — woh wapas nahi jaayega.' Woh chup. 'Main isliye bhaag rahi thi, Ankit. Kyunki main badalna chahti thi. Aur wapas nahi jaana chahti thi. Aur ye Darbaar ke liye sabse bada khatra hai — Sooraj jo apni marzi se chamke.'"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "id": "s8_next",
+      "title": "Kal Ki Bus",
+      "narration": [
+        "*Subah. Deccan bus stop. Solara — kaala chashma, bus pass (PMPML ne chauthi baar mein maan liya), aur diary. Nishant bagal mein — 'report' ke liye, jo ab 200 pages ki hai aur jise usne bheja nahi. Nana ne aaj ek cutting extra di — 'Chandrika ke liye, jab aaye.'*",
+        "*Tumhare phone pe: Mrs. Kulkarni ('Solara ke liye rishta aaya hai — Nishant ka dost bola. Tum jaldi kuch karo, Ankit.'), Nishant ka message ('Darbaar chup hai. Ye buri baat hai. Raat ke Devta khush hain. Ye aur buri baat hai.'), aur ek unknown number — sirf ek chaand ka emoji.*",
+        "Solara: \"Dekho. Sab ek saath. Rishta, Darbaar, chaand. Aam zindagi sach mein busy hai.\"",
+        "*Bus aati hai. Solara haath hilati hai — sahi tareeke se, tumhare sikhaye hue — aur bus rukti hai. Woh nahi chadhti. Woh tumhari taraf dekhti hai. Sooraj — bilkul normal. Woh seekh gayi hai.*",
+        "Solara: \"Ye khatam nahi hota, Ankit. Aam banna roz ka kaam hai. Par ab mujhe pata hai — main akeli nahi seekh rahi. Chuno. Kal ki bus kahan jaayegi?\""
+      ],
+      "fallbackLines": [
+        "*Ye kahani yahin nahi rukti — har bus ek naya arc: Darbaar ki chuppi, Chandrika ki wapsi, Raat ke Devta, bhavishyavaani ka 'badlaav', aur Nana ka poora sach.*",
+        "Nishant: \"Insaan, jaldi chuno. Bus wala horn maar raha hai. Aur didi ki khushi se meri aankhein dukh rahi hain.\""
+      ],
+      "choices": [
+        {
+          "id": "c_next_chaand",
+          "text": "Chaand ka emoji — Chandrika. Woh aa rahi hai. Nana ke saath taiyaar raho.",
+          "shortLabel": "Chandrika aa rahi",
+          "keywords": [
+            "chaand",
+            "chandrika",
+            "emoji",
+            "nana",
+            "wapas",
+            "moon"
+          ],
+          "next": "s7_nana",
+          "effects": {
+            "relationships": {
+              "nana": 6,
+              "solara": 6
+            },
+            "flags": {
+              "arcChandrika": true
+            },
+            "choicesRecord": {
+              "next": "chandrika"
+            },
+            "memory": [
+              "Naya arc: Chandrika ki wapsi — bees saal baad, Nana ki tapri pe."
+            ]
+          }
+        },
+        {
+          "id": "c_next_darbaar",
+          "text": "Darbaar ki chuppi — Nishant ke saath swarg ki rajneeti samjho",
+          "shortLabel": "Darbaar ki chuppi",
+          "keywords": [
+            "darbaar",
+            "chuppi",
+            "swarg",
+            "rajneeti",
+            "nishant",
+            "raat ke devta"
+          ],
+          "next": "s7_doot",
+          "effects": {
+            "relationships": {
+              "nishant": 10
+            },
+            "flags": {
+              "arcDarbaarSilence": true
+            },
+            "choicesRecord": {
+              "next": "darbaar"
+            },
+            "location": "Swarg — Roshni ka Darbaar",
+            "memory": [
+              "Naya arc: Darbaar chup hai — aur Raat ke Devta khush. Nishant kehta hai ye toofan se pehle ki chuppi hai."
+            ]
+          }
+        },
+        {
+          "id": "c_next_rishta",
+          "text": "Rishta — Mrs. Kulkarni ka plan. 'Tum jaldi kuch karo, Ankit.'",
+          "shortLabel": "Rishta wala drama",
+          "keywords": [
+            "rishta",
+            "kulkarni",
+            "jaldi kuch karo",
+            "shaadi",
+            "society",
+            "drama"
+          ],
+          "next": "s7_sinhagad",
+          "effects": {
+            "relationships": {
+              "solara": 12,
+              "mrs-kulkarni": 8
+            },
+            "flags": {
+              "arcRishta": true
+            },
+            "choicesRecord": {
+              "next": "rishta"
+            },
+            "memory": [
+              "Naya arc: Solara ke liye rishta — aur Mrs. Kulkarni ka 'tum jaldi kuch karo, Ankit.' Solara ne poocha 'rishta kya hota hai?' Nishant hans raha hai."
+            ]
+          }
+        },
+        {
+          "id": "c_next_seekho",
+          "text": "Aaj kuch naya seekho — Solara ki diary mein agla page",
+          "shortLabel": "Aaj naya seekho",
+          "keywords": [
+            "seekho",
+            "naya",
+            "diary",
+            "aam",
+            "sikhao",
+            "learn",
+            "chai"
+          ],
+          "next": "s2_chai",
+          "effects": {
+            "relationships": {
+              "solara": 10
+            },
+            "flags": {
+              "arcLearnMore": true
+            },
+            "choicesRecord": {
+              "next": "learn"
+            },
+            "memory": [
+              "Naya arc: aam zindagi ka agla sabak — Solara ki diary ka agla page."
+            ]
+          }
+        }
+      ]
+    }
+  ],
+  "endings": []
+}
