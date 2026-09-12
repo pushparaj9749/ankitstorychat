@@ -138,24 +138,53 @@ Project layout: `src/{screens,components,navigation,state,lib,content,legal,them
 **Automated, zero secrets** (`.github/workflows/android.yml`):
 
 ```
-push to main / tag v*  →  npm ci  →  expo prebuild  →  Gradle assembleDebug
-→ APK artifact  →  (tags only) GitHub Release with APK attached
+push to main / tag v*  →  npm ci  →  expo prebuild  →  Gradle assembleRelease
+→ verify assets/index.android.bundle  →  APK artifact  →  (tags only) GitHub Release with APK attached
 ```
 
 - Every `main` push produces a downloadable `kissa-apk` artifact (30-day retention).
 - Every `v*` tag (e.g. `v1.0.0`) creates a **Release** with `kissa-vX.Y.Z.apk`.
 - The website's **DOWNLOAD APK** button auto-points at the latest release APK.
 
+### Why `assembleRelease` and not `assembleDebug`
+
+React Native's Gradle plugin **skips JS bundling for debuggable variants**
+(`debuggableVariants` defaults to `["debug"]`). A `./gradlew assembleDebug` APK
+therefore ships with **no `assets/index.android.bundle`** — install it on a phone
+and it only works while a Metro dev server is reachable, otherwise it dies at
+startup with:
+
+```
+Unable to load script. Make sure you're running Metro or that your bundle
+'index.android.bundle' is packaged correctly for release.
+```
+
+The CI pipeline builds the **release** variant instead, which embeds the JS
+bundle, and signs it with the auto-generated debug keystore — so the artifact is
+a standalone, installable APK that needs no PC, no Metro and no secrets. The
+workflow also has a **"Verify JS bundle is packaged"** step that fails the build
+if the bundle is ever missing again (regression guard for exactly this crash).
+
 ### APK build & signing (important)
 
-- The pipeline builds a **debug-signed APK**: installable on any Android 8.0+ device, perfect for beta distribution. No secrets required.
-- For Play Store / production: add release signing with encrypted secrets (`ANDROID_KEYSTORE_BASE64`, `ANDROID_KEYSTORE_PASSWORD`, `ANDROID_KEY_ALIAS`, `ANDROID_KEY_PASSWORD`), switch the workflow to `assembleRelease`, and never print secrets in logs. See `android.yml` comments.
+- The pipeline builds a **release-configured APK signed with the debug keystore**: installable on any Android 8.0+ device, perfect for beta distribution. No secrets required.
+- Running from source during development is different: `npm start` (Metro) + `a` in the Expo CLI, or `npm run android` — a **debug** build on your device loads JS from Metro on your machine, so keep it running and keep the phone on the same Wi-Fi (or `adb reverse tcp:8081 tcp:8081` over USB).
+- For Play Store / production: add real release signing with encrypted secrets (`ANDROID_KEYSTORE_BASE64`, `ANDROID_KEYSTORE_PASSWORD`, `ANDROID_KEY_ALIAS`, `ANDROID_KEY_PASSWORD`) and never print secrets in logs. See `android.yml` comments.
+
+### Build the installable APK locally
+
+```bash
+npm ci
+npx expo prebuild --platform android --no-install   # generates ./android (gitignored)
+cd android && ./gradlew assembleRelease && cd ..
+# → android/app/build/outputs/apk/release/app-release.apk  (install this one)
+```
 
 ### Required secrets
 
 | Secret | Required? | Purpose |
 |---|---|---|
-| _(none)_ | — | Debug APK pipeline needs zero secrets |
+| _(none)_ | — | APK pipeline needs zero secrets (signed with the debug keystore) |
 | `GITHUB_TOKEN` | Auto-provided | Release publishing (built-in) |
 | `ANDROID_KEYSTORE_*` | Only for future signed releases | Play Store signing (not yet configured) |
 
