@@ -19,6 +19,7 @@ import type {
 } from '../types';
 import { createInitialState } from '../types';
 import { teenSafetyGuidance } from './ageGate';
+import { isFullyFadedLine, matchSpeakerPrefix } from './markup';
 import { clamp, norm, tokens } from './utils';
 
 /* ---------------- scene helpers ---------------- */
@@ -177,12 +178,23 @@ export function parseAssistantResponse(raw: string): ParsedAssistant {
 
   displayText = displayText.replace(/\n{3,}/g, '\n\n').trim();
 
-  // Speaker detection: leading "Name:" line.
+  // Speaker detection: the first spoken line, in the format
+  //   *faded action line*
+  //   Myra: "dialogue"
+  // Leading *action* lines are skipped; the first non-action line decides.
   let speaker: string | null = null;
-  const m = displayText.match(/^([A-Z][A-Za-z.'\- ]{1,24}):\s*/);
-  if (m) {
-    speaker = m[1].trim();
-    displayText = displayText.slice(m[0].length).trim();
+  const lines = displayText.split('\n');
+  for (let i = 0; i < lines.length; i++) {
+    const trimmed = lines[i].trim();
+    if (!trimmed) continue;
+    if (isFullyFadedLine(trimmed)) continue;
+    const hit = matchSpeakerPrefix(trimmed);
+    if (hit) {
+      speaker = hit.name;
+      lines[i] = hit.rest;
+      displayText = lines.join('\n').replace(/^\n+/, '').trim();
+    }
+    break;
   }
 
   return { displayText, effects, memoryNotes, speaker };
@@ -313,15 +325,19 @@ ${teenBlock}
 
 HOW TO RESPOND:
 1. Continue the story immersively: short narration + character dialogue. Keep replies tight (roughly 60-160 words), ending with a hook or a situation that invites the reader's next move.
-2. Respect the current scene and its available directions; do NOT teleport the plot or invent contradicting events. If the reader does something wild, react believably and steer back toward the scene.
-3. NEVER speak as the reader. NEVER decide the reader's actions for them.
-4. When addressing the reader, use "${profile.nickname}" occasionally.
-5. After your visible reply, append a hidden state block ONLY when something changed (relationship shift, item gained/lost, location change, important flag, scene move, story end). Format exactly:
+2. FORMAT (the app renders this, follow it exactly):
+   - Action / narration / scene-setting goes on its own line wrapped in SINGLE asterisks: *Beena ke honton par halki si muskaan ubharti hai.* — these render FADED in the chat.
+   - Dialogue goes on its own line as: Name: "spoken words" — e.g. Myra: "Umm... lagta hai ye coffee meri nahi hai." Use only real character names from the list above.
+   - Alternate 1-3 faded action lines with dialogue. Never use markdown bold, headers or bullet lists.
+3. Respect the current scene and its available directions; do NOT teleport the plot or invent contradicting events. If the reader does something wild, react believably and steer back toward the scene.
+4. NEVER speak as the reader. NEVER decide the reader's actions for them.
+5. When addressing the reader, use "${profile.nickname}" occasionally.
+6. After your visible reply, append a hidden state block ONLY when something changed (relationship shift, item gained/lost, location change, important flag, scene move, story end). Format exactly:
 \`\`\`kissa-state
 {"relationships": {"characterId": +5}, "flags": {"gateOpened": true}, "inventoryAdd": ["item-id"], "location": "Place name", "scene": "next-scene-id", "endStory": "ending-id", "memory": ["short fact to remember"]}
 \`\`\`
 Omit keys that didn't change. "scene" must be one of the story's scene ids (or omit to stay). "endStory" only at a true ending. Keep memory facts short (under 140 chars).
-6. If the reader greets you out-of-story ("hi", "hello"), stay in character briefly and pull them back into the scene.`;
+7. If the reader greets you out-of-story ("hi", "hello"), stay in character briefly and pull them back into the scene.`;
 }
 
 export interface BuiltContext {

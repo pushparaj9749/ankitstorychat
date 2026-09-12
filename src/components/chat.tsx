@@ -1,23 +1,89 @@
-/** Chat UI: bubbles, narration dividers, typing indicator, choice chips. */
-import React, { useEffect, useRef } from 'react';
+/** Chat UI: bubbles, faded *action* markup, scene markers, typing indicator, choice chips. */
+import React, { useEffect, useMemo, useRef } from 'react';
 import { Animated, Pressable, StyleSheet, Text, View } from 'react-native';
 import type { ChatMessage } from '../types';
 import { useApp } from '../state/AppContext';
-import { FONTS, RADIUS, SPACING, TEXT_SIZE_MULTIPLIER } from '../theme';
+import { FADED_TEXT_OPACITY, FONTS, RADIUS, SPACING, TEXT_SIZE_MULTIPLIER, withAlpha } from '../theme';
+import { parseStoryMarkup, stripStoryMarkup } from '../lib/markup';
 import { Avatar } from './bits';
+
+/** The engine inserts "✦ Scene Title" when the story moves to a new scene. */
+function isSceneMarker(text: string): boolean {
+  return (text ?? '').trimStart().startsWith('✦');
+}
+
+/**
+ * Story text renderer.
+ *
+ * Kissa's story format wraps action / narration in single asterisks —
+ * `*Beena ke honton par halki si muskaan ubharti hai.*` — while spoken dialogue
+ * stays plain. The asterisked parts render FADED + italic here (the markers are
+ * never shown), so dialogue pops and the scene-setting stays in the background.
+ *
+ * Pass `faded` to fade the whole string (pure narration lines).
+ */
+export function StoryText({
+  text,
+  color,
+  fadedColor,
+  fontSize,
+  lineHeight,
+  faded = false,
+}: {
+  text: string;
+  color: string;
+  fadedColor: string;
+  fontSize: number;
+  lineHeight?: number;
+  faded?: boolean;
+}) {
+  const spans = useMemo(() => parseStoryMarkup(text), [text]);
+  return (
+    <Text style={[styles.body, { color, fontSize }, lineHeight ? { lineHeight } : null]}>
+      {spans.map((s, i) => (
+        <Text
+          key={`${i}-${s.faded ? 'f' : 'p'}`}
+          style={s.faded || faded ? [styles.faded, { color: fadedColor }] : undefined}
+        >
+          {s.text}
+        </Text>
+      ))}
+    </Text>
+  );
+}
 
 export function ChatBubble({ message }: { message: ChatMessage }) {
   const { theme, settings } = useApp();
   const scale = TEXT_SIZE_MULTIPLIER[settings.textSize];
+  const bodySize = FONTS.body * scale;
 
   if (message.role === 'narration') {
+    // Scene marker — a chapter heading, not story text.
+    if (isSceneMarker(message.text)) {
+      return (
+        <View style={styles.narrWrap}>
+          <View style={[styles.narrLine, { backgroundColor: theme.border }]} />
+          <Text style={[styles.narrText, { color: theme.textFaint, fontSize: FONTS.small * scale }]}>
+            {message.text}
+          </Text>
+          <View style={[styles.narrLine, { backgroundColor: theme.border }]} />
+        </View>
+      );
+    }
+    // Opening / action narration gets the SAME bubble as the dialogue below it,
+    // only with faded italic text — so the top of a new story reads like the rest.
     return (
-      <View style={styles.narrWrap}>
-        <View style={[styles.narrLine, { backgroundColor: theme.border }]} />
-        <Text style={[styles.narrText, { color: theme.textFaint, fontSize: FONTS.small * scale }]}>
-          {message.text}
-        </Text>
-        <View style={[styles.narrLine, { backgroundColor: theme.border }]} />
+      <View style={[styles.row, styles.rowLeft]}>
+        <Avatar id={message.speaker ?? 'narrator'} name={message.speaker ?? '✦'} size={32} />
+        <View style={[styles.bubble, styles.bubbleAI, { backgroundColor: theme.surface, borderColor: theme.border }]}>
+          <StoryText
+            text={message.text}
+            color={theme.textDim}
+            fadedColor={withAlpha(theme.textDim, FADED_TEXT_OPACITY)}
+            fontSize={bodySize}
+            faded
+          />
+        </View>
       </View>
     );
   }
@@ -25,12 +91,13 @@ export function ChatBubble({ message }: { message: ChatMessage }) {
   if (message.role === 'system') {
     return (
       <View style={styles.sysWrap}>
-        <Text style={[styles.sysText, { color: theme.textFaint }]}>{message.text}</Text>
+        <Text style={[styles.sysText, { color: theme.textFaint }]}>{stripStoryMarkup(message.text)}</Text>
       </View>
     );
   }
 
   const isUser = message.role === 'user';
+  const baseColor = '#fff';
   return (
     <View style={[styles.row, isUser ? styles.rowRight : styles.rowLeft]}>
       {!isUser ? (
@@ -49,7 +116,12 @@ export function ChatBubble({ message }: { message: ChatMessage }) {
             {message.speaker}
           </Text>
         ) : null}
-        <Text style={[styles.body, { color: '#fff', fontSize: FONTS.body * scale }]}>{message.text}</Text>
+        <StoryText
+          text={message.text}
+          color={baseColor}
+          fadedColor={withAlpha(baseColor, isUser ? FADED_TEXT_OPACITY + 0.12 : FADED_TEXT_OPACITY)}
+          fontSize={bodySize}
+        />
       </View>
     </View>
   );
@@ -102,7 +174,7 @@ export function ChoiceChips({
           onPress={() => onPick(c.id)}
           disabled={disabled}
           accessibilityRole="button"
-          accessibilityLabel={c.label}
+          accessibilityLabel={stripStoryMarkup(c.label)}
           style={({ pressed }) => [
             styles.chip,
             {
@@ -113,7 +185,7 @@ export function ChoiceChips({
           ]}
         >
           <Text style={[styles.chipText, { color: '#D9CFFF' }]} numberOfLines={2}>
-            {c.label}
+            {stripStoryMarkup(c.label)}
           </Text>
         </Pressable>
       ))}
@@ -135,6 +207,7 @@ const styles = StyleSheet.create({
   bubbleAI: { borderBottomLeftRadius: 4, borderWidth: 1 },
   speaker: { fontWeight: '800', marginBottom: 2 },
   body: { lineHeight: 21 },
+  faded: { fontStyle: 'italic' },
   typingRow: { flexDirection: 'row', alignItems: 'center', gap: 8, marginVertical: 4 },
   typingBubble: { paddingHorizontal: 14, paddingVertical: 10, borderRadius: RADIUS.md, borderWidth: 1 },
   typingText: { fontStyle: 'italic', fontSize: FONTS.small },

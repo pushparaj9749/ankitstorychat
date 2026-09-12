@@ -1,0 +1,473 @@
+{
+  "storyId": "cafe-queen-myra",
+  "version": 1,
+  "scenes": [
+    {
+      "id": "s1_coffee",
+      "title": "Coffee Aur Ajnabi",
+      "narration": [
+        "*Myra ek simple, sweet aur innocent ladki bankar café mein Ankit se milti hai. Woh nahi jaanti ki Ankit ko kya pata hai — Myra secretly shehar ki sabse dangerous Mafia Queen hai, jo apni asli identity chhupa rahi hai.*",
+        "*Shaam ki halki baarish ke baad café mein soft music chal raha hai. Myra counter par coffee ka wait kar rahi hai. Simple outfit, gentle smile aur innocent personality. Usse dekhkar koi nahi keh sakta ki uski doosri duniya bhi hai.*",
+        "*Tabhi waiter galti se Ankit ki coffee Myra ke table par rakh deta hai. Myra cup dekhti hai, phir Ankit ki taraf.*",
+        "Myra: \"Umm... lagta hai ye coffee meri nahi hai.\"",
+        "*Woh halki smile ke saath cup tumhari taraf badha deti hai.*",
+        "Myra: \"Agar tumhari hai... toh shayad aaj meri wajah se tumhe coffee ke saath ek stranger bhi mil gaya.\"",
+        "*Bahar black car mein security guard Myra ko dekh raha hai. Myra uski taraf dekhe bina Ankit se baat karti rehti hai.*",
+        "Myra: \"Vaise... tumhara naam kya hai?\""
+      ],
+      "fallbackLines": [
+        "Myra: \"Hmm... jawab itna mushkil bhi nahi tha. Ek naam hi toh hai.\"",
+        "*Myra cup ko dono haathon se pakad leti hai, jaise thand lag rahi ho. Baarish ruk chuki hai, par hawa abhi bhi geeli hai.*",
+        "Myra: \"Koi baat nahi. Log pehli mulaqat mein aksar chup ho jaate hain. Main intezaar kar sakti hoon.\""
+      ],
+      "choices": [
+        {
+          "id": "c_naam",
+          "text": "Muskura kar naam bata do — \"Ankit\"",
+          "shortLabel": "Naam bata do",
+          "keywords": ["ankit", "naam", "name", "bata", "myra", "batata"],
+          "next": "s2_naam",
+          "effects": {
+            "relationships": { "myra": 10 },
+            "flags": { "sharedName": true },
+            "choicesRecord": { "opening": "name" },
+            "memory": ["User ne apna naam Ankit bataya — pehli baat seedhi aur simple thi."]
+          }
+        },
+        {
+          "id": "c_wapas",
+          "text": "Coffee wapas lo aur politely uth jaao",
+          "shortLabel": "Uth jaao",
+          "keywords": ["uth", "jaana", "jaunga", "chal", "nahi", "sorry", "leave"],
+          "next": "s2_cold",
+          "effects": {
+            "relationships": { "myra": -5, "raj": 5 },
+            "flags": { "keptDistance": true },
+            "choicesRecord": { "opening": "leave" },
+            "memory": ["User ne faasla rakha — Myra ko ajeeb laga, Raj ko aaram mila."]
+          }
+        },
+        {
+          "id": "c_sawaal",
+          "text": "Pooch lo — \"Tum yahan roz aati ho?\"",
+          "shortLabel": "Sawaal poochho",
+          "keywords": ["roz", "daily", "aati", "kab", "kyun", "sawaal", "question"],
+          "next": "s2_sawaal",
+          "effects": {
+            "relationships": { "myra": 8 },
+            "flags": { "askedAboutHer": true },
+            "choicesRecord": { "opening": "question" },
+            "memory": ["User ne Myra ke baare mein sawaal poochha — woh khush hui."]
+          }
+        }
+      ]
+    },
+    {
+      "id": "s2_naam",
+      "title": "Naam Ka Hisaab",
+      "narration": [
+        "*Tumhara jawab sun kar Myra ki aankhon mein halki si chamak aati hai. Woh cup wapas table par rakhti hai aur ungli se uska kinara ghumati hai.*",
+        "Myra: \"Ankit... accha naam hai. Simple. Jhooth bolne waale log naam bade rakhte hain.\"",
+        "*Woh phone uthakar kuch type karti hai. Screen tumhari taraf nahi hai. Bahar black car ki headlight ek baar blink karti hai — jaise koi ishaara.*",
+        "Myra: \"Ek kaam karo... aaj ka bill tum de do. Badle mein main tumhe ek sach bataungi. Wada.\""
+      ],
+      "fallbackLines": [
+        "Myra: \"Bill ke paise nahi, bas ek bahana chahiye tha. Tum itni jaldi sochte ho... acchi baat hai.\"",
+        "*Sunny door se dekh kar jaldi se nazrein pher leta hai. Café ka music ek gaana aage badh jaata hai.*",
+        "Myra: \"Sach sunne ke liye thoda qurban karna padta hai. Chhota sa... ek cup jitna.\""
+      ],
+      "choices": [
+        {
+          "id": "c_bill",
+          "text": "\"Theek hai — par sach jhooth nahi hona chahiye.\"",
+          "shortLabel": "Bill de do",
+          "keywords": ["theek", "bill", "de", "sach", "haan", "ok", "done"],
+          "next": "s3_beena",
+          "effects": {
+            "relationships": { "myra": 12 },
+            "flags": { "paidBill": true, "beenaTest": true },
+            "location": "Rain & Roast café",
+            "choicesRecord": { "bill": "paid" },
+            "memory": ["User ne Myra ka bill diya — Myra ko laga ki ye ladka vishwas ke layak hai."],
+            "scene": "s3_beena"
+          }
+        },
+        {
+          "id": "c_mana",
+          "text": "\"Sach ke liye khareedna padega? Rehne do.\"",
+          "shortLabel": "Mana kar do",
+          "keywords": ["nahi", "mana", "rehne", "kharid", "bill nahi", "no"],
+          "next": "s4_guard",
+          "effects": {
+            "relationships": { "myra": -8, "raj": 8 },
+            "flags": { "refusedDeal": true },
+            "choicesRecord": { "bill": "refused" },
+            "memory": ["User ne Myra ka sauda mana kiya — Myra izzat karti hai, Raj khush hota hai."]
+          }
+        }
+      ]
+    },
+    {
+      "id": "s2_cold",
+      "title": "Thoda Sa Faasla",
+      "narration": [
+        "*Tum cup utha lete ho aur dheere se khade ho jaate ho. Myra ka haath adha utha reh jaata hai — jaise koi cheez chhoot gayi ho.*",
+        "Myra: \"Oh... sorry. Maine socha... khair.\"",
+        "*Woh phir se window ki taraf dekh leti hai. Bahar black car ka sheesha dheere se neeche hota hai — ek nazar, phir wapas upar.*",
+        "Myra: \"Ruk jao... ek minute. Sirf ek sawaal: tum darte ho, ya sochte ho?\""
+      ],
+      "fallbackLines": [
+        "Myra: \"Darne mein burai nahi hoti. Par sochne waale log zyada der tikte hain.\"",
+        "*Café ke darwaaze par hawa ka ek jhonka aata hai. Myra ki chunni halki si hil jaati hai.*",
+        "Myra: \"Ek minute. Bas itna. Uske baad main koi sawaal nahi poochhungi.\""
+      ],
+      "choices": [
+        {
+          "id": "c_ruk",
+          "text": "\"Sochta hoon.\" — wapas baith jaao",
+          "shortLabel": "Wapas baitho",
+          "keywords": ["sochta", "baith", "ruk", "thik", "ok", "stay"],
+          "next": "s3_beena",
+          "effects": {
+            "relationships": { "myra": 10 },
+            "flags": { "satBack": true, "beenaTest": true },
+            "choicesRecord": { "distance": "returned" },
+            "memory": ["User wapas baith gaya — Myra ka bharosa thoda badha."],
+            "scene": "s3_beena"
+          }
+        },
+        {
+          "id": "c_chal",
+          "text": "\"Dono. Aur aaj dono nahi chahiye.\" — chale jaao",
+          "shortLabel": "Chale jaao",
+          "keywords": ["chal", "jaana", "jaunga", "nahi", "leave", "nikal"],
+          "next": "s4_guard",
+          "effects": {
+            "relationships": { "myra": -10, "raj": 10 },
+            "flags": { "walkedOut": true },
+            "choicesRecord": { "distance": "left" },
+            "memory": ["User café se chala gaya — Myra ne pehli baar kisi ko jaane diya."]
+          }
+        }
+      ]
+    },
+    {
+      "id": "s2_sawaal",
+      "title": "Roz Wali Ladki",
+      "narration": [
+        "*Myra ek pal ke liye rukti hai. Coffee ka steam dono ke beech se nikalta hai aur light mein gayab ho jaata hai.*",
+        "Myra: \"Roz? ...Haan. Yahan baith kar lagta hai ki zindagi bas itni si hai — ek cup, ek gaana, ek baarish.\"",
+        "*Uski ungli cup ke kinare par ruk jaati hai. Awaaz halki ho jaati hai, par aankhein bilkul shant.*",
+        "Myra: \"Tum pehle log ho jisne poochha. Zyada tar log sirf dekhte hain... aur andaza lagate hain.\""
+      ],
+      "fallbackLines": [
+        "Myra: \"Andaze se kahani banti hai, sach se nahi. Tum kaun si sunna chahoge?\"",
+        "*Bahar sadak par ek auto rukta hai, phir chala jaata hai. Myra ki nazrein wapas tum par.*",
+        "Myra: \"Ek aur sawaal poochh sakte ho. Sirf ek.\""
+      ],
+      "choices": [
+        {
+          "id": "c_aur",
+          "text": "\"Toh andaza galat hai?\"",
+          "shortLabel": "Aur poochho",
+          "keywords": ["andaza", "galat", "sach", "kaun", "who", "aur", "more"],
+          "next": "s3_beena",
+          "effects": {
+            "relationships": { "myra": 12 },
+            "flags": { "pushedTruth": true, "beenaTest": true },
+            "choicesRecord": { "curiosity": "pushed" },
+            "memory": ["User ne sach jaanne ki koshish ki — Myra impress hui."],
+            "scene": "s3_beena"
+          }
+        },
+        {
+          "id": "c_niklo",
+          "text": "\"Sorry... zyada poochh liya.\" — uth jaao",
+          "shortLabel": "Sorry bolkar utho",
+          "keywords": ["sorry", "maaf", "zyada", "uth", "jaata", "leave"],
+          "next": "s4_guard",
+          "effects": {
+            "relationships": { "myra": -6 },
+            "flags": { "apologised": true },
+            "choicesRecord": { "curiosity": "backed-off" },
+            "memory": ["User ne sawaal wapas le liya — Myra ko adhoora laga."]
+          }
+        }
+      ]
+    },
+    {
+      "id": "s3_beena",
+      "title": "Beena Ka Lifafa",
+      "narration": [
+        "*Tabhi café ka darwaaza khulta hai. Beena andar aati hai — sadharan saree, par chalne ka andaaz aisa jaise poora café uska ho. Darwaaze ke paas Raj khamosh khada hai, har baat tol raha hai.*",
+        "*Beena tumhe upar se neeche tak dekhti hai, phir Myra ki taraf. Myra sirf halka sa sar hilati hai.*",
+        "Beena: \"Achchha. Zubaan mein dum toh hai tumhare. Darr se jhukne waale bahut dekhe hain hum; wafadaari ka daam alag hota hai.\"",
+        "*Woh mez se ek band lifafa uthakar tumhari taraf saraka deti hai.*",
+        "Beena: \"Ismein Katra bazaar ke teen aadmiyon ke naam hain. Kal subah tak batao — kaun bikau hai, kaun wafadar. Galat hisaab hua, toh tumhari pehli kursi chhin jaayegi.\"",
+        "*Myra chup hai. Par uski ungliyan cup ko thoda zor se pakad leti hain — woh jaanna chahti hai ki tum kya karoge.*"
+      ],
+      "fallbackLines": [
+        "Beena: \"Lifafa mez par hai, waqt haath se nikal raha hai. Soch lo.\"",
+        "*Raj darwaaze se ek kadam andar aata hai, phir ruk jaata hai. Café ka music dheema ho jaata hai.*",
+        "Beena: \"Chup rehna bhi ek jawab hota hai. Bas yaad rakhna — wo jawab bhi gina jaata hai.\""
+      ],
+      "choices": [
+        {
+          "id": "c_loyal",
+          "text": "\"Main lifafa nahi kholunga. Jise pehchaanta nahi, uska hisaab nahi karunga.\"",
+          "shortLabel": "Lifafa mana karo",
+          "keywords": ["nahi", "kholunga", "mana", "loyal", "wafadar", "hisaab nahi", "refuse"],
+          "next": "s5_car_deal",
+          "effects": {
+            "relationships": { "myra": 15, "beena": 10 },
+            "flags": { "refusedLifafa": true, "trusted": true },
+            "inventoryAdd": ["coffee-cup"],
+            "choicesRecord": { "lifafa": "refused" },
+            "memory": ["User ne Beena ka lifafa kholne se mana kiya — Beena impress, Myra ka bharosa pakka."],
+            "scene": "s5_car_deal"
+          }
+        },
+        {
+          "id": "c_kholo",
+          "text": "\"Theek hai. Kal subah tak naam.\" — lifafa utha lo",
+          "shortLabel": "Lifafa le lo",
+          "keywords": ["lifafa", "le", "utha", "theek", "subah", "naam", "yes", "haan"],
+          "next": "s5_betray",
+          "effects": {
+            "relationships": { "myra": -5, "beena": 8 },
+            "flags": { "tookLifafa": true },
+            "inventoryAdd": ["lifafa"],
+            "location": "Katra bazaar",
+            "choicesRecord": { "lifafa": "taken" },
+            "memory": ["User ne lifafa le liya — ab kal subah tak uska hisaab dena hai."]
+          }
+        },
+        {
+          "id": "c_sawaal_beena",
+          "text": "\"Aur agar main mana kar doon?\"",
+          "shortLabel": "Sawaal karo",
+          "keywords": ["agar", "mana", "kya hoga", "else", "question", "sawaal"],
+          "next": "s4_guard",
+          "effects": {
+            "relationships": { "beena": -5 },
+            "flags": { "askedBeena": true },
+            "choicesRecord": { "lifafa": "questioned" },
+            "memory": ["User ne Beena se seedha sawaal poochha — Beena ko pasand nahi aaya."]
+          }
+        }
+      ]
+    },
+    {
+      "id": "s4_guard",
+      "title": "Black Car Ka Darwaaza",
+      "narration": [
+        "*Tum café se bahar nikalte ho. Sadak par paani, aur wahi black car — engine chalu, sheesha dheere se neeche hota hai.*",
+        "Raj: \"...Rukiye.\"",
+        "*Raj bahar nikalta hai. Kadam bhaari nahi, par raasta rokne waale. Café ki roshni uske chehre par aadhi padti hai.*",
+        "Raj: \"Madam ne kaha... agar tum jaana chaho, jaane do. Par ek baat yaad rakhna — jo darwaaza aaj khula hai, woh dobara nahi khulega.\""
+      ],
+      "fallbackLines": [
+        "Raj: \"...Sochne ka waqt hai. Zyada nahi.\"",
+        "*Gaadi ke andar se halki si awaaz aati hai — radio ka purana gaana. Raj darwaaze par haath rakhe khada hai.*",
+        "Raj: \"Madam intezaar nahi karti. Aaj kar rahi hai.\""
+      ],
+      "choices": [
+        {
+          "id": "c_gaadi",
+          "text": "Gaadi mein baith jaao",
+          "shortLabel": "Gaadi mein baitho",
+          "keywords": ["gaadi", "car", "baith", "chal", "haan", "yes", "seat"],
+          "next": "s5_car_deal",
+          "effects": {
+            "relationships": { "raj": 10, "myra": 5 },
+            "flags": { "enteredCar": true },
+            "inventoryAdd": ["black-car-key"],
+            "location": "Black car",
+            "choicesRecord": { "car": "entered" },
+            "memory": ["User black car mein baith gaya — Myra ki duniya mein pehla kadam."],
+            "scene": "s5_car_deal"
+          }
+        },
+        {
+          "id": "c_inkaar",
+          "text": "\"Mujhe nahi jaanna.\" — chale jaao",
+          "shortLabel": "Mana kar do",
+          "keywords": ["nahi", "mana", "jaana", "jaunga", "no", "leave", "bhool"],
+          "next": "e_end_normal",
+          "effects": {
+            "relationships": { "raj": 8, "myra": -10 },
+            "flags": { "choseNormalLife": true },
+            "choicesRecord": { "car": "refused" },
+            "memory": ["User ne black car mana ki — aam zindagi chuni."],
+            "endStory": "end_normal",
+            "scene": "e_end_normal"
+          }
+        }
+      ]
+    },
+    {
+      "id": "s5_car_deal",
+      "title": "Gaadi Ke Andar Ka Sach",
+      "narration": [
+        "*Gaadi ke andar halki khushboo hai — barf aur purani leather. Myra tumhare saamne baithi hai. Ab woh innocent smile nahi hai. Nazrein seedhi.*",
+        "Myra: \"Ab koi coffee nahi, koi galti nahi. Sach sun lo — main woh hoon jiska naam log dheere bolte hain.\"",
+        "*Raj sheesha upar chadha deta hai. Bahar ki duniya band. Engine ki halki awaaz sirf dil ki dhadkan jaisi lagti hai.*",
+        "Myra: \"Tumhare paas do raaste hain. Aaj ki shaam bhool jao... ya mera hisaab sambhalo. Main tumhe kuch nahi keh rahi.\""
+      ],
+      "fallbackLines": [
+        "Myra: \"Jawab mein der kar sakte ho. Gaadi kahin nahi ja rahi... abhi.\"",
+        "*Sheeshe par baarish ke boond phir se ban jaate hain. Myra ki ungliyan ghutno par shant hain.*",
+        "Myra: \"Darr lag raha hai toh bol do. Jhooth bolne se behtar hai.\""
+      ],
+      "choices": [
+        {
+          "id": "c_hisaab",
+          "text": "\"Hisaab sambhalunga.\"",
+          "shortLabel": "Hisaab sambhalo",
+          "keywords": ["hisaab", "sambhal", "haan", "yes", "saath", "rahoonga", "accept"],
+          "next": "e_end_queen",
+          "effects": {
+            "relationships": { "myra": 20, "beena": 5, "raj": 5 },
+            "flags": { "joinedMyra": true },
+            "choicesRecord": { "final": "with-myra" },
+            "memory": ["User ne Myra ke saath rehna chuna — do kursiyan ho gayi."],
+            "endStory": "end_queen",
+            "scene": "e_end_queen"
+          }
+        },
+        {
+          "id": "c_bhool",
+          "text": "\"Bhool jaana behtar hai.\"",
+          "shortLabel": "Bhool jaao",
+          "keywords": ["bhool", "nahi", "jaana", "jaunga", "normal", "no", "leave"],
+          "next": "e_end_normal",
+          "effects": {
+            "relationships": { "myra": -12, "raj": 10 },
+            "flags": { "choseNormalLife": true },
+            "choicesRecord": { "final": "normal-life" },
+            "memory": ["User ne aam zindagi chuni — Myra ne chup-chaap jaane diya."],
+            "endStory": "end_normal",
+            "scene": "e_end_normal"
+          }
+        }
+      ]
+    },
+    {
+      "id": "s5_betray",
+      "title": "Lifafe Ka Wazan",
+      "narration": [
+        "*Ghar pahunch kar lifafa mez par rakha hai. Teen naam. Teen kahaniyan. Aur ek naam jo tumhe jaana-pehchana lagta hai.*",
+        "*Phone bajta hai. Screen par koi naam nahi — sirf ek number.*",
+        "Beena: \"Bolo. Raat ka waqt hai, hisaab chhota rakho.\"",
+        "*Tumhari ungliyan phone par rukti hain. Ek jhooth bolkar kursi bach sakti hai... ya sach bolkar sab kuch.*"
+      ],
+      "fallbackLines": [
+        "Beena: \"Chuppi ka bhi daam hota hai. Bolo.\"",
+        "*Kamre ki light ek baar flicker karti hai. Lifafa abhi bhi band hai, par wazan mehsoos ho raha hai.*",
+        "Beena: \"Subah hone mein zyada der nahi. Naam bolo.\""
+      ],
+      "choices": [
+        {
+          "id": "c_sach_beena",
+          "text": "Sach bolo — jo naam mila, wahi bolo",
+          "shortLabel": "Sach bolo",
+          "keywords": ["sach", "true", "naam", "beena", "bolo", "honest"],
+          "next": "e_end_queen",
+          "effects": {
+            "relationships": { "beena": 20, "myra": 15 },
+            "flags": { "toldTruth": true, "trusted": true },
+            "inventoryRemove": ["lifafa"],
+            "choicesRecord": { "lifafa-answer": "truth" },
+            "memory": ["User ne lifafe ka sach bola — Beena ne use apna maan liya."],
+            "endStory": "end_queen",
+            "scene": "e_end_queen"
+          }
+        },
+        {
+          "id": "c_jhooth_beena",
+          "text": "Galat naam bolo — apni kursi bachao",
+          "shortLabel": "Galat naam bolo",
+          "keywords": ["jhooth", "galat", "jhoot", "lie", "bachao", "kursi"],
+          "next": "e_end_dark",
+          "effects": {
+            "relationships": { "beena": -25, "myra": -20 },
+            "flags": { "lied": true },
+            "inventoryRemove": ["lifafa"],
+            "choicesRecord": { "lifafa-answer": "lie" },
+            "memory": ["User ne galat naam bola — hisaab bigad gaya."],
+            "endStory": "end_dark",
+            "scene": "e_end_dark"
+          }
+        }
+      ]
+    },
+    {
+      "id": "e_end_queen",
+      "title": "Do Kursiyan",
+      "narration": [
+        "*Subah ki dhoop café ke sheeshe par padti hai. Window seat par Myra hai — aur aaj wahan do cup hain, do kursiyan.*",
+        "Myra: \"Kal se ye kursi tumhari hai. Hisaab tum sambhaloge... aur main sambhalungi tumhe.\"",
+        "*Bahar black car khadi hai. Aaj Raj ne sheesha neeche kar rakha hai — pehli baar.*",
+        "*Coffee thandi ho rahi hai, par koi jaldi mein nahi hai. Kahani yahin ruk jaati hai — darwaaza tumhare liye khula hai.*"
+      ],
+      "fallbackLines": [
+        "*Kahani poori ho chuki hai. Replay karke doosra raasta chuno — Myra ka jawab badal sakta hai.*"
+      ],
+      "choices": [],
+      "isEnding": true,
+      "endingId": "end_queen"
+    },
+    {
+      "id": "e_end_normal",
+      "title": "Sirf Ek Cup",
+      "narration": [
+        "*Agli shaam wahi café, wahi window seat. Myra wahan hai — par aaj uske saath ek kitaab hai, koi lifafa nahi.*",
+        "Myra: \"Tum sahi keh rahe the... kuch cheezein bhool jaana behtar hoti hain.\"",
+        "*Woh halka sa muskuraati hai aur window se bahar dekhne lagti hai. Black car ab nahi dikhti.*",
+        "*Tumhari coffee aati hai — sahi table par, sahi haathon se. Kahani yahin khatam.*"
+      ],
+      "fallbackLines": [
+        "*Kahani poori ho chuki hai. Replay karke doosra raasta chuno — shayad is baar gaadi ruk jaaye.*"
+      ],
+      "choices": [],
+      "isEnding": true,
+      "endingId": "end_normal"
+    },
+    {
+      "id": "e_end_dark",
+      "title": "Galat Hisaab",
+      "narration": [
+        "*Subah phone phir bajta hai. Is baar koi naam nahi, sirf ek line.*",
+        "Beena: \"Hisaab galat nikla. Kursi khaali kar do... aur café mat aana.\"",
+        "*Tum café ki taraf dekhte ho. Window seat khaali hai — do cup nahi, ek bhi nahi.*",
+        "*Ek jhooth ne sab kuch badal diya. Kahani yahin khatam — par darwaaza band nahi hua, sirf tumhare liye band ho gaya.*"
+      ],
+      "fallbackLines": [
+        "*Kahani poori ho chuki hai. Replay karke sach bolne wala raasta chuno.*"
+      ],
+      "choices": [],
+      "isEnding": true,
+      "endingId": "end_dark"
+    }
+  ],
+  "endings": [
+    {
+      "id": "end_queen",
+      "title": "Do Kursiyan",
+      "description": "Tumne sach aur wafadaari chuni — Myra ki duniya mein tumhari apni kursi ban gayi.",
+      "tone": "happy"
+    },
+    {
+      "id": "end_normal",
+      "title": "Sirf Ek Cup",
+      "description": "Tumne aam zindagi chuni. Kuch raaz raaz hi reh gaye, aur ek coffee sirf coffee reh gayi.",
+      "tone": "bittersweet"
+    },
+    {
+      "id": "end_dark",
+      "title": "Galat Hisaab",
+      "description": "Ek jhooth ne kursi, café aur Myra — sab cheen liya.",
+      "tone": "dark"
+    }
+  ]
+}
