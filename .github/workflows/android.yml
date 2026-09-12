@@ -1,7 +1,13 @@
 name: Android APK
 
-# Builds an installable APK with ZERO secrets:
-#   expo prebuild  ->  Gradle assembleDebug  ->  artifact (+ Release on tags)
+# Builds an installable, SELF-CONTAINED APK with ZERO secrets:
+#   expo prebuild  ->  Gradle assembleRelease  ->  verify bundle  ->  artifact (+ Release on tags)
+#
+# Why release and not debug: a debug APK is built without the JS bundle (React
+# Native skips bundling for debuggable variants) and only works while a Metro dev
+# server is running on your machine. The release variant embeds
+# assets/index.android.bundle and is signed with the auto-generated debug
+# keystore, so the artifact installs and runs standalone. See README "APK build".
 # See README "APK build & signing" for the optional signed-release upgrade.
 
 on:
@@ -55,18 +61,50 @@ jobs:
           key: gradle-${{ runner.os }}-${{ hashFiles('android/gradle/wrapper/gradle-wrapper.properties', 'package-lock.json') }}
           restore-keys: gradle-${{ runner.os }}-
 
-      - name: Build debug APK
+      # IMPORTANT: build the *release* variant, not assembleDebug.
+      # React Native's Gradle plugin skips JS bundling for "debuggable" variants
+      # (see @react-native/gradle-plugin → TaskConfiguration.kt), so an
+      # assembleDebug APK contains no assets/index.android.bundle and dies at
+      # startup with "Unable to load script… make sure you're running Metro"
+      # unless a dev server is reachable. The release variant embeds the bundle
+      # and is signed with the generated debug keystore → installable, zero secrets.
+      - name: Build release APK (JS bundle embedded)
         run: |
           cd android
-          ./gradlew assembleDebug --no-daemon --stacktrace
+          ./gradlew assembleRelease --no-daemon --stacktrace
         env:
           ORG_GRADLE_PROJECT_androidNdkVersion: 27.0.12077973
+
+      # Regression guard for the "Unable to load script" crash: fail the build
+      # instead of shipping an APK that needs Metro.
+      - name: Verify JS bundle is packaged
+        run: |
+          set -euo pipefail
+          apk_dir=android/app/build/outputs/apk/release
+          apk=$(ls -1 "$apk_dir"/*.apk 2>/dev/null | head -n1 || true)
+          if [ -z "$apk" ]; then
+            echo "::error title=No release APK produced::Expected an APK in $apk_dir"
+            ls -la "$apk_dir" || true
+            exit 1
+          fi
+          echo "Inspecting $apk"
+          if ! unzip -l "$apk" | grep -q "assets/index.android.bundle"; then
+            echo "::error title=JS bundle missing from APK::$apk has no assets/index.android.bundle — it would crash with \"Unable to load script\" on a device without Metro."
+            unzip -l "$apk" | head -40
+            exit 1
+          fi
+          if echo "$apk" | grep -q "unsigned"; then
+            echo "::error title=APK is unsigned::$apk is not signed and cannot be installed. Check signingConfigs in android/app/build.gradle."
+            exit 1
+          fi
+          unzip -l "$apk" | grep "assets/index.android.bundle"
+          echo "✅ APK is self-contained and signed"
 
       - name: Rename APK
         run: |
           VERSION=$(node -p "require('./package.json').version")
           mkdir -p dist-apk
-          cp android/app/build/outputs/apk/debug/app-debug.apk "dist-apk/kissa-v${VERSION}.apk"
+          cp "$(ls -1 android/app/build/outputs/apk/release/*.apk | head -n1)" "dist-apk/kissa-v${VERSION}.apk"
           ls -la dist-apk/
 
       - name: Upload APK artifact
