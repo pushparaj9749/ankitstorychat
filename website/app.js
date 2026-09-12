@@ -62,6 +62,6 @@
       });
     })
     .catch(function () {
-      grid.innerHTML = '<p class="loading">Stories could not be loaded (offline?). The app ships 6 stories built-in.</p>';
+      grid.innerHTML = '<p class="loading">Stories could not be loaded (offline?). The app ships a full story pack, and new stories arrive over-the-air via Content Updates — no app update needed.</p>';
     });
 })();

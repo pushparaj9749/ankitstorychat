@@ -1,0 +1,867 @@
+{
+  "storyId": "gully-final",
+  "version": 1,
+  "scenes": [
+    {
+      "id": "s1_offer",
+      "title": "11:00 AM — Tapri, Cutting, Aur Ek Envelope",
+      "narration": [
+        "*Subah 11. Tapri ke 4 plastic stool par dhoop adhi-adhi padi hai. Gujju ne apni nayi bat table par rakhi hai — 12,000 wali — aur uska cover abhi bhi chamak raha hai.*",
+        "Gujju: \"Bro, sit down. Main dushmani nahi kar raha. Main bas risk manage kar raha hoon.\"",
+        "*Woh ek envelope tumhare thali ke neeche sarkata hai. 50 hazaar. Tum unhein gin nahi paate, par tumhe thickness se pata chal jaata hai ki sach mein hain.*",
+        "Gujju: \"Bas ek kaam. Last over mat daal. Tu slow left-arm, meri off side kamzor — mujhe pata hai. Ek over. 50 hazaar. Aur academy seat: tu, Chintu, aur... Zoya ko bhi le lena.\"",
+        "*Aur theek peeche se ek awaaz — Chintu, notebook god mein, pencil hawa mein ruki hui.*",
+        "Chintu: \"11:07. Maine likh liya. Gujju bhaiya, aapke envelope ka number bhi likh liya — 47,900. 100 kam hain, aapke baap ne 100 kaata.\"",
+        "*Tapri ke bahar, dhoop mein, Zoya khadi hai — usne sab sun liya hai. Woh kuch nahi bolti. Sirf ek cutting mangwati hai, aur aadha glass tumhari taraf sarka deti hai.*",
+        "Zoya: \"Pani ki jagah ye pi le. Par faisla jaldi kar — final mein 6 balls mein nahi, aaj subah mein hota hai.\""
+      ],
+      "fallbackLines": [
+        "*Gujju hansta hai, par uski aankhein nahi hansti. 'Value addition, bro' bolta hai aur jaane lagta hai.*",
+        "Anwar: \"Beta, yahan chai 10 rupaye ki hai aur soch 10 lakh ki. Dono ka hisaab table par mat chhodna.\"",
+        "*Ramakaka ki chappal dukaan se glue ki smell aati hai. Coach ne kuch nahi dekha. Par uska kit-bag aaj khula pada hai — aur 1994 ki ball upar rakhi hai. Jaan-boojhkar.*"
+      ],
+      "choices": [
+        {
+          "id": "c_inkaar",
+          "text": "Envelope wapas kar do — \"over main daalunga, tu apna risk khud manage kar\"",
+          "keywords": [
+            "nahi",
+            "le",
+            "wapas",
+            "inkaar",
+            "daalunga",
+            "rehne"
+          ],
+          "next": "s2_semi",
+          "shortLabel": "Wapas kar do",
+          "effects": {
+            "relationships": {
+              "gujju": -10,
+              "zoya": 15,
+              "ramakaka": 15,
+              "chintu": 10
+            },
+            "flags": {
+              "refusedMoney": true
+            },
+            "memory": [
+              "User ne Gujju ka 50 hazaar ka envelope inkaar kar wapas kar diya."
+            ]
+          }
+        },
+        {
+          "id": "c_rakh",
+          "text": "Envelope rakho... par khel do. Paise ka matlab haara nahi.",
+          "keywords": [
+            "rakh",
+            "theek",
+            "haan",
+            "dekha",
+            "baad",
+            "chal"
+          ],
+          "next": "s2_semi",
+          "shortLabel": "Rakh lo",
+          "effects": {
+            "flags": {
+              "hasEnvelope": true
+            },
+            "relationships": {
+              "gujju": 8,
+              "zoya": -8
+            },
+            "memory": [
+              "User ne envelope apni jeb mein rakh liya aur final se pehle kuch nahi bola — Chintu ne 11:07 likh liya."
+            ]
+          }
+        },
+        {
+          "id": "c_office",
+          "text": "Seedha maidan committee ke table par — envelope unke haath, sabke saamne",
+          "keywords": [
+            "committee",
+            "file",
+            "do",
+            "sach",
+            "table",
+            "complain"
+          ],
+          "next": "s2_expose",
+          "shortLabel": "Committee ko do",
+          "effects": {
+            "flags": {
+              "toCommittee": true
+            },
+            "relationships": {
+              "gujju": -20,
+              "zoya": 8,
+              "ramakaka": 10
+            },
+            "memory": [
+              "User ne envelope seedha maidan committee ke table par rakh diya, 11:12 baje."
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "id": "s2_semi",
+      "title": "Semi: 4 Wickets, Ek Injury, Ek Number",
+      "narration": [
+        "*Dopahar 1:30. Semi-final, Qureshi Hardware ke against. Maidan bhar gaya hai — 400 log, 60 chair, 3 kutte jo boundary par apni line bana chuke hain.*",
+        "*Tum 3 over daalte ho: 1 wicket, 11 runs. Beech mein ek chhota sa kalesh: Quresji ka bhai kehta hai 'teri team mein ladki kyun hai, aur wo bhi opener'. Zoya sun leti hai, aur usi over mein cover drive maarti hai — boundary, seedha line. Koi nahi chillata. Koi nahi zaroorat samajhta.*",
+        "Chintu: \"Sher 176/4, 18 over. Zoya 71. Target: 179. Qureshi ka scoreboard 3 din se kharab hai, par main theek hoon.\"",
+        "*Aakhri ball par Ramakaka tumhare kaan mein bolta hai: 'Over karne se pehle ek sawaal poochh — tu kiska darr raha hai?'*",
+        "*Jeet jaati ho. 4 wicket. Maidan 40 second ke liye ek hi awaaz mein: 'GA-LI KE SHER!'. Gujju boundary ke paas khada hai, haath mein phone, aur woh video bana raha hai — mubarakbaad ke liye nahi.*",
+        "Zoya: \"Final mein 200 honge. Unka plan: last over mein 3 boundary, aur ek bowler jo thaka ho. Tu unka plan hai, Arjun.\""
+      ],
+      "fallbackLines": [
+        "*Qureshi ka captain tumse haath milata hai aur kehta hai: 'Bhai, ladki ne tujhse zyada mari. Izzat uski ho rahi hai.' Zoya hasti hai — pehli baar aaj.*",
+        "Coach Ramakaka: \"Theek. Ab ghar jao, 6 ghante so jao. Aur haan — envelope ko jeb mein mat rakhna. Jeb mein soch rakhna.\"",
+        "*Chintu apne notebook mein ek line likhta hai aur phaadkar tumhe de deta hai: 'Final: 200. Balls: 6. Runs: 12. Dono raaste khule hain.'*"
+      ],
+      "choices": [
+        {
+          "id": "c_tayyari",
+          "text": "Shaam ko net practice — last over ka plan banao, 6 balls ke 3 plan",
+          "keywords": [
+            "practice",
+            "net",
+            "plan",
+            "tayyari",
+            "daal",
+            "over"
+          ],
+          "next": "s3_final",
+          "shortLabel": "Net practice",
+          "effects": {
+            "memory": [
+              "User ne match se pehle net practice mein last over ke 3 plans banaye."
+            ],
+            "flags": {
+              "trained": true
+            }
+          }
+        },
+        {
+          "id": "c_dukaan",
+          "text": "Ramakaka ki dukaan jao — coach se baat karo, purani 1994 wali ball ke baare mein",
+          "keywords": [
+            "dukaan",
+            "coach",
+            "rama",
+            "baat",
+            "ball",
+            "1994"
+          ],
+          "next": "s3_coach",
+          "shortLabel": "Coach se milo",
+          "effects": {
+            "relationships": {
+              "ramakaka": 12
+            },
+            "memory": [
+              "User ne final se pehle Ramakaka ki dukaan par 1994 wali ball aur apne darr ki baat ki."
+            ]
+          }
+        },
+        {
+          "id": "c_zoya",
+          "text": "Zoya ke saath walk — jo usne tapri par bola tha, uska jawab do",
+          "keywords": [
+            "zoya",
+            "walk",
+            "baat",
+            "sach",
+            "jawan",
+            "jawab"
+          ],
+          "next": "s3_zoya",
+          "shortLabel": "Zoya se baat",
+          "effects": {
+            "relationships": {
+              "zoya": 18
+            },
+            "memory": [
+              "User ne final se pehle Zoya se tapri wali baat ka jawab diya."
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "id": "s2_expose",
+      "title": "Chhatri Ke Neeche Ka Court",
+      "narration": [
+        "*Committee ka table: 2 plastic chairs, ek chhatri, aur ek file jispar 'Ground Sanction — Ramnagar Maidan' likha hai, 3 saal se ruka hua. Tum envelope rakhte ho.*",
+        "Committee Uncle: \"Beta... ise kholna zaroori hai? Gujjar Builders is maidan ki light lagwata hai. Aur final 4 ghante mein hai.\"",
+        "*Gujju 30 second mein aata hai — bina gusse ke, haath mein chai. Woh committee ke samne envelope kholta hai, 100 rupaye kam hain, aur woh haste hue kehta hai:*",
+        "Gujju: \"Sir, ye toh team welfare ka advance tha. Arjun ko academy seat ke liye. Dekhiye, mere paas WhatsApp hai.\"",
+        "*Zoya, jo bahar khadi hai, andar aati hai. Bina bole Chintu ka notebook leti hai aur page 41 committee ke table par rakhti hai: 11:07, envelope, 47,900, aur ek line Chintu ke haath se: 'Note: 100 rupaye ka difference bhi likha hai, sir.'*",
+        "Chintu: \"Maine 307 matches likhe hain, sir. Ek bhi galat nahi. Aap mujhe jhootha bol sakte ho, par 6 saal ka record nahi mita sakte.\"",
+        "*Committee uncle pen uthate hain. Light 6:45 band hogi. Match abhi bhi hoga. Par ab kisi ko pata hai ki aaj scoreboard hi court hoga.*"
+      ],
+      "fallbackLines": [
+        "Coach Ramakaka: \"Theek. Ab jaao. Ek baat — jo likha hai, woh hata nahi jaayega. Achha bhi hai.\"",
+        "*Gujju tumhare paas se guzarte waqt kehta hai: 'Bro, ab toh tu jeetega nahi. Tere paas mera dushmani ka reason hai, meri nahi.' Uski awaaz pehli baar tight hai.*",
+        "*Maidan ke bahar 3 auto-wale committee se poochh rahe hain: 'Kya hua?'. Kisi ko jawab nahi milta. Aaj ke baad har Sunday ko milna chahiye tha.*"
+      ],
+      "choices": [
+        {
+          "id": "c_match",
+          "text": "Ab match khelo — case apne raaste chalega",
+          "keywords": [
+            "match",
+            "khelo",
+            "haan",
+            "final",
+            "jaao",
+            "theek"
+          ],
+          "next": "s3_final",
+          "shortLabel": "Match khelo",
+          "effects": {
+            "memory": [
+              "User ne complaint committee ke paas chhodi aur final khelne ka faisla kiya."
+            ]
+          }
+        },
+        {
+          "id": "c_ground",
+          "text": "Match se pehle 'ground sanction' wali file unhi ke saamne khulwayo",
+          "keywords": [
+            "sanction",
+            "file",
+            "ground",
+            "khulo",
+            "abhi",
+            "corporate"
+          ],
+          "next": "s3_ground",
+          "shortLabel": "Ground file khulo",
+          "effects": {
+            "flags": {
+              "groundFile": true
+            },
+            "memory": [
+              "User ne final se pehle maidan ki ruki hui sanction file khulwayi — aur Gujju ke baap ka 'encroachment' letter saamne aaya."
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "id": "s3_final",
+      "title": "200 Ka Target, 6 Balls",
+      "narration": [
+        "*4:30 PM. Final. Gujjar Builders ne 200/6 banaye — 18 overs mein, 3 boundary last 2 over mein, aur ek over jismein 14 runs extra aaye (2 no-balls, 4 wides, 1 bye). Chintu ne sab likha. Maidan ke 500 log sab jaante hain.*",
+        "*Sher ke 187/9, 19.4 over. 6 balls, 12 runs. Aaj tak kisi ne Ramnagar maidan par 12 run last over mein nahi banaye — 3 baar 11 bane hain. Nani Cup ke 38 saal mein record: 11.*",
+        "Gujju: \"Bro, tu over daal. Tu daalenge, 12 banenge, aur tu 'imaandaar hero' rahega. Sab theek. Value addition, no drama.\"",
+        "*Ramakaka boundary se chillata hai, awaaz dheemi par poori hall mein: 'Arjun. 3 over bache hain. Daalna hai toh tu daal. Nahi daalna toh seedha bol — main Chotu ko bhej dunga. Koi sharam ki baat nahi.'*",
+        "*Zoya non-strike par khadi hai, bat kandhe par. Woh sirf ek line bolti hai.*",
+        "Zoya: \"Tere 3 plans hain. Unka plan ek hai: tu thaka hua, aur tu darrta hua. Dono choose mat kar.\""
+      ],
+      "fallbackLines": [
+        "*Aur phir Chintu ek ajeeb cheez karta hai: woh scoreboard par '12' nahi likhta. Woh '11' likhta hai — Nani Cup record. 'Taaki log record dekhein, aur tu history'.*",
+        "*Light ka pole 2 mein se 1 bujh jaata hai. Maidan ka ek hissa aadha andhera. Committee uncle chhatri hilaate hain: '6:45 tak.'*",
+        "*Gujju phone par type karta hai. Tum dekh lete ho: 'over 1 — 0 runs allowed' nahi, balki 'arjun 12 done, pay 47.9k'. Usne bhej diya hai. Ab uske paas waapas nahi.*"
+      ],
+      "choices": [
+        {
+          "id": "c_daal",
+          "text": "Over daalo — 3 balls ke 3 plans, aur last par jo hoga dekha jaayega",
+          "keywords": [
+            "daal",
+            "haan",
+            "over",
+            "bowling",
+            "karunga",
+            "theek"
+          ],
+          "next": "s4_last_over",
+          "shortLabel": "Over daalo",
+          "effects": {
+            "memory": [
+              "User ne final ka last over khud daalne ka faisla kiya."
+            ]
+          }
+        },
+        {
+          "id": "c_chhodo",
+          "text": "Over Chotu ko de do — aur khel fielder banke, 100% focus",
+          "keywords": [
+            "chhodo",
+            "chotu",
+            "field",
+            "nahi",
+            "de",
+            "theek"
+          ],
+          "next": "s4_field",
+          "shortLabel": "Fielding karo",
+          "effects": {
+            "memory": [
+              "User ne last over Chotu ko diya aur fielding se jeetne ka faisla kiya."
+            ]
+          }
+        },
+        {
+          "id": "c_paisa",
+          "text": "Gujju ka plan accept: 12 run dena hai — par usse maidan ke saamne bolwao",
+          "keywords": [
+            "paisa",
+            "haan",
+            "mana",
+            "nahi",
+            "bol",
+            "sauda"
+          ],
+          "next": "s4_fix",
+          "shortLabel": "Sauda karo",
+          "effects": {
+            "flags": {
+              "tookDeal": true
+            },
+            "memory": [
+              "User ne '12 runs dene' ka plan accept kiya — par public taur par."
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "id": "s3_coach",
+      "title": "Chappal Ki Dukaan, 1994 Ki Ball",
+      "narration": [
+        "*Shaam 6:12. Dukaan band. Ramakaka zameen par baithkar ek chappal sil rahe hain, aur unke saamne kit-bag khula hai — andar 1994 ki ball, seam abhi bhi tight.*",
+        "Coach Ramakaka: \"1994 mein maine final mein 14 diya tha. 2004 mein 11. 2011 mein 13. Teenon baad 'manage' kiya gaya tha. Pehli baad mujhe Ranji ka call aaya tha — aur phone mere haath mein tha jab selection committe ka notification aaya tha 'injury' wala.\"",
+        "*Woh ball tumhari taraf karte hain. Tum haath mein lete ho — purani, bhaari, aur ekdum sahi.*",
+        "Coach Ramakaka: \"Ye ball 32 saal se ek hi cheez sikhati hai: seam kisi ki nahi hoti. Faisla sirf ek ka hota hai.\"",
+        "*Bahar maidan se awaaz aati hai — 500 log ek naam le rahe hain. Tumhara nahi. Abhi Zoya ka.*",
+        "Coach Ramakaka: \"Ek line aur: teri maa ne 2017 mein mujhse kaha tha 'is bachche ko jeetna sikhao, haar mat sikhao'. Main donon kar chuka hoon. Ab tu jeet. Apni shart par.\""
+      ],
+      "fallbackLines": [
+        "*Ramakaka ek chappal tumhare haath mein dete hain — 15 rupaye wali. 'Pehle iska hisaab de de, phir maidan ja. Paisa izzat se aata hai, envelope se nahi.'*",
+        "*Kit-bag mein se ek kaagaz nikalta hai: 'Ground Sanction — pending'. Ramakaka use turant band karte hain, par tum dekh lete ho.*",
+        "*Aur phone par ek message, Zoya se: '7 baje maidan. Ek ball aur ek baat — dono ke liye main yahin hoon.'*"
+      ],
+      "choices": [
+        {
+          "id": "c_ball",
+          "text": "1994 wali ball lekar maidan jao — aaj usi se final",
+          "keywords": [
+            "jaao",
+            "ball",
+            "theek",
+            "haan",
+            "maidan",
+            "le"
+          ],
+          "next": "s3_final",
+          "shortLabel": "Ball lekar jao",
+          "effects": {
+            "flags": {
+              "oldBall": true,
+              "trained": true
+            },
+            "memory": [
+              "User ne Ramakaka ki 1994 wali ball ke saath final khelne ka faisla kiya."
+            ]
+          }
+        },
+        {
+          "id": "c_file",
+          "text": "Ground sanction wali file dikhao — maidan ke liye ladne ka waqt, sirf trophy nahi",
+          "keywords": [
+            "file",
+            "ground",
+            "sanction",
+            "dikhao",
+            "ladai",
+            " maidan"
+          ],
+          "next": "s3_ground",
+          "shortLabel": "Ground ke liye",
+          "effects": {
+            "flags": {
+              "groundFile": true
+            },
+            "memory": [
+              "User ne final ke din maidan ki sanction file ko muddat di — trophy se pehle zameen."
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "id": "s3_zoya",
+      "title": "Maidan Ke Kinare, Dhoop Dhalne Se Pehle",
+      "narration": [
+        "*6:15. Boundary ki ghaas par tum dono baithe ho. Maidan khaali hai, sirf committee ki chhatri aur 3 kutte. Zoya apna bat theek kar rahi hai, par uski ungliyan 4 minute se ek hi grip par hain.*",
+        "Zoya: \"Tapri par tune kuch nahi bola tha. Aaj bhi nahi bol raha. Theek hai. Par ek baat bol dungi — aur phir main over sochne jaati hoon.\"",
+        "Zoya: \"Qureshi wale jo bolte hain na — 'ladki hai' — woh mujhe 4 saal se bol rahe hain. Maine 71 maari aaj, aur unhone 4 wicket liye. Ab koi nahi bolta. Paisa aur ball, Arjun: dono ka jawab ek hi hota hai — number.\"",
+        "*Woh tumhari taraf dekhti hai. Pehli baar aaj aankh mein aankh daalkar, bina mazaak.*",
+        "Zoya: \"Agar tune envelope liya hai toh bata de. Main tujhse nafrat nahi karungi. Bas main final mein nahi khelungi. Kyunki phir mera 71 bhi 'manage' kehlaayega.\"",
+        "*Maidan ki light on hoti hai — ek pole. 500 meter door, Gujju ka baap apni nayi building ka board laga raha hai: 'RAMNAGAR COMPLEX — UNDER CONSTRUCTION'. Wahan pehle 4 ghar the.*"
+      ],
+      "fallbackLines": [
+        "*Zoya 4 second chup rehti hai, phir uthti hai aur ek line bolti hai: 'Chal. Light 6:45 tak hai.'*",
+        "*Uske bat ke neeche ek purana kaagaz rakha hai — uske papa ki shift roster. Aaj raat 10 baje duty. Usne koi bahana nahi banaya.*",
+        "*Committee uncle aate hue chillate hain: 'Final 10 minute mein. Kaun daal raha hai last over?' Tum dono ek saath muh kholte ho — aur phir Zoya chup ho jaati hai, haath se ishara: 'tu bol'.*"
+      ],
+      "choices": [
+        {
+          "id": "c_sach",
+          "text": "Sach bata do: envelope jeb mein hai (ya Gujju ko wapas kar diya)",
+          "keywords": [
+            "sach",
+            "haan",
+            "nahi",
+            "rakh",
+            "wapas",
+            "bola"
+          ],
+          "next": "s3_final",
+          "shortLabel": "Sach bol do",
+          "effects": {
+            "relationships": {
+              "zoya": 20
+            },
+            "flags": {
+              "toldZoyaTruth": true
+            },
+            "memory": [
+              "User ne Zoya ko envelope ke baare mein sach bata diya — final se pehle."
+            ]
+          }
+        },
+        {
+          "id": "c_zoya_over",
+          "text": "Bol do: 'last over tu daalegi' — maidan ko history chahiye",
+          "keywords": [
+            "tu",
+            "zoya",
+            "daale",
+            "over",
+            "haan",
+            "history"
+          ],
+          "next": "s4_zoya_over",
+          "shortLabel": "Zoya ko do",
+          "effects": {
+            "memory": [
+              "User ne last over Zoya ko dene ka faisla kiya — maidan ki pehli ladki ko final ka over."
+            ]
+          }
+        },
+        {
+          "id": "c_ground",
+          "text": "Pehle ground ki ladai: sanction file committee ke paas, aaj, match se pehle",
+          "keywords": [
+            "ground",
+            "file",
+            "sanction",
+            "committee",
+            "abhi",
+            "complex"
+          ],
+          "next": "s3_ground",
+          "shortLabel": "Ground bachao",
+          "effects": {
+            "flags": {
+              "groundFile": true
+            },
+            "memory": [
+              "User ne match se pehle 4 ghar waali zameen aur maidan ki sanction file ko muddat di."
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "id": "s3_ground",
+      "title": "Chhatri Ke Neeche Ek File",
+      "narration": [
+        "*Committee ke table par 2 file: 1 — 'Ground Sanction (pending 3 yrs)'; 2 — 'Encroachment notice, Sagar/Gujjar Complex (unserved, 11 months)'. Tum dono ek saath kholte ho.*",
+        "Committee Uncle: \"Beta, ye file political hai. Kal election hai. Aur aaj final hai.\"",
+        "Zoya: \"Sir. 4 families abhi bhi complex ke andar rehti hain. Ek unme 12 saal ka bachcha hai jo Chintu ke saath score karta hai.\"",
+        "*Ramakaka aate hain. Unke haath mein 1994 ki ball aur ek kaagaz — 'No Objection' jo unhone 2011 mein diya tha, jab maidan ki 20 feet zameen 'road widening' mein gayi thi.*",
+        "Coach Ramakaka: \"Maine uss din chup rakha. Nani Cup 1998 se meri almari mein hai aur zameen 2011 se unki. Aaj nahi. Aaj ye file register mein hogi — aur match hoga.\"",
+        "*Gujju boundary ke paas khada hai, aur pehli baar uska chehra phone se upar hai. Woh darr gaya nahi hai — usse ehsaas hua hai ki aaj 'manage' nahi hoga.*"
+      ],
+      "fallbackLines": [
+        "*Committee uncle stamp uthate hain. 3 second ke liye poori duniya chup. Phir: 'registered'.*",
+        "*Chintu notebook ke aakhri pichle panne par likhta hai: 'Aaj ke 3 main numbers: 12, 47,900, aur 4 families.'*",
+        "*Light on. 4:30. Final shuru. Aaj sirf trophy nahi, zameen bhi khel rahi hai.*"
+      ],
+      "choices": [
+        {
+          "id": "c_match_ground",
+          "text": "Ab match — jo file honi thi ho gayi, jeet baad mein sambhaal lenge",
+          "keywords": [
+            "match",
+            "khelo",
+            "jaao",
+            "theek",
+            "abhi",
+            "final"
+          ],
+          "next": "s3_final",
+          "shortLabel": "Match khelo",
+          "effects": {
+            "memory": [
+              "User ne ground file register karwayi aur final khelne gaya."
+            ]
+          }
+        },
+        {
+          "id": "c_press",
+          "text": "Ek chhota press note likhwa do — 200 log, 2 photo, aur 1 sanction",
+          "keywords": [
+            "press",
+            "photo",
+            "media",
+            "note",
+            "likho",
+            "sach"
+          ],
+          "next": "e_bought",
+          "shortLabel": "Press note",
+          "effects": {
+            "memory": [
+              "User ne final se pehle press note likhwaya — maidan ki zameen aur envelope, dono ek saamne."
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "id": "s4_last_over",
+      "title": "Chh Ball, Paanch Sawaal",
+      "narration": [
+        "*Ball tumhare haath mein. Maidan 500 logon se bhara hai, aur ek bhi awaaz nahi — yeh is maidan ka sabse bada mazaak hai: jab tak tum ball na uchhalo, koi nahi bolta.*",
+        "*Ball 1 — length, inswinger, dot. Maidan: 'HHH'.*",
+        "*Ball 2 — short, hook, six. Gujju, mid-wicket ke peeche se, apna hi bat hawa mein uchhaal deta hai. 12 → 6.*",
+        "*Ball 3 — slower one, beat the bat, leg-slip par catch. Zoya 4 second ke liye jhukti hai, phir khadi hoti hai. 6 → 0.*",
+        "*Ball 4 — wide. Committee ke uncle ne 'no-ball' maanga, Chintu ne 'wide' likha, aur maidan ne 3 second tak nahi samjha ki ye mazaak hai ya sach. 6 → 4 required.*",
+        "Coach Ramakaka: \"Aarjun! Ball dekho, bheed mat dekho!\"",
+        "\"Ball 5 — bouncer, top edge, boundary ke kinare Chotu haath se ball pakad leta hai. 500 log ek saath saans lete hain. Ball 6: 4 chahiye, par 3 leke bhi cup ghar jaayega.\"",
+        "*Aur light — 6:44 — ek pole bujh jaati hai. Maidan aadha andhera. Gujju ka last batsman khada hai, aur woh tumhe dekh raha hai, smile ke saath.*"
+      ],
+      "fallbackLines": [
+        "*Zoya non-strike end se chillati hai: 'Length rakh! Boundary nahi, line rakh!'*",
+        "*Aakhri second mein Gujju ke batsman ke paas 2 raaste hain: single leke 3 run se haar jaana, ya six maarkar maidan ka record todna. Woh 6 ka chakkar mein hai. Sab jaante hain.*",
+        "*Chintu pencil uthata hai. Woh '6' ke bagal mein kuch likhta hai — aur koi use nahi padh sakta. Abhi nahi.*"
+      ],
+      "choices": [
+        {
+          "id": "c_yorker",
+          "text": "Yorker — 6:44, andhera, aur poora bharosa",
+          "keywords": [
+            "yorker",
+            "length",
+            "daal",
+            "haan",
+            "line",
+            "full"
+          ],
+          "next": "e_win",
+          "shortLabel": "Yorker daalo",
+          "effects": {
+            "memory": [
+              "User ne aakhri ball yorker daali — andhere mein, poore maidan ke saamne."
+            ]
+          }
+        },
+        {
+          "id": "c_saver",
+          "text": "Chhota run bachao — wide nahi, bouncer nahi, seedha single pe defense",
+          "keywords": [
+            "safe",
+            "single",
+            "nahi",
+            "bachao",
+            "wide",
+            "run out"
+          ],
+          "next": "e_near",
+          "shortLabel": "Run bachao",
+          "effects": {
+            "memory": [
+              "User ne aakhri ball par 4 ke bajaye 2 run deke 3 se jeet chhoda — par run-out se cup bacha liya."
+            ]
+          }
+        },
+        {
+          "id": "c_free",
+          "text": "Aakhri ball 'khel' de do — six maaro, maidan jeete ya haare",
+          "keywords": [
+            "maaro",
+            "six",
+            "khel",
+            "free",
+            "hit",
+            "dijo"
+          ],
+          "next": "e_bought",
+          "shortLabel": "Khel de do",
+          "effects": {
+            "memory": [
+              "User ne aakhri ball par sab kuch khel diya — bina hisaab, bina darr."
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "id": "s4_field",
+      "title": "Gully Ki Fielding, 6 Ball Ka Test",
+      "narration": [
+        "*Tum mid-on par khade ho. Chotu bol karra ha hai — 19 saal ka, tez haath, par sirf 4 over practice. Gujju 200 banakar uske upar hassta hai: 'Bhai, tera over toh gift hai'.*",
+        "*Ball 1: single. Ball 2: wide. Ball 3: six — tumhare haath ke 8 inch upar se. Maidan chup. Tum chup nahi: tum chillate ho 'next ball, line!'.*",
+        "*Ball 4: Chotu ka bouncer, batsman ka pull, deep-square par tum 10 kadam daudte ho, aur haath niche se upar — catch. Maidan phat'ta hai.*",
+        "Chintu: \"4 ball. 8 run. 2 ball. 4 run. Arjun bhaiya, maine catch ka number likh liya: 307-matches mein 41st catch.\"",
+        "*Ball 5: leg-by. Ball 6: 4 chahiye. Chotu length daalta hai, batsman swing karta hai, aur ball tumhare haath ki taraf aati hai — seedha, tez, aur thodi upar.*",
+        "*Light 6:45 par jaane se 1 second pehle, tum haath badhaate ho.*"
+      ],
+      "fallbackLines": [
+        "*Chotu boundary ki taraf dekhta hai, haath jodta hai, phir ball daalta hai — aaj ki uski sabse achhi ball.*",
+        "*Zoya run-out ke liye ready hai, bat gate mein atki hui. Gujju khud non-strike se chillata hai: 'throw! throw!' — aur uska chehra pehli baar 'manage' waala nahi hai.*",
+        "*500 log, 1 second, aur ek tennis ball hawa mein.*"
+      ],
+      "choices": [
+        {
+          "id": "c_catch",
+          "text": "Pakad lo — seedha haath, bina gire",
+          "keywords": [
+            "pakdo",
+            "catch",
+            "haath",
+            "lelo",
+            "jump",
+            "yes"
+          ],
+          "next": "e_win",
+          "shortLabel": "Catch lo",
+          "effects": {
+            "memory": [
+              "User ne aakhri ball ka catch boundary par pakda — maidan ka 41st catch, 307 matches ka record."
+            ]
+          }
+        },
+        {
+          "id": "c_throw",
+          "text": "Ball girne do aur direct throw — 4 feet ki dive ke baad run-out",
+          "keywords": [
+            "throw",
+            "fek",
+            "run",
+            "dive",
+            "gate",
+            "nahi"
+          ],
+          "next": "e_near",
+          "shortLabel": "Throw karo",
+          "effects": {
+            "memory": [
+              "User ne catch chhoda aur direct throw kiya — run-out hua, cup 3 run se bacha."
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "id": "s4_zoya_over",
+      "title": "Maidan Ka Pehla Last Over",
+      "narration": [
+        "*'Ma'am, aap?' — committee uncle ka muh khula hai. 500 log ek saath chup. Ramakaka ke chehre par kuch nahi hota, aur isliye woh sabse zyada bolti hai.*",
+        "Zoya: \"Sir. Rules mein 'ladki' nahi likha hai. Scoreboard par 'last over' likha hai. Main daalti hoon.\"",
+        "*Gujju, apne hi batsman ke paas, haste hue: 'Bro, ye teri team hai, teri marzi.' Par uska phone aaj pehli baar pocket mein hai.*",
+        "*Ball 1: wide. Maidan: 'HHH'. Ball 2: dot, off-stump ke baahar se in-swing — batsman ka pair khiska. Ball 3: six. Ball 4: 2 runs. Ball 5: yorker, beat, and no run.*",
+        "Chintu: \"Ball 6. 4 chahiye. 3 leke bhi jeet. Aur ek number: Zoya ka 71. Dono likh diya.\"",
+        "*Zoya aakhri ball se pehle boundary ki ghaas ko haath se chhoo leti hai — 40 second. Koi nahi poochhta kyun. Phir run-up leti hai, aur ball itni tight daalti hai ki batsman ka swing sirf hawa kaat'ta hai.*",
+        "*Ball: 2 run. Match: Sher jeete, 4 run se. Maidan aaj 500 logon se 5000 ho jaata hai.*"
+      ],
+      "fallbackLines": [
+        "*Gujju boundary se aata hai, aur sabke saamne Zoya ka haath upar karta hai. 3 second ke liye maidan usse nahi dekhta, uska haath dekhta hai.*",
+        "Coach Ramakaka: \"Theek.\"",
+        "*Chintu apna notebook band karta hai aur kehta hai: 'Page 41 — aaj se official nahi, yaadgaar.'*"
+      ],
+      "choices": [
+        {
+          "id": "c_lift",
+          "text": "Zoya ko utha lo — 500 logon ke saamne, poori team ke kandhe par",
+          "keywords": [
+            "uthao",
+            "lift",
+            "haan",
+            "team",
+            "kandha",
+            "celebrate"
+          ],
+          "next": "e_win",
+          "shortLabel": "Utha lo",
+          "effects": {
+            "memory": [
+              "User ne Zoya ko team ke kandhe par uthwa diya — maidan ke itihaas mein pehli baar."
+            ]
+          }
+        },
+        {
+          "id": "c_micro",
+          "text": "Mic lo (haan, maidan mein ek hai) — aur poori baat public karo: envelope, 11:07, aur 4 families",
+          "keywords": [
+            "mic",
+            "bolo",
+            "public",
+            "sach",
+            "mic",
+            "speech"
+          ],
+          "next": "e_bought",
+          "shortLabel": "Public bolo",
+          "effects": {
+            "memory": [
+              "User ne jeet ke baad mic par 11:07 wala envelope aur maidan ki zameen ki baat public ki."
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "id": "s4_fix",
+      "title": "Jeb Mein 47,900",
+      "narration": [
+        "*Tum envelope wapas rakhte ho. Gujju ke haath mein se chai ka glass gira nahi, par usne 3 second mein naya plan bana liya — 'toh tu over daal hi mat'.*",
+        "Gujju: \"Bhai, tune accept kiya hai, mera WhatsApp hai. Ab tu 12 dega, main 14 lunga, aur sab happy. Nahi toh tera 'sach' meri 'receipt' se badi cheez hai?\"",
+        "*Ramakaka sunta hai. Woh kuch nahi bolta — bas apna kit-bag uthaata hai aur team bus ki taraf chala jaata hai. Chintu uske peeche.*",
+        "*Zoya boundary par khadi hai. Woh tumhe 6 second dekhti hai, phir apna bat theek karti hai aur non-strike end par chali jaati hai. Koi baat nahi. Aaj se koi baat nahi.*",
+        "*Over: 18 runs. Kyunki jab tum jaan-boojhkar halke daalte ho, toh body tumhara saath nahi deti — length lambi hoti hai, line khiskalti hai. Gujju ke batsman 3 six maarte hain, aur maidan chup-chap samajh jaata hai ki ye 'off day' nahi hai.*",
+        "*Scoreboard: 218. Sher: 152. Cup: Gujjar Builders & Co. Nani Cup ki almari mein ek naya naam — aur ek khaali panna jo ab bhi khaali hai.*",
+        "*Aur light 6:45 par band. Andhere mein 47,900 tumhari jeb mein hain. Unki keemat 3 rupaye ki chai se zyada hai, aur maidan ke 500 logon se kam.*"
+      ],
+      "fallbackLines": [
+        "*Chintu kehta hai, bina sir uthaye: Aaj ka score main do copy mein likhunga. Ek committee ke liye. Ek mere liye. Taaki kal koi na kahe 'aap yaad rakh nahi paoge'.*",
+        "*Gujju 47,900 doosre din bank mein daalne bolta hai. Tum 3 hafte tak nahi daalte. Phir daal te ho. Phir 2 hafte tak khaana theek se nahi lagta.*",
+        "*Qureshi Hardware ka captain — jo haarne waala tha — ek line bolta hai: 'Bhai, tune haar ke bhi jeet chhod di.'*"
+      ],
+      "choices": [
+        {
+          "id": "c_end_bought",
+          "text": "Chup raho. Jeetna band karo. Ab sirf 'next season' hai",
+          "keywords": [
+            "chup",
+            "haan",
+            "chal",
+            "nahi",
+            "theek",
+            "season"
+          ],
+          "next": "e_bought",
+          "shortLabel": "Chup raho",
+          "effects": {
+            "memory": [
+              "User ne sab chhupaya aur agli season ka plan banane laga — bina coach, bina Zoya."
+            ]
+          }
+        },
+        {
+          "id": "c_end_confess",
+          "text": "Kal subah committee ke paas jao — paise wapas, sach saamne, apni team se maafi",
+          "keywords": [
+            "maaf",
+            "sach",
+            "kal",
+            "committee",
+            "wapas",
+            "confess"
+          ],
+          "next": "e_near",
+          "shortLabel": "Maafi maango",
+          "effects": {
+            "memory": [
+              "User ne agli subah 47,900 wapas kiye, committee ko sach bataya, aur apni team se maafi maangi."
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "id": "e_win",
+      "title": "Nani Cup, Khaali Panna Bhara",
+      "narration": [
+        "*Aakhri ball: yorker, andhera, aur ek pole bujhi hui. Batsman ka pair aage aata hai, bat hawa mein, aur ball stump ke 4 inch paas se leg-stump uchhaal deti hai.*",
+        "*0.4 second ki khamoshi. Phir maidan. 500 log nahi — aaj 5000. Ek hi awaaz: 'GA-LI KE SHER!'.*",
+        "*Chintu scoreboard par 3 number likhta hai, phir unhein mita deta hai, aur ek line likhta hai: '12/6 — record: 11. Aaj: 13.'*",
+        "Chintu: \"Arjun bhaiya. 47,900 wale ka naam maine 'notes' mein likh diya hai. Cup ke naam ke saath. Kal committee padhegi. Aaj tum jeete.\"",
+        "*Ramakaka chup-chaap aate hain, 1994 wali ball uthate hain, aur tumhare haath mein rakhte hain. Unki aankhein bheegi hain, par woh ise 'sweat' bolte hain. Maidan maan jaata hai.*",
+        "*Zoya cup ke saamne khadi hai, bat neeche. Tum uske paas jaate ho. Dono kuch bolte nahi. Phir woh bolti hai:*",
+        "Zoya: \"Aaj se is maidan pe koi 'brave' nahi bolega. Sirf 'opening partner' bolega. Theek hai?\"",
+        "*Aur 3 hafte baad: 'Ground Sanction — APPROVED'. 4 families ka 'rehabilitation — sanctioned'. Gujju ka baap 'under review'. Aur Nani Cup ki almari mein khaali panna ab nahi khaali: 'Gali ke Sher — 2026' khoda gaya hai, Chintu ke handwriting mein.*"
+      ],
+      "fallbackLines": [
+        "*Kahani poori — 6 balls, 13 runs, aur ek khaali panna bhar gaya.*"
+      ],
+      "choices": [],
+      "isEnding": true,
+      "endingId": "end_win"
+    },
+    {
+      "id": "e_near",
+      "title": "3 Run Se Jeet, 1 Baat Se Haar",
+      "narration": [
+        "*Aakhri ball par tum 4 ke bajaye 2 dete ho — aur Gujju ke batsman ko run-out karne ki race mein Zoya ka throw seedha gate se takraata hai. Umpire (committee uncle) 4 second mein 'NOT OUT' bolte hain. Super over. 6 balls. 9 runs. Haar.*",
+        "*Maidan ek minute chup rehta hai. Phir, ajeeb baat: log taali bajate hain. Na jeet ke liye. Isliye ki koi nahi gira, koi nahi roya, aur koi nahi bhaaga.*",
+        "Gujju: \"Bro. Good game.\"",
+        "*aur woh sach mein keh raha hai — pehli baar aaj*",
+        "*Chintu apna notebook committee ke table par rakhta hai. Page 41 par 11:07 likha hai. Committee uncle use dekhte hain, 30 second, phir register kholte hain.*",
+        "*Aaj raad: investigation. Cup nahi mila, par maidan ki zameen ki file 'under audit' ho jaati hai. Aur Ramakaka aaj pehli baar 'theek' nahi bolte — woh kehte hain: 'Achha. Abhi ke liye achha.'*",
+        "*Super over haarne ke 2 hafte baad, team 3 naye nets paati hai. Ek par Zoya ke papa ka naam likha hai — 'donor', kyunki unhone 6 mahine ki shift chhutti leli.*"
+      ],
+      "fallbackLines": [
+        "*Kahani poori — jeet nahi, par sar utha ke. Abhi tak.*"
+      ],
+      "choices": [],
+      "isEnding": true,
+      "endingId": "end_near"
+    },
+    {
+      "id": "e_bought",
+      "title": "Trophy Bina Naam",
+      "narration": [
+        "*Cup Gujjar Builders ke haath jaata hai. Unki reel 40 lakh views karti hai. Tumhari 47,900 bank mein jaati hai, aur maidan ki baat khatam.*",
+        "*Agle din: Ramakaka ki dukaan band. Coach ne resignation nahi diya — woh sirf ek line likhkar gaya: 'Team ab tujhe chalayegi. Cup nahi, chunav.'*",
+        "*Zoya ne final nahi khela — 3 over mein woh out ho gayi. Uske 71 ka record ab 'incomplete' kehlaata hai, aur maidan ke 4 uncle aaj bhi wahi kehte hain: 'ladki thi, chhod dena chahiye tha'. Sunne mein ajeeb lagta hai — aur yahi sabse dard hota hai.*",
+        "Chintu: \"Arjun bhaiya. Aaj se main sirf ek copy likhunga. ...Doosri copy mein main likhunga ki kisne kya kaha. Taaki sach 6 saal baad bhi kharida na ja sake.\"",
+        "*3 mahine baad: 'Ramnagar Complex' ka board maidan ke upar khada hai. 4 families shift ho gayi — 2 unki marzi se, 2 bina. Aur ek 12 saal ka bachcha ab score nahi karta; uska notebook ab tumhare kamre mein hai, 307 match ka record, aur aakhri page par ek line: '12/6 — 11 record. Tune 13 de diye.'*",
+        "*Aur phir bhi — har Sunday subah 6:30, maidan ke uss chhote se hisse par jahan light nahi jaati, tum akela ball uchhaalte ho. Kyunki uss ek cheez mein aaj bhi kisi ko paisa nahi milta.*"
+      ],
+      "fallbackLines": [
+        "*Kahani poori — trophy mili, naam nahi.*"
+      ],
+      "choices": [],
+      "isEnding": true,
+      "endingId": "end_bought"
+    }
+  ],
+  "endings": [
+    {
+      "id": "end_win",
+      "title": "Nani Cup, Khaali Panna Bhara",
+      "description": "Aakhri ball yorker, maidan 5000, aur Chintu ke haath se khoade gaye 2026 ke winners.",
+      "tone": "heroic"
+    },
+    {
+      "id": "end_near",
+      "title": "3 Run Se Jeet",
+      "description": "Super over haar gaye, par envelope ka sach maidan ke saamne aa gaya — aur zameen ki file 'under audit' ho gayi.",
+      "tone": "bittersweet"
+    },
+    {
+      "id": "end_bought",
+      "title": "Trophy Bina Naam",
+      "description": "Paisa aa gaya, coach gaya, maidan gaya. Ab sirf Sunday ki subah aur ek notebook ka aakhri panna.",
+      "tone": "dark"
+    }
+  ]
+}

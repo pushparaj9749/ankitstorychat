@@ -1,0 +1,832 @@
+{
+  "storyId": "crush-on-roof",
+  "version": 1,
+  "scenes": [
+    {
+      "id": "s1_roof",
+      "title": "Chhat Par, Chitthi No. 9",
+      "narration": [
+        "*Sham ki aakhri light chhat ke paani ki tanki par toot rahi hai. Tumhari notebook khuli hai, pen hawa mein ulta-sidha ghum raha hai. Chitthi No. 9 abhi adhoori hai.*",
+        "\"Bas ek line aur... phir kabhi nahi likhunga. Pakka.\"",
+        "*Neeche corridor mein shor badhta hai. Kisi ne chitthi No. 8 ko notice board se utha liya hai — aur ab woh teen logon ke beech 'Neel' ka naam le rahe hain.*",
+        "*Tum pen rok dete ho. Kyunki note tumhare purse mein tha — aur purse Neel ka udhaar wala tha.*",
+        "Bablu: \"Bhai!! Bhai bhai bhai. Upar aao na. Poora college 'Neel ki chitthi' ki charcha kar raha hai aur tum yahan sunset enjoy kar rahe ho?\"",
+        "*Bablu haanfhta hua chhat par chadhta hai, haath mein do vada pav. Ek tumhare liye, ek uska. Uska chehra khushi se laal hai — tumhare liye. Tumhare liye, samjhe?*"
+      ],
+      "fallbackLines": [
+        "*Bablu vada pav tumhare haath mein thama deta hai aur chup chap baith jaata hai. Kabhi-kabhi woh bina bole sab achha kar deta hai.*",
+        "Bablu: \"Bhai, tu kuch bol nahi raha toh maan leta hoon tu plan bana raha hai. Bata, kya bolna hai? Main repeat kar dunga.\"",
+        "*Door, ground par, Ishita notice board ke saamne khadi hai. Haath mein koi copy nahi. Woh sirf padh rahi hai — aur halka sa muskura rahi hai, jaise koi purani baat yaad aa gayi ho.*"
+      ],
+      "choices": [
+        {
+          "id": "c_jao",
+          "text": "Corridor mein jao aur dekho kya ho raha hai",
+          "keywords": [
+            "jaao",
+            "dekh",
+            "corridor",
+            "kya",
+            "chal"
+          ],
+          "next": "s2_corridor",
+          "shortLabel": "Corridor mein jao",
+          "effects": {
+            "location": "Class 12 ka corridor",
+            "memory": [
+              "User ne afwaah ka source khud dekhna chuna."
+            ]
+          }
+        },
+        {
+          "id": "c_purse",
+          "text": "Purse uthao aur Neel se seedhi baat karo",
+          "keywords": [
+            "purse",
+            "neel",
+            "baat",
+            "sach",
+            "confuse",
+            "poochho"
+          ],
+          "next": "s3_neel",
+          "shortLabel": "Neel se poochho",
+          "effects": {
+            "memory": [
+              "User ne seedha Neel ke paas jaane ka faisla kiya, sabse pehle."
+            ],
+            "flags": {
+              "wentToNeelFirst": true
+            }
+          }
+        },
+        {
+          "id": "c_likho",
+          "text": "Chitthi adhoori hi sahi — use bag mein daal do",
+          "keywords": [
+            "likho",
+            "chitthi",
+            "bag",
+            "nahi",
+            "khamosh",
+            "adhoori",
+            "rakho"
+          ],
+          "next": "s2_corridor",
+          "shortLabel": "Chup raho",
+          "effects": {
+            "relationships": {
+              "neel": -5,
+              "ishita": -3
+            },
+            "flags": {
+              "stayedSilent": true
+            },
+            "memory": [
+              "User ne chitthi adhoori chhodi aur kuch nahi bola."
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "id": "s2_corridor",
+      "title": "Corridor,Teen Log Aur Tumhara Naam",
+      "narration": [
+        "*Corridor mein bheed hai. Notice board par chitthi No. 8 chipki hai — kisi ne corner par 'Neel <3' likh diya hai. Neel ka chehra laal hai, haath mein uska udhaar pada purana purse.*",
+        "Neel: \"Maine nahi likhi. Dobara: maine nahi likhi. Aur haan — ye purse mera hai, par ismein se likhi hui cheez meri nahi hai.\"",
+        "Bablu: \"Bhai... bhai chup raho, warna ye log tumhara naam bhi le lenge.\"",
+        "*Aur phir Ishita aati hai. Seedha board ke saamne, haath mein copy. Bheed apne aap hat jaati hai.*",
+        "Ishita: \"Yeh chitthi mujhe pasand aayi. Isliye yahan chipki hai. Par jo bhi ise likh raha hai —\"",
+        "*woh palak jhapakti hai*",
+        "*Tumhara seena thoda tight ho jaata hai. Master Sir corridor ke end mein khade hain — in sab ko dekhte hue, kuch bole bina.*"
+      ],
+      "fallbackLines": [
+        "*Bheed patli ho rahi hai. Chitthi abhi bhi board par hai, aur kisi ne uske neeche ek line jod di hai: 'Chitthi No. 9 kahan hai?'*",
+        "Neel: \"Ankit, na? Teri hai ye?\"",
+        "*woh rukta hai, phir sir hatata hai*",
+        "Master Sir: \"Bheed khatam. Chitthi wapas mere paas. Aur jo bhi ise likh raha hai — drama hall, aaj 6 baje. Late nahi.\""
+      ],
+      "choices": [
+        {
+          "id": "c_inkaar",
+          "text": "\"Ye mujhse nahi hui\" — seedha inkaar kar do",
+          "keywords": [
+            "nahi",
+            "inkaar",
+            "maine",
+            "nahi kiya",
+            "sorry",
+            "galat"
+          ],
+          "next": "s3_doubt",
+          "shortLabel": "Inkaar kar do",
+          "effects": {
+            "relationships": {
+              "ishita": -10,
+              "neel": -5
+            },
+            "flags": {
+              "liedInCorridor": true
+            },
+            "choicesRecord": {
+              "corridor": "lied"
+            },
+            "memory": [
+              "User ne corridor mein sabke saamne inkaar kar diya."
+            ]
+          }
+        },
+        {
+          "id": "c_kabool",
+          "text": "Haan, meri hai — aaj nahi toh kal, par abhi seedha bolo",
+          "keywords": [
+            "haan",
+            "meri",
+            "kabool",
+            "sach",
+            "maine",
+            "likhi",
+            "confess"
+          ],
+          "next": "s3_ownup",
+          "shortLabel": "Kabool kar lo",
+          "effects": {
+            "relationships": {
+              "ishita": 12,
+              "neel": 10,
+              "mastersir": 15
+            },
+            "flags": {
+              "ownedUp": true
+            },
+            "choicesRecord": {
+              "corridor": "owned"
+            },
+            "memory": [
+              "User ne corridor mein chitthiyen apni ho maan li — bahaane bina."
+            ]
+          }
+        },
+        {
+          "id": "c_poster",
+          "text": "Kuch bolo mat — Master Sir ke paas jao, woh bula rahe hain",
+          "keywords": [
+            "master",
+            "sir",
+            "drama",
+            "hall",
+            "jao",
+            "poster",
+            "call"
+          ],
+          "next": "s3_master",
+          "shortLabel": "Master Sir ke paas",
+          "effects": {
+            "memory": [
+              "User ne bahana nahi banaya; seedha Master Sir ke paas gaya."
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "id": "s3_ownup",
+      "title": "Sach Ka Bojh, Halka Sa",
+      "narration": [
+        "*Corridor ek pal ke liye chup ho jaata hai. Phir shor laut aata hai, par ab alag type ka — log tumhe dekh rahe hain, jaise koi nayi cheez padh rahe hon.*",
+        "Neel: \"Achha. Toh sach mein tum.\"",
+        "*woh lambi saans leta hai, aur — hairani ki baat — muskurata bhi hai*",
+        "Ishita: \"Tum?\"",
+        "*uski awaaz neeche aati hai*",
+        "*Tum haan mein sir hilate ho. Woh kuch der tumhe dekhti hai, phir board ki taraf.*",
+        "Ishita: \"Toh ek kaam karo. Master Sir ko bolo ki chitthi unki hai. Fest cancel nahi hona chahiye — 300 logon ne mehnat ki hai.\"",
+        "Master Sir: \"Chitthi ka credit kisi ko nahi milega. Par poster ka credit...\"",
+        "*woh poster ki taraf dekhta hai*"
+      ],
+      "fallbackLines": [
+        "Ishita: \"Main confuse hoon, aur main confuse logon ko pasand nahi karti. Par tumne sach bola — ye kaafi tha aaj ke liye.\"",
+        "*Bablu corridor ke peeche se angootha dikha raha hai. Tum usse ignore karte ho, par muskaan pakad nahi paate.*",
+        "Neel: \"Waise — mera purse wapas de dena. Usmein 500 rupaye hain aur maa ki photo. Photo rakhna, paise de dena.\""
+      ],
+      "choices": [
+        {
+          "id": "c_posterjob",
+          "text": "\"Poster main banaunga — par credit poore committee ka\", haan bolo",
+          "keywords": [
+            "haan",
+            "poster",
+            "banaunga",
+            "master",
+            "karunga",
+            "yes",
+            "commit"
+          ],
+          "next": "s4_fest",
+          "shortLabel": "Poster haan karo",
+          "effects": {
+            "flags": {
+              "posterJob": true
+            },
+            "relationships": {
+              "mastersir": 12,
+              "ishita": 6
+            },
+            "inventoryAdd": [
+              "Fest committee ka ID card"
+            ],
+            "memory": [
+              "User ne poster ka kaam liya aur credit committee ko dene ka faisla kiya."
+            ]
+          }
+        },
+        {
+          "id": "c_public",
+          "text": "Kal assembly mein sabko khud bata do ki chitthiyan tumhari hain",
+          "keywords": [
+            "bolo",
+            "public",
+            "assembly",
+            "sab",
+            "bata",
+            "declare"
+          ],
+          "next": "s4_fest",
+          "shortLabel": "Public bolo",
+          "effects": {
+            "flags": {
+              "publicAnnounce": true,
+              "posterJob": true
+            },
+            "relationships": {
+              "ishita": 8,
+              "neel": 5,
+              "mastersir": -5
+            },
+            "choicesRecord": {
+              "truth": "public"
+            },
+            "memory": [
+              "User ne chunav kiya sach public tarike se lena — Master Sir ko ye jaldi lagi."
+            ]
+          }
+        },
+        {
+          "id": "c_duri",
+          "text": "Bas itna hi — ab chitthiyan likhna band",
+          "keywords": [
+            "band",
+            "nahi",
+            "bas",
+            "chhodo",
+            "khatam",
+            "stop"
+          ],
+          "next": "s4_neel",
+          "shortLabel": "Ab band",
+          "effects": {
+            "relationships": {
+              "ishita": -8
+            },
+            "flags": {
+              "stoppedWriting": true
+            },
+            "memory": [
+              "User ne chitthiyan likhna band kar diya, sach bolne ke baad."
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "id": "s3_doubt",
+      "title": "Jhooth, Chhota Sa Par Bhari",
+      "narration": [
+        "*Tumhara 'nahi' corridor mein goonjta hai — aur ek ajeeb baat hoti hai: koi nahi manta. Ishita tumhe dekhti rehti hai, kuch der, bina bole.*",
+        "Ishita: \"Theek hai. Tumne nahi likhi.\"",
+        "*woh apni copy band karti hai*",
+        "*Master Sir tumhare kaan se hote hue nikal jaate hain. Bablu tumhara shirt kheenchta hai.*",
+        "Bablu: \"Bhai. Tune abhi apne aap ko ek chitthi se zyada cheap bana diya. Chhota sa note tha, tu usko case bana gaya.\"",
+        "*Sham ko chhat par Chitthi No. 9 abhi bhi adhoori padi hai. Aur tumhare paas ab do haath hain — ek likhne ko, aur ek mitane ko.*"
+      ],
+      "fallbackLines": [
+        "*Agle din board par chitthi nahi hai — kisi ne utha li. Par corridor mein ab bhi 'No. 9' ki charcha hai. Tumhare kaan ab uske liye khule rehte hain.*",
+        "Neel: \"Tune jhooth bola. Maine dekha — tere haath mein wahi pen tha.\"",
+        "*woh chala jaata hai, par darwaaze par rukta hai*",
+        "*Bablu ne chupchap tumhari chai mangwa li. Woh kabhi sawaal nahi poochta jab tumhara chehra band hota hai.*"
+      ],
+      "choices": [
+        {
+          "id": "c_neel",
+          "text": "Neel ke paas jao — usse sach mein maafi maango",
+          "keywords": [
+            "neel",
+            "maaf",
+            "sorry",
+            "baat",
+            "jao",
+            "sach"
+          ],
+          "next": "s4_neel",
+          "shortLabel": "Neel se milo",
+          "effects": {
+            "relationships": {
+              "neel": 12,
+              "ishita": 5
+            },
+            "flags": {
+              "apologisedToNeel": true
+            },
+            "memory": [
+              "User ne Neel se maafi maangi — bina bahane ke."
+            ]
+          }
+        },
+        {
+          "id": "c_master",
+          "text": "Master Sir ke paas jao aur sab sach bata do",
+          "keywords": [
+            "master",
+            "sir",
+            "sach",
+            "office",
+            "drama",
+            "hall"
+          ],
+          "next": "s3_master",
+          "shortLabel": "Master Sir ko bolo",
+          "effects": {
+            "relationships": {
+              "mastersir": 10
+            },
+            "memory": [
+              "User ne jhooth ke baad Master Sir ke paas sach lene ka faisla kiya."
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "id": "s3_master",
+      "title": "Drama Hall, Ek Chai Aur Ek Shart",
+      "narration": [
+        "*Drama hall sunsaan hai. Stage par adhi set, ek bulb chal rahi hai. Master Sir do glass chai ke saamne baithe hain — ek kale rang ki, bina cheeni wali.*",
+        "Master Sir: \"Baitho. Chai thandi ho rahi hai, aur mere paas sirf do vishwas hain — ek chai, ek timing.\"",
+        "*Woh ek folder nikaalte hain — chitthi No. 1 se No. 8. Tumhari likhai. Sab.*",
+        "Master Sir: \"Mujhe 1998 se pata hai yeh kaun karta hai. Har saal koi karta hai. Principal ko pata hai, par saboot chahiye. Aur saboot mil gaya — tera poster, teri likhai.\"",
+        "Ishita: \"Toh use blame mat karo. Chitthi illegal nahi hai, Master Sir. Fake credit illegal hai — aur woh Neel ko mil raha hai.\"",
+        "*Aap dono ek doosre ko dekhte hain. Ishita abhi yahan kyun aayi, yeh koi nahi poochhta.*",
+        "Master Sir: \"48 ghante. Ya toh koi saamne aaye, ya fest cancel. Main teesra raasta khada nahi kar sakta.\""
+      ],
+      "fallbackLines": [
+        "Master Sir: \"Stage par roshni tab tak nahi jalti jab tak koi switch na dabaaye. Daba de. Ya chhod de — par chhodte waqt rona mat.\"",
+        "*Chai ka glass tumhare saamne hai. Bahar baarish shuru ho gayi hai — chhat par koi nahi, ab.*",
+        "Ishita: \"Ek kaam karo. Fest ke din stage par aao. Chitthi ka naam mat lo. Sirf... ek line bol dena. Meri taraf dekhkar. Main sab samajh jaungi.\""
+      ],
+      "choices": [
+        {
+          "id": "c_sach_master",
+          "text": "Sab sach Master Sir ko bata do — likhna tumhara kaam hai",
+          "keywords": [
+            "sach",
+            "haan",
+            "bata",
+            "likhi",
+            "maine",
+            "sorry"
+          ],
+          "next": "s3_ownup",
+          "shortLabel": "Sach bata do",
+          "effects": {
+            "relationships": {
+              "mastersir": 18,
+              "ishita": 10
+            },
+            "flags": {
+              "ownedUp": true,
+              "masterKnows": true
+            },
+            "memory": [
+              "User ne Master Sir ko sab sach bata diya; Master Sir ne chitthiyen protect karne ka faisla kiya."
+            ]
+          }
+        },
+        {
+          "id": "c_shart",
+          "text": "\"Fest ke din main stage par aaunga\" — shart maan lo",
+          "keywords": [
+            "theek",
+            "haan",
+            "stage",
+            "fest",
+            "maan",
+            "done"
+          ],
+          "next": "s4_fest",
+          "shortLabel": "Stage par aao",
+          "effects": {
+            "flags": {
+              "posterJob": true,
+              "stagePromise": true
+            },
+            "relationships": {
+              "mastersir": 8
+            },
+            "memory": [
+              "User ne fest ke din stage par aane ka wada kiya."
+            ]
+          }
+        },
+        {
+          "id": "c_inkaar_master",
+          "text": "\"Meri nahi hain\" — phir se inkaar, aur bahar nikal jao",
+          "keywords": [
+            "nahi",
+            "meri",
+            "nahi",
+            "bahar",
+            "jaao",
+            "chhodo"
+          ],
+          "next": "s4_neel",
+          "shortLabel": "Phir se inkaar",
+          "effects": {
+            "relationships": {
+              "mastersir": -15
+            },
+            "flags": {
+              "liedInCorridor": true,
+              "liedToMaster": true
+            },
+            "memory": [
+              "User ne Master Sir ke saamne bhi jhooth bol diya."
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "id": "s3_neel",
+      "title": "Neel, Purse Aur Ek Seedhi Baat",
+      "narration": [
+        "*Neel ground ke corner mein khada hai, haath mein wahi purana purse. Tumhe dekhkar woh kuch nahi kehta — sirf purse tumhari taraf badha deta hai.*",
+        "Neel: \"Le. Tere haath mein jo likha hai, woh tera hai. Mera credit mujhe nahi chahiye, Ankit.\"",
+        "*Tum ruk jaate ho. Tumhe laga tha woh gussa karega, ya dhamki dega.*",
+        "Neel: \"Do hafte se log mujhe 'romantic hero' bol rahe hain aur mujhe har din ek naya jhooth bolna pad raha hai. Thak gaya hoon bhai.\"",
+        "Ishita: \"Toh ab kya?\"",
+        "*woh peeche se aati hai — kitni der se, pata nahi*",
+        "*Teesri shakal: Bablu, jo haath mein do vada pav lekar darwaaze par khada hai aur bilkul bhi chupane ki koshish nahi kar raha ki woh sab sun raha tha.*"
+      ],
+      "fallbackLines": [
+        "Neel: \"Ek kaam karo. Assembly mein bolo. Main side mein khada rahunga — koi tujhe akele nahi chhodega.\"",
+        "*Ishita kuch der chup rehti hai, phir apni copy se ek panna faadkar tumhe de deti hai. Khaali. Sirf ek line ke liye.*",
+        "Bablu: \"Bhai, mera plan simple hai: vada pav khao, phir bolo. Pet bhara hua insaan darta kam hai.\""
+      ],
+      "choices": [
+        {
+          "id": "c_assembly",
+          "text": "Kal assembly mein sabke saamne bolo — Neel ke saath",
+          "keywords": [
+            "bolo",
+            "assembly",
+            "sach",
+            "public",
+            "haan",
+            "karunga"
+          ],
+          "next": "s4_fest",
+          "shortLabel": "Assembly mein bolo",
+          "effects": {
+            "flags": {
+              "publicAnnounce": true,
+              "posterJob": true,
+              "neelAlly": true
+            },
+            "relationships": {
+              "neel": 20,
+              "ishita": 10
+            },
+            "memory": [
+              "User ne Neel ke saath assembly mein sach bolne ka faisla kiya."
+            ]
+          }
+        },
+        {
+          "id": "c_chup",
+          "text": "Sach abhi nahi — pehle Chitthi No. 9 poori likho",
+          "keywords": [
+            "nahi",
+            "chitthi",
+            "likho",
+            "baad",
+            "abhi",
+            "pehle"
+          ],
+          "next": "s4_fest",
+          "shortLabel": "Chitthi poori karo",
+          "effects": {
+            "flags": {
+              "posterJob": true,
+              "chitthiLate": true
+            },
+            "relationships": {
+              "ishita": 6
+            },
+            "memory": [
+              "User ne pehle Chitthi No. 9 poori karne ka faisla kiya, public sach baad ke liye chhoda."
+            ]
+          }
+        },
+        {
+          "id": "c_bhagaao",
+          "text": "Purse lo, kuch bolo mat, chhat se chale jao",
+          "keywords": [
+            "jaao",
+            "chale",
+            "mat",
+            "khamosh",
+            "nahi",
+            "bhaga"
+          ],
+          "next": "s4_neel",
+          "shortLabel": "Chale jao",
+          "effects": {
+            "relationships": {
+              "neel": -12,
+              "ishita": -10
+            },
+            "flags": {
+              "walkedAway": true
+            },
+            "memory": [
+              "User purse lekar chala gaya — sach adhoora reh gaya."
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "id": "s4_fest",
+      "title": "Fest Ka Din, Stage Ki Roshni",
+      "narration": [
+        "*Shukravaar shaam. Fest ka pehla din. Drama hall mein 300 kursiyan bhari hain, lights garam hain, aur backstage tumhara poster (haan, tumhara) stage ke peeche laga hai.*",
+        "*Master Sir microphone check kar rahe hain. Principal front row mein baithe hain — haath mein complaint copy.*",
+        "Ishita: \"Agar tu nahi bolna chahta toh mat bol. Main sambhaal lungi. Par ek baat —\"",
+        "*woh ruk jaati hai*",
+        "*Tumhara gala sookh jaata hai.*",
+        "Ishita: \"Aur main gusse mein nahi hoon. Bas... ab teri baat sunna chahti hoon. Stage se nahi. Chhat par.\"",
+        "Bablu: \"Bhai, mic on hai. 300 log. Kuch bhi karna hai toh ab karo.\""
+      ],
+      "fallbackLines": [
+        "Master Sir: \"Play chalu karne wala hai. Ya toh kahani aage badhe, ya mic band. Dono theek hain — par ek chunao.\"",
+        "*Bahar baarish phir shuru ho gayi hai. Chhat ki lights bhuuj chuki hain, aur koi unhe jalaane waala nahi.*",
+        "Neel: \"Main stage par tera naam nahi lunga. Par agar tu lega, toh mera bhi le lena — dono ka sach ek saath chalega.\""
+      ],
+      "choices": [
+        {
+          "id": "c_stage",
+          "text": "Stage par jao, mic lo — aur Chitthi No. 9 padhkar sunao",
+          "keywords": [
+            "stage",
+            "mic",
+            "bolo",
+            "padho",
+            "chitthi",
+            "haan"
+          ],
+          "next": "e_happy",
+          "shortLabel": "Stage par jao",
+          "effects": {
+            "memory": [
+              "User ne stage par Chitthi No. 9 public padhi."
+            ]
+          }
+        },
+        {
+          "id": "c_chhodo",
+          "text": "Mic mat lo — fest ke baad seedha chhat par jao",
+          "keywords": [
+            "chhat",
+            "baad",
+            "nahi",
+            "mat",
+            "dheere",
+            "chhodo"
+          ],
+          "next": "e_mysterious",
+          "shortLabel": "Chhat par milo",
+          "effects": {
+            "memory": [
+              "User ne stage chhoda aur chhat ka rasta pakda — aur Ishita wahan pehle se thi."
+            ]
+          }
+        },
+        {
+          "id": "c_bhagao",
+          "text": "Sab chhodo — college se bahar, ghar, akele",
+          "keywords": [
+            "bhago",
+            "ghar",
+            "chhodo",
+            "akela",
+            "nahi",
+            "jaao"
+          ],
+          "next": "e_bittersweet",
+          "shortLabel": "Nikal jao",
+          "effects": {
+            "memory": [
+              "User fest ke din sab chhodkar nikal gaya."
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "id": "s4_neel",
+      "title": "Neel Ka Faisla, Tumhara Sawaal",
+      "narration": [
+        "*Raat 11 bajte hain. Hostel ka corridor, tube light ki kanakani, aur Neel zameen par baitha apni jeep ki chaabi ghumaa raha hai.*",
+        "Neel: \"Kal maine principal ko bata diya. Ki chitthiyan meri nahi thin. Aur tera naam nahi liya.\"",
+        "*Tum chonk jaate ho.*",
+        "Neel: \"Hey. Main hero nahi ban raha. Maine bas jhooth hataya. Ab teri baari hai — sach daal ya zindagi bhar 'woh ladka jo chup raha' bankar reh ja.\"",
+        "*Uske haath mein tumhara purse hai — usmein abhi bhi Chitthi No. 9 ki adhoori copy hai.*",
+        "Neel: \"Ek cheez aur. Ishita ne aaj poocha — 'kya tum sach mein Neel ho?' Maine haan kaha. Toh usne kaha: 'toh phir chitthi ka aakhri panna kahan hai?'\"",
+        "*woh hansta hai*"
+      ],
+      "fallbackLines": [
+        "*Neel chaabi rakhta hai aur uthta hai. Subah 7 baje assembly hai. Uske baad kuch bhi ho sakta hai.*",
+        "Bablu: \"Bhai, mere paas do plan hain. Ek: tu sach bol de. Do: main bol doon. Teesra nahi hai, sorry.\"",
+        "*Phone par ek unknown number se message: 'Chhat. 6 baje. Akela aa.' Naam nahi. Tumhe pata hai kaun hai.*"
+      ],
+      "choices": [
+        {
+          "id": "c_sach_ab",
+          "text": "Subah assembly mein sab bolo — apna naam lekar",
+          "keywords": [
+            "bolo",
+            "sach",
+            "assembly",
+            "haan",
+            "karunga",
+            "name"
+          ],
+          "next": "e_bittersweet",
+          "shortLabel": "Sach bolo",
+          "effects": {
+            "memory": [
+              "User ne sach bola — par der se, aur akela."
+            ]
+          }
+        },
+        {
+          "id": "c_paisa",
+          "text": "Neel ko bolo ki tu sab ko bolega — agar woh chup rahega toh sab theek",
+          "keywords": [
+            "bolo",
+            "chup",
+            "theek",
+            "nahi",
+            "rahega"
+          ],
+          "next": "e_bittersweet",
+          "shortLabel": "Sauda karo",
+          "effects": {
+            "relationships": {
+              "neel": -20
+            },
+            "flags": {
+              "threatenedNeel": true
+            },
+            "memory": [
+              "User ne Neel se chup rehne ka sauda karne ki koshish ki."
+            ]
+          }
+        },
+        {
+          "id": "c_bablu",
+          "text": "Bablu ko stage par bhej do — kahani uske haath mein",
+          "keywords": [
+            "bablu",
+            "bhejo",
+            "dost",
+            "bola",
+            "stage"
+          ],
+          "next": "e_funny",
+          "shortLabel": "Bablu ko bhejo",
+          "effects": {
+            "memory": [
+              "User ne mic Bablu ke haath de diya — aur Bablu ne use 'moment' bana diya."
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "id": "e_happy",
+      "title": "Chitthi No. 9, Poori",
+      "narration": [
+        "*300 log. Mic garam. Tumhara haath kaanp raha hai, aur tum chupchap Chitthi No. 9 stage ke light mein kholte ho.*",
+        "\"Chitthi No. 9. Ishita. 'Tumhara gussa tumhari sabse achhi baat hai, kyunki woh kisi ko dikhane ke liye nahi hota.' Yeh maine likha tha. Naam nahi liya tha, kyunki dar lagta tha. Aaj liya ja raha hai.\"",
+        "*Khamoshi. Phir front row se ek taalí — Master Sir. Phir poori hall.*",
+        "*woh stage par aati hai, mic tumhare haath se leti hai*",
+        "Ishita: \"Toh ab? Ab kya hoga, Ankit?\"",
+        "\"Ab... chhat par chai. Agar tum theek samjho toh.\"",
+        "Ishita: \"Main theek samajh rahi hoon.\"",
+        "*woh muskurati hai, puri tarah*",
+        "*Bahar baarish ruk chuki hai. Chhat ki lights kisi ne jala di hain — 40 bulbs, ek bhi nahi bujha.*",
+        "*Fest bach gaya. Credit: committee ka. Naam: tumhara. Aur tumhari pehli chitthi jo public thi — woh tumhari sabse achhi thi.*"
+      ],
+      "fallbackLines": [
+        "*Kahani poori — Chitthi No. 9, aakhri line tak.*"
+      ],
+      "choices": [],
+      "isEnding": true,
+      "endingId": "end_roof"
+    },
+    {
+      "id": "e_bittersweet",
+      "title": "Adhoori, Par Sahi",
+      "narration": [
+        "*Subah 7:12. Hall khaali hai. Tumhara naam mic par tha, aur tumne sirf itna kaha: 'chitthiyan meri thin, maafi chahte hain jinhe lag gaya.'*",
+        "*Neel ne tumhara sir par haath rakha, phir chala gaya. Master Sir ne kuch nahi kaha — sirf fest bacha liya.*",
+        "*Ishita ne uss hafte do baar chhat par jagah rakhi, par tum ek baar bhi pohoch nahi paaye — darr, kaam, bahane. Jo bhi tha.*",
+        "Ishita: \"Toh phir yeh lo.\"",
+        "*woh Chitthi No. 9 ka panna wapas deti hai, fold kiya hua*",
+        "*Aakhri din, bus stand par, woh utarti hai. Tumhare haath mein pen hai, aur tum use bina kuch kahe dekhte rehte ho.*",
+        "*Kuch kahaniyan end mein jeet nahi jaatin. Woh bas yaad rehti hain — aur thodi si keemat deti hain.*"
+      ],
+      "fallbackLines": [
+        "*Kahani poori — adhoori, par sachchi.*"
+      ],
+      "choices": [],
+      "isEnding": true,
+      "endingId": "end_unsaid"
+    },
+    {
+      "id": "e_funny",
+      "title": "Bablu Ka Festival",
+      "narration": [
+        "*Bablu stage par chadhta hai, haath mein tumhari chitthi aur do vada pav. Pehli baar uska muh band hai — do second ke liye.*",
+        "Bablu: \"Um. Hi. Toh... chitthiyan mere dost ne likhi. Main unka manager hoon. Unki fees ek tea hai.\"",
+        "*Hall fat'ta hai hasi se. Principal bhi hasste hue pakde jaate hain — aur complaint folder band ho jaata hai.*",
+        "*Aur beech mein, kisi ne chhat ki lights jala di, aur Ishita wahan baithi chai pee rahi hai. Tumhe dekhkar woh sirf ek glass aage sarakati hai.*",
+        "Ishita: \"Stage par tum nahi aaye. Par tumhara manager aaya. Kaafi hai.\"",
+        "Bablu: \"Bhai, maine tera naam liya 4 baar. Aur mera bhi le le — vada pav ka stall. 20% mujhe.\"",
+        "*Fest record par chala gaya: sabse zyada bheed, sabse kam drama. Aur ek chitthi, jo aaj bhi corridor ke locker mein hai — ab do naam ke saath.*"
+      ],
+      "fallbackLines": [
+        "*Kahani poori — hasi ke saath.*"
+      ],
+      "choices": [],
+      "isEnding": true,
+      "endingId": "end_funny"
+    },
+    {
+      "id": "e_mysterious",
+      "title": "Locker Mein Ek Panna",
+      "narration": [
+        "*Fest ke agle din. Tum chhat par jaate ho — Chitthi No. 9 abhi bhi adhoori hai, haath mein hai.*",
+        "*Par tumhe wahan koi nahi milta. Sirf locker No. 9 khula hai.*",
+        "*Andar ek khaali panna hai, aur uspar tumhari hi likhi mein ek line:*",
+        "*note: 'Chitthi No. 10 ka wait kar rahi hoon. Ek line bhi kaafi hai. Par sach ho.'*",
+        "*Neeche ek doosri awaaz aati hai — corridor mein kisi ne poster utaar diya hai, aur sab deewar par tumhari likhai dekh rahe hain. Koi naam nahi leta. Abhi nahi.*",
+        "*Tum chupchap baith jaate ho. Pen uthate ho. Aur iss baar — pehli baar — tum likhte nahi, seedha bolne jaate ho.*",
+        "*Kya hoga, yeh tumhare agle chunav par hai. Kahani yahin ruk rahi hai, line adhoori.*"
+      ],
+      "fallbackLines": [
+        "*Kahani yahin ruk'ti hai — Chitthi No. 10 baaki.*"
+      ],
+      "choices": [],
+      "isEnding": true,
+      "endingId": "end_mystery"
+    }
+  ],
+  "endings": [
+    {
+      "id": "end_roof",
+      "title": "Chitthi No. 9, Poori",
+      "description": "Tumne mic pakda, naam liya, aur 40 bulb jala diye. Fest bacha, aur ek ladki ne reply ka waada kiya.",
+      "tone": "happy"
+    },
+    {
+      "id": "end_unsaid",
+      "title": "Adhoori, Par Sahi",
+      "description": "Sach bola, der se. Koi jeeta nahi, koi haar nahi — bas ek panna yaad raha.",
+      "tone": "bittersweet"
+    },
+    {
+      "id": "end_funny",
+      "title": "Bablu Ka Festival",
+      "description": "Bablu ne stage le liya, principal hasse, complaint folder band — aur tum free.",
+      "tone": "funny"
+    },
+    {
+      "id": "end_mystery",
+      "title": "Locker Mein Ek Panna",
+      "description": "Ishita ko sach pata tha. Chitthi No. 10 abhi baaki hai — faisla tumhara.",
+      "tone": "mysterious"
+    }
+  ]
+}

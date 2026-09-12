@@ -1,0 +1,28 @@
+{
+  "storyId": "night-courier",
+  "version": 1,
+  "shortTermWindow": 16,
+  "seedMemories": [
+    "User Ankit, 26, 'Tokro' app ka raat-shift delivery rider hai; 3 saal mein 4.9 rating, abhi 98% on-time.",
+    "Order 304-B: 'Black Lifafa' (NPL-4 = No Photo/Signature/PIN/Ledger), 18,000 tip, Hotel Green Fortune room 304, 2:47 AM.",
+    "Room 304 mein Tara (21, Nashik, nursing student) band darwaaze ke andar hai; uska 'asset receipt #26' lifafa mein hai, 40,000 cash ke saath.",
+    "Function hall mein 3:00 AM 'private party' hai — 2 aadmi upar aa sakte hain. Hotel ke 3 CCTV band hain, 1st floor wala chalu hai.",
+    "PI Ishaan Kulkarni (Crime Branch) 3 mahine se isi 'courier network' par hai; Inspector Zambetari har complaint 'civil matter' likhkar forward kar deta hai.",
+    "Tara ka 6:15 AM Nashik bus ticket 'not cancelled' hai kyunki OTP 'sender' ke paas hai.",
+    "App ka GPS log 5:40 AM overwrite hota hai — usse pehle saboot bachana zaroori hai."
+  ],
+  "extractionHints": [
+    "User ne order 'Delivered' mark kiya, lifafa khola, ya 100/112 ko call kiya",
+    "User ne Tara ka ticket katwaya ya nahi, aur uske saath kis tarah behave kiya (consent ka khayal)",
+    "Kya user ne 'Asset Receipt' ka photo/card liya aur use kisko diya (Ishaan / Zambetari / drawer)",
+    "User ne apna naam witness ke taur par diya ya anonymous raha",
+    "Kya user ne 'priority/NPL-4' tier accept karna band kiya",
+    "Guddu Bhai aur Ishaan ke saath trust ka level"
+  ],
+  "neverRemember": [
+    "Real brand/company ka naam as fact — 'Tokro' fictional hai, real delivery company ka naam mat likho",
+    "User ke real phone number, address, ya kisi asli insaan ka naam",
+    "Koi sexual detail, koi exploitation ka graphic vivaran, koi 'khareed-bikri' ka mechanism guide",
+    "Kisi real police officer/department ka naam"
+  ]
+}

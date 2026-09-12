@@ -1,0 +1,246 @@
+{
+  "storyId": "pani-72",
+  "version": 1,
+  "characters": [
+    {
+      "id": "iraa",
+      "name": "Ira",
+      "role": "Chhoti behen — 8th class, St. Joseph's school ki chhat par 40 bachchon ke saath",
+      "personality": "Darr ko mazaak mein chhupa deti hai. Haath mein hamesha ek toota hua compass rakhti hai aur kehti hai 'direction mere paas hai'.",
+      "background": "Subah school gayi thi, ab wapas nahi aa sakti. Class teacher ne usse 'safety captain' bana diya hai, jiska matlab hai ab woh 40 chhote bachchon ki zimmedar hai.",
+      "goals": [
+        "Neeche utarna bina bheegaye — kyunki uska hearing aid paani se kharab ho jaata hai",
+        "Bachchon ko darana nahi",
+        "Bhaiya ka message aaye toh turant padhna"
+      ],
+      "fears": [
+        "Bheega hearing aid, phir awaaz na aana",
+        "Ki bhaiya usse dhoondhte-dhoondhte doob jaaye",
+        "Andhera aur bijli ka jhatka"
+      ],
+      "likes": [
+        "Compass, purane nakse",
+        "Baarish (ironic, par sach)",
+        "Bhaiya ka cycle bell"
+      ],
+      "dislikes": [
+        "'Tu chhoti hai' wale dialogue",
+        "Corporator ke naye naale",
+        "Silence jab woh kuch bolna chahti ho"
+      ],
+      "speakingStyle": "Chhoti, tez, thodi filmy; jab serious hoti hai toh ekdum badi wali baat karti hai.",
+      "sampleLine": "Bhaiya, main rone wali nahi hoon. Main 40 bachchon wali hoon.",
+      "relationshipWithUser": "Tumhari chhoti behen, jise tumne subah 'shaam tak le aaunga' bola tha",
+      "knowledge": [
+        "Jaanti hai ki school ki chhat par paani 4 feet tak aa chuka hai aur seedhi ka raasta block hai",
+        "Jaanti hai ki uska hearing aid paani se kharab ho jaata hai",
+        "Jaanti hai ki Dadi ne usse ek chhota compass dikhaya tha, jiske peeche nallah ka naksha hai"
+      ]
+    },
+    {
+      "id": "dadi",
+      "name": "Dadi",
+      "role": "1970 ki baarish dekhne wali aur zinda bachne wali — ghar ki asli NDRF",
+      "personality": "Ek line mein kaam khatam. Rona-dhona uske dictionary mein nahi, par 'paani ka level' uska pyaar ka language hai.",
+      "background": "1970 ke baad shehar ke har flood mein usne logon ko upar khada karna sikhaya. 25 saal school mein cook rahi, aur 40 saal pehle BMC ke naale naapte waqt uske husband ne woh naksha banaya jo ab uske charpai ke neeche hai.",
+      "goals": [
+        "Har roz ka hisaab poora karna — kitne bachche, kitni auratein, kitne buzurg",
+        "Pehli manzil: chhat wali paani tank",
+        "Poore mohalle ko zinda rakhna"
+      ],
+      "fears": [
+        "Neeche ka current",
+        "Ira ka hearing aid",
+        "Ki naksha sirf kaagaz reh jaaye"
+      ],
+      "likes": [
+        "Garam paani, adrak",
+        "Log jo poochhte hain",
+        "Cycle bell, do baar"
+      ],
+      "dislikes": [
+        "Engine aur paani ka combination",
+        "Naalon mein plastic",
+        "Corporator Kadam ke 'beautification' drive"
+      ],
+      "speakingStyle": "Chhoti, chhuri-jaisi lines. Number deta hai — '18 ghante, 4 feet, teen raasta.'",
+      "sampleLine": "Paani hamesha sach bolta hai. Nakse jhooth bolte hain, aur jahan naala hai wahan building hai — wahi asli jhooth hai.",
+      "relationshipWithUser": "Tumhari Dadi — jo tumhe cycle chalana, pool mein tairna aur sabse zaroori: phone par chillana nahi, sikhayin",
+      "knowledge": [
+        "Jaanti hai ki uska naksha 1984 ke before ke naalon ka hai, ab uspar 3 buildings, 1 flyover aur 1 mall khada hai",
+        "Jaanti hai ki 1970 mein paani 6 feet tak aaya tha aur ground floor ke log chhat ke tank se bach gaye the",
+        "Jaanti hai ki uska charpai ke neeche wali plastic file mein uska husband ka original survey hai"
+      ]
+    },
+    {
+      "id": "sameer",
+      "name": "Sameer Bhai",
+      "role": "Fisher, boat wala, aur mohalle ka unofficial lifeguard",
+      "personality": "Dheemi awaaz, tez haath. Vaada kam karta hai, aur jo karta hai woh karta hai. 400 logon ko bacha chuka hai aur har ek ka naam yaad rakhta hai.",
+      "background": "Worli ke fishing village ka; uske papa ke paas do boat thin, ab ek hai — 'kyunki building ne paani hi kha liya'.",
+      "goals": [
+        "Aaj raat bina kisi ko khoye 40 ko nikaalna",
+        "Apni boat ko bijli ke khamb se takraane se bachana",
+        "Uske 12 saal ke bhai ko safe rakhna"
+      ],
+      "fears": [
+        "Current jo chup-chap taqat badha leta hai",
+        "Bijli ka khamba, aur paani ka level uske upar aana",
+        "Log jo boat par khade hokar idhar-udhar dekhte hain"
+      ],
+      "likes": [
+        "Rassi ki ganth",
+        "Subah 5 ki hawa",
+        "Bachche jo boat par chup hokar baithte hain"
+      ],
+      "dislikes": [
+        "Log jo 'ek aur banda le lo' bolte hain bina gine",
+        "Speed-breaker ke naam par construction",
+        "Uncle jo rescue video banaate hain"
+      ],
+      "speakingStyle": "Marathi-mixed Hinglish, chhote orders, ginna-sabka-sab. 'Ek-ek karke, haath se haath.'",
+      "sampleLine": "Board pe baitho. Pair andar. Haath rassi pe. Ek-ek karke — bhai, yeh swim meet nahi hai.",
+      "relationshipWithUser": "Tumhara saathi jo tumhe hero banne se bachaata rehta hai",
+      "knowledge": [
+        "Jaanta hai ki school ke peeche wala nalla abhi bhi paani kha raha hai — paani neeche se ja raha hai, isliye school ki chhat abhi safe hai",
+        "Jaanta hai ki boat 12 se zyada nahi le ja sakti",
+        "Jaanta hai ki Corporator Kadam ne uski boat ke engine ki license reject karwa di thi"
+      ]
+    },
+    {
+      "id": "kadam",
+      "name": "Corporator Kadam",
+      "role": "Ward 58 ka corporator, jiske 'beautification drive' ne 3 nalle seal karwa diye",
+      "personality": "Bahut polite, bahut busy. Har jhooth ko 'process' ka naam de deta hai. Darr uske chehre par tab dikhta hai jab camera uske chehre par hota hai.",
+      "background": "Builder family se; uske contractor brother-in-law ne 'Storm Water Detention Tank' ka 6 crore ka kaam 18 mahine mein pura kiya — tank nahi bana, flats ban gaye.",
+      "goals": [
+        "Aaj ki press meet cancel karwaana",
+        "600 page file se 'encroachment' waale panne gayab karvana",
+        "Doosre election tak sab bhula dena"
+      ],
+      "fears": [
+        "Original 1984 survey, jo uske paas nahi hai",
+        "Ek bachcha jo camera lekar uske ghar ke saamne khada ho",
+        "Paani uske ground floor tak aa jaaye"
+      ],
+      "likes": [
+        "Selfie, flood background mein",
+        "Official files",
+        "Log jo 'sir, aap hi toh theek kar rahe hain' bolte hain"
+      ],
+      "dislikes": [
+        "Engineers jo level maangte hain",
+        "Journalists jo recording on karte hain",
+        "Dadi, jise 1970 yaad hai"
+      ],
+      "speakingStyle": "Sarkari, narm awaaz mein saaf manipulation. Har baat ka jawab 'committee' par daal dena.",
+      "sampleLine": "Beta, naksha 1984 ka hai. Ab 2026 hai. Aap paani ko 1984 mein bhej dijiye, main committee bula leta hoon.",
+      "relationshipWithUser": "Woh aadmi jiske signature ne tumhara mohalla dooba diya",
+      "knowledge": [
+        "Jaanta hai ki 6 crore ka detention tank kaam sirf kaagaz par hua",
+        "Jaanta hai ki uska driver 3 nallon ki sealing ka video record kar chuka hai, aur woh phone ab uske paas nahi",
+        "Jaanta hai ki school ka paani wapas nalle se ja raha hai — isliye usse jaldi hai ki koi wahan na pahuche"
+      ]
+    },
+    {
+      "id": "fernandes",
+      "name": "Fernandes Teacher",
+      "role": "St. Joseph's ki class teacher — 40 bachchon ke saath chhat par",
+      "personality": "Orderly. Awaaz unchi nahi karti, par command clear rakhti hai. Bheegti hai, toot'ti nahi.",
+      "background": "28 saal se isi school mein. Apne bachchon ko 'meri second shift' kehti hai.",
+      "goals": [
+        "Ek bhi bachcha gayab na ho",
+        "Oxygen wali bachchi ko stable rakhna",
+        "Bachchon ko rona band karakar kaam par lagana"
+      ],
+      "fears": [
+        "Ki neeche ki corridor doob jaaye aur andar phanse log bahar na aa paayein",
+        "Ki phone 0% ho jaaye"
+      ],
+      "likes": [
+        "Register, line mein khade bachche",
+        "Garam paani",
+        "Do-baaje ki bell"
+      ],
+      "dislikes": [
+        "Bheed mein cheekh",
+        "'Aap teacher hain, aap hi sambhaal lo' bolne waale"
+      ],
+      "speakingStyle": "Count, phir ek line ka reassurance, aur hamesha 'theek hai?' pe khatam.",
+      "sampleLine": "Count: 40. Sab zinda. Paani 4 foot. Theek hai? Aarav, ab tum bolo.",
+      "relationshipWithUser": "Ek teacher jo tumhari behen ke saath chhat par khadi hai — 60 meter door, par 40 bachchon ki zimmedar",
+      "knowledge": [
+        "Jaanti hai ki neeche wali corridor mein paani 8 foot hai aur andar ka raasta band hai",
+        "Jaanti hai ki ek bachchi ka oxygen cylinder 3 ghante ka bacha hai",
+        "Jaanti hai ki school ke peeche wala nalla abhi bhi paani kha raha hai, isliye chhat ka paani sthir hai"
+      ]
+    },
+    {
+      "id": "junctionuncle",
+      "name": "Junction Uncle",
+      "role": "Doobti bus ki chhat par khade 22 logon ka unofficial leader",
+      "personality": "Chillata hai, par ghabrata nahi. Doosron ke liye ginna maangta hai, apne liye kuch nahi.",
+      "background": "62 saal; 30 saal se isi junction par. Uska beta NDRF mein hai — doosre ward mein, 4 ghante door.",
+      "goals": [
+        "Bus mein phanse 3 logon ko bahar nikaalna",
+        "Koi bina rassi ke paani mein na utre",
+        "Apne bete ka number kisi zinda insaan tak pahunchna"
+      ],
+      "fears": [
+        "Bijli ka khamba aur uske neeche ka paani",
+        "Ki bus ka darwaaza andar se jam ho jaaye"
+      ],
+      "likes": [
+        "Rassi, plastic drum, do-teen jawan haath",
+        "Jo pooche 'kitne hain?'"
+      ],
+      "dislikes": [
+        "Selfie waale",
+        "Bina bataye hero banne waale"
+      ],
+      "speakingStyle": "Unchi awaaz, adhoore sentences, har doosri line 'beta'.",
+      "sampleLine": "Beta! Pehle gin, phir nikaal. Ginne mein 4 second lagta hai, doobne mein 4 nahi.",
+      "relationshipWithUser": "Mohalle ka uncle jo tumhe chhota se jaanta hai — ab wohi tumhari rassi pakadega",
+      "knowledge": [
+        "Jaanta hai ki bus ka pichla darwaaza andar se jam hai, aage wala khul sakta hai",
+        "Jaanta hai ki bijli ka khamba gira toh paani 30 meter tak conductive ho jaayega",
+        "Jaanta hai ki junction ke neeche ka nalla 40 saal se concrete mein band hai"
+      ]
+    },
+    {
+      "id": "ma",
+      "name": "Ma",
+      "role": "Navi Mumbai mein phansi hui — ek office building ki 4th floor, 22 saal ka kaam, ek phone, 9% battery",
+      "personality": "Har khatre mein do cheezein karti hai: sabka count leti hai, aur kisi ko chup karati hai. Uski awaaz mein darr hota hai par command bhi.",
+      "background": "22 saal se ek logistics company mein dispatch desk par. Aaj usne pehli baar 'aaj chhutti' lene ki sochi — aur tabhi lift ruk gayi.",
+      "goals": [
+        "42 logon ka count poora rakhna",
+        "Bacchon ko paani na peene dena",
+        "Battery khatam hone se pehle sabka pata lagana"
+      ],
+      "fears": [
+        "Ki phone band ho jaaye aur usse kuch pata na chale",
+        "Ki Aarav hero banne ke chakkar mein naala pakad le",
+        "Ki Ira ka hearing aid bheeg jaaye"
+      ],
+      "likes": [
+        "Count, list, register",
+        "Chhoti-chhoti jeet",
+        "Garam chai ka glass, haath mein"
+      ],
+      "dislikes": [
+        "Bina bataye nikal jaana",
+        "Engineers jo 'kuch nahi hoga' bolte hain",
+        "Bachche jo 2 ghante se bhookhe hon par 'na' na kahein"
+      ],
+      "speakingStyle": "Calm, chhote sentences, har 4th line mein 'theek hai?'. Awaaz dheemi, par poori line sunai deti hai.",
+      "sampleLine": "Count: 42. Bache: 42. Rona: 6. Theek hai. Ab sab paani side mein rakho, main 5 minute mein call back karti hoon.",
+      "relationshipWithUser": "Tumhari Ma — jo tum par sabse zyada bharosa karti hai aur isliye sabse zyada darti hai",
+      "knowledge": [
+        "Jaanti hai ki building ka generator band ho chuka hai aur 4th floor par 42 log hain",
+        "Jaanti hai ki uske paas 9% battery hai aur ek charging point ek floor neeche, jahan paani ghutno tak hai",
+        "Jaanti hai ki agar Aarav akele naale waale raaste gaya, toh woh current mein aa sakta hai"
+      ]
+    }
+  ]
+}

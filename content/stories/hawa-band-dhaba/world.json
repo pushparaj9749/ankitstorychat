@@ -1,0 +1,87 @@
+{
+  "storyId": "hawa-band-dhaba",
+  "version": 1,
+  "premise": "Kabir (tum) raat 3 baje, kohre mein, expressway ke uss mod par phans jaate ho jahan gaadi apne aap band ho jaati hai. Saamne ek dhaba hai jiska naam Google Maps par nahi — 'Hawa-Band Dhaba'. Andar teen kursiyan hoti hain: ek par peeli raincoat wali Meenu, ek par Constable Pandey jo 15 saal se ek hi report likh rahe hain, aur teesri tumhare liye. Ghulam Chacha khana free dete hain, par ek khata hua 'hisaab' likh lete hain. Rule simple hai: dhaba tab tak nahi khulta jab tak hawa chalu na ho — aur hawa tab tak nahi chalti jab tak ek adhoori baat khatam na ho. Tumhari gaadi 3:07 par band hui. 3:12 par ghadi ruk jaati hai.",
+  "locations": [
+    {
+      "id": "highway",
+      "name": "Expressway ka mod",
+      "description": "Kohra, bina kaam ka streetlight, ek toota hua 'Slow' board jo 15 saal se 'Slo' dikha raha hai."
+    },
+    {
+      "id": "dhaba",
+      "name": "Hawa-Band Dhaba",
+      "description": "Char deewaar, do tube light (ek flicker karti hai), teen kursiyan, ek counter, aur deewar par mehmaanon ke naam ka purana blackboard."
+    },
+    {
+      "id": "counter",
+      "name": "Counter ka drawer",
+      "description": "Lifafe, register, chabiyan — aur ek 15 saal purana unpaid bill."
+    },
+    {
+      "id": "store",
+      "name": "Store room",
+      "description": "Aata, cheeni, aur ek band darwaaza jiske bahar se hamesha thandi hawa aati hai."
+    },
+    {
+      "id": "truck",
+      "name": "Balwant ka truck",
+      "description": "Radio 104.6 par. Engine garam, driver dara hua, dashboard par Hanuman ji aur ek torch."
+    }
+  ],
+  "factions": [
+    {
+      "id": "rules",
+      "name": "Dhaba ke 3 rule",
+      "description": "Ek: teen se zyada mehmaan nahi. Do: bill nahi, hisaab likha jaata hai. Teen: 3:12 ke baad koi darwaaza bahar ke liye nahi khulta."
+    },
+    {
+      "id": "police",
+      "name": "Thana, 14 km door",
+      "description": "File zinda hai, insaan nahi. Report dakhil hoti hai, koi nahi aata."
+    }
+  ],
+  "lore": [
+    "Naam 'Hawa-Band' isliye, kyunki kohra aur hawa ki khamoshi ke beech dhaba hi dikhta hai — hawa chalte hi gayab.",
+    "Kali raat 3:12 ko Meenu ki ST bus phisli thi; teen log gaye, chautha kabhi identify nahi hua.",
+    "Ghulam Chacha ka beta ab Andheri mein garage chalata hai aur usne ek baar bhi dhaba dekhne ki koshish nahi ki.",
+    "Blackboard par likhe naam gayab nahi hote — mitti se mit jaate hain, phir koi aur naam aa jaata hai.",
+    "104.6 par request bolne wala insaan kabhi kabhi wapas nahi aata. Balwant ye baat mazaak mein kehta hai."
+  ],
+  "rules": [
+    "Koi khoon, koi violence detail mein nahi dikhega — dar sirf awaaz, chhaya aur adhoore waakeyon se banega.",
+    "Meenu ko koi 'maarna' ya 'bhagana' nahi karega; uska solution sirf uska adhoora kaam poora hona hai.",
+    "Kala-jaadu, totka, ya 'ghost-busting' ka upay nahi hoga — himmat aur sach hi raasta hai.",
+    "3:12 ke baad koi bhaag kar bach nahi sakta; kahani use try karne degi, par result hamesha wahi dhaba.",
+    "Ghulam Chacha kabhi jhooth nahi bolenge; sirf adha sach bolenge."
+  ],
+  "importantObjects": [
+    {
+      "id": "lifafa",
+      "name": "Meenu ka lifafa",
+      "description": "Chitthi + 200 rupaye + bus ka ticket. 15 saal se drawer mein."
+    },
+    {
+      "id": "register",
+      "name": "Constable ka register",
+      "description": "Ek hi page, 15 saal. Aakhri line adhoori hai."
+    },
+    {
+      "id": "blackboard",
+      "name": "Mehmaan board",
+      "description": "Naam likhe jaate hain, mitti se mit jaate hain. Tumhara naam abhi tak khaali hai — 'K' se shuru hone wali line."
+    },
+    {
+      "id": "radio",
+      "name": "Truck ka radio",
+      "description": "104.6. Beech-beech mein request aati hai, bina DJ ke."
+    }
+  ],
+  "timeline": [
+    "15 saal pehle — ST bus, teen gaye log, chautha anjaan.",
+    "30 saal pehle — Ghulam Chacha yahan ek truck driver bankar ruke the.",
+    "Aaj 3:07 — Kabir ki gaadi band.",
+    "Aaj 3:12 — ghadi ruk jaati hai; dhaba ka rule chalu.",
+    "Subah 5:40 — kohra hat'ta hai. Usse pehle faisla karna hai."
+  ]
+}

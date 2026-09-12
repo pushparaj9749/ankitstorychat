@@ -1,0 +1,25 @@
+{
+  "storyId": "gully-final",
+  "version": 1,
+  "shortTermWindow": 14,
+  "seedMemories": [
+    "User Arjun (17) hai — 'Gali ke Sher' ka all-rounder, slow left-arm bowler; Ramnagar Maidan Cup ke final mein 200 ka target.",
+    "Gujju (Gujjar Builders ka captain) ne subah 11:07 par 50,000 ka envelope diya, badle mein last over na daalne ka; Chintu ne 47,900 ka farak bhi likh liya.",
+    "Zoya maidan ki pehli regular ladki player hai; uske papa night security guard hain aur uska best score 71 hai.",
+    "Coach Ramakaka 2002-07 Ranji player, ab cobbler; uske paas 1994 ki ball hai aur 'Ground Sanction (pending 3 yrs)' ki file.",
+    "Chintu (12) ka notebook — 307 matches, 0 galti — maidan ka 'official' record maana jaata hai.",
+    "Maidan ki light 6:45 band hoti hai, aur 'Ramnagar Complex' ke peeche 4 families abhi bhi wahan rehti hain."
+  ],
+  "extractionHints": [
+    "User ne envelope ka kya kiya (wapas / rakh liya / committee ko diya)",
+    "User ne last over khud daala, Chotu/Zoya ko diya, ya jaan-boojhkar haara",
+    "Zoya ke saath sach kaha ya chhupaya, aur uska asar",
+    "Maidan/ground ki file ko user ne kitnimahatv di (trophy vs zameen)",
+    "Team ne user ke baare mein ab kya maana jaata hai (trust ka level)"
+  ],
+  "neverRemember": [
+    "Real-world personal data (phone number, ghar ka address, asli school/club)",
+    "Real brand, real player ya real politician ka naam as fact",
+    "Koi bhi betting/fixed-match ka practical guidance"
+  ]
+}

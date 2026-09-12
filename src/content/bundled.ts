@@ -59,6 +59,36 @@ import phWorld from '../../content/stories/pahadon-wali-haveli/world.json';
 import phScenes from '../../content/stories/pahadon-wali-haveli/scenes.json';
 import phMemory from '../../content/stories/pahadon-wali-haveli/memory.json';
 
+import hdStory from '../../content/stories/hawa-band-dhaba/story.json';
+import hdCharacters from '../../content/stories/hawa-band-dhaba/characters.json';
+import hdWorld from '../../content/stories/hawa-band-dhaba/world.json';
+import hdScenes from '../../content/stories/hawa-band-dhaba/scenes.json';
+import hdMemory from '../../content/stories/hawa-band-dhaba/memory.json';
+
+import crStory from '../../content/stories/crush-on-roof/story.json';
+import crCharacters from '../../content/stories/crush-on-roof/characters.json';
+import crWorld from '../../content/stories/crush-on-roof/world.json';
+import crScenes from '../../content/stories/crush-on-roof/scenes.json';
+import crMemory from '../../content/stories/crush-on-roof/memory.json';
+
+import pnStory from '../../content/stories/pani-72/story.json';
+import pnCharacters from '../../content/stories/pani-72/characters.json';
+import pnWorld from '../../content/stories/pani-72/world.json';
+import pnScenes from '../../content/stories/pani-72/scenes.json';
+import pnMemory from '../../content/stories/pani-72/memory.json';
+
+import gfStory from '../../content/stories/gully-final/story.json';
+import gfCharacters from '../../content/stories/gully-final/characters.json';
+import gfWorld from '../../content/stories/gully-final/world.json';
+import gfScenes from '../../content/stories/gully-final/scenes.json';
+import gfMemory from '../../content/stories/gully-final/memory.json';
+
+import ncStory from '../../content/stories/night-courier/story.json';
+import ncCharacters from '../../content/stories/night-courier/characters.json';
+import ncWorld from '../../content/stories/night-courier/world.json';
+import ncScenes from '../../content/stories/night-courier/scenes.json';
+import ncMemory from '../../content/stories/night-courier/memory.json';
+
 import coverMidnight from '../../assets/covers/midnight-local.jpg';
 import coverCafeQueen from '../../assets/covers/cafe-queen-myra.jpg';
 import coverYodha from '../../assets/covers/aakhri-yodha.jpg';
@@ -66,6 +96,11 @@ import coverChai from '../../assets/covers/chai-dreams.jpg';
 import coverVikrant from '../../assets/covers/starship-vikrant.jpg';
 import coverNeo from '../../assets/covers/neo-delhi-2099.jpg';
 import coverHaveli from '../../assets/covers/pahadon-wali-haveli.jpg';
+import coverDhaba from '../../assets/covers/hawa-band-dhaba.jpg';
+import coverCrush from '../../assets/covers/crush-on-roof.jpg';
+import coverPani from '../../assets/covers/pani-72.jpg';
+import coverGully from '../../assets/covers/gully-final.jpg';
+import coverNight from '../../assets/covers/night-courier.jpg';
 
 export const BUNDLED_MANIFEST = manifestJson as ContentManifest;
 
@@ -127,6 +162,41 @@ const REGISTRY: Record<string, BundledStoryFiles> = {
     scenes: phScenes as ScenesFile,
     memory: phMemory as MemoryFile,
   },
+  'hawa-band-dhaba': {
+    story: hdStory as StoryFile,
+    characters: hdCharacters as CharactersFile,
+    world: hdWorld as WorldFile,
+    scenes: hdScenes as ScenesFile,
+    memory: hdMemory as MemoryFile,
+  },
+  'crush-on-roof': {
+    story: crStory as StoryFile,
+    characters: crCharacters as CharactersFile,
+    world: crWorld as WorldFile,
+    scenes: crScenes as ScenesFile,
+    memory: crMemory as MemoryFile,
+  },
+  'pani-72': {
+    story: pnStory as StoryFile,
+    characters: pnCharacters as CharactersFile,
+    world: pnWorld as WorldFile,
+    scenes: pnScenes as ScenesFile,
+    memory: pnMemory as MemoryFile,
+  },
+  'gully-final': {
+    story: gfStory as StoryFile,
+    characters: gfCharacters as CharactersFile,
+    world: gfWorld as WorldFile,
+    scenes: gfScenes as ScenesFile,
+    memory: gfMemory as MemoryFile,
+  },
+  'night-courier': {
+    story: ncStory as StoryFile,
+    characters: ncCharacters as CharactersFile,
+    world: ncWorld as WorldFile,
+    scenes: ncScenes as ScenesFile,
+    memory: ncMemory as MemoryFile,
+  },
 };
 
 /** Bundled cover art registry: manifest `coverBundled` key -> image. */
@@ -138,6 +208,11 @@ export const BUNDLED_COVERS: Record<string, number> = {
   'starship-vikrant': coverVikrant,
   'neo-delhi-2099': coverNeo,
   'pahadon-wali-haveli': coverHaveli,
+  'hawa-band-dhaba': coverDhaba,
+  'crush-on-roof': coverCrush,
+  'pani-72': coverPani,
+  'gully-final': coverGully,
+  'night-courier': coverNight,
 };
 
 export function getBundledStory(id: string): BundledStoryFiles | null {

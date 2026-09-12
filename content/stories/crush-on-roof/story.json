@@ -1,0 +1,32 @@
+{
+  "id": "crush-on-roof",
+  "title": "Crush on the Roof",
+  "description": "Class 12, last year, aur ek chitthi jo galat aadmi ke naam se post ho gayi. Tum Ankit ho — roof par baithkar likhi gayi anonymous chitthiyen tumhare haath se nikalti hain, par college ka shor Neel ke naam se macha hai. Ab sawaal ye nahi ki chitthi kaunsi acchi thi — sawaal ye hai ki tum sach kab bologe.",
+  "version": 1,
+  "language": "hinglish",
+  "ageRating": "12-17",
+  "contentLevel": "teen",
+  "genres": [
+    "Romance",
+    "Comedy",
+    "School Life"
+  ],
+  "tags": [
+    "college",
+    "crush",
+    "confession",
+    "hinglish",
+    "slow-burn",
+    "fest"
+  ],
+  "userRole": "Ankit — Class 12 ka quiet ladka, asli 'Chitthi No. 9'",
+  "setting": "Pune ka ek purana arts college, annual fest se 48 ghante pehle",
+  "openingSceneId": "s1_roof",
+  "tone": "Warm, funny, thoda awkward. Filmy par real — chhoti harkaton mein badi feelings. Kabhi bhi crude ya explicit nahi.",
+  "safetyNotes": [
+    "Teen-safe romance: nazrein, chitthi, haath chhune tak. Koi explicit content nahi.",
+    "Koi stalking nahi — 'na' ka matlab 'na' hai, aur kahani usse respect karti hai.",
+    "Kisi ka mazaak udaana, public humiliation ya bullying detail mein nahi dikhayega.",
+    "Kisi ki privacy (diary, phone, personal baat) zabardasti expose karna — user choone par bhi — galat dikhega."
+  ]
+}

@@ -1,0 +1,33 @@
+{
+  "id": "pani-72",
+  "title": "Pani @ 72",
+  "description": "72 ghante ki baarish. Mumbai ka paani kamar se upar aa gaya hai. Tumhari chhoti behen school ki chhat par hai, Dadi ground floor par akeli, aur Ma Navi Mumbai mein phansi hai. Tumhare haath mein Dadi ka 40 saal purana nallah naksha hai — aur ek corporate builder ka woh contract jisne poora naksha mitwa diya. 72 ghante. Ek family. Do raaste: bachao, ya sach nikaalo.",
+  "version": 1,
+  "language": "hinglish",
+  "ageRating": "12-17",
+  "contentLevel": "teen",
+  "genres": [
+    "Survival",
+    "Drama",
+    "Thriller"
+  ],
+  "tags": [
+    "mumbai",
+    "monsoon",
+    "survival",
+    "family",
+    "hero",
+    "disaster"
+  ],
+  "userRole": "Aarav — 19, second-year engineering, chawl ka ground floor, cycle pe hero",
+  "setting": "Mumbai, July — record 72-ghante ki baarish, poora shehar dooba hua",
+  "openingSceneId": "s1_wake",
+  "tone": "Tez, gila, paseene-jaisa. Har scene mein paani, aur har choice mein keemat. Emotional par filmy nahi — survival ka logic real rahega.",
+  "safetyNotes": [
+    "Teen-safe disaster: no body recovery detail, no drowning in graphic terms, no dead bodies described.",
+    "Paani ka khatra realistic rahega — current, bijai ka khamba, girte rate. Kahani user ko koi khatarnak kaam karne ke liye push nahi karegi.",
+    "Bachaav sirf trained logon (NDRF, fishers) ke saath, aur safety gear ke saath dikhaya jaayega.",
+    "Koi looting, vandalism ya tod-phod 'heroic' nahi dikhegi.",
+    "Dadi ka naksha legal evidence hai, revenge ka hathiyar nahi."
+  ]
+}

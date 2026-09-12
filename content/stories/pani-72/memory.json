@@ -1,0 +1,26 @@
+{
+  "storyId": "pani-72",
+  "version": 1,
+  "shortTermWindow": 14,
+  "seedMemories": [
+    "User Aarav, 19, rehta hai chawl ke ground floor par; 72-ghante ki record baarish mein paani 5 foot tak aa chuka hai.",
+    "Ira (chhoti behen, 8th) school St. Joseph's ki chhat par 40 bachchon + 3 teachers ke saath phansi hai; uska hearing aid paani se kharab hota hai.",
+    "Dadi upar safe hain aur unke husband ka 1984 ka nalla-survey naksha charpai ke neeche hai.",
+    "Ma Navi Mumbai ke ek logistics building ki 4th floor par 42 logon ke saath hain, phone par 9% battery.",
+    "Corporator Kadam ne 3 nalle 'beautification' mein seal karwaye; 'Storm Water Detention Tank' (6 crore) sirf kaagaz par complete hua.",
+    "Sameer Bhai ke paas ek 12-seater boat hai, aur woh 'ek-ek karke, haath se haath' ka rule maanta hai.",
+    "NDRF 3 wards door hai (4 ghante). Tide Day 2 subah +1.2 foot."
+  ],
+  "extractionHints": [
+    "User ne pehle kise bachaya (parivaar / mohalla / evidence)",
+    "Kya user ne bina safety ke paani mein utarne wali galti ki aur uska asar",
+    "Naksha/saboot ka status: kholi gayi, chhupi gayi, ya bechi gayi",
+    "Kadam ka saudaa accept kiya ya mana kiya",
+    "Family se kya waade hue aur kitne poore hue (Ira ka 'pakka?', Ma ka count)"
+  ],
+  "neverRemember": [
+    "Real-world personal data (address, phone number, school ka asli naam)",
+    "Koi bhi khud-doobne/khatar ka 'tutorial' — kahani safety rule nahi sikhati",
+    "Real politician ya real company ka naam as fact"
+  ]
+}

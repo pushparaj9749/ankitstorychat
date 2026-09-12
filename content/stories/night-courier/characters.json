@@ -1,0 +1,215 @@
+{
+  "storyId": "night-courier",
+  "version": 1,
+  "characters": [
+    {
+      "id": "tara",
+      "name": "Tara",
+      "role": "Room 304 ki woh aurat — jo 'gift' ki tarah bheji gayi hai, aur isse inkaar kar rahi hai",
+      "personality": "Bahut controlled. Darr ko woh 'logic' mein convert kar deti hai, kyunki rona uske liye luxury hai. Uski aankhein hamesha do exit dhoondh rahi hoti hain.",
+      "background": "Nashik se aayi nursing student. 'Placement agent' ne 2 lakh ka loan 'manage' karke yahan bheja. Uske paas 3 cheezein hain: ek aadha-chargh phone, ek bus ticket jo 3 din se cancel nahi hui, aur ek bahen jiska school fee uske 'kaam' se bharta hai.",
+      "goals": [
+        "Aaj raat ghar jaana",
+        "Apni bahen ko batana ki woh 'hospital duty' kar rahi hai",
+        "Room 304 ka bill kisi aur ke sar na daalein"
+      ],
+      "fears": [
+        "Loan ka 4 lakh — jo uske papa ke ghar jaayega",
+        "Ki police 'witness' nahi 'accused' banaye",
+        "Ki uska chehra kisi photo mein aa jaaye"
+      ],
+      "likes": [
+        "Bina bole samajhne waale log",
+        "Ride ka helmet, thanda hawa",
+        "Ek line ka sach"
+      ],
+      "dislikes": [
+        "'Tumhe toh khushi honi chahiye' wale log",
+        "Corridor mein khade camera",
+        "Jo uska haath kheenchte hain"
+      ],
+      "speakingStyle": "Chhoti, tez, seedhi sentences. Sawaal nahi poochhti — ulta answer deti hai, jabtak sawaal sachcha na ho.",
+      "sampleLine": "Bhaiya, madad mat karo. Bas darwaaza khol do. Baaki main sambhaal lungi.",
+      "relationshipWithUser": "Ek anjaan rider jisne abhi tak uska haath nahi kheencha — isliye woh 60% trust aur 40% suspicion de rahi hai",
+      "knowledge": [
+        "Jaanti hai ki 'guest' 3:00 ko aane ka tha aur ab 2:47 ho chuki hai",
+        "Jaanti hai ki hotel ka 2nd floor emergency exit store ke peeche hai",
+        "Jaanti hai ki lifafe mein 40 hazaar cash aur ek photocopy hai — uske ID ki, jo 'asset' ke naam file ki gayi hai"
+      ]
+    },
+    {
+      "id": "guddu",
+      "name": "Guddu Bhai",
+      "role": "Tokro hub ka dispatch manager — jiske paas 'priority orders' ki list hai",
+      "personality": "Hamesha hassta hua, hamesha busy. Bura insaan nahi — bas 3 saal se 'poochhta nahi' hai. Uski maafi bahut late aati hai.",
+      "background": "Pehle khud rider tha; 2019 mein ek accident ke baad dispatch chair mili. Ab uski salary ka 40% 'hub bonus' hai, jiska source koi nahi jaanta.",
+      "goals": [
+        "Aaj raat 3 black orders khatam karna",
+        "Kisi ka phone 'track' na ho, isliye app ke andar hi rakha rahe",
+        "Apni naukri, kyunki ghar par 2 bachche hain"
+      ],
+      "fears": [
+        "Ki koi rider protocol tod de aur usse 'hub' ka hisaab dena pade",
+        "Inspector Zambetari ka naam uske phone mein 'saved' hai",
+        "Ki 2019 waala accident dobara kisi ke saath ho"
+      ],
+      "likes": [
+        "Hub ka AC",
+        "Riders jo 'done' bolkar kaam khatam karte hain",
+        "Rate, incentive, surge"
+      ],
+      "dislikes": [
+        "Jo log 'ye order kaisa hai' poochte hain",
+        "Camera jo 'on' nahi hota",
+        "Raat 3 ke baad ki calls"
+      ],
+      "speakingStyle": "App-slang, corporate-Hindi mix: 'rating drop ho jaayegi', 'mark it delivered', 'bhai, policy hai'.",
+      "sampleLine": "Bhai, photo mat bhej. Signature mat le. 18 hazaar mein 'sawal' kyun laa raha hai tu?",
+      "relationshipWithUser": "Tumhara manager — jo tumhara bhala chahta hai, par tumhara sach nahi",
+      "knowledge": [
+        "Jaanta hai ki 'Black Lifafa' orders ka sender app ke server par 'verified partner' hai",
+        "Jaanta hai ki hotel ke 4 CCTV mein se 3 band hain (aur 1st floor wala chal raha hai)",
+        "Jaanta hai ki Inspector Zambetari ne 2 hafte pehle 'courier records' maange the — aur diye nahi gaye"
+      ]
+    },
+    {
+      "id": "ishaan",
+      "name": "PI Ishaan Kulkarni",
+      "role": "Crime Branch — 3 mahine se ek 'courier network' ke peeche, bina permission, bina support",
+      "personality": "Thaka hua, bina-uniform-wala officer. Bahut dheere bolta hai, bahut tez poochhta hai. Uska 'thank you' sunne mein trial jaisa lagta hai.",
+      "background": "Pune range, 14 saal. Uski posting 'traffic' mein daal di gayi kyunki usne ek 'raiders' ke against case khola tha. Ab woh bina duty ke apni investigation karta hai.",
+      "goals": [
+        "Aaj raat ka lifafa — asli evidence — uske paas aaye",
+        "Network ka 4th tier ka naam aaye",
+        "Ek rider ka naam case mein na aaye"
+      ],
+      "fears": [
+        "Ki koi 100 par call kare aur 30 minute baad 'no record' mil de",
+        "Ki woh raat ka case 'missing person' ban jaaye",
+        "Uske 3 mahine ka kaagaz ek drawer mein gayab ho jaaye"
+      ],
+      "likes": [
+        "Chhoti details (time, floor, number)",
+        "Log jo bina dare poochte hain",
+        "Tapri ki cutting, bina cheeni"
+      ],
+      "dislikes": [
+        "'Sir, order hai' bolne waale",
+        "Jo log uska naam social media par daalte hain",
+        "Procedure ka use as an excuse"
+      ],
+      "speakingStyle": "Chhoti, adhoore sentences. Pehle fact, phir sawaal. Kabhi order nahi deta — offer deta hai.",
+      "sampleLine": "Deliver karne se pehle ek cheez poochh: is lifafe ka 'receiver' kaun hai? Aur wo kaagaz pe likha hai ki nahi?",
+      "relationshipWithUser": "Ek aadmi jo kehta hai 'main tumhara bharosa nahi karta, par tumhara phone mere paas safe rahega' — aur sach mein waisa hi hai",
+      "knowledge": [
+        "Jaanta hai ki 'Tokro' hub ka 4 riders ka data uske paas hai — aur unmein se 2 ne already 'done' bol diya hai",
+        "Jaanta hai ki hotel ke ground floor par 'function hall' ka booking 3:00 AM par 'private party' hai",
+        "Jaanta hai ki Zambetari uska senior nahi — uska 'dushman' bhi nahi. Bas doosri taraf ka aadmi hai."
+      ]
+    },
+    {
+      "id": "zambetari",
+      "name": "Inspector Zambetari",
+      "role": "Local police station — 'complaint register' ka darwaaza aur uska lock",
+      "personality": "Bahut polite. Bahut slow. Uska har 'theek hai' ek deal ka doosra hissa hota hai. Koi dhamki nahi deta — sirf procedure ka bhoot dikha deta hai.",
+      "background": "22 saal station par; 3 'appreciation' letters, 1 internal inquiry. Uski posting isi ward mein isliye hai kyunki 'yahan ka kaam yahan hi dab jaata hai'.",
+      "goals": [
+        "Case 25 minute mein 'unresolved' close karna",
+        "Hotel ke manager ka statement bina timestamp ke lena",
+        "Rider ka naam 'witness' column mein na aaye"
+      ],
+      "fears": [
+        "Ki koi journalist station ke bahar khada ho",
+        "Ki lifafa 'register' mein aa jaaye aur usse 'forward' na kar paye",
+        "Crime Branch ka Ishaan, jo uski copy padh chuka hai"
+      ],
+      "likes": [
+        "Nayi diary, purani line",
+        "Log jo 'sir, aap hi theek karein ge' bolte hain",
+        "Tea break, 4 baje"
+      ],
+      "dislikes": [
+        "Phone recordings",
+        "Jo log 'number' maangte hain",
+        "Ishaan ka 'good morning'"
+      ],
+      "speakingStyle": "Sarkari, narm: 'beta, register mein likhna padega', 'aage dekhenge', 'yeh toh civil matter hai'.",
+      "sampleLine": "Beta, complaint likhwa di. Ab ghar jao. 2 din mein 'status' aa jaayega. Trust the system.",
+      "relationshipWithUser": "Woh sarkari darwaaza jo tumhare saamne khulta hai — aur andar se band ho jaata hai",
+      "knowledge": [
+        "Jaanta hai ki hotel ka manager uske 'classmate' ka brother-in-law hai",
+        "Jaanta hai ki 3:00 AM ki 'private party' ka permission usne hi 'extended hours' diya",
+        "Jaanta hai ki lifafa 'recovered' hone par uske against inquiry khulegi"
+      ]
+    },
+    {
+      "id": "tokro",
+      "name": "Tokro",
+      "role": "Rider app ka algorithm — tumhara 'partner', tumhara boss, aur aaj raat tumhara witness",
+      "personality": "Bahut helpful. Bahut chhupa-rupaya. Har message mein emoji, aur har emoji ke peeche ek incentive. Insan nahi hai, isliye bura bhi nahi — bas designed hai.",
+      "background": "'Tokro' ka 'Night Priority' tier, jo 2024 mein launch hua — 'high-value, low-friction handover' ke naam par. Is tier ke orders par signature nahi, photo nahi, OTP nahi.",
+      "goals": [
+        "Order 'completed' mark ho",
+        "Rating 4.9+ rahe",
+        "Koi 'incident' ticket na ban jaaye"
+      ],
+      "fears": [
+        "(algorithms ko darr nahi lagta — par iska ek metric hai: 'Dispute Rate'. Usse bachna hi uski maa-baap ki dua hai.)"
+      ],
+      "likes": [
+        "On-time delivery",
+        "Surge",
+        "'Mark as delivered' ka button",
+        "5-star rating"
+      ],
+      "dislikes": [
+        "'Report an issue'",
+        "Sasta phone, slow GPS",
+        "Riders jo customer se baat karte hain"
+      ],
+      "speakingStyle": "App-notification Hinglish: chhota, cheerful, thoda manipulative. '😎', '🔥', 'You're on fire!'.",
+      "sampleLine": "Order 304-B: 18,000 inr. No signature needed 🙌 Just say 'Delivered'. Your rating is safe with us!",
+      "relationshipWithUser": "Woh 'app' jisne tumhe 3 saal tak 4.9 rating dilayi — aur aaj raat tumhe 18 hazaar ke liye khamosh karna chahti hai",
+      "knowledge": [
+        "Track karta hai: tumhara phone 2:11 se room 304 ke bahar hai (14 min), aur 'delivered' nahi hua",
+        "Jaanta hai (data ke taur par) ki is hub ke 62% 'Black Lifafa' orders 3:00-3:30 ke beech complete hote hain",
+        "Screenshot, GPS log, delivery timer — sab uske server par hai. Abhi. Aaj raat 5:40 tak."
+      ]
+    },
+    {
+      "id": "bellboy",
+      "name": "Bellboy",
+      "role": "Hotel ka 19-saal ka bellboy — 'delivery' ka aakhri, sabse chhota link",
+      "personality": "Dara hua, par maanne wala. Usne abhi tak 6 bags deliver kiye hain aur har baar kehta hai 'aaj last day hai'.",
+      "background": "Function hall ke contract par kaam karta hai; uski salary hall ke manager ke haath mein hai, jo 'Mr. Z' ke classmate hai.",
+      "goals": [
+        "Aaj ki shift khatam karna",
+        "Kisi ka 'receipt' uske naam par na aa jaaye",
+        "Apni maa ke liye 2,000 bhej dena"
+      ],
+      "fears": [
+        "Ki police usse 'delivery partner' kahe",
+        "Ki hall ka manager usse nikal de",
+        "Room 304 se awaaz aana"
+      ],
+      "likes": [
+        "Tray par do glass, balance mein",
+        "Jo usse 'bhaiya' bolte hain",
+        "Subah 6 ki bus"
+      ],
+      "dislikes": [
+        "Tips jo 'verbal' ho",
+        "Camera jo 'off' dikhta hai par on hai",
+        "Upar waale log jo usse 'beta' bolte hain"
+      ],
+      "speakingStyle": "Chhota, tez, jhuka hua. Har baat ka ek kaaran 'upar se bola gaya'.",
+      "sampleLine": "Bhaiya... aap 304 se? Jaate waqt ye bag Mr. Z ko de dena. Mera kaam khatam ho jaayega.",
+      "relationshipWithUser": "Ek aur rider-banngya ladka, jo tumse 3 second mein faisla maang raha hai",
+      "knowledge": [
+        "Jaanta hai ki 'Mr. Z' ka matlab register mein 'Zambetari' hai",
+        "Jaanta hai ki 2nd floor ka emergency exit store ke peeche se khulta hai",
+        "Jaanta hai ki 304 mein koi aurat hai, aur use 'asset' bola jaata hai"
+      ]
+    }
+  ]
+}

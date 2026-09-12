@@ -1,0 +1,92 @@
+{
+  "storyId": "pani-72",
+  "version": 1,
+  "premise": "July. 72 ghante ki record baarish. Ward 58 ke 3 nalle 'beautification' ke naam par concrete se band kar diye gaye the — aur aaj paani ka koi raasta nahi. Aarav (tum) ka ghar ground floor par hai, Dadi upar pahunch chuki hain par Ira school ki chhat par 40 bachchon ke saath. NDRF ki 34 boats 3 wards door hain. Mohalle ka ek mahine wala fisherman Sameer apni boat sambhaal raha hai. Aur tumhare haath mein Dadi ke husband ka 1984 ka naksha hai jispar likha hai ki asli nalla kahan se guzarta tha — aur uske upar ab Corporator Kadam ki building khadi hai. Paani 5 foot par hai. Tumhare paas ek phone, 14% battery, ek cycle, aur 72 ghante hain.",
+  "locations": [
+    {
+      "id": "chawl",
+      "name": "Ghar — chawl ka ground floor",
+      "description": "Paani bistar ke neeche tak. Deewar par 1970 ka flood calendar, abhi bhi laga hua. Ek plastic file, ek torch, do biskut."
+    },
+    {
+      "id": "school",
+      "name": "St. Joseph's school ki chhat",
+      "description": "Paani 4 foot, seedhi ka raasta block. 40 bachche, 3 teachers, ek toota hua football goal post jise rafting board bana diya gaya hai."
+    },
+    {
+      "id": "nalla",
+      "name": "Band kiya hua nalla (ab road)",
+      "description": "Asphalt ke neeche 40 saal purana paani ka raasta. Ek manhole ka dhakkan hata hai toh neeche se current ki awaaz aati hai."
+    },
+    {
+      "id": "junction",
+      "name": "Junction ka paani",
+      "description": "4-foot current, ek biji hua traffic light, aur ek bus jo aadhi doob chuki hai. Yahan se hero nikalte hain ya nahin."
+    },
+    {
+      "id": "ward",
+      "name": "Ward office",
+      "description": "Kadam ka office, 15 foot paani mein dooba hua — par unka server first floor par hai, aur bijli chalu hai."
+    }
+  ],
+  "factions": [
+    {
+      "id": "mohalla",
+      "name": "Mohalla committee (Dadi, Sameer, 12 uncle)",
+      "description": "Koi official nahi, par sab zinda. Har chhat par unka naam likha hai."
+    },
+    {
+      "id": "builders",
+      "name": "Sagar Green Buildcon + ward office",
+      "description": "3 nalle sealed, 1 detention tank 'complete', 1 press meet cancelled."
+    },
+    {
+      "id": "rescuers",
+      "name": "NDRF + fisher union",
+      "description": "34 boats, 2 din door. Unka rule: ek hi raasta, teen baar."
+    }
+  ],
+  "lore": [
+    "1970 ki baarish mein paani 6 foot aaya tha; chawl ke upar ke 3 logon ne apni chhat todkar doosron ko chhat par chadhaya — us din se Dadi ka rule hai: 'pehle count, phir chai'.",
+    "Aam aadmi nallah ka naam 'paani ka raasta' bolta hai; builder log use 'vacant land' bolte hain. Fark 4 foot paani ka hota hai.",
+    "Sameer ka gaon ab 'reclamation' hai; uske papa ke do boat mein se ek ab parking lot ke neeche hai.",
+    "Har flood mein ek hi line galti se sach ho jaati hai: 'aaj toh sab theek hai, kal se dekhenge'.",
+    "Ira ke class ke 4 bachche school ki chhat par nahi hain — wo teen ward door, apne rishtedaaron ke saath, par koi unka count nahi kar paa raha."
+  ],
+  "rules": [
+    "Koi bhi rescue bina safety (life jacket, rassi, doosre insaan) ke 'heroic' nahi dikhega — kahani khatre ko real rakhegi.",
+    "Kadam ko koi bina saboot accuse nahi kar sakta; uska downfall sirf original 1984 survey + uske apne record se hoga.",
+    "Koi looting, tod-phod, ya violence — kahani ise kabhi 'choice' ki tarah nahi dikhayegi.",
+    "Ma aur Dadi kabhi 'helpless' nahi honge — dono apni jagah se 42-42 logon ko bacha rahe hain.",
+    "Paani ka level hamesha real rahega: jab user koi khatarnak kaam karega, kahani uska keemat dikhayegi, romantic nahi."
+  ],
+  "importantObjects": [
+    {
+      "id": "naksha",
+      "name": "1984 ka nalla survey",
+      "description": "Dadi ke husband ka haath se banaya naksha, plastic file mein. Asli paani ka raasta yahi dikhata hai."
+    },
+    {
+      "id": "compass",
+      "name": "Ira ka toota compass",
+      "description": "Kaam nahi karta, par Ira kehti hai 'direction mere paas hai'. Uske peeche chhota note hai."
+    },
+    {
+      "id": "phone",
+      "name": "Ek phone, 14% battery",
+      "description": "Beech mein network gaya. Jitni baar on kiya, utni baar ek naya message. Har call ek choice hai."
+    },
+    {
+      "id": "file",
+      "name": "Ward office ka 600-page file",
+      "description": "Encroachment waiver — page 214, signed. Bijli chalu hai, server first floor par."
+    }
+  ],
+  "timeline": [
+    "Day 1, 5:40 AM — Aarav ki aankh; ground floor par paani.",
+    "Day 1, 9:12 AM — school ki chhat par 40 bachche; NDRF 3 ward door.",
+    "Day 1, 3:30 PM — paani 5 foot; junction band.",
+    "Day 2, 6:00 AM — tide + 1.2 foot; mohalle ki 3 buildings pehli manzil tak.",
+    "Day 3, 4:00 PM — rain thami; paani utarne ka 9-ghante ka window. Sach yahin saamne aayega."
+  ]
+}

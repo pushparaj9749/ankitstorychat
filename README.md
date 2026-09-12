@@ -14,12 +14,19 @@ moves the tale forward — with memory, relationships, branching, and multiple e
 ## ✨ Highlights
 
 - **100% local-first** — profile, chats, memories, saves, favorites, settings on-device (SQLite + SecureStore). No login, no cloud user DB.
-- **7 original Hinglish stories** (5 teen-safe, 2 mature) with scenes, choices, branching, endings.
+- **12 original Hinglish stories** (9 teen-safe, 3 mature) with scenes, choices, branching, endings.
+- **New stories arrive without an app update** — `content/manifest.json` v3 added 5 full story packs
+  (Hawa-Band Dhaba, Crush on the Roof, Pani @ 72, Gully Final, Night Courier); existing installs get them
+  from **Settings → Content Updates**, or straight from the story page ("Download" button).
 - **BYO AI** — configure your own OpenAI-compatible provider (OpenAI, OpenRouter, Groq, Together, custom). Key stays in device keystore.
 - **APP LIMIT = NONE** — the app never caps chat. Provider quotas are your provider's.
 - **Offline Story Mode** — fully playable scripted stories with zero network and zero key.
 - **Age-safe catalog** — 12–17 users get a restricted catalog enforced in app logic (home, search, recommendations, downloads, direct opens).
 - **GitHub content system** — new stories arrive as JSON packages, no app rebuild.
+  `contentVersion` **3** ships 5 fresh packs: *Hawa-Band Dhaba*, *Crush on the Roof*,
+  *Pani @ 72*, *Gully Final*, *Night Courier* — download them from **Settings → Content
+  Updates**, or straight from a story's page (an in-place **Download** button appears for
+  not-yet-installed stories).
 - **Memory engine** — short-term window + story/character/world/preference memories + state effects.
 - **Backup/restore, local notifications, storage manager, AMOLED theme, sounds, haptics.**
 
