@@ -8,11 +8,34 @@
  */
 import type { Playthrough, StoryBundle, StoryState } from '../types';
 import { applyEffects, availableChoices, getScene, matchChoice } from './engine';
+import { isFullyFadedLine, splitSpeakerLine, stripStoryMarkup } from './markup';
 
 export interface OfflineLine {
   role: 'assistant' | 'narration';
   speaker: string | null;
   text: string;
+}
+
+/**
+ * Turn raw scene lines into chat lines using the Kissa story format:
+ *   "*Action text.*"          -> narration line (rendered faded in the UI)
+ *   "Myra: \"dialogue\""      -> dialogue line spoken by Myra
+ *   plain text                -> dialogue line from the narrator
+ */
+export function toOfflineLines(bundle: StoryBundle, rawLines: string[]): OfflineLine[] {
+  const names = bundle.characters.characters.map((c) => c.name);
+  const out: OfflineLine[] = [];
+  for (const raw of rawLines ?? []) {
+    const line = (raw ?? '').trim();
+    if (!line) continue;
+    if (isFullyFadedLine(line)) {
+      out.push({ role: 'narration', speaker: null, text: stripStoryMarkup(line) });
+      continue;
+    }
+    const { speaker, text } = splitSpeakerLine(line, names);
+    out.push({ role: 'assistant', speaker, text: text || line });
+  }
+  return out;
 }
 
 export interface OfflineStep {
@@ -27,16 +50,15 @@ export interface OfflineStep {
 /**
  * Produce the opening lines for a fresh playthrough (scene narration).
  * Mutates nothing — the caller persists messages + visits.
+ *
+ * Every line follows the same story format, so the opening block reads exactly
+ * like the rest of the conversation: faded *action* lines and Name: "dialogue".
  */
 export function offlineOpening(bundle: StoryBundle): { lines: OfflineLine[]; sceneId: string } {
   const scene = getScene(bundle, bundle.story.openingSceneId);
   return {
     sceneId: scene.id,
-    lines: scene.narration.map((text, i) => ({
-      role: i === 0 ? ('narration' as const) : ('assistant' as const),
-      speaker: null,
-      text,
-    })),
+    lines: toOfflineLines(bundle, scene.narration),
   };
 }
 
@@ -82,7 +104,7 @@ export function offlineStep(
     const idx = playthrough.messageCount % fallbacks.length;
     return {
       step: {
-        lines: [{ role: 'assistant', speaker: null, text: fallbacks[idx] }],
+        lines: toOfflineLines(bundle, [fallbacks[idx]]),
         newSceneId: scene.id,
         sceneChanged: false,
         ended: false,
@@ -102,11 +124,7 @@ export function offlineStep(
     visits: { ...state.visits, [nextScene.id]: (state.visits[nextScene.id] ?? 0) + 1 },
   };
 
-  const lines: OfflineLine[] = nextScene.narration.map((text) => ({
-    role: 'assistant' as const,
-    speaker: null,
-    text,
-  }));
+  const lines: OfflineLine[] = toOfflineLines(bundle, nextScene.narration);
 
   const endId = matched.effects?.endStory ?? (nextScene.isEnding ? nextScene.endingId ?? null : null);
 

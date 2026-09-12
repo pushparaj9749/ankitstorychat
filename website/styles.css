@@ -65,7 +65,13 @@ h1 { font-size: clamp(38px, 6vw, 62px); line-height: 1.1; font-weight: 900; }
 .msg b { display: block; color: var(--accent); font-size: 10.5px; margin-bottom: 2px; }
 .msg.ai { background: var(--surface); border: 1px solid var(--border); align-self: flex-start; max-width: 92%; border-bottom-left-radius: 4px; }
 .msg.user { background: var(--primary); align-self: flex-end; max-width: 85%; border-bottom-right-radius: 4px; }
-.msg.narr { align-self: center; color: var(--faint); font-style: italic; font-size: 11px; }
+/* *action* text is faded; spoken dialogue stays bright */
+.msg .act { font-style: italic; color: rgba(185, 174, 224, 0.62); }
+.msg.user .act { color: rgba(255, 255, 255, 0.74); }
+/* opening narration uses the same bubble as the dialogue below it */
+.msg.narr { background: var(--surface); border: 1px solid var(--border); align-self: flex-start; max-width: 92%; border-bottom-left-radius: 4px; font-style: italic; color: rgba(185, 174, 224, 0.62); }
+/* "✦ Scene" chapter markers stay centred dividers */
+.msg.scene { align-self: center; color: var(--faint); font-style: italic; font-size: 11px; padding: 2px; }
 .chips { display: flex; gap: 6px; flex-wrap: wrap; }
 .chips span { font-size: 11px; border: 1px solid var(--primary); background: rgba(139, 92, 246, 0.16); color: #d9cfff; padding: 5px 10px; border-radius: 999px; }
 

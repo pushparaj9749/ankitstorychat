@@ -23,6 +23,12 @@ import mlWorld from '../../content/stories/midnight-local/world.json';
 import mlScenes from '../../content/stories/midnight-local/scenes.json';
 import mlMemory from '../../content/stories/midnight-local/memory.json';
 
+import mqStory from '../../content/stories/cafe-queen-myra/story.json';
+import mqCharacters from '../../content/stories/cafe-queen-myra/characters.json';
+import mqWorld from '../../content/stories/cafe-queen-myra/world.json';
+import mqScenes from '../../content/stories/cafe-queen-myra/scenes.json';
+import mqMemory from '../../content/stories/cafe-queen-myra/memory.json';
+
 import ayStory from '../../content/stories/aakhri-yodha/story.json';
 import ayCharacters from '../../content/stories/aakhri-yodha/characters.json';
 import ayWorld from '../../content/stories/aakhri-yodha/world.json';
@@ -54,6 +60,7 @@ import phScenes from '../../content/stories/pahadon-wali-haveli/scenes.json';
 import phMemory from '../../content/stories/pahadon-wali-haveli/memory.json';
 
 import coverMidnight from '../../assets/covers/midnight-local.jpg';
+import coverCafeQueen from '../../assets/covers/cafe-queen-myra.jpg';
 import coverYodha from '../../assets/covers/aakhri-yodha.jpg';
 import coverChai from '../../assets/covers/chai-dreams.jpg';
 import coverVikrant from '../../assets/covers/starship-vikrant.jpg';
@@ -77,6 +84,13 @@ const REGISTRY: Record<string, BundledStoryFiles> = {
     world: mlWorld as WorldFile,
     scenes: mlScenes as ScenesFile,
     memory: mlMemory as MemoryFile,
+  },
+  'cafe-queen-myra': {
+    story: mqStory as StoryFile,
+    characters: mqCharacters as CharactersFile,
+    world: mqWorld as WorldFile,
+    scenes: mqScenes as ScenesFile,
+    memory: mqMemory as MemoryFile,
   },
   'aakhri-yodha': {
     story: ayStory as StoryFile,
@@ -118,6 +132,7 @@ const REGISTRY: Record<string, BundledStoryFiles> = {
 /** Bundled cover art registry: manifest `coverBundled` key -> image. */
 export const BUNDLED_COVERS: Record<string, number> = {
   'midnight-local': coverMidnight,
+  'cafe-queen-myra': coverCafeQueen,
   'aakhri-yodha': coverYodha,
   'chai-dreams': coverChai,
   'starship-vikrant': coverVikrant,

@@ -61,6 +61,37 @@ export const FONTS = {
   tiny: 11,
 };
 
+/**
+ * How strongly *action* / narration text is faded in chat.
+ * 1 = full strength (dialogue), lower = more faded background text.
+ */
+export const FADED_TEXT_OPACITY = 0.62;
+
+/**
+ * "#RRGGBB" / "#RGB" -> "rgba(r, g, b, alpha)".
+ * Colours we don't understand are passed through untouched, so a themed
+ * rgba() value still works.
+ */
+export function withAlpha(color: string, alpha: number): string {
+  const hex = (color ?? '').trim();
+  const m = /^#([0-9a-f]{3}|[0-9a-f]{6})$/i.exec(hex);
+  if (!m) return color;
+  const body = m[1];
+  const full =
+    body.length === 3
+      ? body
+          .split('')
+          .map((c) => c + c)
+          .join('')
+      : body;
+  const r = parseInt(full.slice(0, 2), 16);
+  const g = parseInt(full.slice(2, 4), 16);
+  const b = parseInt(full.slice(4, 6), 16);
+  const a = Math.max(0, Math.min(1, alpha));
+  return `rgba(${r}, ${g}, ${b}, ${a})`;
+}
+
+
 export const TEXT_SIZE_MULTIPLIER: Record<'small' | 'medium' | 'large', number> = {
   small: 0.9,
   medium: 1,
