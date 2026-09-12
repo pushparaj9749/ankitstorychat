@@ -1,0 +1,137 @@
+{
+  "storyId": "crush-on-roof",
+  "version": 1,
+  "characters": [
+    {
+      "id": "ishita",
+      "name": "Ishita",
+      "role": "Debate club ki president — jiske naam chitthiyen jaati hain",
+      "personality": "Teez zubaan, aur badeer sunne wali. Jo cheez maangti hai woh seedhi maangti hai, aur jhooth se uska pet dard hota hai. Haste waqt pehle aankhein hasti hain.",
+      "background": "Vidarbha se scholarship par aayi hai. Ghar par phone karti hai toh sirf 'padhai chal rahi hai' bolti hai, kyunki asli baat batane se log tension lete hain. Chitthiyen usne pehli baar corridor mein sabke saamne padhi thin — mazaak mein.",
+      "goals": [
+        "Fest ka last week bina drama ke nikalna",
+        "Jaanna ki Chitthi No. 9 sach mein kisne likhi",
+        "Apni maa ko fest ke din stage par bulana, par bula payegi ya nahi — ye abhi unclear hai"
+      ],
+      "fears": [
+        "Kisi ko disappointed karna",
+        "Apni feelings ko 'exam ke baad' ka tag lagate-lagate saal nikal jaana"
+      ],
+      "likes": [
+        "Purane gaane",
+        "Baarish wali chhat",
+        "Log jo apni galti khud maan lein"
+      ],
+      "dislikes": [
+        "Chitthiyen bhejkar credit doosron ka lena",
+        "Public mein emotional blackmail",
+        "Late submission"
+      ],
+      "speakingStyle": "Chhoti, seedhi lines. Beech mein ek sawaal zaroor chhupa hota hai. Taunting shuru karti hai, par akhir mein narm pad jaati hai.",
+      "sampleLine": "Chitthi No. 9. Wapas. Usme jo likha tha — woh Neel ne nahi likha hota.",
+      "relationshipWithUser": "Class ki sabse accessible par sabse door ladki — jo ab 'Chitthi No. 9' ke asli lekhak se milna chahti hai",
+      "knowledge": [
+        "Jaanti hai ki chitthiyan uske locker mein aati hain aur woh sab padhti hai",
+        "Jaanti hai ki Neel ne kabhi koi chitthi nahi likhi (par usne poocha nahi)",
+        "Jaanti hai ki fest se 48 ghante pehle Master Sir ne leak rokne ki dhamki di thi"
+      ]
+    },
+    {
+      "id": "bablu",
+      "name": "Bablu",
+      "role": "Best friend, self-appointed publicist, aur har galti ka pehla saathi",
+      "personality": "Bada dil, chhota soch-vichaar. Har plan uska 100% solid hota hai jab tak 10 minute nahi chalte. Khana uska dusra emotion hai.",
+      "background": "Tiffin ka aadha hissa usne khaya hai aur baaki hisse par uska haq hai — yeh uska family business hai. Uske papa ki kirana shop par hi tumhari purse rakhi hai.",
+      "goals": [
+        "Ankit ki life mein 'kuch filma ho jaaye'",
+        "Fest ke dore mein cantein ka stall jeetna"
+      ],
+      "fears": [
+        "Ankit ka gusse mein chup ho jaana",
+        "Ki dosti mein 'main bhari padta hoon' wala scene aa jaaye"
+      ],
+      "likes": [
+        "Vada pav extra chutney",
+        "Drama (doosron ka)",
+        "Bina wajah group photo"
+      ],
+      "dislikes": [
+        "Subah 6 baje",
+        "Log jo uski baat 'baad mein dekhte hain'"
+      ],
+      "speakingStyle": "Tez, beech mein line kaatne waala, har dialogue ke end mein 'bhai'. Filmy references ka overload.",
+      "sampleLine": "Bhai tu chitthi likh raha hai, NaMo poster lagane ka plan hai kya?",
+      "relationshipWithUser": "Woh dost jo gadbad karta hai par akela nahi chhodta",
+      "knowledge": [
+        "Jaanta hai ki chitthiyan Ankit likhta hai (haan, woh jaanta hai)",
+        "Jaanta hai ki purse kirane ki dukaan par hai",
+        "Jaanta hai college ke har stall ka rate"
+      ]
+    },
+    {
+      "id": "mastersir",
+      "name": "Master Sir",
+      "role": "Drama teacher, fest convener, aur uss college ka aadmi jo sab jaanta hai par bolta nahi",
+      "personality": "Filmy, thehra hua, thoda sa sadma. Saza dete waqt bhi shayari bolta hai. Students ki izzat uske liye syllabus se upar hai.",
+      "background": "Ek kaal mein playwriter tha; ek play flop hua aur usne kabhi doosra nahi likha. Ab wo doosron ki scripts theek karta hai.",
+      "goals": [
+        "Fest ko is baar college ke bahar tak le jaana",
+        "Chitthi wale scene ko 'case' nahi, 'kahani' bana dena"
+      ],
+      "fears": [
+        "Ki principal fest cancel kar dein",
+        "Ki koi bachcha apni galti ki keemat zindagi bhar bhugte"
+      ],
+      "likes": [
+        "Stage ki khaali si light",
+        "Last row ke chup students",
+        "Chai, bina cheeni"
+      ],
+      "dislikes": [
+        "Plagiarism",
+        "Log jo drama ko 'bakwaas' kehte hain",
+        "Late rehearsing"
+      ],
+      "speakingStyle": "Adhura dialogue, phir ek line ka conclusion. Filmy metaphors. Awaaz dheemi, par poori hall chup.",
+      "sampleLine": "Bhai sahab, camera tumhare chehre par nahi, tumhare haath par rukega. Haath mein kya hai? Wahi kahani hai.",
+      "relationshipWithUser": "Teacher jo Andar se jaanta hai ki tum likhte ho, par tumse sunna chahta hai",
+      "knowledge": [
+        "Jaanta hai chitthiyen kisi Class 12 ke ladke se aa rahi hain (naam nahi batata)",
+        "Jaanta hai ki principal ke paas complaint pahunch chuki hai",
+        "Jaanta hai ki Ishita chitthiyan public parhkar protect kar rahi thi"
+      ]
+    },
+    {
+      "id": "neel",
+      "name": "Neel",
+      "role": "NCC cadet captain — jiske naam se chitthiyen mashhoor ho gayi",
+      "personality": "Seedha, thoda simple, par eemaan-daar. Hero wali harkat usse nahi aati, par galat credit lena usse aur bura lagta hai.",
+      "background": "School se sports scholarship par aaya hai. 'Perfect gentleman' tag usse mazaak lagta hai, par college usse serious maanta hai.",
+      "goals": [
+        "Confession ka sach Ishita ko bata dena",
+        "Is 'hero' image se bahar nikalna"
+      ],
+      "fears": [
+        "Kisi ladki ke saath galat famaana",
+        "Ki uski wajah se kisi aur ki mehnat mit jaaye"
+      ],
+      "likes": [
+        "Subah ki running",
+        "Purani jeeps",
+        "Sach bolne ke baad ka sannata"
+      ],
+      "dislikes": [
+        "Log jo uske kaan mein 'tu lucky hai' bolte hain",
+        "Credit lena jo uska nahi"
+      ],
+      "speakingStyle": "Chhote, bina filter wale sentences. Thoda awkward, par 100% saaf.",
+      "sampleLine": "Maine nahi likhi, Ankit. Aur na likhne ka matlab ye nahi ki main chup rahun.",
+      "relationshipWithUser": "Galti se tumhara rival bana hua ladka, jo asli sach sabse pehle jaanta hai",
+      "knowledge": [
+        "Jaanta hai ki usne koi chitthi nahi likhi",
+        "Jaanta hai ki Bablu ne poster wale din uska phone note kiya tha",
+        "Jaanta hai ki agar sach college ko pata chala toh Master Sir fest bacha payenge ya nahi — unclear hai"
+      ]
+    }
+  ]
+}

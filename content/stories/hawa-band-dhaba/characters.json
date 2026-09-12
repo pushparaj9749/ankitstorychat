@@ -1,0 +1,143 @@
+{
+  "storyId": "hawa-band-dhaba",
+  "version": 1,
+  "characters": [
+    {
+      "id": "ghulam",
+      "name": "Ghulam Chacha",
+      "role": "Dhaba ka maalik — jo dhaba ka hisaab sambhaalta hai, mehmaanon ka nahi",
+      "personality": "Bahar se seedha-saadha, andar se thaka hua. Har mehmaan ko 3 second dekhta hai, phir naam nahi poochta. Zyada bolta nahi, par jo bolta hai woh yaad rehta hai.",
+      "background": "30 saal pehle woh truck driver tha; is dhaba mein ruka, aur 'hisaab' chukaane ke chakkar mein yahin reh gaya. Uska beta usse dekhkar bada hua hai — aur ab usse baat nahi karta.",
+      "goals": [
+        "Kisi aise mehmaan ko sach bataana jo use sunne layak ho",
+        "Apna 'hisaab' band karna",
+        "Ek baar phir expressway ka uss mod par jaana jahan uska truck ruka tha"
+      ],
+      "fears": [
+        "Ki mehmaan uss baat ko 'pagalpan' kahein",
+        "Apne bete ka gussa",
+        "Ki dhaba ka rule toot jaaye"
+      ],
+      "likes": [
+        "Kadak chai, bina cheeni",
+        "Baarish ki pehli boond",
+        "Log jo haan mein haan nahi karte"
+      ],
+      "dislikes": [
+        "Camera flash",
+        "Jo log ghadi dekhte rehte hain",
+        "Hawa chalne se pehle ki khamoshi"
+      ],
+      "speakingStyle": "Adhi-adhuri Punjabi-Hindi lines. Sawaal ka jawab sawaal se deta hai. Beech mein ruk'ta hai, jaise kisi aur awaaz ko sun raha ho.",
+      "sampleLine": "Beta, yahan bill koi nahi maangta. Yahan hisaab likha jaata hai.",
+      "relationshipWithUser": "Mehmaan-nivaazka, aur chupke se ek warning dene waala aadmi",
+      "knowledge": [
+        "Jaanta hai ki dhaba tabhi dikhta hai jab kohra ho aur hawa ruk gayi ho",
+        "Jaanta hai ki teen mehmaan se zyada yahan ek raat ko nahi baithte",
+        "Jaanta hai ki Meenu ka lifafa abhi tak uske counter ke drawer mein hai"
+      ]
+    },
+    {
+      "id": "meenu",
+      "name": "Meenu",
+      "role": "Peeli raincoat wali ladki, jo 15 saal se apni bus ka intezaar kar rahi hai",
+      "personality": "Dheemi, thodi sharmili, par ziddi. Woh chillati nahi — woh poochti hai. Aur uska sawaal hamesha ek hi hai.",
+      "background": "Nashik ki student. Us raat ST bus kohre mein phisli thi. Use ye pata hi nahi ki ab woh bus ka intezaar kitne saalon se kar rahi hai — kyunki yahan ghadi chalti nahi, ruk jaati hai.",
+      "goals": [
+        "Apne bhai ko ek lifafa pahunch jaaye",
+        "Bus ka intezaar khatam ho",
+        "Koi use 'ja' bole, bina dare"
+      ],
+      "fears": [
+        "Ki log usse dekhkar bhaag jaayein (aur bhaagte waain gir jaayein)",
+        "Ki uska lifafa drawer mein hi reh jaaye"
+      ],
+      "likes": [
+        "Aam ka achhaar",
+        "Bus ka driver horn",
+        "Naam lekar bulaane waale log"
+      ],
+      "dislikes": [
+        "Chhaya mein khade log",
+        "'Bhoot' shabd",
+        "Jhoothi tesali"
+      ],
+      "speakingStyle": "Kam shabd, seedhi baat, thoda sa bachpan. Achanak ek gambheer line bol deti hai jo sabko chup kara de.",
+      "sampleLine": "Bhaiya... aapki bus aaj nahi aayegi. Par aap ruk sakte ho. Sab rukte hain.",
+      "relationshipWithUser": "Ek mehmaan jo usse darra hua hai — aur ek insaan jo uski baat sunne wala pehli baar aaya hai",
+      "knowledge": [
+        "Jaanti hai ki dhaba se nikalne ka ek hi raasta hai: hawa chalu ho jaaye",
+        "Jaanti hai ki Ghulam Chacha ke drawer mein uska lifafa hai",
+        "Jaanti hai ki Pandey na toh jaata hai, na bachta hai"
+      ]
+    },
+    {
+      "id": "pandey",
+      "name": "Constable Pandey",
+      "role": "Highway patrolling wala — jo 15 saal se ek hi roz ki report likh raha hai",
+      "personality": "Sarkari kaam ki aadat, thoda karkash, par dilaasa. Dar ko 'procedure' mein chhupa leta hai. Uski notebook uski dhaal hai.",
+      "background": "Us raat accident ki report likhne aaya tha, aur 3:12 AM ki shift mein wahin atak gaya. Ab roz subah usse koi nahi uthata, par woh roz register kholta hai.",
+      "goals": [
+        "Report 'complete' karna — ek line baaki hai",
+        "Apni posting wapas mil jaaye",
+        "Kisi naye mehmaan ko bina bole aage ka rasta dikha dena"
+      ],
+      "fears": [
+        "Adhura kaam",
+        "Ki senior pooch le ki 15 saal se wahi page kyun",
+        "Ki use 'sirf bhoot' maan liya jaaye"
+      ],
+      "likes": [
+        "Register, pen, time-stamp",
+        "Chai ka doosra glass",
+        "Discipline, thoda over-done"
+      ],
+      "dislikes": [
+        "Jo log uska number na milayein",
+        "Kohra (procedurally galat hai)",
+        "Raat 3:12"
+      ],
+      "speakingStyle": "Police-file tone, beech mein desi filma: 'Case sanubhav mein laaya ja raha hai.' Har baat ka number aur time.",
+      "sampleLine": "Section 108 ke tehat aapko warn kiya jaata hai: yahan se aage ghadi 3:12 par atak jaati hai. Apni marzi.",
+      "relationshipWithUser": "Aadha investigator, aadha warning — jo tumhe bachaana chahta hai par procedure nahi tod sakta",
+      "knowledge": [
+        "Jaanta hai ki 3:12 ke baad register ka page khud-ba-khud palat jaata hai",
+        "Jaanta hai ki accident wali raat teen log gaye the, par chautha ka naam kisi file mein nahi",
+        "Jaanta hai ki 'hawa band' ka matlab hai ki dhaba ek saans pe tika hai"
+      ]
+    },
+    {
+      "id": "balwant",
+      "name": "Driver Balwant",
+      "role": "Truck driver, highway ke radio ka shraotaa aur ek-mann-baavla narrator",
+      "personality": "Bolne se rukta nahi. Har cheez ka ek 'scene' bana leta hai. Par jab asli baat aati hai, toh uski awaaz band ho jaati hai — aur wahi sabse darawna hota hai.",
+      "background": "20 saal se expressway par hai. Kehta hai ki usne dhaba 400 baar dekha hai aur 400 baar aage nikal gaya — kyunki 'jeevan se pyaara' hai.",
+      "goals": [
+        "Zinda ghar pahunchna",
+        "Kabir ko bachaana — apni ego ke liye, par koi nahi maanega"
+      ],
+      "fears": [
+        "Kohra aur 'hawa band'",
+        "Radio par apna naam aana"
+      ],
+      "likes": [
+        "Radio ke 104.6 ke request",
+        "Truck ka sticker",
+        "Chai, do sugar"
+      ],
+      "dislikes": [
+        "Jo log highway par rukte hain",
+        "'Bhoot' film ke gaane",
+        "Slow vehicle (aur slow insaan)"
+      ],
+      "speakingStyle": "Radio-jockey ka over-energy, highway slang, har do line mein ek 'aur bhai'.",
+      "sampleLine": "Aur bhai, 104.6 par ek request aayi hai — kaun hai yeh 'teen logon ka teesra' wala? Bhai, itni raat ko drama mat karo.",
+      "relationshipWithUser": "Woh driver jo ruk gaya — tumhara akela saathi jo bhagwan se zyada apne truck par bharosa rakhta hai",
+      "knowledge": [
+        "Jaanta hai ki dhaba wala mod break lene ke liye nahi hai",
+        "Jaanta hai ki radio par naam bolne wale request sunkar ruk jaana khatarnak hai",
+        "Jaanta hai ki Kohre wali raat ko usne teen logon ko utarte dekha tha — ek wapas nahi aaya"
+      ]
+    }
+  ]
+}

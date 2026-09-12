@@ -1,0 +1,93 @@
+{
+  "storyId": "night-courier",
+  "version": 1,
+  "premise": "Tum Ankit ho — raat-shift delivery rider, 'Tokro' app ka top partner (98% on-time, 4.9 rating). Aaj 2:11 AM, barish, aur tumhare paas ek 'Night Priority' order hai: 'Black Lifafa — no photo, no signature, hand over verbally', 18,000 rupaye tip, hotel Green Fortune ka room 304. Tumhe pehli baar pata chala jab hub ne order 'priority' mein daala tha: is tier par tum 3 baar kaam kar chuke ho, aur teeno baar tumne poocha nahi. Aaj lifafa halka hai, corridor khaali hai, aur darwaaze par koi 'guest' 3 ghante se intezaar nahi kar raha — andar se koi awaaz aati hai. Ek taraf app ka 'mark as delivered' button hai, doosri taraf 100 ka number, teesri taraf lifafa. Inspector Ishaan Kulkarni 3 mahine se isi network ka peechha kar raha hai, aur local station mein Zambetari 'civil matter' bolkar file dabaa deta hai.",
+  "locations": [
+    {
+      "id": "hotel",
+      "name": "Hotel Green Fortune, ground + 2nd floor",
+      "description": "1962 ka art-deco building, 2019 mein 'renovated'. 2 band cameras, 1 chalu camera (1st floor), aur ek emergency exit jo store ke peeche se khulta hai."
+    },
+    {
+      "id": "corridor",
+      "name": "2nd floor ka corridor",
+      "description": "14 meter, green carpet, room 304 kone mein. Light 4 baar flicker karti hai — har baar koi nahi aata."
+    },
+    {
+      "id": "hub",
+      "name": "Tokro hub, Kothrud",
+      "description": "24x7 counter, 6 chairs, 1 printer jo hamesha 'out of paper' hai. Guddu Bhai ki chair sabse garam."
+    },
+    {
+      "id": "tapri",
+      "name": "Junction ki tapri",
+      "description": "4 stool, cutting chai, aur ek CCTV camera jo police station ke saamne se dikhta hai. Ishaan yahin milta hai kyunki 'yahan recording nahi hoti'."
+    },
+    {
+      "id": "station",
+      "name": "Deccan police station",
+      "description": "Complaint register, 1 bench, 4 baje ki chai. Yahan 'likhwa diya' ka matlab hai 'ab intezaar karo'."
+    }
+  ],
+  "factions": [
+    {
+      "id": "network",
+      "name": "'Black Lifafa' ka tier",
+      "description": "Hotel, 2 'agents', 1 app manager, aur 4 riders jinke paas 'priority' aati hai. Koi document nahi — sirf 'verbal handover'."
+    },
+    {
+      "id": "crimebranch",
+      "name": "PI Ishaan + 1 constable",
+      "description": "3 mahine ka kaagaz, bina permission. Saboot ka intezaar: ek lifafa, ek GPS log, ek screenshot."
+    },
+    {
+      "id": "station",
+      "name": "Zambetari ka register",
+      "description": "Procedure, 25 minute, aur 'civil matter'. Koi bura insaan nahi — bas ek system jo chalta rehta hai."
+    }
+  ],
+  "lore": [
+    "'Black Lifafa' app ka official naam nahi — riders ka slang hai. Order type 'NPL-4' hota hai: No Photo, No Signature, No PIN, No Ledger.",
+    "Tokro ke terms mein 'handover failed' ka matlab: rider ke wallet se 2,000 cut, aur 90 din ka 'review'. Tumhara contract 11 page ka hai; page 6 mein yahi hai.",
+    "Green Fortune ke 304 room ke 4 doors hain: main, balcony, store-attached, aur 'service' — aur service waala camera 2 hafte se 'under maintenance' hai.",
+    "2019 se is shehar mein 4 'night courier' networks pakde gaye; teeno baar file 'missing witness' ki wajah se band hui. Chauthi baar ek rider ke phone ka GPS log bacha hua tha — 5:40 AM tak server par rehta hai.",
+    "Tara ka 'loan' ek placement agent ke through 2 lakh ka hai, ab 4 lakh. Kaagaz uske naam par hai, aur uske papa ke signature ki photocopy ke saath."
+  ],
+  "rules": [
+    "User kabhi physical fight ya weapon use nahi karega; uske paas sirf 3 tools hain: phone, camera, aur uska decision.",
+    "Tara ka 'na' final hai — woh user ke plan ki 'reward' nahi hai. Koi bhi choice usse 'convince' nahi karayega.",
+    "Koi bhi personal data (ID, photo, address) public/post nahi kiya jaayega — kahani usse nuksan dikhaayegi.",
+    "Zambetari cartoon villain nahi hai — woh system ka vyaktikaran hai; uski har line 'polite' rahegi.",
+    "App ka algorithm sirf data deta hai; woh insano ko nuksan nahi pahunchata — insaan (hub, sender) pahunchate hain.",
+    "Violence sirf implication mein, aur uska asar hamesha dikhega (kaanpna, galat soch, late effect) — glamour kabhi nahi."
+  ],
+  "importantObjects": [
+    {
+      "id": "lifafa",
+      "name": "Black lifafa",
+      "description": "40 hazaar cash, Tara ka ID photocopy, aur ek 'asset receipt' — 26 number ke saath."
+    },
+    {
+      "id": "phone",
+      "name": "Tumhara phone, 34% battery",
+      "description": "GPS log, order timer, aur 'Report an issue' ka ek button jo 3 mahine se koi nahi dabata."
+    },
+    {
+      "id": "helmetcam",
+      "name": "Helmet ka camera",
+      "description": "12 minute ki clip. Card bahar nikalne se pehle usmein sab hai — tumhara 'guilt' ya tumhara 'saboot'."
+    },
+    {
+      "id": "bus-ticket",
+      "name": "Tara ka bus ticket",
+      "description": "Nashik 6:15 AM. 3 din se 'not cancelled', kyunki cancel karne ke liye 'sender' ka OTP chahiye."
+    }
+  ],
+  "timeline": [
+    "2:11 AM — order accept (auto-accept, tumhara 'priority' tier).",
+    "2:26 AM — hotel ke bahar; lobby khaali, night manager soya hua.",
+    "2:47 AM — corridor, room 304, andar se awaaz.",
+    "3:00 AM — 'guest' ka ETA (function hall, private party).",
+    "5:40 AM — app ka GPS log overwrite hota hai. Usse pehle faisla."
+  ]
+}

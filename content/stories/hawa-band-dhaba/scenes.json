@@ -1,0 +1,1133 @@
+{
+  "storyId": "hawa-band-dhaba",
+  "version": 1,
+  "scenes": [
+    {
+      "id": "s1_arrive",
+      "title": "3:07 AM — Slo",
+      "narration": [
+        "*Cockpit ki ghadi 3:07 dikha rahi hai. Bahar kohra itna ghana ki headlights bhi do meter aage haar maan leti hain. Achanak engine ki awaaz band — bilkul band, jaise kisi ne switch se kheench liya ho.*",
+        "\"Chal na... chal. Bhai, 3 ghante se tu hi bacha hai mera.\"",
+        "*Dashboard ki lights bujh jaati hain. Aur theek saamne — jahan kal tak kucch nahi tha — ek dhaba. Yellow tube light. 'Hawa-Band Dhaba' board. Aur andar, teen kursiyan. Do bhari hain.*",
+        "*Radio apne aap 104.6 par aa jaata hai.*",
+        "Driver Balwant: \"Aur bhai... agar koi gaadi Kohra Mod par atki ho — ruk-na. Main request kar raha hoon, bhai. Ruk-na.\"",
+        "*Radio ki awaaz ek pal ke liye halki padti hai, jaise koi uske kaan ke paas bolo. Phir wapas: 'Koi hai toh bata do, bhai.'*",
+        "*Dhaba ka darwaaza apne aap khulta hai. Andar se chai ki khushboo aati hai — garam, taaza, bilkul ab banai gayi.*"
+      ],
+      "fallbackLines": [
+        "*Hawa ek baar chalti hai — aur saamne kucch nahi. Sirf kohra aur 'Slo' board. Tumhare haath kaanpte hain. Phir ek aur baar — dhaba wapas.*",
+        "\"Ye mazaak hai. Kisi ka mazaak. ...Kaun hai yaar? Kuch nahi. Koi nahi.\"",
+        "*Ek tube light do baar blink karti hai. Jaise koi andar se keh raha ho: jaldi andar aa jao.*"
+      ],
+      "choices": [
+        {
+          "id": "c_andar",
+          "text": "Gaadi lock karo aur andar chalo",
+          "keywords": [
+            "andar",
+            "jaao",
+            "dhaba",
+            "chalo",
+            "haan",
+            "lock"
+          ],
+          "next": "s2_dhaba",
+          "shortLabel": "Andar jao",
+          "effects": {
+            "location": "Hawa-Band Dhaba",
+            "memory": [
+              "User ne 3:07 par dhaba mein kadam rakha — gaadi lock karke."
+            ]
+          }
+        },
+        {
+          "id": "c_engine",
+          "text": "Bonnet kholo; andhar jaane se pehle gaadi theek karo",
+          "keywords": [
+            "bonnet",
+            "engine",
+            "theek",
+            "battery",
+            "dekho",
+            "nahi"
+          ],
+          "next": "s2_engine",
+          "shortLabel": "Engine dekho",
+          "effects": {
+            "memory": [
+              "User ne pehle engine kholna theek samjha."
+            ]
+          }
+        },
+        {
+          "id": "c_radio",
+          "text": "Radio par bolo — 'Balwant, tum ho kaun?'",
+          "keywords": [
+            "radio",
+            "balwant",
+            "kaun",
+            "bolo",
+            "104",
+            "poochho"
+          ],
+          "next": "s2_radio",
+          "shortLabel": "Radio par bolo",
+          "effects": {
+            "flags": {
+              "spokeOnRadio": true
+            },
+            "memory": [
+              "User ne radio par naam lekar baat ki — dhaba ke rules ke hisaab se ye risky tha."
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "id": "s2_dhaba",
+      "title": "Teen Kursiyan",
+      "narration": [
+        "*Andar haram garam hai, par tube light thandi roshni de rahi hai. Counter ke peeche Ghulam Chacha chai daal rahe hain — teen glass, bina pooche.*",
+        "Ghulam Chacha: \"Baitho. Chai thandhi ho rahi hai, aur yahan cheeni kisi ke liye nahi hoti.\"",
+        "*Kone wali kursi par peeli raincoat wali ladki baithi hai. Baal bheegay hain, par uske kapde se paani tapak nahi raha. Woh tumhe dekhti hai — aur muskura deti hai, jaise purana dost mil gaya ho.*",
+        "Meenu: \"Aap bhi bus ka wait kar rahe ho?\"",
+        "*Doosri kursi par uniform wala aadha register likh raha hai. Uske pen ki awaaz poori hall mein goonjti hai. Woh bina sir uthaye bolta hai.*",
+        "Constable Pandey: \"Section 108 ke tehat warn kiya jaata hai. Ghadi 3:12 par atakne wali hai. Register sign kar lo, phir jo karna hai karo.\"",
+        "*Deewar par blackboard hai: mehmaanon ke naam, mitti se likhe. Neeche ek line khaali hai — 'K' se shuru hone ke liye.*"
+      ],
+      "fallbackLines": [
+        "Ghulam Chacha: \"Khana free hai. Hisaab alag cheez hai.\"",
+        "*Meenu apna haath table ke neeche se hataati nahi — jaise wahin kuch rakha ho. Ya kisi ko dikhaana nahi chahti.*",
+        "Constable Pandey: \"Ek sawaal: aap akele aa rahe the? ...Theek hai. Register mein 'teen' likhna padega.\""
+      ],
+      "choices": [
+        {
+          "id": "c_haal",
+          "text": "Chai piyo, par kuch mat khaao",
+          "keywords": [
+            "chai",
+            "piyo",
+            "theek",
+            "haan",
+            "baith"
+          ],
+          "next": "s3_blackboard",
+          "shortLabel": "Chai piyo",
+          "effects": {
+            "relationships": {
+              "ghulam": 8,
+              "meenu": 5
+            },
+            "memory": [
+              "User ne chai li, par khana nahi khaya."
+            ]
+          }
+        },
+        {
+          "id": "c_khana",
+          "text": "Paratha khao — bhook lagi hai, aur ye log zyada darawane nahi lag rahe",
+          "keywords": [
+            "khaana",
+            "paratha",
+            "bhook",
+            "haan",
+            "khao",
+            "khaja"
+          ],
+          "next": "s3_ledger",
+          "shortLabel": "Khana lo",
+          "effects": {
+            "flags": {
+              "ateFood": true
+            },
+            "relationships": {
+              "ghulam": 12,
+              "pandey": -5
+            },
+            "memory": [
+              "User ne dhaba ka khana khaya — aur uska naam blackboard par likhne ka mauka de diya."
+            ]
+          }
+        },
+        {
+          "id": "c_ladki",
+          "text": "Seedha Meenu se poocho — 'tum yahan kitne din se ho?'",
+          "keywords": [
+            "meenu",
+            "ladki",
+            "din",
+            "kitne",
+            "poochho",
+            "raincoat",
+            "kaun"
+          ],
+          "next": "s3_meenu",
+          "shortLabel": "Meenu se baat karo",
+          "effects": {
+            "relationships": {
+              "meenu": 15
+            },
+            "flags": {
+              "talkedToMeenu": true
+            },
+            "memory": [
+              "User ne sabse pehle Meenu se baat ki — dhaba mein isse logon ko kuch yaad aa jaata hai."
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "id": "s2_engine",
+      "title": "Bonnet, Ek Chabi Aur 15 Saal Purani Mail",
+      "narration": [
+        "*Kohre mein bonnet kholte hi tumhare haath kaanpne lagte hain — thand se nahi. Battery ke terminals par safed mail jam chuki hai, jaise saalon se koi use chhoot nahi paaya. Par gaadi toh 40 minute pehle start hui thi.*",
+        "\"Ye... ye toh possible nahi hai.\"",
+        "*Engine ke neeche se ek chabi nikalti hai — purani, dhaba ke counter jaisi. Uspar ek tag: 'Hawa-Band — Drawer 2'. Aur chabi ke saath ek lifafa, mail se chipka hua.*",
+        "*Peeche se tube light ki 'tin-tin' hoti hai. Andar se koi awaaz aati hai — bilkul dheemi.*",
+        "Ghulam Chacha: \"Chabi wapas rakh dena, beta. Ya le andar aao. Par donon ka apna hisaab hai.\"",
+        "*Radio, bina switch on kiye, bol uthta hai: 'Aur bhai... wo chabi mat chhoo. Bhai. Main tumse keh raha hoon.'*"
+      ],
+      "fallbackLines": [
+        "*Lifafe ke kinaare par ek naam likha hai — 'M'. Baaki kohre se bheeg gaya hai.*",
+        "\"Chabi... andar kaun sa drawer? Drawer 2? Chacha, ye kya mazaak hai?\"",
+        "*Kohra ek pal hata hai aur tumhe saamne wali gaadi dikhti hai — uspar dhool ki itni moti parat hai ki lagta hai koi use 10 saal se dekh raha hai.*"
+      ],
+      "choices": [
+        {
+          "id": "c_lejao",
+          "text": "Chabi aur lifafa lekar andar jao",
+          "keywords": [
+            "andar",
+            "chalo",
+            "chabi",
+            "le",
+            "jaao",
+            "drawer"
+          ],
+          "next": "s3_meenu",
+          "shortLabel": "Andar jao",
+          "effects": {
+            "flags": {
+              "hasKey": true
+            },
+            "inventoryAdd": [
+              "Drawer 2 ki chabi",
+              "Mail se nikla lifafa"
+            ],
+            "memory": [
+              "User ko bonnet ke neeche chabi aur lifafa mila — Drawer 2 ka raasta uske paas hai."
+            ]
+          }
+        },
+        {
+          "id": "c_rakhdo",
+          "text": "Chabi wapas rakh do; dhaba se door nikalne ki koshish karo",
+          "keywords": [
+            "nahi",
+            "rakh",
+            "door",
+            "nikal",
+            "bhaago",
+            "chhodo"
+          ],
+          "next": "s3_run",
+          "shortLabel": "Bhaago",
+          "effects": {
+            "relationships": {
+              "ghulam": -8
+            },
+            "memory": [
+              "User ne chabi chhodi aur bhaagne ki koshish ki — 3:07 se pehle."
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "id": "s2_radio",
+      "title": "104.6 — Request Bina DJ Ke",
+      "narration": [
+        "*Tum radio par bolte ho. Do second ki khamoshi — phir awaaz, ab bilkul paas se aati hui, jaise koi backseat par baitha ho.*",
+        "Driver Balwant: \"Bhai mera naam kaunne le liya? Maine request 'kaun bhi sun raha hai' ke liye ki thi, 'Kabir' ke liye nahi.\"",
+        "*Cockpit ki ghadi 3:11 dikhati hai. Aur phir, 3:12. Phir 3:12. Phir 3:12.*",
+        "Driver Balwant: \"Ghadi dekh. Bas dekh. Agar 3:12 do baar dikha de — toh ab tum dhaba ke ho. Andar jaao. Baith jao. Kucch mat khaao. Aur... ek ladki hai na? Peeli raincoat? Uski baat sun lena. Sab nahi sunte, bhai. Main 15 saal se sunne ki baat kar raha hoon.\"",
+        "*Radio band. Aur theek usi waqt, dhaba ka darwaaza poora khul jaata hai — andar se teen kursiyan saaf dikhti hain.*"
+      ],
+      "fallbackLines": [
+        "*Radio khud-ba-khud wapas on hota hai, ab awazaan kam, sirf shor — aur shor mein ek line: '...teen log... teen hi chahiye...'*",
+        "*3:12. Ghadi ke seconds chalte hain, par minute nahi badalta. Ye dekhkar tumhara pet ghoom jaata hai.*",
+        "Driver Balwant: \"Bhai? Bhai. Agar tune mic off kar diya hai toh wapas on kar. Mujhe akele mat chhod.\""
+      ],
+      "choices": [
+        {
+          "id": "c_andar2",
+          "text": "Radio band karke dhaba mein ghus jao",
+          "keywords": [
+            "andar",
+            "jaao",
+            "haan",
+            "dhaba",
+            "baith"
+          ],
+          "next": "s3_meenu",
+          "shortLabel": "Andar jao",
+          "effects": {
+            "memory": [
+              "User ne Balwant ki baat maankar dhaba mein kadam rakha."
+            ]
+          }
+        },
+        {
+          "id": "c_puche",
+          "text": "Aur bolo: 'Meenu kaun hai?'",
+          "keywords": [
+            "kaun",
+            "meenu",
+            "poocho",
+            "ladki",
+            "naam"
+          ],
+          "next": "s3_blackboard",
+          "shortLabel": "'Meenu kaun?'",
+          "effects": {
+            "flags": {
+              "radioAskedMeenu": true
+            },
+            "memory": [
+              "User ne radio par Meenu ka naam liya — aur dhaba ne use sun liya."
+            ]
+          }
+        },
+        {
+          "id": "c_bhaago",
+          "text": "Gaadi start karne ki koshish karo (3:12 ke baad)",
+          "keywords": [
+            "start",
+            "try",
+            "gaadi",
+            "bhaago",
+            "nikal",
+            "key"
+          ],
+          "next": "s3_run",
+          "shortLabel": "Gaadi start karo",
+          "effects": {
+            "memory": [
+              "User ne 3:12 ke baad bhaagne ki koshish ki."
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "id": "s3_blackboard",
+      "title": "Blackboard, Ek Khaali Line Aur Ek Naam",
+      "narration": [
+        "*Tum blackboard ke paas jaate ho. Naam mitti se likhe hain — 'Rehana B. — 12 saal', 'Iqbal S. — 8 saal', 'Driver Balwant — 400 baar ruka, 400 baar gaya'.*",
+        "\"Ye... ye dates nahi hain. Ye saal hain.\"",
+        "*Neeche khaali line par 'K' likha hua milta hai. Tumhara haath apne aap rukta hai. Counter ke peeche Ghulam Chacha kuch nahi bolte — sirf glass ponchhte rehte hain.*",
+        "Ghulam Chacha: \"Maine likha nahi. Kabhi kabhi dhaba khud likh leta hai. Jaise tumne chai maangi nahi, aur chai aa gayi.\"",
+        "*Constable Pandey apna register aage sarkaate hain. Aakhri line adhoori: 'Chautha ka naam: ______'. 15 saal se.*",
+        "Constable Pandey: \"Aap 'K' hain? Toh shayad aap ise pura kar sakte ho. Main procedure nahi tod sakta. Aap tod sakte ho.\""
+      ],
+      "fallbackLines": [
+        "*Tube light ek baar bujhti hai. Jab jal uthti hai, board par ek naam aur hai — aur tumhara 'K' halka pad gaya hai.*",
+        "Meenu: \"Bhaiya... uspar mat likho. Jo likh diya jaata hai, uska intezaar hota hai.\"",
+        "Ghulam Chacha: \"Teen kursi. Aaj teen bhare hain. Tum baith gaye toh kaunsa naam bahar likha jaayega — ye koi aaj nahi batayega.\""
+      ],
+      "choices": [
+        {
+          "id": "c_meenu",
+          "text": "Board chhodo — pehle Meenu ki poori baat suno",
+          "keywords": [
+            "meenu",
+            "sun",
+            "baat",
+            "nahi",
+            "ladki",
+            "lifetime"
+          ],
+          "next": "s3_meenu",
+          "shortLabel": "Meenu ki baat",
+          "effects": {
+            "relationships": {
+              "meenu": 12
+            },
+            "flags": {
+              "talkedToMeenu": true
+            },
+            "memory": [
+              "User ne blackboard chhoda aur Meenu ko sunna chuna."
+            ]
+          }
+        },
+        {
+          "id": "c_pandey",
+          "text": "Pandey se accident ki file maango",
+          "keywords": [
+            "file",
+            "pandey",
+            "accident",
+            "chautha",
+            "register",
+            "do"
+          ],
+          "next": "s3_file",
+          "shortLabel": "File dekho",
+          "effects": {
+            "flags": {
+              "sawFile": true
+            },
+            "memory": [
+              "User ne Pandey ki 15-saal-adhoori file padhni shuru ki."
+            ]
+          }
+        },
+        {
+          "id": "c_drawer",
+          "text": "Drawer 2 kholo (chabi tumhare paas hai)",
+          "keywords": [
+            "drawer",
+            "chabi",
+            "kholo",
+            "lifafa",
+            "2"
+          ],
+          "next": "s4_lifafa",
+          "shortLabel": "Drawer kholo",
+          "requiresFlag": "hasKey",
+          "effects": {
+            "inventoryAdd": [
+              "Meenu ka lifafa"
+            ],
+            "relationships": {
+              "ghulam": -5,
+              "meenu": 10
+            },
+            "memory": [
+              "User ne Drawer 2 khola aur Meenu ka 15-saal-purana lifafa nikaala."
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "id": "s3_ledger",
+      "title": "Hisaab Jo Kabhi Close Nahi Hota",
+      "narration": [
+        "*Halwa-kulche ka plate abhi khaali hua hai aur tumhe ajeeb sukoon mil raha hai — 11 ghante ki drive ke baad. Aur phir Ghulam Chacha counter se ek bahi-khata nikaalte hain.*",
+        "Ghulam Chacha: \"Ek line likh do. Naam. Bas.\"",
+        "\"Main... paise de deta hoon. 200? 500?\"",
+        "Ghulam Chacha: \"Yahan paise nahi chalte, beta. Yahan 'wada' chalta hai. Meri baari mein ek line likhi thi — 30 saal pehle. Tab se dhaba ka maalik main hoon.\"",
+        "*Constable Pandey ke pen ki awaaz ruk jaati hai. Woh pehli baar sir uthate hain.*",
+        "Constable Pandey: \"Isse mat likhna. Bhai... meri file mein 41 naam hain. Ek bhi close nahi hua.\"",
+        "*Meenu chupchap apna haath table ke neeche se nikaalti hai — haath mein ek purana bus ticket hai, 15 saal purani date par.*",
+        "Meenu: \"Bhaiya. Meri line bhi koi likh sakta tha. Par kisi ne nahi likhi.\""
+      ],
+      "fallbackLines": [
+        "Ghulam Chacha: \"Likhne mein 5 second. Chukane mein zindagi. Ya shayad dono.\"",
+        "*Bahi-khate ke pichle panne par tumhara naam pehle se likha hua milta hai — 'Kabir — 15 saal'. Tumhara haath piche hat jaata hai.*",
+        "Driver Balwant: \"Bhai radio sun raha hai? ...Haan, dhaba ka. Mat likh. Main ruk gaya tha ek baar, aur tab se mujhe 'Driver Balwant' likha hua milta hai — 400 baar gaya, par naam hata nahi.\""
+      ],
+      "choices": [
+        {
+          "id": "c_inkaar",
+          "text": "Pen rakh do — \"mera naam yahan kaise likha hai?\" Chacha ko jawan do",
+          "keywords": [
+            "nahi",
+            "mat",
+            "kholo",
+            "sawaal",
+            "kaise",
+            "jawan",
+            "pen"
+          ],
+          "next": "s4_truth",
+          "shortLabel": "Jawaab maango",
+          "effects": {
+            "relationships": {
+              "ghulam": 10,
+              "pandey": 5
+            },
+            "memory": [
+              "User ne naam likhne se mana kiya aur ulta Ghulam Chacha se hisaab ka sach poochha."
+            ]
+          }
+        },
+        {
+          "id": "c_parda",
+          "text": "Store room ka parda kholo — wahan thandi hawa kyun aa rahi hai",
+          "keywords": [
+            "store",
+            "parda",
+            "andar",
+            "thand",
+            "darwaza",
+            "kholo"
+          ],
+          "next": "s4_store",
+          "shortLabel": "Store kholo",
+          "effects": {
+            "memory": [
+              "User ne store room ka band darwaaza kholne ka faisla kiya."
+            ]
+          }
+        },
+        {
+          "id": "c_hisaab",
+          "text": "Line likh do. Jo hoga dekha jaayega.",
+          "keywords": [
+            "likho",
+            "haan",
+            "likh",
+            "karunga",
+            "theek",
+            "name"
+          ],
+          "next": "s4_ledger_end",
+          "shortLabel": "Naam likho",
+          "effects": {
+            "flags": {
+              "signedLedger": true
+            },
+            "memory": [
+              "User ne hisaab ki kitaab mein apna naam likh diya."
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "id": "s3_meenu",
+      "title": "Peeli Raincoat",
+      "narration": [
+        "*Tum Meenu ke saamne wali kursi par baithte ho. Uske raincoat par paani ki ek boond bhi nahi, par uski awaaz bheegi hui lagti hai.*",
+        "Meenu: \"Aap dar rahe ho? Pehli baar sab darte hain. Ghulam Chacha ne bhi dar ke maare hi chai pi li thi.\"",
+        "\"Tum... kitne din se ho yahan?\"",
+        "Meenu: \"Ek din. Ya 15. Dono hi sahi hain. Yahan ghadi 3:12 par hai, aur woh mere liye 3:12 hi rahega, jab tak...\"",
+        "*woh ruk jaati hai*",
+        "Meenu: \"Ek cheez hai. Mera lifafa. Chacha ke drawer mein. Usmein 200 rupaye hain aur meri maa ka phone number. Mera bhai Nashik mein hai. Usne 15 saal intezaar kiya ki koi aa kar kahe ki — main theek hoon.\"",
+        "*Uski aankhein pehli baar tumhari aankhon mein tikti hain. Tube light ruk jaati hai — bilkul ruk jaati hai, flicker bhi nahi.*",
+        "Meenu: \"Bhaiya. Aap ruko mat. Bas mera lifafa de dena. Phir jo karna hai karna.\""
+      ],
+      "fallbackLines": [
+        "*Ghulam Chacha counter ke peeche se palat kar deewar ki taraf dekh lete hain. Unke haath ka glass ruk gaya hai.*",
+        "Constable Pandey: \"Lifafa evidence hai. Evidence drawer mein rehta hai. Aap ise nahi le sakte. ...Par main abhi register bhar raha tha. Do minute.\"",
+        "*Bahar kohra itna ghana ho jaata hai ki dhaba ki roshni bhi do meter door khatam ho jaati hai.*"
+      ],
+      "choices": [
+        {
+          "id": "c_wada",
+          "text": "\"Mera waada\" — waada karo ki lifafa Nashik pahunchega",
+          "keywords": [
+            "wada",
+            "haan",
+            "pahunchaunga",
+            "pakka",
+            "nashik",
+            "karunga"
+          ],
+          "next": "s4_truth",
+          "shortLabel": "Waada karo",
+          "effects": {
+            "flags": {
+              "promisedMeenu": true
+            },
+            "relationships": {
+              "meenu": 20,
+              "ghulam": 5
+            },
+            "memory": [
+              "User ne Meenu se waada kiya ki uska lifafa uske bhai tak pahunchega."
+            ]
+          }
+        },
+        {
+          "id": "c_pakdo",
+          "text": "Waada chhodo — abhi drawer tod kar lifafa nikaalo",
+          "keywords": [
+            "drawer",
+            "todo",
+            "abhi",
+            "nikalo",
+            "lifafa",
+            "chabi"
+          ],
+          "next": "s4_lifafa",
+          "shortLabel": "Drawer tod do",
+          "effects": {
+            "flags": {
+              "brokeDrawer": true
+            },
+            "inventoryAdd": [
+              "Meenu ka lifafa"
+            ],
+            "relationships": {
+              "ghulam": -15,
+              "meenu": 5
+            },
+            "memory": [
+              "User ne waada karne ke bajaye drawer todkar lifafa nikaal liya — dhaba ke rule ke against."
+            ]
+          }
+        },
+        {
+          "id": "c_poochho",
+          "text": "Pehle sach jaano: Ghulam Chacha ke saath 30 saal pehle kya hua",
+          "keywords": [
+            "chacha",
+            "sach",
+            "30",
+            "pehle",
+            "kya",
+            "raaz",
+            "beta"
+          ],
+          "next": "s4_truth",
+          "shortLabel": "Chacha ka sach",
+          "effects": {
+            "flags": {
+              "askedChacha": true
+            },
+            "relationships": {
+              "ghulam": 15,
+              "meenu": -3
+            },
+            "memory": [
+              "User ne Meenu se pehle Ghulam Chacha ka 30-saal-purana raaz poochha."
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "id": "s3_run",
+      "title": "3:12 Ke Baad Ka Rasta",
+      "narration": [
+        "*Tum gaadi mein baithte ho, darwaaza lock karte ho, aur accelerator par pair rakhte ho. Engine ek baar 'ghurr' karta hai — aur phir wahi khamoshi. Ghadi: 3:12. Seconds chal rahe hain. Minute nahi.*",
+        "*Tum kaanch band karke bhaagte ho. 200 meter. 500. 1 km. Kohra itna ghana ki road khatam ho jaati hai — aur uski jagah ek yellow tube light aati hai.*",
+        "*Dhaba. Wahi. Bahar ki bench par ab tumhare bag se nikla hua lifafa rakha hai, aur uspar Meenu baithi hai.*",
+        "Meenu: \"Bhaiya. Aap bhi 'teen' mein se ek ho. Sab bhaagte hain. Sab yahin aate hain.\"",
+        "Constable Pandey: \"Case sanubhav mein: 41 log bhaage, 41 wapas. Report mein 'absconding' likhna padega, aur mujhe 15 saal se yahi likhna hai.\"",
+        "*woh apna register band karta hai*"
+      ],
+      "fallbackLines": [
+        "*Radio ek baar khud on hota hai: 'Bhai... andar aa jao. Meri baari abhi nahi. Tumhari hai.'*",
+        "*Hawa ek pal ke liye chalti hai — aur dhaba gayab. Tum sadak ke beech khadi gaadi mein ho, akele. Phir thand lagti hai, aur dhaba wapas.*",
+        "\"Theek hai. Theek hai! Main andar aa raha hoon. Par kal subah main ja raha hoon.\"",
+        "*tumhe khud pata hai ye jhooth hai*"
+      ],
+      "choices": [
+        {
+          "id": "c_wapas",
+          "text": "Wapas andar — ab kaam karo, bhaagna chhodo",
+          "keywords": [
+            "andar",
+            "wapaas",
+            "theek",
+            "haan",
+            "aao",
+            "kaam"
+          ],
+          "next": "s4_truth",
+          "shortLabel": "Wapas andar",
+          "effects": {
+            "memory": [
+              "User ne bhaagne ke baad wapas aake dhaba ka kaam lene ka faisla kiya."
+            ]
+          }
+        },
+        {
+          "id": "c_balwant",
+          "text": "Balwant ke truck mein chhup jao — shayad woh le jaaye",
+          "keywords": [
+            "truck",
+            "balwant",
+            "chhupo",
+            "le",
+            "jaao",
+            "garam"
+          ],
+          "next": "s4_store",
+          "shortLabel": "Truck mein chhupo",
+          "effects": {
+            "memory": [
+              "User Balwant ke truck mein chhupkar nikalne ki koshish kar raha hai."
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "id": "s3_file",
+      "title": "Adhoori File, 15 Saal",
+      "narration": [
+        "*Pandey register tumhare saamne sarkaate hain. Har page par wahi line, 5,400 baar: 'Teen log gaye. Chautha ka naam: ______'. Aur ek photo — kohre mein, ek ST bus ka piccha, aur sadak ke kinare peela raincoat.*",
+        "Constable Pandey: \"Chautha 'naam' nahi tha. Chautha ek decision tha. Accident ke waqt koi bacha tha jise chhupa liya gaya. Report mein uska naam likhne wala insaan chahiye tha — mujhe. Main likh nahi paaya. 15 saal.\"",
+        "\"Toh dhaba... tumhare register ka intezaar kar raha hai?\"",
+        "Constable Pandey: \"Nahi beta. Dhaba sach ka intezaar kar raha hai. Mera register sirf kaagaz hai. Aur tumhare paas kaagaz se zyada hai.\"",
+        "*woh counter ki taraf dekhta hai*"
+      ],
+      "fallbackLines": [
+        "*Photo ke piche ek line: 'Balwant S. — driver, bacha, gawahi nahi di'. Tumhara haath ruk jaata hai.*",
+        "Meenu: \"...Balwant? Woh driver? Woh zinda hai?\"",
+        "*uski awaaz pehli baar kaanpti hai*",
+        "Ghulam Chacha: \"Chautha ka naam register mein nahi, sadak par hai. Abhi bhi wahi ghumta hai.\""
+      ],
+      "choices": [
+        {
+          "id": "c_balwant_file",
+          "text": "Balwant ke paas jao aur gawahi dilaao",
+          "keywords": [
+            "balwant",
+            "gawahi",
+            "paas",
+            "le",
+            "sach",
+            "driver"
+          ],
+          "next": "s4_truth",
+          "shortLabel": "Balwant ko laao",
+          "effects": {
+            "flags": {
+              "gotWitness": true
+            },
+            "memory": [
+              "User ne 15-saal-purane chautha gawah Balwant ko gawahi dene ke liye bulaya."
+            ]
+          }
+        },
+        {
+          "id": "c_lifafa_file",
+          "text": "File band karo — pehle Drawer 2 ka lifafa lo",
+          "keywords": [
+            "drawer",
+            "lifafa",
+            "kholo",
+            "band",
+            "file",
+            "2"
+          ],
+          "next": "s4_lifafa",
+          "shortLabel": "Lifafa lo",
+          "requiresFlag": "hasKey",
+          "effects": {
+            "inventoryAdd": [
+              "Meenu ka lifafa"
+            ],
+            "memory": [
+              "User ne file chhodi aur pehle Meenu ka lifafa lene ka faisla kiya."
+            ]
+          }
+        },
+        {
+          "id": "c_sach_file",
+          "text": "Chacha se poocho: 'accident mein aap kya kar rahe the?'",
+          "keywords": [
+            "chacha",
+            "poochho",
+            "accident",
+            "sach",
+            "kar",
+            "raaz"
+          ],
+          "next": "s4_truth",
+          "shortLabel": "Chacha ka raaz",
+          "effects": {
+            "relationships": {
+              "ghulam": 10
+            },
+            "flags": {
+              "askedChacha": true
+            },
+            "memory": [
+              "User ne Ghulam Chacha ko accident wali raat ke baare mein poochha."
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "id": "s4_truth",
+      "title": "Teen Sach, Ek Saans",
+      "narration": [
+        "*Poori duniya 3:12 par atak gayi hai. Tum teen logon ke saamne khade ho aur — pehli baar — chillate ho.*",
+        "\"Bas. Koi jhooth nahi. Koi adhoori line nahi. Ek-ek karke bolo.\"",
+        "*Ghulam Chacha glass rakh dete hain. Pehli baar unke haath rukte hain.*",
+        "Ghulam Chacha: \"30 saal pehle main yahan ruka. Bhookh lagi thi. Maine likha: 'kal chuka dunga'. Mere baad mera beta aaya — usne bhi likha. Usne chukaya bhi. Par hisaab tab tak close nahi hota, jab tak koi doosra 'haan' na bolega.\"",
+        "Constable Pandey: \"Meri file: teen gaye, chautha bacha. Gawah dene wala driver tha — Balwant. Usne darr ke maare naam nahi liya. Naam na lene se 15 saal ki report adhoori. Report adhoori se 15 saal ka kohra.\"",
+        "*Aur tabhi darwaaza khulta hai. Balwant — bheega hua, kaanpta hua, haath mein apna purana licence.*",
+        "Driver Balwant: \"Bhai... 15 saal se main har raat isi mod par aata hoon. Ruk-ta nahi. Aaj ruk gaya. Mera naam likh do, Pandey. ...Main taiyaar hoon.\"",
+        "Meenu: \"Toh ab mera lifafa? Kaun le jaayega?\""
+      ],
+      "fallbackLines": [
+        "*Blackboard par 'K' ab gehra likha hua hai. Mitti gir rahi hai.*",
+        "Ghulam Chacha: \"Hawa chalne mein 5 minute hain. Ek-ek cheez chuno.\"",
+        "*Tube light ab ek layn mein nahi, poori dhaar mein jal rahi hai — jaise dhaba bhi intezaar kar raha ho.*"
+      ],
+      "choices": [
+        {
+          "id": "c_nishan",
+          "text": "Sach ko 5:40 tak register aur lifafe ke saath bahar le jao",
+          "keywords": [
+            "nishan",
+            "sach",
+            "le",
+            "bahar",
+            "5",
+            "register",
+            "subah"
+          ],
+          "next": "e_dawn",
+          "shortLabel": "Subah tak le jao",
+          "effects": {
+            "memory": [
+              "User ne sach, file aur lifafa — teenon 5:40 tak bahar pahunchane ka faisla kiya."
+            ]
+          }
+        },
+        {
+          "id": "c_ghulam",
+          "text": "Ghulam Chacha ka hisaab tum chuka do — 'kal chuka dunga' tum likho",
+          "keywords": [
+            "chuka",
+            "hisaab",
+            "chacha",
+            "likho",
+            "kal",
+            "beta"
+          ],
+          "next": "e_keeper",
+          "shortLabel": "Hisaab chukao",
+          "effects": {
+            "flags": {
+              "paidChachasDebt": true
+            },
+            "memory": [
+              "User ne Ghulam Chacha ka 30-saal-purana wada apne naam likhkar chukane ka faisla kiya."
+            ]
+          }
+        },
+        {
+          "id": "c_darr",
+          "text": "Sab bol do par khud 3:12 par ruk jao — kahin bahar mat jao",
+          "keywords": [
+            "nahi",
+            "ruko",
+            "andar",
+            "darr",
+            "mat",
+            "bahar"
+          ],
+          "next": "e_loop",
+          "shortLabel": "Ruk jao",
+          "effects": {
+            "memory": [
+              "User ne sach sun liya par darr ke maare dhaba hi chuna."
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "id": "s4_store",
+      "title": "Band Darwaaza, Thandi Hawa",
+      "narration": [
+        "*Store room ka darwaaza bahar se band hai, par neeche se thandi hawa aa rahi hai — jaise kisi ne andar khidki khol rakhi ho. Khidki toh band hai. Neeche se hawa aa rahi hai.*",
+        "*Andar se awaaz aati hai: mitti khiskhiskati hai, aur koi dheere se bus ka horn bajata hai. Baar-baar. Ek hi sur mein.*",
+        "Driver Balwant: \"Bhai... bhai darwaaza mat kholo. Maine 15 saal pehle khola tha. Maine uss din teen logon ko utarte dekha tha aur chautha main tha jo bhaag gaya.\"",
+        "*Balwant ka truck ka darwaza khula hai; woh tumhare peeche khada hai, muh peela.*",
+        "Meenu: \"Bhaiya. Andar mera lifafa nahi hai. Andar meri bus hai. Aur bus tab tak nahi jaati jab tak usmein sab na aa jaayein.\"",
+        "*Tube light bujh jaati hai. Andher mein counter ke drawer ke khulne ki awaaz aati hai.*"
+      ],
+      "fallbackLines": [
+        "*Darwaaze ke handle par mitti hai — taazi. Naye haathon ki.*",
+        "Ghulam Chacha: \"Jo andar jaata hai, uska naam bahar likha jaata hai. Jo bahar jaata hai, uska nahi.\"",
+        "*Aur ek awaaz, sabse door se, sabse paas se: 'Ticket, please.'*"
+      ],
+      "choices": [
+        {
+          "id": "c_kholo",
+          "text": "Darwaaza kholo — jo hoga dekha jaayega",
+          "keywords": [
+            "kholo",
+            "haan",
+            "andar",
+            "darwaza",
+            "dekh"
+          ],
+          "next": "s4_truth",
+          "shortLabel": "Darwaaza kholo",
+          "effects": {
+            "flags": {
+              "openedStore": true
+            },
+            "memory": [
+              "User ne store room ka band darwaaza khol diya."
+            ]
+          }
+        },
+        {
+          "id": "c_balwant2",
+          "text": "Balwant se sach bulwao — pehle uska darr todo",
+          "keywords": [
+            "balwant",
+            "sach",
+            "poocho",
+            "driver",
+            "todo",
+            "darr"
+          ],
+          "next": "s4_truth",
+          "shortLabel": "Balwant ka sach",
+          "effects": {
+            "flags": {
+              "gotWitness": true
+            },
+            "relationships": {
+              "balwant": 15
+            },
+            "memory": [
+              "User ne store chhoda aur pehle Balwant ko uska 15-saal-purana sach bulwane ke liye tay kiya."
+            ]
+          }
+        },
+        {
+          "id": "c_band",
+          "text": "Darwaaza band rakho — Meenu ko waada karo ki tum bahar se raasta laoge",
+          "keywords": [
+            "band",
+            "wada",
+            "bahar",
+            "raasta",
+            "nahi",
+            "theek"
+          ],
+          "next": "e_dawn",
+          "shortLabel": "Bahar se raasta",
+          "effects": {
+            "memory": [
+              "User ne darwaaza nahi khola aur bahar se raasta dhoondhne ka faisla kiya."
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "id": "s4_lifafa",
+      "title": "Drawer 2",
+      "narration": [
+        "*Drawer khulta hai: 200 rupaye, ek purana ST bus ticket, aur ek lifafa. Lifafa kaagaz se nahi, ek raincoat ke tukde se bana hai — peela.*",
+        "*Andar chitthi: 'Bhaiya, mujhe Nashik chhodkar kal ana hai. Maa ko 400 bhej dena, aur Chacha ko bol dena ki main uska karza chukaungi. — Meenu, 19 saal.'*",
+        "Ghulam Chacha: \"Woh mere paas aayi thi. Bhookhi thi. Maine khana diya. Usne kaha 'chuka dungi'. Maine likha.\"",
+        "Meenu: \"Bhaiya... aapne mera lifafa padh liya. Achha kiya. 15 saal se koi padhne ko taiyaar nahi tha.\"",
+        "*Drawer ke sabse neeche ek aur kagaz — Ghulam Chacha ke haath ka, 30 saal purana: 'Kabhi bhi. Teen kursi. Ek hamesha khaali.'*",
+        "Constable Pandey: \"Ab do kaam bache hain. File poori karo, aur lifafa bhai tak pahunchna hai. Subah 5:40 kohra hat'ta hai. Ek ghanta 20 minute.\""
+      ],
+      "fallbackLines": [
+        "*Meenu ka haath pehli baar kaanpta hai. Par woh muskura rahi hai.*",
+        "Driver Balwant: \"Chalo bhai. Mera truck taiyaar. Nashik 40 minute hai. ...Par sirf ek sawari jaa sakti hai. Dono nahi.\"",
+        "*Blackboard par mitti gir rahi hai — 'K' ab poora likha hua hai. Kab se, kisne, pata nahi.*"
+      ],
+      "choices": [
+        {
+          "id": "c_nashik",
+          "text": "Lifafa lekar Balwant ke truck par Nashik jaao",
+          "keywords": [
+            "nashik",
+            "truck",
+            "le",
+            "jaao",
+            "bhai",
+            "haan"
+          ],
+          "next": "e_dawn",
+          "shortLabel": "Nashik jao",
+          "effects": {
+            "flags": {
+              "lifafaDelivered": true
+            },
+            "memory": [
+              "User ne Meenu ka lifafa Balwant ke truck par Nashik pahunchane ka faisla kiya."
+            ]
+          }
+        },
+        {
+          "id": "c_dono",
+          "text": "Dono kaam ek saath: file bhi, lifafa bhi — dhaba mein hi sach sabko sunao",
+          "keywords": [
+            "dono",
+            "sach",
+            "file",
+            "sab",
+            "yahan",
+            "haan"
+          ],
+          "next": "s4_truth",
+          "shortLabel": "Dono karo",
+          "effects": {
+            "memory": [
+              "User ne lifafa aur file — dono ek saath, dhaba ke teenon ko saamne rakhkar suljhane ka faisla kiya."
+            ]
+          }
+        },
+        {
+          "id": "c_ghulam_bhai",
+          "text": "Lifafa Ghulam Chacha ke bete ko do — 'karza chuka dena' ka matlab ye hai",
+          "keywords": [
+            "bhai",
+            "beta",
+            "do",
+            "chacha",
+            "karz",
+            "andheri"
+          ],
+          "next": "e_keeper",
+          "shortLabel": "Bete ko de do",
+          "effects": {
+            "memory": [
+              "User ne lifafa Ghulam Chacha ke bete tak pahunchane ka faisla kiya — aur dhaba ka hisaab apne naam likh liya."
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "id": "s4_ledger_end",
+      "title": "Naam Jo Likha Gaya",
+      "narration": [
+        "*Tum likhte ho. 'Kabir — aaj'. Pen ruk'ta hai. Mitti ka dher table par gir jaata hai. Aur dhaba ek lambi saans leta hai.*",
+        "Ghulam Chacha: \"Shukriya. Ab mera hisaab tumhara hai, aur tumhara mera hai. Rule toh rule hai.\"",
+        "*Constable Pandey apna register band karte hain aur pehli baar haste hain.*",
+        "Constable Pandey: \"Ab aap yahan ke staff hain. Chai banana aata hai? Seekh jaoge.\"",
+        "Meenu: \"Bhaiya... aapne likh diya? Mere liye toh aapne kaha tha ruko mat. Ab aap ruk gaye.\"",
+        "*uski awaaz toot jaati hai*",
+        "*Bahar kohra aur ghana ho jaata hai. Tube light ab hamesha ke liye jal rahi hai. Counter par naya board lagta hai: 'Aaj ke mehmaan: 3'. Tumhara naam upar hai.*"
+      ],
+      "fallbackLines": [
+        "*Ghadi 3:13 par jaati hai — pehli baar 15 saal mein. Aur isse achhi khabar nahi thi: ab tum yahin ke ho.*",
+        "Driver Balwant: \"Bhai... main 400 baar gaya. Ek baar bhi likha nahi. Tune likh diya. ...Sorry bhai.\"",
+        "*Blackboard par ek naya khaali pan: 'Kabir ka beta'.*"
+      ],
+      "choices": [
+        {
+          "id": "c_end_keeper",
+          "text": "Hisaab chukaane ka ek hi raasta: 'haan' bolo aur counter sambhaalo",
+          "keywords": [
+            "haan",
+            "theek",
+            "karunga",
+            "counter",
+            "sambhal",
+            "maan"
+          ],
+          "next": "e_keeper",
+          "shortLabel": "Counter lo",
+          "effects": {
+            "memory": [
+              "User ne dhaba ka counter sambhaalne ka faisla kiya."
+            ]
+          }
+        },
+        {
+          "id": "c_end_palta",
+          "text": "Mitti ponchho, naam mitao aur darwaaza todkar bhaago",
+          "keywords": [
+            "mitao",
+            "ponchho",
+            "todo",
+            "bhaago",
+            "nahi",
+            "mitti"
+          ],
+          "next": "e_loop",
+          "shortLabel": "Naam mitao",
+          "effects": {
+            "memory": [
+              "User ne likha hua naam mitane ki koshish ki — dhaba ne ise sirf halka kiya."
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "id": "e_dawn",
+      "title": "5:40 — Kohra Hat'ta Hai",
+      "narration": [
+        "*5:38. Balwant ka truck Nashik ke ek adda par rukta hai. Ek 33-saal ka aadmi — Meenu ka bhai — lifafa kholta hai. Chitthi padhta hai. Rota nahi; bas ek baar aasman ki taraf dekhta hai aur bolta hai: 'Haan Didu, aa gaya.'*",
+        "*Woh 400 rupaye aur ek ticket saath leta hai — 'kal maa ko de dunga' wala wada 14 saal late poora hota hai.*",
+        "*Subah 5:40, expressway ka mod. Kohra hat-ta hai aur dhaba... nahi hai. Sirf ek toota hua board, jismein 30 saal se 'Slo' likha hai.*",
+        "*Constable Pandey ki file thane ki almar mein 'closed' ho jaati hai. Ghulam Chacha apne bete ke garage mein baithe chai pee rahe hain — 30 saal baad, bina register ke.*",
+        "*Kohre ki aakhri parat mein ek awaaz aati hai, halki si.*",
+        "Meenu: \"Thank you, bhaiya. Bus aa gayi.\"",
+        "*Tumhari gaadi 3:07 se pehle wali state mein start ho jaati hai. Dashboard par ek lifafa rakha hai — is baar naya. Uspar likha hai: 'Chacha — karza chuka. — M.'*",
+        "*Radio 104.6 par aaj koi request nahi aati. Sirf ek gaana bajta hai, aur ek aadmi ki awaaz: 'Aur bhai... aaj sab log ghar pahunch gaye. Chalo, aage.'*"
+      ],
+      "fallbackLines": [
+        "*Kahani poori — hisaab close.*"
+      ],
+      "choices": [],
+      "isEnding": true,
+      "endingId": "end_dawn"
+    },
+    {
+      "id": "e_keeper",
+      "title": "Ab Counter Tumhara Hai",
+      "narration": [
+        "*Tum chai banaate ho. Theek waise hi jaise Ghulam Chacha banate the — teen glass, bina pooche, cheeni kisi ke liye nahi.*",
+        "*Dhaba abhi bhi yahi hai. Meenu abhi bhi apni kursi par hai, par ab woh hasti hai — kyunki uska lifafa Nashik pahunch gaya hai. Uska bhai har 15 din ko aata hai; ab uska bhi naam board par hai, 'Meenu ka bhai — 5 baar aaya, kabhi andar nahi ghusa'.*",
+        "Ghulam Chacha: \"Ek saal. Bas ek saal. Phir koi aur 'K' aayega. Usse sawaal poochhna mat — sirf chai dena.\"",
+        "*Constable Pandey apni file tumhare haath mein dete hain. Aakhri line ab adhoori nahi: 'Chautha ka naam: Kabir'.*",
+        "Constable Pandey: \"Procedure pura. Ab tum dekho.\"",
+        "*Aur bahar kohra apna kaam karta hai. 3:12. Tube light flicker. Ek gaadi rukti hai. Tum darwaaza kholte ho — andar se, muskurate hue.*",
+        "\"Aao. Chai thandhi ho rahi hai.\""
+      ],
+      "fallbackLines": [
+        "*Kahani yahin khatam hoti hai. Dhaba nahi.*"
+      ],
+      "choices": [],
+      "isEnding": true,
+      "endingId": "end_keeper"
+    },
+    {
+      "id": "e_loop",
+      "title": "Hamesha 3:12",
+      "narration": [
+        "*Tum ponchhte ho. Mitti gir'ti hai. Naam halka hota hai — par jaata nahi. Darwaaza tum kholte ho aur bahar jaate ho — aur har baar sadak ghum kar usi mod par aa jaati hai.*",
+        "*Chhathi baar, ya saatvi, tum bhaagna band kar dete ho. Andar aate ho. Meenu tumhare liye jagah chhod deti hai. Pandey register aage sarkaate hain. Ghulam Chacha chai daalte hain.*",
+        "Ghulam Chacha: \"Koi baat nahi, beta. Yahan bahut log aate hain jo 'jaana' chahte hain. Jo ruk jaate hain, unhe aaram milta hai.\"",
+        "Meenu: \"Bhaiya, aap mere saath baitho. Bus abhi nahi aayegi. Aur agar aap ruk gaye, toh mujhe bhi acha lagega.\"",
+        "*Radio 104.6. Ek request aati hai: 'Driver Balwant, mere liye ruk jao.' Balwant ka truck 40 minute se usi mod par para hai, engine chalu.*",
+        "*Ghadi 3:12 par hai. Subah nahi hoti. Aur tum — pehli baar apni gaadi lock karna bhool jaate ho. Darwaaza khula rehta hai. Kyunki ab tumhe yahan aane mein dar nahi lagta.*",
+        "*Blackboard par ek line judti hai: 'Kabir — yahin'. Naya mehmaan aaega. Teen kursiyan hamesha teen hi rehti hain.*"
+      ],
+      "fallbackLines": [
+        "*Kahani yahin ruk'ti hai. Ya shuru hoti hai. 3:12.*"
+      ],
+      "choices": [],
+      "isEnding": true,
+      "endingId": "end_loop"
+    }
+  ],
+  "endings": [
+    {
+      "id": "end_dawn",
+      "title": "5:40 — Kohra Hat'ta Hai",
+      "description": "Sach bahar aa gaya, lifafa bhai tak pahuncha, teenon ke hisaab close — aur dhaba gayab.",
+      "tone": "heroic"
+    },
+    {
+      "id": "end_keeper",
+      "title": "Ab Counter Tumhara Hai",
+      "description": "Tumne doosron ka karza chukaya, apna likhwa liya. Dhaba ko naye maalik mil gaye.",
+      "tone": "mysterious"
+    },
+    {
+      "id": "end_loop",
+      "title": "Hamesha 3:12",
+      "description": "Bhaagne se kuch nahi hua. Ab dhaba tumhara ghar hai — aur tum pehle se behtar host ho.",
+      "tone": "dark"
+    }
+  ]
+}

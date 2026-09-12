@@ -1,0 +1,93 @@
+{
+  "storyId": "gully-final",
+  "version": 1,
+  "premise": "Ramnagar Maidan Cup — 42 teams, 1 ground, 11 din. Gali ke Sher pehli baar final mein hain: 200 ka target, 6 balls bache hain, 12 run chahiye, aur maidan ki light jaane wali hai. Par asli match aaj subah 11 baje shuru hua tha, jab Gujjar Builders ke captain ne tumhare haath mein ek envelope rakha: 'last over mat daalo — 50 hazaar, aur teri academy seat.' Coach Ramakaka ne dekha. Zoya ne suna. Chintu ne likh liya. Ab sawaal jeet ka nahi hai — sawaal ye hai ki over tum daaloge, kis ke liye daaloge, aur scoreboard par kya likha jaayega.",
+  "locations": [
+    {
+      "id": "maidan",
+      "name": "Ramnagar Maidan",
+      "description": "120 varj ka maidan, boundary par bikhre jhoppade, ek scoreboard jismein 3 digits chamakte hain aur 1 nahi."
+    },
+    {
+      "id": "tapri",
+      "name": "Anwar ki tapri",
+      "description": "Cutting chai, 4 plastic stool, aur duniya ki har gossip ka control room."
+    },
+    {
+      "id": "shoe",
+      "name": "Ramakaka ki chappal dukaan",
+      "description": "Glue ki smell, ek purana kit-bag, aur deewar par 2004 ke Ranji match ka cut-out."
+    },
+    {
+      "id": "office",
+      "name": "Maidan committee ka table",
+      "description": "Chhatri ke neeche 2 chairs, 1 notebook, 1 stamp — aur 1 'ground sanction' ka file jo 3 saal se ruki hai."
+    },
+    {
+      "id": "academy",
+      "name": "Gujjar Builders Academy",
+      "description": "3 net, ek sponsor board, aur 24 bacche jinke paas naye gloves hain par coach nahi."
+    }
+  ],
+  "factions": [
+    {
+      "id": "sher",
+      "name": "Gali ke Sher XI",
+      "description": "9 gali ke bacche, 1 ladki, 1 coach jo cobbler hai. Budget: 0. Attitude: 100."
+    },
+    {
+      "id": "builders",
+      "name": "Gujjar Builders & Co XI",
+      "description": "Sponsor board, naya kit, 2 'imported' pacers, aur ek captain jo risk manage karta hai."
+    },
+    {
+      "id": "committee",
+      "name": "Maidan Committee",
+      "description": "Chhatri ke neeche ki sarkar. Unka sirf ek rule: 'light jaane ke baad match nahi.'"
+    }
+  ],
+  "lore": [
+    "Ramnagar Maidan Cup 1987 se ho raha hai. Trophy ek chhoti si brass ki hai, jise 'Nani Cup' kehte hain, kyunki uspar maidan ki pehli caretaker ka naam likha hai.",
+    "'Number 12' — maidan ka slang: fixed final mein ek extra player jo kabhi play nahi karta, par har over ka rate fix karta hai.",
+    "Gali ke Sher ki team 6 saal se 'last 4' tak pahunchti rahi hai. Ramakaka kehte hain kyunki 'jeetne ki aadat nahi, jeetne ka bill' nahi hai.",
+    "Light 6:45 tak chalti hai — corporation ne 2018 mein 300 watt ke 2 pole hi chhode the, baaki 'maintenance' mein gayab.",
+    "Chintu ka notebook 'official scorebook' maana jaata hai kyunki uske paas 307 matches ka record hai aur committee ke paas 2 register jismein 1 adhoora hai."
+  ],
+  "rules": [
+    "Cricket ke rules real rahenge: runs required, balls left, fielding restrictions — koi magical six nahi.",
+    "Fix ka 'kaise' kabhi nahi sikhaya jayega; kahani use ghatiya aur risky hi dikhayegi.",
+    "Koi character gender par mazaak nahi karega; Zoya ko 'brave' bolne wale ko maidan chup karake sunega.",
+    "Hansi sirf team ki bakchodi se aayegi, kisi ke loss ya limit se nahi.",
+    "Jeet hamesha mehnat se hogi — koi bhi choice 'bina paseene' trophy nahi dilaayega.",
+    "Envelope ka paisa kahin 'successful shortcut' ki tarah kaam nahi karega; hamesha uska keemat chalega."
+  ],
+  "importantObjects": [
+    {
+      "id": "envelope",
+      "name": "50 hazaar ka envelope",
+      "description": "Gujju ka haath, tumhara haath, aur 6 logon ki nazar. Abhi bhi tumhari jeb mein hai."
+    },
+    {
+      "id": "notebook",
+      "name": "Chintu ka notebook",
+      "description": "307 matches. Ek pencil se likha. Duniya ka sabse mehnga 40 rupaye ka object."
+    },
+    {
+      "id": "ball",
+      "name": "1994 ki ball",
+      "description": "Ramakaka ke kit-bag mein, seam abhi bhi tight. 'Final wali ball' — kehte hain."
+    },
+    {
+      "id": "trophy",
+      "name": "Nani Cup",
+      "description": "Chhoti brass ki trophy, jismein 38 saal ke winners ke naam khode hain — aur ek khaali panna."
+    }
+  ],
+  "timeline": [
+    "11:00 AM — Gujju, envelope ke saath tapri par.",
+    "1:30 PM — semi-final, Qureshi Hardware vs Sher (Sher jeete, 4 wickets).",
+    "4:30 PM — final shuru; Gujjar Builders ka 200.",
+    "6:12 PM — 6 balls, 12 runs. Light ki deadline 6:45.",
+    "6:45 PM — committee: 'match khatam, trophy decide'."
+  ]
+}

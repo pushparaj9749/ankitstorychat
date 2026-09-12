@@ -1,0 +1,679 @@
+{
+  "storyId": "pani-72",
+  "version": 1,
+  "scenes": [
+    {
+      "id": "s1_wake",
+      "title": "5:40 AM — Paani Bistar Ke Neeche",
+      "narration": [
+        "*Aankh khulti hai ek awaaz se: taalp-taalp. Nahi, woh koi nahi taalp raha. Chhat se paani tapak raha hai aur tumhare phone se bhari awaaz aa rahi hai — 27 notifications, 14% battery.*",
+        "*Ground floor ka kamra: paani ghutno tak. Chappal tair rahi hain. Deewar par 1970 ka calendar aur ek line: 'paani yahan tak aaya tha'. Aaj woh line tumhare pair ke neeche hai.*",
+        "Dadi: \"Uth gaya? Accha. Count pehle, chai baad mein. 14 log neeche hain, 9 upar. Ek missing: Ira.\"",
+        "*Phone bajta hai. School ka number nahi — ek unknown, jo 2 second mein kat jaata hai. Phir ek message:*",
+        "*message: 'Bhaiya, chhat par hoon. 40 log. Ma ne kaha number batana. 12 chhote, 4 mareez, 1 teacher chotiwali. Paani 4 foot. Tairna aata hai — par mera hearing aid nahi bheegna chahiye.'*",
+        "*Aur theek tab, bahar, mohalle ke junction par bijli ka khamba ek jhatke ke saath bujhta hai. Paani mein se awaaz aati hai — 300 log ek saam cheekhte hain.*",
+        "Dadi: \"Ab sun. Naala is taraf se aata hai. Meri file utha. Aur bina rassi ke paani mein mat utarna — maine 40 saal mein 3 aise bachche dekhe hain jo hero the.\""
+      ],
+      "fallbackLines": [
+        "*Dadi apni charpai ke neeche se ek plastic file nikaalti hain — 1984 ka survey, haath se bana, har naale ke upar ek line.*",
+        "*call, awaaz toot'ti hui:*",
+        "Sameer Bhai: \"'Aarav? Boat theek hai. 12 se zyada nahi. Junction mat paar karna — current neeche se aata hai, upar se nahi dikhta.'\"",
+        "*Phone par ek aur notification: 'Rain: continued. 265mm in 6 hrs.' Tum apne life jacket ki tape kholte ho — 2 saal se nahi khuli thi.*"
+      ],
+      "choices": [
+        {
+          "id": "c_school",
+          "text": "Seedha school ki taraf — cycle aur rassi lekar, Dadi ko bol do ki tum aa rahe ho",
+          "keywords": [
+            "school",
+            "ira",
+            "iraa",
+            "jaao",
+            "cycle",
+            "bachao",
+            "chhat"
+          ],
+          "next": "s2_school",
+          "shortLabel": "School jao",
+          "effects": {
+            "location": "St. Joseph's school ki chhat",
+            "memory": [
+              "User ne pehle Ira aur 40 bachchon ko bachane ka faisla kiya."
+            ],
+            "inventoryAdd": [
+              "Dadi ka 1984 naksha",
+              "Rassi ka lapeta",
+              "Life jacket"
+            ]
+          }
+        },
+        {
+          "id": "c_junction",
+          "text": "Junction par bheed hai — wahan log phanse hain, pehle wahan jaao",
+          "keywords": [
+            "junction",
+            "log",
+            "madad",
+            "bheed",
+            "doob",
+            "bachat"
+          ],
+          "next": "s2_junction",
+          "shortLabel": "Junction jao",
+          "effects": {
+            "memory": [
+              "User ne pehle junction ke phanse logon ki madad chuni."
+            ],
+            "relationships": {
+              "sameer": 10
+            }
+          }
+        },
+        {
+          "id": "c_naksa",
+          "text": "Naksha kholo — agar nalla wapas khul gaya toh poore mohalle ka paani utar jaayega",
+          "keywords": [
+            "naksha",
+            "nalla",
+            "file",
+            "dadi",
+            "kholo",
+            "dekho"
+          ],
+          "next": "s3_naksa",
+          "shortLabel": "Naksha dekho",
+          "effects": {
+            "memory": [
+              "User ne bachaav se pehle Dadi ka 40-saal-purana naksha kholna theek samjha."
+            ],
+            "inventoryAdd": [
+              "Dadi ka 1984 naksha"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "id": "s2_school",
+      "title": "Chhat Par 40 Log",
+      "narration": [
+        "*School ki compound wall ke bahar paani 5 foot. Andar, seedhiyan doob chuki hain. Tum rassi ek goal post mein baandhte ho aur 40 bachchon ki cheekhein tumhari taraf mudti hain — par cheekh mazaak wali hai. Ek bachcha keh raha hai 'ye swimming class hai'.*",
+        "Ira: \"Bhaiya! Ek condition. Pehle bachche, phir tu. Aur meri awaaz mat sunai degi agar tu bhaaga — par mera hearing aid safe rahega toh main tujhe gaali de paungi.\"",
+        "*Teacher, Mrs. Fernandes, paani mein aadhe ubhre hue haath se ginti kar rahi hain. Ek bachcha beemar hai — bukhaar, aur paani thanda hai.*",
+        "Fernandes Teacher: \"Aarav? Tumhara phone network 2 baar gaya hai. 40 hain, 12 chhote, 4 mareez. Ek ka oxygen cylinder 3 ghante ka bacha hai.\"",
+        "*Door, NDRF ki boat ki light: 3 ward, 4 ghante. Sameer ki boat: ek, 12 seater, aur paani 6 foot.*"
+      ],
+      "fallbackLines": [
+        "*Bachchon mein se ek chhota bachcha tumhara life jacket dekhkar rota hai, aur tabhi Ira usse apna toota hua compass de deti hai. Woh chup ho jaata hai.*",
+        "Ira: \"Bhaiya. Sameer Bhai ki boat ek trip mein 12. 40 log = 4 trip. Paani 6 foot. Time: 3 ghante. Hisaab laga.\"",
+        "*Neeche, paani mein, bijli ke khambay se ek taar hil rahi hai. Sameer chillata hai: 'Sab peeche! 20 second!'*"
+      ],
+      "choices": [
+        {
+          "id": "c_boat",
+          "text": "Sameer ki boat — 4 trip, ek-ek karke, bachche pehle",
+          "keywords": [
+            "boat",
+            "trip",
+            "sameer",
+            "pehle",
+            "bachche",
+            "theek"
+          ],
+          "next": "s3_boat",
+          "shortLabel": "Boat se nikaalo",
+          "effects": {
+            "relationships": {
+              "sameer": 15,
+              "iraa": 12
+            },
+            "memory": [
+              "User ne discipline se boat-wale 4 trip ka plan banaya — bachche pehle."
+            ]
+          }
+        },
+        {
+          "id": "c_nalla_school",
+          "text": "Naksha: school ke peeche wala nalla abhi bhi paani kha raha hai — usse rasta nikaalo",
+          "keywords": [
+            "nalla",
+            "naksha",
+            "peeche",
+            "current",
+            "kholo",
+            "raasta"
+          ],
+          "next": "s3_naksa",
+          "shortLabel": "Nalla kholo",
+          "effects": {
+            "flags": {
+              "sawNalla": true
+            },
+            "memory": [
+              "User ne school ke peeche wale nalle ka raasta nakse se nikaala."
+            ]
+          }
+        },
+        {
+          "id": "c_roof",
+          "text": "Goal post ka pole todkar 12 bachchon ko rafting kara do — boat ka wait mat karo",
+          "keywords": [
+            "raft",
+            "pole",
+            "tod",
+            "abhi",
+            "swim",
+            "hero",
+            "rafting"
+          ],
+          "next": "s4_loss",
+          "shortLabel": "Rafting karo",
+          "effects": {
+            "memory": [
+              "User ne bina safety ke 12 bachchon ko pole ke raft pe bithaya — paani ne faisla sunaya."
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "id": "s2_junction",
+      "title": "Junction, 300 Log, Ek Doobi Bus",
+      "narration": [
+        "*Junction par paani 4 foot, aur current neeche se aisa ki pair khiskal jaate hain. Ek bestop bus aadhi doob chuki hai; 22 log uski chhat par khade hain. Ek aadmi paani mein chhatri lekar idhar-udhar bhaag raha hai, jisse paani aur tez ho gaya hai.*",
+        "Junction Uncle: \"Beta! Bus ka darwaaza khulwa de! Andar 3 aur hain — budhe, aur aurat!\"",
+        "*Tumhe ehsaas hota hai: bijli ka khamba 8 meter door hai, aur taar abhi bhi hawa mein hil rahi hai. Koi doosra hero paani mein utar chuka hai — uska chest tak — aur woh chillata nahi, kyunki uska muh paani mein hai.*",
+        "*chillata hai, rassi ke saath:*",
+        "Sameer Bhai: \"'Aarav! Seedha mat aa — paani ghumkar aata hai. Rassi pakad. Aur uss uncle ko bol, chhatri phek de!'\"",
+        "*Ira ka phone message aata hai: 'Bhaiya, tu kahan hai? 40 log intezaar kar rahe hain. Tu rona-band hai, main bhi.'*"
+      ],
+      "fallbackLines": [
+        "*Bus ki khidki se ek chhoti bachchi ka haath nikalta hai, taali ki tarah hilata hai. Tum uski taraf dekhte ho aur tumhara gala sookh jaata hai.*",
+        "*Sameer 3 logon ko rassi pe bithakar bus ki taraf bhejta hai. 2 pahunchte hain, 1 ko current le jaata hai — aur 2 usse pakad lete hain. Koi nahi marta. Aaj nahi.*",
+        "*call:*",
+        "Dadi: \"'Junction chhodkar school nahi jaayega. Bus wale apne aap sambhal jaayenge — wahan Sameer ki 12 kursiyan hain. Tu mera naksha le, aur school ke peeche ka naala khol.'\""
+      ],
+      "choices": [
+        {
+          "id": "c_rassi",
+          "text": "Rassi se bus waalon ko nikaalo, phir school chalo",
+          "keywords": [
+            "rassi",
+            "bus",
+            "nikaalo",
+            "school",
+            "theek",
+            "haan"
+          ],
+          "next": "s3_boat",
+          "shortLabel": "Rassi se bachao",
+          "effects": {
+            "relationships": {
+              "sameer": 12
+            },
+            "memory": [
+              "User ne pehle bus waalon ko rassi se bachaya, phir school ki taraf badha."
+            ]
+          }
+        },
+        {
+          "id": "c_naksa2",
+          "text": "Sameer ko junction sambhaalne de do; tum naksha lekar nalla kholne jao",
+          "keywords": [
+            "naksha",
+            "nalla",
+            "jao",
+            "kholo",
+            "paani",
+            "raasta"
+          ],
+          "next": "s3_naksa",
+          "shortLabel": "Nalla kholo",
+          "effects": {
+            "flags": {
+              "sawNalla": true
+            },
+            "memory": [
+              "User ne junction Sameer ke haath chhoda aur paani ka raasta kholne gaya."
+            ]
+          }
+        },
+        {
+          "id": "c_current",
+          "text": "Paani mein utro aur logon ko haath se haath ghuma kar bahar le aa",
+          "keywords": [
+            "paani",
+            "utro",
+            "haath",
+            "le",
+            "aa",
+            "swim"
+          ],
+          "next": "s4_loss",
+          "shortLabel": "Paani mein utro",
+          "effects": {
+            "memory": [
+              "User ne current mein utarkar logon ko nikalne ki koshish ki — ye hero wali galti thi."
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "id": "s3_naksa",
+      "title": "Naksha, Ek Manhole Aur 40 Saal",
+      "narration": [
+        "*Tum woh 1984 ka naksha kholte ho. Haath se banaya: har naale ki line, har culvert ka width, aur ek corner mein likha hua — 'Ward 58: 3 nalle, 2 khula, 1 band (proposed)'. Wo 'band' ab 40 saal se 'proposed' hai.*",
+        "*Aur theek usi line par aaj: 'Sagar Green City' — 3 towers, 1 mall, aur ek 'Storm Water Detention Tank' jiska kaam 2019 mein 'complete' hua. Tank nahi bana. Paani ka rasta ban gaya building.*",
+        "Dadi: \"Manhole 22 wala khol. Wahan paani neeche se aata hai. Agar woh khul gaya toh school ka 4 foot 12 ghante mein 1 foot ho jaayega.\"",
+        "*Manhole ka dhakkan 60 kilo hai. Tumhare paas ek crowbar, 2 dost, aur 40 se zyada log jo dekh rahe hain. Dhakkan khulta hi paani gurgurate hue neeche chala jaata hai — jaise shehar saans le raha ho.*",
+        "*Aur tabhi ek SUV, paani cheerte hue, ward office ke saamne rukti hai. Corporator Kadam. Bina bheegaye. Haath mein umbrella, aur doosre haath mein ek aadmi jiske paas camera hai.*",
+        "Corporator Kadam: \"Beta, yeh municipal property hai. Dhakkan band karo. Aap bacchon ko bhama rahe ho.\""
+      ],
+      "fallbackLines": [
+        "*Paani, jo 12 minute pehle 4 foot tha, ab 3 foot 4 hai. Log cheekh rahe hain — is baar khushi se.*",
+        "Sameer Bhai: \"Bhai ek line bol de: 'paani utar raha hai'. 300 log sun rahe hain. Aaj se koi tujhse 'tu chhota hai' nahi bolega.\"",
+        "*Kadam ka aadmi camera tumhari taraf karta hai. Tum naksha band karte ho — par bhoolte nahi.*"
+      ],
+      "choices": [
+        {
+          "id": "c_photo",
+          "text": "Naksha dikhao — public mein, camera ke saamne, 1984 vs 2026",
+          "keywords": [
+            "dikhao",
+            "naksha",
+            "camera",
+            "public",
+            "photo",
+            "sach"
+          ],
+          "next": "s4_truth",
+          "shortLabel": "Naksha dikhao",
+          "effects": {
+            "flags": {
+              "showedNaksa": true
+            },
+            "memory": [
+              "User ne 1984 ka naksha public + camera ke saamne rakha — Kadam ke paas ab bhaagne ki jagah kam hai."
+            ]
+          }
+        },
+        {
+          "id": "c_kholo",
+          "text": "Dhakkan pura khol do, phir school bhaago — paani se zyada der kisi ki nahi",
+          "keywords": [
+            "kholo",
+            "school",
+            "bhaago",
+            "chhodo",
+            "paani",
+            "haan"
+          ],
+          "next": "s3_boat",
+          "shortLabel": "Nalla kholo",
+          "effects": {
+            "memory": [
+              "User ne poora manhole khola aur seedha school ki taraf bhaaga."
+            ]
+          }
+        },
+        {
+          "id": "c_record",
+          "text": "Kadam ki baat record karo — 'aapne kaunse signature se seal karwaya?'",
+          "keywords": [
+            "record",
+            "video",
+            "poocho",
+            "signature",
+            "kadam",
+            "bol"
+          ],
+          "next": "s4_truth",
+          "shortLabel": "Record karo",
+          "effects": {
+            "flags": {
+              "recordedKadam": true
+            },
+            "memory": [
+              "User ne Kadam se seedha sawaal poochha aur record kiya."
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "id": "s3_boat",
+      "title": "12 Kursiyan, 4 Trip",
+      "narration": [
+        "*Sameer ki boat 12 ki hai. 40 bachche. Har trip 22 minute. Beech mein 6 foot paani, current, aur ek bijli ka khamba jo abhi bhi hil raha hai. Dadi ne ek rule banaya hai: 'Ek-ek karke, haath se haath'.*",
+        "Sameer Bhai: \"Board pe baitho. Pair andar. Haath rassi pe. Pehle 4 mareez, phir chhote, phir teachers. Aarav — tu last mein.\"",
+        "*Trip 2 mein, paani ka level achanak badhta hai — tide. Ek bachche ka backpack beh jaata hai, 12 log cheekhte hain, Sameer use bina dekhe haath se pakad leta hai.*",
+        "Ira: \"Bhaiya. Trip 4 mein main jaaungi nahi. Teacher ke saath 12 chhote hain. Meri jagah kisi aur ko de de.\"",
+        "*Aur tabhi phone: 'NDRF: 90 minutes.' Aur ek message Ma ka: '42 log. 6% battery. Paani 4th floor ki seedhi par. Theek hai? Aarav, theek hai?'*",
+        "*Trip 4, Ira aur Dadi ke liye. Boat 12 ki hai, paani 6 foot, aur ek chhoti bachchi bina jacket ke haath pakad kar khadi hai.*"
+      ],
+      "fallbackLines": [
+        "*Trip 3 complete. 28 bachche safe. 12 baaki. Ek teacher ne kaha: 'mera oxygen, meri dawa — pehle bachche'.*",
+        "*Tide +1.2 foot. Sameer paani mein 30 second tak haath se boat ko khamba lagne se bachata hai. Uske haath kaanp rahe hain, par woh muskurata hai.*",
+        "Dadi: \"42 bachche, 4 teachers, 1 beemar teacher, 1 Dadi, 1 tere jaisa gadbadi. Count karo.\""
+      ],
+      "choices": [
+        {
+          "id": "c_last",
+          "text": "Trip 4 — Ira, Dadi, teacher — aur tum last mein",
+          "keywords": [
+            "trip",
+            "haan",
+            "last",
+            "theek",
+            "jaao",
+            "count"
+          ],
+          "next": "s4_truth",
+          "shortLabel": "Trip 4 chalao",
+          "effects": {
+            "relationships": {
+              "iraa": 15,
+              "dadi": 12,
+              "sameer": 15
+            },
+            "memory": [
+              "User ne Trip 4 discipline se complete kiya — sabse chhote pehle."
+            ]
+          }
+        },
+        {
+          "id": "c_return",
+          "text": "Boat khaali hai toh Ma ke building ki taraf chalaao — wahan 42 log hain",
+          "keywords": [
+            "ma",
+            "building",
+            "navi",
+            "le",
+            "jaao",
+            "42"
+          ],
+          "next": "s4_boat_return",
+          "shortLabel": "Ma ke paas jao",
+          "effects": {
+            "memory": [
+              "User ne bachaav ke baad boat doosri ward, Ma ke building ki taraf mod li."
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "id": "s4_truth",
+      "title": "Do Cheezein Jo Paani Se Zyada Tez Hain",
+      "narration": [
+        "*3 din baad baarish rukti hai. Paani utarne ka 9-ghante ka window. Mohalle ki deewarein mitti se lipti hain, aur har deewar par ek line: 'yahan tak paani aaya tha'.*",
+        "*Ward office ke bahar NDRF ke 4 officers, 2 journalists, aur 300 log baithe hain. Kadam ke aadmi ne 'press meet' cancel karwa diya, par ek chhoti ladki ne camera rakh diya hai. Uske paas 26 minute ka footage hai.*",
+        "*Tumhare haath mein: 1984 ka naksha, page 214 ki photo ('encroachment waiver — approved, Kadam'), aur ek audiolink jismein Kadam bolte hain 'committee dekh rahi hai'.*",
+        "Dadi: \"Ab bolo. Par yaad rakhna — file uthane wala jeeta hai, chillane wala haar gaya tha 1970 mein.\"",
+        "Corporator Kadam: \"Beta. Ek kaam karte hain. Naksha tumhe safe rahega, mera kaam ho jaayega. Tumhari maa ka transfer, Ira ka school fee, aur ek 'relief grant' — 3 lakh.\""
+      ],
+      "fallbackLines": [
+        "*Ira tumhara haath pakad leti hai. Woh kuch nahi bolti. Uski ungliyon ka dabao hi jawab hai.*",
+        "Sameer Bhai: \"Bhai ek baat. Tu 300 logon ka hero hai. Ab tu 300 logon ka witness banega. Farak samajh le.\"",
+        "*Phone: 6%. Ek message: 'Aarav, count 42. Sab zinda. Tu meri shart jaanti hai — jo dekha, woh bol. — Ma.'*"
+      ],
+      "choices": [
+        {
+          "id": "c_file",
+          "text": "Sab kuch de do: naksha, page 214, audio — NDRF officer ke haath, public ke saamne",
+          "keywords": [
+            "do",
+            "file",
+            "sach",
+            "public",
+            "submit",
+            "camera",
+            "police"
+          ],
+          "next": "e_hero",
+          "shortLabel": "File de do",
+          "effects": {
+            "memory": [
+              "User ne saara saboot public ke saamne authority ko de diya — bina saudaa."
+            ]
+          }
+        },
+        {
+          "id": "c_sauda",
+          "text": "Grant lo, naksha rakh lo — ghar ki pehle zaroorat hai",
+          "keywords": [
+            "lo",
+            "grant",
+            "theek",
+            "sauda",
+            "rakh",
+            "paisa"
+          ],
+          "next": "e_loss",
+          "shortLabel": "Sauda karo",
+          "effects": {
+            "flags": {
+              "tookGrant": true
+            },
+            "memory": [
+              "User ne 3 lakh ka 'relief grant' liya aur saboot apne paas rakh liye."
+            ]
+          }
+        },
+        {
+          "id": "c_media",
+          "text": "File media ko do — journalist ke haath, police baad mein",
+          "keywords": [
+            "media",
+            "news",
+            "camera",
+            "journalist",
+            "de",
+            "post"
+          ],
+          "next": "e_after",
+          "shortLabel": "Media ko do",
+          "effects": {
+            "memory": [
+              "User ne saboot pehle media ko diya — 48 ghante mein poore shehar ne naam padha."
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "id": "s4_loss",
+      "title": "Paani Ne Faisla Sunaya",
+      "narration": [
+        "*Tum paani mein utarte ho — aur ek second baad ehsaas hota hai ki neeche se aane wala current ek car ki speed se tez hai. Tumhara pair phisalta hai, aur 40 saal purana ek grill, jo nalla band karne ke liye rakha tha, tumhara pant pakad leta hai.*",
+        "*Koi ek haath — Sameer ka — tumhe upar kheenchta hai. Rassi tumhari pasli chheenti hai. 12 bachche dekh rahe hain. Ek chhota bachcha chillata hai 'bhaiya doob gaya' aur 4 teachers use palat dete hain.*",
+        "*Ira tumhare upar jhukti hai, haath mein uska toota compass, aur uski aankhein bilkul sookhi hain — par woh kaanp rahi hai.*",
+        "Ira: \"Agar tu marta na, toh main 40 bachchon ke saamne roti. Aur main 40 bachchon ke saamne nahi roti. Samjha?\"",
+        "*Agle 9 ghante tumhe koi hero nahi kehta. Tumhe koi 'zinda bacha hua' kehta hai — aur yeh sunne mein bura lagta hai, par sach hota hai.*",
+        "*Boat wapas aati hai. Trip 4 hota hai. Koi nahi marta. Par uss raat, mohalle ki deewar par ek aur line judti hai — 'paani ne 1 ko kheench liya tha, 2 ne pakad liya'.*"
+      ],
+      "fallbackLines": [
+        "Dadi: \"1970 mein bhi ek aisa hi bachcha tha. Usne 3 bachchon ko bachaya, aur 3 din baad paani ne use le liya. Hero mat ban. Zinda reh, aur file rakh.\"",
+        "*Tumhare pasli par patti. Ira paani ka glass pakde hue hai. Sameer chupchap boat theek kar raha hai.*",
+        "*Phone: 'Relief: 300 log shifted.' Kadam ka naam koi nahi poochhta. Aaj nahi.*"
+      ],
+      "choices": [
+        {
+          "id": "c_thik",
+          "text": "Theek hai. Aaj se discipline: count, rassi, bina jaldi. Phir file wale din",
+          "keywords": [
+            "theek",
+            "haan",
+            "maaf",
+            "ab",
+            "discipline",
+            "next"
+          ],
+          "next": "e_after",
+          "shortLabel": "Ab discipline",
+          "effects": {
+            "memory": [
+              "User ne galti ke baad discipline chuna aur saboot safe rakhne ka faisla kiya."
+            ]
+          }
+        },
+        {
+          "id": "c_gussa",
+          "text": "Aaj hi ward office jao aur naksha table par phek do",
+          "keywords": [
+            "jao",
+            "aaj",
+            "table",
+            "phek",
+            "gussa",
+            "abhi"
+          ],
+          "next": "e_loss",
+          "shortLabel": "Aaj hi jao",
+          "effects": {
+            "memory": [
+              "User ne zakhm ke saath, bina taiyari, ward office mein sab phek diya — aur kaagaz bikhhar gaye."
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "id": "s4_boat_return",
+      "title": "Doosri Ward, 42 Log, 6%",
+      "narration": [
+        "*Boat doosri ward ke logistics building mein ghus'ti hai — jahan Ma 42 logon ke saath 4th floor par hain. Paani ghutno tak, aur 3 log aise hain jo chalne layak nahi.*",
+        "*neeche se awaaz aati hai, aur tum usse pehli baar chillate hue sunte ho*",
+        "Ma: \"Count! Sab 42? Ek bhi neeche nahi? Aarav, RASSI BANDH!\"",
+        "*42 log, 6 trip, 4 ghante. Beech mein ek beemar aadmi jiska naam Sunil hai, jise Ma ne 22 saal se jaanti hai — 'woh mera pehla parcel hai, 2004 ka'.*",
+        "*Aakhri trip par Ma boat mein chadh'te waqt tumhara chehra dekhti hai — 4 second — phir bolti hai: 'paani se zyada tu tez hai. Par paani 40 saal se yahin hai'.*",
+        "*Subah 6:12. NDRF ka officer ek file maangta hai — 'koi encroachment record, local proof, kuch bhi'. Tumhare jeb mein plastic file hai, aur usmein 1984 ka naksha.*",
+        "Ma: \"De de. Ab. Warna 40 saal aur kisi aur ke bachche paani mein utarenge.\""
+      ],
+      "fallbackLines": [
+        "Sameer Bhai: \"Bhai, 300 naam hain jo boat se utre. Sab tujhse poochh rahe hain: ab kya?\"",
+        "*Phone 1%. Ek last message: 'Aarav — 42/42. Thank you. Ab so.'*",
+        "*Dadi, uss chhoti si chair par, paani mein tairti hui, chillati hain: 'File ko paani se bacha. Kaagaz se zindagi banti hai!'*"
+      ],
+      "choices": [
+        {
+          "id": "c_de_do",
+          "text": "File officer ko do, aur mohalle ke 300 logon ke naam se statement likhwa do",
+          "keywords": [
+            "do",
+            "file",
+            "officer",
+            "statement",
+            "haan",
+            "likh"
+          ],
+          "next": "e_hero",
+          "shortLabel": "File + statement",
+          "effects": {
+            "memory": [
+              "User ne boat-wale bachaav ke baad saboot authority ko diye aur 300 signatories ka statement banaya."
+            ]
+          }
+        },
+        {
+          "id": "c_pehle_ghar",
+          "text": "Pehle ghar — Ira, Dadi, Ma — file baad mein sambhaal lenge",
+          "keywords": [
+            "ghar",
+            "pehle",
+            "baad",
+            "nahi",
+            "sambhal",
+            "thika"
+          ],
+          "next": "e_after",
+          "shortLabel": "Pehle ghar",
+          "effects": {
+            "memory": [
+              "User ne pehle apne 3 logon ko safe kiya; file uski jeb mein thi, aur 2 din baad journalist tak pahunchi."
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "id": "e_hero",
+      "title": "Paani Utarne Ke Baad",
+      "narration": [
+        "*Day 4, 11:00 AM. NDRF camp. Tum ek plastic stool par baithe ho, pasli par patti, aur haath mein ek file. Officer ne 4 copy maangi hain; mohalle ne 300 sign kar diye hain.*",
+        "*Aur agle hafte: 3 sealed nallon ki 're-audit', detention tank ka 'status query', aur Kadam ke against 'show-cause'. 6 crore ka kaam, 0 tank.*",
+        "Dadi: \"1970 mein bhi ek baar file gayi thi. 20 saad lag gaye. Par paani hamesha wapas aata hai — aur us baar 3 log kam marre.\"",
+        "*Ira apna hearing aid theek karwa leti hai — ek NGO ne, 2 hafte mein. Woh pehli baar poora din bina kaanp kar hassti hai.*",
+        "Ira: \"Bhaiya. Ek sawaal. Tu ab hero hai ya engineer?\"",
+        "\"Dono. Engineer jo paani ka raasta nikaalta hai.\" *tum ek second sochte ho*",
+        "*Mohalle ki deewar par ab 3 line hain. Pehli: '1970'. Doosri: 'yahan tak paani aaya tha'. Teesri, naya likhi hui, bacchon ke haath se: 'yahan se paani gaya — ek nakse ki wajah se'.*",
+        "*Sameer ki boat ka engine, 2 mahine mein, 'approved'. Wo pehli baar bina license ke dar ke boat chalata hai.*"
+      ],
+      "fallbackLines": [
+        "*Kahani poori — 42/42, 40/40, aur ek file jo padhi gayi.*"
+      ],
+      "choices": [],
+      "isEnding": true,
+      "endingId": "end_hero"
+    },
+    {
+      "id": "e_after",
+      "title": "Jo Bacha, Woh Sabse Zyada",
+      "narration": [
+        "*Sab bach gaye. 40 bachche, 4 teachers, 42 office wale, Dadi, Ira, Ma. Koi nahi dooba — aur ye sunne mein chhota lagta hai, par is shehar mein is saal 90 aise mohalle the jahan nahi bacha.*",
+        "*File 2 din baad ek local journalist ke paas pahunchti hai. Front page 3 hafte baad. Nalla 4 mahine baad khulta hai — 60%.*",
+        "*Corporator Kadam 'transferred'. 3 building 'under review'. 4 mahine mein 2 towers ke sanction 'stayed'.*",
+        "Sameer Bhai: \"Bhai, tu hero nahi bana. Isliye tu zinda hai aur teri family zinda hai. Yahi jeet hai.\"",
+        "*Ira ki class mein teacher ne uska naam 'Safety Captain' se badal kar 'Nalla Captain' rakh diya. Woh hasti hai. Phir seriously bolti hai.*",
+        "Ira: \"Bhaiya. Agli baar hum ek saath jaayenge. Aur tu bina rassi ke nahi utrega. Pakka?\"",
+        "*Aur paani, jo 40 saal se intezaar kar raha tha, dheere-dheere apna raasta dhoondh leta hai — ek purane nakse ke nishaan par.*"
+      ],
+      "fallbackLines": [
+        "*Kahani poori — koi nahi haara.*"
+      ],
+      "choices": [],
+      "isEnding": true,
+      "endingId": "end_after"
+    },
+    {
+      "id": "e_loss",
+      "title": "Chupa Hua Sach",
+      "narration": [
+        "*3 lakh aa jaate hain. Ira ka school fee bhar jaata hai, ghar ka saaman bhi. Ek naya phone bhi — jismein woh 26 minute ka video ab bhi hai, par kisi ko nahi dikha.*",
+        "*Agle 4 mahine: 2 aur baarish. Ward 58 ka paani 11 ghante tak rukta hai. 3 log 'missing' — 2 wapas aa gaye, ek nahi.*",
+        "*woh apni charpai ke neeche se file nikaalti hain, tumhare haath mein deti hain aur kehti hain:*",
+        "Dadi: \"'Yeh meri galti nahi, teri hai. Par abhi bhi 6 ghante hain.'\"",
+        "*Ma kuch nahi bolti. Woh sirf 3 din tumhe dekhkar kaam karti hai. Chhaathe teesre din woh kitchen mein paani ka glass rakhte waqt kehti hai: 'Aarav, maine 22 saal mein 42 logon ka count kiya. Tune 1 kaam kiya: maan liya.'*",
+        "*Video post hota hai — 4 mahine baad. Sach saamne aata hai, building 'seal', Kadam 'suspended'. Par 1970 jaisi 3 line ab deewar par 4 hain.*",
+        "*Kuch keemat late dene se kam nahi hoti. Aur yeh tumhe Ira pata chalne deti hai: usne woh 26 minute ka video khud backup kiya tha. Tumhe pata chala ya nahi, isse pehle.*"
+      ],
+      "fallbackLines": [
+        "*Kahani poori — sach jeeta, der se, aur mehnga.*"
+      ],
+      "choices": [],
+      "isEnding": true,
+      "endingId": "end_paid"
+    }
+  ],
+  "endings": [
+    {
+      "id": "end_hero",
+      "title": "Paani Utarne Ke Baad",
+      "description": "Saboot public, file padhi gayi, 40/40 aur 42/42. Mohalle ne seekha ki kaagaz se zindagi banti hai.",
+      "tone": "heroic"
+    },
+    {
+      "id": "end_after",
+      "title": "Jo Bacha, Woh Sabse Zyada",
+      "description": "Koi nahi dooba, na tum hero bane. 60% nalla khula, aur koi 40 saal nahi intezaar kar payega.",
+      "tone": "bittersweet"
+    },
+    {
+      "id": "end_paid",
+      "title": "Chupa Hua Sach",
+      "description": "Tumne grant liya. 4 mahine baad sach aaya, par 3 log late ho gaye. Ira ne sab pehle se dekh liya tha.",
+      "tone": "dark"
+    }
+  ]
+}

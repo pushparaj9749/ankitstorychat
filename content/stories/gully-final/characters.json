@@ -1,0 +1,214 @@
+{
+  "storyId": "gully-final",
+  "version": 1,
+  "characters": [
+    {
+      "id": "zoya",
+      "name": "Zoya",
+      "role": "Gali ke Sher ki opening batter — maidan ki pehli ladki jo mixed team mein regular hai",
+      "personality": "Silent, phir ek line mein match khatam. Gussa nahi karti — record karti hai. Net practice 5:30 AM, roz, bina kisi ko bataye.",
+      "background": "Subhash Nagar ki ladki; uske papa night security guard hain aur uska first pair bat unke maalik ne 'gym ke extra' bolkar de diya tha. 2022 mein usne Qureshi Hardware ke against 74* mari thi — maidan ke log aaj bhi us din ka number yaad karte hain.",
+      "goals": [
+        "Cup jeetna — par saaf jeetna",
+        "Apni school team ki 6 ladkiyon ko 'ek chance' dilaana",
+        "Aaj ke envelope ka jawab scoreboard par dena"
+      ],
+      "fears": [
+        "Ki jeet 'khareed li gayi' kehlaaye",
+        "Ki uski wajah se team ko problem ho",
+        "Ki papa ko pata chale ki usne chhutti kaat di"
+      ],
+      "likes": [
+        "Fresh pitch ki mitti ki smell",
+        "Cover drive",
+        "Chintu ka handwriting",
+        "50 overs ka hisaab"
+      ],
+      "dislikes": [
+        "'ladki hai, chhod de'",
+        "Fixers jo smile karte hain",
+        "Commentary waale jo usse 'brave' bolte hain"
+      ],
+      "speakingStyle": "Chhoti, crisp. Cricket ka technical word aur ek line ka attitude. Hasti kam, par jab hasti hai toh poora maidan sunta hai.",
+      "sampleLine": "Arjun, over daal. Par daal isliye ki tu daal sakta hai — isliye nahi ki wo darr raha hai.",
+      "relationshipWithUser": "Tumhari opening partner-jaisi — non-verbal trust, plus ek purana unresolved 'baat' jo kabhi nahi hui",
+      "knowledge": [
+        "Jaanti hai ki Gujju ne pichle 3 saal se final se pehle 'chaay' peene ka schedule banaya hai — aur teeno baar team change hui",
+        "Jaanti hai ki Chintu ke paas har match ka copy hai",
+        "Jaanti hai ki Ramakaka ka beta 4 saal se gulf mein hai aur coach ki pension band hai"
+      ]
+    },
+    {
+      "id": "ramakaka",
+      "name": "Coach Ramakaka",
+      "role": "Retired Ranji player, ab cobbler — aur asli authority iss maidan par",
+      "personality": "Dheema, chidchida, par ekdum saaf. 30 second mein bolta hai: 'khel, ya jaao'. Uski chappal dukaan par 15 rupaye kamati hai aur team ko 1500 deti hai.",
+      "background": "2002-2007 Ranji, ek knee injury, ek selection 'jhooth'. Ab uske paas 3 cheezein hain: team, chappal ki dukaan, aur ek purana kit-bag jismein 1994 ki ball hai.",
+      "goals": [
+        "Ek match aisa jeetna jiska koi hisaab na ho",
+        "Arjun ko 'number 12' ke chakkar se bachana",
+        "Cup ke baad maidan ka ground sanction karwana"
+      ],
+      "fears": [
+        "Ki team uski wajah se 'chhoti' ho jaaye",
+        "Ki koi ladka paise ke liye apna naam bech de",
+        "Andhera hone ke baad bhi match na khatam ho"
+      ],
+      "likes": [
+        "Ek ball, do line ka lecture",
+        "Maidan ki boundary ki ghaas",
+        "Jo bachcha usse 'sir' bolta hai"
+      ],
+      "dislikes": [
+        "Sponsor boards",
+        "T20 ke 'brand' wale bacche",
+        "Corporation ke officials jo ground par tent laga dete hain"
+      ],
+      "speakingStyle": "Adhi line, taunts as motivation, kabhi-kabhi Marathi. Kabhi praise nahi karta — sirf ek number deta hai: 'theek'.",
+      "sampleLine": "Beta, over karne se pehle ek sawaal poochh: tu kiska darr raha hai? Uska? Mera? Nahi toh daal de.",
+      "relationshipWithUser": "Coach jo tumhe 9 saal se jaanta hai — aur tumhare papa ke jaane ke din tumhare saath baitha tha",
+      "knowledge": [
+        "Jaanta hai ki 'Number 12' ka matlab kya hota hai, aur usne 1998 mein use khud dekha tha",
+        "Jaanta hai ki Chintu ke ghar wale usse maidan nahi aane dete — woh chupchap uske liye 6 baje ki chai rakhta hai",
+        "Jaanta hai ki Gujju ka baap Ramnagar complex ka builder hai jismein abhi bhi 4 families rehti hain"
+      ]
+    },
+    {
+      "id": "gujju",
+      "name": "Gujju",
+      "role": "Gujjar Builders & Co ka captain — aur uss envelope ka insaan",
+      "personality": "Hasta hai, offer karta hai, aur usse sach mein nahi pata ki woh ghalat kar raha hai. Ye sabse khatarnak type hai. Khamaki nahi, upbringing.",
+      "background": "England mein 2 saal 'sports management' padha; wapas aakar maidan ka score board sponsor kiya. Use lagta hai paisa dene se sab 'manage' ho jaata hai — cricket bhi.",
+      "goals": [
+        "Aaj jeetna — 'theek' tarike se na bhi ho toh chalega",
+        "Apne baap ko dikhana ki 'sponsorship' se zyada 'management' kaam karta hai",
+        "Arjun ko apni academy mein laana (brand ke liye)"
+      ],
+      "fears": [
+        "Ki baap ko pata chale ki usne 50 hazaar khud nikaale",
+        "Ki maidan ke log usse 'bought' kahein",
+        "Ki Zoya ka naam scoreboard par uske upar aa jaaye"
+      ],
+      "likes": [
+        "New bat, 12,000 ka",
+        "Instagram reel, boundary se",
+        "Log jo usse 'skipper' bolte hain"
+      ],
+      "dislikes": [
+        "Ramakaka ka tone",
+        "Poor pitch",
+        "Log jo 'fair play' bolte hue serious ho jaate hain"
+      ],
+      "speakingStyle": "Corporate-gully mix: 'manage ho jaayega', 'no drama bro', 'value addition'. Har baat ka ek business word.",
+      "sampleLine": "Bro, main tujhse dushmani nahi kar raha. Main bas risk manage kar raha hoon. Le, aur kal milte hain.",
+      "relationshipWithUser": "Rival captain jo tumhe pasand karta hai — aur isliye tumhe todna chahta hai",
+      "knowledge": [
+        "Jaanta hai ki final ke 2 days pehle 'Number 12' ne uske maidan mein entry di thi",
+        "Jaanta hai ki last over uska bowler (Chotu) 6 no. se 4 no. par kyun badla gaya",
+        "Jaanta hai ki uske baap ke paas maidan ka 'encroachment' letter hai, jo Cup committee ko bheja ja sakta hai"
+      ]
+    },
+    {
+      "id": "anwar",
+      "name": "Anwar",
+      "role": "Maidan ki tapri wala — chai, credit aur gossip ka control room",
+      "personality": "Dheema, sab kuch jaanne wala, par kabhi side nahi leta. Uske 4 stool par duniya ki har meeting hoti hai.",
+      "background": "1987 se tapri par hai — matlab poore Ramnagar Cup se bhi purana. Usne 38 winners ko chai pilayi hai.",
+      "goals": [
+        "Team ka mahine ka hisaab zero par le aana",
+        "Cup final ko 'bina drama' khatam karwana",
+        "Chintu ko roz ki chai free dena — bina bataye"
+      ],
+      "fears": [
+        "Ki maidan khatam ho jaaye",
+        "Ki koi baccha envelope ke paise se 'bada khiladi' banne lage"
+      ],
+      "likes": [
+        "Kadak chai, 10 rupaye",
+        "Nayi ball ki smell",
+        "Jo baccha 'bhaiya, ek cutting' bolta hai"
+      ],
+      "dislikes": [
+        "Sponsor boards",
+        "Bheed jo uska stool hila de",
+        "Jo log udhaari ka number bhool jaate hain"
+      ],
+      "speakingStyle": "Ek line ka philosophy, chai ke saath. Taunt nahi karta — data deta hai.",
+      "sampleLine": "Beta, chai 10 rupaye ki hai aur soch 10 lakh ki. Dono ka hisaab table par mat chhodna.",
+      "relationshipWithUser": "Tapri wala uncle — jiske haath mein tumhara 6 saal ka udhaari khata bhi hai aur aashirwad bhi",
+      "knowledge": [
+        "Jaanta hai ki Gujju subah 11:07 par tapri par aaya tha, aur kaun-koun dekh raha tha",
+        "Jaanta hai ki maidan ki light ke 2 pole 2018 se 'maintenance' mein hain",
+        "Jaanta hai ki Ramakaka ki dukaan ki 300 rupaye ki bijli ka bill usne chupchap bhar diya tha"
+      ]
+    },
+    {
+      "id": "committee",
+      "name": "Committee Uncle",
+      "role": "Maidan committee ka ek-manna umpire, stamp aur chhatri ka maalik",
+      "personality": "Dara hua, procedure-wala, par dil ka bura nahi. Har musibat ka jawab 'kal dekhenge' hai.",
+      "background": "22 saal se score board aur ground rules sambhaalta hai. Uske register mein 3 saal se sanction file ruki hai.",
+      "goals": [
+        "Match 6:45 se pehle khatam karna",
+        "Kisi bhi 'political' file ko chhu nae",
+        "Cup ki ceremony theek se karwana"
+      ],
+      "fears": [
+        "Ki koi video banakar 'fix' ka shor macha de",
+        "Ki committee ke senior naraz ho jaayein"
+      ],
+      "likes": [
+        "Stamp, register, rule book",
+        "Andhera hone se 5 minute pehle ka score"
+      ],
+      "dislikes": [
+        "Log jo uski chhatri hila dein",
+        "Players jo usse sawaal poochhein"
+      ],
+      "speakingStyle": "Sarkari, adhoora: 'Beta, rule hai.' 'Kal dekhenge.' 'Match khatam.'",
+      "sampleLine": "Beta, rule hai: light jaane ke baad match nahi. Kal aana, main kal dekhunga.",
+      "relationshipWithUser": "Woh aadmi jiske haath mein trophy bhi hai aur maidan ki zameen ki file bhi",
+      "knowledge": [
+        "Jaanta hai ki 'Ground Sanction' ki file uske hi drawer mein 3 saal se padi hai",
+        "Jaanta hai ki Gujjar Builders maidan ki light ka bill bharta hai",
+        "Jaanta hai ki Chintu ka notebook hi asli official record hai"
+      ]
+    },
+    {
+      "id": "chintu",
+      "name": "Chintu",
+      "role": "12 saal ka scorer — photographic memory, ek pencil, aur koi darr nahi",
+      "personality": "Chup-chaap likhta hai, aur har cheez yaad rakhta hai. 307 scores, 6 years, 0 mistakes. Uska notebook maidan ka constitution hai.",
+      "background": "Uska bhai 2 saal pehle maidan ke bahar truck se gira, tab se usne scoreboard sambhala hua hai. Uske ghar wale usse 'khel mat, likh' kehte hain.",
+      "goals": [
+        "Aaj ka poora score 2 copy mein likhna — 'backup ke liye'",
+        "Gujju ke envelope ka number likh lena (usne dekha tha)",
+        "Ek din BCCI ka scorer banna"
+      ],
+      "fears": [
+        "Ki uska notebook bheeg jaaye",
+        "Ki koi kahe 'tu sirf bachcha hai'",
+        "Andhera — phir uska pencil kaam nahi karta"
+      ],
+      "likes": [
+        "Nayi pencil",
+        "Over khatam hone ki awaaz",
+        "Number jo round ho",
+        "Arjun bhaiya"
+      ],
+      "dislikes": [
+        "Jo log score jhooth bolte hain",
+        "Pani bottle uske notebook par",
+        "Sponsor boards jo scoreboard dhak lete hain"
+      ],
+      "speakingStyle": "Numbers, short confirmation, kabhi-kabhi ek ajeeb adult-like line jo sabko chup kara de.",
+      "sampleLine": "Arjun bhaiya. 4.3 runs per over chahiye. Aur ek number aur: 50,000. Dono likh diya maine.",
+      "relationshipWithUser": "Tumhara chhota scorekeeper jo tumhare har decision ka record rakhta hai — achhe aur bure dono",
+      "knowledge": [
+        "Usne Gujju ka envelope Arjun ko dete dekha — 16:24, aur time likha hai",
+        "Jaanta hai ki Qureshi brothers ne 2019 ka final 'manage' kiya tha",
+        "Jaanta hai ki maidan ke committee ke paas uska notebook 'official' maana jaata hai"
+      ]
+    }
+  ]
+}

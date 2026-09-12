@@ -1,0 +1,81 @@
+{
+  "storyId": "crush-on-roof",
+  "version": 1,
+  "premise": "College ki chhat par 'Chitthi No. 9' likhne waala tum ho (Ankit). Purane purse mein ek galti hui — note par Neel ka naam tha (uska purse udhaar pada tha) — aur agle hafte poora college keh raha hai ki NCC cadet captain Neel ne Ishita ko chitthi likhi hai. Ishita confuse hai, Neel phansa hua hai, Master Sir par complaint aa chuki hai ki 'fake romance se fest ka mahual kharab ho raha hai', aur principal ke paas jaane mein 48 ghante hain. Sach bologe toh tum jal jaoge; chup rahe toh do log jalenge.",
+  "locations": [
+    {
+      "id": "roof",
+      "name": "College ki chhat (Roof)",
+      "description": "Paani ki tanki, ek toota hua chair, aur 40 bulb ki jhalar jo fest ke liye baandhi gayi hai. Sunset ke waqt yahan poori Pune dikhti hai."
+    },
+    {
+      "id": "corridor",
+      "name": "Class 12 ka corridor",
+      "description": "Deewaar par fest posters, ek locker jo do saal se nahi khula, aur har break mein yahan chitthi ki charcha hoti hai."
+    },
+    {
+      "id": "dramahall",
+      "name": "Drama hall",
+      "description": "Master Sir ka adda. Stage par adhi set, bahar 24 kursiyan, aur hamesha chai ka glass."
+    },
+    {
+      "id": "canteen",
+      "name": "Cantein",
+      "description": "Vada pav, budget conversations aur maximum gossip. Bablu ka operational headquarter."
+    },
+    {
+      "id": "principal",
+      "name": "Principal cabin ka bahar",
+      "description": "Ek bench, ek fan, aur duniya ka sabse lamba 20 minute."
+    }
+  ],
+  "factions": [
+    {
+      "id": "festteam",
+      "name": "Fest committee",
+      "description": "Master Sir, Ishita, aur 12 volunteer — jinke haath mein 48 ghante mein poora fest khada karna hai."
+    },
+    {
+      "id": "rumours",
+      "name": "Corridor ki afwaah brigade",
+      "description": "Kisi ka naam nahi, par sabko pata hai. Sach se tez chalti hai."
+    }
+  ],
+  "lore": [
+    "Is college mein 1998 se 'Chitthi No. 9' ki parampara hai — koi akhri chitthi bina naam ke chhat par chhupi jaati hai.",
+    "Neel ka purse Fest week mein har jagre milta hai, kyunki usmein 500 rupaye aur ek bus pass hai.",
+    "Ishita ne chitthiyan corridor mein isliye public padhi thin taaki koi usse 'reply karne' par majboor na kar sake.",
+    "Master Sir ka rule: stage par jo hota hai, uska credit hamesha likha hota hai. Anonymous cheezein 'props' hoti hain.",
+    "Agar complaint principal tak pahunchi, toh fest cancel — committee ki saari mehnat zero."
+  ],
+  "rules": [
+    "Neel kabhi chitthiyen likhne ka credit nahi lega; woh hamesha sach bolega, chahe uska nuksaan ho.",
+    "Koi bhi character kisi ka phone, diary ya personal baat bina permission ke public nahi karega.",
+    "Chitthiyen sirf user ke haath se likhi jaati hain — AI narrator unhe doosron se nahi likhwayega.",
+    "Romance mild rahega: chitthi, nazrein, saath chai peena. Koi explicit content nahi.",
+    "User ka koi bhi choice 'mazaak' mein kisi ki izzat kharab nahi karega — kahani usse hamesha costly banaegi."
+  ],
+  "importantObjects": [
+    {
+      "id": "purse",
+      "name": "Purana purse",
+      "description": "Neel ka udhaar pada purse, jismein tumhari chitthiyen rakhi thin. Galat credit ki poori wajah."
+    },
+    {
+      "id": "chithi9",
+      "name": "Chitthi No. 9",
+      "description": "Aakhri, sabse sachchi chitthi. Abhi bhi adhoori hai."
+    },
+    {
+      "id": "festposter",
+      "name": "Fest ka poster",
+      "description": "Master Sir ne tumhare haath par bhara tha — likhai wahi hai jo chitthiyon mein."
+    }
+  ],
+  "timeline": [
+    "Somvaar — chitthi No. 8 locker mein; corridor mein Neel ka naam.",
+    "Mangalvaar — Master Sir ko complaint; 48 ghante ka warning.",
+    "Budhvaar subah — chhat wala scene; Chitthi No. 9 adhoori.",
+    "Shukravaar shaam — fest ka pehla din; stage; faisla."
+  ]
+}

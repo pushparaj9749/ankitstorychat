@@ -9,7 +9,7 @@ import { Screen } from '../components/Screen';
 import { GradientButton } from '../components/GradientButton';
 import { AgeBadge, Avatar, GenreChip, SectionHeader } from '../components/bits';
 import { EmptyState, ErrorState, LoadingState } from '../components/states';
-import { getBundledCoverSource, getBundle } from '../content/loader';
+import { getBundledCoverSource, getBundle, downloadStory, defaultManifestUrl } from '../content/loader';
 import { AgeRestrictedError } from '../lib/ageGate';
 import { listPlaythroughsForStory, updateStats } from '../lib/db';
 import { createPlaythrough, playthroughLabel } from '../lib/playthrough';
@@ -25,12 +25,14 @@ export function StoryDetail({ navigation, route }: Props) {
   const {
     theme,
     profile,
+    settings,
     stories,
     favoriteIds,
     toggleFavorite,
     activeProvider,
     providersWithKeys,
     refreshRecent,
+    refreshStories,
   } = useApp();
 
   const [bundle, setBundle] = useState<StoryBundle | null>(null);
@@ -38,6 +40,11 @@ export function StoryDetail({ navigation, route }: Props) {
   const [restricted, setRestricted] = useState(false);
   const [saves, setSaves] = useState<Playthrough[]>([]);
   const [starting, setStarting] = useState(false);
+  /** Story exists in the catalog but its files are not on this device yet
+   *  (new GitHub-only release) — offer an in-place download, no app update. */
+  const [needsDownload, setNeedsDownload] = useState(false);
+  const [downloading, setDownloading] = useState(false);
+  const [downloadStep, setDownloadStep] = useState<string | null>(null);
 
   const meta = stories.find((s) => s.id === storyId);
   const isFav = favoriteIds.has(storyId);
@@ -47,6 +54,8 @@ export function StoryDetail({ navigation, route }: Props) {
     let alive = true;
     (async () => {
       if (!profile) return;
+      setNeedsDownload(false);
+      setError(null);
       try {
         const b = await getBundle(storyId, profile.ageGroup);
         if (!alive) return;
@@ -55,13 +64,39 @@ export function StoryDetail({ navigation, route }: Props) {
       } catch (e) {
         if (!alive) return;
         if (e instanceof AgeRestrictedError) setRestricted(true);
-        else setError(e instanceof Error ? e.message : 'Could not open story.');
+        else {
+          setError(e instanceof Error ? e.message : 'Could not open story.');
+          setNeedsDownload(!!meta && !!profile);
+        }
       }
     })();
     return () => {
       alive = false;
     };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [storyId, profile]);
+
+  async function downloadNow() {
+    if (!profile || !meta || downloading) return;
+    setDownloading(true);
+    setDownloadStep('Files laam ho rahi hain…');
+    try {
+      await downloadStory(meta, settings.contentManifestUrl || defaultManifestUrl(), profile.ageGroup, (file) =>
+        setDownloadStep(file === 'done' ? 'Verify ho rahi hai…' : `${file} download…`),
+      );
+      const b = await getBundle(meta.id, profile.ageGroup);
+      await refreshStories();
+      setBundle(b);
+      setError(null);
+      setNeedsDownload(false);
+      setSaves(await listPlaythroughsForStory(meta.id));
+    } catch (e) {
+      setError(e instanceof Error ? e.message : 'Download failed.');
+    } finally {
+      setDownloading(false);
+      setDownloadStep(null);
+    }
+  }
 
   useEffect(() => {
     const unsub = navigation.addListener('focus', () => {
@@ -144,6 +179,44 @@ export function StoryDetail({ navigation, route }: Props) {
     );
   }
   if (!bundle) {
+    if (needsDownload && meta) {
+      return (
+        <Screen padded={false}>
+          <ScrollView showsVerticalScrollIndicator={false}>
+            <View style={styles.coverWrap}>
+              {cover ? (
+                <Image source={cover} style={styles.cover} resizeMode="cover" />
+              ) : (
+                <View style={[styles.cover, { backgroundColor: `${meta.accentColor}44` }]} />
+              )}
+              <LinearGradient colors={['transparent', theme.bg]} style={styles.coverShade} />
+              <Pressable onPress={() => navigation.goBack()} style={styles.back} accessibilityLabel="Go back">
+                <Text style={styles.backText}>‹ Back</Text>
+              </Pressable>
+            </View>
+            <View style={styles.body}>
+              <Text style={[styles.title, { color: theme.text }]}>{meta.title}</Text>
+              <Text style={[styles.tagline, { color: theme.accent }]}>Ye nayi story abhi download nahi hui</Text>
+              <Text style={[styles.desc, { color: theme.textDim }]}>
+                Naye stories app update ke bina GitHub se aati hain. Neeche download karo — 5 second, aur
+                kahani hamesha ke liye offline ready.{' '}
+                {error ? `(Detail: ${error})` : ''}
+              </Text>
+              <View style={styles.gap}>
+                <GradientButton
+                  title={`⬇ Download "${meta.title}" (~${meta.estimatedMinutes} min)`}
+                  loading={downloading}
+                  onPress={() => void downloadNow()}
+                />
+              </View>
+              {downloadStep ? (
+                <Text style={[styles.step, { color: theme.textDim }]}>{downloadStep}</Text>
+              ) : null}
+            </View>
+          </ScrollView>
+        </Screen>
+      );
+    }
     return (
       <Screen>
         <LoadingState label="Loading story…" />
@@ -300,6 +373,7 @@ const styles = StyleSheet.create({
   metaRow: { flexDirection: 'row', flexWrap: 'wrap', gap: 8, marginBottom: 12 },
   dlBadge: { paddingHorizontal: 10, paddingVertical: 4, borderRadius: 999 },
   dlText: { fontSize: 11, fontWeight: '800' },
+  step: { fontSize: FONTS.small, marginTop: 8, textAlign: 'center' },
   title: { fontSize: 30, fontWeight: '900' },
   tagline: { fontSize: FONTS.body, fontWeight: '600', marginTop: 4 },
   desc: { fontSize: FONTS.body, lineHeight: 23, marginTop: 10 },

@@ -1,5 +1,5 @@
 {
-  "contentVersion": 2,
+  "contentVersion": 3,
   "minAppVersion": "1.0.0",
   "updatedAt": "2026-09-12T00:00:00.000Z",
   "stories": [
@@ -39,6 +39,208 @@
       "popularity": 98,
       "storyDir": "midnight-local",
       "updatedAt": "2026-09-11T00:00:00.000Z"
+    },
+    {
+      "id": "hawa-band-dhaba",
+      "title": "Hawa-Band Dhaba",
+      "tagline": "3 AM. Kohra. Ek dhaba jo map par nahi dikhta — aur teen kursiyan jo hamesha bhari rehti hain.",
+      "description": "3 AM, ghana kohra, aur gaadi ka engine band. Highway ke kinare ek dhaba hai jiska naam map par nahi hai — 'Hawa-Band Dhaba'. Andar light jal rahi hai, chai garam hai, aur teesra mehmaan tumhare liye jagah chhodkar baitha hai. Yahan khana free hai. Par 'hisaab' kisi na kisi din toh chukana padta hai.",
+      "genres": [
+        "Horror",
+        "Mystery",
+        "Comedy"
+      ],
+      "tags": [
+        "highway",
+        "dhaba",
+        "bhoot",
+        "time-loop",
+        "horror-comedy"
+      ],
+      "characters": [
+        "Ghulam Chacha",
+        "Meenu",
+        "Constable Pandey",
+        "Driver Balwant"
+      ],
+      "ageRating": "12-17",
+      "contentLevel": "teen",
+      "language": "hinglish",
+      "version": 1,
+      "coverBundled": "hawa-band-dhaba",
+      "coverUrl": "https://raw.githubusercontent.com/pushparaj9749/ankitstorychat/main/content/stories/hawa-band-dhaba/assets/cover.jpg",
+      "accentColor": "#22D3EE",
+      "userRole": "Kabir — raat ko expressway par akela driver, jo galti se ruk gaya",
+      "setting": "Mumbai–Pune Expressway ka ek sunsaan mod, kohra, 3:12 AM",
+      "estimatedMinutes": 28,
+      "featured": true,
+      "isNew": true,
+      "popularity": 99,
+      "storyDir": "hawa-band-dhaba",
+      "updatedAt": "2026-09-12T00:00:00.000Z"
+    },
+    {
+      "id": "crush-on-roof",
+      "title": "Crush on the Roof",
+      "tagline": "Chhat se chitthi udhti hai, credit kisi aur ko milta hai — aur fest cancel hone mein 48 ghante hain.",
+      "description": "Class 12, last year, aur ek chitthi jo galat aadmi ke naam se post ho gayi. Tum Ankit ho — roof par baithkar likhi gayi anonymous chitthiyen tumhare haath se nikalti hain, par college ka shor Neel ke naam se macha hai. Ab sawaal ye nahi ki chitthi kaunsi acchi thi — sawaal ye hai ki tum sach kab bologe.",
+      "genres": [
+        "Romance",
+        "Comedy",
+        "School Life"
+      ],
+      "tags": [
+        "college",
+        "crush",
+        "confession",
+        "slow-burn",
+        "fest"
+      ],
+      "characters": [
+        "Ishita",
+        "Bablu",
+        "Master Sir",
+        "Neel"
+      ],
+      "ageRating": "12-17",
+      "contentLevel": "teen",
+      "language": "hinglish",
+      "version": 1,
+      "coverBundled": "crush-on-roof",
+      "coverUrl": "https://raw.githubusercontent.com/pushparaj9749/ankitstorychat/main/content/stories/crush-on-roof/assets/cover.jpg",
+      "accentColor": "#F59E0B",
+      "userRole": "Ankit — Class 12 ka quiet ladka, asli \"Chitthi No. 9\"",
+      "setting": "Pune ka ek purana arts college, annual fest se 48 ghante pehle",
+      "estimatedMinutes": 22,
+      "featured": false,
+      "isNew": true,
+      "popularity": 96,
+      "storyDir": "crush-on-roof",
+      "updatedAt": "2026-09-12T00:00:00.000Z"
+    },
+    {
+      "id": "pani-72",
+      "title": "Pani @ 72",
+      "tagline": "72 ghante ki baarish. Ek behen chhat par, ek Dadi neeche, aur ek naksha jo poore mohalle ka paani rok sakta hai.",
+      "description": "72 ghante ki baarish. Mumbai ka paani kamar se upar aa gaya hai. Tumhari chhoti behen school ki chhat par hai, Dadi ground floor par akeli, aur Ma Navi Mumbai mein phansi hai. Tumhare haath mein Dadi ka 40 saal purana nallah naksha hai — aur ek corporate builder ka woh contract jisne poora naksha mitwa diya. 72 ghante. Ek family. Do raaste: bachao, ya sach nikaalo.",
+      "genres": [
+        "Survival",
+        "Drama",
+        "Thriller"
+      ],
+      "tags": [
+        "mumbai",
+        "monsoon",
+        "survival",
+        "family",
+        "hero"
+      ],
+      "characters": [
+        "Ira",
+        "Dadi",
+        "Sameer Bhai",
+        "Corporator Kadam",
+        "Ma",
+        "Fernandes Teacher",
+        "Junction Uncle"
+      ],
+      "ageRating": "12-17",
+      "contentLevel": "teen",
+      "language": "hinglish",
+      "version": 1,
+      "coverBundled": "pani-72",
+      "coverUrl": "https://raw.githubusercontent.com/pushparaj9749/ankitstorychat/main/content/stories/pani-72/assets/cover.jpg",
+      "accentColor": "#38BDF8",
+      "userRole": "Aarav — 19, engineering ka student, cycle aur rassi ka hero",
+      "setting": "Mumbai, July — record 72-ghante ki baarish, paani 5 foot",
+      "estimatedMinutes": 30,
+      "featured": true,
+      "isNew": true,
+      "popularity": 94,
+      "storyDir": "pani-72",
+      "updatedAt": "2026-09-12T00:00:00.000Z"
+    },
+    {
+      "id": "gully-final",
+      "title": "Gully Final",
+      "tagline": "Final. 6 balls. 12 runs. Aur ek envelope jismein 50 hazaar hain — \"last over mat daalo\".",
+      "description": "Ramnagar Maidan Cup. Final. 200 run ka target nahi — 1 envelope ka target hai. Tum Arjun ho, gali ke Sher ke 8 number par, aur aaj subah builder ke bete ne tumhare haath mein 50 hazaar rakh diye: 'last over mat daalo.' Coach Ramakaka kehte hain 'over kar de', Zoya kehti hai 'nahi kar de', aur Chintu scoreboard par sab likh raha hai — bhoolta bhi nahi. Ab 6 balls hain.",
+      "genres": [
+        "Sports",
+        "Drama",
+        "Comedy"
+      ],
+      "tags": [
+        "cricket",
+        "underdog",
+        "team",
+        "fair-play",
+        "mumbai"
+      ],
+      "characters": [
+        "Zoya",
+        "Coach Ramakaka",
+        "Gujju",
+        "Chintu",
+        "Anwar",
+        "Committee Uncle"
+      ],
+      "ageRating": "12-17",
+      "contentLevel": "teen",
+      "language": "hinglish",
+      "version": 1,
+      "coverBundled": "gully-final",
+      "coverUrl": "https://raw.githubusercontent.com/pushparaj9749/ankitstorychat/main/content/stories/gully-final/assets/cover.jpg",
+      "accentColor": "#4ADE80",
+      "userRole": "Arjun — 17, Gali ke Sher ka slow left-arm all-rounder",
+      "setting": "Kurla ka Ramnagar maidan, Cup final, shaam 4:30 se andhere tak",
+      "estimatedMinutes": 24,
+      "featured": false,
+      "isNew": true,
+      "popularity": 93,
+      "storyDir": "gully-final",
+      "updatedAt": "2026-09-12T00:00:00.000Z"
+    },
+    {
+      "id": "night-courier",
+      "title": "Night Courier",
+      "tagline": "Raat 2:47. 18,000 ka \"Black Lifafa\". Room 304 ka darwaza andar se band hai.",
+      "description": "Raat 2:11. Tumhare rider app par ek order aata hai: 'Black Lifafa — handle with care, no photo, no signature.' 18,000 rupaye ek delivery ke. Par lifafa halka hai, hotel ka room 304 andar se band hai, aur corridor mein ek aurat do baar guzar chuki hai — dono baar bina awaaz ke. Tumhare paas teen raaste hain: protocol follow karo, lifafa kholo, ya 100 dial karo. Ek baat yaad rakhna: app ka algorithm tumhara dost nahi hai.",
+      "genres": [
+        "Crime",
+        "Thriller",
+        "Noir"
+      ],
+      "tags": [
+        "night",
+        "delivery",
+        "crime",
+        "moral-choice",
+        "neo-noir"
+      ],
+      "characters": [
+        "Tara",
+        "Guddu Bhai",
+        "PI Ishaan Kulkarni",
+        "Inspector Zambetari",
+        "Tokro",
+        "Bellboy"
+      ],
+      "ageRating": "18+",
+      "contentLevel": "mature",
+      "language": "hinglish",
+      "version": 1,
+      "coverBundled": "night-courier",
+      "coverUrl": "https://raw.githubusercontent.com/pushparaj9749/ankitstorychat/main/content/stories/night-courier/assets/cover.jpg",
+      "accentColor": "#818CF8",
+      "userRole": "Ankit — 26, raat-shift delivery rider, 4.9 rating wala top partner",
+      "setting": "Pune, 2:11 AM se 5:40 AM — barish, sunsaan road, aur ek doobta heritage hotel",
+      "estimatedMinutes": 26,
+      "featured": false,
+      "isNew": true,
+      "popularity": 91,
+      "storyDir": "night-courier",
+      "updatedAt": "2026-09-12T00:00:00.000Z"
     },
     {
       "id": "cafe-queen-myra",

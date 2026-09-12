@@ -1,0 +1,962 @@
+{
+  "storyId": "night-courier",
+  "version": 1,
+  "scenes": [
+    {
+      "id": "s1_order",
+      "title": "2:47 AM — Room 304 Ka Lifafa",
+      "narration": [
+        "*Barish ki awaaz helmet ke andar se bhi aa rahi hai. Tum corridor ke end mein khade ho — haath mein ek kala lifafa, aur ek 18,000 rupaye ka 'tip' jo app ne 'incentive' kehkar bheja hai. Room 304 ka darwaaza band hai, aur andar se koi awaaz aa rahi hai. Dheemi. Do baar. Teesri baar nahi.*",
+        "*notification:*",
+        "Tokro: \"'Order 304-B: no photo, no signature 🙌 Tap DELIVERED and ride home. Your rating is safe with us!'\"",
+        "*Tumhara thumb 'Delivered' ke button par rukta hai. Tumhe apne pichle 3 NPL-4 orders yaad aate hain: teeno baar tumne poocha nahi. Teeno baar 18 hazaar aa gaye.*",
+        "*Darwaaze ke neeche se ek kaagaz ka tukda sarakta hai — andar se kisi nephenkadiya. Uspar ek line hai, marker se:*",
+        "*kaagaz par likha hai:*",
+        "Tara: \"'Police mat bulao. Darwaza kholne ki koshish mat karo. Bas ek kaam karo — meri jeb se phone nikal kar lobby ke phone par 2 number dial kardo.'\"",
+        "*Aur theek tab, lifafa tumhare haath mein thoda halka lagta hai — kyunki usmein kaagaz hai, cash hai, par koi khana nahi. Tumhe pehli baar ehsaas hota hai: tum 'rider' nahi ho. Tum 'handover' ho.*"
+      ],
+      "fallbackLines": [
+        "*Corridor ki light 4 baar flicker karti hai. Har baar tum apna haath upar karte ho, aur har baar tumhara haath wapas aa jaata hai.*",
+        "*doosra notification:*",
+        "Tokro: \"'Heads up ⚠️ This order is Priority. Reporting may affect your tier. 14 min on-site detected — continue?'\"",
+        "*Neeche, lobby mein, night manager ki chhati uth-uthkar saans le rahi hai. Koi nahi jaag raha. Tumhara phone 34% par hai — 1 ghanta, ya 6 minute ki call.*"
+      ],
+      "choices": [
+        {
+          "id": "c_deliver",
+          "text": "'Delivered' daba do. 18 hazaar hain, aur tumhari family bhi 18 hazaar se chalti hai",
+          "keywords": [
+            "deliver",
+            "daba",
+            "theek",
+            "haan",
+            "chhodo",
+            "mat"
+          ],
+          "next": "s2_delivered",
+          "shortLabel": "Delivered daba do",
+          "effects": {
+            "flags": {
+              "delivered": true
+            },
+            "relationships": {
+              "guddu": 8,
+              "tara": -20
+            },
+            "choicesRecord": {
+              "order": "delivered"
+            },
+            "memory": [
+              "User ne order 304-B 'Delivered' mark kar diya — 18,000 ke liye."
+            ]
+          }
+        },
+        {
+          "id": "c_lifafa",
+          "text": "Lifafa kholo — kaagaz dekho, phir decide karo",
+          "keywords": [
+            "kholo",
+            "lifafa",
+            "dekh",
+            "kaagaz",
+            "andar",
+            "kya"
+          ],
+          "next": "s2_opened",
+          "shortLabel": "Lifafa kholo",
+          "effects": {
+            "flags": {
+              "openedPackage": true
+            },
+            "memory": [
+              "User ne lifafa khol kar uska content dekha — ye uske contract ke against tha."
+            ]
+          }
+        },
+        {
+          "id": "c_call",
+          "text": "Phone utha kar 100 dial karo — abhi, isi corridor mein",
+          "keywords": [
+            "police",
+            "100",
+            "call",
+            "dial",
+            "complaint",
+            "kar"
+          ],
+          "next": "s2_called",
+          "shortLabel": "100 ko call",
+          "effects": {
+            "memory": [
+              "User ne lifafa chhune se pehle police ko call karne ka faisla kiya."
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "id": "s2_delivered",
+      "title": "Wapsi Ka Raasta",
+      "narration": [
+        "*'Delivered'. App turant 18,000 ka confirmation deta hai — aur ek 'tip bonus' bhi, 2,000. Tum elevator ke paas jaate ho. Lift khaali hai, chamak rahi hai, aur usmein tumhare alava koi nahi hai.*",
+        "*'You're on fire! 🔥 4.9 rating maintained. Next priority order unlocks at 2 more completions.'*",
+        "*Lift 2nd floor par rukti hai — doors khulte nahi khulte band ho jaate hain. 2 second. Tumhe lagta hai koi dekh raha hai. Aaine mein tumhara chehra hai. Aur tumhare kandhe par woh kala lifafa — nahi, lifafa toh andar ja chuka hai. Tumhara bag khaali hai. Par tumhe abhi bhi bhaari lag raha hai.*",
+        "*Parking mein ek car start hoti hai. Uspar 'function hall' ka sticker hai — 3:00 AM, 'private event'. Tumhare kaan mein tumhari maa ki awaaz aati hai: 'beta, tu raat ko kaam kyun karta hai?'. Pehli baar tumhe iska jawab nahi milta.*",
+        "*Phone bajta hai. Hub. Guddu Bhai.*",
+        "Guddu Bhai: \"Bhai, 'done' kar diya? Shukriya yaar. Ek kaam — tu aaj raat tapri se nikalte waara camera side se jaana. Junction wala camera kal se 'on' hai. ...Bhai, main kuch nahi bol raha. Bas bola.\"",
+        "*Aur theek tab — lobby se awaaz. Ek cheekh nahi. Ek kaanch ka tootna. Aur fir 3 second ki bilkul khamoshi, jo cheekh se buri hoti hai.*"
+      ],
+      "fallbackLines": [
+        "*App: 'Rate your delivery?' Tumhe lagta hai tumhara haath jawab de dega. Woh nahi deta.*",
+        "*Barish tez ho gayi hai. Tumhara helmet ka camera 12 minute ki clip record kar chuka hai. Tum abhi tak usse band nahi kar paaye.*",
+        "*'We noticed you are still on-site. Tap to confirm exit.'*"
+      ],
+      "choices": [
+        {
+          "id": "c_palta",
+          "text": "Gadi chhodo — seedha upar, 304 ke paas wapas",
+          "keywords": [
+            "wapas",
+            "upar",
+            "jaao",
+            "mat",
+            "palta",
+            "ruk"
+          ],
+          "next": "s3_confront",
+          "shortLabel": "Wapas jao",
+          "effects": {
+            "relationships": {
+              "tara": 15,
+              "guddu": -10
+            },
+            "flags": {
+              "cameBack": true
+            },
+            "memory": [
+              "User ne 'Delivered' ke baad bhi wapas 304 ki taraf jaane ka faisla kiya."
+            ]
+          }
+        },
+        {
+          "id": "c_chale",
+          "text": "Chale jao. Ye tumhara case nahi hai. Tum rider ho.",
+          "keywords": [
+            "chale",
+            "ghar",
+            "jaao",
+            "nahi",
+            "matlab",
+            " nikal"
+          ],
+          "next": "s3_leave",
+          "shortLabel": "Nikal jao",
+          "effects": {
+            "memory": [
+              "User ne lobby se nikal kar ghar jaane ka raasta pakda — aur phone par clip 12 minute ki record hui."
+            ]
+          }
+        },
+        {
+          "id": "c_clip",
+          "text": "Helmet ka camera rok do, card nikaalo, aur ghar par backup banao",
+          "keywords": [
+            "camera",
+            "clip",
+            "card",
+            "record",
+            "backup",
+            "rok"
+          ],
+          "next": "s3_evidence",
+          "shortLabel": "Clip bachao",
+          "effects": {
+            "flags": {
+              "hasClip": true
+            },
+            "inventoryAdd": [
+              "Helmet cam card"
+            ],
+            "memory": [
+              "User ne 'Delivered' ke baad helmet camera ki 12-minute clip ka card nikaal kar bacha liya."
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "id": "s2_opened",
+      "title": "Kaalé Lifafe Ke Andar",
+      "narration": [
+        "*Tum store room ka darwaaza andar se lagate ho. Lifafa khulta hai: 40 hazaar cash — 500 ke note, 8 bundles — aur ek plastic sleeve mein 2 kaagaz.*",
+        "*Kaagaz 1: 'Asset Receipt #26 — Handover: verbal. Value: ₹1,20,000. Release: on request of the guest.' Uspar ek naam hai, umar 21, aur ek photo. Tara ki. Tumhara pet ghoom jaata hai.*",
+        "*Kaagaz 2: 4 line ka 'care note' — jismein likha hai ki kaun use 'check' karega aur kaun 'extend' karega. Jaise koi hospital file ho. Jaise koi saamaan ho.*",
+        "*notification:*",
+        "Tokro: \"'Please mark delivered within 3 min to avoid delay penalty ⏱'\"",
+        "*Darwaaze par dastak hoti hai — 3 baar, controlled. Tum lifafa band karne jaate ho, par tumhara haath ruk jaata hai.*",
+        "*phone par, turant:*",
+        "Guddu Bhai: \"'Bhai. Kya khola? Bhai, suno. Lifafa kholna = 'handover failed' = 2,000 cut + 90 din review. 18 hazaar se 2,000. Bhai, bas band karo aur aa jao. Kuch nahi hoga.'\"",
+        "*Aur phir, corridor se, aurat ki awaaz — bilkul normal volume mein, jaise koi bahut thaka hua insaan darwaaze se baat kar raha ho.*",
+        "Tara: \"Bhaiya. Aapne kaagaz padh liya? Toh ab do raaste hain. Ya toh aapne 'asset receipt' copy kiya — ya aapne kuch nahi kiya. Donon ka ek hi result hai. Aap decide karo.\""
+      ],
+      "fallbackLines": [
+        "*Tumhare haath mein 40 hazaar hain — ek mahine se zyada ka, bina 'review' ke. Aur tumhe ehsaas hota hai ki tum usse chhoo nahi pa rahe.*",
+        "*'Ankit, we've been partners for 3 years. Don't do this 🙁'*",
+        "Tokro: \"— aur tumhe ajeeb lagta hai ki app tumhara naam jaanti hai.\"",
+        "*Store room ki khidki se neeche parking dikhta hai: ek SUV, 2 aadmi, aur 'function hall' ka banner. 3 ghante baarish mein bhi unhonne banner nahi utara.*"
+      ],
+      "choices": [
+        {
+          "id": "c_photo",
+          "text": "Kaagaz ka photo lo — aur lifafa wapas band karke andar se darwaaza kholo",
+          "keywords": [
+            "photo",
+            "kaagaz",
+            "lo",
+            "kholo",
+            "andar",
+            "copy"
+          ],
+          "next": "s3_confront",
+          "shortLabel": "Photo, kholo",
+          "effects": {
+            "flags": {
+              "hasPhoto": true
+            },
+            "inventoryAdd": [
+              "Asset receipt photo"
+            ],
+            "relationships": {
+              "tara": 20
+            },
+            "memory": [
+              "User ne 'Asset Receipt #26' ka photo khola aur phir Tara ka darwaaza khol diya."
+            ]
+          }
+        },
+        {
+          "id": "c_gate",
+          "text": "Cash aur receipt le kar emergency exit se bahar — file Ishaan ko do",
+          "keywords": [
+            "exit",
+            "bhaago",
+            "file",
+            "ishaan",
+            "le",
+            "bahar"
+          ],
+          "next": "s3_exit_run",
+          "shortLabel": "Exit lo",
+          "effects": {
+            "flags": {
+              "tookReceipt": true
+            },
+            "inventoryAdd": [
+              "Asset receipt"
+            ],
+            "memory": [
+              "User ne cash chhoda, receipt liya, aur 2nd floor ke emergency exit se bahar jaane ka faisla kiya."
+            ]
+          }
+        },
+        {
+          "id": "c_band",
+          "text": "Lifafa band karo, darwaaza mat kholo — 'Delivered' karke neeche aa jao",
+          "keywords": [
+            "band",
+            "nahi",
+            "deliver",
+            "chhodo",
+            "mat",
+            "rakho"
+          ],
+          "next": "s3_leave",
+          "shortLabel": "Band karo, chalo",
+          "effects": {
+            "flags": {
+              "delivered": true
+            },
+            "relationships": {
+              "guddu": 5,
+              "tara": -15
+            },
+            "memory": [
+              "User ne lifafa band kiya aur 304 ka darwaaza nahi khola."
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "id": "s2_called",
+      "title": "100, Ya 101, Ya Kuch Nahi",
+      "narration": [
+        "*Tum dial karte ho. 100. Line lagti hai. 4 second. Ek awaaz: 'Please hold'. Tum hold karte ho. 40 second. Phir: 'Sir, please report at the nearest police station. This is a non-emergency line.' Tum kehte ho 'corridor', 'room 304', 'life threatening' — aur line khamosh ho jaati hai. 2:49 AM.*",
+        "*Phir tum 112 dial karte ho. Ek minute baad ek number aata hai: 'Hello, Tokro support. Your hub has raised an alert on your device.' Tumhara phone, tumhare haath mein, tumhe control kar raha hai.*",
+        "*'Alert: rider reported suspicious. Support agent Rajesh is calling. Please do NOT share photos. 🙏'*",
+        "*Room 304 ke darwaaze ke neeche se doosri line sarakti hai: 'Aapne sahi kiya. Ab ek kaam — lobby ka phone uthao, dial 98— (aadha number), baaki mujhse poocho.'*",
+        "*Seedhiyon par niche ki taraf 3 joote ki awaaz — bhari, tez, aur 3 second mein ruk jaati hain. Function hall waale upar aa rahe hain? Ya andar jaane waale? Tumhe pata nahi. Tumhare paas 14 minute ka timer hai aur 32% battery.*"
+      ],
+      "fallbackLines": [
+        "*'Rajesh (Support) is calling...'*",
+        "Tokro: \"— tum phone kaat dete ho. Pehli baar 3 saal mein.\"",
+        "*Tumhara haath ab kaanp raha hai, aur tum ise chhupane ke liye jeb mein daal lete ho. Bahar barish ki awaaz mein ek aur awaaz jud jaati hai: lift ka 'ding'. 2nd floor.*",
+        "*dheere se, darwaaze se:*",
+        "Tara: \"'Bhaiya. Naam mat lo. Light band karo. 3 second.'\""
+      ],
+      "choices": [
+        {
+          "id": "c_tapri",
+          "text": "Bahar niklo, tapri par PI Ishaan se milo — uske paas case hai",
+          "keywords": [
+            "ishaan",
+            "tapri",
+            "mil",
+            "police",
+            "case",
+            "bahar"
+          ],
+          "next": "s3_evidence",
+          "shortLabel": "Ishaan se milo",
+          "effects": {
+            "memory": [
+              "User ne 100 fail hone ke baad tapri ke PI Ishaan Kulkarni ke paas jaane ka faisla kiya."
+            ]
+          }
+        },
+        {
+          "id": "c_room",
+          "text": "Darwaaza mat kholo, par light band karo — 304 se baat karo, andhere mein",
+          "keywords": [
+            "light",
+            "andhera",
+            "band",
+            "baat",
+            "karo",
+            "nahi"
+          ],
+          "next": "s3_confront",
+          "shortLabel": "Andhere mein baat",
+          "effects": {
+            "flags": {
+              "talkedDark": true
+            },
+            "relationships": {
+              "tara": 15
+            },
+            "memory": [
+              "User ne corridor ki light band ki aur 304 ke darwaaze ke picche se Tara se baat ki."
+            ]
+          }
+        },
+        {
+          "id": "c_station",
+          "text": "Seedha Deccan station — Zambetari ke paas, register ke saamne",
+          "keywords": [
+            "station",
+            "zambetari",
+            "register",
+            "jaao",
+            "complaint",
+            "likho"
+          ],
+          "next": "s3_station",
+          "shortLabel": "Station jao",
+          "effects": {
+            "memory": [
+              "User ne hotel se nikal kar seedha Deccan station jaane ka faisla kiya."
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "id": "s3_confront",
+      "title": "Room 304, Darwaza Khula",
+      "narration": [
+        "*Tum darwaaza kholte ho. Andar ek chair, ek table, 2 glass, aur ek aadhi khaali bottle — chhui hui nahi. Tara darwaaze ke piche khadi hai, haath mein apna phone, aur uska doosra haath tumhare haath ko pakadne ke liye aage aata hai — par chhuta nahi. Usne faisla kiya: chhoona nahi.*",
+        "Tara: \"Bhaiya. Aap lifafa le kar aaye ho. Toh aap un logon mein se ho. Par aapne darwaaza khol liya. Toh aap un logon mein se nahi ho. Dono hi ek saath sach hai. Samjhiye — mujhe 30 second chahiye faisla lene ke liye.\"",
+        "*Uske haath mein ek chhota, aadha-chargh phone hai. Screen par ek bus ticket: Nashik 6:15 AM. 3 din se 'not cancelled'.*",
+        "Tara: \"Mera ticket cancel nahi hota — kyunki cancel karne ka OTP unke paas hai. Toh ab batao: aap 'Delivered' karne wale ho, ya 'main le chala' wale?\"",
+        "*Corridor mein, 40 meter door, 2 aadmi haste hue function hall se upar aa rahe hain. Tumhara order timer: 2:56. Unka ETA: 3:00.*",
+        "Tara: \"Ek teesra raasta hai. Meri jeb mein 200 rupaye hain. Aap lobby ka phone le kar 6:15 ki bus wale stand par aa jao. Main khud jaungi. Aur aap — aap kuch nahi karenge. Ye sabse safe hai. Mere liye. Aapke liye nahi.\"",
+        "*Uski aankhein sookhi hain. Aur tumhe isse zyada darr usi se lagta hai.*"
+      ],
+      "fallbackLines": [
+        "Tara: \"Bhaiya. Jo kaam aaj tak maine khud kiya hai — 3 din se darwaaza band rakhna — woh aap meri jagah kar rahe ho. Fark itna hai: aapke paas bahar jaane ka raasta hai.\"",
+        "*Hotel ke 1st floor ka camera, jo 'chal raha hai', tum dono ko ek hi frame mein leta hai. Ye tumhe baad mein pata chalega.*",
+        "*'Delay detected. Mark delivered now to avoid penalty. 💛'*"
+      ],
+      "choices": [
+        {
+          "id": "c_bus",
+          "text": "Ticket bachao: Tara ko 6:15 ki bus tak chhodo — aur kuch nahi",
+          "keywords": [
+            "bus",
+            "nikalo",
+            "le",
+            "jaao",
+            "ticket",
+            "chor"
+          ],
+          "next": "s4_exit",
+          "shortLabel": "Bus tak chhodo",
+          "effects": {
+            "relationships": {
+              "tara": 25
+            },
+            "flags": {
+              "escortedTara": true
+            },
+            "memory": [
+              "User ne Tara ko lobby se bahar, 6:15 ki Nashik bus tak chhodne ka faisla kiya."
+            ]
+          }
+        },
+        {
+          "id": "c_evidence",
+          "text": "Pehle 'asset receipt' ka photo lo — kyunki 3 mahine baad bhi kisi ko yaad rahega",
+          "keywords": [
+            "photo",
+            "receipt",
+            "evidence",
+            "lo",
+            "kaagaz",
+            "copy"
+          ],
+          "next": "s3_evidence",
+          "shortLabel": "Photo le lo",
+          "effects": {
+            "flags": {
+              "hasPhoto": true
+            },
+            "inventoryAdd": [
+              "Asset receipt photo"
+            ],
+            "memory": [
+              "User ne Tara ko bahar bhejne se pehle 'Asset Receipt #26' ka photo le liya."
+            ]
+          }
+        },
+        {
+          "id": "c_ghar",
+          "text": "Kuch mat karo. Lifafa wapas rakho. Darwaaza band. Tum rider ho.",
+          "keywords": [
+            "nahi",
+            "band",
+            "mat",
+            "chhodo",
+            "kuch",
+            "theek"
+          ],
+          "next": "s3_leave",
+          "shortLabel": "Kuch mat karo",
+          "effects": {
+            "relationships": {
+              "tara": -25
+            },
+            "flags": {
+              "walkedOut": true
+            },
+            "memory": [
+              "User ne 304 ka darwaaza band kiya aur kuch na karke nikal gaya."
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "id": "s3_exit_run",
+      "title": "Seedhi Ke Peeche Ka Raasta",
+      "narration": [
+        "*Emergency exit: ek store room, ek khidki, aur 27 seedhiyan neeche. Tumhare haath mein receipt, bag mein lifafa ka 40 hazaar — jise tum chhodna chahte ho par rakhna bhi, kyunki 40 hazaar 'cash' hai aur 'cash' hi 'asset' hai.*",
+        "*Store room mein ek aadmi baitha hai — chhota, 19 saal ka, uniform mein, aur haath mein 2 tray. Woh tumhe dekhta hai. Tum use dekhte ho. 2 second.*",
+        "Bellboy: \"Bhaiya... aap 304 se? Unhone kaha tha koi aayega. Aap jaate waqt ye bag le jaana — 1st floor ke 'Mr. Z' ko. Unhone 'priority' bola. Mera kaam khatam ho jaayega.\"",
+        "*Tumhe 'Mr. Z' ka naam 3 second pehle hotel ki register mein dikha tha — 'Zambetari'. Aur tumhare haath mein 40 hazaar ka lifafa hai aur saamne ek baccha hai jo is khel ko 'shift khatam karne' ke taur par dekh raha hai.*",
+        "*upar se, dheere se, aur tum uski awaaz pehchan lete ho:*",
+        "Tara: \"'Bhaiya. Bag mat lo. Bag = 'delivery partner' = case mein naam. Mujhe 200 rupaye ka ek phone chahiye, bag nahi.'\"",
+        "*Bahar, parking mein, 2 aadmi SUV se utarte hain. Ek ke haath mein umbrella, doosre ke haath mein phone — camera on.*"
+      ],
+      "fallbackLines": [
+        "*Tumhara haath bellboy ke bag par se khisak jaata hai. Ya nahi. Tum decide karo.*",
+        "*'You are 180m off-route. Rerouting. 🔁' — aur tumhe hasi aati hai, bilkul ajeeb tarah se.*",
+        "*2:58. Function hall ki lights bujh rahi hain. 3:00 pe woh upar aayenge.*"
+      ],
+      "choices": [
+        {
+          "id": "c_nahi",
+          "text": "Bag mat lo — receipt lekar 2 minute mein tapri par Ishaan se milo",
+          "keywords": [
+            "nahi",
+            "mat",
+            "ishaan",
+            "le",
+            "mil",
+            "theek"
+          ],
+          "next": "s3_evidence",
+          "shortLabel": "Ishaan ke paas",
+          "effects": {
+            "memory": [
+              "User ne bellboy ka bag inkaar kar diya aur seedha tapri par PI Ishaan ke paas gaya."
+            ]
+          }
+        },
+        {
+          "id": "c_haa",
+          "text": "Bag le lo — aur usse police ke paas le jao, rider ke naam se nahi",
+          "keywords": [
+            "haan",
+            "le",
+            "bag",
+            "police",
+            "theek",
+            "karunga"
+          ],
+          "next": "s3_station",
+          "shortLabel": "Bag le lo",
+          "effects": {
+            "flags": {
+              "tookBag": true
+            },
+            "memory": [
+              "User ne bellboy ka bag le liya — ek risky decision jo uska naam case mein laa sakta hai."
+            ]
+          }
+        },
+        {
+          "id": "c_304",
+          "text": "Wapas 304 — Tara ko lekar service exit se bahar, abhi",
+          "keywords": [
+            "wapas",
+            "304",
+            "tara",
+            "exit",
+            "bahar",
+            "nikalo"
+          ],
+          "next": "s4_exit",
+          "shortLabel": "Tara ko le niklo",
+          "effects": {
+            "flags": {
+              "escortedTara": true
+            },
+            "relationships": {
+              "tara": 20
+            },
+            "memory": [
+              "User ne seedhiyon par wapas 304 ja kar Tara ko service exit se bahar nikaalne ka faisla kiya."
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "id": "s3_station",
+      "title": "Deccan Station, Register Aur Chai",
+      "narration": [
+        "*2:56. Station ka bahar 2 bench, ek tubelight, aur ek constable jo apna phone chala raha hai. Andar: Zambetari, shirt tucked, haath mein pen, saamne complaint register. Woh tumhe dekhte hue uthte nahi. 'Baithe beta'.*",
+        "Inspector Zambetari: \"Beta, complaint likhwa do. 2 din mein status aa jaayega. Trust the system.\"",
+        "*Tum apne phone ki 12-minute clip aur 'Asset Receipt #26' ka photo dikhate ho. Zambetari 3 second dekhte hain. Phir register par likhte hain. Tum padh lete ho: 'Misunderstanding at hotel, parties known. Civil matter.'*",
+        "Inspector Zambetari: \"Beta, yeh civil matter hai. Dono taraf 'consent' hai — dekho na, 'asset receipt' hai. File number de denge. Ghar jao, neend poori karo. Kal 11 baje status.\"",
+        "*Tumhare muh se nikalta hai: 'Woh andar se darwaaza band karke chillayi hai, sir.' Aur tum khud sunte ho ki tumhari awaaz kaisi hai: 26 saal ka aadmi, raat 3 baje, thoda rote hue jaisa.*",
+        "Inspector Zambetari: \"Beta, yahan 62 complaint aati hain raat ko. Tumhara case 'likhwa diya'. Ab jaao. Aur haan — phone se record hata dena. Data protection ka rule hai. Tumhare against bhi lag sakta hai.\"",
+        "*Bahar, gate ke picche, ek admi khada hai — shirt ke 2 button khule, haath mein cutting ka glass. Woh tumhe 3 second dekhta hai. Tum usse pehchan lete ho: Ishaan. Woh andar nahi aayega. Abhi nahi.*"
+      ],
+      "fallbackLines": [
+        "*Register ke 'entries' page par tumhe ek naam dikhta hai: 'Tara J. — Nashik — N/A'. Ek aur entry, 3 hafte purani, 2 aur naam. Teeno 'civil matter'.*",
+        "Inspector Zambetari: \"Beta, ek cheez sach bolun? Kal subah yeh file 'forward' ho jaayegi. Aur forward matlab: gayab. Tumhara nuksaan nahi, mera bhi. Jaao.\"",
+        "*Ishaan bahar glass khatam karta hai aur apne phone se ek photo click karta hai — tumhari, gate par. Tum chillate ho 'ye kya kar rahe ho?' Woh sirf kehta hai: 'Time stamp. Warna kal main bhi 'N/A' ho jaayunga.'*"
+      ],
+      "choices": [
+        {
+          "id": "c_ishaan",
+          "text": "Ishaan ke paas jao — register ki photo aur apni GPS log do",
+          "keywords": [
+            "ishaan",
+            "bahar",
+            "le",
+            "do",
+            "photo",
+            "gps"
+          ],
+          "next": "s3_evidence",
+          "shortLabel": "Ishaan ko do",
+          "effects": {
+            "flags": {
+              "gaveIshaan": true
+            },
+            "relationships": {
+              "ishaan": 20,
+              "zambetari": -15
+            },
+            "memory": [
+              "User ne Zambetari ke register ke baad apni GPS log aur receipt photo PI Ishaan Kulkarni ko de di."
+            ]
+          }
+        },
+        {
+          "id": "c_register",
+          "text": "Register ka photo lo, aur complaint 'forward' na hone do — 30 minute baithe raho",
+          "keywords": [
+            "photo",
+            "register",
+            "ruk",
+            "nahi",
+            "forward",
+            "baithe"
+          ],
+          "next": "e_paid",
+          "shortLabel": "Ruko, photo lo",
+          "effects": {
+            "memory": [
+              "User ne Zambetari ke saamne 30 minute tak register ka photo bachakar baithne ka faisla kiya."
+            ]
+          }
+        },
+        {
+          "id": "c_leja",
+          "text": "Chale jao. Yahan kuch nahi hoga. Aur tumhare paas 40 hazaar ka lifafa hai.",
+          "keywords": [
+            "chale",
+            "jaao",
+            "theek",
+            "nikal",
+            "ghar",
+            "mat"
+          ],
+          "next": "s3_leave",
+          "shortLabel": "Nikal jao",
+          "effects": {
+            "memory": [
+              "User ne station se kuch na karke nikalne ka faisla kiya — lifafa abhi bhi uske paas tha."
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "id": "s3_evidence",
+      "title": "Saboot: 12 Minute, 1 Photo, 24%",
+      "narration": [
+        "*Tapri, 3:04. Ishaan ek stool par baitha hai, haath mein do cup. Barish itni tez ki dhool aur chai ek hi cheez ban gayi hai. Woh tumhe kuch nahi poochhta — pehle 90 second chup rehta hai. Ye pehla aadmi hai jo aaj raat tumse kuch nahi maangta.*",
+        "PI Ishaan Kulkarni: \"Dikhao. Pehle phone — GPS timeline. Phir photo. Aur haan, agar tumne lifafa khola hai toh abhi batao. Main tumhare against nahi likhunga, par mujhe pata hona chahiye.\"",
+        "*Tum sab dikhate ho: 12 minute corridor, receipt ka photo, Zambetari ka register. Ishaan sirf ek cheez ke baad bolta hai — receipt.*",
+        "PI Ishaan Kulkarni: \"#26. Chaar hafte mein 26. Matlab 25 pehle ho chuke hain, aur 27 kal subah 5 baje hoga. Hub. Same app. Same 'verbal handover'.\"",
+        "PI Ishaan Kulkarni: \"Ab 2 raaste, aur dono ka keemat. Ek: tum 'delivery partner' ke taur par witness ban'ge — case strong, par tumhara naam file mein, 4 saal court, aur app ka 'handover failed' clause se 2,000 + review. Do: tum phone ka card mere paas rakh do, main 'anonymous tip' likh dunga — case weak rahega, par 27 ke waqt 3 police honge. Tum koi nahi hoge.\"",
+        "*Aur phir woh, pehli baar aaj raat, tumhari aankh mein dekhta hai.*",
+        "PI Ishaan Kulkarni: \"Ek baat aur. Main tum par bharosa nahi karta. Main tumhare phone par karta hoon — kyunki woh jhooth nahi bolta. Aur tumhe? Tumhe apne aap par bharosa hai?\"",
+        "*tumhara phone: 'Battery 24% ⚠️'*",
+        "Tokro: \"— aur tumhe ehsaas hota hai ki is app ke paas tumhara har data hai, aur ab uske paas tumhara har decision bhi.\""
+      ],
+      "fallbackLines": [
+        "PI Ishaan Kulkarni: \"Decision 5 minute mein. Kyunki 5 minute baad main 'sir' ko call karunga, aur tab se pehle mujhe pata hona chahiye ki mera source zinda hai ya nahi.\"",
+        "*Tapri wala do cutting laata hai. Ishaan unmein se ek tumhare saamne rakhta hai, bina kahe. Tumhe 4 minute se pehle kisi ne kuch nahi diya tha.*",
+        "PI Ishaan Kulkarni: \"Aur haan. Agar tumne Tara ko bus pakadwaya — toh woh witness nahi hai. Woh 'recovered person' hai. Case mein fark padta hai. Usse 200 rupaye mat dena. Uska ticket kaatwa do. Yahi kaafi hai.\""
+      ],
+      "choices": [
+        {
+          "id": "c_witness",
+          "text": "Naam do — 'witness' column mein. Chahe 4 saal court lage",
+          "keywords": [
+            "naam",
+            "witness",
+            "haan",
+            "do",
+            "file",
+            "likho"
+          ],
+          "next": "e_burn",
+          "shortLabel": "Witness bano",
+          "effects": {
+            "flags": {
+              "named": true
+            },
+            "memory": [
+              "User ne apna naam case mein diya — witness ke taur par, app ke clause ka keemat jhelne ke liye."
+            ]
+          }
+        },
+        {
+          "id": "c_anon",
+          "text": "Card Ishaan ko do, naam mat do — 'anonymous tip' se 27 bach jaayenge",
+          "keywords": [
+            "card",
+            "do",
+            "nahi",
+            "anonymous",
+            "mat",
+            "theek"
+          ],
+          "next": "s4_exit",
+          "shortLabel": "Anonymous raho",
+          "effects": {
+            "flags": {
+              "anonymous": true
+            },
+            "memory": [
+              "User ne phone ka card Ishaan ko de diya, apna naam chhupakar — ek 'anonymous tip' ban gaya."
+            ]
+          }
+        },
+        {
+          "id": "c_both",
+          "text": "Dono: card do, par pehle Tara ko 6:15 ki bus pakada do",
+          "keywords": [
+            "dono",
+            "bus",
+            "pehle",
+            "card",
+            "haan",
+            "theek"
+          ],
+          "next": "s4_exit",
+          "shortLabel": "Dono karo",
+          "requiresFlag": "escortedTara",
+          "effects": {
+            "flags": {
+              "named": true
+            },
+            "memory": [
+              "User ne pehle Tara ko bus pakadwaya, phir Ishaan ko card diya aur apna naam witness ke taur par likhwaya."
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "id": "s3_leave",
+      "title": "Ghar Ka Rasta, 12 Minute Ka Clip",
+      "narration": [
+        "*3:12. Tumhari scooter barish cheerte hue. App: 'Delivery complete. Earnings ₹20,000 credited 🎉'. Tumhe 3 baar padhna padta hai. 20,000. Tumhare mahine ka target 62,000 hai.*",
+        "*Signal par tumhara helmet ka camera abhi bhi on hai. Tumhe uske baare mein 2:47 se pata hai. Tum abhi tak band nahi karte, kyunki band karne ka matlab hai tumne dekha. Aur dekhne ka matlab hai...*",
+        "*Phone: Guddu Bhai ka message. 'Bhai, tu theek hai? Kuch bola nahi toh mat bata. Bas ek kaam — kal se 'priority' pe mat aa. Mera suggestion nahi, request hai.'*",
+        "*Aur agle hi pal ek aur message, unknown number se, 1 line: 'Bhaiya, 6:15 cancel ho gaya. Main 2:30 se bus stand par hoon. Aapne darwaaza khol liya tha, isliye likh rahi hoon. Kuch mat kijiye. Bas ye jaan lijiye ki aap ne mujhe zinda chhoda hai — bina kuch kiye. — T.'*",
+        "*Signal green hota hai. Peeche ki car horn bajati hai. Tum aage nahi badhte. Tum 11 second tak wahin khade rehte ho, aur phir U-turn lete ho.*"
+      ],
+      "fallbackLines": [
+        "*Hotel ke 1st floor ka camera, jo chal raha hai, tumhe U-turn lete hue dikhata hai. 3:14. Ye frame case ka hissa banega — chahe tum chaho ya na chaho.*",
+        "*App: 'Rider off-route 🙁 This may affect your tier.' Tum pehli baar app ko band nahi karte — tum uska camera permission 'only while using' kar dete ho.*",
+        "*Bus stand par 2 aadmi khade hain, aur ek counter ke paas ek ladki — 24 saal, bhaari coat, aur ek ticket. Counter wala usse kuch bol raha hai: 'cancel OTP'. Woh sun rahi hai. Hil nahi rahi.*"
+      ],
+      "choices": [
+        {
+          "id": "c_bus_stand",
+          "text": "Bus stand jao — ticket kaatwa do, kuch nahi bolo, chale jao",
+          "keywords": [
+            "bus",
+            "ticket",
+            "stand",
+            "kaato",
+            "jaao",
+            "theek"
+          ],
+          "next": "s4_exit",
+          "shortLabel": "Ticket kaatwa do",
+          "effects": {
+            "relationships": {
+              "tara": 20
+            },
+            "memory": [
+              "User ne bus stand jakar Tara ka ticket kaatwaya — kuch na bolkar, wapas chala gaya."
+            ]
+          }
+        },
+        {
+          "id": "c_evidence_now",
+          "text": "Bus stand se seedha tapri — Ishaan ko card do, witness bano",
+          "keywords": [
+            "ishaan",
+            "tapri",
+            "card",
+            "do",
+            "witness",
+            "abhi"
+          ],
+          "next": "s3_evidence",
+          "shortLabel": "Ishaan ke paas",
+          "effects": {
+            "memory": [
+              "User ne bus stand se seedha tapri ja kar Ishaan ko evidence dene ka faisla kiya."
+            ]
+          }
+        },
+        {
+          "id": "c_ghar_final",
+          "text": "Ghar jao. Kal 6 baje shift. Ye kahani tumhari nahi hai.",
+          "keywords": [
+            "ghar",
+            "so",
+            "nahi",
+            "kal",
+            "shift",
+            "mat"
+          ],
+          "next": "e_paid",
+          "shortLabel": "Ghar jao",
+          "effects": {
+            "memory": [
+              "User ne sab chhoda, ghar gaya, aur agli subah 6 baje shift join ki."
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "id": "s4_exit",
+      "title": "6:15 Ka Ticket",
+      "narration": [
+        "*3:26, hotel ke service exit ke bahar. Barish kam hui hai, par sadak abhi bhi nadi hai. Tara tumhare saamne khadi hai — uske kandhe par ek chhota bag, haath mein 6:15 ka ticket, jo ab 'confirmed' hai. Tumne lobby ka phone uthaya, night manager ko 200 rupaye diye, aur 'hotel guest ka ticket reissue' ka jhooth bola — pehla jhooth jo tumne kisi ke bachaane ke liye bola.*",
+        "Tara: \"Bhaiya. Main aapko thank you nahi bolungi. Aapne mujhe 40 hazaar ka 'asset' se 'main' bana diya — 2 line ke liye, 30 minute mein. Thank you kehne se bada kaam hai.\"",
+        "Tara: \"Do kaam karo. Ek: Ishaan ko card do. Do: mera naam kahin mat likhna. Main 4 mahine baad witness banungi, jab mera loan khatam hoga. Tab tak main kisi ki gawahi nahi, sirf ek naam hoon.\"",
+        "Tara: \"Aur haan. Aap ab 'rider' nahi rahoge. App tumhe 'handover failed' bolegi. Hub tumhe 'disruptive' bolega. Aur 18 hazaar ka 'incentive' 2 hafte mein wapas maangega. Ye sab sach hai. Aapko pata hona chahiye.\"",
+        "*Uske baad woh jaati hai. Bina mudé. Tum dekh rahe ho ki woh 3 baar mudti hai, par har baar pehle, jab tak tum dekh rahe hote ho — aur chauthi baar, jab tum phone par Ishaan ko message kar rahe hote ho, woh mud'ti hai.*",
+        "*3:31. Function hall ke 2 aadmi hotel se bahar aate hain, haath mein khaali tray. Unhein ehsaas ho chuka hai. Tumhare paas 5 minute hain, ek scooter, aur 22% battery.*"
+      ],
+      "fallbackLines": [
+        "*Tara ja chuki hai. Tumhara haath ab kaanp'ta nahi — pehli baar aaj raat.*",
+        "*'⚠️ Handover failed. ₹2,000 deduction initiated. Your tier is under review (90 days).'*",
+        "Tokro: \"— 20,000 mein se 2,000. Tum hanste ho. Koi nahi sunta.\"",
+        "*Ishaan ka reply aata hai, ek line: 'Tapri pe. 4 min. Card lao, naam mat lo. Ya naam leke aao — dono theek. Par aao.'*"
+      ],
+      "choices": [
+        {
+          "id": "c_anon_end",
+          "text": "Card Ishaan ko do, naam chhupao — 27 kal subah bach jaayenge, tum gayab",
+          "keywords": [
+            "card",
+            "do",
+            "nahi",
+            "anonymous",
+            "mat",
+            "le"
+          ],
+          "next": "e_clean",
+          "shortLabel": "Anonymous do",
+          "effects": {
+            "memory": [
+              "User ne card Ishaan ko dekar apna naam chhupa diya — 27 ka order kal subah 'tip' se bach gaya."
+            ]
+          }
+        },
+        {
+          "id": "c_named_end",
+          "text": "Card + apna naam: witness. Chahe app 2,000 kaate aur court 4 saal le",
+          "keywords": [
+            "naam",
+            "witness",
+            "do",
+            "haan",
+            "file",
+            "likho"
+          ],
+          "next": "e_burn",
+          "shortLabel": "Naam likhwao",
+          "effects": {
+            "flags": {
+              "named": true
+            },
+            "memory": [
+              "User ne Ishaan ke saamne apna naam witness ke taur par likhwa liya."
+            ]
+          }
+        },
+        {
+          "id": "c_paid_end",
+          "text": "Card ghar par chhupao. Hub ka 'review' jhelo. Zindagi chalti rahe.",
+          "keywords": [
+            "ghar",
+            "rakho",
+            "chhupao",
+            "theek",
+            "life",
+            "mat"
+          ],
+          "next": "e_paid",
+          "shortLabel": "Card chhupao",
+          "effects": {
+            "memory": [
+              "User ne card apne paas rakh liya aur sab kuch jhagne ka faisla kiya."
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "id": "e_burn",
+      "title": "Naam Ke Saath",
+      "narration": [
+        "*3:44. Tapri. Tum Ishaan ke saamne baithe ho, aur tumne apna naam diya. Statement: 6 page, 2 hour. Tumhari awaaz 4 baar toot'ti hai — aur har baar Ishaan ruk jaata hai, aur poochhta hai: 'paani?'. Kisi aur ne poocha hota toh tum aur toot'te.*",
+        "*Kal subah 5:04 — '27' ka order hub ke queue mein 'cancelled' dikhta hai. 2 log, 1 girl 19 saal, Nashik. Teeno 'recovered'. Ek naam, 'Mr. Z.', arrest. Doosra 'absconding'.*",
+        "*Tumhara account: 2,000 cut, tier review 90 din, 1 'final warning'. App ne tumhe 4 baar 'partner' kaha hai, aur ek baar bhi 'thank you' nahi.*",
+        "*subah 7:11, call, 4 second:*",
+        "Guddu Bhai: \"'Bhai. Main jaanta hoon. Main bhi bolunga. 2 hafte baad. Abhi 2 bachche hain ghar pe. 2 hafte, bhai. Bas.'\"",
+        "*Tara ka message, 4 hafte baad: 'Bhaiya. Loan khatam. Witness banungi. Ek shart: aapko court mein nahi aana. Main akele jaungi. Aap bus chalaao. Yahi kaafi hai. Aur — 6:15 ka ticket abhi bhi mere paas hai. Cancel nahi kiya.'*",
+        "*Case: 4 saal. Tumhara rating: 4.6. Tumhara naam: 6 page. Aur tumhare andar ek aisi shanti jo 3 saal ki 4.9 rating mein nahi thi.*",
+        "*Aur haan — 'Night Priority' tier band ho gaya. 62 riders ko 3 din baad ek email aaya: 'We have removed a category based on feedback.' Koi feedback nahi tha. Sirf tumhara naam tha.*"
+      ],
+      "fallbackLines": [
+        "*Kahani poori — naam ke saath.*"
+      ],
+      "choices": [],
+      "isEnding": true,
+      "endingId": "end_named"
+    },
+    {
+      "id": "e_clean",
+      "title": "Gayab Ka Kaagaz",
+      "narration": [
+        "*Card Ishaan ke haath mein. Tumhara naam kahin nahi. 5:40 tak app ka GPS log overwrite ho jaata, par Ishaan ne 3:52 par log 'download' kar liya — ek constable, ek USB, aur ek 'anonymous tip' ka number.*",
+        "*'27' kal subah cancel hota hai. 40 log 'recovered' — 3 din ka kaagaz, 4 mahine ka process, 1 witness jo kabhi kisi ke saamne nahi aati (Tara ne apna decision nibhaaya).*",
+        "*Tumhara account: 'handover failed' nahi, kyunki 'delivered' record hai. 20,000 bhi nahi, kyunki 18,000 'tip' ka source 'unverified' mark ho gaya. Tumhe 3 hafte tak 18,000 ka 'recover' notice milta hai. Tum nahi dete. Kuch nahi hota.*",
+        "*Ishaan ek baar milta hai, 6 hafte baad, wahi tapri. Woh kehta hai: 'Tumhara naam maine sirf ek jagah likha hai — 'source, verified'. Tumhe pata hai iska matlab? Matlab case chalega, aur tum safe ho. Matlab mujhe bhi pata hai maine tumhe bachaya hai ya becha. Theek. Chal, jao.'*",
+        "*Aur tum jaate ho. Har raat. 2:11, 3:00, 5:40. Tumhare bag mein khaali lifafa hamesha hota hai — 'weight check' ke liye, tum kehte ho. Tumhe pata hai tum jhooth bol rahe ho. Tumhe pata hai yeh theek hai.*",
+        "*Guddu Bhai, 2 hafte baad, hub se nikalta hai — resignation, 1 page. Usne Ishaan ko 4 riders ke naam de diye. App ne usse 'exit feedback' bola. Tumhe 3 din baad ek message aata hai: 'Bhai. Ab so sakta hoon. Shukriya. — G.'*"
+      ],
+      "fallbackLines": [
+        "*Kahani poori — khaamosh jeet.*"
+      ],
+      "choices": [],
+      "isEnding": true,
+      "endingId": "end_clean"
+    },
+    {
+      "id": "e_paid",
+      "title": "20,000 Ka Sooda",
+      "narration": [
+        "*5:40. App: 'Handover failed. ₹2,000 deducted. 18,000 flagged for recovery. Tier review: 90 days.' Tum apne kamre mein baithe ho, phone 0%. Card drawer mein hai — 12 minute ki clip, abhi bhi.*",
+        "*Tum kuch nahi karte. Aur duniya kuch nahi karti. Signal pe U-turn nahi liya, isliye Tara ne khud apna kaam kiya: woh 6:15 ki bus pakad gayi — usne counter wale ko 400 diye, ticket kaata, aur uski behen ne use station se uthaya. Kuch bhi dramatic nahi. Bus. Ghar. Neend.*",
+        "*2 hafte baad: ek order usi hotel ke 2nd floor se. Tumhe 2 second lagta hai accept karne mein. Tum accept karte ho. 18,000 ka 'incentive' dobara aata hai. Tum 2,000 ka 'recovery' auto-debit se chhod dete ho.*",
+        "*'Welcome back, Ankit! 🔥 You're on fire again.'*",
+        "*Aur ek raat — 3 mahine baad, 2:11, barish — tumhara phone par 'unknown number' se ek line aati hai: 'Bhaiya. Loan abhi bhi hai. Main witness nahi bani. Aapne card kabhi nahi diya. Koi baat nahi. Bas ye jaan lijiye ki aapne mujhe sirf 20,000 mein nahi, 2 minute mein nahi — 12 minute mein chhoda hai. Woh clip aapke paas hai. Aaj bhi hai. Aap decide karo, agli baar. — T.'*",
+        "*Tum phone band kar dete ho. Tum shift khatam karte ho. Tum ghar aate ho. Card ab bhi drawer mein hai. Aur tumhe pata hai — yahi sabse mehnga hissa hai: ki woh ab bhi wahin hai.*"
+      ],
+      "fallbackLines": [
+        "*Kahani poori — har cheez chukayi gayi, sirf ek nahi.*"
+      ],
+      "choices": [],
+      "isEnding": true,
+      "endingId": "end_paid"
+    }
+  ],
+  "endings": [
+    {
+      "id": "end_named",
+      "title": "Naam Ke Saath",
+      "description": "Tumne witness banna chuna: 2,000 gaye, tier gaya, case aaya. Tara ne shart rakhi — woh akele court jaayegi, tum bus chalao.",
+      "tone": "heroic"
+    },
+    {
+      "id": "end_clean",
+      "title": "Gayab Ka Kaagaz",
+      "description": "Anonymous tip se '27' cancel hua, 40 log recovered. Tumhara naam sirf 'source, verified' bana raha.",
+      "tone": "bittersweet"
+    },
+    {
+      "id": "end_paid",
+      "title": "20,000 Ka Sooda",
+      "description": "Paisa aaya, card drawer mein pada hai. Tara zinda hai, par witness nahi bani. Abhi nahi.",
+      "tone": "dark"
+    }
+  ]
+}
