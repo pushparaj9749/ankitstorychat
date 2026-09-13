@@ -353,15 +353,27 @@ export interface ChatMessage {
   createdAt: string;
 }
 
-export type MemoryKind = 'story' | 'character' | 'world' | 'preference';
+/**
+ * 'episode'  = one-line trace of a turn (auto-logged, so nothing is ever lost)
+ * 'summary'  = rolling compressed digest of everything folded before it
+ */
+export type MemoryKind = 'story' | 'character' | 'world' | 'preference' | 'episode' | 'summary';
 
 export interface MemoryEntry {
   id: string;
+  /** Playthrough id, or '*' for cross-story (global) memories. */
   playthroughId: string;
   kind: MemoryKind;
   text: string;
+  /** 1..9. Reinforced whenever the memory actually gets used in a turn. */
   importance: number;
   createdAt: string;
+  /** Normalized content key — dedupes repeated facts on insert. */
+  hash?: string;
+  /** Times this memory was selected into a prompt. */
+  hits?: number;
+  /** Folded into the digest: kept on disk, excluded from retrieval. */
+  archived?: boolean;
 }
 
 export interface Favorite {
@@ -400,6 +412,8 @@ export interface DataExport {
   memories: MemoryEntry[];
   favorites: Favorite[];
   stats: LocalStats | null;
+  /** Rolling memory digests, keyed by playthrough id (additive; older files lack it). */
+  memoryDigests?: Record<string, string>;
 }
 
 /* ------------------------------------------------------------------ */

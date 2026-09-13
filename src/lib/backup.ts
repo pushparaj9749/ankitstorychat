@@ -21,6 +21,7 @@ import {
   listProviders,
   saveProfile,
   saveSettings,
+  kvEntries,
   kvSet,
   getDb,
 } from './db';
@@ -28,7 +29,7 @@ import { cachePath, docPath, readText, writeText } from './files';
 import { nowIso } from './utils';
 
 export async function buildExport(): Promise<DataExport> {
-  const [profile, settings, providers, playthroughs, messages, memories, favorites, stats] =
+  const [profile, settings, providers, playthroughs, messages, memories, favorites, stats, digests] =
     await Promise.all([
       getProfile(),
       getSettings(),
@@ -38,6 +39,7 @@ export async function buildExport(): Promise<DataExport> {
       listAllMemories(),
       listFavorites(),
       getStats(),
+      kvEntries('memsum:'),
     ]);
   return {
     format: 'kissa-backup',
@@ -52,6 +54,7 @@ export async function buildExport(): Promise<DataExport> {
     memories,
     favorites,
     stats,
+    memoryDigests: digests,
   };
 }
 
@@ -171,14 +174,23 @@ export async function importBackup(d: DataExport): Promise<void> {
   }
   for (const m of d.memories ?? []) {
     await db.runAsync(
-      'INSERT INTO memories (id, playthrough_id, kind, text, importance, created_at) VALUES (?, ?, ?, ?, ?, ?)',
+      `INSERT OR IGNORE INTO memories (id, playthrough_id, kind, text, importance, created_at,
+        hash, hits, archived)
+       VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)`,
       m.id,
       m.playthroughId,
       m.kind,
       m.text,
       m.importance,
       m.createdAt,
+      m.hash ?? null,
+      m.hits ?? 0,
+      m.archived ? 1 : 0,
     );
+  }
+  // Memory digests live in kv under memsum:<playthroughId>.
+  for (const [key, value] of Object.entries(d.memoryDigests ?? {})) {
+    if (key.startsWith('memsum:') && typeof value === 'string') await kvSet(key, value);
   }
   for (const f of d.favorites ?? []) {
     await db.runAsync('INSERT INTO favorites (story_id, created_at) VALUES (?, ?)', f.storyId, f.createdAt);

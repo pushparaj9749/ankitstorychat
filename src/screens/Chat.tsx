@@ -37,19 +37,22 @@ import {
   applyEffects,
   buildContext,
   getScene,
+  HISTORY_HEADROOM,
   parseAssistantResponse,
   progressEstimate,
+  shortTermWindowOf,
 } from '../lib/engine';
 import {
-  extractPreferenceNotes,
+  consolidateMemories,
+  logEpisode,
+  recallForTurn,
   rememberMany,
-  selectMemories,
+  rememberPreferences,
 } from '../lib/memory';
 import {
   countMessages,
   getPlaythrough,
   insertMessage,
-  listMemories,
   listMessages,
   listRecentMessagesAsc,
   updatePlaythrough,
@@ -193,7 +196,8 @@ export function Chat({ navigation, route }: Props) {
     } else {
       await updatePlaythrough(next);
     }
-    if (memoryNotes.length) await rememberMany(pt.id, memoryNotes, 'story', 2);
+    // importance 3: curated facts must outrank episodic log lines (importance 1).
+    if (memoryNotes.length) await rememberMany(pt.id, memoryNotes, 'story', 3);
     return { pt: next, sceneChanged };
   }
 
@@ -202,13 +206,17 @@ export function Chat({ navigation, route }: Props) {
     const apiKey = await getApiKey(activeProvider.id);
     if (!apiKey) throw new Error('API key missing. Re-enter it in AI Add-ons.');
 
-    const [allMemories, history] = await Promise.all([
-      listMemories(pt.id, 60),
-      listRecentMessagesAsc(pt.id, 30),
-    ]);
-    const relevant = selectMemories(allMemories, userText, 12);
+    // Load one window-sized slab plus headroom, so `shortTermWindow` is honoured in full.
+    const recent = await listRecentMessagesAsc(pt.id, shortTermWindowOf(b) + HISTORY_HEADROOM);
+    // `send()` already stored this turn's user line — don't feed it twice.
+    const history = recent.filter(
+      (m, i) => !(i === recent.length - 1 && m.role === 'user' && m.text === userText),
+    );
+    // Rank memories against the whole recent exchange, not just this one line.
+    const query = [...history.slice(-2).map((m) => m.text), userText].join('\n');
+    const { memories: relevant, summary } = await recallForTurn(pt.id, query);
     const ctx = buildContext(
-      { bundle: b, profile, playthrough: pt, memories: relevant, history },
+      { bundle: b, profile, playthrough: pt, memories: relevant, history, summary },
       profile.ageGroup,
     );
     const raw = await chatCompletion(
@@ -223,6 +231,9 @@ export function Chat({ navigation, route }: Props) {
     const parsed = parseAssistantResponse(raw);
     const displayText = parsed.displayText || '...';
 
+    // Episodic trace: every turn stays retrievable even if no fact was volunteered.
+    void logEpisode(pt.id, userText, displayText).catch(() => undefined);
+
     const saved = await persistAssistantLines(
       pt,
       [{ role: 'assistant', speaker: parsed.speaker, text: displayText }],
@@ -234,6 +245,13 @@ export function Chat({ navigation, route }: Props) {
       parsed.effects,
       parsed.memoryNotes,
     );
+    // Fold the oldest log lines into the rolling digest — every few turns, off the hot path.
+    if (next.messageCount % 8 === 0) {
+      const summarize = (prompt: string) =>
+        chatCompletion(activeProvider, apiKey, [{ role: 'user', content: prompt }], { timeoutMs: 30000 });
+      void consolidateMemories(pt.id, summarize).catch(() => undefined);
+    }
+
     let extra: ChatMessage[] = [];
     if (sceneChanged) {
       const sc = getScene(b, next.currentSceneId);
@@ -267,8 +285,8 @@ export function Chat({ navigation, route }: Props) {
       setInput('');
       await updateStats({ messagesSent: 1 });
 
-      const prefs = extractPreferenceNotes(text);
-      if (prefs.length) await rememberMany(playthrough.id, prefs, 'preference', 2);
+      // Learned-about-the-reader facts are global: they survive into every other story.
+      await rememberPreferences(text);
 
       const result = await aiTurn(playthrough, bundle, text);
       setPlaythrough(result.next);

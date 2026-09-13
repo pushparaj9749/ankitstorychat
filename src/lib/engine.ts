@@ -20,6 +20,7 @@ import type {
 import { createInitialState } from '../types';
 import { teenSafetyGuidance } from './ageGate';
 import { isFullyFadedLine, matchSpeakerPrefix } from './markup';
+import { MAX_MEMORY_NOTES, renderMemoryLine } from './memoryCore';
 import { clamp, norm, tokens } from './utils';
 
 /* ---------------- scene helpers ---------------- */
@@ -131,7 +132,7 @@ function parseStateBlock(jsonText: string): ChoiceEffects | undefined {
     if (typeof obj.scene === 'string') effects.scene = obj.scene;
     if (typeof obj.endStory === 'string') effects.endStory = obj.endStory;
     if (Array.isArray(obj.memory)) {
-      effects.memory = obj.memory.filter((x): x is string => typeof x === 'string').slice(0, 5);
+      effects.memory = obj.memory.filter((x): x is string => typeof x === 'string').slice(0, MAX_MEMORY_NOTES);
     }
     return effects;
   } catch {
@@ -167,7 +168,7 @@ export function parseAssistantResponse(raw: string): ParsedAssistant {
       if (parsed.location) merged.location = parsed.location;
       if (parsed.scene) merged.scene = parsed.scene;
       if (parsed.endStory) merged.endStory = parsed.endStory;
-      if (parsed.memory) memoryNotes.push(...parsed.memory.slice(0, 5));
+      if (parsed.memory) memoryNotes.push(...parsed.memory.slice(0, MAX_MEMORY_NOTES));
     }
     return '';
   });
@@ -225,6 +226,19 @@ export function matchChoice(freeText: string, choices: SceneChoice[]): SceneChoi
 
 /* ---------------- prompt building ---------------- */
 
+/** Default sliding window; stories can override via memory.json.shortTermWindow. */
+export const DEFAULT_SHORT_TERM_WINDOW = 16;
+export const MAX_SHORT_TERM_WINDOW = 48;
+
+/** Extra older messages to load from the DB so a big window is actually filled. */
+export const HISTORY_HEADROOM = 8;
+
+/** Short-term window for a bundle, clamped to a sane range. */
+export function shortTermWindowOf(bundle: StoryBundle): number {
+  const wanted = bundle.memory?.shortTermWindow || DEFAULT_SHORT_TERM_WINDOW;
+  return clamp(wanted, 4, MAX_SHORT_TERM_WINDOW);
+}
+
 function stateDigest(state: StoryState): string {
   const parts: string[] = [];
   const rel = Object.entries(state.relationships);
@@ -258,8 +272,11 @@ export interface PromptInput {
   bundle: StoryBundle;
   profile: LocalProfile;
   playthrough: Playthrough;
+  /** Ranked long-term facts chosen for this turn (see memoryCore.selectRelevant). */
   memories: MemoryEntry[];
   history: ChatMessage[];
+  /** Rolling compressed digest of everything folded out of the window. */
+  summary?: string;
 }
 
 export function buildSystemPrompt(input: PromptInput, ageGroup: AgeGroup): string {
@@ -275,8 +292,19 @@ export function buildSystemPrompt(input: PromptInput, ageGroup: AgeGroup): strin
 
   const memLines =
     memories.length > 0
-      ? memories.map((m) => `- [${m.kind}] ${m.text}`).join('\n')
+      ? memories.map(renderMemoryLine).join('\n')
       : bundle.memory.seedMemories.map((m) => `- ${m}`).join('\n');
+
+  const summaryBlock = input.summary?.trim()
+    ? `STORY SO FAR (compressed memory — already known, never restate it):\n${input.summary.trim()}\n\n`
+    : '';
+
+  const saveHints =
+    bundle.memory.extractionHints?.length
+      ? bundle.memory.extractionHints.join('; ')
+      : 'anything that shifts a relationship, reveals a secret, changes the reader\'s standing, or is promised';
+  const neverHints =
+    bundle.memory.neverRemember?.length ? bundle.memory.neverRemember.join('; ') : 'real-world personal data';
 
   const teenBlock =
     ageGroup === '12-17'
@@ -305,8 +333,15 @@ ${sceneDigest(scene)}
 STORY STATE SO FAR:
 ${stateDigest(playthrough.state)}
 
-WHAT YOU REMEMBER ABOUT THIS READER'S JOURNEY:
+${summaryBlock}WHAT YOU REMEMBER ABOUT THIS READER'S JOURNEY (most relevant first — this is ALREADY known, so never repeat it back, just act on it):
 ${memLines}
+
+MEMORY DISCIPLINE — what belongs in the hidden "memory" array:
+- Worth saving: ${saveHints}
+- Never save: ${neverHints}
+- Also save whatever the reader tells you about themselves (their name, likes, fears, promises, how they want to be treated) — those facts outlive this story.
+- Save a fact only if it will still matter 20 turns from now. Write each one as a short standalone sentence (max 120 chars) naming the people involved, e.g. "Aarav ne Myra ko chai ka glass lautane ka wada kiya."
+- If a previously remembered fact turns out to be wrong or changes, save the corrected version as a new memory.
 ${teenBlock}
 
 HOW TO RESPOND:
@@ -318,11 +353,11 @@ HOW TO RESPOND:
 3. Respect the current scene and its available directions; do NOT teleport the plot or invent contradicting events. If the reader does something wild, react believably and steer back toward the scene.
 4. NEVER speak as the reader. NEVER decide the reader's actions for them.
 5. When addressing the reader, use "${profile.nickname}" occasionally.
-6. After your visible reply, append a hidden state block ONLY when something changed (relationship shift, item gained/lost, location change, important flag, scene move, story end). Format exactly:
+6. After your visible reply, append a hidden state block when something changed (relationship shift, item gained/lost, location change, important flag, scene move, story end) OR when a durable new fact happened (a promise, a secret, a name, a decision). Format exactly:
 \`\`\`kissa-state
 {"relationships": {"characterId": +5}, "flags": {"gateOpened": true}, "inventoryAdd": ["item-id"], "location": "Place name", "scene": "next-scene-id", "endStory": "ending-id", "memory": ["short fact to remember"]}
 \`\`\`
-Omit keys that didn't change. "scene" must be one of the story's scene ids (or omit to stay). "endStory" only at a true ending. Keep memory facts short (under 140 chars).
+Omit keys that didn't change. "scene" must be one of the story's scene ids (or omit to stay). "endStory" only at a true ending. Keep memory facts short (under 120 chars), up to ${MAX_MEMORY_NOTES} per reply — include every distinct durable fact from this turn, do not hold back. Nothing you write in "memory" is shown to the reader.
 7. If the reader greets you out-of-story ("hi", "hello"), stay in character briefly and pull them back into the scene.`;
 }
 
@@ -332,7 +367,7 @@ export interface BuiltContext {
 }
 
 export function buildContext(input: PromptInput, ageGroup: AgeGroup): BuiltContext {
-  const windowSize = Math.max(4, Math.min(40, input.bundle.memory.shortTermWindow || 14));
+  const windowSize = shortTermWindowOf(input.bundle);
   const history = input.history.slice(-windowSize);
   const messages: BuiltContext['messages'] = [];
   for (const m of history) {

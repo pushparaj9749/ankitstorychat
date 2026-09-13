@@ -27,7 +27,8 @@ moves the tale forward — with memory, relationships, branching, and multiple e
   *Pani @ 72*, *Gully Final*, *Night Courier* — download them from **Settings → Content
   Updates**, or straight from a story's page (an in-place **Download** button appears for
   not-yet-installed stories).
-- **Memory engine** — short-term window + story/character/world/preference memories + state effects.
+- **Memory engine** — sliding short-term window + per-turn episodic log + curated story/character/world
+  facts + cross-story preferences + a rolling "story so far" digest, all ranked into the prompt per turn.
 - **Backup/restore, local notifications, storage manager, AMOLED theme, sounds, haptics.**
 
 ---
@@ -69,7 +70,7 @@ moves the tale forward — with memory, relationships, branching, and multiple e
 | Data | Where |
 |---|---|
 | Profile, settings, stats, KV | SQLite `kv` |
-| Playthroughs, messages, memories | SQLite tables |
+| Playthroughs, messages, memories | SQLite tables (`memories`: hash/hits/archived, schema v4) |
 | Favorites, downloads, provider *metadata* | SQLite tables |
 | API keys | SecureStore (Keystore/Keychain) |
 | Downloaded story JSON | `documentDirectory/kissa-content/` |
@@ -81,6 +82,37 @@ moves the tale forward — with memory, relationships, branching, and multiple e
 - `content/stories/<id>/` — story packages (`story|characters|world|scenes|memory.json` + `assets/`).
 - The app fetches the manifest, compares versions, downloads newer packages, validates them, caches them.
 - **Private user data is NEVER written to GitHub.** Only public story content lives here.
+
+---
+
+## 🧠 Memory: how the narrator keeps track
+
+Memory is **local SQLite rows + retrieval scoring** — no vector store, no server, no embeddings.
+
+| Layer | What | Lives in | Prompt budget |
+|---|---|---|---|
+| Short-term | last `shortTermWindow` messages (clamped 4–48, default 16) | `messages` | verbatim |
+| Episodic | one auto-logged line **every turn** (`U: … \| …`) | `memories` kind=`episode`, importance 1 | ranked |
+| Curated | facts the narrator volunteered in the hidden state block (`"memory"` array) | `memories` kind=`story`, importance 3 | ranked + pinned |
+| Preferences | what the reader reveals about themselves (regex, works offline) | `memories` kind=`preference`, scope `*` | pinned |
+| Digest | rolling "story so far", folded from the oldest lines | SQLite `kv` → `memsum:<playthroughId>` | pinned section |
+
+Flow per send (`src/screens/Chat.tsx` → `src/lib/memory.ts`):
+
+1. `listRecentMessagesAsc(shortTermWindow + 8)` — headroom so the declared window is honoured in full.
+2. `listMemoryCandidates()` — UNION of three buckets (160 newest / 160 highest-importance / all pinned),
+   so a fact from turn 3 is still reachable at turn 900. Never `LIMIT newest-N`.
+3. `selectRelevant()` (pure, in `src/lib/memoryCore.ts`) scores every candidate as
+   `importance*2 + weighted keyword overlap with the last 3 turns + recency decay (12-day half-life) + hits`,
+   then fills a **3800-char** budget (max 28 entries). The digest and preferences always ride along.
+4. Selected rows are **reinforced** (`hits+1`, `importance+1` every 3rd hit, capped at 9) — what gets used, sticks.
+5. `putMemory()` refuses anything that looks like real-world PII and dedupes on the `UNIQUE(playthrough_id, hash)` index, so a repeated fact strengthens the existing row instead of duplicating it.
+6. Every 8th turn, `consolidateMemories()` folds the oldest 30 log lines (and, past 240 curated facts, the
+   oldest ones too) into the digest — via a small AI call, with a deterministic no-AI fallback. Folded rows are
+   only `archived = 1`: **nothing is ever deleted**, so recall can be re-expanded later.
+
+Story packs steer this: `memory.json`'s `extractionHints` and `neverRemember` are injected as a
+**MEMORY DISCIPLINE** block, so each pack decides what is worth remembering (and privacy stays enforced in code too).
 
 ---
 
@@ -103,7 +135,7 @@ content/stories/<id>/
   characters.json   # personality, voice, goals, sampleLine, knowledge…
   world.json        # premise, locations, factions, lore, RULES, objects
   scenes.json       # scenes: narration, choices{next,effects,requiresFlag}, endings
-  memory.json       # shortTermWindow, seedMemories, extractionHints, neverRemember
+  memory.json       # shortTermWindow, seedMemories, extractionHints, neverRemember (all enforced)
   assets/           # cover.png etc.
 ```
 
