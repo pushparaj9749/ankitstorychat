@@ -46,6 +46,17 @@ export function ContentUpdates(_props: Props) {
     void downloadedStoryIds().then(setDownloaded);
   }, []);
 
+  // Check once when the screen opens: arriving here and seeing an empty list is
+  // indistinguishable from "no new stories", so users concluded there was no
+  // way to download the OTA ones.
+  const autoChecked = React.useRef(false);
+  React.useEffect(() => {
+    if (autoChecked.current) return;
+    autoChecked.current = true;
+    void check();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
   async function check() {
     if (!profile || checking) return;
     setChecking(true);
