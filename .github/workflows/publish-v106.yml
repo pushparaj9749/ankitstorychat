@@ -1,0 +1,63 @@
+# TEMPORARY: publishes the APK already built by run 34748530059 (commit
+# d55bae0 == tag v1.0.6). Skips the 12-minute rebuild while we retry the
+# flaky release step. Deleted once v1.0.6 is published.
+name: Publish v1.0.6
+
+on:
+  push:
+    branches: ['arena/**']
+
+jobs:
+  publish:
+    name: Publish existing APK
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+      actions: read
+    steps:
+      - name: Download the APK built from the v1.0.6 commit
+        uses: actions/download-artifact@v4
+        with:
+          name: kissa-apk
+          run-id: 34748530059
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          path: dist-apk
+
+      - name: List artifact
+        run: ls -la dist-apk
+
+      - name: Verify the APK is self-contained
+        run: |
+          apk=$(ls -1 dist-apk/*.apk | head -n1)
+          unzip -l "$apk" | grep "assets/index.android.bundle" || {
+            echo "::error title=bundle-missing::no assets/index.android.bundle in $apk"; exit 1; }
+
+      - name: Publish with softprops
+        id: sp
+        continue-on-error: true
+        uses: softprops/action-gh-release@v2
+        with:
+          tag_name: v1.0.6
+          files: dist-apk/*.apk
+          generate_release_notes: true
+          body: |
+            ## Kissa v1.0.6 📖
+            Local-first AI story chat. No accounts, no coins, no message limits.
+            **[Download the APK below]** and install on Android 8.0+.
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Report softprops outcome
+        run: echo "::error title=softprops::outcome=${{ steps.sp.outcome }}"
+
+      - name: Fallback — publish with the GitHub CLI
+        if: steps.sp.outcome == 'failure'
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          set -e
+          gh release create v1.0.6 dist-apk/*.apk \
+            --title "v1.0.6" \
+            --generate-notes \
+            --verify-tag
+          echo "::error title=gh-cli::outcome=success"
