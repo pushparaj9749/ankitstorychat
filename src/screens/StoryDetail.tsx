@@ -9,7 +9,14 @@ import { Screen } from '../components/Screen';
 import { GradientButton } from '../components/GradientButton';
 import { AgeBadge, Avatar, GenreChip, SectionHeader } from '../components/bits';
 import { EmptyState, ErrorState, LoadingState } from '../components/states';
-import { getBundledCoverSource, getBundle, downloadStory, defaultManifestUrl } from '../content/loader';
+import {
+  getBundledCoverSource,
+  getBundle,
+  downloadStory,
+  defaultManifestUrl,
+  isStoryOnDevice,
+  StoryContentError,
+} from '../content/loader';
 import { AgeRestrictedError } from '../lib/ageGate';
 import { listPlaythroughsForStory, updateStats } from '../lib/db';
 import { createPlaythrough, playthroughLabel } from '../lib/playthrough';
@@ -57,6 +64,13 @@ export function StoryDetail({ navigation, route }: Props) {
       setNeedsDownload(false);
       setError(null);
       try {
+        // A story listed in the manifest but never downloaded goes straight to
+        // the download offer — no failed load, no "Couldn't open story" flash.
+        if (!(await isStoryOnDevice(storyId))) {
+          if (!alive) return;
+          setNeedsDownload(true);
+          return;
+        }
         const b = await getBundle(storyId, profile.ageGroup);
         if (!alive) return;
         setBundle(b);
@@ -65,8 +79,12 @@ export function StoryDetail({ navigation, route }: Props) {
         if (!alive) return;
         if (e instanceof AgeRestrictedError) setRestricted(true);
         else {
-          setError(e instanceof Error ? e.message : 'Could not open story.');
-          setNeedsDownload(!!meta && !!profile);
+          // Only "the package is not on this device" is recoverable by
+          // downloading. Corrupt data / no network are real errors — showing a
+          // Download button for those would just fail again.
+          const missing = e instanceof StoryContentError && e.code === 'missing';
+          setError(missing ? null : e instanceof Error ? e.message : 'Could not open story.');
+          setNeedsDownload(missing && !!meta && !!profile);
         }
       }
     })();
@@ -166,6 +184,48 @@ export function StoryDetail({ navigation, route }: Props) {
       </Screen>
     );
   }
+  // Checked BEFORE the generic error branch: a story whose package is simply
+  // absent is recoverable by downloading. Rendering the error first made this
+  // branch unreachable — OTA stories dead-ended on "Couldn't open story".
+  if (!bundle && needsDownload && meta) {
+    return (
+      <Screen padded={false}>
+        <ScrollView showsVerticalScrollIndicator={false}>
+          <View style={styles.coverWrap}>
+            {cover ? (
+              <Image source={cover} style={styles.cover} resizeMode="cover" />
+            ) : (
+              <View style={[styles.cover, { backgroundColor: `${meta.accentColor}44` }]} />
+            )}
+            <LinearGradient colors={['transparent', theme.bg]} style={styles.coverShade} />
+            <Pressable onPress={() => navigation.goBack()} style={styles.back} accessibilityLabel="Go back">
+              <Text style={styles.backText}>‹ Back</Text>
+            </Pressable>
+          </View>
+          <View style={styles.body}>
+            <Text style={[styles.title, { color: theme.text }]}>{meta.title}</Text>
+            <Text style={[styles.tagline, { color: theme.accent }]}>Ye nayi story abhi download nahi hui</Text>
+            <Text style={[styles.desc, { color: theme.textDim }]}>
+              Naye stories app update ke bina GitHub se aati hain. Neeche download karo — 5 second, aur
+              kahani hamesha ke liye offline ready.{' '}
+              {error ? `(Detail: ${error})` : ''}
+            </Text>
+            <View style={styles.gap}>
+              <GradientButton
+                title={`⬇ Download "${meta.title}" (~${meta.estimatedMinutes} min)`}
+                loading={downloading}
+                onPress={() => void downloadNow()}
+              />
+            </View>
+            {downloadStep ? (
+              <Text style={[styles.step, { color: theme.textDim }]}>{downloadStep}</Text>
+            ) : null}
+          </View>
+        </ScrollView>
+      </Screen>
+    );
+  }
+
   if (error || !meta) {
     return (
       <Screen>
@@ -178,45 +238,8 @@ export function StoryDetail({ navigation, route }: Props) {
       </Screen>
     );
   }
+
   if (!bundle) {
-    if (needsDownload && meta) {
-      return (
-        <Screen padded={false}>
-          <ScrollView showsVerticalScrollIndicator={false}>
-            <View style={styles.coverWrap}>
-              {cover ? (
-                <Image source={cover} style={styles.cover} resizeMode="cover" />
-              ) : (
-                <View style={[styles.cover, { backgroundColor: `${meta.accentColor}44` }]} />
-              )}
-              <LinearGradient colors={['transparent', theme.bg]} style={styles.coverShade} />
-              <Pressable onPress={() => navigation.goBack()} style={styles.back} accessibilityLabel="Go back">
-                <Text style={styles.backText}>‹ Back</Text>
-              </Pressable>
-            </View>
-            <View style={styles.body}>
-              <Text style={[styles.title, { color: theme.text }]}>{meta.title}</Text>
-              <Text style={[styles.tagline, { color: theme.accent }]}>Ye nayi story abhi download nahi hui</Text>
-              <Text style={[styles.desc, { color: theme.textDim }]}>
-                Naye stories app update ke bina GitHub se aati hain. Neeche download karo — 5 second, aur
-                kahani hamesha ke liye offline ready.{' '}
-                {error ? `(Detail: ${error})` : ''}
-              </Text>
-              <View style={styles.gap}>
-                <GradientButton
-                  title={`⬇ Download "${meta.title}" (~${meta.estimatedMinutes} min)`}
-                  loading={downloading}
-                  onPress={() => void downloadNow()}
-                />
-              </View>
-              {downloadStep ? (
-                <Text style={[styles.step, { color: theme.textDim }]}>{downloadStep}</Text>
-              ) : null}
-            </View>
-          </ScrollView>
-        </Screen>
-      );
-    }
     return (
       <Screen>
         <LoadingState label="Loading story…" />

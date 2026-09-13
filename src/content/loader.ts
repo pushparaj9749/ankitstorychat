@@ -43,10 +43,22 @@ import {
   removeDownloadRecord,
 } from '../lib/db';
 
+/**
+ * Why a story could not be used. Callers branch on this:
+ * - `missing`  → files are simply not on this device; a download will fix it.
+ * - `invalid`  → files exist but are corrupt; downloading again will not help
+ *                until the content source is fixed.
+ * - `network`  → could not reach the content source (offline / timeout / 4xx).
+ */
+export type StoryContentErrorCode = 'missing' | 'invalid' | 'network' | 'notfound';
+
 export class StoryContentError extends Error {
-  constructor(message: string) {
+  readonly code: StoryContentErrorCode;
+
+  constructor(message: string, code: StoryContentErrorCode = 'invalid') {
     super(message);
     this.name = 'StoryContentError';
+    this.code = code;
   }
 }
 
@@ -126,7 +138,7 @@ export async function getStoryMeta(
 ): Promise<StoryMeta> {
   const manifest = await getEffectiveManifest();
   const meta = manifest.stories.find((s) => s.id === storyId);
-  if (!meta) throw new StoryContentError('Story not found.');
+  if (!meta) throw new StoryContentError('Story not found.', 'notfound');
   assertCanOpen(meta, ageGroup);
   return meta;
 }
@@ -139,6 +151,19 @@ function storyFilesDir(storyId: string): string {
 
 export async function isDownloaded(storyId: string): Promise<boolean> {
   return exists(docPath(`${storyFilesDir(storyId)}story.json`));
+}
+
+/**
+ * True when this device can open the story right now — either its files ship
+ * inside the APK or they have been downloaded.
+ *
+ * NOTE: the manifest cannot answer this. It is compiled into the APK and lists
+ * EVERY story (including GitHub-only ones that ship without files), so asking
+ * the manifest made OTA stories look already installed.
+ */
+export async function isStoryOnDevice(storyId: string): Promise<boolean> {
+  if (getBundledStory(storyId)) return true;
+  return isDownloaded(storyId);
 }
 
 async function loadDownloadedFiles(storyId: string): Promise<{
@@ -175,20 +200,33 @@ export async function getBundle(storyId: string, ageGroup: AgeGroup): Promise<St
   if (downloaded) candidates.push({ files: downloaded, source: 'downloaded' });
   if (bundled) candidates.push({ files: bundled, source: 'bundled' });
 
-  let lastError = 'Story files are missing. Try downloading it again.';
+  // Nothing on this device: the story is listed in the manifest (so the user
+  // can see and tap it) but its package was never downloaded. Callers must be
+  // able to tell this apart from corrupt data, so it carries code 'missing'.
+  if (candidates.length === 0) {
+    throw new StoryContentError('Story files are missing. Download it to start reading.', 'missing');
+  }
+
+  let lastError = new StoryContentError(
+    `Story data is invalid (${storyId}). Try downloading it again.`,
+    'invalid',
+  );
   for (const c of candidates) {
     if (!c.files) continue;
     const result = validateBundle({ meta, ...c.files });
     if (result.ok) {
       return { meta, ...c.files, source: c.source };
     }
-    lastError = `Story data is invalid (${result.issues[0]?.path}: ${result.issues[0]?.message}).`;
+    lastError = new StoryContentError(
+      `Story data is invalid (${result.issues[0]?.path}: ${result.issues[0]?.message}).`,
+      'invalid',
+    );
     // A corrupt download should not poison future loads — drop it.
     if (c.source === 'downloaded') {
       await removeDownloadedStory(storyId);
     }
   }
-  throw new StoryContentError(lastError);
+  throw lastError;
 }
 
 /* ---------------- updates ---------------- */
@@ -204,11 +242,19 @@ export interface UpdateCheckResult {
   remoteContentVersion: number;
 }
 
+/**
+ * Version of the story this device actually holds, or -1 when it holds none.
+ *
+ * Must NOT read the manifest: the manifest is compiled into the APK and lists
+ * every story including the GitHub-only ones, so consulting it reported OTA
+ * stories as already installed — they never showed up as downloadable and,
+ * because their files are absent, they failed to open.
+ */
 async function localVersionFor(storyId: string): Promise<number> {
   const dl = await getDownloadRecord(storyId);
   if (dl) return dl.version;
-  const bundledMeta = BUNDLED_MANIFEST.stories.find((s) => s.id === storyId);
-  return bundledMeta?.version ?? -1;
+  if (!getBundledStory(storyId)) return -1;
+  return BUNDLED_MANIFEST.stories.find((s) => s.id === storyId)?.version ?? 1;
 }
 
 /**
