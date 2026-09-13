@@ -93,7 +93,7 @@ export function Saves({ navigation, route }: Props) {
                   <Text style={[styles.btnText, { color: theme.primary }]}>Resume</Text>
                 </Pressable>
                 <Pressable
-                  onPress={() => navigation.navigate('Memory', { playthroughId: p.id, storyTitle: undefined })}
+                  onPress={() => navigation.navigate('Memory', { playthroughId: p.id })}
                   style={[styles.btn, { backgroundColor: theme.accentSoft }]}
                 >
                   <Text style={[styles.btnText, { color: theme.accent }]}>🧠 Memory</Text>
