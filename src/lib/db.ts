@@ -644,6 +644,37 @@ export async function listAllMemories(): Promise<MemoryEntry[]> {
   return rows.map(rowToMemory);
 }
 
+/** Everything stored for one journey, folded rows included — for the memory viewer. */
+export async function listJourneyMemories(playthroughId: string): Promise<MemoryEntry[]> {
+  const db = await getDb();
+  const rows = await db.getAllAsync<MemoryRow>(
+    'SELECT * FROM memories WHERE playthrough_id = ? ORDER BY archived ASC, importance DESC, created_at DESC LIMIT 400',
+    playthroughId,
+  );
+  return rows.map(rowToMemory);
+}
+
+/** Reader-level facts shared across every journey (scope `*`). */
+export async function listGlobalMemories(): Promise<MemoryEntry[]> {
+  const db = await getDb();
+  const rows = await db.getAllAsync<MemoryRow>(
+    "SELECT * FROM memories WHERE playthrough_id = '*' ORDER BY importance DESC, created_at DESC LIMIT 200",
+  );
+  return rows.map(rowToMemory);
+}
+
+/** Pin a fact to the top of recall (importance 9 = never starved by the budget). */
+export async function pinMemory(id: string): Promise<void> {
+  const db = await getDb();
+  await db.runAsync("UPDATE memories SET importance = 9, archived = 0 WHERE id = ?", id);
+}
+
+/** Bring a folded (archived) fact back into live recall without touching the digest. */
+export async function restoreMemory(id: string): Promise<void> {
+  const db = await getDb();
+  await db.runAsync('UPDATE memories SET archived = 0 WHERE id = ?', id);
+}
+
 export async function deleteMemoriesForPlaythrough(playthroughId: string): Promise<void> {
   const db = await getDb();
   await db.runAsync('DELETE FROM memories WHERE playthrough_id = ?', playthroughId);

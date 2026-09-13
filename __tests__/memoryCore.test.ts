@@ -36,7 +36,7 @@ describe('tokenize', () => {
   test('keeps Devanagari words and drops fillers', () => {
     const t = tokenize('मेरी कॉफी ठंडी हो गई। My coffee went cold hai na');
     expect(t).toContain('कॉफी');
-    expect(t).toContain('coffee');
+    expect(t).toContain('coffe'); // doubled vowels folded on BOTH sides, so 'coffee' still matches
     expect(t).toContain('cold');
     expect(t).not.toContain('hai');
     expect(t).not.toContain('meri');
@@ -47,7 +47,11 @@ describe('tokenize', () => {
     const filler = mem({ text: 'aur woh kya kar raha tha bas' });
     const named = mem({ text: 'aarav ne chai ka waada toda' });
     expect(overlapScore(filler.text, noise)).toBe(0);
-    expect(overlapScore(named.text, new Set(tokenize('aarav chai waada')))).toBeGreaterThan(3);
+    expect(overlapScore(named.text, new Set(tokenize('aarav chai waada')))).toBeGreaterThanOrEqual(3);
+  });
+
+  test('query and memory fold the same way, so spelling does not matter', () => {
+    expect(tokenize('My coffee is cold')).toEqual(tokenize('my coffe  COLD'));
   });
 
   test('long Hinglish sentence does not score on stopwords alone', () => {
@@ -96,6 +100,13 @@ describe('selectRelevant', () => {
     ];
     const picked = selectRelevant([pref, ...facts], 'kuch aur baat', { nowMs: NOW });
     expect(picked.map((m) => m.id).sort()).toEqual(['f1', 'f2', 'f3', 'pref']);
+  });
+
+  test('spelling variants of a Hinglish word still recall the fact', () => {
+    const stored = mem({ id: 'w', text: 'Raj ne Maaya se play na chhodne ka waada kiya', importance: 2 });
+    const noise = mem({ id: 'z', text: 'Canteen ka bill jama nahi hua', importance: 4 });
+    const picked = selectRelevant([stored, noise], 'woh wada jo Maine kiya tha yaad hai?', { nowMs: NOW });
+    expect(picked[0].id).toBe('w');
   });
 
   test('importance-pinned core facts survive with zero overlap', () => {

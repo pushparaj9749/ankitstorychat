@@ -305,6 +305,17 @@ export function StoryDetail({ navigation, route }: Props) {
               />
             </View>
           ) : null}
+          {activeSave ? (
+            <View style={styles.gap}>
+              <GradientButton
+                title="🧠 Kya yaad hai"
+                variant="ghost"
+                onPress={() =>
+                  navigation.navigate('Memory', { playthroughId: activeSave.id, storyTitle: meta.title })
+                }
+              />
+            </View>
+          ) : null}
           {!hasAI ? (
             <Pressable
               onPress={() => navigation.navigate('AIAddons')}

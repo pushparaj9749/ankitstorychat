@@ -427,6 +427,7 @@ export type RootStackParamList = {
   Main: undefined;
   StoryDetail: { storyId: string };
   Chat: { playthroughId: string };
+  Memory: { playthroughId: string; storyTitle?: string };
   Saves: { storyId: string };
   AIAddons: undefined;
   ProviderEditor: { providerId?: string };

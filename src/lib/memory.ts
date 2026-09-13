@@ -19,6 +19,11 @@ import {
   archiveMemories,
   countMemories,
   insertMemory,
+  listGlobalMemories,
+  listJourneyMemories,
+  pinMemory,
+  restoreMemory,
+  kvDelete,
   kvGet,
   kvSet,
   listMemoryCandidates,
@@ -152,6 +157,35 @@ export async function getSummary(playthroughId: string): Promise<string> {
   return (await kvGet(SUMMARY_KEY(playthroughId))) ?? '';
 }
 
+/** Forget the compressed digest (the archived raw rows come back into play). */
+export async function clearSummary(playthroughId: string): Promise<void> {
+  await kvDelete(SUMMARY_KEY(playthroughId));
+}
+
+export interface JourneyMemoryView {
+  live: MemoryEntry[];
+  folded: MemoryEntry[];
+  readerPrefs: MemoryEntry[];
+  summary: string;
+}
+
+/** What the memory viewer shows: live facts, folded facts, reader prefs, digest. */
+export async function journeyMemoryView(playthroughId: string): Promise<JourneyMemoryView> {
+  const [rows, readerPrefs, summary] = await Promise.all([
+    listJourneyMemories(playthroughId),
+    listGlobalMemories(),
+    getSummary(playthroughId),
+  ]);
+  return {
+    live: rows.filter((r) => !r.archived),
+    folded: rows.filter((r) => r.archived),
+    readerPrefs,
+    summary,
+  };
+}
+
+export { pinMemory, restoreMemory };
+
 export async function setSummary(playthroughId: string, text: string): Promise<void> {
   const clean = sanitize(text, SUMMARY_MAX_CHARS);
   if (!clean) return;
@@ -197,12 +231,15 @@ export interface ConsolidateOutcome {
 export async function consolidateMemories(
   playthroughId: string,
   summarize?: (prompt: string) => Promise<string>,
+  opts: { minLiveEpisodes?: number; keepLiveEpisodes?: number } = {},
 ): Promise<ConsolidateOutcome> {
+  const minLive = opts.minLiveEpisodes ?? FOLD_AT_EPISODES;
+  const keep = opts.keepLiveEpisodes ?? KEEP_LIVE_EPISODES;
   const ids = [playthroughId, GLOBAL_SCOPE];
   const live = await countMemories(ids, ['episode']);
-  if (live < FOLD_AT_EPISODES) return { folded: 0, summaryChars: 0, usedAI: false };
+  if (live < minLive) return { folded: 0, summaryChars: 0, usedAI: false };
 
-  const budget = Math.max(1, Math.min(FOLD_BATCH, live - KEEP_LIVE_EPISODES));
+  const budget = Math.max(1, Math.min(FOLD_BATCH, live - keep));
   const fold = await listOldestMemories(ids, ['episode'], budget);
 
   // Second tier: in a 1000-turn saga the curated facts alone can overflow the

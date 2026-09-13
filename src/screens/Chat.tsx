@@ -245,12 +245,8 @@ export function Chat({ navigation, route }: Props) {
       parsed.effects,
       parsed.memoryNotes,
     );
-    // Fold the oldest log lines into the rolling digest — every few turns, off the hot path.
-    if (next.messageCount % 8 === 0) {
-      const summarize = (prompt: string) =>
-        chatCompletion(activeProvider, apiKey, [{ role: 'user', content: prompt }], { timeoutMs: 30000 });
-      void consolidateMemories(pt.id, summarize).catch(() => undefined);
-    }
+    const summarize = (prompt: string) =>
+      chatCompletion(activeProvider, apiKey, [{ role: 'user', content: prompt }], { timeoutMs: 30000 });
 
     let extra: ChatMessage[] = [];
     if (sceneChanged) {
@@ -260,6 +256,15 @@ export function Chat({ navigation, route }: Props) {
         [{ role: 'narration', speaker: null, text: `✦ ${sc.title}` }],
         next.currentSceneId,
       );
+      // New chapter: fold what we can so the scene starts with its past compressed.
+      void consolidateMemories(pt.id, summarize, { minLiveEpisodes: 12, keepLiveEpisodes: 4 }).catch(
+        () => undefined,
+      );
+    }
+
+    // Steady rhythm otherwise — every few turns, off the hot path.
+    if (next.messageCount % 8 === 0) {
+      void consolidateMemories(pt.id, summarize).catch(() => undefined);
     }
     return { saved: [...extra, ...saved], next };
   }
@@ -346,18 +351,29 @@ export function Chat({ navigation, route }: Props) {
             {scene?.title ?? playthrough.label} • {playthrough.label}
           </Text>
         </View>
-        <View
-          style={[
-            styles.modeBtn,
-            {
-              backgroundColor: aiReady ? theme.primarySoft : theme.surface,
-              borderColor: aiReady ? theme.primary : theme.border,
-            },
-          ]}
-        >
-          <Text style={[styles.modeText, { color: aiReady ? '#D9CFFF' : theme.textDim }]}>
-            🤖 AI
-          </Text>
+        <View style={styles.headerRight}>
+          <Pressable
+            onPress={() => navigation.navigate('Memory', { playthroughId: playthrough.id, storyTitle: bundle.meta.title })}
+            hitSlop={8}
+            style={[styles.modeBtn, { backgroundColor: theme.surface, borderColor: theme.border }]}
+            accessibilityRole="button"
+            accessibilityLabel="Kya yaad hai"
+          >
+            <Text style={[styles.modeText, { color: theme.textDim }]}>🧠</Text>
+          </Pressable>
+          <View
+            style={[
+              styles.modeBtn,
+              {
+                backgroundColor: aiReady ? theme.primarySoft : theme.surface,
+                borderColor: aiReady ? theme.primary : theme.border,
+              },
+            ]}
+          >
+            <Text style={[styles.modeText, { color: aiReady ? '#D9CFFF' : theme.textDim }]}>
+              🤖 AI
+            </Text>
+          </View>
         </View>
       </View>
 
@@ -471,6 +487,7 @@ const styles = StyleSheet.create({
   headerBody: { flex: 1 },
   headerTitle: { fontSize: FONTS.body, fontWeight: '800' },
   headerSub: { fontSize: FONTS.tiny },
+  headerRight: { flexDirection: 'row', alignItems: 'center', gap: 8 },
   modeBtn: { borderWidth: 1, borderRadius: RADIUS.pill, paddingHorizontal: 12, paddingVertical: 7 },
   modeText: { fontSize: FONTS.small, fontWeight: '700' },
   list: { paddingHorizontal: 12, paddingVertical: 8 },

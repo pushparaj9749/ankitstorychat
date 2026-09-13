@@ -47,11 +47,21 @@ export const MAX_MEMORY_NOTES = 8;
 
 /* ---------------- tokenizing ---------------- */
 
-/** Unicode-aware tokens (Devanagari included), stopwords + short words dropped. */
+/** Doubled vowels are Hinglish spelling noise: "waada"/"wada", "Myraa"/"myra". */
+function foldVowels(word: string): string {
+  return word.replace(/([aeiou])\1+/g, '$1');
+}
+
+/**
+ * Unicode-aware tokens (Devanagari included), stopwords + short words dropped and
+ * vowel folding applied, so free-form romanised Hindi still matches.
+ */
 export function tokenize(text: string): string[] {
   const out: string[] = [];
   for (const raw of (text || '').toLowerCase().split(/[^\p{L}\p{M}\p{N}]+/u)) {
-    if (raw.length >= 3 && !STOPWORDS.has(raw)) out.push(raw);
+    if (raw.length < 3) continue;
+    const t = foldVowels(raw);
+    if (t.length >= 3 && !STOPWORDS.has(t) && !STOPWORDS.has(raw)) out.push(t);
   }
   return out;
 }
@@ -114,18 +124,52 @@ const WEIGHTS = {
   pinPreference: 10,
 } as const;
 
+/** Query side of scoring: exact tokens plus 4-char stems for fuzzy Hinglish spelling. */
+export interface QueryProfile {
+  tokens: Set<string>;
+  stems: Set<string>;
+}
+
+/**
+ * Hinglish is spelled freely ("waada"/"wada", "kyunki"/"kyonki", "Myraa"/"Myra"),
+ * so an exact-token-only match loses real hits. Stems (first 4 chars of any word
+ * 5+ long) catch the common cases without pulling in unrelated noise.
+ */
+export function buildQuery(text: string): QueryProfile {
+  const tokens = tokenSet(text);
+  const stems = new Set<string>();
+  for (const t of tokens) if (t.length >= 4) stems.add(t.slice(0, 4));
+  return { tokens, stems };
+}
+
+function profileOf(q: Set<string> | QueryProfile): QueryProfile {
+  if (q instanceof Set) {
+    const stems = new Set<string>();
+    for (const t of q) if (t.length >= 4) stems.add(t.slice(0, 4));
+    return { tokens: q, stems };
+  }
+  return q;
+}
+
 /**
  * Weighted keyword overlap. A hit on "chai" is worth less than a hit on "maafi
- * waada" — short generic words are common, long ones are specific.
+ * waada" — short generic words are common, long ones are specific. A stem-only
+ * match counts half.
  */
-export function overlapScore(text: string, query: Set<string>): number {
-  if (!query.size) return 0;
+export function overlapScore(text: string, query: Set<string> | QueryProfile): number {
+  const q = profileOf(query);
+  if (!q.tokens.size) return 0;
   let total = 0;
   const counted = new Set<string>();
   for (const t of tokenize(text)) {
-    if (counted.has(t) || !query.has(t)) continue;
-    counted.add(t);
-    total += 1 + Math.min(1, Math.max(0, (t.length - 4) / 3));
+    if (counted.has(t)) continue;
+    if (q.tokens.has(t)) {
+      counted.add(t);
+      total += 1 + Math.min(1, Math.max(0, (t.length - 4) / 3));
+    } else if (t.length >= 4 && q.stems.has(t.slice(0, 4))) {
+      counted.add(t);
+      total += 0.5;
+    }
   }
   return total;
 }
@@ -140,14 +184,14 @@ export function recencyBoost(createdAt: string, nowMs = Date.now(), halfLifeDays
 /** One memory's relevance for the current turn. Higher = more worth injecting. */
 export function scoreMemory(
   m: MemoryEntry,
-  query: Set<string>,
+  query: Set<string> | QueryProfile,
   nowMs = Date.now(),
 ): number {
   let score = m.importance * WEIGHTS.importance;
   const overlap = overlapScore(m.text, query);
   if (overlap > 0) {
     score += Math.min(overlap, WEIGHTS.overlapFloor) * WEIGHTS.overlap;
-    score += WEIGHTS.anyHit;
+    score += WEIGHTS.anyHit * Math.min(1, overlap);
   }
   score += recencyBoost(m.createdAt, nowMs);
   score += Math.min(m.hits ?? 0, WEIGHTS.hitsFloor) * WEIGHTS.hits;
@@ -180,7 +224,7 @@ export function selectRelevant(
     pinnedByImportance = 6,
     nowMs = Date.now(),
   } = opts;
-  const query = tokenSet(queryText);
+  const query = buildQuery(queryText);
 
   const scored = all
     .filter((m) => !m.archived)
@@ -229,10 +273,8 @@ export function selectRelevant(
   return chosen;
 }
 
-function hasOverlap(m: MemoryEntry, query: Set<string>): boolean {
-  if (!query.size) return false;
-  for (const t of tokenize(m.text)) if (query.has(t)) return true;
-  return false;
+function hasOverlap(m: MemoryEntry, query: QueryProfile): boolean {
+  return overlapScore(m.text, query) > 0;
 }
 
 /* ---------------- rendering into the prompt ---------------- */

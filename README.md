@@ -106,13 +106,22 @@ Flow per send (`src/screens/Chat.tsx` → `src/lib/memory.ts`):
    `importance*2 + weighted keyword overlap with the last 3 turns + recency decay (12-day half-life) + hits`,
    then fills a **3800-char** budget (max 28 entries). The digest and preferences always ride along.
 4. Selected rows are **reinforced** (`hits+1`, `importance+1` every 3rd hit, capped at 9) — what gets used, sticks.
+   Matching is vowel-folded + 4-char stemmed, so "waada"/"wada" and "Myraa"/"myra" hit the same fact.
 5. `putMemory()` refuses anything that looks like real-world PII and dedupes on the `UNIQUE(playthrough_id, hash)` index, so a repeated fact strengthens the existing row instead of duplicating it.
-6. Every 8th turn, `consolidateMemories()` folds the oldest 30 log lines (and, past 240 curated facts, the
+6. Every 8th turn — and on every scene change (12-line threshold) — `consolidateMemories()` folds the oldest 30 log lines (and, past 240 curated facts, the
    oldest ones too) into the digest — via a small AI call, with a deterministic no-AI fallback. Folded rows are
    only `archived = 1`: **nothing is ever deleted**, so recall can be re-expanded later.
 
 Story packs steer this: `memory.json`'s `extractionHints` and `neverRemember` are injected as a
 **MEMORY DISCIPLINE** block, so each pack decides what is worth remembering (and privacy stays enforced in code too).
+
+### 👁 Viewing and editing memory (`src/screens/Memory.tsx`)
+
+Reachable from the chat header (🧠), Story Detail ("Kya yaad hai") and each row in Saves. It shows the
+digest, live facts (with strength + how often they were reused), the turn log and the reader-level
+preferences, plus the folded rows. Per row: 📌 pin (importance 9), 🗑 forget just that fact, ↩︎ bring a
+folded fact back. "Forget everything" clears memory but keeps the chat — the reader can always correct
+the narrator without losing progress.
 
 ---
 
