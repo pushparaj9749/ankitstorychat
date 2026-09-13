@@ -19,6 +19,7 @@ import { Settings } from '../screens/Settings';
 import { StoryDetail } from '../screens/StoryDetail';
 import { Saves } from '../screens/Saves';
 import { Chat } from '../screens/Chat';
+import { Memory } from '../screens/Memory';
 import { AIAddons } from '../screens/AIAddons';
 import { ProviderEditor } from '../screens/ProviderEditor';
 import { SettingsProfile } from '../screens/SettingsProfile';
@@ -132,6 +133,7 @@ export function RootNavigator() {
             <Stack.Screen name="StoryDetail" component={StoryDetail} />
             <Stack.Screen name="Saves" component={Saves} />
             <Stack.Screen name="Chat" component={Chat} options={{ animation: 'fade' }} />
+            <Stack.Screen name="Memory" component={Memory} />
             <Stack.Screen name="AIAddons" component={AIAddons} />
             <Stack.Screen name="ProviderEditor" component={ProviderEditor} />
             <Stack.Screen name="SettingsProfile" component={SettingsProfile} />

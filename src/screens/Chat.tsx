@@ -37,19 +37,22 @@ import {
   applyEffects,
   buildContext,
   getScene,
+  HISTORY_HEADROOM,
   parseAssistantResponse,
   progressEstimate,
+  shortTermWindowOf,
 } from '../lib/engine';
 import {
-  extractPreferenceNotes,
+  consolidateMemories,
+  logEpisode,
+  recallForTurn,
   rememberMany,
-  selectMemories,
+  rememberPreferences,
 } from '../lib/memory';
 import {
   countMessages,
   getPlaythrough,
   insertMessage,
-  listMemories,
   listMessages,
   listRecentMessagesAsc,
   updatePlaythrough,
@@ -193,7 +196,8 @@ export function Chat({ navigation, route }: Props) {
     } else {
       await updatePlaythrough(next);
     }
-    if (memoryNotes.length) await rememberMany(pt.id, memoryNotes, 'story', 2);
+    // importance 3: curated facts must outrank episodic log lines (importance 1).
+    if (memoryNotes.length) await rememberMany(pt.id, memoryNotes, 'story', 3);
     return { pt: next, sceneChanged };
   }
 
@@ -202,13 +206,17 @@ export function Chat({ navigation, route }: Props) {
     const apiKey = await getApiKey(activeProvider.id);
     if (!apiKey) throw new Error('API key missing. Re-enter it in AI Add-ons.');
 
-    const [allMemories, history] = await Promise.all([
-      listMemories(pt.id, 60),
-      listRecentMessagesAsc(pt.id, 30),
-    ]);
-    const relevant = selectMemories(allMemories, userText, 12);
+    // Load one window-sized slab plus headroom, so `shortTermWindow` is honoured in full.
+    const recent = await listRecentMessagesAsc(pt.id, shortTermWindowOf(b) + HISTORY_HEADROOM);
+    // `send()` already stored this turn's user line — don't feed it twice.
+    const history = recent.filter(
+      (m, i) => !(i === recent.length - 1 && m.role === 'user' && m.text === userText),
+    );
+    // Rank memories against the whole recent exchange, not just this one line.
+    const query = [...history.slice(-2).map((m) => m.text), userText].join('\n');
+    const { memories: relevant, summary } = await recallForTurn(pt.id, query);
     const ctx = buildContext(
-      { bundle: b, profile, playthrough: pt, memories: relevant, history },
+      { bundle: b, profile, playthrough: pt, memories: relevant, history, summary },
       profile.ageGroup,
     );
     const raw = await chatCompletion(
@@ -223,6 +231,9 @@ export function Chat({ navigation, route }: Props) {
     const parsed = parseAssistantResponse(raw);
     const displayText = parsed.displayText || '...';
 
+    // Episodic trace: every turn stays retrievable even if no fact was volunteered.
+    void logEpisode(pt.id, userText, displayText).catch(() => undefined);
+
     const saved = await persistAssistantLines(
       pt,
       [{ role: 'assistant', speaker: parsed.speaker, text: displayText }],
@@ -234,6 +245,9 @@ export function Chat({ navigation, route }: Props) {
       parsed.effects,
       parsed.memoryNotes,
     );
+    const summarize = (prompt: string) =>
+      chatCompletion(activeProvider, apiKey, [{ role: 'user', content: prompt }], { timeoutMs: 30000 });
+
     let extra: ChatMessage[] = [];
     if (sceneChanged) {
       const sc = getScene(b, next.currentSceneId);
@@ -242,6 +256,15 @@ export function Chat({ navigation, route }: Props) {
         [{ role: 'narration', speaker: null, text: `✦ ${sc.title}` }],
         next.currentSceneId,
       );
+      // New chapter: fold what we can so the scene starts with its past compressed.
+      void consolidateMemories(pt.id, summarize, { minLiveEpisodes: 12, keepLiveEpisodes: 4 }).catch(
+        () => undefined,
+      );
+    }
+
+    // Steady rhythm otherwise — every few turns, off the hot path.
+    if (next.messageCount % 8 === 0) {
+      void consolidateMemories(pt.id, summarize).catch(() => undefined);
     }
     return { saved: [...extra, ...saved], next };
   }
@@ -267,8 +290,8 @@ export function Chat({ navigation, route }: Props) {
       setInput('');
       await updateStats({ messagesSent: 1 });
 
-      const prefs = extractPreferenceNotes(text);
-      if (prefs.length) await rememberMany(playthrough.id, prefs, 'preference', 2);
+      // Learned-about-the-reader facts are global: they survive into every other story.
+      await rememberPreferences(text);
 
       const result = await aiTurn(playthrough, bundle, text);
       setPlaythrough(result.next);
@@ -328,18 +351,29 @@ export function Chat({ navigation, route }: Props) {
             {scene?.title ?? playthrough.label} • {playthrough.label}
           </Text>
         </View>
-        <View
-          style={[
-            styles.modeBtn,
-            {
-              backgroundColor: aiReady ? theme.primarySoft : theme.surface,
-              borderColor: aiReady ? theme.primary : theme.border,
-            },
-          ]}
-        >
-          <Text style={[styles.modeText, { color: aiReady ? '#D9CFFF' : theme.textDim }]}>
-            🤖 AI
-          </Text>
+        <View style={styles.headerRight}>
+          <Pressable
+            onPress={() => navigation.navigate('Memory', { playthroughId: playthrough.id, storyTitle: bundle.meta.title })}
+            hitSlop={8}
+            style={[styles.modeBtn, { backgroundColor: theme.surface, borderColor: theme.border }]}
+            accessibilityRole="button"
+            accessibilityLabel="Kya yaad hai"
+          >
+            <Text style={[styles.modeText, { color: theme.textDim }]}>🧠</Text>
+          </Pressable>
+          <View
+            style={[
+              styles.modeBtn,
+              {
+                backgroundColor: aiReady ? theme.primarySoft : theme.surface,
+                borderColor: aiReady ? theme.primary : theme.border,
+              },
+            ]}
+          >
+            <Text style={[styles.modeText, { color: aiReady ? '#D9CFFF' : theme.textDim }]}>
+              🤖 AI
+            </Text>
+          </View>
         </View>
       </View>
 
@@ -453,6 +487,7 @@ const styles = StyleSheet.create({
   headerBody: { flex: 1 },
   headerTitle: { fontSize: FONTS.body, fontWeight: '800' },
   headerSub: { fontSize: FONTS.tiny },
+  headerRight: { flexDirection: 'row', alignItems: 'center', gap: 8 },
   modeBtn: { borderWidth: 1, borderRadius: RADIUS.pill, paddingHorizontal: 12, paddingVertical: 7 },
   modeText: { fontSize: FONTS.small, fontWeight: '700' },
   list: { paddingHorizontal: 12, paddingVertical: 8 },

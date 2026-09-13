@@ -19,7 +19,7 @@ import type {
 import { DEFAULT_SETTINGS } from '../types';
 
 const DB_NAME = 'kissa.db';
-const SCHEMA_VERSION = 3;
+const SCHEMA_VERSION = 4;
 
 let dbPromise: Promise<SQLite.SQLiteDatabase> | null = null;
 
@@ -77,9 +77,14 @@ async function migrate(db: SQLite.SQLiteDatabase): Promise<void> {
       kind TEXT NOT NULL,
       text TEXT NOT NULL,
       importance INTEGER NOT NULL DEFAULT 1,
-      created_at TEXT NOT NULL
+      created_at TEXT NOT NULL,
+      hash TEXT,
+      hits INTEGER NOT NULL DEFAULT 0,
+      last_used TEXT,
+      archived INTEGER NOT NULL DEFAULT 0
     );
     CREATE INDEX IF NOT EXISTS idx_memories_playthrough ON memories(playthrough_id);
+    CREATE INDEX IF NOT EXISTS idx_memories_kind ON memories(playthrough_id, kind, archived);
     CREATE TABLE IF NOT EXISTS favorites (
       story_id TEXT PRIMARY KEY,
       created_at TEXT NOT NULL
@@ -104,6 +109,26 @@ async function migrate(db: SQLite.SQLiteDatabase): Promise<void> {
       last_test_ok INTEGER
     );
   `);
+
+  // v3 -> v4: long-term memory columns. Runs AFTER the CREATEs above, so a fresh
+  // install already has them (ALTER then throws "duplicate column" -> ignored),
+  // while an existing install gets them added in place.
+  if (current < 4) {
+    for (const ddl of [
+      'ALTER TABLE memories ADD COLUMN hash TEXT',
+      'ALTER TABLE memories ADD COLUMN hits INTEGER NOT NULL DEFAULT 0',
+      'ALTER TABLE memories ADD COLUMN last_used TEXT',
+      'ALTER TABLE memories ADD COLUMN archived INTEGER NOT NULL DEFAULT 0',
+      'CREATE UNIQUE INDEX IF NOT EXISTS u_mem_hash ON memories(playthrough_id, hash)',
+    ]) {
+      try {
+        await db.execAsync(ddl);
+      } catch {
+        /* column/index already present */
+      }
+    }
+  }
+
   await db.execAsync(`PRAGMA user_version = ${SCHEMA_VERSION}`);
 }
 
@@ -121,6 +146,18 @@ export async function kvGet(key: string): Promise<string | null> {
 export async function kvSet(key: string, value: string): Promise<void> {
   const db = await getDb();
   await db.runAsync('INSERT OR REPLACE INTO kv (key, value) VALUES (?, ?)', key, value);
+}
+
+/** All kv rows whose key starts with `prefix` (used to export memory digests). */
+export async function kvEntries(prefix: string): Promise<Record<string, string>> {
+  const db = await getDb();
+  const rows = await db.getAllAsync<{ key: string; value: string }>(
+    'SELECT key, value FROM kv WHERE key LIKE ?',
+    `${prefix}%`,
+  );
+  const out: Record<string, string> = {};
+  for (const r of rows) out[r.key] = r.value;
+  return out;
 }
 
 export async function kvDelete(key: string): Promise<void> {
@@ -415,61 +452,227 @@ export async function clearMessages(playthroughId: string): Promise<void> {
 
 /* ---------------- memories ---------------- */
 
-export async function insertMemory(m: MemoryEntry): Promise<void> {
+interface MemoryRow {
+  id: string;
+  playthrough_id: string;
+  kind: string;
+  text: string;
+  importance: number;
+  created_at: string;
+  hash: string | null;
+  hits: number | null;
+  last_used: string | null;
+  archived: number | null;
+}
+
+function rowToMemory(r: MemoryRow): MemoryEntry {
+  return {
+    id: r.id,
+    playthroughId: r.playthrough_id,
+    kind: r.kind as MemoryEntry['kind'],
+    text: r.text,
+    importance: r.importance,
+    createdAt: r.created_at,
+    hash: r.hash ?? undefined,
+    hits: r.hits ?? 0,
+    archived: !!r.archived,
+  };
+}
+
+export type InsertMemoryResult = 'inserted' | 'reinforced';
+
+/**
+ * Store a memory. When the same fact already exists (dedupe key
+ * playthrough_id + hash) the existing row is reinforced instead of duplicated,
+ * and un-archived so a corrected/repeated fact becomes live again.
+ */
+export async function insertMemory(m: MemoryEntry, hash?: string): Promise<InsertMemoryResult> {
   const db = await getDb();
+  if (hash) {
+    const dup = await db.getFirstAsync<{ id: string }>(
+      'SELECT id FROM memories WHERE playthrough_id = ? AND hash = ? LIMIT 1',
+      m.playthroughId,
+      hash,
+    );
+    if (dup) {
+      await db.runAsync(
+        'UPDATE memories SET importance = MIN(9, importance + 1), hits = hits + 1, archived = 0 WHERE id = ?',
+        dup.id,
+      );
+      return 'reinforced';
+    }
+  }
   await db.runAsync(
-    'INSERT INTO memories (id, playthrough_id, kind, text, importance, created_at) VALUES (?, ?, ?, ?, ?, ?)',
+    `INSERT INTO memories (id, playthrough_id, kind, text, importance, created_at, hash, hits, archived)
+     VALUES (?, ?, ?, ?, ?, ?, ?, 0, 0)`,
     m.id,
     m.playthroughId,
     m.kind,
     m.text,
     m.importance,
     m.createdAt,
+    hash ?? null,
+  );
+  return 'inserted';
+}
+
+export interface CandidateCaps {
+  recent: number;
+  important: number;
+  pinned: number;
+  total: number;
+}
+
+const DEFAULT_CAPS: CandidateCaps = { recent: 160, important: 160, pinned: 120, total: 420 };
+
+/**
+ * Retrieval pool for one turn. A UNION of buckets instead of "the newest N rows",
+ * so a fact learned on turn 3 is still reachable on turn 900.
+ */
+export async function listMemoryCandidates(
+  playthroughIds: string[],
+  caps: Partial<CandidateCaps> = {},
+): Promise<MemoryEntry[]> {
+  const ids = playthroughIds.filter(Boolean);
+  if (!ids.length) return [];
+  const c = { ...DEFAULT_CAPS, ...caps };
+  const ph = ids.map(() => '?').join(', ');
+  const db = await getDb();
+  // Each bucket is wrapped in its own subquery: SQLite rejects ORDER BY/LIMIT directly
+  // on a UNION arm. Interpolated caps are internal integers, never user input.
+  const rows = await db.getAllAsync<MemoryRow>(
+    `SELECT * FROM (
+       SELECT * FROM (
+         SELECT * FROM memories WHERE playthrough_id IN (${ph}) AND archived = 0
+         ORDER BY created_at DESC LIMIT ${c.recent}
+       )
+       UNION
+       SELECT * FROM (
+         SELECT * FROM memories WHERE playthrough_id IN (${ph}) AND archived = 0
+         ORDER BY importance DESC, created_at DESC LIMIT ${c.important}
+       )
+       UNION
+       SELECT * FROM (
+         SELECT * FROM memories WHERE playthrough_id IN (${ph}) AND archived = 0
+           AND kind IN ('preference','summary')
+         ORDER BY created_at DESC LIMIT ${c.pinned}
+       )
+     )
+     ORDER BY importance DESC, created_at DESC LIMIT ${c.total}`,
+  );
+  return rows.map(rowToMemory);
+}
+
+/** Memories actually used this turn become stronger (capped, throttled). */
+export async function reinforceMemories(ids: string[], usedAt: string): Promise<void> {
+  if (!ids.length) return;
+  const db = await getDb();
+  const ph = ids.map(() => '?').join(', ');
+  await db.runAsync(
+    `UPDATE memories SET
+       hits = hits + 1,
+       last_used = ?,
+       importance = CASE WHEN (hits + 1) % 3 = 0 THEN MIN(9, importance + 1) ELSE importance END
+     WHERE id IN (${ph}) AND kind != 'episode'`,
+    usedAt,
+    ...ids,
   );
 }
 
-export async function listMemories(playthroughId: string, limit = 60): Promise<MemoryEntry[]> {
+export async function archiveMemories(ids: string[]): Promise<void> {
+  if (!ids.length) return;
   const db = await getDb();
-  const rows = await db.getAllAsync<{
-    id: string;
-    playthrough_id: string;
-    kind: string;
-    text: string;
-    importance: number;
-    created_at: string;
-  }>(
-    'SELECT * FROM memories WHERE playthrough_id = ? ORDER BY importance DESC, created_at DESC LIMIT ?',
+  const ph = ids.map(() => '?').join(', ');
+  await db.runAsync(`UPDATE memories SET archived = 1 WHERE id IN (${ph})`);
+}
+
+export async function deleteMemory(id: string): Promise<void> {
+  const db = await getDb();
+  await db.runAsync('DELETE FROM memories WHERE id = ?', id);
+}
+
+/** Live memories per kind — drives the consolidation trigger. */
+export async function countMemories(playthroughIds: string[], kinds: string[] = []): Promise<number> {
+  const ids = playthroughIds.filter(Boolean);
+  if (!ids.length) return 0;
+  const db = await getDb();
+  const args = [...ids, ...kinds];
+  const kindClause = kinds.length
+    ? ` AND kind IN (${kinds.map(() => '?').join(', ')})`
+    : '';
+  const row = await db.getFirstAsync<{ n: number }>(
+    `SELECT COUNT(*) AS n FROM memories
+      WHERE playthrough_id IN (${ids.map(() => '?').join(', ')}) AND archived = 0${kindClause}`,
+    ...args,
+  );
+  return row?.n ?? 0;
+}
+
+/** Oldest live memories of the given kinds — the ones safe to fold into the digest. */
+export async function listOldestMemories(
+  playthroughIds: string[],
+  kinds: string[],
+  limit: number,
+): Promise<MemoryEntry[]> {
+  const ids = playthroughIds.filter(Boolean);
+  if (!ids.length || limit <= 0) return [];
+  const db = await getDb();
+  const rows = await db.getAllAsync<MemoryRow>(
+    `SELECT * FROM memories
+      WHERE playthrough_id IN (${ids.map(() => '?').join(', ')})
+        AND archived = 0 AND kind IN (${kinds.map(() => '?').join(', ')})
+      ORDER BY created_at ASC LIMIT ${Math.max(1, Math.floor(limit))}`,
+    ...ids,
+    ...kinds,
+  );
+  return rows.map(rowToMemory);
+}
+
+export async function listMemories(playthroughId: string, limit = 200): Promise<MemoryEntry[]> {
+  const db = await getDb();
+  const rows = await db.getAllAsync<MemoryRow>(
+    'SELECT * FROM memories WHERE playthrough_id = ? AND archived = 0 ORDER BY importance DESC, created_at DESC LIMIT ?',
     playthroughId,
     limit,
   );
-  return rows.map((r) => ({
-    id: r.id,
-    playthroughId: r.playthrough_id,
-    kind: r.kind as MemoryEntry['kind'],
-    text: r.text,
-    importance: r.importance,
-    createdAt: r.created_at,
-  }));
+  return rows.map(rowToMemory);
 }
 
 export async function listAllMemories(): Promise<MemoryEntry[]> {
   const db = await getDb();
-  const rows = await db.getAllAsync<{
-    id: string;
-    playthrough_id: string;
-    kind: string;
-    text: string;
-    importance: number;
-    created_at: string;
-  }>('SELECT * FROM memories ORDER BY created_at ASC');
-  return rows.map((r) => ({
-    id: r.id,
-    playthroughId: r.playthrough_id,
-    kind: r.kind as MemoryEntry['kind'],
-    text: r.text,
-    importance: r.importance,
-    createdAt: r.created_at,
-  }));
+  const rows = await db.getAllAsync<MemoryRow>('SELECT * FROM memories ORDER BY created_at ASC');
+  return rows.map(rowToMemory);
+}
+
+/** Everything stored for one journey, folded rows included — for the memory viewer. */
+export async function listJourneyMemories(playthroughId: string): Promise<MemoryEntry[]> {
+  const db = await getDb();
+  const rows = await db.getAllAsync<MemoryRow>(
+    'SELECT * FROM memories WHERE playthrough_id = ? ORDER BY archived ASC, importance DESC, created_at DESC LIMIT 400',
+    playthroughId,
+  );
+  return rows.map(rowToMemory);
+}
+
+/** Reader-level facts shared across every journey (scope `*`). */
+export async function listGlobalMemories(): Promise<MemoryEntry[]> {
+  const db = await getDb();
+  const rows = await db.getAllAsync<MemoryRow>(
+    "SELECT * FROM memories WHERE playthrough_id = '*' ORDER BY importance DESC, created_at DESC LIMIT 200",
+  );
+  return rows.map(rowToMemory);
+}
+
+/** Pin a fact to the top of recall (importance 9 = never starved by the budget). */
+export async function pinMemory(id: string): Promise<void> {
+  const db = await getDb();
+  await db.runAsync("UPDATE memories SET importance = 9, archived = 0 WHERE id = ?", id);
+}
+
+/** Bring a folded (archived) fact back into live recall without touching the digest. */
+export async function restoreMemory(id: string): Promise<void> {
+  const db = await getDb();
+  await db.runAsync('UPDATE memories SET archived = 0 WHERE id = ?', id);
 }
 
 export async function deleteMemoriesForPlaythrough(playthroughId: string): Promise<void> {
