@@ -1,6 +1,6 @@
-# TEMPORARY diagnostic: probes the Releases API with the Actions GITHUB_TOKEN
-# and reports HTTP statuses as annotations (job logs are unreadable from the
-# agent sandbox). Delete me once the publish failure is understood.
+# TEMPORARY diagnostic: runs the real softprops action with a throwaway tag to
+# isolate where the v1.0.6 publish fails (job logs are unreadable from the
+# agent sandbox, so results are reported as check-run annotations).
 name: Diag release API
 
 on:
@@ -9,37 +9,53 @@ on:
 
 jobs:
   probe:
-    name: Probe Releases API
+    name: Probe release publish
     runs-on: ubuntu-latest
     permissions:
       contents: write
     steps:
-      - name: Probe generate-notes + create release
+      - name: Make test assets
         run: |
-          set +e
+          echo "hello kissa" > small.txt
+          head -c 95000000 /dev/urandom > big.bin
+          ls -la small.txt big.bin
+
+      - name: softprops with a 12-byte asset
+        id: tiny
+        continue-on-error: true
+        uses: softprops/action-gh-release@v2
+        with:
+          tag_name: diag-tiny-${{ github.run_id }}
+          files: small.txt
+          draft: true
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Report tiny result
+        run: echo "::error title=tiny-asset::outcome=${{ steps.tiny.outcome }}"
+
+      - name: softprops with a 95MB asset
+        id: big
+        continue-on-error: true
+        uses: softprops/action-gh-release@v2
+        with:
+          tag_name: diag-big-${{ github.run_id }}
+          files: big.bin
+          draft: true
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Report big result
+        run: echo "::error title=big-asset::outcome=${{ steps.big.outcome }}"
+
+      - name: Cleanup
+        if: always()
+        run: |
           API="https://api.github.com/repos/$GITHUB_REPOSITORY"
           AUTH="Authorization: Bearer ${{ secrets.GITHUB_TOKEN }}"
-
-          # 1) generate release notes (what softprops calls when generate_release_notes: true)
-          n=$(curl -s -o /tmp/notes -w "%{http_code}" -X POST "$API/releases/generate-notes" \
-                -H "$AUTH" -H "Accept: application/vnd.github+json" \
-                -d "{\"tag_name\":\"v1.0.6\"}")
-          echo "::error title=generate-notes::$n :: $(head -c 300 /tmp/notes | tr -d '\n')"
-
-          # 2) create a throwaway draft release (tests contents: write)
-          TAG="diag-$GITHUB_RUN_ID"
-          c=$(curl -s -o /tmp/create -w "%{http_code}" -X POST "$API/releases" \
-                -H "$AUTH" -H "Accept: application/vnd.github+json" \
-                -d "{\"tag_name\":\"$TAG\",\"name\":\"$TAG\",\"target_commitish\":\"$GITHUB_SHA\",\"draft\":true}")
-          echo "::error title=create-release::$c :: $(head -c 300 /tmp/create | tr -d '\n')"
-
-          # 3) token permissions, as GitHub reports them for this token
-          p=$(curl -s -o /dev/null -D /tmp/hdr "$API" -H "$AUTH")
-          echo "::error title=token-probe::$p :: $(grep -iE '^(x-oauth-scopes|x-accepted-github-permissions)' /tmp/hdr | tr -d '\r' | tr '\n' ' | ')"
-
-          # cleanup
-          id=$(node -e "try{console.log(JSON.parse(require('fs').readFileSync('/tmp/create','utf8')).id)}catch(e){console.log('')}" 2>/dev/null)
-          if [ -n "$id" ]; then
-            curl -s -o /dev/null -X DELETE "$API/releases/$id" -H "$AUTH"
-            curl -s -o /dev/null -X DELETE "$API/git/refs/tags/$TAG" -H "$AUTH"
-          fi
+          for t in "diag-tiny-$GITHUB_RUN_ID" "diag-big-$GITHUB_RUN_ID"; do
+            id=$(curl -s "$API/releases/tags/$t" -H "$AUTH" | node -e "let d='';process.stdin.on('data',c=>d+=c).on('end',()=>{try{console.log(JSON.parse(d).id)}catch(e){console.log('')}})")
+            [ -n "$id" ] && curl -s -o /dev/null -X DELETE "$API/releases/$id" -H "$AUTH"
+            curl -s -o /dev/null -X DELETE "$API/git/refs/tags/$t" -H "$AUTH"
+          done
+          echo "cleanup done"
