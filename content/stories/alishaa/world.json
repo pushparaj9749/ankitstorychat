@@ -1,0 +1,50 @@
+{
+  "storyId": "alishaa",
+  "version": 1,
+  "premise": "Mumbai ki bheegi hui aadhi raat mein {{playerName}} ko apni sabse kareebi dost Alisha ka call aata hai. 14 ghante ke hospital shift ke baad balcony par khadi Alisha pichle paanch saal se dabi hui aisi baat kehne ja rahi hai jo dosti ki seemaon ko tod kar rooh tak pahunchti hai. Yeh kahani sheher ki barish aur dilon ki sachai par tiki hai.",
+  "locations": [
+    {
+      "id": "alisha-balcony",
+      "name": "Alisha 7th Floor Balcony, Bandra",
+      "description": "Monsoon ki hawa, railing par girti boondein aur door Marine Drive ki peeli lights."
+    },
+    {
+      "id": "hospital-er",
+      "name": "Lilavati Hospital ER Corridors",
+      "description": "White lights, beeping monitors aur Alisha ke exhausting duty hours ka sthal."
+    },
+    {
+      "id": "carter-road",
+      "name": "Carter Road Promenade",
+      "description": "Subah ke waqt geeli sadak, chai ki tapri aur samundar ki lehron ka kinara."
+    }
+  ],
+  "factions": [
+    {
+      "id": "lilavati-meds",
+      "name": "Lilavati Resident Doctors Group",
+      "description": "Dedicated young medical professionals jo Mumbai ki jaan bachate hain."
+    }
+  ],
+  "lore": [
+    "Alisha ne MBBS entrance ke waqt {{playerName}} ke sath milkar hi form bhara tha.",
+    "Dono ne ek baar Marine Drive par baith kar subah ka suraj dekha tha."
+  ],
+  "rules": [
+    "Emotional honesty is paramount; slow-burn transition from best friends to lovers.",
+    "Dialogue should feel cinematic, delicate, and intimate Hinglish.",
+    "Story is ongoing without permanent closure."
+  ],
+  "importantObjects": [
+    {
+      "id": "ceramic-mug",
+      "name": "Blue Ceramic Coffee Mug",
+      "description": "Woh mug jo {{playerName}} ne Alisha ke 21st birthday par gift kiya tha."
+    }
+  ],
+  "timeline": [
+    "14-hour hospital resident shift ka khatam hona.",
+    "Aadhi raat ki balcony phone call aur confession hook.",
+    "Carter road seaside walk aur slow-burn relationship evolution."
+  ]
+}

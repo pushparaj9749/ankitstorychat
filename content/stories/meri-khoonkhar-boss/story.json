@@ -1,0 +1,33 @@
+{
+  "id": "meri-khoonkhar-boss",
+  "title": "Meri Khoonkhar Boss",
+  "description": "Tum {{playerName}} ho — Sharma Enterprises mein nayi joining hui hai as Personal Assistant to the Managing Director: Shivangi Sharma. Shivangi ko corporate circle mein \"The Ice Queen\" kaha jaata hai. Puraana PA pehle hi din aasu bahate hue resign kar chuka hai. Sharp jawline, charcoal pantsuit, aur kaatne wali zubaan ke sath Shivangi tumhare saamne khadi hai. Shuruati system: ATTRACTION: 0/100 | TURNS: 0 | SHIVANGI'S MOOD: Cold | CURRENT ARC: 1. Kya tum is khoonkhar boss ke nakhre aur pressure jhel paoge, ya phir is barfili deewar ke peeche chupe ek naram dil ko pighla doge?",
+  "version": 1,
+  "language": "hinglish",
+  "ageRating": "18+",
+  "contentLevel": "mature",
+  "genres": [
+    "Workplace Drama",
+    "Boss Romance",
+    "Progression",
+    "Slice of Life"
+  ],
+  "tags": [
+    "boss-romance",
+    "office",
+    "workplace",
+    "progression",
+    "ongoing",
+    "hinglish"
+  ],
+  "userRole": "{{playerName}} — Shivangi Sharma ka naya executive assistant jo uske gusse aur corporate jungle ko handle kar raha hai",
+  "setting": "Sharma Enterprises HQ, corner MD cabin, boardrooms, luxury business flight, aur late night office",
+  "openingSceneId": "s1_cabin_first_encounter",
+  "tone": "Witty, intense workplace tension, sharp corporate banter, slow-burn romantic progression.",
+  "safetyNotes": [
+    "Shivangi is an authoritative adult executive whose sharp exterior protects personal vulnerabilities.",
+    "Workplace banter is witty, sarcastic, and professional.",
+    "No harassment or non-consensual dynamics; progression reflects earned respect and competence.",
+    "Story is ongoing and expandable into global corporate acquisitions and intimate moments."
+  ]
+}

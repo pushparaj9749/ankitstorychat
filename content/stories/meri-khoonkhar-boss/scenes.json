@@ -1,0 +1,451 @@
+{
+  "storyId": "meri-khoonkhar-boss",
+  "version": 1,
+  "scenes": [
+    {
+      "id": "s1_cabin_first_encounter",
+      "title": "Glass Cabin Ki Barfili Hawa",
+      "narration": [
+        "*Sharma Enterprises ki 30th floor. Floor-to-ceiling glass cabin mein aisi khamoshi hai jaise toofan aane se pehle hoti hai. Tum {{playerName}} ho — naye PA.*",
+        "*Pichla PA abhi-abhi apni file chhod kar rote hue lift ki taraf bhaaga hai. Cabin ke andar se phone par ek gusse bhari aawaz goonjti hai.*",
+        "Shivangi: \"Nahi, Mr. Singhania! Agar shaam tak contract terms change nahi hue toh deal cancel samjho. Mujhe excuse nahi result chahiye!\"",
+        "*Call kaat kar woh ghoomti hai. Sculpted cheekbones, high ponytail aur charcoal blazer mein behad stunning aur intimidating shaksiyat: Shivangi Sharma.*",
+        "*Uski teekhi nazrein pehli baar tum par padti hain.*",
+        "Shivangi: \"Toh tum ho naye PA? Pichla wala teen ghante mein toot gaya. Batao {{playerName}}, tum yahan time waste karne aaye ho ya sach mein dimaag hai tumhare paas?\"",
+        "*STATUS PANEL: ATTRACTION: 0/100 | TURNS: 0 | SHIVANGI'S MOOD: Cold | CURRENT ARC: 1.*"
+      ],
+      "fallbackLines": [
+        "*Shivangi phone ko desk par patakti hai aur tumhari file kholti hai.*",
+        "Shivangi: \"Main bina soche-samjhe bolne walon ko tolerate nahi karti.\""
+      ],
+      "choices": [
+        {
+          "id": "c1_competent_reply",
+          "text": "Shant confidence ke sath file aage karo — \"Main time waste nahi karta, ma'am. Yeh raha London deal ka revised audit report.\"",
+          "shortLabel": "Audit report do",
+          "keywords": [
+            "audit",
+            "report",
+            "london",
+            "shant"
+          ],
+          "next": "s2_competent_reply",
+          "effects": {
+            "relationships": {
+              "shivangi": 8
+            },
+            "flags": {
+              "showedCompetence": true
+            },
+            "memory": [
+              "{{playerName}} ne aate hi London deal ki audit report pesh karke Shivangi ko chup karaya."
+            ]
+          }
+        },
+        {
+          "id": "c1_bold_banter",
+          "text": "Uski aankhon mein dekh kar halki muskaan do — \"Main itni aasani se tootne walon mein se nahi hoon, ma'am.\"",
+          "shortLabel": "Nahi tootne wala",
+          "keywords": [
+            "muskaan",
+            "bold",
+            "tootne",
+            "himmat"
+          ],
+          "next": "s2_bold_banter",
+          "effects": {
+            "relationships": {
+              "shivangi": 6
+            },
+            "flags": {
+              "teasedShivangi": true
+            },
+            "memory": [
+              "{{playerName}} ne bina dare Shivangi ki ankhon mein dekh kar himmat dikhayi."
+            ]
+          }
+        },
+        {
+          "id": "c1_coffee_move",
+          "text": "Dheere se pucho — \"Aapki black coffee pehle laaun, ya pehle pending signatures karwayein?\"",
+          "shortLabel": "Black coffee pucho",
+          "keywords": [
+            "coffee",
+            "signature",
+            "desk",
+            "black"
+          ],
+          "next": "s2_coffee_move",
+          "effects": {
+            "relationships": {
+              "shivangi": 7
+            },
+            "flags": {
+              "rememberedCoffee": true
+            },
+            "memory": [
+              "{{playerName}} ne bina bataye Shivangi ki black coffee ki aadat ka dhyan rakha."
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "id": "s2_competent_reply",
+      "title": "Report Ki Jaanch Aur Naram Tewar",
+      "narration": [
+        "*Shivangi file kheench kar kholti hai. Uski ungliyan tezi se financial numbers par chalti hain.*",
+        "*Uski eyebrow dheere se uthti hai. Jo calculation uske purane senior analyst teen din mein nahi kar paaye the, woh tumne pehle page par highlight kar diya tha.*",
+        "Shivangi: \"Page four ka deficit... tumne Singapore currency fluctuation ke hisaab se adjust kiya hai?\"",
+        "*Tum: \"Ji ma'am. Teen percent ka buffer bacha kar.\"*",
+        "*Shivangi file band karti hai. Uske labon par ek adrishya muskaan aakar turant chali jaati hai.*",
+        "Shivangi: \"Not bad, {{playerName}}. Kam se kam pichle gadhe se toh behtar ho. Ab jaao, 20 minute mein coffee aur Singapore team ki meeting set karo.\"",
+        "*STATUS UPDATE: ATTRACTION: 12/100 | SHIVANGI'S MOOD: Impressed | TURNS: 1.*"
+      ],
+      "fallbackLines": [
+        "*Shivangi pen ko laptop ke bagal mein rakhti hai.*",
+        "Shivangi: \"Der mat karna, mera waqt mehenga hai.\""
+      ],
+      "choices": [
+        {
+          "id": "c2_execute_order",
+          "text": "\"On it, ma'am. 15 minute mein sab ready hoga.\"",
+          "shortLabel": "15 minute ka wada",
+          "keywords": [
+            "ready",
+            "order",
+            "fast",
+            "minute"
+          ],
+          "next": "s3_late_night_crisis",
+          "effects": {
+            "relationships": {
+              "shivangi": 6
+            },
+            "memory": [
+              "{{playerName}} ne 15 minute mein saari meetings coordinate kar di."
+            ]
+          }
+        },
+        {
+          "id": "c2_smooth_smile",
+          "text": "Ek respectful nod ke sath kaho — \"Aapko disappoint nahi karunga.\"",
+          "shortLabel": "Disappoint nahi",
+          "keywords": [
+            "disappoint",
+            "respect",
+            "nod",
+            "kaam"
+          ],
+          "next": "s3_late_night_crisis",
+          "effects": {
+            "relationships": {
+              "shivangi": 7
+            },
+            "memory": [
+              "{{playerName}} ne calm dedication se Shivangi ka bharosa jeeta."
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "id": "s2_bold_banter",
+      "title": "Aankhon Ki Takkar Aur Challenge",
+      "narration": [
+        "*Shivangi chair ki taraf do kadam aage aati hai. Uski stilettos ki thak-thak soundproof floor par bhi goonjti hai.*",
+        "*Woh tumhare itne qareeb aakar rukti hai ki tum uske expensive French perfume ki lavender mehak mehsoos kar sakte ho.*",
+        "Shivangi: \"Bade bol bolna aasan hota hai, {{playerName}}. Yahan aakar har koi yahi kehta hai. Par jab main files phek kar maarti hoon, toh sabki aukaat saamne aa jaati hai.\"",
+        "*Tumhari palkein bina jhuke uski kaali ankhon par tiki rehti hain.*",
+        "Shivangi: \"Dekhte hain tumhari yeh akad kab tak tikti hai. Desk par baitho aur mujhe London merger ki saari loopholes chahiye subah se pehle.\"",
+        "*STATUS UPDATE: ATTRACTION: 15/100 | SHIVANGI'S MOOD: Curious | TURNS: 1.*"
+      ],
+      "fallbackLines": [
+        "*Shivangi ke honthon ke kone par ek dabi hui चुनौती hai.*",
+        "Shivangi: \"Jao, kaam shuru karo.\""
+      ],
+      "choices": [
+        {
+          "id": "c2_take_desk",
+          "text": "\"Loopholes shaam tak mil jayengi ma'am. Uski chinta mat kijiye.\"",
+          "shortLabel": "Shaam tak loopholes",
+          "keywords": [
+            "loopholes",
+            "desk",
+            "shaam",
+            "kaam"
+          ],
+          "next": "s3_late_night_crisis",
+          "effects": {
+            "relationships": {
+              "shivangi": 7
+            },
+            "memory": [
+              "{{playerName}} ne challenge accept karke deadlines beat ki."
+            ]
+          }
+        },
+        {
+          "id": "c2_witty_comeback",
+          "text": "\"Files sambhal kar phekiyega ma'am, paper cuts bohot dard dete hain.\"",
+          "shortLabel": "Paper cuts banter",
+          "keywords": [
+            "paper cut",
+            "files",
+            "mazak",
+            "banter"
+          ],
+          "next": "s3_late_night_crisis",
+          "effects": {
+            "relationships": {
+              "shivangi": 9
+            },
+            "flags": {
+              "crackedBossSmile": true
+            },
+            "memory": [
+              "{{playerName}} ke paper cuts wale mazaak par Shivangi ka gussa hawa ho gaya."
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "id": "s2_coffee_move",
+      "title": "Espresso Aur Chhupa Hua Sammaan",
+      "narration": [
+        "*Shivangi thehar jaati hai. Uski nazron mein hairani saaf jhalak rahi thi.*",
+        "Shivangi: \"Tumhe kisne bataya ki main black coffee peeti hoon? HR ne?\"",
+        "*Tum: \"Nahi ma'am. Maine desk par khali cup dekha aur schedule se andaza lagaya.\"*",
+        "*Shivangi ek gehri saans leti hai. Uski kandhon ka rigid posture thoda dheela padta hai.*",
+        "Shivangi: \"Observation skills achhi hain tumhari. Double shot lana, bina sugar ke. Aur sath mein Singhania Group ki file.\"",
+        "*STATUS UPDATE: ATTRACTION: 14/100 | SHIVANGI'S MOOD: Softening | TURNS: 1.*"
+      ],
+      "fallbackLines": [
+        "*Coffee machine se steam nikalne lagti hai.*",
+        "Shivangi: \"Chalo kam se kam ek cheez dhang se aati hai tumhe.\""
+      ],
+      "choices": [
+        {
+          "id": "c2_serve_coffee",
+          "text": "Garam double espresso tray par rakh kar cabin mein pesh karo",
+          "shortLabel": "Espresso pesh karo",
+          "keywords": [
+            "espresso",
+            "tray",
+            "cabin",
+            "coffee"
+          ],
+          "next": "s3_late_night_crisis",
+          "effects": {
+            "relationships": {
+              "shivangi": 8
+            },
+            "memory": [
+              "{{playerName}} ne perfect temperature par espresso serve kiya."
+            ]
+          }
+        },
+        {
+          "id": "c2_brief_summary",
+          "text": "Coffee dete hue sath mein Singhania file ka 2-minute summary verbal batao",
+          "shortLabel": "Verbal summary do",
+          "keywords": [
+            "summary",
+            "file",
+            "singhania",
+            "verbal"
+          ],
+          "next": "s3_late_night_crisis",
+          "effects": {
+            "relationships": {
+              "shivangi": 10
+            },
+            "memory": [
+              "{{playerName}} ne verbal briefing dekar Shivangi ka 20 minute ka waqt bachaya."
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "id": "s3_late_night_crisis",
+      "title": "Aadhi Raat Ka Toofan Aur Akeli Boss",
+      "narration": [
+        "*Raat ke 11 baj chuke hain. Office ki baaki saari floors band hain, sirf 30th floor ki yellow lights jal rahi hain.*",
+        "*Bahar Mumbai ki tez baarish glass windows par thak-thak baja rahi hai. Shivangi apne cabin mein sar pakad kar baithi hai.*",
+        "*Uski high ponytail ab dheeli ho chuki hai, blazer chair par latka hai aur sirf crimson blouse mein woh thaki hui dikh rahi hai.*",
+        "Shivangi: \"Singhania ne backout kar diya, {{playerName}}... board kal subah mera resignation maang lega.\"",
+        "*Uski aawaz mein pehli baar koi taunt ya akad nahi thi. Sirf ek thaki hui ladki ka sach tha.*"
+      ],
+      "fallbackLines": [
+        "*Baarish ki goonj cabin mein phaili hui hai.*",
+        "Shivangi: \"Main haar nahi sakti... bilkul nahi.\""
+      ],
+      "choices": [
+        {
+          "id": "c3_offer_alternate_buyer",
+          "text": "Desk par aakar naya buyer presentation kholo — \"Singhania gaya toh kya hua? Dubai logistics syndicate ready hai.\"",
+          "shortLabel": "Dubai buyer batao",
+          "keywords": [
+            "dubai",
+            "buyer",
+            "plan b",
+            "presentation"
+          ],
+          "next": "s4_rain_delay_penthouse",
+          "effects": {
+            "relationships": {
+              "shivangi": 15
+            },
+            "flags": {
+              "savedMerger": true
+            },
+            "memory": [
+              "{{playerName}} ne crisis ke waqt Dubai alternate buyer pitch karke deal bacha li."
+            ]
+          }
+        },
+        {
+          "id": "c3_bring_warm_water",
+          "text": "Pehle garam paani aur dawa do — \"Aapka sar dard ho raha hai ma'am, pehle do minute saans lijiye.\"",
+          "shortLabel": "Dawa aur tasalli do",
+          "keywords": [
+            "paani",
+            "dawa",
+            "tasalli",
+            "saans"
+          ],
+          "next": "s4_rain_delay_penthouse",
+          "effects": {
+            "relationships": {
+              "shivangi": 12
+            },
+            "flags": {
+              "comfortedBossVulnerable": true
+            },
+            "memory": [
+              "{{playerName}} ne boss ki tabiyat ka dhyan rakha jab woh bilkul toot chuki thi."
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "id": "s4_rain_delay_penthouse",
+      "title": "Barish Ki Raat Aur Boss Ka Naram Dil",
+      "narration": [
+        "*Shivangi presentation dekh kar achanak khadi ho jaati hai. Uski aankhon mein nayi aag daud padti hai.*",
+        "Shivangi: \"Yeh numbers... tumne kab calculate kiye? Yeh strategy brilliant hai!\"",
+        "*Usi waqt office ki building ka main power circuit trip hota hai. Emergency warm yellow lights on hoti hain.*",
+        "*Shivangi andhere mein tumhare qareeb aakar rukti hai. Uski saansein tez hain.*",
+        "Shivangi: \"{{playerName}}... agar tum aaj raat yahan nahi hote, toh main sach mein bikhar jaati. Thank you.\"",
+        "*STATUS MILESTONE: ATTRACTION: 45/100 | SHIVANGI'S MOOD: Vulnerable & Grateful | CURRENT ARC: 2.*"
+      ],
+      "fallbackLines": [
+        "*Glass par baarish ki boondein fisal rahi hain.*",
+        "Shivangi: \"Mujhe akele rehne ki aadat ho gayi thi.\""
+      ],
+      "choices": [
+        {
+          "id": "c4_stand_beside_her",
+          "text": "Khidki ke paas uske barabar khade hokar kaho — \"Aapko ab akele ladne ki zaroorat nahi hai, Shivangi.\"",
+          "shortLabel": "Akele ladna nahi",
+          "keywords": [
+            "akele",
+            "saath",
+            "shivangi",
+            "khidki"
+          ],
+          "next": "s5_business_gala_alliance",
+          "effects": {
+            "relationships": {
+              "shivangi": 14
+            },
+            "memory": [
+              "{{playerName}} ne Shivangi ko sahara diya aur uska naam pehli baar akele mein liya."
+            ]
+          }
+        },
+        {
+          "id": "c4_professional_warmth",
+          "text": "\"Yeh meri duty thi ma'am. Ab kal board meeting mein inko jawaab dete hain.\"",
+          "shortLabel": "Board ko jawab do",
+          "keywords": [
+            "duty",
+            "board",
+            "kal",
+            "jawab"
+          ],
+          "next": "s5_business_gala_alliance",
+          "effects": {
+            "relationships": {
+              "shivangi": 10
+            },
+            "memory": [
+              "{{playerName}} ne agle din ki jeet ki tayyari shuru ki."
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "id": "s5_business_gala_alliance",
+      "title": "Corporate Badshahat Aur Dil Ka Safar",
+      "narration": [
+        "*Subah ki pehli dhoop Marine Drive ke samundar par chamakti hai. Board meeting jeet chuki hai.*",
+        "*Shivangi apne penthouse cabin mein tumhare sath khadi hai, uske haath mein coffee cup hai aur chehre par ek aisi muskaan jo poore corporate world ne kabhi nahi dekhi.*",
+        "Shivangi: \"Mera pichla PA bhaag gaya tha, par tum... tum meri aadat bante ja rahe ho, {{playerName}}.\"",
+        "*Uski ungliyan halke se tumhare collar ko theek karti hain.*",
+        "*Yeh kahani yahan rukti nahi — aage London gala, board ke rivals ki nayi sazish aur boss aur assistant ke dabe hue romance ke anant panno ka aagaz hai.*"
+      ],
+      "fallbackLines": [
+        "*Suraj ki roshni cabin ko golden bana rahi hai.*",
+        "*Shivangi ki aankhon mein naya nasha hai.*"
+      ],
+      "choices": [
+        {
+          "id": "c5_morning_flirt",
+          "text": "Halki muskaan ke sath bolo — \"Aadat buri nahi hai ma'am, bas sambhaliye ga.\"",
+          "shortLabel": "Aadat sambhaliye",
+          "keywords": [
+            "aadat",
+            "flirt",
+            "muskaan",
+            "boss"
+          ],
+          "next": "s1_cabin_first_encounter",
+          "effects": {
+            "relationships": {
+              "shivangi": 8
+            },
+            "memory": [
+              "{{playerName}} ne playful confidence se Shivangi ke sath nayi shuruaat ki."
+            ]
+          }
+        },
+        {
+          "id": "c5_london_trip_prep",
+          "text": "\"Chaliye London deal sign karne ki flight book karte hain.\"",
+          "shortLabel": "London flight book",
+          "keywords": [
+            "london",
+            "deal",
+            "flight",
+            "safari"
+          ],
+          "next": "s1_cabin_first_encounter",
+          "effects": {
+            "relationships": {
+              "shivangi": 7
+            },
+            "memory": [
+              "{{playerName}} ne Shivangi ke sath London trip ki planning shuru ki."
+            ]
+          }
+        }
+      ]
+    }
+  ],
+  "endings": []
+}

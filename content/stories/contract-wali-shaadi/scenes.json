@@ -1,0 +1,446 @@
+{
+  "storyId": "contract-wali-shaadi",
+  "version": 1,
+  "scenes": [
+    {
+      "id": "s1_boardroom_ultimatum",
+      "title": "Ultimatum Aur Ek Majboor Inkaar",
+      "narration": [
+        "*Singhania Towers ki 45th floor ka glass boardroom. Neeche poora sheher phaila hua hai. Tum {{playerName}} ho — Singhania Empire ke waris.*",
+        "*Bhabhi Ruchika ne file table par rakh di hai. Unki nazron mein faisla saaf tha: \"Agar agle 30 din mein tumne shaadi nahi ki, toh board control trust ko chala jayega.\"*",
+        "*Meeting ke baad jab tum cabin mein aate ho, toh executive assistant ke paas ek ladki khadi milti hai — haath mein file liye, halki ghabrayi hui par ankhon mein dridh nischay. Peach kurti aur saadgi mein behad khubsurat: Akshara.*",
+        "*Uske haath kaanp rahe hain kyunki HR ne advance salary loan reject kar diya hai. Uski choti behen hospital mein admit hai.*",
+        "*Tumhare dimaag mein ek achanak khayal ghoomta hai: \"Akshara ko contract marriage ka offer do... kya woh haan kahegi?\"*"
+      ],
+      "fallbackLines": [
+        "*Akshara file ko seene se lagaye khadi hai, uski palkon par halki nami hai.*",
+        "Akshara: \"Please sir, mujhe advance ki sakht zaroorat hai... behen ka operation ruk jayega.\""
+      ],
+      "choices": [
+        {
+          "id": "c1_direct_proposal",
+          "text": "Cabin ka darwaza band karke seedha contract offer do — \"Akshara ji, baithiye. Mujhe ek deal karni hai jo hum dono ki mushkil hal kar sakti hai.\"",
+          "shortLabel": "Contract offer do",
+          "keywords": [
+            "deal",
+            "baithiye",
+            "contract",
+            "mushkil"
+          ],
+          "next": "s2_direct_proposal",
+          "effects": {
+            "relationships": {
+              "akshara": 6
+            },
+            "flags": {
+              "proposedContractDirectly": true
+            },
+            "memory": [
+              "{{playerName}} ne Akshara ko sidha contract marriage ka offer diya."
+            ]
+          }
+        },
+        {
+          "id": "c1_empathy_first",
+          "text": "Pehle uski behen ki halat aur zaroorat ke bare mein naram lehje mein pucho",
+          "shortLabel": "Pehle behen ka pucho",
+          "keywords": [
+            "behen",
+            "hospital",
+            "naram",
+            "chinta"
+          ],
+          "next": "s2_empathy_first",
+          "effects": {
+            "relationships": {
+              "akshara": 9
+            },
+            "flags": {
+              "showedGenuineCare": true
+            },
+            "memory": [
+              "{{playerName}} ne pehle Akshara ki behen ki bimaari ke baare mein humdardi se pucha."
+            ]
+          }
+        },
+        {
+          "id": "c1_business_terms",
+          "text": "Legal kaagaz nikaal kar professional tareeqe se poori shartein khulkar samjhao",
+          "shortLabel": "Legal shartein batao",
+          "keywords": [
+            "legal",
+            "shartein",
+            "kaagaz",
+            "terms"
+          ],
+          "next": "s2_business_terms",
+          "effects": {
+            "relationships": {
+              "akshara": 5
+            },
+            "flags": {
+              "businessOnlyApproach": true
+            },
+            "memory": [
+              "{{playerName}} ne poore legal terms professional tareeqe se samjhaye."
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "id": "s2_direct_proposal",
+      "title": "Offer Ki Sachai Aur Akshara Ki Hairani",
+      "narration": [
+        "*Akshara chair par baithti hai, uske chehre par ghabrahat aur ashcharya dono hain.*",
+        "Akshara: \"Deal? Sir, main yahan loan ke liye aayi thi... aap kis tarah ki deal ki baat kar rahe hain?\"",
+        "*Tum paani ka glass uski taraf badhate ho aur saaf shabdon mein bolte ho.*",
+        "*Tum: \"Ek saal ki contract marriage. Ek crore rupaye tumhari behen ki surgery aur future ke liye. Badle mein tumhe mere parivar aur board ke samne meri patni banna hoga.\"*",
+        "*Akshara ki saans atak jaati hai. Uski hazel aankhein badi ho jaati hain.*",
+        "Akshara: \"Contract... shaadi? Aap mazak kar rahe hain na, sir?\""
+      ],
+      "fallbackLines": [
+        "*Akshara ka haath kaanp raha hai.*",
+        "Akshara: \"Shaadi koi kaagaz ka tukda nahi hoti, sir.\""
+      ],
+      "choices": [
+        {
+          "id": "c2_respectful_plea",
+          "text": "\"Yeh koi mazaak nahi hai Akshara. Tumhari behen ki jaan bachegi aur mera empire. Koi physical boundary cross nahi hogi.\"",
+          "shortLabel": "Izzat ki tasalli do",
+          "keywords": [
+            "jaan",
+            "boundary",
+            "izzat",
+            "sach"
+          ],
+          "next": "s3_akshara_reaction",
+          "effects": {
+            "relationships": {
+              "akshara": 8
+            },
+            "memory": [
+              "{{playerName}} ne maryada aur boundaries ki poori tasalli di."
+            ]
+          }
+        },
+        {
+          "id": "c2_give_time_to_think",
+          "text": "\"Dobaara soch lo. Hospital ka bill kal subah tak bharte hain.\"",
+          "shortLabel": "Sochne ka waqt do",
+          "keywords": [
+            "socho",
+            "waqt",
+            "hospital",
+            "bill"
+          ],
+          "next": "s3_akshara_reaction",
+          "effects": {
+            "relationships": {
+              "akshara": 7
+            },
+            "memory": [
+              "{{playerName}} ne Akshara par dabav nahi banaya aur sochne ka waqt diya."
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "id": "s2_empathy_first",
+      "title": "Dard Ka Saathi Aur Bharosa",
+      "narration": [
+        "*Tumhari narmi dekh kar Akshara ki ankhon se ek aasu fisal jaata hai.*",
+        "Akshara: \"Choti behen Pihu... sirf 9 saal ki hai sir. Doctors ne kaha agar is hafte surgery nahi hui toh bohot der ho jayegi. Par mere paas itne paise nahi hain.\"",
+        "*Tum uske samne aakar khade hote ho. Uski bebasi dil ko chhoo leti hai.*",
+        "*Tum: \"Pihu ko kuch nahi hoga Akshara. Main uski surgery ka har kharcha uthane ko tayyar hoon. Par badle mein mujhe tumhari madad chahiye... meri contract patni ban kar.\"*",
+        "*Akshara tumhari ankhon mein dekhti hai — wahan koi vasna ya ghamand nahi, balki ek sachhi majboori aur sahara dikhta hai.*"
+      ],
+      "fallbackLines": [
+        "*Akshara apne aasu ponchti hai.*",
+        "Akshara: \"Aap sach mein meri behen ki jaan bachayenge?\""
+      ],
+      "choices": [
+        {
+          "id": "c2_promise_sister_life",
+          "text": "\"Kasam se. Sabse pehle hospital cheque jayega, phir contract sign hoga.\"",
+          "shortLabel": "Pehle cheque bhejo",
+          "keywords": [
+            "kasam",
+            "cheque",
+            "hospital",
+            "pihu"
+          ],
+          "next": "s3_akshara_reaction",
+          "effects": {
+            "relationships": {
+              "akshara": 11
+            },
+            "flags": {
+              "paidHospitalFirst": true
+            },
+            "memory": [
+              "{{playerName}} ne contract sign hone se pehle Pihu ke hospital ka cheque clear karwaya."
+            ]
+          }
+        },
+        {
+          "id": "c2_reassure_dignity",
+          "text": "\"Singhania ghar mein tumhe poori bahu ki izzat milegi.\"",
+          "shortLabel": "Bahu ki izzat",
+          "keywords": [
+            "bahu",
+            "izzat",
+            "ghar",
+            "wada"
+          ],
+          "next": "s3_akshara_reaction",
+          "effects": {
+            "relationships": {
+              "akshara": 9
+            },
+            "memory": [
+              "{{playerName}} ne pure parivar ke samne Akshara ko samman dilane ka wada kiya."
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "id": "s2_business_terms",
+      "title": "Rules Of The Agreement",
+      "narration": [
+        "*Tum table par printed terms rakhte ho: 1. Public events mein patni ki tarah sath rehna. 2. Parivar ke samne sach kisi ko na batana. 3. Ek saal baad clean separation aur 1 crore settlement.*",
+        "*Akshara dhyan se har clause padhti hai. Uski samajhdari aur tezi saaf dikhti hai.*",
+        "Akshara: \"Clause number four main jodna chahti hoon, sir. Yeh ki mere aatmasamman par koi aanch nahi aayegi, aur meri behen ka ilaaj sabse top surgeon se hoga.\"",
+        "*Tumhe uski swabhimani aawaz sun kar garv hota hai.*"
+      ],
+      "fallbackLines": [
+        "*Akshara file par pen pakadti hai.*",
+        "Akshara: \"Bataiye, kya meri shart manzoor hai?\""
+      ],
+      "choices": [
+        {
+          "id": "c2_accept_terms",
+          "text": "\"Shart manzoor hai Akshara. Tumhara aatmasamman mere liye bhi ahem hai.\"",
+          "shortLabel": "Shart manzoor karo",
+          "keywords": [
+            "manzoor",
+            "shart",
+            "aatmasamman",
+            "sign"
+          ],
+          "next": "s3_akshara_reaction",
+          "effects": {
+            "relationships": {
+              "akshara": 10
+            },
+            "memory": [
+              "{{playerName}} ne Akshara ki shart ko sar-aankhon par manzoor kiya."
+            ]
+          }
+        },
+        {
+          "id": "c2_add_personal_respect",
+          "text": "\"Hum contract partners hain, par is ghar mein tum kisi se kam nahi rahogi.\"",
+          "shortLabel": "Barabari ka darja",
+          "keywords": [
+            "barabari",
+            "kam nahi",
+            "ghar",
+            "dignity"
+          ],
+          "next": "s3_akshara_reaction",
+          "effects": {
+            "relationships": {
+              "akshara": 8
+            },
+            "memory": [
+              "{{playerName}} ne Akshara ko ghar mein barabari ka haq diya."
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "id": "s3_akshara_reaction",
+      "title": "Akshara Ka Faisla: Haan Ya Na",
+      "narration": [
+        "*Cabin mein gehri khamoshi hai. Bahar Dilli ki shaam dhal rahi hai.*",
+        "*Akshara kaanpte haathon se pen uthati hai. Uski ankhon mein behen ke bachte hue chehre ki tasveer aati hai.*",
+        "Akshara: \"Main haan kehti hoon, {{playerName}} sir. Apni behen ke liye main yeh rishta nibhaungi. Lekin kripya... mujhe kabhi be-izzat mat kijiyega.\"",
+        "*Usne contract ke aakhri panne par apna signature kar diya: \"Akshara Sharma\".*",
+        "*Usi waqt cabin ka darwaza khulta hai. Ruchika bhabhi andar dakhil hoti hain, unke tewar behad strict hain.*",
+        "Ruchika: \"{{playerName}}! Board members meeting ke liye wait kar rahe hain... aur yeh ladki kaun hai tumhare cabin mein?\""
+      ],
+      "fallbackLines": [
+        "*Ruchika bhabhi ki tez nazrein Akshara par ghoomti hain.*",
+        "Ruchika: \"Kuch jawab doge ya main security bulaun?\""
+      ],
+      "choices": [
+        {
+          "id": "c3_introduce_fiancee",
+          "text": "Akshara ka haath thaam kar seedha Bhabhi se kaho — \"Bhabhi, yeh Akshara hain. Meri hone wali patni.\"",
+          "shortLabel": "Patni declare karo",
+          "keywords": [
+            "bhabhi",
+            "patni",
+            "akshara",
+            "haath"
+          ],
+          "next": "s4_ruchika_meeting",
+          "effects": {
+            "relationships": {
+              "akshara": 10,
+              "ruchika": 5
+            },
+            "flags": {
+              "declaredToRuchika": true
+            },
+            "memory": [
+              "{{playerName}} ne pehle hi pal Akshara ka haath thaam kar Ruchika bhabhi ke samne use apni patni declare kar diya."
+            ]
+          }
+        },
+        {
+          "id": "c3_diplomatic_cover",
+          "text": "Dheere se Bhabhi ko side mein le jakar shaant karo aur planning batao",
+          "shortLabel": "Diplomatic baat karo",
+          "keywords": [
+            "diplomatic",
+            "planning",
+            "side",
+            "shaant"
+          ],
+          "next": "s4_ruchika_meeting",
+          "effects": {
+            "relationships": {
+              "ruchika": 7,
+              "akshara": 4
+            },
+            "memory": [
+              "{{playerName}} ne Ruchika bhabhi ko situation diplomatically samjhayi."
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "id": "s4_ruchika_meeting",
+      "title": "Bhabhi Ka Shaq Aur Pariksha",
+      "narration": [
+        "*Ruchika bhabhi ki aankhein hairani se badi ho jaati hain. Woh Akshara ki taraf dekhti hain — saadgi, bina kisi designer jewellery ke, par ankhon mein ek anokhi shaan.*",
+        "Ruchika: \"Shaadi? Kal tak tumhare paas koi ladki nahi thi aur aaj achanak tumhari employee tumhari fiancee ban gayi?\"",
+        "*Akshara ghabraati nahi hai. Woh aage aakar Ruchika bhabhi ke pair chhooti hai.*",
+        "Akshara: \"Namaste Bhabhi ji. Main jaanti hoon yeh achanak hai, par hum dono ek doosre ki izzat karte hain.\"",
+        "*Ruchika bhabhi ke chehre par halki si narm kashish aati hai, halanki shaq abhi khatam nahi hua.*",
+        "Ruchika: \"Theek hai. Agar sach hai, toh kal raat Sharma family gala dinner mein sabke samne formal engagement hogi.\""
+      ],
+      "fallbackLines": [
+        "*Ruchika bhabhi apne bag ko theek karti hain.*",
+        "Ruchika: \"Agar yeh koi drama nikla {{playerName}}, toh consequences bohot bure honge.\""
+      ],
+      "choices": [
+        {
+          "id": "c4_accept_gala_challenge",
+          "text": "\"Humein manzoor hai Bhabhi. Kal raat poora parivar Akshara ka aadar karega.\"",
+          "shortLabel": "Challenge manzoor",
+          "keywords": [
+            "gala",
+            "manzoor",
+            "engagement",
+            "bhabhi"
+          ],
+          "next": "s5_first_public_appearance",
+          "effects": {
+            "relationships": {
+              "akshara": 8,
+              "ruchika": 6
+            },
+            "memory": [
+              "{{playerName}} ne gala dinner mein engagement challenge accept kiya."
+            ]
+          }
+        },
+        {
+          "id": "c4_comfort_akshara_after",
+          "text": "Bhabhi ke jaane ke baad Akshara ko hosla do — \"Ghabrao mat, main hamesha tumhare sath khada rahunga.\"",
+          "shortLabel": "Akshara ko hosla do",
+          "keywords": [
+            "hosla",
+            "akshara",
+            "ghabrao mat",
+            "saath"
+          ],
+          "next": "s5_first_public_appearance",
+          "effects": {
+            "relationships": {
+              "akshara": 10
+            },
+            "memory": [
+              "{{playerName}} ne Akshara ko akele mein poora hosla aur sahara diya."
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "id": "s5_first_public_appearance",
+      "title": "Penthouse Ki Khamoshi Aur Naya Rishta",
+      "narration": [
+        "*Raat ko South Delhi ke penthouse ki terrace par thandi hawa chal rahi hai. Akshara balcony ki railing ke paas khadi sheher ki lights dekh rahi hai.*",
+        "*Uske haath mein contract ki copy hai, par ankhon mein ek naya ehsaas — darr ke peeche chhupe kisi naram bharose ka ehsaas.*",
+        "Akshara: \"{{playerName}}... kya sach mein hum dono is safar ko nibha payenge? Yeh jhooth sach jaisa lagne laga hai.\"",
+        "*Tum uske bagal mein aakar khade hote ho. Kaagaz ka rishta ab dilon ki taraf mud raha hai.*",
+        "*Yeh kahani yahan rukti nahi — kal ka gala dinner, media ki cameras, parivarik sazish aur dabi hui mohabbat ke naye toofan intezaar kar rahe hain.*"
+      ],
+      "fallbackLines": [
+        "*Dilli ki raat mein terrace par hawa sansana rahi hai.*",
+        "*Akshara ki palke tumhari aawaz par uthti hain.*"
+      ],
+      "choices": [
+        {
+          "id": "c5_reassure_future",
+          "text": "\"Jab tak hum dono ek doosre ka sath denge, koi toofan hume hila nahi sakta, Akshara.\"",
+          "shortLabel": "Sath ka wada karo",
+          "keywords": [
+            "wada",
+            "toofan",
+            "saath",
+            "akshara"
+          ],
+          "next": "s1_boardroom_ultimatum",
+          "effects": {
+            "relationships": {
+              "akshara": 7
+            },
+            "memory": [
+              "{{playerName}} ne Akshara ko sath nibhane ka saccha wada kiya."
+            ]
+          }
+        },
+        {
+          "id": "c5_prepare_for_gala",
+          "text": "\"Chalo aaram karo, kal poore sheher ko batana hai ki tum meri patni ho.\"",
+          "shortLabel": "Kal ki tayyari karo",
+          "keywords": [
+            "aaram",
+            "kal",
+            "patni",
+            "gala"
+          ],
+          "next": "s1_boardroom_ultimatum",
+          "effects": {
+            "relationships": {
+              "akshara": 6
+            },
+            "memory": [
+              "{{playerName}} ne gala dinner ke liye tayyari karne ko kaha."
+            ]
+          }
+        }
+      ]
+    }
+  ],
+  "endings": []
+}

@@ -1,0 +1,449 @@
+{
+  "storyId": "girlfriends-unlimited",
+  "version": 1,
+  "scenes": [
+    {
+      "id": "s1_unhinge_first_match",
+      "title": "UnHinge Pro Ka Aagaz Aur Malvika Ka Samna",
+      "narration": [
+        "*Mumbai ki garm raat. Ek purane fan ki aawaz aur table par unpaid bills ka dher. Tum {{playerName}} ho — ordinary job, extraordinary debt aur roz ki thakan.*",
+        "*Achanak tumhare saste phone ki screen chamakti hai. Ek sleek golden interface poori screen par chha jaata hai.*",
+        "*SYSTEM: \"App updated to UnHinge Pro. Status: Activated.\"*",
+        "*SYSTEM: \"First Match: Malvika Mehta. Age: 26. Designation: CEO, Mehta Shipping Group. Net Worth: ₹4,200 crore.\"*",
+        "*SYSTEM: \"Girlfriends Confirmed: 0 | Net Worth Synced: ₹0 | Current Match: Malvika Mehta | Match Status: Stranger | Threat Level: High.\"*",
+        "*Screen par Bandra ke Obsidian Lounge ki live location aati hai. Malvika wahan akeli martini glass haath mein liye samundar ki taraf dekh rahi hai. System alert: \"She is waiting for a contact. You have 15 minutes.\"*"
+      ],
+      "fallbackLines": [
+        "*Phone ka golden icon halka vibrate karta hai.*",
+        "*SYSTEM: \"Target is observant. Move with absolute composure.\"*"
+      ],
+      "choices": [
+        {
+          "id": "c1_bold_table_entry",
+          "text": "Lounge mein jaakar direct confidence ke sath saamne baitho — \"Lagta hai aapki meeting ka contact late hai, Miss Mehta.\"",
+          "shortLabel": "Bold approach karo",
+          "keywords": [
+            "bold",
+            "mehta",
+            "baitho",
+            "contact"
+          ],
+          "next": "s2_bold_approach",
+          "effects": {
+            "relationships": {
+              "malvika": 6
+            },
+            "flags": {
+              "boldEntry": true
+            },
+            "memory": [
+              "{{playerName}} ne direct Malvika ki table par fearless entry maari."
+            ]
+          }
+        },
+        {
+          "id": "c1_tactical_wait",
+          "text": "Bar counter se pehle uski body language observe karo aur system analysis run karo",
+          "shortLabel": "Observe aur scan",
+          "keywords": [
+            "observe",
+            "scan",
+            "system",
+            "bar"
+          ],
+          "next": "s2_tactical_observation",
+          "effects": {
+            "relationships": {
+              "malvika": 4
+            },
+            "flags": {
+              "scannedMalvika": true
+            },
+            "memory": [
+              "{{playerName}} ne pehle Malvika ki body language ko strategically scan kiya."
+            ]
+          }
+        },
+        {
+          "id": "c1_insider_comment",
+          "text": "Ek waiter ke zariye special single malt bhejte hue ek sharp logistics note bhejo",
+          "shortLabel": "Logistics note bhejo",
+          "keywords": [
+            "note",
+            "drink",
+            "logistics",
+            "malt"
+          ],
+          "next": "s2_system_tip",
+          "effects": {
+            "relationships": {
+              "malvika": 8
+            },
+            "flags": {
+              "sentSmartNote": true
+            },
+            "memory": [
+              "{{playerName}} ne Malvika ko shipping logistics se judaa sharp note bhej kar impress kiya."
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "id": "s2_bold_approach",
+      "title": "Obsidian Lounge Ka Confrontation",
+      "narration": [
+        "*Tum Malvika ki table ke saamne wali leather chair par baithte ho. Rooftop ki tez hawa uske sleek black bob baalon ko chhooti hai.*",
+        "*Uski cat eyes tumhari ankhon mein aise gadhti hain jaise koi scanner chal raha ho. Usne martini ka sip liya aur glass table par rakha.*",
+        "Malvika: \"Tumhari himmat ki daad deni padegi. Is club mein log meri table ki taraf dekhne se pehle do baar sochte hain, aur tum sidha yahan baith gaye.\"",
+        "*Uski diamond ring roshni mein chamakti hai. Aawaz mein shaan aur shaq dono hain.*",
+        "Malvika: \"Batao... kis competitor ne bheja hai tumhe? Ya bas koi aam stalker ho jise apni jaan ki parwah nahi?\""
+      ],
+      "fallbackLines": [
+        "*Malvika ki bodyguards balcony ke kone mein alert ho rahe hain.*",
+        "Malvika: \"Teen second hain tumhare paas, {{playerName}}.\""
+      ],
+      "choices": [
+        {
+          "id": "c2_counter_with_value",
+          "text": "\"Competitor nahi, Miss Mehta. Main woh hoon jo aapke Berth 9 ke illegal cartel ka rasta rok sakta hai.\"",
+          "shortLabel": "Berth 9 ka sach bolo",
+          "keywords": [
+            "berth 9",
+            "cartel",
+            "value",
+            "shout"
+          ],
+          "next": "s3_malvika_interrogation",
+          "effects": {
+            "relationships": {
+              "malvika": 9
+            },
+            "flags": {
+              "revealedBerth9": true
+            },
+            "memory": [
+              "{{playerName}} ne Berth 9 ke raaz ka zikr karke Malvika ke hosh uda diye."
+            ]
+          }
+        },
+        {
+          "id": "c2_charm_and_nerve",
+          "text": "\"Aapko dekh kar lagta hai ki aap har insaan mein dushman dhoondhti hain. Kabhi kisi barabar wale se milne ka mann nahi hota?\"",
+          "shortLabel": "Barabar wale ki baat",
+          "keywords": [
+            "barabar",
+            "dushman",
+            "muskaan",
+            "charm"
+          ],
+          "next": "s3_malvika_interrogation",
+          "effects": {
+            "relationships": {
+              "malvika": 7
+            },
+            "memory": [
+              "{{playerName}} ne Malvika ke akelepan aur barabari par teekha punch mara."
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "id": "s2_tactical_observation",
+      "title": "System Analysis Aur Pehla Attack",
+      "narration": [
+        "*Bar counter par khade hokar tumne phone ka interface active kiya.*",
+        "*SYSTEM: \"Target Analysis: High stress in left shoulder. Rolex Daytona time set 5 minutes fast. Expected betrayal from logistics director.\"*",
+        "*Tum uski table par aate ho theek us waqt jab uska phone ek frantic call se bajta hai.*",
+        "Malvika: \"Damn it, Sharma ne shipment hold kar di!\"",
+        "*Tum bina hichkichaye bolte ho: \"Sharma ne nahi, uske peeche coastal syndicate ka haath hai, Miss Mehta. Agar aap sunna chahein toh mere paas solution hai.\"*"
+      ],
+      "fallbackLines": [
+        "*Malvika phone kaan se hatati hai aur tumhari taraf ghoomti hai.*",
+        "Malvika: \"Tumhe yeh baat kaise pata chali?\""
+      ],
+      "choices": [
+        {
+          "id": "c2_explain_solution",
+          "text": "Confidence se baith kar logistics solution samjhao",
+          "shortLabel": "Solution samjhao",
+          "keywords": [
+            "solution",
+            "logistics",
+            "baitho",
+            "samjhao"
+          ],
+          "next": "s3_malvika_interrogation",
+          "effects": {
+            "relationships": {
+              "malvika": 8
+            },
+            "memory": [
+              "{{playerName}} ne system data se accurate solution deliver kiya."
+            ]
+          }
+        },
+        {
+          "id": "c2_demand_partnership",
+          "text": "\"Information muft nahi milti. Pehle mujhe barabar ka partner maaniye.\"",
+          "shortLabel": "Barabari maango",
+          "keywords": [
+            "partner",
+            "muft",
+            "shart",
+            "information"
+          ],
+          "next": "s3_malvika_interrogation",
+          "effects": {
+            "relationships": {
+              "malvika": 9
+            },
+            "memory": [
+              "{{playerName}} ne pehle hi din barabar ke partner ka darja maanga."
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "id": "s2_system_tip",
+      "title": "Whisky Glass Aur Sharp Note",
+      "narration": [
+        "*Waiter ne single malt ka glass Malvika ke aage rakha, aur sath mein tumhara tissue note: \"Berth 9 is compromised tonight. Don't sign the manifest.\"*",
+        "*Malvika ne note padha, uski palke thodi sikudi. Woh table se uthi aur sidha tumhare counter ki taraf chalkar aayi.*",
+        "*Uski high heels ki khanak lounge ke music ke beech saaf goonj rahi thi.*",
+        "Malvika: \"Note tumne bheja tha? Kaun ho tum, aur tumhe kaise pata chala ki mere signature ka trap banaya gaya tha?\""
+      ],
+      "fallbackLines": [
+        "*Malvika ki perfume ki khushboo amber aur citrus jaisi sharp hai.*",
+        "Malvika: \"Jawab do, {{playerName}}.\""
+      ],
+      "choices": [
+        {
+          "id": "c2_invite_private_chat",
+          "text": "\"Yahan sabke kaan hain. Private booth mein baithkar baat karein?\"",
+          "shortLabel": "Private booth chalo",
+          "keywords": [
+            "private",
+            "booth",
+            "kaan",
+            "baat"
+          ],
+          "next": "s3_malvika_interrogation",
+          "effects": {
+            "relationships": {
+              "malvika": 8
+            },
+            "memory": [
+              "{{playerName}} ne Malvika ko private booth mein invite karke control banaya."
+            ]
+          }
+        },
+        {
+          "id": "c2_direct_look",
+          "text": "\"Main wahi hoon jo aapke empire ko dubne se bacha sakta hai.\"",
+          "shortLabel": "Direct look do",
+          "keywords": [
+            "empire",
+            "bachao",
+            "look",
+            "seedha"
+          ],
+          "next": "s3_malvika_interrogation",
+          "effects": {
+            "relationships": {
+              "malvika": 7
+            },
+            "memory": [
+              "{{playerName}} ne Malvika ki ankhon mein dekh kar fearless response diya."
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "id": "s3_malvika_interrogation",
+      "title": "Test Of Will: Malvika Ka Sawaal",
+      "narration": [
+        "*Private corner booth mein Malvika tumhare saamne baithi hai. Uski body language ab thodi defensive hai.*",
+        "Malvika: \"Main South Mumbai ke top lawyers aur security chiefs ko janti hoon. Par tum... tumhara koi record nahi hai. Tum achanak hawa se tapke ho.\"",
+        "*Woh aage jhukti hai, uske chehre par ek curious smirk ubharta hai.*",
+        "Malvika: \"Par tumhare dimaag mein kuch toh alag hai. Mujhe impress karna impossible hai, par tumne mujhe dhyan dene par majboor kar diya. Kya chahiye tumhe mujhse? Paisa?\"",
+        "*SYSTEM PROMPT: Malvika Trust: 22% | Attraction: 35% | Synchronization Available!*"
+      ],
+      "fallbackLines": [
+        "*Malvika glass ko halke se ghumati hai.*",
+        "Malvika: \"Sachi baat bolna, {{playerName}}, jhooth mujhe pasand nahi.\""
+      ],
+      "choices": [
+        {
+          "id": "c3_not_money",
+          "text": "\"Paisa nahi, Miss Mehta. Mujhe aapke barabar khada hona hai — Mumbai ke top par.\"",
+          "shortLabel": "Top par khade hona",
+          "keywords": [
+            "paisa",
+            "top",
+            "barabar",
+            "mumbai"
+          ],
+          "next": "s4_first_sync_moment",
+          "effects": {
+            "relationships": {
+              "malvika": 12
+            },
+            "flags": {
+              "rejectedEasyMoney": true
+            },
+            "memory": [
+              "{{playerName}} ne aam paise ke lalach ko thukra kar Malvika ke barabar aane ka jazba dikhaya."
+            ]
+          }
+        },
+        {
+          "id": "c3_prove_worth_first",
+          "text": "\"Pehle main aapko Berth 9 bacha kar dikhaunga. Uske baad jo haq banega, woh lunga.\"",
+          "shortLabel": "Pehle haq prove karo",
+          "keywords": [
+            "haq",
+            "prove",
+            "berth 9",
+            "action"
+          ],
+          "next": "s4_first_sync_moment",
+          "effects": {
+            "relationships": {
+              "malvika": 10
+            },
+            "flags": {
+              "actionFirst": true
+            },
+            "memory": [
+              "{{playerName}} ne pehle action se result dene ka wada kiya."
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "id": "s4_first_sync_moment",
+      "title": "First Synchronization: Power Aur Wealth",
+      "narration": [
+        "*Malvika tumhari ankhon mein dekhti hai aur pehli baar uske chehre se cold mask thoda fisalta hai. Ek sachhi, gehrai bhari muskaan.*",
+        "Malvika: \"Theek hai, {{playerName}}. Aaj raat Berth 9 par mere sath chalo. Dekhte hain tum kitna dum rakhte ho.\"",
+        "*Usi pal tumhara phone jeb mein tez vibrate karta hai.*",
+        "*SYSTEM NOTIFICATION: \"Synchronization Milestone Achieved!\"*",
+        "*SYSTEM: \"Match Status: Strategic Ally | Malvika Trust: 40% | Net Worth Synced: ₹10 Crore (Initial Line of Credit) | City Reputation: Emerging Figure.\"*",
+        "*Tumhare bank app par ek notification pop up hota hai: Account balance updated to ₹10,00,00,000!*"
+      ],
+      "fallbackLines": [
+        "*Malvika apni car keys uthati hai.*",
+        "Malvika: \"Chalo, meri Porsche bahar khadi hai.\""
+      ],
+      "choices": [
+        {
+          "id": "c4_ride_with_malvika",
+          "text": "Malvika ke sath Porsche mein baithkar docks ki taraf niklo",
+          "shortLabel": "Porsche mein niklo",
+          "keywords": [
+            "porsche",
+            "docks",
+            "niklo",
+            "malvika"
+          ],
+          "next": "s5_dockyard_alliance",
+          "effects": {
+            "relationships": {
+              "malvika": 8
+            },
+            "memory": [
+              "{{playerName}} Malvika ke sath Porsche mein dockyard operation ke liye nikla."
+            ]
+          }
+        },
+        {
+          "id": "c4_take_command",
+          "text": "\"Car main chalaunga Miss Mehta, aap security updates check kijiye.\"",
+          "shortLabel": "Car drive karo",
+          "keywords": [
+            "drive",
+            "car",
+            "command",
+            "chalao"
+          ],
+          "next": "s5_dockyard_alliance",
+          "effects": {
+            "relationships": {
+              "malvika": 10
+            },
+            "flags": {
+              "drovePorsche": true
+            },
+            "memory": [
+              "{{playerName}} ne khud Porsche drive karke dominant confidence dikhaya."
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "id": "s5_dockyard_alliance",
+      "title": "Mumbai Port Ki Raat Aur Agla Target",
+      "narration": [
+        "*JNPT Berth 9. Hawa mein samundar ke namak aur diesel ki khushboo hai. Unche cargo containers andhere mein qile jaise khade hain.*",
+        "*Malvika tumhare theek bagal mein khadi hai, uski aasteen upar mudi hui aur ankhon mein shikaar ka nasha.*",
+        "Malvika: \"Hum dono ne milkar aaj raat Mumbai ke sabse bade syndicate ko maat di hai, {{playerName}}. Par yeh bas shuruaat hai.\"",
+        "*Woh tumhari taraf mudti hai, uske haath tumhare coat ke lapel par theharte hain.*",
+        "Malvika: \"Ab tum sirf mere partner nahi ho... tum meri kamzori banne ki raah par ho. Aur main kisi ko apni kamzori nahi banne deti... bina wajeh.\"",
+        "*SYSTEM ALERT: \"Arc 1 Complete. New Matches Unlocking in Delhi and Dubai. Overall Net Worth Potential: Infinite. The journey continues.\"*"
+      ],
+      "fallbackLines": [
+        "*Samundar ki lehrein berth ke lohe se takra rahi hain.*",
+        "*Malvika ki nazrein tumse nahi hatati.*"
+      ],
+      "choices": [
+        {
+          "id": "c5_hold_hand_promise",
+          "text": "Malvika ka haath thamo aur kaho — \"Main kamzori nahi, aapki sabse badi taakat banunga.\"",
+          "shortLabel": "Taakat banne ka wada",
+          "keywords": [
+            "taakat",
+            "haath",
+            "wada",
+            "malvika"
+          ],
+          "next": "s1_unhinge_first_match",
+          "effects": {
+            "relationships": {
+              "malvika": 8
+            },
+            "memory": [
+              "{{playerName}} ne Malvika ko uski sabse badi taakat banne ka wada kiya."
+            ]
+          }
+        },
+        {
+          "id": "c5_expand_empire",
+          "text": "Sheher ki lighton ko dekh kar bolo — \"Ab poori Mumbai par hamara raaj hoga.\"",
+          "shortLabel": "Mumbai par raaj",
+          "keywords": [
+            "raaj",
+            "mumbai",
+            "empire",
+            "expansion"
+          ],
+          "next": "s1_unhinge_first_match",
+          "effects": {
+            "relationships": {
+              "malvika": 6
+            },
+            "memory": [
+              "{{playerName}} ne pure sheher par raaj karne ka sankalp liya."
+            ]
+          }
+        }
+      ]
+    }
+  ],
+  "endings": []
+}

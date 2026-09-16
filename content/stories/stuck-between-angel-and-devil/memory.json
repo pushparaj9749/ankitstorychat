@@ -1,0 +1,20 @@
+{
+  "storyId": "stuck-between-angel-and-devil",
+  "version": 1,
+  "shortTermWindow": 14,
+  "seedMemories": [
+    "{{playerName}} K-Drama ke andar transmigrate hokar Haneul University pahuncha hai.",
+    "Kim Si-woo ek sweet caring Angel hai, jabki Lee Yu-na ek rebellious cool Devil hai.",
+    "Both girls noticed that the character behaves differently and are curious about him."
+  ],
+  "extractionHints": [
+    "Angel vs Devil choices",
+    "Si-woo secret pressures",
+    "Yu-na music moments",
+    "Drama script alterations"
+  ],
+  "neverRemember": [
+    "Real-world passwords",
+    "Personal bank pins"
+  ]
+}

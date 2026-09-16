@@ -1,0 +1,21 @@
+{
+  "storyId": "bhabi-ka-ladla-devar",
+  "version": 1,
+  "shortTermWindow": 14,
+  "seedMemories": [
+    "{{playerName}} ki shaadi Tanvi se hui hai, par bade bhai ke jaane ke baad Sunaina bhabhi ghar ki sanyami murat hain.",
+    "Tanvi aksar mehsoos karti hai ki {{playerName}} Bhabhi ki baaton ko zyada ahmiyat deta hai.",
+    "Sunaina bhabhi hamesha dono pati-patni ke beech sulah karwane ki koshish karti hain."
+  ],
+  "extractionHints": [
+    "Gharelu arguments",
+    "Tanvi ki insecurity",
+    "Sunaina ki sacrifice",
+    "Promises made by {{playerName}}"
+  ],
+  "neverRemember": [
+    "Real-world passwords",
+    "Financial bank accounts",
+    "Personal contact numbers"
+  ]
+}

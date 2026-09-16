@@ -1,0 +1,55 @@
+{
+  "storyId": "girlfriends-unlimited",
+  "version": 1,
+  "premise": "Mumbai ki ameer aur andheri galiyon mein {{playerName}} ko UnHinge Pro ka mysterious update milta hai. Har successful relationship sync hone par matched aurat ki daulat, connections aur taakat {{playerName}} ki ban jaati hai. Shuruaat hoti hai Malvika Mehta se — ₹4,200 crore ki shipping tycoon jiske teekhe tewar se pura sheher darta hai.",
+  "locations": [
+    {
+      "id": "bandra-rooftop",
+      "name": "The Obsidian Lounge, Bandra",
+      "description": "Arabian Sea ko dekhta hua exclusive high-roller rooftop bar."
+    },
+    {
+      "id": "mehta-hq",
+      "name": "Mehta Shipping Headquarters, Fort",
+      "description": "British-era heritage building ke andar ultra-modern high-tech corporate office."
+    },
+    {
+      "id": "dockyard-9",
+      "name": "JNPT Dockyard Berth 9",
+      "description": "Raat ke waqt heavy cargo containers aur shadow deals ka dangerous adda."
+    }
+  ],
+  "factions": [
+    {
+      "id": "mehta-group",
+      "name": "Mehta Shipping Empire",
+      "description": "Mumbai ke ports ko control karne wala 4200-crore ka logistics giant."
+    },
+    {
+      "id": "dock-syndicate",
+      "name": "Coastal Syndicate",
+      "description": "Underworld shipping smugglers jo Malvika ke cargo ko hijack karna chahte hain."
+    }
+  ],
+  "lore": [
+    "UnHinge Pro sirf unhe milta hai jo qismat ke sabse nichle paydan par hote hain par dimaag shatir ho.",
+    "Sync sirf tab complete hota hai jab ladki dil se tum par vishwas kare."
+  ],
+  "rules": [
+    "Progression stats functional hain: Girlfriends Confirmed, Net Worth Synced, Threat Level.",
+    "Malvika aasani se bharosa nahi karegi; player ko apni aukaat prove karni hogi.",
+    "Kahani ongoing aur expandable rahegi."
+  ],
+  "importantObjects": [
+    {
+      "id": "unhinge-app",
+      "name": "UnHinge Pro Interface",
+      "description": "Golden glowing mobile app jo real-time threat aur synchronization data dikhata hai."
+    }
+  ],
+  "timeline": [
+    "UnHinge Pro ka mysterious midnight installation.",
+    "Malvika Mehta ke match hone ke baad Bandra lounge encounter.",
+    "First Wealth Sync aur Dockyard crisis."
+  ]
+}

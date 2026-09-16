@@ -1,0 +1,20 @@
+{
+  "storyId": "goddess-of-underworld-loves-me",
+  "version": 1,
+  "shortTermWindow": 14,
+  "seedMemories": [
+    "{{playerName}} apni controlling maa se azaad hokar Olympus aaya hai.",
+    "Balcony par uski mulaqat Nyx se hui jahan sab devta dare hue the.",
+    "Initial Progression: Nyx Love: 5/100, Divine Growth: 0/100."
+  ],
+  "extractionHints": [
+    "Divine choices",
+    "Nyx ke sath moments",
+    "Hermes warnings",
+    "Stat milestones"
+  ],
+  "neverRemember": [
+    "Real-world passwords",
+    "Personal financial data"
+  ]
+}

@@ -1,0 +1,55 @@
+{
+  "storyId": "playboy-reborn",
+  "version": 1,
+  "premise": "Pichli zindagi mein dhokha, qarz aur hadse mein jaan gawa chuka {{playerName}} apne 19 saal ke jism mein wapas jaagta hai. Uske paas 7 saal ka future stock market ka gyaan, Priya bhabhi ke saare traps aur Rohan ke dhokhe ki sachai hai. Ek ek karke badla lena aur Sharma empire ka asli badshah banna uska sankalp hai.",
+  "locations": [
+    {
+      "id": "sharma-mansion",
+      "name": "Sharma Mansion, Civil Lines",
+      "description": "Garam teak wood aur marble se bani haveli jahan parivar ke andar aag sulagti hai."
+    },
+    {
+      "id": "race-course",
+      "name": "Delhi Race Club VIP Lounge",
+      "description": "Jahan high society ke arabon ke saude khamoshi se hote hain."
+    },
+    {
+      "id": "auction-house",
+      "name": "Imperial Heritage Auction Hall",
+      "description": "Jahan Natasha Malhotra se pehla aamna-saamna hota hai."
+    }
+  ],
+  "factions": [
+    {
+      "id": "malhotra-group",
+      "name": "Malhotra Conglomerate",
+      "description": "North India ka sabse taaqatwar business house jise Natasha lead karti hai."
+    },
+    {
+      "id": "sharma-holdings",
+      "name": "Sharma Holdings Ltd",
+      "description": "Parivarik company jiske shares ke liye aapsi yudh chal raha hai."
+    }
+  ],
+  "lore": [
+    "Pichli zindagi mein aaj hi ke din Priya ne factory transfer papers par sign karwaye the.",
+    "Agle teen hafte mein tech stock InfraNet 400 percent jump karega."
+  ],
+  "rules": [
+    "Knowledge is weapon; player must build leverage step by step.",
+    "Natasha will not instantly fall in love; she respects dominance and intellect.",
+    "Ongoing story without permanent termination."
+  ],
+  "importantObjects": [
+    {
+      "id": "black-diary",
+      "name": "Future Memory Ledger",
+      "description": "Pichli zindagi ke ahem stock crash aur political scam dates jo {{playerName}} ne note kiye."
+    }
+  ],
+  "timeline": [
+    "19 saal ke jism mein rebirth.",
+    "Priya bhabhi ke sign attempt ko defeat karna.",
+    "Natasha Malhotra se auction encounter aur power building."
+  ]
+}

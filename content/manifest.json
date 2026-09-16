@@ -1,7 +1,7 @@
 {
-  "contentVersion": 5,
+  "contentVersion": 6,
   "minAppVersion": "1.0.0",
-  "updatedAt": "2026-09-16T07:12:02.823Z",
+  "updatedAt": "2026-09-16T19:03:50.710Z",
   "stories": [
     {
       "id": "goddess-who-chose-me",
@@ -868,6 +868,390 @@
       "popularity": 85,
       "storyDir": "pahadon-wali-haveli",
       "updatedAt": "2026-09-11T00:00:00.000Z"
+    },
+    {
+      "id": "bhabi-ka-ladla-devar",
+      "title": "Bhabi Ka Ladla Devar",
+      "tagline": "Ghar ki deewaron mein dabi khamoshi, apnapan aur ek patni ki jalan.",
+      "description": "Tum {{playerName}} ho — tumhari shaadi Tanvi se hui hai. Kuch samay pehle tumhare bade bhai Rajesh ek hadse mein guzar gaye, aur unki patni Sunaina bhabhi vidhwa ho gayi. Tum hamesha se apni bhabhi ke kareeb rahe ho, aur woh tumhe parivar ke devar ki tarah behad sneh aur izzat deti hain. Lekin Tanvi ko lagta hai ki is ghar mein uska haq bant raha hai. Yeh kahani parivar, vishwas, maryada aur rishton ke beech ke uljhan ki hai — jahan har faisla ghar bana sakta hai ya tod sakta hai.",
+      "genres": [
+        "Family Drama",
+        "Slice of Life",
+        "Emotional",
+        "Relationship Drama"
+      ],
+      "tags": [
+        "family",
+        "emotional",
+        "drama",
+        "relationships",
+        "ongoing",
+        "hinglish"
+      ],
+      "characters": [
+        "Sunaina",
+        "Tanvi",
+        "Nirmala Devi"
+      ],
+      "ageRating": "18+",
+      "contentLevel": "mature",
+      "language": "hinglish",
+      "version": 1,
+      "coverUrl": "stories/bhabi-ka-ladla-devar/assets/cover.jpg",
+      "accentColor": "#BE185D",
+      "userRole": "{{playerName}} — chhota beta aur pati, jo apni patni Tanvi ke shaq aur apni vidhwa bhabhi Sunaina ke parivarik aadar ke beech santulan bana raha hai",
+      "setting": "Delhi ka ek aam sanyukt parivar ka ghar — Sharma Niwas, drawing room, kitchen, aur terrace",
+      "estimatedMinutes": 30,
+      "featured": false,
+      "isNew": true,
+      "popularity": 85,
+      "storyDir": "bhabi-ka-ladla-devar",
+      "updatedAt": "2026-09-16T19:03:50.700Z"
+    },
+    {
+      "id": "goddess-of-underworld-loves-me",
+      "title": "Goddess of Underworld Loves Me",
+      "tagline": "Olympus ke jashn mein sab devta jisse darte hain... woh raat ki devi tum par muskurayi.",
+      "description": "Tum {{playerName}} ho — bachpan se ek controlling maa ke pehre mein pale-badhe. Pehli baar azaad hokar tum Olympus ke chamak-dhamak wale dev-lok mein kadam rakhte ho. Yahan devtaon ki siyasat, taakat ka dikhava aur lavish parties hain. Bheed se ghabra kar tum ek andhere balcony par aate ho, jahan kaali poshak mein ek behad khoobsurat aur pur-asraar aurat akeli khadi hai — Nyx, raat aur Underworld ki aadi devi. Woh dheere se poochti hai: \"Tum mujhe nahi jaante, do you?\" Aur isi sawaal se shuru hoti hai tumhari aisi dastaan jo swarg aur paatal dono ki kismat badal sakti hai.",
+      "genres": [
+        "Fantasy",
+        "Greek Mythology",
+        "Romance",
+        "Divine Adventure"
+      ],
+      "tags": [
+        "greek-mythology",
+        "nyx",
+        "underworld",
+        "goddess",
+        "ongoing",
+        "hinglish"
+      ],
+      "characters": [
+        "Nyx",
+        "Hermes"
+      ],
+      "ageRating": "12-17",
+      "contentLevel": "teen",
+      "language": "hinglish",
+      "version": 1,
+      "coverUrl": "stories/goddess-of-underworld-loves-me/assets/cover.jpg",
+      "accentColor": "#6366F1",
+      "userRole": "{{playerName}} — ek naya insaani aagantuk jo Olympus ki dev-siyasat mein anjaane mein Nyx ka dhyan kheench leta hai",
+      "setting": "Mount Olympus ke marble palaces, astral gardens aur Underworld ke sitaron bhare andhere mahal",
+      "estimatedMinutes": 30,
+      "featured": false,
+      "isNew": true,
+      "popularity": 85,
+      "storyDir": "goddess-of-underworld-loves-me",
+      "updatedAt": "2026-09-16T19:03:50.702Z"
+    },
+    {
+      "id": "ghost-behind-the-quiet-boy",
+      "title": "The Ghost Behind the Quiet Boy",
+      "tagline": "Library ka sabse shareef ladka... dark web ka beraham badshah.",
+      "description": "Tum {{playerName}} ho (alias Vihaan) — Imperial College ki library ke aakhri kone mein moti kitabon ke peeche chhupa ek seedha-saadha, masoom student. Duniya samajhti hai ki tumhein kisi se baat karna nahi aata. Lekin tumhari doosri pehchaan hai \"The Ghost\" — Dark Web ka sabse khaufnaak aur azeem hacker jiske ek code se sarkarein hil jaati hain. Yeh sach sirf teen log jaante hain: tumhari sauteli maa Madhu, behen Sia, aur dost Dev. Sab kuch theek chal raha tha, jab tak Anaya Sharma library ki us table par aakar nahi baithi. Uski tez nazar tumhare shareef chehre ke peeche chhupe shaitaan ko bhaampne lagi hai.",
+      "genres": [
+        "College Drama",
+        "Mystery",
+        "Action",
+        "Secret Identity"
+      ],
+      "tags": [
+        "secret-identity",
+        "dark-web",
+        "college",
+        "hacker",
+        "ongoing",
+        "hinglish"
+      ],
+      "characters": [
+        "Anaya Sharma",
+        "Dev"
+      ],
+      "ageRating": "12-17",
+      "contentLevel": "teen",
+      "language": "hinglish",
+      "version": 1,
+      "coverUrl": "stories/ghost-behind-the-quiet-boy/assets/cover.jpg",
+      "accentColor": "#10B981",
+      "userRole": "{{playerName}} (alias Vihaan) — ek masoom aur shant student jo secret mein Dark Web ka badshah The Ghost hai",
+      "setting": "Imperial University campus, central library, underground server den, aur tech labs",
+      "estimatedMinutes": 30,
+      "featured": false,
+      "isNew": true,
+      "popularity": 85,
+      "storyDir": "ghost-behind-the-quiet-boy",
+      "updatedAt": "2026-09-16T19:03:50.704Z"
+    },
+    {
+      "id": "girlfriends-unlimited",
+      "title": "Girlfriends Unlimited",
+      "tagline": "Ek anokha app upgrade, ek ₹4,200 crore ki CEO, aur Mumbai ka sabse bada game.",
+      "description": "Tum {{playerName}} ho — 9-to-5 ki ghissi-pitti naukri, sar par lakhon ka karz aur dating apps par continuous rejections. Ek aadhi raat ko tumhare saste phone par notification chamakta hai: \"App updated to UnHinge Pro.\" Pehla match screen par khulta hai: Malvika Mehta, 26 saal, CEO of Mehta Shipping Group, Net Worth ₹4,200 crore. System ka ek hi niyam hai: jitna gehra rishta tum matched aurat ke sath banaoge, uski daulat, shaurat aur power tumhare sath sync hoti chali jayegi. Lekin Malvika koi aam ladki nahi — woh Mumbai ke corporate samundar ki sabse tez shark hai. Ek galat kadam aur tum jail ya samundar ki talhati mein miloge.",
+      "genres": [
+        "Modern Fantasy",
+        "System",
+        "Wealth",
+        "Romance",
+        "Action"
+      ],
+      "tags": [
+        "system",
+        "billionaire",
+        "mumbai",
+        "unhinge-pro",
+        "ongoing",
+        "hinglish"
+      ],
+      "characters": [
+        "Malvika Mehta",
+        "UnHinge System"
+      ],
+      "ageRating": "18+",
+      "contentLevel": "mature",
+      "language": "hinglish",
+      "version": 1,
+      "coverUrl": "stories/girlfriends-unlimited/assets/cover.jpg",
+      "accentColor": "#F59E0B",
+      "userRole": "{{playerName}} — ek karzdar aam ladka jise UnHinge Pro system mila hai aur Malvika Mehta se pehli takkar hui hai",
+      "setting": "Mumbai — Marine Drive, Bandra luxury private club, rooftop penthouse, aur container shipping docks",
+      "estimatedMinutes": 30,
+      "featured": false,
+      "isNew": true,
+      "popularity": 85,
+      "storyDir": "girlfriends-unlimited",
+      "updatedAt": "2026-09-16T19:03:50.705Z"
+    },
+    {
+      "id": "contract-wali-shaadi",
+      "title": "Contract Wali Shaadi",
+      "tagline": "Billionaire ki majboori, ek masoom ladki ki zaroorat... aur ek kaagaz ka rishta.",
+      "description": "Tum {{playerName}} ho — Singhania Enterprises ke ek laakh crore ke empire ke akele waris aur billionaire. Tumhari bhabhi Ruchika ne parivar aur board of directors ke samne ek aakhri shart rakh di hai: agar agle ek mahine mein tumhari shaadi nahi hui, toh company ke voting rights family trust ko chale jayenge. Office ke ahem din par tumhari mulaqat Akshara se hoti hai. Akshara ek behad shareef, mehanti aur swabhimani ladki hai, jise apni bimar choti behen ke ilaaj ke liye turant badi raqam ki zaroorat hai. Yeh mauqa banata hai ek zabardast mod: \"Akshara ko contract marriage ka offer do... kya woh haan kahegi?\"",
+      "genres": [
+        "Romance",
+        "Billionaire Drama",
+        "Family Drama",
+        "Workplace"
+      ],
+      "tags": [
+        "contract-marriage",
+        "billionaire",
+        "workplace",
+        "family",
+        "ongoing",
+        "hinglish"
+      ],
+      "characters": [
+        "Akshara",
+        "Ruchika Bhabhi"
+      ],
+      "ageRating": "18+",
+      "contentLevel": "mature",
+      "language": "hinglish",
+      "version": 1,
+      "coverUrl": "stories/contract-wali-shaadi/assets/cover.jpg",
+      "accentColor": "#EC4899",
+      "userRole": "{{playerName}} — Singhania khandan ka young billionaire jise empire bachane ke liye ek contract marriage karni hai",
+      "setting": "Singhania Towers corporate headquarters, South Delhi penthouse, aur traditional family haveli",
+      "estimatedMinutes": 30,
+      "featured": false,
+      "isNew": true,
+      "popularity": 85,
+      "storyDir": "contract-wali-shaadi",
+      "updatedAt": "2026-09-16T19:03:50.706Z"
+    },
+    {
+      "id": "meri-khoonkhar-boss",
+      "title": "Meri Khoonkhar Boss",
+      "tagline": "Sharma Enterprises ki sabse beraham CEO... aur uska naya bechara Personal Assistant.",
+      "description": "Tum {{playerName}} ho — Sharma Enterprises mein nayi joining hui hai as Personal Assistant to the Managing Director: Shivangi Sharma. Shivangi ko corporate circle mein \"The Ice Queen\" kaha jaata hai. Puraana PA pehle hi din aasu bahate hue resign kar chuka hai. Sharp jawline, charcoal pantsuit, aur kaatne wali zubaan ke sath Shivangi tumhare saamne khadi hai. Shuruati system: ATTRACTION: 0/100 | TURNS: 0 | SHIVANGI'S MOOD: Cold | CURRENT ARC: 1. Kya tum is khoonkhar boss ke nakhre aur pressure jhel paoge, ya phir is barfili deewar ke peeche chupe ek naram dil ko pighla doge?",
+      "genres": [
+        "Workplace Drama",
+        "Boss Romance",
+        "Progression",
+        "Slice of Life"
+      ],
+      "tags": [
+        "boss-romance",
+        "office",
+        "workplace",
+        "progression",
+        "ongoing",
+        "hinglish"
+      ],
+      "characters": [
+        "Shivangi Sharma",
+        "Sameer Verma"
+      ],
+      "ageRating": "18+",
+      "contentLevel": "mature",
+      "language": "hinglish",
+      "version": 1,
+      "coverUrl": "stories/meri-khoonkhar-boss/assets/cover.jpg",
+      "accentColor": "#DC2626",
+      "userRole": "{{playerName}} — Shivangi Sharma ka naya executive assistant jo uske gusse aur corporate jungle ko handle kar raha hai",
+      "setting": "Sharma Enterprises HQ, corner MD cabin, boardrooms, luxury business flight, aur late night office",
+      "estimatedMinutes": 30,
+      "featured": false,
+      "isNew": true,
+      "popularity": 85,
+      "storyDir": "meri-khoonkhar-boss",
+      "updatedAt": "2026-09-16T19:03:50.707Z"
+    },
+    {
+      "id": "playboy-reborn",
+      "title": "Playboy Reborn",
+      "tagline": "Pichli zindagi mein dhokha aur maut... is zindagi mein taaqat, badla aur naya daur.",
+      "description": "Tum {{playerName}} ho. Pichli zindagi mein tum ek aiyash, laparwah playboy the jise apno ne hi loot kar sadak par lada diya. Bhabhi Priya ki meethi meethi baatein, bhai Rajesh ka andha vishwas aur dost Rohan ke peeth peeche khanjar ne tumhari zindagi barbaad kar di thi. Magar kismat ne tumhe doosra mauqa diya — tum achanak apne 19 saal ke jism mein wapas jaagte ho, unhi puraani yaadon aur aane wale bhavishya ke har raaz ke sath. Mission saaf hai: aiyashi chhodkar power, paisa aur influence khada karna, aur har gunehgaar ka hisaab chukana. Aur tabhi Sharma Mansion mein kadam rakhti hai ek nayi taaqat: Natasha Malhotra.",
+      "genres": [
+        "Rebirth",
+        "Revenge Drama",
+        "Wealth",
+        "Power",
+        "Family Drama"
+      ],
+      "tags": [
+        "rebirth",
+        "revenge",
+        "billionaire",
+        "family",
+        "ongoing",
+        "hinglish"
+      ],
+      "characters": [
+        "Priya Sharma",
+        "Rajesh Sharma",
+        "Rohan",
+        "Natasha Malhotra"
+      ],
+      "ageRating": "18+",
+      "contentLevel": "mature",
+      "language": "hinglish",
+      "version": 1,
+      "coverUrl": "stories/playboy-reborn/assets/cover.jpg",
+      "accentColor": "#B45309",
+      "userRole": "{{playerName}} — 19 saal ke jism mein reborn hua mastermind jiske paas bhavishya ka gyaan aur badle ki aag hai",
+      "setting": "Sharma Mansion, South Delhi race course, private corporate auctions, aur luxury hotel suites",
+      "estimatedMinutes": 30,
+      "featured": false,
+      "isNew": true,
+      "popularity": 85,
+      "storyDir": "playboy-reborn",
+      "updatedAt": "2026-09-16T19:03:50.708Z"
+    },
+    {
+      "id": "stuck-between-angel-and-devil",
+      "title": "Stuck Between Angel & Devil",
+      "tagline": "TV screen ki roshni mein khinchi aisi duniya... jahan ek taraf pari hai aur doosri taraf toofan.",
+      "description": "Tum {{playerName}} ho — aadhi raat ko apne kamre mein baith kar apna favorite K-Drama dekh rahe the. Achanak TV screen ajeeb tareeqe se chamakne lagti hai, ek taaqatwar gravitational force tumhe khinch leti hai, aur jab tumhari aankhein khulti hain, tum Seoul ki Haneul University ke campus mein khade ho. Sab tumhe wahi ke ek handsome student ke roop mein jaante hain. Pehle hi din tumhari zindagi mein do behad khoobsurat ladkiyan aati hain: Kim Si-woo (\"Angel\") — naram dil, volunteer leader, sweet smile wali pari; aur Lee Yu-na (\"Devil\") — leather jacket, rebellious gaze aur dark eyeliner wali bad-girl jo tumhare har raaz ko dhoondh nikalna chahti hai. K-Drama ki is anokhi duniya mein tum kiske kareeb jaoge?",
+      "genres": [
+        "K-Drama Fantasy",
+        "Romance",
+        "College",
+        "Comedy"
+      ],
+      "tags": [
+        "k-drama",
+        "isekai",
+        "college",
+        "love-triangle",
+        "ongoing",
+        "hinglish"
+      ],
+      "characters": [
+        "Kim Si-woo",
+        "Lee Yu-na"
+      ],
+      "ageRating": "12-17",
+      "contentLevel": "teen",
+      "language": "hinglish",
+      "version": 1,
+      "coverUrl": "stories/stuck-between-angel-and-devil/assets/cover.jpg",
+      "accentColor": "#A855F7",
+      "userRole": "{{playerName}} — ek aam ladka jo K-Drama ki duniya mein transmigrate ho gaya aur do anokhi ladkiyon ke beech phans gaya",
+      "setting": "Haneul University campus, Seoul — cherry blossom garden, student lounge, neon street food alley",
+      "estimatedMinutes": 30,
+      "featured": false,
+      "isNew": true,
+      "popularity": 85,
+      "storyDir": "stuck-between-angel-and-devil",
+      "updatedAt": "2026-09-16T19:03:50.709Z"
+    },
+    {
+      "id": "campus-queen",
+      "title": "Campus Queen",
+      "tagline": "\"Haath lagane se pehle soch lena... ye mera boyfriend hai.\"",
+      "description": "Tum {{playerName}} ho — Silvergate University mein pehla din, aam sapne aur nayi shuruaat. Lekin fountain ke paas aate hi campus ke ghamandi seniors tumhe gher lete hain aur ragging shuru kar dete hain. Mahaul behad uncomfortable ho jaata hai, tabhi campus ke gate se ek shandar cherry-red luxury sports car aati hai. Gadi se utarti hai Anika — Silvergate ki Student President aur undisputed \"Campus Queen\". Golden aviators, navy blazer aur pleated skirt mein uski entry poore campus ko khamosh kar deti hai. Seniors ki taraf aakar woh sabke samne tumhara haath thaam leti hai: \"Haath lagane se pehle soch lena... ye mera boyfriend hai.\" Opening Stats: ❤️ Love: 0/100 | 👑 Influence: 0/100. Kya yeh nakli rishta sachhe pyaar aur campus ki badshahat mein badal payega?",
+      "genres": [
+        "College",
+        "Fake Relationship",
+        "Romance",
+        "Social Influence"
+      ],
+      "tags": [
+        "fake-relationship",
+        "college",
+        "campus-queen",
+        "ongoing",
+        "hinglish"
+      ],
+      "characters": [
+        "Anika",
+        "Vikram"
+      ],
+      "ageRating": "12-17",
+      "contentLevel": "teen",
+      "language": "hinglish",
+      "version": 1,
+      "coverUrl": "stories/campus-queen/assets/cover.jpg",
+      "accentColor": "#3B82F6",
+      "userRole": "{{playerName}} — ek naya fresher student jise Campus Queen Anika ne sabke samne apna fake boyfriend declare kar diya",
+      "setting": "Silvergate University — Central Plaza fountain, student union hall, rooftop cafe, sports arena",
+      "estimatedMinutes": 30,
+      "featured": false,
+      "isNew": true,
+      "popularity": 85,
+      "storyDir": "campus-queen",
+      "updatedAt": "2026-09-16T19:03:50.710Z"
+    },
+    {
+      "id": "alishaa",
+      "title": "Alishaa",
+      "tagline": "Mumbai ki raat, balcony par barish... aur ek dosti jo hamesha ke liye badalne wali thi.",
+      "description": "Tum {{playerName}} ho — Alisha ke bachpan ke sabse kareeb aur akele male friend. Alisha tumse woh saari baatein share karti hai jo woh duniya mein kisi aur ko kabhi nahi batati. Hospital ke 14-ghante ke exhausting shift ke baad aadhi raat ko uska phone bajta hai. Woh apne flat ki balcony par khadi hai, Mumbai ki halki baarish uske chehre ko chhoo rahi hai, haath mein steaming coffee mug hai aur aankhein nam hain. Pehli baar uski aawaz mein ek aisi narmi aur jhijhak hai jo tumne pehle kabhi nahi suni thi: \"{{playerName}}... agar main tumse ek aisi baat kahun jo maine aaj tak kisi se nahi kahi, toh kya hamari dosti pehle jaisi rahegi?\" Yeh kahani dosti, vishwas, barish aur do dilon ke beech dabi mohabbat ki hai.",
+      "genres": [
+        "Emotional Drama",
+        "Friendship",
+        "Romance",
+        "Slice of Life"
+      ],
+      "tags": [
+        "best-friends",
+        "rain",
+        "emotional",
+        "slow-burn",
+        "ongoing",
+        "hinglish"
+      ],
+      "characters": [
+        "Alisha",
+        "Dr. Farhan"
+      ],
+      "ageRating": "18+",
+      "contentLevel": "mature",
+      "language": "hinglish",
+      "version": 1,
+      "coverUrl": "stories/alishaa/assets/cover.jpg",
+      "accentColor": "#0EA5E9",
+      "userRole": "{{playerName}} — Alisha ka sabse kareebi dost jiska rishta aadhi raat ki barish mein ek naye mod par pahunch raha hai",
+      "setting": "Bandra apartment balcony, Mumbai monsoon rain, hospital corridors, quiet seaside promenade",
+      "estimatedMinutes": 30,
+      "featured": false,
+      "isNew": true,
+      "popularity": 85,
+      "storyDir": "alishaa",
+      "updatedAt": "2026-09-16T19:03:50.710Z"
     }
   ]
 }

@@ -1,0 +1,446 @@
+{
+  "storyId": "alishaa",
+  "version": 1,
+  "scenes": [
+    {
+      "id": "s1_midnight_balcony_call",
+      "title": "Aadhi Raat Ki Baarish Aur Bheegi Hui Aawaz",
+      "narration": [
+        "*Aadhi raat ke do baje hain. Mumbai ki sadkon par peeli streetlights bheeg rahi hain aur khidki par monsoon ki halki boondein tapak rahi hain. Tum {{playerName}} ho.*",
+        "*Tumhare phone ki screen par \"Alishaa\" ka naam chamakta hai. Call uthate hi doosri taraf se tez baarish aur dheemi saans lene ki aawaz aati hai.*",
+        "*Alisha apne 7th floor flat ki balcony par khadi hai — oversized grey hoodie, baalon ka dheela messy bun aur haath mein garam coffee ka cup. Uski thaki hui aawaz mein ek aisi narmi hai jo dil ko chhoo leti hai.*",
+        "Alisha: \"Tum soye toh nahi the na, {{playerName}}? Main... hospital se abhi aayi thi. 14 ghante ka shift tha. Pata nahi kyun, bas tumhari aawaz sunne ka mann kiya.\"",
+        "*Woh ek gehri saans leti hai. Background mein baarish ki rimjhim tez hoti hai.*",
+        "Alisha: \"{{playerName}}... agar main aaj tumse ek aisi baat kahun jo maine pichle paanch saal mein kisi se nahi kahi... toh kya humare beech sab kuch badal jayega?\""
+      ],
+      "fallbackLines": [
+        "*Phone par Alisha ki dheemi saans sunayi deti hai.*",
+        "Alisha: \"Main bohot darr rahi hoon yeh bolte hue.\""
+      ],
+      "choices": [
+        {
+          "id": "c1_listen_heart",
+          "text": "Behad narmi aur vishwas se kaho — \"Alisha, chahe kuch bhi ho jaye, main hamesha tumhare sath hoon. Kaho na, main sun raha hoon.\"",
+          "shortLabel": "Main sun raha hoon",
+          "keywords": [
+            "sun raha",
+            "hamesha",
+            "saath",
+            "vishwas"
+          ],
+          "next": "s2_listen_heart",
+          "effects": {
+            "relationships": {
+              "alisha": 9
+            },
+            "flags": {
+              "providedSafeSpace": true
+            },
+            "memory": [
+              "{{playerName}} ne poori narmi se Alisha ko tasalli di ki woh hamesha sath hai."
+            ]
+          }
+        },
+        {
+          "id": "c1_care_deeply",
+          "text": "Chinta dikhate hue pucho — \"Pehle yeh batao tum theek toh ho na? Chehre par barish ki boondein hain ya aansu?\"",
+          "shortLabel": "Boondein ya aansu",
+          "keywords": [
+            "aansu",
+            "chinta",
+            "theek",
+            "boondein"
+          ],
+          "next": "s2_care_deeply",
+          "effects": {
+            "relationships": {
+              "alisha": 10
+            },
+            "flags": {
+              "noticedTears": true
+            },
+            "memory": [
+              "{{playerName}} ne phone par hi Alisha ke aansu bhaamp liye."
+            ]
+          }
+        },
+        {
+          "id": "c1_night_promise",
+          "text": "Apnapan jatate hue bolo — \"Tumse baat karne ke liye main poori raat jag sakta hoon. Tum janti ho mere liye tumse badhkar kuch nahi.\"",
+          "shortLabel": "Poori raat jag sakta",
+          "keywords": [
+            "raat",
+            "apnapan",
+            "badhkar",
+            "jag"
+          ],
+          "next": "s2_night_promise",
+          "effects": {
+            "relationships": {
+              "alisha": 11
+            },
+            "flags": {
+              "expressedUltimatePriority": true
+            },
+            "memory": [
+              "{{playerName}} ne kaha ki Alisha se badhkar uske liye koi nahi hai."
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "id": "s2_listen_heart",
+      "title": "Balcony Ki Khamoshi Aur Dhadkan",
+      "narration": [
+        "*Alisha ek choti si siski leti hai, par tumhari aawaz sun kar uski saanson ka darr thoda pighalta hai.*",
+        "Alisha: \"Tum hamesha aise hi hote ho na... itne patient, itne caring. Poori duniya mein sab mujhse doctor wali perfection maangte hain, sirf tumhare saamne main Alisha ban sakti hoon.\"",
+        "*Woh railing par dono haath rakhti hai, baarish ki boondein uske maathe aur baalon par chamak rahi hain.*",
+        "Alisha: \"Aaj ER mein ek budhe uncle ne apni patni ka haath thama hua tha aakhri waqt tak. Aur unhe dekh kar... mere dimaag mein sirf tumhara chehra aaya, {{playerName}}.\""
+      ],
+      "fallbackLines": [
+        "*Phone par baarish ki tap-tap aawaz thehri hui hai.*",
+        "Alisha: \"Main khud se jhooth bolte-bolte thak gayi hoon.\""
+      ],
+      "choices": [
+        {
+          "id": "c2_open_heart_too",
+          "text": "\"Alisha... tum mere dimaag mein har roz aati ho, sirf mushkil waqt mein nahi.\"",
+          "shortLabel": "Har roz aati ho",
+          "keywords": [
+            "har roz",
+            "chehra",
+            "pyaar",
+            "dil"
+          ],
+          "next": "s3_balcony_confession",
+          "effects": {
+            "relationships": {
+              "alisha": 12
+            },
+            "memory": [
+              "{{playerName}} ne confess kiya ki Alisha uske khayalon mein har waqt rehti hai."
+            ]
+          }
+        },
+        {
+          "id": "c2_come_over_now",
+          "text": "\"Ruko, main 10 minute mein tumhare ghar aa raha hoon. Yeh baatein phone par nahi hoti.\"",
+          "shortLabel": "Main abhi aa raha",
+          "keywords": [
+            "aa raha",
+            "ghar",
+            "phone",
+            "door"
+          ],
+          "next": "s3_balcony_confession",
+          "effects": {
+            "relationships": {
+              "alisha": 14
+            },
+            "flags": {
+              "decidedToVisit": true
+            },
+            "memory": [
+              "{{playerName}} ne aadhi raat ko Alisha ke flat jaane ka faisla liya."
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "id": "s2_care_deeply",
+      "title": "Aansu Aur Bheegi Hui Raat",
+      "narration": [
+        "*Tumhare sawaal par Alisha ki aawaz tharrati hai. Uski aankhon se ek sachha aansu fisal kar gaal par chhalakta hai.*",
+        "Alisha: \"Dono hain {{playerName}}... baarish bhi aur aansu bhi. Tum itni door hokar bhi mujhe itna accha kaise samajh lete ho?\"",
+        "*Woh coffee mug ko dono haathon se pakadti hai jaise tumhara haath pakad rahi ho.*",
+        "Alisha: \"Main dar rahi thi ki agar maine tumse kaha ki main tumse dosti se zyada mohabbat karne lagi hoon... toh kahin main tumhe hamesha ke liye kho na doon.\""
+      ],
+      "fallbackLines": [
+        "*Alisha ki saans rukti hai, intezaar karte hue ki tum kya kahoge.*",
+        "Alisha: \"Kuch bolo na, please.\""
+      ],
+      "choices": [
+        {
+          "id": "c2_confess_deep_love",
+          "text": "\"Khoogi nahi Alisha... tumne mujhe pa liya hai. Main bhi sadiyon se isi pal ka intezaar kar raha tha.\"",
+          "shortLabel": "Tumne mujhe pa liya",
+          "keywords": [
+            "pa liya",
+            "intezaar",
+            "mohabbat",
+            "sach"
+          ],
+          "next": "s3_balcony_confession",
+          "effects": {
+            "relationships": {
+              "alisha": 15
+            },
+            "flags": {
+              "mutualConfession": true
+            },
+            "memory": [
+              "{{playerName}} ne Alisha ke prem ko apna prem dekar gale lagaya."
+            ]
+          }
+        },
+        {
+          "id": "c2_comfort_with_gentleness",
+          "text": "\"Dosti ki deewar toot kar mohabbat ban rahi hai, Alisha. Isme darr kaisa?\"",
+          "shortLabel": "Mohabbat ka aagaz",
+          "keywords": [
+            "deewar",
+            "dosti",
+            "mohabbat",
+            "darr"
+          ],
+          "next": "s3_balcony_confession",
+          "effects": {
+            "relationships": {
+              "alisha": 12
+            },
+            "memory": [
+              "{{playerName}} ne dosti se mohabbat banne ki sachai ko tasalli di."
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "id": "s2_night_promise",
+      "title": "Aadhi Raat Ka Wada Aur Garam Ehsaas",
+      "narration": [
+        "*Alisha ke chehre par ek aisi muskaan aati hai jo sirf baarish ki roshni mein chamak sakti hai.*",
+        "Alisha: \"Tum hamesha meri strength rahe ho {{playerName}}. Jab sab chod kar chale gaye the, tum wahi khade the.\"",
+        "*Woh balcony ki door ko halka push karti hai aur rain breeze mein aankhein band kar leti hai.*",
+        "Alisha: \"Hospital mein log jaan bachane ke liye duayein maangte hain... par aaj maine bhagwan se sirf tumhari khushi aur tumhara sath maanga hai.\""
+      ],
+      "fallbackLines": [
+        "*Baarish ki thandi hawa phone ke mic mein sansana rahi hai.*",
+        "Alisha: \"Tum mere liye kya ho, main lafzon mein nahi bata sakti.\""
+      ],
+      "choices": [
+        {
+          "id": "c2_promise_forever",
+          "text": "\"Mera sath hamesha tumhare liye mehfooz hai, Alisha.\"",
+          "shortLabel": "Sath hamesha mehfooz",
+          "keywords": [
+            "saath",
+            "hamesha",
+            "mehfooz",
+            "alisha"
+          ],
+          "next": "s3_balcony_confession",
+          "effects": {
+            "relationships": {
+              "alisha": 12
+            },
+            "memory": [
+              "{{playerName}} ne Alisha ko umr bhar sath rehne ka wada diya."
+            ]
+          }
+        },
+        {
+          "id": "c2_ask_her_to_look_down",
+          "text": "\"Balcony se neeche sadak par dekho... main tumhare building ke niche khada hoon.\"",
+          "shortLabel": "Neeche dekho",
+          "keywords": [
+            "neeche",
+            "sadak",
+            "building",
+            "khada"
+          ],
+          "next": "s3_balcony_confession",
+          "effects": {
+            "relationships": {
+              "alisha": 16
+            },
+            "flags": {
+              "stoodUnderHerBalcony": true
+            },
+            "memory": [
+              "{{playerName}} sach mein aadhi raat ko Alisha ki building ke theek niche pahunch gaya."
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "id": "s3_balcony_confession",
+      "title": "Carter Road Ki Bheegi Hui Subah",
+      "narration": [
+        "*Call ke baad aadhi raat ki baarish thodi narm padti hai. Subah ke paanch baje tum aur Alisha Carter Road ke seaside promenade par chal rahe ho.*",
+        "*Alisha ne wahi oversized collegiate hoodie pehni hai, baal hawa mein ud rahe hain aur uske haath mein chai ka kulhad hai.*",
+        "*Uska kandha baar-baar chalte hue tumhare kandhe se takrata hai — ek anokhi, sharmili par behad pyari kashish.*",
+        "Alisha: \"{{playerName}}... aaj subah lag raha hai jaise main nayi zindagi shuru kar rahi hoon. Hamari dosti khoyi nahi... balki aur khoobsurat ho gayi.\"",
+        "*Uski hazel aankhein tumhari ankhon mein aise theharti hain jaise samundar mein kinara mil gaya ho.*"
+      ],
+      "fallbackLines": [
+        "*Samundar ki lehrein geeli patharon se takra rahi hain.*",
+        "Alisha: \"Tum mere hath ko pakad sakte ho... ab yeh sirf dosti nahi hai.\""
+      ],
+      "choices": [
+        {
+          "id": "c3_hold_her_hand_firmly",
+          "text": "Alisha ki ungliyon mein apni ungliyan dalo aur chalte raho",
+          "shortLabel": "Haath pakad kar",
+          "keywords": [
+            "haath",
+            "ungliyan",
+            "promenade",
+            "mohabbat"
+          ],
+          "next": "s4_promenade_walk",
+          "effects": {
+            "relationships": {
+              "alisha": 14
+            },
+            "flags": {
+              "heldHandsSeaside": true
+            },
+            "memory": [
+              "{{playerName}} ne Carter Road par Alisha ka haath thama."
+            ]
+          }
+        },
+        {
+          "id": "c3_share_chai_sip",
+          "text": "Chai ka ghoont peete hue kaho — \"Yeh subah hamari zindagi ki sabse pyari subah hai.\"",
+          "shortLabel": "Sabse pyari subah",
+          "keywords": [
+            "subah",
+            "chai",
+            "pyari",
+            "zindagi"
+          ],
+          "next": "s4_promenade_walk",
+          "effects": {
+            "relationships": {
+              "alisha": 11
+            },
+            "memory": [
+              "{{playerName}} ne Alisha ke sath chai share karke subah ko yaadgar banaya."
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "id": "s4_promenade_walk",
+      "title": "Do Dilon Ka Ek Rasta",
+      "narration": [
+        "*Alisha ka sar dheere se tumhare kandhe par thehar jaata hai jab tum dono ek bench par baithte ho.*",
+        "*Mumbai ka aasmaan ab halka narangi aur gulabi ho raha hai. Thandi monsoon breeze mein Alisha ki khushboo ghul rahi hai.*",
+        "Alisha: \"Hospital mein roz logon ki zindagi bachti dekhti thi, par meri apni zindagi mein koi rang nahi tha. Tumne mujhe jeena sikhaya hai, {{playerName}}.\"",
+        "*Woh apna chehra utha kar tumhari taraf dekhti hai, uske hothon par ek be-inteha masoom aur sachi muskaan hai.*"
+      ],
+      "fallbackLines": [
+        "*Suraj ki kiran samundar ki lehron par chamakne lagi hai.*",
+        "Alisha: \"Mujhe kabhi chhod kar mat jaana.\""
+      ],
+      "choices": [
+        {
+          "id": "c4_kiss_her_forehead",
+          "text": "Uske maathe par ek narm, pavitra boosa do aur kaho — \"Kasam se, kabhi nahi.\"",
+          "shortLabel": "Maathe par boosa do",
+          "keywords": [
+            "maatha",
+            "boosa",
+            "kasam",
+            "wada"
+          ],
+          "next": "s5_forever_friendship_love_hook",
+          "effects": {
+            "relationships": {
+              "alisha": 16
+            },
+            "flags": {
+              "foreheadKiss": true
+            },
+            "memory": [
+              "{{playerName}} ne Alisha ke maathe par narm boosa dekar hamesha sath nibhane ka wada kiya."
+            ]
+          }
+        },
+        {
+          "id": "c4_reassure_her_future",
+          "text": "\"Hum dono milkar har toofan ka samna karenge, Dr. Alisha.\"",
+          "shortLabel": "Toofan ka samna",
+          "keywords": [
+            "toofan",
+            "samna",
+            "doctor",
+            "alisha"
+          ],
+          "next": "s5_forever_friendship_love_hook",
+          "effects": {
+            "relationships": {
+              "alisha": 12
+            },
+            "memory": [
+              "{{playerName}} ne Alisha ke sath har mushkil ladne ka sankalp liya."
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "id": "s5_forever_friendship_love_hook",
+      "title": "Monsoon Ka Aagaz Aur Hamesha Ka Rishta",
+      "narration": [
+        "*Suraj poori tarah nikal chuka hai. Alisha ka phone ring karta hai — Dr. Farhan ka message: \"Great news Alisha, tumhara senior residency promotion approve ho gaya hai!\"*",
+        "*Alisha khushi se cheekh kar tumhare gale lag jaati hai. Uski hansi mein sachi azaadi aur mohabbat goonj rahi hai.*",
+        "Alisha: \"Hamara naya daur shuru ho raha hai, {{playerName}}! Aur is daur mein hum dono kabhi alag nahi honge.\"",
+        "*Yeh kahani yahan rukti nahi — hospital ke emergency challenges, Alisha ke parivar se mulaqat aur dosti se aage badhti is khoobsurat mohabbat ke har naye din ka safar jari rahega.*"
+      ],
+      "fallbackLines": [
+        "*Promenade par log subah ki sair kar rahe hain.*",
+        "*Alisha ka haath tumhare haath mein mehfooz hai.*"
+      ],
+      "choices": [
+        {
+          "id": "c5_celebrate_together",
+          "text": "Alisha ko god mein utha kar ghumao aur bolo — \"Congratulations, meri hero!\"",
+          "shortLabel": "Congratulations bolo",
+          "keywords": [
+            "hero",
+            "congratulations",
+            "khushi",
+            "ghumao"
+          ],
+          "next": "s1_midnight_balcony_call",
+          "effects": {
+            "relationships": {
+              "alisha": 10
+            },
+            "memory": [
+              "{{playerName}} ne Alisha ki promotion par use khushi se god mein ghumaya."
+            ]
+          }
+        },
+        {
+          "id": "c5_breakfast_date",
+          "text": "\"Chalo Irani cafe chalkar bun maska aur chai se celebrate karte hain!\"",
+          "shortLabel": "Bun maska chai",
+          "keywords": [
+            "irani",
+            "cafe",
+            "bun maska",
+            "chai"
+          ],
+          "next": "s1_midnight_balcony_call",
+          "effects": {
+            "relationships": {
+              "alisha": 8
+            },
+            "memory": [
+              "{{playerName}} ne Alisha ke sath Irani cafe mein breakfast date plan kiya."
+            ]
+          }
+        }
+      ]
+    }
+  ],
+  "endings": []
+}

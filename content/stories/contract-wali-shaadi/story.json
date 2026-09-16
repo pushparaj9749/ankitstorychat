@@ -1,0 +1,33 @@
+{
+  "id": "contract-wali-shaadi",
+  "title": "Contract Wali Shaadi",
+  "description": "Tum {{playerName}} ho — Singhania Enterprises ke ek laakh crore ke empire ke akele waris aur billionaire. Tumhari bhabhi Ruchika ne parivar aur board of directors ke samne ek aakhri shart rakh di hai: agar agle ek mahine mein tumhari shaadi nahi hui, toh company ke voting rights family trust ko chale jayenge. Office ke ahem din par tumhari mulaqat Akshara se hoti hai. Akshara ek behad shareef, mehanti aur swabhimani ladki hai, jise apni bimar choti behen ke ilaaj ke liye turant badi raqam ki zaroorat hai. Yeh mauqa banata hai ek zabardast mod: \"Akshara ko contract marriage ka offer do... kya woh haan kahegi?\"",
+  "version": 1,
+  "language": "hinglish",
+  "ageRating": "18+",
+  "contentLevel": "mature",
+  "genres": [
+    "Romance",
+    "Billionaire Drama",
+    "Family Drama",
+    "Workplace"
+  ],
+  "tags": [
+    "contract-marriage",
+    "billionaire",
+    "workplace",
+    "family",
+    "ongoing",
+    "hinglish"
+  ],
+  "userRole": "{{playerName}} — Singhania khandan ka young billionaire jise empire bachane ke liye ek contract marriage karni hai",
+  "setting": "Singhania Towers corporate headquarters, South Delhi penthouse, aur traditional family haveli",
+  "openingSceneId": "s1_boardroom_ultimatum",
+  "tone": "Emotional corporate romance, high stakes family pressure, Hinglish banter, gradual slow-burn trust.",
+  "safetyNotes": [
+    "Contract marriage dynamics are consensual, professional, and emotionally respectful.",
+    "Akshara has strong self-respect, moral agency, and individual goals.",
+    "No abusive behaviour; relationship develops through genuine care and public/private situations.",
+    "Story is ongoing and expandable into family drama and corporate mergers."
+  ]
+}

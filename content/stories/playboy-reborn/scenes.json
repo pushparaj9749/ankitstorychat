@@ -1,0 +1,443 @@
+{
+  "storyId": "playboy-reborn",
+  "version": 1,
+  "scenes": [
+    {
+      "id": "s1_mirror_reawakening",
+      "title": "Aaine Mein Rebirth Aur Priya Ka Jaal",
+      "narration": [
+        "*Sharma Mansion ka master bedroom. Tum tezi se uthte ho, saansein phooli hui aur jism pasine se tar-batar. Aakhri yaad: road par barish, car crash aur Rohan ki hasi.*",
+        "*Tum aaine ke samne khade hote ho. Saamne 19 saal ka tumhara apna chehra hai — wahi jawani, wahi chamak, par ankhon mein maut dekh chuke insaan ki thandak.*",
+        "*Date dekhte ho phone par: theek saat saal pehle ka din! Wahi din jab Priya bhabhi ne pehli baar tumse factory ke transfer papers par sign karwaye the.*",
+        "*Darwaza khulta hai. Priya bhabhi silk saree mein aati hain, labon par wahi mithi muskaan aur haath mein juice ka glass.*",
+        "Priya: \"{{playerName}} devar ji! Uth gaye aap? Rajesh keh raha tha ki aaj aapko club nahi jaana chahiye, par maine kaha mera ladla thodi rukega. Waise... ye chote se legal papers par sign kar dete toh kitna achha hota?\"",
+        "*PROGRESSION: Empire Control: 5/100 | NPC Mood (Priya): Suspiciously Sweet | Attraction (Natasha): Unmet | Current Objective: Reclaim Sharma Holdings.*"
+      ],
+      "fallbackLines": [
+        "*Priya pen aage badhati hai, uski ankhon mein lalach chamakta hai.*",
+        "Priya: \"Sign kar do na {{playerName}}, bas ek formality hai.\""
+      ],
+      "choices": [
+        {
+          "id": "c1_refuse_signing",
+          "text": "Papers haath mein lekar padho aur muskurate hue mana kar do — \"Bhabhi, business ke papers bina lawyer ke padhe sign karna aiyash ladkon ka kaam hai, mera nahi.\"",
+          "shortLabel": "Sign karne se roko",
+          "keywords": [
+            "lawyer",
+            "business",
+            "bhabhi",
+            "mana"
+          ],
+          "next": "s2_refuse_signing",
+          "effects": {
+            "relationships": {
+              "priya": -5
+            },
+            "flags": {
+              "rejectedPriyaTrap": true
+            },
+            "memory": [
+              "{{playerName}} ne pehle hi din Priya ke transfer papers par sign karne se saaf inkaar kiya."
+            ]
+          }
+        },
+        {
+          "id": "c1_play_fool",
+          "text": "Acting karte hue bhole bano — \"Arrey bhabhi, abhi toh sar ghoom raha hai. Shaam ko party ke baad dekhte hain.\"",
+          "shortLabel": "Bhola ban kar taalo",
+          "keywords": [
+            "sar ghoom",
+            "acting",
+            "shaam",
+            "party"
+          ],
+          "next": "s2_play_fool",
+          "effects": {
+            "relationships": {
+              "priya": 2
+            },
+            "flags": {
+              "playedDumb": true
+            },
+            "memory": [
+              "{{playerName}} ne bhola bankar Priya ko andhere mein rakha."
+            ]
+          }
+        },
+        {
+          "id": "c1_confront_early",
+          "text": "Seedha unki ankhon mein dekho — \"Rajesh bhaiya ko kahiye ki khud aakar baat karein... deal ab barabar ki hogi.\"",
+          "shortLabel": "Bhaiya ko bulao",
+          "keywords": [
+            "rajesh",
+            "bhaiya",
+            "deal",
+            "barabar"
+          ],
+          "next": "s2_confront_early",
+          "effects": {
+            "relationships": {
+              "priya": -8
+            },
+            "flags": {
+              "confrontedPriya": true
+            },
+            "memory": [
+              "{{playerName}} ne Priya ko saaf bola ki Rajesh khud aakar baat kare."
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "id": "s2_refuse_signing",
+      "title": "Priya Ki Muskaan Ka Rang Badla",
+      "narration": [
+        "*Priya ke chehre ki mithi muskaan ek second ke liye jam jaati hai. Uski aankhein choti hoti hain.*",
+        "Priya: \"Lawyer? {{playerName}}, tum parivar ke beech lawyer laoge? Tumhe humpar bharosa nahi raha kya?\"",
+        "*Tum juice ka glass lete ho, par peete nahi. Pichli zindagi mein isme halka sa sleeping drop hota tha.*",
+        "*Tum: \"Bharosa bohot mehenga hota hai Bhabhi, aur main ab saste saude nahi karta.\"*",
+        "*Priya ke gale se ghoont utarta hai. Use ehsaas hota hai ki samne khada ladka ab pehle wala be-aqal playboy nahi raha.*"
+      ],
+      "fallbackLines": [
+        "*Priya papers wapas folder mein rakhti hai.*",
+        "Priya: \"Lagta hai kal raat ki party ka nasha abhi utra nahi tumhara.\""
+      ],
+      "choices": [
+        {
+          "id": "c2_call_out_rohan",
+          "text": "Phone nikaalo jahan Rohan ka incoming call aa raha hai — \"Aaj shaam ka plan cancel.\"",
+          "shortLabel": "Rohan ko side karo",
+          "keywords": [
+            "rohan",
+            "call",
+            "cancel",
+            "party"
+          ],
+          "next": "s3_rohan_trap",
+          "effects": {
+            "relationships": {
+              "rohan": -10
+            },
+            "memory": [
+              "{{playerName}} ne Rohan ke sath club jaane ka plan cancel kar diya."
+            ]
+          }
+        },
+        {
+          "id": "c2_mention_board_meeting",
+          "text": "\"Rajesh bhaiya se kehna main aaj dopahar ki board meeting mein aane wala hoon.\"",
+          "shortLabel": "Board meeting jao",
+          "keywords": [
+            "board",
+            "meeting",
+            "rajesh",
+            "dopahar"
+          ],
+          "next": "s3_rohan_trap",
+          "effects": {
+            "relationships": {
+              "priya": -5
+            },
+            "memory": [
+              "{{playerName}} ne pehli baar company board meeting mein baithne ka elaan kiya."
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "id": "s2_play_fool",
+      "title": "Dabe Paanv Shikaar Ki Taiyyari",
+      "narration": [
+        "*Priya halki hansi hasti hai aur tasalli ki saans leti hai.*",
+        "Priya: \"Chalo theek hai, shaam ko club jaane se pehle sign kar dena. Tumhara dost Rohan abhi phone kar raha tha, keh raha tha VIP table book ho gayi hai.\"",
+        "*Tum man hi man muskurate ho: \"Rohan... pichli zindagi mein tune isi table par mujhe drugs ke case mein phasaya tha.\"*",
+        "*Tumhara dimaag second life ki pehli strategic counter-move tayyar karta hai.*"
+      ],
+      "fallbackLines": [
+        "*Priya kamre se nikal jaati hai.*",
+        "*Tum turant apne personal safe ki taraf badhte ho.*"
+      ],
+      "choices": [
+        {
+          "id": "c2_prepare_trap_rohan",
+          "text": "Private detective ko phone karke Rohan par surveillance lagao",
+          "shortLabel": "Rohan par spy lagao",
+          "keywords": [
+            "spy",
+            "rohan",
+            "detective",
+            "trap"
+          ],
+          "next": "s3_rohan_trap",
+          "effects": {
+            "relationships": {
+              "rohan": -15
+            },
+            "memory": [
+              "{{playerName}} ne Rohan ke khilaaf surveillance set kar di."
+            ]
+          }
+        },
+        {
+          "id": "c2_invest_infranet",
+          "text": "Puraana trading account khol kar InfraNet stock par saari savings lagao",
+          "shortLabel": "InfraNet stock lo",
+          "keywords": [
+            "stock",
+            "infranet",
+            "trading",
+            "shares"
+          ],
+          "next": "s3_rohan_trap",
+          "effects": {
+            "flags": {
+              "boughtInfraNet": true
+            },
+            "memory": [
+              "{{playerName}} ne 7 saal pehle ke secret knowledge se InfraNet stock khareeda."
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "id": "s2_confront_early",
+      "title": "Bhaiya Ka Gussa Aur Nayi Hawa",
+      "narration": [
+        "*Priya darwaza khol kar Rajesh ko bulati hai. Rajesh gusse mein bedroom mein dakhil hota hai.*",
+        "Rajesh: \"{{playerName}}, yeh kya badtameezi hai? Priya tumhare bhale ke liye papers laayi thi aur tum yahan shartein rakh rahe ho?\"",
+        "*Tum aage badhte ho. Tumhara 19 saal ka shareer unche kad ke sath ek intimidating aura deta hai.*",
+        "*Tum: \"Rajesh bhaiya, pita ji ki vasiyat ke mutabiq factory ka 40 percent share mera hai. Agar bechna hai toh market rate par becho, Priya bhabhi ke bhai ko muft mein nahi.\"*",
+        "*Rajesh ka chehra peela pad jaata hai — yeh secret sirf Priya aur uske beech tha!*"
+      ],
+      "fallbackLines": [
+        "*Rajesh ki aawaz ladkhadati hai.*",
+        "Rajesh: \"Yeh... yeh baat tumhe kisne bataayi?\""
+      ],
+      "choices": [
+        {
+          "id": "c2_strike_fear",
+          "text": "\"Mere paas saare kacha-chithe hain bhaiya. Apni maryada mein rahiye.\"",
+          "shortLabel": "Maryada yaad dilao",
+          "keywords": [
+            "maryada",
+            "kacha chitha",
+            "khauf",
+            "sharma"
+          ],
+          "next": "s3_rohan_trap",
+          "effects": {
+            "relationships": {
+              "rajesh": -10
+            },
+            "memory": [
+              "{{playerName}} ne Rajesh aur Priya ki secret deal expose kar di."
+            ]
+          }
+        },
+        {
+          "id": "c2_strategic_silence",
+          "text": "Dheere se muskura kar kamre se nikal jao — \"Shaam ki auction mein milte hain.\"",
+          "shortLabel": "Auction mein milo",
+          "keywords": [
+            "auction",
+            "shaam",
+            "muskaan",
+            "exit"
+          ],
+          "next": "s3_rohan_trap",
+          "effects": {
+            "flags": {
+              "headedToAuction": true
+            },
+            "memory": [
+              "{{playerName}} ne shaam ki heritage auction ka elaan kiya."
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "id": "s3_rohan_trap",
+      "title": "Rohan Ka Confrontation Aur Auction Ka Daav",
+      "narration": [
+        "*Dopahar ko Sharma Mansion ke porch par Rohan apni sporty bike par aata hai.*",
+        "Rohan: \"Bhai {{playerName}}! Jaldi chal na, aaj raat club mein full setting hai! Maine sab manage kar liya hai.\"",
+        "*Tum uske kandhe par haath rakhte ho, giraft itni mazboot hoti hai ki Rohan ka chehra thoda dard se sikudta hai.*",
+        "*Tum: \"Club nahi Rohan. Aaj hum Imperial Heritage Auction House chal rahe hain. Wahan asli khiladi aate hain.\"*",
+        "*Auction House ke grand gate par expensive Maybachs aur Bentleys ki line lagi hai. Aur tabhi ek emerald satin gown mein car se utarti hai — Natasha Malhotra.*"
+      ],
+      "fallbackLines": [
+        "*Natasha ke auburn curls hawa mein lehrate hain.*",
+        "Natasha: \"Sharma family ka playboy bhi auction mein aane laga?\""
+      ],
+      "choices": [
+        {
+          "id": "c3_meet_natasha",
+          "text": "Rohan ko chhod kar seedha Natasha ke samne jao aur aadaab pesh karo",
+          "shortLabel": "Natasha se milo",
+          "keywords": [
+            "natasha",
+            "aadaab",
+            "malhotra",
+            "auction"
+          ],
+          "next": "s4_natasha_auction_arrival",
+          "effects": {
+            "relationships": {
+              "natasha": 8
+            },
+            "memory": [
+              "{{playerName}} ne Natasha Malhotra ke samne shandar first impression banaya."
+            ]
+          }
+        },
+        {
+          "id": "c3_dismiss_rohan_publicly",
+          "text": "Rohan ko sabke samne apni chabi thama kar bolo — \"Gaadi park karke aao, Rohan.\"",
+          "shortLabel": "Rohan ko valet banao",
+          "keywords": [
+            "valet",
+            "chabi",
+            "rohan",
+            "park"
+          ],
+          "next": "s4_natasha_auction_arrival",
+          "effects": {
+            "relationships": {
+              "rohan": -20,
+              "natasha": 10
+            },
+            "flags": {
+              "putRohanInPlace": true
+            },
+            "memory": [
+              "{{playerName}} ne Rohan ko sabke samne parking valet ki aukaat dikha di, jise dekh kar Natasha muskura di."
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "id": "s4_natasha_auction_arrival",
+      "title": "Natasha Ki Teekhi Nazar Aur Boli Ka Khel",
+      "narration": [
+        "*Auction Hall ke chandeliers ki roshni mein hazaaron croron ke saude chal rahe hain. Natasha Malhotra VIP front row mein baithi hai.*",
+        "*Stage par Sharma family ke purane ancestral hotel ki bidding shuru hoti hai. Rajesh aur Priya piche baith kar saste mein bechne ki koshish kar rahe hain.*",
+        "*Natasha 50 crore ki boli lagati hai. Tabhi tumhara haath paddle uthata hai.*",
+        "*Tum: \"120 Crore Cash.\"*",
+        "*Poore hall mein sannata chha jaata hai. Natasha ghoom kar tumhari ankhon mein dekhti hai — uski emerald ankhon mein pehli baar kisi mard ke liye sacchi hairani aur challenge dikhta hai.*"
+      ],
+      "fallbackLines": [
+        "*Auctioneer ka hammer hawa mein ruk jata hai.*",
+        "Natasha: \"Boli lagana aasan hai, {{playerName}}... bank guarantee kahan hai tumhari?\""
+      ],
+      "choices": [
+        {
+          "id": "c4_present_infranet_gains",
+          "text": "InfraNet ke din-dopahar 400% profit ki live trade screen Natasha ke aage karo",
+          "shortLabel": "Live trade dikhao",
+          "keywords": [
+            "trade",
+            "infranet",
+            "profit",
+            "guarantee"
+          ],
+          "next": "s5_first_empire_move",
+          "effects": {
+            "relationships": {
+              "natasha": 15
+            },
+            "flags": {
+              "backedUpBid": true
+            },
+            "memory": [
+              "{{playerName}} ne 7 saal ke future stock trade se live cash backing dikha kar Natasha ke hosh uda diye."
+            ]
+          }
+        },
+        {
+          "id": "c4_offer_partnership_natasha",
+          "text": "\"Main yeh property akele nahi khareed raha, Miss Malhotra. 50-50 partnership ka offer hai.\"",
+          "shortLabel": "50-50 deal offer",
+          "keywords": [
+            "deal",
+            "partnership",
+            "natasha",
+            "50-50"
+          ],
+          "next": "s5_first_empire_move",
+          "effects": {
+            "relationships": {
+              "natasha": 12
+            },
+            "memory": [
+              "{{playerName}} ne Natasha ko direct strategic business partnership ka offer diya."
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "id": "s5_first_empire_move",
+      "title": "Badshah Ki Nayi Hukumat Ka Aagaz",
+      "narration": [
+        "*Natasha Malhotra chair se uthti hai aur apna haath tumhari taraf badhati hai. Uski diamond rings ki chamak uski ankhon se kam hai.*",
+        "Natasha: \"Sharma parivar ke aiyash ladke ki aisi taakat aur dimaag... maine expect nahi kiya tha. Partner banne ka offer mujhe manzoor hai, {{playerName}}.\"",
+        "*Peeche se Rajesh aur Priya ka chehra kaala pad chuka hai. Unka poora plan mitti mein mil gaya.*",
+        "*PROGRESSION UPDATE: Empire Control: 35/100 | Natasha Attraction: 40/100 | Objective: Malhotra Alliance Formed!*",
+        "*Yeh kahani yahan rukti nahi — agle rounds mein board control ka dabdaba, Rohan ke illegal traps ka pardafash aur Natasha ke sath corporate badshahat ka safar jari rahega.*"
+      ],
+      "fallbackLines": [
+        "*Auction hall mein log tumhare naam ki charcha kar rahe hain.*",
+        "*Priya aur Rajesh ki dabi cheekh saaf mehsoos ho rahi hai.*"
+      ],
+      "choices": [
+        {
+          "id": "c5_toast_with_natasha",
+          "text": "Natasha ke sath champagne glass toast karo aur kaho — \"Yeh bas shuruaat hai.\"",
+          "shortLabel": "Champagne toast karo",
+          "keywords": [
+            "toast",
+            "champagne",
+            "natasha",
+            "shuruaat"
+          ],
+          "next": "s1_mirror_reawakening",
+          "effects": {
+            "relationships": {
+              "natasha": 8
+            },
+            "memory": [
+              "{{playerName}} ne Natasha ke sath agle empire moves ke liye toast kiya."
+            ]
+          }
+        },
+        {
+          "id": "c5_eye_betrayers",
+          "text": "Priya aur Rajesh ki taraf dekh kar ek thandi kaatne wali muskaan do",
+          "shortLabel": "Dushmanon ko dekho",
+          "keywords": [
+            "priya",
+            "rajesh",
+            "revenge",
+            "muskaan"
+          ],
+          "next": "s1_mirror_reawakening",
+          "effects": {
+            "relationships": {
+              "priya": -5,
+              "rajesh": -5
+            },
+            "memory": [
+              "{{playerName}} ne apne puraane gunehgaron ko aage aane wale toofan ka paigham diya."
+            ]
+          }
+        }
+      ]
+    }
+  ],
+  "endings": []
+}

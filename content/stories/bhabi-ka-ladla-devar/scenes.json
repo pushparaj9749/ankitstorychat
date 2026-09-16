@@ -1,0 +1,522 @@
+{
+  "storyId": "bhabi-ka-ladla-devar",
+  "version": 1,
+  "scenes": [
+    {
+      "id": "s1_shaam_ki_chai",
+      "title": "Shaam Ki Chai Aur Tense Nazrein",
+      "narration": [
+        "*Shaam ke saat baje hain. Office ki thakan ke baad tum Sharma Niwas ke living room mein sofa par aake baithte ho.*",
+        "*Sunaina bhabhi kitchen se nikal kar aati hain, unke haath mein adrak ki khushboo se mehakti do pyali chai aur garam pakode hain.*",
+        "Sunaina: \"Aap aa gaye, {{playerName}}? Chehre par thakan saaf dikh rahi hai. Yeh lijiye, aapki pasandida adrak wali chai.\"",
+        "*Usi waqt bedroom ka darwaaza khulta hai. Tanvi bahar aati hai, unke haath mein office ki file hai aur nazron mein teekha dhyan.*",
+        "Tanvi: \"Arey, main toh tumhare liye coffee banane hi ja rahi thi. Par lagta hai yahan pehle se special service tayyar hai.\"",
+        "*Living room ki hawa achanak bhari ho jaati hai. Sunaina bhabhi sharminda hokar nazrein jhuka leti hain.*"
+      ],
+      "fallbackLines": [
+        "*Tanvi ki teekhi nazar tum par tiki rehti hai, intezaar karte hue ki tum kiski taraf dekhoge.*",
+        "Tanvi: \"Kuch bologe bhi {{playerName}}, ya bas chup-chaap tamasha dekhoge?\"",
+        "*Sunaina bhabhi tray ko table par rakh kar dheere se piche hatne lagti hain.*"
+      ],
+      "choices": [
+        {
+          "id": "c1_tanvi_comfort",
+          "text": "Tanvi ka haath pakad kar pyar se bitha lo — \"Tanvi, aao na, hum dono saath mein chai peete hain.\"",
+          "shortLabel": "Tanvi ko bulao",
+          "keywords": [
+            "tanvi",
+            "baitho",
+            "chai",
+            "saath"
+          ],
+          "next": "s2_tanvi_comfort",
+          "effects": {
+            "relationships": {
+              "tanvi": 6,
+              "sunaina": 2
+            },
+            "flags": {
+              "comfortedWifeFirst": true
+            },
+            "memory": [
+              "{{playerName}} ne pehle Tanvi ko baithaya aur baat ko pyar se sambhala."
+            ]
+          }
+        },
+        {
+          "id": "c2_bhabhi_respect",
+          "text": "Bhabhi ka aadar karte hue cup uthao — \"Shukriya bhabhi, sach mein sar dard se phat raha tha.\"",
+          "shortLabel": "Bhabhi ka cup uthao",
+          "keywords": [
+            "shukriya",
+            "bhabhi",
+            "cup",
+            "sar dard"
+          ],
+          "next": "s2_bhabhi_respect",
+          "effects": {
+            "relationships": {
+              "sunaina": 6,
+              "tanvi": -4
+            },
+            "flags": {
+              "favoredBhabhiChai": true
+            },
+            "memory": [
+              "{{playerName}} ne Bhabhi ki chai ko pehle ahmiyat di, jisse Tanvi ke tewar teekhe ho gaye."
+            ]
+          }
+        },
+        {
+          "id": "c3_mahaul_halka",
+          "text": "Baat ko hasi mein taal kar mahaul halka karo — \"Are waah! Ek taraf chai, ek taraf coffee, meri kismat toh chamak gayi.\"",
+          "shortLabel": "Mahaul halka karo",
+          "keywords": [
+            "hasi",
+            "mazak",
+            "kismat",
+            "dono"
+          ],
+          "next": "s2_mahaul_halka",
+          "effects": {
+            "relationships": {
+              "tanvi": 2,
+              "sunaina": 2
+            },
+            "flags": {
+              "playedPeacemaker": true
+            },
+            "memory": [
+              "{{playerName}} ne dono ke beech mazak karke taav kam karne ki koshish ki."
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "id": "s2_tanvi_comfort",
+      "title": "Patni Ka Dard Aur Dabi Shikayat",
+      "narration": [
+        "*Tum Tanvi ka haath thaam kar use sofa par apne theek bagal mein bitha lete ho.*",
+        "*Tanvi ke chehre ki sakhti thodi naram padti hai, lekin uski ankhon mein ab bhi ek dabi hui shikayat jhalak rahi hai.*",
+        "Tanvi: \"Main bas yeh chahti hoon ki tumhare aane par pehla haq mera ho, {{playerName}}. Main office se aakar sidha tumhari raah dekh rahi thi.\"",
+        "*Sunaina bhabhi kitchen ke darwaze par rukti hain, unke chehre par ek sanyami muskaan aati hai.*",
+        "Sunaina: \"Tanvi theek keh rahi hai. Tum dono baitho, main Maa ji ki dawai dekh aati hoon.\"",
+        "*Sunaina chupke se kamre se nikal jaati hai, par Tanvi tumhari ankhon mein gehrayi se dekhti hai.*"
+      ],
+      "fallbackLines": [
+        "*Ghar mein ghadi ki tik-tik saaf sunayi de rahi hai.*",
+        "Tanvi: \"Kabhi-kabhi mujhe lagta hai ki is ghar mein mera vajood bas ek mehman jaisa hai.\""
+      ],
+      "choices": [
+        {
+          "id": "c2_assure_wife",
+          "text": "\"Tanvi, tum meri patni ho aur tumhara haq sabse pehle hai. Shaq mat kiya karo.\"",
+          "shortLabel": "Haq ki tasalli do",
+          "keywords": [
+            "haq",
+            "patni",
+            "shaq",
+            "pyaar"
+          ],
+          "next": "s3_bedroom_confrontation",
+          "effects": {
+            "relationships": {
+              "tanvi": 8
+            },
+            "memory": [
+              "{{playerName}} ne Tanvi ko uski ahem jagah ka ehsaas dilaya."
+            ]
+          }
+        },
+        {
+          "id": "c2_explain_bhabhi_care",
+          "text": "\"Bhabhi ne hume sambhala hai Rajesh bhaiya ke baad. Unki izzat karna hamara farz hai.\"",
+          "shortLabel": "Bhabhi ka farz batao",
+          "keywords": [
+            "bhabhi",
+            "farz",
+            "rajesh",
+            "sambhalna"
+          ],
+          "next": "s3_kitchen_conversation",
+          "effects": {
+            "relationships": {
+              "sunaina": 4,
+              "tanvi": -2
+            },
+            "memory": [
+              "{{playerName}} ne parivarik farz ka zikr kiya, jisse Tanvi thodi khamosh ho gayi."
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "id": "s2_bhabhi_respect",
+      "title": "Bhabhi Ka Sneh Aur Tanvi Ka Gussa",
+      "narration": [
+        "*Tum bhabhi ke haath se chai ka cup lete ho aur ek ghoont peete ho.*",
+        "Sunaina: \"Chai thandi ho jaati toh maza nahi aata. Thoda aaram kijiye, main raat ke khane ki tayyari karti hoon.\"",
+        "*Tanvi file ko zor se table par patakti hai. Uski aankhein laal ho chuki hain.*",
+        "Tanvi: \"Bahut khoob! Jab sab kuch Bhabhi hi tay karengi, toh mujhe yahan rahne ki kya zaroorat hai, {{playerName}}?\"",
+        "*Tanvi gusse mein apne bedroom ki taraf mudti hai aur darwaza zor se band karti hai.*",
+        "*Sunaina bhabhi kaanpte hothon ke sath tumhari taraf dekhti hain.*",
+        "Sunaina: \"Yeh meri wajah se hua... mujhe pehle nahi aana chahiye tha.\""
+      ],
+      "fallbackLines": [
+        "*Sunaina bhabhi ki aankhon mein aansu tair rahe hain.*",
+        "Sunaina: \"Aap jaaiye Tanvi ko manaiye, {{playerName}}. Meri chinta mat kijiye.\""
+      ],
+      "choices": [
+        {
+          "id": "c2_go_to_bedroom",
+          "text": "Bedroom mein jaakar Tanvi ka gussa shant karo",
+          "shortLabel": "Tanvi ko manao",
+          "keywords": [
+            "bedroom",
+            "tanvi",
+            "gussa",
+            "manao"
+          ],
+          "next": "s3_bedroom_confrontation",
+          "effects": {
+            "relationships": {
+              "tanvi": 4
+            },
+            "memory": [
+              "{{playerName}} turant Tanvi ke peeche bedroom gaya use manane."
+            ]
+          }
+        },
+        {
+          "id": "c2_comfort_bhabhi",
+          "text": "Pehle Bhabhi ko samjhao ki unki koi galti nahi hai",
+          "shortLabel": "Bhabhi ko hosla do",
+          "keywords": [
+            "bhabhi",
+            "galti",
+            "hosla",
+            "samjhao"
+          ],
+          "next": "s3_kitchen_conversation",
+          "effects": {
+            "relationships": {
+              "sunaina": 8,
+              "tanvi": -5
+            },
+            "memory": [
+              "{{playerName}} ne Sunaina bhabhi ko sambhala aur unhe hosla diya."
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "id": "s2_mahaul_halka",
+      "title": "Dinner Ki Tayyari Aur Narm Dilon Ka Mel",
+      "narration": [
+        "*Tumhare mazak se living room ka taav thoda pighalta hai. Sunaina bhabhi ke labon par halki muskaan aati hai.*",
+        "Sunaina: \"Aap hamesha baat ko hasi mein uda dete hain. Chaliye, main Tanvi ke liye bhi fresh coffee bana deti hoon.\"",
+        "*Tanvi dheere se muskura deti hai, halanki uski ankhon mein abhi bhi ek teekha sawaal baki hai.*",
+        "Tanvi: \"Coffee main khud banaungi Bhabhi, aap aaram kijiye. Aur {{playerName}}, fresh hokar aao, mujhe kuch baat karni hai.\"",
+        "*Maa ji kamre se nikal kar aati hain aur sabko dekh kar chain ki saans leti hain.*",
+        "Nirmala: \"Mera parivar yunhi haste-muskurate rahe, bas bhagwan se yahi prarthana hai.\""
+      ],
+      "fallbackLines": [
+        "*Maa ji aashirwad deti hain par unke chehre par thakan saaf hai.*",
+        "Nirmala: \"Sab mil-jul kar raha karo bachon.\""
+      ],
+      "choices": [
+        {
+          "id": "c2_follow_tanvi_room",
+          "text": "Tanvi ke sath bedroom mein chalkar private baat karo",
+          "shortLabel": "Tanvi se baat karo",
+          "keywords": [
+            "tanvi",
+            "bedroom",
+            "baat",
+            "private"
+          ],
+          "next": "s3_bedroom_confrontation",
+          "effects": {
+            "relationships": {
+              "tanvi": 5
+            },
+            "memory": [
+              "{{playerName}} Tanvi ke sath akele mein baat karne gaya."
+            ]
+          }
+        },
+        {
+          "id": "c2_help_dinner_prep",
+          "text": "Rasoi mein chalkar Sunaina bhabhi aur Tanvi dono ka haath batao",
+          "shortLabel": "Kitchen mein madad",
+          "keywords": [
+            "kitchen",
+            "madad",
+            "dinner",
+            "dono"
+          ],
+          "next": "s4_dinner_table_tension",
+          "effects": {
+            "relationships": {
+              "sunaina": 5,
+              "tanvi": 5
+            },
+            "memory": [
+              "{{playerName}} ne dinner prep mein dono ka sath diya."
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "id": "s3_bedroom_confrontation",
+      "title": "Band Kamre Ki Sachai",
+      "narration": [
+        "*Tum bedroom ka darwaza dheere se band karte ho. Tanvi balcony ki taraf muh karke khadi hai.*",
+        "*Uski peeth thodi jhuki hui hai. Jab woh mudti hai, uski ankhon mein nami dikhti hai.*",
+        "Tanvi: \"Main buri nahi hoon {{playerName}}. Main jaanti hoon Bhabhi ne kitna dukh dekha hai. Par jab tum aate hi unhe dhoondhte ho, toh mujhe lagta hai meri koi aukaat hi nahi is ghar mein.\"",
+        "*Uski aawaz tharrati hai. Yeh gussa nahi, darr tha — kho dene ka darr.*",
+        "Tanvi: \"Kya hum kuch dinon ke liye alag holiday par nahi chal sakte? Sirf tum aur main?\""
+      ],
+      "fallbackLines": [
+        "*Tanvi tumhari ankhon mein apna jawab dhoondh rahi hai.*",
+        "Tanvi: \"Batao na {{playerName}}, kya tum mere sath waqt bitana chahte ho?\""
+      ],
+      "choices": [
+        {
+          "id": "c3_promise_trip",
+          "text": "\"Haan Tanvi, hum zaroor chalenge. Tumhari khushi mere liye sabse pehle hai.\"",
+          "shortLabel": "Trip ka wada karo",
+          "keywords": [
+            "trip",
+            "wada",
+            "holiday",
+            "pyaar"
+          ],
+          "next": "s5_terrace_night_talk",
+          "effects": {
+            "relationships": {
+              "tanvi": 10
+            },
+            "flags": {
+              "promisedHoliday": true
+            },
+            "memory": [
+              "{{playerName}} ne Tanvi se akele holiday par le jaane ka pakka wada kiya."
+            ]
+          }
+        },
+        {
+          "id": "c3_balance_family_plea",
+          "text": "\"Thoda waqt do Tanvi. Maa ji ki tabiyat theek nahi hai, abhi hume sabko sambhalna hoga.\"",
+          "shortLabel": "Samay maango",
+          "keywords": [
+            "samay",
+            "maa ji",
+            "sambhalna",
+            "sabko"
+          ],
+          "next": "s5_terrace_night_talk",
+          "effects": {
+            "relationships": {
+              "tanvi": 3,
+              "sunaina": 4
+            },
+            "flags": {
+              "askedForTime": true
+            },
+            "memory": [
+              "{{playerName}} ne Tanvi ko parivarik zimmedariyon ki wajah se theherne ko kaha."
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "id": "s3_kitchen_conversation",
+      "title": "Bhabhi Ka Tyag Aur Ansoo",
+      "narration": [
+        "*Tum kitchen mein aate ho. Sunaina bhabhi akele khadi rotiyan sek rahi hain.*",
+        "*Aanch ki garmi mein unke maathe par paseena hai, aur ek aasu chupke se unke gaal par fisalta hai.*",
+        "Sunaina: \"{{playerName}}? Aap yahan kyun aaye? Tanvi naraz hai, aapko uske paas hona chahiye.\"",
+        "*Woh jaldi se apna aanchal theek karti hain aur gas dheemi kar deti hain.*",
+        "Sunaina: \"Main is ghar ki badi bahu hoon, par agar meri maujoodgi se aapka ghar kharab ho raha hai... toh main gaon chali jaati hoon.\""
+      ],
+      "fallbackLines": [
+        "*Sunaina bhabhi ka gale ka haar dheere se hilta hai.*",
+        "Sunaina: \"Maine Rajesh ji ke baad is ghar ko mandir samjha hai, {{playerName}}.\""
+      ],
+      "choices": [
+        {
+          "id": "c3_stop_bhabhi",
+          "text": "\"Nahi bhabhi, aap kahin nahi jayengi! Yeh ghar aapka bhi utna hi hai.\"",
+          "shortLabel": "Bhabhi ko roko",
+          "keywords": [
+            "roko",
+            "gaon",
+            "ghar",
+            "aapka"
+          ],
+          "next": "s5_terrace_night_talk",
+          "effects": {
+            "relationships": {
+              "sunaina": 10,
+              "tanvi": -4
+            },
+            "flags": {
+              "stoppedBhabhiLeaving": true
+            },
+            "memory": [
+              "{{playerName}} ne Sunaina bhabhi ko gaon jaane se saaf mana kiya aur unhe parivar ka ahem hissa bataya."
+            ]
+          }
+        },
+        {
+          "id": "c3_ask_help_bhabhi",
+          "text": "\"Bhabhi, aap samajhdar hain. Tanvi ko apna banaiye na, taaki woh akela na mehsoos kare.\"",
+          "shortLabel": "Sulah ka rasta",
+          "keywords": [
+            "sulah",
+            "samajhdar",
+            "tanvi",
+            "madad"
+          ],
+          "next": "s5_terrace_night_talk",
+          "effects": {
+            "relationships": {
+              "sunaina": 7,
+              "tanvi": 6
+            },
+            "flags": {
+              "bridgeBuilt": true
+            },
+            "memory": [
+              "{{playerName}} ne Bhabhi se guzarish ki ki woh Tanvi ke sath rishta gehra karein."
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "id": "s4_dinner_table_tension",
+      "title": "Ek Hi Mez Par Teen Rishte",
+      "narration": [
+        "*Raat ke nau baje dining table par sabhi baithe hain. Maa ji daal paros rahi hain.*",
+        "*Sunaina bhabhi chupchaap sabko garam rotiyan laakar de rahi hain, aur Tanvi side mein salad ka bowl pakad kar baithi hai.*",
+        "Tanvi: \"{{playerName}}, maine tumhare liye special paneer banaya hai. Chak kar batao kaisa bana hai.\"",
+        "*Sunaina bhabhi rukti hain, aur Tanvi ki taraf dekh kar ek sachhi mamta bhari nazar dalti hain.*",
+        "Sunaina: \"Khushboo toh bahut acchi aa rahi hai, Tanvi. Tumne mehnat bohot ki hai.\"",
+        "*Maa ji dono bahuon ko dekhti hain aur unki ankhon mein ek umeed jagti hai.*"
+      ],
+      "fallbackLines": [
+        "*Khane ki mez par chammachon ki halki aawaz goonjti hai.*",
+        "Nirmala: \"Bahuon ke haath ka swad hi ghar ko aabaad rakhta hai.\""
+      ],
+      "choices": [
+        {
+          "id": "c4_praise_tanvi",
+          "text": "Tanvi ke banaye paneer ki dil khol kar tareef karo",
+          "shortLabel": "Tanvi ki tareef karo",
+          "keywords": [
+            "tareef",
+            "paneer",
+            "tanvi",
+            "swad"
+          ],
+          "next": "s5_terrace_night_talk",
+          "effects": {
+            "relationships": {
+              "tanvi": 8,
+              "sunaina": 3
+            },
+            "memory": [
+              "{{playerName}} ne dinner table par Tanvi ki cooking ki tareef karke uska chehra khila diya."
+            ]
+          }
+        },
+        {
+          "id": "c4_unite_both",
+          "text": "Dono ki mehnat ko barabar aadar do aur Maa ji ko khush karo",
+          "shortLabel": "Dono ko samman do",
+          "keywords": [
+            "barabar",
+            "dono",
+            "maa ji",
+            "sundar"
+          ],
+          "next": "s5_terrace_night_talk",
+          "effects": {
+            "relationships": {
+              "tanvi": 5,
+              "sunaina": 6
+            },
+            "memory": [
+              "{{playerName}} ne parivar ke har sadasya ki ahemiyat ko table par qayam rakha."
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "id": "s5_terrace_night_talk",
+      "title": "Chhat Par Thandi Hawa Aur Aage Ka Rasta",
+      "narration": [
+        "*Aadhi raat ka waqt hai. Ghar ke sabhi log so chuke hain, par tum Sharma Niwas ki chhat par taaron ko dekh rahe ho.*",
+        "*Dheemi thandi hawa chal rahi hai. Tumhare dil mein parivar ko bachane aur har rishte ko nibhane ka dridh sankalp hai.*",
+        "*Sidhiyon par halki aahat hoti hai. Ek taraf Tanvi ki choodiyon ki khanak aur doosri taraf parivar ki deewar ban kar khadi Sunaina bhabhi ka vishwas.*",
+        "*Yeh kahani kisi ek faisle par khatam nahi hoti — har naya din parivar, jalan, prem aur maryada ki ek nayi kadi le kar aayega.*"
+      ],
+      "fallbackLines": [
+        "*Raat ki khamoshi mein sheher ki door se aati aawazein thehri hui hain.*",
+        "*Tum jante ho ki subah ka suraj ghar mein naye rang lekar aayega.*"
+      ],
+      "choices": [
+        {
+          "id": "c5_morning_resolve",
+          "text": "Subah uthkar Tanvi ke sath nayi shuruaat karne ka mann banao",
+          "shortLabel": "Nayi shuruaat karo",
+          "keywords": [
+            "subah",
+            "tanvi",
+            "nayi shuruaat",
+            "sankalp"
+          ],
+          "next": "s1_shaam_ki_chai",
+          "effects": {
+            "relationships": {
+              "tanvi": 5
+            },
+            "memory": [
+              "{{playerName}} ne parivar mein nayi subah aur nayi samajh lane ka faisla kiya."
+            ]
+          }
+        },
+        {
+          "id": "c5_protect_family_unity",
+          "text": "Ghar ke sabhi logon ko jod kar chalne ka wada khud se karo",
+          "shortLabel": "Ghar ko jode rakho",
+          "keywords": [
+            "wada",
+            "parivar",
+            "ekta",
+            "maryada"
+          ],
+          "next": "s1_shaam_ki_chai",
+          "effects": {
+            "relationships": {
+              "sunaina": 5,
+              "tanvi": 5
+            },
+            "memory": [
+              "{{playerName}} ne ghar ki maryada aur ekta ko har keemat par bachane ka nischay kiya."
+            ]
+          }
+        }
+      ]
+    }
+  ],
+  "endings": []
+}

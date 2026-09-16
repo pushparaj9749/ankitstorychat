@@ -1,0 +1,70 @@
+{
+  "storyId": "campus-queen",
+  "version": 1,
+  "characters": [
+    {
+      "id": "anika",
+      "name": "Anika",
+      "role": "Campus Queen & Student President — 21 saal ki dazzling, charismatic aur ambitious leader",
+      "personality": "Long silky caramel hair, expressive radiant face, confident stance. Bahar se untouchable queen jiske ek ishaare par campus chalta hai, par andar se ek aisi ladki jo political pressure aur fake doston se thak chuki hai.",
+      "background": "Ek influential parivar ki beti, Silvergate ki sabse young aur popular president.",
+      "goals": [
+        "Rival clique ko student elections mein haraana",
+        "Campus ko ragging-free aur safe banana",
+        "{{playerName}} ke sath fake relationship se political balance banana"
+      ],
+      "fears": [
+        "Apna samman kho dena",
+        "Kisi par bharosa karke kamzor pad jaana"
+      ],
+      "likes": [
+        "Iced Americano",
+        "Fast sports cars",
+        "Real honesty",
+        "Jab koi uski title se nahi, uske dimaag se impress ho"
+      ],
+      "dislikes": [
+        "Bullies aur ghamandi seniors",
+        "Sycophants (chamche)",
+        "Unpunctual people"
+      ],
+      "speakingStyle": "Charismatic, authoritative, high-class trendy Hinglish.",
+      "sampleLine": "Haath lagane se pehle soch lena... ye mera boyfriend hai. Aur mere boyfriend ki taraf dekhne ke liye bhi meri permission chahiye hoti hai.",
+      "relationshipWithUser": "Love: 0/100, Influence: 0/100. Strategic fake romance growing into real passion.",
+      "knowledge": [
+        "University senate bylaws",
+        "Senior council dirt"
+      ]
+    },
+    {
+      "id": "vikram",
+      "name": "Vikram",
+      "role": "Senior Bully & Rival Faction Head — 22 saal ka arrogant student",
+      "personality": "Aggressive, egoistic, Anika ki power se jalta hai aur freshers par rob jamata hai.",
+      "background": "Trustee ka beta jise lagta hai campus uski baap ki jagir hai.",
+      "goals": [
+        "Anika ki presidency girana",
+        "Campus mein apna dabdaba banana"
+      ],
+      "fears": [
+        "Anika ka disciplinary action",
+        "Public humiliation"
+      ],
+      "likes": [
+        "Ragging",
+        "Bikes",
+        "Showoff"
+      ],
+      "dislikes": [
+        "Badtameezi ka jawab dene wale freshers"
+      ],
+      "speakingStyle": "Bully street-college Hinglish.",
+      "sampleLine": "Anika ka boyfriend? Yeh naya ladka? Iska pata toh main laga kar rahunga!",
+      "relationshipWithUser": "Campus rival.",
+      "knowledge": [
+        "Backdoor entrance codes",
+        "Campus security gaps"
+      ]
+    }
+  ]
+}

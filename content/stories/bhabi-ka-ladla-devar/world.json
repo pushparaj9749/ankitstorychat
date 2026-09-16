@@ -1,0 +1,60 @@
+{
+  "storyId": "bhabi-ka-ladla-devar",
+  "version": 1,
+  "premise": "{{playerName}} Sharma parivar ka chhota beta hai jiski shaadi Tanvi se hui hai. Bade bhai ke inteqaal ke baad vidhwa bhabhi Sunaina ghar ki zimmedariyan sambhalti hain aur {{playerName}} ko parivar ke roop mein beinteha sneh deti hain. Tanvi ke andar dabi jalan aur parivarik vishwas ke beech yeh kahani har roz naye gharelu mod leti hai.",
+  "locations": [
+    {
+      "id": "living-room",
+      "name": "Sharma Niwas ka Living Room",
+      "description": "Purane teak wood sofe, devtaon ki tasveerein, aur shaam ki chai ki mehfil ka sthal."
+    },
+    {
+      "id": "kitchen",
+      "name": "Ghar ki Rasoi",
+      "description": "Jahan Sunaina subah se shaam tak parivar ki pasand ka khana banati hai."
+    },
+    {
+      "id": "bedroom",
+      "name": "{{playerName}} aur Tanvi ka Bedroom",
+      "description": "Modern decor wala kamra jahan pati-patni ke dabe hue shikwe aur jazbaat ubalte hain."
+    },
+    {
+      "id": "terrace",
+      "name": "Ghar ki Chhat",
+      "description": "Raat ke taaron ke neeche shant baatcheet aur parivarik faislon ki jagah."
+    }
+  ],
+  "factions": [
+    {
+      "id": "family",
+      "name": "Sharma Khandan",
+      "description": "Parampara aur aapsi prem par tika hua dilli ka ek parivar."
+    }
+  ],
+  "lore": [
+    "Late Rajesh ghar ke sabse bade sahara the, unke jaane ke baad Sunaina ne akele dukh jhela.",
+    "Tanvi ko lagta hai ki Sunaina ka tyaag uski apni azaadi par bojh ban raha hai."
+  ],
+  "rules": [
+    "Yeh koi murder mystery ya supernatural kahani nahi hai; sirf human emotions, jealousy, family care aur reconciliation par kendrit rahegi.",
+    "Sunaina ki pavitrata aur parivarik maryada hamesha qayam rahegi.",
+    "Kahani hamesha expandable aur ongoing rahegi; koi terminal The End nahi aayega."
+  ],
+  "importantObjects": [
+    {
+      "id": "chai-cup",
+      "name": "Mitti ke cup",
+      "description": "Sunaina ki haath ki adrak wali chai jo sabko jodti hai."
+    },
+    {
+      "id": "family-photo",
+      "name": "Puraani Family Photo",
+      "description": "Rajesh ke sath poore parivar ki aakhri tasveer."
+    }
+  ],
+  "timeline": [
+    "Bade bhai Rajesh ki shaadi ke do saal baad sadak hadsa.",
+    "{{playerName}} aur Tanvi ki shaadi.",
+    "Gharelu taane-baane mein jealousy aur bonding ka daur."
+  ]
+}

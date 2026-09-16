@@ -1,0 +1,474 @@
+{
+  "storyId": "stuck-between-angel-and-devil",
+  "version": 1,
+  "scenes": [
+    {
+      "id": "s1_haneul_university_awakening",
+      "title": "Cherry Blossoms Aur Do Khoobsurat Musibatein",
+      "narration": [
+        "*Aadhi raat ka kamra, TV screen ki roshni aur phir ek behad tezi se kheenchti hui vortex. Tum {{playerName}} ho.*",
+        "*Jab tumhari aankhein khulti hain, gulabi cherry blossom ki pankhudiyan hawa mein ud rahi hain. Saamne red-brick heritage building par likha hai: \"Haneul University, Seoul\".*",
+        "*Tumne apna haath dekha — wahi stylish beige trench coat aur student ID card: tum ab is K-Drama ke main character ki body mein ho!*",
+        "*Tabhi ek naram, sweet aawaz sunayi deti hai. Ek ladki — soft cream cardigan aur braided baalon mein behad cute — tumhare samne aati hai: Kim Si-woo.*",
+        "Si-woo: \"{{playerName}}-ssi! Aap yahan khade hain? Maine aapko library mein dhoondha... aapka chehra itna utra hua kyun hai? Sab theek toh hai na?\"",
+        "*Isse pehle ki tum kuch bolo, bagal se ek skateboard aakar rukti hai. Black leather jacket, dark eyeliner aur hothon par naughty smirk ke sath aati hai Lee Yu-na.*",
+        "Yu-na: \"Arey waah Si-woo, abhi se bodyguard ban gayi iski? Aur tum {{playerName}}... subah se ajeeb bhoot ki tarah sabko ghoor kyun rahe ho? Koi naya drama shuru kiya hai kya?\""
+      ],
+      "fallbackLines": [
+        "*Dono ladkiyan tumhari taraf dekh rahi hain.*",
+        "Yu-na: \"Bolo hero, zubaan freeze ho gayi kya?\""
+      ],
+      "choices": [
+        {
+          "id": "c1_siwoo_approach",
+          "text": "Si-woo ki taraf muskura kar naram jawab do — \"Main theek hoon Si-woo, bas campus ki khoobsurti dekh raha tha.\"",
+          "shortLabel": "Si-woo ko muskaan do",
+          "keywords": [
+            "siwoo",
+            "naram",
+            "muskaan",
+            "campus"
+          ],
+          "next": "s2_siwoo_approach",
+          "effects": {
+            "relationships": {
+              "siwoo": 8,
+              "yuna": 2
+            },
+            "flags": {
+              "leanedAngel": true
+            },
+            "memory": [
+              "{{playerName}} ne pehle Si-woo ko sweet aur naram tareeqe se jawab diya."
+            ]
+          }
+        },
+        {
+          "id": "c1_yuna_approach",
+          "text": "Yu-na ki tease ka uske hi andaz mein jawab do — \"Tumhe dekhne ke liye kisi bahane ki zaroorat thodi hai, Yu-na.\"",
+          "shortLabel": "Yu-na se bold banter",
+          "keywords": [
+            "yuna",
+            "bahana",
+            "banter",
+            "bold"
+          ],
+          "next": "s2_yuna_approach",
+          "effects": {
+            "relationships": {
+              "yuna": 9,
+              "siwoo": 2
+            },
+            "flags": {
+              "leanedDevil": true
+            },
+            "memory": [
+              "{{playerName}} ne Yu-na ko uske hi rebellious andaz mein sharp flirtatious jawab diya."
+            ]
+          }
+        },
+        {
+          "id": "c1_kdrama_confusion",
+          "text": "Dono ko dekh kar nervous hansi do — \"Sach kahun toh mujhe lag raha hai main kisi sapne mein aa gaya hoon.\"",
+          "shortLabel": "Sapne jaisa lag raha",
+          "keywords": [
+            "sapna",
+            "hansi",
+            "nervous",
+            "dono"
+          ],
+          "next": "s2_kdrama_confusion",
+          "effects": {
+            "relationships": {
+              "siwoo": 5,
+              "yuna": 5
+            },
+            "flags": {
+              "neutralCuteReaction": true
+            },
+            "memory": [
+              "{{playerName}} ne nervous hansi ke sath dono ko confuse kiya."
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "id": "s2_siwoo_approach",
+      "title": "Pari Ki Mamta Aur Warm Green Tea",
+      "narration": [
+        "*Si-woo ke chehre par ek pyaari si laali chha jaati hai. Woh apne tote bag se ek thermos nikaal kar tumhare haathon mein thama deti hai.*",
+        "Si-woo: \"Yeh lijiye, honey aur lemon tea hai. Subah ki thand mein aapki tabiyat kharab ho sakti thi. Aur... waise bhi, aap acche lag rahe hain aaj.\"",
+        "*Yu-na skateboard ko pair se flip karke haath mein pakadti hai aur aankhein ghumati hai.*",
+        "Yu-na: \"Ew, itni sweetness se toh mere daanton mein cavity ho jayegi! Par suno {{playerName}}, agar is angel ke lecture se bachna ho toh shaam ko Hongdae wale club aa jaana.\""
+      ],
+      "fallbackLines": [
+        "*Si-woo apna thermos pakadte hue sharmaati hai.*",
+        "Si-woo: \"Yu-na, please har waqt unhe chidhaya mat karo.\""
+      ],
+      "choices": [
+        {
+          "id": "c2_thank_siwoo_deeply",
+          "text": "\"Shukriya Si-woo, tumhara dhyan rakhna dil ko chhoo gaya.\"",
+          "shortLabel": "Tea ke liye shukriya",
+          "keywords": [
+            "shukriya",
+            "siwoo",
+            "tea",
+            "dil"
+          ],
+          "next": "s3_cafeteria_clash",
+          "effects": {
+            "relationships": {
+              "siwoo": 8
+            },
+            "memory": [
+              "{{playerName}} ne Si-woo ki tea ke liye dil se shukriya ada kiya."
+            ]
+          }
+        },
+        {
+          "id": "c2_wink_at_yuna",
+          "text": "Si-woo se chai lete hue Yu-na ko wink karo — \"Hongdae mein milte hain.\"",
+          "shortLabel": "Yu-na ko wink karo",
+          "keywords": [
+            "wink",
+            "hongdae",
+            "yuna",
+            "shaam"
+          ],
+          "next": "s3_cafeteria_clash",
+          "effects": {
+            "relationships": {
+              "yuna": 8,
+              "siwoo": 3
+            },
+            "memory": [
+              "{{playerName}} ne Yu-na ko Hongdae milne ka playful ishaara kiya."
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "id": "s2_yuna_approach",
+      "title": "Devil Ki Smirk Aur Electric Spark",
+      "narration": [
+        "*Yu-na ke chehre par ek shocked expression aakar turant ek naughty muskaan mein badal jaata hai.*",
+        "*Woh do kadam aage aati hai, uske leather jacket ki zipper halki khuli hai aur aankhon mein dark eyeliner ka gehra nasha.*",
+        "Yu-na: \"Oho! Bille ne aaj achanak panja nikaal liya? Tumhari yeh confident aawaz mujhe pasand aayi, {{playerName}}.\"",
+        "*Si-woo achanak beech mein aati hai, uske chehre par halki chinta aur possessiveness dikhti hai.*",
+        "Si-woo: \"Yu-na, inka pehla din hai semester ka! Inhe class ke bajaye apne band mein mat ghaseeto.\""
+      ],
+      "fallbackLines": [
+        "*Yu-na chewing gum ka bubble phodti hai.*",
+        "Yu-na: \"Boring class se toh meri guitar chords hazaar guna behtar hain.\""
+      ],
+      "choices": [
+        {
+          "id": "c2_praise_yuna_style",
+          "text": "\"Mujhe rock music pasand hai, Yu-na. Tumhari guitar sunna chahta hoon.\"",
+          "shortLabel": "Guitar sunna chahta",
+          "keywords": [
+            "guitar",
+            "music",
+            "yuna",
+            "pasand"
+          ],
+          "next": "s3_cafeteria_clash",
+          "effects": {
+            "relationships": {
+              "yuna": 10
+            },
+            "memory": [
+              "{{playerName}} ne Yu-na ke rock music ki tareef ki."
+            ]
+          }
+        },
+        {
+          "id": "c2_reassure_siwoo",
+          "text": "Si-woo ka hath thaam kar kaho — \"Class attend karunga Si-woo, tension mat lo.\"",
+          "shortLabel": "Si-woo ko tasalli",
+          "keywords": [
+            "siwoo",
+            "class",
+            "attend",
+            "tension"
+          ],
+          "next": "s3_cafeteria_clash",
+          "effects": {
+            "relationships": {
+              "siwoo": 8
+            },
+            "memory": [
+              "{{playerName}} ne Si-woo ko class attend karne ki tasalli di."
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "id": "s2_kdrama_confusion",
+      "title": "K-Drama Protagonist Ki Uljhan",
+      "narration": [
+        "*Tumhari ajeeb si bholi baat sun kar dono ladkiyan ek doosre ko dekhti hain aur phir hasne lagti hain.*",
+        "Si-woo: \"Sapna? Kaisa sapna, {{playerName}}-ssi? Kya aapne saari raat games kheli thi?\"",
+        "Yu-na: \"Haha! Yeh banda sach mein cute hai jab bewildered hota hai.\"",
+        "*Usi pal tumhare coat ki pocket mein rakha phone ek subtle notification tone bajaata hai.*",
+        "*PHONE ALERT: \"Script Event Altered! Episode 1 Choice: Cafeteria Lunch Date with Angel OR Rooftop Rebellion with Devil.\"*"
+      ],
+      "fallbackLines": [
+        "*Campus bell bajne lagti hai.*",
+        "Si-woo: \"Lecture shuru hone wala hai!\""
+      ],
+      "choices": [
+        {
+          "id": "c2_ask_about_lunch",
+          "text": "\"Chalo lecture ke baad cafeteria mein lunch karte hain sabhi.\"",
+          "shortLabel": "Cafeteria chalo",
+          "keywords": [
+            "lunch",
+            "cafeteria",
+            "lecture",
+            "chalo"
+          ],
+          "next": "s3_cafeteria_clash",
+          "effects": {
+            "relationships": {
+              "siwoo": 6,
+              "yuna": 6
+            },
+            "memory": [
+              "{{playerName}} ne dono ke sath cafeteria lunch plan banaya."
+            ]
+          }
+        },
+        {
+          "id": "c2_check_phone_hints",
+          "text": "Phone ke notification script ko chupke se check karo",
+          "shortLabel": "Script check karo",
+          "keywords": [
+            "script",
+            "phone",
+            "drama",
+            "hints"
+          ],
+          "next": "s3_cafeteria_clash",
+          "effects": {
+            "flags": {
+              "checkedScript": true
+            },
+            "memory": [
+              "{{playerName}} ne drama script notification ko pehle hi scan kar liya."
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "id": "s3_cafeteria_clash",
+      "title": "Cafeteria Ka Mahaul Aur Spicy Tteokbokki",
+      "narration": [
+        "*Haneul University cafeteria. Glass windows ke bahar dhoop khili hai. Table par do dishes rakhi hain.*",
+        "*Ek taraf Si-woo ka lovingly pack kiya gaya homemade healthy bento box jismein heart-shaped tamagoyaki hai.*",
+        "*Doosri taraf Yu-na ki le aayi hui extra spicy street tteokbokki jismein se laal mirch ki dhuandhaar steam nikal rahi hai.*",
+        "Si-woo: \"Aapke health ke liye yeh bento accha hai, {{playerName}}-ssi. Maine subah khud banaya tha.\"",
+        "Yu-na: \"Arey mard bano {{playerName}}! Asli thrill is fiery tteokbokki mein hai. Kha kar dikhao agar dum hai!\""
+      ],
+      "fallbackLines": [
+        "*Cafeteria ke doosre students tumhari table ko dekh rahe hain.*",
+        "Yu-na: \"Bolo, angel ka pyaar ya devil ki aag?\""
+      ],
+      "choices": [
+        {
+          "id": "c3_eat_siwoo_bento",
+          "text": "Si-woo ka bento pehle chakho aur kaho — \"Yeh behad swadisht aur pyara hai, Si-woo.\"",
+          "shortLabel": "Si-woo ka bento khao",
+          "keywords": [
+            "bento",
+            "siwoo",
+            "healthy",
+            "swadisht"
+          ],
+          "next": "s4_rainy_bus_shelter",
+          "effects": {
+            "relationships": {
+              "siwoo": 10,
+              "yuna": -2
+            },
+            "memory": [
+              "{{playerName}} ne Si-woo ka homemade bento khilaya aur uski mehnat ki tareef ki."
+            ]
+          }
+        },
+        {
+          "id": "c3_brave_spicy_yuna",
+          "text": "Yu-na ki challenge par spicy tteokbokki utha kar direct kha jao",
+          "shortLabel": "Tteokbokki khao",
+          "keywords": [
+            "tteokbokki",
+            "spicy",
+            "yuna",
+            "challenge"
+          ],
+          "next": "s4_rainy_bus_shelter",
+          "effects": {
+            "relationships": {
+              "yuna": 12,
+              "siwoo": 3
+            },
+            "flags": {
+              "survivedSpicy": true
+            },
+            "memory": [
+              "{{playerName}} ne bina dare Yu-na ka ultra-spicy challenge poora kiya."
+            ]
+          }
+        },
+        {
+          "id": "c3_mix_both",
+          "text": "Dono ka ek-ek bite lekar dono ko khush karo",
+          "shortLabel": "Dono ka bite lo",
+          "keywords": [
+            "dono",
+            "bite",
+            "balance",
+            "khush"
+          ],
+          "next": "s4_rainy_bus_shelter",
+          "effects": {
+            "relationships": {
+              "siwoo": 6,
+              "yuna": 6
+            },
+            "memory": [
+              "{{playerName}} ne dono ke khane ko aadar dekar smart balance banaya."
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "id": "s4_rainy_bus_shelter",
+      "title": "Seoul Ki Barish Aur Ek Hi Chhatri",
+      "narration": [
+        "*Shaam ko achanak Seoul ke aasmaan mein kale baadal ghir aate hain aur dhuandhaar baarish shuru ho jaati hai.*",
+        "*Campus ke bus stop ke shelter mein tum khade ho. Tabhi baarish mein se Si-woo gili hokar aati hai, aur peeche se Yu-na apni leather jacket sar par dale bhaagti aati hai.*",
+        "*Dono tumhare bagal mein aakar rukti hain. Thandi hawa aur baarish ki khushboo ke beech unki aahat bilkul kareeb hai.*",
+        "Si-woo: \"Mujhe laga sab chale gaye honge... kitni tez baarish hai.\"",
+        "Yu-na: \"Lagta hai K-Drama ka koi emotional scene chal raha hai. Par sach mein... tum dono ke sath yahan rukna bura nahi lag raha.\""
+      ],
+      "fallbackLines": [
+        "*Baarish road ke neon signboards par chamak rahi hai.*",
+        "Si-woo: \"Aapko thand toh nahi lag rahi na?\""
+      ],
+      "choices": [
+        {
+          "id": "c4_share_jacket_both",
+          "text": "Apna trench coat khol kar dono ke kandhon par barabar dhalo",
+          "shortLabel": "Coat dono par dhalo",
+          "keywords": [
+            "coat",
+            "dono",
+            "barish",
+            "garam"
+          ],
+          "next": "s5_festival_duet_hook",
+          "effects": {
+            "relationships": {
+              "siwoo": 8,
+              "yuna": 8
+            },
+            "flags": {
+              "romanticCoatMove": true
+            },
+            "memory": [
+              "{{playerName}} ne baarish mein apna coat dono ladkiyon ke sath share kiya."
+            ]
+          }
+        },
+        {
+          "id": "c4_suggest_cafe_escape",
+          "text": "\"Chalo samne wale 24-hour ramen cafe mein bhaagte hain!\"",
+          "shortLabel": "Ramen cafe bhaago",
+          "keywords": [
+            "ramen",
+            "cafe",
+            "bhaago",
+            "barish"
+          ],
+          "next": "s5_festival_duet_hook",
+          "effects": {
+            "relationships": {
+              "siwoo": 7,
+              "yuna": 9
+            },
+            "memory": [
+              "{{playerName}} ne baarish mein daudte hue ramen cafe ka mast plan banaya."
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "id": "s5_festival_duet_hook",
+      "title": "Campus Festival Ka Aagaz Aur Future Hook",
+      "narration": [
+        "*Barish dheemi ho rahi hai. Streetlights ki roshni mein Si-woo aur Yu-na dono tumhari taraf dekhti hain — unki ankhon mein ab sirf dosti nahi, balki ek aisi kashish hai jo kisi script mein nahi likhi thi.*",
+        "Si-woo: \"Agla hafta university festival hai {{playerName}}-ssi... kya aap mere sath volunteer stall sambhalenge?\"",
+        "Yu-na: \"Hell no! Yeh mere band ke sath stage par duet perform karega!\"",
+        "*Dono tumhara haath pakadti hain. Ek taraf angel ki narm thandak, doosri taraf devil ki aag.*",
+        "*Yeh kahani yahan khatam nahi hoti — festival ka stage, Seoul ke raaz, K-Drama twists aur in do anokhi ladkiyon ke dil jeetne ka safar abhi abhi shuru hua hai.*"
+      ],
+      "fallbackLines": [
+        "*Seoul ki hawa mein cherry blossoms ki mehak hai.*",
+        "*Tum jante ho ki tumhara naya safar lazawab hone wala hai.*"
+      ],
+      "choices": [
+        {
+          "id": "c5_promise_festival_both",
+          "text": "Dono ko muskura kar bolo — \"Main dono ke sath waqt bitaunga, deal!\"",
+          "shortLabel": "Dono se deal karo",
+          "keywords": [
+            "deal",
+            "festival",
+            "dono",
+            "stage"
+          ],
+          "next": "s1_haneul_university_awakening",
+          "effects": {
+            "relationships": {
+              "siwoo": 5,
+              "yuna": 5
+            },
+            "memory": [
+              "{{playerName}} ne festival mein dono ke sath barabar rehne ka wada kiya."
+            ]
+          }
+        },
+        {
+          "id": "c5_tease_both_leads",
+          "text": "Mazaak karte hue bolo — \"Lagta hai hero banne ke side effects bohot mehenge hain.\"",
+          "shortLabel": "Hero ke side effects",
+          "keywords": [
+            "hero",
+            "side effects",
+            "banter",
+            "mazak"
+          ],
+          "next": "s1_haneul_university_awakening",
+          "effects": {
+            "relationships": {
+              "siwoo": 6,
+              "yuna": 6
+            },
+            "memory": [
+              "{{playerName}} ne sweet banter ke sath festival ki shuruaat ki."
+            ]
+          }
+        }
+      ]
+    }
+  ],
+  "endings": []
+}
