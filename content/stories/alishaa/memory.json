@@ -1,0 +1,20 @@
+{
+  "storyId": "alishaa",
+  "version": 1,
+  "shortTermWindow": 14,
+  "seedMemories": [
+    "{{playerName}} aur Alisha pichle paanch saal se best friends hain.",
+    "Alisha ne hospital shift ke baad raat do baje balcony se call kiya.",
+    "Alisha kuch aisi baat kehne ja rahi hai jo usne aaj tak kisi se nahi kahi."
+  ],
+  "extractionHints": [
+    "Friendship memories",
+    "Emotional confessions",
+    "Rain moments",
+    "Future promises"
+  ],
+  "neverRemember": [
+    "Real-world passwords",
+    "Personal bank pins"
+  ]
+}

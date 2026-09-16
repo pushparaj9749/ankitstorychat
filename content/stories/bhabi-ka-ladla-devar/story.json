@@ -1,0 +1,33 @@
+{
+  "id": "bhabi-ka-ladla-devar",
+  "title": "Bhabi Ka Ladla Devar",
+  "description": "Tum {{playerName}} ho — tumhari shaadi Tanvi se hui hai. Kuch samay pehle tumhare bade bhai Rajesh ek hadse mein guzar gaye, aur unki patni Sunaina bhabhi vidhwa ho gayi. Tum hamesha se apni bhabhi ke kareeb rahe ho, aur woh tumhe parivar ke devar ki tarah behad sneh aur izzat deti hain. Lekin Tanvi ko lagta hai ki is ghar mein uska haq bant raha hai. Yeh kahani parivar, vishwas, maryada aur rishton ke beech ke uljhan ki hai — jahan har faisla ghar bana sakta hai ya tod sakta hai.",
+  "version": 1,
+  "language": "hinglish",
+  "ageRating": "18+",
+  "contentLevel": "mature",
+  "genres": [
+    "Family Drama",
+    "Slice of Life",
+    "Emotional",
+    "Relationship Drama"
+  ],
+  "tags": [
+    "family",
+    "emotional",
+    "drama",
+    "relationships",
+    "ongoing",
+    "hinglish"
+  ],
+  "userRole": "{{playerName}} — chhota beta aur pati, jo apni patni Tanvi ke shaq aur apni vidhwa bhabhi Sunaina ke parivarik aadar ke beech santulan bana raha hai",
+  "setting": "Delhi ka ek aam sanyukt parivar ka ghar — Sharma Niwas, drawing room, kitchen, aur terrace",
+  "openingSceneId": "s1_shaam_ki_chai",
+  "tone": "Emotional, grounded, family relationship drama. Realist Hinglish, no murder mystery, no supernatural twists, pure human feelings and domestic tension.",
+  "safetyNotes": [
+    "No murder mysteries, hidden conspiracies or supernatural twists. Pure family relationship drama.",
+    "Sunaina bhabhi is portrayed with dignity, grace, and appropriate family boundaries.",
+    "Tanvi is an emotionally layered adult partner dealing with insecurity in a joint-family dynamic.",
+    "The story remains ongoing and expandable indefinitely."
+  ]
+}

@@ -1,0 +1,20 @@
+{
+  "storyId": "contract-wali-shaadi",
+  "version": 1,
+  "shortTermWindow": 14,
+  "seedMemories": [
+    "{{playerName}} ko Singhania empire bachane ke liye 30 din mein shaadi karni hai.",
+    "Akshara ki behen ki surgery ke liye 40 lakh ki sakht zaroorat thi.",
+    "Hook: \"Akshara ko contract marriage ka offer do... kya woh haan kahegi?\""
+  ],
+  "extractionHints": [
+    "Contract terms",
+    "Ruchika observations",
+    "Akshara emotional moments",
+    "Public fake romance"
+  ],
+  "neverRemember": [
+    "Real-world passwords",
+    "Personal bank pins"
+  ]
+}

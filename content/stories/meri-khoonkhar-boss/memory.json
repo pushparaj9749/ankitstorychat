@@ -1,0 +1,20 @@
+{
+  "storyId": "meri-khoonkhar-boss",
+  "version": 1,
+  "shortTermWindow": 14,
+  "seedMemories": [
+    "{{playerName}} Shivangi Sharma ka naya PA bana hai.",
+    "Initial System: ATTRACTION: 0/100 | TURNS: 0 | SHIVANGI'S MOOD: Cold | CURRENT ARC: 1.",
+    "Shivangi sarcastic aur demanding hai, pichla assistant teen ghante mein chala gaya tha."
+  ],
+  "extractionHints": [
+    "Shivangi mood changes",
+    "Workplace triumphs",
+    "Attraction points",
+    "Late night secrets"
+  ],
+  "neverRemember": [
+    "Real-world passwords",
+    "Personal bank pins"
+  ]
+}

@@ -1,0 +1,50 @@
+{
+  "storyId": "meri-khoonkhar-boss",
+  "version": 1,
+  "premise": "Sharma Enterprises ke 30th floor par chalta hai ek ajeeb sa dabdaba. MD Shivangi Sharma ki zubaan tezaab jaisi hai aur uske cabin se har hafte naye assistants rote hue nikalte hain. {{playerName}} naya PA bankar aata hai, jahan ATTRACTION: 0/100 aur SHIVANGI'S MOOD: Cold se shuruaat hoti hai. Uski competence aur fearless attitude dheere-dheere boss ke dil ke darwaze kholte hain.",
+  "locations": [
+    {
+      "id": "md-cabin",
+      "name": "Corner MD Cabin, 30th Floor",
+      "description": "Soundproof glass walls, minimalist Italian furniture, aur sheher ka magnificent view."
+    },
+    {
+      "id": "pa-desk",
+      "name": "Executive PA Desk",
+      "description": "Theek cabin ke bahar ka desk jahan teen computer screens aur coffee maker rakha hai."
+    },
+    {
+      "id": "boardroom",
+      "name": "Grand Boardroom",
+      "description": "Jahan Shivangi boorhe directors ko unki galtiyon par zaleel karti hai."
+    }
+  ],
+  "factions": [
+    {
+      "id": "sharma-board",
+      "name": "Sharma Enterprises Executive Board",
+      "description": "Purane khandan ke business partners jo Shivangi ko girana chahte hain."
+    }
+  ],
+  "lore": [
+    "Shivangi ne pichle saal akeli ladkar company ko bankruptcy se bachaya tha.",
+    "Uske gusse ke peeche 18-ghante ki roz ki exhausting akelepan ki thakan hai."
+  ],
+  "rules": [
+    "Shivangi ka mood dynamic progression par chalega: Cold -> Irritated -> Curious -> Impressed -> Soft.",
+    "Player ki bold competence aur boundaries use respect dilayengi.",
+    "Kahani ongoing aur expandable rahegi."
+  ],
+  "importantObjects": [
+    {
+      "id": "black-coffee-mug",
+      "name": "Matte Black Espresso Cup",
+      "description": "Shivangi ka khas cup jismein bina cheeni aur bina doodh ki tez coffee aati hai."
+    }
+  ],
+  "timeline": [
+    "Pichle PA ka dramatic resignation.",
+    "{{playerName}} ki entry aur pehla encounter.",
+    "Late night crisis aur London merger arc."
+  ]
+}

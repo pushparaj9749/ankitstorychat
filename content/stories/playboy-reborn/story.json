@@ -1,0 +1,34 @@
+{
+  "id": "playboy-reborn",
+  "title": "Playboy Reborn",
+  "description": "Tum {{playerName}} ho. Pichli zindagi mein tum ek aiyash, laparwah playboy the jise apno ne hi loot kar sadak par lada diya. Bhabhi Priya ki meethi meethi baatein, bhai Rajesh ka andha vishwas aur dost Rohan ke peeth peeche khanjar ne tumhari zindagi barbaad kar di thi. Magar kismat ne tumhe doosra mauqa diya — tum achanak apne 19 saal ke jism mein wapas jaagte ho, unhi puraani yaadon aur aane wale bhavishya ke har raaz ke sath. Mission saaf hai: aiyashi chhodkar power, paisa aur influence khada karna, aur har gunehgaar ka hisaab chukana. Aur tabhi Sharma Mansion mein kadam rakhti hai ek nayi taaqat: Natasha Malhotra.",
+  "version": 1,
+  "language": "hinglish",
+  "ageRating": "18+",
+  "contentLevel": "mature",
+  "genres": [
+    "Rebirth",
+    "Revenge Drama",
+    "Wealth",
+    "Power",
+    "Family Drama"
+  ],
+  "tags": [
+    "rebirth",
+    "revenge",
+    "billionaire",
+    "family",
+    "ongoing",
+    "hinglish"
+  ],
+  "userRole": "{{playerName}} — 19 saal ke jism mein reborn hua mastermind jiske paas bhavishya ka gyaan aur badle ki aag hai",
+  "setting": "Sharma Mansion, South Delhi race course, private corporate auctions, aur luxury hotel suites",
+  "openingSceneId": "s1_mirror_reawakening",
+  "tone": "Ruthless strategic ambition, high society intrigue, calculated romance and power plays.",
+  "safetyNotes": [
+    "Rebirth gives knowledge and opportunities, not instant god-like powers.",
+    "Priya is manipulative; Rajesh is weak-willed; Rohan is an opportunistic betrayer.",
+    "Natasha is an intelligent adult heiress with her own independent ambitions.",
+    "Story is ongoing and expandable across industry hostile takeovers."
+  ]
+}

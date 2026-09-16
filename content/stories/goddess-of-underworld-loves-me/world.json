@@ -1,0 +1,60 @@
+{
+  "storyId": "goddess-of-underworld-loves-me",
+  "version": 1,
+  "premise": "{{playerName}} apni controlling maa ki chhatrachhaya se nikal kar pehli baar Mount Olympus ke divya jashn mein pahunchta hai. Wahan uski achanak mulaqat hoti hai Nyx se — raat ki aadi devi jisse swayam devraj darte hain. Nyx ke sath judne se shuru hota hai ek aisa divya safar jismein taakat, vishwas aur mohabbat kainaat ke niyam badal dete hain.",
+  "locations": [
+    {
+      "id": "balcony",
+      "name": "Olympus Golden Balcony",
+      "description": "Marble aur sitaron ke beech jhoolti balcony jahan hawa mein amrit ki khushboo aur shanti hai."
+    },
+    {
+      "id": "grand-hall",
+      "name": "Great Hall of Olympus",
+      "description": "Hazaaron devtaon ki roshni, madira ke jaam aur divya sangeet se goonjta vishal mahal."
+    },
+    {
+      "id": "shadow-garden",
+      "name": "Astral Shadow Garden",
+      "description": "Nyx ka chhupa hua garden jahan sitare paudhon par phoolon ki tarah khilte hain."
+    },
+    {
+      "id": "underworld-gate",
+      "name": "Obsidian Portal",
+      "description": "Underworld ki gehraiyon mein utarne wala kaala pathar ka azeem darwaaza."
+    }
+  ],
+  "factions": [
+    {
+      "id": "primordials",
+      "name": "Primordial Beings",
+      "description": "Kainat ke mool tatva — Nyx, Erebus, aur prachin taakatein."
+    },
+    {
+      "id": "olympians",
+      "name": "Olympian Gods",
+      "description": "Zeus ke azeem devta jo shaan aur takht ke bhookhe hain."
+    }
+  ],
+  "lore": [
+    "Nyx kisi ke aage nahi jhukti; devta bhi uske aane par aawaz dheemi kar lete hain.",
+    "{{playerName}} ke rooh mein ek ajeeb sa noor hai jo divine growth ke sath chamakta hai."
+  ],
+  "rules": [
+    "Nyx ki divine dignity hamesha barkarar rahegi; uska prem ek jhatke mein nahi balki sachhe vishwas se badhega.",
+    "Divine Growth aur Nyx Love stats narrative par asar dalenge.",
+    "Kahani hamesha ongoing rahegi; koi terminal The End nahi aayega."
+  ],
+  "importantObjects": [
+    {
+      "id": "shadow-pendant",
+      "name": "Raat Ka Sitara Pendant",
+      "description": "Nyx ke reshmi baalon se gira hua ek sitara jo andhere mein rasta dikhata hai."
+    }
+  ],
+  "timeline": [
+    "Controlling maa ke pehre se nikal kar Olympus pahunchna.",
+    "Balcony par Nyx se pehli mulaqat aur progression ki shuruaat.",
+    "Hermes ki warning aur Underworld ke raaste ka khulna."
+  ]
+}

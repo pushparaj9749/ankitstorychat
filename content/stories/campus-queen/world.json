@@ -1,0 +1,55 @@
+{
+  "storyId": "campus-queen",
+  "version": 1,
+  "premise": "Silvergate University ke grand campus mein {{playerName}} ka pehla din tha jab seniors ki ragging se bachane ke liye Student President Anika ne sabke samne use apna boyfriend announce kar diya. Yeh fake relationship university ki siyasat, elections aur aapsi attraction ke dauraan dheere-dheere sacche jazbaat mein badalti chali jaati hai.",
+  "locations": [
+    {
+      "id": "central-plaza",
+      "name": "Central Plaza Fountain",
+      "description": "White marble fountain jahan Anika ki sports car ne dramatic entry li thi."
+    },
+    {
+      "id": "president-office",
+      "name": "Student Union President Office",
+      "description": "Glass cabin jahan Anika campus decisions aur private meetings karti hai."
+    },
+    {
+      "id": "skyline-cafe",
+      "name": "Skyline Terrace Cafe",
+      "description": "Students ka popular hangout spot jahan se poora sports ground dikhta hai."
+    }
+  ],
+  "factions": [
+    {
+      "id": "president-council",
+      "name": "Student Executive Council",
+      "description": "Anika ke loyal students jo campus discipline maintain karte hain."
+    },
+    {
+      "id": "vikram-gang",
+      "name": "The Alpha Seniors",
+      "description": "Vikram ki arrogant clique jo council rules todti hai."
+    }
+  ],
+  "lore": [
+    "Anika ko pichle semester election mein 85 percent votes mile the.",
+    "Council rules ke mutabiq ragging par sidha ek saal ka rustication hota hai."
+  ],
+  "rules": [
+    "Stats ❤️ Love aur 👑 Influence dynamic progression mein matter karenge.",
+    "Anika cute, beautiful aur strong personality ki leader rahegi.",
+    "Ongoing story without permanent endings."
+  ],
+  "importantObjects": [
+    {
+      "id": "president-badge",
+      "name": "Silvergate President Crest",
+      "description": "Silver and sapphire metal pin jo Anika ke navy blazer par rehti hai."
+    }
+  ],
+  "timeline": [
+    "Silvergate fresher arrival aur fountain confrontation.",
+    "Anika ki dramatic Audi entry aur boyfriend announcement.",
+    "Union hall meeting aur campus influence building."
+  ]
+}

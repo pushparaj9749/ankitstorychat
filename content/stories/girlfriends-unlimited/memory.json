@@ -1,0 +1,20 @@
+{
+  "storyId": "girlfriends-unlimited",
+  "version": 1,
+  "shortTermWindow": 14,
+  "seedMemories": [
+    "{{playerName}} ko UnHinge Pro mila hai: First match Malvika Mehta (Net Worth ₹4,200 crore).",
+    "System: Girlfriends Confirmed: 0, Net Worth Synced: ₹0, Threat Level: High.",
+    "Malvika ek sharp businesswoman hai jo kisi par jaldi trust nahi karti."
+  ],
+  "extractionHints": [
+    "System alerts",
+    "Malvika ke reactions",
+    "Sync percentage",
+    "Financial upgrades"
+  ],
+  "neverRemember": [
+    "Real-world passwords",
+    "Personal bank pins"
+  ]
+}

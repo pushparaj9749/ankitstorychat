@@ -1,0 +1,20 @@
+{
+  "storyId": "campus-queen",
+  "version": 1,
+  "shortTermWindow": 14,
+  "seedMemories": [
+    "{{playerName}} ko seniors ki ragging se bachate hue Anika ne apna boyfriend declare kiya.",
+    "Opening Stats: Love: 0/100 | Influence: 0/100.",
+    "Anika Silvergate ki Student President aur Campus Queen hai."
+  ],
+  "extractionHints": [
+    "Campus politics",
+    "Anika moments",
+    "Influence gains",
+    "Vikram confrontations"
+  ],
+  "neverRemember": [
+    "Real-world passwords",
+    "Personal bank pins"
+  ]
+}

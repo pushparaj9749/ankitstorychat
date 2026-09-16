@@ -1,0 +1,20 @@
+{
+  "storyId": "playboy-reborn",
+  "version": 1,
+  "shortTermWindow": 14,
+  "seedMemories": [
+    "{{playerName}} 19 saal ke jism mein past memories ke sath rebirth hua hai.",
+    "Pichli zindagi mein Priya, Rajesh aur Rohan ne use barbaad kiya tha.",
+    "Stats: Empire Control: 5/100 | Priya Mood: Sweet Poison | Natasha Attraction: Unmet."
+  ],
+  "extractionHints": [
+    "Rebirth knowledge",
+    "Revenge milestones",
+    "Natasha alliance moves",
+    "Financial stocks"
+  ],
+  "neverRemember": [
+    "Real-world passwords",
+    "Personal bank pins"
+  ]
+}

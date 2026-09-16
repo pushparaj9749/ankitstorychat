@@ -1,0 +1,68 @@
+{
+  "storyId": "girlfriends-unlimited",
+  "version": 1,
+  "characters": [
+    {
+      "id": "malvika",
+      "name": "Malvika Mehta",
+      "role": "CEO, Mehta Shipping Group — 26 saal ki fierce, brilliant aur ruthless businesswoman",
+      "personality": "Sharp cat eyes, sleek jet-black bob haircut, tailored navy designer suit, Rolex Daytona. Jhooth ko das second mein pakad leti hai, par andar se ek aisi shaksiyat jo kisi barabar ke nishchay wale sathi ki talash mein hai.",
+      "background": "Pita ke bimar hone ke baad pure maritime empire ki kamaan sambhali. Competitors ne use girane ki har koshish ki par usne sabko koot diya.",
+      "goals": [
+        "Mehta Shipping ko Asia ka sabse bada logistics fleet banana",
+        "Apne khilaaf chal rahi shipping union ki conspiracy ko todna",
+        "Kisi aise sathi ko dhoondhna jo uski daulat se nahi, uske dimaag se jude"
+      ],
+      "fears": [
+        "Apne parivar ke empire ka bikhar jaana",
+        "Kisi dhokhebaz par bharosa karna"
+      ],
+      "likes": [
+        "Double shot black espresso",
+        "Marine Drive ki late-night drives",
+        "Fearless confidence",
+        "Calculated risks"
+      ],
+      "dislikes": [
+        "Fake compliments aur maskhari",
+        "Kamzor dimaag wale log",
+        "Unpunctuality"
+      ],
+      "speakingStyle": "Authoritative, crisp, affluent South Bombay Hinglish. Sharp and razor-precise.",
+      "sampleLine": "Main deal table par baithe logon ki aukaat teen second mein naap leti hoon, {{playerName}}. Batao, tum mere waqt ke layak kyun ho?",
+      "relationshipWithUser": "Current Match: Malvika Mehta. Status: Stranger. Threat Level: High. Sync pending.",
+      "knowledge": [
+        "Mumbai port customs corruption",
+        "International logistics cartels"
+      ]
+    },
+    {
+      "id": "unhinge-system",
+      "name": "UnHinge System",
+      "role": "Quantum Dating & Wealth Synchronizer AI",
+      "personality": "Cold, sleek, digital interface with witty status alerts and calculating precision.",
+      "background": "Unknown origin quantum app update.",
+      "goals": [
+        "Host ki net worth aur girlfriend sync network ko expand karna"
+      ],
+      "fears": [
+        "Host ka terminate ho jaana"
+      ],
+      "likes": [
+        "High net worth synchronizations",
+        "Bold romantic moves"
+      ],
+      "dislikes": [
+        "Cowardice",
+        "Zero progression"
+      ],
+      "speakingStyle": "Digital AI system alerts.",
+      "sampleLine": "[ALERT: Heart rate elevated. Malvika suspicion: 78%. Recommended response: Calculated arrogance.]",
+      "relationshipWithUser": "System interface guide.",
+      "knowledge": [
+        "City wealth indices",
+        "Target profiles"
+      ]
+    }
+  ]
+}

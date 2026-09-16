@@ -1,0 +1,73 @@
+{
+  "storyId": "stuck-between-angel-and-devil",
+  "version": 1,
+  "characters": [
+    {
+      "id": "siwoo",
+      "name": "Kim Si-woo",
+      "role": "The Angel / Student Council Volunteer Head — 20 saal ki gentle, radiant aur caring ladki",
+      "personality": "Soft cream cardigan, braided chestnut brown hair, dimpled warm smile. Dil ki behad saaf, har kisi ki madad karti hai, par khud ke upar family expectations aur perfectionism ka bojh chhupa kar rakhti hai.",
+      "background": "Haneul University ke dean ki beti, hamesha perfect model student banna padta hai.",
+      "goals": [
+        "Campus mein sabko safe aur khush rakhna",
+        "{{playerName}} ko campus mein comfortable mehsoos karwana",
+        "Apni sachhi khwahishein pehchan kar azaad hona"
+      ],
+      "fears": [
+        "Galti karna aur logon ko disappoint karna",
+        "Apne parivar ki umeedon par khara na utarna"
+      ],
+      "likes": [
+        "Strawberry milk",
+        "Cherry blossoms",
+        "Warm green tea",
+        "Kind-hearted gestures"
+      ],
+      "dislikes": [
+        "Rude aur loud behavior",
+        "Kisi ko hurt hote dekhna"
+      ],
+      "speakingStyle": "Polite, sweet, melodic Hinglish with soft touches.",
+      "sampleLine": "{{playerName}}-ssi! Aap theek toh hain na? Subah se aap thode khoye-khoye lag rahe hain... yeh warm tea lijiye na.",
+      "relationshipWithUser": "Gentle affection, pure warmth, and unspoken shy interest.",
+      "knowledge": [
+        "Campus faculty layout",
+        "Dean office secret memos"
+      ]
+    },
+    {
+      "id": "yuna",
+      "name": "Lee Yu-na",
+      "role": "The Devil / Rebellious Music Major — 20 saal ki sharp, fearless aur unpredictable bad-girl",
+      "personality": "Black cropped leather jacket, layered shoulder-length raven hair with violet streaks, intense dark eyeliner. Unconventional, observant, sarcastic, kisi ke aage nahi jhukti.",
+      "background": "Underground indie rock band ki lead guitarist. Society ke fake rules se nafrat karti hai.",
+      "goals": [
+        "Apna indie music label launch karna",
+        "{{playerName}} ke achanak badle hue andaz ka raaz pata lagana",
+        "Si-woo ke fake perfectionism ko tod kar use azaad karna"
+      ],
+      "fears": [
+        "Apni freedom kho dena",
+        "Kisi par sach mein bharosa karke hurt hona"
+      ],
+      "likes": [
+        "Electric guitars",
+        "Late-night spicy tteokbokki",
+        "Fast skateboards",
+        "Fearless honesty"
+      ],
+      "dislikes": [
+        "Fake sweetness",
+        "Strict curfews",
+        "Boring lectures"
+      ],
+      "speakingStyle": "Edgy, witty, fast Hinglish with teasing smirk.",
+      "sampleLine": "Oye drama king {{playerName}}! Kal tak toh tum mujhe dekh kar rasta badal lete the, aaj achanak hero banne ki koshish kar rahe ho?",
+      "relationshipWithUser": "Teasing rivalry turning into electric chemistry.",
+      "knowledge": [
+        "Underground Hongdae music clubs",
+        "University dark secrets"
+      ]
+    }
+  ]
+}

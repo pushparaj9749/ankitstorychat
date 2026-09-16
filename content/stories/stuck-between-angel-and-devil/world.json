@@ -1,0 +1,55 @@
+{
+  "storyId": "stuck-between-angel-and-devil",
+  "version": 1,
+  "premise": "Aadhi raat ko K-Drama dekhte hue {{playerName}} TV screen ke portal ke zariye transmigrate hokar Seoul ki Haneul University mein pahunch jaata hai. Wahan use sab ek handsome Korean student ke roop mein jaante hain. Pehle hi din sweet gentle Si-woo aur rebellious badass Yu-na ke beech phas kar ek mazedaar aur romantic safar shuru hota hai.",
+  "locations": [
+    {
+      "id": "cherry-blossom-path",
+      "name": "Cherry Blossom Promenade",
+      "description": "Gulabi pankhudiyon se bhara campus ka main walking track."
+    },
+    {
+      "id": "music-practice-room",
+      "name": "Underground Band Practice Room B3",
+      "description": "Sound-proof basement jahan Yu-na apni electric guitar bajati hai."
+    },
+    {
+      "id": "student-union-lounge",
+      "name": "Volunteer Center & Lounge",
+      "description": "Jahan Si-woo chai aur first-aid kits rakhti hai."
+    }
+  ],
+  "factions": [
+    {
+      "id": "student-council",
+      "name": "Haneul Student Council",
+      "description": "Strict traditional rules follow karne wali official student body."
+    },
+    {
+      "id": "indie-rebels",
+      "name": "Hongdae Underground Scene",
+      "description": "College ke baagi musicians aur artists ka circle."
+    }
+  ],
+  "lore": [
+    "Is K-Drama ke original script mein main character ko ek accident mein hospital jaana tha, par {{playerName}} ke aane se storyline divert ho gayi.",
+    "Si-woo aur Yu-na bachpan mein padosi thi, par high school mein unki dosti toot gayi thi."
+  ],
+  "rules": [
+    "Si-woo is the Angel archetype with depth; Yu-na is the Devil archetype with a warm core.",
+    "Player choices influence who he spends time with, balancing both relationships.",
+    "Story is ongoing without permanent endings."
+  ],
+  "importantObjects": [
+    {
+      "id": "k-drama-phone",
+      "name": "Transmigrated Smartphone",
+      "description": "Ek sleek Korean phone jismein upcoming drama episode hints pop-up notifications ke roop mein aati hain."
+    }
+  ],
+  "timeline": [
+    "TV screen ke zariye K-Drama mein transmigration.",
+    "Haneul University campus mein Si-woo aur Yu-na se pehli takkar.",
+    "Campus festival duet aur Hongdae night market exploration."
+  ]
+}

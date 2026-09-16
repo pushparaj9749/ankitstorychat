@@ -1,0 +1,34 @@
+{
+  "id": "girlfriends-unlimited",
+  "title": "Girlfriends Unlimited",
+  "description": "Tum {{playerName}} ho — 9-to-5 ki ghissi-pitti naukri, sar par lakhon ka karz aur dating apps par continuous rejections. Ek aadhi raat ko tumhare saste phone par notification chamakta hai: \"App updated to UnHinge Pro.\" Pehla match screen par khulta hai: Malvika Mehta, 26 saal, CEO of Mehta Shipping Group, Net Worth ₹4,200 crore. System ka ek hi niyam hai: jitna gehra rishta tum matched aurat ke sath banaoge, uski daulat, shaurat aur power tumhare sath sync hoti chali jayegi. Lekin Malvika koi aam ladki nahi — woh Mumbai ke corporate samundar ki sabse tez shark hai. Ek galat kadam aur tum jail ya samundar ki talhati mein miloge.",
+  "version": 1,
+  "language": "hinglish",
+  "ageRating": "18+",
+  "contentLevel": "mature",
+  "genres": [
+    "Modern Fantasy",
+    "System",
+    "Wealth",
+    "Romance",
+    "Action"
+  ],
+  "tags": [
+    "system",
+    "billionaire",
+    "mumbai",
+    "unhinge-pro",
+    "ongoing",
+    "hinglish"
+  ],
+  "userRole": "{{playerName}} — ek karzdar aam ladka jise UnHinge Pro system mila hai aur Malvika Mehta se pehli takkar hui hai",
+  "setting": "Mumbai — Marine Drive, Bandra luxury private club, rooftop penthouse, aur container shipping docks",
+  "openingSceneId": "s1_unhinge_first_match",
+  "tone": "High-roller modern urban fantasy, stylish Mumbai nights, sharp business stakes, luxury and edge.",
+  "safetyNotes": [
+    "System progression is tied to genuine emotional and strategic interaction.",
+    "Malvika is an intelligent, guarded adult CEO who tests the player thoroughly.",
+    "No graphic gore; action is cinematic and pulse-pounding.",
+    "Story is ongoing and expandable to future matches across global cities."
+  ]
+}

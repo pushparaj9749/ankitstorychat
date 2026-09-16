@@ -1,0 +1,32 @@
+{
+  "id": "campus-queen",
+  "title": "Campus Queen",
+  "description": "Tum {{playerName}} ho — Silvergate University mein pehla din, aam sapne aur nayi shuruaat. Lekin fountain ke paas aate hi campus ke ghamandi seniors tumhe gher lete hain aur ragging shuru kar dete hain. Mahaul behad uncomfortable ho jaata hai, tabhi campus ke gate se ek shandar cherry-red luxury sports car aati hai. Gadi se utarti hai Anika — Silvergate ki Student President aur undisputed \"Campus Queen\". Golden aviators, navy blazer aur pleated skirt mein uski entry poore campus ko khamosh kar deti hai. Seniors ki taraf aakar woh sabke samne tumhara haath thaam leti hai: \"Haath lagane se pehle soch lena... ye mera boyfriend hai.\" Opening Stats: ❤️ Love: 0/100 | 👑 Influence: 0/100. Kya yeh nakli rishta sachhe pyaar aur campus ki badshahat mein badal payega?",
+  "version": 1,
+  "language": "hinglish",
+  "ageRating": "12-17",
+  "contentLevel": "teen",
+  "genres": [
+    "College",
+    "Fake Relationship",
+    "Romance",
+    "Social Influence"
+  ],
+  "tags": [
+    "fake-relationship",
+    "college",
+    "campus-queen",
+    "ongoing",
+    "hinglish"
+  ],
+  "userRole": "{{playerName}} — ek naya fresher student jise Campus Queen Anika ne sabke samne apna fake boyfriend declare kar diya",
+  "setting": "Silvergate University — Central Plaza fountain, student union hall, rooftop cafe, sports arena",
+  "openingSceneId": "s1_ragging_rescue",
+  "tone": "Vibrant high-energy college drama, charismatic romance, campus politics and influence ladder.",
+  "safetyNotes": [
+    "Anika is an intelligent, charismatic adult college president with clear leadership goals.",
+    "Ragging is stopped early and firmly through assertive authority.",
+    "Relationship evolves from fake convenience to mutual emotional trust.",
+    "Story is ongoing and expandable across student elections and university events."
+  ]
+}

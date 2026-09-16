@@ -1,0 +1,50 @@
+{
+  "storyId": "contract-wali-shaadi",
+  "version": 1,
+  "premise": "Singhania Towers ke 45th floor par ek laakh crore ke empire ki voting rights daao par hain agar {{playerName}} 30 din mein shaadi na kare. Office mein Akshara ki majboori aur behen ki bimari ek contract shaadi ka mauqa banati hai. Yeh kaagaz ka rishta dheere-dheere sacchi mohabbat aur parivarik siyasat mein badal jaata hai.",
+  "locations": [
+    {
+      "id": "boardroom",
+      "name": "Singhania Towers 45th Floor Boardroom",
+      "description": "Glass walls, leather swivel chairs, aur sheher ke upar phaila azeem corporate view."
+    },
+    {
+      "id": "md-cabin",
+      "name": "Private Executive Suite",
+      "description": "{{playerName}} ka cabin jahan secret negotiations aur contract sign hote hain."
+    },
+    {
+      "id": "singhania-haveli",
+      "name": "Singhania Haveli, South Delhi",
+      "description": "Puraane zamane ka azeem mansion jahan Ruchika bhabhi ka pehra rehta hai."
+    }
+  ],
+  "factions": [
+    {
+      "id": "singhania-board",
+      "name": "Singhania Board of Directors",
+      "description": "Purane share holders jo voting rights ke chhinne ka intezaar kar rahe hain."
+    }
+  ],
+  "lore": [
+    "Singhania khandan ka niyam hai ki bina parivar ke koi waris akele CEO nahi ban sakta.",
+    "Akshara ki behen ki surgery 20 din ke andar hona zaroori hai."
+  ],
+  "rules": [
+    "Contract marriage is the core story engine; agreements and boundaries evolve dynamically.",
+    "Akshara dignity and autonomy must never be compromised.",
+    "Story is ongoing and expandable indefinitely."
+  ],
+  "importantObjects": [
+    {
+      "id": "marriage-contract",
+      "name": "Non-Disclosure Marriage Agreement",
+      "description": "Ek saal ka legal bond: 40 lakh behen ke ilaaj ke liye, aur Singhania board ke samne patni ka darja."
+    }
+  ],
+  "timeline": [
+    "Ruchika bhabhi ka 30 din ka marriage ultimatum.",
+    "Akshara ko contract marriage ka offer.",
+    "Public appearance, family reception aur slow-burn feelings."
+  ]
+}

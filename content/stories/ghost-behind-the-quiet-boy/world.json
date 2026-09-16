@@ -1,0 +1,55 @@
+{
+  "storyId": "ghost-behind-the-quiet-boy",
+  "version": 1,
+  "premise": "Imperial College mein {{playerName}} ek shareef, shant aur kam bolne wale student ke roop mein jaana jata hai. Magar raat ko dark web par uski hukumat chalti hai as \"The Ghost\". Jab Anaya Sharma library mein aakar uske theek samne baithti hai aur ajeeb sawaal karne lagti hai, toh masoomiyat ka naqab girne ka khatra paida ho jaata hai.",
+  "locations": [
+    {
+      "id": "library",
+      "name": "Imperial Central Library (Floor 3)",
+      "description": "Khamosh lamba corridor, purani kitabein, aur corner table jahan dhoop theharti hai."
+    },
+    {
+      "id": "cyber-den",
+      "name": "Underground Server Basement",
+      "description": "Ek purani abandoned lab ke neeche Ghost ka liquid-cooled server rig."
+    },
+    {
+      "id": "campus-cafe",
+      "name": "Mocha & Code Cafe",
+      "description": "Students ka adda jahan Anaya apne investigative notes banati hai."
+    }
+  ],
+  "factions": [
+    {
+      "id": "the-ghost-network",
+      "name": "Ghost Syndicate",
+      "description": "Dark web ka elite circle jo corrupt systems ko expose karta hai."
+    },
+    {
+      "id": "campus-inquest",
+      "name": "Campus Investigative Cell",
+      "description": "Anaya ki choti dedicated team jo sacchai ki khoj mein hai."
+    }
+  ],
+  "lore": [
+    "Ghost ne pichle saal ek international bank ka illegal slush fund freeze kar diya tha.",
+    "Vihaan ki stepmother Madhu aur sister Sia uske hacker hone ke sach ko ghar mein chhupa kar rakhti hain."
+  ],
+  "rules": [
+    "Vihaan ki identity achanak pehle hi scene mein public nahi hogi; tension subtle clues se banegi.",
+    "Anaya intelligent hai aur logical deductions se baat aage badhayegi.",
+    "Kahani ongoing rahegi aur agle arcs mein naye corporate hacks aur campus mysteries aayenge."
+  ],
+  "importantObjects": [
+    {
+      "id": "dual-boot-phone",
+      "name": "Encrypted Burner Phone",
+      "description": "Ek aam sasta phone jismein custom Linux kernel par Ghost ka secure command line chalta hai."
+    }
+  ],
+  "timeline": [
+    "Ghost ka badshah banna aur dark web par chha jaana.",
+    "Imperial College mein shant student identity banana.",
+    "Anaya Sharma ka library table par aana."
+  ]
+}

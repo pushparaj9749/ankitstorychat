@@ -1,0 +1,448 @@
+{
+  "storyId": "ghost-behind-the-quiet-boy",
+  "version": 1,
+  "scenes": [
+    {
+      "id": "s1_library_corner",
+      "title": "Khamosh Koshish Aur Anaya Ki Nazrein",
+      "narration": [
+        "*Imperial College ki central library ka sabse aakhri corner. Yahan dhoop dhalne ke waqt halki peeli roshni aati hai. Tum {{playerName}} ho — table par moti algorithms aur physics ki kitabein phailaye ek masoom student ki tarah baithe ho.*",
+        "*Tumhari jeb mein rakha phone ek silent pulse deta hai. Dark web ke encrypted server par ek naya alert: \"The Ghost... contract fulfilled. 50 million transferred.\" Tum bina koi bhav dikhaye screen lock kar dete ho.*",
+        "*Tabhi ek aawaz aati hai. Ek behad khoobsurat, tez aankhon wali ladki — oversized cream knitted sweater aur tortoiseshell glasses pehne — tumhari table ke paas aake khadi hoti hai.*",
+        "Anaya: \"Excuse me, kya ye seat khaali hai? Main yahan baith sakti hoon?\"",
+        "*Uski nazrein tumhari kitabon par ghoomti hain, aur phir tumhare chehre par thehar jaati hain — jaise woh koi aisi cheez dhoondh rahi ho jo yahan fit nahi baithti.*"
+      ],
+      "fallbackLines": [
+        "*Anaya notebook kholti hai par uski nazar tumhari ungliyon ke movement par rehti hai.*",
+        "Anaya: \"Aam tor par itne shant ladke library ke is kone mein nahi baithte.\""
+      ],
+      "choices": [
+        {
+          "id": "c1_innocent_student",
+          "text": "Shareef bante hue kitabein sameto — \"Haan bilkul, yahan koi nahi baitha. Aap baith sakti hain.\"",
+          "shortLabel": "Seat aage badhao",
+          "keywords": [
+            "seat",
+            "baitho",
+            "shareef",
+            "khali"
+          ],
+          "next": "s2_shareef_act",
+          "effects": {
+            "relationships": {
+              "anaya": 6
+            },
+            "flags": {
+              "playedQuietBoy": true
+            },
+            "memory": [
+              "{{playerName}} ne poori tarah shareef bante hue Anaya ko seat di."
+            ]
+          }
+        },
+        {
+          "id": "c1_question_motive",
+          "text": "Shant nazar utha kar pucho — \"Library mein bohot saari seats khali hain, yahan aane ki koi khaas wajah?\"",
+          "shortLabel": "Wajah pucho",
+          "keywords": [
+            "wajah",
+            "khali",
+            "sawaal",
+            "dhyan"
+          ],
+          "next": "s2_sidha_sawaal",
+          "effects": {
+            "relationships": {
+              "anaya": 8
+            },
+            "flags": {
+              "showedSharpness": true
+            },
+            "memory": [
+              "{{playerName}} ne Anaya se pucha ki woh is kone mein kyun aayi."
+            ]
+          }
+        },
+        {
+          "id": "c1_witty_boundary",
+          "text": "Dheemi muskaan ke sath chair aage badhao — \"Sure. Par yahan shanti pasand log baithte hain.\"",
+          "shortLabel": "Shanti pasand entry",
+          "keywords": [
+            "shanti",
+            "muskaan",
+            "chair",
+            "pasand"
+          ],
+          "next": "s2_teaser_entry",
+          "effects": {
+            "relationships": {
+              "anaya": 7
+            },
+            "flags": {
+              "playfulBoundary": true
+            },
+            "memory": [
+              "{{playerName}} ne shanti ki shart par Anaya ko baithne diya."
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "id": "s2_shareef_act",
+      "title": "Bholapan Ya Chhupa Hua Shikaari",
+      "narration": [
+        "*Anaya chair kheench kar theek tumhare saamne baithti hai. Uski notebook par ek printed cyber article laga hai — jispar bada-bada likha hai: \"THE GHOST: GHOST OF THE WEB\".*",
+        "*Tumhari ankhon mein koi react nahi hota, par tumhara dimaag second ke sau-wein hisse mein situation scan kar leta hai.*",
+        "Anaya: \"Thanks. Waise main Anaya hoon, Mass Comm third year. Tumhe pehle kabhi campus events mein nahi dekha... tum bohot low-profile rehte ho na?\"",
+        "*Uski hazel aankhein tumhare chehre ki ek-ek muscle ko observe kar rahi hain.*"
+      ],
+      "fallbackLines": [
+        "*Anaya pen ko apni ungliyon mein ghumati hai.*",
+        "Anaya: \"Khamosh log aksar sabse gehri baatein sochte hain.\""
+      ],
+      "choices": [
+        {
+          "id": "c2_normal_intro",
+          "text": "\"Main {{playerName}} hoon. Bas padhai aur assignments mein hi waqt nikal jaata hai.\"",
+          "shortLabel": "Normal student intro",
+          "keywords": [
+            "padhai",
+            "student",
+            "waqt",
+            "assignments"
+          ],
+          "next": "s3_phone_buzz",
+          "effects": {
+            "relationships": {
+              "anaya": 5
+            },
+            "memory": [
+              "{{playerName}} ne khud ko aam assignments mein uljha hua student dikhaya."
+            ]
+          }
+        },
+        {
+          "id": "c2_notice_article",
+          "text": "Uski notebook ke article ki taraf ishara karo — \"Yeh The Ghost par kya research chal rahi hai?\"",
+          "shortLabel": "Article par pucho",
+          "keywords": [
+            "ghost",
+            "article",
+            "research",
+            "notebook"
+          ],
+          "next": "s3_phone_buzz",
+          "effects": {
+            "relationships": {
+              "anaya": 9
+            },
+            "flags": {
+              "baitedArticle": true
+            },
+            "memory": [
+              "{{playerName}} ne khud Anaya ke Ghost article par baat shuru ki."
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "id": "s2_sidha_sawaal",
+      "title": "Anaya Ki Tez Nazrein Aur Test",
+      "narration": [
+        "*Anaya ke hothon par ek teekhi muskaan aati hai. Woh apni files table par theek se rakhti hai.*",
+        "Anaya: \"Wajah? Kyunki is kone ki glass window se campus ka main server tower theek dikhta hai. Aur dusri wajah... tum.\"",
+        "*Woh aage jhukti hai, uske tortoiseshell chashme ke peeche ki aankhein chamakti hain.*",
+        "Anaya: \"Poore college mein sirf tum akele student ho jo internet par kisi social media par nahi ho. Zero footprint. Aisa lagta hai jaise tumhara astitva hi exist nahi karta.\"",
+        "*Tumhare dimaag mein ghanti bajti hai: Anaya ne pehle se background check kiya hai.*"
+      ],
+      "fallbackLines": [
+        "*Library ki hawa mein AC ki halki goonj hai.*",
+        "Anaya: \"Batao, itna chhupne ki kya zaroorat hai?\""
+      ],
+      "choices": [
+        {
+          "id": "c2_calm_counter",
+          "text": "\"Social media se door rehna gunah thodi hai? Mujhe bas screen time pasand nahi.\"",
+          "shortLabel": "Screen time bahana",
+          "keywords": [
+            "social media",
+            "screen",
+            "gunah",
+            "pasand"
+          ],
+          "next": "s3_phone_buzz",
+          "effects": {
+            "relationships": {
+              "anaya": 6
+            },
+            "memory": [
+              "{{playerName}} ne social media na chalane ko personal choice bataya."
+            ]
+          }
+        },
+        {
+          "id": "c2_turn_tables",
+          "text": "\"Tum mere baare mein itna research kyun kar rahi ho, Anaya? Kya tum mujhpar nazar rakh rahi thi?\"",
+          "shortLabel": "Nazar rakhna pucho",
+          "keywords": [
+            "nazar",
+            "research",
+            "anaya",
+            "kyun"
+          ],
+          "next": "s3_phone_buzz",
+          "effects": {
+            "relationships": {
+              "anaya": 9
+            },
+            "flags": {
+              "turnedTables": true
+            },
+            "memory": [
+              "{{playerName}} ne table ghuma kar Anaya se poocha ki woh uspe nazar kyun rakh rahi hai."
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "id": "s2_teaser_entry",
+      "title": "Halki Nok-Jhok Aur Clues",
+      "narration": [
+        "*Anaya chair par baithte hue apne oversized sweater ki aasteen upar karti hai.*",
+        "Anaya: \"Shanti pasand? Par tumhare table par jo terminal architecture ki German book rakhi hai, woh shanti se zyada cyber war sikhati hai.\"",
+        "*Uski nazar tumhare laptop bag par padti hai, jahan ek customised high-gain Wi-Fi dongle ka halka connector bahar jhaank raha hai.*",
+        "*Anaya ki aankhein use pehchan leti hain — par woh abhi kuch bolti nahi. Bas ek gehri saans leti hai.*"
+      ],
+      "fallbackLines": [
+        "*Kitabon ke panno ki palatne ki aawaz aati hai.*",
+        "Anaya: \"Tum jitna masoom ban rahe ho, utne ho nahi.\""
+      ],
+      "choices": [
+        {
+          "id": "c2_hide_dongle",
+          "text": "Bina ghabraye natural tareeqe se bag theek karo aur muskurao",
+          "shortLabel": "Bag sambhalo",
+          "keywords": [
+            "bag",
+            "dongle",
+            "natural",
+            "muskaan"
+          ],
+          "next": "s3_phone_buzz",
+          "effects": {
+            "relationships": {
+              "anaya": 7
+            },
+            "memory": [
+              "{{playerName}} ne natural tareeqe se apna dongle cover kiya."
+            ]
+          }
+        },
+        {
+          "id": "c2_curious_banter",
+          "text": "\"Agar book interesting lage toh tum bhi padh sakti ho, Anaya.\"",
+          "shortLabel": "Book offer karo",
+          "keywords": [
+            "book",
+            "german",
+            "padho",
+            "anaya"
+          ],
+          "next": "s3_phone_buzz",
+          "effects": {
+            "relationships": {
+              "anaya": 8
+            },
+            "memory": [
+              "{{playerName}} ne Anaya ko book offer karke distract kiya."
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "id": "s3_phone_buzz",
+      "title": "Dev Ka Emergency Signal",
+      "narration": [
+        "*Usi waqt tumhare phone par ek specific rhythm mein triple-vibrate hota hai. Dev ka panic code!*",
+        "*Screen par ek pop-up blink karta hai: \"Ghost... someone is tracing the campus subnet right now. Source is inside this library!\"*",
+        "*Tum Anaya ki taraf dekhte ho. Uski tablet screen par ek network sniffing app chal raha hai jismein Wi-Fi packets scan ho rahe hain!*",
+        "Anaya: \"Kuch ajeeb ho raha hai yahan. Ek encrypted signal baar-baar is hall se ping kar raha hai.\"",
+        "*Uski nazrein tumhare laptop bag se lekar tumhare chehre par aati hain.*"
+      ],
+      "fallbackLines": [
+        "*Network scanner ki beeps Anaya ke earphone mein sunayi de rahi hain.*",
+        "Anaya: \"Signal bilkul hamari table ke kareeb hai.\""
+      ],
+      "choices": [
+        {
+          "id": "c3_reroute_proxy",
+          "text": "Secret phone se ek single touch karke signal ko admin building par reroute kar do",
+          "shortLabel": "Signal reroute karo",
+          "keywords": [
+            "reroute",
+            "signal",
+            "admin",
+            "touch"
+          ],
+          "next": "s4_anaya_deduction",
+          "effects": {
+            "relationships": {
+              "anaya": 8
+            },
+            "flags": {
+              "reroutedGhost": true
+            },
+            "memory": [
+              "{{playerName}} ne second ke sau-wein hisse mein signal admin block par reroute kar diya."
+            ]
+          }
+        },
+        {
+          "id": "c3_play_clueless",
+          "text": "Masoom bankar pucho — \"Signal? Kya college ka Wi-Fi phir se down ho gaya?\"",
+          "shortLabel": "Clueless bano",
+          "keywords": [
+            "wi-fi",
+            "clueless",
+            "down",
+            "college"
+          ],
+          "next": "s4_anaya_deduction",
+          "effects": {
+            "relationships": {
+              "anaya": 5
+            },
+            "memory": [
+              "{{playerName}} ne Wi-Fi down hone ka bholapan dikhaya."
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "id": "s4_anaya_deduction",
+      "title": "Anaya Ki Uljhan Aur Khel Ka Naya Mod",
+      "narration": [
+        "*Anaya ki screen par signal jump karta hai aur admin building par dikhne lagta hai.*",
+        "*Anaya hairan hokar apna sir pakadti hai aur chashma theek karti hai.*",
+        "Anaya: \"Wait... yeh kaise hua? Signal abhi yahan tha, achanak teen so meter door chala gaya? Yeh Ghost sach mein koi bhoot hai kya?\"",
+        "*Woh tumhari taraf dekhti hai. Tumhare chehre par wahi shaant, masoom muskaan hai.*",
+        "Anaya: \"{{playerName}}... tum chahe kitne bhi bhole dikho, par tumhari aankhein kehti hain ki tum bohot kuch jaante ho.\"",
+        "*Uski aawaz mein ab shaq ke sath-sath ek ajeeb sa aakarshan aur respect hai.*"
+      ],
+      "fallbackLines": [
+        "*Library ki peeli roshni mein Anaya ka chehra chamakta hai.*",
+        "Anaya: \"Main tumhara peecha itni jaldi nahi chhodne wali.\""
+      ],
+      "choices": [
+        {
+          "id": "c4_challenge_anaya",
+          "text": "\"Agar main kuch jaanta bhi hoon, toh tumhe pata lagana padega, Anaya.\"",
+          "shortLabel": "Challenge do",
+          "keywords": [
+            "challenge",
+            "pata lagao",
+            "anaya",
+            "khel"
+          ],
+          "next": "s5_secret_alliance_hook",
+          "effects": {
+            "relationships": {
+              "anaya": 10
+            },
+            "flags": {
+              "acceptedChallenge": true
+            },
+            "memory": [
+              "{{playerName}} ne Anaya ko playful challenge diya ki sach pata lagana aasan nahi hoga."
+            ]
+          }
+        },
+        {
+          "id": "c4_offer_coffee_help",
+          "text": "\"Chalo cafe chalte hain. Padhai ke baad filter coffee par tumhari Ghost story sunte hain.\"",
+          "shortLabel": "Cafe ka offer do",
+          "keywords": [
+            "cafe",
+            "coffee",
+            "story",
+            "chalo"
+          ],
+          "next": "s5_secret_alliance_hook",
+          "effects": {
+            "relationships": {
+              "anaya": 9
+            },
+            "flags": {
+              "coffeeDateOpened": true
+            },
+            "memory": [
+              "{{playerName}} ne Anaya ko coffee par chalne ka offer diya."
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "id": "s5_secret_alliance_hook",
+      "title": "Dosti Ya Shikaar: Kahani Ka Aage Ka Rasta",
+      "narration": [
+        "*Anaya apni diary band karti hai aur uske chehre par ek pyaari, confident muskaan aati hai.*",
+        "Anaya: \"Deal. Filter coffee tumhari taraf se hogi, {{playerName}}. Aur yaad rakhna... agar tumne koi galti ki, toh sabse pehle main pakdungi.\"",
+        "*Tum library se nikalte ho. Shaam ka aasmaan gulabi aur neela ho chuka hai. Tumhara phone ek baar phir vibrate karta hai: dark web par naya target live hai.*",
+        "*Yeh double life ka khel yahan khatam nahi hota — har din Anaya ke sath takkar, naye cyber operations aur dabi hui mohabbat ke naye panne khulenge.*"
+      ],
+      "fallbackLines": [
+        "*Campus ki hawa mein thandi khushboo phaili hui hai.*",
+        "*Ghost ka badshah ab apni agli chaal chalne ke liye tayyar hai.*"
+      ],
+      "choices": [
+        {
+          "id": "c5_walk_with_anaya",
+          "text": "Anaya ke sath canteen ki taraf chalte hue agla kadam uthao",
+          "shortLabel": "Anaya ke sath chalo",
+          "keywords": [
+            "anaya",
+            "canteen",
+            "chalo",
+            "safar"
+          ],
+          "next": "s1_library_corner",
+          "effects": {
+            "relationships": {
+              "anaya": 5
+            },
+            "memory": [
+              "{{playerName}} Anaya ke sath agle chapter ki taraf muskura kar badha."
+            ]
+          }
+        },
+        {
+          "id": "c5_check_ghost_terminal",
+          "text": "Underground lab mein jaakar agle mission ki command line tayyar karo",
+          "shortLabel": "Ghost mission jao",
+          "keywords": [
+            "mission",
+            "terminal",
+            "ghost",
+            "hacker"
+          ],
+          "next": "s1_library_corner",
+          "effects": {
+            "relationships": {
+              "anaya": 3
+            },
+            "memory": [
+              "{{playerName}} ne The Ghost ke agle operation ke liye systems initialize kiye."
+            ]
+          }
+        }
+      ]
+    }
+  ],
+  "endings": []
+}

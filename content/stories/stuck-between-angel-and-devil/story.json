@@ -1,0 +1,33 @@
+{
+  "id": "stuck-between-angel-and-devil",
+  "title": "Stuck Between Angel & Devil",
+  "description": "Tum {{playerName}} ho — aadhi raat ko apne kamre mein baith kar apna favorite K-Drama dekh rahe the. Achanak TV screen ajeeb tareeqe se chamakne lagti hai, ek taaqatwar gravitational force tumhe khinch leti hai, aur jab tumhari aankhein khulti hain, tum Seoul ki Haneul University ke campus mein khade ho. Sab tumhe wahi ke ek handsome student ke roop mein jaante hain. Pehle hi din tumhari zindagi mein do behad khoobsurat ladkiyan aati hain: Kim Si-woo (\"Angel\") — naram dil, volunteer leader, sweet smile wali pari; aur Lee Yu-na (\"Devil\") — leather jacket, rebellious gaze aur dark eyeliner wali bad-girl jo tumhare har raaz ko dhoondh nikalna chahti hai. K-Drama ki is anokhi duniya mein tum kiske kareeb jaoge?",
+  "version": 1,
+  "language": "hinglish",
+  "ageRating": "12-17",
+  "contentLevel": "teen",
+  "genres": [
+    "K-Drama Fantasy",
+    "Romance",
+    "College",
+    "Comedy"
+  ],
+  "tags": [
+    "k-drama",
+    "isekai",
+    "college",
+    "love-triangle",
+    "ongoing",
+    "hinglish"
+  ],
+  "userRole": "{{playerName}} — ek aam ladka jo K-Drama ki duniya mein transmigrate ho gaya aur do anokhi ladkiyon ke beech phans gaya",
+  "setting": "Haneul University campus, Seoul — cherry blossom garden, student lounge, neon street food alley",
+  "openingSceneId": "s1_haneul_university_awakening",
+  "tone": "Charming K-Drama aesthetic, vibrant college romance, Hinglish comedic beats and emotional warmth.",
+  "safetyNotes": [
+    "Both female leads are distinct, layered, adult college students with personal agency.",
+    "No cheap stereotypes: Si-woo has hidden pressure, Yu-na has hidden warmth.",
+    "Light-hearted teen-friendly romance with atmospheric aesthetic.",
+    "Story is ongoing and expandable into music competitions and campus festivals."
+  ]
+}

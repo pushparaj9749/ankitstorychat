@@ -1,0 +1,20 @@
+{
+  "storyId": "ghost-behind-the-quiet-boy",
+  "version": 1,
+  "shortTermWindow": 14,
+  "seedMemories": [
+    "{{playerName}} ka secret identity The Ghost hai, Dark Web ka azeem hacker.",
+    "Sirf Madhu (stepmother), Sia (sister) aur Dev (friend) yeh sach jaante hain.",
+    "Anaya Sharma ne library mein uski table par baith kar pehla sawaal pucha."
+  ],
+  "extractionHints": [
+    "Hacking clues",
+    "Anaya ke observations",
+    "Dev warnings",
+    "Identity cover moves"
+  ],
+  "neverRemember": [
+    "Real-world passwords",
+    "Personal bank pins"
+  ]
+}

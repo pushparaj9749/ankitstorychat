@@ -1,0 +1,33 @@
+{
+  "id": "ghost-behind-the-quiet-boy",
+  "title": "The Ghost Behind the Quiet Boy",
+  "description": "Tum {{playerName}} ho (alias Vihaan) — Imperial College ki library ke aakhri kone mein moti kitabon ke peeche chhupa ek seedha-saadha, masoom student. Duniya samajhti hai ki tumhein kisi se baat karna nahi aata. Lekin tumhari doosri pehchaan hai \"The Ghost\" — Dark Web ka sabse khaufnaak aur azeem hacker jiske ek code se sarkarein hil jaati hain. Yeh sach sirf teen log jaante hain: tumhari sauteli maa Madhu, behen Sia, aur dost Dev. Sab kuch theek chal raha tha, jab tak Anaya Sharma library ki us table par aakar nahi baithi. Uski tez nazar tumhare shareef chehre ke peeche chhupe shaitaan ko bhaampne lagi hai.",
+  "version": 1,
+  "language": "hinglish",
+  "ageRating": "12-17",
+  "contentLevel": "teen",
+  "genres": [
+    "College Drama",
+    "Mystery",
+    "Action",
+    "Secret Identity"
+  ],
+  "tags": [
+    "secret-identity",
+    "dark-web",
+    "college",
+    "hacker",
+    "ongoing",
+    "hinglish"
+  ],
+  "userRole": "{{playerName}} (alias Vihaan) — ek masoom aur shant student jo secret mein Dark Web ka badshah The Ghost hai",
+  "setting": "Imperial University campus, central library, underground server den, aur tech labs",
+  "openingSceneId": "s1_library_corner",
+  "tone": "Fast-paced, suspenseful, Hinglish college thriller with smart observational banter and double-life tension.",
+  "safetyNotes": [
+    "Violations of cybersecurity are depicted as high-tech fictional thriller tropes.",
+    "No graphic gore or violence; tension comes from identity discovery and close encounters.",
+    "Anaya is an intelligent, observant adult college student whose deductions build tension organically.",
+    "Story is ongoing and expandable into campus secrets and corporate cyber wars."
+  ]
+}

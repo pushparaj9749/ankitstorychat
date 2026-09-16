@@ -1,0 +1,447 @@
+{
+  "storyId": "campus-queen",
+  "version": 1,
+  "scenes": [
+    {
+      "id": "s1_ragging_rescue",
+      "title": "Fountain Par Tense Ragging Aur Queen Ki Entry",
+      "narration": [
+        "*Silvergate University ka grand campus. Central plaza ke white marble fountain ke paas dhoop chamak rahi hai. Tum {{playerName}} ho — freshers bag kandhe par tangey abhi andar aaye hi the.*",
+        "*Tabhi teen arrogant seniors tumhe gher lete hain. Unka leader Vikram tumhara bag kheench kar aage badhta hai aur ragging shuru karta hai.*",
+        "*Mahaul tense aur uncomfortable hone hi lagta hai ki tabhi campus drive par ek roar goonjti hai. Ek shandar cherry-red sports car fountain ke theek samne aakar brake lagati hai.*",
+        "*Car ka darwaza khulta hai. Golden aviators, navy designer blazer aur pleated white skirt mein utarti hai campus ki undisputed queen — Anika.*",
+        "*Poore plaza mein sannata chha jaata hai. Anika bina rukey seedha tumhari taraf aati hai, tumhari kalai naram par pakki giraft mein leti hai aur Vikram ki ankhon mein dekhti hai.*",
+        "Anika: \"Haath lagane se pehle soch lena... ye mera boyfriend hai. Aur tum acche se jaante ho Vikram, mere logon ko chhoone ki qeemat kya hoti hai.\"",
+        "*STATS: ❤️ Love: 0/100 | 👑 Influence: 0/100.*"
+      ],
+      "fallbackLines": [
+        "*Plaza mein sabhi students saans roke khade hain.*",
+        "Vikram: \"Anika... yeh tumhara boyfriend hai?\""
+      ],
+      "choices": [
+        {
+          "id": "c1_play_along",
+          "text": "Anika ke ishaare ko samajh kar confident bano — \"Bilkul, Anika. Inhe lagta hai freshers bol nahi sakte.\"",
+          "shortLabel": "Confident roleplay",
+          "keywords": [
+            "anika",
+            "boyfriend",
+            "freshers",
+            "confident"
+          ],
+          "next": "s2_play_along",
+          "effects": {
+            "relationships": {
+              "anika": 8
+            },
+            "flags": {
+              "confidentFakeBoyfriend": true
+            },
+            "memory": [
+              "{{playerName}} ne Anika ki line pakad kar fearless confidence dikhaya."
+            ]
+          }
+        },
+        {
+          "id": "c1_calm_support",
+          "text": "Shant reh kar Anika ka haath thame rakho aur seniors ko chup karao",
+          "shortLabel": "Haath thame rakho",
+          "keywords": [
+            "haath",
+            "shant",
+            "support",
+            "seniors"
+          ],
+          "next": "s2_calm_support",
+          "effects": {
+            "relationships": {
+              "anika": 6
+            },
+            "flags": {
+              "heldAnikaHand": true
+            },
+            "memory": [
+              "{{playerName}} ne calmly Anika ka haath thama aur plaza ko impress kiya."
+            ]
+          }
+        },
+        {
+          "id": "c1_ask_private",
+          "text": "Situation nikalne ke baad akele mein pucho — \"Thanks bachaane ke liye, par ye boyfriend wala stunt kya tha?\"",
+          "shortLabel": "Stunt ka pucho",
+          "keywords": [
+            "stunt",
+            "boyfriend",
+            "thanks",
+            "private"
+          ],
+          "next": "s2_ask_private",
+          "effects": {
+            "relationships": {
+              "anika": 7
+            },
+            "flags": {
+              "questionedStunt": true
+            },
+            "memory": [
+              "{{playerName}} ne sidha pucha ki boyfriend kehne ke peeche ka maqsad kya tha."
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "id": "s2_play_along",
+      "title": "Vikram Ki Ruswayi Aur Queen Ki Car",
+      "narration": [
+        "*Tumhari aawaz sunkar Vikram ka chehra laal-peela ho jaata hai. Anika ke chehre par ek satisfiying muskaan aati hai.*",
+        "Anika: \"Suna tumne Vikram? Ab agar tum ya tumhare bande iske aas-paas bhi dikhe, toh seedha rustication letter ready hai. Now get lost!\"",
+        "*Vikram gusse mein phusphusata hua piche hat jaata hai. Poore plaza mein freshers taliyan bajaane lagte hain.*",
+        "*Anika tumhara haath pakad kar passenger seat ka door kholti hai.*",
+        "Anika: \"Baitho {{playerName}}. Tumne scene acche se handle kiya, par ab asli deal sunni hogi.\"",
+        "*STATS UPDATE: ❤️ Love: 10/100 | 👑 Influence: 15/100.*"
+      ],
+      "fallbackLines": [
+        "*Sports car ka engine dheere rumble kar raha hai.*",
+        "Anika: \"Jaldi baitho, sab dekh rahe hain.\""
+      ],
+      "choices": [
+        {
+          "id": "c2_sit_in_car",
+          "text": "Sports car mein baithkar seatbelt lagao aur muskurao",
+          "shortLabel": "Car mein baitho",
+          "keywords": [
+            "car",
+            "baitho",
+            "seatbelt",
+            "deal"
+          ],
+          "next": "s3_sports_car_talk",
+          "effects": {
+            "relationships": {
+              "anika": 7
+            },
+            "memory": [
+              "{{playerName}} Anika ke sath sports car mein baitha."
+            ]
+          }
+        },
+        {
+          "id": "c2_witty_passenger_comment",
+          "text": "\"Chalo, pehle din hi campus queen ki personal cab mil gayi.\"",
+          "shortLabel": "Personal cab banter",
+          "keywords": [
+            "cab",
+            "banter",
+            "queen",
+            "mazak"
+          ],
+          "next": "s3_sports_car_talk",
+          "effects": {
+            "relationships": {
+              "anika": 9
+            },
+            "memory": [
+              "{{playerName}} ke playful mazaak par Anika has padi."
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "id": "s2_calm_support",
+      "title": "Ek Narm Giraft Aur Sammaan",
+      "narration": [
+        "*Tumhare naram par mazboot haath thame rehne se Anika ko ek ajeeb sa sahara mehsoos hota hai.*",
+        "*Aam tor par log uski shaan se darte hain, par tumne use ek sachhe dost ki tarah support kiya.*",
+        "Anika: \"Dekh liya Vikram? Yeh Silvergate hai, tumhara local adda nahi. Chalo yahan se.\"",
+        "*Vikram ke jaane ke baad Anika aviators utha kar sar par lagati hai. Uski caramel ankhein dhoop mein chamakti hain.*",
+        "Anika: \"Bina ghabraye khade rahe tum... impresive. Chalo mere office, kuch discuss karna hai.\""
+      ],
+      "fallbackLines": [
+        "*Anika ki aankhon mein curiosity hai.*",
+        "Anika: \"Tum kaafi thehre hue lagte ho.\""
+      ],
+      "choices": [
+        {
+          "id": "c2_follow_to_office",
+          "text": "Anika ke sath student union office ki taraf chalo",
+          "shortLabel": "Office chalo",
+          "keywords": [
+            "office",
+            "union",
+            "chalo",
+            "anika"
+          ],
+          "next": "s3_sports_car_talk",
+          "effects": {
+            "relationships": {
+              "anika": 7
+            },
+            "memory": [
+              "{{playerName}} Anika ke sath student union building gaya."
+            ]
+          }
+        },
+        {
+          "id": "c2_humble_reply",
+          "text": "\"Jab sach sath ho toh darne ki zaroorat nahi padti.\"",
+          "shortLabel": "Sach ki taakat",
+          "keywords": [
+            "sach",
+            "darr",
+            "himmat",
+            "taakat"
+          ],
+          "next": "s3_sports_car_talk",
+          "effects": {
+            "relationships": {
+              "anika": 8
+            },
+            "memory": [
+              "{{playerName}} ne principle-driven jawab diya jisse Anika mutasir hui."
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "id": "s2_ask_private",
+      "title": "Stunt Ki Wajah Aur Raaz",
+      "narration": [
+        "*Fountain ke peeche wali quiet pathway par Anika car rok kar engine band karti hai.*",
+        "Anika: \"Stunt? Kyunki agle hafte university presidential election debates hain. Vikram ka faction mujhe character assassination se dabana chahta tha.\"",
+        "*Woh tumhari taraf ghoomti hai, uske chehre par seriousness hai.*",
+        "Anika: \"Agar campus ko laga ki main kisi honest fresher ko date kar rahi hoon, toh Vikram ka sara fake narrative collapse ho jayega. Badle mein... main tumhe campus mein full protection aur VIP status dungi.\"",
+        "*STATS UPDATE: ❤️ Love: 12/100 | 👑 Influence: 10/100.*"
+      ],
+      "fallbackLines": [
+        "*Car ke andar air conditioner ki thandi hawa chal rahi hai.*",
+        "Anika: \"Batao, kya yeh win-win deal manzoor hai?\""
+      ],
+      "choices": [
+        {
+          "id": "c2_accept_fake_deal",
+          "text": "\"Deal manzoor hai Anika. Par yaad rakhna, fake relationship mein bhi respect real honi chahiye.\"",
+          "shortLabel": "Deal manzoor karo",
+          "keywords": [
+            "deal",
+            "respect",
+            "fake",
+            "manzoor"
+          ],
+          "next": "s3_sports_car_talk",
+          "effects": {
+            "relationships": {
+              "anika": 10
+            },
+            "flags": {
+              "acceptedFakeDating": true
+            },
+            "memory": [
+              "{{playerName}} ne self-respect ki shart par fake relationship accept ki."
+            ]
+          }
+        },
+        {
+          "id": "c2_question_risks",
+          "text": "\"Agar sabko sach pata chal gaya toh tumhari reputation ka kya hoga?\"",
+          "shortLabel": "Reputation ka pucho",
+          "keywords": [
+            "reputation",
+            "sach",
+            "khatra",
+            "chinta"
+          ],
+          "next": "s3_sports_car_talk",
+          "effects": {
+            "relationships": {
+              "anika": 9
+            },
+            "memory": [
+              "{{playerName}} ne Anaya ki reputation ki fikar dikhayi."
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "id": "s3_sports_car_talk",
+      "title": "Student Union Hall Aur Public Dawa",
+      "narration": [
+        "*Student Union building ke grand hall mein hazaaron students jama hain. Sabhi fountain wale incident ki video phone par dekh rahe the.*",
+        "*Anika stage par aati hai aur mic theek karti hai. Poora hall chup ho jaata hai.*",
+        "Anika: \"Silvergate mein ragging zero-tolerance policy par hai. Aur haan... jisne mere partner par haath uthaya, woh council ka dushman hai.\"",
+        "*Uski nazar audience ke beech khade tum par aati hai. Ek pyari, proud muskaan jo sirf tumhare liye thi.*",
+        "*Poora hall cheering se goonj uthta hai.*"
+      ],
+      "fallbackLines": [
+        "*Students tumhari taraf dekh kar cheer kar rahe hain.*",
+        "Anika: \"Hum sath milkar campus ko behtar banayenge.\""
+      ],
+      "choices": [
+        {
+          "id": "c3_cheer_back",
+          "text": "Stage ki taraf dekh kar ek confident thumbs up do",
+          "shortLabel": "Thumbs up do",
+          "keywords": [
+            "thumbs up",
+            "stage",
+            "cheer",
+            "support"
+          ],
+          "next": "s4_union_announcement",
+          "effects": {
+            "relationships": {
+              "anika": 8
+            },
+            "memory": [
+              "{{playerName}} ne stage par Anika ko public support diya."
+            ]
+          }
+        },
+        {
+          "id": "c3_join_anika_stage",
+          "text": "Anika ke bulane par stage par aakar uske bagal mein khade ho jao",
+          "shortLabel": "Stage par khade ho",
+          "keywords": [
+            "stage",
+            "bagal",
+            "partner",
+            "khade"
+          ],
+          "next": "s4_union_announcement",
+          "effects": {
+            "relationships": {
+              "anika": 12
+            },
+            "flags": {
+              "stoodOnStage": true
+            },
+            "memory": [
+              "{{playerName}} stage par Anika ke barabar khada hokar poore campus ka hero ban gaya."
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "id": "s4_union_announcement",
+      "title": "Rooftop Cafe Ki Shaam Aur Asli Ehsaas",
+      "narration": [
+        "*Shaam ko Skyline Terrace Cafe par dhoop dhal chuki hai. Sheher ki lights jhilmilane lagi hain.*",
+        "*Anika cold coffee ka straw hila rahi hai. Uski aankhon mein thakan bhi hai aur sukoon bhi.*",
+        "Anika: \"Pata hai {{playerName}}... jab se main president bani hoon, sab mujhse koi na koi matlab rakhte the. Pehli baar kisi ne mujhe ek aam ladki ki tarah dekha aur sahara diya.\"",
+        "*Uski aawaz mein ab koi political formality nahi thi.*",
+        "Anika: \"Kya yeh fake relationship... sach mein fake hi rehna zaroori hai?\"",
+        "*PROGRESSION UPDATE: ❤️ Love: 30/100 | 👑 Influence: 40/100.*"
+      ],
+      "fallbackLines": [
+        "*Thandi hawa Anika ke caramel baalon ko chhooti hai.*",
+        "Anika: \"Main tumse sach bol rahi hoon.\""
+      ],
+      "choices": [
+        {
+          "id": "c4_soft_answer",
+          "text": "\"Zaroori nahi hai Anika. Agar dil chahe toh sach banne mein der nahi lagti.\"",
+          "shortLabel": "Dil chahe toh sach",
+          "keywords": [
+            "dil",
+            "sach",
+            "mohabbat",
+            "narmi"
+          ],
+          "next": "s5_campus_festival_prep",
+          "effects": {
+            "relationships": {
+              "anika": 15
+            },
+            "flags": {
+              "sparkedRealRomance": true
+            },
+            "memory": [
+              "{{playerName}} ne Anika ke dil ki baat ka narm aur sachha jawab diya."
+            ]
+          }
+        },
+        {
+          "id": "c4_gradual_trust",
+          "text": "\"Pehle election jeet te hain, phir is rishte ko naye naam denge.\"",
+          "shortLabel": "Pehle election jeeto",
+          "keywords": [
+            "election",
+            "waqt",
+            "naam",
+            "rishta"
+          ],
+          "next": "s5_campus_festival_prep",
+          "effects": {
+            "relationships": {
+              "anika": 10
+            },
+            "memory": [
+              "{{playerName}} ne focus aur trust ke sath step-by-step aage badhne ko kaha."
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "id": "s5_campus_festival_prep",
+      "title": "Queen Ka Sathi Aur Anant Safar",
+      "narration": [
+        "*Anika tumhara haath thambti hai aur uski ungliyan tumhari ungliyon mein ulajh jaati hain.*",
+        "Anika: \"Agla hafta university sports gala aur election rally hai. Aur main chahti hoon ki tum har kadam mere sath raho.\"",
+        "*Fountain ki roshni door se chamakti hai aur poora Silvergate ab tum dono ko ek sath dekh raha hai.*",
+        "*Yeh kahani yahan khatam nahi hoti — rival candidates ke attacks, campus festivals, secret parties aur fake romance se sachhe prem tak ka safar abhi aage badhega.*"
+      ],
+      "fallbackLines": [
+        "*Silvergate ki hawa mein dosti aur mohabbat ka nasha ghul raha hai.*",
+        "*Tum jante ho ki campus ki badshahat ab tumhare haath mein hai.*"
+      ],
+      "choices": [
+        {
+          "id": "c5_promise_to_lead_together",
+          "text": "\"Main hamesha tumhare sath khada rahunga Anika. Silvergate hamara hai.\"",
+          "shortLabel": "Hamara Silvergate",
+          "keywords": [
+            "silvergate",
+            "saath",
+            "wada",
+            "anika"
+          ],
+          "next": "s1_ragging_rescue",
+          "effects": {
+            "relationships": {
+              "anika": 8
+            },
+            "memory": [
+              "{{playerName}} ne Anika ke sath pure campus ko lead karne ka sankalp liya."
+            ]
+          }
+        },
+        {
+          "id": "c5_romantic_smile_walk",
+          "text": "Anika ke sath car ki taraf chalte hue agle din ki planning karo",
+          "shortLabel": "Car ki taraf chalo",
+          "keywords": [
+            "car",
+            "planning",
+            "muskaan",
+            "walk"
+          ],
+          "next": "s1_ragging_rescue",
+          "effects": {
+            "relationships": {
+              "anika": 7
+            },
+            "memory": [
+              "{{playerName}} ne Anika ke sath shaam ka aakhri pal khubsurati se bitaya."
+            ]
+          }
+        }
+      ]
+    }
+  ],
+  "endings": []
+}

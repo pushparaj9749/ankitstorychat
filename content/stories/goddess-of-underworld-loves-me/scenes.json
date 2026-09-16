@@ -1,0 +1,455 @@
+{
+  "storyId": "goddess-of-underworld-loves-me",
+  "version": 1,
+  "scenes": [
+    {
+      "id": "s1_olympus_balcony",
+      "title": "Olympus Ki Balcony Aur Raat Ki Devi",
+      "narration": [
+        "*Mount Olympus ka swarnim mahal. Hazaaron devtaon ki lavish party, madira ke jaam aur divya sangeet. Tum {{playerName}} ho — apni controlling maa ke qaid se pehli baar nikal kar is azeem duniya mein aaye ho.*",
+        "*Bheed aur ghamandi devtaon ke shor se ghabra kar tum ek sunsaan marble balcony par nikal aate ho. Raat ki thandi hawa tumhare chehre ko chhooti hai.*",
+        "*Wahan pehle se ek aurat khadi hai. Kaali reshmi poshak, jismein jaise aadhi raat ke sitare taanke gaye hon. Uski gehri baingani aankhein seedha tumhare dil mein utarti hain.*",
+        "*Party ke andar se ek devta use door se dekh kar thithak jaata hai, aur uska jaam haath mein hi ruk jaata hai. Sab usse doori banaye hue hain.*",
+        "Nyx: \"Tum mujhe nahi jaante, do you?\"",
+        "*Nyx ke hothon par ek halki, dilchasp muskaan ubharti hai. Opening Progression: Nyx Love: 5/100 | Divine Growth: 0/100.*"
+      ],
+      "fallbackLines": [
+        "*Nyx ki nazron mein ek gehra tehraav hai, jaise woh tumhare har lafz ko tol rahi ho.*",
+        "Nyx: \"Bolo {{playerName}}, kya andhere se darr lagta hai tumhe?\""
+      ],
+      "choices": [
+        {
+          "id": "c1_honest_reply",
+          "text": "Imandari se sar jhuka kar bolo — \"Sach kahun toh nahi. Main naya hoon, bas bheed se bachkar sukoon dhoondh raha tha.\"",
+          "shortLabel": "Sachayi se batao",
+          "keywords": [
+            "imandari",
+            "sukoon",
+            "naya",
+            "bheed"
+          ],
+          "next": "s2_imandar_jawab",
+          "effects": {
+            "relationships": {
+              "nyx": 7
+            },
+            "flags": {
+              "honestIntroduction": true
+            },
+            "memory": [
+              "{{playerName}} ne Nyx se bina dare sachayi se kaha ki woh bas bheed se bachkar sukoon chahta tha."
+            ]
+          }
+        },
+        {
+          "id": "c1_praise_presence",
+          "text": "Uski shaan ki tareef karo — \"Aapka naam nahi jaanta, par is poore Olympus mein aap jaisi azeem shaan kisi ki nahi dekhi.\"",
+          "shortLabel": "Shaan ki tareef karo",
+          "keywords": [
+            "tareef",
+            "shaan",
+            "khoobsurat",
+            "azeem"
+          ],
+          "next": "s2_tareef_ki",
+          "effects": {
+            "relationships": {
+              "nyx": 9
+            },
+            "flags": {
+              "charmedNyx": true
+            },
+            "memory": [
+              "{{playerName}} ne Nyx ki azeem shaan ki naram tareef ki, jisse Nyx ke labon par muskaan aayi."
+            ]
+          }
+        },
+        {
+          "id": "c1_notice_silence",
+          "text": "Andar ke dare hue devtaon ki taraf dekh kar pucho — \"Woh andar wale log aapko dekh kar achanak chup kyun ho gaye?\"",
+          "shortLabel": "Khamoshi ka pucho",
+          "keywords": [
+            "devta",
+            "chup",
+            "darr",
+            "andar"
+          ],
+          "next": "s2_sawaal_poocha",
+          "effects": {
+            "relationships": {
+              "nyx": 5
+            },
+            "flags": {
+              "noticedFear": true
+            },
+            "memory": [
+              "{{playerName}} ne bheed ke khauf ko notice kiya aur Nyx se sidha sawaal pucha."
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "id": "s2_imandar_jawab",
+      "title": "Nyx Ka Kautuhal Aur Naram Lehja",
+      "narration": [
+        "*Tumhare sachhe aur thehre hue jawab par Nyx ki ankhon mein chamak aati hai.*",
+        "*Woh railing se thoda piche hatti hai, uski poshak se dheemi sitaron jaisi roshni chhan kar aati hai.*",
+        "Nyx: \"Sukoon? Olympus ke is jhoothe mehal mein sukoon dhoondhna registan mein paani mangne jaisa hai, {{playerName}}.\"",
+        "*Woh tumhare qareeb aati hai. Hawa mein raat ke phoolon ki mehak phail jaati hai.*",
+        "Nyx: \"Main Nyx hoon. Raat, khamoshi aur Underworld ki aadi shakti. Sab mujhse darr kar nazrein churate hain... aur tum mere saamne aakar khade ho gaye.\"",
+        "*PROGRESSION UPDATE: Nyx Love: 12/100 | Divine Growth: 5/100.*"
+      ],
+      "fallbackLines": [
+        "*Nyx ki reshmi ungliyan railing par taaron ki parchhai chhodti hain.*",
+        "Nyx: \"Kya meri parchhai tumhe darati hai?\""
+      ],
+      "choices": [
+        {
+          "id": "c2_stand_ground",
+          "text": "\"Andhere se wahi darte hain jinke dilon mein chor ho. Mujhe aapmein koi darr nahi dikhta.\"",
+          "shortLabel": "Bina dare khade raho",
+          "keywords": [
+            "darr",
+            "andhera",
+            "shant",
+            "himmat"
+          ],
+          "next": "s3_hermes_warning",
+          "effects": {
+            "relationships": {
+              "nyx": 8
+            },
+            "flags": {
+              "fearlessSoul": true
+            },
+            "memory": [
+              "{{playerName}} ne bina dare kaha ki use andhere se darr nahi lagta."
+            ]
+          }
+        },
+        {
+          "id": "c2_ask_about_night",
+          "text": "\"Raat hamesha se thake hue dilon ko aaram deti hai. Toh aapse koi kyun darega?\"",
+          "shortLabel": "Raat ka sukoon batao",
+          "keywords": [
+            "raat",
+            "sukoon",
+            "aaram",
+            "dosti"
+          ],
+          "next": "s3_hermes_warning",
+          "effects": {
+            "relationships": {
+              "nyx": 10
+            },
+            "flags": {
+              "poeticUnderstanding": true
+            },
+            "memory": [
+              "{{playerName}} ne raat ke sukoon ka zikr kiya jisse Nyx ka dil pighla."
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "id": "s2_tareef_ki",
+      "title": "Sitaron Bhari Muskaan",
+      "narration": [
+        "*Nyx halki si hansi hasti hai — aisi aawaz jaise hawa mein crystal ghantiyan baji hon.*",
+        "Nyx: \"Olympus ke devta hazaron saal se meri chaaplusi karte aaye hain, par tumhari ankhon mein sachai hai. Tum dikhava nahi kar rahe.\"",
+        "*Uski nazar balcony ke niche phaili Olympus ki ghati par padti hai.*",
+        "Nyx: \"Mera naam Nyx hai. Sab mujhe Primordial Night kehte hain. Par tum... mujhe bas Nyx keh sakte ho.\"",
+        "*Andar ke devta balcony ki taraf dekh kar hairan hain ki kaise ek insaan Nyx ko muskurane par majboor kar raha hai.*",
+        "*PROGRESSION UPDATE: Nyx Love: 14/100 | Divine Growth: 5/100.*"
+      ],
+      "fallbackLines": [
+        "*Sitaron ki roshni Nyx ke chehre par aakar thehar jaati hai.*",
+        "Nyx: \"Kaho {{playerName}}, kya tum mere sath raat ki sair par chaloge?\""
+      ],
+      "choices": [
+        {
+          "id": "c2_accept_night_walk",
+          "text": "\"Aapke sath chalna mere liye kismat ki baat hogi, Nyx.\"",
+          "shortLabel": "Sath chalne ko kaho",
+          "keywords": [
+            "sath",
+            "sair",
+            "nyx",
+            "raat"
+          ],
+          "next": "s3_hermes_warning",
+          "effects": {
+            "relationships": {
+              "nyx": 8
+            },
+            "memory": [
+              "{{playerName}} ne Nyx ke sath chalne ka irada jataya."
+            ]
+          }
+        },
+        {
+          "id": "c2_humble_smile",
+          "text": "Halki muskaan ke sath pucho — \"Kya ek devta aur insaan ka sath yahan aam baat hai?\"",
+          "shortLabel": "Aam baat ka pucho",
+          "keywords": [
+            "insaan",
+            "devta",
+            "sawaal",
+            "duniya"
+          ],
+          "next": "s3_hermes_warning",
+          "effects": {
+            "relationships": {
+              "nyx": 6
+            },
+            "memory": [
+              "{{playerName}} ne devta aur insaan ke rishte par sawal kiya."
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "id": "s2_sawaal_poocha",
+      "title": "Devtaon Ka Khauf Aur Asli Taakat",
+      "narration": [
+        "*Nyx andar ke mehal ki taraf dekhti hai, jahan devta use dekh kar peeche hat rahe the.*",
+        "Nyx: \"Kyunki unki roshni mere andhere ke aage bujh jaati hai, {{playerName}}. Jab main aati hoon, toh unke ghamand ki aukaat saamne aa jaati hai.\"",
+        "*Woh tumhare kandhe par ek halka sa saaya chhooti hai. Ek thandi par pyari urja tumhare jism mein dakhil hoti hai.*",
+        "Nyx: \"Par tum... tum wahan se bhage nahi. Tum yahan thehre rahe. Yeh baat mujhe achhi lagi.\"",
+        "*PROGRESSION UPDATE: Nyx Love: 10/100 | Divine Growth: 10/100.*"
+      ],
+      "fallbackLines": [
+        "*Hawa mein thandak badh rahi hai.*",
+        "Nyx: \"Meri dosti aasan nahi hoti, par jise milti hai woh kainaat mein kabhi akela nahi rehta.\""
+      ],
+      "choices": [
+        {
+          "id": "c2_thank_power",
+          "text": "\"Aapki maujoodgi mein darr nahi, ek ajeeb sa sukoon hai.\"",
+          "shortLabel": "Sukoon ka ehsaas",
+          "keywords": [
+            "sukoon",
+            "taakat",
+            "ehsaas",
+            "nyx"
+          ],
+          "next": "s3_hermes_warning",
+          "effects": {
+            "relationships": {
+              "nyx": 7
+            },
+            "memory": [
+              "{{playerName}} ne Nyx ki urja ko sukoon bhara bataya."
+            ]
+          }
+        },
+        {
+          "id": "c2_ask_about_divine_spark",
+          "text": "\"Mujhe lagta hai mere andar bhi kuch jaag raha hai... yeh kya hai?\"",
+          "shortLabel": "Divine spark pucho",
+          "keywords": [
+            "spark",
+            "divine",
+            "jaagna",
+            "taakat"
+          ],
+          "next": "s3_hermes_warning",
+          "effects": {
+            "relationships": {
+              "nyx": 6
+            },
+            "memory": [
+              "{{playerName}} ne apne andar jaagti hui shakti ke bare mein pucha."
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "id": "s3_hermes_warning",
+      "title": "Hermes Ki Ghabrahat Aur Chetawani",
+      "narration": [
+        "*Tabhi golden pankhon wale joote pehne Hermes achanak hawa se balcony par land karta hai.*",
+        "*Nyx ko dekhte hi uske gale ki aawaz phans jaati hai aur woh do kadam piche girte-girte bachta hai.*",
+        "Hermes: \"Lady Nyx! Pranam! Hum... hum bas dekhne aaye the ki...\"",
+        "*Hermes tumhari taraf mudta hai aur dheere se phusphusata hai.*",
+        "Hermes: \"{{playerName}}, pagal ho gaye ho kya? Primordial Mother se akele mein baatein kar rahe ho? Zeus ko pata chala toh Olympus mein bhookamp aa jayega!\"",
+        "*Nyx ek hansi ke sath Hermes ki taraf dekhti hai, aur Hermes wahi freeze ho jaata hai.*",
+        "Nyx: \"Chhote pakshi, apni daud sambhalo. Yeh ladka meri hifazat mein hai.\""
+      ],
+      "fallbackLines": [
+        "*Hermes ki aankhein ghabrahat se phati hui hain.*",
+        "Hermes: \"Bhai sambhal ke rehna, yeh Underworld ki badshah hain!\""
+      ],
+      "choices": [
+        {
+          "id": "c3_stand_with_nyx",
+          "text": "Nyx ke barabar khade hokar bolo — \"Chinta mat karo Hermes, Lady Nyx meri mehmaannawazi kar rahi hain.\"",
+          "shortLabel": "Nyx ka sath do",
+          "keywords": [
+            "hermes",
+            "nyx",
+            "sath",
+            "hifazat"
+          ],
+          "next": "s4_divine_blessing",
+          "effects": {
+            "relationships": {
+              "nyx": 10,
+              "hermes": 4
+            },
+            "flags": {
+              "stoodWithNyx": true
+            },
+            "memory": [
+              "{{playerName}} ne Hermes ke samne Nyx ka sath diya."
+            ]
+          }
+        },
+        {
+          "id": "c3_reassure_hermes",
+          "text": "Hermes ko tasalli do — \"Shant ho jao Hermes, koi ladai nahi ho rahi.\"",
+          "shortLabel": "Hermes ko shant karo",
+          "keywords": [
+            "shant",
+            "hermes",
+            "tasalli",
+            "sukoon"
+          ],
+          "next": "s4_divine_blessing",
+          "effects": {
+            "relationships": {
+              "hermes": 6,
+              "nyx": 4
+            },
+            "memory": [
+              "{{playerName}} ne Hermes ko tasalli di aur mahaul shant rakha."
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "id": "s4_divine_blessing",
+      "title": "Raat Ka Vardaan Aur Naya Rishta",
+      "narration": [
+        "*Hermes hawa mein gayab ho jaata hai, aur balcony par ek baar phir wahi pur-sukoon khamoshi chha jaati hai.*",
+        "*Nyx tumhare kareeb aati hai aur apni reshmi ungliyon se tumhare maathe ko chhooti hai.*",
+        "*Ek halke baingani sitare ka nishan tumhare maathe par chamak kar dhal jaata hai.*",
+        "Nyx: \"Maine tumhe apni chhaya ka vardaan diya hai, {{playerName}}. Ab Olympus ka koi chhota devta tum par haath nahi utha sakega.\"",
+        "*Uski aankhon mein ab purani thandak nahi, balki ek aisi garmahat hai jo kisi ko sadiyon baad mili ho.*",
+        "Nyx: \"Mera Underworld ka darbar hamesha tumhare liye khula hai... kya tum mere sheher aana chahoge?\"",
+        "*PROGRESSION MILESTONE: Nyx Love: 25/100 | Divine Growth: 20/100.*"
+      ],
+      "fallbackLines": [
+        "*Raat ki thandi hawa tumhare baalon ko lehrati hai.*",
+        "Nyx: \"Tumhara safar abhi shuru hua hai.\""
+      ],
+      "choices": [
+        {
+          "id": "c4_accept_underworld_invitation",
+          "text": "\"Aap jahan le chalengi, main wahan chalne ko tayyar hoon.\"",
+          "shortLabel": "Dawat qabool karo",
+          "keywords": [
+            "underworld",
+            "tayyar",
+            "nyx",
+            "safar"
+          ],
+          "next": "s5_night_realm_gateway",
+          "effects": {
+            "relationships": {
+              "nyx": 10
+            },
+            "flags": {
+              "acceptedUnderworld": true
+            },
+            "memory": [
+              "{{playerName}} ne Nyx ke Underworld aane ka dawat-nama qubool kiya."
+            ]
+          }
+        },
+        {
+          "id": "c4_ask_about_destiny",
+          "text": "\"Is vardan ke sath mere upar kya zimmedari aayegi, Nyx?\"",
+          "shortLabel": "Zimmedari pucho",
+          "keywords": [
+            "zimmedari",
+            "vardan",
+            "kismat",
+            "raaz"
+          ],
+          "next": "s5_night_realm_gateway",
+          "effects": {
+            "relationships": {
+              "nyx": 8
+            },
+            "memory": [
+              "{{playerName}} ne zimmedari ke bare mein pucha jisse Nyx behad impress hui."
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "id": "s5_night_realm_gateway",
+      "title": "Underworld Ka Darwaza Aur Anant Safar",
+      "narration": [
+        "*Balcony ki zameen par ek obsidian kaala ghera banta hai, jismein sitare tair rahe hain.*",
+        "*Nyx apna naram haath tumhari taraf badhati hai. Uske labon par ek aisi muskaan hai jo sirf tumhare liye mehfooz hai.*",
+        "Nyx: \"Yeh pehla kadam hai, {{playerName}}. Controlling maa ki bandishon se azaad hokar tum ab kainaat ke sabse bade raaz ke saathi ban rahe ho.\"",
+        "*Yeh kahani yahan rukti nahi — har kadam ke sath naye devta aayenge, Olympus ki siyasat bhadkegi aur tumhara prem aur taakat badhti jayegi.*"
+      ],
+      "fallbackLines": [
+        "*Kaale sitaron bhara darwaza dheere-dheere lehrata hai.*",
+        "*Tum jante ho ki tumhara astitva ab badal chuka hai.*"
+      ],
+      "choices": [
+        {
+          "id": "c5_step_into_portal",
+          "text": "Nyx ka haath thaam kar portal mein kadam rakho",
+          "shortLabel": "Nyx ka haath thamo",
+          "keywords": [
+            "portal",
+            "haath",
+            "kadam",
+            "safar"
+          ],
+          "next": "s1_olympus_balcony",
+          "effects": {
+            "relationships": {
+              "nyx": 5
+            },
+            "memory": [
+              "{{playerName}} ne Nyx ka haath thaam kar Underworld ke naye arc ki taraf kadam badhaya."
+            ]
+          }
+        },
+        {
+          "id": "c5_look_back_olympus",
+          "text": "Olympus ke mehal ki taraf dekh kar muskurao aur aage badho",
+          "shortLabel": "Aage badho",
+          "keywords": [
+            "olympus",
+            "muskaan",
+            "azaadi",
+            "safar"
+          ],
+          "next": "s1_olympus_balcony",
+          "effects": {
+            "relationships": {
+              "nyx": 5
+            },
+            "memory": [
+              "{{playerName}} ne purani duniya ko peeche chhod kar Nyx ke sath naya daur shuru kiya."
+            ]
+          }
+        }
+      ]
+    }
+  ],
+  "endings": []
+}
