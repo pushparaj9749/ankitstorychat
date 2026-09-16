@@ -8,6 +8,7 @@ import { effectiveContentApiBaseUrl, getBundledCoverSource } from '../content/lo
 import { makePlayerTextFn } from '../lib/playerName';
 import { FONTS, RADIUS, SPACING } from '../theme';
 import { AgeBadge, GenreChip, ProgressBar } from './bits';
+import { SHADOWS, TYPE } from '../theme';
 
 function Cover({ meta, style }: { meta: StoryMeta; style?: object }) {
   const { settings } = useApp();
@@ -155,13 +156,13 @@ const styles = StyleSheet.create({
   coverWrap: { overflow: 'hidden', alignItems: 'center', justifyContent: 'center' },
   coverImg: { width: '100%', height: '100%' },
   coverFallback: { fontSize: 52, fontWeight: '900' },
-  hero: { height: 220, borderRadius: RADIUS.lg, overflow: 'hidden', borderWidth: 1 },
-  heroCover: { ...StyleSheet.absoluteFill, borderRadius: RADIUS.lg },
+  hero: { height: 252, borderRadius: RADIUS.xl, overflow: 'hidden', borderWidth: 1, ...SHADOWS.hero },
+  heroCover: { ...StyleSheet.absoluteFill, borderRadius: RADIUS.xl },
   heroShade: { ...StyleSheet.absoluteFill },
   heroBody: { position: 'absolute', left: SPACING.lg, right: SPACING.lg, bottom: SPACING.lg },
   heroTop: { flexDirection: 'row', gap: 8, marginBottom: 8 },
-  heroTitle: { color: '#fff', fontSize: 26, fontWeight: '900' },
-  heroTag: { color: '#DDD6FE', fontSize: FONTS.small, marginTop: 4 },
+  heroTitle: { color: '#fff', fontSize: TYPE.display.fontSize, fontWeight: '900', letterSpacing: TYPE.display.letterSpacing },
+  heroTag: { color: '#E4DDFB', fontSize: FONTS.small, marginTop: 5, letterSpacing: 0.1 },
   newBadge: {
     position: 'absolute',
     top: 12,
@@ -173,26 +174,27 @@ const styles = StyleSheet.create({
   newText: { color: '#1A0B2E', fontSize: FONTS.tiny, fontWeight: '900' },
   row: {
     flexDirection: 'row',
-    borderRadius: RADIUS.md,
+    borderRadius: RADIUS.lg,
     borderWidth: 1,
     padding: 10,
     gap: 12,
     alignItems: 'center',
+    ...SHADOWS.card,
   },
-  thumb: { width: 64, height: 64, borderRadius: RADIUS.sm },
+  thumb: { width: 64, height: 64, borderRadius: RADIUS.md },
   rowBody: { flex: 1, gap: 6 },
-  rowTitle: { fontSize: FONTS.body, fontWeight: '800' },
+  rowTitle: { fontSize: FONTS.body, fontWeight: '800', letterSpacing: -0.2 },
   rowSub: { fontSize: FONTS.small },
-  grid: { width: 156, borderRadius: RADIUS.md, borderWidth: 1, overflow: 'hidden' },
-  gridCover: { width: 156, height: 120 },
+  grid: { width: 158, borderRadius: RADIUS.lg, borderWidth: 1, overflow: 'hidden', ...SHADOWS.card },
+  gridCover: { width: 158, height: 122 },
   gridBody: { padding: 10, gap: 4 },
-  gridTitle: { fontSize: FONTS.body, fontWeight: '800' },
+  gridTitle: { fontSize: FONTS.body, fontWeight: '800', letterSpacing: -0.2 },
   gridSub: { fontSize: FONTS.tiny },
   gridMeta: { marginTop: 4 },
-  wide: { borderRadius: RADIUS.md, borderWidth: 1, overflow: 'hidden' },
-  wideCover: { width: '100%', height: 130 },
+  wide: { borderRadius: RADIUS.lg, borderWidth: 1, overflow: 'hidden', ...SHADOWS.card },
+  wideCover: { width: '100%', height: 140 },
   wideBody: { padding: 12, gap: 8 },
-  wideTitle: { fontSize: FONTS.heading, fontWeight: '800' },
+  wideTitle: { fontSize: FONTS.heading, fontWeight: '800', letterSpacing: -0.2 },
   wideDesc: { fontSize: FONTS.small },
   wideMeta: { flexDirection: 'row', gap: 8 },
 });

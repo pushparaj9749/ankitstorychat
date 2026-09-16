@@ -74,9 +74,56 @@ export function LoadingState({ label = 'Loading…' }: { label?: string }) {
   );
 }
 
+/**
+ * V2: polished offline / no-network state for story playback.
+ * Story content now streams from the API, so when there is no connection we
+ * show this and offer Retry — never silently falling back to cached content.
+ */
+export function OfflineState({
+  subtitle,
+  retry,
+  onRetry,
+  secondary,
+  onSecondary,
+}: {
+  subtitle?: string;
+  retry?: string;
+  onRetry?: () => void;
+  secondary?: string;
+  onSecondary?: () => void;
+}) {
+  const { theme } = useApp();
+  return (
+    <View style={styles.wrap}>
+      <View style={[styles.offlineIcon, { backgroundColor: theme.primarySoft }]}>
+        <Text style={styles.offlineIconText}>📡</Text>
+      </View>
+      <Text style={[styles.title, { color: theme.text }]}>Internet connection required</Text>
+      <Text style={[styles.sub, { color: theme.textDim }]}>
+        {subtitle ?? 'Connect to the internet to continue this story.'}
+      </Text>
+      <View style={styles.btnRow}>
+        {retry && onRetry ? <GradientButton title={retry} onPress={onRetry} /> : null}
+        {secondary && onSecondary ? (
+          <GradientButton title={secondary} onPress={onSecondary} variant="ghost" />
+        ) : null}
+      </View>
+    </View>
+  );
+}
+
 const styles = StyleSheet.create({
   wrap: { flex: 1, alignItems: 'center', justifyContent: 'center', padding: SPACING.xl, gap: 8 },
   emoji: { fontSize: 52 },
+  offlineIcon: {
+    width: 72,
+    height: 72,
+    borderRadius: 36,
+    alignItems: 'center',
+    justifyContent: 'center',
+    marginBottom: 4,
+  },
+  offlineIconText: { fontSize: 34 },
   title: { fontSize: FONTS.heading, fontWeight: '800', textAlign: 'center' },
   sub: { fontSize: FONTS.small, textAlign: 'center', lineHeight: 20 },
   btn: { marginTop: SPACING.md, minWidth: 200 },

@@ -62,6 +62,54 @@ The deploy job **fails with these exact names** if they are missing — no insec
    rules → `http.request.uri.path contains "/api/"` → e.g. 300 requests / minute
    per IP → Block. Adds edge-wide abuse protection on top of the Worker limiter.
 
+## Troubleshooting: `/api/*` returns the GitHub Pages 404 page
+
+The symptom is `https://beyondredeye.site/api/health` returning a GitHub Pages
+"404 — there isn't a GitHub Pages site here" page (or the repo's `404.html`)
+instead of the JSON, while the root site still looks fine.
+
+That page is produced by the **GitHub Pages origin**, which means the request
+never reached the Worker. Cloudflare Worker routes are matched per request at
+the edge from *hostname + path*, so only these things can cause it:
+
+1. **The DNS record is not Proxied (grey cloud).** Worker routes only apply to
+   traffic that enters Cloudflare. A grey-cloud record sends the browser
+   straight to GitHub Pages, which has no `/api/*`. Fix: DNS → set the record to
+   **Proxied**.
+2. **The route is missing or shadowed.** Check Workers & Pages →
+   `kissa-content-api` → *Settings → Domains & Routes* contains
+   `beyondredeye.site/api/*`. A Workers/Pages **custom domain** on the same
+   hostname takes precedence over routes and would capture the path first.
+3. **Your resolver still has old records.** Hard-refreshing and incognito clear
+   the *HTTP* cache, not DNS. If the zone's nameservers were changed recently,
+   an OS/router/ISP resolver can keep the **old delegation** for its TTL (the
+   in-zone NS TTL here is 6 h) and keep answering with the pre-Cloudflare
+   records, i.e. GitHub Pages' own IPs `185.199.108–111.153`.
+
+Tell them apart in one command — Cloudflare IPs mean you reached the edge,
+`185.199.x.x` means you bypassed it:
+
+```bash
+nslookup beyondredeye.site 8.8.8.8     # expect Cloudflare: 104.21.x / 172.67.x / 188.114.x
+nslookup beyondredeye.site             # your resolver: 185.199.108-111.153 == stale, flush it
+
+# Bypass local DNS entirely — this proves the server side, not your cache:
+curl -s --resolve beyondredeye.site:443:104.21.80.223 https://beyondredeye.site/api/health
+```
+
+Server-side truth, independent of any resolver:
+
+```bash
+curl -sD - -o /dev/null https://beyondredeye.site/api/health | grep -iE '^(HTTP/|server|cf-ray|x-github-request-id)'
+# Worker:      HTTP/1.1 200 OK · server: cloudflare · cf-ray: … · no x-github-request-id
+# GitHub Pages: 404 · x-github-request-id: … · via: 1.1 varnish
+```
+
+The deploy workflow runs these checks on **both** hostnames after every deploy
+and **fails the job** if `/api/*` is not served by the Worker, or if the root
+stops being served by GitHub Pages — so a silent regression of this kind now
+breaks the build instead of waiting to be found in a browser.
+
 ## Going fully private (phase 2)
 
 The repository currently ships APK downloads + GitHub Pages via public releases,
