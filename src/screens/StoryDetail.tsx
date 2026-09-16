@@ -1,6 +1,6 @@
-/** Story detail: cover, meta, characters, start/continue, saves, download. AI-only now. */
+/** Story detail: cover, meta, characters, start/continue, saves. Auto-downloads if needed. */
 import React, { useEffect, useState } from 'react';
-import { Alert, Image, Pressable, ScrollView, StyleSheet, Text, View } from 'react-native';
+import { Pressable, ScrollView, StyleSheet, Text, View } from 'react-native';
 import { LinearGradient } from 'expo-linear-gradient';
 import type { NativeStackScreenProps } from '@react-navigation/native-stack';
 import type { Playthrough, RootStackParamList, StoryBundle } from '../types';
@@ -8,12 +8,14 @@ import { useApp } from '../state/AppContext';
 import { Screen } from '../components/Screen';
 import { GradientButton } from '../components/GradientButton';
 import { AgeBadge, Avatar, GenreChip, SectionHeader } from '../components/bits';
-import { EmptyState, ErrorState, LoadingState, OfflineState } from '../components/states';
+import { CoverImage } from '../components/CoverImage';
+import { ErrorState, PreparingState } from '../components/states';
 import {
   getBundledCoverSource,
   getBundle,
   effectiveContentApiBaseUrl,
   StoryContentError,
+  storyErrorMessage,
 } from '../content/loader';
 import { interpolatePlayerName, makePlayerTextFn } from '../lib/playerName';
 import { AgeRestrictedError } from '../lib/ageGate';
@@ -21,8 +23,9 @@ import { listPlaythroughsForStory, updateStats } from '../lib/db';
 import { createPlaythrough, playthroughLabel } from '../lib/playthrough';
 import { seedMemoriesIfEmpty } from '../lib/memory';
 import { insertMessage } from '../lib/db';
+import { offlineOpening } from '../lib/offlineEngine';
 import { FONTS, RADIUS, SHADOWS, SPACING, TYPE } from '../theme';
-import { nowIso, uid } from '../lib/utils';
+import { uid } from '../lib/utils';
 
 type Props = NativeStackScreenProps<RootStackParamList, 'StoryDetail'>;
 
@@ -38,7 +41,6 @@ export function StoryDetail({ navigation, route }: Props) {
     activeProvider,
     providersWithKeys,
     refreshRecent,
-    refreshStories,
   } = useApp();
 
   const [bundle, setBundle] = useState<StoryBundle | null>(null);
@@ -46,26 +48,21 @@ export function StoryDetail({ navigation, route }: Props) {
   const [restricted, setRestricted] = useState(false);
   const [saves, setSaves] = useState<Playthrough[]>([]);
   const [starting, setStarting] = useState(false);
-  /** V2: playback streams from the API; when offline show the offline gate. */
-  const [offline, setOffline] = useState(false);
   const [reloadKey, setReloadKey] = useState(0);
 
   const meta = stories.find((s) => s.id === storyId);
   const isFav = favoriteIds.has(storyId);
   const apiBase = effectiveContentApiBaseUrl(settings.contentApiBaseUrl);
   const cover = meta ? getBundledCoverSource(meta, apiBase) : null;
-  /** Story text refers to the reader via {{playerName}} — show the real name. */
   const forPlayer = makePlayerTextFn(meta, profile?.nickname);
 
   useEffect(() => {
     let alive = true;
     (async () => {
       if (!profile) return;
-      setOffline(false);
       setError(null);
+      setBundle(null);
       try {
-        // V2: the package always streams from the story API. Offline, this
-        // throws a 'network' StoryContentError and we show the offline gate.
         const b = await getBundle(storyId, profile.ageGroup, apiBase);
         if (!alive) return;
         setBundle(b);
@@ -73,8 +70,8 @@ export function StoryDetail({ navigation, route }: Props) {
       } catch (e) {
         if (!alive) return;
         if (e instanceof AgeRestrictedError) setRestricted(true);
-        else if (e instanceof StoryContentError && e.code === 'network') setOffline(true);
-        else setError(e instanceof Error ? e.message : 'Could not open story.');
+        else if (e instanceof StoryContentError) setError(storyErrorMessage(e));
+        else setError(e instanceof Error ? e.message : "Couldn't open story.");
       }
     })();
     return () => {
@@ -94,47 +91,37 @@ export function StoryDetail({ navigation, route }: Props) {
     if (!bundle || !profile || starting) return;
 
     const canUseAI = !!activeProvider && providersWithKeys.has(activeProvider.id);
-    if (!canUseAI) {
-      Alert.alert('AI Setup Required 🤖', 'Story khelne ke liye pehle AI provider add karo. Offline mode ab hataya gaya hai.', [
-        { text: 'Cancel', style: 'cancel' },
-        { text: 'Add AI', onPress: () => navigation.navigate('AIAddons') },
-      ]);
-      return;
-    }
+    const mode = canUseAI ? ('ai' as const) : ('offline' as const);
 
     setStarting(true);
     try {
       const existing = await listPlaythroughsForStory(storyId);
-      const mode = 'ai' as const;
       const pt = await createPlaythrough(
         bundle,
         playthroughLabel(existing.length),
         mode,
-        activeProvider!.id,
+        canUseAI ? activeProvider!.id : null,
       );
 
-      // Seed opening narration as messages + seed memories (from bundle directly, no offline engine).
-      // The opening block is the pre-chat cinematic introduction — the reader's
-      // own name must appear in it, never a hardcoded one.
-      const openingScene = bundle.scenes.scenes.find((s) => s.id === bundle.story.openingSceneId) ?? bundle.scenes.scenes[0];
-      const pn = profile.nickname;
-      const pnOptions = { protectedNames: bundle.characters.characters.map((c) => c.name) };
+      // Pre-chat cinematic introduction — the reader's own name, never a hardcoded one.
+      const opening = offlineOpening(bundle, profile.nickname);
       let i = 0;
-      for (const rawLine of openingScene.narration) {
+      for (const line of opening.lines) {
         await insertMessage({
           id: uid('m'),
           playthroughId: pt.id,
-          role: i === 0 ? 'narration' : 'assistant',
-          speaker: null,
-          text: interpolatePlayerName(rawLine, pn, pnOptions),
-          sceneId: openingScene.id,
+          role: line.role,
+          speaker: line.speaker,
+          text: line.text,
+          sceneId: opening.sceneId,
           createdAt: new Date(Date.now() + i).toISOString(),
         });
         i++;
       }
+      const pnOptions = { protectedNames: bundle.characters.characters.map((c) => c.name) };
       await seedMemoriesIfEmpty(
         pt,
-        bundle.memory.seedMemories.map((m) => interpolatePlayerName(m, pn, pnOptions)),
+        bundle.memory.seedMemories.map((m) => interpolatePlayerName(m, profile.nickname, pnOptions)),
       );
       await updateStats({ storiesStarted: 1 });
       await refreshRecent();
@@ -158,14 +145,14 @@ export function StoryDetail({ navigation, route }: Props) {
       </Screen>
     );
   }
-  // V2: playback streams from the story API. Without a connection we show a
-  // clear offline gate with Retry — never a silent fallback to cached content.
-  if (offline) {
+
+  if (error || !meta) {
     return (
       <Screen>
-        <OfflineState
-          subtitle={`Connect to the internet to play "${meta?.title ?? 'this story'}". Your progress and history stay safe on this device.`}
-          retry="↻ Retry"
+        <ErrorState
+          title="Couldn't prepare this story"
+          subtitle={error ?? 'Story not found.'}
+          retry="Try again"
           onRetry={() => setReloadKey((k) => k + 1)}
           secondary="Go back"
           onSecondary={() => navigation.goBack()}
@@ -174,23 +161,10 @@ export function StoryDetail({ navigation, route }: Props) {
     );
   }
 
-  if (error || !meta) {
-    return (
-      <Screen>
-        <ErrorState
-          title="Couldn't open story"
-          subtitle={error ?? 'Story not found.'}
-          retry="Go back"
-          onRetry={() => navigation.goBack()}
-        />
-      </Screen>
-    );
-  }
-
   if (!bundle) {
     return (
       <Screen>
-        <LoadingState label="Loading story…" />
+        <PreparingState label="Preparing your story…" />
       </Screen>
     );
   }
@@ -202,15 +176,13 @@ export function StoryDetail({ navigation, route }: Props) {
     <Screen padded={false}>
       <ScrollView showsVerticalScrollIndicator={false}>
         <View style={styles.coverWrap}>
-          {cover ? (
-            <Image source={cover} style={styles.cover} resizeMode="cover" />
-          ) : (
-            <View style={[styles.cover, { backgroundColor: `${meta.accentColor}44` }]} />
-          )}
-          <LinearGradient
-            colors={['transparent', theme.bg]}
-            style={styles.coverShade}
+          <CoverImage
+            source={cover}
+            accentColor={meta.accentColor}
+            fallbackLetter={meta.title}
+            style={styles.cover}
           />
+          <LinearGradient colors={['transparent', theme.bg]} style={styles.coverShade} />
           <Pressable onPress={() => navigation.goBack()} style={styles.back} accessibilityLabel="Go back">
             <Text style={styles.backText}>‹ Back</Text>
           </Pressable>
@@ -242,7 +214,7 @@ export function StoryDetail({ navigation, route }: Props) {
             <InfoRow label="⏱ Length" value={`~${meta.estimatedMinutes} min`} />
             <InfoRow
               label="💬 Mode"
-              value={hasAI ? `AI • ${activeProvider!.model}` : 'AI Required'}
+              value={hasAI ? `AI • ${activeProvider!.model}` : 'Offline Story Mode'}
             />
           </View>
 
@@ -288,7 +260,7 @@ export function StoryDetail({ navigation, route }: Props) {
               style={[styles.aiHint, { backgroundColor: theme.primarySoft, borderColor: theme.primary }]}
             >
               <Text style={[styles.aiHintText, { color: '#D9CFFF' }]}>
-                🤖 AI provider setup karo to play. Offline mode hata diya gaya hai. Tap to add your own AI key.
+                📖 Playing in Offline Story Mode. Tap to add your own AI key for free-chat narration.
               </Text>
             </Pressable>
           ) : null}
@@ -339,18 +311,15 @@ const infoStyles = StyleSheet.create({
 });
 
 const styles = StyleSheet.create({
-  coverWrap: { height: 300 },
-  cover: { width: '100%', height: 300 },
-  coverShade: { position: 'absolute', left: 0, right: 0, top: 140, height: 160 },
+  coverWrap: { width: '100%', maxHeight: 420, alignItems: 'center', backgroundColor: '#0B0620' },
+  cover: { width: '72%', maxWidth: 280, borderRadius: 0 },
+  coverShade: { position: 'absolute', left: 0, right: 0, bottom: 0, height: 80 },
   back: { position: 'absolute', top: 52, left: 16 },
   backText: { color: '#fff', fontSize: 17, fontWeight: '700' },
   fav: { position: 'absolute', top: 48, right: 16 },
   favText: { fontSize: 26 },
-  body: { paddingHorizontal: 16, marginTop: -30 },
+  body: { paddingHorizontal: 16, marginTop: 8 },
   metaRow: { flexDirection: 'row', flexWrap: 'wrap', gap: 8, marginBottom: 12 },
-  dlBadge: { paddingHorizontal: 10, paddingVertical: 4, borderRadius: 999 },
-  dlText: { fontSize: 11, fontWeight: '800' },
-  step: { fontSize: FONTS.small, marginTop: 8, textAlign: 'center' },
   title: { ...TYPE.display, lineHeight: TYPE.display.fontSize + 6 },
   tagline: { fontSize: FONTS.body, fontWeight: '600', marginTop: 5, letterSpacing: 0.1 },
   desc: { fontSize: FONTS.body, lineHeight: 24, marginTop: 10 },

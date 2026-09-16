@@ -30,7 +30,7 @@ import { SettingsStorage } from '../screens/SettingsStorage';
 import { Terms } from '../screens/Terms';
 import { Privacy } from '../screens/Privacy';
 import { About } from '../screens/About';
-import { ContentUpdates } from '../screens/ContentUpdates';
+
 
 const Stack = createNativeStackNavigator<RootStackParamList>();
 const Tab = createBottomTabNavigator<MainTabParamList>();
@@ -41,7 +41,7 @@ function tabIcon(name: string, focused: boolean) {
 }
 
 function MainTabs() {
-  const { theme, profile, settings, setUpdateAvailable } = useApp();
+  const { theme, profile, settings, setUpdateAvailable, setCatalogError, refreshStories } = useApp();
   const checked = useRef(false);
 
   // Silent content check once per launch (best-effort, offline-safe).
@@ -54,6 +54,9 @@ function MainTabs() {
         try {
           const base = effectiveContentApiBaseUrl(settings.contentApiBaseUrl);
           const res = await checkForUpdates(base, profile.ageGroup);
+          setCatalogError(null);
+          await refreshStories();
+          // New stories appear in the catalog automatically — no "updates" UI.
           if (res.hasUpdate) {
             setUpdateAvailable(true);
             if (settings.notifications.enabled && settings.notifications.contentUpdates) {
@@ -61,12 +64,12 @@ function MainTabs() {
             }
           }
         } catch {
-          // Offline or unreachable — the app works fully offline anyway.
+          setCatalogError("Couldn't refresh stories. Your downloaded stories are still available.");
         }
       })();
     }, 4000);
     return () => clearTimeout(t);
-  }, [profile, settings, setUpdateAvailable]);
+  }, [profile, settings, setUpdateAvailable, setCatalogError, refreshStories]);
 
   return (
     <Tab.Navigator
@@ -144,7 +147,6 @@ export function RootNavigator() {
             <Stack.Screen name="Terms" component={Terms} />
             <Stack.Screen name="Privacy" component={Privacy} />
             <Stack.Screen name="About" component={About} />
-            <Stack.Screen name="ContentUpdates" component={ContentUpdates} />
           </>
         )}
       </Stack.Navigator>

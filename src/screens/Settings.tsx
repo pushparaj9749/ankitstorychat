@@ -11,7 +11,7 @@ import { FONTS, RADIUS, SPACING } from '../theme';
 type Props = BottomTabScreenProps<MainTabParamList, 'Settings'>;
 
 export function Settings({ navigation }: Props) {
-  const { theme, profile, activeProvider, updateAvailable } = useApp();
+  const { theme, profile, activeProvider } = useApp();
   const nav = navigation as unknown as { navigate: (s: string, o?: object) => void };
 
   function row(emoji: string, title: string, sub: string, target: string, badge?: string) {
@@ -21,7 +21,10 @@ export function Settings({ navigation }: Props) {
         onPress={() => nav.navigate(target)}
         accessibilityRole="button"
         accessibilityLabel={title}
-        style={[styles.row, { backgroundColor: theme.surface, borderColor: theme.border }]}
+        style={({ pressed }) => [
+          styles.row,
+          { backgroundColor: theme.surface, borderColor: theme.border, opacity: pressed ? 0.85 : 1 },
+        ]}
       >
         <Text style={styles.emoji}>{emoji}</Text>
         <View style={styles.rowBody}>
@@ -52,12 +55,9 @@ export function Settings({ navigation }: Props) {
         {row(
           '🤖',
           'AI Setup',
-          activeProvider ? `${activeProvider.name} • ${activeProvider.model}` : 'AI Required — tap to add API key',
+          activeProvider ? `${activeProvider.name} • ${activeProvider.model}` : 'Offline Story Mode — tap to add AI',
           'AIAddons',
         )}
-
-        <SectionHeader title="Stories" />
-        {row('📚', 'Content Updates', 'Nayi stories GitHub se lao', 'ContentUpdates', updateAvailable ? 'NEW' : undefined)}
 
         <SectionHeader title="Appearance" />
         {row('🎨', 'Theme & Text', 'Dark, AMOLED, text size, motion', 'SettingsAppearance')}

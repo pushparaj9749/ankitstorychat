@@ -1,14 +1,13 @@
 /**
  * Bundled (shipped-with-the-app) story CATALOG + cover art.
  *
- * V2 change: the story *packages* (story/scenes/world/characters/memory JSON)
- * are NO LONGER compiled into the APK. Only the content manifest (so the app
- * can list every story) and the cover art ship with the binary. All playable
- * story content is streamed from the story API at play time (see loader.ts),
- * which is what removes offline story playback while keeping the catalog and
- * OTA content updates working without a new APK.
+ * The content manifest and cover art ship with the APK so every story appears
+ * in Home / Discover without a network call. Playable story *packages*
+ * (story/scenes/world/characters/memory JSON) download on first open from
+ * the story API, are validated, then cached on-device. Cached packages open
+ * immediately afterwards — including fully offline.
  *
- * The private story-source repository is still only read by the deployment
+ * The private story-source repository is only read by the deployment
  * pipeline (GitHub Actions) — clients never contact GitHub.
  */
 import type {
@@ -46,15 +45,15 @@ export interface BundledStoryFiles {
 }
 
 /**
- * V2: no story package ships inside the APK any more, so this always returns
- * null. The signature is kept for API compatibility with the loader and tests;
- * playback content now always comes from the story API (remote).
+ * No story package is compiled into the APK — packages download on first
+ * open and then live in the on-device cache (see loader.ts). Signature kept
+ * so the loader / tests can treat "bundled" as an optional source.
  */
 export function getBundledStory(_id: string): BundledStoryFiles | null {
   return null;
 }
 
-/** V2: the APK no longer embeds any story packages. */
+/** Story ids whose packages ship inside the APK (currently none). */
 export function bundledStoryIds(): string[] {
   return [];
 }

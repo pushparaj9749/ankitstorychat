@@ -50,6 +50,8 @@ interface AppState {
   favoriteIds: Set<string>;
   recentPlaythroughs: Playthrough[];
   updateAvailable: boolean;
+  /** Set when a silent catalog refresh fails — downloaded stories still work. */
+  catalogError: string | null;
 
   saveProfile: (p: LocalProfile) => Promise<void>;
   updateSettings: (patch: Partial<AppSettings>) => Promise<void>;
@@ -59,6 +61,7 @@ interface AppState {
   refreshRecent: () => Promise<void>;
   toggleFavorite: (storyId: string) => Promise<boolean>;
   setUpdateAvailable: (v: boolean) => void;
+  setCatalogError: (v: string | null) => void;
   reloadAll: () => Promise<void>;
 }
 
@@ -74,6 +77,7 @@ export function AppProvider({ children }: { children: React.ReactNode }) {
   const [favoriteIds, setFavoriteIds] = useState<Set<string>>(new Set());
   const [recentPlaythroughs, setRecentPlaythroughs] = useState<Playthrough[]>([]);
   const [updateAvailable, setUpdateAvailable] = useState(false);
+  const [catalogError, setCatalogError] = useState<string | null>(null);
 
   const refreshProviders = useCallback(async () => {
     const list = await listProviders();
@@ -184,6 +188,7 @@ export function AppProvider({ children }: { children: React.ReactNode }) {
       favoriteIds,
       recentPlaythroughs,
       updateAvailable,
+      catalogError,
       saveProfile,
       updateSettings,
       refreshProviders,
@@ -192,6 +197,7 @@ export function AppProvider({ children }: { children: React.ReactNode }) {
       refreshFavorites,
       toggleFavorite,
       setUpdateAvailable,
+      setCatalogError,
       reloadAll,
     };
   }, [
@@ -204,6 +210,7 @@ export function AppProvider({ children }: { children: React.ReactNode }) {
     favoriteIds,
     recentPlaythroughs,
     updateAvailable,
+    catalogError,
     saveProfile,
     updateSettings,
     refreshProviders,

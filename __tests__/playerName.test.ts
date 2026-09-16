@@ -142,6 +142,16 @@ describe('the whole content pack is player-name clean', () => {
   });
 });
 
+describe('story cards / catalog copy use the player name', () => {
+  test('manifest description interpolates for the reader', () => {
+    const fn = makePlayerTextFn(ankitStory, 'Rahul');
+    expect(fn(ankitStory.meta.description)).toContain('Rahul');
+    expect(fn(ankitStory.meta.description)).not.toContain('Ankit');
+    expect(fn(ankitStory.meta.description)).not.toContain('{{');
+    expect(fn(ankitStory.meta.userRole)).toContain('Rahul');
+  });
+});
+
 describe('user "Rahul" sees Rahul everywhere the player is referenced', () => {
   test('opening narration (pre-chat cinematic introduction)', () => {
     const { lines } = offlineOpening(ankitStory, 'Rahul');
