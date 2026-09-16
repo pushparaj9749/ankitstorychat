@@ -15,18 +15,16 @@ moves the tale forward — with memory, relationships, branching, and multiple e
 
 - **100% local-first** — profile, chats, memories, saves, favorites, settings on-device (SQLite + SecureStore). No login, no cloud user DB.
 - **22 original Hinglish stories** (19 teen-safe, 3 mature) with scenes, choices, branching, endings — including 10 ongoing "endless" romance-fantasy sagas.
-- **New stories arrive without an app update** — `content/manifest.json` v3 added 5 full story packs
-  (Hawa-Band Dhaba, Crush on the Roof, Pani @ 72, Gully Final, Night Courier); existing installs get them
-  from **Settings → Content Updates**, or straight from the story page ("Download" button).
+- **New stories arrive without an app update** — the catalog refreshes from the
+  story API; tap a story and it downloads automatically, then works offline.
 - **BYO AI** — configure your own OpenAI-compatible provider (OpenAI, OpenRouter, Groq, Together, custom). Key stays in device keystore.
 - **APP LIMIT = NONE** — the app never caps chat. Provider quotas are your provider's.
 - **Offline Story Mode** — fully playable scripted stories with zero network and zero key.
 - **Age-safe catalog** — 12–17 users get a restricted catalog enforced in app logic (home, search, recommendations, downloads, direct opens).
 - **Story API content system** — new stories arrive as JSON packages from
   `https://beyondredeye.site/api` (Cloudflare Worker), no app rebuild and no GitHub
-  access from the app. Download them from **Settings → Content Updates**, or straight
-  from a story's page (an in-place **Download** button appears for not-yet-installed
-  stories).
+  access from the app. Opening a story downloads it automatically (if needed),
+  validates it, and caches it for offline play.
 - **Player-name interpolation** — story text uses `{{playerName}}`, resolved at
   runtime to the locally stored nickname in narration, the pre-chat introduction,
   offline mode and AI prompts. Character names are never replaced (e.g. *Kabir* in
@@ -213,7 +211,7 @@ node scripts/new-story.mjs --id my-story --title "My Story" --age 12-17 --genre 
 npm run content:validate
 ```
 
-Then commit `content/` → bump shipped in `manifest.json` (`contentVersion` auto-increments) → users get it via **Content Updates**. The app validates every download and discards malformed packages.
+Then commit `content/` → bump shipped in `manifest.json` (`contentVersion` auto-increments) → the catalog picks it up and the story downloads when a reader opens it. The app validates every download and discards malformed packages.
 
 ---
 
@@ -301,7 +299,7 @@ cd android && ./gradlew assembleRelease && cd ..
 ## 🌐 GitHub Pages website
 
 Static site in `website/` (no backend): branding, live story list (fetched from
-`content/manifest.json`), features, privacy, terms summary, AI explainer, **DOWNLOAD APK**
+`https://beyondredeye.site/api/manifest`), features, privacy, terms summary, AI explainer, **DOWNLOAD APK**
 (resolves the latest release's `.apk` via the GitHub API, falls back to the releases page).
 
 Deploys via `.github/workflows/pages.yml` on pushes to `main` touching `website/`.
@@ -317,7 +315,7 @@ settings page.
 - `npm test` — unit tests (engine parsing/effects/matching, age-gate incl. fail-closed unknowns, search).
 - `npm run content:validate` — validates manifest + **every** story package (fields, ratings, scene graph, reachability, choice targets, cross-file consistency).
 - `npm run typecheck` — strict TS.
-- Manual QA checklist (first launch → onboarding → teen filter → story → chat → choices → branching → memory → saves/replay → favorites → search → AI config + bad key + offline → updates → notifications → export/import → terms/privacy → APK → site) — see CI + this README; all flows implemented and wired.
+- Manual QA checklist (first launch → onboarding → teen filter → story auto-download → chat → choices → branching → memory → saves/replay → favorites → search → AI config + bad key + offline → notifications → export/import → terms/privacy → APK → site) — see CI + this README; all flows implemented and wired.
 
 ---
 

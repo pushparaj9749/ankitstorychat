@@ -76,6 +76,8 @@ jest.mock('../src/content/loader', () => ({
   getBundle: (...a: unknown[]) => getBundle(...(a as [])),
   downloadStory: (...a: unknown[]) => downloadStory(...(a as [])),
   isStoryOnDevice: (...a: unknown[]) => isStoryOnDevice(...(a as [])),
+  storyErrorMessage: (e: { code?: string }) =>
+    e?.code === 'notfound' ? "This story isn't available." : "Couldn't prepare this story. Try again.",
   StoryContentError: class StoryContentError extends Error {
     code: string;
     constructor(message: string, code = 'missing') {
@@ -184,28 +186,28 @@ function validBundle() {
   };
 }
 
-describe('StoryDetail (V2: streamed playback, offline gate)', () => {
-  test('without network shows the offline gate with Retry, not a dead end', async () => {
+describe('StoryDetail (auto-download, cache-first, friendly retry)', () => {
+  test('without a cached package and no network shows retry, not a dead end', async () => {
     getBundle.mockRejectedValue(new StoryContentError('No internet connection.', 'network'));
 
     await render();
     const text = renderText();
 
     expect(text).not.toContain("Couldn't open story");
-    expect(text).toContain('Internet connection required');
-    expect(text).toContain('Retry');
+    expect(text).toContain("Couldn't prepare this story");
+    expect(text).toContain('Try again');
   });
 
-  test('Retry re-attempts the streamed load', async () => {
+  test('Try again re-attempts the load (which auto-downloads if needed)', async () => {
     getBundle
       .mockRejectedValueOnce(new StoryContentError('No internet connection.', 'network'))
       .mockResolvedValueOnce(validBundle());
 
     await render();
-    expect(renderText()).toContain('Internet connection required');
+    expect(renderText()).toContain("Couldn't prepare this story");
 
     const button = tree.root.findAll(
-      (n) => typeof n.type === 'function' && n.props.title?.includes('Retry'),
+      (n) => typeof n.type === 'function' && n.props.title?.includes('Try again'),
     )[0];
     expect(button).toBeTruthy();
 
@@ -239,7 +241,7 @@ describe('StoryDetail (V2: streamed playback, offline gate)', () => {
     getBundle.mockRejectedValue(new StoryContentError('Story data is invalid (story.id: required).', 'invalid'));
 
     await render();
-    expect(renderText()).toContain("Couldn't open story");
+    expect(renderText()).toContain("Couldn't prepare this story");
   });
 
   test('renders normally once the story is on the device', async () => {

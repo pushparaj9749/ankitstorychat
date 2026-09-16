@@ -18,10 +18,9 @@ export type StoryLanguage = 'hinglish' | 'english';
 
 /**
  * Where a story bundle came from.
- * V2: playback always STREAMS the package from the story API, so the only
- * runtime source is 'remote'. 'bundled'/'downloaded' are retained only so
- * older in-memory fixtures and migrations keep type-checking; they are no
- * longer used for playback.
+ * Playback is cache-first: bundled packages (if any) and previously
+ * downloaded packages open immediately (including offline). The story API
+ * is only contacted when a package is missing or outdated.
  */
 export type StorySource = 'bundled' | 'downloaded' | 'remote';
 
@@ -448,7 +447,6 @@ export type RootStackParamList = {
   Terms: undefined;
   Privacy: undefined;
   About: undefined;
-  ContentUpdates: undefined;
 };
 
 export type MainTabParamList = {

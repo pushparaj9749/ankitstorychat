@@ -8,15 +8,13 @@
 
   // Story content lives behind the Kissa story API (Cloudflare Worker) — the
   // GitHub repository is never read for content. Try same-origin first (when
-  // the site is served from beyondredeye.site), then the absolute API, then —
-  // transitional fallback while DNS/Cloudflare is being set up — the legacy
-  // public raw files. No credentials are ever used here.
+  // the site is served from beyondredeye.site), then the absolute API.
+  // No credentials are ever used here.
   var API_BASES = [];
   if (location.origin && location.origin.indexOf('http') === 0) {
     API_BASES.push(location.origin + '/api');
   }
   API_BASES.push('https://beyondredeye.site/api');
-  var LEGACY_RAW = 'https://raw.githubusercontent.com/' + OWNER + '/' + REPO + '/main';
 
   function setDownloads(apkUrl, label) {
     ['heroDownload', 'navDownload', 'bottomDownload'].forEach(function (id) {
@@ -109,6 +107,6 @@
       });
     })
     .catch(function () {
-      grid.innerHTML = '<p class="loading">Stories could not be loaded (offline?). The app ships a full story pack, and new stories arrive over-the-air via Content Updates — no app update needed.</p>';
+      grid.innerHTML = '<p class="loading">Stories could not be loaded right now. The app still lists every story, and new ones appear automatically — no app update needed.</p>';
     });
 })();

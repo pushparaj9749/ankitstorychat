@@ -72,9 +72,8 @@ describe('no credentials are committed or shipped to clients', () => {
 });
 
 describe('the app never talks to GitHub for content', () => {
-  test('no raw.githubusercontent.com URLs in app source or config', () => {
+  test('no raw.githubusercontent.com URLs in app source, website or config', () => {
     for (const f of CLIENT) {
-      if (f.path.startsWith('website/')) continue; // site has a documented transitional fallback
       expect(f.text).not.toContain('raw.githubusercontent.com');
     }
   });
@@ -94,6 +93,7 @@ describe('the app never talks to GitHub for content', () => {
     // (db.ts only DROPS old stored values during migration).
     const types = readFileSync(join(ROOT, 'src', 'types.ts'), 'utf8');
     expect(types).not.toContain('contentManifestUrl:');
+    expect(types).not.toContain('ContentUpdates');
     expect(types).toContain("contentApiBaseUrl: ''");
   });
 
