@@ -206,44 +206,50 @@ async function loadDownloadedFiles(storyId: string): Promise<{
  * Load a full validated story bundle. Throws StoryContentError or
  * AgeRestrictedError (from assertCanOpen). Never returns malformed content.
  */
-export async function getBundle(storyId: string, ageGroup: AgeGroup): Promise<StoryBundle> {
+/**
+ * Load a full validated story bundle.
+ *
+ * V2: story content ALWAYS streams from the story API at play time. Bundled
+ * and previously-downloaded copies are deliberately NOT consulted, which is
+ * what removes offline story playback. While the network is unavailable
+ * `fetchJsonWithTimeout` throws a `StoryContentError` with code `'network'`
+ * and the calling screen renders the offline state with a Retry action.
+ *
+ * Throws `StoryContentError` (network / invalid / notfound) or
+ * `AgeRestrictedError` (from assertCanOpen). Never returns malformed content.
+ *
+ * @param apiBaseUrl optional story API base; defaults to the app's configured
+ *        base (production https://beyondredeye.site/api).
+ */
+export async function getBundle(
+  storyId: string,
+  ageGroup: AgeGroup,
+  apiBaseUrl?: string,
+): Promise<StoryBundle> {
   const meta = await getStoryMeta(storyId, ageGroup);
 
-  // Prefer downloaded copy when it is at least as new as bundled.
-  const downloaded = await loadDownloadedFiles(storyId);
-  const bundled = getBundledStory(storyId);
-
-  const candidates: { files: typeof downloaded; source: 'downloaded' | 'bundled' }[] = [];
-  if (downloaded) candidates.push({ files: downloaded, source: 'downloaded' });
-  if (bundled) candidates.push({ files: bundled, source: 'bundled' });
-
-  // Nothing on this device: the story is listed in the manifest (so the user
-  // can see and tap it) but its package was never downloaded. Callers must be
-  // able to tell this apart from corrupt data, so it carries code 'missing'.
-  if (candidates.length === 0) {
-    throw new StoryContentError('Story files are missing. Download it to start reading.', 'missing');
+  const base = effectiveContentApiBaseUrl(apiBaseUrl);
+  const files = ['story.json', 'characters.json', 'world.json', 'scenes.json', 'memory.json'] as const;
+  const fetched: Record<string, unknown> = {};
+  for (const f of files) {
+    fetched[f] = await fetchJsonWithTimeout(storyFileApiUrl(base, meta.storyDir, f));
   }
 
-  let lastError = new StoryContentError(
-    `Story data is invalid (${storyId}). Try downloading it again.`,
-    'invalid',
-  );
-  for (const c of candidates) {
-    if (!c.files) continue;
-    const result = validateBundle({ meta, ...c.files });
-    if (result.ok) {
-      return { meta, ...c.files, source: c.source };
-    }
-    lastError = new StoryContentError(
-      `Story data is invalid (${result.issues[0]?.path}: ${result.issues[0]?.message}).`,
+  const story = fetched['story.json'] as StoryFile;
+  const characters = fetched['characters.json'] as CharactersFile;
+  const world = fetched['world.json'] as WorldFile;
+  const scenes = fetched['scenes.json'] as ScenesFile;
+  const memory = fetched['memory.json'] as MemoryFile;
+
+  const result = validateBundle({ meta, story, characters, world, scenes, memory });
+  if (!result.ok) {
+    throw new StoryContentError(
+      `Story data is invalid (${result.issues[0]?.path}: ${result.issues[0]?.message}). Try again.`,
       'invalid',
     );
-    // A corrupt download should not poison future loads — drop it.
-    if (c.source === 'downloaded') {
-      await removeDownloadedStory(storyId);
-    }
   }
-  throw lastError;
+
+  return { meta, story, characters, world, scenes, memory, source: 'remote' };
 }
 
 /* ---------------- updates ---------------- */

@@ -8,13 +8,11 @@ import { useApp } from '../state/AppContext';
 import { Screen } from '../components/Screen';
 import { GradientButton } from '../components/GradientButton';
 import { AgeBadge, Avatar, GenreChip, SectionHeader } from '../components/bits';
-import { EmptyState, ErrorState, LoadingState } from '../components/states';
+import { EmptyState, ErrorState, LoadingState, OfflineState } from '../components/states';
 import {
   getBundledCoverSource,
   getBundle,
-  downloadStory,
   effectiveContentApiBaseUrl,
-  isStoryOnDevice,
   StoryContentError,
 } from '../content/loader';
 import { interpolatePlayerName, makePlayerTextFn } from '../lib/playerName';
@@ -23,7 +21,7 @@ import { listPlaythroughsForStory, updateStats } from '../lib/db';
 import { createPlaythrough, playthroughLabel } from '../lib/playthrough';
 import { seedMemoriesIfEmpty } from '../lib/memory';
 import { insertMessage } from '../lib/db';
-import { FONTS, RADIUS, SPACING } from '../theme';
+import { FONTS, RADIUS, SHADOWS, SPACING, TYPE } from '../theme';
 import { nowIso, uid } from '../lib/utils';
 
 type Props = NativeStackScreenProps<RootStackParamList, 'StoryDetail'>;
@@ -48,11 +46,9 @@ export function StoryDetail({ navigation, route }: Props) {
   const [restricted, setRestricted] = useState(false);
   const [saves, setSaves] = useState<Playthrough[]>([]);
   const [starting, setStarting] = useState(false);
-  /** Story exists in the catalog but its files are not on this device yet
-   *  (new GitHub-only release) — offer an in-place download, no app update. */
-  const [needsDownload, setNeedsDownload] = useState(false);
-  const [downloading, setDownloading] = useState(false);
-  const [downloadStep, setDownloadStep] = useState<string | null>(null);
+  /** V2: playback streams from the API; when offline show the offline gate. */
+  const [offline, setOffline] = useState(false);
+  const [reloadKey, setReloadKey] = useState(0);
 
   const meta = stories.find((s) => s.id === storyId);
   const isFav = favoriteIds.has(storyId);
@@ -65,60 +61,27 @@ export function StoryDetail({ navigation, route }: Props) {
     let alive = true;
     (async () => {
       if (!profile) return;
-      setNeedsDownload(false);
+      setOffline(false);
       setError(null);
       try {
-        // A story listed in the manifest but never downloaded goes straight to
-        // the download offer — no failed load, no "Couldn't open story" flash.
-        if (!(await isStoryOnDevice(storyId))) {
-          if (!alive) return;
-          setNeedsDownload(true);
-          return;
-        }
-        const b = await getBundle(storyId, profile.ageGroup);
+        // V2: the package always streams from the story API. Offline, this
+        // throws a 'network' StoryContentError and we show the offline gate.
+        const b = await getBundle(storyId, profile.ageGroup, apiBase);
         if (!alive) return;
         setBundle(b);
         setSaves(await listPlaythroughsForStory(storyId));
       } catch (e) {
         if (!alive) return;
         if (e instanceof AgeRestrictedError) setRestricted(true);
-        else {
-          // Only "the package is not on this device" is recoverable by
-          // downloading. Corrupt data / no network are real errors — showing a
-          // Download button for those would just fail again.
-          const missing = e instanceof StoryContentError && e.code === 'missing';
-          setError(missing ? null : e instanceof Error ? e.message : 'Could not open story.');
-          setNeedsDownload(missing && !!meta && !!profile);
-        }
+        else if (e instanceof StoryContentError && e.code === 'network') setOffline(true);
+        else setError(e instanceof Error ? e.message : 'Could not open story.');
       }
     })();
     return () => {
       alive = false;
     };
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [storyId, profile]);
-
-  async function downloadNow() {
-    if (!profile || !meta || downloading) return;
-    setDownloading(true);
-    setDownloadStep('Files laam ho rahi hain…');
-    try {
-      await downloadStory(meta, apiBase, profile.ageGroup, (file) =>
-        setDownloadStep(file === 'done' ? 'Verify ho rahi hai…' : `${file} download…`),
-      );
-      const b = await getBundle(meta.id, profile.ageGroup);
-      await refreshStories();
-      setBundle(b);
-      setError(null);
-      setNeedsDownload(false);
-      setSaves(await listPlaythroughsForStory(meta.id));
-    } catch (e) {
-      setError(e instanceof Error ? e.message : 'Download failed.');
-    } finally {
-      setDownloading(false);
-      setDownloadStep(null);
-    }
-  }
+  }, [storyId, profile, reloadKey]);
 
   useEffect(() => {
     const unsub = navigation.addListener('focus', () => {
@@ -195,44 +158,18 @@ export function StoryDetail({ navigation, route }: Props) {
       </Screen>
     );
   }
-  // Checked BEFORE the generic error branch: a story whose package is simply
-  // absent is recoverable by downloading. Rendering the error first made this
-  // branch unreachable — OTA stories dead-ended on "Couldn't open story".
-  if (!bundle && needsDownload && meta) {
+  // V2: playback streams from the story API. Without a connection we show a
+  // clear offline gate with Retry — never a silent fallback to cached content.
+  if (offline) {
     return (
-      <Screen padded={false}>
-        <ScrollView showsVerticalScrollIndicator={false}>
-          <View style={styles.coverWrap}>
-            {cover ? (
-              <Image source={cover} style={styles.cover} resizeMode="cover" />
-            ) : (
-              <View style={[styles.cover, { backgroundColor: `${meta.accentColor}44` }]} />
-            )}
-            <LinearGradient colors={['transparent', theme.bg]} style={styles.coverShade} />
-            <Pressable onPress={() => navigation.goBack()} style={styles.back} accessibilityLabel="Go back">
-              <Text style={styles.backText}>‹ Back</Text>
-            </Pressable>
-          </View>
-          <View style={styles.body}>
-            <Text style={[styles.title, { color: theme.text }]}>{meta.title}</Text>
-            <Text style={[styles.tagline, { color: theme.accent }]}>Ye nayi story abhi download nahi hui</Text>
-            <Text style={[styles.desc, { color: theme.textDim }]}>
-              Naye stories app update ke bina GitHub se aati hain. Neeche download karo — 5 second, aur
-              kahani hamesha ke liye offline ready.{' '}
-              {error ? `(Detail: ${error})` : ''}
-            </Text>
-            <View style={styles.gap}>
-              <GradientButton
-                title={`⬇ Download "${meta.title}" (~${meta.estimatedMinutes} min)`}
-                loading={downloading}
-                onPress={() => void downloadNow()}
-              />
-            </View>
-            {downloadStep ? (
-              <Text style={[styles.step, { color: theme.textDim }]}>{downloadStep}</Text>
-            ) : null}
-          </View>
-        </ScrollView>
+      <Screen>
+        <OfflineState
+          subtitle={`Connect to the internet to play "${meta?.title ?? 'this story'}". Your progress and history stay safe on this device.`}
+          retry="↻ Retry"
+          onRetry={() => setReloadKey((k) => k + 1)}
+          secondary="Go back"
+          onSecondary={() => navigation.goBack()}
+        />
       </Screen>
     );
   }
@@ -293,11 +230,6 @@ export function StoryDetail({ navigation, route }: Props) {
               <GenreChip key={g} genre={g} />
             ))}
             <AgeBadge ageRating={meta.ageRating} />
-            {bundle.source === 'downloaded' ? (
-              <View style={[styles.dlBadge, { backgroundColor: theme.primarySoft }]}>
-                <Text style={[styles.dlText, { color: theme.primary }]}>⬇ Downloaded</Text>
-              </View>
-            ) : null}
           </View>
 
           <Text style={[styles.title, { color: theme.text }]}>{meta.title}</Text>
@@ -407,9 +339,9 @@ const infoStyles = StyleSheet.create({
 });
 
 const styles = StyleSheet.create({
-  coverWrap: { height: 260 },
-  cover: { width: '100%', height: 260 },
-  coverShade: { position: 'absolute', left: 0, right: 0, top: 120, height: 140 },
+  coverWrap: { height: 300 },
+  cover: { width: '100%', height: 300 },
+  coverShade: { position: 'absolute', left: 0, right: 0, top: 140, height: 160 },
   back: { position: 'absolute', top: 52, left: 16 },
   backText: { color: '#fff', fontSize: 17, fontWeight: '700' },
   fav: { position: 'absolute', top: 48, right: 16 },
@@ -419,10 +351,10 @@ const styles = StyleSheet.create({
   dlBadge: { paddingHorizontal: 10, paddingVertical: 4, borderRadius: 999 },
   dlText: { fontSize: 11, fontWeight: '800' },
   step: { fontSize: FONTS.small, marginTop: 8, textAlign: 'center' },
-  title: { fontSize: 30, fontWeight: '900' },
-  tagline: { fontSize: FONTS.body, fontWeight: '600', marginTop: 4 },
-  desc: { fontSize: FONTS.body, lineHeight: 23, marginTop: 10 },
-  infoBox: { borderWidth: 1, borderRadius: RADIUS.md, padding: 12, marginTop: 16 },
+  title: { ...TYPE.display, lineHeight: TYPE.display.fontSize + 6 },
+  tagline: { fontSize: FONTS.body, fontWeight: '600', marginTop: 5, letterSpacing: 0.1 },
+  desc: { fontSize: FONTS.body, lineHeight: 24, marginTop: 10 },
+  infoBox: { borderWidth: 1, borderRadius: RADIUS.lg, padding: 14, marginTop: 16, ...SHADOWS.card },
   gap: { marginTop: 12 },
   aiHint: { borderWidth: 1, borderRadius: RADIUS.md, padding: 12, marginTop: 12 },
   aiHintText: { fontSize: FONTS.small, lineHeight: 20 },

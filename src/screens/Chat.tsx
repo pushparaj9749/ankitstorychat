@@ -29,8 +29,8 @@ import type {
 } from '../types';
 import { useApp } from '../state/AppContext';
 import { ChatBubble, TypingIndicator } from '../components/chat';
-import { ErrorState, LoadingState } from '../components/states';
-import { getBundle } from '../content/loader';
+import { ErrorState, LoadingState, OfflineState } from '../components/states';
+import { getBundle, StoryContentError } from '../content/loader';
 import { getApiKey } from '../lib/secureKeys';
 import { aiErrorMessage, chatCompletion } from '../lib/ai';
 import {
@@ -78,6 +78,9 @@ export function Chat({ navigation, route }: Props) {
   const [messages, setMessages] = useState<ChatMessage[]>([]);
   const [loading, setLoading] = useState(true);
   const [loadError, setLoadError] = useState<string | null>(null);
+  /** V2: playback needs the network; show the offline gate instead of an error. */
+  const [offline, setOffline] = useState(false);
+  const [reloadKey, setReloadKey] = useState(0);
   const [loadingMore, setLoadingMore] = useState(false);
   const [hasMore, setHasMore] = useState(false);
   const [input, setInput] = useState('');
@@ -94,11 +97,17 @@ export function Chat({ navigation, route }: Props) {
   useEffect(() => {
     let alive = true;
     (async () => {
+      if (alive) {
+        setLoading(true);
+        setLoadError(null);
+        setOffline(false);
+      }
       try {
         const pt = await getPlaythrough(playthroughId);
         if (!pt) throw new Error('Journey not found. It may have been deleted.');
         if (!profile) throw new Error('Profile missing.');
-        const b = await getBundle(pt.storyId, profile.ageGroup);
+        // V2: content always streams from the API; pass the configured base.
+        const b = await getBundle(pt.storyId, profile.ageGroup, settings.contentApiBaseUrl);
         const first = await listMessages(pt.id, PAGE);
         const total = await countMessages(pt.id);
         if (!alive) return;
@@ -110,7 +119,12 @@ export function Chat({ navigation, route }: Props) {
         setMessages(first);
         setHasMore(total > first.length);
       } catch (e) {
-        if (alive) setLoadError(e instanceof Error ? e.message : 'Could not load chat.');
+        if (!alive) return;
+        if (e instanceof StoryContentError && e.code === 'network') {
+          setOffline(true);
+        } else {
+          setLoadError(e instanceof Error ? e.message : 'Could not load chat.');
+        }
       } finally {
         if (alive) setLoading(false);
       }
@@ -118,7 +132,7 @@ export function Chat({ navigation, route }: Props) {
     return () => {
       alive = false;
     };
-  }, [playthroughId, profile]);
+  }, [playthroughId, profile, reloadKey, settings.contentApiBaseUrl]);
 
   const scene = useMemo(
     () => (bundle && playthrough ? getScene(bundle, playthrough.currentSceneId) : null),
@@ -327,6 +341,18 @@ export function Chat({ navigation, route }: Props) {
     return (
       <SafeAreaView style={[styles.safe, { backgroundColor: theme.bg }]}>
         <LoadingState label="Opening your journey…" />
+      </SafeAreaView>
+    );
+  }
+  if (offline) {
+    return (
+      <SafeAreaView style={[styles.safe, { backgroundColor: theme.bg }]}>
+        <OfflineState
+          retry="↻ Retry"
+          onRetry={() => setReloadKey((k) => k + 1)}
+          secondary="Go back"
+          onSecondary={() => navigation.goBack()}
+        />
       </SafeAreaView>
     );
   }

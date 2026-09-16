@@ -8,7 +8,7 @@ import { Screen } from '../components/Screen';
 import { ContinueCard, GridCard, HeroCard } from '../components/StoryCard';
 import { SectionHeader, SelectableChip } from '../components/bits';
 import { EmptyState } from '../components/states';
-import { FONTS, RADIUS, SPACING } from '../theme';
+import { FONTS, RADIUS, SHADOWS, SPACING, TYPE } from '../theme';
 import { greetingForHour, timeAgo } from '../lib/utils';
 
 type Props = BottomTabScreenProps<MainTabParamList, 'Home'>;
@@ -231,14 +231,15 @@ export function Home({ navigation }: Props) {
 const styles = StyleSheet.create({
   scroll: { paddingBottom: 8 },
   pad: { paddingHorizontal: 16 },
-  hello: { fontSize: FONTS.body, marginTop: 8 },
-  name: { fontSize: 30, fontWeight: '900', marginBottom: 12 },
+  hello: { fontSize: FONTS.small, marginTop: 10, letterSpacing: 0.4, textTransform: 'uppercase' },
+  name: { ...TYPE.display, marginBottom: 14 },
   searchBar: {
     borderWidth: 1,
-    borderRadius: RADIUS.md,
-    paddingHorizontal: 14,
-    paddingVertical: 12,
+    borderRadius: RADIUS.lg,
+    paddingHorizontal: 16,
+    paddingVertical: 13,
     marginBottom: 4,
+    ...SHADOWS.card,
   },
   updateBanner: {
     borderWidth: 1,

@@ -137,10 +137,11 @@ beforeEach(() => {
 });
 
 describe('OTA story availability', () => {
-  test('the repo ships stories that are API-only (fixture sanity)', () => {
-    // If this ever fails, every other assertion here is vacuous.
-    expect(bundledIds.size).toBeGreaterThan(0);
-    expect(otaOnly.length).toBeGreaterThan(0);
+  test('V2: the APK embeds no story packages — the whole catalog streams', () => {
+    // Every story must now come from the story API; nothing ships in the
+    // binary for offline playback.
+    expect(bundledIds.size).toBe(0);
+    expect(otaOnly.length).toBe(manifest.stories.length);
   });
 
   test('API-only stories are offered as NEW downloads', async () => {
@@ -196,22 +197,29 @@ describe('OTA story availability', () => {
   });
 });
 
-describe('opening a story that is not on the device', () => {
-  test('fails with a recoverable "missing" code instead of a dead end', async () => {
-    const err = await getBundle(otaOnly[0], '18+').then(
-      () => null,
-      (e: unknown) => e,
-    );
-    expect(err).toBeInstanceOf(StoryContentError);
-    expect(err).toMatchObject({ code: 'missing' });
+describe('opening a story (V2: always streamed from the API)', () => {
+  test('with network, an API-only story streams its package from the API', async () => {
+    Object.assign(fetchBody, packageFixture(otaOnly[0]));
+    const bundle = await getBundle(otaOnly[0], '18+');
+    expect(bundle.source).toBe('remote');
+    expect(bundle.story.id).toBe(otaOnly[0]);
+    for (const f of ['story.json', 'characters.json', 'world.json', 'scenes.json', 'memory.json']) {
+      expect(fetchCalls).toContain(`${API_BASE}/stories/${otaOnly[0]}/${f}`);
+    }
   });
 
-  test('does not pretend the device is offline', async () => {
-    // Regression guard: a missing package must not be reported as a network
-    // failure, or the UI tells the user to "check your internet" forever.
+  test('without network, opening a story fails with a retryable network code', async () => {
+    fetchBody.__networkDown = true;
     const err = (await getBundle(otaOnly[0], '18+').catch((e: unknown) => e)) as StoryContentError;
-    expect(err.message).not.toMatch(/internet/i);
-    expect(fetchCalls).toEqual([]);
+    expect(err).toBeInstanceOf(StoryContentError);
+    expect(err.code).toBe('network');
+  });
+
+  test('a corrupted remote package is rejected and never played', async () => {
+    const bad = packageFixture(otaOnly[0]);
+    (bad['story.json'] as { id: string }).id = 'wrong-id'; // fails validation
+    Object.assign(fetchBody, bad);
+    await expect(getBundle(otaOnly[0], '18+')).rejects.toThrow(StoryContentError);
   });
 });
 
@@ -316,23 +324,19 @@ describe('downloading a story package from the API', () => {
     expect(fetchCalls).toContain(`${API_BASE}/stories/goddess-who-chose-me/assets/cover.jpg`);
   });
 
-  test('a downloaded story keeps working fully OFFLINE (no network at all)', async () => {
-    // Online: learn about the story, then download its package.
-    await checkForUpdates(API_BASE, '18+');
+  test('V2: a downloaded copy never enables OFFLINE playback (no fallback)', async () => {
     const meta = manifest.stories.find(
       (s) => s.id === 'goddess-who-chose-me',
     ) as unknown as StoryMeta;
     Object.assign(fetchBody, packageFixture('goddess-who-chose-me'));
     await downloadStory(meta, API_BASE, '18+', () => undefined);
+    await expect(isStoryOnDevice('goddess-who-chose-me')).resolves.toBe(true);
 
-    // Offline: no fetch may even be attempted — the package is local now.
+    // Even with a local copy present, playback still requires the network.
     fetchBody.__networkDown = true;
     fetchCalls = [];
-    await expect(isStoryOnDevice('goddess-who-chose-me')).resolves.toBe(true);
-    const bundle = await getBundle('goddess-who-chose-me', '18+');
-    expect(bundle.source).toBe('downloaded');
-    expect(bundle.story.id).toBe('goddess-who-chose-me');
-    expect(fetchCalls).toEqual([]);
+    const err = (await getBundle('goddess-who-chose-me', '18+').catch((e: unknown) => e)) as StoryContentError;
+    expect(err.code).toBe('network');
   });
 });
 

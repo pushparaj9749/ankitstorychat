@@ -153,38 +153,59 @@ beforeEach(() => {
   isStoryOnDevice.mockResolvedValue(true);
 });
 
-describe('StoryDetail for a GitHub-only story', () => {
-  test('offers the download instead of dead-ending on "Couldn\'t open story"', async () => {
-    isStoryOnDevice.mockResolvedValue(false);
-    getBundle.mockRejectedValue(
-      new StoryContentError('Story files are missing. Try downloading it again.', 'missing'),
-    );
+/** A minimal-but-valid streamed bundle for rendering the loaded screen. */
+function validBundle() {
+  return {
+    meta: STORY,
+    story: { ...STORY, openingSceneId: 's1' },
+    characters: {
+      characters: [
+        {
+          id: 'aria',
+          name: 'Aria',
+          role: 'Devi',
+          personality: '',
+          background: '',
+          goals: [],
+          fears: [],
+          likes: [],
+          dislikes: [],
+          speakingStyle: '',
+          sampleLine: 'Main tumhare saath rahungi.',
+          relationshipWithUser: '',
+          knowledge: [],
+        },
+      ],
+    },
+    world: { premise: '' },
+    scenes: { scenes: [{ id: 's1', title: 'Start', narration: ['hi'], choices: [] }], endings: [] },
+    memory: { seedMemories: [] },
+    source: 'remote',
+  };
+}
+
+describe('StoryDetail (V2: streamed playback, offline gate)', () => {
+  test('without network shows the offline gate with Retry, not a dead end', async () => {
+    getBundle.mockRejectedValue(new StoryContentError('No internet connection.', 'network'));
 
     await render();
     const text = renderText();
 
     expect(text).not.toContain("Couldn't open story");
-    expect(text).toContain('Download');
-    expect(text).toMatch(/download nahi hui|Download/);
+    expect(text).toContain('Internet connection required');
+    expect(text).toContain('Retry');
   });
 
-  test('pressing download fetches the story package and opens it', async () => {
-    isStoryOnDevice.mockResolvedValueOnce(false);
+  test('Retry re-attempts the streamed load', async () => {
     getBundle
-      .mockRejectedValueOnce(new StoryContentError('Story files are missing.', 'missing'))
-      .mockResolvedValueOnce({
-        meta: STORY,
-        story: { ...STORY, openingSceneId: 's1' },
-        characters: { characters: [] },
-        world: { premise: '' },
-        scenes: { scenes: [{ id: 's1', title: 'Start', narration: ['hi'], choices: [] }], endings: [] },
-        memory: { seedMemories: [] },
-        source: 'downloaded',
-      });
+      .mockRejectedValueOnce(new StoryContentError('No internet connection.', 'network'))
+      .mockResolvedValueOnce(validBundle());
 
     await render();
+    expect(renderText()).toContain('Internet connection required');
+
     const button = tree.root.findAll(
-      (n) => typeof n.type === 'function' && n.props.title?.includes('Download'),
+      (n) => typeof n.type === 'function' && n.props.title?.includes('Retry'),
     )[0];
     expect(button).toBeTruthy();
 
@@ -192,8 +213,7 @@ describe('StoryDetail for a GitHub-only story', () => {
       button.props.onPress();
     });
 
-    expect(downloadStory).toHaveBeenCalled();
-    expect(renderText()).not.toContain("Couldn't open story");
+    expect(getBundle).toHaveBeenCalledTimes(2);
   });
 
   test('shows the PLAYER name in the story introduction, not the hardcoded one', async () => {

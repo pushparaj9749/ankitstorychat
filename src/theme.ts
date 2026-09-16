@@ -139,6 +139,45 @@ export function genreColor(genre: string): string {
   return GENRE_COLORS[genre] ?? '#8B5CF6';
 }
 
+/* ------------------------------------------------------------------ */
+/* V2 design tokens                                                     */
+/* ------------------------------------------------------------------ */
+
+/** Elevated, premium type ramp with tightened tracking for display text. */
+export const TYPE = {
+  displayXL: { fontSize: 34, fontWeight: '900', letterSpacing: -0.6 },
+  display: { fontSize: 28, fontWeight: '900', letterSpacing: -0.5 },
+  title: { fontSize: 22, fontWeight: '800', letterSpacing: -0.3 },
+  heading: { fontSize: 18, fontWeight: '800', letterSpacing: -0.2 },
+  body: { fontSize: 15, fontWeight: '500', letterSpacing: 0 },
+  small: { fontSize: 13, fontWeight: '500', letterSpacing: 0.1 },
+  tiny: { fontSize: 11, fontWeight: '600', letterSpacing: 0.2 },
+} as const;
+
+/** Soft depth so cards and hero art float above the background. */
+export const SHADOWS = {
+  card: {
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 6 },
+    shadowOpacity: 0.35,
+    shadowRadius: 14,
+    elevation: 6,
+  },
+  hero: {
+    shadowColor: '#8B5CF6',
+    shadowOffset: { width: 0, height: 10 },
+    shadowOpacity: 0.35,
+    shadowRadius: 24,
+    elevation: 10,
+  },
+} as const;
+
+/** Glassmorphism values for frosted overlays (hero badges, sheets). */
+export const GLASS = {
+  bg: 'rgba(16,10,40,0.55)',
+  stroke: 'rgba(255,255,255,0.14)',
+} as const;
+
 /** Deterministic gradient avatar colors from any string id. */
 export function avatarColors(id: string): [string, string] {
   const pairs: [string, string][] = [

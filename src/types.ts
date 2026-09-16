@@ -16,8 +16,14 @@ export type ContentLevel = 'teen' | 'mature';
 /** Supported story languages. v1 ships Hinglish; the schema is ready for more. */
 export type StoryLanguage = 'hinglish' | 'english';
 
-/** Where a story bundle came from. */
-export type StorySource = 'bundled' | 'downloaded';
+/**
+ * Where a story bundle came from.
+ * V2: playback always STREAMS the package from the story API, so the only
+ * runtime source is 'remote'. 'bundled'/'downloaded' are retained only so
+ * older in-memory fixtures and migrations keep type-checking; they are no
+ * longer used for playback.
+ */
+export type StorySource = 'bundled' | 'downloaded' | 'remote';
 
 /* ------------------------------------------------------------------ */
 /* Content manifest                                                    */
