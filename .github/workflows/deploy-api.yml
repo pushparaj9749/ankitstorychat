@@ -116,6 +116,16 @@ jobs:
           code() { out=$(curl -s -o /dev/null -w '%{http_code}' --max-time 30 "$@" 2>/dev/null); [ -n "$out" ] && echo "$out" || echo 000; }
           body() { curl -s --max-time 30 "$@" || echo ''; }
 
+          # Wait for the freshly-(re)attached route to propagate before checking.
+          ready=0
+          for i in $(seq 1 18); do
+            if [ "$(code "$base/health")" = "200" ]; then ready=1; break; fi
+            sleep 10
+          done
+          if [ "$ready" -ne 1 ]; then
+            echo "::warning title=API smoke test::GET $base/health never returned 200 within ~3 min of deploy — route/DNS may still be propagating (see docs/DEPLOYMENT.md). The checks below will report against whatever is live."
+          fi
+
           STORY_DIR=$(node -e "console.log(require('./content/manifest.json').stories[0].storyDir)")
           COVER_NAME=$(ls assets/covers/*.jpg | head -n 1 | xargs basename)
 
