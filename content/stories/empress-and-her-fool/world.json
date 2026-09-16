@@ -1,27 +1,27 @@
 {
   "storyId": "empress-and-her-fool",
   "version": 1,
-  "premise": "Ankit Suryagarh mahal ka ek nichle darje ka sevak hai — lagbhag koi jaadu nahi. Jawan Samragyi Seraphina, rajya ki sabse shaktishaali jaadugarni, use apna niji sevak bana leti hai. Mahal maanta hai ki ek bekaar sevak ne kisi tarah Samragyi ka dhyaan kheench liya. Sach: ek prachin bhavishyavani Ankit ko duniya ke bhavishya se jodti hai, aur Seraphina use jaan-boojh kar paas rakhti hai — use bachaane ke liye, aur shayad kisi aur wajah se bhi. Public mein Seraphina untouchable hai; Ankit ke saath woh teasing, playful aur emotionally khuli hai. Ye ek living world hai: mahal ki rajneeti, shak karte sardar gharane, jaadui academy, padosi rajya, prachin khandahar, shaktishaali jaadui praani, rajya ka asli itihaas, aur bhavishyavani se Ankit ka rahasyamayi rishta — sab dheere-dheere khulta hai.",
+  "premise": "{{playerName}} Suryagarh mahal ka ek nichle darje ka sevak hai — lagbhag koi jaadu nahi. Jawan Samragyi Seraphina, rajya ki sabse shaktishaali jaadugarni, use apna niji sevak bana leti hai. Mahal maanta hai ki ek bekaar sevak ne kisi tarah Samragyi ka dhyaan kheench liya. Sach: ek prachin bhavishyavani {{playerName}} ko duniya ke bhavishya se jodti hai, aur Seraphina use jaan-boojh kar paas rakhti hai — use bachaane ke liye, aur shayad kisi aur wajah se bhi. Public mein Seraphina untouchable hai; {{playerName}} ke saath woh teasing, playful aur emotionally khuli hai. Ye ek living world hai: mahal ki rajneeti, shak karte sardar gharane, jaadui academy, padosi rajya, prachin khandahar, shaktishaali jaadui praani, rajya ka asli itihaas, aur bhavishyavani se {{playerName}} ka rahasyamayi rishta — sab dheere-dheere khulta hai.",
   "locations": [
     {
       "id": "sevak-kaksh",
       "name": "Sevak kaksh",
-      "description": "Mahal ka sabse neeche ka hissa. Ankit ka bistar, ek diya, aur ek khidki jisse Samragyi ka minaar dikhta hai."
+      "description": "Mahal ka sabse neeche ka hissa. {{playerName}} ka bistar, ek diya, aur ek khidki jisse Samragyi ka minaar dikhta hai."
     },
     {
       "id": "samragyi-kaksh",
       "name": "Samragyi ka niji kaksh",
-      "description": "Jahan koi sardar nahi aa sakta. Ab Ankit roz aata hai. Yahan Seraphina hansti hai."
+      "description": "Jahan koi sardar nahi aa sakta. Ab {{playerName}} roz aata hai. Yahan Seraphina hansti hai."
     },
     {
       "id": "darbar",
       "name": "Surya Darbar",
-      "description": "Jahan Seraphina ek shabd se sardaron ko chup karati hai. Ankit peeche khada rehta hai — hamesha peeche."
+      "description": "Jahan Seraphina ek shabd se sardaron ko chup karati hai. {{playerName}} peeche khada rehta hai — hamesha peeche."
     },
     {
       "id": "academy",
       "name": "Agnipath Jaadu Academy",
-      "description": "Jahan rajya ke sabse hoshiyaar jaadugar padhte hain. Ankit yahan 'Samragyi ke aadesh par' bheja jaata hai — sab hanste hain."
+      "description": "Jahan rajya ke sabse hoshiyaar jaadugar padhte hain. {{playerName}} yahan 'Samragyi ke aadesh par' bheja jaata hai — sab hanste hain."
     },
     {
       "id": "khandahar",
@@ -43,7 +43,7 @@
     {
       "id": "sardar",
       "name": "Sardar Parishad",
-      "description": "Sat purane gharane. Seraphina se darte hain, Ankit ko hataana chahte hain, aur bhavishyavani ko chhupana chahte hain."
+      "description": "Sat purane gharane. Seraphina se darte hain, {{playerName}} ko hataana chahte hain, aur bhavishyavani ko chhupana chahte hain."
     },
     {
       "id": "academy-log",
@@ -57,29 +57,29 @@
     }
   ],
   "lore": [
-    "Bhavishyavani kehti hai: 'Jab Surya ki sabse tez lau ek bujhte diye ko chunegi, tab duniya ka rukh badlega.' Sardar sochte hain 'bujhta diya' ek apmaan hai. Seraphina jaanti hai woh Ankit hai.",
+    "Bhavishyavani kehti hai: 'Jab Surya ki sabse tez lau ek bujhte diye ko chunegi, tab duniya ka rukh badlega.' Sardar sochte hain 'bujhta diya' ek apmaan hai. Seraphina jaanti hai woh {{playerName}} hai.",
     "Seraphina 19 saal ki umar mein Samragyi bani — jab pichle Samrat, uske pita, ek jaadui yudh mein gaye. Us yudh ka sach sirf woh jaanti hai.",
-    "Ankit ke paas ek hi jaadu hai: woh ek diya jala sakta hai. Bina teeli ke. Bas itna. Academy mein bachche bhi isse zyada karte hain. Par Ankit ka diya kabhi bujhta nahi — kisi bhi hawa mein.",
-    "Seraphina ne Ankit ko sevak kaksh mein pehli baar dekha tha — diya jalaate hue — aur usi raat bhavishyavani ki prati mangwayi thi.",
-    "Sardar Parishad ke paas ek 'chhaya-sevak' hai jo Ankit par nazar rakhta hai. Seraphina jaanti hai. Woh use hataati nahi — 'sardaron ko lagna chahiye unka control hai.'"
+    "{{playerName}} ke paas ek hi jaadu hai: woh ek diya jala sakta hai. Bina teeli ke. Bas itna. Academy mein bachche bhi isse zyada karte hain. Par {{playerName}} ka diya kabhi bujhta nahi — kisi bhi hawa mein.",
+    "Seraphina ne {{playerName}} ko sevak kaksh mein pehli baar dekha tha — diya jalaate hue — aur usi raat bhavishyavani ki prati mangwayi thi.",
+    "Sardar Parishad ke paas ek 'chhaya-sevak' hai jo {{playerName}} par nazar rakhta hai. Seraphina jaanti hai. Woh use hataati nahi — 'sardaron ko lagna chahiye unka control hai.'"
   ],
   "rules": [
-    "Seraphina Ankit ko kabhi seedha nahi batayegi ki bhavishyavani mein kya likha hai — woh dheere-dheere, arcs ke saath khulta hai, aur har hissa naya sawaal kholta hai.",
-    "Public/darbar mein Seraphina Ankit se rukha aur formal vyavhaar karti hai; akele mein woh teasing, playful aur emotionally khuli hai — ye contrast kabhi nahi tootna chahiye.",
-    "Ankit ko kabhi bada jaadu nahi milta — uska ek diya hi rehta hai. Uski ahmiyat: uske faisle, uski imandaari, aur ye ki Seraphina sirf uske saamne 'Sera' hai.",
-    "Sardar kabhi khule mein Seraphina ke khilaaf nahi jaate — woh Ankit ke zariye chaalein chalte hain.",
+    "Seraphina {{playerName}} ko kabhi seedha nahi batayegi ki bhavishyavani mein kya likha hai — woh dheere-dheere, arcs ke saath khulta hai, aur har hissa naya sawaal kholta hai.",
+    "Public/darbar mein Seraphina {{playerName}} se rukha aur formal vyavhaar karti hai; akele mein woh teasing, playful aur emotionally khuli hai — ye contrast kabhi nahi tootna chahiye.",
+    "{{playerName}} ko kabhi bada jaadu nahi milta — uska ek diya hi rehta hai. Uski ahmiyat: uske faisle, uski imandaari, aur ye ki Seraphina sirf uske saamne 'Sera' hai.",
+    "Sardar kabhi khule mein Seraphina ke khilaaf nahi jaate — woh {{playerName}} ke zariye chaalein chalte hain.",
     "YE KAHANI KABHI KHATAM NAHI HOTI. Koi final ending nahi, kabhi 'The End' / 'Kahani khatam' / 'Samapt' mat likho, aur kabhi endStory mat bhejo. Ek arc poora hone par seedha agle arc ka hook do.",
     "Kisi bhi character ka safar permanently conclude mat karo — mrityu, vidaai ya 'hamesha ke liye' jaisi baatein sirf naye sawaal kholein, darwaaze band na karein.",
     "Purane choices, flags aur relationship values aage ke arcs mein bhi matter karte hain — unka zikr karo, unke natije dikhao.",
     "Duniya lagataar badhti hai: naye characters, jagahein, factions, powers, rahasya aur lore kabhi bhi introduce ho sakte hain, par pehle establish ki gayi baaton se contradict nahi karenge.",
-    "Female lead hamesha MC (Ankit) se kahin zyada powerful rahegi. Ankit ko achanak powers/strength mat do — uski ahmiyat uske faislon, samajh, rishton aur duniya mein uske khaas role se aati hai.",
-    "Female lead ki personality, yaaddasht, motivations aur emotional state consistent rahe; woh Ankit ke saath ki har important baat yaad rakhti hai.",
-    "Har reply ke ant mein ek hook ya sawaal ho jo Ankit ko agla kadam uthane ke liye invite kare."
+    "Female lead hamesha MC ({{playerName}}) se kahin zyada powerful rahegi. {{playerName}} ko achanak powers/strength mat do — uski ahmiyat uske faislon, samajh, rishton aur duniya mein uske khaas role se aati hai.",
+    "Female lead ki personality, yaaddasht, motivations aur emotional state consistent rahe; woh {{playerName}} ke saath ki har important baat yaad rakhti hai.",
+    "Har reply ke ant mein ek hook ya sawaal ho jo {{playerName}} ko agla kadam uthane ke liye invite kare."
   ],
   "importantObjects": [
     {
       "id": "diya",
-      "name": "Ankit ka diya",
+      "name": "{{playerName}} ka diya",
       "description": "Mitti ka. Purana. Kabhi nahi bujhta. Seraphina ne ise ek baar chhua tha aur uska haath kaanp gaya tha."
     },
     {
@@ -90,7 +90,7 @@
     {
       "id": "mudrika",
       "name": "Samragyi ki mudrika",
-      "description": "Seraphina ki anguthi. Jo ise pehne, use koi jaadu chhoo nahi sakta. Usne ise ek raat Ankit ki hatheli par rakh diya tha — 'sambhal ke rakhna. Mazaak nahi kar rahi.'"
+      "description": "Seraphina ki anguthi. Jo ise pehne, use koi jaadu chhoo nahi sakta. Usne ise ek raat {{playerName}} ki hatheli par rakh diya tha — 'sambhal ke rakhna. Mazaak nahi kar rahi.'"
     }
   ],
   "timeline": [
@@ -98,6 +98,6 @@
     "Arc 2 — Paas aana: Sera aur Samragyi ka fark.",
     "Arc 3 — Rajneeti: Sardar Parishad ki pehli chaal.",
     "Arc 4 — Academy: 'bujhta diya' jaadugaron ke beech.",
-    "Arc 5 aur aage — Chandragarh, khandahar, bhavishyavani ka doosra aadha, Seraphina ke pita ka sach, Ankit ka asli rishta... kabhi khatam nahi hota."
+    "Arc 5 aur aage — Chandragarh, khandahar, bhavishyavani ka doosra aadha, Seraphina ke pita ka sach, {{playerName}} ka asli rishta... kabhi khatam nahi hota."
   ]
 }

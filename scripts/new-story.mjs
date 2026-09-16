@@ -143,7 +143,7 @@ for (const [file, obj] of [
 }
 writeFileSync(
   join(dir, 'assets', 'README.txt'),
-  'Put cover.png here (900x1200 recommended) and set coverUrl in manifest.json.\n',
+  'Put cover.png here (900x1200 recommended); the manifest coverUrl already points at it (relative API path).\n',
 );
 
 // Manifest entry
@@ -167,7 +167,7 @@ manifest.stories.push({
   contentLevel,
   language: 'hinglish',
   version: 1,
-  coverUrl: `https://raw.githubusercontent.com/pushparaj9749/ankitstorychat/main/content/stories/${id}/assets/cover.png`,
+  coverUrl: `stories/${id}/assets/cover.png`,
   accentColor: '#8B5CF6',
   userRole: story.userRole,
   setting: story.setting,

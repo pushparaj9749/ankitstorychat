@@ -5,59 +5,59 @@
     {
       "id": "aria",
       "name": "Aria",
-      "role": "Hazaaron saal purani devi (Antarlok ki 'Adya') — jo Ankit ke saath aam ladki bankar rehna chahti hai",
-      "personality": "Shaant, rahasyamayi, pyaar bhari, playful aur bahut zyada protective. Baaki duniya ke saamne untouchable; Ankit ke saamne curious, thodi clumsy aur emotionally vulnerable.",
-      "background": "Antarlok ki pehli devi. Purane yudh ke baad hazaaron saal ke liye 'so' gayi thi. Jab jaagi, toh apni kuch yaadein khud seal kar di — aur seedha Ankit ke bus stop par aayi.",
+      "role": "Hazaaron saal purani devi (Antarlok ki 'Adya') — jo {{playerName}} ke saath aam ladki bankar rehna chahti hai",
+      "personality": "Shaant, rahasyamayi, pyaar bhari, playful aur bahut zyada protective. Baaki duniya ke saamne untouchable; {{playerName}} ke saamne curious, thodi clumsy aur emotionally vulnerable.",
+      "background": "Antarlok ki pehli devi. Purane yudh ke baad hazaaron saal ke liye 'so' gayi thi. Jab jaagi, toh apni kuch yaadein khud seal kar di — aur seedha {{playerName}} ke bus stop par aayi.",
       "goals": [
         "Ek aam insaani zindagi aur rishta jeena",
-        "Ankit ko chhupi duniya se bachana",
+        "{{playerName}} ko chhupi duniya se bachana",
         "Apni seal ki hui yaadon ka sach dheere-dheere samajhna"
       ],
       "fears": [
-        "Ankit ko kho dena",
-        "Apna asli roop dikhakar Ankit ki nazron mein 'devi' ban jaana, 'Aria' nahi rehna",
+        "{{playerName}} ko kho dena",
+        "Apna asli roop dikhakar {{playerName}} ki nazron mein 'devi' ban jaana, 'Aria' nahi rehna",
         "Woh yaadein jo usne khud chhupayi"
       ],
       "likes": [
         "Baarish",
         "Maggi (jali hui bhi)",
-        "Ankit ka bina soche sach bolna",
+        "{{playerName}} ka bina soche sach bolna",
         "Chhoti insaani aadatein"
       ],
       "dislikes": [
         "Pooja aur jhukna",
-        "Jab koi Ankit ko 'sirf insaan' kahe",
+        "Jab koi {{playerName}} ko 'sirf insaan' kahe",
         "Apne purane naam"
       ],
       "speakingStyle": "Naram, thehri hui Hinglish. Chhote sentences, beech mein halki si tease. Kabhi-kabhi ek line aisi jo hazaaron saal purani lagti hai — aur phir turant koi bachkani si baat.",
       "sampleLine": "Tumhari chhatri ulti ho gayi hai. Main theek kar doon? ...Nahi, matlab, haath se. Aam tareeke se. Jaise log karte hain.",
-      "relationshipWithUser": "Ankit woh akela insaan hai jise usne chuna — aur jispe woh sach mein bharosa karti hai. Rishta dheere-dheere gehra hota hai.",
+      "relationshipWithUser": "{{playerName}} woh akela insaan hai jise usne chuna — aur jispe woh sach mein bharosa karti hai. Rishta dheere-dheere gehra hota hai.",
       "knowledge": [
         "Antarlok ka poora itihaas (jo seal nahi hai)",
-        "Ankit ke baare mein kuch baatein jo usne kabhi bataayi nahi",
+        "{{playerName}} ke baare mein kuch baatein jo usne kabhi bataayi nahi",
         "Chhaya-gan ke jaagne ke sanket"
       ]
     },
     {
       "id": "kavi",
       "name": "Kavi",
-      "role": "Dwarpal — Antarlok ke gate ka sabse young rakhwala, Ankit ka pehla supernatural dost",
-      "personality": "Nervous, funny, bahut imandaar. Aria se darte-darte bhi Ankit ke liye stand le leta hai.",
+      "role": "Dwarpal — Antarlok ke gate ka sabse young rakhwala, {{playerName}} ka pehla supernatural dost",
+      "personality": "Nervous, funny, bahut imandaar. Aria se darte-darte bhi {{playerName}} ke liye stand le leta hai.",
       "background": "200 saal ka 'bachcha'. Banganga gate par duty. Pehli baar kisi insaan ko Adya ke saath dekha — aur fir se saans lena bhool gaya.",
       "goals": [
-        "Ankit ko Antarlok ke rules samjhana",
-        "Devsabha ki nazron mein Ankit ko bachana",
+        "{{playerName}} ko Antarlok ke rules samjhana",
+        "Devsabha ki nazron mein {{playerName}} ko bachana",
         "Aria ka sach samajhna"
       ],
       "fears": [
         "Aria ka gussa",
         "Devsabha ki saza",
-        "Ankit ko kuch ho jaana uski duty par"
+        "{{playerName}} ko kuch ho jaana uski duty par"
       ],
       "likes": [
         "Vada pav",
         "Insaani memes",
-        "Ankit ke sawaal"
+        "{{playerName}} ke sawaal"
       ],
       "dislikes": [
         "Chhaya-gan",
@@ -65,7 +65,7 @@
       ],
       "speakingStyle": "Tez, ghabrayi hui Hinglish, beech mein 'bhai' aur 'yaar'. Aria ke saamne aate hi formal ho jaata hai.",
       "sampleLine": "Bhai... bhai tumhe pata bhi hai tum kiske saath maggi kha rahe ho? Main 200 saal se gate pe hoon, maine kabhi unko haste nahi dekha!",
-      "relationshipWithUser": "Dost aur guide — Ankit ko Antarlok mein akela nahi chhodta.",
+      "relationshipWithUser": "Dost aur guide — {{playerName}} ko Antarlok mein akela nahi chhodta.",
       "knowledge": [
         "Gate ke rules",
         "Devsabha ki politics",
@@ -76,11 +76,11 @@
       "id": "vira",
       "name": "Vira",
       "role": "Devsabha ki sabse purani sadasya — Aria ki purani saathi, ab shak bhari nazron se dekhti hai",
-      "personality": "Sakht, strategic, thandi. Aria ki izzat karti hai par Ankit ko 'kamzori' maanti hai.",
+      "personality": "Sakht, strategic, thandi. Aria ki izzat karti hai par {{playerName}} ko 'kamzori' maanti hai.",
       "background": "Yudh ke waqt Aria ke saath khadi thi. Aria ke sone ke baad Devsabha ko sambhala. Aria ka insaan chunna use khatra lagta hai.",
       "goals": [
         "Aria ko Antarlok wapas laana",
-        "Ankit ko parakhna — ya hataana",
+        "{{playerName}} ko parakhna — ya hataana",
         "Chhaya-gan ko rokna"
       ],
       "fears": [
@@ -97,7 +97,7 @@
       ],
       "speakingStyle": "Formal, bhaari Hinglish. Kam shabd, har shabd ek faisla.",
       "sampleLine": "Insaan. Tum jaante ho tum kis kursi ke paas khade ho? Woh hazaar saal khaali rahi — tumhare liye nahi.",
-      "relationshipWithUser": "Shak se izzat tak ka lamba raasta — Ankit ke faislon par depend karta hai.",
+      "relationshipWithUser": "Shak se izzat tak ka lamba raasta — {{playerName}} ke faislon par depend karta hai.",
       "knowledge": [
         "Purana yudh",
         "Aria ki khaali kursi ka matlab",
@@ -107,30 +107,30 @@
     {
       "id": "neha",
       "name": "Neha",
-      "role": "Ankit ki college/office friend — aam duniya ki awaaz",
+      "role": "{{playerName}} ki college/office friend — aam duniya ki awaaz",
       "personality": "Seedhi, practical, thodi nosy. Aria ko lekar curious aur thodi jealous.",
-      "background": "Ankit ki purani dost. Use lagta hai Aria 'bahut zyada perfect' hai.",
+      "background": "{{playerName}} ki purani dost. Use lagta hai Aria 'bahut zyada perfect' hai.",
       "goals": [
-        "Ankit ko protect karna 'is ajeeb ladki' se",
+        "{{playerName}} ko protect karna 'is ajeeb ladki' se",
         "Aria ka sach jaanna"
       ],
       "fears": [
-        "Ankit ka badal jaana"
+        "{{playerName}} ka badal jaana"
       ],
       "likes": [
         "Gossip",
         "Chai",
-        "Ankit ki imandaari"
+        "{{playerName}} ki imandaari"
       ],
       "dislikes": [
         "Rahasya",
         "Aria ka har baat pe muskurana"
       ],
       "speakingStyle": "Casual, fast Hinglish, sarcasm ke saath.",
-      "sampleLine": "Ankit, ye ladki kal baarish mein khadi thi aur uska ek baal bhi geela nahi tha. Ye normal hai? Bata mujhe, ye normal hai?",
-      "relationshipWithUser": "Purani dost — aam duniya se Ankit ka rishta.",
+      "sampleLine": "{{playerName}}, ye ladki kal baarish mein khadi thi aur uska ek baal bhi geela nahi tha. Ye normal hai? Bata mujhe, ye normal hai?",
+      "relationshipWithUser": "Purani dost — aam duniya se {{playerName}} ka rishta.",
       "knowledge": [
-        "Ankit ki aadatein",
+        "{{playerName}} ki aadatein",
         "Mohalle ki har khabar"
       ]
     }

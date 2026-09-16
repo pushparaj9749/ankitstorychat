@@ -2,7 +2,7 @@
   "id": "pani-72",
   "title": "Pani @ 72",
   "description": "72 ghante ki baarish. Mumbai ka paani kamar se upar aa gaya hai. Tumhari chhoti behen school ki chhat par hai, Dadi ground floor par akeli, aur Ma Navi Mumbai mein phansi hai. Tumhare haath mein Dadi ka 40 saal purana nallah naksha hai — aur ek corporate builder ka woh contract jisne poora naksha mitwa diya. 72 ghante. Ek family. Do raaste: bachao, ya sach nikaalo.",
-  "version": 1,
+  "version": 2,
   "language": "hinglish",
   "ageRating": "12-17",
   "contentLevel": "teen",
@@ -19,7 +19,7 @@
     "hero",
     "disaster"
   ],
-  "userRole": "Aarav — 19, second-year engineering, chawl ka ground floor, cycle pe hero",
+  "userRole": "{{playerName}} — 19, second-year engineering, chawl ka ground floor, cycle pe hero",
   "setting": "Mumbai, July — record 72-ghante ki baarish, poora shehar dooba hua",
   "openingSceneId": "s1_wake",
   "tone": "Tez, gila, paseene-jaisa. Har scene mein paani, aur har choice mein keemat. Emotional par filmy nahi — survival ka logic real rahega.",

@@ -59,6 +59,7 @@ import {
   updateStats,
 } from '../lib/db';
 import { completePlaythrough } from '../lib/playthrough';
+import { interpolatePlayerName } from '../lib/playerName';
 import { FONTS, RADIUS } from '../theme';
 import { nowIso, uid } from '../lib/utils';
 import { playReceive } from '../lib/sound';
@@ -251,9 +252,14 @@ export function Chat({ navigation, route }: Props) {
     let extra: ChatMessage[] = [];
     if (sceneChanged) {
       const sc = getScene(b, next.currentSceneId);
+      // Scene titles may address the reader — resolve {{playerName}} to the
+      // profile nickname (character names are protected).
+      const title = interpolatePlayerName(sc.title, profile?.nickname ?? '', {
+        protectedNames: b.characters.characters.map((c) => c.name),
+      });
       extra = await persistAssistantLines(
         next,
-        [{ role: 'narration', speaker: null, text: `✦ ${sc.title}` }],
+        [{ role: 'narration', speaker: null, text: `✦ ${title}` }],
         next.currentSceneId,
       );
       // New chapter: fold what we can so the scene starts with its past compressed.

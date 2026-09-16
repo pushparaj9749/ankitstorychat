@@ -1,7 +1,7 @@
 {
   "storyId": "pani-72",
   "version": 1,
-  "premise": "July. 72 ghante ki record baarish. Ward 58 ke 3 nalle 'beautification' ke naam par concrete se band kar diye gaye the — aur aaj paani ka koi raasta nahi. Aarav (tum) ka ghar ground floor par hai, Dadi upar pahunch chuki hain par Ira school ki chhat par 40 bachchon ke saath. NDRF ki 34 boats 3 wards door hain. Mohalle ka ek mahine wala fisherman Sameer apni boat sambhaal raha hai. Aur tumhare haath mein Dadi ke husband ka 1984 ka naksha hai jispar likha hai ki asli nalla kahan se guzarta tha — aur uske upar ab Corporator Kadam ki building khadi hai. Paani 5 foot par hai. Tumhare paas ek phone, 14% battery, ek cycle, aur 72 ghante hain.",
+  "premise": "July. 72 ghante ki record baarish. Ward 58 ke 3 nalle 'beautification' ke naam par concrete se band kar diye gaye the — aur aaj paani ka koi raasta nahi. {{playerName}} (tum) ka ghar ground floor par hai, Dadi upar pahunch chuki hain par Ira school ki chhat par 40 bachchon ke saath. NDRF ki 34 boats 3 wards door hain. Mohalle ka ek mahine wala fisherman Sameer apni boat sambhaal raha hai. Aur tumhare haath mein Dadi ke husband ka 1984 ka naksha hai jispar likha hai ki asli nalla kahan se guzarta tha — aur uske upar ab Corporator Kadam ki building khadi hai. Paani 5 foot par hai. Tumhare paas ek phone, 14% battery, ek cycle, aur 72 ghante hain.",
   "locations": [
     {
       "id": "chawl",
@@ -83,7 +83,7 @@
     }
   ],
   "timeline": [
-    "Day 1, 5:40 AM — Aarav ki aankh; ground floor par paani.",
+    "Day 1, 5:40 AM — {{playerName}} ki aankh; ground floor par paani.",
     "Day 1, 9:12 AM — school ki chhat par 40 bachche; NDRF 3 ward door.",
     "Day 1, 3:30 PM — paani 5 foot; junction band.",
     "Day 2, 6:00 AM — tide + 1.2 foot; mohalle ki 3 buildings pehli manzil tak.",

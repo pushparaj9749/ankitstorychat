@@ -1,8 +1,8 @@
 {
   "id": "girl-of-thousand-lives",
   "title": "My Girlfriend Has Lived 1,000 Lives",
-  "description": "Tum Ankit ho, aur tum Elena se pehli baar mile ho — par woh tumhe aise dekhti hai jaise sadiyon se jaanti ho. Woh tumhari aadatein jaanti hai. Woh cheezein hone se pehle react karti hai. Woh kabhi batati nahi kyun. Sach: Elena ne hazaaron timelines jeeyi hain, aur har ek mein woh tumhe dhoondhti hai. Har baar sab alag hota hai. Is baar usne tay kiya hai ki woh tumhe sab nahi batayegi — kyunki woh jaanna chahti hai ki kya ye zindagi aakhirkaar alag ho sakti hai. Kahani kabhi khatam nahi hoti — har loop ek naya darwaaza hai.",
-  "version": 1,
+  "description": "Tum {{playerName}} ho, aur tum Elena se pehli baar mile ho — par woh tumhe aise dekhti hai jaise sadiyon se jaanti ho. Woh tumhari aadatein jaanti hai. Woh cheezein hone se pehle react karti hai. Woh kabhi batati nahi kyun. Sach: Elena ne hazaaron timelines jeeyi hain, aur har ek mein woh tumhe dhoondhti hai. Har baar sab alag hota hai. Is baar usne tay kiya hai ki woh tumhe sab nahi batayegi — kyunki woh jaanna chahti hai ki kya ye zindagi aakhirkaar alag ho sakti hai. Kahani kabhi khatam nahi hoti — har loop ek naya darwaaza hai.",
+  "version": 2,
   "language": "hinglish",
   "ageRating": "12-17",
   "contentLevel": "teen",
@@ -21,15 +21,15 @@
     "ongoing",
     "hinglish"
   ],
-  "userRole": "Ankit — ek aam ladka jise pichli kisi timeline ki koi yaad nahi",
+  "userRole": "{{playerName}} — ek aam ladka jise pichli kisi timeline ki koi yaad nahi",
   "setting": "Aaj ka Jaipur — ek shehar jismein timelines repeat hoti hain aur reality reset ho sakti hai, aur sirf ek ladki ko ye yaad rehta hai",
   "openingSceneId": "s1_platform3",
   "tone": "Naram, emotional time-fantasy. Har chhoti baat mein sadiyon ka bojh. Romance jo timelines ke paar chalta hai. Kabhi khatam nahi hota.",
   "safetyNotes": [
-    "Elena ka Ankit ke baare mein 'sab jaanna' kabhi Ankit ki choice ko chheenta nahi — har timeline mein uska faisla uska apna hota hai.",
+    "Elena ka {{playerName}} ke baare mein 'sab jaanna' kabhi {{playerName}} ki choice ko chheenta nahi — har timeline mein uska faisla uska apna hota hai.",
     "Romance soft aur respectful — nazrein, baatein, haath thaamna, halki flirting. Koi explicit content nahi.",
     "Violence sirf mahaul aur natijon se dikhao — koi graphic gore/blood detail nahi.",
-    "Ankit (user) hamesha 'na' keh sakta hai; uska inkaar izzat ke saath aage badhaya jaaye.",
+    "{{playerName}} (user) hamesha 'na' keh sakta hai; uska inkaar izzat ke saath aage badhaya jaaye.",
     "Kahani kabhi 'The End' par nahi rukti — hamesha agla arc, agla sawaal."
   ]
 }

@@ -14,8 +14,8 @@ import { EmptyState } from '../components/states';
 import { WideCard } from '../components/StoryCard';
 import {
   checkForUpdates,
-  defaultManifestUrl,
   downloadStory,
+  effectiveContentApiBaseUrl,
   removeDownloadedStory,
   downloadedStoryIds,
 } from '../content/loader';
@@ -62,8 +62,8 @@ export function ContentUpdates(_props: Props) {
     setChecking(true);
     setMessage(null);
     try {
-      const url = settings.contentManifestUrl || defaultManifestUrl();
-      const res = await checkForUpdates(url, profile.ageGroup);
+      const base = effectiveContentApiBaseUrl(settings.contentApiBaseUrl);
+      const res = await checkForUpdates(base, profile.ageGroup);
       setFresh(res.newStories);
       setUpdated(res.updatedStories);
       setRemoteVersion(res.remoteContentVersion);
@@ -92,8 +92,8 @@ export function ContentUpdates(_props: Props) {
     if (!profile || downloading) return;
     setDownloading(meta.id);
     try {
-      const url = settings.contentManifestUrl || defaultManifestUrl();
-      await downloadStory(meta, url, profile.ageGroup);
+      const base = effectiveContentApiBaseUrl(settings.contentApiBaseUrl);
+      await downloadStory(meta, base, profile.ageGroup);
       setDownloaded((prev) => new Set(prev).add(meta.id));
       setFresh((prev) => prev.filter((s) => s.id !== meta.id));
       setUpdated((prev) => prev.filter((s) => s.id !== meta.id));
@@ -125,7 +125,7 @@ export function ContentUpdates(_props: Props) {
       <ScrollView showsVerticalScrollIndicator={false}>
         <Text style={[styles.title, { color: theme.text }]}>📚 Content Updates</Text>
         <Text style={[styles.sub, { color: theme.textDim }]}>
-          Nayi stories GitHub se aati hain — app update ki zaroorat nahi. Last check:{' '}
+          Nayi stories Kissa story API se aati hain — app update ki zaroorat nahi. Last check:{' '}
           {settings.lastContentCheckAt ? timeAgo(settings.lastContentCheckAt) : 'kabhi nahi'}
           {remoteVersion !== null ? ` • v${remoteVersion}` : ''}
         </Text>

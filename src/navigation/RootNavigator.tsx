@@ -6,7 +6,7 @@ import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import type { MainTabParamList, RootStackParamList } from '../types';
 import { useApp } from '../state/AppContext';
-import { checkForUpdates, defaultManifestUrl } from '../content/loader';
+import { checkForUpdates, effectiveContentApiBaseUrl } from '../content/loader';
 import { notifyContentUpdate } from '../lib/notifications';
 import { setAmbientPlaying } from '../lib/sound';
 
@@ -52,8 +52,8 @@ function MainTabs() {
     const t = setTimeout(() => {
       void (async () => {
         try {
-          const url = settings.contentManifestUrl || defaultManifestUrl();
-          const res = await checkForUpdates(url, profile.ageGroup);
+          const base = effectiveContentApiBaseUrl(settings.contentApiBaseUrl);
+          const res = await checkForUpdates(base, profile.ageGroup);
           if (res.hasUpdate) {
             setUpdateAvailable(true);
             if (settings.notifications.enabled && settings.notifications.contentUpdates) {

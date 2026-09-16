@@ -1,0 +1,22 @@
+{
+  "name": "kissa-content-worker",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Kissa story content API \u2014 Cloudflare Worker serving public story packages from CI-deployed assets.",
+  "scripts": {
+    "build:assets": "node ../scripts/build-worker-assets.mjs",
+    "typecheck": "tsc --noEmit",
+    "test": "node ../scripts/build-worker-assets.mjs && jest --coverage=false",
+    "dev": "npm run build:assets && wrangler dev",
+    "deploy": "npm run build:assets && wrangler deploy",
+    "dryrun": "npm run build:assets && wrangler deploy --dry-run"
+  },
+  "devDependencies": {
+    "@cloudflare/workers-types": "^5.20260915.1",
+    "@types/jest": "^30.0.0",
+    "jest": "^30.2.0",
+    "ts-jest": "^29.4.0",
+    "typescript": "~6.0.3",
+    "wrangler": "^4.40.0"
+  }
+}

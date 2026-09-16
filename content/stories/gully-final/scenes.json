@@ -113,7 +113,7 @@
         "Chintu: \"Sher 176/4, 18 over. Zoya 71. Target: 179. Qureshi ka scoreboard 3 din se kharab hai, par main theek hoon.\"",
         "*Aakhri ball par Ramakaka tumhare kaan mein bolta hai: 'Over karne se pehle ek sawaal poochh — tu kiska darr raha hai?'*",
         "*Jeet jaati ho. 4 wicket. Maidan 40 second ke liye ek hi awaaz mein: 'GA-LI KE SHER!'. Gujju boundary ke paas khada hai, haath mein phone, aur woh video bana raha hai — mubarakbaad ke liye nahi.*",
-        "Zoya: \"Final mein 200 honge. Unka plan: last over mein 3 boundary, aur ek bowler jo thaka ho. Tu unka plan hai, Arjun.\""
+        "Zoya: \"Final mein 200 honge. Unka plan: last over mein 3 boundary, aur ek bowler jo thaka ho. Tu unka plan hai, {{playerName}}.\""
       ],
       "fallbackLines": [
         "*Qureshi ka captain tumse haath milata hai aur kehta hai: 'Bhai, ladki ne tujhse zyada mari. Izzat uski ho rahi hai.' Zoya hasti hai — pehli baar aaj.*",
@@ -196,7 +196,7 @@
         "*Committee ka table: 2 plastic chairs, ek chhatri, aur ek file jispar 'Ground Sanction — Ramnagar Maidan' likha hai, 3 saal se ruka hua. Tum envelope rakhte ho.*",
         "Committee Uncle: \"Beta... ise kholna zaroori hai? Gujjar Builders is maidan ki light lagwata hai. Aur final 4 ghante mein hai.\"",
         "*Gujju 30 second mein aata hai — bina gusse ke, haath mein chai. Woh committee ke samne envelope kholta hai, 100 rupaye kam hain, aur woh haste hue kehta hai:*",
-        "Gujju: \"Sir, ye toh team welfare ka advance tha. Arjun ko academy seat ke liye. Dekhiye, mere paas WhatsApp hai.\"",
+        "Gujju: \"Sir, ye toh team welfare ka advance tha. {{playerName}} ko academy seat ke liye. Dekhiye, mere paas WhatsApp hai.\"",
         "*Zoya, jo bahar khadi hai, andar aati hai. Bina bole Chintu ka notebook leti hai aur page 41 committee ke table par rakhti hai: 11:07, envelope, 47,900, aur ek line Chintu ke haath se: 'Note: 100 rupaye ka difference bhi likha hai, sir.'*",
         "Chintu: \"Maine 307 matches likhe hain, sir. Ek bhi galat nahi. Aap mujhe jhootha bol sakte ho, par 6 saal ka record nahi mita sakte.\"",
         "*Committee uncle pen uthate hain. Light 6:45 band hogi. Match abhi bhi hoga. Par ab kisi ko pata hai ki aaj scoreboard hi court hoga.*"
@@ -257,7 +257,7 @@
         "*4:30 PM. Final. Gujjar Builders ne 200/6 banaye — 18 overs mein, 3 boundary last 2 over mein, aur ek over jismein 14 runs extra aaye (2 no-balls, 4 wides, 1 bye). Chintu ne sab likha. Maidan ke 500 log sab jaante hain.*",
         "*Sher ke 187/9, 19.4 over. 6 balls, 12 runs. Aaj tak kisi ne Ramnagar maidan par 12 run last over mein nahi banaye — 3 baar 11 bane hain. Nani Cup ke 38 saal mein record: 11.*",
         "Gujju: \"Bro, tu over daal. Tu daalenge, 12 banenge, aur tu 'imaandaar hero' rahega. Sab theek. Value addition, no drama.\"",
-        "*Ramakaka boundary se chillata hai, awaaz dheemi par poori hall mein: 'Arjun. 3 over bache hain. Daalna hai toh tu daal. Nahi daalna toh seedha bol — main Chotu ko bhej dunga. Koi sharam ki baat nahi.'*",
+        "*Ramakaka boundary se chillata hai, awaaz dheemi par poori hall mein: '{{playerName}}. 3 over bache hain. Daalna hai toh tu daal. Nahi daalna toh seedha bol — main Chotu ko bhej dunga. Koi sharam ki baat nahi.'*",
         "*Zoya non-strike par khadi hai, bat kandhe par. Woh sirf ek line bolti hai.*",
         "Zoya: \"Tere 3 plans hain. Unka plan ek hai: tu thaka hua, aur tu darrta hua. Dono choose mat kar.\""
       ],
@@ -399,7 +399,7 @@
       "narration": [
         "*6:15. Boundary ki ghaas par tum dono baithe ho. Maidan khaali hai, sirf committee ki chhatri aur 3 kutte. Zoya apna bat theek kar rahi hai, par uski ungliyan 4 minute se ek hi grip par hain.*",
         "Zoya: \"Tapri par tune kuch nahi bola tha. Aaj bhi nahi bol raha. Theek hai. Par ek baat bol dungi — aur phir main over sochne jaati hoon.\"",
-        "Zoya: \"Qureshi wale jo bolte hain na — 'ladki hai' — woh mujhe 4 saal se bol rahe hain. Maine 71 maari aaj, aur unhone 4 wicket liye. Ab koi nahi bolta. Paisa aur ball, Arjun: dono ka jawab ek hi hota hai — number.\"",
+        "Zoya: \"Qureshi wale jo bolte hain na — 'ladki hai' — woh mujhe 4 saal se bol rahe hain. Maine 71 maari aaj, aur unhone 4 wicket liye. Ab koi nahi bolta. Paisa aur ball, {{playerName}}: dono ka jawab ek hi hota hai — number.\"",
         "*Woh tumhari taraf dekhti hai. Pehli baar aaj aankh mein aankh daalkar, bina mazaak.*",
         "Zoya: \"Agar tune envelope liya hai toh bata de. Main tujhse nafrat nahi karungi. Bas main final mein nahi khelungi. Kyunki phir mera 71 bhi 'manage' kehlaayega.\"",
         "*Maidan ki light on hoti hai — ek pole. 500 meter door, Gujju ka baap apni nayi building ka board laga raha hai: 'RAMNAGAR COMPLEX — UNDER CONSTRUCTION'. Wahan pehle 4 ghar the.*"
@@ -620,7 +620,7 @@
         "*Tum mid-on par khade ho. Chotu bol karra ha hai — 19 saal ka, tez haath, par sirf 4 over practice. Gujju 200 banakar uske upar hassta hai: 'Bhai, tera over toh gift hai'.*",
         "*Ball 1: single. Ball 2: wide. Ball 3: six — tumhare haath ke 8 inch upar se. Maidan chup. Tum chup nahi: tum chillate ho 'next ball, line!'.*",
         "*Ball 4: Chotu ka bouncer, batsman ka pull, deep-square par tum 10 kadam daudte ho, aur haath niche se upar — catch. Maidan phat'ta hai.*",
-        "Chintu: \"4 ball. 8 run. 2 ball. 4 run. Arjun bhaiya, maine catch ka number likh liya: 307-matches mein 41st catch.\"",
+        "Chintu: \"4 ball. 8 run. 2 ball. 4 run. {{playerName}} bhaiya, maine catch ka number likh liya: 307-matches mein 41st catch.\"",
         "*Ball 5: leg-by. Ball 6: 4 chahiye. Chotu length daalta hai, batsman swing karta hai, aur ball tumhare haath ki taraf aati hai — seedha, tez, aur thodi upar.*",
         "*Light 6:45 par jaane se 1 second pehle, tum haath badhaate ho.*"
       ],
@@ -793,7 +793,7 @@
         "*Aakhri ball: yorker, andhera, aur ek pole bujhi hui. Batsman ka pair aage aata hai, bat hawa mein, aur ball stump ke 4 inch paas se leg-stump uchhaal deti hai.*",
         "*0.4 second ki khamoshi. Phir maidan. 500 log nahi — aaj 5000. Ek hi awaaz: 'GA-LI KE SHER!'.*",
         "*Chintu scoreboard par 3 number likhta hai, phir unhein mita deta hai, aur ek line likhta hai: '12/6 — record: 11. Aaj: 13.'*",
-        "Chintu: \"Arjun bhaiya. 47,900 wale ka naam maine 'notes' mein likh diya hai. Cup ke naam ke saath. Kal committee padhegi. Aaj tum jeete.\"",
+        "Chintu: \"{{playerName}} bhaiya. 47,900 wale ka naam maine 'notes' mein likh diya hai. Cup ke naam ke saath. Kal committee padhegi. Aaj tum jeete.\"",
         "*Ramakaka chup-chaap aate hain, 1994 wali ball uthate hain, aur tumhare haath mein rakhte hain. Unki aankhein bheegi hain, par woh ise 'sweat' bolte hain. Maidan maan jaata hai.*",
         "*Zoya cup ke saamne khadi hai, bat neeche. Tum uske paas jaate ho. Dono kuch bolte nahi. Phir woh bolti hai:*",
         "Zoya: \"Aaj se is maidan pe koi 'brave' nahi bolega. Sirf 'opening partner' bolega. Theek hai?\"",
@@ -832,7 +832,7 @@
         "*Cup Gujjar Builders ke haath jaata hai. Unki reel 40 lakh views karti hai. Tumhari 47,900 bank mein jaati hai, aur maidan ki baat khatam.*",
         "*Agle din: Ramakaka ki dukaan band. Coach ne resignation nahi diya — woh sirf ek line likhkar gaya: 'Team ab tujhe chalayegi. Cup nahi, chunav.'*",
         "*Zoya ne final nahi khela — 3 over mein woh out ho gayi. Uske 71 ka record ab 'incomplete' kehlaata hai, aur maidan ke 4 uncle aaj bhi wahi kehte hain: 'ladki thi, chhod dena chahiye tha'. Sunne mein ajeeb lagta hai — aur yahi sabse dard hota hai.*",
-        "Chintu: \"Arjun bhaiya. Aaj se main sirf ek copy likhunga. ...Doosri copy mein main likhunga ki kisne kya kaha. Taaki sach 6 saal baad bhi kharida na ja sake.\"",
+        "Chintu: \"{{playerName}} bhaiya. Aaj se main sirf ek copy likhunga. ...Doosri copy mein main likhunga ki kisne kya kaha. Taaki sach 6 saal baad bhi kharida na ja sake.\"",
         "*3 mahine baad: 'Ramnagar Complex' ka board maidan ke upar khada hai. 4 families shift ho gayi — 2 unki marzi se, 2 bina. Aur ek 12 saal ka bachcha ab score nahi karta; uska notebook ab tumhare kamre mein hai, 307 match ka record, aur aakhri page par ek line: '12/6 — 11 record. Tune 13 de diye.'*",
         "*Aur phir bhi — har Sunday subah 6:30, maidan ke uss chhote se hisse par jahan light nahi jaati, tum akela ball uchhaalte ho. Kyunki uss ek cheez mein aaj bhi kisi ko paisa nahi milta.*"
       ],

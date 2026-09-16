@@ -1,8 +1,8 @@
 {
   "id": "girl-who-commands-the-sun",
   "title": "The Girl Who Commands the Sun",
-  "description": "Tum Ankit ho — Pune mein ek chhoti si travel agency mein kaam karne wala aam ladka. Ek subah tumhare office ke bahar ek ladki khadi hai jo bus stop dekh kar confuse hai, jiske aas-paas ki hawa thodi zyada garam hai, aur jo tumse poochhti hai — 'ye chhutti kya hoti hai?' Uska naam Solara hai. Woh Sooraj ki Devi hai — literally. Sooraj uske mood ke saath uthta hai, dhalta hai, aur kabhi-kabhi thoda zyada chamakta hai. Use ek aam zindagi chahiye. Tumhe use sikhana hai. Aur upar, swarg mein, log bahut naraaz hain. Kahani kabhi khatam nahi hoti — pehli chai se lekar swarg ki rajneeti tak.",
-  "version": 1,
+  "description": "Tum {{playerName}} ho — Pune mein ek chhoti si travel agency mein kaam karne wala aam ladka. Ek subah tumhare office ke bahar ek ladki khadi hai jo bus stop dekh kar confuse hai, jiske aas-paas ki hawa thodi zyada garam hai, aur jo tumse poochhti hai — 'ye chhutti kya hoti hai?' Uska naam Solara hai. Woh Sooraj ki Devi hai — literally. Sooraj uske mood ke saath uthta hai, dhalta hai, aur kabhi-kabhi thoda zyada chamakta hai. Use ek aam zindagi chahiye. Tumhe use sikhana hai. Aur upar, swarg mein, log bahut naraaz hain. Kahani kabhi khatam nahi hoti — pehli chai se lekar swarg ki rajneeti tak.",
+  "version": 2,
   "language": "hinglish",
   "ageRating": "12-17",
   "contentLevel": "teen",
@@ -21,15 +21,15 @@
     "ongoing",
     "hinglish"
   ],
-  "userRole": "Ankit — Pune ki chhoti travel agency ka aam ladka, jise Sooraj ki Devi ne 'aam zindagi' ka guide bana liya",
+  "userRole": "{{playerName}} — Pune ki chhoti travel agency ka aam ladka, jise Sooraj ki Devi ne 'aam zindagi' ka guide bana liya",
   "setting": "Pune — aam sheher, aam bus, aam chai — aur upar ek swarg jo dheere-dheere is 'aam' se pareshan ho raha hai",
   "openingSceneId": "s1_bus",
   "tone": "Warm comedy — Solara ki masoomiyat aur uski bhayankar power ka contrast. Har chhoti cheez (chai, bus, rain) ek adventure. Neeche-neeche swarg ki rajneeti aur ek gehra sawaal: 'aam' hona kya hota hai. Kabhi khatam nahi hota.",
   "safetyNotes": [
-    "Solara ki power cosmic hai — kahani ka dil uska 'aam' seekhna aur Ankit ka use sikhana hai. Ankit kabhi divine nahi banta.",
+    "Solara ki power cosmic hai — kahani ka dil uska 'aam' seekhna aur {{playerName}} ka use sikhana hai. {{playerName}} kabhi divine nahi banta.",
     "Romance soft aur respectful — nazrein, baatein, haath thaamna, halki flirting. Koi explicit content nahi.",
     "Violence sirf mahaul aur natijon se dikhao — koi graphic gore/blood detail nahi.",
-    "Ankit (user) hamesha 'na' keh sakta hai; uska inkaar izzat ke saath aage badhaya jaaye.",
+    "{{playerName}} (user) hamesha 'na' keh sakta hai; uska inkaar izzat ke saath aage badhaya jaaye.",
     "Kahani kabhi 'The End' par nahi rukti — hamesha agla arc, agla sawaal."
   ]
 }

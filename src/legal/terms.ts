@@ -83,7 +83,7 @@ export const TERMS_SECTIONS: LegalSection[] = [
   {
     heading: '10. Updates & content',
     body: [
-      'New stories may be distributed through the public GitHub content repository (manifest + story packages). Downloading content requires internet; stories you already have keep working offline.',
+      'New stories may be distributed through the Kissa story API (manifest + story packages). Downloading content requires internet; stories you already have keep working offline.',
       'We may update these terms. Material changes will be noted with a new "updated" date in-app.',
     ],
   },

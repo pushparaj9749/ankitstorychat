@@ -189,7 +189,10 @@ export async function getSettings(): Promise<AppSettings> {
   const raw = await kvGet(K_SETTINGS);
   if (!raw) return { ...DEFAULT_SETTINGS, notifications: { ...DEFAULT_SETTINGS.notifications } };
   try {
-    const parsed = JSON.parse(raw) as Partial<AppSettings>;
+    const parsed = JSON.parse(raw) as Partial<AppSettings> & { contentManifestUrl?: string };
+    // Retired setting: the pre-API raw-GitHub manifest URL. Dropped on read so
+    // old installs fall back to the configured story API base.
+    delete parsed.contentManifestUrl;
     return {
       ...DEFAULT_SETTINGS,
       ...parsed,

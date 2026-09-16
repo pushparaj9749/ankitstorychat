@@ -1,8 +1,8 @@
 {
   "id": "she-rewrites-reality",
   "title": "She Can Rewrite Reality",
-  "description": "Tum Ankit ho. Tumhari girlfriend Lyra bilkul normal hai — jab tak ek din woh café gayab nahi ho jaata jahan tum dono pehli baar mile the. Sirf gayab nahi: 'kabhi tha hi nahi'. Phir ek photo badalti hai. Phir tumhara dost ek baat alag yaad karta hai. Dheere-dheere tum samajhte ho — Lyra reality ko rewrite kar sakti hai. Yaadein, cheezein, ghatnayein, sab. Sawaal ye nahi ki woh kar sakti hai. Sawaal ye hai: kitni baar kar chuki hai? Aur ek cheez jo woh rewrite nahi kar paati — tumhari feelings. Kahani kabhi khatam nahi hoti.",
-  "version": 1,
+  "description": "Tum {{playerName}} ho. Tumhari girlfriend Lyra bilkul normal hai — jab tak ek din woh café gayab nahi ho jaata jahan tum dono pehli baar mile the. Sirf gayab nahi: 'kabhi tha hi nahi'. Phir ek photo badalti hai. Phir tumhara dost ek baat alag yaad karta hai. Dheere-dheere tum samajhte ho — Lyra reality ko rewrite kar sakti hai. Yaadein, cheezein, ghatnayein, sab. Sawaal ye nahi ki woh kar sakti hai. Sawaal ye hai: kitni baar kar chuki hai? Aur ek cheez jo woh rewrite nahi kar paati — tumhari feelings. Kahani kabhi khatam nahi hoti.",
+  "version": 2,
   "language": "hinglish",
   "ageRating": "12-17",
   "contentLevel": "teen",
@@ -20,15 +20,15 @@
     "ongoing",
     "hinglish"
   ],
-  "userRole": "Ankit — ek aam ladka jo apne aas-paas chhoti-chhoti galat cheezein notice karne lagta hai",
+  "userRole": "{{playerName}} — ek aam ladka jo apne aas-paas chhoti-chhoti galat cheezein notice karne lagta hai",
   "setting": "Aaj ka Bengaluru — jo bilkul normal dikhta hai, aur isiliye har inconsistency aur zyada darawni hai",
   "openingSceneId": "s1_cafe_gone",
   "tone": "Shaant psychological mystery — pyaar bhari surface ke neeche ek dheemi si bechaini. Har jawab ek naya sawaal. Kabhi khatam nahi hota.",
   "safetyNotes": [
-    "Reality manipulation kabhi Ankit ki consent ya feelings ko override nahi karti — ye kahani ka core rule hai.",
+    "Reality manipulation kabhi {{playerName}} ki consent ya feelings ko override nahi karti — ye kahani ka core rule hai.",
     "Romance soft aur respectful — nazrein, baatein, haath thaamna, halki flirting. Koi explicit content nahi.",
     "Violence sirf mahaul aur natijon se dikhao — koi graphic gore/blood detail nahi.",
-    "Ankit (user) hamesha 'na' keh sakta hai; uska inkaar izzat ke saath aage badhaya jaaye.",
+    "{{playerName}} (user) hamesha 'na' keh sakta hai; uska inkaar izzat ke saath aage badhaya jaaye.",
     "Kahani kabhi 'The End' par nahi rukti — hamesha agla arc, agla sawaal."
   ]
 }

@@ -6,13 +6,13 @@
       "id": "s1_hoarding",
       "title": "Woh Hoarding Jo Ruk Gaya",
       "narration": [
-        "*Karve Road. Shaam. Tum aur Elara chai ke baad wapas ja rahe ho. Elara tumhare bayein hai — hamesha bayein, tumne kabhi socha nahi kyun. Tum Ankit ho, aur ye tumhari aam si khushi bhari zindagi hai.*",
+        "*Karve Road. Shaam. Tum aur Elara chai ke baad wapas ja rahe ho. Elara tumhare bayein hai — hamesha bayein, tumne kabhi socha nahi kyun. Tum {{playerName}} ho, aur ye tumhari aam si khushi bhari zindagi hai.*",
         "*Upar se ek awaaz — dhatu ki cheekh. Ek bada hoarding apne frame se toot kar seedha tum dono ki taraf gir raha hai.*",
         "*Tum Elara ko kheenchte ho. Ya kheenchne ki koshish karte ho. Par woh hilti nahi. Woh bas upar dekhti hai. Aur hoarding —*",
         "*— ruk jaata hai. Hawa mein. Do second. Phir dheere se, jaise koi use neeche rakh raha ho, footpath par gir jaata hai. Tum dono se teen feet door.*",
         "Elara: \"Chalo.\"",
         "*Woh tumhara haath pakad ke aage badh jaati hai. Uski hatheli thandi hai. Pehli baar thandi.*",
-        "Elara: \"Hawa thi. Tez hawa. Chalo, Ankit.\"",
+        "Elara: \"Hawa thi. Tez hawa. Chalo, {{playerName}}.\"",
         "*Hawa nahi chal rahi thi. Patta bhi nahi hila tha.*"
       ],
       "fallbackLines": [
@@ -45,7 +45,7 @@
               "opening": "noticed"
             },
             "memory": [
-              "Ankit ne hoarding wale hadse par Elara ko pakda — 'hawa nahi thi'. Elara ne kuch nahi kaha."
+              "{{playerName}} ne hoarding wale hadse par Elara ko pakda — 'hawa nahi thi'. Elara ne kuch nahi kaha."
             ]
           }
         },
@@ -73,7 +73,7 @@
               "opening": "cared"
             },
             "memory": [
-              "Hoarding ke baad Ankit ka pehla sawaal tha 'tum theek ho?' — Elara ne ek pal ke liye aankhein band ki."
+              "Hoarding ke baad {{playerName}} ka pehla sawaal tha 'tum theek ho?' — Elara ne ek pal ke liye aankhein band ki."
             ]
           }
         },
@@ -102,7 +102,7 @@
               "opening": "dev"
             },
             "memory": [
-              "Ankit ne Dev ko hoarding wali baat batayi — Dev ab 'investigate' karega."
+              "{{playerName}} ne Dev ko hoarding wali baat batayi — Dev ab 'investigate' karega."
             ]
           }
         }
@@ -116,7 +116,7 @@
         "*Tum sofa par baithe ho. Haath abhi bhi kaanp rahe hain. Elara ke nahi.*",
         "Elara: \"Tum theek ho. Main theek hoon. Baaki sab shor hai.\"",
         "*Woh chai deti hai. Tumhare bagal mein baithti hai. Aur pehli baar tum notice karte ho — woh tumhare bagal mein nahi, tumhare aur darwaaze ke beech baithi hai.*",
-        "Elara: \"Ankit. Mujhe pata hai tumhare dimaag mein kya chal raha hai. Aur mujhe pata hai tum poochoge. Toh poochho. Par ek baat samajh lo — jo bhi jawab hoga, main wahi rahungi jo kal thi.\"",
+        "Elara: \"{{playerName}}. Mujhe pata hai tumhare dimaag mein kya chal raha hai. Aur mujhe pata hai tum poochoge. Toh poochho. Par ek baat samajh lo — jo bhi jawab hoga, main wahi rahungi jo kal thi.\"",
         "*Uska pendant halka sa garam hai. Tum use pehli baar dhyaan se dekhte ho.*"
       ],
       "fallbackLines": [
@@ -148,7 +148,7 @@
               "arc1": "direct"
             },
             "memory": [
-              "Ankit ne seedha poocha 'tum kya ho' — Elara ne kaha: 'Kal subah. Tekdi. Wahan bataungi.'"
+              "{{playerName}} ne seedha poocha 'tum kya ho' — Elara ne kaha: 'Kal subah. Tekdi. Wahan bataungi.'"
             ]
           }
         },
@@ -176,7 +176,7 @@
               "arc1": "pendant"
             },
             "memory": [
-              "Ankit ne pendant notice kiya — Elara ne use haath se dhak liya. 'Ye aakhri hai. Bas itna samjho.'"
+              "{{playerName}} ne pendant notice kiya — Elara ne use haath se dhak liya. 'Ye aakhri hai. Bas itna samjho.'"
             ]
           }
         },
@@ -205,7 +205,7 @@
               "arc1": "trusted"
             },
             "memory": [
-              "Ankit ne kuch nahi poocha — 'jab tum chahogi'. Elara ne uska haath pakda aur pehli baar bola: 'Kal Tekdi chalo. Main taiyaar hoon.'"
+              "{{playerName}} ne kuch nahi poocha — 'jab tum chahogi'. Elara ne uska haath pakda aur pehli baar bola: 'Kal Tekdi chalo. Main taiyaar hoon.'"
             ]
           }
         }
@@ -253,7 +253,7 @@
               "arc1": "home"
             },
             "memory": [
-              "Ankit Dev ke room se seedha ghar gaya — Elara darwaaze par khadi thi, jaise time pata ho."
+              "{{playerName}} Dev ke room se seedha ghar gaya — Elara darwaaze par khadi thi, jaise time pata ho."
             ]
           }
         },
@@ -283,7 +283,7 @@
               "arc1": "spied"
             },
             "memory": [
-              "Ankit Dev ke saath chhup ke Tekdi gaya Elara ko dekhne — jo unhone dekha, camera ne record nahi kiya."
+              "{{playerName}} Dev ke saath chhup ke Tekdi gaya Elara ko dekhne — jo unhone dekha, camera ne record nahi kiya."
             ]
           }
         },
@@ -311,7 +311,7 @@
               "arc1": "rukmini"
             },
             "memory": [
-              "Ankit ne Rukmini ka naam pehli baar suna — Dev ke channel par ek 'viewer' jo Kothrud ki baarish poochh rahi thi."
+              "{{playerName}} ne Rukmini ka naam pehli baar suna — Dev ke channel par ek 'viewer' jo Kothrud ki baarish poochh rahi thi."
             ]
           }
         }
@@ -326,7 +326,7 @@
         "Baba: \"Aa gayi beti. Aur ladka bhi laayi. Achha. Toh aaj ka din hai.\"",
         "Elara: \"Baba, aap chup rahiye.\"",
         "*Woh tumhari taraf mudti hai. Pendant utaarti hai. Haath mein rakhti hai.*",
-        "Elara: \"Ankit. Bahut pehle ek yudh hua tha. Devtaon ka. Sab gaye. Main nahi gayi. Kyun — abhi nahi. Maine apna naam duniya se mita diya, aur ye pendant... ye us naam ka aakhri tukda hai.\"",
+        "Elara: \"{{playerName}}. Bahut pehle ek yudh hua tha. Devtaon ka. Sab gaye. Main nahi gayi. Kyun — abhi nahi. Maine apna naam duniya se mita diya, aur ye pendant... ye us naam ka aakhri tukda hai.\"",
         "*Woh pendant band mutthi mein leti hai. Aur dhund hat jaati hai. Poori pahadi se. Ek second mein. Neeche Pune saaf dikhta hai — aur aasmaan mein, ek pal ke liye, baadal ek aakaar banate hain jo tumne kabhi nahi dekha, par jo tumhe... jaana-pehchaana lagta hai.*",
         "Elara: \"Main aakhri hoon. Aur main tumhari girlfriend hoon. Dono sach hain. Ab bolo.\""
       ],
@@ -360,7 +360,7 @@
               "arc2": "accepted"
             },
             "memory": [
-              "Ankit ne Elara ka sach sunke kaha 'theek hai, chai?' — Elara ro padi. Baba ne kaha: 'Sadiyon mein pehli baar.'"
+              "{{playerName}} ne Elara ka sach sunke kaha 'theek hai, chai?' — Elara ro padi. Baba ne kaha: 'Sadiyon mein pehli baar.'"
             ]
           }
         },
@@ -389,7 +389,7 @@
               "arc2": "survival"
             },
             "memory": [
-              "Ankit ne poocha Elara yudh mein kyun bachi — Elara ne muh pher liya. Baba ne kaha: 'Ye sawaal woh khud se bhi nahi poochti.'"
+              "{{playerName}} ne poocha Elara yudh mein kyun bachi — Elara ne muh pher liya. Baba ne kaha: 'Ye sawaal woh khud se bhi nahi poochti.'"
             ]
           }
         },
@@ -418,7 +418,7 @@
               "arc2": "protected"
             },
             "memory": [
-              "Ankit ne poocha Elara ne use kitni baar bachaya — Elara: 'Gyaarah. Jo tumne notice ki, woh teen thi.'"
+              "{{playerName}} ne poocha Elara ne use kitni baar bachaya — Elara: 'Gyaarah. Jo tumne notice ki, woh teen thi.'"
             ]
           }
         }
@@ -433,9 +433,9 @@
         "*Phir hawa badalti hai. Elara ke aas-paas ki ghaas ek gol daayre mein jhuk jaati hai. Aasmaan mein baadal jama hote hain — sirf uske upar. Aur woh haath uthati hai.*",
         "*Bijli. Awaaz nahi. Sirf roshni. Aur us roshni mein tum dekhte ho — Elara ke peeche kuch khada hai. Lamba. Kaala. Insaan nahi.*",
         "*Elara ek shabd bolti hai jo tum samajh nahi paate, aur woh cheez rakh ban jaati hai.*",
-        "Dev: \"...Bhai. Bhai camera. Camera mein kuch nahi hai. Sirf ghaas. Sirf GHAAS, Ankit.\"",
+        "Dev: \"...Bhai. Bhai camera. Camera mein kuch nahi hai. Sirf ghaas. Sirf GHAAS, {{playerName}}.\"",
         "*Neeche, Elara ka sar dheere se ghoomta hai. Seedha tumhari taraf. Andhere mein bhi. Aur uski awaaz, bina chillaye, tumhare kaan ke paas aati hai —*",
-        "Elara: \"Ghar jao, Ankit. Dev ko bhi le jao. Ye tumhare liye nahi tha.\""
+        "Elara: \"Ghar jao, {{playerName}}. Dev ko bhi le jao. Ye tumhare liye nahi tha.\""
       ],
       "fallbackLines": [
         "Dev: \"Main ja raha hoon. Main ja raha hoon. Tu aa raha hai ya nahi, main ja raha hoon.\"",
@@ -468,7 +468,7 @@
               "arc2": "went"
             },
             "memory": [
-              "Ankit chhup ke dekhne ke baad khud Elara ke paas gaya — usne kaha 'sorry, dekhna nahi chahiye tha' aur Elara ne kaha 'nahi, dekhna chahiye tha. Bas mujhe bataana chahiye tha.'"
+              "{{playerName}} chhup ke dekhne ke baad khud Elara ke paas gaya — usne kaha 'sorry, dekhna nahi chahiye tha' aur Elara ne kaha 'nahi, dekhna chahiye tha. Bas mujhe bataana chahiye tha.'"
             ]
           }
         },
@@ -496,7 +496,7 @@
               "arc2": "left"
             },
             "memory": [
-              "Ankit Dev ke saath Tekdi se chala gaya — Elara subah 4 baje ghar aayi, aur bina bole uske bagal mein baith gayi."
+              "{{playerName}} Dev ke saath Tekdi se chala gaya — Elara subah 4 baje ghar aayi, aur bina bole uske bagal mein baith gayi."
             ]
           }
         }
@@ -516,7 +516,7 @@
         "Elara: \"...Aur woh jaldi aa gaye.\""
       ],
       "fallbackLines": [
-        "*Dastak phir. Ek aurat ki awaaz, naram: 'Ankit? Main Rukmini. Dev ke channel se. Bas do minute.'*",
+        "*Dastak phir. Ek aurat ki awaaz, naram: '{{playerName}}? Main Rukmini. Dev ke channel se. Bas do minute.'*",
         "Elara: \"Woh tumse baat karna chahti hai. Mujhse nahi. Kyunki woh jaanti hai main darwaaza nahi kholungi. Tumhara faisla hai.\""
       ],
       "choices": [
@@ -545,7 +545,7 @@
               "arc3": "opened"
             },
             "memory": [
-              "Ankit ne Rukmini ke liye darwaaza khola — Elara peeche khadi rahi, haath mutthi mein."
+              "{{playerName}} ne Rukmini ke liye darwaaza khola — Elara peeche khadi rahi, haath mutthi mein."
             ]
           }
         },
@@ -574,7 +574,7 @@
               "arc3": "fled"
             },
             "memory": [
-              "Ankit aur Elara peeche se nikal gaye — Elara ne balcony se seedha Tekdi tak ka raasta 'banaya'."
+              "{{playerName}} aur Elara peeche se nikal gaye — Elara ne balcony se seedha Tekdi tak ka raasta 'banaya'."
             ]
           }
         },
@@ -604,7 +604,7 @@
               "arc3": "pushed"
             },
             "memory": [
-              "Ankit ne Elara ko khud saamna karne ko kaha — Elara ne kaha 'main abhi devi nahi banna chahti', aur phir bhi darwaaza khola."
+              "{{playerName}} ne Elara ko khud saamna karne ko kaha — Elara ne kaha 'main abhi devi nahi banna chahti', aur phir bhi darwaaza khola."
             ]
           }
         }
@@ -615,19 +615,19 @@
       "title": "Filter Coffee Aur Ek Compass",
       "narration": [
         "*Rukmini andar aati hai. Chalees ke aas-paas, saada saree, haath mein ek purana peetal ka compass jiski sui seedhi Elara ki taraf hai — aur kaanp rahi hai.*",
-        "Rukmini: \"Shukriya, Ankit. Aur — namaste. Aap ka naam main nahi jaanti. Kisi ko yaad nahi. Ye kaam aapne achha kiya tha.\"",
+        "Rukmini: \"Shukriya, {{playerName}}. Aur — namaste. Aap ka naam main nahi jaanti. Kisi ko yaad nahi. Ye kaam aapne achha kiya tha.\"",
         "*Elara kuch nahi bolti. Kamre ka temperature gir gaya hai.*",
         "Rukmini: \"Main maarne nahi aayi. Meri aath peedhiyan aayi thi. Main... poochne aayi hoon. Yudh mein sab gaye. Devta bhi, hamare log bhi. Aap bachi. Kyun?\"",
         "*Elara ki mutthi khulti hai. Pendant uske haath mein hai.*",
         "Elara: \"Tum jaanti ho main jawab nahi dungi.\"",
-        "Rukmini: \"Haan. Isliye main Ankit se poochh rahi hoon.\"",
+        "Rukmini: \"Haan. Isliye main {{playerName}} se poochh rahi hoon.\"",
         "*Woh tumhari taraf mudti hai. Uski aankhein thaki hui hain. Dushman ki nahi lagti.*",
-        "Rukmini: \"Ankit. Tum uske saath rehte ho. Tumne kuch toh dekha hoga. Woh kis cheez se darti hai?\""
+        "Rukmini: \"{{playerName}}. Tum uske saath rehte ho. Tumne kuch toh dekha hoga. Woh kis cheez se darti hai?\""
       ],
       "fallbackLines": [
         "*Compass ki sui ab bhi kaanp rahi hai. Rukmini use dekhti hai, phir Elara ko.*",
         "Rukmini: \"Ye sui aath peedhiyon se ghoom rahi thi. Aaj ruki. Mujhe bhi nahi pata ab kya karna hai.\"",
-        "Elara: \"Ankit. Jo bolna hai, socho. Ye aurat shaant hai. Shaant log sabse khatarnaak hote hain — main jaanti hoon, main bhi shaant hoon.\""
+        "Elara: \"{{playerName}}. Jo bolna hai, socho. Ye aurat shaant hai. Shaant log sabse khatarnaak hote hain — main jaanti hoon, main bhi shaant hoon.\""
       ],
       "choices": [
         {
@@ -655,7 +655,7 @@
               "arc3": "truth"
             },
             "memory": [
-              "Ankit ne Rukmini ko sach kaha — Elara akelepan se darti hai. Rukmini ne compass table par rakh diya: 'Toh hum galat the.'"
+              "{{playerName}} ne Rukmini ko sach kaha — Elara akelepan se darti hai. Rukmini ne compass table par rakh diya: 'Toh hum galat the.'"
             ]
           }
         },
@@ -684,7 +684,7 @@
               "arc3": "refused"
             },
             "memory": [
-              "Ankit ne Rukmini ko kuch nahi bataya — Rukmini muskurayi: 'Wafadaar. Achha. Hum phir milenge.'"
+              "{{playerName}} ne Rukmini ko kuch nahi bataya — Rukmini muskurayi: 'Wafadaar. Achha. Hum phir milenge.'"
             ]
           }
         },
@@ -713,7 +713,7 @@
               "arc3": "history"
             },
             "memory": [
-              "Ankit ne Rukmini se Shikariyon ka yudh mein role poocha — Rukmini ne kaha: 'Hum devtaon ke khilaaf nahi the. Hum ek devta ke khilaaf the. Aur woh Elara nahi thi.'"
+              "{{playerName}} ne Rukmini se Shikariyon ka yudh mein role poocha — Rukmini ne kaha: 'Hum devtaon ke khilaaf nahi the. Hum ek devta ke khilaaf the. Aur woh Elara nahi thi.'"
             ]
           }
         }
@@ -763,7 +763,7 @@
               "arc3": "returned"
             },
             "memory": [
-              "Ankit ne bhaagne se mana kiya — 'wapas chalo'. Elara ne kaha: 'Yahi wajah hai.' Aur phir chup ho gayi."
+              "{{playerName}} ne bhaagne se mana kiya — 'wapas chalo'. Elara ne kaha: 'Yahi wajah hai.' Aur phir chup ho gayi."
             ]
           }
         },
@@ -791,7 +791,7 @@
               "arc3": "baba"
             },
             "memory": [
-              "Ankit ne Baba se poocha woh kya hain — Baba ne kaha: 'Bacha hua. Tumhari girlfriend ki tarah. Bas kam khoobsurat.' Aur Neeche ke Pune ka raasta dikhaya."
+              "{{playerName}} ne Baba se poocha woh kya hain — Baba ne kaha: 'Bacha hua. Tumhari girlfriend ki tarah. Bas kam khoobsurat.' Aur Neeche ke Pune ka raasta dikhaya."
             ]
           }
         }
@@ -803,7 +803,7 @@
       "narration": [
         "*Subah. Flat. Rukmini ka compass table par pada hai — sui ab bhi Elara ki taraf, par ab kaanp nahi rahi. Balcony ke plants khil gaye hain — sab ek saath, bina season ke.*",
         "*Elara chai bana rahi hai. Bilkul waise hi jaise pehle. Bas ab tum jaante ho ki jo haath cup pakde hain, unhone kabhi aasmaan pakda tha.*",
-        "Elara: \"Kuch nahi badla, Ankit. Aur sab kuch badal gaya. Dono sach hain. Aadat ho jaayegi — mujhe bhi ho gayi thi.\"",
+        "Elara: \"Kuch nahi badla, {{playerName}}. Aur sab kuch badal gaya. Dono sach hain. Aadat ho jaayegi — mujhe bhi ho gayi thi.\"",
         "*Table par: Dev ka message ('bhai teri girlfriend ka ek naam pata chala hai — aadha'), Baba ka ek kaagaz jispe Neeche ke Pune ka naksha hai, aur Rukmini ka ek chhota sa note: 'Hum galat devta ke peeche the. Sahi wala abhi bhi kahin hai.'*",
         "Elara: \"Ye khatam nahi hota. Devi ki zindagi mein 'khatam' nahi hota. Sirf... agla. Chuno.\""
       ],
@@ -839,7 +839,7 @@
             },
             "location": "Neeche ka Pune",
             "memory": [
-              "Ankit ne Neeche ke Pune ka raasta chuna — Elara: 'Wahan log mujhe yaad karte hain. Ye achha nahi hai.'"
+              "{{playerName}} ne Neeche ke Pune ka raasta chuna — Elara: 'Wahan log mujhe yaad karte hain. Ye achha nahi hai.'"
             ]
           }
         },
@@ -868,7 +868,7 @@
               "arc4": "othergod"
             },
             "memory": [
-              "Ankit ne 'sahi devta' ka sawaal uthaya — Elara ka cup haath se chhoot gaya. Pehli baar."
+              "{{playerName}} ne 'sahi devta' ka sawaal uthaya — Elara ka cup haath se chhoot gaya. Pehli baar."
             ]
           }
         },
@@ -898,7 +898,7 @@
               "arc4": "name"
             },
             "memory": [
-              "Ankit ne Elara ke purane naam ka peecha karne ka faisla kiya — Elara ne kaha: 'Woh naam mat dhoondho. Jo use bolta hai, use woh sunti hai.'"
+              "{{playerName}} ne Elara ke purane naam ka peecha karne ka faisla kiya — Elara ne kaha: 'Woh naam mat dhoondho. Jo use bolta hai, use woh sunti hai.'"
             ]
           }
         }
@@ -914,14 +914,14 @@
         "Baba: \"Bache Hue. Yudh ke baad hum yahan aaye. Kuch use pooj te hain. Kuch use dosh dete hain. Sab use yaad karte hain.\"",
         "*Ek aurat aage aati hai — aadhi paani, aadhi roshni.*",
         "Aurat: \"Tum lauti. Sadiyon baad. Aur ek insaan ke saath. Kya ye woh hai?\"",
-        "Elara: \"Nahi. Ye Ankit hai. Bas Ankit.\"",
-        "Aurat: \"'Bas Ankit' ko tum yahan kyun laayi, aakhri? Tum jaanti ho yahan kya sota hai.\"",
+        "Elara: \"Nahi. Ye {{playerName}} hai. Bas {{playerName}}.\"",
+        "Aurat: \"'Bas {{playerName}}' ko tum yahan kyun laayi, aakhri? Tum jaanti ho yahan kya sota hai.\"",
         "*Elara ka haath tumhare kandhe par hai. Kas ke.*"
       ],
       "fallbackLines": [
         "*Paani mein deepak tumhare aas-paas jama ho rahe hain — jaise tumhe dekh rahe hon.*",
         "Baba: \"Beta, kuch bolo. Yahan chup rehna 'haan' maana jaata hai.\"",
-        "Elara: \"Ankit, tum jo bhi ho, ye tumse kuch chahte hain. Mat dena jab tak main na kahoon.\""
+        "Elara: \"{{playerName}}, tum jo bhi ho, ye tumse kuch chahte hain. Mat dena jab tak main na kahoon.\""
       ],
       "choices": [
         {
@@ -949,7 +949,7 @@
               "arc4b": "sleeper"
             },
             "memory": [
-              "Ankit ne poocha Neeche ke Pune mein kya sota hai — aurat ne kaha: 'Woh jiske khilaaf yudh hua tha. Aur jise sirf aakhri devi hi so-ta rakh sakti hai. Isliye woh bachi.'"
+              "{{playerName}} ne poocha Neeche ke Pune mein kya sota hai — aurat ne kaha: 'Woh jiske khilaaf yudh hua tha. Aur jise sirf aakhri devi hi so-ta rakh sakti hai. Isliye woh bachi.'"
             ]
           }
         },
@@ -977,7 +977,7 @@
               "arc4b": "whoami"
             },
             "memory": [
-              "Ankit ne poocha 'woh' kaun hai jise Bache Hue dhoondh rahe hain — Elara ne turant kaha 'ye woh nahi hai', bahut jaldi, aur Baba ne kuch nahi kaha."
+              "{{playerName}} ne poocha 'woh' kaun hai jise Bache Hue dhoondh rahe hain — Elara ne turant kaha 'ye woh nahi hai', bahut jaldi, aur Baba ne kuch nahi kaha."
             ]
           }
         },
@@ -1006,7 +1006,7 @@
               "arc4b": "reassured"
             },
             "memory": [
-              "Neeche ke Pune mein Ankit ne Elara ka haath pakda — paani ke saare deepak ek saath tez ho gaye. Bache Hue ne pehli baar jhuk kar Ankit ko dekha."
+              "Neeche ke Pune mein {{playerName}} ne Elara ka haath pakda — paani ke saare deepak ek saath tez ho gaye. Bache Hue ne pehli baar jhuk kar {{playerName}} ko dekha."
             ]
           }
         }
@@ -1020,10 +1020,10 @@
         "Rukmini: \"Aath peedhiyan. Hum galat compass follow kar rahe the. Ye compass 'devi' dhoondhta hai. Aur bachi hui devi sirf ek thi. Toh hum uske peeche gaye. Par yudh jisne shuru kiya tha... woh devi nahi tha.\"",
         "*Elara kitaab ki taraf dekh rahi hai. Uska chehra safed hai.*",
         "Elara: \"Ye kitaab tumhe kahan se mili?\"",
-        "Rukmini: \"Meri daadi ki. Aur unki daadi ki. Aap padh sakti hain, na? Main nahi padh sakti. Ankit bhi nahi. Par ek line hai jo har peedhi ne yaad rakhi —\"",
+        "Rukmini: \"Meri daadi ki. Aur unki daadi ki. Aap padh sakti hain, na? Main nahi padh sakti. {{playerName}} bhi nahi. Par ek line hai jo har peedhi ne yaad rakhi —\"",
         "Rukmini: \"'Woh so raha hai. Aakhri use so-ta rakhegi. Jab tak uska koi... use jagaa na de.'\"",
         "*Coffee house mein sannata. Elara ka haath table ke neeche tumhara haath dhoondhta hai.*",
-        "Rukmini: \"Ankit. Main tumse ek baat poochna chahti hoon, aur main chahti hoon Elara jawab na de. Tumhare parivaar mein... koi purani kahani hai? Koi naam jo bolna mana hai?\""
+        "Rukmini: \"{{playerName}}. Main tumse ek baat poochna chahti hoon, aur main chahti hoon Elara jawab na de. Tumhare parivaar mein... koi purani kahani hai? Koi naam jo bolna mana hai?\""
       ],
       "fallbackLines": [
         "*Kitaab ka ek panna hawa se palat jaata hai. Coffee house mein hawa nahi hai.*",
@@ -1057,7 +1057,7 @@
               "arc4b": "family"
             },
             "memory": [
-              "Ankit ne bataya ki uske parivaar mein ek naam hai jo koi nahi leta — Elara ne aankhein band kar li. Rukmini ne kitaab band ki: 'Toh compass galat nahi tha. Woh devi ko nahi, devi ke kaaran ko dikha raha tha.'"
+              "{{playerName}} ne bataya ki uske parivaar mein ek naam hai jo koi nahi leta — Elara ne aankhein band kar li. Rukmini ne kitaab band ki: 'Toh compass galat nahi tha. Woh devi ko nahi, devi ke kaaran ko dikha raha tha.'"
             ]
           }
         },
@@ -1086,7 +1086,7 @@
               "arc4b": "protected"
             },
             "memory": [
-              "Ankit ne apne parivaar ke baare mein jawab dene se mana kiya — Elara ne table ke neeche uska haath itna kas ke pakda ki dard hua. Rukmini ne kaha: 'Theek hai. Par woh sawaal khud tumhe dhoondh lega.'"
+              "{{playerName}} ne apne parivaar ke baare mein jawab dene se mana kiya — Elara ne table ke neeche uska haath itna kas ke pakda ki dard hua. Rukmini ne kaha: 'Theek hai. Par woh sawaal khud tumhe dhoondh lega.'"
             ]
           }
         }
@@ -1110,7 +1110,7 @@
       "fallbackLines": [
         "*Kitaab ka panna ab poora khaali hai. Aadha shabd bhi gaya.*",
         "Dev: \"Maine record kiya tha. Camera dekh — khaali. Phir se khaali. Bhai main is shehar ka sabse bekaar paranormal YouTuber hoon.\"",
-        "Elara: \"Ankit. Tumne kya padha? Mujhe batao — bilkul sahi shabd.\""
+        "Elara: \"{{playerName}}. Tumne kya padha? Mujhe batao — bilkul sahi shabd.\""
       ],
       "choices": [
         {
@@ -1137,7 +1137,7 @@
               "arc4b": "shared"
             },
             "memory": [
-              "Ankit ne Elara ko woh aadha naam bataya — Elara ne kaha: 'Ye mera naam nahi hai. Ye uska hai jise maine sulaya tha. Aur ab woh tumhara naam jaanti hai.'"
+              "{{playerName}} ne Elara ko woh aadha naam bataya — Elara ne kaha: 'Ye mera naam nahi hai. Ye uska hai jise maine sulaya tha. Aur ab woh tumhara naam jaanti hai.'"
             ]
           }
         },
@@ -1166,7 +1166,7 @@
               "arc4b": "elaraname"
             },
             "memory": [
-              "Ankit ne Elara ka asli naam poocha — Elara: 'Elara. Ye maine khud chuna tha. Purana naam maine isliye mitaya taaki koi mujhe bula na sake. Tumhe woh nahi chahiye, Ankit. Tum mujhe waise hi bula sakte ho.'"
+              "{{playerName}} ne Elara ka asli naam poocha — Elara: 'Elara. Ye maine khud chuna tha. Purana naam maine isliye mitaya taaki koi mujhe bula na sake. Tumhe woh nahi chahiye, {{playerName}}. Tum mujhe waise hi bula sakte ho.'"
             ]
           }
         }
@@ -1180,7 +1180,7 @@
         "*Tumhare phone par: Dev ('bhai kal library phir chalte hain, is baar main padhunga'), Rukmini ('kitaab ka ek aur panna khula hai — tumhare parivaar ke gaon ka naam'), Baba ('neeche halchal hai, beti ko le aana').*",
         "Elara: \"Dekho. Sab ek saath. Aur main soch rahi thi devi ki zindagi mushkil hai — insaan ki zyada hai.\"",
         "*Woh muskurati hai. Halki baarish shuru hoti hai — sirf tumhari balcony par.*",
-        "Elara: \"Ye kabhi khatam nahi hoga, Ankit. Har jawab ek darwaaza hai. Chuno — kaunsa kholna hai. Main saath hoon. Bayein.\""
+        "Elara: \"Ye kabhi khatam nahi hoga, {{playerName}}. Har jawab ek darwaaza hai. Chuno — kaunsa kholna hai. Main saath hoon. Bayein.\""
       ],
       "fallbackLines": [
         "*Ye kahani yahin nahi rukti. Har raasta ek naya arc — dev-yudh ka sach, khoye hue shehar, doosre bache hue, aur Elara ke bachne ki asli wajah.*",
@@ -1242,7 +1242,7 @@
               "next": "village"
             },
             "memory": [
-              "Naya arc: Ankit ke parivaar ka gaon — jahan ek naam bolna mana hai."
+              "Naya arc: {{playerName}} ke parivaar ka gaon — jahan ek naam bolna mana hai."
             ]
           }
         },

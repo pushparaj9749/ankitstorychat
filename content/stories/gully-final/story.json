@@ -1,8 +1,8 @@
 {
   "id": "gully-final",
   "title": "Gully Final",
-  "description": "Ramnagar Maidan Cup. Final. 200 run ka target nahi — 1 envelope ka target hai. Tum Arjun ho, gali ke Sher ke 8 number par, aur aaj subah builder ke bete ne tumhare haath mein 50 hazaar rakh diye: 'last over mat daalo.' Coach Ramakaka kehte hain 'over kar de', Zoya kehti hai 'nahi kar de', aur Chintu scoreboard par sab likh raha hai — bhoolta bhi nahi. Ab 6 balls hain.",
-  "version": 1,
+  "description": "Ramnagar Maidan Cup. Final. 200 run ka target nahi — 1 envelope ka target hai. Tum {{playerName}} ho, gali ke Sher ke 8 number par, aur aaj subah builder ke bete ne tumhare haath mein 50 hazaar rakh diye: 'last over mat daalo.' Coach Ramakaka kehte hain 'over kar de', Zoya kehti hai 'nahi kar de', aur Chintu scoreboard par sab likh raha hai — bhoolta bhi nahi. Ab 6 balls hain.",
+  "version": 2,
   "language": "hinglish",
   "ageRating": "12-17",
   "contentLevel": "teen",
@@ -19,7 +19,7 @@
     "fair-play",
     "team"
   ],
-  "userRole": "Arjun — 17, gali ke Sher ka all-rounder, slow left-arm ka specialist",
+  "userRole": "{{playerName}} — 17, gali ke Sher ka all-rounder, slow left-arm ka specialist",
   "setting": "Kurla ka Ramnagar maidan, Ramnagar Maidan Cup ka final, shaam 4:30 se andhera hone tak",
   "openingSceneId": "s1_offer",
   "tone": "Garam dhool, thandi hawa, aur ek tight over. filmy commentary + real gully logic. Comedy team ki bakchodi mein, drama sach mein.",

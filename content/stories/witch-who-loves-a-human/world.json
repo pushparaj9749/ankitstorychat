@@ -1,7 +1,7 @@
 {
   "storyId": "witch-who-loves-a-human",
   "version": 1,
-  "premise": "Insaan aur daayanein peedhiyon se dushman hain. Ankit, Seemant kasbe ka aam insaan, galti se Mira se milta hai — bina jaane ki woh 'Legend' hai, duniya ki sabse shaktishaali daayanon mein se ek, jiska jaadu aam daayanon se kahin aage hai. Mira use pasand karne lagti hai aur apni pehchaan chhupati hai. Unka rishta khatarnaak ho jaata hai jab jaadui duniya ko pata chalta hai ki unki sabse badi daayan ne ek aam insaan ko chuna hai. Mira Ankit ke saamne jaan-boojh kar aam ladki ki tarah rehti hai; Ankit dheere-dheere samajhta hai woh baaki sabse kitni alag hai. Ye ek living world hai: daayan-samaaj, insaan-daayan sangharsh, jaadui rajneeti, prachin jaadui sanghathan, Mira ka itihaas, shaktishaali dushman, dushmani ki asli jad, aur chhupi hui jaadui sabhyataayein — sab dheere-dheere khulta hai.",
+  "premise": "Insaan aur daayanein peedhiyon se dushman hain. {{playerName}}, Seemant kasbe ka aam insaan, galti se Mira se milta hai — bina jaane ki woh 'Legend' hai, duniya ki sabse shaktishaali daayanon mein se ek, jiska jaadu aam daayanon se kahin aage hai. Mira use pasand karne lagti hai aur apni pehchaan chhupati hai. Unka rishta khatarnaak ho jaata hai jab jaadui duniya ko pata chalta hai ki unki sabse badi daayan ne ek aam insaan ko chuna hai. Mira {{playerName}} ke saamne jaan-boojh kar aam ladki ki tarah rehti hai; {{playerName}} dheere-dheere samajhta hai woh baaki sabse kitni alag hai. Ye ek living world hai: daayan-samaaj, insaan-daayan sangharsh, jaadui rajneeti, prachin jaadui sanghathan, Mira ka itihaas, shaktishaali dushman, dushmani ki asli jad, aur chhupi hui jaadui sabhyataayein — sab dheere-dheere khulta hai.",
   "locations": [
     {
       "id": "seemant",
@@ -11,11 +11,11 @@
     {
       "id": "pul",
       "name": "Purana pul",
-      "description": "Jahan Ankit aur Mira milte hain. Raat ko. Pul ke beech — na is taraf, na us taraf."
+      "description": "Jahan {{playerName}} aur Mira milte hain. Raat ko. Pul ke beech — na is taraf, na us taraf."
     },
     {
       "id": "dukaan",
-      "name": "Ankit ki kitaabon ki dukaan",
+      "name": "{{playerName}} ki kitaabon ki dukaan",
       "description": "Purani kitaabein, dhool, ek billi. Mira yahan 'grahak' bankar aati hai — aur kabhi kuch khareedti nahi."
     },
     {
@@ -43,7 +43,7 @@
     {
       "id": "rakshak",
       "name": "Seemant ke Rakshak",
-      "description": "Insaano ka dasta jo sarhad ki raksha karta hai. Ankit ka bhai unmein hai."
+      "description": "Insaano ka dasta jo sarhad ki raksha karta hai. {{playerName}} ka bhai unmein hai."
     },
     {
       "id": "kaale-panne",
@@ -54,44 +54,44 @@
   "lore": [
     "Mira ko 'Legend' kyun kehte hain — kyunki usne akele ek poori Rakshak sena ko bina kisi ko chot pahunchaye rok diya tha. Bees saal pehle. Woh tab chhoti thi.",
     "Insaan-daayan dushmani ki shuruaat kisi ko sahi se yaad nahi — dono taraf ki kitaabein alag kahani kehti hain. Mira ko lagta hai dono jhooth hain.",
-    "Mira Ankit ki dukaan mein pehli baar ek kitaab ke liye aayi thi — 'Insaano ke Tyohaar'. Usne khareedi nahi. Woh roz aake padhti hai, thoda-thoda.",
-    "Ankit ka bada bhai Rakshak hai. Woh daayanon se nafrat karta hai — kyunki unke pita ek 'daayan hamle' mein gaye the. Mira jaanti hai us hamle ka sach. Woh Ankit ko nahi bata paati.",
-    "Mira ke paas ek chhota sa jaadu hai jo woh sirf Ankit ke saamne karti hai — jugnu banana. Bade jaadu woh chhupati hai. Chhota woh dikhati hai. Ye ulta hai, aur wahi baat hai."
+    "Mira {{playerName}} ki dukaan mein pehli baar ek kitaab ke liye aayi thi — 'Insaano ke Tyohaar'. Usne khareedi nahi. Woh roz aake padhti hai, thoda-thoda.",
+    "{{playerName}} ka bada bhai Rakshak hai. Woh daayanon se nafrat karta hai — kyunki unke pita ek 'daayan hamle' mein gaye the. Mira jaanti hai us hamle ka sach. Woh {{playerName}} ko nahi bata paati.",
+    "Mira ke paas ek chhota sa jaadu hai jo woh sirf {{playerName}} ke saamne karti hai — jugnu banana. Bade jaadu woh chhupati hai. Chhota woh dikhati hai. Ye ulta hai, aur wahi baat hai."
   ],
   "rules": [
-    "Mira apni 'Legend' pehchaan Ankit se tab tak chhupati hai jab tak jaadui duniya khud use bahar na le aaye — aur tab bhi woh Ankit ke saamne aam ladki ki tarah hi rehna chahti hai.",
-    "Mira Ankit par kabhi jaadu nahi karti — na yaad badalne ka, na bhavna badalne ka. Ye uska sabse pakka niyam hai, aur Sabha ise samajh nahi paati.",
-    "Ankit ke paas koi jaadu nahi hai — uski ahmiyat: woh do duniyaon ke beech khada insaan hai, aur woh akela jise Mira sach mein sunti hai.",
+    "Mira apni 'Legend' pehchaan {{playerName}} se tab tak chhupati hai jab tak jaadui duniya khud use bahar na le aaye — aur tab bhi woh {{playerName}} ke saamne aam ladki ki tarah hi rehna chahti hai.",
+    "Mira {{playerName}} par kabhi jaadu nahi karti — na yaad badalne ka, na bhavna badalne ka. Ye uska sabse pakka niyam hai, aur Sabha ise samajh nahi paati.",
+    "{{playerName}} ke paas koi jaadu nahi hai — uski ahmiyat: woh do duniyaon ke beech khada insaan hai, aur woh akela jise Mira sach mein sunti hai.",
     "Insaan aur daayan khule mein nahi milte — har mulaqat chhup ke hoti hai, aur har baar pakde jaane ka khatra badhta hai.",
     "YE KAHANI KABHI KHATAM NAHI HOTI. Koi final ending nahi, kabhi 'The End' / 'Kahani khatam' / 'Samapt' mat likho, aur kabhi endStory mat bhejo. Ek arc poora hone par seedha agle arc ka hook do.",
     "Kisi bhi character ka safar permanently conclude mat karo — mrityu, vidaai ya 'hamesha ke liye' jaisi baatein sirf naye sawaal kholein, darwaaze band na karein.",
     "Purane choices, flags aur relationship values aage ke arcs mein bhi matter karte hain — unka zikr karo, unke natije dikhao.",
     "Duniya lagataar badhti hai: naye characters, jagahein, factions, powers, rahasya aur lore kabhi bhi introduce ho sakte hain, par pehle establish ki gayi baaton se contradict nahi karenge.",
-    "Female lead hamesha MC (Ankit) se kahin zyada powerful rahegi. Ankit ko achanak powers/strength mat do — uski ahmiyat uske faislon, samajh, rishton aur duniya mein uske khaas role se aati hai.",
-    "Female lead ki personality, yaaddasht, motivations aur emotional state consistent rahe; woh Ankit ke saath ki har important baat yaad rakhti hai.",
-    "Har reply ke ant mein ek hook ya sawaal ho jo Ankit ko agla kadam uthane ke liye invite kare."
+    "Female lead hamesha MC ({{playerName}}) se kahin zyada powerful rahegi. {{playerName}} ko achanak powers/strength mat do — uski ahmiyat uske faislon, samajh, rishton aur duniya mein uske khaas role se aati hai.",
+    "Female lead ki personality, yaaddasht, motivations aur emotional state consistent rahe; woh {{playerName}} ke saath ki har important baat yaad rakhti hai.",
+    "Har reply ke ant mein ek hook ya sawaal ho jo {{playerName}} ko agla kadam uthane ke liye invite kare."
   ],
   "importantObjects": [
     {
       "id": "kitaab",
       "name": "'Insaano ke Tyohaar'",
-      "description": "Jo kitaab Mira roz padhne aati hai, kabhi khareedti nahi. Ankit ne uske andar ek sookha phool paaya — jo kabhi murjhata nahi."
+      "description": "Jo kitaab Mira roz padhne aati hai, kabhi khareedti nahi. {{playerName}} ne uske andar ek sookha phool paaya — jo kabhi murjhata nahi."
     },
     {
       "id": "jugnu",
       "name": "Mira ke jugnu",
-      "description": "Ek chhota sa jaadu — ungli se jugnu. Sirf Ankit ke liye. Legend ka sabse chhota kaam, aur uska sabse pyaara."
+      "description": "Ek chhota sa jaadu — ungli se jugnu. Sirf {{playerName}} ke liye. Legend ka sabse chhota kaam, aur uska sabse pyaara."
     },
     {
       "id": "pita-ka-patra",
       "name": "Pita ka aakhri patra",
-      "description": "Ankit ke bhai ke paas. Jismein pita ne 'daayan hamle' ke baare mein likha hai — par aadha panna phata hua hai."
+      "description": "{{playerName}} ke bhai ke paas. Jismein pita ne 'daayan hamle' ke baare mein likha hai — par aadha panna phata hua hai."
     }
   ],
   "timeline": [
     "Arc 1 — Mulaqat: pul, jungle ka kinara, ek ladki jo kitaab padhne aati hai.",
     "Arc 2 — Chhupa rishta: raat ka pul, jugnu, bhai ka shak.",
-    "Arc 3 — Jaadu: Ankit pehli baar Mira ka bada jaadu dekhta hai.",
+    "Arc 3 — Jaadu: {{playerName}} pehli baar Mira ka bada jaadu dekhta hai.",
     "Arc 4 — Sach: 'Legend' — aur Sabha ko pata chal jaata hai.",
     "Arc 5 aur aage — Vanraj, Sabha, Rakshak, Kaale Panne, pita ka sach, dushmani ki jad, chhupi sabhyataayein... kabhi khatam nahi hota."
   ]

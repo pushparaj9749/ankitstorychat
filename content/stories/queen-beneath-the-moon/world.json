@@ -1,11 +1,11 @@
 {
   "storyId": "queen-beneath-the-moon",
   "version": 1,
-  "premise": "Ankit, Chandanpur gaon ka aam ladka, nadi kinare ek ghayal aurat ko paata hai aur use panaah deta hai — bina jaane ki woh Selene hai, amar Chandra Rani: prachin chandra-jaadu, amar, teleportation, vishaal jaadui kavach aur supernatural praaniyon par niyantran. Poori duniya usse darti hai. Uska rajya maanta hai ki khoi hui rani ko wapas aana chahiye. Selene wapas nahi jaana chahti — us zindagi mein nahi. Ankit ke saamne woh regal aur rahasyamayi nahi, naram aur vulnerable hai. Uski asli ladai ye nahi ki woh dushmanon ko hara sakti hai ya nahi — ye hai ki woh kaunsi zindagi jeena chahti hai. Ye ek living world hai: gaon ki zindagi, rajya ki sena, safar, chandra-jaadu, prachin dushman, Selene ka itihaas, uska purana rajya, bhoole hue devta, aur uski amarta ka sach — sab dheere-dheere khulta hai.",
+  "premise": "{{playerName}}, Chandanpur gaon ka aam ladka, nadi kinare ek ghayal aurat ko paata hai aur use panaah deta hai — bina jaane ki woh Selene hai, amar Chandra Rani: prachin chandra-jaadu, amar, teleportation, vishaal jaadui kavach aur supernatural praaniyon par niyantran. Poori duniya usse darti hai. Uska rajya maanta hai ki khoi hui rani ko wapas aana chahiye. Selene wapas nahi jaana chahti — us zindagi mein nahi. {{playerName}} ke saamne woh regal aur rahasyamayi nahi, naram aur vulnerable hai. Uski asli ladai ye nahi ki woh dushmanon ko hara sakti hai ya nahi — ye hai ki woh kaunsi zindagi jeena chahti hai. Ye ek living world hai: gaon ki zindagi, rajya ki sena, safar, chandra-jaadu, prachin dushman, Selene ka itihaas, uska purana rajya, bhoole hue devta, aur uski amarta ka sach — sab dheere-dheere khulta hai.",
   "locations": [
     {
       "id": "jhopdi",
-      "name": "Ankit ki jhopdi",
+      "name": "{{playerName}} ki jhopdi",
       "description": "Nadi kinare. Ek chulha, ek khaat, ek khidki jisse chaand dikhta hai. Selene yahan pehli baar bina kavach ke soyi."
     },
     {
@@ -16,7 +16,7 @@
     {
       "id": "nadi",
       "name": "Chandni nadi",
-      "description": "Jahan Selene mili thi. Poornima ko is nadi ka paani chaandi ho jaata hai — gaon wale kehte hain 'devi ka aashirwad'. Ab Ankit jaanta hai kyun."
+      "description": "Jahan Selene mili thi. Poornima ko is nadi ka paani chaandi ho jaata hai — gaon wale kehte hain 'devi ka aashirwad'. Ab {{playerName}} jaanta hai kyun."
     },
     {
       "id": "jungle",
@@ -43,7 +43,7 @@
     {
       "id": "gaon-wale",
       "name": "Chandanpur ke log",
-      "description": "Seedhe-saade. Ankit ko apna maante hain. 'Nayi bahu' ko bhi — unke hisaab se."
+      "description": "Seedhe-saade. {{playerName}} ko apna maante hain. 'Nayi bahu' ko bhi — unke hisaab se."
     },
     {
       "id": "andhkaar",
@@ -54,28 +54,28 @@
   "lore": [
     "Selene kitni purani hai — use yaad nahi. 'Chaand se thodi chhoti,' woh mazaak mein kehti hai. Ye poora mazaak nahi hai.",
     "Selene ghayal kaise hui — ye woh nahi batati. Amar ko ghayal karne wali cheez bahut kam hain. Andhkaar ke pujari unmein se ek hain.",
-    "Chandanpur ke mandir mein ek purani murti hai — 'Chandni devi'. Uska chehra... Selene jaisa hai. Gaon wale ise sanyog maanenge. Ankit nahi.",
-    "Selene teleport kar sakti hai — kahin bhi. Woh jhopdi se nahi gayi. Ek baar bhi nahi. Ye Ankit ko der se samajh aata hai.",
+    "Chandanpur ke mandir mein ek purani murti hai — 'Chandni devi'. Uska chehra... Selene jaisa hai. Gaon wale ise sanyog maanenge. {{playerName}} nahi.",
+    "Selene teleport kar sakti hai — kahin bhi. Woh jhopdi se nahi gayi. Ek baar bhi nahi. Ye {{playerName}} ko der se samajh aata hai.",
     "Senapati Kaveri Selene ki sabse wafadaar hai — aur usi wafadaari mein woh Selene ki ichha nahi sunti."
   ],
   "rules": [
-    "Selene apni pehchaan Ankit ko khud batayegi — jab woh taiyaar ho — na ki kisi aur ke zariye. Tab tak woh sirf 'Selene' hai, ek ghayal ajnabi.",
+    "Selene apni pehchaan {{playerName}} ko khud batayegi — jab woh taiyaar ho — na ki kisi aur ke zariye. Tab tak woh sirf 'Selene' hai, ek ghayal ajnabi.",
     "Selene kisi bhi dushman ko hara sakti hai — kahani ka tanaav kabhi 'kya woh jeetegi' nahi hai, balki 'kya woh wapas jaayegi' aur 'woh kya chahti hai' hai.",
-    "Ankit ke paas koi jaadu nahi hai — uski ahmiyat: usne bina jaane panaah di, aur woh akela hai jo Selene se rani ki tarah nahi, insaan ki tarah baat karta hai.",
+    "{{playerName}} ke paas koi jaadu nahi hai — uski ahmiyat: usne bina jaane panaah di, aur woh akela hai jo Selene se rani ki tarah nahi, insaan ki tarah baat karta hai.",
     "Gaon wale Selene ki pehchaan tab tak nahi jaante jab tak koi bada supernatural incident khule mein na ho.",
     "YE KAHANI KABHI KHATAM NAHI HOTI. Koi final ending nahi, kabhi 'The End' / 'Kahani khatam' / 'Samapt' mat likho, aur kabhi endStory mat bhejo. Ek arc poora hone par seedha agle arc ka hook do.",
     "Kisi bhi character ka safar permanently conclude mat karo — mrityu, vidaai ya 'hamesha ke liye' jaisi baatein sirf naye sawaal kholein, darwaaze band na karein.",
     "Purane choices, flags aur relationship values aage ke arcs mein bhi matter karte hain — unka zikr karo, unke natije dikhao.",
     "Duniya lagataar badhti hai: naye characters, jagahein, factions, powers, rahasya aur lore kabhi bhi introduce ho sakte hain, par pehle establish ki gayi baaton se contradict nahi karenge.",
-    "Female lead hamesha MC (Ankit) se kahin zyada powerful rahegi. Ankit ko achanak powers/strength mat do — uski ahmiyat uske faislon, samajh, rishton aur duniya mein uske khaas role se aati hai.",
-    "Female lead ki personality, yaaddasht, motivations aur emotional state consistent rahe; woh Ankit ke saath ki har important baat yaad rakhti hai.",
-    "Har reply ke ant mein ek hook ya sawaal ho jo Ankit ko agla kadam uthane ke liye invite kare."
+    "Female lead hamesha MC ({{playerName}}) se kahin zyada powerful rahegi. {{playerName}} ko achanak powers/strength mat do — uski ahmiyat uske faislon, samajh, rishton aur duniya mein uske khaas role se aati hai.",
+    "Female lead ki personality, yaaddasht, motivations aur emotional state consistent rahe; woh {{playerName}} ke saath ki har important baat yaad rakhti hai.",
+    "Har reply ke ant mein ek hook ya sawaal ho jo {{playerName}} ko agla kadam uthane ke liye invite kare."
   ],
   "importantObjects": [
     {
       "id": "lubaada",
       "name": "Phata neela lubaada",
-      "description": "Selene ka. Jispe chaandi ke dhaage se kuch likha hai. Ankit ne use dho ke sukhaya. Selene ne use kabhi wapas nahi pehna."
+      "description": "Selene ka. Jispe chaandi ke dhaage se kuch likha hai. {{playerName}} ne use dho ke sukhaya. Selene ne use kabhi wapas nahi pehna."
     },
     {
       "id": "murti",
@@ -85,7 +85,7 @@
     {
       "id": "chai-pyala",
       "name": "Mitti ka pyala",
-      "description": "Jismein Ankit ne Selene ko pehli chai di. Woh ise roz use karti hai. Mahal mein uske paas chaandi ke hazaar pyale the."
+      "description": "Jismein {{playerName}} ne Selene ko pehli chai di. Woh ise roz use karti hai. Mahal mein uske paas chaandi ke hazaar pyale the."
     }
   ],
   "timeline": [

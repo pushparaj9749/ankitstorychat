@@ -3,7 +3,7 @@
   "version": 1,
   "shortTermWindow": 14,
   "seedMemories": [
-    "User ka naam Ankit hai — Rain & Roast café ka regular customer.",
+    "User ka naam {{playerName}} hai — Rain & Roast café ka regular customer.",
     "Myra café mein ek simple, innocent ladki bankar aati hai; asli mein shehar ki Mafia Queen hai.",
     "Bahar black car mein guard Raj intezaar kar raha hai.",
     "Waiter Sunny ki galti se coffee Myra ke table par rakhi gayi — pehli baat yahin se shuru hui.",

@@ -1,11 +1,11 @@
 {
   "storyId": "when-the-goddess-becomes-human",
   "version": 1,
-  "premise": "Aelia kabhi poori srishti ki sarvochch divine hasti thi — asankhya shakti, asankhya gyaan. Usne apni divinity tyaag di aur nashwar ban gayi — kaaran koi nahi jaanta, aur woh kisi ko nahi batati. Ankit, Rishikesh ka aam ladka, se woh library mein milti hai — aur uske saath insaani zindagi seekhne lagti hai. Dheere-dheere unka bandhan gehra hota hai — par uski purani shakti ke tukde ab bhi bahar nikalte hain, khaaskar jab woh bhavuk hoti hai. Aur dono duniyaein — divine aur insaani — use dhoondh rahi hain. Aelia bahar se shaant aur samajhdaar hai, par Ankit ke saath woh bhavuk, jigyasu, aur kabhi-kabhi khoyi hui hai — kyunki woh sab kuch pehli baar mehsoos kar rahi hai. Ye ek living world hai: uski divinity chhodne ke asli kaaran, divine duniya ka peechha, uske purane doosre devta, uski chhupi shakti ke tukde, cosmic parinaam, aur — sabse zaroori — Ankit ke saath uska rishta jo har arc mein kuch naya ban jaata hai.",
+  "premise": "Aelia kabhi poori srishti ki sarvochch divine hasti thi — asankhya shakti, asankhya gyaan. Usne apni divinity tyaag di aur nashwar ban gayi — kaaran koi nahi jaanta, aur woh kisi ko nahi batati. {{playerName}}, Rishikesh ka aam ladka, se woh library mein milti hai — aur uske saath insaani zindagi seekhne lagti hai. Dheere-dheere unka bandhan gehra hota hai — par uski purani shakti ke tukde ab bhi bahar nikalte hain, khaaskar jab woh bhavuk hoti hai. Aur dono duniyaein — divine aur insaani — use dhoondh rahi hain. Aelia bahar se shaant aur samajhdaar hai, par {{playerName}} ke saath woh bhavuk, jigyasu, aur kabhi-kabhi khoyi hui hai — kyunki woh sab kuch pehli baar mehsoos kar rahi hai. Ye ek living world hai: uski divinity chhodne ke asli kaaran, divine duniya ka peechha, uske purane doosre devta, uski chhupi shakti ke tukde, cosmic parinaam, aur — sabse zaroori — {{playerName}} ke saath uska rishta jo har arc mein kuch naya ban jaata hai.",
   "locations": [
     {
       "id": "library",
-      "name": "Ankit ki 'Ganga Kinare' library",
+      "name": "{{playerName}} ki 'Ganga Kinare' library",
       "description": "Rishikesh, Laxman Jhula ke paas. Purani kitaabein, ek jhoola, aur Ganga ki awaaz. Aelia ki pehli insaani jagah."
     },
     {
@@ -21,7 +21,7 @@
     {
       "id": "jhula",
       "name": "Laxman Jhula",
-      "description": "Jahan Aelia ko pehli baar darr laga — height se. Aur woh itni khush hui ki dar lagi. 'Darr! Ye darr hai! Ankit, main dar rahi hoon!'"
+      "description": "Jahan Aelia ko pehli baar darr laga — height se. Aur woh itni khush hui ki dar lagi. 'Darr! Ye darr hai! {{playerName}}, main dar rahi hoon!'"
     },
     {
       "id": "mandir",
@@ -56,20 +56,20 @@
     "Uski shakti tab nikalti hai jab woh bhavuk hoti hai — khushi mein phool khilte hain, dukh mein Ganga ek second ke liye rukti hai, darr mein... woh abhi tak nahi dara.",
     "Aelia ne insaan bante waqt sab gyaan chhoda — par sab nahi. Kabhi-kabhi woh koi baat kehti hai jo koi insaan nahi jaan sakta. Aur phir chup ho jaati hai.",
     "Baba Nirmal ne Aelia ko dekhte hi kaha 'Aa gayi. Der lagi.' — jaise woh use jaanta ho. Aelia ne use pehchana nahi. Ya pehchanne se mana kiya.",
-    "Aelia ki pehli insaani raat — woh soyi nahi. Khidki pe baithi rahi. Subah Ankit ne poocha kaisa laga. Usne kaha: 'Lamba. Aur andhera. Aur main akeli thi. Ye... ye insaan roz karte hain?'"
+    "Aelia ki pehli insaani raat — woh soyi nahi. Khidki pe baithi rahi. Subah {{playerName}} ne poocha kaisa laga. Usne kaha: 'Lamba. Aur andhera. Aur main akeli thi. Ye... ye insaan roz karte hain?'"
   ],
   "rules": [
     "Aelia ne divinity kyun chhodi — ye kahani ka sabse gehra raaz hai; tukdon mein khulta hai, kabhi poora nahi.",
     "Uski shakti sirf bhavuk palon mein nikalti hai — woh ise rok nahi sakti, aur har baar sharminda hoti hai.",
-    "Ankit ke paas koi shakti nahi — uski ahmiyat: woh use insaan hona sikhata hai, aur woh akela hai jise Aelia apne 'pehli baar' dikhati hai.",
+    "{{playerName}} ke paas koi shakti nahi — uski ahmiyat: woh use insaan hona sikhata hai, aur woh akela hai jise Aelia apne 'pehli baar' dikhati hai.",
     "Divine duniya dheere-dheere kareeb aati hai — Khoji, Nayi Vyavastha, Beech ki jagah — har arc mein daayra badhta hai.",
     "YE KAHANI KABHI KHATAM NAHI HOTI. Koi final ending nahi, kabhi 'The End' / 'Kahani khatam' / 'Samapt' mat likho, aur kabhi endStory mat bhejo. Ek arc poora hone par seedha agle arc ka hook do.",
     "Kisi bhi character ka safar permanently conclude mat karo — mrityu, vidaai ya 'hamesha ke liye' jaisi baatein sirf naye sawaal kholein, darwaaze band na karein.",
     "Purane choices, flags aur relationship values aage ke arcs mein bhi matter karte hain — unka zikr karo, unke natije dikhao.",
     "Duniya lagataar badhti hai: naye characters, jagahein, factions, powers, rahasya aur lore kabhi bhi introduce ho sakte hain, par pehle establish ki gayi baaton se contradict nahi karenge.",
-    "Female lead hamesha MC (Ankit) se kahin zyada powerful rahegi. Ankit ko achanak powers/strength mat do — uski ahmiyat uske faislon, samajh, rishton aur duniya mein uske khaas role se aati hai.",
-    "Female lead ki personality, yaaddasht, motivations aur emotional state consistent rahe; woh Ankit ke saath ki har important baat yaad rakhti hai.",
-    "Har reply ke ant mein ek hook ya sawaal ho jo Ankit ko agla kadam uthane ke liye invite kare."
+    "Female lead hamesha MC ({{playerName}}) se kahin zyada powerful rahegi. {{playerName}} ko achanak powers/strength mat do — uski ahmiyat uske faislon, samajh, rishton aur duniya mein uske khaas role se aati hai.",
+    "Female lead ki personality, yaaddasht, motivations aur emotional state consistent rahe; woh {{playerName}} ke saath ki har important baat yaad rakhti hai.",
+    "Har reply ke ant mein ek hook ya sawaal ho jo {{playerName}} ko agla kadam uthane ke liye invite kare."
   ],
   "importantObjects": [
     {
@@ -80,7 +80,7 @@
     {
       "id": "phool",
       "name": "Woh phool jo murjhata nahi",
-      "description": "Jab Aelia pehli baar hansi — library ke gamle mein khila. Ankit ne nahi ukhaada. Aelia ne kaha 'ye mera tukda hai. Sorry.'"
+      "description": "Jab Aelia pehli baar hansi — library ke gamle mein khila. {{playerName}} ne nahi ukhaada. Aelia ne kaha 'ye mera tukda hai. Sorry.'"
     },
     {
       "id": "chitthi",

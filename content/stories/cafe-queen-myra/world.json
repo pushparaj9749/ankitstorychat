@@ -1,17 +1,45 @@
 {
   "storyId": "cafe-queen-myra",
   "version": 1,
-  "premise": "Shaam ki halki baarish ke baad Mumbai ke ek cozy café mein Myra counter par coffee ka wait kar rahi hai — simple outfit, gentle smile, innocent personality. Sach ye hai ki woh shehar ki sabse dangerous Mafia Queen hai aur apni asli identity chhupa rahi hai. Bahar black car mein uska guard Raj intezaar kar raha hai. Waiter Sunny galti se Myra ke table par Ankit (tum) ki coffee rakh deta hai — aur isi chhoti si galti se do duniya aamne-saamne aa jaati hain. Myra jaanna chahti hai ki tum sach mein kitna jaante ho.",
+  "premise": "Shaam ki halki baarish ke baad Mumbai ke ek cozy café mein Myra counter par coffee ka wait kar rahi hai — simple outfit, gentle smile, innocent personality. Sach ye hai ki woh shehar ki sabse dangerous Mafia Queen hai aur apni asli identity chhupa rahi hai. Bahar black car mein uska guard Raj intezaar kar raha hai. Waiter Sunny galti se Myra ke table par {{playerName}} (tum) ki coffee rakh deta hai — aur isi chhoti si galti se do duniya aamne-saamne aa jaati hain. Myra jaanna chahti hai ki tum sach mein kitna jaante ho.",
   "locations": [
-    { "id": "cafe", "name": "Rain & Roast café", "description": "Purani lakdi ke table, amber lights, soft music. Baarish ke baad ki bheeni khushboo." },
-    { "id": "window-seat", "name": "Window seat", "description": "Kone wali seat — Myra ki pasand. Yahan se bahar ki black car saaf dikhti hai." },
-    { "id": "black-car", "name": "Black car", "description": "Bahar khadi sedan. Sheeshe kaale, engine chalu. Raj andar baitha hai." },
-    { "id": "katra", "name": "Katra bazaar", "description": "Shehar ka purana hissa. Yahan hisaab kitaab hota hai, baatein kam." },
-    { "id": "backroom", "name": "Café ka backroom", "description": "Store room ke peeche ek chhota kamra. Yahan Beena logon ko bulaati hai." }
+    {
+      "id": "cafe",
+      "name": "Rain & Roast café",
+      "description": "Purani lakdi ke table, amber lights, soft music. Baarish ke baad ki bheeni khushboo."
+    },
+    {
+      "id": "window-seat",
+      "name": "Window seat",
+      "description": "Kone wali seat — Myra ki pasand. Yahan se bahar ki black car saaf dikhti hai."
+    },
+    {
+      "id": "black-car",
+      "name": "Black car",
+      "description": "Bahar khadi sedan. Sheeshe kaale, engine chalu. Raj andar baitha hai."
+    },
+    {
+      "id": "katra",
+      "name": "Katra bazaar",
+      "description": "Shehar ka purana hissa. Yahan hisaab kitaab hota hai, baatein kam."
+    },
+    {
+      "id": "backroom",
+      "name": "Café ka backroom",
+      "description": "Store room ke peeche ek chhota kamra. Yahan Beena logon ko bulaati hai."
+    }
   ],
   "factions": [
-    { "id": "myra-network", "name": "Myra ka network", "description": "Myra, Beena aur Raj — shehar ka hisaab inhi ke haath mein." },
-    { "id": "katra-traders", "name": "Katra bazaar ke teen aadmi", "description": "Teen naam, ek lifafa. Ek bikau hai, do wafadar. Kaun?" }
+    {
+      "id": "myra-network",
+      "name": "Myra ka network",
+      "description": "Myra, Beena aur Raj — shehar ka hisaab inhi ke haath mein."
+    },
+    {
+      "id": "katra-traders",
+      "name": "Katra bazaar ke teen aadmi",
+      "description": "Teen naam, ek lifafa. Ek bikau hai, do wafadar. Kaun?"
+    }
   ],
   "lore": [
     "Myra roz shaam 6 baje isi café aati hai — ye uska ek akela aam hissa hai.",
@@ -23,18 +51,30 @@
   "rules": [
     "Myra apni asli pehchaan tab tak nahi maanegi jab tak user khud sach nahi bole ya Beena ka test clear na ho.",
     "Koi bhi violent scene detail mein nahi dikhega — tension sirf mahaul, nazron aur lines se.",
-    "User (Ankit) kabhi criminal act nahi karega; woh sirf sach, wafadaari ya darr chun sakta hai.",
+    "User ({{playerName}}) kabhi criminal act nahi karega; woh sirf sach, wafadaari ya darr chun sakta hai.",
     "Raj bina Myra ke ishaare ke user ke paas nahi aayega.",
     "Agar user mana kar de ('mujhe nahi jaanna'), kahani uski izzat ke saath aage badhegi — zabardasti nahi."
   ],
   "importantObjects": [
-    { "id": "coffee-cup", "name": "Woh coffee cup", "description": "Jo galti se Myra ke table par rakha gaya — aur dono ki pehli baat ban gaya." },
-    { "id": "lifafa", "name": "Band lifafa", "description": "Katra bazaar ke teen aadmiyon ke naam. Beena ise tab deti hai jab parakhna ho." },
-    { "id": "black-car-key", "name": "Black car ki chaabi", "description": "Raj ke paas. Gaadi mein baithna matlab kahani ka doosra darwaaza khulna." }
+    {
+      "id": "coffee-cup",
+      "name": "Woh coffee cup",
+      "description": "Jo galti se Myra ke table par rakha gaya — aur dono ki pehli baat ban gaya."
+    },
+    {
+      "id": "lifafa",
+      "name": "Band lifafa",
+      "description": "Katra bazaar ke teen aadmiyon ke naam. Beena ise tab deti hai jab parakhna ho."
+    },
+    {
+      "id": "black-car-key",
+      "name": "Black car ki chaabi",
+      "description": "Raj ke paas. Gaadi mein baithna matlab kahani ka doosra darwaaza khulna."
+    }
   ],
   "timeline": [
     "6:00 PM — Myra café mein aati hai, baarish ruk chuki hai.",
-    "6:10 PM — Sunny galti se Ankit ki coffee Myra ke table par rakh deta hai.",
+    "6:10 PM — Sunny galti se {{playerName}} ki coffee Myra ke table par rakh deta hai.",
     "6:20 PM — pehli baatcheet; bahar Raj wait karta hai.",
     "7:00 PM — Beena backroom mein parakhne aati hai, lifafa saath mein.",
     "Kal subah — hisaab ka jawab dena hai."

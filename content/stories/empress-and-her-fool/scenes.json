@@ -6,7 +6,7 @@
       "id": "s1_diya",
       "title": "Ek Diya Jo Bujhta Nahi",
       "narration": [
-        "*Suryagarh ka mahal. Raat. Sevak kaksh — sabse neeche, sabse thanda. Tum Ankit ho: nichle darje ke sevak, jiska poora jaadu ek diya jalaane bhar ka hai. Bina teeli ke. Bas itna.*",
+        "*Suryagarh ka mahal. Raat. Sevak kaksh — sabse neeche, sabse thanda. Tum {{playerName}} ho: nichle darje ke sevak, jiska poora jaadu ek diya jalaane bhar ka hai. Bina teeli ke. Bas itna.*",
         "*Tum diya jalaate ho. Khidki se hawa aati hai — tez, sard. Diya nahi bujhta. Kabhi nahi bujhta. Tumne ispe kabhi socha nahi.*",
         "*Darwaaza khulta hai. Bina dastak. Aur kaksh ki har mombatti ek saath jhuk jaati hai — jaise jhuk rahi ho.*",
         "*Samragyi Seraphina. Khud. Sevak kaksh mein. Laal-sunehra vastra, aankhon mein woh roshni jisse sardar darte hain. Uske peeche rakshak Tara, haath talwaar par.*",
@@ -14,7 +14,7 @@
         "*Tum ghutnon par gir jaate ho. Sar neeche.*",
         "Seraphina: \"Maine ye nahi poochha ki tum jhuk sakte ho ya nahi. Maine poochha — ye diya tumne jalaya?\"",
         "*Woh ek kadam aage aati hai. Diye ki taraf haath badhati hai. Aur rukti hai. Uski ungliyan halki si kaanpti hain. Tara ne dekha. Tumne dekha.*",
-        "Seraphina: \"Kal subah se tum mere niji sevak ho. Tara, iska saamaan upar bhijwao. Aur Ankit — diya saath laana.\""
+        "Seraphina: \"Kal subah se tum mere niji sevak ho. Tara, iska saamaan upar bhijwao. Aur {{playerName}} — diya saath laana.\""
       ],
       "fallbackLines": [
         "*Woh chali gayi. Mombattiyan phir seedhi. Tara darwaaze par ek pal rukti hai.*",
@@ -46,7 +46,7 @@
               "opening": "asked"
             },
             "memory": [
-              "Ankit ne pehli raat hi Samragyi se 'kyun main' poocha — Seraphina ruki, muskurayi (pehli baar), aur boli: 'Kyunki tumne poocha. Baaki sab bas jhukte.'"
+              "{{playerName}} ne pehli raat hi Samragyi se 'kyun main' poocha — Seraphina ruki, muskurayi (pehli baar), aur boli: 'Kyunki tumne poocha. Baaki sab bas jhukte.'"
             ]
           }
         },
@@ -76,7 +76,7 @@
               "opening": "obeyed"
             },
             "memory": [
-              "Ankit chup rehke Samragyi ka aadesh maana — Tara ko pasand aaya. Seraphina ko nahi. 'Kal se sawaal poochna seekho.'"
+              "{{playerName}} chup rehke Samragyi ka aadesh maana — Tara ko pasand aaya. Seraphina ko nahi. 'Kal se sawaal poochna seekho.'"
             ]
           }
         },
@@ -105,7 +105,7 @@
               "opening": "offered"
             },
             "memory": [
-              "Ankit ne diya Samragyi ko bhent kiya — Seraphina ne nahi liya. 'Nahi. Ye tumhara hai. Isiliye jalta hai.' Uski awaaz ek pal ke liye Samragyi ki nahi thi."
+              "{{playerName}} ne diya Samragyi ko bhent kiya — Seraphina ne nahi liya. 'Nahi. Ye tumhara hai. Isiliye jalta hai.' Uski awaaz ek pal ke liye Samragyi ki nahi thi."
             ]
           }
         }
@@ -118,7 +118,7 @@
         "*Subah. Samragyi ka niji kaksh. Itna bada ki tumhara poora sevak kaksh iske ek kone mein aa jaaye. Khidkiyon se poora Suryagarh. Aur beech mein Seraphina — bina taj ke, baal khule, ek kitaab god mein, pair sofe par.*",
         "Seraphina: \"Aa gaye. Chai banao. Adrak wali. Raj-rasoi wale bekaar banate hain — sab darte hain zyada adrak daalne se.\"",
         "*Tum chai banate ho. Haath kaanp rahe hain. Woh dekh rahi hai — kitaab ke upar se.*",
-        "Seraphina: \"Ankit. Ek niyam. Darbar mein, sardaron ke saamne, main Samragyi hoon. Tum sevak ho. Tum jhukoge, main nahi dekhungi. Theek hai?\"",
+        "Seraphina: \"{{playerName}}. Ek niyam. Darbar mein, sardaron ke saamne, main Samragyi hoon. Tum sevak ho. Tum jhukoge, main nahi dekhungi. Theek hai?\"",
         "*Tum haan mein sar hilate ho.*",
         "Seraphina: \"Aur yahan — jab koi nahi hai — 'Sera'. Sirf Sera. 'Mahamahim' bologe toh main tumhe Sardar Sangram ke saath raat ka khaana khila dungi. Woh saza hai, mazaak nahi.\"",
         "*Woh kitaab band karti hai. Ek pal ke liye uska chehra thaka hua dikhta hai. Phir nahi.*",
@@ -152,7 +152,7 @@
               "arc1": "sera"
             },
             "memory": [
-              "Ankit ne pehli baar 'Sera' kaha — Seraphina ne chai li aur muh pher liya. Tara ne baad mein kaha: 'Woh muskura rahi thi. Maine dekha. Tu mat batana usse.'"
+              "{{playerName}} ne pehli baar 'Sera' kaha — Seraphina ne chai li aur muh pher liya. Tara ne baad mein kaha: 'Woh muskura rahi thi. Maine dekha. Tu mat batana usse.'"
             ]
           }
         },
@@ -180,7 +180,7 @@
               "arc1": "diya"
             },
             "memory": [
-              "Ankit ne poocha Sera diye ko aise kyun dekhti hai — Seraphina: 'Kyunki maine ek kitaab mein iske baare mein padha hai. Bahut purani kitaab. Aur woh kitaab galat nahi hoti. Kabhi.'"
+              "{{playerName}} ne poocha Sera diye ko aise kyun dekhti hai — Seraphina: 'Kyunki maine ek kitaab mein iske baare mein padha hai. Bahut purani kitaab. Aur woh kitaab galat nahi hoti. Kabhi.'"
             ]
           }
         },
@@ -209,7 +209,7 @@
               "arc1": "mockery"
             },
             "memory": [
-              "Ankit ne kaha mahal us par hans raha hai — Seraphina: 'Hansne do. Jab woh hanste hain, woh sochte nahi. Aur main chahti hoon woh na sochein. Abhi.'"
+              "{{playerName}} ne kaha mahal us par hans raha hai — Seraphina: 'Hansne do. Jab woh hanste hain, woh sochte nahi. Aur main chahti hoon woh na sochein. Abhi.'"
             ]
           }
         }
@@ -227,12 +227,12 @@
         "*Hansi band. Ek pal mein.*",
         "Sangram: \"Nahi, Mahamahim. Bilkul nahi. Par log baatein karte hain. Kehte hain — 'bujhta diya'.\"",
         "*Seraphina ki ungli simhasan ke haathe par ek baar thapki deti hai. Darbar ki har mashaal ek pal ke liye neeli ho jaati hai. Phir wapas.*",
-        "Seraphina: \"Log baatein karte hain. Aap unhe rokte nahi. Dilchasp. Ankit — paani.\"",
+        "Seraphina: \"Log baatein karte hain. Aap unhe rokte nahi. Dilchasp. {{playerName}} — paani.\"",
         "*Woh tumhari taraf nahi dekhti. Tum paani laate ho. Aur Sangram tumhe dekhta hai — muskurate hue — jaise koi kasai bakre ko dekhta hai.*"
       ],
       "fallbackLines": [
         "*Darbar khatam. Sardar jaa rahe hain. Sangram tumhare paas se guzarta hai, dheere se.*",
-        "Sangram: \"Ankit, beta. Kripa hawa jaisi hoti hai. Aaj hai, kal kaun jaane. Diya sambhal ke rakhna.\"",
+        "Sangram: \"{{playerName}}, beta. Kripa hawa jaisi hoti hai. Aaj hai, kal kaun jaane. Diya sambhal ke rakhna.\"",
         "*Seraphina ne suna. Uski peeth tumhari taraf hai. Uski mutthi band hai.*"
       ],
       "choices": [
@@ -262,7 +262,7 @@
               "arc2": "defied"
             },
             "memory": [
-              "Ankit ne darbar mein Sardar Sangram ko jawab diya — 'diya bujhta nahi, aazma lijiye'. Darbar sannata. Seraphina ne baad mein kaha: 'Pagal ho. Aur... shukriya.'"
+              "{{playerName}} ne darbar mein Sardar Sangram ko jawab diya — 'diya bujhta nahi, aazma lijiye'. Darbar sannata. Seraphina ne baad mein kaha: 'Pagal ho. Aur... shukriya.'"
             ]
           }
         },
@@ -291,7 +291,7 @@
               "arc2": "silent"
             },
             "memory": [
-              "Ankit darbar mein chup raha — sahi sevak ki tarah. Seraphina ne akele mein kaha: 'Sahi kiya. Mujhe achha nahi laga, par sahi kiya.'"
+              "{{playerName}} darbar mein chup raha — sahi sevak ki tarah. Seraphina ne akele mein kaha: 'Sahi kiya. Mujhe achha nahi laga, par sahi kiya.'"
             ]
           }
         },
@@ -320,7 +320,7 @@
               "arc2": "looked"
             },
             "memory": [
-              "Darbar mein Ankit ne Seraphina ki taraf dekha — aur Seraphina ne, ek pal ke liye, wapas dekha. Sangram ne ye dekha. Aur likh liya."
+              "Darbar mein {{playerName}} ne Seraphina ki taraf dekha — aur Seraphina ne, ek pal ke liye, wapas dekha. Sangram ne ye dekha. Aur likh liya."
             ]
           }
         }
@@ -337,7 +337,7 @@
         "*Woh neeche dekhti hai. Suryagarh ki roshniyan.*",
         "Seraphina: \"Phir maine ek sevak ko diya jalaate dekha. Aur ek kitaab yaad aayi. Aur pehli baar... pehli baar mujhe laga ki shayad akeli nahi hoon.\"",
         "*Woh tumhari taraf mudti hai. Uski aankhon mein ab woh darbar wali roshni nahi hai. Kuch aur hai — bahut zyada insaani.*",
-        "Seraphina: \"Ankit. Main tumhe sab nahi bata sakti. Abhi nahi. Par ye jaan lo — main tumhe apne paas 'kripa' se nahi rakhti. Main tumhe... zaroorat se rakhti hoon. Meri zaroorat. Rajya ki nahi.\"",
+        "Seraphina: \"{{playerName}}. Main tumhe sab nahi bata sakti. Abhi nahi. Par ye jaan lo — main tumhe apne paas 'kripa' se nahi rakhti. Main tumhe... zaroorat se rakhti hoon. Meri zaroorat. Rajya ki nahi.\"",
         "*Woh ruk jaati hai. Aur turant muskura deti hai — mazaak wali muskaan.*",
         "Seraphina: \"Chai. Abhi. Ye baat maine kabhi nahi kahi. Samjhe?\""
       ],
@@ -370,7 +370,7 @@
               "arc2": "notalone"
             },
             "memory": [
-              "Balcony par Ankit ne kaha 'aap akeli nahi hain, main hoon' — Seraphina ne uski taraf peeth kar li. 'Chai. Abhi.' Uski awaaz kaanp rahi thi."
+              "Balcony par {{playerName}} ne kaha 'aap akeli nahi hain, main hoon' — Seraphina ne uski taraf peeth kar li. 'Chai. Abhi.' Uski awaaz kaanp rahi thi."
             ]
           }
         },
@@ -398,7 +398,7 @@
               "arc2": "prophecy"
             },
             "memory": [
-              "Ankit ne kitaab ke baare mein poocha — Seraphina: 'Bhavishyavani. Aur usmein tumhara naam nahi hai. Tumhara diya hai. Baaki... baaki jab tum taiyaar hoge.'"
+              "{{playerName}} ne kitaab ke baare mein poocha — Seraphina: 'Bhavishyavani. Aur usmein tumhara naam nahi hai. Tumhara diya hai. Baaki... baaki jab tum taiyaar hoge.'"
             ]
           }
         },
@@ -425,7 +425,7 @@
               "arc2": "need"
             },
             "memory": [
-              "Ankit ne 'zaroorat' ka matlab poocha — Seraphina hansi, laal hui, aur boli: 'Sevak ko itne sawaal nahi poochne chahiye.' Phir dheere se: 'Baad mein. Vaada.'"
+              "{{playerName}} ne 'zaroorat' ka matlab poocha — Seraphina hansi, laal hui, aur boli: 'Sevak ko itne sawaal nahi poochne chahiye.' Phir dheere se: 'Baad mein. Vaada.'"
             ]
           }
         }
@@ -444,7 +444,7 @@
         "*Peeche se awaaz. Sera. Bina taj. Bina rakshak. Aur uske aas-paas ki hawa kaanp rahi hai.*",
         "Seraphina: \"Kaunsi adrak?\"",
         "*Tara use dekhti hai. Tum use dekhte ho. Tumne kabhi use aisa nahi dekha. Ye Sera nahi hai. Ye Samragyi bhi nahi hai. Ye kuch aur hai — jisse sardar sach mein darte hain.*",
-        "Seraphina: \"Ankit. Mere kaksh mein jao. Darwaaza band karo. Tara — Sangram ko darbar mein bulao. Abhi.\""
+        "Seraphina: \"{{playerName}}. Mere kaksh mein jao. Darwaaza band karo. Tara — Sangram ko darbar mein bulao. Abhi.\""
       ],
       "fallbackLines": [
         "Tara: \"Ladke, jaa. Jab woh aisi hoti hai, toh main bhi door rehti hoon. Tu... tu bas jaa.\"",
@@ -478,7 +478,7 @@
               "arc3": "stopped"
             },
             "memory": [
-              "Ankit ne krodh mein Samragyi ko roka — uski apni baat yaad dilakar. Seraphina ruki. 'Tum... tum sahi ho. Aur main tumse nafrat karti hoon iske liye.' Phir: 'Nahi karti. Chai dobara banao. Main saath chalungi rasoi.'"
+              "{{playerName}} ne krodh mein Samragyi ko roka — uski apni baat yaad dilakar. Seraphina ruki. 'Tum... tum sahi ho. Aur main tumse nafrat karti hoon iske liye.' Phir: 'Nahi karti. Chai dobara banao. Main saath chalungi rasoi.'"
             ]
           }
         },
@@ -507,7 +507,7 @@
               "arc3": "obeyed"
             },
             "memory": [
-              "Ankit kaksh mein chala gaya. Us din darbar mein kya hua, kisi ne nahi bataya — par Sangram ek hafte tak darbar nahi aaya, aur uski daadhi ka ek hissa safed ho gaya tha."
+              "{{playerName}} kaksh mein chala gaya. Us din darbar mein kya hua, kisi ne nahi bataya — par Sangram ek hafte tak darbar nahi aaya, aur uski daadhi ka ek hissa safed ho gaya tha."
             ]
           }
         },
@@ -538,7 +538,7 @@
               "arc3": "faced"
             },
             "memory": [
-              "Ankit darbar gaya aur Sangram ke saamne nayi chai banakar pee — 'Sardar ji, aap bhi lenge?' Sangram ne mana kiya. Poore darbar ne dekha. Seraphina ne kuch nahi kaha — kehne ki zaroorat nahi thi."
+              "{{playerName}} darbar gaya aur Sangram ke saamne nayi chai banakar pee — 'Sardar ji, aap bhi lenge?' Sangram ne mana kiya. Poore darbar ne dekha. Seraphina ne kuch nahi kaha — kehne ki zaroorat nahi thi."
             ]
           }
         }
@@ -553,7 +553,7 @@
         "Seraphina: \"Do — Chandragarh ke rajkumar ki. Woh Suryagarh aa raha hai. 'Shanti vaarta' ke liye. Uske paas... kuch hai jo mujhe chahiye.\"",
         "Seraphina: \"Teen — bina naam ki. Khandahar se. Kisi ne wahan kuch khoda hai. Aur jo mila, uspe tumhare diye jaisa nishaan hai.\"",
         "*Woh chitthiyan tumhari taraf badhati hai.*",
-        "Seraphina: \"Samragyi faisla karti hai. Roz. Aaj Sera thak gayi hai. Tum chuno, Ankit. Aur jo bhi chuno — main saath hoon. Do kadam aage, is baar.\""
+        "Seraphina: \"Samragyi faisla karti hai. Roz. Aaj Sera thak gayi hai. Tum chuno, {{playerName}}. Aur jo bhi chuno — main saath hoon. Do kadam aage, is baar.\""
       ],
       "fallbackLines": [
         "*Tumhara diya khidki par. Aaj uski lau thodi lambi hai. Sera ne dekha. Kuch nahi boli.*",
@@ -586,7 +586,7 @@
             },
             "location": "Agnipath Academy",
             "memory": [
-              "Ankit ne Academy chuna — Seraphina: 'Wahan sab tumse zyada jaadu jaante hain. Aur ek bhi tumhare jaisa nahi hai. Yaad rakhna.'"
+              "{{playerName}} ne Academy chuna — Seraphina: 'Wahan sab tumse zyada jaadu jaante hain. Aur ek bhi tumhare jaisa nahi hai. Yaad rakhna.'"
             ]
           }
         },
@@ -614,7 +614,7 @@
               "arc4": "chandragarh"
             },
             "memory": [
-              "Ankit ne Chandragarh ke rajkumar wali vaarta chuni — Sera: 'Woh mujhse shaadi ka prastaav laayega. Har saal laata hai. Is baar tum peeche khade rehna — do kadam.'"
+              "{{playerName}} ne Chandragarh ke rajkumar wali vaarta chuni — Sera: 'Woh mujhse shaadi ka prastaav laayega. Har saal laata hai. Is baar tum peeche khade rehna — do kadam.'"
             ]
           }
         },
@@ -644,7 +644,7 @@
             },
             "location": "Purani Sabhyata ke khandahar",
             "memory": [
-              "Ankit ne khandahar chuna — Tara saath, Sera bhi. 'Samragyi khandahar nahi jaati.' 'Sera jaati hai.'"
+              "{{playerName}} ne khandahar chuna — Tara saath, Sera bhi. 'Samragyi khandahar nahi jaati.' 'Sera jaati hai.'"
             ]
           }
         }
@@ -693,7 +693,7 @@
               "arc4b": "book"
             },
             "memory": [
-              "Acharya ne Ankit ko bhavishyavani ka aadha paath dikhaya: 'Jab Surya ki sabse tez lau ek bujhte diye ko chunegi, tab duniya ka rukh badlega.' Aur neeche — ek line kati hui. Seraphina ke haath se."
+              "Acharya ne {{playerName}} ko bhavishyavani ka aadha paath dikhaya: 'Jab Surya ki sabse tez lau ek bujhte diye ko chunegi, tab duniya ka rukh badlega.' Aur neeche — ek line kati hui. Seraphina ke haath se."
             ]
           }
         },
@@ -773,7 +773,7 @@
               "arc4b": "answered"
             },
             "memory": [
-              "Ankit ne darbar mein Devraj ko kaha: 'Jispe bharosa hai, use pata hai.' Devraj ne taali bajayi. Seraphina ne us raat kaha: 'Tumne mujhe darbar mein rula diya hota. Kabhi mat karna. ...Phir se karna.'"
+              "{{playerName}} ne darbar mein Devraj ko kaha: 'Jispe bharosa hai, use pata hai.' Devraj ne taali bajayi. Seraphina ne us raat kaha: 'Tumne mujhe darbar mein rula diya hota. Kabhi mat karna. ...Phir se karna.'"
             ]
           }
         },
@@ -803,7 +803,7 @@
               "arc4b": "demanded"
             },
             "memory": [
-              "Ankit ne Devraj se sabke saamne doosra aadha poocha — Devraj ne sirf ek line padhi: 'Aur diya jalega, jab tak lau use chunti rahegi. Jis din lau mudegi—' Seraphina ne use rok diya. Ek shabd se. Darbar ki saari mashaalein bujh gayi. Sirf diya jalta raha."
+              "{{playerName}} ne Devraj se sabke saamne doosra aadha poocha — Devraj ne sirf ek line padhi: 'Aur diya jalega, jab tak lau use chunti rahegi. Jis din lau mudegi—' Seraphina ne use rok diya. Ek shabd se. Darbar ki saari mashaalein bujh gayi. Sirf diya jalta raha."
             ]
           }
         }
@@ -818,7 +818,7 @@
         "Tara: \"...Ye toh tum dono ho.\"",
         "Seraphina: \"Nahi. Ye hum nahi hain. Ye woh hain jo humse pehle the.\"",
         "*Woh chitra ke paas jaati hai. Chhooti hai. Aur poora hall jal uthta hai — roshni se, aag se nahi. Har khambe par ek diya. Sab jal rahe hain. Hazaar saal se.*",
-        "Seraphina: \"Bhavishyavani pehli baar nahi hui, Ankit. Ye... ye pehle bhi hua hai. Lau aur diya. Aur phir kuch hua. Kuch jo maine kitaab se kaat diya, kyunki main nahi chahti thi tum padho.\"",
+        "Seraphina: \"Bhavishyavani pehli baar nahi hui, {{playerName}}. Ye... ye pehle bhi hua hai. Lau aur diya. Aur phir kuch hua. Kuch jo maine kitaab se kaat diya, kyunki main nahi chahti thi tum padho.\"",
         "*Woh tumhari taraf mudti hai. Roshni mein uska chehra — dara hua. Sera. Sirf Sera.*",
         "Seraphina: \"Main tumhe yahan isliye laayi kyunki tum jaanne ke haqdaar ho. Par main tumse ek cheez maangti hoon — mujhse mat poochho ki pichli baar kya hua. Abhi nahi. Please.\""
       ],
@@ -852,7 +852,7 @@
               "arc4b": "respected"
             },
             "memory": [
-              "Khandahar mein Ankit ne Sera se kuch nahi poocha — 'jab aap chahengi'. Sera ne uska haath pakda — pehli baar, Tara ke saamne. Hall ke saare diye ek saath tez ho gaye."
+              "Khandahar mein {{playerName}} ne Sera se kuch nahi poocha — 'jab aap chahengi'. Sera ne uska haath pakda — pehli baar, Tara ke saamne. Hall ke saare diye ek saath tez ho gaye."
             ]
           }
         },
@@ -882,7 +882,7 @@
               "arc4b": "happy"
             },
             "memory": [
-              "Ankit ne bas itna poocha ki chitra wale khush the ya nahi — Sera ne lipi padhi, aur boli: 'Haan. Bahut. Aakhir tak.' Aur 'aakhir' shabd par uski awaaz toot gayi."
+              "{{playerName}} ne bas itna poocha ki chitra wale khush the ya nahi — Sera ne lipi padhi, aur boli: 'Haan. Bahut. Aakhir tak.' Aur 'aakhir' shabd par uski awaaz toot gayi."
             ]
           }
         }
@@ -894,12 +894,12 @@
       "narration": [
         "*Raat. Sera ka kaksh. Chai. Tumhari. Sera sofe par, pair tumhare bagal mein — Samragyi aise nahi baithti, Sera baithti hai. Tumhara diya khidki par — aur uski lau ab pehle se zyada lambi hai. Roz thodi zyada.*",
         "*Table par: Acharya ki chitthi ('kitaab ka doosra panna khud khul gaya — aao'), Devraj ka sandesh ('ek hafta, sevak — main abhi bhi yahan hoon'), Tara ka note ('Sangram ka chhaya-sevak aaj tere kaksh ke bahar tha — maine dekha, usne nahi'), aur khandahar se ek pathar jo Sera laayi thi — uspe tumhara naam. Prachin lipi mein. Hazaar saal purana.*",
-        "Seraphina: \"Ye kabhi khatam nahi hota, Ankit. Samragyi ki zindagi mein 'khatam' nahi hota. Sirf agla darbar. Agla dushman. Agla raaz.\"",
+        "Seraphina: \"Ye kabhi khatam nahi hota, {{playerName}}. Samragyi ki zindagi mein 'khatam' nahi hota. Sirf agla darbar. Agla dushman. Agla raaz.\"",
         "*Woh tumhari taraf dekhti hai. Muskurati hai. Asli wali.*",
         "Seraphina: \"Par ab 'agla' mujhe darata nahi. Chuno. Aur 'Mahamahim' mat bolna.\""
       ],
       "fallbackLines": [
-        "*Ye kahani yahin nahi rukti — har raasta ek naya arc: bhavishyavani ka poora paath, pichli 'lau aur diya' ka anjaam, Seraphina ke pita ka yudh, Chandragarh, aur Ankit ka naam pathar par.*",
+        "*Ye kahani yahin nahi rukti — har raasta ek naya arc: bhavishyavani ka poora paath, pichli 'lau aur diya' ka anjaam, Seraphina ke pita ka yudh, Chandragarh, aur {{playerName}} ka naam pathar par.*",
         "Tara: \"Ladke. Jo bhi chune, kal subah talwaar ki practice hai. Tu bekaar hai, par practice hai.\""
       ],
       "choices": [
@@ -956,7 +956,7 @@
               "next": "devraj"
             },
             "memory": [
-              "Naya arc: Devraj Ankit se akele milna chahta hai — Sera ne mana nahi kiya. 'Tum bachche nahi ho. Par Tara saath jaayegi. Ye bhi bahas nahi hai.'"
+              "Naya arc: Devraj {{playerName}} se akele milna chahta hai — Sera ne mana nahi kiya. 'Tum bachche nahi ho. Par Tara saath jaayegi. Ye bhi bahas nahi hai.'"
             ]
           }
         },
@@ -986,7 +986,7 @@
               "next": "spy"
             },
             "memory": [
-              "Naya arc: Sangram ka chhaya-sevak — Tara aur Ankit use pakadne nikle."
+              "Naya arc: Sangram ka chhaya-sevak — Tara aur {{playerName}} use pakadne nikle."
             ]
           }
         },
@@ -1016,7 +1016,7 @@
             },
             "location": "Purani Sabhyata ke khandahar",
             "memory": [
-              "Naya arc: pathar par Ankit ka naam — hazaar saal purana. Sera: 'Main jaanti thi. Isliye maine tumhe chuna. Aur isliye main darti hoon.'"
+              "Naya arc: pathar par {{playerName}} ka naam — hazaar saal purana. Sera: 'Main jaanti thi. Isliye maine tumhe chuna. Aur isliye main darti hoon.'"
             ]
           }
         }

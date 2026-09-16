@@ -201,7 +201,7 @@
       ],
       "fallbackLines": [
         "*Tumhare haath mein 40 hazaar hain — ek mahine se zyada ka, bina 'review' ke. Aur tumhe ehsaas hota hai ki tum usse chhoo nahi pa rahe.*",
-        "*'Ankit, we've been partners for 3 years. Don't do this 🙁'*",
+        "*'{{playerName}}, we've been partners for 3 years. Don't do this 🙁'*",
         "Tokro: \"— aur tumhe ajeeb lagta hai ki app tumhara naam jaanti hai.\"",
         "*Store room ki khidki se neeche parking dikhta hai: ek SUV, 2 aadmi, aur 'function hall' ka banner. 3 ghante baarish mein bhi unhonne banner nahi utara.*"
       ],
@@ -927,7 +927,7 @@
         "*5:40. App: 'Handover failed. ₹2,000 deducted. 18,000 flagged for recovery. Tier review: 90 days.' Tum apne kamre mein baithe ho, phone 0%. Card drawer mein hai — 12 minute ki clip, abhi bhi.*",
         "*Tum kuch nahi karte. Aur duniya kuch nahi karti. Signal pe U-turn nahi liya, isliye Tara ne khud apna kaam kiya: woh 6:15 ki bus pakad gayi — usne counter wale ko 400 diye, ticket kaata, aur uski behen ne use station se uthaya. Kuch bhi dramatic nahi. Bus. Ghar. Neend.*",
         "*2 hafte baad: ek order usi hotel ke 2nd floor se. Tumhe 2 second lagta hai accept karne mein. Tum accept karte ho. 18,000 ka 'incentive' dobara aata hai. Tum 2,000 ka 'recovery' auto-debit se chhod dete ho.*",
-        "*'Welcome back, Ankit! 🔥 You're on fire again.'*",
+        "*'Welcome back, {{playerName}}! 🔥 You're on fire again.'*",
         "*Aur ek raat — 3 mahine baad, 2:11, barish — tumhara phone par 'unknown number' se ek line aati hai: 'Bhaiya. Loan abhi bhi hai. Main witness nahi bani. Aapne card kabhi nahi diya. Koi baat nahi. Bas ye jaan lijiye ki aapne mujhe sirf 20,000 mein nahi, 2 minute mein nahi — 12 minute mein chhoda hai. Woh clip aapke paas hai. Aaj bhi hai. Aap decide karo, agli baar. — T.'*",
         "*Tum phone band kar dete ho. Tum shift khatam karte ho. Tum ghar aate ho. Card ab bhi drawer mein hai. Aur tumhe pata hai — yahi sabse mehnga hissa hai: ki woh ab bhi wahin hai.*"
       ],

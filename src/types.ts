@@ -229,7 +229,11 @@ export interface AppSettings {
   notifications: NotificationSettings;
   /** Active AI provider id, or null for Offline Story Mode. */
   activeProviderId: string | null;
-  contentManifestUrl: string;
+  /**
+   * Story API base override (e.g. a self-hosted worker). Empty string means
+   * "use the app default" (KISSA_CONTENT_API_BASE_URL / production API).
+   */
+  contentApiBaseUrl: string;
   installedContentVersion: number;
   lastContentCheckAt: string | null;
 }
@@ -249,8 +253,7 @@ export const DEFAULT_SETTINGS: AppSettings = {
     reminderHour: 20,
   },
   activeProviderId: null,
-  contentManifestUrl:
-    'https://raw.githubusercontent.com/pushparaj9749/ankitstorychat/main/content/manifest.json',
+  contentApiBaseUrl: '',
   installedContentVersion: 0,
   lastContentCheckAt: null,
 };

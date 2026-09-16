@@ -45,7 +45,7 @@ export function OnboardingName({ navigation }: Props) {
             setName(t);
             setTouched(true);
           }}
-          placeholder="Nickname — e.g. Ankit"
+          placeholder="Nickname — e.g. Rahul"
           placeholderTextColor={theme.textFaint}
           maxLength={20}
           autoFocus

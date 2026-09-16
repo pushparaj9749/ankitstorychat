@@ -103,7 +103,7 @@
       ],
       "fallbackLines": [
         "*Bheed patli ho rahi hai. Chitthi abhi bhi board par hai, aur kisi ne uske neeche ek line jod di hai: 'Chitthi No. 9 kahan hai?'*",
-        "Neel: \"Ankit, na? Teri hai ye?\"",
+        "Neel: \"{{playerName}}, na? Teri hai ye?\"",
         "*woh rukta hai, phir sir hatata hai*",
         "Master Sir: \"Bheed khatam. Chitthi wapas mere paas. Aur jo bhi ise likh raha hai — drama hall, aaj 6 baje. Late nahi.\""
       ],
@@ -470,7 +470,7 @@
       "title": "Neel, Purse Aur Ek Seedhi Baat",
       "narration": [
         "*Neel ground ke corner mein khada hai, haath mein wahi purana purse. Tumhe dekhkar woh kuch nahi kehta — sirf purse tumhari taraf badha deta hai.*",
-        "Neel: \"Le. Tere haath mein jo likha hai, woh tera hai. Mera credit mujhe nahi chahiye, Ankit.\"",
+        "Neel: \"Le. Tere haath mein jo likha hai, woh tera hai. Mera credit mujhe nahi chahiye, {{playerName}}.\"",
         "*Tum ruk jaate ho. Tumhe laga tha woh gussa karega, ya dhamki dega.*",
         "Neel: \"Do hafte se log mujhe 'romantic hero' bol rahe hain aur mujhe har din ek naya jhooth bolna pad raha hai. Thak gaya hoon bhai.\"",
         "Ishita: \"Toh ab kya?\"",
@@ -731,7 +731,7 @@
         "\"Chitthi No. 9. Ishita. 'Tumhara gussa tumhari sabse achhi baat hai, kyunki woh kisi ko dikhane ke liye nahi hota.' Yeh maine likha tha. Naam nahi liya tha, kyunki dar lagta tha. Aaj liya ja raha hai.\"",
         "*Khamoshi. Phir front row se ek taalí — Master Sir. Phir poori hall.*",
         "*woh stage par aati hai, mic tumhare haath se leti hai*",
-        "Ishita: \"Toh ab? Ab kya hoga, Ankit?\"",
+        "Ishita: \"Toh ab? Ab kya hoga, {{playerName}}?\"",
         "\"Ab... chhat par chai. Agar tum theek samjho toh.\"",
         "Ishita: \"Main theek samajh rahi hoon.\"",
         "*woh muskurati hai, puri tarah*",

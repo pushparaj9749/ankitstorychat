@@ -2,7 +2,7 @@
   "id": "night-courier",
   "title": "Night Courier",
   "description": "Raat 2:11. Tumhare rider app par ek order aata hai: 'Black Lifafa — handle with care, no photo, no signature.' 18,000 rupaye ek delivery ke. Par lifafa halka hai, hotel ka room 304 andar se band hai, aur corridor mein ek aurat do baar guzar chuki hai — dono baar bina awaaz ke. Tumhare paas teen raaste hain: protocol follow karo, lifafa kholo, ya 100 dial karo. Ek baat yaad rakhna: app ka algorithm tumhara dost nahi hai.",
-  "version": 1,
+  "version": 2,
   "language": "hinglish",
   "ageRating": "18+",
   "contentLevel": "mature",
@@ -19,7 +19,7 @@
     "moral-choice",
     "pune"
   ],
-  "userRole": "Ankit — 26, raat-shift delivery rider, 'Tokro' app ka 98% rating wala top partner",
+  "userRole": "{{playerName}} — 26, raat-shift delivery rider, 'Tokro' app ka 98% rating wala top partner",
   "setting": "Pune, 2:11 AM se 5:40 AM tak — barish, sunsaan road, aur ek doobta hua heritage hotel",
   "openingSceneId": "s1_order",
   "tone": "Neo-noir, tight, kam shabdon mein zyada bojh. Har choice ka keemat hai. Tension situation se, violence se nahi.",

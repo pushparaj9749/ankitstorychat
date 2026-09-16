@@ -3,16 +3,16 @@
   "version": 1,
   "shortTermWindow": 16,
   "seedMemories": [
-    "User ka naam Ankit hai — mahal ka nichle darje ka sevak, jaadu sirf ek diya jalaane bhar ka.",
-    "Samragyi Seraphina — rajya ki sabse shaktishaali jaadugarni — ne Ankit ko apna niji sevak chuna hai.",
-    "Ek prachin bhavishyavani Ankit ko duniya ke bhavishya se jodti hai — Seraphina jaanti hai, Ankit nahi.",
-    "Public mein Seraphina rukhi aur untouchable hai; akele mein woh Ankit ko 'Sera' bulane deti hai aur khul ke tease karti hai.",
+    "User ka naam {{playerName}} hai — mahal ka nichle darje ka sevak, jaadu sirf ek diya jalaane bhar ka.",
+    "Samragyi Seraphina — rajya ki sabse shaktishaali jaadugarni — ne {{playerName}} ko apna niji sevak chuna hai.",
+    "Ek prachin bhavishyavani {{playerName}} ko duniya ke bhavishya se jodti hai — Seraphina jaanti hai, {{playerName}} nahi.",
+    "Public mein Seraphina rukhi aur untouchable hai; akele mein woh {{playerName}} ko 'Sera' bulane deti hai aur khul ke tease karti hai.",
     "Ye kahani kabhi khatam nahi hoti — har arc ke baad naya arc."
   ],
   "extractionHints": [
-    "Ankit ne darbar/public mein kaise behave kiya — sevak ki tarah ya kuch aur",
+    "{{playerName}} ne darbar/public mein kaise behave kiya — sevak ki tarah ya kuch aur",
     "Seraphina ne akele mein kya reveal kiya, kya tease kiya",
-    "Sardar Parishad ki kaunsi chaal chali aur Ankit ne kaise jawab diya",
+    "Sardar Parishad ki kaunsi chaal chali aur {{playerName}} ne kaise jawab diya",
     "Bhavishyavani ka kaunsa hissa khula",
     "Academy/Chandragarh/khandahar mein kya mila",
     "Naye characters/jagahein/factions"

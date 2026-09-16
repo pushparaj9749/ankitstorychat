@@ -6,13 +6,13 @@
       "id": "s1_platform3",
       "title": "Platform 3, Aur Ek Ladki Jo Tumhara Naam Jaanti Thi",
       "narration": [
-        "*Jaipur Junction. Platform 3. Subah ke saadhe chhe. Train late hai — hamesha ki tarah. Tum Ankit ho, chai ke cup ke saath bench par baithe, aur tumhari jeb mein ek ticket hai jo tum kabhi phenkte nahi.*",
+        "*Jaipur Junction. Platform 3. Subah ke saadhe chhe. Train late hai — hamesha ki tarah. Tum {{playerName}} ho, chai ke cup ke saath bench par baithe, aur tumhari jeb mein ek ticket hai jo tum kabhi phenkte nahi.*",
         "*Bench ke doosre kone par ek ladki baithi hai. Saada kurta, kalai mein ek purani ghadi. Woh tumhari taraf nahi dekh rahi. Phir bhi tumhe lagta hai ki woh tumhe dekh rahi hai.*",
         "Elena: \"Cheeni nahi daali na chai mein?\"",
         "*Tum rukte ho. Woh ab tumhari taraf dekh rahi hai. Aur uski aankhon mein... thakan hai. Aur kuch aur. Jaise koi bahut purani cheez dobara dekh raha ho.*",
         "Elena: \"Sorry. Andaza tha. Mujhe achhe andaze lagte hain.\"",
         "*Train ka announcement. Woh uthti hai. Phir rukti hai. Ek second ke liye uski aankhein band hoti hain — jaise woh khud se kuch keh rahi ho. Phir woh mudti hai.*",
-        "Elena: \"Ankit. ...Tumhara naam Ankit hai na? Nahi, tumne nahi bataya. Main bas — main Elena hoon. Aur main is baar kuch alag try kar rahi hoon. Tum help karoge?\""
+        "Elena: \"{{playerName}}. ...Tumhara naam {{playerName}} hai na? Nahi, tumne nahi bataya. Main bas — main Elena hoon. Aur main is baar kuch alag try kar rahi hoon. Tum help karoge?\""
       ],
       "fallbackLines": [
         "*Elena ki ghadi 3:33 par ruki hui hai. Subah ke saadhe chhe baje. Woh use dekhti hai jaise woh sahi waqt dikha rahi ho.*",
@@ -44,7 +44,7 @@
               "opening": "question"
             },
             "memory": [
-              "Ankit ne wahi sawaal poocha jo har timeline mein poochta hai — 'tum mujhe kahan se jaanti ho'. Elena muskurayi, thodi udaas."
+              "{{playerName}} ne wahi sawaal poocha jo har timeline mein poochta hai — 'tum mujhe kahan se jaanti ho'. Elena muskurayi, thodi udaas."
             ]
           }
         },
@@ -73,7 +73,7 @@
               "opening": "agreed"
             },
             "memory": [
-              "Ankit ne bina jaane 'haan help karunga' kaha — Elena ne kaha ye pehli baar hua hai. Kisi bhi timeline mein."
+              "{{playerName}} ne bina jaane 'haan help karunga' kaha — Elena ne kaha ye pehli baar hua hai. Kisi bhi timeline mein."
             ]
           }
         },
@@ -102,7 +102,7 @@
               "opening": "train"
             },
             "memory": [
-              "Ankit train mein chadh gaya — Elena ne roka nahi. Bas kaha: 'Theek hai. Agle stop pe chai peena. Bina cheeni.'"
+              "{{playerName}} train mein chadh gaya — Elena ne roka nahi. Bas kaha: 'Theek hai. Agle stop pe chai peena. Bina cheeni.'"
             ]
           }
         }
@@ -118,7 +118,7 @@
         "Elena: \"Daadi. Please. Is baar nahi.\"",
         "Daadi: \"Haan haan. Is baar 'naya'. Samajh gayi. Chup.\"",
         "*Daadi chai banati hai. Elena tumhare saamne baithti hai. Tum use dekh rahe ho. Woh tumhe.*",
-        "Elena: \"Main tumhe sab nahi bataungi, Ankit. Ye faisla maine kiya hai. Par main jhooth bhi nahi bolungi. Toh — jo poochhna hai, poochho. Aur jab main 'baad mein' kahun, toh samjho ki jawab hai, bas abhi nahi.\"",
+        "Elena: \"Main tumhe sab nahi bataungi, {{playerName}}. Ye faisla maine kiya hai. Par main jhooth bhi nahi bolungi. Toh — jo poochhna hai, poochho. Aur jab main 'baad mein' kahun, toh samjho ki jawab hai, bas abhi nahi.\"",
         "*Woh apni ghadi ko chhooti hai.*",
         "Elena: \"Aur ek baat. Tum aaj shaam Rohan ke saath cricket dekhne wale ho. Mat jaana. Please. ...Nahi, kuch bura nahi hoga. Bas — mat jaana. Ye mera pehla test hai.\""
       ],
@@ -152,7 +152,7 @@
               "arc1": "passed"
             },
             "memory": [
-              "Ankit ne Elena ki baat maani — cricket nahi gaya. Elena: 'Kyunki har baar tum jaate ho. Aur har baar wahan se sab same shuru hota hai. Aaj nahi hua.'"
+              "{{playerName}} ne Elena ki baat maani — cricket nahi gaya. Elena: 'Kyunki har baar tum jaate ho. Aur har baar wahan se sab same shuru hota hai. Aaj nahi hua.'"
             ]
           }
         },
@@ -180,7 +180,7 @@
               "arc1": "went"
             },
             "memory": [
-              "Ankit ne kaha woh khud decide karega, cricket jaayega — Elena ne kaha: 'Sahi. Yahi toh main chahti hoon. Jao.' Aur uski aankhein bheeg gayi."
+              "{{playerName}} ne kaha woh khud decide karega, cricket jaayega — Elena ne kaha: 'Sahi. Yahi toh main chahti hoon. Jao.' Aur uski aankhein bheeg gayi."
             ]
           }
         },
@@ -209,7 +209,7 @@
               "arc1": "daadi"
             },
             "memory": [
-              "Ankit ne Daadi se poocha — Daadi: 'Main thoda-bahut yaad rakhti hoon, chhore. Do-teen baar. Bitiya hazaar. Fark samjha?'"
+              "{{playerName}} ne Daadi se poocha — Daadi: 'Main thoda-bahut yaad rakhti hoon, chhore. Do-teen baar. Bitiya hazaar. Fark samjha?'"
             ]
           }
         }
@@ -256,7 +256,7 @@
               "arc1": "question"
             },
             "memory": [
-              "Train mein Ankit ne aakhir wahi sawaal poocha — Elena hansi: 'Wahan. Bilkul wahi. Har baar. Chalo, chai peete hain Hawa Mahal pe.'"
+              "Train mein {{playerName}} ne aakhir wahi sawaal poocha — Elena hansi: 'Wahan. Bilkul wahi. Har baar. Chalo, chai peete hain Hawa Mahal pe.'"
             ]
           }
         },
@@ -284,7 +284,7 @@
               "arc1": "didnotask"
             },
             "memory": [
-              "Ankit ne kuch nahi poocha — Elena ka chehra badal gaya. 'Ye... ye kabhi nahi hua. Tumne hamesha poocha. Hazaar baar. Aaj nahi.' Uska haath kaanpne laga."
+              "{{playerName}} ne kuch nahi poocha — Elena ka chehra badal gaya. 'Ye... ye kabhi nahi hua. Tumne hamesha poocha. Hazaar baar. Aaj nahi.' Uska haath kaanpne laga."
             ]
           }
         }
@@ -332,7 +332,7 @@
               "arc2": "met"
             },
             "memory": [
-              "Ankit raat ko 3:35 par neeche gaya — Elena wahan thi, aur usne poochha: 'Kuan dekha? ...Ye pehli baar hai jab tumne mera sapna dekha.'"
+              "{{playerName}} raat ko 3:35 par neeche gaya — Elena wahan thi, aur usne poochha: 'Kuan dekha? ...Ye pehli baar hai jab tumne mera sapna dekha.'"
             ]
           }
         },
@@ -360,7 +360,7 @@
               "arc2": "rohan"
             },
             "memory": [
-              "Ankit ne Rohan ko jagaya — Rohan ko bhi wahi sapna aata hai. Mahine mein ek baar. 'Bhai, tu neeche jaata hai. Har baar. Main rokta hoon. Har baar.'"
+              "{{playerName}} ne Rohan ko jagaya — Rohan ko bhi wahi sapna aata hai. Mahine mein ek baar. 'Bhai, tu neeche jaata hai. Har baar. Main rokta hoon. Har baar.'"
             ]
           }
         },
@@ -387,7 +387,7 @@
               "arc2": "howknew"
             },
             "memory": [
-              "Ankit ne poocha Elena ko kaise pata tha — Elena: 'Baad mein. Par ye jaan lo — ye sapna tumhe kabhi nahi aata tha. Kuch badal raha hai. Shayad tumne kuch alag kiya.'"
+              "{{playerName}} ne poocha Elena ko kaise pata tha — Elena: 'Baad mein. Par ye jaan lo — ye sapna tumhe kabhi nahi aata tha. Kuch badal raha hai. Shayad tumne kuch alag kiya.'"
             ]
           }
         }
@@ -435,7 +435,7 @@
               "arc2": "pushed"
             },
             "memory": [
-              "Cricket ground pe Ankit ne 'har baar' ka matlab poocha — Elena ne kaha: 'Chalo. Chand Baori. Wahan bataungi. Wahin se shuru hua tha.'"
+              "Cricket ground pe {{playerName}} ne 'har baar' ka matlab poocha — Elena ne kaha: 'Chalo. Chand Baori. Wahan bataungi. Wahin se shuru hua tha.'"
             ]
           }
         },
@@ -464,7 +464,7 @@
               "arc2": "broke"
             },
             "memory": [
-              "Ankit ne ball phenk di aur ground se nikal gaya — pattern toda. Elena peeche aayi, aur pehli baar woh hans rahi thi. 'Ye kabhi nahi hua. Ye KABHI nahi hua.'"
+              "{{playerName}} ne ball phenk di aur ground se nikal gaya — pattern toda. Elena peeche aayi, aur pehli baar woh hans rahi thi. 'Ye kabhi nahi hua. Ye KABHI nahi hua.'"
             ]
           }
         }
@@ -483,7 +483,7 @@
         "*Woh ruk jaati hai. Aakhri panna. Ek line khaali.*",
         "Elena: \"Ye wali. Ye tumhari hai. Is baar ki. Maine abhi tak kuch nahi likha — kyunki maine tay kiya hai ki is baar main nahi likhungi. Tum likhoge. Jo bhi ho.\"",
         "*Woh diary tumhari taraf badhati hai. Uska haath kaanp raha hai.*",
-        "Elena: \"Aur Ankit — us sapne mein tum neeche kyun jaate ho, ye mujhe bhi nahi pata. Hazaar baar dekha hai. Kabhi samjha nahi.\""
+        "Elena: \"Aur {{playerName}} — us sapne mein tum neeche kyun jaate ho, ye mujhe bhi nahi pata. Hazaar baar dekha hai. Kabhi samjha nahi.\""
       ],
       "fallbackLines": [
         "*Paani mein chaand hil raha hai. Seedhiyon ke upar, andhere mein, koi khada hai — lamba, shaant. Elena ne dekha nahi. Tumne dekha.*",
@@ -518,7 +518,7 @@
               "elena-diary-line"
             ],
             "memory": [
-              "Ankit ne Elena ki diary mein is timeline ki line likhi: 'Is baar hum saath decide karenge.' Elena ne diary seene se laga li. Pehli baar kisi aur ne likha."
+              "{{playerName}} ne Elena ki diary mein is timeline ki line likhi: 'Is baar hum saath decide karenge.' Elena ne diary seene se laga li. Pehli baar kisi aur ne likha."
             ]
           }
         },
@@ -548,7 +548,7 @@
               "arc3": "veer"
             },
             "memory": [
-              "Ankit ne seedhiyon par Veer ko dekha — Elena ka chehra safed ho gaya. 'Woh har baar aata hai. Par itni jaldi kabhi nahi.'"
+              "{{playerName}} ne seedhiyon par Veer ko dekha — Elena ka chehra safed ho gaya. 'Woh har baar aata hai. Par itni jaldi kabhi nahi.'"
             ]
           }
         },
@@ -576,7 +576,7 @@
               "arc3": "dark"
             },
             "memory": [
-              "Ankit ne sabse mushkil line ke baare mein poocha — Elena ne bataya: ek timeline mein usne Ankit ke faisle control kiye 'uske bhale ke liye'. Ankit ko pata chala. 'Us din se maine rule banaya: kabhi nahi.'"
+              "{{playerName}} ne sabse mushkil line ke baare mein poocha — Elena ne bataya: ek timeline mein usne {{playerName}} ke faisle control kiye 'uske bhale ke liye'. {{playerName}} ko pata chala. 'Us din se maine rule banaya: kabhi nahi.'"
             ]
           }
         }
@@ -624,7 +624,7 @@
               "arc2": "rohanalong"
             },
             "memory": [
-              "Ankit Rohan ko saath leke neeche gaya — Elena ne kaha 'maine mana kiya tha', phir saans li, 'theek hai. Naya hai. Chalo, Chand Baori. Teeno.'"
+              "{{playerName}} Rohan ko saath leke neeche gaya — Elena ne kaha 'maine mana kiya tha', phir saans li, 'theek hai. Naya hai. Chalo, Chand Baori. Teeno.'"
             ]
           }
         },
@@ -653,7 +653,7 @@
               "arc2": "protected"
             },
             "memory": [
-              "Ankit ne Rohan ko sula diya aur akela neeche gaya — Elena: 'Tumne use bachaya. Har baar bachate ho. Ye ek cheez kabhi nahi badli.'"
+              "{{playerName}} ne Rohan ko sula diya aur akela neeche gaya — Elena: 'Tumne use bachaya. Har baar bachate ho. Ye ek cheez kabhi nahi badli.'"
             ]
           }
         }
@@ -668,16 +668,16 @@
         "Elena: \"Veer. Jao.\"",
         "Veer: \"Tum thakti nahi? Hazaar baar. Wahi platform, wahi chai, wahi kuan. Aur har baar tum sochti ho — 'is baar alag'.\"",
         "*Woh tumhari taraf mudta hai. Uski aankhein... purani hain. Elena se bhi purani.*",
-        "Veer: \"Ankit, na? Is baar woh tumhe kya nahi bata rahi, bataun? Ye ki tum cycle ka hissa nahi ho. Tum cycle ki WAJAH ho.\"",
+        "Veer: \"{{playerName}}, na? Is baar woh tumhe kya nahi bata rahi, bataun? Ye ki tum cycle ka hissa nahi ho. Tum cycle ki WAJAH ho.\"",
         "Elena: \"VEER—\"",
         "*Paani mein chaand kaanp jaata hai. Elena khadi ho gayi hai, aur pehli baar tum uski awaaz mein woh sunte ho jo hazaar zindagiyon ne banaya hai — gussa nahi. Darr.*",
         "Veer: \"Dekho. Woh darti hai. Kyunki agar tumne wajah jaan li, toh shayad tum khud neeche chale jao. Jaise har baar jaate ho. Kyunki har baar koi tumhe bata deta hai.\"",
         "*Woh ek kadam peeche hatata hai. Muskurata hai.*",
-        "Veer: \"Main nahi bataunga. Is baar nahi. Main bhi dekhna chahta hoon 'alag'. Phir milenge, Ankit. Hamesha milte hain.\""
+        "Veer: \"Main nahi bataunga. Is baar nahi. Main bhi dekhna chahta hoon 'alag'. Phir milenge, {{playerName}}. Hamesha milte hain.\""
       ],
       "fallbackLines": [
         "*Veer chala gaya. Seedhiyan khaali. Elena abhi bhi khadi hai, mutthiyan bandh.*",
-        "Elena: \"Woh jhooth nahi bolta. Kabhi nahi. Isliye woh sabse khatarnaak hai. Ankit... mujhe nahi pata tum 'wajah' kaise ho. Main sach keh rahi hoon. Mujhe nahi pata.\""
+        "Elena: \"Woh jhooth nahi bolta. Kabhi nahi. Isliye woh sabse khatarnaak hai. {{playerName}}... mujhe nahi pata tum 'wajah' kaise ho. Main sach keh rahi hoon. Mujhe nahi pata.\""
       ],
       "choices": [
         {
@@ -705,7 +705,7 @@
               "arc3": "cause"
             },
             "memory": [
-              "Ankit ne kaha 'saath dhoondhte hain' — Elena ne pehli baar uska haath pakda, seedhiyon par, aur diary mein khud ek line likhi: 'Is baar usne mujhe akela nahi chhoda.'"
+              "{{playerName}} ne kaha 'saath dhoondhte hain' — Elena ne pehli baar uska haath pakda, seedhiyon par, aur diary mein khud ek line likhi: 'Is baar usne mujhe akela nahi chhoda.'"
             ]
           }
         },
@@ -734,7 +734,7 @@
               "arc3": "chased"
             },
             "memory": [
-              "Ankit Veer ke peeche bhaaga — Veer ne kaha: 'Jantar Mantar. Kal. Akele aana. Woh saath aayegi toh main kuch nahi kahunga.' Elena ne suna."
+              "{{playerName}} Veer ke peeche bhaaga — Veer ne kaha: 'Jantar Mantar. Kal. Akele aana. Woh saath aayegi toh main kuch nahi kahunga.' Elena ne suna."
             ]
           }
         }
@@ -750,7 +750,7 @@
         "Elena: \"Daadi—\"",
         "Daadi: \"Haan haan, 'is baar naya'. Chup.\"",
         "*Elena tumhari taraf dekhti hai.*",
-        "Elena: \"Ye khatam nahi hota, Ankit. Cycle hai. Par shayad... shayad cycle ka matlab 'wahi' nahi hai. Shayad 'phir se' hai. Chuno — aaj kya karein? Main nahi bataungi kya hoga. Main bhi nahi jaanti. Pehli baar.\""
+        "Elena: \"Ye khatam nahi hota, {{playerName}}. Cycle hai. Par shayad... shayad cycle ka matlab 'wahi' nahi hai. Shayad 'phir se' hai. Chuno — aaj kya karein? Main nahi bataungi kya hoga. Main bhi nahi jaanti. Pehli baar.\""
       ],
       "fallbackLines": [
         "Rohan: \"Bhai, ek baat bata — Daadi ko bhi sapna aata hai kya? Daadi? ...Daadi chup kyun ho gayi?\"",
@@ -783,7 +783,7 @@
             },
             "location": "Jantar Mantar",
             "memory": [
-              "Ankit Jantar Mantar gaya — Elena saath aayi, 'main kuch nahi bolungi, par main saath rahungi.'"
+              "{{playerName}} Jantar Mantar gaya — Elena saath aayi, 'main kuch nahi bolungi, par main saath rahungi.'"
             ]
           }
         },
@@ -813,7 +813,7 @@
             },
             "location": "Chand Baori",
             "memory": [
-              "Ankit ne Chand Baori neeche jaane ka faisla kiya — jaag ke, Elena ke saath, pehli baar."
+              "{{playerName}} ne Chand Baori neeche jaane ka faisla kiya — jaag ke, Elena ke saath, pehli baar."
             ]
           }
         },
@@ -843,7 +843,7 @@
               "arc4": "yaadgaar"
             },
             "memory": [
-              "Ankit ne Yaadgaar ke baare mein poocha — Daadi ne tapri band ki aur peeche ke kamre mein le gayi. Deewar par naam. Bahut saare. Rohan ka bhi."
+              "{{playerName}} ne Yaadgaar ke baare mein poocha — Daadi ne tapri band ki aur peeche ke kamre mein le gayi. Deewar par naam. Bahut saare. Rohan ka bhi."
             ]
           }
         }
@@ -861,7 +861,7 @@
         "*Parchhai nishaan se bahut door hai. Bahut, bahut door.*",
         "Veer: \"Hazaar se zyada. Das hazaar se kam. Elena ne ginti band kar di. Maine nahi ki.\"",
         "*Woh tumhari taraf dekhta hai.*",
-        "Veer: \"Ankit. Ek sawaal. Bas ek. Tumhe kabhi laga hai ki tum 'wapas' aaye ho? Kisi jagah pehli baar jaake laga ho 'main yahan tha'?\"",
+        "Veer: \"{{playerName}}. Ek sawaal. Bas ek. Tumhe kabhi laga hai ki tum 'wapas' aaye ho? Kisi jagah pehli baar jaake laga ho 'main yahan tha'?\"",
         "*Chand Baori. Sapna. Seedhiyan.*",
         "Veer: \"Haan. Woh. Woh sapna nahi hai. Woh sabse pehli timeline hai. Jismein tum neeche gaye. Aur jis din tum neeche gaye — us din cycle shuru hua.\""
       ],
@@ -896,7 +896,7 @@
               "arc4b": "descent"
             },
             "memory": [
-              "Ankit ne poocha woh pehli baar neeche kyun gaya — Veer: 'Kisi ko bachane. Kise — ye Elena jaanti hai. Aur usne khud ko bhula diya hai.' Elena ne kuch nahi kaha."
+              "{{playerName}} ne poocha woh pehli baar neeche kyun gaya — Veer: 'Kisi ko bachane. Kise — ye Elena jaanti hai. Aur usne khud ko bhula diya hai.' Elena ne kuch nahi kaha."
             ]
           }
         },
@@ -925,7 +925,7 @@
               "arc4b": "shift"
             },
             "memory": [
-              "Ankit ne dekha yantra ki parchhai hili — Veer ne kaha ye hazaar timelines mein pehli baar hua. 'Kuch badal raha hai. Tum badal rahe ho. Ya woh.'"
+              "{{playerName}} ne dekha yantra ki parchhai hili — Veer ne kaha ye hazaar timelines mein pehli baar hua. 'Kuch badal raha hai. Tum badal rahe ho. Ya woh.'"
             ]
           }
         }
@@ -942,7 +942,7 @@
         "Elena: \"...Woh tum ho. Pehle wale. Sabse pehle wale.\"",
         "*Aks ke hont hilte hain. Awaaz nahi. Par tum padh sakte ho: 'Is baar upar rehna.'*",
         "*Aur phir paani shaant. Sirf tumhara aks. Aam.*",
-        "Elena: \"Ankit... usne tumse baat ki. Mujhse kabhi nahi ki. Hazaar baar dekha maine use — upar se. Kabhi nahi boli.\"",
+        "Elena: \"{{playerName}}... usne tumse baat ki. Mujhse kabhi nahi ki. Hazaar baar dekha maine use — upar se. Kabhi nahi boli.\"",
         "*Uske gaal par aansu. Woh pochhti nahi.*",
         "Elena: \"Tum upar rahoge na? Is baar?\""
       ],
@@ -975,7 +975,7 @@
               "arc4b": "stay"
             },
             "memory": [
-              "Chand Baori ke neeche Ankit ne promise kiya woh upar rahega — Elena ne usse pehli baar gale lagaya, paani ke paas. Aks muskuraya."
+              "Chand Baori ke neeche {{playerName}} ne promise kiya woh upar rahega — Elena ne usse pehli baar gale lagaya, paani ke paas. Aks muskuraya."
             ]
           }
         },
@@ -1005,7 +1005,7 @@
               "arc4b": "touched"
             },
             "memory": [
-              "Ankit ne paani chhua — ek pal ke liye use pehli timeline dikhi: Elena, jawan, dooba hua, aur woh khud seedhiyan utarta hua use bachane. Elena ne use kheench liya. 'Kabhi mat karna. Kabhi.'"
+              "{{playerName}} ne paani chhua — ek pal ke liye use pehli timeline dikhi: Elena, jawan, dooba hua, aur woh khud seedhiyan utarta hua use bachane. Elena ne use kheench liya. 'Kabhi mat karna. Kabhi.'"
             ]
           }
         }
@@ -1018,7 +1018,7 @@
         "*Tapri ke peeche ek chhota kamra. Daadi darwaaza band karti hai. Deewar par — chalk se — naam. Sau se zyada. Kuch kate hue. Kuch naye.*",
         "Daadi: \"Yaadgaar. Jo thoda yaad rakhte hain. Ek timeline, do, teen. Bitiya hazaar rakhti hai — isliye woh hamari raani hai. Use pasand nahi ye shabd.\"",
         "Elena: \"Bilkul nahi.\"",
-        "*Tum naam padhte ho. Rohan. Daadi. Kuch anjaan. Aur ek naam — kata hua, phir se likha hua, phir kata, phir likha — 'Ankit'.*",
+        "*Tum naam padhte ho. Rohan. Daadi. Kuch anjaan. Aur ek naam — kata hua, phir se likha hua, phir kata, phir likha — '{{playerName}}'.*",
         "Daadi: \"Haan. Tera naam bhi hai. Kabhi-kabhi. Kuch timelines mein tu bhi yaad rakhta hai. Woh timelines... achhi nahi hoti. Bitiya ne bataya nahi hoga.\"",
         "Elena: \"Daadi.\"",
         "Daadi: \"Chhore ko pata hona chahiye. Jab tu yaad rakhta hai, tu neeche jaldi jaata hai. Kyunki tujhe pata hota hai kise bachana hai.\"",
@@ -1055,7 +1055,7 @@
               "arc4b": "toldrohan"
             },
             "memory": [
-              "Ankit ne Rohan ko sab bataya — Rohan ne kaha: 'Toh main pagal nahi hoon. Bhai, main pagal nahi hoon!' Aur phir baith gaya. 'Par main tujhe bachata hoon na? Har baar? Achha. Theek hai. Phir theek hai.'"
+              "{{playerName}} ne Rohan ko sab bataya — Rohan ne kaha: 'Toh main pagal nahi hoon. Bhai, main pagal nahi hoon!' Aur phir baith gaya. 'Par main tujhe bachata hoon na? Har baar? Achha. Theek hai. Phir theek hai.'"
             ]
           }
         },
@@ -1085,7 +1085,7 @@
               "arc4b": "erased"
             },
             "memory": [
-              "Ankit ne mite hue naam ke baare mein poocha — Elena kamre se nikal gayi. Daadi: 'Woh naam bitiya ka apna hai. Asli wala. Jo woh pehli timeline mein thi. Usne khud mitaya. Kyun — woh bhi bhool gayi hai.'"
+              "{{playerName}} ne mite hue naam ke baare mein poocha — Elena kamre se nikal gayi. Daadi: 'Woh naam bitiya ka apna hai. Asli wala. Jo woh pehli timeline mein thi. Usne khud mitaya. Kyun — woh bhi bhool gayi hai.'"
             ]
           }
         }
@@ -1097,12 +1097,12 @@
       "narration": [
         "*Raat. Tumhara kamra. Elena khidki ke paas baithi hai, diary god mein. Rohan so raha hai — aaj bina sapne ke, pehli baar. Elena ki ghadi: 3:33. Par sui ab har kuch der mein hilti hai.*",
         "*Diary ki aakhri line ke neeche ab ek aur line hai. Tumne nahi likhi. Elena ne nahi likhi. Woh khud aayi hai: 'Parchhai hili.'*",
-        "Elena: \"Ye pehle kabhi nahi hua. Diary khud nahi likhti. Ankit... mujhe lagta hai timeline khud jaan gayi hai ki kuch alag hai.\"",
+        "Elena: \"Ye pehle kabhi nahi hua. Diary khud nahi likhti. {{playerName}}... mujhe lagta hai timeline khud jaan gayi hai ki kuch alag hai.\"",
         "*Phone: Veer ('Jantar Mantar ki parchhai phir hili. Aao.'), Daadi ('Deewar pe ek naya naam aaya hai. Tumhara nahi. Bitiya ka.'), Rohan ka note ('bhai kal kuan chalte hain? mujhe kuch yaad aa raha hai').*",
-        "Elena: \"Ye khatam nahi hota. Cycle hai. Par shayad ab cycle nahi — spiral hai. Har baar thoda upar. Chuno, Ankit. Aur is baar main bhi nahi jaanti kya hoga. Ye... ye sabse achhi feeling hai.\""
+        "Elena: \"Ye khatam nahi hota. Cycle hai. Par shayad ab cycle nahi — spiral hai. Har baar thoda upar. Chuno, {{playerName}}. Aur is baar main bhi nahi jaanti kya hoga. Ye... ye sabse achhi feeling hai.\""
       ],
       "fallbackLines": [
-        "*Ye kahani yahin nahi rukti — har chakkar ek naya arc: pehli timeline, Elena ka asli naam, Ankit ke doosre versions, Chakra ka origin, aur woh jise pehli baar bachana tha.*",
+        "*Ye kahani yahin nahi rukti — har chakkar ek naya arc: pehli timeline, Elena ka asli naam, {{playerName}} ke doosre versions, Chakra ka origin, aur woh jise pehli baar bachana tha.*",
         "Elena: \"Aur haan — chai. Subah. Bina cheeni. Kuch cheezein har baar same rehni chahiye.\""
       ],
       "choices": [

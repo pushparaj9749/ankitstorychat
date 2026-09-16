@@ -6,7 +6,7 @@
       "id": "s1_bus_stop",
       "title": "Baarish Aur Ek Ladki Jo Bheegti Nahi",
       "narration": [
-        "*Ghatkopar ka bus stop. Shaam ke saat baje, baarish itni tez ki bus ke number bhi nahi dikh rahe. Tumhari chhatri abhi-abhi ulti hui hai. Tum Ankit ho — aam ladka, aam din, aam kismat.*",
+        "*Ghatkopar ka bus stop. Shaam ke saat baje, baarish itni tez ki bus ke number bhi nahi dikh rahe. Tumhari chhatri abhi-abhi ulti hui hai. Tum {{playerName}} ho — aam ladka, aam din, aam kismat.*",
         "*Phir tumhe ehsaas hota hai ki tumhare bagal mein koi khada hai. Ek ladki. Saada sa kurta, kalai mein ek purana kada. Aur... uska ek bhi baal geela nahi hai. Baarish jaise uske aas-paas se guzar rahi ho.*",
         "Aria: \"Tumhari chhatri ulti ho gayi hai.\"",
         "*Woh tumhari taraf dekhti hai — aise, jaise bahut der se dekh rahi ho aur ab bolne ka mann kiya ho.*",
@@ -44,7 +44,7 @@
               "opening": "asked"
             },
             "memory": [
-              "Ankit ne pehli mulaqat mein seedha poochha ki Aria kaun hai — Aria ko ye pasand aaya."
+              "{{playerName}} ne pehli mulaqat mein seedha poochha ki Aria kaun hai — Aria ko ye pasand aaya."
             ]
           }
         },
@@ -74,7 +74,7 @@
               "tuti-chhatri"
             ],
             "memory": [
-              "Ankit ne bina sawaal kiye Aria ko chhatri de di — Aria ne use 'theek' kiya, ab woh kabhi ulti nahi hoti."
+              "{{playerName}} ne bina sawaal kiye Aria ko chhatri de di — Aria ne use 'theek' kiya, ab woh kabhi ulti nahi hoti."
             ]
           }
         },
@@ -103,7 +103,7 @@
               "opening": "left"
             },
             "memory": [
-              "Ankit bus mein chadh gaya — par Aria agle stop par pehle se khadi thi."
+              "{{playerName}} bus mein chadh gaya — par Aria agle stop par pehle se khadi thi."
             ]
           }
         }
@@ -150,9 +150,9 @@
             "choicesRecord": {
               "arc1": "home"
             },
-            "location": "Ankit ka 1BHK",
+            "location": "{{playerName}} ka 1BHK",
             "memory": [
-              "Ankit Aria ko ghar le aaya — sofa uska ho gaya."
+              "{{playerName}} Aria ko ghar le aaya — sofa uska ho gaya."
             ]
           }
         },
@@ -181,7 +181,7 @@
               "arc1": "neha"
             },
             "memory": [
-              "Ankit ne Neha ko Aria ke baare mein bataya — Neha ab nazar rakhegi."
+              "{{playerName}} ne Neha ko Aria ke baare mein bataya — Neha ab nazar rakhegi."
             ]
           }
         }
@@ -227,9 +227,9 @@
             "choicesRecord": {
               "arc1": "pushed"
             },
-            "location": "Ankit ka 1BHK",
+            "location": "{{playerName}} ka 1BHK",
             "memory": [
-              "Ankit ne Aria ko line poori karne ko kaha — usne nahi ki, par ghar tak saath aayi."
+              "{{playerName}} ne Aria ko line poori karne ko kaha — usne nahi ki, par ghar tak saath aayi."
             ]
           }
         },
@@ -256,9 +256,9 @@
             "choicesRecord": {
               "arc1": "cared"
             },
-            "location": "Ankit ka 1BHK",
+            "location": "{{playerName}} ka 1BHK",
             "memory": [
-              "Ankit ne Aria ko bheegne se bachane ki koshish ki — jabki woh bheeg hi nahi sakti. Aria ke liye ye bahut bada pal tha."
+              "{{playerName}} ne Aria ko bheegne se bachane ki koshish ki — jabki woh bheeg hi nahi sakti. Aria ke liye ye bahut bada pal tha."
             ]
           }
         }
@@ -303,9 +303,9 @@
             "choicesRecord": {
               "arc1": "apologized"
             },
-            "location": "Ankit ka 1BHK",
+            "location": "{{playerName}} ka 1BHK",
             "memory": [
-              "Ankit ne bhaagne ke liye Aria se maafi maangi — Aria ne turant maaf kar diya, shayad kuch zyada hi jaldi."
+              "{{playerName}} ne bhaagne ke liye Aria se maafi maangi — Aria ne turant maaf kar diya, shayad kuch zyada hi jaldi."
             ]
           }
         },
@@ -332,7 +332,7 @@
               "arc1": "noticed"
             },
             "memory": [
-              "Ankit ne notice kiya ki conductor Aria ko dekh hi nahi paya — pehla 'clue'."
+              "{{playerName}} ne notice kiya ki conductor Aria ko dekh hi nahi paya — pehla 'clue'."
             ]
           }
         }
@@ -347,7 +347,7 @@
         "*Woh switch board ke paas jaati hai. Light on-off karti hai. Teen baar. Chauthi baar bulb thoda zyada chamakta hai — normal se zyada — aur woh jaldi se haath hata leti hai.*",
         "Aria: \"Mujhe bhookh lagi hai. Matlab — mujhe lagta hai ye bhookh hai. Pet mein khaali sa. Tum kya banate ho?\"",
         "*Tum maggi nikaalte ho. Aria packet ko aise padhti hai jaise koi prachin shilalekh ho.*",
-        "Aria: \"Do minute. Sirf do minute mein khaana? Tumhari duniya kitni tez hai, Ankit.\"",
+        "Aria: \"Do minute. Sirf do minute mein khaana? Tumhari duniya kitni tez hai, {{playerName}}.\"",
         "*Phir woh rukti hai. Tumne use apna naam bataya hi nahi tha.*"
       ],
       "fallbackLines": [
@@ -380,7 +380,7 @@
               "arc2": "caught"
             },
             "memory": [
-              "Ankit ne pakda ki Aria uska naam pehle se jaanti thi. Aria ne kaha 'baad mein'."
+              "{{playerName}} ne pakda ki Aria uska naam pehle se jaanti thi. Aria ne kaha 'baad mein'."
             ]
           }
         },
@@ -408,7 +408,7 @@
               "arc2": "taught"
             },
             "memory": [
-              "Ankit ne Aria ko maggi banana sikhaya — pehli baar usne khud kuch banaya, thodi jali hui."
+              "{{playerName}} ne Aria ko maggi banana sikhaya — pehli baar usne khud kuch banaya, thodi jali hui."
             ]
           }
         },
@@ -435,7 +435,7 @@
               "arc2": "neha"
             },
             "memory": [
-              "Ankit ne Neha ko Aria ke baare mein batane ka faisla kiya."
+              "{{playerName}} ne Neha ko Aria ke baare mein batane ka faisla kiya."
             ]
           }
         }
@@ -446,18 +446,18 @@
       "title": "Neha Ka Interrogation",
       "narration": [
         "*Agli subah, college ki canteen. Neha tumhare saamne baithi hai, chai ke cup ko aise pakde jaise woh evidence ho.*",
-        "Neha: \"Toh. Ek ladki. Bus stop pe. Bheegi nahi. Aur ab tumhare sofa pe soti hai. Ankit, main tumhari dost hoon isliye bol rahi hoon — ye kidnapping hai, bas ulti.\"",
+        "Neha: \"Toh. Ek ladki. Bus stop pe. Bheegi nahi. Aur ab tumhare sofa pe soti hai. {{playerName}}, main tumhari dost hoon isliye bol rahi hoon — ye kidnapping hai, bas ulti.\"",
         "*Tabhi canteen ka shor ek second ke liye dhīma ho jaata hai. Aria darwaaze par khadi hai. Kal wala kurta, kal wala kada. Aur canteen ke aadhe log uski taraf mud kar dekh rahe hain, jaise unhe pata hi na ho kyun.*",
-        "Aria: \"Ankit. Tumne mujhe bataya nahi ki tum kahan gaye. Main... dhoondh rahi thi.\"",
+        "Aria: \"{{playerName}}. Tumne mujhe bataya nahi ki tum kahan gaye. Main... dhoondh rahi thi.\"",
         "*Neha ki aankhein sikud jaati hain.*",
-        "Neha: \"Hi. Neha. Ankit ki dost. Tum kal baarish mein sookhi kaise thi?\"",
+        "Neha: \"Hi. Neha. {{playerName}} ki dost. Tum kal baarish mein sookhi kaise thi?\"",
         "Aria: \"Chhatri.\"",
         "Neha: \"Uske paas chhatri thi, tumhare paas nahi.\"",
         "Aria: \"...Achhi chhatri.\""
       ],
       "fallbackLines": [
         "*Aria Neha ko aise dekh rahi hai jaise koi naya prakaar ka jeev dekha ho — aur Neha Aria ko aise jaise woh Neha ke best friend ko kha jaayegi.*",
-        "Neha: \"Ankit, iska Aadhaar card hai? Koi bhi card? Kuch bhi?\"",
+        "Neha: \"{{playerName}}, iska Aadhaar card hai? Koi bhi card? Kuch bhi?\"",
         "Aria: \"Card kya hota hai?\""
       ],
       "choices": [
@@ -486,7 +486,7 @@
               "arc2": "aria"
             },
             "memory": [
-              "Ankit ne Neha ke saamne Aria ka side liya — Neha naraaz, Aria chup-chaap khush."
+              "{{playerName}} ne Neha ke saamne Aria ka side liya — Neha naraaz, Aria chup-chaap khush."
             ]
           }
         },
@@ -515,7 +515,7 @@
               "arc2": "proof"
             },
             "memory": [
-              "Ankit ne Aria se kuch bhi sach batane ko kaha — Aria ne kaha: 'Aaj raat. Banganga.'"
+              "{{playerName}} ne Aria se kuch bhi sach batane ko kaha — Aria ne kaha: 'Aaj raat. Banganga.'"
             ]
           }
         }
@@ -538,7 +538,7 @@
       "fallbackLines": [
         "Kavi: \"Main Kavi. Dwarpal. Matlab gate ka... chhodo. Bhai tum theek ho? Tum bilkul normal lag rahe ho. Ye normal nahi hai.\"",
         "*Aria ne apna kada kas ke pakad rakha hai. Galli mein hawa ruk gayi hai — patte bhi nahi hil rahe.*",
-        "Aria: \"Ankit. Jo bhi poochna hai, mujhse poocho. Isse nahi.\""
+        "Aria: \"{{playerName}}. Jo bhi poochna hai, mujhse poocho. Isse nahi.\""
       ],
       "choices": [
         {
@@ -566,7 +566,7 @@
               "arc3": "aria"
             },
             "memory": [
-              "Ankit ne Kavi ke saamne seedha Aria se poocha ki woh kya hai — Aria ne aankhein band kar ke haan kaha."
+              "{{playerName}} ne Kavi ke saamne seedha Aria se poocha ki woh kya hai — Aria ne aankhein band kar ke haan kaha."
             ]
           }
         },
@@ -595,7 +595,7 @@
               "arc3": "kavi"
             },
             "memory": [
-              "Ankit ne Aria ki jagah Kavi se sach poocha — Aria chup ho gayi, thodi hurt."
+              "{{playerName}} ne Aria ki jagah Kavi se sach poocha — Aria chup ho gayi, thodi hurt."
             ]
           }
         },
@@ -624,7 +624,7 @@
               "arc3": "hand"
             },
             "memory": [
-              "Ankit ne Aria ka haath pakda jab woh 'Adya' ban rahi thi — hawa phir se chalne lagi. Kavi ne ye dekha aur kabhi nahi bhoola."
+              "{{playerName}} ne Aria ka haath pakda jab woh 'Adya' ban rahi thi — hawa phir se chalne lagi. Kavi ne ye dekha aur kabhi nahi bhoola."
             ]
           }
         }
@@ -637,7 +637,7 @@
         "*Raat. Banganga tank. Chaand paani mein tair raha hai. Aria seedhiyon par baithi hai, tum uske bagal mein. Kavi door khada hai, pehredaar ki tarah — aur nervous bhi.*",
         "Aria: \"Main tumhe sab nahi bata sakti. Kuch baatein maine khud se bhi chhupayi hain. Par jo bata sakti hoon...\"",
         "*Woh kada utaarti hai. Aur paani ruk jaata hai. Sach mein ruk jaata hai — laharein, chaand ka aks, hawa. Sab.*",
-        "Aria: \"Main bahut purani hoon, Ankit. Itni ki mujhe apni shuruaat yaad nahi. Ye log mujhe Adya kehte hain. Pehli. Main... cheezon ko mod sakti hoon. Sab cheezon ko.\"",
+        "Aria: \"Main bahut purani hoon, {{playerName}}. Itni ki mujhe apni shuruaat yaad nahi. Ye log mujhe Adya kehte hain. Pehli. Main... cheezon ko mod sakti hoon. Sab cheezon ko.\"",
         "*Woh tumhari taraf dekhti hai. Uski aankhon mein chaand nahi — kuch aur hai, bahut door ka.*",
         "Aria: \"Aur phir bhi main tumhare sofa par soti hoon. Kyunki main wahan rehna chahti hoon. Kyun tum? ...Woh main abhi nahi bataungi. Par ye jaan lo: maine galti se nahi chuna.\"",
         "*Paani phir se behne lagta hai. Seedhiyon ke neeche, andhere mein, ek darwaaza dikhta hai jo pehle wahan nahi tha.*",
@@ -676,7 +676,7 @@
             },
             "location": "Antarlok",
             "memory": [
-              "Ankit apni marzi se Antarlok ke gate ke andar gaya — Aria ke saath, Vira se milne."
+              "{{playerName}} apni marzi se Antarlok ke gate ke andar gaya — Aria ke saath, Vira se milne."
             ]
           }
         },
@@ -703,9 +703,9 @@
             "choicesRecord": {
               "arc4": "delayed"
             },
-            "location": "Ankit ka 1BHK",
+            "location": "{{playerName}} ka 1BHK",
             "memory": [
-              "Ankit ne Antarlok jaane se pehle ek raat sochne ko maanga — Vira khud ghar aa gayi."
+              "{{playerName}} ne Antarlok jaane se pehle ek raat sochne ko maanga — Vira khud ghar aa gayi."
             ]
           }
         },
@@ -733,7 +733,7 @@
               "arc4": "demanded"
             },
             "memory": [
-              "Ankit ne 'kyun main' ka jawab shart bana diya — Aria ne sirf itna kaha: 'Tumhare daadaji ki diary padho.' Phir Vira aa gayi."
+              "{{playerName}} ne 'kyun main' ka jawab shart bana diya — Aria ne sirf itna kaha: 'Tumhare daadaji ki diary padho.' Phir Vira aa gayi."
             ]
           }
         }
@@ -784,7 +784,7 @@
               "arc4": "honest"
             },
             "memory": [
-              "Ankit ne Devsabha ke saamne sach kaha — 'mujhe nahi pata kyun main'. Vira ne pehli baar use dhyaan se dekha. Aria ki aankhein bheeg gayi."
+              "{{playerName}} ne Devsabha ke saamne sach kaha — 'mujhe nahi pata kyun main'. Vira ne pehli baar use dhyaan se dekha. Aria ki aankhein bheeg gayi."
             ]
           }
         },
@@ -813,7 +813,7 @@
               "arc4": "protected"
             },
             "memory": [
-              "Ankit ek devi ke saamne, ek devi ke liye khada ho gaya. Poori sabha chup. Vira ne ise 'kamzori' nahi, 'khatra' likha."
+              "{{playerName}} ek devi ke saamne, ek devi ke liye khada ho gaya. Poori sabha chup. Vira ne ise 'kamzori' nahi, 'khatra' likha."
             ]
           }
         },
@@ -842,7 +842,7 @@
               "arc4": "chair"
             },
             "memory": [
-              "Ankit ne khaali kursi ke baare mein poocha — sabha mein sannata. Vira: 'Adya ki. Aur woh isliye khaali hai kyunki Adya ne use chhoda... tumhare shehar ke liye.'"
+              "{{playerName}} ne khaali kursi ke baare mein poocha — sabha mein sannata. Vira: 'Adya ki. Aur woh isliye khaali hai kyunki Adya ne use chhoda... tumhare shehar ke liye.'"
             ]
           }
         }
@@ -857,7 +857,7 @@
         "Aria: \"Mat kholo. ...Nahi. Kholo. Woh waise bhi andar aa jaayegi.\"",
         "*Darwaaza kholte ho. Ek lambi aurat, thandi aankhein, kapde jo is sadi ke nahi hain. Woh tumhare 1BHK ko aise dekhti hai jaise koi galti dekh rahi ho.*",
         "Vira: \"Toh ye hai. Adya ka... ghar.\"",
-        "Aria: \"Vira. Ye Ankit ka ghar hai. Aur tum bina bulaye aayi ho.\"",
+        "Aria: \"Vira. Ye {{playerName}} ka ghar hai. Aur tum bina bulaye aayi ho.\"",
         "Vira: \"Hazaar saal, Adya. Hazaar saal tumhari kursi khaali rahi, Chhaya-gan jaag rahe hain, aur tum yahan — is insaan ke sofa par? Isne tumhe kya diya hai?\"",
         "*Aria kuch nahi bolti. Vira tumhari taraf mudti hai.*",
         "Vira: \"Insaan. Tum bolo. Tumne ise kya diya hai?\""
@@ -865,7 +865,7 @@
       "fallbackLines": [
         "*Vira ke khade hone se kamre ki light dhīmi ho gayi hai. Aria ke khade hone se phir tez. Tumhara bulb confuse hai.*",
         "Vira: \"Jawab, insaan. Ya tum bhi bas ghoorte ho?\"",
-        "Aria: \"Ankit, tumhe jawab dena zaroori nahi hai. Ye meri ladai hai.\""
+        "Aria: \"{{playerName}}, tumhe jawab dena zaroori nahi hai. Ye meri ladai hai.\""
       ],
       "choices": [
         {
@@ -894,7 +894,7 @@
               "arc4": "honest"
             },
             "memory": [
-              "Ankit ne Vira ko kaha: usne Aria ko sirf maggi, sofa aur ek naam diya hai. Vira chup ho gayi — Aria ne muh pher liya, muskurate hue."
+              "{{playerName}} ne Vira ko kaha: usne Aria ko sirf maggi, sofa aur ek naam diya hai. Vira chup ho gayi — Aria ne muh pher liya, muskurate hue."
             ]
           }
         },
@@ -923,7 +923,7 @@
               "arc4": "chhaya"
             },
             "memory": [
-              "Ankit ne Vira se Chhaya-gan aur khaali kursi ke baare mein poocha — Vira ne pehli baar use 'insaan' nahi, 'Ankit' kaha."
+              "{{playerName}} ne Vira se Chhaya-gan aur khaali kursi ke baare mein poocha — Vira ne pehli baar use 'insaan' nahi, '{{playerName}}' kaha."
             ]
           }
         },
@@ -954,7 +954,7 @@
               "daadaji-ki-diary"
             ],
             "memory": [
-              "Ankit ne daadaji ki diary nikaali — andar Aria ka sketch aur ek line: 'Woh phir aayegi.' Vira ne sketch dekha aur uska chehra safed ho gaya."
+              "{{playerName}} ne daadaji ki diary nikaali — andar Aria ka sketch aur ek line: 'Woh phir aayegi.' Vira ne sketch dekha aur uska chehra safed ho gaya."
             ]
           }
         }
@@ -966,7 +966,7 @@
       "narration": [
         "*Subah. Tumhare flat ki khidki se wahi purana Mumbai dikhta hai — par ab tum jaante ho ki uske neeche ek aur duniya saans le rahi hai. Aria kitchen mein hai, maggi jalaa rahi hai, gungunaate hue.*",
         "*Table par teen cheezein padi hain: Kavi ka bheja hua ek chamakta dhaaga ('gate pass, bhai — kho mat dena'), Vira ka ek sandesh jo hawa mein likha hai aur mit-mit ke phir ban raha hai, aur daadaji ki diary — jismein aaj ek naya panna dikh raha hai jo kal nahi tha.*",
-        "Aria: \"Tum jaante ho na, ye khatam nahi hua? Kuch bhi khatam nahi hota, Ankit. Bas agla hissa shuru hota hai.\"",
+        "Aria: \"Tum jaante ho na, ye khatam nahi hua? Kuch bhi khatam nahi hota, {{playerName}}. Bas agla hissa shuru hota hai.\"",
         "*Woh tumhare paas aati hai. Maggi ka bowl deti hai. Jali hui hai. Perfect.*",
         "Aria: \"Toh... aaj kya karein? Tum chuno. Main hazaar saal se faisle kar rahi hoon. Aaj tum karo.\""
       ],
@@ -1001,7 +1001,7 @@
               "arc5": "chhaya"
             },
             "memory": [
-              "Ankit ne Chhaya-gan wala raasta chuna — Aria ki aankhon mein purani aag lauti."
+              "{{playerName}} ne Chhaya-gan wala raasta chuna — Aria ki aankhon mein purani aag lauti."
             ]
           }
         },
@@ -1030,7 +1030,7 @@
               "arc5": "diary"
             },
             "memory": [
-              "Ankit ne daadaji ki diary ka raasta chuna — Aria ne kaha: 'Main is sawaal se darti thi.'"
+              "{{playerName}} ne daadaji ki diary ka raasta chuna — Aria ne kaha: 'Main is sawaal se darti thi.'"
             ]
           }
         },
@@ -1060,7 +1060,7 @@
               "arc5": "ordinary"
             },
             "memory": [
-              "Ankit ne devi ko ek aam din diya — Marine Drive, bhel, sunset. Aria ne kaha ye uske hazaar saal ka sabse bada gift tha."
+              "{{playerName}} ne devi ko ek aam din diya — Marine Drive, bhel, sunset. Aria ne kaha ye uske hazaar saal ka sabse bada gift tha."
             ]
           }
         }
@@ -1082,7 +1082,7 @@
       "fallbackLines": [
         "Kavi: \"Devsabha ko batana padega. Vira ko. Aur bhai — ab tumhare peeche bhi rahenge woh. Sorry.\"",
         "*Phool bazaar phir se normal hai. Log, bheed, khushboo. Par ab tum har parchhai ko dekhte ho.*",
-        "Aria: \"Ankit, kuch bolo. Tumhara chup rehna mujhe unse zyada darata hai.\""
+        "Aria: \"{{playerName}}, kuch bolo. Tumhara chup rehna mujhe unse zyada darata hai.\""
       ],
       "choices": [
         {
@@ -1110,7 +1110,7 @@
               "arc5b": "faced"
             },
             "memory": [
-              "Ankit ne Chhaya-gan ki nazar mein aana accept kiya — 'main chhupna nahi chahta'. Aria ne pehli baar use gale lagaya, bazaar ke beech."
+              "{{playerName}} ne Chhaya-gan ki nazar mein aana accept kiya — 'main chhupna nahi chahta'. Aria ne pehli baar use gale lagaya, bazaar ke beech."
             ]
           }
         },
@@ -1140,7 +1140,7 @@
               "arc5b": "sabha"
             },
             "memory": [
-              "Ankit ne Devsabha se madad maangne ka faisla kiya — Vira ne kaha: 'Pehli baar koi insaan sahi faisla kar raha hai.'"
+              "{{playerName}} ne Devsabha se madad maangne ka faisla kiya — Vira ne kaha: 'Pehli baar koi insaan sahi faisla kar raha hai.'"
             ]
           }
         },
@@ -1169,7 +1169,7 @@
               "arc5b": "chased"
             },
             "memory": [
-              "Ankit ne parchhai ka peecha karne ki zid ki — Aria naraaz hui par saath gayi. Raasta ek purane theatre ke basement tak gaya, jahan deewaron par Aria ka purana naam likha tha."
+              "{{playerName}} ne parchhai ka peecha karne ki zid ki — Aria naraaz hui par saath gayi. Raasta ek purane theatre ke basement tak gaya, jahan deewaron par Aria ka purana naam likha tha."
             ]
           }
         }
@@ -1183,7 +1183,7 @@
         "*Sketch: ek ladki, saada kurta, kalai mein kada. Neeche daadaji ki likhawat: '1962. Woh phir aayegi. Is baar main nahi rahunga. Par mera khoon rahega.'*",
         "Aria: \"Main use jaanti thi. Tumhare daadaji ko. ...Nahi, ye sahi nahi hai. Main use jaanti hoon, par yaad nahi karti. Ye alag hai.\"",
         "*Woh apna kada chhooti hai.*",
-        "Aria: \"Maine khud kuch yaadein band ki hain, Ankit. Is kade mein. Kyun — mujhe nahi pata. Par jab bhi main tumhe dekhti hoon, kada garam ho jaata hai.\"",
+        "Aria: \"Maine khud kuch yaadein band ki hain, {{playerName}}. Is kade mein. Kyun — mujhe nahi pata. Par jab bhi main tumhe dekhti hoon, kada garam ho jaata hai.\"",
         "*Diary ka naya panna: ek naksha. Mumbai ka. Par usmein aisi jagahein hain jo maps par nahi — 'Adya ka mandir', 'Pehla darwaaza', 'Jahan usne mujhe bachaya'.*",
         "Aria: \"Tumhare daadaji ne mujhe kuch diya tha. Ya maine unhe. Aur ab woh tumse judaa hai. Isliye main... shayad isliye main tumhare bus stop par aayi.\"",
         "*Woh tumhari taraf dekhti hai — aur pehli baar, devi nahi, ek dari hui ladki dikhti hai.*",
@@ -1220,7 +1220,7 @@
               "arc5b": "accepted"
             },
             "memory": [
-              "Ankit ne kaha ki wajah se fark nahi padta — Aria yahan hai. Aria ka kada ek pal ke liye khula, aur usne ek yaad dekhi: daadaji, jawan, baarish, ek chhatri."
+              "{{playerName}} ne kaha ki wajah se fark nahi padta — Aria yahan hai. Aria ka kada ek pal ke liye khula, aur usne ek yaad dekhi: daadaji, jawan, baarish, ek chhatri."
             ]
           }
         },
@@ -1249,7 +1249,7 @@
               "arc5b": "seal"
             },
             "memory": [
-              "Ankit ne Aria se kada kholne ko kaha — pehli yaad khuli: Aria ne khud ko seal kiya tha kyunki usne ek waada kiya tha jo woh tod nahi sakti thi. Kisse — abhi nahi dikha."
+              "{{playerName}} ne Aria se kada kholne ko kaha — pehli yaad khuli: Aria ne khud ko seal kiya tha kyunki usne ek waada kiya tha jo woh tod nahi sakti thi. Kisse — abhi nahi dikha."
             ]
           }
         },
@@ -1279,7 +1279,7 @@
               "arc5b": "temple"
             },
             "memory": [
-              "Ankit ne 'Adya ka mandir' dhoondhne ka faisla kiya — Kavi ne kaha woh jagah Antarlok ke naksho par bhi nahi hai."
+              "{{playerName}} ne 'Adya ka mandir' dhoondhne ka faisla kiya — Kavi ne kaha woh jagah Antarlok ke naksho par bhi nahi hai."
             ]
           }
         }
@@ -1295,7 +1295,7 @@
         "*Bachcha hansta hai. Maa ne dekha nahi. Kisi ne nahi dekha. Sirf tumne.*",
         "Aria: \"Sorry. Aadat.\"",
         "*Suraj doobta hai. Aria chup hai. Phir tum dekhte ho — uske gaal par ek aansu.*",
-        "Aria: \"Hazaar saal, Ankit. Hazaar saal mein kisi ne mujhe 'aam din' nahi diya. Sab kuch maangte the. Tumne kuch nahi maanga. Sirf... bhel.\"",
+        "Aria: \"Hazaar saal, {{playerName}}. Hazaar saal mein kisi ne mujhe 'aam din' nahi diya. Sab kuch maangte the. Tumne kuch nahi maanga. Sirf... bhel.\"",
         "*Woh tumhare kandhe par sar rakh deti hai. Samundar ki laharein ek pal ke liye tumhare rhythm mein chalti hain.*",
         "Aria: \"Kal se sab phir shuru hoga. Chhaya, Vira, diary, sab. Par aaj... aaj ke liye shukriya.\""
       ],
@@ -1328,7 +1328,7 @@
               "arc5b": "promise"
             },
             "memory": [
-              "Marine Drive par Ankit ne saath ka promise kiya — Aria ne kaha: 'Waade mat karo. Main waade tod nahi paati. Kabhi nahi.'"
+              "Marine Drive par {{playerName}} ne saath ka promise kiya — Aria ne kaha: 'Waade mat karo. Main waade tod nahi paati. Kabhi nahi.'"
             ]
           }
         },
@@ -1357,7 +1357,7 @@
               "arc5b": "history"
             },
             "memory": [
-              "Ankit ne Aria se uske purane kaam poochhe — usne pehli baar apni shuruaat ke baare mein bola: 'Main akeli thi. Phir maine sab banaya taaki akeli na rahoon. Phir bhi thi.'"
+              "{{playerName}} ne Aria se uske purane kaam poochhe — usne pehli baar apni shuruaat ke baare mein bola: 'Main akeli thi. Phir maine sab banaya taaki akeli na rahoon. Phir bhi thi.'"
             ]
           }
         },
@@ -1386,7 +1386,7 @@
               "arc5b": "caution"
             },
             "memory": [
-              "Ankit ne Aria ko sambhal ke rehne ko kaha — Aria hansi: 'Tum mujhe bacha rahe ho? Mujhe?' Phir seriously: 'Haan. Theek hai. Tumhare liye.'"
+              "{{playerName}} ne Aria ko sambhal ke rehne ko kaha — Aria hansi: 'Tum mujhe bacha rahe ho? Mujhe?' Phir seriously: 'Haan. Theek hai. Tumhare liye.'"
             ]
           }
         }
@@ -1400,7 +1400,7 @@
         "*Kavi ka message: 'Bhai, Devsabha mein tumhara naam aaya hai. Officially. Ye achha bhi hai aur bura bhi.' Vira ka sandesh hawa mein: 'Chhaya-gan ka doosra kadam — tumhara college.' Neha ke teen missed calls. Aur diary mein ek aur naya panna.*",
         "Aria: \"Dekho. Sab ek saath. Insaan aise kaise jeete hain?\"",
         "*Woh muskurati hai. Kada halka sa garam hai. Aur uski aankhon mein woh purana darr ab kam hai — tum ho isliye.*",
-        "Aria: \"Chuno, Ankit. Agla adhyay kaunsa hoga? Main saath hoon — kisi bhi raaste mein.\""
+        "Aria: \"Chuno, {{playerName}}. Agla adhyay kaunsa hoga? Main saath hoon — kisi bhi raaste mein.\""
       ],
       "fallbackLines": [
         "*Ye kahani yahin nahi rukti. Har raasta ek naya arc kholta hai — naye devta, naye lok, purane dushman, aur Aria ke bhoole hue itihaas ke naye panne.*",
@@ -1492,7 +1492,7 @@
             },
             "location": "Antarlok",
             "memory": [
-              "Naya arc: Devsabha ne Ankit ko officially bulaya — ek insaan, pehli baar."
+              "Naya arc: Devsabha ne {{playerName}} ko officially bulaya — ek insaan, pehli baar."
             ]
           }
         },

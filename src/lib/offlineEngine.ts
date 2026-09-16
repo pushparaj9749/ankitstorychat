@@ -9,6 +9,7 @@
 import type { Playthrough, StoryBundle, StoryState } from '../types';
 import { applyEffects, availableChoices, getScene, matchChoice } from './engine';
 import { isFullyFadedLine, splitSpeakerLine, stripStoryMarkup } from './markup';
+import { interpolatePlayerName } from './playerName';
 
 export interface OfflineLine {
   role: 'assistant' | 'narration';
@@ -21,13 +22,23 @@ export interface OfflineLine {
  *   "*Action text.*"          -> narration line (rendered faded in the UI)
  *   "Myra: \"dialogue\""      -> dialogue line spoken by Myra
  *   plain text                -> dialogue line from the narrator
+ *
+ * @param playerName the reader's name — {{playerName}} placeholders (and
+ *        legacy hardcoded player names) in scene text resolve to it.
+ *        Character names are never replaced.
  */
-export function toOfflineLines(bundle: StoryBundle, rawLines: string[]): OfflineLine[] {
+export function toOfflineLines(
+  bundle: StoryBundle,
+  rawLines: string[],
+  playerName?: string | null,
+): OfflineLine[] {
   const names = bundle.characters.characters.map((c) => c.name);
+  const options = { protectedNames: names };
   const out: OfflineLine[] = [];
   for (const raw of rawLines ?? []) {
-    const line = (raw ?? '').trim();
+    let line = (raw ?? '').trim();
     if (!line) continue;
+    if (playerName) line = interpolatePlayerName(line, playerName, options);
     if (isFullyFadedLine(line)) {
       out.push({ role: 'narration', speaker: null, text: stripStoryMarkup(line) });
       continue;
@@ -54,11 +65,14 @@ export interface OfflineStep {
  * Every line follows the same story format, so the opening block reads exactly
  * like the rest of the conversation: faded *action* lines and Name: "dialogue".
  */
-export function offlineOpening(bundle: StoryBundle): { lines: OfflineLine[]; sceneId: string } {
+export function offlineOpening(
+  bundle: StoryBundle,
+  playerName?: string | null,
+): { lines: OfflineLine[]; sceneId: string } {
   const scene = getScene(bundle, bundle.story.openingSceneId);
   return {
     sceneId: scene.id,
-    lines: toOfflineLines(bundle, scene.narration),
+    lines: toOfflineLines(bundle, scene.narration, playerName),
   };
 }
 
@@ -70,6 +84,7 @@ export function offlineStep(
   bundle: StoryBundle,
   playthrough: Playthrough,
   userText: string,
+  playerName?: string | null,
 ): { step: OfflineStep; state: StoryState } {
   const scene = getScene(bundle, playthrough.currentSceneId);
   const choices = availableChoices(scene, playthrough.state);
@@ -104,7 +119,7 @@ export function offlineStep(
     const idx = playthrough.messageCount % fallbacks.length;
     return {
       step: {
-        lines: toOfflineLines(bundle, [fallbacks[idx]]),
+        lines: toOfflineLines(bundle, [fallbacks[idx]], playerName),
         newSceneId: scene.id,
         sceneChanged: false,
         ended: false,
@@ -124,7 +139,7 @@ export function offlineStep(
     visits: { ...state.visits, [nextScene.id]: (state.visits[nextScene.id] ?? 0) + 1 },
   };
 
-  const lines: OfflineLine[] = toOfflineLines(bundle, nextScene.narration);
+  const lines: OfflineLine[] = toOfflineLines(bundle, nextScene.narration, playerName);
 
   const endId = matched.effects?.endStory ?? (nextScene.isEnding ? nextScene.endingId ?? null : null);
 
@@ -148,10 +163,11 @@ export function offlineChoose(
   bundle: StoryBundle,
   playthrough: Playthrough,
   choiceId: string,
+  playerName?: string | null,
 ): { step: OfflineStep; state: StoryState } | null {
   const scene = getScene(bundle, playthrough.currentSceneId);
   const choice = availableChoices(scene, playthrough.state).find((c) => c.id === choiceId);
   if (!choice) return null;
   // Reuse offlineStep by feeding the exact choice text (guaranteed match).
-  return offlineStep(bundle, playthrough, choice.text);
+  return offlineStep(bundle, playthrough, choice.text, playerName);
 }
