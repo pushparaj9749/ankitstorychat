@@ -40,6 +40,14 @@ jobs:
 
       - name: Setup Android SDK
         uses: android-actions/setup-android@v3
+        with:
+          # Google removed the deprecated `tools` package from the SDK
+          # repository (Sep 2026), so the action's default
+          # "tools platform-tools" fails with "Failed to find package
+          # 'tools'" before the build even starts. platform-tools is all this
+          # job needs: the runner image ships the SDK, and the NDK/cmake step
+          # below installs everything else explicitly.
+          packages: platform-tools
 
       - name: Install dependencies
         run: npm ci
