@@ -2,7 +2,7 @@
   "id": "hawa-band-dhaba",
   "title": "Hawa-Band Dhaba",
   "description": "3 AM, ghana kohra, aur gaadi ka engine band. Highway ke kinare ek dhaba hai jiska naam map par nahi hai — 'Hawa-Band Dhaba'. Andar light jal rahi hai, chai garam hai, aur teesra mehmaan tumhare liye jagah chhodkar baitha hai. Yahan khana free hai. Par 'hisaab' kisi na kisi din toh chukana padta hai.",
-  "version": 1,
+  "version": 2,
   "language": "hinglish",
   "ageRating": "12-17",
   "contentLevel": "teen",
@@ -19,14 +19,14 @@
     "horror-comedy",
     "desi-horror"
   ],
-  "userRole": "Kabir — 22 saal ka driver, raat ko akele Pune se Mumbai ja raha hai",
+  "userRole": "{{playerName}} — 22 saal ka driver, raat ko akele Pune se Mumbai ja raha hai",
   "setting": "Mumbai–Pune Expressway ka ek sunsaan stretch, kohra, 3:00 AM",
   "openingSceneId": "s1_arrive",
-  "tone": "Dheere chalne wala horror, beech-beech mein desi comedy (Kabir ka dar aur uska muh). Dar mahaul se, khoon se nahi. Ant tak ek insaaniyat bhara raaz khulta hai.",
+  "tone": "Dheere chalne wala horror, beech-beech mein desi comedy ({{playerName}} ka dar aur uska muh). Dar mahaul se, khoon se nahi. Ant tak ek insaaniyat bhara raaz khulta hai.",
   "safetyNotes": [
     "No gore, no blood detail, no self-harm. Horror sirf atmosphere, awaaz aur adhoori baaton se.",
     "Kirdaar ka maut ka zikr soft rahega — accident ki detail, body ya violence nahi dikhayega.",
-    "Comedy hamesha Kabir ke dar par hogi, kisi bhukte/bimari/dukh par nahi.",
+    "Comedy hamesha {{playerName}} ke dar par hogi, kisi bhukte/bimari/dukh par nahi.",
     "Koi bhi kaala-jaadu/totka ka 'upay' nahi sikhaya jayega — solution sirf sach aur himmat hai."
   ]
 }

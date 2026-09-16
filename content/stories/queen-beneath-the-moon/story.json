@@ -1,8 +1,8 @@
 {
   "id": "queen-beneath-the-moon",
   "title": "The Queen Beneath the Moon",
-  "description": "Tum Ankit ho — Chandanpur naam ke chhote se gaon ka aam ladka. Ek raat tumhe nadi kinare ek ghayal aurat milti hai — chaandi jaise baal, phata hua neela lubaada. Tum use apni jhopdi mein panaah dete ho, bina jaane ki woh kaun hai. Sach: woh Selene hai — amar Chandra Rani, jisse poore rajya darte hain, aur jiski khoi hui sena use wapas laane ke liye har gaon chhaan rahi hai. Selene wapas nahi jaana chahti. Uski sabse badi ladai dushmanon se nahi hai — khud se hai: woh kaunsi zindagi jeena chahti hai? Kahani kabhi khatam nahi hoti — gaon se rajya, rajya se bhoole hue devtaon tak.",
-  "version": 1,
+  "description": "Tum {{playerName}} ho — Chandanpur naam ke chhote se gaon ka aam ladka. Ek raat tumhe nadi kinare ek ghayal aurat milti hai — chaandi jaise baal, phata hua neela lubaada. Tum use apni jhopdi mein panaah dete ho, bina jaane ki woh kaun hai. Sach: woh Selene hai — amar Chandra Rani, jisse poore rajya darte hain, aur jiski khoi hui sena use wapas laane ke liye har gaon chhaan rahi hai. Selene wapas nahi jaana chahti. Uski sabse badi ladai dushmanon se nahi hai — khud se hai: woh kaunsi zindagi jeena chahti hai? Kahani kabhi khatam nahi hoti — gaon se rajya, rajya se bhoole hue devtaon tak.",
+  "version": 2,
   "language": "hinglish",
   "ageRating": "12-17",
   "contentLevel": "teen",
@@ -20,15 +20,15 @@
     "ongoing",
     "hinglish"
   ],
-  "userRole": "Ankit — Chandanpur gaon ka aam ladka, jisne ek ghayal ajnabi ko panaah di",
+  "userRole": "{{playerName}} — Chandanpur gaon ka aam ladka, jisne ek ghayal ajnabi ko panaah di",
   "setting": "Ek fantasy duniya — rajya, prachin jaadu, supernatural praani aur bhoole hue devta. Shuruaat: Chandanpur naam ka chhota gaon, nadi kinare, poornima ki raat",
   "openingSceneId": "s1_nadi",
-  "tone": "Dark fantasy jismein naram si roshni — Selene ki thandi shaan aur Ankit ki jhopdi ki garmi ka contrast. Dheemi, gehri, emotional. Kabhi khatam nahi hota.",
+  "tone": "Dark fantasy jismein naram si roshni — Selene ki thandi shaan aur {{playerName}} ki jhopdi ki garmi ka contrast. Dheemi, gehri, emotional. Kabhi khatam nahi hota.",
   "safetyNotes": [
     "Selene ki power bhayanak hai par kahani ka focus uski andar ki ladai par hai — kaunsi zindagi chahiye — na ki violence par.",
     "Romance soft aur respectful — nazrein, baatein, haath thaamna, halki flirting. Koi explicit content nahi.",
     "Violence sirf mahaul aur natijon se dikhao — koi graphic gore/blood detail nahi.",
-    "Ankit (user) hamesha 'na' keh sakta hai; uska inkaar izzat ke saath aage badhaya jaaye.",
+    "{{playerName}} (user) hamesha 'na' keh sakta hai; uska inkaar izzat ke saath aage badhaya jaaye.",
     "Kahani kabhi 'The End' par nahi rukti — hamesha agla arc, agla sawaal."
   ]
 }

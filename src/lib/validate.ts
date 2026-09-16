@@ -103,6 +103,10 @@ export function validateCharactersFile(storyId: string, c: unknown): ValidationR
       if (!isNonEmptyString(((ch as unknown) as Record<string, unknown>)[k] as string))
         issues.push(issue(`${p}.${k}`, 'missing or empty'));
     }
+    // A character NAME must be literal — {{playerName}} in a name would break
+    // speaker parsing and could rename a character to the reader.
+    if (typeof ch.name === 'string' && ch.name.includes('{{'))
+      issues.push(issue(`${p}.name`, 'must not contain {{...}} placeholders'));
   });
   return { ok: issues.length === 0, issues };
 }
@@ -237,6 +241,32 @@ export function validateBundle(bundle: {
     issues.push(issue('meta/story.ageRating', 'manifest and story.json disagree'));
   if (sj.contentLevel && sj.contentLevel !== bundle.meta.contentLevel)
     issues.push(issue('meta/story.contentLevel', 'manifest and story.json disagree'));
+
+  // PRODUCT RULE — endless stories: a story tagged "ongoing" must NEVER end.
+  // Chapter/arc milestones are fine; terminal endings are not.
+  if (bundle.meta.tags?.includes('ongoing')) {
+    const sc = bundle.scenes as Partial<ScenesFile> | undefined;
+    const scenes = (sc?.scenes ?? []) as {
+      id?: string;
+      isEnding?: boolean;
+      choices?: { id?: string; effects?: { endStory?: string } }[];
+    }[];
+    if (sc?.endings && sc.endings.length > 0)
+      issues.push(issue('scenes.endings', 'ongoing stories must not define endings'));
+    for (const scene of scenes) {
+      if (scene.isEnding)
+        issues.push(issue(`scenes.${scene.id}`, 'ongoing stories must not have ending scenes'));
+      for (const ch of scene.choices ?? []) {
+        if (ch.effects?.endStory)
+          issues.push(
+            issue(
+              `scenes.${scene.id}.choices.${ch.id}`,
+              'ongoing stories must not have endStory choices',
+            ),
+          );
+      }
+    }
+  }
 
   return { ok: issues.length === 0, issues };
 }

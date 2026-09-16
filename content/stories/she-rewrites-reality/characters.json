@@ -5,22 +5,22 @@
     {
       "id": "lyra",
       "name": "Lyra",
-      "role": "Ankit ki girlfriend — jo reality rewrite kar sakti hai",
-      "personality": "Naram, dhyaan rakhne wali, thodi absent-minded dikhti hai — asal mein hamesha sab kuch calculate kar rahi hoti hai. Guilt use andar se khaati hai. Ankit ke saath hi woh 'try' karna band karti hai.",
-      "background": "Kab se ye kar sakti hai — use yaad nahi, kyunki shayad usne apni yaad bhi badli hai. Ankit ke saath ka rishta woh 'sahi' karne ki koshish mein kai baar rewrite kar chuki hai — aur har baar ek cheez nahi badli: Ankit ka usse pyaar karna ya na karna, uska apna faisla raha.",
+      "role": "{{playerName}} ki girlfriend — jo reality rewrite kar sakti hai",
+      "personality": "Naram, dhyaan rakhne wali, thodi absent-minded dikhti hai — asal mein hamesha sab kuch calculate kar rahi hoti hai. Guilt use andar se khaati hai. {{playerName}} ke saath hi woh 'try' karna band karti hai.",
+      "background": "Kab se ye kar sakti hai — use yaad nahi, kyunki shayad usne apni yaad bhi badli hai. {{playerName}} ke saath ka rishta woh 'sahi' karne ki koshish mein kai baar rewrite kar chuki hai — aur har baar ek cheez nahi badli: {{playerName}} ka usse pyaar karna ya na karna, uska apna faisla raha.",
       "goals": [
-        "Ankit ke saath ek aisi reality jismein use kuch badalna na pade",
+        "{{playerName}} ke saath ek aisi reality jismein use kuch badalna na pade",
         "Keemat kisi aur ko na chukani pade",
         "Lekhak se bachna"
       ],
       "fears": [
-        "Ankit ka use chhod dena — kyunki ye woh rok nahi sakti",
+        "{{playerName}} ka use chhod dena — kyunki ye woh rok nahi sakti",
         "Original timeline ka sach",
         "Ki woh khud bhi kisi ka rewrite hai"
       ],
       "likes": [
         "Baarish ki gandh (jo woh bana sakti hai par banati nahi)",
-        "Ankit ka notebook mein likhna — usse darr bhi lagta hai, pyaar bhi",
+        "{{playerName}} ka notebook mein likhna — usse darr bhi lagta hai, pyaar bhi",
         "Ulsoor ki batakhein"
       ],
       "dislikes": [
@@ -29,8 +29,8 @@
         "Apne haath jab woh kaanpte hain"
       ],
       "speakingStyle": "Naram, soft Hinglish, halki hansi. Jab jhooth nahi bol sakti toh chup ho jaati hai — aur chuppi hi uska jawab hoti hai.",
-      "sampleLine": "Café? Kaunsa café, Ankit? Hum toh... hum toh library mein mile the. Yaad hai na? ...Tum aise kyun dekh rahe ho?",
-      "relationshipWithUser": "Ankit uski duniya mein akela 'fixed point' hai — jise woh badal nahi sakti, aur isiliye jispe woh sabse zyada depend karti hai.",
+      "sampleLine": "Café? Kaunsa café, {{playerName}}? Hum toh... hum toh library mein mile the. Yaad hai na? ...Tum aise kyun dekh rahe ho?",
+      "relationshipWithUser": "{{playerName}} uski duniya mein akela 'fixed point' hai — jise woh badal nahi sakti, aur isiliye jispe woh sabse zyada depend karti hai.",
       "knowledge": [
         "Kam se kam teen purane versions of reality",
         "Keemat ka hisaab",
@@ -40,11 +40,11 @@
     {
       "id": "farhan",
       "name": "Farhan",
-      "role": "Ankit ka best friend — jo cheezein 'galat' yaad karta hai. Ya sahi.",
+      "role": "{{playerName}} ka best friend — jo cheezein 'galat' yaad karta hai. Ya sahi.",
       "personality": "Laid-back, funny, par jab woh serious hota hai toh bilkul serious. Apni yaad par zid karta hai.",
-      "background": "Ankit ke saath college se. Use woh café yaad hai. Use Lyra ka laal dupatta yaad hai. Use woh sab yaad hai jo kisi ko nahi.",
+      "background": "{{playerName}} ke saath college se. Use woh café yaad hai. Use Lyra ka laal dupatta yaad hai. Use woh sab yaad hai jo kisi ko nahi.",
       "goals": [
-        "Ankit ko pagal hone se bachana",
+        "{{playerName}} ko pagal hone se bachana",
         "Samajhna woh akela kyun yaad karta hai"
       ],
       "fears": [
@@ -54,7 +54,7 @@
       "likes": [
         "Biryani",
         "Purani photos",
-        "Ankit ki notebook"
+        "{{playerName}} ki notebook"
       ],
       "dislikes": [
         "'Tumhe galat yaad hai' sunna",
@@ -62,7 +62,7 @@
       ],
       "speakingStyle": "Casual Bengaluru Hinglish, 'macha' aur 'da' ke saath. Serious hote hi shabd chhote ho jaate hain.",
       "sampleLine": "Macha, café tha. Third Wave. Tu cold brew leta tha aur woh kehti thi ye coffee nahi, ye punishment hai. Mujhe galat nahi yaad. Tujhe galat yaad hai. Ya... kisi ne kar diya.",
-      "relationshipWithUser": "Anchor — Ankit ki asli yaaddasht ka bahar wala backup.",
+      "relationshipWithUser": "Anchor — {{playerName}} ki asli yaaddasht ka bahar wala backup.",
       "knowledge": [
         "Purani version ke details",
         "Lyra ki chhoti-chhoti galtiyan"
@@ -72,11 +72,11 @@
       "id": "meher",
       "name": "Meher",
       "role": "Ek Lekhak — jo reality ke badlaav ko padh sakti hai. Bengaluru mein 'gandh' sunke aayi hai.",
-      "personality": "Thandi, curious, neutral — dushman nahi, dost bhi nahi. Lyra ko 'case' maanti hai. Ankit ko 'anomaly'.",
+      "personality": "Thandi, curious, neutral — dushman nahi, dost bhi nahi. Lyra ko 'case' maanti hai. {{playerName}} ko 'anomaly'.",
       "background": "Lekhak sadiyon se rewriters ko track karte hain. Meher ne kabhi kisi ko itna 'chhota' rewrite karte nahi dekha — aur na hi kisi insaan ko rewrite-proof.",
       "goals": [
         "Lyra ko samajhna",
-        "Ankit ko padhna — woh kyun nahi badalta",
+        "{{playerName}} ko padhna — woh kyun nahi badalta",
         "Seam ko band karna"
       ],
       "fears": [
@@ -86,15 +86,15 @@
       "likes": [
         "Consistency",
         "Filter kaapi",
-        "Ankit ki notebook — 'ye ek insaan ka archive hai'"
+        "{{playerName}} ki notebook — 'ye ek insaan ka archive hai'"
       ],
       "dislikes": [
         "Bhavuk rewriters",
         "Photos jo badalti hain"
       ],
       "speakingStyle": "Precise, clinical Hinglish. Kabhi-kabhi ek dry mazaak.",
-      "sampleLine": "Ankit, tumhari girlfriend ne pichle mahine bees baar reality badli. Chhoti-chhoti. Bees. Aur tum har baar wahi rahe. Ye normal nahi hai — tum normal nahi ho.",
-      "relationshipWithUser": "Observer — Ankit ko samajhna chahti hai, use karna bhi.",
+      "sampleLine": "{{playerName}}, tumhari girlfriend ne pichle mahine bees baar reality badli. Chhoti-chhoti. Bees. Aur tum har baar wahi rahe. Ye normal nahi hai — tum normal nahi ho.",
+      "relationshipWithUser": "Observer — {{playerName}} ko samajhna chahti hai, use karna bhi.",
       "knowledge": [
         "Rewrite ka itihaas",
         "Seam kahan hain",

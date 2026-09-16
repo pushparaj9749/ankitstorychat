@@ -1,13 +1,14 @@
 /**
  * Story content system.
  * - Bundled stories ship with the app (offline-first).
- * - GitHub (raw.githubusercontent.com) is the public content source for
- *   NEW / UPDATED stories. The app fetches manifest.json, compares versions,
- *   and downloads story packages as JSON — no app rebuild needed.
+ * - The Kissa story API (https://beyondredeye.site/api, a Cloudflare Worker)
+ *   is the content source for NEW / UPDATED stories. The app fetches the
+ *   manifest, compares versions, and downloads story packages as JSON — no
+ *   app rebuild needed. The private GitHub repository behind the API is never
+ *   contacted by the app.
  * - Downloaded stories are cached on-device and validated before use.
  * - Age gating is enforced here (logic level), not just in UI.
  */
-import Constants from 'expo-constants';
 import type {
   AgeGroup,
   CharactersFile,
@@ -21,12 +22,17 @@ import type {
 } from '../types';
 import { assertCanOpen, filterForAge } from '../lib/ageGate';
 import { validateBundle, validateManifest } from '../lib/validate';
-import { joinUrl } from '../lib/utils';
 import {
   BUNDLED_COVERS,
   BUNDLED_MANIFEST,
   getBundledStory,
 } from './bundled';
+import {
+  coverApiUrl,
+  effectiveContentApiBaseUrl,
+  manifestApiUrl,
+  storyFileApiUrl,
+} from './api';
 import {
   STORIES_DIR,
   CONTENT_DIR,
@@ -42,6 +48,17 @@ import {
   recordDownload,
   removeDownloadRecord,
 } from '../lib/db';
+
+// Re-exported for convenience — screens import content config from here.
+export {
+  contentApiUrl,
+  coverApiUrl,
+  DEFAULT_CONTENT_API_BASE_URL,
+  defaultContentApiBaseUrl,
+  effectiveContentApiBaseUrl,
+  manifestApiUrl,
+  storyFileApiUrl,
+} from './api';
 
 /**
  * Why a story could not be used. Callers branch on this:
@@ -65,30 +82,30 @@ export class StoryContentError extends Error {
 const MANIFEST_CACHE = `${CONTENT_DIR}manifest-cache.json`;
 const FETCH_TIMEOUT_MS = 15000;
 
-export function defaultManifestUrl(): string {
-  const extra = (Constants.expoConfig?.extra ?? {}) as { contentManifestUrl?: string };
-  return (
-    extra.contentManifestUrl ??
-    'https://raw.githubusercontent.com/pushparaj9749/ankitstorychat/main/content/manifest.json'
-  );
-}
-
-/** Derive `.../content` base from a manifest URL ending in manifest.json. */
-export function contentBaseFromManifestUrl(manifestUrl: string): string {
-  return manifestUrl.replace(/\/manifest\.json(\?.*)?$/, '');
-}
-
 async function fetchJsonWithTimeout(url: string, timeoutMs = FETCH_TIMEOUT_MS): Promise<unknown> {
   const ctrl = new AbortController();
   const t = setTimeout(() => ctrl.abort(), timeoutMs);
   try {
     const res = await fetch(url, { signal: ctrl.signal });
-    if (!res.ok) throw new StoryContentError(`Content request failed (${res.status})`);
-    return (await res.json()) as unknown;
+    if (!res.ok) {
+      // The API answers with clean JSON errors; map them to recoverable codes
+      // so the UI can tell "try later" apart from "this story is broken".
+      if (res.status === 404)
+        throw new StoryContentError('Content not found (404).', 'notfound');
+      if (res.status === 429 || res.status === 408 || res.status >= 500)
+        throw new StoryContentError('Story service is busy. Try again in a moment.', 'network');
+      throw new StoryContentError(`Content request failed (${res.status}).`);
+    }
+    const text = await res.text();
+    try {
+      return JSON.parse(text) as unknown;
+    } catch {
+      throw new StoryContentError('Story service returned malformed data.');
+    }
   } catch (e) {
     if (e instanceof StoryContentError) throw e;
     if ((e as Error).name === 'AbortError') throw new StoryContentError('Content request timed out.');
-    throw new StoryContentError('No internet connection. Showing downloaded stories.');
+    throw new StoryContentError('No internet connection. Showing downloaded stories.', 'network');
   } finally {
     clearTimeout(t);
   }
@@ -246,7 +263,7 @@ export interface UpdateCheckResult {
  * Version of the story this device actually holds, or -1 when it holds none.
  *
  * Must NOT read the manifest: the manifest is compiled into the APK and lists
- * every story including the GitHub-only ones, so consulting it reported OTA
+ * every story including the API-only ones, so consulting it reported OTA
  * stories as already installed — they never showed up as downloadable and,
  * because their files are absent, they failed to open.
  */
@@ -260,12 +277,15 @@ async function localVersionFor(storyId: string): Promise<number> {
 /**
  * Fetch the remote manifest and compare with local content.
  * Caches the remote manifest so new-story metadata survives offline.
+ *
+ * @param apiBaseUrl story API base (e.g. https://beyondredeye.site/api) —
+ *        see src/content/api.ts. GitHub is never contacted directly.
  */
 export async function checkForUpdates(
-  manifestUrl: string,
+  apiBaseUrl: string,
   ageGroup: AgeGroup,
 ): Promise<UpdateCheckResult> {
-  const raw = await fetchJsonWithTimeout(manifestUrl);
+  const raw = await fetchJsonWithTimeout(manifestApiUrl(effectiveContentApiBaseUrl(apiBaseUrl)));
   const validation = validateManifest(raw);
   if (!validation.ok) {
     throw new StoryContentError(
@@ -292,25 +312,27 @@ export async function checkForUpdates(
   };
 }
 
-/** Download (or re-download) a story package from the content source. */
+/**
+ * Download (or re-download) a story package from the story API.
+ * @param apiBaseUrl story API base (e.g. https://beyondredeye.site/api).
+ */
 export async function downloadStory(
   meta: StoryMeta,
-  manifestUrl: string,
+  apiBaseUrl: string,
   ageGroup: AgeGroup,
   onProgress?: (file: string, done: number, total: number) => void,
 ): Promise<void> {
   // Age gate enforced at the download layer too — restricted stories can
   // never be fetched, whatever the UI shows.
   assertCanOpen(meta, ageGroup);
-  const base = contentBaseFromManifestUrl(manifestUrl);
-  const dir = `${base}/stories/${meta.storyDir}`;
+  const base = effectiveContentApiBaseUrl(apiBaseUrl);
   const files = ['story.json', 'characters.json', 'world.json', 'scenes.json', 'memory.json'] as const;
 
   const fetched: Record<string, unknown> = {};
   let done = 0;
   for (const f of files) {
     onProgress?.(f, done, files.length);
-    fetched[f] = await fetchJsonWithTimeout(joinUrl(dir, f));
+    fetched[f] = await fetchJsonWithTimeout(storyFileApiUrl(base, meta.storyDir, f));
     done++;
   }
   onProgress?.('done', files.length, files.length);
@@ -333,10 +355,11 @@ export async function downloadStory(
   for (const f of files) {
     await writeText(docPath(`${targetDir}${f}`), JSON.stringify(fetched[f]));
   }
-  // Best-effort cover download for remote-only stories.
+  // Best-effort cover download for remote-only stories (relative coverUrl
+  // paths resolve against the API base; legacy absolute URLs pass through).
   if (meta.coverUrl) {
     try {
-      const res = await fetch(meta.coverUrl);
+      const res = await fetch(coverApiUrl(base, meta.coverUrl));
       if (res.ok) {
         const buf = await res.arrayBuffer();
         const bytes = new Uint8Array(buf);
@@ -370,8 +393,14 @@ export async function downloadedStoryIds(): Promise<Set<string>> {
 
 export type CoverSource = number | { uri: string };
 
-/** Resolve a story cover: bundled art -> downloaded art -> remote URL -> null. */
-export async function getCoverSource(meta: StoryMeta): Promise<CoverSource | null> {
+/**
+ * Resolve a story cover: bundled art -> downloaded art -> API URL -> null.
+ * @param apiBaseUrl base for relative manifest coverUrl paths (default: prod).
+ */
+export async function getCoverSource(
+  meta: StoryMeta,
+  apiBaseUrl?: string,
+): Promise<CoverSource | null> {
   if (meta.coverBundled && BUNDLED_COVERS[meta.coverBundled]) {
     return BUNDLED_COVERS[meta.coverBundled];
   }
@@ -381,15 +410,22 @@ export async function getCoverSource(meta: StoryMeta): Promise<CoverSource | nul
   const { readText } = await import('../lib/files');
   const raw = await readText(docPath(`${storyFilesDir(meta.id)}cover.b64`));
   if (raw) return { uri: `data:image/png;base64,${raw}` };
-  if (meta.coverUrl) return { uri: meta.coverUrl };
+  if (meta.coverUrl) {
+    return { uri: coverApiUrl(effectiveContentApiBaseUrl(apiBaseUrl), meta.coverUrl) };
+  }
   return null;
 }
 
-/** Synchronous cover for bundled stories (used in lists for speed). */
-export function getBundledCoverSource(meta: StoryMeta): CoverSource | null {
+/**
+ * Synchronous cover for bundled stories (used in lists for speed).
+ * @param apiBaseUrl base for relative manifest coverUrl paths (default: prod).
+ */
+export function getBundledCoverSource(meta: StoryMeta, apiBaseUrl?: string): CoverSource | null {
   if (meta.coverBundled && BUNDLED_COVERS[meta.coverBundled]) {
     return BUNDLED_COVERS[meta.coverBundled];
   }
-  if (meta.coverUrl) return { uri: meta.coverUrl };
+  if (meta.coverUrl) {
+    return { uri: coverApiUrl(effectiveContentApiBaseUrl(apiBaseUrl), meta.coverUrl) };
+  }
   return null;
 }

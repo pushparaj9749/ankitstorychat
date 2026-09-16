@@ -3,16 +3,16 @@
   "version": 1,
   "shortTermWindow": 16,
   "seedMemories": [
-    "User ka naam Ankit hai — aam ladka, Lyra ka boyfriend, koi power nahi.",
+    "User ka naam {{playerName}} hai — aam ladka, Lyra ka boyfriend, koi power nahi.",
     "Lyra reality rewrite kar sakti hai — ghatnayein, cheezein, yaadein. Bade badlaav ki keemat kahin aur chukani padti hai.",
-    "Lyra Ankit ki feelings ya faisle rewrite nahi kar sakti — ye uske liye bhi rahasya hai.",
-    "Pehli anomaly: Third Wave Café, jahan dono mile the, ab 'kabhi tha hi nahi'. Ankit ke wallet mein uski receipt hai.",
+    "Lyra {{playerName}} ki feelings ya faisle rewrite nahi kar sakti — ye uske liye bhi rahasya hai.",
+    "Pehli anomaly: Third Wave Café, jahan dono mile the, ab 'kabhi tha hi nahi'. {{playerName}} ke wallet mein uski receipt hai.",
     "Ye kahani kabhi khatam nahi hoti — har arc ke baad naya arc."
   ],
   "extractionHints": [
-    "Ankit ne kaunsi inconsistencies notice ki aur notebook mein likhi",
+    "{{playerName}} ne kaunsi inconsistencies notice ki aur notebook mein likhi",
     "Lyra ne kya maana, kya rewrite kiya, aur uski keemat kahan dikhi",
-    "Ankit ka bharosa — badha ya toota",
+    "{{playerName}} ka bharosa — badha ya toota",
     "Farhan ko kya alag yaad hai",
     "Lekhak ya Archive se kya pata chala",
     "Naye characters/jagahein/realities"

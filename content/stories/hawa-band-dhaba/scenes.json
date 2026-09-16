@@ -249,7 +249,7 @@
       "title": "104.6 — Request Bina DJ Ke",
       "narration": [
         "*Tum radio par bolte ho. Do second ki khamoshi — phir awaaz, ab bilkul paas se aati hui, jaise koi backseat par baitha ho.*",
-        "Driver Balwant: \"Bhai mera naam kaunne le liya? Maine request 'kaun bhi sun raha hai' ke liye ki thi, 'Kabir' ke liye nahi.\"",
+        "Driver Balwant: \"Bhai mera naam kaunne le liya? Maine request 'kaun bhi sun raha hai' ke liye ki thi, '{{playerName}}' ke liye nahi.\"",
         "*Cockpit ki ghadi 3:11 dikhati hai. Aur phir, 3:12. Phir 3:12. Phir 3:12.*",
         "Driver Balwant: \"Ghadi dekh. Bas dekh. Agar 3:12 do baar dikha de — toh ab tum dhaba ke ho. Andar jaao. Baith jao. Kucch mat khaao. Aur... ek ladki hai na? Peeli raincoat? Uski baat sun lena. Sab nahi sunte, bhai. Main 15 saal se sunne ki baat kar raha hoon.\"",
         "*Radio band. Aur theek usi waqt, dhaba ka darwaaza poora khul jaata hai — andar se teen kursiyan saaf dikhti hain.*"
@@ -427,7 +427,7 @@
       ],
       "fallbackLines": [
         "Ghulam Chacha: \"Likhne mein 5 second. Chukane mein zindagi. Ya shayad dono.\"",
-        "*Bahi-khate ke pichle panne par tumhara naam pehle se likha hua milta hai — 'Kabir — 15 saal'. Tumhara haath piche hat jaata hai.*",
+        "*Bahi-khate ke pichle panne par tumhara naam pehle se likha hua milta hai — '{{playerName}} — 15 saal'. Tumhara haath piche hat jaata hai.*",
         "Driver Balwant: \"Bhai radio sun raha hai? ...Haan, dhaba ka. Mat likh. Main ruk gaya tha ek baar, aur tab se mujhe 'Driver Balwant' likha hua milta hai — 400 baar gaya, par naam hata nahi.\""
       ],
       "choices": [
@@ -997,7 +997,7 @@
       "id": "s4_ledger_end",
       "title": "Naam Jo Likha Gaya",
       "narration": [
-        "*Tum likhte ho. 'Kabir — aaj'. Pen ruk'ta hai. Mitti ka dher table par gir jaata hai. Aur dhaba ek lambi saans leta hai.*",
+        "*Tum likhte ho. '{{playerName}} — aaj'. Pen ruk'ta hai. Mitti ka dher table par gir jaata hai. Aur dhaba ek lambi saans leta hai.*",
         "Ghulam Chacha: \"Shukriya. Ab mera hisaab tumhara hai, aur tumhara mera hai. Rule toh rule hai.\"",
         "*Constable Pandey apna register band karte hain aur pehli baar haste hain.*",
         "Constable Pandey: \"Ab aap yahan ke staff hain. Chai banana aata hai? Seekh jaoge.\"",
@@ -1008,7 +1008,7 @@
       "fallbackLines": [
         "*Ghadi 3:13 par jaati hai — pehli baar 15 saal mein. Aur isse achhi khabar nahi thi: ab tum yahin ke ho.*",
         "Driver Balwant: \"Bhai... main 400 baar gaya. Ek baar bhi likha nahi. Tune likh diya. ...Sorry bhai.\"",
-        "*Blackboard par ek naya khaali pan: 'Kabir ka beta'.*"
+        "*Blackboard par ek naya khaali pan: '{{playerName}} ka beta'.*"
       ],
       "choices": [
         {
@@ -1078,7 +1078,7 @@
         "*Tum chai banaate ho. Theek waise hi jaise Ghulam Chacha banate the — teen glass, bina pooche, cheeni kisi ke liye nahi.*",
         "*Dhaba abhi bhi yahi hai. Meenu abhi bhi apni kursi par hai, par ab woh hasti hai — kyunki uska lifafa Nashik pahunch gaya hai. Uska bhai har 15 din ko aata hai; ab uska bhi naam board par hai, 'Meenu ka bhai — 5 baar aaya, kabhi andar nahi ghusa'.*",
         "Ghulam Chacha: \"Ek saal. Bas ek saal. Phir koi aur 'K' aayega. Usse sawaal poochhna mat — sirf chai dena.\"",
-        "*Constable Pandey apni file tumhare haath mein dete hain. Aakhri line ab adhoori nahi: 'Chautha ka naam: Kabir'.*",
+        "*Constable Pandey apni file tumhare haath mein dete hain. Aakhri line ab adhoori nahi: 'Chautha ka naam: {{playerName}}'.*",
         "Constable Pandey: \"Procedure pura. Ab tum dekho.\"",
         "*Aur bahar kohra apna kaam karta hai. 3:12. Tube light flicker. Ek gaadi rukti hai. Tum darwaaza kholte ho — andar se, muskurate hue.*",
         "\"Aao. Chai thandhi ho rahi hai.\""
@@ -1100,7 +1100,7 @@
         "Meenu: \"Bhaiya, aap mere saath baitho. Bus abhi nahi aayegi. Aur agar aap ruk gaye, toh mujhe bhi acha lagega.\"",
         "*Radio 104.6. Ek request aati hai: 'Driver Balwant, mere liye ruk jao.' Balwant ka truck 40 minute se usi mod par para hai, engine chalu.*",
         "*Ghadi 3:12 par hai. Subah nahi hoti. Aur tum — pehli baar apni gaadi lock karna bhool jaate ho. Darwaaza khula rehta hai. Kyunki ab tumhe yahan aane mein dar nahi lagta.*",
-        "*Blackboard par ek line judti hai: 'Kabir — yahin'. Naya mehmaan aaega. Teen kursiyan hamesha teen hi rehti hain.*"
+        "*Blackboard par ek line judti hai: '{{playerName}} — yahin'. Naya mehmaan aaega. Teen kursiyan hamesha teen hi rehti hain.*"
       ],
       "fallbackLines": [
         "*Kahani yahin ruk'ti hai. Ya shuru hoti hai. 3:12.*"

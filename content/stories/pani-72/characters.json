@@ -167,7 +167,7 @@
         "'Aap teacher hain, aap hi sambhaal lo' bolne waale"
       ],
       "speakingStyle": "Count, phir ek line ka reassurance, aur hamesha 'theek hai?' pe khatam.",
-      "sampleLine": "Count: 40. Sab zinda. Paani 4 foot. Theek hai? Aarav, ab tum bolo.",
+      "sampleLine": "Count: 40. Sab zinda. Paani 4 foot. Theek hai? {{playerName}}, ab tum bolo.",
       "relationshipWithUser": "Ek teacher jo tumhari behen ke saath chhat par khadi hai — 60 meter door, par 40 bachchon ki zimmedar",
       "knowledge": [
         "Jaanti hai ki neeche wali corridor mein paani 8 foot hai aur andar ka raasta band hai",
@@ -220,7 +220,7 @@
       ],
       "fears": [
         "Ki phone band ho jaaye aur usse kuch pata na chale",
-        "Ki Aarav hero banne ke chakkar mein naala pakad le",
+        "Ki {{playerName}} hero banne ke chakkar mein naala pakad le",
         "Ki Ira ka hearing aid bheeg jaaye"
       ],
       "likes": [
@@ -239,7 +239,7 @@
       "knowledge": [
         "Jaanti hai ki building ka generator band ho chuka hai aur 4th floor par 42 log hain",
         "Jaanti hai ki uske paas 9% battery hai aur ek charging point ek floor neeche, jahan paani ghutno tak hai",
-        "Jaanti hai ki agar Aarav akele naale waale raaste gaya, toh woh current mein aa sakta hai"
+        "Jaanti hai ki agar {{playerName}} akele naale waale raaste gaya, toh woh current mein aa sakta hai"
       ]
     }
   ]

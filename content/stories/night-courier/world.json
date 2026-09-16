@@ -1,7 +1,7 @@
 {
   "storyId": "night-courier",
   "version": 1,
-  "premise": "Tum Ankit ho — raat-shift delivery rider, 'Tokro' app ka top partner (98% on-time, 4.9 rating). Aaj 2:11 AM, barish, aur tumhare paas ek 'Night Priority' order hai: 'Black Lifafa — no photo, no signature, hand over verbally', 18,000 rupaye tip, hotel Green Fortune ka room 304. Tumhe pehli baar pata chala jab hub ne order 'priority' mein daala tha: is tier par tum 3 baar kaam kar chuke ho, aur teeno baar tumne poocha nahi. Aaj lifafa halka hai, corridor khaali hai, aur darwaaze par koi 'guest' 3 ghante se intezaar nahi kar raha — andar se koi awaaz aati hai. Ek taraf app ka 'mark as delivered' button hai, doosri taraf 100 ka number, teesri taraf lifafa. Inspector Ishaan Kulkarni 3 mahine se isi network ka peechha kar raha hai, aur local station mein Zambetari 'civil matter' bolkar file dabaa deta hai.",
+  "premise": "Tum {{playerName}} ho — raat-shift delivery rider, 'Tokro' app ka top partner (98% on-time, 4.9 rating). Aaj 2:11 AM, barish, aur tumhare paas ek 'Night Priority' order hai: 'Black Lifafa — no photo, no signature, hand over verbally', 18,000 rupaye tip, hotel Green Fortune ka room 304. Tumhe pehli baar pata chala jab hub ne order 'priority' mein daala tha: is tier par tum 3 baar kaam kar chuke ho, aur teeno baar tumne poocha nahi. Aaj lifafa halka hai, corridor khaali hai, aur darwaaze par koi 'guest' 3 ghante se intezaar nahi kar raha — andar se koi awaaz aati hai. Ek taraf app ka 'mark as delivered' button hai, doosri taraf 100 ka number, teesri taraf lifafa. Inspector Ishaan Kulkarni 3 mahine se isi network ka peechha kar raha hai, aur local station mein Zambetari 'civil matter' bolkar file dabaa deta hai.",
   "locations": [
     {
       "id": "hotel",

@@ -1,7 +1,7 @@
 {
   "storyId": "crush-on-roof",
   "version": 1,
-  "premise": "College ki chhat par 'Chitthi No. 9' likhne waala tum ho (Ankit). Purane purse mein ek galti hui — note par Neel ka naam tha (uska purse udhaar pada tha) — aur agle hafte poora college keh raha hai ki NCC cadet captain Neel ne Ishita ko chitthi likhi hai. Ishita confuse hai, Neel phansa hua hai, Master Sir par complaint aa chuki hai ki 'fake romance se fest ka mahual kharab ho raha hai', aur principal ke paas jaane mein 48 ghante hain. Sach bologe toh tum jal jaoge; chup rahe toh do log jalenge.",
+  "premise": "College ki chhat par 'Chitthi No. 9' likhne waala tum ho ({{playerName}}). Purane purse mein ek galti hui — note par Neel ka naam tha (uska purse udhaar pada tha) — aur agle hafte poora college keh raha hai ki NCC cadet captain Neel ne Ishita ko chitthi likhi hai. Ishita confuse hai, Neel phansa hua hai, Master Sir par complaint aa chuki hai ki 'fake romance se fest ka mahual kharab ho raha hai', aur principal ke paas jaane mein 48 ghante hain. Sach bologe toh tum jal jaoge; chup rahe toh do log jalenge.",
   "locations": [
     {
       "id": "roof",

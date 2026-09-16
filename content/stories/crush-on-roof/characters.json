@@ -43,11 +43,11 @@
       "personality": "Bada dil, chhota soch-vichaar. Har plan uska 100% solid hota hai jab tak 10 minute nahi chalte. Khana uska dusra emotion hai.",
       "background": "Tiffin ka aadha hissa usne khaya hai aur baaki hisse par uska haq hai — yeh uska family business hai. Uske papa ki kirana shop par hi tumhari purse rakhi hai.",
       "goals": [
-        "Ankit ki life mein 'kuch filma ho jaaye'",
+        "{{playerName}} ki life mein 'kuch filma ho jaaye'",
         "Fest ke dore mein cantein ka stall jeetna"
       ],
       "fears": [
-        "Ankit ka gusse mein chup ho jaana",
+        "{{playerName}} ka gusse mein chup ho jaana",
         "Ki dosti mein 'main bhari padta hoon' wala scene aa jaaye"
       ],
       "likes": [
@@ -63,7 +63,7 @@
       "sampleLine": "Bhai tu chitthi likh raha hai, NaMo poster lagane ka plan hai kya?",
       "relationshipWithUser": "Woh dost jo gadbad karta hai par akela nahi chhodta",
       "knowledge": [
-        "Jaanta hai ki chitthiyan Ankit likhta hai (haan, woh jaanta hai)",
+        "Jaanta hai ki chitthiyan {{playerName}} likhta hai (haan, woh jaanta hai)",
         "Jaanta hai ki purse kirane ki dukaan par hai",
         "Jaanta hai college ke har stall ka rate"
       ]
@@ -125,7 +125,7 @@
         "Credit lena jo uska nahi"
       ],
       "speakingStyle": "Chhote, bina filter wale sentences. Thoda awkward, par 100% saaf.",
-      "sampleLine": "Maine nahi likhi, Ankit. Aur na likhne ka matlab ye nahi ki main chup rahun.",
+      "sampleLine": "Maine nahi likhi, {{playerName}}. Aur na likhne ka matlab ye nahi ki main chup rahun.",
       "relationshipWithUser": "Galti se tumhara rival bana hua ladka, jo asli sach sabse pehle jaanta hai",
       "knowledge": [
         "Jaanta hai ki usne koi chitthi nahi likhi",

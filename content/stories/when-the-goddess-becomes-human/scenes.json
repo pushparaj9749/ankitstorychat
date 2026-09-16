@@ -6,7 +6,7 @@
       "id": "s1_library",
       "title": "Pehli Baar Chhoona",
       "narration": [
-        "*Rishikesh. Subah. Ganga ki awaaz. Tum Ankit ho — 'Ganga Kinare' library ke maalik, jahan roz teen log aate hain aur do kitaab nahi lete.*",
+        "*Rishikesh. Subah. Ganga ki awaaz. Tum {{playerName}} ho — 'Ganga Kinare' library ke maalik, jahan roz teen log aate hain aur do kitaab nahi lete.*",
         "*Aaj chautha aaya hai. Ek ladki. Safed kurta. Aur woh darwaaze pe ruk gayi hai — chaukhat ko chhoo rahi hai. Ungli se. Dheere. Jaise lakdi pehli baar dekh rahi ho.*",
         "*Phir andar. Aur har shelf pe woh rukti hai. Kitaab uthati hai — nahi, kitaab ko chhooti hai. Cover. Kinare. Panne ki khushboo leti hai — aankhein band karke.*",
         "*Tum dekh rahe ho. Woh notice karti hai. Aur uska chehra — sharminda nahi. Jigyasu.*",
@@ -46,7 +46,7 @@
               "opening": "gift"
             },
             "memory": [
-              "Ankit ne Aelia ko 'Baarish' kitaab de di — Aelia ne use seene se laga liya. 'Ye meri? Pehli cheez jo meri hai. Yahan.' Aur library ke gamle mein — jo teen saal se sookha tha — ek kali nikli. Ankit ne notice nahi kiya. Abhi."
+              "{{playerName}} ne Aelia ko 'Baarish' kitaab de di — Aelia ne use seene se laga liya. 'Ye meri? Pehli cheez jo meri hai. Yahan.' Aur library ke gamle mein — jo teen saal se sookha tha — ek kali nikli. {{playerName}} ne notice nahi kiya. Abhi."
             ]
           }
         },
@@ -73,7 +73,7 @@
               "opening": "where"
             },
             "memory": [
-              "Ankit ne poocha Aelia kahan se aayi — Aelia ne khidki ke bahar dekha. Upar. Phir neeche. Phir: 'Door se. Bahut door. Aur ab main yahin hoon. Ye theek hai? Ye jawab?' Uski aankhon mein kuch tha jo 'door' ko bahut bada bana raha tha."
+              "{{playerName}} ne poocha Aelia kahan se aayi — Aelia ne khidki ke bahar dekha. Upar. Phir neeche. Phir: 'Door se. Bahut door. Aur ab main yahin hoon. Ye theek hai? Ye jawab?' Uski aankhon mein kuch tha jo 'door' ko bahut bada bana raha tha."
             ]
           }
         },
@@ -101,7 +101,7 @@
               "opening": "daily"
             },
             "memory": [
-              "Ankit ne Aelia ko roz aane ko kaha — Aelia: 'Roz. Matlab — kal bhi. Aur uske baad bhi.' Woh muskurayi — pehli baar. Aur Ganga ki awaaz ek second ke liye... gaayi. Ankit ne sar jhatka. Bhram."
+              "{{playerName}} ne Aelia ko roz aane ko kaha — Aelia: 'Roz. Matlab — kal bhi. Aur uske baad bhi.' Woh muskurayi — pehli baar. Aur Ganga ki awaaz ek second ke liye... gaayi. {{playerName}} ne sar jhatka. Bhram."
             ]
           }
         }
@@ -115,7 +115,7 @@
         "*Aur phir — baarish. Achaanak. Tez. Rishikesh wali.*",
         "*Aelia uth khadi hoti hai. Kitaab gir jaati hai. Woh darwaaze tak jaati hai — aur ruk jaati hai. Chaukhat pe. Haath phailaye. Bilkul kitaab ke cover ke bachche jaisi.*",
         "*Pehli boond uski hatheli pe. Woh dekhti hai. Phir doosri. Phir woh bahar nikal jaati hai — poori tarah. Baarish mein. Aankhein band.*",
-        "Aelia: \"Ankit. Ye thandi hai. Aur geeli. Aur... har boond alag hai. Har ek. Maine ise—\"",
+        "Aelia: \"{{playerName}}. Ye thandi hai. Aur geeli. Aur... har boond alag hai. Har ek. Maine ise—\"",
         "*Woh ruk jaati hai. Ek second.*",
         "Aelia: \"—maine ise dekha tha. Bahut baar. Upar se. Par kabhi mehsoos nahi kiya. Ye aisa hota hai? Roz? Tum log roz ye mehsoos karte ho aur kaam pe chale jaate ho?\"",
         "*Woh hans rahi hai. Aur ro rahi hai. Dono. Baarish mein pata nahi chal raha.*",
@@ -150,7 +150,7 @@
               "arc1": "wet"
             },
             "memory": [
-              "Ankit Aelia ke saath baarish mein bheega — bina chhate ke. Aelia ne uski taraf dekha jaise usne kuch asambhav kiya ho. 'Tum... tum bhi mehsoos kar rahe ho? Abhi? Mere saath?' Aur ghaas — poori sadak pe. Padosi ne agle din poocha 'Nagar Palika ne kab lagayi?'"
+              "{{playerName}} Aelia ke saath baarish mein bheega — bina chhate ke. Aelia ne uski taraf dekha jaise usne kuch asambhav kiya ho. 'Tum... tum bhi mehsoos kar rahe ho? Abhi? Mere saath?' Aur ghaas — poori sadak pe. Padosi ne agle din poocha 'Nagar Palika ne kab lagayi?'"
             ]
           }
         },
@@ -178,7 +178,7 @@
               "arc1": "grass"
             },
             "memory": [
-              "Ankit ne baarish mein ghaas notice ki — Aelia ne jaldi se pair hataye. Ghaas wahi rahi. 'Ye... tukda hai. Purana. Main rok nahi paati jab main...' Woh ruki. 'Jab main khush hoti hoon. Sorry. Main koshish karungi kam khush hone ki.' Ankit: 'Mat karo.'"
+              "{{playerName}} ne baarish mein ghaas notice ki — Aelia ne jaldi se pair hataye. Ghaas wahi rahi. 'Ye... tukda hai. Purana. Main rok nahi paati jab main...' Woh ruki. 'Jab main khush hoti hoon. Sorry. Main koshish karungi kam khush hone ki.' {{playerName}}: 'Mat karo.'"
             ]
           }
         },
@@ -206,7 +206,7 @@
               "arc1": "remind"
             },
             "memory": [
-              "Ankit ne kaha 'hum bhool jaate hain ye kitna bada hai — tum yaad dilaogi?' — Aelia baarish mein chup ho gayi. Phir: 'Haan. Ye main kar sakti hoon. Ye... ye shayad wahi hai jo mujhe karna chahiye tha. Hamesha se.' Aur phir jaldi: 'Matlab — haan. Dilaungi.'"
+              "{{playerName}} ne kaha 'hum bhool jaate hain ye kitna bada hai — tum yaad dilaogi?' — Aelia baarish mein chup ho gayi. Phir: 'Haan. Ye main kar sakti hoon. Ye... ye shayad wahi hai jo mujhe karna chahiye tha. Hamesha se.' Aur phir jaldi: 'Matlab — haan. Dilaungi.'"
             ]
           }
         }
@@ -218,7 +218,7 @@
       "narration": [
         "*Ek hafte baad. Meera didi ka ghar — tumhari padosan, jo Aelia ko dekhte hi boli 'ye ladki kabhi bhookhi nahi rahi, dikhta hai, isko khilana padega.'*",
         "*Rasoi. Aelia ke haath mein belan. Aur saamne — ek roti jo Uttarakhand ke naqshe jaisi hai.*",
-        "Meera didi: \"Gol nahi hui toh kya hua? Pehli baar hai. Ankit ki pehli roti bhi aisi thi. Ab dekho — abhi bhi waisi hi hai.\"",
+        "Meera didi: \"Gol nahi hui toh kya hua? Pehli baar hai. {{playerName}} ki pehli roti bhi aisi thi. Ab dekho — abhi bhi waisi hi hai.\"",
         "*Aelia roti ko dekh rahi hai. Bahut dhyaan se.*",
         "Aelia: \"Maine ise banaya. Ye... ye meri banayi hui hai. Ye galat hai, aur meri hai.\"",
         "*Woh tumhari taraf dekhti hai. Aur uski aankhon mein kuch aisa hai jo tumne pehle nahi dekha — garv. Ek tedhi roti pe.*",
@@ -229,7 +229,7 @@
       ],
       "fallbackLines": [
         "*Tedhi roti tawe pe. Aelia ka haath pet pe. Meera didi tumhe ghoor rahi hai — 'kuch bol, bewakoof.'*",
-        "Aelia: \"Ankit. Ye — bhookh — ye dard hai? Ya kuch aur? Mujhe samajh nahi aa raha ye achha hai ya bura.\""
+        "Aelia: \"{{playerName}}. Ye — bhookh — ye dard hai? Ya kuch aur? Mujhe samajh nahi aa raha ye achha hai ya bura.\""
       ],
       "choices": [
         {
@@ -257,7 +257,7 @@
               "arc2": "fed"
             },
             "memory": [
-              "Ankit ne Aelia ko apni tedhi roti khilayi — pehla niwala. Aelia ne aankhein band ki. Bahut der. Phir: 'Ye... ye bhookh ka jawab hai. Ye achha hai. Ye BAHUT achha hai. Ankit, tum log roz ye—' 'Haan. Roz.' Meera didi ki rasoi ke gamle mein tulsi do guna ho gayi. Meera didi ne notice kiya. Kuch nahi kaha."
+              "{{playerName}} ne Aelia ko apni tedhi roti khilayi — pehla niwala. Aelia ne aankhein band ki. Bahut der. Phir: 'Ye... ye bhookh ka jawab hai. Ye achha hai. Ye BAHUT achha hai. {{playerName}}, tum log roz ye—' 'Haan. Roz.' Meera didi ki rasoi ke gamle mein tulsi do guna ho gayi. Meera didi ne notice kiya. Kuch nahi kaha."
             ]
           }
         },
@@ -285,7 +285,7 @@
               "arc2": "explained"
             },
             "memory": [
-              "Ankit ne Aelia ko samjhaya — 'bhookh dard hai aur khaana uska jawab; insaan hona yahi hai.' Aelia ne belan rakh diya. 'Dard aur jawab. Saath-saath.' Woh bahut der chup rahi. 'Toh main sahi jagah aayi hoon.' Meera didi: 'Kya bol rahi hai ye ladki?' Ankit: 'Pata nahi, didi. Par sahi bol rahi hai.'"
+              "{{playerName}} ne Aelia ko samjhaya — 'bhookh dard hai aur khaana uska jawab; insaan hona yahi hai.' Aelia ne belan rakh diya. 'Dard aur jawab. Saath-saath.' Woh bahut der chup rahi. 'Toh main sahi jagah aayi hoon.' Meera didi: 'Kya bol rahi hai ye ladki?' {{playerName}}: 'Pata nahi, didi. Par sahi bol rahi hai.'"
             ]
           }
         },
@@ -314,7 +314,7 @@
               "arc2": "meera"
             },
             "memory": [
-              "Ankit ne Meera didi se poocha unhe Aelia ke baare mein aur kya lagta hai — Didi ne roti palti. 'Lagta hai ye ladki bahut oopar se giri hai. Aur lagta hai ise koi pakadne wala chahiye tha. Aur lagta hai tu bewakoof hai jo abhi tak yahin khada hai.' Aelia ne 'oopar se' suna. Belan ruk gaya."
+              "{{playerName}} ne Meera didi se poocha unhe Aelia ke baare mein aur kya lagta hai — Didi ne roti palti. 'Lagta hai ye ladki bahut oopar se giri hai. Aur lagta hai ise koi pakadne wala chahiye tha. Aur lagta hai tu bewakoof hai jo abhi tak yahin khada hai.' Aelia ne 'oopar se' suna. Belan ruk gaya."
             ]
           }
         }
@@ -333,7 +333,7 @@
         "*Pandit ruk gaye. Log ruk gaye. Sannata. Sirf Aelia ka rona. Aur hazaar diye uski taraf.*",
         "*Seedhi ke upar ek sadhu baitha hai — Baba Nirmal. Woh nahi chaunka. Woh muskura raha hai. Aur bahut dheere, sirf tumhe sunai de — 'Aa gayi. Der lagi.'*",
         "*Aelia aankhein kholti hai. Diye dekhti hai. Aur uska chehra — darr. Pehli baar tumne use dara dekha.*",
-        "Aelia: \"Ankit. Sab dekh rahe hain. Ye — ye main nahi rok sakti. Mujhe yahan se le chalo. Please. Abhi.\""
+        "Aelia: \"{{playerName}}. Sab dekh rahe hain. Ye — ye main nahi rok sakti. Mujhe yahan se le chalo. Please. Abhi.\""
       ],
       "fallbackLines": [
         "*Diye abhi bhi uski taraf. Log phone nikaal rahe hain. Baba Nirmal upar se dekh raha hai — muskurate hue. Aelia ka haath tumhari baazu pe — kas ke.*",
@@ -365,7 +365,7 @@
               "arc3": "took"
             },
             "memory": [
-              "Ghat pe saare diye Aelia ki taraf mude — Ankit ne bina poochhe uska haath pakda aur bheed se nikaala. Jhule pe pahunch ke Aelia ne kaha: 'Tumne nahi poocha.' 'Tumne kaha tha mat poochho.' 'Log sunte nahi hain jab main kehti hoon. Tum sune.' Diye peeche wapas behne lage."
+              "Ghat pe saare diye Aelia ki taraf mude — {{playerName}} ne bina poochhe uska haath pakda aur bheed se nikaala. Jhule pe pahunch ke Aelia ne kaha: 'Tumne nahi poocha.' 'Tumne kaha tha mat poochho.' 'Log sunte nahi hain jab main kehti hoon. Tum sune.' Diye peeche wapas behne lage."
             ]
           }
         },
@@ -394,7 +394,7 @@
               "arc3": "shield"
             },
             "memory": [
-              "Ankit Aelia aur bheed ke beech khada ho gaya — 'koi nahi dekhega, main hoon.' Aelia uske peeche royi — poori tarah. Aur diye — dheere-dheere — wapas behne lage. Baba Nirmal ne upar se kaha: 'Chhote. Sahi khada hai. Yaad rakhna kahan khada tha.'"
+              "{{playerName}} Aelia aur bheed ke beech khada ho gaya — 'koi nahi dekhega, main hoon.' Aelia uske peeche royi — poori tarah. Aur diye — dheere-dheere — wapas behne lage. Baba Nirmal ne upar se kaha: 'Chhote. Sahi khada hai. Yaad rakhna kahan khada tha.'"
             ]
           }
         },
@@ -423,7 +423,7 @@
               "arc3": "baba"
             },
             "memory": [
-              "Ankit ne Baba Nirmal se poocha 'aap ise jaante ho?' — Baba hansa. 'Main? Nahi. Main us ko jaanta tha jo woh thi. Is ko — is ko tu jaanta hai. Le ja ise. Aur kal chai pe aana. Akele nahi.' Aelia ne Baba ko dekha — aur pehli baar uske chehre pe pehchaan aayi. Aur woh pehchaan se bhaagi."
+              "{{playerName}} ne Baba Nirmal se poocha 'aap ise jaante ho?' — Baba hansa. 'Main? Nahi. Main us ko jaanta tha jo woh thi. Is ko — is ko tu jaanta hai. Le ja ise. Aur kal chai pe aana. Akele nahi.' Aelia ne Baba ko dekha — aur pehli baar uske chehre pe pehchaan aayi. Aur woh pehchaan se bhaagi."
             ]
           }
         }
@@ -441,7 +441,7 @@
         "*Uski awaaz kaanp nahi rahi. Ye buri baat hai. Ye woh awaaz hai jo bahut pehle kaanpna bhool gayi thi.*",
         "Aelia: \"Aur maine woh chhod diya. Sab. Ek din maine kaha — bas. Aur main utar aayi. Yahan. Is kamre mein. Is kitaab ke saath.\"",
         "*'Baarish' uski god mein.*",
-        "Aelia: \"Kyun — ye main nahi bataungi. Abhi nahi. Shayad kabhi nahi. Kyunki jab main batati hoon, toh mujhe yaad aata hai. Aur jab yaad aata hai — toh diye mudte hain. Aur ghaas ugti hai. Aur main... main phir woh ban jaati hoon. Aur main woh nahi banna chahti, Ankit. Main roti banana chahti hoon. Tedhi.\"",
+        "Aelia: \"Kyun — ye main nahi bataungi. Abhi nahi. Shayad kabhi nahi. Kyunki jab main batati hoon, toh mujhe yaad aata hai. Aur jab yaad aata hai — toh diye mudte hain. Aur ghaas ugti hai. Aur main... main phir woh ban jaati hoon. Aur main woh nahi banna chahti, {{playerName}}. Main roti banana chahti hoon. Tedhi.\"",
         "*Ab woh tumhari taraf dekhti hai. Aur ab awaaz kaanpti hai.*",
         "Aelia: \"Tum ab jaante ho. Ab tum mujhe waise dekhoge — jaise sab dekhte the. Upar se. Door se. Main ye sah nahi paungi. Isliye — please — agar tumhe jaana hai, toh abhi jao. Main samjhungi. Ye bhi pehli baar hoga — samajhna.\""
       ],
@@ -475,7 +475,7 @@
               "arc4": "stayed"
             },
             "memory": [
-              "Aelia ke sach ke baad Ankit ne kaha 'kal roti banani hai, tumhari abhi bhi tedhi hai, main aaunga lene.' Aelia ne use dekha. Bahut der. Aur phir kamre ki khidki ke bahar — raat mein — pahaad pe saare phool khil gaye. Ek saath. Aelia: 'Sorry. Ye... ye rukega nahi aaj. Tumne mujhe insaan ki tarah dekha. Ye rukega nahi.'"
+              "Aelia ke sach ke baad {{playerName}} ne kaha 'kal roti banani hai, tumhari abhi bhi tedhi hai, main aaunga lene.' Aelia ne use dekha. Bahut der. Aur phir kamre ki khidki ke bahar — raat mein — pahaad pe saare phool khil gaye. Ek saath. Aelia: 'Sorry. Ye... ye rukega nahi aaj. Tumne mujhe insaan ki tarah dekha. Ye rukega nahi.'"
             ]
           }
         },
@@ -504,7 +504,7 @@
               "arc4": "joke"
             },
             "memory": [
-              "Ankit ne kaha 'tum meri library ke upar rehti ho — bas itna hi upar, main seedhi chadh sakta hoon' — Aelia hansi. Ro rahi thi, aur hansi. 'Ye... ye mazaak tha? Mere baare mein? Mujhpe kabhi kisi ne mazaak nahi kiya.' 'Aadat daal lo.' 'Daal rahi hoon. Ye pehli baar hai. Achha wala.'"
+              "{{playerName}} ne kaha 'tum meri library ke upar rehti ho — bas itna hi upar, main seedhi chadh sakta hoon' — Aelia hansi. Ro rahi thi, aur hansi. 'Ye... ye mazaak tha? Mere baare mein? Mujhpe kabhi kisi ne mazaak nahi kiya.' 'Aadat daal lo.' 'Daal rahi hoon. Ye pehli baar hai. Achha wala.'"
             ]
           }
         },
@@ -532,7 +532,7 @@
               "arc4": "promised"
             },
             "memory": [
-              "Ankit ne vaada kiya — 'kyun chhoda, main kabhi nahi poochhunga.' Aelia ne apni band chitthi nikaali — 'jab main bhool jaun, tab kholna' — aur Ankit ko dikhayi. Kholi nahi. 'Ye tumhare paas rakhna. Agar main kabhi bhool jaun ki main kyun aayi thi — tum mujhe ye dena. Tum. Koi aur nahi.'"
+              "{{playerName}} ne vaada kiya — 'kyun chhoda, main kabhi nahi poochhunga.' Aelia ne apni band chitthi nikaali — 'jab main bhool jaun, tab kholna' — aur {{playerName}} ko dikhayi. Kholi nahi. 'Ye tumhare paas rakhna. Agar main kabhi bhool jaun ki main kyun aayi thi — tum mujhe ye dena. Tum. Koi aur nahi.'"
             ]
           }
         }
@@ -550,11 +550,11 @@
         "*Woh tumhari taraf mudti hai. Uski aankhon mein — sab ek saath. Darr, thakaan, aur ek ajeeb si shaanti.*",
         "Aelia: \"Dekho. Sab ek saath. Baba, saree, aur meri sabse purani... dost. Ye insaan hone ka hisaab hai? Ye khatam nahi hota, na? Roz naya?\"",
         "*Woh phool ko chhooti hai. Woh thoda aur khil jaata hai.*",
-        "Aelia: \"Theek hai. Main tayyar hoon. Nahi hoon — par kehna seekh rahi hoon. Chuno, Ankit. Aaj kaunsi pehli baar?\""
+        "Aelia: \"Theek hai. Main tayyar hoon. Nahi hoon — par kehna seekh rahi hoon. Chuno, {{playerName}}. Aaj kaunsi pehli baar?\""
       ],
       "fallbackLines": [
         "*Vira darwaaze pe. Hili nahi. Aelia counter ke peeche. Beech mein tum. Aur kitaab — 'Baarish' — farsh pe, khuli.*",
-        "Vira (thandi, tumse): \"Insaan. Hato. Mujhe Devi se baat karni hai.\" Aelia: \"Vira. Uska naam Ankit hai. Aur main Devi nahi hoon. Ab.\""
+        "Vira (thandi, tumse): \"Insaan. Hato. Mujhe Devi se baat karni hai.\" Aelia: \"Vira. Uska naam {{playerName}} hai. Aur main Devi nahi hoon. Ab.\""
       ],
       "choices": [
         {
@@ -582,7 +582,7 @@
               "arc5": "vira"
             },
             "memory": [
-              "Ankit ne Vira ko andar bulaya — Aelia ne uska haath pakda. 'Woh mujhe wapas le jaana chahegi. Aur main use na nahi keh paungi — kyunki woh royegi. Aur maine use kabhi rote nahi dekha.'"
+              "{{playerName}} ne Vira ko andar bulaya — Aelia ne uska haath pakda. 'Woh mujhe wapas le jaana chahegi. Aur main use na nahi keh paungi — kyunki woh royegi. Aur maine use kabhi rote nahi dekha.'"
             ]
           }
         },
@@ -611,7 +611,7 @@
             },
             "location": "Triveni Ghat",
             "memory": [
-              "Ankit ne Baba Nirmal ke paas jaane ka faisla kiya — Aelia: 'Woh mujhe jaanta hai. Purane roop mein. Main us se darti hoon — kyunki woh mujhe yaad dila sakta hai. Par tum saath ho. Chalo.'"
+              "{{playerName}} ne Baba Nirmal ke paas jaane ka faisla kiya — Aelia: 'Woh mujhe jaanta hai. Purane roop mein. Main us se darti hoon — kyunki woh mujhe yaad dila sakta hai. Par tum saath ho. Chalo.'"
             ]
           }
         },
@@ -641,7 +641,7 @@
               "arc5": "saree"
             },
             "memory": [
-              "Ankit ne aaj sirf 'insaan wali pehli baar' chuni — saree. Aelia ne Vira se kaha: 'Kal. Aaj main saree pehen rahi hoon. Tum bhi aao agar chaaho. Meera didi sabko pehnaati hai.' Vira ka chehra — jaise koi bhasha bhool gayi ho."
+              "{{playerName}} ne aaj sirf 'insaan wali pehli baar' chuni — saree. Aelia ne Vira se kaha: 'Kal. Aaj main saree pehen rahi hoon. Tum bhi aao agar chaaho. Meera didi sabko pehnaati hai.' Vira ka chehra — jaise koi bhasha bhool gayi ho."
             ]
           }
         }
@@ -693,7 +693,7 @@
               "arc5b": "credited"
             },
             "memory": [
-              "Vira ke saamne Ankit ne kaha 'meri wajah se nahi — uski wajah se, main bas seedhi ke neeche khada tha' — Vira ne bahut der use dekha. Phir Aelia ko. 'Devi. Isne aapko apna nahi bataya. Isne aapko aapka bataya.' Aelia: 'Haan. Isliye.' Vira baith gayi. Pehli baar. Kursi pe. Insaan ki tarah."
+              "Vira ke saamne {{playerName}} ne kaha 'meri wajah se nahi — uski wajah se, main bas seedhi ke neeche khada tha' — Vira ne bahut der use dekha. Phir Aelia ko. 'Devi. Isne aapko apna nahi bataya. Isne aapko aapka bataya.' Aelia: 'Haan. Isliye.' Vira baith gayi. Pehli baar. Kursi pe. Insaan ki tarah."
             ]
           }
         },
@@ -724,7 +724,7 @@
               "arc5b": "invited"
             },
             "memory": [
-              "Ankit ne Vira ko Meera didi ke khaane pe bulaya — 'bhookh seekho.' Vira: 'Main khoji hoon. Main—' Aelia: 'Tum thaki hui ho. Baitho. Ye aadesh nahi hai. Ye... nimantran hai. Ye naya shabd hai mere liye.' Vira aayi. Roti gol nahi bani. Meera didi: 'Ye kaunsi jagah se aate hain sab tedhi roti wale?'"
+              "{{playerName}} ne Vira ko Meera didi ke khaane pe bulaya — 'bhookh seekho.' Vira: 'Main khoji hoon. Main—' Aelia: 'Tum thaki hui ho. Baitho. Ye aadesh nahi hai. Ye... nimantran hai. Ye naya shabd hai mere liye.' Vira aayi. Roti gol nahi bani. Meera didi: 'Ye kaunsi jagah se aate hain sab tedhi roti wale?'"
             ]
           }
         }
@@ -777,7 +777,7 @@
               "arc5b": "found"
             },
             "memory": [
-              "Baba ke saamne Ankit ne Aelia se kaha 'jo dhoondhne aayi thi — mil gaya, baaki bonus hai' — Aelia royi. Aur kuch nahi hua. Koi diya nahi muda. Koi phool nahi khila. Sirf aansoo. Baba: 'Dekha? Insaan ho gayi. Tukde tab nikalte the jab tu rok rahi thi. Ab nahi rok rahi.'"
+              "Baba ke saamne {{playerName}} ne Aelia se kaha 'jo dhoondhne aayi thi — mil gaya, baaki bonus hai' — Aelia royi. Aur kuch nahi hua. Koi diya nahi muda. Koi phool nahi khila. Sirf aansoo. Baba: 'Dekha? Insaan ho gayi. Tukde tab nikalte the jab tu rok rahi thi. Ab nahi rok rahi.'"
             ]
           }
         },
@@ -807,7 +807,7 @@
               "arc5b": "more"
             },
             "memory": [
-              "Ankit ne Baba se poora sach maanga — Baba: 'Roshni ne ek vaada kiya tha. Kaha tha — jab aaungi, toh ek insaan ko dhoondhungi jo mujhe upar se na dekhe. Aur us se... ' Woh ruka. 'Baaki woh khud batayegi. Ya band chitthi. Chhote — woh chitthi tere paas hai na?' Ankit ke paas thi. Aelia ne di thi. 'Abhi mat kholna. Abhi woh yaad nahi karna chahti.'"
+              "{{playerName}} ne Baba se poora sach maanga — Baba: 'Roshni ne ek vaada kiya tha. Kaha tha — jab aaungi, toh ek insaan ko dhoondhungi jo mujhe upar se na dekhe. Aur us se... ' Woh ruka. 'Baaki woh khud batayegi. Ya band chitthi. Chhote — woh chitthi tere paas hai na?' {{playerName}} ke paas thi. Aelia ne di thi. 'Abhi mat kholna. Abhi woh yaad nahi karna chahti.'"
             ]
           }
         }
@@ -820,8 +820,8 @@
         "*Meera didi ka ghar. 4 baje. Tum bahar — 'muh band, andar mat aa.' Andar se awaazein — 'Nahi beta, pallu idhar', 'Ye itna kapda kyun hai?', 'Kyunki saree hai, chup.'*",
         "*Vira bhi andar hai. Kaise — pata nahi. Meera didi ne shayad use bhi pakad liya. 'Tu bhi pehen. Itni lambi khadi hai, achhi lagegi.'*",
         "*Darwaaza khulta hai. Aelia. Neeli saree. Baal khule. Aur chehra — jaise woh khud ko nahi pehchaan rahi.*",
-        "Aelia: \"Ankit. Ye... ye bahut bhaari hai. Aur main gir sakti hoon. Aur mujhe ye pasand hai. Ye sab ek saath kaise ho sakta hai?\"",
-        "Meera didi (peeche se): \"Insaan hona aisa hi hai, beta. Bhaari, gir sakte ho, aur pasand. Ankit, kuch bol. Ye ladki tere liye taiyaar hui hai — mere liye nahi.\"",
+        "Aelia: \"{{playerName}}. Ye... ye bahut bhaari hai. Aur main gir sakti hoon. Aur mujhe ye pasand hai. Ye sab ek saath kaise ho sakta hai?\"",
+        "Meera didi (peeche se): \"Insaan hona aisa hi hai, beta. Bhaari, gir sakte ho, aur pasand. {{playerName}}, kuch bol. Ye ladki tere liye taiyaar hui hai — mere liye nahi.\"",
         "*Aelia ka chehra laal. Pehli baar. Sharm. Woh use pehchaanti nahi — haath gaal pe.*",
         "Aelia: \"Ye garam kyun ho raha hai? Meera didi ne kya kiya?\"",
         "*Peeche Vira — safed saree mein, akdi hui, aur uske chehre pe kuch aisa jo tumne nahi socha tha dekhoge: woh hans rahi hai. Dheere. Apni Devi ko sharmata dekh kar.*",
@@ -829,7 +829,7 @@
       ],
       "fallbackLines": [
         "*Aelia darwaaze pe. Haath gaal pe. Meera didi peeche, haath kamar pe. Vira hansi rok rahi hai — fail.*",
-        "Meera didi: \"Ankit. Teen second. Phir main bolungi, aur tujhe achha nahi lagega.\""
+        "Meera didi: \"{{playerName}}. Teen second. Phir main bolungi, aur tujhe achha nahi lagega.\""
       ],
       "choices": [
         {
@@ -858,7 +858,7 @@
               "arc5b": "beautiful"
             },
             "memory": [
-              "Ankit ne Aelia se kaha 'sundar lag rahi ho — aur ye garam, isse sharm kehte hain' — Aelia ne haath se chehra dhak liya. 'Ye bhi? Kitni pehli baar hain? Ankit, ye khatam kab hongi?' 'Kabhi nahi.' 'Achha.' Meera didi: 'Chal, ab kuch hua.' Vira ne pehli baar Ankit ko 'Ankit' kaha."
+              "{{playerName}} ne Aelia se kaha 'sundar lag rahi ho — aur ye garam, isse sharm kehte hain' — Aelia ne haath se chehra dhak liya. 'Ye bhi? Kitni pehli baar hain? {{playerName}}, ye khatam kab hongi?' 'Kabhi nahi.' 'Achha.' Meera didi: 'Chal, ab kuch hua.' Vira ne pehli baar {{playerName}} ko '{{playerName}}' kaha."
             ]
           }
         },
@@ -887,7 +887,7 @@
               "arc5b": "catch"
             },
             "memory": [
-              "Ankit ne kaha 'girogi toh pakad lunga' — Aelia ne saree sambhalte hue ek kadam liya. Ladkhadayi. Ankit ne pakda. Aur woh hansi — poori. Meera didi ke aangan mein koi phool nahi khila. Aelia ne notice kiya. 'Ankit. Kuch nahi hua. Main khush hoon aur kuch nahi hua. Main... main insaan ho rahi hoon.' Vira ne muh pher liya. Aankhein pochhne."
+              "{{playerName}} ne kaha 'girogi toh pakad lunga' — Aelia ne saree sambhalte hue ek kadam liya. Ladkhadayi. {{playerName}} ne pakda. Aur woh hansi — poori. Meera didi ke aangan mein koi phool nahi khila. Aelia ne notice kiya. '{{playerName}}. Kuch nahi hua. Main khush hoon aur kuch nahi hua. Main... main insaan ho rahi hoon.' Vira ne muh pher liya. Aankhein pochhne."
             ]
           }
         }
@@ -901,11 +901,11 @@
         "*Tumhare paas: band chitthi (Aelia ki — 'jab main bhool jaun'), Vira ka sandesh ('Ek aur Khoji aaya hai. Ye mera dost nahi hai.'), aur Meera didi ka order ('Rishikesh mein mela hai. Aelia ko jhoole pe bithao. Darr sikhao. Tu bhi baith, dar tu bhi jaata hai.').*",
         "Aelia: \"Dekho. Sab ek saath. Chitthi, Khoji, mela. Insaan hone ka hisaab.\"",
         "*Woh murjhaane wale phool ko chhooti hai — woh ab bhi nahi murjhata. Ek tukda jo woh rakhna chahti hai.*",
-        "Aelia: \"Ye khatam nahi hota, Ankit. Pehli baarein khatam nahi hoti — ye main ab samajh gayi hoon. Aur main isse nahi darti ab. Kyunki tum har pehli baar mein khade the. Chuno. Agli pehli baar kaunsi?\""
+        "Aelia: \"Ye khatam nahi hota, {{playerName}}. Pehli baarein khatam nahi hoti — ye main ab samajh gayi hoon. Aur main isse nahi darti ab. Kyunki tum har pehli baar mein khade the. Chuno. Agli pehli baar kaunsi?\""
       ],
       "fallbackLines": [
         "*Ye kahani yahin nahi rukti — har pehli baar ek naya arc: naya Khoji, Nayi Vyavastha, Beech ki jagah, Baba ka vaada, aur band chitthi — jo kabhi khulegi.*",
-        "Vira (upar se, seedhi pe): \"Ankit. Jaldi chuno. Meera didi keh rahi hain roti jal rahi hai — meri. Aur Devi hans rahi hain. Phir se.\""
+        "Vira (upar se, seedhi pe): \"{{playerName}}. Jaldi chuno. Meera didi keh rahi hain roti jal rahi hai — meri. Aur Devi hans rahi hain. Phir se.\""
       ],
       "choices": [
         {
@@ -992,7 +992,7 @@
               "next": "mela"
             },
             "memory": [
-              "Naya arc: mela — Aelia ki pehli baar darr, jhoole pe. Aur Ankit ki bhi, Meera didi ke hisaab se."
+              "Naya arc: mela — Aelia ki pehli baar darr, jhoole pe. Aur {{playerName}} ki bhi, Meera didi ke hisaab se."
             ]
           }
         },
@@ -1021,7 +1021,7 @@
               "next": "letter"
             },
             "memory": [
-              "Naya arc: band chitthi — Ankit ne Aelia se poocha kya waqt aa gaya. Aelia: 'Abhi nahi. Par... tum poochh sakte ho. Ye achha laga. Ki tumne poochha, khola nahi.'"
+              "Naya arc: band chitthi — {{playerName}} ne Aelia se poocha kya waqt aa gaya. Aelia: 'Abhi nahi. Par... tum poochh sakte ho. Ye achha laga. Ki tumne poochha, khola nahi.'"
             ]
           }
         }

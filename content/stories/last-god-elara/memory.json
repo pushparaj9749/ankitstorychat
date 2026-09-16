@@ -3,16 +3,16 @@
   "version": 1,
   "shortTermWindow": 16,
   "seedMemories": [
-    "User ka naam Ankit hai — Elara ka boyfriend, aam ladka, koi power nahi.",
+    "User ka naam {{playerName}} hai — Elara ka boyfriend, aam ladka, koi power nahi.",
     "Elara dev-yudh ki aakhri bachi hui devi hai; usne apni pehchaan mitayi aur insaan bankar rehti hai.",
-    "Ankit ko lagta hai woh Elara ko protect karta hai — asal mein Elara shuru se use bacha rahi hai.",
+    "{{playerName}} ko lagta hai woh Elara ko protect karta hai — asal mein Elara shuru se use bacha rahi hai.",
     "Shikari aakhri devi ko dhoondh rahe hain; unka compass ab Pune dikha raha hai.",
     "Ye kahani kabhi khatam nahi hoti — har arc ke baad ek naya arc."
   ],
   "extractionHints": [
-    "Ankit ne kaunse ajeeb hadse notice kiye aur kaise explain kiye",
+    "{{playerName}} ne kaunse ajeeb hadse notice kiye aur kaise explain kiye",
     "Elara ne kya reveal kiya aur kya chhupaya",
-    "Ankit ka reaction jab use pata chala ki woh protected tha, protector nahi",
+    "{{playerName}} ka reaction jab use pata chala ki woh protected tha, protector nahi",
     "Shikariyon se kaise nipta gaya — chhup ke, saamna karke, ya bhaag ke",
     "Elara ke past ka kaunsa hissa khula",
     "Naye characters/jagahein/factions"

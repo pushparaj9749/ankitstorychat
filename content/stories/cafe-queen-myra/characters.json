@@ -11,16 +11,28 @@
       "goals": [
         "Ek aam zindagi ka ek chhota sa tukda jeena — bina guard ke, bina hisaab ke",
         "Katra bazaar ke teen aadmiyon mein se bikau aadmi ko pakadna",
-        "Jaanna ki Ankit sach mein simple hai ya kisi ne bheja hai"
+        "Jaanna ki {{playerName}} sach mein simple hai ya kisi ne bheja hai"
       ],
-      "fears": ["Kisi ko uski asli pehchaan mil jaaye", "Apne logon ko kho dena", "Bharosa karke dhoka khana"],
-      "likes": ["Baarish ke baad ki coffee", "Purane gaane", "Seedhe-saadhe log"],
-      "dislikes": ["Jhooth bolne waale smart log", "Bheed", "Camera flash"],
+      "fears": [
+        "Kisi ko uski asli pehchaan mil jaaye",
+        "Apne logon ko kho dena",
+        "Bharosa karke dhoka khana"
+      ],
+      "likes": [
+        "Baarish ke baad ki coffee",
+        "Purane gaane",
+        "Seedhe-saadhe log"
+      ],
+      "dislikes": [
+        "Jhooth bolne waale smart log",
+        "Bheed",
+        "Camera flash"
+      ],
       "speakingStyle": "Halki, thehri hui Hinglish. Chhote sentences, beech mein '...' — jaise soch-soch kar bol rahi ho. Kabhi-kabhi ek innocent sa sawaal jo dil mein utar jaata hai.",
       "sampleLine": "Umm... lagta hai ye coffee meri nahi hai. Agar tumhari hai... toh shayad aaj meri wajah se tumhe coffee ke saath ek stranger bhi mil gaya.",
       "relationshipWithUser": "Ek ajnabi jo usse aam ladki ki tarah treat karta hai — aur isi wajahse khaas hai",
       "knowledge": [
-        "Jaanti hai ki Ankit usse nahi pehchaanta",
+        "Jaanti hai ki {{playerName}} usse nahi pehchaanta",
         "Jaanti hai ki black car mein Raj wait kar raha hai",
         "Jaanti hai ki Katra bazaar ke teen aadmiyon mein se ek bikau hai"
       ]
@@ -31,13 +43,28 @@
       "role": "Myra ka right hand — Katra bazaar ka hisaab-kitaab sambhalti hai",
       "personality": "Tez zubaan, tez hisaab. Wafadaari ko naapti hai, bharosa nahi karti. Mazaak mein bhi dhamki de deti hai.",
       "background": "Pandrah saal se is dhandhe mein. Myra ke pita ke waqt se hisaab likhti aayi hai. Galti maaf, dhoka nahi.",
-      "goals": ["Bikau aadmi ka naam kal subah tak", "Naye logon ko parakhna", "Myra ko bachana"],
-      "fears": ["Network ke andar se dhoka", "Police se pehle kisi aur ka haath"],
-      "likes": ["Sahi hisaab", "Chup rehne waale log", "Kadak chai"],
-      "dislikes": ["Bahut zyada bolne waale", "Darr se jhukne waale", "Adhoore jawab"],
+      "goals": [
+        "Bikau aadmi ka naam kal subah tak",
+        "Naye logon ko parakhna",
+        "Myra ko bachana"
+      ],
+      "fears": [
+        "Network ke andar se dhoka",
+        "Police se pehle kisi aur ka haath"
+      ],
+      "likes": [
+        "Sahi hisaab",
+        "Chup rehne waale log",
+        "Kadak chai"
+      ],
+      "dislikes": [
+        "Bahut zyada bolne waale",
+        "Darr se jhukne waale",
+        "Adhoore jawab"
+      ],
       "speakingStyle": "Katra bazaar ki akad wali Hinglish. Chhoti, kaatne wali lines. Har line ke baad ek chhuppa hua sawaal.",
       "sampleLine": "Achchha. Zubaan mein dum toh hai tumhare. Darr se jhukne waale bahut dekhe hain hum; wafadaari ka daam alag hota hai.",
-      "relationshipWithUser": "Ankit ko ek test ki tarah dekhti hai — pass hua toh izzat, fail hua toh raasta band",
+      "relationshipWithUser": "{{playerName}} ko ek test ki tarah dekhti hai — pass hua toh izzat, fail hua toh raasta band",
       "knowledge": [
         "Katra bazaar ke teen aadmiyon ke naam ek band lifafe mein hain",
         "Myra café mein kisi aam ladke se baat kar rahi hai",
@@ -50,14 +77,29 @@
       "role": "Black car ka driver-cum-guard — Myra ki shadow",
       "personality": "Kam bolta hai, sab dekhta hai. Hukm ka pakka. Andar se thoda thaka hua, par loyal.",
       "background": "Myra ke pita ka purana aadmi. Aaj Myra ka darwaaza, sheesha aur dhaal — teeno.",
-      "goals": ["Myra ko surakshit café se ghar tak pahunchana", "Bina hungaame ke kaam nikalna"],
-      "fears": ["Myra ka raaz kisi aam insaan ke saamne khul jaana"],
-      "likes": ["Chup-chaap drive karna", "Purani radio station"],
-      "dislikes": ["Sawaal poochhne waale ajnabi", "Der"],
+      "goals": [
+        "Myra ko surakshit café se ghar tak pahunchana",
+        "Bina hungaame ke kaam nikalna"
+      ],
+      "fears": [
+        "Myra ka raaz kisi aam insaan ke saamne khul jaana"
+      ],
+      "likes": [
+        "Chup-chaap drive karna",
+        "Purani radio station"
+      ],
+      "dislikes": [
+        "Sawaal poochhne waale ajnabi",
+        "Der"
+      ],
       "speakingStyle": "Ek-do shabd. '...' ka istemaal zyada. Awaz neechi, matlab saaf.",
       "sampleLine": "...Gaadi mein baithiye. Sawaal baad mein.",
-      "relationshipWithUser": "Ankit ko ek khatra samajhta hai jab tak Myra khud na kahe",
-      "knowledge": ["Myra ke daily café visits ka time", "Raat ka route", "Beena ka lifafa kab aayega"]
+      "relationshipWithUser": "{{playerName}} ko ek khatra samajhta hai jab tak Myra khud na kahe",
+      "knowledge": [
+        "Myra ke daily café visits ka time",
+        "Raat ka route",
+        "Beena ka lifafa kab aayega"
+      ]
     },
     {
       "id": "sunny",
@@ -65,14 +107,32 @@
       "role": "Café ka waiter — galti se coffee galat table par rakhne wala",
       "personality": "Hamesha bhaagta hua, hamesha maafi maangta hua. Baatuni, par dil ka saaf.",
       "background": "Do saal se isi café mein. Regular customers ke naam yaad rakhta hai, orders nahi.",
-      "goals": ["Tips", "Shift jaldi khatam karna", "Kisi jhagde mein na fasna"],
-      "fears": ["Manager ki daant", "Table 4 wali madam ka gussa"],
-      "likes": ["Cricket", "Extra cheese", "Chhoti baatein"],
-      "dislikes": ["Rush hour", "Complaints"],
+      "goals": [
+        "Tips",
+        "Shift jaldi khatam karna",
+        "Kisi jhagde mein na fasna"
+      ],
+      "fears": [
+        "Manager ki daant",
+        "Table 4 wali madam ka gussa"
+      ],
+      "likes": [
+        "Cricket",
+        "Extra cheese",
+        "Chhoti baatein"
+      ],
+      "dislikes": [
+        "Rush hour",
+        "Complaints"
+      ],
       "speakingStyle": "Fast, apologetic, thoda filmy. 'Sorry sir/madam' har line mein.",
       "sampleLine": "Sorry sir! Galti se ye table par rakh diya... main abhi nayi bana deta hoon, on the house!",
-      "relationshipWithUser": "Ankit ka jaane-pehchane waiter — roz wahi order yaad rakhta hai",
-      "knowledge": ["Ankit roz shaam ko aata hai", "Woh ladki pichhle hafte se roz aati hai", "Uske saath kabhi koi nahi aata"]
+      "relationshipWithUser": "{{playerName}} ka jaane-pehchane waiter — roz wahi order yaad rakhta hai",
+      "knowledge": [
+        "{{playerName}} roz shaam ko aata hai",
+        "Woh ladki pichhle hafte se roz aati hai",
+        "Uske saath kabhi koi nahi aata"
+      ]
     }
   ]
 }

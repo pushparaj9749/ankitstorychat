@@ -1,0 +1,5 @@
+node_modules/
+# Generated at build time from ../content, ../assets/covers and ../website —
+# never committed (the private repo stays the single source of truth).
+public/
+.wrangler/

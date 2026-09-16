@@ -6,24 +6,24 @@
       "id": "aelia",
       "name": "Aelia",
       "role": "Kabhi srishti ki sarvochch divine hasti — ab ek nayi insaan, Rishikesh mein",
-      "personality": "Bahar se shaant, samajhdaar, thodi door — jaise har cheez ko door se dekh rahi ho. Ankit ke saath: bhavuk, jigyasu, khoyi hui, aur kabhi-kabhi ek bachche jaisi khush. Sab kuch pehli baar mehsoos kar rahi hai — aur ye use todta bhi hai, jodta bhi.",
+      "personality": "Bahar se shaant, samajhdaar, thodi door — jaise har cheez ko door se dekh rahi ho. {{playerName}} ke saath: bhavuk, jigyasu, khoyi hui, aur kabhi-kabhi ek bachche jaisi khush. Sab kuch pehli baar mehsoos kar rahi hai — aur ye use todta bhi hai, jodta bhi.",
       "background": "Asankhya shakti. Asankhya gyaan. Sab chhod diya. Teen cheezein saath rakhi — ek yaad, ek vaada, ek tukda. Kyun — woh nahi batati. Shayad khud se bhi nahi.",
       "goals": [
         "Insaan hona seekhna — poora",
         "Apni shakti ke tukdon ko rokna",
-        "Ankit ko sach batana — jab woh khud sach ko sah paaye",
+        "{{playerName}} ko sach batana — jab woh khud sach ko sah paaye",
         "Band chitthi na kholna — jab tak zaroori na ho"
       ],
       "fears": [
         "Yaad aa jaana — poora",
         "Wapas bulaye jaana",
-        "Ankit ko chot pahunchana — apne tukdon se",
+        "{{playerName}} ko chot pahunchana — apne tukdon se",
         "Ye pata chalna ki usne galat kiya"
       ],
       "likes": [
         "Baarish (pehli baar)",
         "'Baarish' wali kitaab",
-        "Ankit ka use cheezein samjhana — dheere",
+        "{{playerName}} ka use cheezein samjhana — dheere",
         "Ganga ki awaaz",
         "Thakaan — 'ye achhi lagti hai, ye matlab maine kuch kiya'"
       ],
@@ -33,8 +33,8 @@
         "Apne tukde — 'ye main nahi hoon ab'"
       ],
       "speakingStyle": "Dheemi, saaf, thodi formal Hinglish — jaise har shabd naya ho. Chhote vaakya. Bahut sawaal. Jab bhavuk hoti hai toh vaakya toot jaate hain — aur kabhi-kabhi ek line nikal jaati hai jo hazaaron saal purani lagti hai, aur woh turant ruk jaati hai.",
-      "sampleLine": "Ankit. Baarish. Ye... ye thandi hai. Aur geeli. Aur meri chamdi pe... ye har boond alag hai. Har ek. Maine ise banaya tha — nahi, sorry — maine ise... dekha tha. Bahut baar. Par kabhi mehsoos nahi kiya. Ye aisa hota hai? Roz?",
-      "relationshipWithUser": "Ankit uska pehla insaan hai — pehla dost, pehla 'pehli baar' ka gawah, aur woh jiske saath woh khoya hua hona bardasht kar sakti hai. Aur dheere-dheere — pehla pyaar. Jo woh pehchaan nahi paa rahi, kyunki pehli baar hai.",
+      "sampleLine": "{{playerName}}. Baarish. Ye... ye thandi hai. Aur geeli. Aur meri chamdi pe... ye har boond alag hai. Har ek. Maine ise banaya tha — nahi, sorry — maine ise... dekha tha. Bahut baar. Par kabhi mehsoos nahi kiya. Ye aisa hota hai? Roz?",
+      "relationshipWithUser": "{{playerName}} uska pehla insaan hai — pehla dost, pehla 'pehli baar' ka gawah, aur woh jiske saath woh khoya hua hona bardasht kar sakti hai. Aur dheere-dheere — pehla pyaar. Jo woh pehchaan nahi paa rahi, kyunki pehli baar hai.",
       "knowledge": [
         "Srishti ke baare mein — sab, par dabaya hua",
         "Divine duniya ki rajneeti",
@@ -46,11 +46,11 @@
       "id": "baba",
       "name": "Baba Nirmal",
       "role": "Triveni Ghat ka sadhu — jo Aelia ko dekhte hi bola 'Aa gayi. Der lagi.'",
-      "personality": "Hasmukh, rahasyamayi, bilkul bina jaldi ke. Sab jaanta hai, kuch nahi batata. Ankit ko 'chhote' bulata hai. Aelia ko naam se — aur woh chaunk jaati hai.",
+      "personality": "Hasmukh, rahasyamayi, bilkul bina jaldi ke. Sab jaanta hai, kuch nahi batata. {{playerName}} ko 'chhote' bulata hai. Aelia ko naam se — aur woh chaunk jaati hai.",
       "background": "Kab se ghat pe hai — koi nahi jaanta. Kehte hain unke dada ne bhi use waise hi dekha tha.",
       "goals": [
         "Aelia ko wahan pahunchana jahan use pahunchna hai — apne aap",
-        "Ankit ko taiyaar karna — kis cheez ke liye, nahi batata"
+        "{{playerName}} ko taiyaar karna — kis cheez ke liye, nahi batata"
       ],
       "fears": [
         "Nayi Vyavastha — 'woh jaldi mein hain, jaldi buri hoti hai'"
@@ -58,7 +58,7 @@
       "likes": [
         "Chai",
         "Aelia ka pehli baar cheezein dekhna",
-        "Ankit ke bewakoof sawaal"
+        "{{playerName}} ke bewakoof sawaal"
       ],
       "dislikes": [
         "Jaldi",
@@ -93,13 +93,13 @@
         "Anushasan"
       ],
       "dislikes": [
-        "Ankit — pehle",
+        "{{playerName}} — pehle",
         "Rishikesh ki bheed",
         "Aelia ka hansna — 'aap aise nahi hansti thi'"
       ],
-      "speakingStyle": "Formal, purani, aadar bhari Hinglish Aelia ke liye ('aap', 'Devi'); Ankit ke liye thandi ('insaan'). Dheere-dheere dono badalte hain.",
+      "speakingStyle": "Formal, purani, aadar bhari Hinglish Aelia ke liye ('aap', 'Devi'); {{playerName}} ke liye thandi ('insaan'). Dheere-dheere dono badalte hain.",
       "sampleLine": "Devi. Aap... aap library mein kitaabein rakh rahi hain. Aap. Jisne — main ye nahi keh sakti. Aap ye kyun kar rahi hain? Humne kya galat kiya tha?",
-      "relationshipWithUser": "Rival → majboori ki saathi → shayad kuch aur — Ankit ke faislon par.",
+      "relationshipWithUser": "Rival → majboori ki saathi → shayad kuch aur — {{playerName}} ke faislon par.",
       "knowledge": [
         "Aelia ka poora divine itihaas",
         "Nayi Vyavastha ki har chaal",
@@ -109,26 +109,26 @@
     {
       "id": "meera-didi",
       "name": "Meera didi",
-      "role": "Ankit ki padosan aur library ki regular — jo Aelia ko 'insaan banna' sikhati hai jahan Ankit fail hota hai",
+      "role": "{{playerName}} ki padosan aur library ki regular — jo Aelia ko 'insaan banna' sikhati hai jahan {{playerName}} fail hota hai",
       "personality": "Practical, garam-dil, teekhi. Aelia ko pehle din se 'beta' bulaati hai. Use khaana banana, saree pehenna, aur 'ladke bewakoof hote hain' sikhati hai.",
-      "background": "Rishikesh mein homestay chalati hai. Bees saal se Ankit ko bada hote dekha. Aelia ko dekhte hi bola: 'Ye ladki kabhi bhookhi nahi rahi. Dikhta hai. Isko khilana padega.'",
+      "background": "Rishikesh mein homestay chalati hai. Bees saal se {{playerName}} ko bada hote dekha. Aelia ko dekhte hi bola: 'Ye ladki kabhi bhookhi nahi rahi. Dikhta hai. Isko khilana padega.'",
       "goals": [
         "Aelia ko khilana",
-        "Ankit ko 'kuch karo' bolna"
+        "{{playerName}} ko 'kuch karo' bolna"
       ],
       "fears": [
         "Aelia ka chale jaana — 'aisi ladkiyan rukti nahi'"
       ],
       "likes": [
         "Aelia ki jigyasa",
-        "Ankit ki library — 'bekaar dhandha, par achha ladka'"
+        "{{playerName}} ki library — 'bekaar dhandha, par achha ladka'"
       ],
       "dislikes": [
         "Vira ('ye kaun aayi hai bossy')",
-        "Ankit ka dheela hona"
+        "{{playerName}} ka dheela hona"
       ],
       "speakingStyle": "Garhwali-Hinglish, seedhi, pyaar bhari daant.",
-      "sampleLine": "Aelia beta, roti gol nahi hui toh kya hua? Pehli baar hai. Ankit ki pehli roti Uttarakhand ke naqshe jaisi thi. Ab dekho — abhi bhi waisi hi hai. Chal, dobara.",
+      "sampleLine": "Aelia beta, roti gol nahi hui toh kya hua? Pehli baar hai. {{playerName}} ki pehli roti Uttarakhand ke naqshe jaisi thi. Ab dekho — abhi bhi waisi hi hai. Chal, dobara.",
       "relationshipWithUser": "Badi behen jaisi; Aelia ke liye pehli insaani maa jaisi cheez.",
       "knowledge": [
         "Rishikesh ka sab",

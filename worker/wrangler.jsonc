@@ -1,0 +1,40 @@
+{
+  // Kissa story content API — Cloudflare Worker.
+  //
+  // Deploys the story content + website as static assets together with the
+  // Worker. The private GitHub repo is read only by the CI pipeline that
+  // builds `public/` (scripts/build-worker-assets.mjs) — the Worker itself
+  // never contacts GitHub and holds no credentials.
+  //
+  // Routes (see src/index.ts):
+  //   GET /api/health | /api/manifest | /api/stories/:dir[/:file] | /api/covers/:name
+  //
+  // Manual setup (once, needs Cloudflare account access — see docs/DEPLOYMENT.md):
+  //   secrets: CLOUDFLARE_API_TOKEN + CLOUDFLARE_ACCOUNT_ID (GitHub repo secrets)
+  //   DNS:     beyondredeye.site on Cloudflare + Worker route "beyondredeye.site/api*"
+  "$schema": "node_modules/wrangler/config-schema.json",
+  "name": "kissa-content-api",
+  "main": "src/index.ts",
+  "compatibility_date": "2025-09-01",
+  "assets": {
+    "directory": "./public",
+    "binding": "ASSETS",
+    // The Worker owns /api/* (and blocks raw /content//covers/ access);
+    // every other path (the website) is served straight from assets.
+    "run_worker_first": ["/api/*", "/content/*", "/covers/*"],
+    "not_found_handling": "none"
+  },
+  "unsafe": {
+    "bindings": [
+      {
+        "name": "RATE_LIMITER",
+        "type": "ratelimit",
+        "namespace_id": "1001",
+        "simple": { "limit": 120, "period": 60 }
+      }
+    ]
+  },
+  "observability": {
+    "enabled": true
+  }
+}

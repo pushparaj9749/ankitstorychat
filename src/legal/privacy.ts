@@ -15,7 +15,7 @@ export const PRIVACY_SECTIONS: LegalSection[] = [
     heading: 'The short version',
     body: [
       'No account. No login. No cloud user database. Your nickname, age selection, chats, memories, progress, favorites, downloads, and settings live ONLY on your device.',
-      'Two exceptions: (1) public story files are downloaded from GitHub when you ask for updates, and (2) if YOU configure a third-party AI provider, your chat requests go to THAT provider so it can reply.',
+      'Two exceptions: (1) public story files are downloaded from the Kissa story API (beyondredeye.site) when you ask for updates, and (2) if YOU configure a third-party AI provider, your chat requests go to THAT provider so it can reply.',
     ],
   },
   {
@@ -29,7 +29,7 @@ export const PRIVACY_SECTIONS: LegalSection[] = [
   {
     heading: '2. Data that leaves your device',
     body: [
-      'GitHub content distribution: when you check for updates or download stories, the app fetches public files (manifest.json, story JSON) from the configured public content URL (GitHub by default). This is a plain file download — no personal data is sent.',
+      'Story content distribution: when you check for updates or download stories, the app fetches public story files (manifest + story JSON) from the configured Kissa story API. This is a plain file download — no personal data is sent.',
       'Your AI provider: ONLY if you configure one, the text needed for a reply (your message, recent conversation, story state, relevant memories) is sent to that provider over the network. This is how every cloud AI works — the model must read your words to answer.',
       'We do NOT send your API key or chats to any Kissa-owned server, because no such server exists.',
     ],

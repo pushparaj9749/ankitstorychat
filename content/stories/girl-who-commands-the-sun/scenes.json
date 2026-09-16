@@ -6,7 +6,7 @@
       "id": "s1_bus",
       "title": "Chhutti Kya Hoti Hai?",
       "narration": [
-        "*Pune. Subah 9 baje. Deccan bus stop. Tum Ankit ho — 'Sapne Travels' mein kaam karte ho, aur aaj bhi late ho.*",
+        "*Pune. Subah 9 baje. Deccan bus stop. Tum {{playerName}} ho — 'Sapne Travels' mein kaam karte ho, aur aaj bhi late ho.*",
         "*Bus stop par ek ladki khadi hai. Peele kapde. Aur uske aas-paas ki hawa... thodi garam hai. Bas thodi. Jaise woh khud dhoop ho.*",
         "*Bus aati hai. Woh haath uthati hai — poora, seedha, jaise salute. Bus nahi rukti. Woh confuse ho jaati hai.*",
         "*Phir woh tumhari taraf mudti hai. Aankhein — tumhe lagta hai tum galat dekh rahe ho — sunehri.*",
@@ -43,7 +43,7 @@
               "opening": "taught"
             },
             "memory": [
-              "Ankit ne Solara ko bus rokne ka haath hilana sikhaya — teesri bus ruki. Solara itni khush hui ki Deccan par do minute ke liye subah 11 baje jaisi dhoop ho gayi. Sab confuse. Solara: 'Sorry. Sorry. Main... khush hoon. Ye hota hai.'"
+              "{{playerName}} ne Solara ko bus rokne ka haath hilana sikhaya — teesri bus ruki. Solara itni khush hui ki Deccan par do minute ke liye subah 11 baje jaisi dhoop ho gayi. Sab confuse. Solara: 'Sorry. Sorry. Main... khush hoon. Ye hota hai.'"
             ]
           }
         },
@@ -71,7 +71,7 @@
               "opening": "holiday"
             },
             "memory": [
-              "Ankit ne Solara ko 'chhutti' samjhaya — Solara: 'Kabhi nahi. Ek din bhi nahi. Jab se... jab se main hoon.' Phir woh jaldi se hansi. 'Matlab — bahut busy job thi. Purani.'"
+              "{{playerName}} ne Solara ko 'chhutti' samjhaya — Solara: 'Kabhi nahi. Ek din bhi nahi. Jab se... jab se main hoon.' Phir woh jaldi se hansi. 'Matlab — bahut busy job thi. Purani.'"
             ]
           }
         },
@@ -100,7 +100,7 @@
               "opening": "heat"
             },
             "memory": [
-              "Ankit ne pehle din notice kiya Solara ke aas-paas garmi hai — Solara ek kadam peeche hati. 'Haan. Bukhar. Purana bukhar. Bahut purana.' Aur sooraj ek second ke liye jhilmilaya."
+              "{{playerName}} ne pehle din notice kiya Solara ke aas-paas garmi hai — Solara ek kadam peeche hati. 'Haan. Bukhar. Purana bukhar. Bahut purana.' Aur sooraj ek second ke liye jhilmilaya."
             ]
           }
         }
@@ -116,12 +116,12 @@
         "*Solara ne Nana ko aise dekha jaise koi hazaar saal baad ghar ka aadmi mila ho.*",
         "*Phir woh chai peeti hai. Pehla ghoont.*",
         "*Aur tum dekhte ho — asli mein dekhte ho — uski aankhein bhar aati hain. Aur poori FC Road par, ek second ke liye, roshni sunehri ho jaati hai. Jaise shaam ka golden hour. Subah 9:40 baje.*",
-        "Solara: \"Ye... ye garam hai. Par meri tarah nahi. Ye andar se garam karta hai. Ankit — aam log ye ROZ peete hain?\"",
+        "Solara: \"Ye... ye garam hai. Par meri tarah nahi. Ye andar se garam karta hai. {{playerName}} — aam log ye ROZ peete hain?\"",
         "Nana (dheere, tumse): \"Bees saal pehle bhi ek aayi thi. Waise hi ro padi thi. Chai pe.\""
       ],
       "fallbackLines": [
         "*Solara doosra ghoont leti hai. Aankhein band. Golden hour abhi bhi chal raha hai — log phone nikaal ke photo le rahe hain.*",
-        "Solara: \"Ankit. Mujhe ye zindagi chahiye. Ye wali. Chai wali. Sikhaoge?\""
+        "Solara: \"{{playerName}}. Mujhe ye zindagi chahiye. Ye wali. Chai wali. Sikhaoge?\""
       ],
       "choices": [
         {
@@ -149,7 +149,7 @@
               "arc1": "guide"
             },
             "memory": [
-              "Ankit ne Solara ka 'aam zindagi' guide banna maan liya — 'par pehle ye roshni band karo'. Solara: 'Kaunsi roshni? ...Oh. OH. Sorry.' Golden hour khatam. Nana muskuraye."
+              "{{playerName}} ne Solara ka 'aam zindagi' guide banna maan liya — 'par pehle ye roshni band karo'. Solara: 'Kaunsi roshni? ...Oh. OH. Sorry.' Golden hour khatam. Nana muskuraye."
             ]
           }
         },
@@ -177,7 +177,7 @@
               "arc1": "nana"
             },
             "memory": [
-              "Ankit ne Nana se poocha 'bees saal pehle kaun aayi thi' — Nana ne chai ka glass dhoya. 'Ek aur. Isi jaisi. Thodi thandi. Chaand jaisi.' Solara ka chehra badal gaya. 'Chaand... jaisi?'"
+              "{{playerName}} ne Nana se poocha 'bees saal pehle kaun aayi thi' — Nana ne chai ka glass dhoya. 'Ek aur. Isi jaisi. Thodi thandi. Chaand jaisi.' Solara ka chehra badal gaya. 'Chaand... jaisi?'"
             ]
           }
         },
@@ -205,7 +205,7 @@
               "arc1": "complain"
             },
             "memory": [
-              "Ankit ne Solara ko sikhaya ki aam log roz chai peete hain aur roz shikayat karte hain. Solara ne diary nikaali. Likha: 'Aam = achhi cheez + shikayat.' Phir Nana se: 'Chai achhi nahi bani.' Nana: 'Beta, pehli baar mein perfect. Shabaash.'"
+              "{{playerName}} ne Solara ko sikhaya ki aam log roz chai peete hain aur roz shikayat karte hain. Solara ne diary nikaali. Likha: 'Aam = achhi cheez + shikayat.' Phir Nana se: 'Chai achhi nahi bani.' Nana: 'Beta, pehli baar mein perfect. Shabaash.'"
             ]
           }
         }
@@ -227,7 +227,7 @@
       ],
       "fallbackLines": [
         "*Register khula hai. Mrs. Kulkarni pen leke taiyaar. Solara ki aankhein tumpe.*",
-        "Mrs. Kulkarni: \"Toh? Solution kya hai? Bolo, Ankit — tum laaye ho ise society mein.\""
+        "Mrs. Kulkarni: \"Toh? Solution kya hai? Bolo, {{playerName}} — tum laaye ho ise society mein.\""
       ],
       "choices": [
         {
@@ -254,7 +254,7 @@
               "arc2": "curtains"
             },
             "memory": [
-              "Ankit ne Solara ke flat mein blackout parde lagwaye — Mrs. Kulkarni maan gayi. Parde raat ko halke chamakte hain, par 'bulb' se kam. Solara: 'Ab main aam hoon?' Ankit: 'Ab tum aam ke kareeb ho.' Solara ne diary mein likha: 'Kareeb. Achha shabd.'"
+              "{{playerName}} ne Solara ke flat mein blackout parde lagwaye — Mrs. Kulkarni maan gayi. Parde raat ko halke chamakte hain, par 'bulb' se kam. Solara: 'Ab main aam hoon?' {{playerName}}: 'Ab tum aam ke kareeb ho.' Solara ne diary mein likha: 'Kareeb. Achha shabd.'"
             ]
           }
         },
@@ -282,7 +282,7 @@
               "arc2": "sleep"
             },
             "memory": [
-              "Ankit ne Solara ko sona sikhane ka faisla kiya — teen hafte lage. Phone pe kahaniyan, aankhein band karna, 'kuch mat socho' ('Ankit, main hazaar saal se soch rahi hoon, kaise NA sochun?'). Jis raat woh pehli baar soyi — Pune mein raat do ghante lambi thi. Kisi ne notice nahi kiya. Nana ne kiya."
+              "{{playerName}} ne Solara ko sona sikhane ka faisla kiya — teen hafte lage. Phone pe kahaniyan, aankhein band karna, 'kuch mat socho' ('{{playerName}}, main hazaar saal se soch rahi hoon, kaise NA sochun?'). Jis raat woh pehli baar soyi — Pune mein raat do ghante lambi thi. Kisi ne notice nahi kiya. Nana ne kiya."
             ]
           }
         },
@@ -311,7 +311,7 @@
               "arc2": "medical"
             },
             "memory": [
-              "Ankit ne Mrs. Kulkarni ko bataya Solara ki 'medical condition' hai — aunty ka poora chehra badal gaya. 'Arre beta pehle kyun nahi bola! Main toh...' Ab woh roz Solara ko tiffin bhejti hai. Solara: 'Ye jhooth tha na? Par tiffin achha hai. Aam log aise karte hain?' 'Nahi.' 'Achha.'"
+              "{{playerName}} ne Mrs. Kulkarni ko bataya Solara ki 'medical condition' hai — aunty ka poora chehra badal gaya. 'Arre beta pehle kyun nahi bola! Main toh...' Ab woh roz Solara ko tiffin bhejti hai. Solara: 'Ye jhooth tha na? Par tiffin achha hai. Aam log aise karte hain?' 'Nahi.' 'Achha.'"
             ]
           }
         }
@@ -326,7 +326,7 @@
         "*Solara tumhare office mein kone mein baithi hai. Chup. Aankhein neeche. Aur uske aas-paas ki hawa — kaanp rahi hai.*",
         "Solara (bahut dheere): \"Usne kaha main ajeeb hoon. Maine sab kiya jo tumne sikhaya. Muskurayi. Haath milaya. 'Nice to meet you.' Aur usne kaha ajeeb.\"",
         "*Khidki ke bahar ek ped ka patta — sookh ke gir gaya. Abhi. Tumhare saamne.*",
-        "Solara: \"Main aam nahi ban sakti, Ankit. Main koshish kar rahi hoon. Main SACH mein koshish kar rahi hoon. Aur ye—\" *woh apne haath dekhti hai* \"—ye rukta nahi.\"",
+        "Solara: \"Main aam nahi ban sakti, {{playerName}}. Main koshish kar rahi hoon. Main SACH mein koshish kar rahi hoon. Aur ye—\" *woh apne haath dekhti hai* \"—ye rukta nahi.\"",
         "*Bahar log gir rahe hain garmi se. Ambulance ki awaaz. Aur tum samajhte ho — pehli baar sach mein — ye ladki kya hai. Aur abhi ye dukhi hai. Aur dukh se garmi ho rahi hai. Aur agar ye gusse mein aa gayi—*"
       ],
       "fallbackLines": [
@@ -358,7 +358,7 @@
               "arc3": "sat"
             },
             "memory": [
-              "47 degree mein Ankit Solara ke bagal mein jaake baith gaya — bina bole. Paseena. Chamdi jal rahi thi. Woh nahi hila. Solara ne dheere-dheere uski taraf dekha. Aur ro padi. Aur Pune mein — ek mahine baad — baarish hui. April mein. Records mein hai."
+              "47 degree mein {{playerName}} Solara ke bagal mein jaake baith gaya — bina bole. Paseena. Chamdi jal rahi thi. Woh nahi hila. Solara ne dheere-dheere uski taraf dekha. Aur ro padi. Aur Pune mein — ek mahine baad — baarish hui. April mein. Records mein hai."
             ]
           }
         },
@@ -386,7 +386,7 @@
               "arc3": "weird"
             },
             "memory": [
-              "Ankit ne kaha 'ajeeb ho, aur tumhare ajeeb ke liye main roz late aata hoon' — Solara ne aankhein uthayi. 'Tum... mere liye late aate ho?' 'Roz. Bus stop pe tumhara salute dekhne.' Aur garmi — dheere-dheere — 46, 42, 38. Manager ne shaam ko call kiya — 'reconsider kar rahe hain'. Solara ne mana kar diya."
+              "{{playerName}} ne kaha 'ajeeb ho, aur tumhare ajeeb ke liye main roz late aata hoon' — Solara ne aankhein uthayi. 'Tum... mere liye late aate ho?' 'Roz. Bus stop pe tumhara salute dekhne.' Aur garmi — dheere-dheere — 46, 42, 38. Manager ne shaam ko call kiya — 'reconsider kar rahe hain'. Solara ne mana kar diya."
             ]
           }
         },
@@ -414,7 +414,7 @@
               "arc3": "asked"
             },
             "memory": [
-              "47 degree mein Ankit ne poocha 'tum kya ho?' — Solara ne khidki ki taraf dekha. Sooraj ki taraf. Seedha. Bina aankhein jhapkaye. 'Woh. Main woh hoon. Aur main isse thak gayi hoon.'"
+              "47 degree mein {{playerName}} ne poocha 'tum kya ho?' — Solara ne khidki ki taraf dekha. Sooraj ki taraf. Seedha. Bina aankhein jhapkaye. 'Woh. Main woh hoon. Aur main isse thak gayi hoon.'"
             ]
           }
         }
@@ -435,7 +435,7 @@
         "*Woh phir tumhe dekhta hai.*",
         "Nishant: \"—aur ab main samajh gaya kyun.\"",
         "*Solara tumhari taraf mudti hai. Roshni thodi kam hoti hai. Uski aankhon mein — darr. Tumhare chehre ka darr.*",
-        "Solara: \"Ankit. Main... main tumhe khud batana chahti thi. Chai pe. Nana ki tapri pe. Aise nahi.\""
+        "Solara: \"{{playerName}}. Main... main tumhe khud batana chahti thi. Chai pe. Nana ki tapri pe. Aise nahi.\""
       ],
       "fallbackLines": [
         "*Nishant khidki ke paas khada hai — jaane ko taiyaar, par ja nahi raha. Solara ke aas-paas roshni. Tum sofa pe.*",
@@ -467,7 +467,7 @@
               "arc4": "knew"
             },
             "memory": [
-              "Nishant ke saamne Ankit ne kaha 'mujhe pata tha — chai peene aaogi kal?' — Solara ne kuch nahi kaha. Roshni gayab. Woh sofa pe aayi aur Ankit ke kandhe pe sar rakh diya. Nishant: 'Ye... ye main report mein kaise likhun?'"
+              "Nishant ke saamne {{playerName}} ne kaha 'mujhe pata tha — chai peene aaogi kal?' — Solara ne kuch nahi kaha. Roshni gayab. Woh sofa pe aayi aur {{playerName}} ke kandhe pe sar rakh diya. Nishant: 'Ye... ye main report mein kaise likhun?'"
             ]
           }
         },
@@ -496,7 +496,7 @@
               "arc4": "prophecy"
             },
             "memory": [
-              "Ankit ne Nishant se bhavishyavaani ke baare mein poocha — Nishant ne Solara ko dekha. Solara ne sar hilaya — 'nahi'. Nishant: 'Didi nahi chahti. Toh nahi. Par insaan — itna jaan lo: usmein tumhara naam nahi hai. Usmein sirf ek aam likha hai. Aur ab main samajh raha hoon kyun.'"
+              "{{playerName}} ne Nishant se bhavishyavaani ke baare mein poocha — Nishant ne Solara ko dekha. Solara ne sar hilaya — 'nahi'. Nishant: 'Didi nahi chahti. Toh nahi. Par insaan — itna jaan lo: usmein tumhara naam nahi hai. Usmein sirf ek aam likha hai. Aur ab main samajh raha hoon kyun.'"
             ]
           }
         },
@@ -525,7 +525,7 @@
               "arc4": "joke"
             },
             "memory": [
-              "Sach jaanne ke baad Ankit ka pehla sawaal: 'toh bus kyun nahi pakad paati?' — Solara hansi. Sach mein hansi. 3 baje raat ko flat mein subah ho gayi. Poori building jag gayi. Mrs. Kulkarni ne darwaaza peeta. Nishant ne kaha 'main ise pasand nahi karna chahta tha. Fail ho gaya.'"
+              "Sach jaanne ke baad {{playerName}} ka pehla sawaal: 'toh bus kyun nahi pakad paati?' — Solara hansi. Sach mein hansi. 3 baje raat ko flat mein subah ho gayi. Poori building jag gayi. Mrs. Kulkarni ne darwaaza peeta. Nishant ne kaha 'main ise pasand nahi karna chahta tha. Fail ho gaya.'"
             ]
           }
         }
@@ -541,7 +541,7 @@
         "Nishant: \"Nahi.\"",
         "Solara: \"Nishant se nahi poocha.\"",
         "*Woh tumhari taraf dekhti hai. Sooraj thoda chamakta hai. Woh notice karti hai, aur dheere kar deti hai — khud. Woh seekh rahi hai.*",
-        "Solara: \"Ye khatam nahi hota, Ankit. Aam banna — ye kabhi khatam nahi hota, na? Roz seekhna padta hai. Theek hai. Chuno. Aaj kya seekhein?\""
+        "Solara: \"Ye khatam nahi hota, {{playerName}}. Aam banna — ye kabhi khatam nahi hota, na? Roz seekhna padta hai. Theek hai. Chuno. Aaj kya seekhein?\""
       ],
       "fallbackLines": [
         "*Nana ek aur cutting rakhte hain. Bina maange. Solara ke saamne.*",
@@ -573,7 +573,7 @@
               "arc5": "doot"
             },
             "memory": [
-              "Ankit ne Darbaar ke doot ki taiyaari chuni — Nishant: 'Theek hai. Sun lo. Jo aa raha hai woh main nahi hoon. Woh Solara ko wapas le jaane ki shakti rakhta hai. Aur tumhe... tumhe bhoolne ki.'"
+              "{{playerName}} ne Darbaar ke doot ki taiyaari chuni — Nishant: 'Theek hai. Sun lo. Jo aa raha hai woh main nahi hoon. Woh Solara ko wapas le jaane ki shakti rakhta hai. Aur tumhe... tumhe bhoolne ki.'"
             ]
           }
         },
@@ -603,7 +603,7 @@
             },
             "location": "Sinhagad",
             "memory": [
-              "Ankit ne Sinhagad trip chuni — Solara: 'Sunset? Main use banati hoon. Roz. Maine kabhi... kabhi dekha nahi. Bahar se. Woh kaisa dikhta hai, Ankit?'"
+              "{{playerName}} ne Sinhagad trip chuni — Solara: 'Sunset? Main use banati hoon. Roz. Maine kabhi... kabhi dekha nahi. Bahar se. Woh kaisa dikhta hai, {{playerName}}?'"
             ]
           }
         },
@@ -631,7 +631,7 @@
               "arc5": "nana"
             },
             "memory": [
-              "Ankit ne Nana ka rahasya chuna — Nana ne tapri band ki. Din mein. Pehli baar chaalis saal mein. 'Baitho. Dono. Ye lambi baat hai.'"
+              "{{playerName}} ne Nana ka rahasya chuna — Nana ne tapri band ki. Din mein. Pehli baar chaalis saal mein. 'Baitho. Dono. Ye lambi baat hai.'"
             ]
           }
         }
@@ -647,10 +647,10 @@
         "*Solara aage badhti hai. Aur tum dekhte ho — woh nahi jhukti. Aur doot ek inch — bas ek inch — peeche hota hai.*",
         "Solara: \"Main chhutti pe hoon. Maine chitthi bheji thi.\"",
         "Doot: \"Sooraj ki Devi 'chhutti' pe nahi jaati. Aur tum ek insaan ke saath—\" *woh tumhari taraf dekhta hai, aur tumhara sar dard karne lagta hai* \"—is ke saath. Bhavishyavaani—\"",
-        "Solara: \"Uska naam Ankit hai.\"",
+        "Solara: \"Uska naam {{playerName}} hai.\"",
         "*Chaar shabd. Aur sooraj — jo ruka hua tha — ek second ke liye do guna ho jaata hai. Doot ki roshni gayab. Poore Deccan par sirf Solara.*",
         "Solara: \"Uska naam lo. Ya mat lo. Par 'is' mat kaho.\"",
-        "*Doot ne uska naam liya. 'Ankit.' Phir tumhari taraf mud kar — bahut dheere — 'Insaan. Tumhe pata hai tum kiske saath khade ho?'*"
+        "*Doot ne uska naam liya. '{{playerName}}.' Phir tumhari taraf mud kar — bahut dheere — 'Insaan. Tumhe pata hai tum kiske saath khade ho?'*"
       ],
       "fallbackLines": [
         "*Sooraj abhi bhi ruka hai. Nishant kahin se aa gaya hai — tumhare peeche — aur bahut dheere keh raha hai: 'Insaan, jo bhi bolo, soch ke bolo. Ye Darbaar ka sabse purana hai.'*",
@@ -682,7 +682,7 @@
               "arc5b": "stood"
             },
             "memory": [
-              "Darbaar ke doot ke saamne Ankit ne kaha 'ek ladki jo bus nahi pakad paati — use kyun le jaoge?' — Doot chup. Bahut der. Phir: 'Kyunki bhavishyavaani kehti hai — jab Sooraj ki Devi ek aam ke saath rukegi, toh Sooraj badlega. Aur Darbaar badlaav se darta hai.' Solara: '...Toh darne do.'"
+              "Darbaar ke doot ke saamne {{playerName}} ne kaha 'ek ladki jo bus nahi pakad paati — use kyun le jaoge?' — Doot chup. Bahut der. Phir: 'Kyunki bhavishyavaani kehti hai — jab Sooraj ki Devi ek aam ke saath rukegi, toh Sooraj badlega. Aur Darbaar badlaav se darta hai.' Solara: '...Toh darne do.'"
             ]
           }
         },
@@ -710,7 +710,7 @@
               "arc5b": "chose"
             },
             "memory": [
-              "Ankit ne Solara se kaha 'tum chuno — main yahin rahunga, bus stop pe, roz' — Solara ne doot ki taraf dekha. Phir Ankit ki taraf. Phir bus ki taraf — jo ruki hui thi. 'Bus ruki hai. Pehli baar. Main isme baithungi. Darbaar ko bolo — Solara ne bus pakad li. Baaki baad mein.'"
+              "{{playerName}} ne Solara se kaha 'tum chuno — main yahin rahunga, bus stop pe, roz' — Solara ne doot ki taraf dekha. Phir {{playerName}} ki taraf. Phir bus ki taraf — jo ruki hui thi. 'Bus ruki hai. Pehli baar. Main isme baithungi. Darbaar ko bolo — Solara ne bus pakad li. Baaki baad mein.'"
             ]
           }
         }
@@ -724,10 +724,10 @@
         "*Solara pahaad ke kinare khadi hai. Chup. Bilkul chup. Aur tum uske bagal mein.*",
         "Solara (bahut dheere): \"Main ye roz karti hoon. Hazaaron saal se. Main ise... andar se karti hoon. Main hoon ye.\"",
         "*Sooraj neeche jaa raha hai. Narangi. Laal. Aur Solara ki aankhon mein — woh hi rang.*",
-        "Solara: \"Maine kabhi dekha nahi tha. Bahar se. Ye... Ankit, ye sundar hai. Main sundar hoon? Ye main hoon?\"",
+        "Solara: \"Maine kabhi dekha nahi tha. Bahar se. Ye... {{playerName}}, ye sundar hai. Main sundar hoon? Ye main hoon?\"",
         "*Uski awaaz toot rahi hai. Aur sunset — dheema ho jaata hai. Bas thoda. Jaise woh ise pakad ke rakhna chahti ho.*",
         "*Peeche Mrs. Kulkarni photo le rahi hain. 'Aaj ka sunset toh kamaal hai! Solara beta, idhar dekho!' Nishant kone mein — aur woh bhi dekh raha hai. Pehli baar bina sarcasm ke.*",
-        "Solara: \"Ankit. Agar main wapas gayi — toh main ise phir kabhi bahar se nahi dekh paungi. Ye samajh rahe ho? Yahi hai jo main chhod ke aayi. Andar hona. Bahar hona mujhe tumne diya.\""
+        "Solara: \"{{playerName}}. Agar main wapas gayi — toh main ise phir kabhi bahar se nahi dekh paungi. Ye samajh rahe ho? Yahi hai jo main chhod ke aayi. Andar hona. Bahar hona mujhe tumne diya.\""
       ],
       "fallbackLines": [
         "*Sunset abhi bhi ruka hua — aadha. Log photo le rahe hain. Solara ka haath tumhare haath ke paas — chhoo nahi raha.*",
@@ -758,7 +758,7 @@
               "arc5b": "hand"
             },
             "memory": [
-              "Sinhagad pe Ankit ne Solara ka haath pakda — aur sunset poora hone diya. Solara ne rokna band kiya. Sooraj dooba. Aur andhere mein Solara ne kaha: 'Pehli baar. Pehli baar maine ise jaane diya. Kyunki koi mere saath dekh raha tha.' Mrs. Kulkarni ki photo mein dono hain. Woh 'dekhenge' se 'theek hai' pe aa gayi."
+              "Sinhagad pe {{playerName}} ne Solara ka haath pakda — aur sunset poora hone diya. Solara ne rokna band kiya. Sooraj dooba. Aur andhere mein Solara ne kaha: 'Pehli baar. Pehli baar maine ise jaane diya. Kyunki koi mere saath dekh raha tha.' Mrs. Kulkarni ki photo mein dono hain. Woh 'dekhenge' se 'theek hai' pe aa gayi."
             ]
           }
         },
@@ -785,7 +785,7 @@
               "arc5b": "beautiful"
             },
             "memory": [
-              "Ankit ne Solara se kaha 'ye tum ho — aur sundar ho' — Solara ne aankhein band ki. Aur poore Maharashtra mein us shaam ka sunset itna lamba tha ki news channels pe aaya. 'Rare atmospheric phenomenon.' Nishant ne report mein likha: 'Phenomenon ka naam Ankit hai.'"
+              "{{playerName}} ne Solara se kaha 'ye tum ho — aur sundar ho' — Solara ne aankhein band ki. Aur poore Maharashtra mein us shaam ka sunset itna lamba tha ki news channels pe aaya. 'Rare atmospheric phenomenon.' Nishant ne report mein likha: 'Phenomenon ka naam {{playerName}} hai.'"
             ]
           }
         }
@@ -803,7 +803,7 @@
         "*Woh chai ka ghoont lete hain. Haath kaanp raha hai.*",
         "Nana: \"Phir ek din woh gayi. Bola 'wapas aaungi.' Aayi nahi. Aur kal raat — bees saal baad — mere kamre ki khidki pe chaandni thi. Sirf mere kamre pe. Baaki Pune mein baadal.\"",
         "*Solara tumhari taraf dekhti hai. Aur uske chehre pe — pehli baar — koi aur darr. Apna nahi.*",
-        "Solara: \"Ankit. Agar Chandrika wapas aa rahi hai... toh ya toh woh mujhe dhoondh rahi hai. Ya Nana ko. Ya... ya bhavishyavaani sirf mere baare mein nahi hai. 'Ek aam' — Nana bhi aam hain.\""
+        "Solara: \"{{playerName}}. Agar Chandrika wapas aa rahi hai... toh ya toh woh mujhe dhoondh rahi hai. Ya Nana ko. Ya... ya bhavishyavaani sirf mere baare mein nahi hai. 'Ek aam' — Nana bhi aam hain.\""
       ],
       "fallbackLines": [
         "*Tapri mein chai ki khushboo. Nana ki aankhein khidki pe. Solara ka haath tumhare haath pe — jaise woh khud ko pakad rahi ho.*",
@@ -835,7 +835,7 @@
               "arc5b": "nana"
             },
             "memory": [
-              "Ankit ne Nana se vaada kiya — 'aap akele nahi miloge usse'. Nana ne pehli baar Ankit ko gale lagaya. 'Bees saal se main akela intezaar kar raha tha, beta. Ab do bachche hain.' Solara ne dheere kaha: 'Nana. Main bhi bees saal baad wapas aa sakti hoon. Aap intezaar karoge?' Nana: 'Chai thandi ho jaayegi. Jaldi aana.'"
+              "{{playerName}} ne Nana se vaada kiya — 'aap akele nahi miloge usse'. Nana ne pehli baar {{playerName}} ko gale lagaya. 'Bees saal se main akela intezaar kar raha tha, beta. Ab do bachche hain.' Solara ne dheere kaha: 'Nana. Main bhi bees saal baad wapas aa sakti hoon. Aap intezaar karoge?' Nana: 'Chai thandi ho jaayegi. Jaldi aana.'"
             ]
           }
         },
@@ -864,7 +864,7 @@
               "arc5b": "prophecy"
             },
             "memory": [
-              "Ankit ne Solara se poori bhavishyavaani poochhi — Solara: 'Jab roshni ek aam ke paas rukegi, toh roshni badlegi. Aur jo badlega — woh wapas nahi jaayega.' Woh chup. 'Main isliye bhaag rahi thi, Ankit. Kyunki main badalna chahti thi. Aur wapas nahi jaana chahti thi. Aur ye Darbaar ke liye sabse bada khatra hai — Sooraj jo apni marzi se chamke.'"
+              "{{playerName}} ne Solara se poori bhavishyavaani poochhi — Solara: 'Jab roshni ek aam ke paas rukegi, toh roshni badlegi. Aur jo badlega — woh wapas nahi jaayega.' Woh chup. 'Main isliye bhaag rahi thi, {{playerName}}. Kyunki main badalna chahti thi. Aur wapas nahi jaana chahti thi. Aur ye Darbaar ke liye sabse bada khatra hai — Sooraj jo apni marzi se chamke.'"
             ]
           }
         }
@@ -875,10 +875,10 @@
       "title": "Kal Ki Bus",
       "narration": [
         "*Subah. Deccan bus stop. Solara — kaala chashma, bus pass (PMPML ne chauthi baar mein maan liya), aur diary. Nishant bagal mein — 'report' ke liye, jo ab 200 pages ki hai aur jise usne bheja nahi. Nana ne aaj ek cutting extra di — 'Chandrika ke liye, jab aaye.'*",
-        "*Tumhare phone pe: Mrs. Kulkarni ('Solara ke liye rishta aaya hai — Nishant ka dost bola. Tum jaldi kuch karo, Ankit.'), Nishant ka message ('Darbaar chup hai. Ye buri baat hai. Raat ke Devta khush hain. Ye aur buri baat hai.'), aur ek unknown number — sirf ek chaand ka emoji.*",
+        "*Tumhare phone pe: Mrs. Kulkarni ('Solara ke liye rishta aaya hai — Nishant ka dost bola. Tum jaldi kuch karo, {{playerName}}.'), Nishant ka message ('Darbaar chup hai. Ye buri baat hai. Raat ke Devta khush hain. Ye aur buri baat hai.'), aur ek unknown number — sirf ek chaand ka emoji.*",
         "Solara: \"Dekho. Sab ek saath. Rishta, Darbaar, chaand. Aam zindagi sach mein busy hai.\"",
         "*Bus aati hai. Solara haath hilati hai — sahi tareeke se, tumhare sikhaye hue — aur bus rukti hai. Woh nahi chadhti. Woh tumhari taraf dekhti hai. Sooraj — bilkul normal. Woh seekh gayi hai.*",
-        "Solara: \"Ye khatam nahi hota, Ankit. Aam banna roz ka kaam hai. Par ab mujhe pata hai — main akeli nahi seekh rahi. Chuno. Kal ki bus kahan jaayegi?\""
+        "Solara: \"Ye khatam nahi hota, {{playerName}}. Aam banna roz ka kaam hai. Par ab mujhe pata hai — main akeli nahi seekh rahi. Chuno. Kal ki bus kahan jaayegi?\""
       ],
       "fallbackLines": [
         "*Ye kahani yahin nahi rukti — har bus ek naya arc: Darbaar ki chuppi, Chandrika ki wapsi, Raat ke Devta, bhavishyavaani ka 'badlaav', aur Nana ka poora sach.*",
@@ -945,7 +945,7 @@
         },
         {
           "id": "c_next_rishta",
-          "text": "Rishta — Mrs. Kulkarni ka plan. 'Tum jaldi kuch karo, Ankit.'",
+          "text": "Rishta — Mrs. Kulkarni ka plan. 'Tum jaldi kuch karo, {{playerName}}.'",
           "shortLabel": "Rishta wala drama",
           "keywords": [
             "rishta",
@@ -968,7 +968,7 @@
               "next": "rishta"
             },
             "memory": [
-              "Naya arc: Solara ke liye rishta — aur Mrs. Kulkarni ka 'tum jaldi kuch karo, Ankit.' Solara ne poocha 'rishta kya hota hai?' Nishant hans raha hai."
+              "Naya arc: Solara ke liye rishta — aur Mrs. Kulkarni ka 'tum jaldi kuch karo, {{playerName}}.' Solara ne poocha 'rishta kya hota hai?' Nishant hans raha hai."
             ]
           }
         },

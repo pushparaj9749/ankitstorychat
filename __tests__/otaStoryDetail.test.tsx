@@ -72,7 +72,7 @@ const isStoryOnDevice = jest.fn(async () => true);
 
 jest.mock('../src/content/loader', () => ({
   getBundledCoverSource: () => ({ uri: 'https://example.test/cover.jpg' }),
-  defaultManifestUrl: () => 'https://example.test/content/manifest.json',
+  effectiveContentApiBaseUrl: () => 'https://example.test/api',
   getBundle: (...a: unknown[]) => getBundle(...(a as [])),
   downloadStory: (...a: unknown[]) => downloadStory(...(a as [])),
   isStoryOnDevice: (...a: unknown[]) => isStoryOnDevice(...(a as [])),
@@ -92,8 +92,8 @@ jest.mock('../src/state/AppContext', () => {
   // every render and spin StoryDetail's effect into an infinite loop.
   const value = {
     theme: C.midnight,
-    profile: { name: 'Ankit', ageGroup: '18+' },
-    settings: { contentManifestUrl: '' },
+    profile: { nickname: 'Rahul', ageGroup: '18+' },
+    settings: { contentApiBaseUrl: '' },
     stories: [makeStory()],
     favoriteIds: new Set<string>(),
     toggleFavorite: jest.fn(),
@@ -194,6 +194,25 @@ describe('StoryDetail for a GitHub-only story', () => {
 
     expect(downloadStory).toHaveBeenCalled();
     expect(renderText()).not.toContain("Couldn't open story");
+  });
+
+  test('shows the PLAYER name in the story introduction, not the hardcoded one', async () => {
+    getBundle.mockResolvedValue({
+      meta: STORY,
+      story: { ...STORY, userRole: 'Tum Ankit ho — café ka regular customer', openingSceneId: 's1' },
+      characters: { characters: [{ id: 'myra', name: 'Myra' }] },
+      world: { premise: '' },
+      scenes: { scenes: [{ id: 's1', title: 'Start', narration: ['hi'], choices: [] }], endings: [] },
+      memory: { seedMemories: [] },
+      source: 'bundled',
+    });
+
+    await render();
+    const text = renderText();
+    // The reader is Rahul — that is what the intro must say.
+    expect(text).toContain('Tum Rahul ho');
+    expect(text).not.toContain('Tum Ankit ho');
+    expect(text).not.toContain('{{playerName}}');
   });
 
   test('still reports genuine (non-recoverable) content errors', async () => {

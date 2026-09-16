@@ -21,6 +21,7 @@ import { createInitialState } from '../types';
 import { teenSafetyGuidance } from './ageGate';
 import { isFullyFadedLine, matchSpeakerPrefix } from './markup';
 import { MAX_MEMORY_NOTES, renderMemoryLine } from './memoryCore';
+import { interpolatePlayerName } from './playerName';
 import { clamp, norm, tokens } from './utils';
 
 /* ---------------- scene helpers ---------------- */
@@ -282,6 +283,12 @@ export interface PromptInput {
 export function buildSystemPrompt(input: PromptInput, ageGroup: AgeGroup): string {
   const { bundle, profile, playthrough, memories } = input;
   const scene = getScene(bundle, playthrough.currentSceneId);
+  // The reader's name must come from the profile, never from hardcoded story
+  // text: {{playerName}} placeholders (and legacy hardcoded names) resolve to
+  // profile.nickname, while CHARACTER names stay untouched.
+  const playerNameContext = {
+    protectedNames: bundle.characters.characters.map((c) => c.name),
+  };
 
   const charCards = bundle.characters.characters
     .map(
@@ -311,7 +318,7 @@ export function buildSystemPrompt(input: PromptInput, ageGroup: AgeGroup): strin
       ? `\nSAFETY (reader is 12-17):\n${teenSafetyGuidance()}\n${bundle.story.safetyNotes.map((s) => `- ${s}`).join('\n')}`
       : `\nCONTENT NOTES:\n${bundle.story.safetyNotes.map((s) => `- ${s}`).join('\n')}`;
 
-  return `You are the narrator and ALL characters of an interactive Hinglish story-chat game called Kissa.
+  const prompt = `You are the narrator and ALL characters of an interactive Hinglish story-chat game called Kissa.
 
 STORY: ${bundle.story.title}
 PREMISE: ${bundle.world.premise}
@@ -359,6 +366,8 @@ HOW TO RESPOND:
 \`\`\`
 Omit keys that didn't change. "scene" must be one of the story's scene ids (or omit to stay). "endStory" only at a true ending. Keep memory facts short (under 120 chars), up to ${MAX_MEMORY_NOTES} per reply — include every distinct durable fact from this turn, do not hold back. Nothing you write in "memory" is shown to the reader.
 7. If the reader greets you out-of-story ("hi", "hello"), stay in character briefly and pull them back into the scene.`;
+
+  return interpolatePlayerName(prompt, profile.nickname, playerNameContext);
 }
 
 export interface BuiltContext {

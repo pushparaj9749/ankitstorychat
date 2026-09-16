@@ -1,7 +1,7 @@
 {
   "storyId": "hawa-band-dhaba",
   "version": 1,
-  "premise": "Kabir (tum) raat 3 baje, kohre mein, expressway ke uss mod par phans jaate ho jahan gaadi apne aap band ho jaati hai. Saamne ek dhaba hai jiska naam Google Maps par nahi — 'Hawa-Band Dhaba'. Andar teen kursiyan hoti hain: ek par peeli raincoat wali Meenu, ek par Constable Pandey jo 15 saal se ek hi report likh rahe hain, aur teesri tumhare liye. Ghulam Chacha khana free dete hain, par ek khata hua 'hisaab' likh lete hain. Rule simple hai: dhaba tab tak nahi khulta jab tak hawa chalu na ho — aur hawa tab tak nahi chalti jab tak ek adhoori baat khatam na ho. Tumhari gaadi 3:07 par band hui. 3:12 par ghadi ruk jaati hai.",
+  "premise": "{{playerName}} (tum) raat 3 baje, kohre mein, expressway ke uss mod par phans jaate ho jahan gaadi apne aap band ho jaati hai. Saamne ek dhaba hai jiska naam Google Maps par nahi — 'Hawa-Band Dhaba'. Andar teen kursiyan hoti hain: ek par peeli raincoat wali Meenu, ek par Constable Pandey jo 15 saal se ek hi report likh rahe hain, aur teesri tumhare liye. Ghulam Chacha khana free dete hain, par ek khata hua 'hisaab' likh lete hain. Rule simple hai: dhaba tab tak nahi khulta jab tak hawa chalu na ho — aur hawa tab tak nahi chalti jab tak ek adhoori baat khatam na ho. Tumhari gaadi 3:07 par band hui. 3:12 par ghadi ruk jaati hai.",
   "locations": [
     {
       "id": "highway",
@@ -80,7 +80,7 @@
   "timeline": [
     "15 saal pehle — ST bus, teen gaye log, chautha anjaan.",
     "30 saal pehle — Ghulam Chacha yahan ek truck driver bankar ruke the.",
-    "Aaj 3:07 — Kabir ki gaadi band.",
+    "Aaj 3:07 — {{playerName}} ki gaadi band.",
     "Aaj 3:12 — ghadi ruk jaati hai; dhaba ka rule chalu.",
     "Subah 5:40 — kohra hat'ta hai. Usse pehle faisla karna hai."
   ]

@@ -1,8 +1,8 @@
 {
   "id": "witch-who-loves-a-human",
   "title": "The Witch Who Loves a Human",
-  "description": "Tum Ankit ho — Seemant naam ke sarhadi kasbe ka aam ladka, jahan insaan is taraf rehte hain aur daayanein us taraf. Ek shaam jungle ke kinare tumhe ek ladki milti hai — Mira. Woh mazaakiya hai, confident hai, aur uski aankhon mein kuch aisa hai jo tumne kabhi nahi dekha. Tum use nahi jaante. Woh tumhe janne lagti hai. Sach: Mira duniya ki sabse shaktishaali daayanon mein se ek hai — 'Legend' — aur usne apni pehchaan tumse chhupayi hai. Jab jaadui duniya ko pata chalta hai ki unki sabse badi daayan ne ek aam insaan ko chuna hai, sab kuch khatre mein aa jaata hai. Kahani kabhi khatam nahi hoti — chhupe rishte se daayan-sabha, sabha se dushmani ki asli jad tak.",
-  "version": 1,
+  "description": "Tum {{playerName}} ho — Seemant naam ke sarhadi kasbe ka aam ladka, jahan insaan is taraf rehte hain aur daayanein us taraf. Ek shaam jungle ke kinare tumhe ek ladki milti hai — Mira. Woh mazaakiya hai, confident hai, aur uski aankhon mein kuch aisa hai jo tumne kabhi nahi dekha. Tum use nahi jaante. Woh tumhe janne lagti hai. Sach: Mira duniya ki sabse shaktishaali daayanon mein se ek hai — 'Legend' — aur usne apni pehchaan tumse chhupayi hai. Jab jaadui duniya ko pata chalta hai ki unki sabse badi daayan ne ek aam insaan ko chuna hai, sab kuch khatre mein aa jaata hai. Kahani kabhi khatam nahi hoti — chhupe rishte se daayan-sabha, sabha se dushmani ki asli jad tak.",
+  "version": 2,
   "language": "hinglish",
   "ageRating": "12-17",
   "contentLevel": "teen",
@@ -21,15 +21,15 @@
     "ongoing",
     "hinglish"
   ],
-  "userRole": "Ankit — Seemant kasbe ka aam insaan, koi jaadu nahi, jise ek daayan ne bina bataye chun liya",
+  "userRole": "{{playerName}} — Seemant kasbe ka aam insaan, koi jaadu nahi, jise ek daayan ne bina bataye chun liya",
   "setting": "Ek jaadui duniya jo do hisson mein bati hai — insaano ka desh aur daayanon ka Vanraj — aur beech mein Seemant, ek sarhadi kasba jahan dono duniyaon ki hawa milti hai",
   "openingSceneId": "s1_dukaan",
   "tone": "Romantic fantasy — Mira ki chamak aur mazaak ke neeche sadiyon purani dushmani ka bojh. Secret relationship ka thrill, phir jaadui rajneeti ka scale. Kabhi khatam nahi hota.",
   "safetyNotes": [
-    "Mira ki power overwhelming hai, par kahani ka dil unka rishta aur do duniyaon ke beech Ankit ke faisle hain — Ankit kabhi jaadugar nahi banta.",
+    "Mira ki power overwhelming hai, par kahani ka dil unka rishta aur do duniyaon ke beech {{playerName}} ke faisle hain — {{playerName}} kabhi jaadugar nahi banta.",
     "Romance soft aur respectful — nazrein, baatein, haath thaamna, halki flirting. Koi explicit content nahi.",
     "Violence sirf mahaul aur natijon se dikhao — koi graphic gore/blood detail nahi.",
-    "Ankit (user) hamesha 'na' keh sakta hai; uska inkaar izzat ke saath aage badhaya jaaye.",
+    "{{playerName}} (user) hamesha 'na' keh sakta hai; uska inkaar izzat ke saath aage badhaya jaaye.",
     "Kahani kabhi 'The End' par nahi rukti — hamesha agla arc, agla sawaal."
   ]
 }

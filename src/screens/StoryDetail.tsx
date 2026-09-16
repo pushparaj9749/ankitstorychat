@@ -13,10 +13,11 @@ import {
   getBundledCoverSource,
   getBundle,
   downloadStory,
-  defaultManifestUrl,
+  effectiveContentApiBaseUrl,
   isStoryOnDevice,
   StoryContentError,
 } from '../content/loader';
+import { interpolatePlayerName, makePlayerTextFn } from '../lib/playerName';
 import { AgeRestrictedError } from '../lib/ageGate';
 import { listPlaythroughsForStory, updateStats } from '../lib/db';
 import { createPlaythrough, playthroughLabel } from '../lib/playthrough';
@@ -55,7 +56,10 @@ export function StoryDetail({ navigation, route }: Props) {
 
   const meta = stories.find((s) => s.id === storyId);
   const isFav = favoriteIds.has(storyId);
-  const cover = meta ? getBundledCoverSource(meta) : null;
+  const apiBase = effectiveContentApiBaseUrl(settings.contentApiBaseUrl);
+  const cover = meta ? getBundledCoverSource(meta, apiBase) : null;
+  /** Story text refers to the reader via {{playerName}} — show the real name. */
+  const forPlayer = makePlayerTextFn(meta, profile?.nickname);
 
   useEffect(() => {
     let alive = true;
@@ -99,7 +103,7 @@ export function StoryDetail({ navigation, route }: Props) {
     setDownloading(true);
     setDownloadStep('Files laam ho rahi hain…');
     try {
-      await downloadStory(meta, settings.contentManifestUrl || defaultManifestUrl(), profile.ageGroup, (file) =>
+      await downloadStory(meta, apiBase, profile.ageGroup, (file) =>
         setDownloadStep(file === 'done' ? 'Verify ho rahi hai…' : `${file} download…`),
       );
       const b = await getBundle(meta.id, profile.ageGroup);
@@ -147,21 +151,28 @@ export function StoryDetail({ navigation, route }: Props) {
       );
 
       // Seed opening narration as messages + seed memories (from bundle directly, no offline engine).
+      // The opening block is the pre-chat cinematic introduction — the reader's
+      // own name must appear in it, never a hardcoded one.
       const openingScene = bundle.scenes.scenes.find((s) => s.id === bundle.story.openingSceneId) ?? bundle.scenes.scenes[0];
+      const pn = profile.nickname;
+      const pnOptions = { protectedNames: bundle.characters.characters.map((c) => c.name) };
       let i = 0;
-      for (const line of openingScene.narration) {
+      for (const rawLine of openingScene.narration) {
         await insertMessage({
           id: uid('m'),
           playthroughId: pt.id,
           role: i === 0 ? 'narration' : 'assistant',
           speaker: null,
-          text: line,
+          text: interpolatePlayerName(rawLine, pn, pnOptions),
           sceneId: openingScene.id,
           createdAt: new Date(Date.now() + i).toISOString(),
         });
         i++;
       }
-      await seedMemoriesIfEmpty(pt, bundle.memory.seedMemories);
+      await seedMemoriesIfEmpty(
+        pt,
+        bundle.memory.seedMemories.map((m) => interpolatePlayerName(m, pn, pnOptions)),
+      );
       await updateStats({ storiesStarted: 1 });
       await refreshRecent();
       navigation.navigate('Chat', { playthroughId: pt.id });
@@ -290,11 +301,11 @@ export function StoryDetail({ navigation, route }: Props) {
           </View>
 
           <Text style={[styles.title, { color: theme.text }]}>{meta.title}</Text>
-          <Text style={[styles.tagline, { color: theme.accent }]}>{meta.tagline}</Text>
-          <Text style={[styles.desc, { color: theme.textDim }]}>{meta.description}</Text>
+          <Text style={[styles.tagline, { color: theme.accent }]}>{forPlayer(meta.tagline)}</Text>
+          <Text style={[styles.desc, { color: theme.textDim }]}>{forPlayer(meta.description)}</Text>
 
           <View style={[styles.infoBox, { backgroundColor: theme.surface, borderColor: theme.border }]}>
-            <InfoRow label="🎭 You play" value={meta.userRole} />
+            <InfoRow label="🎭 You play" value={forPlayer(bundle.story.userRole ?? meta.userRole)} />
             <InfoRow label="📍 Setting" value={meta.setting} />
             <InfoRow label="⏱ Length" value={`~${meta.estimatedMinutes} min`} />
             <InfoRow

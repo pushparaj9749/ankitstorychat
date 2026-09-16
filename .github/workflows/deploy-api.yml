@@ -1,0 +1,113 @@
+name: Deploy story API (Cloudflare Worker)
+
+# Publishes PUBLIC story content + the website to the Cloudflare Worker that
+# serves https://beyondredeye.site/api/*. The PRIVATE GitHub repository is the
+# story source; only this authenticated CI pipeline reads it — the Worker
+# itself holds no GitHub credentials and clients never see the repository.
+#
+# Flow: push to main → build deploy bundle → tests → wrangler deploy.
+#
+# Required encrypted repository secrets (Settings → Secrets and variables → Actions):
+#   CLOUDFLARE_API_TOKEN   — "Edit Cloudflare Workers" scoped token
+#   CLOUDFLARE_ACCOUNT_ID  — the Cloudflare account id
+# The job FAILS with those exact names if they are missing — it never falls
+# back to an insecure alternative.
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'content/**'
+      - 'worker/**'
+      - 'website/**'
+      - 'assets/covers/**'
+      - 'scripts/build-worker-assets.mjs'
+      - '.github/workflows/deploy-api.yml'
+  workflow_dispatch:
+
+jobs:
+  test:
+    name: Validate content & worker
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - name: Install (app)
+        run: npm ci
+
+      - name: Validate story content (schema, scenes, endings, player names)
+        run: npm run content:validate
+
+      - name: Install (worker)
+        working-directory: worker
+        run: npm ci
+
+      - name: Worker tests
+        working-directory: worker
+        run: npm test
+
+      - name: Worker typecheck
+        working-directory: worker
+        run: npm run typecheck
+
+  deploy:
+    name: Deploy Worker
+    needs: test
+    if: github.ref == 'refs/heads/main'
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - name: Install (worker)
+        working-directory: worker
+        run: npm ci
+
+      - name: Assemble deploy bundle (content + covers + website)
+        working-directory: worker
+        run: node ../scripts/build-worker-assets.mjs
+
+      - name: Verify Cloudflare credentials are configured
+        run: |
+          missing=0
+          if [ -z "${{ secrets.CLOUDFLARE_API_TOKEN }}" ]; then
+            echo "::error title=Missing secret::CLOUDFLARE_API_TOKEN is not configured (repo Settings → Secrets and variables → Actions)."
+            missing=1
+          fi
+          if [ -z "${{ secrets.CLOUDFLARE_ACCOUNT_ID }}" ]; then
+            echo "::error title=Missing secret::CLOUDFLARE_ACCOUNT_ID is not configured (repo Settings → Secrets and variables → Actions)."
+            missing=1
+          fi
+          if [ "$missing" -ne 0 ]; then
+            echo "::error title=Deployment blocked::Add the encrypted secrets CLOUDFLARE_API_TOKEN and CLOUDFLARE_ACCOUNT_ID, then re-run this job. No insecure fallback is performed."
+            exit 1
+          fi
+
+      - name: Deploy (wrangler)
+        working-directory: worker
+        run: npx wrangler deploy
+        env:
+          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+
+      - name: Smoke test the deployed API
+        run: |
+          set -euo pipefail
+          base="https://beyondredeye.site/api"
+          code=$(curl -s -o /dev/null -w '%{http_code}' --max-time 30 "$base/health" || echo 000)
+          if [ "$code" != "200" ]; then
+            echo "::warning title=API smoke test::GET $base/health returned $code — if this is the first deploy, attach the Worker route beyondredeye.site/api* in Cloudflare (see docs/DEPLOYMENT.md)."
+          else
+            echo "✅ $base/health is live"
+          fi

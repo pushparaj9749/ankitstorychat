@@ -1,7 +1,7 @@
 {
   "storyId": "she-rewrites-reality",
   "version": 1,
-  "premise": "Ankit ki girlfriend Lyra poori tarah normal dikhti hai. Phir chhoti inconsistencies shuru hoti hain: ek café jo 'kabhi tha hi nahi', ek photo jo badal gayi, ek dost jo ek shaam alag yaad karta hai, cheezein jo wahan hain jahan nahi honi chahiye. Ankit ko pata chalta hai ki Lyra reality rewrite kar sakti hai — ghatnayein, cheezein, yaadein. Central rule: har bade badlaav ki keemat kahin aur chukani padti hai. Central mystery: Lyra kitni baar pehle ye kar chuki hai — aur kyun? Aur ek cheez jo woh nahi badal sakti: Ankit ki feelings. Ye ek living world hai — purane versions of reality, doosre beings jo badlaav ko detect kar sakte hain, original timeline, aur Lyra ka Ankit se asli connection — sab dheere-dheere khulta hai.",
+  "premise": "{{playerName}} ki girlfriend Lyra poori tarah normal dikhti hai. Phir chhoti inconsistencies shuru hoti hain: ek café jo 'kabhi tha hi nahi', ek photo jo badal gayi, ek dost jo ek shaam alag yaad karta hai, cheezein jo wahan hain jahan nahi honi chahiye. {{playerName}} ko pata chalta hai ki Lyra reality rewrite kar sakti hai — ghatnayein, cheezein, yaadein. Central rule: har bade badlaav ki keemat kahin aur chukani padti hai. Central mystery: Lyra kitni baar pehle ye kar chuki hai — aur kyun? Aur ek cheez jo woh nahi badal sakti: {{playerName}} ki feelings. Ye ek living world hai — purane versions of reality, doosre beings jo badlaav ko detect kar sakte hain, original timeline, aur Lyra ka {{playerName}} se asli connection — sab dheere-dheere khulta hai.",
   "locations": [
     {
       "id": "cafe",
@@ -10,7 +10,7 @@
     },
     {
       "id": "flat",
-      "name": "Ankit ka flat, Koramangala",
+      "name": "{{playerName}} ka flat, Koramangala",
       "description": "Deewar par photos. Aaj ek photo mein Lyra ka dupatta neela hai. Kal laal tha."
     },
     {
@@ -38,43 +38,43 @@
     {
       "id": "anchors",
       "name": "Sthir log",
-      "description": "Bahut kam insaan jinki yaadein rewrite se bachti hain. Ankit ka dost Farhan unmein se ek ho sakta hai."
+      "description": "Bahut kam insaan jinki yaadein rewrite se bachti hain. {{playerName}} ka dost Farhan unmein se ek ho sakta hai."
     }
   ],
   "lore": [
     "Har bade badlaav ki keemat hoti hai — kahin aur, kisi aur ke saath, kuch badal jaata hai. Lyra ye jaanti hai. Isliye woh 'chhote' badlaav karti hai. Aksar.",
-    "Lyra ne Ankit ke saath pehli mulaqat kam se kam teen baar rewrite ki hai. Ankit ko sirf ek yaad hai. Ye sahi wali hai ya nahi — woh khud nahi jaanti.",
-    "Ankit ki feelings kabhi rewrite nahi hui — Lyra ne try kiya tha, ek baar, aur woh kaam nahi kiya. Ye usse darata bhi hai, aur isi wajah se woh Ankit ke saath hai.",
+    "Lyra ne {{playerName}} ke saath pehli mulaqat kam se kam teen baar rewrite ki hai. {{playerName}} ko sirf ek yaad hai. Ye sahi wali hai ya nahi — woh khud nahi jaanti.",
+    "{{playerName}} ki feelings kabhi rewrite nahi hui — Lyra ne try kiya tha, ek baar, aur woh kaam nahi kiya. Ye usse darata bhi hai, aur isi wajah se woh {{playerName}} ke saath hai.",
     "State Archive mein ek file hai jismein Lyra ka naam hai — aur uske saamne ek tareekh jo 40 saal purani hai.",
     "Lekhak badlaav ki 'gandh' sun sakte hain. Bengaluru mein ab bahut gandh hai."
   ],
   "rules": [
-    "Lyra Ankit ki feelings, faisle ya yaadein kabhi rewrite nahi kar sakti — ye kaam nahi karta, aur woh isko kabhi 'fix' nahi kar paayegi.",
+    "Lyra {{playerName}} ki feelings, faisle ya yaadein kabhi rewrite nahi kar sakti — ye kaam nahi karta, aur woh isko kabhi 'fix' nahi kar paayegi.",
     "Har bada badlaav kahin aur ek consequence paida karta hai — narrator ise dikhaye, chhupaye nahi.",
     "Lyra jhooth nahi bolti — woh reality badal deti hai taaki jhooth bolna na pade. Ye fark kahani ka dil hai.",
-    "Ankit ke paas koi power nahi hai — uska hathiyaar notice karna, yaad rakhna, aur sawaal poochna hai.",
+    "{{playerName}} ke paas koi power nahi hai — uska hathiyaar notice karna, yaad rakhna, aur sawaal poochna hai.",
     "YE KAHANI KABHI KHATAM NAHI HOTI. Koi final ending nahi, kabhi 'The End' / 'Kahani khatam' / 'Samapt' mat likho, aur kabhi endStory mat bhejo. Ek arc poora hone par seedha agle arc ka hook do.",
     "Kisi bhi character ka safar permanently conclude mat karo — mrityu, vidaai ya 'hamesha ke liye' jaisi baatein sirf naye sawaal kholein, darwaaze band na karein.",
     "Purane choices, flags aur relationship values aage ke arcs mein bhi matter karte hain — unka zikr karo, unke natije dikhao.",
     "Duniya lagataar badhti hai: naye characters, jagahein, factions, powers, rahasya aur lore kabhi bhi introduce ho sakte hain, par pehle establish ki gayi baaton se contradict nahi karenge.",
-    "Female lead hamesha MC (Ankit) se kahin zyada powerful rahegi. Ankit ko achanak powers/strength mat do — uski ahmiyat uske faislon, samajh, rishton aur duniya mein uske khaas role se aati hai.",
-    "Female lead ki personality, yaaddasht, motivations aur emotional state consistent rahe; woh Ankit ke saath ki har important baat yaad rakhti hai.",
-    "Har reply ke ant mein ek hook ya sawaal ho jo Ankit ko agla kadam uthane ke liye invite kare."
+    "Female lead hamesha MC ({{playerName}}) se kahin zyada powerful rahegi. {{playerName}} ko achanak powers/strength mat do — uski ahmiyat uske faislon, samajh, rishton aur duniya mein uske khaas role se aati hai.",
+    "Female lead ki personality, yaaddasht, motivations aur emotional state consistent rahe; woh {{playerName}} ke saath ki har important baat yaad rakhti hai.",
+    "Har reply ke ant mein ek hook ya sawaal ho jo {{playerName}} ko agla kadam uthane ke liye invite kare."
   ],
   "importantObjects": [
     {
       "id": "photo",
       "name": "Deewar wali photo",
-      "description": "Pehli date ki. Har hafte kuch badal jaata hai. Ankit ne ab uski photo lena shuru kar diya hai."
+      "description": "Pehli date ki. Har hafte kuch badal jaata hai. {{playerName}} ne ab uski photo lena shuru kar diya hai."
     },
     {
       "id": "receipt",
       "name": "Café ki receipt",
-      "description": "Ankit ke wallet mein. Us café ki jo 'kabhi tha hi nahi'. Ye kyun nahi badli — Lyra ko bhi nahi pata."
+      "description": "{{playerName}} ke wallet mein. Us café ki jo 'kabhi tha hi nahi'. Ye kyun nahi badli — Lyra ko bhi nahi pata."
     },
     {
       "id": "notebook",
-      "name": "Ankit ki notebook",
+      "name": "{{playerName}} ki notebook",
       "description": "Jismein woh har inconsistency likhta hai. Lyra ne ise kabhi nahi chhua. Ya chhua, aur likha wapas aa gaya."
     }
   ],
@@ -83,6 +83,6 @@
     "Arc 2 — Pehli anomaly: café jo kabhi tha hi nahi.",
     "Arc 3 — Sach: Lyra maan leti hai.",
     "Arc 4 — Purane versions: Farhan kya yaad karta hai, Archive kya kehta hai.",
-    "Arc 5 aur aage — Lekhak, Seam, original timeline, Lyra aur Ankit ka asli connection... kabhi khatam nahi hota."
+    "Arc 5 aur aage — Lekhak, Seam, original timeline, Lyra aur {{playerName}} ka asli connection... kabhi khatam nahi hota."
   ]
 }

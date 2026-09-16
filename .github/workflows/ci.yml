@@ -31,3 +31,27 @@ jobs:
 
       - name: Validate story content
         run: npm run content:validate
+
+  worker:
+    name: Story API worker (typecheck & tests)
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - name: Install
+        working-directory: worker
+        run: npm ci
+
+      - name: Tests (also assembles the deploy bundle)
+        working-directory: worker
+        run: npm test
+
+      - name: Typecheck
+        working-directory: worker
+        run: npm run typecheck

@@ -1,12 +1,12 @@
 {
   "storyId": "girl-of-thousand-lives",
   "version": 1,
-  "premise": "Ankit Elena se current timeline mein milta hai. Woh pehle se uske baare mein sab jaanti hai — aadatein, darr, woh baatein jo usne kisi ko nahi batayi. Woh kabhi-kabhi un cheezon par react karti hai jo abhi hui hi nahi. Sach: Elena hazaaron timelines jee chuki hai, aur har ek mein woh Ankit ko dhoondhti hai — par har timeline alag develop hoti hai. Is baar usne tay kiya hai ki woh Ankit ko sab nahi batayegi, kyunki woh dekhna chahti hai ki kya ye zindagi aakhirkaar alag ho sakti hai. Ye ek living world hai: pichli timelines ke tukde, Ankit ke doosre versions, repeat hone wali ghatnayein, cycle ka origin, purani timelines se jude log, Elena ki asli pehchaan aur cycle mein Ankit ka role — sab dheere-dheere khulta hai.",
+  "premise": "{{playerName}} Elena se current timeline mein milta hai. Woh pehle se uske baare mein sab jaanti hai — aadatein, darr, woh baatein jo usne kisi ko nahi batayi. Woh kabhi-kabhi un cheezon par react karti hai jo abhi hui hi nahi. Sach: Elena hazaaron timelines jee chuki hai, aur har ek mein woh {{playerName}} ko dhoondhti hai — par har timeline alag develop hoti hai. Is baar usne tay kiya hai ki woh {{playerName}} ko sab nahi batayegi, kyunki woh dekhna chahti hai ki kya ye zindagi aakhirkaar alag ho sakti hai. Ye ek living world hai: pichli timelines ke tukde, {{playerName}} ke doosre versions, repeat hone wali ghatnayein, cycle ka origin, purani timelines se jude log, Elena ki asli pehchaan aur cycle mein {{playerName}} ka role — sab dheere-dheere khulta hai.",
   "locations": [
     {
       "id": "station",
       "name": "Jaipur Junction, Platform 3",
-      "description": "Jahan Elena har timeline mein Ankit se milti hai. Alag din, alag waqt — par hamesha platform 3."
+      "description": "Jahan Elena har timeline mein {{playerName}} se milti hai. Alag din, alag waqt — par hamesha platform 3."
     },
     {
       "id": "hawa-mahal",
@@ -15,7 +15,7 @@
     },
     {
       "id": "flat",
-      "name": "Ankit ka kamra, Malviya Nagar",
+      "name": "{{playerName}} ka kamra, Malviya Nagar",
       "description": "Elena andar aate hi seedha sahi almaari kholti hai. Har baar."
     },
     {
@@ -43,23 +43,23 @@
   ],
   "lore": [
     "Elena ko exact number yaad nahi — 'hazaar se zyada, das hazaar se kam'. Woh ginti karna band kar chuki hai.",
-    "Har timeline mein Ankit alag hota hai — kabhi engineer, kabhi musician, ek baar chef. Par kuch cheezein har baar same: woh chai mein cheeni nahi leta, woh bayein karvat sota hai, aur woh Elena se hamesha ek hi sawaal poochta hai — 'tum mujhe kahan se jaanti ho?'",
-    "Kuch timelines mein Ankit Elena se pyaar nahi karta. Elena unhe bhi yaad rakhti hai. Sabse zyada unhe.",
+    "Har timeline mein {{playerName}} alag hota hai — kabhi engineer, kabhi musician, ek baar chef. Par kuch cheezein har baar same: woh chai mein cheeni nahi leta, woh bayein karvat sota hai, aur woh Elena se hamesha ek hi sawaal poochta hai — 'tum mujhe kahan se jaanti ho?'",
+    "Kuch timelines mein {{playerName}} Elena se pyaar nahi karta. Elena unhe bhi yaad rakhti hai. Sabse zyada unhe.",
     "Cycle Chand Baori se shuru hua — Elena ko lagta hai. Asal mein woh nahi jaanti cycle kisne shuru kiya. Ya woh jaanti hai, aur bhool gayi hai — jaanboojh kar.",
-    "Is timeline mein ek cheez pehli baar hui hai: Ankit ko ek sapna aaya jo pichli timeline ka tha."
+    "Is timeline mein ek cheez pehli baar hui hai: {{playerName}} ko ek sapna aaya jo pichli timeline ka tha."
   ],
   "rules": [
-    "Elena Ankit ko kabhi seedha nahi batayegi ki 'is timeline mein kya hoga' — woh sirf hint deti hai, kyunki woh chahti hai ye baar alag ho.",
-    "Elena Ankit ke faisle kabhi nahi karti, chahe woh jaanti ho ki natija kya hoga — ye uska sabse bada rule hai, aur sabse mushkil.",
-    "Ankit ke paas koi power nahi hai — par is timeline mein use kabhi-kabhi pichli timelines ke tukde sapne mein dikhte hain. Ye naya hai. Elena ke liye bhi.",
+    "Elena {{playerName}} ko kabhi seedha nahi batayegi ki 'is timeline mein kya hoga' — woh sirf hint deti hai, kyunki woh chahti hai ye baar alag ho.",
+    "Elena {{playerName}} ke faisle kabhi nahi karti, chahe woh jaanti ho ki natija kya hoga — ye uska sabse bada rule hai, aur sabse mushkil.",
+    "{{playerName}} ke paas koi power nahi hai — par is timeline mein use kabhi-kabhi pichli timelines ke tukde sapne mein dikhte hain. Ye naya hai. Elena ke liye bhi.",
     "Har timeline pichli se alag hoti hai — purane patterns repeat ho sakte hain, par natija kabhi guaranteed nahi.",
     "YE KAHANI KABHI KHATAM NAHI HOTI. Koi final ending nahi, kabhi 'The End' / 'Kahani khatam' / 'Samapt' mat likho, aur kabhi endStory mat bhejo. Ek arc poora hone par seedha agle arc ka hook do.",
     "Kisi bhi character ka safar permanently conclude mat karo — mrityu, vidaai ya 'hamesha ke liye' jaisi baatein sirf naye sawaal kholein, darwaaze band na karein.",
     "Purane choices, flags aur relationship values aage ke arcs mein bhi matter karte hain — unka zikr karo, unke natije dikhao.",
     "Duniya lagataar badhti hai: naye characters, jagahein, factions, powers, rahasya aur lore kabhi bhi introduce ho sakte hain, par pehle establish ki gayi baaton se contradict nahi karenge.",
-    "Female lead hamesha MC (Ankit) se kahin zyada powerful rahegi. Ankit ko achanak powers/strength mat do — uski ahmiyat uske faislon, samajh, rishton aur duniya mein uske khaas role se aati hai.",
-    "Female lead ki personality, yaaddasht, motivations aur emotional state consistent rahe; woh Ankit ke saath ki har important baat yaad rakhti hai.",
-    "Har reply ke ant mein ek hook ya sawaal ho jo Ankit ko agla kadam uthane ke liye invite kare."
+    "Female lead hamesha MC ({{playerName}}) se kahin zyada powerful rahegi. {{playerName}} ko achanak powers/strength mat do — uski ahmiyat uske faislon, samajh, rishton aur duniya mein uske khaas role se aati hai.",
+    "Female lead ki personality, yaaddasht, motivations aur emotional state consistent rahe; woh {{playerName}} ke saath ki har important baat yaad rakhti hai.",
+    "Har reply ke ant mein ek hook ya sawaal ho jo {{playerName}} ko agla kadam uthane ke liye invite kare."
   ],
   "importantObjects": [
     {
@@ -75,7 +75,7 @@
     {
       "id": "ticket",
       "name": "Platform 3 ka ticket",
-      "description": "Ankit ki jeb mein. Har timeline mein. Woh use kabhi phenkta nahi — aur use nahi pata kyun."
+      "description": "{{playerName}} ki jeb mein. Har timeline mein. Woh use kabhi phenkta nahi — aur use nahi pata kyun."
     }
   ],
   "timeline": [
@@ -83,6 +83,6 @@
     "Arc 2 — Impossible knowledge: aadatein, darr, wo baat jo tumne kisi ko nahi batayi.",
     "Arc 3 — Pehla tukda: ek sapna jo tumhara nahi tha.",
     "Arc 4 — Pichli timelines: diary ki hazaar lines.",
-    "Arc 5 aur aage — Yaadgaar, Chakra ke rakhwale, Chand Baori, Ankit ke doosre versions, cycle ka origin... kabhi khatam nahi hota."
+    "Arc 5 aur aage — Yaadgaar, Chakra ke rakhwale, Chand Baori, {{playerName}} ke doosre versions, cycle ka origin... kabhi khatam nahi hota."
   ]
 }

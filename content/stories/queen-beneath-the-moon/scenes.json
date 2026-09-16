@@ -6,7 +6,7 @@
       "id": "s1_nadi",
       "title": "Poornima, Nadi, Aur Chaandi Ke Baal",
       "narration": [
-        "*Poornima ki raat. Chandni nadi. Paani chaandi jaisa chamak raha hai — gaon wale kehte hain devi ka aashirwad. Tum Ankit ho, Chandanpur ka aam ladka, aur tum machhli pakadne aaye the.*",
+        "*Poornima ki raat. Chandni nadi. Paani chaandi jaisa chamak raha hai — gaon wale kehte hain devi ka aashirwad. Tum {{playerName}} ho, Chandanpur ka aam ladka, aur tum machhli pakadne aaye the.*",
         "*Kinare par kuch pada hai. Koi. Ek aurat. Chaandi jaise baal, phata hua neela lubaada jispe chaandi ke dhaage se kuch likha hai. Aur uske kandhe par ek ghaav — kaala, jaise usmein andhera bhara ho.*",
         "*Woh saans le rahi hai. Dheere. Tum paas jaate ho. Uski aankhein khulti hain — aur ek pal ke liye tumhe lagta hai tum chaand mein dekh rahe ho.*",
         "Selene: \"...Kaun?\"",
@@ -44,9 +44,9 @@
             "choicesRecord": {
               "opening": "shelter"
             },
-            "location": "Ankit ki jhopdi",
+            "location": "{{playerName}} ki jhopdi",
             "memory": [
-              "Ankit ne ghayal ajnabi ko bina sawaal ke apni jhopdi mein panaah di. Selene ne baad mein kaha: 'Tumne mera naam nahi poocha. Kisi ne kabhi mera naam poochhe bina meri madad nahi ki.'"
+              "{{playerName}} ne ghayal ajnabi ko bina sawaal ke apni jhopdi mein panaah di. Selene ne baad mein kaha: 'Tumne mera naam nahi poocha. Kisi ne kabhi mera naam poochhe bina meri madad nahi ki.'"
             ]
           }
         },
@@ -72,9 +72,9 @@
             "choicesRecord": {
               "opening": "asked"
             },
-            "location": "Ankit ki jhopdi",
+            "location": "{{playerName}} ki jhopdi",
             "memory": [
-              "Ankit ne pehle poocha 'tum kaun ho' — Selene ne kaha 'Selene. Bas. Baaki... baaki agar main bach gayi toh.' Ankit use jhopdi le gaya."
+              "{{playerName}} ne pehle poocha 'tum kaun ho' — Selene ne kaha 'Selene. Bas. Baaki... baaki agar main bach gayi toh.' {{playerName}} use jhopdi le gaya."
             ]
           }
         },
@@ -103,7 +103,7 @@
               "opening": "sarpanch"
             },
             "memory": [
-              "Ankit Sarpanch Kaka ko bulaane gaya — Kaka aaye, Selene ka chehra dekha, aur bahut der tak chup rahe. Phir: 'Ise apni jhopdi mein rakh. Kisi ko mat batana. Main baad mein samjhaunga.'"
+              "{{playerName}} Sarpanch Kaka ko bulaane gaya — Kaka aaye, Selene ka chehra dekha, aur bahut der tak chup rahe. Phir: 'Ise apni jhopdi mein rakh. Kisi ko mat batana. Main baad mein samjhaunga.'"
             ]
           }
         }
@@ -152,7 +152,7 @@
               "arc1": "stay"
             },
             "memory": [
-              "Ankit ne Selene ko kaha 'jab tak chaho raho' — Selene ne pyala rakha aur muh pher liya. Kandhe halke se hil rahe the."
+              "{{playerName}} ne Selene ko kaha 'jab tak chaho raho' — Selene ne pyala rakha aur muh pher liya. Kandhe halke se hil rahe the."
             ]
           }
         },
@@ -180,7 +180,7 @@
               "arc1": "chai"
             },
             "memory": [
-              "Ankit ne Selene ko chai banana sikhaya — pehli chai bahut kadvi thi. Selene ne poori pee. 'Ye maine banayi. Ye MAINE banayi.' Uski aankhein chamak rahi thi — chaand jaisi."
+              "{{playerName}} ne Selene ko chai banana sikhaya — pehli chai bahut kadvi thi. Selene ne poori pee. 'Ye maine banayi. Ye MAINE banayi.' Uski aankhein chamak rahi thi — chaand jaisi."
             ]
           }
         },
@@ -208,7 +208,7 @@
               "arc1": "wound"
             },
             "memory": [
-              "Ankit ne ghaav ke baare mein poocha — Selene ne kandha dhak liya. 'Ek purana dushman. Jo mujhe maar nahi sakta — par yaad dila sakta hai ki main kya hoon. Baad mein, Ankit. Please.'"
+              "{{playerName}} ne ghaav ke baare mein poocha — Selene ne kandha dhak liya. 'Ek purana dushman. Jo mujhe maar nahi sakta — par yaad dila sakta hai ki main kya hoon. Baad mein, {{playerName}}. Please.'"
             ]
           }
         }
@@ -256,9 +256,9 @@
             "choicesRecord": {
               "arc1": "kaka"
             },
-            "location": "Ankit ki jhopdi",
+            "location": "{{playerName}} ki jhopdi",
             "memory": [
-              "Kaka ne Ankit ko bataya ki Selene ka chehra mandir ki murti jaisa hai — aur kaha 'jab woh khud bataye tab maanna'. Ankit wapas gaya, aur kuch nahi poocha."
+              "Kaka ne {{playerName}} ko bataya ki Selene ka chehra mandir ki murti jaisa hai — aur kaha 'jab woh khud bataye tab maanna'. {{playerName}} wapas gaya, aur kuch nahi poocha."
             ]
           }
         },
@@ -286,7 +286,7 @@
               "arc1": "statue"
             },
             "memory": [
-              "Ankit raat ko mandir gaya aur murti dekhi — wahi chehra. Aur murti ke pairon ke paas ek purana lekh: 'Jo chaand ki rani ko bina jaane apnaye, chaand uska rin maanega.'"
+              "{{playerName}} raat ko mandir gaya aur murti dekhi — wahi chehra. Aur murti ke pairon ke paas ek purana lekh: 'Jo chaand ki rani ko bina jaane apnaye, chaand uska rin maanega.'"
             ]
           }
         }
@@ -309,7 +309,7 @@
       ],
       "fallbackLines": [
         "*Bachche kheench rahe hain — 'didi, kahani!' Selene hil nahi rahi. Kaka intezaar kar rahe hain.*",
-        "Selene (dheere): \"Ankit. Agar main andar gayi... toh sab badal jaayega. Tum bhi.\""
+        "Selene (dheere): \"{{playerName}}. Agar main andar gayi... toh sab badal jaayega. Tum bhi.\""
       ],
       "choices": [
         {
@@ -338,7 +338,7 @@
             },
             "location": "Chandanpur gaon",
             "memory": [
-              "Ankit Selene ke saath mandir gaya — murti ke saamne. Selene ne murti dekhi, phir Ankit ko. 'Haan. Ye main hoon. Sadiyon pehle. Jab main... jab main abhi bhi khush thi.'"
+              "{{playerName}} Selene ke saath mandir gaya — murti ke saamne. Selene ne murti dekhi, phir {{playerName}} ko. 'Haan. Ye main hoon. Sadiyon pehle. Jab main... jab main abhi bhi khush thi.'"
             ]
           }
         },
@@ -365,9 +365,9 @@
             "choicesRecord": {
               "arc2": "choice"
             },
-            "location": "Ankit ki jhopdi",
+            "location": "{{playerName}} ki jhopdi",
             "memory": [
-              "Ankit ne Selene ko mandir jaane se rok liya — 'tum jab chaho'. Selene us raat khud boli: 'Murti mera chehra hai. Main Chandra Rani hoon. Aur tumne mujhe chunne diya — sadiyon mein pehli baar kisi ne mujhe chunne diya.'"
+              "{{playerName}} ne Selene ko mandir jaane se rok liya — 'tum jab chaho'. Selene us raat khud boli: 'Murti mera chehra hai. Main Chandra Rani hoon. Aur tumne mujhe chunne diya — sadiyon mein pehli baar kisi ne mujhe chunne diya.'"
             ]
           }
         }
@@ -418,7 +418,7 @@
               "arc3": "accepted"
             },
             "memory": [
-              "Selene ke sach ke baad Ankit ne kaha 'khaat teri hai, chai kal tumhe banani hai' — Selene hansi. Ro bhi rahi thi. Chaand ki roshni ek pal ke liye poori jhopdi mein phail gayi, phir shaant."
+              "Selene ke sach ke baad {{playerName}} ne kaha 'khaat teri hai, chai kal tumhe banani hai' — Selene hansi. Ro bhi rahi thi. Chaand ki roshni ek pal ke liye poori jhopdi mein phail gayi, phir shaant."
             ]
           }
         },
@@ -446,7 +446,7 @@
               "arc3": "wants"
             },
             "memory": [
-              "Ankit ne Selene se poocha woh kya chahti hai — Selene chup rahi. Bahut der. Phir: 'Mujhe nahi pata. Sadiyon mein kisi ne ye sawaal nahi poocha. Main... main jawab dhoondhna chahti hoon. Yahan. Tumhare saath.'"
+              "{{playerName}} ne Selene se poocha woh kya chahti hai — Selene chup rahi. Bahut der. Phir: 'Mujhe nahi pata. Sadiyon mein kisi ne ye sawaal nahi poocha. Main... main jawab dhoondhna chahti hoon. Yahan. Tumhare saath.'"
             ]
           }
         },
@@ -475,7 +475,7 @@
               "arc3": "enemy"
             },
             "memory": [
-              "Ankit ne poocha amar ko kisne ghayal kiya — Selene: 'Andhkaar ke pujari. Woh mujhe maar nahi sakte. Par woh jaante hain main amar kaise bani — aur woh sach mujhe tumse zyada darata hai.'"
+              "{{playerName}} ne poocha amar ko kisne ghayal kiya — Selene: 'Andhkaar ke pujari. Woh mujhe maar nahi sakte. Par woh jaante hain main amar kaise bani — aur woh sach mujhe tumse zyada darata hai.'"
             ]
           }
         }
@@ -493,7 +493,7 @@
         "*Tumhare peeche jhopdi ka darwaaza. Uske peeche Chandra Rani. Aur tumhare saamne uski senapati, jo apni rani ke liye is gaon ko jala sakti hai.*",
         "Kaveri: \"Main phir poochti hoon. Kyunki tumhare chehre pe jawab likha hai, aur main andhi nahi hoon.\"",
         "*Jhopdi ke andar se Selene ki awaaz — dheemi, sirf tumhare liye.*",
-        "Selene: \"Ankit. Jo bhi bolo. Main tumhare faisle ke saath hoon. Aaj main rani nahi hoon — main tumhari mehmaan hoon.\""
+        "Selene: \"{{playerName}}. Jo bhi bolo. Main tumhare faisle ke saath hoon. Aaj main rani nahi hoon — main tumhari mehmaan hoon.\""
       ],
       "fallbackLines": [
         "*Kaveri ki talwaar myaan mein hai. Uska haath uspe nahi hai. Abhi.*",
@@ -525,7 +525,7 @@
               "arc4": "truth"
             },
             "memory": [
-              "Ankit ne Senapati Kaveri ko sach bataya — aur kaha 'uski baat suniye'. Kaveri andar gayi. Bahar tak awaaz nahi aayi. Jab nikli, uski aankhein laal thi. 'Woh rukegi. Abhi. Main gaon ke bahar dera daalungi. Aur ladke — chai achhi banate ho, usne kaha.'"
+              "{{playerName}} ne Senapati Kaveri ko sach bataya — aur kaha 'uski baat suniye'. Kaveri andar gayi. Bahar tak awaaz nahi aayi. Jab nikli, uski aankhein laal thi. 'Woh rukegi. Abhi. Main gaon ke bahar dera daalungi. Aur ladke — chai achhi banate ho, usne kaha.'"
             ]
           }
         },
@@ -555,7 +555,7 @@
               "arc4": "lied"
             },
             "memory": [
-              "Ankit ne Kaveri se jhooth bola — Kaveri ne maana nahi, par chali gayi. 'Main wapas aaungi. Aur agli baar tumhare chehre se nahi, tumhari jhopdi se poochungi.' Selene ne raat ko kaha: 'Tumne mere liye jhooth bola. Rani ke liye log jhooth bolte hain. Mere liye... pehli baar.'"
+              "{{playerName}} ne Kaveri se jhooth bola — Kaveri ne maana nahi, par chali gayi. 'Main wapas aaungi. Aur agli baar tumhare chehre se nahi, tumhari jhopdi se poochungi.' Selene ne raat ko kaha: 'Tumne mere liye jhooth bola. Rani ke liye log jhooth bolte hain. Mere liye... pehli baar.'"
             ]
           }
         },
@@ -584,7 +584,7 @@
               "arc4": "herchoice"
             },
             "memory": [
-              "Ankit ne Selene ko khud chunne diya — Senapati ke saamne. Selene bahar aayi. Saada kapde, mitti ka pyala haath mein. 'Kaveri. Main theek hoon. Main yahan hoon. Aur main abhi wapas nahi aa rahi. Ye aadesh nahi hai. Ye meri baat hai.' Kaveri ghutno pe gir gayi — aur pehli baar Selene ne use uthaya."
+              "{{playerName}} ne Selene ko khud chunne diya — Senapati ke saamne. Selene bahar aayi. Saada kapde, mitti ka pyala haath mein. 'Kaveri. Main theek hoon. Main yahan hoon. Aur main abhi wapas nahi aa rahi. Ye aadesh nahi hai. Ye meri baat hai.' Kaveri ghutno pe gir gayi — aur pehli baar Selene ne use uthaya."
             ]
           }
         }
@@ -599,7 +599,7 @@
         "*Aur table par: Kaka ka sandesh ('jungle mein raat ko kuch chal raha hai — kaala, dhuaan jaisa'), Kaveri ka ek patra ('Maharani — Selene — Chandragadh mein simhasan khaali hai aur sardar bechain. Mujhe kuch toh batana hoga.'), aur ek purana kaagaz jo Selene ke lubaade se nikla — jispe purane mandir ka naksha hai.*",
         "Selene: \"Dekho. Sab ek saath. Rani ki zindagi bhi aisi thi. Par tab main akeli faisle karti thi.\"",
         "*Woh tumhe chai deti hai.*",
-        "Selene: \"Ye khatam nahi hota, Ankit. Amar ki zindagi mein 'khatam' nahi hota. Sirf... agla. Chuno. Main saath hoon — rani ki tarah nahi. Selene ki tarah.\""
+        "Selene: \"Ye khatam nahi hota, {{playerName}}. Amar ki zindagi mein 'khatam' nahi hota. Sirf... agla. Chuno. Main saath hoon — rani ki tarah nahi. Selene ki tarah.\""
       ],
       "fallbackLines": [
         "*Chai. Achhi hai. Sach mein. Selene tumhara chehra dekh rahi hai — jawab ke liye.*",
@@ -632,7 +632,7 @@
             },
             "location": "Kaala jungle",
             "memory": [
-              "Ankit ne jungle wala raasta chuna — Selene ka pyala haath mein kaanp gaya. 'Woh mere liye aaye hain. Aur woh tumse baat karenge. Jo bhi kahein — mujhse poochna. Please.'"
+              "{{playerName}} ne jungle wala raasta chuna — Selene ka pyala haath mein kaanp gaya. 'Woh mere liye aaye hain. Aur woh tumse baat karenge. Jo bhi kahein — mujhse poochna. Please.'"
             ]
           }
         },
@@ -661,7 +661,7 @@
               "arc5": "kingdom"
             },
             "memory": [
-              "Ankit ne Chandragadh ka sawaal uthaya — Selene: 'Main jaanti hoon. Main bhaag nahi rahi. Main... soch rahi hoon. Sadiyon mein pehli baar mujhe sochne ka waqt mila hai.'"
+              "{{playerName}} ne Chandragadh ka sawaal uthaya — Selene: 'Main jaanti hoon. Main bhaag nahi rahi. Main... soch rahi hoon. Sadiyon mein pehli baar mujhe sochne ka waqt mila hai.'"
             ]
           }
         },
@@ -691,7 +691,7 @@
             },
             "location": "Bhoola hua chandra-mandir",
             "memory": [
-              "Ankit ne purane mandir ka naksha uthaya — Selene ne kaha 'wahan mat jao', phir 'theek hai, saath chalungi', phir 'wahan main amar bani thi. Aur wahan maine kuch chhoda tha.'"
+              "{{playerName}} ne purane mandir ka naksha uthaya — Selene ne kaha 'wahan mat jao', phir 'theek hai, saath chalungi', phir 'wahan main amar bani thi. Aur wahan maine kuch chhoda tha.'"
             ]
           }
         }
@@ -716,7 +716,7 @@
       ],
       "fallbackLines": [
         "*Jungle shaant. Selene ki roshni dheemi ho rahi hai. Woh tumse do kadam door khadi hai — jaise paas aane se darti ho.*",
-        "Selene: \"Poochho. Tum poochoge. Sab poochte hain jab unhe pata chalta hai. Poochho, Ankit.\""
+        "Selene: \"Poochho. Tum poochoge. Sab poochte hain jab unhe pata chalta hai. Poochho, {{playerName}}.\""
       ],
       "choices": [
         {
@@ -743,7 +743,7 @@
               "arc5b": "refused"
             },
             "memory": [
-              "Pujari ke sawaal ke baad Ankit ne Selene se kuch nahi poocha — 'tum bataogi jab chahogi'. Selene ghutno pe baith gayi. 'Sadiyon se log mujhse ye poochte hain. Tumne nahi poocha. Main... main tumhe bataungi. Jald. Vaada.'"
+              "Pujari ke sawaal ke baad {{playerName}} ne Selene se kuch nahi poocha — 'tum bataogi jab chahogi'. Selene ghutno pe baith gayi. 'Sadiyon se log mujhse ye poochte hain. Tumne nahi poocha. Main... main tumhe bataungi. Jald. Vaada.'"
             ]
           }
         },
@@ -772,7 +772,7 @@
               "arc5b": "asked"
             },
             "memory": [
-              "Ankit ne Selene se poocha kya Pujari sach keh raha tha — Selene: 'Aadha. Gaon gaya. Par sauda maine nahi kiya tha — mere liye kiya gaya tha. Aur main tab se us gaon ka rin chuka rahi hoon. Har gaon mein. Tumhare gaon mein bhi.'"
+              "{{playerName}} ne Selene se poocha kya Pujari sach keh raha tha — Selene: 'Aadha. Gaon gaya. Par sauda maine nahi kiya tha — mere liye kiya gaya tha. Aur main tab se us gaon ka rin chuka rahi hoon. Har gaon mein. Tumhare gaon mein bhi.'"
             ]
           }
         }
@@ -820,7 +820,7 @@
               "arc5b": "both"
             },
             "memory": [
-              "Ankit ne kaha 'rani jhopdi se raj kyun nahi kar sakti' — Kaveri chup. Selene chup. Phir Selene hansi — sach mein hansi. 'Sadiyon mein kisi ne ye nahi socha. Kyunki sab sochte the rani ko mahal chahiye. Kaveri — sardaron ko likho. Rani ka darbar Chandanpur mein lagega.'"
+              "{{playerName}} ne kaha 'rani jhopdi se raj kyun nahi kar sakti' — Kaveri chup. Selene chup. Phir Selene hansi — sach mein hansi. 'Sadiyon mein kisi ne ye nahi socha. Kyunki sab sochte the rani ko mahal chahiye. Kaveri — sardaron ko likho. Rani ka darbar Chandanpur mein lagega.'"
             ]
           }
         },
@@ -849,7 +849,7 @@
               "arc5b": "deferred"
             },
             "memory": [
-              "Ankit ne faisla Selene par chhoda — 'main jo bhi ho saath hoon'. Selene ne naksha uthaya. 'Main jaaungi. Us gaon mein — jahan pujari hain. Rani ki tarah nahi. Selene ki tarah. Aur phir wapas aaungi. Yahan. Ye mera ghar hai ab.'"
+              "{{playerName}} ne faisla Selene par chhoda — 'main jo bhi ho saath hoon'. Selene ne naksha uthaya. 'Main jaaungi. Us gaon mein — jahan pujari hain. Rani ki tarah nahi. Selene ki tarah. Aur phir wapas aaungi. Yahan. Ye mera ghar hai ab.'"
             ]
           }
         }
@@ -867,7 +867,7 @@
         "*Woh apna haath us nishaan par rakhti hai. Bilkul fit.*",
         "Selene: \"Aur keemat? Keemat maine nahi chukayi. Mere gaon ne chukayi. Sab. Ek raat mein. Aur main... main amar ho gayi, taaki main use hamesha yaad rakhoon.\"",
         "*Uske gaal par aansu. Chaandi jaisa.*",
-        "Selene: \"Isliye main tumhare gaon mein ruki, Ankit. Isliye main wapas nahi jaana chahti. Kyunki tumhara gaon... tumhara gaon mera gaon jaisa hai. Aur is baar main use bachana chahti hoon. Rani bankar nahi. Bas... rehkar.\""
+        "Selene: \"Isliye main tumhare gaon mein ruki, {{playerName}}. Isliye main wapas nahi jaana chahti. Kyunki tumhara gaon... tumhara gaon mera gaon jaisa hai. Aur is baar main use bachana chahti hoon. Rani bankar nahi. Bas... rehkar.\""
       ],
       "fallbackLines": [
         "*Kund ke neeche, pathar mein, kuch aur likha hai. Prachin lipi. Selene padh sakti hai. Woh padhti nahi.*",
@@ -898,7 +898,7 @@
               "arc5b": "held"
             },
             "memory": [
-              "Purane mandir mein Ankit ne Selene ko gale lagaya — bina kuch bole. Selene ne kaha kuch nahi. Kund mein — sookhe kund mein — ek pal ke liye paani aaya. Chaandi jaisa. Phir chala gaya."
+              "Purane mandir mein {{playerName}} ne Selene ko gale lagaya — bina kuch bole. Selene ne kaha kuch nahi. Kund mein — sookhe kund mein — ek pal ke liye paani aaya. Chaandi jaisa. Phir chala gaya."
             ]
           }
         },
@@ -928,7 +928,7 @@
               "arc5b": "read"
             },
             "memory": [
-              "Selene ne Ankit ke saath amarta ka doosra hissa padha: 'Jo chaand ki rani ko bina jaane apnaye, chaand uska rin maanega — aur rani ko chunne dega.' Selene: '...Chunne dega. Main chun sakti hoon. Ankit, main CHUN sakti hoon.' Aur phir woh dar gayi — pehli baar azaadi se."
+              "Selene ne {{playerName}} ke saath amarta ka doosra hissa padha: 'Jo chaand ki rani ko bina jaane apnaye, chaand uska rin maanega — aur rani ko chunne dega.' Selene: '...Chunne dega. Main chun sakti hoon. {{playerName}}, main CHUN sakti hoon.' Aur phir woh dar gayi — pehli baar azaadi se."
             ]
           }
         }
@@ -941,7 +941,7 @@
         "*Raat. Jhopdi. Selene khaat par nahi — chulhe ke paas, zameen par, tumhare bagal mein baithi hai. Chaand khidki se. Aaj woh usse nazar nahi churaati.*",
         "*Bahar: Chandra Sena ka dera — Kaveri ne aaj gaon ke bachchon ko talwaar pakadna sikhaya, lakdi wali. Kaka ka hukka. Ramu kaki ki awaaz — 'bahu, kal subah aata goondhna sikhaungi'.*",
         "*Aur tumhare paas: Kaveri ka naya patra ('sardaron ne jawab bheja — woh Chandanpur aa rahe hain, darbar ke liye, aur woh khush nahi hain'), Kaka ka sandesh ('jungle shaant hai, par mandir ke kund mein paani wapas aa gaya hai — chaandi jaisa'), aur Selene ka mitti ka pyala — jispe usne aaj apne haath se kuch likha hai. Chaandi ke dhaage se. Tumhe padhne nahi diya.*",
-        "Selene: \"Ye khatam nahi hota, Ankit. Amar ki zindagi mein kuch khatam nahi hota. Par ab... ab mujhe 'na khatam hona' darata nahi. Ab mujhe woh achha lagta hai.\"",
+        "Selene: \"Ye khatam nahi hota, {{playerName}}. Amar ki zindagi mein kuch khatam nahi hota. Par ab... ab mujhe 'na khatam hona' darata nahi. Ab mujhe woh achha lagta hai.\"",
         "*Woh tumhare kandhe par sar rakhti hai. Chaand thoda zyada chamakta hai — uski marzi se nahi. Bas.*",
         "Selene: \"Chuno. Agli poornima tak kya karein?\""
       ],

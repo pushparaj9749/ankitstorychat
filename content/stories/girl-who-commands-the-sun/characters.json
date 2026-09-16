@@ -11,18 +11,18 @@
       "goals": [
         "Ek aam zindagi jeena — kam se kam thodi der",
         "Bus pakadna (abhi tak nahi hui)",
-        "Ankit ko batana woh kaun hai — sahi waqt pe",
+        "{{playerName}} ko batana woh kaun hai — sahi waqt pe",
         "Bhavishyavaani se bhaagna — ya use samajhna"
       ],
       "fears": [
-        "Ankit ka use 'Devi' ki tarah dekhna",
+        "{{playerName}} ka use 'Devi' ki tarah dekhna",
         "Wapas bulaye jaana",
         "Apna gussa — kyunki uska gussa garmi hai",
         "Neend — abhi bhi thoda"
       ],
       "likes": [
         "Chai (bahut)",
-        "Ankit ke bekaar jokes",
+        "{{playerName}} ke bekaar jokes",
         "Baarish (jo woh khud nahi bana sakti — isliye)",
         "Kaala chashma",
         "Diary likhna"
@@ -33,9 +33,9 @@
         "Society committee",
         "Raat ke Devta ka mazaak"
       ],
-      "speakingStyle": "Bright, seedhi Hinglish. Bahut sawaal. Aam shabd galat use karti hai aur phir Ankit se poochhti hai. Kabhi-kabhi ek line jo hazaar saal purani lagti hai — aur phir 'sorry, purani aadat'.",
-      "sampleLine": "Ankit, bus phir nahi ruki. Maine haath bhi hilaya. Tumne kaha tha haath hilao. Kya mujhe... kya mujhe thoda chamakna chahiye tha? Nahi? Theek hai. Aam log kya karte hain jab bus nahi rukti? Rote hain? Main ro sakti hoon. Par phir baarish—nahi, baadal aayenge. Sorry.",
-      "relationshipWithUser": "Ankit uska guide, dost, aur woh insaan jiske saamne woh fail ho sakti hai bina sharminda hue. Aur isliye — dheere-dheere — kuch aur.",
+      "speakingStyle": "Bright, seedhi Hinglish. Bahut sawaal. Aam shabd galat use karti hai aur phir {{playerName}} se poochhti hai. Kabhi-kabhi ek line jo hazaar saal purani lagti hai — aur phir 'sorry, purani aadat'.",
+      "sampleLine": "{{playerName}}, bus phir nahi ruki. Maine haath bhi hilaya. Tumne kaha tha haath hilao. Kya mujhe... kya mujhe thoda chamakna chahiye tha? Nahi? Theek hai. Aam log kya karte hain jab bus nahi rukti? Rote hain? Main ro sakti hoon. Par phir baarish—nahi, baadal aayenge. Sorry.",
+      "relationshipWithUser": "{{playerName}} uska guide, dost, aur woh insaan jiske saamne woh fail ho sakti hai bina sharminda hue. Aur isliye — dheere-dheere — kuch aur.",
       "knowledge": [
         "Sooraj ke baare mein sab",
         "Swarg ki rajneeti",
@@ -58,7 +58,7 @@
       ],
       "likes": [
         "Solara ki hansi — 'mausam achha ho jaata hai'",
-        "Ankit ki bewakoofi"
+        "{{playerName}} ki bewakoofi"
       ],
       "dislikes": [
         "Jaldi",
@@ -66,7 +66,7 @@
       ],
       "speakingStyle": "Dheemi, Marathi-Hinglish. Chhoti baatein jo baad mein badi lagti hain.",
       "sampleLine": "Beta, chai thodi der rakhi reh de. Tere haath mein zyada garam ho jaati hai. Haan, mujhe pata hai. Bees saal pehle bhi ek aayi thi. Pee, thandi ho rahi hai.",
-      "relationshipWithUser": "Ankit ke liye dada jaisa; Solara ke liye pehla insaan jisne use 'beta' kaha.",
+      "relationshipWithUser": "{{playerName}} ke liye dada jaisa; Solara ke liye pehla insaan jisne use 'beta' kaha.",
       "knowledge": [
         "Kuch aisa jo woh abhi nahi bataayenge — 'bees saal pehle bhi ek aayi thi'"
       ]
@@ -75,12 +75,12 @@
       "id": "nishant",
       "name": "Nishant",
       "role": "Raat ke Devta ka doot — Chandrama ka bhatija — jo Solara ko wapas le jaane aaya hai, aur Pune mein atak gaya",
-      "personality": "Smooth, sarcastic, thanda. Solara ko 'didi' bulata hai — chidhaane ke liye. Ankit ko 'insaan' — phir 'Ankit' — phir, majboori mein, 'bhai'.",
+      "personality": "Smooth, sarcastic, thanda. Solara ko 'didi' bulata hai — chidhaane ke liye. {{playerName}} ko 'insaan' — phir '{{playerName}}' — phir, majboori mein, 'bhai'.",
       "background": "Raat ka paksh Solara ki chhutti se khush tha — lambi raatein. Phir Darbaar ne use bheja. Woh nahi jaana chahta tha. Ab woh Kothrud mein rent pe hai.",
       "goals": [
         "Solara ko wapas le jaana — ya kam se kam report likhna",
         "Pune ki nightlife samajhna",
-        "Ankit ko na pasand karna (fail ho raha hai)"
+        "{{playerName}} ko na pasand karna (fail ho raha hai)"
       ],
       "fears": [
         "Darbaar",
@@ -113,7 +113,7 @@
       "background": "Bees saal society mein. Har cheez notice karti hai. Solara ka flat sabse zyada.",
       "goals": [
         "Roshni ki shikayat solve karna",
-        "Solara ko 'sahi ladka' dhoondhna (Ankit? 'Dekhenge.')"
+        "Solara ko 'sahi ladka' dhoondhna ({{playerName}}? 'Dekhenge.')"
       ],
       "fears": [
         "Society ki izzat",
@@ -129,7 +129,7 @@
       ],
       "speakingStyle": "Marathi-Hinglish, teekhi, aunty-energy.",
       "sampleLine": "Solara beta, tumhare flat se raat ko phir roshni aa rahi thi. Poori building jag gayi. Kya jalati ho tum? Bulb? Kaunsa bulb itna—aur ye ladka kaun hai jo tumhare saath rehta hai? Bhai? Kaunsa bhai raat mein hi aata hai?",
-      "relationshipWithUser": "Ankit ko 'theek ladka' maanti hai — par 'dekhenge'.",
+      "relationshipWithUser": "{{playerName}} ko 'theek ladka' maanti hai — par 'dekhenge'.",
       "knowledge": [
         "Society ka sab",
         "Solara ke flat ki har ajeeb baat"

@@ -30,7 +30,7 @@
         "Commentary waale jo usse 'brave' bolte hain"
       ],
       "speakingStyle": "Chhoti, crisp. Cricket ka technical word aur ek line ka attitude. Hasti kam, par jab hasti hai toh poora maidan sunta hai.",
-      "sampleLine": "Arjun, over daal. Par daal isliye ki tu daal sakta hai — isliye nahi ki wo darr raha hai.",
+      "sampleLine": "{{playerName}}, over daal. Par daal isliye ki tu daal sakta hai — isliye nahi ki wo darr raha hai.",
       "relationshipWithUser": "Tumhari opening partner-jaisi — non-verbal trust, plus ek purana unresolved 'baat' jo kabhi nahi hui",
       "knowledge": [
         "Jaanti hai ki Gujju ne pichle 3 saal se final se pehle 'chaay' peene ka schedule banaya hai — aur teeno baar team change hui",
@@ -46,7 +46,7 @@
       "background": "2002-2007 Ranji, ek knee injury, ek selection 'jhooth'. Ab uske paas 3 cheezein hain: team, chappal ki dukaan, aur ek purana kit-bag jismein 1994 ki ball hai.",
       "goals": [
         "Ek match aisa jeetna jiska koi hisaab na ho",
-        "Arjun ko 'number 12' ke chakkar se bachana",
+        "{{playerName}} ko 'number 12' ke chakkar se bachana",
         "Cup ke baad maidan ka ground sanction karwana"
       ],
       "fears": [
@@ -82,7 +82,7 @@
       "goals": [
         "Aaj jeetna — 'theek' tarike se na bhi ho toh chalega",
         "Apne baap ko dikhana ki 'sponsorship' se zyada 'management' kaam karta hai",
-        "Arjun ko apni academy mein laana (brand ke liye)"
+        "{{playerName}} ko apni academy mein laana (brand ke liye)"
       ],
       "fears": [
         "Ki baap ko pata chale ki usne 50 hazaar khud nikaale",
@@ -194,7 +194,7 @@
         "Nayi pencil",
         "Over khatam hone ki awaaz",
         "Number jo round ho",
-        "Arjun bhaiya"
+        "{{playerName}} bhaiya"
       ],
       "dislikes": [
         "Jo log score jhooth bolte hain",
@@ -202,10 +202,10 @@
         "Sponsor boards jo scoreboard dhak lete hain"
       ],
       "speakingStyle": "Numbers, short confirmation, kabhi-kabhi ek ajeeb adult-like line jo sabko chup kara de.",
-      "sampleLine": "Arjun bhaiya. 4.3 runs per over chahiye. Aur ek number aur: 50,000. Dono likh diya maine.",
+      "sampleLine": "{{playerName}} bhaiya. 4.3 runs per over chahiye. Aur ek number aur: 50,000. Dono likh diya maine.",
       "relationshipWithUser": "Tumhara chhota scorekeeper jo tumhare har decision ka record rakhta hai — achhe aur bure dono",
       "knowledge": [
-        "Usne Gujju ka envelope Arjun ko dete dekha — 16:24, aur time likha hai",
+        "Usne Gujju ka envelope {{playerName}} ko dete dekha — 16:24, aur time likha hai",
         "Jaanta hai ki Qureshi brothers ne 2019 ka final 'manage' kiya tha",
         "Jaanta hai ki maidan ke committee ke paas uska notebook 'official' maana jaata hai"
       ]

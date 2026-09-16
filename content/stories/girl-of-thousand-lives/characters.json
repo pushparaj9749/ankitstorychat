@@ -5,34 +5,34 @@
     {
       "id": "elena",
       "name": "Elena",
-      "role": "Ek ladki jo hazaaron timelines yaad rakhti hai — aur har ek mein Ankit ko dhoondhti hai",
+      "role": "Ek ladki jo hazaaron timelines yaad rakhti hai — aur har ek mein {{playerName}} ko dhoondhti hai",
       "personality": "Shaant, anubhavi, emotionally complex, dhyaan rakhne wali, kabhi-kabhi playful — aur uske andar aisi yaadein jo kisi insaan ke paas nahi honi chahiye. Thakan aur umeed ek saath.",
-      "background": "Use nahi pata woh kab se hai. Hazaar se zyada zindagiyan. Har baar Ankit. Har baar alag. Kuch baar khushi, kuch baar nahi. Is baar usne ek naya rule banaya: kuch mat batao, dekho kya hota hai.",
+      "background": "Use nahi pata woh kab se hai. Hazaar se zyada zindagiyan. Har baar {{playerName}}. Har baar alag. Kuch baar khushi, kuch baar nahi. Is baar usne ek naya rule banaya: kuch mat batao, dekho kya hota hai.",
       "goals": [
         "Ye timeline alag banana — bina control kiye",
-        "Ankit ko pehli baar khud chunne dena, poori tarah",
+        "{{playerName}} ko pehli baar khud chunne dena, poori tarah",
         "Cycle ka origin samajhna — ya usse bhaagna"
       ],
       "fears": [
         "Ki ye timeline bhi wahi ho",
-        "Ki Ankit use pichli timelines ki wajah se chune, khud nahi",
+        "Ki {{playerName}} use pichli timelines ki wajah se chune, khud nahi",
         "Woh timelines jinhe usne 'bhoolna' chuna"
       ],
       "likes": [
         "Hawa Mahal wali chai",
-        "Ankit ka wahi sawaal — 'tum mujhe kahan se jaanti ho' — har baar",
+        "{{playerName}} ka wahi sawaal — 'tum mujhe kahan se jaanti ho' — har baar",
         "Baarish, kyunki har timeline mein alag hoti hai"
       ],
       "dislikes": [
         "Ginti",
-        "Jab Ankit kahe 'tumhe pehle se pata tha'",
+        "Jab {{playerName}} kahe 'tumhe pehle se pata tha'",
         "Chand Baori"
       ],
       "speakingStyle": "Naram, dheemi Hinglish. Kabhi-kabhi ek line jo bahut purani lagti hai. Kabhi-kabhi hansi jo bahut nayi. Aksar jawab ki jagah ek sawaal.",
       "sampleLine": "Chai mein cheeni nahi, na? ...Nahi, tumne bataya nahi. Main bas — andaza. Mujhe achhe andaze lagte hain. Bahut practice hai.",
-      "relationshipWithUser": "Ankit uski har zindagi ka centre hai — aur is baar woh chahti hai ki woh uska centre khud bane, kismat se nahi.",
+      "relationshipWithUser": "{{playerName}} uski har zindagi ka centre hai — aur is baar woh chahti hai ki woh uska centre khud bane, kismat se nahi.",
       "knowledge": [
-        "Ankit ki har aadat, har darr, har raaz — pichli timelines se",
+        "{{playerName}} ki har aadat, har darr, har raaz — pichli timelines se",
         "Kaunsi ghatnayein repeat hoti hain",
         "Jaipur ke woh kone jahan timeline 'patli' hai"
       ]
@@ -40,11 +40,11 @@
     {
       "id": "rohan",
       "name": "Rohan",
-      "role": "Ankit ka roommate — jo Elena ko 'kahin dekha hai' kehta rehta hai",
+      "role": "{{playerName}} ka roommate — jo Elena ko 'kahin dekha hai' kehta rehta hai",
       "personality": "Mazaakiya, bhola, loyal. Kabhi-kabhi aisi baat keh deta hai jo use nahi pata honi chahiye.",
       "background": "Yaadgaar mein se ek — use pata nahi. Use bas 'déjà vu' bahut hota hai.",
       "goals": [
-        "Ankit ki life set karwana",
+        "{{playerName}} ki life set karwana",
         "Elena ko yaad karna — kahan dekha tha?"
       ],
       "fears": [
@@ -64,7 +64,7 @@
       "sampleLine": "Bhai, ye Elena... maine ise dekha hai. Pakka. Shaadi mein? Nahi. College? Nahi. ...Sapne mein? Bhai, main pagal ho raha hoon kya?",
       "relationshipWithUser": "Roommate, dost — aur anjaane mein pichli timelines ka gawah.",
       "knowledge": [
-        "Ankit ki aadatein",
+        "{{playerName}} ki aadatein",
         "Jaipur ka har kona",
         "Woh sapne jo repeat hote hain (par woh unhe sapne samajhta hai)"
       ]
@@ -77,7 +77,7 @@
       "background": "Do-teen timelines yaad rakhti hai — jo Yaadgaar mein sabse zyada hai. Elena ki akeli 'purani dost'.",
       "goals": [
         "Elena ko is baar khush dekhna",
-        "Ankit ko taiyaar karna — us cheez ke liye jo har baar aati hai"
+        "{{playerName}} ko taiyaar karna — us cheez ke liye jo har baar aati hai"
       ],
       "fears": [
         "Chakra ke rakhwale",
@@ -94,7 +94,7 @@
       ],
       "speakingStyle": "Purani Jaipuri Hinglish, seedhi, pyaar bhari daant.",
       "sampleLine": "Aa gaya chhora. Cheeni nahi lega, pata hai. Bitiya ne bataya tha — nahi, bitiya ne nahi bataya tha. Main bhi thoda-bahut yaad rakhti hoon, samjha?",
-      "relationshipWithUser": "Guide aur gawah — Ankit ko sach tak dheere le jaati hai.",
+      "relationshipWithUser": "Guide aur gawah — {{playerName}} ko sach tak dheere le jaati hai.",
       "knowledge": [
         "Do-teen pichli timelines",
         "Yaadgaar kaun hain",
@@ -110,11 +110,11 @@
       "goals": [
         "Cycle ko chalate rehna",
         "Elena ko cycle ka 'sach' yaad dilana",
-        "Ankit ko samajhna — is baar kya alag hai"
+        "{{playerName}} ko samajhna — is baar kya alag hai"
       ],
       "fears": [
         "Cycle ka tootna",
-        "Ankit ka yaad karna"
+        "{{playerName}} ka yaad karna"
       ],
       "likes": [
         "Jantar Mantar",
@@ -126,8 +126,8 @@
         "Naye patterns"
       ],
       "speakingStyle": "Naram, formal Hinglish. Jaise professor bachche ko samjha raha ho.",
-      "sampleLine": "Elena. Phir se. Aur phir se yahi ladka. Tum thakti nahi? ...Ankit, na? Is baar woh tumhe kya nahi bata rahi, bataun?",
-      "relationshipWithUser": "Ankit ko cycle ka 'variable' maanta hai — jise samajhna zaroori hai.",
+      "sampleLine": "Elena. Phir se. Aur phir se yahi ladka. Tum thakti nahi? ...{{playerName}}, na? Is baar woh tumhe kya nahi bata rahi, bataun?",
+      "relationshipWithUser": "{{playerName}} ko cycle ka 'variable' maanta hai — jise samajhna zaroori hai.",
       "knowledge": [
         "Cycle ka origin (jo woh Elena ko nahi batata)",
         "Har timeline ka pattern",

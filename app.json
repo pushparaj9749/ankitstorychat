@@ -2,7 +2,7 @@
   "expo": {
     "name": "Kissa",
     "slug": "kissa-ai-story-chat",
-    "version": "1.0.6",
+    "version": "1.0.7",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
     "scheme": "kissa",
@@ -12,14 +12,16 @@
       "resizeMode": "contain",
       "backgroundColor": "#0B0620"
     },
-    "assetBundlePatterns": ["**/*"],
+    "assetBundlePatterns": [
+      "**/*"
+    ],
     "ios": {
       "supportsTablet": true,
       "bundleIdentifier": "com.kissa.storychat"
     },
     "android": {
       "package": "com.kissa.storychat",
-      "versionCode": 7,
+      "versionCode": 8,
       "adaptiveIcon": {
         "backgroundColor": "#0B0620",
         "foregroundImage": "./assets/android-icon-foreground.png",
@@ -42,7 +44,7 @@
       ]
     ],
     "extra": {
-      "contentManifestUrl": "https://raw.githubusercontent.com/pushparaj9749/ankitstorychat/main/content/manifest.json",
+      "KISSA_CONTENT_API_BASE_URL": "https://beyondredeye.site/api",
       "supportEmail": "support@example.com"
     }
   }

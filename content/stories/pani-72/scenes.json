@@ -17,7 +17,7 @@
       "fallbackLines": [
         "*Dadi apni charpai ke neeche se ek plastic file nikaalti hain — 1984 ka survey, haath se bana, har naale ke upar ek line.*",
         "*call, awaaz toot'ti hui:*",
-        "Sameer Bhai: \"'Aarav? Boat theek hai. 12 se zyada nahi. Junction mat paar karna — current neeche se aata hai, upar se nahi dikhta.'\"",
+        "Sameer Bhai: \"'{{playerName}}? Boat theek hai. 12 se zyada nahi. Junction mat paar karna — current neeche se aata hai, upar se nahi dikhta.'\"",
         "*Phone par ek aur notification: 'Rain: continued. 265mm in 6 hrs.' Tum apne life jacket ki tape kholte ho — 2 saal se nahi khuli thi.*"
       ],
       "choices": [
@@ -100,7 +100,7 @@
         "*School ki compound wall ke bahar paani 5 foot. Andar, seedhiyan doob chuki hain. Tum rassi ek goal post mein baandhte ho aur 40 bachchon ki cheekhein tumhari taraf mudti hain — par cheekh mazaak wali hai. Ek bachcha keh raha hai 'ye swimming class hai'.*",
         "Ira: \"Bhaiya! Ek condition. Pehle bachche, phir tu. Aur meri awaaz mat sunai degi agar tu bhaaga — par mera hearing aid safe rahega toh main tujhe gaali de paungi.\"",
         "*Teacher, Mrs. Fernandes, paani mein aadhe ubhre hue haath se ginti kar rahi hain. Ek bachcha beemar hai — bukhaar, aur paani thanda hai.*",
-        "Fernandes Teacher: \"Aarav? Tumhara phone network 2 baar gaya hai. 40 hain, 12 chhote, 4 mareez. Ek ka oxygen cylinder 3 ghante ka bacha hai.\"",
+        "Fernandes Teacher: \"{{playerName}}? Tumhara phone network 2 baar gaya hai. 40 hain, 12 chhote, 4 mareez. Ek ka oxygen cylinder 3 ghante ka bacha hai.\"",
         "*Door, NDRF ki boat ki light: 3 ward, 4 ghante. Sameer ki boat: ek, 12 seater, aur paani 6 foot.*"
       ],
       "fallbackLines": [
@@ -184,7 +184,7 @@
         "Junction Uncle: \"Beta! Bus ka darwaaza khulwa de! Andar 3 aur hain — budhe, aur aurat!\"",
         "*Tumhe ehsaas hota hai: bijli ka khamba 8 meter door hai, aur taar abhi bhi hawa mein hil rahi hai. Koi doosra hero paani mein utar chuka hai — uska chest tak — aur woh chillata nahi, kyunki uska muh paani mein hai.*",
         "*chillata hai, rassi ke saath:*",
-        "Sameer Bhai: \"'Aarav! Seedha mat aa — paani ghumkar aata hai. Rassi pakad. Aur uss uncle ko bol, chhatri phek de!'\"",
+        "Sameer Bhai: \"'{{playerName}}! Seedha mat aa — paani ghumkar aata hai. Rassi pakad. Aur uss uncle ko bol, chhatri phek de!'\"",
         "*Ira ka phone message aata hai: 'Bhaiya, tu kahan hai? 40 log intezaar kar rahe hain. Tu rona-band hai, main bhi.'*"
       ],
       "fallbackLines": [
@@ -346,10 +346,10 @@
       "title": "12 Kursiyan, 4 Trip",
       "narration": [
         "*Sameer ki boat 12 ki hai. 40 bachche. Har trip 22 minute. Beech mein 6 foot paani, current, aur ek bijli ka khamba jo abhi bhi hil raha hai. Dadi ne ek rule banaya hai: 'Ek-ek karke, haath se haath'.*",
-        "Sameer Bhai: \"Board pe baitho. Pair andar. Haath rassi pe. Pehle 4 mareez, phir chhote, phir teachers. Aarav — tu last mein.\"",
+        "Sameer Bhai: \"Board pe baitho. Pair andar. Haath rassi pe. Pehle 4 mareez, phir chhote, phir teachers. {{playerName}} — tu last mein.\"",
         "*Trip 2 mein, paani ka level achanak badhta hai — tide. Ek bachche ka backpack beh jaata hai, 12 log cheekhte hain, Sameer use bina dekhe haath se pakad leta hai.*",
         "Ira: \"Bhaiya. Trip 4 mein main jaaungi nahi. Teacher ke saath 12 chhote hain. Meri jagah kisi aur ko de de.\"",
-        "*Aur tabhi phone: 'NDRF: 90 minutes.' Aur ek message Ma ka: '42 log. 6% battery. Paani 4th floor ki seedhi par. Theek hai? Aarav, theek hai?'*",
+        "*Aur tabhi phone: 'NDRF: 90 minutes.' Aur ek message Ma ka: '42 log. 6% battery. Paani 4th floor ki seedhi par. Theek hai? {{playerName}}, theek hai?'*",
         "*Trip 4, Ira aur Dadi ke liye. Boat 12 ki hai, paani 6 foot, aur ek chhoti bachchi bina jacket ke haath pakad kar khadi hai.*"
       ],
       "fallbackLines": [
@@ -416,7 +416,7 @@
       "fallbackLines": [
         "*Ira tumhara haath pakad leti hai. Woh kuch nahi bolti. Uski ungliyon ka dabao hi jawab hai.*",
         "Sameer Bhai: \"Bhai ek baat. Tu 300 logon ka hero hai. Ab tu 300 logon ka witness banega. Farak samajh le.\"",
-        "*Phone: 6%. Ek message: 'Aarav, count 42. Sab zinda. Tu meri shart jaanti hai — jo dekha, woh bol. — Ma.'*"
+        "*Phone: 6%. Ek message: '{{playerName}}, count 42. Sab zinda. Tu meri shart jaanti hai — jo dekha, woh bol. — Ma.'*"
       ],
       "choices": [
         {
@@ -545,7 +545,7 @@
       "narration": [
         "*Boat doosri ward ke logistics building mein ghus'ti hai — jahan Ma 42 logon ke saath 4th floor par hain. Paani ghutno tak, aur 3 log aise hain jo chalne layak nahi.*",
         "*neeche se awaaz aati hai, aur tum usse pehli baar chillate hue sunte ho*",
-        "Ma: \"Count! Sab 42? Ek bhi neeche nahi? Aarav, RASSI BANDH!\"",
+        "Ma: \"Count! Sab 42? Ek bhi neeche nahi? {{playerName}}, RASSI BANDH!\"",
         "*42 log, 6 trip, 4 ghante. Beech mein ek beemar aadmi jiska naam Sunil hai, jise Ma ne 22 saal se jaanti hai — 'woh mera pehla parcel hai, 2004 ka'.*",
         "*Aakhri trip par Ma boat mein chadh'te waqt tumhara chehra dekhti hai — 4 second — phir bolti hai: 'paani se zyada tu tez hai. Par paani 40 saal se yahin hai'.*",
         "*Subah 6:12. NDRF ka officer ek file maangta hai — 'koi encroachment record, local proof, kuch bhi'. Tumhare jeb mein plastic file hai, aur usmein 1984 ka naksha.*",
@@ -553,7 +553,7 @@
       ],
       "fallbackLines": [
         "Sameer Bhai: \"Bhai, 300 naam hain jo boat se utre. Sab tujhse poochh rahe hain: ab kya?\"",
-        "*Phone 1%. Ek last message: 'Aarav — 42/42. Thank you. Ab so.'*",
+        "*Phone 1%. Ek last message: '{{playerName}} — 42/42. Thank you. Ab so.'*",
         "*Dadi, uss chhoti si chair par, paani mein tairti hui, chillati hain: 'File ko paani se bacha. Kaagaz se zindagi banti hai!'*"
       ],
       "choices": [
@@ -644,7 +644,7 @@
         "*Agle 4 mahine: 2 aur baarish. Ward 58 ka paani 11 ghante tak rukta hai. 3 log 'missing' — 2 wapas aa gaye, ek nahi.*",
         "*woh apni charpai ke neeche se file nikaalti hain, tumhare haath mein deti hain aur kehti hain:*",
         "Dadi: \"'Yeh meri galti nahi, teri hai. Par abhi bhi 6 ghante hain.'\"",
-        "*Ma kuch nahi bolti. Woh sirf 3 din tumhe dekhkar kaam karti hai. Chhaathe teesre din woh kitchen mein paani ka glass rakhte waqt kehti hai: 'Aarav, maine 22 saal mein 42 logon ka count kiya. Tune 1 kaam kiya: maan liya.'*",
+        "*Ma kuch nahi bolti. Woh sirf 3 din tumhe dekhkar kaam karti hai. Chhaathe teesre din woh kitchen mein paani ka glass rakhte waqt kehti hai: '{{playerName}}, maine 22 saal mein 42 logon ka count kiya. Tune 1 kaam kiya: maan liya.'*",
         "*Video post hota hai — 4 mahine baad. Sach saamne aata hai, building 'seal', Kadam 'suspended'. Par 1970 jaisi 3 line ab deewar par 4 hain.*",
         "*Kuch keemat late dene se kam nahi hoti. Aur yeh tumhe Ira pata chalne deti hai: usne woh 26 minute ka video khud backup kiya tha. Tumhe pata chala ya nahi, isse pehle.*"
       ],

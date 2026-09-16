@@ -3,7 +3,7 @@
   "version": 1,
   "shortTermWindow": 14,
   "seedMemories": [
-    "User ka naam Ankit hai — Class 12, Pune ka arts college, chhat par chitthiyan likhna uski aadat.",
+    "User ka naam {{playerName}} hai — Class 12, Pune ka arts college, chhat par chitthiyan likhna uski aadat.",
     "College ko laga chitthiyan Neel (NCC captain) likh raha hai, kyunki purse uska udhaar tha.",
     "Ishita chitthiyan corridor mein public padhti rahi, taaki koi usse reply par majboor na kar sake.",
     "Principal ke paas complaint pahunch chuki hai; Master Sir ke paas fest bachane ke 48 ghante hain.",

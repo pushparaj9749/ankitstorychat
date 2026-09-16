@@ -4,12 +4,14 @@ import { Image, Pressable, StyleSheet, Text, View } from 'react-native';
 import { LinearGradient } from 'expo-linear-gradient';
 import type { StoryMeta } from '../types';
 import { useApp } from '../state/AppContext';
-import { getBundledCoverSource } from '../content/loader';
+import { effectiveContentApiBaseUrl, getBundledCoverSource } from '../content/loader';
+import { makePlayerTextFn } from '../lib/playerName';
 import { FONTS, RADIUS, SPACING } from '../theme';
 import { AgeBadge, GenreChip, ProgressBar } from './bits';
 
 function Cover({ meta, style }: { meta: StoryMeta; style?: object }) {
-  const src = getBundledCoverSource(meta);
+  const { settings } = useApp();
+  const src = getBundledCoverSource(meta, effectiveContentApiBaseUrl(settings?.contentApiBaseUrl));
   return (
     <View style={[styles.coverWrap, style, { backgroundColor: `${meta.accentColor}33` }]}>
       {src ? (
@@ -30,12 +32,13 @@ export function HeroCard({
   meta: StoryMeta;
   onPress: () => void;
 }) {
-  const { theme } = useApp();
+  const { theme, profile } = useApp();
+  const forPlayer = makePlayerTextFn(meta, profile?.nickname);
   return (
     <Pressable
       onPress={onPress}
       accessibilityRole="button"
-      accessibilityLabel={`${meta.title}. ${meta.tagline}`}
+      accessibilityLabel={`${meta.title}. ${forPlayer(meta.tagline)}`}
       style={[styles.hero, { backgroundColor: theme.surface, borderColor: theme.border }]}
     >
       <Cover meta={meta} style={styles.heroCover} />
@@ -73,7 +76,8 @@ export function ContinueCard({
   subtitle: string;
   onPress: () => void;
 }) {
-  const { theme } = useApp();
+  const { theme, profile } = useApp();
+  const forPlayer = makePlayerTextFn(meta, profile?.nickname);
   return (
     <Pressable
       onPress={onPress}
@@ -87,7 +91,7 @@ export function ContinueCard({
           {meta.title}
         </Text>
         <Text style={[styles.rowSub, { color: theme.textDim }]} numberOfLines={1}>
-          {subtitle}
+          {forPlayer(subtitle)}
         </Text>
         <ProgressBar value={progress} color={meta.accentColor} />
       </View>
@@ -121,7 +125,8 @@ export function GridCard({ meta, onPress }: { meta: StoryMeta; onPress: () => vo
 }
 
 export function WideCard({ meta, onPress }: { meta: StoryMeta; onPress: () => void }) {
-  const { theme } = useApp();
+  const { theme, profile } = useApp();
+  const forPlayer = makePlayerTextFn(meta, profile?.nickname);
   return (
     <Pressable
       onPress={onPress}
@@ -135,7 +140,7 @@ export function WideCard({ meta, onPress }: { meta: StoryMeta; onPress: () => vo
           {meta.title}
         </Text>
         <Text style={[styles.wideDesc, { color: theme.textDim }]} numberOfLines={2}>
-          {meta.description}
+          {forPlayer(meta.description)}
         </Text>
         <View style={styles.wideMeta}>
           <GenreChip genre={meta.genres[0] ?? 'Story'} />

@@ -1,14 +1,24 @@
 {
   "id": "cafe-queen-myra",
   "title": "Café Queen Myra",
-  "description": "Shaam ki halki baarish, ek café, aur ek innocent si ladki jiska coffee cup galti se tumhare table par aa gaya. Myra simple dikhti hai — par shehar uske ishaare par chalta hai. Tum Ankit ho: ek ordinary regular customer. Kitna jaanoge, aur kitna jaan kar bhi chup rahoge?",
-  "version": 1,
+  "description": "Shaam ki halki baarish, ek café, aur ek innocent si ladki jiska coffee cup galti se tumhare table par aa gaya. Myra simple dikhti hai — par shehar uske ishaare par chalta hai. Tum {{playerName}} ho: ek ordinary regular customer. Kitna jaanoge, aur kitna jaan kar bhi chup rahoge?",
+  "version": 2,
   "language": "hinglish",
   "ageRating": "12-17",
   "contentLevel": "teen",
-  "genres": ["Romance", "Thriller", "Crime"],
-  "tags": ["cafe", "mafia-queen", "mystery-identity", "romance", "hinglish"],
-  "userRole": "Ankit — café ka regular customer, jo galti se ek badi duniya ke beech aa gaya hai",
+  "genres": [
+    "Romance",
+    "Thriller",
+    "Crime"
+  ],
+  "tags": [
+    "cafe",
+    "mafia-queen",
+    "mystery-identity",
+    "romance",
+    "hinglish"
+  ],
+  "userRole": "{{playerName}} — café ka regular customer, jo galti se ek badi duniya ke beech aa gaya hai",
   "setting": "Mumbai ka ek cozy café, shaam ki halki baarish ke baad; bahar ek black car wait kar rahi hai",
   "openingSceneId": "s1_coffee",
   "tone": "Slow-burn, filmy, thoda dangerous. Soft romance ke neeche suspense — har sweet line ke peeche ek raaz.",
@@ -16,6 +26,6 @@
     "No graphic violence, no blood, no weapons shown in detail — tension sirf atmosphere se.",
     "Crime sirf background hai; koi illegal kaam glorify nahi karna, na user ko crime karne ke liye push karna.",
     "Romance mild aur respectful — flirting, nazrein, baatein. Koi explicit content nahi.",
-    "User (Ankit) hamesha free hai mana karne ke liye; 'no' ka jawab respect ke saath dikhao."
+    "User ({{playerName}}) hamesha free hai mana karne ke liye; 'no' ka jawab respect ke saath dikhao."
   ]
 }
