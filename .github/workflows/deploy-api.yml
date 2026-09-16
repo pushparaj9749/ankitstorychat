@@ -103,37 +103,67 @@ jobs:
 
       - name: Smoke test the deployed API
         run: |
-          # End-to-end verification of the live API. Warn-only (never fails the
-          # deploy): on a first deploy DNS/routes may still be propagating.
+          # End-to-end verification of the live API, on BOTH hostnames.
+          #
+          # This step FAILS the job (it used to be warn-only) because a Worker
+          # route that is missing or shadowed by another Workers/Pages rule does
+          # not break the deploy — it silently lets /api/* fall through to the
+          # GitHub Pages origin, which answers with its own 404 page. That
+          # looked identical to "cache" from the browser and was only ever
+          # noticed by hand. A 200 alone is not enough: GitHub Pages also
+          # returns 200 for the root, so we additionally require that the
+          # response identifies the Worker and carries no GitHub Pages header.
           set -uo pipefail
           base="https://beyondredeye.site/api"
+          www_base="https://www.beyondredeye.site/api"
           fails=0
           pass=0
           check() { # check <name> <expected> <actual>
             if [ "$2" = "$3" ]; then echo "✅ $1 (got $3)"; pass=$((pass+1));
-            else echo "⚠️ $1: expected $2, got $3"; fails=$((fails+1)); fi
+            else echo "❌ $1: expected $2, got $3"; fails=$((fails+1)); fi
           }
           code() { out=$(curl -s -o /dev/null -w '%{http_code}' --max-time 30 "$@" 2>/dev/null); [ -n "$out" ] && echo "$out" || echo 000; }
           body() { curl -s --max-time 30 "$@" || echo ''; }
+          hdrs() { curl -s -D - -o /dev/null --max-time 30 "$@" 2>/dev/null || echo ''; }
+          # GitHub Pages always stamps these; the Worker never does.
+          from_github_pages() { echo "$1" | grep -qiE '^x-github-request-id:|^via: 1\.1 varnish|^x-served-by: cache-'; }
 
-          # Wait for the freshly-(re)attached route to propagate before checking.
-          ready=0
-          for i in $(seq 1 18); do
-            if [ "$(code "$base/health")" = "200" ]; then ready=1; break; fi
-            sleep 10
-          done
-          if [ "$ready" -ne 1 ]; then
-            echo "::warning title=API smoke test::GET $base/health never returned 200 within ~3 min of deploy — route/DNS may still be propagating (see docs/DEPLOYMENT.md). The checks below will report against whatever is live."
-          fi
+          # Asserts a hostname's /api/* is served by this Worker, not by the
+          # GitHub Pages origin: waits for propagation, then checks status,
+          # body identity, and absence of GitHub Pages headers.
+          assert_worker_owns_api() { # assert_worker_owns_api <label> <base>
+            local label="$1" b="$2" ready=0
+            for i in $(seq 1 24); do
+              if [ "$(code "$b/health")" = "200" ]; then ready=1; break; fi
+              sleep 10
+            done
+            if [ "$ready" -ne 1 ]; then
+              echo "❌ $label: GET $b/health never returned 200 within ~4 min of deploy — the Worker route is not attached or is being shadowed (see docs/DEPLOYMENT.md)."
+              fails=$((fails+1))
+              return
+            fi
+            check "$label GET /api/health" "200" "$(code "$b/health")"
+            local hb hh
+            hb=$(body "$b/health")
+            case "$hb" in *kissa-content-api*) echo "✅ $label health body identifies kissa-content-api"; pass=$((pass+1));;
+              *) echo "❌ $label health body unexpected: $(echo "$hb" | head -c 120)"; fails=$((fails+1));; esac
+            hh=$(hdrs "$b/health")
+            if from_github_pages "$hh"; then
+              echo "❌ $label /api/health was answered by the GitHub Pages origin, not the Worker — another Workers/Pages rule or a DNS-only record is taking precedence."
+              fails=$((fails+1))
+            else
+              echo "✅ $label /api/health served by the Worker (no GitHub Pages headers)"; pass=$((pass+1))
+            fi
+            case "$hh" in *[Ss]erver:\ *cloudflare*) echo "✅ $label proxied through Cloudflare (orange cloud)"; pass=$((pass+1));;
+              *) echo "❌ $label not served via Cloudflare — DNS record is not proxied, so Worker routes cannot apply."; fails=$((fails+1));; esac
+            check "$label GET /api/manifest" "200" "$(code "$b/manifest")"
+          }
+
+          assert_worker_owns_api "apex" "$base"
+          assert_worker_owns_api "www " "$www_base"
 
           STORY_DIR=$(node -e "console.log(require('./content/manifest.json').stories[0].storyDir)")
           COVER_NAME=$(ls assets/covers/*.jpg | head -n 1 | xargs basename)
-
-          # 1) Health + manifest.
-          health_body=$(body "$base/health")
-          check "GET /api/health" "200" "$(code "$base/health")"
-          case "$health_body" in *kissa-content-api*) echo "✅ health body identifies kissa-content-api"; pass=$((pass+1));; *) echo "⚠️ health body unexpected: $(echo "$health_body" | head -c 120)"; fails=$((fails+1));; esac
-          check "GET /api/manifest" "200" "$(code "$base/manifest")"
 
           # 2) Story package, story file, story cover, APK cover.
           check "GET /api/stories/$STORY_DIR (package)" "200" "$(code "$base/stories/$STORY_DIR")"
@@ -150,10 +180,23 @@ jobs:
           # 4) Path traversal blocked.
           check "traversal rejected" "404" "$(code --path-as-is "$base/stories/$STORY_DIR/%2e%2e/%2e%2e/content/manifest.json")"
 
-          # 5) Root website untouched (still GitHub Pages).
-          check "root site still serves" "200" "$(code https://beyondredeye.site/)"
+          # 5) Root website untouched: it must STILL be served by GitHub Pages.
+          #    This guards the inverse regression — a Worker route widened to
+          #    beyondredeye.site/* would start serving the Worker's asset copy
+          #    at / and quietly take the root site off GitHub Pages.
+          root_code=$(code https://beyondredeye.site/)
+          check "root site still serves" "200" "$root_code"
+          root_hdrs=$(hdrs https://beyondredeye.site/)
+          if from_github_pages "$root_hdrs"; then
+            echo "✅ root / still served by the GitHub Pages origin"; pass=$((pass+1))
+          else
+            echo "❌ root / is no longer served by GitHub Pages — a Worker/Pages rule has taken over the apex hostname."
+            fails=$((fails+1))
+          fi
 
           echo "--- API smoke test: $pass passed, $fails failed ---"
           if [ "$fails" -ne 0 ]; then
-            echo "::warning title=API smoke test::$fails check(s) failed — if this is the first deploy, DNS/routes may still be propagating (see docs/DEPLOYMENT.md)."
+            echo "::error title=API smoke test::$fails check(s) failed. The Worker was deployed, but https://beyondredeye.site/api/* is not being served by it. Check the zone DNS records are Proxied and that the route beyondredeye.site/api/* is attached to kissa-content-api (Workers & Pages → kissa-content-api → Settings → Domains & Routes). See docs/DEPLOYMENT.md."
+            exit 1
           fi
+          echo "::notice title=API smoke test::All $pass checks passed — apex and www both serve /api/* from the Worker and the root stays on GitHub Pages."
