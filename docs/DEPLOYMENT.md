@@ -47,10 +47,13 @@ The deploy job **fails with these exact names** if they are missing — no insec
 3. **Deploy the Worker**: push to `main` (or run the *Deploy story API* workflow).
    With the two secrets above this creates/updates the `kissa-content-api` Worker
    and uploads the content+website assets.
-4. **Route the API**: Cloudflare → Workers & Pages → `kissa-content-api` →
-   *Settings → Domains & Routes → Add → Route*:
-   `beyondredeye.site/api*` (zone: `beyondredeye.site`).
-   Optionally also `www.beyondredeye.site/api*`.
+4. **Route the API**: applied automatically — the `routes` in
+   `worker/wrangler.jsonc` (`beyondredeye.site/api/*` and
+   `www.beyondredeye.site/api/*`) are (re-)attached on every deploy by
+   `wrangler` (the "Edit Cloudflare Workers" token template includes
+   Zone → Workers Routes → Edit). Verify in Cloudflare → Workers & Pages →
+   `kissa-content-api` → *Settings → Domains & Routes*. If the token lacks
+   route permission, add the route there manually instead.
 5. **Verify**: `curl https://beyondredeye.site/api/health` →
    `{"ok":true,"service":"kissa-content-api","contentVersion":5}`.
    The website at `https://beyondredeye.site/` keeps working (GitHub Pages via

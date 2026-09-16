@@ -11,11 +11,20 @@
   //
   // Manual setup (once, needs Cloudflare account access — see docs/DEPLOYMENT.md):
   //   secrets: CLOUDFLARE_API_TOKEN + CLOUDFLARE_ACCOUNT_ID (GitHub repo secrets)
-  //   DNS:     beyondredeye.site on Cloudflare + Worker route "beyondredeye.site/api*"
+  //   DNS:     beyondredeye.site on Cloudflare (proxied A/CNAME records keep
+  //            serving GitHub Pages at the root; the routes below only attach
+  //            /api/* to this Worker and never touch the root site).
   "$schema": "node_modules/wrangler/config-schema.json",
   "name": "kissa-content-api",
   "main": "src/index.ts",
   "compatibility_date": "2025-09-01",
+  // Worker route: serves https://beyondredeye.site/api/* (and www). The root
+  // website stays on GitHub Pages — only /api/* is routed to this Worker.
+  // Managed here so every deploy re-applies it (no dashboard click needed).
+  "routes": [
+    { "pattern": "beyondredeye.site/api/*", "zone_name": "beyondredeye.site" },
+    { "pattern": "www.beyondredeye.site/api/*", "zone_name": "beyondredeye.site" }
+  ],
   "assets": {
     "directory": "./public",
     "binding": "ASSETS",
