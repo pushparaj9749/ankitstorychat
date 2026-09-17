@@ -2,7 +2,7 @@
   "id": "pani-72",
   "title": "Pani @ 72",
   "description": "72 ghante ki baarish. Mumbai ka paani kamar se upar aa gaya hai. Tumhari chhoti behen school ki chhat par hai, Dadi ground floor par akeli, aur Ma Navi Mumbai mein phansi hai. Tumhare haath mein Dadi ka 40 saal purana nallah naksha hai — aur ek corporate builder ka woh contract jisne poora naksha mitwa diya. 72 ghante. Ek family. Do raaste: bachao, ya sach nikaalo.",
-  "version": 2,
+  "version": 3,
   "language": "hinglish",
   "ageRating": "12-17",
   "contentLevel": "teen",
@@ -43,6 +43,41 @@
         "file": "assets/cover.jpg",
         "kind": "cover",
         "label": "Cover"
+      },
+      {
+        "id": "ira-portrait",
+        "file": "assets/gallery/image-01.jpg",
+        "kind": "character-portrait",
+        "label": "Ira",
+        "characterId": "iraa"
+      },
+      {
+        "id": "dadi-naksha",
+        "file": "assets/gallery/image-02.jpg",
+        "kind": "character-portrait",
+        "label": "Dadi",
+        "characterId": "dadi"
+      },
+      {
+        "id": "school-chhat",
+        "file": "assets/gallery/image-03.jpg",
+        "kind": "scene",
+        "label": "Chhat par 40 log",
+        "sceneId": "s2_school"
+      },
+      {
+        "id": "junction-flood",
+        "file": "assets/gallery/image-04.jpg",
+        "kind": "scene",
+        "label": "Junction, paani",
+        "sceneId": "s2_junction"
+      },
+      {
+        "id": "sameer-boat",
+        "file": "assets/gallery/image-05.jpg",
+        "kind": "scene",
+        "label": "Sameer ki boat",
+        "sceneId": "s3_boat"
       }
     ]
   }

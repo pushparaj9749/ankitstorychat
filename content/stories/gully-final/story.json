@@ -2,7 +2,7 @@
   "id": "gully-final",
   "title": "Gully Final",
   "description": "Ramnagar Maidan Cup. Final. 200 run ka target nahi — 1 envelope ka target hai. Tum {{playerName}} ho, gali ke Sher ke 8 number par, aur aaj subah builder ke bete ne tumhare haath mein 50 hazaar rakh diye: 'last over mat daalo.' Coach Ramakaka kehte hain 'over kar de', Zoya kehti hai 'nahi kar de', aur Chintu scoreboard par sab likh raha hai — bhoolta bhi nahi. Ab 6 balls hain.",
-  "version": 2,
+  "version": 3,
   "language": "hinglish",
   "ageRating": "12-17",
   "contentLevel": "teen",
@@ -42,6 +42,41 @@
         "file": "assets/cover.jpg",
         "kind": "cover",
         "label": "Cover"
+      },
+      {
+        "id": "zoya-portrait",
+        "file": "assets/gallery/image-01.jpg",
+        "kind": "character-portrait",
+        "label": "Zoya",
+        "characterId": "zoya"
+      },
+      {
+        "id": "tapri-envelope",
+        "file": "assets/gallery/image-02.jpg",
+        "kind": "scene",
+        "label": "Tapri, envelope",
+        "sceneId": "s1_offer"
+      },
+      {
+        "id": "ramakaka-portrait",
+        "file": "assets/gallery/image-03.jpg",
+        "kind": "character-portrait",
+        "label": "Coach Ramakaka",
+        "characterId": "ramakaka"
+      },
+      {
+        "id": "ramnagar-maidan",
+        "file": "assets/gallery/image-04.jpg",
+        "kind": "scene",
+        "label": "Ramnagar Maidan",
+        "sceneId": "s3_final"
+      },
+      {
+        "id": "last-over",
+        "file": "assets/gallery/image-05.jpg",
+        "kind": "scene",
+        "label": "Last over",
+        "sceneId": "s4_last_over"
       }
     ]
   }
