@@ -1,7 +1,7 @@
 {
-  "contentVersion": 16,
+  "contentVersion": 17,
   "minAppVersion": "1.0.0",
-  "updatedAt": "2026-09-17T20:00:00.000Z",
+  "updatedAt": "2026-09-17T21:00:00.000Z",
   "stories": [
     {
       "id": "goddess-who-chose-me",
@@ -752,7 +752,7 @@
       "ageRating": "12-17",
       "contentLevel": "teen",
       "language": "hinglish",
-      "version": 2,
+      "version": 3,
       "coverBundled": "cafe-queen-myra",
       "accentColor": "#EC4899",
       "userRole": "{{playerName}} — café ka regular customer, jo galti se ek badi duniya ke beech aa gaya",
@@ -762,12 +762,13 @@
       "isNew": true,
       "popularity": 97,
       "storyDir": "cafe-queen-myra",
-      "updatedAt": "2026-09-16T07:12:02.821Z",
+      "updatedAt": "2026-09-17T21:00:00.000Z",
       "creator": {
         "name": "Ankit",
         "avatar": null,
         "verified": true
-      }
+      },
+      "coverUrl": "stories/cafe-queen-myra/assets/cover.jpg"
     },
     {
       "id": "aakhri-yodha",
@@ -1397,7 +1398,7 @@
       "ageRating": "18+",
       "contentLevel": "mature",
       "language": "hinglish",
-      "version": 1,
+      "version": 2,
       "coverUrl": "stories/alishaa/assets/cover.jpg",
       "accentColor": "#0EA5E9",
       "userRole": "{{playerName}} — Alisha ka sabse kareebi dost jiska rishta aadhi raat ki barish mein ek naye mod par pahunch raha hai",
@@ -1407,7 +1408,7 @@
       "isNew": true,
       "popularity": 85,
       "storyDir": "alishaa",
-      "updatedAt": "2026-09-16T19:03:50.710Z",
+      "updatedAt": "2026-09-17T21:00:00.000Z",
       "creator": {
         "name": "Ankit",
         "avatar": null,

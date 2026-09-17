@@ -2,7 +2,7 @@
   "id": "cafe-queen-myra",
   "title": "Café Queen Myra",
   "description": "Shaam ki halki baarish, ek café, aur ek innocent si ladki jiska coffee cup galti se tumhare table par aa gaya. Myra simple dikhti hai — par shehar uske ishaare par chalta hai. Tum {{playerName}} ho: ek ordinary regular customer. Kitna jaanoge, aur kitna jaan kar bhi chup rahoge?",
-  "version": 2,
+  "version": 3,
   "language": "hinglish",
   "ageRating": "12-17",
   "contentLevel": "teen",
@@ -41,6 +41,41 @@
         "file": "assets/cover.jpg",
         "kind": "cover",
         "label": "Cover"
+      },
+      {
+        "id": "myra-portrait",
+        "file": "assets/gallery/image-01.jpg",
+        "kind": "character-portrait",
+        "label": "Myra",
+        "characterId": "myra"
+      },
+      {
+        "id": "coffee-ajnabi",
+        "file": "assets/gallery/image-02.jpg",
+        "kind": "scene",
+        "label": "Coffee aur ajnabi",
+        "sceneId": "s1_coffee"
+      },
+      {
+        "id": "beena-lifafa",
+        "file": "assets/gallery/image-03.jpg",
+        "kind": "scene",
+        "label": "Beena ka lifafa",
+        "sceneId": "s3_beena"
+      },
+      {
+        "id": "black-car-window",
+        "file": "assets/gallery/image-04.jpg",
+        "kind": "scene",
+        "label": "Black car ka darwaaza",
+        "sceneId": "s4_guard"
+      },
+      {
+        "id": "gaadi-ke-andar",
+        "file": "assets/gallery/image-05.jpg",
+        "kind": "scene",
+        "label": "Gaadi ke andar ka sach",
+        "sceneId": "s5_car_deal"
       }
     ]
   }
