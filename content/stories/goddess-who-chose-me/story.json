@@ -2,7 +2,7 @@
   "id": "goddess-who-chose-me",
   "title": "The Goddess Who Chose Me",
   "description": "Tum {{playerName}} ho — ek simple sa ladka, simple si zindagi. Phir ek baarish wali shaam Aria tumhare bus stop par aati hai aur keh deti hai: 'Main tumhare saath rahungi.' Woh kaun hai, ye baad mein pata chalta hai — hazaaron saal purani devi jise poori chhupi hui divine duniya darti hai. Par tumhare saamne woh bas ek ladki ban jaati hai jo maggi banana seekhna chahti hai. Sawaal ek hi hai: usne tumhe kyun chuna? Ye kahani kabhi khatam nahi hoti — har arc ke baad ek naya darwaaza khulta hai.",
-  "version": 2,
+  "version": 3,
   "language": "hinglish",
   "ageRating": "12-17",
   "contentLevel": "teen",
@@ -44,6 +44,38 @@
         "file": "assets/cover.jpg",
         "kind": "cover",
         "label": "Cover"
+      },
+      {
+        "id": "aria-portrait",
+        "file": "assets/gallery/image-01.jpg",
+        "kind": "character-portrait",
+        "label": "Aria",
+        "characterId": "aria"
+      },
+      {
+        "id": "maggi-night",
+        "file": "assets/gallery/image-02.jpg",
+        "kind": "scene",
+        "label": "Maggi ki pehli raat",
+        "sceneId": "s1_bus_stop"
+      },
+      {
+        "id": "wadala-rain",
+        "file": "assets/gallery/image-03.jpg",
+        "kind": "scene",
+        "label": "Wadala Depot, baarish"
+      },
+      {
+        "id": "antarlok-gate",
+        "file": "assets/gallery/image-04.jpg",
+        "kind": "other",
+        "label": "Antarlok ka darwaza"
+      },
+      {
+        "id": "adya-reveal",
+        "file": "assets/gallery/image-05.jpg",
+        "kind": "scene",
+        "label": "Jo unhone chuna"
       }
     ]
   }

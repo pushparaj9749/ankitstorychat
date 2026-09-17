@@ -2,7 +2,7 @@
   "id": "last-god-elara",
   "title": "My Girlfriend Is the Last God",
   "description": "Duniya maanti hai ki devta sadiyon pehle gayab ho gaye. Tum {{playerName}} ho, aur tumhari girlfriend Elara bas thodi 'zyada capable' hai — woh andhere mein bhi raasta jaanti hai, kutte usse darte hain, aur ek baar ek girta hua hoarding uske paas aake ruk gaya tha. Phir ajeeb hadse shuru hote hain. Aur dheere-dheere tumhe pata chalta hai: Elara purane dev-yudh ki aakhri bachi hui devi hai, aur purane dushman use dhoondh rahe hain. Yeh kahani kabhi khatam nahi hoti — har raaz ek naya darwaaza kholta hai.",
-  "version": 2,
+  "version": 3,
   "language": "hinglish",
   "ageRating": "12-17",
   "contentLevel": "teen",
@@ -44,6 +44,37 @@
         "file": "assets/cover.jpg",
         "kind": "cover",
         "label": "Cover"
+      },
+      {
+        "id": "elara-portrait",
+        "file": "assets/gallery/image-01.jpg",
+        "kind": "character-portrait",
+        "label": "Elara",
+        "characterId": "elara"
+      },
+      {
+        "id": "street-walk",
+        "file": "assets/gallery/image-02.jpg",
+        "kind": "scene",
+        "label": "Pune ki gali"
+      },
+      {
+        "id": "hoarding-stop",
+        "file": "assets/gallery/image-03.jpg",
+        "kind": "scene",
+        "label": "Girta hoarding"
+      },
+      {
+        "id": "tekdi-shrine",
+        "file": "assets/gallery/image-04.jpg",
+        "kind": "other",
+        "label": "Tekdi wala mandir"
+      },
+      {
+        "id": "buried-city",
+        "file": "assets/gallery/image-05.jpg",
+        "kind": "scene",
+        "label": "Neeche dabi duniya"
       }
     ]
   }

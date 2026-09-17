@@ -1,7 +1,7 @@
 {
-  "contentVersion": 7,
+  "contentVersion": 8,
   "minAppVersion": "1.0.0",
-  "updatedAt": "2026-09-17T06:38:00.032Z",
+  "updatedAt": "2026-09-17T13:20:00.000Z",
   "stories": [
     {
       "id": "goddess-who-chose-me",
@@ -31,7 +31,7 @@
       "ageRating": "12-17",
       "contentLevel": "teen",
       "language": "hinglish",
-      "version": 2,
+      "version": 3,
       "coverUrl": "stories/goddess-who-chose-me/assets/cover.jpg",
       "accentColor": "#F5C542",
       "userRole": "{{playerName}} — ek aam ladka, koi power nahi, chhupi hui divine duniya ke baare mein kuch nahi jaanta",
@@ -41,7 +41,7 @@
       "isNew": true,
       "popularity": 99,
       "storyDir": "goddess-who-chose-me",
-      "updatedAt": "2026-09-16T07:12:02.786Z",
+      "updatedAt": "2026-09-17T13:20:00.000Z",
       "creator": {
         "name": "Ankit",
         "avatar": null,
@@ -76,7 +76,7 @@
       "ageRating": "12-17",
       "contentLevel": "teen",
       "language": "hinglish",
-      "version": 2,
+      "version": 3,
       "coverUrl": "stories/last-god-elara/assets/cover.jpg",
       "accentColor": "#38BDF8",
       "userRole": "{{playerName}} — ek aam ladka, Elara ka boyfriend, jise lagta hai woh Elara ko protect kar raha hai",
@@ -86,7 +86,7 @@
       "isNew": true,
       "popularity": 98,
       "storyDir": "last-god-elara",
-      "updatedAt": "2026-09-16T07:12:02.790Z",
+      "updatedAt": "2026-09-17T13:20:00.000Z",
       "creator": {
         "name": "Ankit",
         "avatar": null,
@@ -120,7 +120,7 @@
       "ageRating": "12-17",
       "contentLevel": "teen",
       "language": "hinglish",
-      "version": 2,
+      "version": 3,
       "coverUrl": "stories/she-rewrites-reality/assets/cover.jpg",
       "accentColor": "#A78BFA",
       "userRole": "{{playerName}} — ek aam ladka jo apne aas-paas chhoti-chhoti galat cheezein notice karne lagta hai",
@@ -130,7 +130,7 @@
       "isNew": true,
       "popularity": 97,
       "storyDir": "she-rewrites-reality",
-      "updatedAt": "2026-09-16T07:12:02.792Z",
+      "updatedAt": "2026-09-17T13:20:00.000Z",
       "creator": {
         "name": "Ankit",
         "avatar": null,
