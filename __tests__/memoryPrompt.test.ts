@@ -14,11 +14,12 @@ import type {
   Playthrough,
   ScenesFile,
   StoryBundle,
+  StoryCreator,
   StoryFile,
   StoryMeta,
   WorldFile,
 } from '../src/types';
-import { createInitialState } from '../src/types';
+import { KISSA_OWNER_CREATOR, createInitialState } from '../src/types';
 
 // Read the shipped pack straight off disk (same fixture style as content.test.ts)
 // so this covers the real memory.json hints without pulling in image imports.
@@ -27,14 +28,19 @@ const pack = <T>(file: string): T =>
   JSON.parse(readFileSync(join(ROOT, 'stories', 'chai-dreams', file), 'utf8')) as T;
 const manifest = JSON.parse(readFileSync(join(ROOT, 'manifest.json'), 'utf8')) as { stories: StoryMeta[] };
 
+const storyFile = pack<StoryFile>('story.json');
+const metaChai = manifest.stories.find((s) => s.id === 'chai-dreams')!;
+const creator: StoryCreator = metaChai.creator ?? storyFile.creator ?? KISSA_OWNER_CREATOR;
+
 const bundle: StoryBundle = {
-  meta: manifest.stories.find((s) => s.id === 'chai-dreams')!,
-  story: pack<StoryFile>('story.json'),
+  meta: metaChai,
+  story: storyFile,
   characters: pack<CharactersFile>('characters.json'),
   world: pack<WorldFile>('world.json'),
   scenes: pack<ScenesFile>('scenes.json'),
   memory: pack<MemoryFile>('memory.json'),
   source: 'bundled',
+  creator,
 };
 
 const profile = { nickname: 'Raj', ageGroup: '18+' } as unknown as LocalProfile;

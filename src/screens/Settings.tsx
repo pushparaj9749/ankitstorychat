@@ -14,11 +14,11 @@ export function Settings({ navigation }: Props) {
   const { theme, profile, activeProvider, updateAvailable } = useApp();
   const nav = navigation as unknown as { navigate: (s: string, o?: object) => void };
 
-  function row(emoji: string, title: string, sub: string, target: string, badge?: string) {
+  function row(emoji: string, title: string, sub: string, target: string, badge?: string, params?: object) {
     return (
       <Pressable
         key={target + title}
-        onPress={() => nav.navigate(target)}
+        onPress={() => nav.navigate(target, params ?? {})}
         accessibilityRole="button"
         accessibilityLabel={title}
         style={[styles.row, { backgroundColor: theme.surface, borderColor: theme.border }]}
@@ -58,6 +58,10 @@ export function Settings({ navigation }: Props) {
 
         <SectionHeader title="Stories" />
         {row('📚', 'Content Updates', 'Nayi stories GitHub se lao', 'ContentUpdates', updateAvailable ? 'NEW' : undefined)}
+        {row('💡', 'Suggest an Idea', 'Ek kahani ka idea bhejo', 'SubmitStory', undefined, { mode: 'idea' })}
+        {row('📝', 'Submit a Story', 'Apni poori kahani submit karo', 'SubmitStory', undefined, { mode: 'story' })}
+        {row('📨', 'My Submissions', 'Apne bheje hue submissions dekho', 'MySubmissions')}
+        {__DEV__ ? row('🛡', 'Admin Panel', 'Dev only — review pending submissions', 'AdminPanel') : null}
 
         <SectionHeader title="Appearance" />
         {row('🎨', 'Theme & Text', 'Dark, AMOLED, text size, motion', 'SettingsAppearance')}

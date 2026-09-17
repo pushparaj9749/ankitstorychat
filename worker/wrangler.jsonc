@@ -6,11 +6,16 @@
   // builds `public/` (scripts/build-worker-assets.mjs) — the Worker itself
   // never contacts GitHub and holds no credentials.
   //
-  // Routes (see src/index.ts):
-  //   GET /api/health | /api/manifest | /api/stories/:dir[/:file] | /api/covers/:name
+  // Routes (see src/router.ts):
+  //   GET  /api/health | /api/manifest | /api/stories/:dir[/:file] | /api/covers/:name
+  //   POST /api/submit/idea | /api/submit/story
+  //   GET  /api/submit/limit
+  //   GET  /api/admin/pending  (Bearer ADMIN_TOKEN)
+  //   POST /api/admin/(idea|story)/:id/(accept|reject)
   //
   // Manual setup (once, needs Cloudflare account access — see docs/DEPLOYMENT.md):
-  //   secrets: CLOUDFLARE_API_TOKEN + CLOUDFLARE_ACCOUNT_ID (GitHub repo secrets)
+  //   secrets: CLOUDFLARE_API_TOKEN + CLOUDFLARE_ACCOUNT_ID + ADMIN_TOKEN (repo secrets)
+  //   kv:      create namespace "KISSA_SUBMISSIONS" and paste its id below (preview+production)
   //   DNS:     beyondredeye.site on Cloudflare (proxied A/CNAME records keep
   //            serving GitHub Pages at the root; the routes below only attach
   //            /api/* to this Worker and never touch the root site).
@@ -33,6 +38,13 @@
     "run_worker_first": ["/api/*", "/content/*", "/covers/*"],
     "not_found_handling": "none"
   },
+  // KV namespace for the submission system is injected by the CI deploy
+  // workflow (.github/workflows/deploy-api.yml). If you are running
+  // `wrangler dev` locally the submission endpoints use a transient in-memory
+  // KV shim automatically — no local namespace required. To develop against a
+  // real KV namespace locally, add:
+  //   "kv_namespaces": [{ "binding": "KISSA_SUBMISSIONS", "id": "<your id>", "preview_id": "<preview id>" }]
+  // and never commit those ids (they are account-specific).
   "unsafe": {
     "bindings": [
       {

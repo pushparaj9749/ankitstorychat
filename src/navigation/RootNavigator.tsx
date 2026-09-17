@@ -31,6 +31,10 @@ import { Terms } from '../screens/Terms';
 import { Privacy } from '../screens/Privacy';
 import { About } from '../screens/About';
 import { ContentUpdates } from '../screens/ContentUpdates';
+import { SubmitStory } from '../screens/SubmitStory';
+import { SubmissionSuccess } from '../screens/SubmissionSuccess';
+import { MySubmissions } from '../screens/MySubmissions';
+import { AdminPanel } from '../screens/AdminPanel';
 
 const Stack = createNativeStackNavigator<RootStackParamList>();
 const Tab = createBottomTabNavigator<MainTabParamList>();
@@ -145,6 +149,10 @@ export function RootNavigator() {
             <Stack.Screen name="Privacy" component={Privacy} />
             <Stack.Screen name="About" component={About} />
             <Stack.Screen name="ContentUpdates" component={ContentUpdates} />
+            <Stack.Screen name="SubmitStory" component={SubmitStory} />
+            <Stack.Screen name="SubmissionSuccess" component={SubmissionSuccess} />
+            <Stack.Screen name="MySubmissions" component={MySubmissions} />
+            <Stack.Screen name="AdminPanel" component={AdminPanel} />
           </>
         )}
       </Stack.Navigator>

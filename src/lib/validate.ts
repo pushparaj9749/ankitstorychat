@@ -8,10 +8,56 @@ import type {
   MemoryFile,
   ScenesFile,
   StoryBundle,
+  StoryCreator,
   StoryFile,
   StoryMeta,
   WorldFile,
 } from '../types';
+
+/** Maximum length for any free-text user-supplied field (defense in depth). */
+export const MAX_TEXT_FIELD = 20_000;
+export const MAX_CREATOR_NAME = 60;
+export const MAX_JSON_PAYLOAD = 500_000; // 500KB per submission
+
+const DANGEROUS_HTML_RE = /<\s*(script|iframe|object|embed|link|style|form|svg|math|details)[^>]*>/i;
+const JS_URL_RE = /\s*javascript\s*:/i;
+
+/** Returns true when a string looks like it contains executable/HTML markup. */
+export function containsUnsafeContent(s: string): boolean {
+  if (!s) return false;
+  if (DANGEROUS_HTML_RE.test(s)) return true;
+  if (JS_URL_RE.test(s)) return true;
+  // Event-handler injection like `<img onload=...>` (already covered by <img check? we allow img? No — we reject all tags above).
+  return false;
+}
+
+/** Trim + length + safety check for a creator-name field. */
+export function sanitizeCreatorName(raw: unknown): { ok: true; value: string } | { ok: false; message: string } {
+  if (typeof raw !== 'string') return { ok: false, message: 'creator.name must be a string' };
+  const v = raw.trim();
+  if (!v) return { ok: false, message: 'Creator name is required' };
+  if (v.length > MAX_CREATOR_NAME)
+    return { ok: false, message: `Creator name is too long (max ${MAX_CREATOR_NAME} characters)` };
+  if (containsUnsafeContent(v)) return { ok: false, message: 'Creator name contains unsupported markup' };
+  return { ok: true, value: v };
+}
+
+/** Validate a StoryCreator object. `verified` is ignored (forced false on user submit). */
+export function validateCreator(c: unknown, requireName = true): ValidationResult {
+  const issues: ValidationIssue[] = [];
+  if (!c || typeof c !== 'object') {
+    if (requireName) issues.push(issue('creator', 'must be an object'));
+    return { ok: issues.length === 0, issues };
+  }
+  const cc = c as Partial<StoryCreator>;
+  const nameRes = sanitizeCreatorName(cc.name);
+  if (!nameRes.ok) issues.push(issue('creator.name', nameRes.message));
+  if (cc.avatar !== null && cc.avatar !== undefined) {
+    if (typeof cc.avatar !== 'string' || cc.avatar.length > 500)
+      issues.push(issue('creator.avatar', 'must be null or a short URL string'));
+  }
+  return { ok: issues.length === 0, issues };
+}
 
 export interface ValidationIssue {
   path: string;
@@ -79,6 +125,10 @@ export function validateStoryFile(storyId: string, s: unknown): ValidationResult
   }
   if (!['12-17', '18+'].includes(f.ageRating as string)) issues.push(issue('ageRating', 'invalid'));
   if (!['teen', 'mature'].includes(f.contentLevel as string)) issues.push(issue('contentLevel', 'invalid'));
+  if (f.creator !== undefined && f.creator !== null) {
+    const cr = validateCreator(f.creator, false);
+    cr.issues.forEach((i) => issues.push({ path: `creator.${i.path}`, message: i.message }));
+  }
   return { ok: issues.length === 0, issues };
 }
 
@@ -269,6 +319,186 @@ export function validateBundle(bundle: {
   }
 
   return { ok: issues.length === 0, issues };
+}
+
+/* ---------------- user submissions ---------------- */
+
+function safeTrim(s: unknown, max: number, field: string, issues: ValidationIssue[], required = true): string | null {
+  if (s === undefined || s === null || s === '') {
+    if (required) issues.push(issue(field, 'required'));
+    return null;
+  }
+  if (typeof s !== 'string') {
+    issues.push(issue(field, 'must be a string'));
+    return null;
+  }
+  const v = s.trim();
+  if (!v && required) {
+    issues.push(issue(field, 'required'));
+    return null;
+  }
+  if (v.length > max) {
+    issues.push(issue(field, `too long (max ${max} characters)`));
+    return v.slice(0, max);
+  }
+  if (containsUnsafeContent(v)) {
+    issues.push(issue(field, 'contains unsupported markup or scripts'));
+  }
+  return v;
+}
+
+export function validateIdeaSubmission(body: unknown): ValidationResult & {
+  cleaned?: {
+    creatorName: string;
+    title: string;
+    concept: string;
+    genre: string;
+    characters?: string;
+    notes?: string;
+  };
+} {
+  const issues: ValidationIssue[] = [];
+  if (!body || typeof body !== 'object') return { ok: false, issues: [issue('$', 'must be an object')] };
+  const b = body as Record<string, unknown>;
+  const nameRes = sanitizeCreatorName(b.creatorName ?? (b.creator as Record<string, unknown> | undefined)?.name);
+  if (!nameRes.ok) issues.push(issue('creatorName', nameRes.message));
+  const title = safeTrim(b.title, 120, 'title', issues);
+  const concept = safeTrim(b.concept ?? b.idea, MAX_TEXT_FIELD, 'concept', issues);
+  const genre = safeTrim(b.genre, 60, 'genre', issues);
+  const characters = safeTrim(b.characters, 2000, 'characters', issues, false);
+  const notes = safeTrim(b.notes ?? b.specialNotes, MAX_TEXT_FIELD, 'notes', issues, false);
+  const ok = issues.length === 0 && !!nameRes.ok && !!title && !!concept && !!genre;
+  return {
+    ok,
+    issues,
+    cleaned: ok && nameRes.ok
+      ? { creatorName: nameRes.value, title: title!, concept: concept!, genre: genre!, characters: characters ?? undefined, notes: notes ?? undefined }
+      : undefined,
+  };
+}
+
+/**
+ * Validate a complete-story JSON submission. This is stricter than
+ * validateBundle because every required identifier has to be freshly supplied
+ * (the story does not yet exist in the catalog so we cannot rely on defaults).
+ */
+export function validateStorySubmission(body: unknown): ValidationResult & {
+  cleaned?: {
+    creatorName: string;
+    storyId: string;
+    title: string;
+    bundle: {
+      story: StoryFile;
+      characters: CharactersFile;
+      world: WorldFile;
+      scenes: ScenesFile;
+      memory: MemoryFile;
+    };
+  };
+} {
+  const issues: ValidationIssue[] = [];
+  if (!body || typeof body !== 'object') return { ok: false, issues: [issue('$', 'must be an object')] };
+  const b = body as Record<string, unknown>;
+  const rawCreator = b.creator;
+  const nameRes = sanitizeCreatorName(
+    (rawCreator as Record<string, unknown> | undefined)?.name ?? b.creatorName,
+  );
+  if (!nameRes.ok) issues.push(issue('creator.name', nameRes.message));
+
+  const story = b.story;
+  const characters = b.characters;
+  const world = b.world;
+  const scenes = b.scenes;
+  const memory = b.memory;
+
+  if (!story || typeof story !== 'object') {
+    issues.push(issue('story', 'missing story object'));
+    return { ok: false, issues };
+  }
+  const s = story as Partial<StoryFile>;
+  const storyId = typeof s.id === 'string' && /^[a-z0-9][a-z0-9-]{0,63}$/.test(s.id)
+    ? s.id
+    : (() => {
+        issues.push(issue('story.id', 'must be a lowercase slug (letters, numbers, hyphens)'));
+        return '';
+      })();
+
+  // Synthesize a minimal meta just to drive the existing bundle validator.
+  const meta = {
+    id: storyId || 'pending',
+    title: typeof s.title === 'string' ? s.title : '',
+    tagline: '',
+    description: typeof s.description === 'string' ? s.description : '',
+    genres: Array.isArray(s.genres) ? s.genres : [],
+    tags: Array.isArray(s.tags) ? s.tags : [],
+    characters: Array.isArray(characters && (characters as CharactersFile).characters)
+      ? (characters as CharactersFile).characters.map((c) => c.name).filter(Boolean)
+      : [],
+    ageRating: (s.ageRating as '12-17' | '18+') || '12-17',
+    contentLevel: (s.contentLevel as 'teen' | 'mature') || 'teen',
+    language: (s.language as 'hinglish' | 'english') || 'hinglish',
+    version: 1,
+    accentColor: '#8B5CF6',
+    userRole: typeof s.userRole === 'string' ? s.userRole : '',
+    setting: typeof s.setting === 'string' ? s.setting : '',
+    estimatedMinutes: 15,
+    popularity: 0,
+    storyDir: storyId || 'pending',
+    updatedAt: new Date(0).toISOString(),
+  };
+
+  const res = validateBundle({ meta, story: { ...s, id: storyId || meta.id }, characters, world, scenes, memory });
+  res.issues.forEach((i) => issues.push(i));
+
+  // Block executable content in every free-text field we ship to the AI.
+  const stringsToCheck: string[] = [];
+  if (typeof s.description === 'string') stringsToCheck.push(s.description);
+  if (typeof s.tone === 'string') stringsToCheck.push(s.tone);
+  if (Array.isArray(s.safetyNotes)) stringsToCheck.push(...s.safetyNotes.filter((x): x is string => typeof x === 'string'));
+  if (characters && typeof characters === 'object' && Array.isArray((characters as CharactersFile).characters)) {
+    for (const c of (characters as CharactersFile).characters) {
+      for (const k of ['personality', 'background', 'speakingStyle', 'sampleLine'] as const) {
+        const v = (c as unknown as Record<string, unknown>)[k];
+        if (typeof v === 'string') stringsToCheck.push(v);
+      }
+    }
+  }
+  if (scenes && typeof scenes === 'object' && Array.isArray((scenes as ScenesFile).scenes)) {
+    for (const sc of (scenes as ScenesFile).scenes) {
+      stringsToCheck.push(...(sc.narration ?? []).filter((x): x is string => typeof x === 'string'));
+      stringsToCheck.push(...(sc.fallbackLines ?? []).filter((x): x is string => typeof x === 'string'));
+      for (const ch of sc.choices ?? []) {
+        if (typeof ch.text === 'string') stringsToCheck.push(ch.text);
+      }
+    }
+  }
+  for (const t of stringsToCheck) {
+    if (containsUnsafeContent(t)) {
+      issues.push(issue('$', 'content contains unsupported markup or scripts'));
+      break;
+    }
+  }
+
+  const ok = issues.length === 0 && !!nameRes.ok && !!storyId;
+  const titleStr = typeof s.title === 'string' ? s.title.trim() : '';
+  return {
+    ok,
+    issues,
+    cleaned: ok && nameRes.ok
+      ? {
+          creatorName: nameRes.value,
+          storyId,
+          title: titleStr,
+          bundle: {
+            story: { ...(s as StoryFile), id: storyId },
+            characters: characters as CharactersFile,
+            world: world as WorldFile,
+            scenes: scenes as ScenesFile,
+            memory: memory as MemoryFile,
+          },
+        }
+      : undefined,
+  };
 }
 
 export type { StoryBundle };

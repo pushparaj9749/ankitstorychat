@@ -6,8 +6,17 @@
   "language": "hinglish",
   "ageRating": "18+",
   "contentLevel": "mature",
-  "genres": ["Horror", "Mystery"],
-  "tags": ["horror", "haveli", "ghost", "hills", "diary"],
+  "genres": [
+    "Horror",
+    "Mystery"
+  ],
+  "tags": [
+    "horror",
+    "haveli",
+    "ghost",
+    "hills",
+    "diary"
+  ],
   "userRole": "City heir visiting an inherited hill haveli",
   "setting": "A 150-year-old haveli in the Uttarakhand hills",
   "openingSceneId": "s1_arrival",
@@ -16,5 +25,9 @@
     "Horror via atmosphere and dread; no gore detail.",
     "No self-harm content.",
     "The entity's tragedy resolves with empathy, not exorcism-violence."
-  ]
+  ],
+  "creator": {
+    "name": "Ankit",
+    "verified": true
+  }
 }

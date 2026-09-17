@@ -123,6 +123,6 @@ describe('the story API never receives user data (by construction)', () => {
     const loader = readFileSync(join(ROOT, 'src', 'content', 'loader.ts'), 'utf8');
     // Content requests are plain GETs of public files.
     expect(loader).toMatch(/fetchJsonWithTimeout\(/);
-    expect(loader).not.toMatch(/nickname|profile\.|memories|chats/i);
+    expect(loader).not.toMatch(/nickname|profile\.|chats|(^|[^a-zA-Z])memories([^a-zA-Z]|$)/im); // "memories" standalone only (seedMemories is story content schema)
   });
 });

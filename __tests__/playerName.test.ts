@@ -9,7 +9,8 @@
  */
 import { readFileSync } from 'node:fs';
 import { join } from 'node:path';
-import type { LocalProfile, Playthrough, StoryBundle, StoryMeta } from '../src/types';
+import type { LocalProfile, Playthrough, StoryBundle, StoryCreator, StoryMeta } from '../src/types';
+import { KISSA_OWNER_CREATOR } from '../src/types';
 import {
   interpolatePlayerName,
   makePlayerTextFn,
@@ -28,14 +29,17 @@ function loadBundle(id: string): StoryBundle {
     stories: StoryMeta[];
   };
   const meta = manifest.stories.find((s) => s.id === id)!;
+  const story = read('story.json');
+  const creator: StoryCreator = meta.creator ?? story.creator ?? KISSA_OWNER_CREATOR;
   return {
     meta,
-    story: read('story.json'),
+    story,
     characters: read('characters.json'),
     world: read('world.json'),
     scenes: read('scenes.json'),
     memory: read('memory.json'),
     source: 'bundled',
+    creator,
   };
 }
 

@@ -181,6 +181,7 @@ function validBundle() {
     scenes: { scenes: [{ id: 's1', title: 'Start', narration: ['hi'], choices: [] }], endings: [] },
     memory: { seedMemories: [] },
     source: 'remote',
+    creator: { name: 'Ankit', avatar: null, verified: true },
   };
 }
 
@@ -225,6 +226,7 @@ describe('StoryDetail (V2: streamed playback, offline gate)', () => {
       scenes: { scenes: [{ id: 's1', title: 'Start', narration: ['hi'], choices: [] }], endings: [] },
       memory: { seedMemories: [] },
       source: 'bundled',
+      creator: { name: 'Ankit', avatar: null, verified: true },
     });
 
     await render();
@@ -269,11 +271,13 @@ describe('StoryDetail (V2: streamed playback, offline gate)', () => {
       scenes: { scenes: [{ id: 's1', title: 'Start', narration: ['hi'], choices: [] }], endings: [] },
       memory: { seedMemories: [] },
       source: 'bundled',
+      creator: { name: 'Ankit', avatar: null, verified: true },
     });
 
     await render();
     const text = renderText();
-    expect(text).toContain('Start story');
+    expect(text).toContain('Chat Now');
+    expect(text).toContain('Ankit');
     expect(text).not.toContain("Couldn't open story");
   });
 });

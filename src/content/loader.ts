@@ -16,10 +16,12 @@ import type {
   MemoryFile,
   ScenesFile,
   StoryBundle,
+  StoryCreator,
   StoryFile,
   StoryMeta,
   WorldFile,
 } from '../types';
+import { KISSA_OWNER_CREATOR } from '../types';
 import { assertCanOpen, filterForAge } from '../lib/ageGate';
 import { validateBundle, validateManifest } from '../lib/validate';
 import {
@@ -32,6 +34,7 @@ import {
   effectiveContentApiBaseUrl,
   manifestApiUrl,
   storyFileApiUrl,
+  storyPackageApiUrl,
 } from './api';
 import {
   STORIES_DIR,
@@ -58,6 +61,7 @@ export {
   effectiveContentApiBaseUrl,
   manifestApiUrl,
   storyFileApiUrl,
+  storyPackageApiUrl,
 } from './api';
 
 /**
@@ -221,6 +225,21 @@ async function loadDownloadedFiles(storyId: string): Promise<{
  * @param apiBaseUrl optional story API base; defaults to the app's configured
  *        base (production https://beyondredeye.site/api).
  */
+/** Resolve the effective creator for a story package. */
+export function resolveCreator(meta: StoryMeta, story?: Partial<StoryFile>): StoryCreator {
+  // Prefer meta.creator (manifest-level), then story.creator (package-level),
+  // then fall back to the Kissa owner (Ankit). A missing creator field on
+  // owner-produced stories still correctly attributes Ankit.
+  const fromMeta = meta.creator;
+  const fromStory = story?.creator;
+  const picked: StoryCreator = fromMeta ?? fromStory ?? KISSA_OWNER_CREATOR;
+  return {
+    name: (picked.name && picked.name.trim()) || KISSA_OWNER_CREATOR.name,
+    avatar: picked.avatar ?? null,
+    verified: picked.verified === true,
+  };
+}
+
 export async function getBundle(
   storyId: string,
   ageGroup: AgeGroup,
@@ -229,17 +248,38 @@ export async function getBundle(
   const meta = await getStoryMeta(storyId, ageGroup);
 
   const base = effectiveContentApiBaseUrl(apiBaseUrl);
-  const files = ['story.json', 'characters.json', 'world.json', 'scenes.json', 'memory.json'] as const;
-  const fetched: Record<string, unknown> = {};
-  for (const f of files) {
-    fetched[f] = await fetchJsonWithTimeout(storyFileApiUrl(base, meta.storyDir, f));
-  }
 
-  const story = fetched['story.json'] as StoryFile;
-  const characters = fetched['characters.json'] as CharactersFile;
-  const world = fetched['world.json'] as WorldFile;
-  const scenes = fetched['scenes.json'] as ScenesFile;
-  const memory = fetched['memory.json'] as MemoryFile;
+  let story: StoryFile;
+  let characters: CharactersFile;
+  let world: WorldFile;
+  let scenes: ScenesFile;
+  let memory: MemoryFile;
+
+  // Community stories (published from user submissions) are served as a single
+  // bundle from KV; bundled/owner stories remain fetched file-by-file so we
+  // keep CDN cache granularity for the large existing catalog.
+  const isCommunity = meta.storyDir.startsWith('community/') || (meta as { community?: boolean }).community === true;
+  if (isCommunity) {
+    const pkg = (await fetchJsonWithTimeout(storyPackageApiUrl(base, meta.storyDir))) as {
+      story?: unknown; characters?: unknown; world?: unknown; scenes?: unknown; memory?: unknown;
+    };
+    story = pkg.story as StoryFile;
+    characters = (pkg.characters as CharactersFile) ?? { characters: [] };
+    world = (pkg.world as WorldFile) ?? { premise: '' };
+    scenes = (pkg.scenes as ScenesFile) ?? { scenes: [], endings: [] };
+    memory = (pkg.memory as MemoryFile) ?? { seedMemories: [] };
+  } else {
+    const files = ['story.json', 'characters.json', 'world.json', 'scenes.json', 'memory.json'] as const;
+    const fetched: Record<string, unknown> = {};
+    for (const f of files) {
+      fetched[f] = await fetchJsonWithTimeout(storyFileApiUrl(base, meta.storyDir, f));
+    }
+    story = fetched['story.json'] as StoryFile;
+    characters = fetched['characters.json'] as CharactersFile;
+    world = fetched['world.json'] as WorldFile;
+    scenes = fetched['scenes.json'] as ScenesFile;
+    memory = fetched['memory.json'] as MemoryFile;
+  }
 
   const result = validateBundle({ meta, story, characters, world, scenes, memory });
   if (!result.ok) {
@@ -249,7 +289,7 @@ export async function getBundle(
     );
   }
 
-  return { meta, story, characters, world, scenes, memory, source: 'remote' };
+  return { meta, story, characters, world, scenes, memory, source: isCommunity ? 'community' : 'remote', creator: resolveCreator(meta, story) };
 }
 
 /* ---------------- updates ---------------- */
@@ -335,13 +375,27 @@ export async function downloadStory(
   const files = ['story.json', 'characters.json', 'world.json', 'scenes.json', 'memory.json'] as const;
 
   const fetched: Record<string, unknown> = {};
-  let done = 0;
-  for (const f of files) {
-    onProgress?.(f, done, files.length);
-    fetched[f] = await fetchJsonWithTimeout(storyFileApiUrl(base, meta.storyDir, f));
-    done++;
+  const isCommunity = meta.storyDir.startsWith('community/') || (meta as { community?: boolean }).community === true;
+  if (isCommunity) {
+    onProgress?.('bundle', 0, 1);
+    const pkg = (await fetchJsonWithTimeout(storyPackageApiUrl(base, meta.storyDir))) as {
+      story?: unknown; characters?: unknown; world?: unknown; scenes?: unknown; memory?: unknown;
+    };
+    fetched['story.json'] = pkg.story;
+    fetched['characters.json'] = pkg.characters ?? { characters: [] };
+    fetched['world.json'] = pkg.world ?? { premise: '' };
+    fetched['scenes.json'] = pkg.scenes ?? { scenes: [], endings: [] };
+    fetched['memory.json'] = pkg.memory ?? { seedMemories: [] };
+    onProgress?.('done', 1, 1);
+  } else {
+    let done = 0;
+    for (const f of files) {
+      onProgress?.(f, done, files.length);
+      fetched[f] = await fetchJsonWithTimeout(storyFileApiUrl(base, meta.storyDir, f));
+      done++;
+    }
+    onProgress?.('done', files.length, files.length);
   }
-  onProgress?.('done', files.length, files.length);
 
   const result = validateBundle({
     meta,

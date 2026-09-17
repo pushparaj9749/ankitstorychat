@@ -6,11 +6,28 @@
   "language": "hinglish",
   "ageRating": "12-17",
   "contentLevel": "teen",
-  "genres": ["Fantasy", "Adventure"],
-  "tags": ["fantasy", "kingdom", "quest", "magic", "desi-fantasy"],
+  "genres": [
+    "Fantasy",
+    "Adventure"
+  ],
+  "tags": [
+    "fantasy",
+    "kingdom",
+    "quest",
+    "magic",
+    "desi-fantasy"
+  ],
   "userRole": "Village teen chosen as the Mani-bearer",
   "setting": "Fantasy kingdom of Aryavarta — forests, forts and temples",
   "openingSceneId": "s1_guard",
   "tone": "Epic yet playful. Desi fantasy with humour (talking crow), courage and friendship.",
-  "safetyNotes": ["No gore.", "Battles are heroic and bloodless.", "Villain is defeated, not killed on-screen."]
+  "safetyNotes": [
+    "No gore.",
+    "Battles are heroic and bloodless.",
+    "Villain is defeated, not killed on-screen."
+  ],
+  "creator": {
+    "name": "Ankit",
+    "verified": true
+  }
 }

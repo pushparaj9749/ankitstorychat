@@ -3,7 +3,8 @@ import React, { useEffect, useState } from 'react';
 import { Alert, Image, Pressable, ScrollView, StyleSheet, Text, View } from 'react-native';
 import { LinearGradient } from 'expo-linear-gradient';
 import type { NativeStackScreenProps } from '@react-navigation/native-stack';
-import type { Playthrough, RootStackParamList, StoryBundle } from '../types';
+import type { Playthrough, RootStackParamList, StoryBundle, StoryCreator } from '../types';
+import { KISSA_OWNER_CREATOR } from '../types';
 import { useApp } from '../state/AppContext';
 import { Screen } from '../components/Screen';
 import { GradientButton } from '../components/GradientButton';
@@ -246,22 +247,6 @@ export function StoryDetail({ navigation, route }: Props) {
             />
           </View>
 
-          {activeSave ? (
-            <View style={styles.gap}>
-              <GradientButton
-                title={`▶ Continue — ${activeSave.label}`}
-                onPress={() => navigation.navigate('Chat', { playthroughId: activeSave.id })}
-              />
-            </View>
-          ) : null}
-          <View style={styles.gap}>
-            <GradientButton
-              title={activeSave ? '✨ Start new journey' : '▶ Start story'}
-              variant={activeSave ? 'ghost' : 'primary'}
-              loading={starting}
-              onPress={startNew}
-            />
-          </View>
           {saves.length > 0 ? (
             <View style={styles.gap}>
               <GradientButton
@@ -315,10 +300,106 @@ export function StoryDetail({ navigation, route }: Props) {
               </View>
             ))}
           </View>
-          <View style={{ height: SPACING.xxl }} />
+
+          <CreatorBlock creator={bundle.creator} />
+
+          <SimilarStoriesBlock storyId={storyId} navigation={navigation} />
+
+          <SectionHeader title="Refer Kissa" />
+          <Pressable
+            onPress={() => {
+              // Clipboard requires expo-clipboard; avoid adding a new dep — use Alert for now.
+              Alert.alert(
+                'Refer Kissa',
+                'Share Kissa with a friend — download the free APK from the official site and send them your favorite story. No account, no limits, no tracking.',
+              );
+            }}
+            style={[styles.referCard, { backgroundColor: theme.accentSoft, borderColor: theme.accent }]}
+          >
+            <Text style={[styles.referTitle, { color: theme.accent }]}>🎁 Invite a friend</Text>
+            <Text style={[styles.referSub, { color: theme.textDim }]}>
+              Free forever. No coins, no sign-up, no tracking.
+            </Text>
+          </Pressable>
+
+          <View style={{ height: SPACING.xxl + 80 }} />
         </View>
       </ScrollView>
+
+      {/* Fixed Chat Now button — always above the keyboard/bottom chrome. */}
+      <View style={[styles.fixedBar, { backgroundColor: theme.bgSoft, borderTopColor: theme.border }]}>
+        {activeSave ? (
+          <GradientButton title={`▶ Continue — ${activeSave.label}`} onPress={() => navigation.navigate('Chat', { playthroughId: activeSave.id })} />
+        ) : (
+          <GradientButton title="💬 Chat Now" onPress={startNew} loading={starting} disabled={starting} />
+        )}
+      </View>
     </Screen>
+  );
+}
+
+function CreatorBlock({ creator }: { creator: StoryCreator }) {
+  const { theme } = useApp();
+  const display: StoryCreator = {
+    name: (creator?.name && creator.name.trim()) || KISSA_OWNER_CREATOR.name,
+    avatar: creator?.avatar ?? null,
+    verified: creator?.verified === true,
+  };
+  return (
+    <>
+      <SectionHeader title="Story Creator" />
+      <View style={[styles.creatorCard, { backgroundColor: theme.surface, borderColor: theme.border }]}>
+        <View style={[styles.creatorAvatar, { backgroundColor: theme.primarySoft }]}>
+          <Text style={styles.creatorInitial}>{display.name[0]?.toUpperCase() ?? '?'}</Text>
+        </View>
+        <View style={{ flex: 1 }}>
+          <Text style={[styles.creatorName, { color: theme.text }]}>
+            {display.name}
+            {display.verified ? (
+              <Text style={{ color: theme.info, fontWeight: '900' }}> ✓ Verified</Text>
+            ) : null}
+          </Text>
+          <Text style={[styles.creatorSub, { color: theme.textDim }]}>
+            {display.name === KISSA_OWNER_CREATOR.name ? 'Kissa creator & curator' : 'Community storyteller'}
+          </Text>
+        </View>
+      </View>
+    </>
+  );
+}
+
+function SimilarStoriesBlock({
+  storyId,
+  navigation,
+}: {
+  storyId: string;
+  navigation: Props['navigation'];
+}) {
+  const { theme, stories } = useApp();
+  // Pick up to 3 other stories deterministically as "similar" — avoids adding
+  // a heavy recommendation engine while still showing the section.
+  const others = stories.filter((s) => s.id !== storyId).slice(0, 3);
+  if (others.length === 0) return null;
+  return (
+    <>
+      <SectionHeader title="Similar Stories" />
+      <View style={styles.similarRow}>
+        {others.map((s) => (
+          <Pressable
+            key={s.id}
+            style={[styles.similarCard, { backgroundColor: theme.surface, borderColor: theme.border }]}
+            onPress={() => navigation.push('StoryDetail', { storyId: s.id })}
+          >
+            <Text style={[styles.similarTitle, { color: theme.text }]} numberOfLines={2}>
+              {s.title}
+            </Text>
+            <Text style={[styles.similarGenre, { color: theme.accent }]} numberOfLines={1}>
+              {s.genres[0]}
+            </Text>
+          </Pressable>
+        ))}
+      </View>
+    </>
   );
 }
 
@@ -373,4 +454,47 @@ const styles = StyleSheet.create({
   tags: { flexDirection: 'row', flexWrap: 'wrap', gap: 8 },
   tag: { borderWidth: 1, borderRadius: 999, paddingHorizontal: 12, paddingVertical: 6 },
   tagText: { fontSize: FONTS.small },
+  creatorCard: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: 12,
+    borderWidth: 1,
+    borderRadius: RADIUS.lg,
+    padding: 14,
+    marginTop: 4,
+    ...SHADOWS.card,
+  },
+  creatorAvatar: {
+    width: 48,
+    height: 48,
+    borderRadius: 24,
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  creatorInitial: { color: '#fff', fontSize: 20, fontWeight: '900' },
+  creatorName: { fontSize: FONTS.body, fontWeight: '800' },
+  creatorSub: { fontSize: FONTS.small, marginTop: 2 },
+  similarRow: { flexDirection: 'row', gap: 10, marginTop: 4 },
+  similarCard: {
+    flex: 1,
+    borderWidth: 1,
+    borderRadius: RADIUS.md,
+    padding: 12,
+    minHeight: 90,
+    justifyContent: 'center',
+  },
+  similarTitle: { fontSize: FONTS.small, fontWeight: '800' },
+  similarGenre: { fontSize: FONTS.tiny, fontWeight: '700', marginTop: 4 },
+  referCard: { borderWidth: 1, borderRadius: RADIUS.lg, padding: 16, marginTop: 4, ...SHADOWS.card },
+  referTitle: { fontSize: FONTS.heading, fontWeight: '900' },
+  referSub: { fontSize: FONTS.small, marginTop: 6, lineHeight: 20 },
+  fixedBar: {
+    position: 'absolute',
+    left: 0,
+    right: 0,
+    bottom: 0,
+    borderTopWidth: StyleSheet.hairlineWidth,
+    padding: 12,
+    paddingBottom: 16,
+  },
 });
