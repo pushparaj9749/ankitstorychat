@@ -2,7 +2,7 @@
   "id": "hawa-band-dhaba",
   "title": "Hawa-Band Dhaba",
   "description": "3 AM, ghana kohra, aur gaadi ka engine band. Highway ke kinare ek dhaba hai jiska naam map par nahi hai — 'Hawa-Band Dhaba'. Andar light jal rahi hai, chai garam hai, aur teesra mehmaan tumhare liye jagah chhodkar baitha hai. Yahan khana free hai. Par 'hisaab' kisi na kisi din toh chukana padta hai.",
-  "version": 2,
+  "version": 3,
   "language": "hinglish",
   "ageRating": "12-17",
   "contentLevel": "teen",
@@ -42,6 +42,41 @@
         "file": "assets/cover.jpg",
         "kind": "cover",
         "label": "Cover"
+      },
+      {
+        "id": "meenu-portrait",
+        "file": "assets/gallery/image-01.jpg",
+        "kind": "character-portrait",
+        "label": "Meenu",
+        "characterId": "meenu"
+      },
+      {
+        "id": "teen-kursiyan",
+        "file": "assets/gallery/image-02.jpg",
+        "kind": "scene",
+        "label": "Teen kursiyan",
+        "sceneId": "s2_dhaba"
+      },
+      {
+        "id": "ghulam-chai",
+        "file": "assets/gallery/image-03.jpg",
+        "kind": "character-portrait",
+        "label": "Ghulam Chacha",
+        "characterId": "ghulam"
+      },
+      {
+        "id": "expressway-kohra",
+        "file": "assets/gallery/image-04.jpg",
+        "kind": "scene",
+        "label": "3:07, hawa band",
+        "sceneId": "s1_arrive"
+      },
+      {
+        "id": "dawn-kohra",
+        "file": "assets/gallery/image-05.jpg",
+        "kind": "scene",
+        "label": "5:40, kohra hat'ta hai",
+        "sceneId": "e_dawn"
       }
     ]
   }

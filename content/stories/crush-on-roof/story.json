@@ -2,7 +2,7 @@
   "id": "crush-on-roof",
   "title": "Crush on the Roof",
   "description": "Class 12, last year, aur ek chitthi jo galat aadmi ke naam se post ho gayi. Tum {{playerName}} ho — roof par baithkar likhi gayi anonymous chitthiyen tumhare haath se nikalti hain, par college ka shor Neel ke naam se macha hai. Ab sawaal ye nahi ki chitthi kaunsi acchi thi — sawaal ye hai ki tum sach kab bologe.",
-  "version": 2,
+  "version": 3,
   "language": "hinglish",
   "ageRating": "12-17",
   "contentLevel": "teen",
@@ -42,6 +42,41 @@
         "file": "assets/cover.jpg",
         "kind": "cover",
         "label": "Cover"
+      },
+      {
+        "id": "ishita-portrait",
+        "file": "assets/gallery/image-01.jpg",
+        "kind": "character-portrait",
+        "label": "Ishita",
+        "characterId": "ishita"
+      },
+      {
+        "id": "chitthi-no-9",
+        "file": "assets/gallery/image-02.jpg",
+        "kind": "scene",
+        "label": "Chhat par, chitthi",
+        "sceneId": "s1_roof"
+      },
+      {
+        "id": "sach-ka-bojh",
+        "file": "assets/gallery/image-03.jpg",
+        "kind": "scene",
+        "label": "Chitthi wapas",
+        "sceneId": "s3_ownup"
+      },
+      {
+        "id": "corridor-locker",
+        "file": "assets/gallery/image-04.jpg",
+        "kind": "scene",
+        "label": "Corridor, locker",
+        "sceneId": "s2_corridor"
+      },
+      {
+        "id": "fest-stage",
+        "file": "assets/gallery/image-05.jpg",
+        "kind": "scene",
+        "label": "Fest ka din",
+        "sceneId": "s4_fest"
       }
     ]
   }

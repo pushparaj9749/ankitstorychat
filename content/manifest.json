@@ -1,7 +1,7 @@
 {
-  "contentVersion": 11,
+  "contentVersion": 12,
   "minAppVersion": "1.0.0",
-  "updatedAt": "2026-09-17T15:10:00.000Z",
+  "updatedAt": "2026-09-17T16:40:00.000Z",
   "stories": [
     {
       "id": "goddess-who-chose-me",
@@ -525,7 +525,7 @@
       "ageRating": "12-17",
       "contentLevel": "teen",
       "language": "hinglish",
-      "version": 2,
+      "version": 3,
       "coverBundled": "hawa-band-dhaba",
       "coverUrl": "stories/hawa-band-dhaba/assets/cover.jpg",
       "accentColor": "#22D3EE",
@@ -536,7 +536,7 @@
       "isNew": true,
       "popularity": 99,
       "storyDir": "hawa-band-dhaba",
-      "updatedAt": "2026-09-16T07:12:02.812Z",
+      "updatedAt": "2026-09-17T16:40:00.000Z",
       "creator": {
         "name": "Ankit",
         "avatar": null,
@@ -569,7 +569,7 @@
       "ageRating": "12-17",
       "contentLevel": "teen",
       "language": "hinglish",
-      "version": 2,
+      "version": 3,
       "coverBundled": "crush-on-roof",
       "coverUrl": "stories/crush-on-roof/assets/cover.jpg",
       "accentColor": "#F59E0B",
@@ -580,7 +580,7 @@
       "isNew": true,
       "popularity": 96,
       "storyDir": "crush-on-roof",
-      "updatedAt": "2026-09-16T07:12:02.814Z",
+      "updatedAt": "2026-09-17T16:40:00.000Z",
       "creator": {
         "name": "Ankit",
         "avatar": null,
