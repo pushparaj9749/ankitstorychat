@@ -1,7 +1,7 @@
 {
-  "contentVersion": 9,
+  "contentVersion": 10,
   "minAppVersion": "1.0.0",
-  "updatedAt": "2026-09-17T13:40:00.000Z",
+  "updatedAt": "2026-09-17T14:20:00.000Z",
   "stories": [
     {
       "id": "goddess-who-chose-me",
@@ -302,7 +302,7 @@
       "ageRating": "12-17",
       "contentLevel": "teen",
       "language": "hinglish",
-      "version": 2,
+      "version": 3,
       "coverUrl": "stories/queen-beneath-the-moon/assets/cover.jpg",
       "accentColor": "#818CF8",
       "userRole": "{{playerName}} — Chandanpur gaon ka aam ladka, jisne ek ghayal ajnabi ko panaah di",
@@ -312,7 +312,7 @@
       "isNew": true,
       "popularity": 94,
       "storyDir": "queen-beneath-the-moon",
-      "updatedAt": "2026-09-16T07:12:02.804Z",
+      "updatedAt": "2026-09-17T14:20:00.000Z",
       "creator": {
         "name": "Ankit",
         "avatar": null,
