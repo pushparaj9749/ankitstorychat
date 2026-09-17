@@ -4,10 +4,12 @@
  * Public endpoints (no auth):
  *   POST /api/submit/idea
  *   POST /api/submit/story
+ *   POST /api/submit/media
  *   GET  /api/submit/limit
  *
  * Admin endpoints (Bearer ADMIN_TOKEN):
  *   GET  /api/admin/pending
+ *   GET  /api/admin/media/:mediaId
  *   POST /api/admin/idea/:id/(accept|reject)
  *   POST /api/admin/story/:id/(accept|reject)
  *
@@ -186,6 +188,35 @@ export async function submitStory(input: StoryInput, apiBase?: string): Promise<
   return request<SubmitResponse>('submit/story', { method: 'POST', body: serialized }, { apiBase });
 }
 
+/** Result of a server-validated image upload. */
+export interface UploadedMedia {
+  mediaId: string;
+  /** Safe reference to embed in the story's media block: `media/<mediaId>`. */
+  ref: string;
+  mime: string;
+  width: number;
+  height: number;
+}
+
+/**
+ * Upload a cover / gallery image (base64). The server validates the file
+ * signature, size and dimensions and returns a safe `media/<id>` reference.
+ * Uploads are free (they do not consume the 50/24h submission limit) and
+ * self-expire after 48h if never used in a submission.
+ */
+export async function uploadMedia(
+  kind: 'cover' | 'gallery',
+  base64: string,
+  apiBase?: string,
+): Promise<UploadedMedia> {
+  const body = JSON.stringify({ kind, image: base64 });
+  const res = await request<UploadedMedia & { ok: boolean }>('submit/media', {
+    method: 'POST',
+    body,
+  }, { apiBase });
+  return res;
+}
+
 /* ---------------- admin ---------------- */
 
 export async function listPendingAdmin(apiBase?: string): Promise<PendingListResponse> {
@@ -206,6 +237,36 @@ export async function acceptStoryAdmin(id: string, apiBase?: string): Promise<{ 
 
 export async function rejectStoryAdmin(id: string, apiBase?: string): Promise<{ ok: boolean }> {
   return request<{ ok: boolean }>(`admin/story/${encodeURIComponent(id)}/reject`, { method: 'POST' }, { apiBase, admin: true });
+}
+
+/**
+ * Fetch a PENDING submission's uploaded image as a `data:` URI for the admin
+ * preview. Uses the admin token (the image is private until accepted).
+ * Returns null when the media no longer exists (expired).
+ */
+export async function fetchAdminMediaAsDataUri(
+  mediaId: string,
+  apiBase?: string,
+): Promise<string | null> {
+  const base = effectiveContentApiBaseUrl(apiBase);
+  const url = contentApiUrl(base, `admin/media/${encodeURIComponent(mediaId)}`);
+  const token = await getAdminToken();
+  if (!token) return null;
+  try {
+    const res = await fetch(url, { headers: { Authorization: `Bearer ${token}`, Accept: 'image/*' } });
+    if (!res.ok) return null;
+    const buf = await res.arrayBuffer();
+    const mime = res.headers.get('Content-Type') ?? 'image/jpeg';
+    const bytes = new Uint8Array(buf);
+    let binary = '';
+    const CHUNK = 0x8000;
+    for (let i = 0; i < bytes.length; i += CHUNK) {
+      binary += String.fromCharCode(...bytes.subarray(i, i + CHUNK));
+    }
+    return `data:${mime};base64,${btoa(binary)}`;
+  } catch {
+    return null;
+  }
 }
 
 export { SubmissionApiError };

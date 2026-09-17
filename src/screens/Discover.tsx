@@ -80,7 +80,7 @@ export function Discover({ navigation, route }: Props) {
         <EmptyState
           emoji="🔎"
           title="No stories found"
-          subtitle="Try another search, or check Content Updates for new stories."
+          subtitle="Try another search — new stories arrive in the catalog automatically."
         />
       ) : (
         <FlatList

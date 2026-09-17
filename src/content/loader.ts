@@ -60,6 +60,7 @@ export {
   defaultContentApiBaseUrl,
   effectiveContentApiBaseUrl,
   manifestApiUrl,
+  mediaApiUrl,
   storyFileApiUrl,
   storyPackageApiUrl,
 } from './api';

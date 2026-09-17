@@ -34,6 +34,18 @@
   ],
   "creator": {
     "name": "Ankit",
+    "avatar": null,
     "verified": true
+  },
+  "media": {
+    "cover": "assets/cover.jpg",
+    "gallery": [
+      {
+        "id": "cover",
+        "file": "assets/cover.jpg",
+        "kind": "cover",
+        "label": "Cover"
+      }
+    ]
   }
 }

@@ -39,6 +39,9 @@ if (existsSync(dir)) {
 }
 mkdirSync(join(dir, 'assets'), { recursive: true });
 
+// Every story created by the Kissa owner is attributed to Ankit (verified).
+// Creator attribution is content metadata — it is NOT the player name
+// ({{playerName}} is a completely separate system).
 const story = {
   id,
   title,
@@ -54,6 +57,15 @@ const story = {
   openingSceneId: 's1_start',
   tone: 'TODO: tone guidance for the narrator',
   safetyNotes: age === '12-17' ? ['Teen-safe: no gore, hopeful overall.'] : ['Mature themes handled with gravity.'],
+  creator: { name: 'Ankit', avatar: null, verified: true },
+  // Media Library: the cover is referenced by its safe in-package path.
+  // Add character-portrait / scene entries to `gallery` as artwork exists.
+  media: {
+    cover: 'assets/cover.jpg',
+    gallery: [
+      { id: 'cover', file: 'assets/cover.jpg', kind: 'cover', label: 'Cover' },
+    ],
+  },
 };
 
 const characters = {
@@ -143,7 +155,7 @@ for (const [file, obj] of [
 }
 writeFileSync(
   join(dir, 'assets', 'README.txt'),
-  'Put cover.png here (900x1200 recommended); the manifest coverUrl already points at it (relative API path).\n',
+  'Put cover.jpg here (900x1200 recommended); the manifest coverUrl + story media already point at it (relative API path).\n',
 );
 
 // Manifest entry
@@ -167,7 +179,7 @@ manifest.stories.push({
   contentLevel,
   language: 'hinglish',
   version: 1,
-  coverUrl: `stories/${id}/assets/cover.png`,
+  coverUrl: `stories/${id}/assets/cover.jpg`,
   accentColor: '#8B5CF6',
   userRole: story.userRole,
   setting: story.setting,
@@ -181,4 +193,4 @@ manifest.stories.push({
 writeFileSync(manifestPath, JSON.stringify(manifest, null, 2) + '\n');
 
 console.log(`Created ${dir}`);
-console.log('Next: edit the TODOs, add assets/cover.png, run npm run content:validate');
+console.log('Next: edit the TODOs, add assets/cover.jpg, run npm run content:validate');

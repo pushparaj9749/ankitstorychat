@@ -1,18 +1,50 @@
-/** Story detail: cover, meta, characters, start/continue, saves, download. AI-only now. */
+/**
+ * Story detail — the canonical page structure:
+ *   1. Hero Cover
+ *   2. Story Tags (genres, age badge, #tags)
+ *   3. About Story (title, tagline, description, quick facts)
+ *   4. Media Library (cover + character portraits + scene stills + more)
+ *   5. Story Creator
+ *   6. Similar Stories
+ *   7. Fixed "Chat Now" bar
+ *   8. Refer Kissa
+ *
+ * Deliberately NOT present: comments, rating statistics, chat statistics,
+ * external Share buttons, Content Updates. Media is rendered from the story
+ * package's `media` block (safe, allowlisted asset refs) via the existing
+ * story API — no separate media architecture.
+ */
 import React, { useEffect, useState } from 'react';
-import { Alert, Image, Pressable, ScrollView, StyleSheet, Text, View } from 'react-native';
+import {
+  ActivityIndicator,
+  Alert,
+  Image,
+  Modal,
+  Pressable,
+  ScrollView,
+  StyleSheet,
+  Text,
+  View,
+} from 'react-native';
 import { LinearGradient } from 'expo-linear-gradient';
 import type { NativeStackScreenProps } from '@react-navigation/native-stack';
-import type { Playthrough, RootStackParamList, StoryBundle, StoryCreator } from '../types';
+import type {
+  Playthrough,
+  RootStackParamList,
+  StoryBundle,
+  StoryCreator,
+  StoryMediaItem,
+} from '../types';
 import { KISSA_OWNER_CREATOR } from '../types';
 import { useApp } from '../state/AppContext';
 import { Screen } from '../components/Screen';
 import { GradientButton } from '../components/GradientButton';
-import { AgeBadge, Avatar, GenreChip, SectionHeader } from '../components/bits';
-import { EmptyState, ErrorState, LoadingState, OfflineState } from '../components/states';
+import { AgeBadge, GenreChip, SectionHeader } from '../components/bits';
+import { ErrorState, LoadingState, OfflineState } from '../components/states';
 import {
   getBundledCoverSource,
   getBundle,
+  mediaApiUrl,
   effectiveContentApiBaseUrl,
   StoryContentError,
 } from '../content/loader';
@@ -23,7 +55,7 @@ import { createPlaythrough, playthroughLabel } from '../lib/playthrough';
 import { seedMemoriesIfEmpty } from '../lib/memory';
 import { insertMessage } from '../lib/db';
 import { FONTS, RADIUS, SHADOWS, SPACING, TYPE } from '../theme';
-import { nowIso, uid } from '../lib/utils';
+import { uid } from '../lib/utils';
 
 type Props = NativeStackScreenProps<RootStackParamList, 'StoryDetail'>;
 
@@ -39,7 +71,6 @@ export function StoryDetail({ navigation, route }: Props) {
     activeProvider,
     providersWithKeys,
     refreshRecent,
-    refreshStories,
   } = useApp();
 
   const [bundle, setBundle] = useState<StoryBundle | null>(null);
@@ -202,6 +233,7 @@ export function StoryDetail({ navigation, route }: Props) {
   return (
     <Screen padded={false}>
       <ScrollView showsVerticalScrollIndicator={false}>
+        {/* 1. Hero cover */}
         <View style={styles.coverWrap}>
           {cover ? (
             <Image source={cover} style={styles.cover} resizeMode="cover" />
@@ -226,21 +258,31 @@ export function StoryDetail({ navigation, route }: Props) {
         </View>
 
         <View style={styles.body}>
+          {/* 2. Story tags */}
           <View style={styles.metaRow}>
             {meta.genres.map((g) => (
               <GenreChip key={g} genre={g} />
             ))}
             <AgeBadge ageRating={meta.ageRating} />
           </View>
+          {meta.tags.length > 0 ? (
+            <View style={[styles.tags, { marginBottom: 10 }]}>
+              {meta.tags.slice(0, 8).map((t) => (
+                <View key={t} style={[styles.tag, { backgroundColor: theme.surface, borderColor: theme.border }]}>
+                  <Text style={[styles.tagText, { color: theme.textDim }]}>#{t}</Text>
+                </View>
+              ))}
+            </View>
+          ) : null}
 
+          {/* 3. About story */}
           <Text style={[styles.title, { color: theme.text }]}>{meta.title}</Text>
           <Text style={[styles.tagline, { color: theme.accent }]}>{forPlayer(meta.tagline)}</Text>
           <Text style={[styles.desc, { color: theme.textDim }]}>{forPlayer(meta.description)}</Text>
 
-          <View style={[styles.infoBox, { backgroundColor: theme.surface, borderColor: theme.border }]}>
+          <View style={[styles.infoBox, { backgroundColor: theme.surface, borderColor: theme.border }]} >
             <InfoRow label="🎭 You play" value={forPlayer(bundle.story.userRole ?? meta.userRole)} />
             <InfoRow label="📍 Setting" value={meta.setting} />
-            <InfoRow label="⏱ Length" value={`~${meta.estimatedMinutes} min`} />
             <InfoRow
               label="💬 Mode"
               value={hasAI ? `AI • ${activeProvider!.model}` : 'AI Required'}
@@ -278,37 +320,19 @@ export function StoryDetail({ navigation, route }: Props) {
             </Pressable>
           ) : null}
 
-          <SectionHeader title="Characters" />
-          {bundle.characters.characters.map((c) => (
-            <View key={c.id} style={[styles.char, { backgroundColor: theme.surface, borderColor: theme.border }]}>
-              <Avatar id={c.id} name={c.name} size={46} />
-              <View style={styles.charBody}>
-                <Text style={[styles.charName, { color: theme.text }]}>{c.name}</Text>
-                <Text style={[styles.charRole, { color: theme.accent }]}>{c.role}</Text>
-                <Text style={[styles.charLine, { color: theme.textDim }]} numberOfLines={2}>
-                  “{c.sampleLine}”
-                </Text>
-              </View>
-            </View>
-          ))}
+          {/* 4. Media Library */}
+          <MediaLibrary bundle={bundle} apiBase={apiBase} />
 
-          <SectionHeader title="Tags" />
-          <View style={styles.tags}>
-            {meta.tags.map((t) => (
-              <View key={t} style={[styles.tag, { backgroundColor: theme.surface, borderColor: theme.border }]}>
-                <Text style={[styles.tagText, { color: theme.textDim }]}>#{t}</Text>
-              </View>
-            ))}
-          </View>
-
+          {/* 5. Story Creator */}
           <CreatorBlock creator={bundle.creator} />
 
+          {/* 6. Similar Stories */}
           <SimilarStoriesBlock storyId={storyId} navigation={navigation} />
 
+          {/* 8. Refer Kissa (in-app invite only — no external share) */}
           <SectionHeader title="Refer Kissa" />
           <Pressable
             onPress={() => {
-              // Clipboard requires expo-clipboard; avoid adding a new dep — use Alert for now.
               Alert.alert(
                 'Refer Kissa',
                 'Share Kissa with a friend — download the free APK from the official site and send them your favorite story. No account, no limits, no tracking.',
@@ -326,7 +350,7 @@ export function StoryDetail({ navigation, route }: Props) {
         </View>
       </ScrollView>
 
-      {/* Fixed Chat Now button — always above the keyboard/bottom chrome. */}
+      {/* 7. Fixed Chat Now button — always above the keyboard/bottom chrome. */}
       <View style={[styles.fixedBar, { backgroundColor: theme.bgSoft, borderTopColor: theme.border }]}>
         {activeSave ? (
           <GradientButton title={`▶ Continue — ${activeSave.label}`} onPress={() => navigation.navigate('Chat', { playthroughId: activeSave.id })} />
@@ -337,6 +361,192 @@ export function StoryDetail({ navigation, route }: Props) {
     </Screen>
   );
 }
+
+/* ------------------------------------------------------------------ */
+/* Media Library                                                       */
+/* ------------------------------------------------------------------ */
+
+const KIND_BADGE: Record<StoryMediaItem['kind'], string> = {
+  cover: 'COVER',
+  'character-portrait': 'PORTRAIT',
+  scene: 'SCENE',
+  other: 'MEDIA',
+};
+
+function mediaLabel(item: StoryMediaItem, characterName?: string): string {
+  if (item.kind === 'cover') return 'Cover';
+  if (item.kind === 'character-portrait') return characterName ?? 'Character portrait';
+  if (item.kind === 'scene') return 'Scene';
+  return item.label || 'Story media';
+}
+
+function MediaLibrary({ bundle, apiBase }: { bundle: StoryBundle; apiBase: string }) {
+  const { theme } = useApp();
+  const [lightbox, setLightbox] = useState<number | null>(null);
+
+  const media = bundle.story.media;
+  if (!media || !Array.isArray(media.gallery) || media.gallery.length === 0) return null;
+  const items = media.gallery;
+  const characterName = (id?: string) =>
+    id ? bundle.characters.characters.find((c) => c.id === id)?.name : undefined;
+  const urlFor = (it: StoryMediaItem) =>
+    mediaApiUrl(apiBase, bundle.meta.storyDir, it.file);
+
+  return (
+    <>
+      <SectionHeader title={`Media Library (${items.length})`} />
+      <View style={styles.mediaGrid}>
+        {items.map((it, i) => (
+          <MediaThumb
+            key={`${it.id}-${i}`}
+            item={it}
+            index={i}
+            url={urlFor(it)}
+            label={mediaLabel(it, characterName(it.characterId))}
+            onOpen={() => setLightbox(i)}
+          />
+        ))}
+      </View>
+
+      {/* Fullscreen lightbox with prev/next + loading + broken-image fallback. */}
+      <Modal visible={lightbox !== null} animationType="fade" transparent onRequestClose={() => setLightbox(null)}>
+        <View style={styles.lightbox}>
+          {lightbox !== null ? (
+            <LightboxImage
+              key={`${items[lightbox].file}-${lightbox}`}
+              url={urlFor(items[lightbox])}
+              accent={theme.accent}
+            />
+          ) : null}
+          {lightbox !== null ? (
+            <Text style={styles.lightboxLabel} numberOfLines={1}>
+              {mediaLabel(items[lightbox], characterName(items[lightbox].characterId))}
+              {'  •  '}{lightbox + 1}/{items.length}
+            </Text>
+          ) : null}
+          {items.length > 1 && lightbox !== null ? (
+            <>
+              <Pressable
+                style={[styles.lightboxNav, { left: 10 }]}
+                onPress={() => setLightbox((lightbox + items.length - 1) % items.length)}
+                accessibilityLabel="Previous image"
+              >
+                <Text style={styles.lightboxNavText}>‹</Text>
+              </Pressable>
+              <Pressable
+                style={[styles.lightboxNav, { right: 10 }]}
+                onPress={() => setLightbox((lightbox + 1) % items.length)}
+                accessibilityLabel="Next image"
+              >
+                <Text style={styles.lightboxNavText}>›</Text>
+              </Pressable>
+            </>
+          ) : null}
+          <Pressable
+            style={styles.lightboxClose}
+            onPress={() => setLightbox(null)}
+            accessibilityLabel="Close preview"
+          >
+            <Text style={styles.lightboxCloseText}>✕</Text>
+          </Pressable>
+        </View>
+      </Modal>
+    </>
+  );
+}
+
+function MediaThumb({
+  item,
+  index,
+  url,
+  label,
+  onOpen,
+}: {
+  item: StoryMediaItem;
+  index: number;
+  url: string;
+  label: string;
+  onOpen: () => void;
+}) {
+  const { theme } = useApp();
+  const [loaded, setLoaded] = useState(false);
+  const [failed, setFailed] = useState(false);
+
+  return (
+    <Pressable
+      onPress={onOpen}
+      style={[styles.mediaTile, { backgroundColor: theme.bgSoft, borderColor: theme.border }]}
+      accessibilityLabel={`Open ${label}`}
+    >
+      {failed ? (
+        <View style={[styles.mediaFallback, { backgroundColor: theme.surface }]}>
+          <Text style={styles.mediaFallbackEmoji}>🖼️</Text>
+          <Text style={[styles.mediaFallbackText, { color: theme.textFaint }]} numberOfLines={1}>
+            {label}
+          </Text>
+        </View>
+      ) : (
+        <>
+          {!loaded ? (
+            <View style={[styles.mediaFallback, { backgroundColor: theme.surface }]}>
+              <ActivityIndicator size="small" color={theme.accent} />
+            </View>
+          ) : null}
+          <Image
+            source={{ uri: url }}
+            style={[styles.mediaImg, { opacity: loaded ? 1 : 0 }]}
+            resizeMode="cover"
+            onLoad={() => setLoaded(true)}
+            onError={() => setFailed(true)}
+          />
+        </>
+      )}
+      <View style={[styles.mediaBadge, { backgroundColor: 'rgba(0,0,0,0.62)' }]}>
+        <Text style={[styles.mediaBadgeText, { color: theme.accent }]}>{KIND_BADGE[item.kind]}</Text>
+      </View>
+      <LinearGradient
+        colors={['transparent', 'rgba(0,0,0,0.72)']}
+        style={styles.mediaLabelShade}
+      />
+      <Text style={[styles.mediaLabel, { color: '#fff' }]} numberOfLines={1}>
+        {label}
+        {item.kind === 'character-portrait' ? '' : ` • ${index + 1}`}
+      </Text>
+    </Pressable>
+  );
+}
+
+function LightboxImage({ url, accent }: { url: string; accent: string }) {
+  const [loaded, setLoaded] = useState(false);
+  const [failed, setFailed] = useState(false);
+  return (
+    <View style={styles.lightboxImageWrap}>
+      {failed ? (
+        <View style={styles.lightboxFallback}>
+          <Text style={styles.lightboxFallbackEmoji}>🖼️</Text>
+          <Text style={[styles.lightboxFallbackText, { color: '#B9AEE0' }]}>
+            Image could not be loaded.
+          </Text>
+        </View>
+      ) : (
+        <>
+          {!loaded ? <ActivityIndicator size="large" color={accent} /> : null}
+          <Image
+            source={{ uri: url }}
+            style={[styles.lightboxImage, { opacity: loaded ? 1 : 0 }]}
+            resizeMode="contain"
+            onLoad={() => setLoaded(true)}
+            onError={() => setFailed(true)}
+          />
+        </>
+      )}
+    </View>
+  );
+}
+
+/* ------------------------------------------------------------------ */
+/* Creator / similar / info                                            */
+/* ------------------------------------------------------------------ */
 
 function CreatorBlock({ creator }: { creator: StoryCreator }) {
   const { theme } = useApp();
@@ -429,9 +639,6 @@ const styles = StyleSheet.create({
   favText: { fontSize: 26 },
   body: { paddingHorizontal: 16, marginTop: -30 },
   metaRow: { flexDirection: 'row', flexWrap: 'wrap', gap: 8, marginBottom: 12 },
-  dlBadge: { paddingHorizontal: 10, paddingVertical: 4, borderRadius: 999 },
-  dlText: { fontSize: 11, fontWeight: '800' },
-  step: { fontSize: FONTS.small, marginTop: 8, textAlign: 'center' },
   title: { ...TYPE.display, lineHeight: TYPE.display.fontSize + 6 },
   tagline: { fontSize: FONTS.body, fontWeight: '600', marginTop: 5, letterSpacing: 0.1 },
   desc: { fontSize: FONTS.body, lineHeight: 24, marginTop: 10 },
@@ -439,21 +646,57 @@ const styles = StyleSheet.create({
   gap: { marginTop: 12 },
   aiHint: { borderWidth: 1, borderRadius: RADIUS.md, padding: 12, marginTop: 12 },
   aiHintText: { fontSize: FONTS.small, lineHeight: 20 },
-  char: {
-    flexDirection: 'row',
-    gap: 12,
-    borderWidth: 1,
-    borderRadius: RADIUS.md,
-    padding: 12,
-    marginBottom: 10,
-  },
-  charBody: { flex: 1 },
-  charName: { fontSize: FONTS.body, fontWeight: '800' },
-  charRole: { fontSize: FONTS.tiny, fontWeight: '700', marginTop: 1 },
-  charLine: { fontSize: FONTS.small, fontStyle: 'italic', marginTop: 4 },
   tags: { flexDirection: 'row', flexWrap: 'wrap', gap: 8 },
   tag: { borderWidth: 1, borderRadius: 999, paddingHorizontal: 12, paddingVertical: 6 },
   tagText: { fontSize: FONTS.small },
+  /* ---------------- media library ---------------- */
+  mediaGrid: { flexDirection: 'row', flexWrap: 'wrap', gap: 10, marginTop: 4 },
+  mediaTile: {
+    width: '47%',
+    aspectRatio: 3 / 4,
+    borderRadius: RADIUS.md,
+    borderWidth: 1,
+    overflow: 'hidden',
+  },
+  mediaImg: { width: '100%', height: '100%' },
+  mediaBadge: { position: 'absolute', top: 8, left: 8, borderRadius: 999, paddingHorizontal: 8, paddingVertical: 3 },
+  mediaBadgeText: { fontSize: 9, fontWeight: '900', letterSpacing: 0.6 },
+  mediaLabelShade: { position: 'absolute', left: 0, right: 0, bottom: 0, height: 44 },
+  mediaLabel: { position: 'absolute', left: 10, right: 10, bottom: 8, fontSize: FONTS.small, fontWeight: '800' },
+  mediaFallback: { ...StyleSheet.absoluteFill, alignItems: 'center', justifyContent: 'center', gap: 6, padding: 10 },
+  mediaFallbackEmoji: { fontSize: 26 },
+  mediaFallbackText: { fontSize: 11, fontWeight: '700' },
+  lightbox: { flex: 1, backgroundColor: 'rgba(0,0,0,0.96)', alignItems: 'center', justifyContent: 'center' },
+  lightboxImageWrap: { width: '100%', height: '78%', alignItems: 'center', justifyContent: 'center' },
+  lightboxImage: { width: '100%', height: '100%' },
+  lightboxLabel: { color: '#F5F1FF', fontSize: FONTS.body, fontWeight: '700', marginTop: 10, paddingHorizontal: 24 },
+  lightboxNav: {
+    position: 'absolute',
+    top: '44%',
+    width: 48,
+    height: 48,
+    borderRadius: 24,
+    backgroundColor: 'rgba(255,255,255,0.10)',
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  lightboxNavText: { color: '#fff', fontSize: 30, fontWeight: '300', lineHeight: 34 },
+  lightboxClose: {
+    position: 'absolute',
+    top: 48,
+    right: 16,
+    width: 40,
+    height: 40,
+    borderRadius: 20,
+    backgroundColor: 'rgba(255,255,255,0.12)',
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  lightboxCloseText: { color: '#fff', fontSize: 16, fontWeight: '800' },
+  lightboxFallback: { alignItems: 'center', justifyContent: 'center', gap: 10 },
+  lightboxFallbackEmoji: { fontSize: 40 },
+  lightboxFallbackText: { fontSize: FONTS.small, fontWeight: '700' },
+  /* ---------------- creator / similar / refer ---------------- */
   creatorCard: {
     flexDirection: 'row',
     alignItems: 'center',
@@ -464,25 +707,12 @@ const styles = StyleSheet.create({
     marginTop: 4,
     ...SHADOWS.card,
   },
-  creatorAvatar: {
-    width: 48,
-    height: 48,
-    borderRadius: 24,
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
+  creatorAvatar: { width: 48, height: 48, borderRadius: 24, alignItems: 'center', justifyContent: 'center' },
   creatorInitial: { color: '#fff', fontSize: 20, fontWeight: '900' },
   creatorName: { fontSize: FONTS.body, fontWeight: '800' },
   creatorSub: { fontSize: FONTS.small, marginTop: 2 },
   similarRow: { flexDirection: 'row', gap: 10, marginTop: 4 },
-  similarCard: {
-    flex: 1,
-    borderWidth: 1,
-    borderRadius: RADIUS.md,
-    padding: 12,
-    minHeight: 90,
-    justifyContent: 'center',
-  },
+  similarCard: { flex: 1, borderWidth: 1, borderRadius: RADIUS.md, padding: 12, minHeight: 90, justifyContent: 'center' },
   similarTitle: { fontSize: FONTS.small, fontWeight: '800' },
   similarGenre: { fontSize: FONTS.tiny, fontWeight: '700', marginTop: 4 },
   referCard: { borderWidth: 1, borderRadius: RADIUS.lg, padding: 16, marginTop: 4, ...SHADOWS.card },

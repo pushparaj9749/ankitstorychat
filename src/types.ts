@@ -168,6 +168,56 @@ export interface ContentManifest {
 /* Story package files                                                 */
 /* ------------------------------------------------------------------ */
 
+/* ------------------------------------------------------------------ */
+/* Story media (Media Library)                                          */
+/* ------------------------------------------------------------------ */
+
+/** What a gallery image depicts. */
+export type StoryMediaKind = 'cover' | 'character-portrait' | 'scene' | 'other';
+
+/**
+ * One entry in a story's Media Library.
+ *
+ * `file` is a SAFE, allowlisted relative asset path — never an absolute
+ * path, never a URL. The app resolves it against the story API
+ * (`stories/<storyDir>/<file>`), and the Worker only ever serves the exact
+ * allowlisted shapes below, so a story cannot point at another story's
+ * files or at arbitrary server paths.
+ *
+ * Two legal shapes exist:
+ *   - published content:  `assets/cover.jpg|png|webp`,
+ *                         `assets/gallery/image-01.jpg|png|webp` … `image-08`
+ *   - pending submissions: `media/<mediaId>` — a server-generated id returned
+ *     by the upload endpoint; the Worker rewrites these to published shapes
+ *     when an admin accepts & publishes the story.
+ */
+export interface StoryMediaItem {
+  /** Stable id, `^[a-z0-9][a-z0-9-]{0,31}$`. */
+  id: string;
+  /** Safe relative asset reference (see above). */
+  file: string;
+  /** What the image is. */
+  kind: StoryMediaKind;
+  /** Optional display label (sanitised, max 80 chars). */
+  label?: string;
+  /** Optional link to a character id (character portraits). */
+  characterId?: string;
+  /** Optional link to a scene id (scene stills). */
+  sceneId?: string;
+}
+
+/**
+ * The story's Media Library metadata. The cover entry must be part of
+ * `gallery` (the gallery always includes the cover), so the detail screen
+ * renders everything from one ordered list.
+ */
+export interface StoryMedia {
+  /** Safe reference to the cover image (required for published stories). */
+  cover: string;
+  /** Ordered gallery (cover first). Max 8 entries. */
+  gallery: StoryMediaItem[];
+}
+
 export interface StoryFile {
   id: string;
   title: string;
@@ -186,6 +236,8 @@ export interface StoryFile {
   safetyNotes: string[];
   /** Story creator (defaults to Ankit for owner-produced content). */
   creator?: StoryCreator;
+  /** Media Library: cover + gallery (character portraits, scene stills…). */
+  media?: StoryMedia;
 }
 
 export interface StoryCharacter {
@@ -550,7 +602,6 @@ export type RootStackParamList = {
   Terms: undefined;
   Privacy: undefined;
   About: undefined;
-  ContentUpdates: undefined;
   SubmitStory: { mode?: 'idea' | 'story' };
   SubmissionSuccess: { id: string; type: 'idea' | 'story'; creatorName: string; resetsAt: number };
   MySubmissions: undefined;

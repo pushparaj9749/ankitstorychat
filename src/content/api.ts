@@ -61,3 +61,13 @@ export function storyPackageApiUrl(base: string, storyDir: string): string {
 export function coverApiUrl(base: string, coverUrl: string): string {
   return contentApiUrl(base, coverUrl);
 }
+
+/**
+ * Resolve a story Media Library asset (cover / gallery entry) to its API URL.
+ * `file` is a safe, allowlisted relative path from the story package
+ * (e.g. `assets/cover.jpg`, `assets/gallery/image-01.jpg`) — the Worker only
+ * serves exactly those shapes, for both bundled and community stories.
+ */
+export function mediaApiUrl(base: string, storyDir: string, file: string): string {
+  return contentApiUrl(base, `stories/${storyDir}/${file}`);
+}

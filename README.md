@@ -14,19 +14,26 @@ moves the tale forward — with memory, relationships, branching, and multiple e
 ## ✨ Highlights
 
 - **100% local-first** — profile, chats, memories, saves, favorites, settings on-device (SQLite + SecureStore). No login, no cloud user DB.
-- **22 original Hinglish stories** (19 teen-safe, 3 mature) with scenes, choices, branching, endings — including 10 ongoing "endless" romance-fantasy sagas.
-- **New stories arrive without an app update** — `content/manifest.json` v3 added 5 full story packs
-  (Hawa-Band Dhaba, Crush on the Roof, Pani @ 72, Gully Final, Night Courier); existing installs get them
-  from **Settings → Content Updates**, or straight from the story page ("Download" button).
+- **32 original Hinglish stories** (23 teen-safe, 9 mature) with scenes, choices, branching, endings — including 20 ongoing "endless" romance-fantasy sagas.
+- **New stories arrive without an app update** — new packs land in `content/manifest.json`
+  (`contentVersion`), and existing installs pick them up automatically from the live story API
+  (or straight from a story's page via its in-place **Download** button).
 - **BYO AI** — configure your own OpenAI-compatible provider (OpenAI, OpenRouter, Groq, Together, custom). Key stays in device keystore.
 - **APP LIMIT = NONE** — the app never caps chat. Provider quotas are your provider's.
 - **Offline Story Mode** — fully playable scripted stories with zero network and zero key.
 - **Age-safe catalog** — 12–17 users get a restricted catalog enforced in app logic (home, search, recommendations, downloads, direct opens).
 - **Story API content system** — new stories arrive as JSON packages from
   `https://beyondredeye.site/api` (Cloudflare Worker), no app rebuild and no GitHub
-  access from the app. Download them from **Settings → Content Updates**, or straight
-  from a story's page (an in-place **Download** button appears for not-yet-installed
-  stories).
+  access from the app. The app auto-discovers newer packs on launch (Settings
+  "New story alerts"), and each story page shows an in-place **Download** button
+  for packs not yet on the device.
+- **Story submissions + Media Gallery** — readers can **💡 Suggest an Idea** or **📖
+  Submit a Complete Story** (form or JSON) from Settings, with a polished cover/gallery
+  uploader. Every submission is **admin-reviewed and never auto-published**, gated by a
+  global 50-submissions/24h limit and a 24h expiry. Complete stories must ship a **Media
+  Library** (cover + gallery, character portraits, scenes); the story detail page renders
+  it as a responsive, lazy-loading gallery with a full-screen lightbox. All 32 shipped
+  stories are credited to **Ankit (verified)** with their real artwork in the gallery.
 - **Player-name interpolation** — story text uses `{{playerName}}`, resolved at
   runtime to the locally stored nickname in narration, the pre-chat introduction,
   offline mode and AI prompts. Character names are never replaced (e.g. *Kabir* in
@@ -167,13 +174,22 @@ the narrator without losing progress.
 
 ```
 content/stories/<id>/
-  story.json        # title, role, setting, tone, ageRating, openingSceneId, safetyNotes
+  story.json        # title, role, setting, tone, ageRating, openingSceneId, safetyNotes,
+                    #                  creator{name,avatar,verified}, media{cover,gallery[]}
   characters.json   # personality, voice, goals, sampleLine, knowledge…
   world.json        # premise, locations, factions, lore, RULES, objects
   scenes.json       # scenes: narration, choices{next,effects,requiresFlag}, endings
   memory.json       # shortTermWindow, seedMemories, extractionHints, neverRemember (all enforced)
-  assets/           # cover.png etc.
+  assets/           # cover.jpg + gallery/image-NN.jpg (referenced by story.media)
 ```
+
+**Creator + Media** (added for the submission system): every story carries
+`creator { name, avatar, verified }` — shipped stories are credited to
+**Ankit (verified)** — and a `media` block: `cover` (a safe asset ref) plus an
+ordered `gallery` of `{ id, file, kind, label }` entries (`kind` = `cover |
+character-portrait | scene | other`; portraits can link a `characterId`).
+References are **allowlisted** (`assets/cover.*`, `assets/gallery/image-NN.*`) —
+no arbitrary paths — and validated by `content:validate`.
 
 Key mechanics: `requiresFlag` (`"flag"` / `"!flag"`) gates choices; `effects` mutate
 `relationships/inventory/location/flags/choices`; the AI reports changes via a hidden
@@ -209,11 +225,15 @@ Beena: "Achchha. Zubaan mein dum toh hai tumhare."                              
 
 ```bash
 node scripts/new-story.mjs --id my-story --title "My Story" --age 12-17 --genre Mystery
-# edit the TODOs in content/stories/my-story/, add assets/cover.png
+# edit the TODOs in content/stories/my-story/, add assets/cover.jpg
 npm run content:validate
 ```
 
-Then commit `content/` → bump shipped in `manifest.json` (`contentVersion` auto-increments) → users get it via **Content Updates**. The app validates every download and discards malformed packages.
+`scaffold` pre-fills `creator { name: "Ankit", verified: true }` and a `media`
+block pointing at `assets/cover.jpg`, so new stories validate out of the box.
+Then commit `content/` → the shipped `contentVersion` in `manifest.json` auto-increments
+→ users pick the pack up automatically from the live story API. The app validates every
+download and discards malformed packages.
 
 ---
 

@@ -121,7 +121,7 @@ export function MySubmissions({ navigation }: Props) {
                   </Text>
                 </View>
                 <Text style={{ color: theme.textDim, fontSize: FONTS.small, marginTop: 4 }}>
-                  by {s.creatorName}
+                  by {s.creatorName} • {new Date(s.submittedAt).toLocaleString()}
                 </Text>
                 {s.knownStatus === 'pending' ? (
                   <Text style={{ color: theme.textFaint, fontSize: FONTS.tiny, marginTop: 4 }}>

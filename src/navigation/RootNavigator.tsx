@@ -30,7 +30,6 @@ import { SettingsStorage } from '../screens/SettingsStorage';
 import { Terms } from '../screens/Terms';
 import { Privacy } from '../screens/Privacy';
 import { About } from '../screens/About';
-import { ContentUpdates } from '../screens/ContentUpdates';
 import { SubmitStory } from '../screens/SubmitStory';
 import { SubmissionSuccess } from '../screens/SubmissionSuccess';
 import { MySubmissions } from '../screens/MySubmissions';
@@ -45,10 +44,11 @@ function tabIcon(name: string, focused: boolean) {
 }
 
 function MainTabs() {
-  const { theme, profile, settings, setUpdateAvailable } = useApp();
+  const { theme, profile, settings } = useApp();
   const checked = useRef(false);
 
-  // Silent content check once per launch (best-effort, offline-safe).
+  // Silent content check once per launch (best-effort, offline-safe). Stories
+  // are fetched/cached automatically — there is no manual "update" UI.
   useEffect(() => {
     if (checked.current || !profile) return;
     checked.current = true;
@@ -58,11 +58,8 @@ function MainTabs() {
         try {
           const base = effectiveContentApiBaseUrl(settings.contentApiBaseUrl);
           const res = await checkForUpdates(base, profile.ageGroup);
-          if (res.hasUpdate) {
-            setUpdateAvailable(true);
-            if (settings.notifications.enabled && settings.notifications.contentUpdates) {
-              await notifyContentUpdate(res.newStories.length + res.updatedStories.length);
-            }
+          if (res.hasUpdate && settings.notifications.enabled && settings.notifications.contentUpdates) {
+            await notifyContentUpdate(res.newStories.length + res.updatedStories.length);
           }
         } catch {
           // Offline or unreachable — the app works fully offline anyway.
@@ -70,7 +67,7 @@ function MainTabs() {
       })();
     }, 4000);
     return () => clearTimeout(t);
-  }, [profile, settings, setUpdateAvailable]);
+  }, [profile, settings]);
 
   return (
     <Tab.Navigator
@@ -148,7 +145,6 @@ export function RootNavigator() {
             <Stack.Screen name="Terms" component={Terms} />
             <Stack.Screen name="Privacy" component={Privacy} />
             <Stack.Screen name="About" component={About} />
-            <Stack.Screen name="ContentUpdates" component={ContentUpdates} />
             <Stack.Screen name="SubmitStory" component={SubmitStory} />
             <Stack.Screen name="SubmissionSuccess" component={SubmissionSuccess} />
             <Stack.Screen name="MySubmissions" component={MySubmissions} />

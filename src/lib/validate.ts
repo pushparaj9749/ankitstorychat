@@ -19,6 +19,125 @@ export const MAX_TEXT_FIELD = 20_000;
 export const MAX_CREATOR_NAME = 60;
 export const MAX_JSON_PAYLOAD = 500_000; // 500KB per submission
 
+/* ---------------- story media (Media Library) ---------------- */
+
+/** Max gallery entries per story (cover included). Mirrors the Worker. */
+export const MAX_GALLERY_IMAGES = 8;
+/** Max length of a media display label. */
+export const MAX_MEDIA_LABEL = 80;
+
+/** Server-generated pending media ids (see the upload endpoint). */
+export const MEDIA_ID_RE = /^media_[a-z0-9]{6,16}_[a-z0-9]{6,16}$/;
+/** Pending-submission reference: `media/<mediaId>`. */
+export const MEDIA_PENDING_REF_RE = /^media\/media_[a-z0-9]{6,16}_[a-z0-9]{6,16}$/;
+/** Published reference: cover art or an ordered gallery slot. */
+export const MEDIA_PUBLISHED_REF_RE =
+  /^assets\/(cover\.(?:jpg|png|webp)|gallery\/image-\d{2}\.(?:jpg|png|webp))$/;
+
+/**
+ * A safe media reference: either a pending `media/<id>` ref or one of the
+ * exact published shapes. Absolute URLs, `..`, backslashes, arbitrary
+ * filesystem paths and anything else are rejected.
+ */
+export function isSafeMediaRef(ref: unknown): boolean {
+  if (typeof ref !== 'string') return false;
+  if (ref !== ref.trim() || ref.length > 120) return false;
+  if (/^https?:\/\//i.test(ref) || ref.startsWith('//') || ref.startsWith('data:')) return false;
+  return MEDIA_PUBLISHED_REF_RE.test(ref) || MEDIA_PENDING_REF_RE.test(ref);
+}
+
+const MEDIA_KIND_LIST: readonly string[] = ['cover', 'character-portrait', 'scene', 'other'];
+const MEDIA_ITEM_ID_RE = /^[a-z0-9][a-z0-9-]{0,31}$/;
+const MEDIA_LINK_ID_RE = /^[a-z0-9][a-z0-9_-]{0,63}$/;
+
+/**
+ * Validate a story's `media` block (cover + gallery). Pure — no I/O.
+ * Cross-file links (characterId / sceneId) are checked against the provided
+ * id sets when available.
+ */
+export function validateMedia(
+  media: unknown,
+  ctx?: { characterIds?: Set<string>; sceneIds?: Set<string> },
+): ValidationIssue[] {
+  const issues: ValidationIssue[] = [];
+  if (!media || typeof media !== 'object' || Array.isArray(media)) {
+    issues.push(issue('media', 'must be an object'));
+    return issues;
+  }
+  const m = media as { cover?: unknown; gallery?: unknown };
+  if (!isSafeMediaRef(m.cover)) {
+    issues.push(issue('media.cover', 'missing or not a safe asset reference'));
+  }
+  const gallery = m.gallery;
+  if (!Array.isArray(gallery)) {
+    issues.push(issue('media.gallery', 'must be an array'));
+    return issues;
+  }
+  if (gallery.length === 0) {
+    issues.push(issue('media.gallery', 'needs at least one image (the cover)'));
+    return issues;
+  }
+  if (gallery.length > MAX_GALLERY_IMAGES) {
+    issues.push(issue('media.gallery', `too many images (max ${MAX_GALLERY_IMAGES})`));
+  }
+  const seenFiles = new Set<string>();
+  const seenIds = new Set<string>();
+  gallery.forEach((raw, i) => {
+    const p = `media.gallery[${i}]`;
+    if (!raw || typeof raw !== 'object' || Array.isArray(raw)) {
+      issues.push(issue(p, 'must be an object'));
+      return;
+    }
+    const it = raw as Record<string, unknown>;
+    if (typeof it.id !== 'string' || !MEDIA_ITEM_ID_RE.test(it.id)) {
+      issues.push(issue(`${p}.id`, 'must be a short lowercase id'));
+    } else {
+      if (seenIds.has(it.id)) issues.push(issue(`${p}.id`, `duplicate id "${it.id}"`));
+      seenIds.add(it.id);
+    }
+    const file = typeof it.file === 'string' ? it.file : '';
+    if (!file || !isSafeMediaRef(file)) {
+      issues.push(issue(`${p}.file`, 'not a safe asset reference'));
+    } else {
+      if (seenFiles.has(file)) issues.push(issue(`${p}.file`, `duplicate file "${file}"`));
+      seenFiles.add(file);
+    }
+    const kind = typeof it.kind === 'string' ? it.kind : '';
+    if (!MEDIA_KIND_LIST.includes(kind)) {
+      issues.push(issue(`${p}.kind`, 'must be cover | character-portrait | scene | other'));
+    }
+    if (it.label !== undefined && it.label !== null) {
+      if (typeof it.label !== 'string') issues.push(issue(`${p}.label`, 'must be a string'));
+      else if (it.label.trim().length > MAX_MEDIA_LABEL)
+        issues.push(issue(`${p}.label`, `too long (max ${MAX_MEDIA_LABEL} chars)`));
+      else if (containsUnsafeContent(it.label))
+        issues.push(issue(`${p}.label`, 'contains unsupported markup or scripts'));
+    }
+    for (const key of ['characterId', 'sceneId'] as const) {
+      const v = it[key];
+      if (v === undefined || v === null) continue;
+      if (typeof v !== 'string' || !MEDIA_LINK_ID_RE.test(v)) {
+        issues.push(issue(`${p}.${key}`, 'must be a short lowercase id'));
+        continue;
+      }
+      const set = key === 'characterId' ? ctx?.characterIds : ctx?.sceneIds;
+      if (set && !set.has(v)) {
+        issues.push(issue(`${p}.${key}`, `unknown ${key} "${v}"`));
+      }
+    }
+  });
+  // The gallery must contain the cover.
+  if (typeof m.cover === 'string' && Array.isArray(gallery)) {
+    const coverInGallery = (gallery as Record<string, unknown>[]).some(
+      (g) => g && g.file === m.cover,
+    );
+    if (!coverInGallery) {
+      issues.push(issue('media.gallery', 'must include the cover image'));
+    }
+  }
+  return issues;
+}
+
 const DANGEROUS_HTML_RE = /<\s*(script|iframe|object|embed|link|style|form|svg|math|details)[^>]*>/i;
 const JS_URL_RE = /\s*javascript\s*:/i;
 
@@ -292,6 +411,17 @@ export function validateBundle(bundle: {
   if (sj.contentLevel && sj.contentLevel !== bundle.meta.contentLevel)
     issues.push(issue('meta/story.contentLevel', 'manifest and story.json disagree'));
 
+  // Media Library: validate structure + cross-file links (character/scene).
+  if (sj.media !== undefined) {
+    const charFile = bundle.characters as Partial<CharactersFile> | undefined;
+    const sceneFile = bundle.scenes as Partial<ScenesFile> | undefined;
+    const characterIds = new Set((charFile?.characters ?? []).map((c) => c.id).filter(Boolean));
+    const sceneIds = new Set((sceneFile?.scenes ?? []).map((s) => s.id).filter(Boolean));
+    validateMedia(sj.media, { characterIds, sceneIds }).forEach((i) =>
+      issues.push({ path: i.path, message: i.message }),
+    );
+  }
+
   // PRODUCT RULE — endless stories: a story tagged "ongoing" must NEVER end.
   // Chapter/arc milestones are fine; terminal endings are not.
   if (bundle.meta.tags?.includes('ongoing')) {
@@ -449,6 +579,31 @@ export function validateStorySubmission(body: unknown): ValidationResult & {
 
   const res = validateBundle({ meta, story: { ...s, id: storyId || meta.id }, characters, world, scenes, memory });
   res.issues.forEach((i) => issues.push(i));
+
+  // A COMPLETE story submission must include its Media Library with a cover.
+  // Pending refs must be the server-generated `media/<id>` form: a submission
+  // can never point at another story's published assets or at arbitrary paths.
+  const media = (s as Record<string, unknown>).media;
+  if (!media || typeof media !== 'object') {
+    issues.push(issue('story.media', 'required — a complete story must include a cover image'));
+  } else {
+    const gm = media as { cover?: unknown; gallery?: unknown };
+    const files: string[] = [];
+    if (Array.isArray(gm.gallery)) {
+      for (const g of gm.gallery as Record<string, unknown>[]) {
+        if (g && typeof g.file === 'string') files.push(g.file);
+      }
+    }
+    if (typeof gm.cover === 'string' && isSafeMediaRef(gm.cover) && !MEDIA_PENDING_REF_RE.test(gm.cover)) {
+      issues.push(issue('story.media.cover', 'must be an uploaded media reference (media/<id>)'));
+    }
+    for (const f of files) {
+      if (isSafeMediaRef(f) && !MEDIA_PENDING_REF_RE.test(f)) {
+        issues.push(issue('story.media.gallery', 'all media must be uploaded references (media/<id>)'));
+        break;
+      }
+    }
+  }
 
   // Block executable content in every free-text field we ship to the AI.
   const stringsToCheck: string[] = [];

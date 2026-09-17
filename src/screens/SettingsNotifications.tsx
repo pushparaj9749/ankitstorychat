@@ -100,8 +100,8 @@ export function SettingsNotifications(_props: Props) {
         onChange={(v) => void setReminders(v)}
       />
       <ToggleRow
-        label="Content update alerts"
-        desc="Tell me when new stories arrive"
+        label="New story alerts"
+        desc="Tell me when new stories arrive in the catalog"
         value={n.contentUpdates}
         onChange={(v) =>
           void updateSettings({ notifications: { ...n, contentUpdates: v } })
