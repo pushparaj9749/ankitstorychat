@@ -1,7 +1,7 @@
 {
-  "contentVersion": 8,
+  "contentVersion": 9,
   "minAppVersion": "1.0.0",
-  "updatedAt": "2026-09-17T13:20:00.000Z",
+  "updatedAt": "2026-09-17T13:40:00.000Z",
   "stories": [
     {
       "id": "goddess-who-chose-me",
@@ -166,7 +166,7 @@
       "ageRating": "12-17",
       "contentLevel": "teen",
       "language": "hinglish",
-      "version": 2,
+      "version": 3,
       "coverUrl": "stories/girl-of-thousand-lives/assets/cover.jpg",
       "accentColor": "#FB7185",
       "userRole": "{{playerName}} — ek aam ladka jise pichli kisi timeline ki koi yaad nahi",
@@ -176,7 +176,7 @@
       "isNew": true,
       "popularity": 96,
       "storyDir": "girl-of-thousand-lives",
-      "updatedAt": "2026-09-16T07:12:02.795Z",
+      "updatedAt": "2026-09-17T13:40:00.000Z",
       "creator": {
         "name": "Ankit",
         "avatar": null,
@@ -211,7 +211,7 @@
       "ageRating": "12-17",
       "contentLevel": "teen",
       "language": "hinglish",
-      "version": 2,
+      "version": 3,
       "coverUrl": "stories/empress-and-her-fool/assets/cover.jpg",
       "accentColor": "#DC2626",
       "userRole": "{{playerName}} — mahal ka nichle darje ka sevak, lagbhag shunya jaadu, ab Samragyi ka niji sevak",
@@ -221,7 +221,7 @@
       "isNew": true,
       "popularity": 95,
       "storyDir": "empress-and-her-fool",
-      "updatedAt": "2026-09-16T07:12:02.798Z",
+      "updatedAt": "2026-09-17T13:40:00.000Z",
       "creator": {
         "name": "Ankit",
         "avatar": null,
@@ -257,7 +257,7 @@
       "ageRating": "12-17",
       "contentLevel": "teen",
       "language": "hinglish",
-      "version": 2,
+      "version": 3,
       "coverUrl": "stories/dragon-girl-next-door/assets/cover.jpg",
       "accentColor": "#F97316",
       "userRole": "{{playerName}} — aam ladka, jise dragons ke baare mein kuch nahi pata, aur ab ek dragon ka 'insaaniyat guide' hai",
@@ -267,7 +267,7 @@
       "isNew": true,
       "popularity": 97,
       "storyDir": "dragon-girl-next-door",
-      "updatedAt": "2026-09-16T07:12:02.801Z",
+      "updatedAt": "2026-09-17T13:40:00.000Z",
       "creator": {
         "name": "Ankit",
         "avatar": null,
