@@ -1,90 +1,93 @@
 #!/usr/bin/env node
 /**
  * CI helper: ensure the KISSA_SUBMISSIONS KV namespace exists and inject its
- * id into worker/wrangler.jsonc. Runs from the repo root.
+ * id into worker/wrangler.jsonc.
  *
- * Reads CLOUDFLARE_API_TOKEN + CLOUDFLARE_ACCOUNT_ID from env (provided by the
- * GitHub Actions workflow) and shells out to `wrangler` which picks them up.
+ * Uses Cloudflare's REST API directly (no reliance on wrangler CLI formatting)
+ * — reads CLOUDFLARE_API_TOKEN + CLOUDFLARE_ACCOUNT_ID from env.
  */
-const { execSync } = require('node:child_process');
+const https = require('node:https');
 const fs = require('node:fs');
 const path = require('node:path');
 
-// Script is run with cwd=worker/ (so wrangler auto-loads wrangler.jsonc for
-// auth/account config); wrangler.jsonc is therefore at ./wrangler.jsonc.
+const ACCOUNT_ID = process.env.CLOUDFLARE_ACCOUNT_ID;
+const API_TOKEN = process.env.CLOUDFLARE_API_TOKEN;
+
+if (!ACCOUNT_ID || !API_TOKEN) {
+  console.error('CLOUDFLARE_ACCOUNT_ID / CLOUDFLARE_API_TOKEN not set.');
+  process.exit(1);
+}
+
+// Wrangler is at cwd=worker/ when run from the workflow.
 const Wrangler = path.resolve('wrangler.jsonc');
 
-function run(cmd, opts = {}) {
-  console.log('$', cmd);
-  try {
-    return execSync(cmd, { encoding: 'utf8', stdio: ['ignore', 'pipe', 'pipe'], ...opts });
-  } catch (e) {
-    process.stderr.write(e.stderr || '');
-    throw e;
-  }
+function cfApi(method, pathname, body) {
+  return new Promise((resolve, reject) => {
+    const data = body ? JSON.stringify(body) : null;
+    const req = https.request(
+      {
+        hostname: 'api.cloudflare.com',
+        port: 443,
+        path: `/client/v4/accounts/${ACCOUNT_ID}${pathname}`,
+        method,
+        headers: {
+          Authorization: `Bearer ${API_TOKEN}`,
+          'Content-Type': 'application/json',
+          ...(data ? { 'Content-Length': Buffer.byteLength(data) } : {}),
+        },
+      },
+      (res) => {
+        let buf = '';
+        res.on('data', (c) => (buf += c));
+        res.on('end', () => {
+          try {
+            const json = JSON.parse(buf);
+            if (!json.success) {
+              return reject(new Error(`Cloudflare API ${res.statusCode} ${pathname}: ${JSON.stringify(json.errors)}`));
+            }
+            resolve(json.result);
+          } catch (e) {
+            reject(new Error(`Cloudflare API ${res.statusCode} ${pathname}: non-JSON body: ${buf.slice(0, 400)}`));
+          }
+        });
+      },
+    );
+    req.on('error', reject);
+    if (data) req.write(data);
+    req.end();
+  });
 }
 
-function findExistingId(listOut) {
-  // Wrangler prints a JSON array. Try to parse; on older versions it prints a table.
-  try {
-    const arr = JSON.parse(listOut);
-    const hit = Array.isArray(arr) && arr.find((x) => x && x.title === 'KISSA_SUBMISSIONS');
-    if (hit && hit.id) return String(hit.id);
-  } catch { /* fall through */ }
-  // Table fallback.
-  const m = listOut.match(/KISSA_SUBMISSIONS\s+([a-f0-9]{32,})/);
-  return m ? m[1] : '';
-}
-
-function extractId(createOut) {
-  // wrangler prints either `id = <hex>` or JSON; accept either.
-  let m = createOut.match(/id\s*=\s*([a-f0-9]{32,})/);
-  if (m) return m[1];
-  m = createOut.match(/"id"\s*:\s*"([a-f0-9]{32,})"/);
-  return m ? m[1] : '';
+async function findOrCreateNamespace(title) {
+  const namespaces = await cfApi('GET', `/storage/kv/namespaces?per_page=100`);
+  const hit = Array.isArray(namespaces) && namespaces.find((n) => n.title === title);
+  if (hit) return { id: hit.id, created: false };
+  const created = await cfApi('POST', `/storage/kv/namespaces`, { title });
+  return { id: created.id, created: true };
 }
 
 function injectId(file, id) {
   let s = fs.readFileSync(file, 'utf8');
   const block = `\n  "kv_namespaces": [\n    { "binding": "KISSA_SUBMISSIONS", "id": "${id}", "preview_id": "${id}" }\n  ],\n`;
-  // Find a non-commented kv_namespaces line (start of line, no leading //).
   const existing = s.match(/^  "kv_namespaces"\s*:/m);
   if (existing) {
-    // Replace the existing array (from "kv_namespaces": [ to the matching ]).
     const start = existing.index;
     const after = s.slice(start);
     const arrEnd = after.indexOf(']');
-    // Find the closing bracket and replace span.
     s = s.slice(0, start) + `"kv_namespaces": [\n    { "binding": "KISSA_SUBMISSIONS", "id": "${id}", "preview_id": "${id}" }\n  ]` + after.slice(arrEnd + 1);
   } else {
-    // Insert immediately before the "unsafe" block so the config stays valid.
     s = s.replace(/(\n  "unsafe"\s*:\s*\{)/, block + '\n  "unsafe": {');
   }
   fs.writeFileSync(file, s);
 }
 
-function main() {
-  console.log('Checking for existing KISSA_SUBMISSIONS namespace...');
-  let id = '';
-  try {
-    id = findExistingId(run('npx wrangler kv:namespace list'));
-  } catch (e) {
-    console.warn('kv:namespace list failed (will create fresh):', e.message);
-  }
-  if (!id) {
-    console.log('Creating KISSA_SUBMISSIONS KV namespace...');
-    const out = run('npx wrangler kv:namespace create KISSA_SUBMISSIONS');
-    id = extractId(out);
-    if (!id) {
-      console.error('Could not parse namespace id from wrangler output:\n' + out);
-      process.exit(1);
-    }
-    console.log('Created KV namespace:', id);
-  } else {
-    console.log('Reusing existing KV namespace:', id);
-  }
+(async () => {
+  console.log('Checking/creating KISSA_SUBMISSIONS KV namespace via Cloudflare API...');
+  const { id, created } = await findOrCreateNamespace('KISSA_SUBMISSIONS');
+  console.log(created ? 'Created KV namespace:' : 'Reusing existing KV namespace:', id);
   injectId(Wrangler, id);
   console.log('Injected KV id into', path.relative(process.cwd(), Wrangler));
-}
-
-main();
+})().catch((e) => {
+  console.error(e && e.stack ? e.stack : e);
+  process.exit(1);
+});
