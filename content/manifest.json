@@ -1,7 +1,7 @@
 {
-  "contentVersion": 13,
+  "contentVersion": 14,
   "minAppVersion": "1.0.0",
-  "updatedAt": "2026-09-17T17:20:00.000Z",
+  "updatedAt": "2026-09-17T18:10:00.000Z",
   "stories": [
     {
       "id": "goddess-who-chose-me",
@@ -1311,7 +1311,7 @@
       "ageRating": "12-17",
       "contentLevel": "teen",
       "language": "hinglish",
-      "version": 1,
+      "version": 2,
       "coverUrl": "stories/stuck-between-angel-and-devil/assets/cover.jpg",
       "accentColor": "#A855F7",
       "userRole": "{{playerName}} — ek aam ladka jo K-Drama ki duniya mein transmigrate ho gaya aur do anokhi ladkiyon ke beech phans gaya",
@@ -1321,7 +1321,7 @@
       "isNew": true,
       "popularity": 85,
       "storyDir": "stuck-between-angel-and-devil",
-      "updatedAt": "2026-09-16T19:03:50.709Z",
+      "updatedAt": "2026-09-17T18:10:00.000Z",
       "creator": {
         "name": "Ankit",
         "avatar": null,
