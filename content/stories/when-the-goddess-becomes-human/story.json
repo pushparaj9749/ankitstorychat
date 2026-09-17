@@ -2,7 +2,7 @@
   "id": "when-the-goddess-becomes-human",
   "title": "When the Goddess Becomes Human",
   "description": "Tum {{playerName}} ho — Rishikesh mein ek chhoti si library chalane wala aam ladka. Ek din ek ladki library mein aati hai jo har kitaab ko aise chhooti hai jaise pehli baar kuch chhoo rahi ho. Uska naam Aelia hai. Woh naya-naya insaan hai — literally. Kabhi woh poori srishti ki sabse badi divine hasti thi. Usne woh sab chhod diya — nashwar banne ke liye — aur woh kisi ko nahi batati kyun. Uski shakti ab bhi kabhi-kabhi nikalti hai — jab woh bhavuk hoti hai. Aur duniya — dono duniyaein — use dhoondh rahi hain. Kahani kabhi khatam nahi hoti — pehli baarish mehsoos karne se lekar uske chhodne ki asli wajah tak.",
-  "version": 2,
+  "version": 3,
   "language": "hinglish",
   "ageRating": "12-17",
   "contentLevel": "teen",
@@ -45,6 +45,41 @@
         "file": "assets/cover.jpg",
         "kind": "cover",
         "label": "Cover"
+      },
+      {
+        "id": "aelia-portrait",
+        "file": "assets/gallery/image-01.jpg",
+        "kind": "character-portrait",
+        "label": "Aelia",
+        "characterId": "aelia"
+      },
+      {
+        "id": "library-chhoona",
+        "file": "assets/gallery/image-02.jpg",
+        "kind": "scene",
+        "label": "Pehli baar chhoona",
+        "sceneId": "s1_library"
+      },
+      {
+        "id": "pehli-baarish",
+        "file": "assets/gallery/image-03.jpg",
+        "kind": "scene",
+        "label": "Har boond alag",
+        "sceneId": "s2_baarish"
+      },
+      {
+        "id": "ganga-aarti",
+        "file": "assets/gallery/image-04.jpg",
+        "kind": "scene",
+        "label": "Saare diye",
+        "sceneId": "s4_ghat"
+      },
+      {
+        "id": "khidki-tukda",
+        "file": "assets/gallery/image-05.jpg",
+        "kind": "scene",
+        "label": "Jo ab bhi nikalta hai",
+        "sceneId": "s5_sach"
       }
     ]
   }
