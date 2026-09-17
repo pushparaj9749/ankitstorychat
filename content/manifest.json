@@ -1,7 +1,7 @@
 {
-  "contentVersion": 6,
+  "contentVersion": 7,
   "minAppVersion": "1.0.0",
-  "updatedAt": "2026-09-16T19:03:50.710Z",
+  "updatedAt": "2026-09-17T06:38:00.032Z",
   "stories": [
     {
       "id": "goddess-who-chose-me",
@@ -41,7 +41,12 @@
       "isNew": true,
       "popularity": 99,
       "storyDir": "goddess-who-chose-me",
-      "updatedAt": "2026-09-16T07:12:02.786Z"
+      "updatedAt": "2026-09-16T07:12:02.786Z",
+      "creator": {
+        "name": "Ankit",
+        "avatar": null,
+        "verified": true
+      }
     },
     {
       "id": "last-god-elara",
@@ -81,7 +86,12 @@
       "isNew": true,
       "popularity": 98,
       "storyDir": "last-god-elara",
-      "updatedAt": "2026-09-16T07:12:02.790Z"
+      "updatedAt": "2026-09-16T07:12:02.790Z",
+      "creator": {
+        "name": "Ankit",
+        "avatar": null,
+        "verified": true
+      }
     },
     {
       "id": "she-rewrites-reality",
@@ -120,7 +130,12 @@
       "isNew": true,
       "popularity": 97,
       "storyDir": "she-rewrites-reality",
-      "updatedAt": "2026-09-16T07:12:02.792Z"
+      "updatedAt": "2026-09-16T07:12:02.792Z",
+      "creator": {
+        "name": "Ankit",
+        "avatar": null,
+        "verified": true
+      }
     },
     {
       "id": "girl-of-thousand-lives",
@@ -161,7 +176,12 @@
       "isNew": true,
       "popularity": 96,
       "storyDir": "girl-of-thousand-lives",
-      "updatedAt": "2026-09-16T07:12:02.795Z"
+      "updatedAt": "2026-09-16T07:12:02.795Z",
+      "creator": {
+        "name": "Ankit",
+        "avatar": null,
+        "verified": true
+      }
     },
     {
       "id": "empress-and-her-fool",
@@ -201,7 +221,12 @@
       "isNew": true,
       "popularity": 95,
       "storyDir": "empress-and-her-fool",
-      "updatedAt": "2026-09-16T07:12:02.798Z"
+      "updatedAt": "2026-09-16T07:12:02.798Z",
+      "creator": {
+        "name": "Ankit",
+        "avatar": null,
+        "verified": true
+      }
     },
     {
       "id": "dragon-girl-next-door",
@@ -242,7 +267,12 @@
       "isNew": true,
       "popularity": 97,
       "storyDir": "dragon-girl-next-door",
-      "updatedAt": "2026-09-16T07:12:02.801Z"
+      "updatedAt": "2026-09-16T07:12:02.801Z",
+      "creator": {
+        "name": "Ankit",
+        "avatar": null,
+        "verified": true
+      }
     },
     {
       "id": "queen-beneath-the-moon",
@@ -282,7 +312,12 @@
       "isNew": true,
       "popularity": 94,
       "storyDir": "queen-beneath-the-moon",
-      "updatedAt": "2026-09-16T07:12:02.804Z"
+      "updatedAt": "2026-09-16T07:12:02.804Z",
+      "creator": {
+        "name": "Ankit",
+        "avatar": null,
+        "verified": true
+      }
     },
     {
       "id": "witch-who-loves-a-human",
@@ -323,7 +358,12 @@
       "isNew": true,
       "popularity": 94,
       "storyDir": "witch-who-loves-a-human",
-      "updatedAt": "2026-09-16T07:12:02.806Z"
+      "updatedAt": "2026-09-16T07:12:02.806Z",
+      "creator": {
+        "name": "Ankit",
+        "avatar": null,
+        "verified": true
+      }
     },
     {
       "id": "girl-who-commands-the-sun",
@@ -364,7 +404,12 @@
       "isNew": true,
       "popularity": 93,
       "storyDir": "girl-who-commands-the-sun",
-      "updatedAt": "2026-09-16T07:12:02.808Z"
+      "updatedAt": "2026-09-16T07:12:02.808Z",
+      "creator": {
+        "name": "Ankit",
+        "avatar": null,
+        "verified": true
+      }
     },
     {
       "id": "when-the-goddess-becomes-human",
@@ -405,7 +450,12 @@
       "isNew": true,
       "popularity": 95,
       "storyDir": "when-the-goddess-becomes-human",
-      "updatedAt": "2026-09-16T07:12:02.810Z"
+      "updatedAt": "2026-09-16T07:12:02.810Z",
+      "creator": {
+        "name": "Ankit",
+        "avatar": null,
+        "verified": true
+      }
     },
     {
       "id": "midnight-local",
@@ -442,7 +492,12 @@
       "isNew": true,
       "popularity": 98,
       "storyDir": "midnight-local",
-      "updatedAt": "2026-09-11T00:00:00.000Z"
+      "updatedAt": "2026-09-11T00:00:00.000Z",
+      "creator": {
+        "name": "Ankit",
+        "avatar": null,
+        "verified": true
+      }
     },
     {
       "id": "hawa-band-dhaba",
@@ -481,7 +536,12 @@
       "isNew": true,
       "popularity": 99,
       "storyDir": "hawa-band-dhaba",
-      "updatedAt": "2026-09-16T07:12:02.812Z"
+      "updatedAt": "2026-09-16T07:12:02.812Z",
+      "creator": {
+        "name": "Ankit",
+        "avatar": null,
+        "verified": true
+      }
     },
     {
       "id": "crush-on-roof",
@@ -520,7 +580,12 @@
       "isNew": true,
       "popularity": 96,
       "storyDir": "crush-on-roof",
-      "updatedAt": "2026-09-16T07:12:02.814Z"
+      "updatedAt": "2026-09-16T07:12:02.814Z",
+      "creator": {
+        "name": "Ankit",
+        "avatar": null,
+        "verified": true
+      }
     },
     {
       "id": "pani-72",
@@ -562,7 +627,12 @@
       "isNew": true,
       "popularity": 94,
       "storyDir": "pani-72",
-      "updatedAt": "2026-09-16T07:12:02.816Z"
+      "updatedAt": "2026-09-16T07:12:02.816Z",
+      "creator": {
+        "name": "Ankit",
+        "avatar": null,
+        "verified": true
+      }
     },
     {
       "id": "gully-final",
@@ -603,7 +673,12 @@
       "isNew": true,
       "popularity": 93,
       "storyDir": "gully-final",
-      "updatedAt": "2026-09-16T07:12:02.817Z"
+      "updatedAt": "2026-09-16T07:12:02.817Z",
+      "creator": {
+        "name": "Ankit",
+        "avatar": null,
+        "verified": true
+      }
     },
     {
       "id": "night-courier",
@@ -644,7 +719,12 @@
       "isNew": true,
       "popularity": 91,
       "storyDir": "night-courier",
-      "updatedAt": "2026-09-16T07:12:02.819Z"
+      "updatedAt": "2026-09-16T07:12:02.819Z",
+      "creator": {
+        "name": "Ankit",
+        "avatar": null,
+        "verified": true
+      }
     },
     {
       "id": "cafe-queen-myra",
@@ -682,7 +762,12 @@
       "isNew": true,
       "popularity": 97,
       "storyDir": "cafe-queen-myra",
-      "updatedAt": "2026-09-16T07:12:02.821Z"
+      "updatedAt": "2026-09-16T07:12:02.821Z",
+      "creator": {
+        "name": "Ankit",
+        "avatar": null,
+        "verified": true
+      }
     },
     {
       "id": "aakhri-yodha",
@@ -719,7 +804,12 @@
       "isNew": true,
       "popularity": 95,
       "storyDir": "aakhri-yodha",
-      "updatedAt": "2026-09-11T00:00:00.000Z"
+      "updatedAt": "2026-09-11T00:00:00.000Z",
+      "creator": {
+        "name": "Ankit",
+        "avatar": null,
+        "verified": true
+      }
     },
     {
       "id": "chai-dreams",
@@ -756,7 +846,12 @@
       "isNew": true,
       "popularity": 90,
       "storyDir": "chai-dreams",
-      "updatedAt": "2026-09-11T00:00:00.000Z"
+      "updatedAt": "2026-09-11T00:00:00.000Z",
+      "creator": {
+        "name": "Ankit",
+        "avatar": null,
+        "verified": true
+      }
     },
     {
       "id": "starship-vikrant",
@@ -793,7 +888,12 @@
       "isNew": true,
       "popularity": 88,
       "storyDir": "starship-vikrant",
-      "updatedAt": "2026-09-11T00:00:00.000Z"
+      "updatedAt": "2026-09-11T00:00:00.000Z",
+      "creator": {
+        "name": "Ankit",
+        "avatar": null,
+        "verified": true
+      }
     },
     {
       "id": "neo-delhi-2099",
@@ -830,7 +930,12 @@
       "isNew": true,
       "popularity": 92,
       "storyDir": "neo-delhi-2099",
-      "updatedAt": "2026-09-11T00:00:00.000Z"
+      "updatedAt": "2026-09-11T00:00:00.000Z",
+      "creator": {
+        "name": "Ankit",
+        "avatar": null,
+        "verified": true
+      }
     },
     {
       "id": "pahadon-wali-haveli",
@@ -867,7 +972,12 @@
       "isNew": true,
       "popularity": 85,
       "storyDir": "pahadon-wali-haveli",
-      "updatedAt": "2026-09-11T00:00:00.000Z"
+      "updatedAt": "2026-09-11T00:00:00.000Z",
+      "creator": {
+        "name": "Ankit",
+        "avatar": null,
+        "verified": true
+      }
     },
     {
       "id": "bhabi-ka-ladla-devar",
@@ -906,7 +1016,12 @@
       "isNew": true,
       "popularity": 85,
       "storyDir": "bhabi-ka-ladla-devar",
-      "updatedAt": "2026-09-16T19:03:50.700Z"
+      "updatedAt": "2026-09-16T19:03:50.700Z",
+      "creator": {
+        "name": "Ankit",
+        "avatar": null,
+        "verified": true
+      }
     },
     {
       "id": "goddess-of-underworld-loves-me",
@@ -944,7 +1059,12 @@
       "isNew": true,
       "popularity": 85,
       "storyDir": "goddess-of-underworld-loves-me",
-      "updatedAt": "2026-09-16T19:03:50.702Z"
+      "updatedAt": "2026-09-16T19:03:50.702Z",
+      "creator": {
+        "name": "Ankit",
+        "avatar": null,
+        "verified": true
+      }
     },
     {
       "id": "ghost-behind-the-quiet-boy",
@@ -982,7 +1102,12 @@
       "isNew": true,
       "popularity": 85,
       "storyDir": "ghost-behind-the-quiet-boy",
-      "updatedAt": "2026-09-16T19:03:50.704Z"
+      "updatedAt": "2026-09-16T19:03:50.704Z",
+      "creator": {
+        "name": "Ankit",
+        "avatar": null,
+        "verified": true
+      }
     },
     {
       "id": "girlfriends-unlimited",
@@ -1021,7 +1146,12 @@
       "isNew": true,
       "popularity": 85,
       "storyDir": "girlfriends-unlimited",
-      "updatedAt": "2026-09-16T19:03:50.705Z"
+      "updatedAt": "2026-09-16T19:03:50.705Z",
+      "creator": {
+        "name": "Ankit",
+        "avatar": null,
+        "verified": true
+      }
     },
     {
       "id": "contract-wali-shaadi",
@@ -1059,7 +1189,12 @@
       "isNew": true,
       "popularity": 85,
       "storyDir": "contract-wali-shaadi",
-      "updatedAt": "2026-09-16T19:03:50.706Z"
+      "updatedAt": "2026-09-16T19:03:50.706Z",
+      "creator": {
+        "name": "Ankit",
+        "avatar": null,
+        "verified": true
+      }
     },
     {
       "id": "meri-khoonkhar-boss",
@@ -1097,7 +1232,12 @@
       "isNew": true,
       "popularity": 85,
       "storyDir": "meri-khoonkhar-boss",
-      "updatedAt": "2026-09-16T19:03:50.707Z"
+      "updatedAt": "2026-09-16T19:03:50.707Z",
+      "creator": {
+        "name": "Ankit",
+        "avatar": null,
+        "verified": true
+      }
     },
     {
       "id": "playboy-reborn",
@@ -1138,7 +1278,12 @@
       "isNew": true,
       "popularity": 85,
       "storyDir": "playboy-reborn",
-      "updatedAt": "2026-09-16T19:03:50.708Z"
+      "updatedAt": "2026-09-16T19:03:50.708Z",
+      "creator": {
+        "name": "Ankit",
+        "avatar": null,
+        "verified": true
+      }
     },
     {
       "id": "stuck-between-angel-and-devil",
@@ -1176,7 +1321,12 @@
       "isNew": true,
       "popularity": 85,
       "storyDir": "stuck-between-angel-and-devil",
-      "updatedAt": "2026-09-16T19:03:50.709Z"
+      "updatedAt": "2026-09-16T19:03:50.709Z",
+      "creator": {
+        "name": "Ankit",
+        "avatar": null,
+        "verified": true
+      }
     },
     {
       "id": "campus-queen",
@@ -1213,7 +1363,12 @@
       "isNew": true,
       "popularity": 85,
       "storyDir": "campus-queen",
-      "updatedAt": "2026-09-16T19:03:50.710Z"
+      "updatedAt": "2026-09-16T19:03:50.710Z",
+      "creator": {
+        "name": "Ankit",
+        "avatar": null,
+        "verified": true
+      }
     },
     {
       "id": "alishaa",
@@ -1251,7 +1406,12 @@
       "isNew": true,
       "popularity": 85,
       "storyDir": "alishaa",
-      "updatedAt": "2026-09-16T19:03:50.710Z"
+      "updatedAt": "2026-09-16T19:03:50.710Z",
+      "creator": {
+        "name": "Ankit",
+        "avatar": null,
+        "verified": true
+      }
     }
   ]
 }

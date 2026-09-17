@@ -49,7 +49,6 @@ interface AppState {
   stories: StoryMeta[];
   favoriteIds: Set<string>;
   recentPlaythroughs: Playthrough[];
-  updateAvailable: boolean;
 
   saveProfile: (p: LocalProfile) => Promise<void>;
   updateSettings: (patch: Partial<AppSettings>) => Promise<void>;
@@ -58,7 +57,6 @@ interface AppState {
   refreshFavorites: () => Promise<void>;
   refreshRecent: () => Promise<void>;
   toggleFavorite: (storyId: string) => Promise<boolean>;
-  setUpdateAvailable: (v: boolean) => void;
   reloadAll: () => Promise<void>;
 }
 
@@ -73,7 +71,6 @@ export function AppProvider({ children }: { children: React.ReactNode }) {
   const [stories, setStories] = useState<StoryMeta[]>([]);
   const [favoriteIds, setFavoriteIds] = useState<Set<string>>(new Set());
   const [recentPlaythroughs, setRecentPlaythroughs] = useState<Playthrough[]>([]);
-  const [updateAvailable, setUpdateAvailable] = useState(false);
 
   const refreshProviders = useCallback(async () => {
     const list = await listProviders();
@@ -183,7 +180,6 @@ export function AppProvider({ children }: { children: React.ReactNode }) {
       stories,
       favoriteIds,
       recentPlaythroughs,
-      updateAvailable,
       saveProfile,
       updateSettings,
       refreshProviders,
@@ -191,7 +187,6 @@ export function AppProvider({ children }: { children: React.ReactNode }) {
       refreshRecent,
       refreshFavorites,
       toggleFavorite,
-      setUpdateAvailable,
       reloadAll,
     };
   }, [
@@ -203,7 +198,6 @@ export function AppProvider({ children }: { children: React.ReactNode }) {
     stories,
     favoriteIds,
     recentPlaythroughs,
-    updateAvailable,
     saveProfile,
     updateSettings,
     refreshProviders,

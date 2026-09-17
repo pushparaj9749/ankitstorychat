@@ -11,7 +11,7 @@ import { FONTS, RADIUS, SPACING } from '../theme';
 type Props = BottomTabScreenProps<MainTabParamList, 'Settings'>;
 
 export function Settings({ navigation }: Props) {
-  const { theme, profile, activeProvider, updateAvailable } = useApp();
+  const { theme, profile, activeProvider } = useApp();
   const nav = navigation as unknown as { navigate: (s: string, o?: object) => void };
 
   function row(emoji: string, title: string, sub: string, target: string, badge?: string, params?: object) {
@@ -57,7 +57,6 @@ export function Settings({ navigation }: Props) {
         )}
 
         <SectionHeader title="Stories" />
-        {row('📚', 'Content Updates', 'Nayi stories GitHub se lao', 'ContentUpdates', updateAvailable ? 'NEW' : undefined)}
         {row('💡', 'Suggest an Idea', 'Ek kahani ka idea bhejo', 'SubmitStory', undefined, { mode: 'idea' })}
         {row('📝', 'Submit a Story', 'Apni poori kahani submit karo', 'SubmitStory', undefined, { mode: 'story' })}
         {row('📨', 'My Submissions', 'Apne bheje hue submissions dekho', 'MySubmissions')}

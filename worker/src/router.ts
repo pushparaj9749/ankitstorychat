@@ -19,12 +19,15 @@
  *   GET  /api/stories/:storyDir            (whole package in one JSON)
  *   GET  /api/stories/:storyDir/:file      (story.json | characters.json |
  *                                           world.json | scenes.json |
- *                                           memory.json | assets/cover.jpg|png)
+ *                                           memory.json | assets/cover.* |
+ *                                           assets/gallery/image-NN.*)
  *   GET  /api/covers/:name.jpg             (APK cover art, website fallback)
  *   POST /api/submit/idea                  (public — submit a story idea)
  *   POST /api/submit/story                 (public — submit a complete story)
+ *   POST /api/submit/media                 (public — upload cover/gallery image)
  *   GET  /api/submit/limit                 (public — check remaining slots)
  *   GET  /api/admin/pending                (admin — Bearer token required)
+ *   GET  /api/admin/media/:mediaId         (admin — preview uploaded image)
  *   POST /api/admin/idea/:id/accept        (admin)
  *   POST /api/admin/idea/:id/reject        (admin)
  *   POST /api/admin/story/:id/accept       (admin — "Accept & Publish")
@@ -45,16 +48,20 @@
 import {
   acceptAndPublishStory,
   acceptIdea,
+  getCommunityMediaFile,
+  getLimitStatus,
+  getPendingMedia,
+  getAcceptedStoryPackage,
   isAdmin,
   kvFor,
+  listAcceptedStories,
   listPending,
   rejectSubmission,
   submitIdea,
   submitStory,
-  getLimitStatus,
-  listAcceptedStories,
-  getAcceptedStoryPackage,
+  uploadMedia,
 } from './submissions';
+import { MEDIA_ID_RE } from './media';
 import type { Env } from './submissions';
 export type { Env } from './submissions';
 
@@ -81,8 +88,16 @@ const STORY_FILES = new Set([
   'memory.json',
 ]);
 
-/** Story asset files (covers) the API may serve. */
-const STORY_ASSET_FILES = new Set(['assets/cover.jpg', 'assets/cover.png']);
+/**
+ * Story asset files the API may serve — the cover plus the Media Library
+ * gallery. Everything is an exact allowlisted shape; nothing else (no
+ * traversal, no arbitrary names) can reach the asset layer.
+ */
+const STORY_ASSET_RE =
+  /^assets\/(cover\.(?:jpg|jpeg|png|webp)|gallery\/image-\d{2}\.(?:jpg|jpeg|png|webp))$/;
+function isStoryAssetFile(file: string): boolean {
+  return STORY_ASSET_RE.test(file);
+}
 
 /** APK cover art names (/api/covers/<name>). */
 const COVER_NAME_RE = /^[a-z0-9][a-z0-9-]{0,63}\.(jpg|png)$/;
@@ -186,7 +201,9 @@ export type ApiRoute =
   | { kind: 'submit-idea' }
   | { kind: 'submit-story' }
   | { kind: 'submit-limit' }
+  | { kind: 'submit-media' }
   | { kind: 'admin-pending' }
+  | { kind: 'admin-media'; id: string }
   | { kind: 'admin-idea-accept'; id: string }
   | { kind: 'admin-idea-reject'; id: string }
   | { kind: 'admin-story-accept'; id: string }
@@ -234,14 +251,14 @@ export function parseApiRoute(pathname: string): ApiRoute {
       if (!COMMUNITY_DIR_RE.test(storyDir)) return { kind: 'not-found' };
       const file = segments.slice(4).join('/');
       if (!file) return { kind: 'story-package', storyDir };
-      if (!STORY_FILES.has(file) && !STORY_ASSET_FILES.has(file)) return { kind: 'not-found' };
+      if (!STORY_FILES.has(file) && !isStoryAssetFile(file)) return { kind: 'not-found' };
       return { kind: 'story-file', storyDir, file };
     }
     storyDir = second;
     if (!storyDir || !STORY_DIR_RE.test(storyDir)) return { kind: 'not-found' };
     const file = segments.slice(3).join('/');
     if (!file) return { kind: 'story-package', storyDir };
-    if (!STORY_FILES.has(file) && !STORY_ASSET_FILES.has(file)) return { kind: 'not-found' };
+    if (!STORY_FILES.has(file) && !isStoryAssetFile(file)) return { kind: 'not-found' };
     return { kind: 'story-file', storyDir, file };
   }
 
@@ -249,11 +266,17 @@ export function parseApiRoute(pathname: string): ApiRoute {
     if (second === 'idea' && segments.length === 3) return { kind: 'submit-idea' };
     if (second === 'story' && segments.length === 3) return { kind: 'submit-story' };
     if (second === 'limit' && segments.length === 3) return { kind: 'submit-limit' };
+    // Public image upload (cover / gallery) — base64 JSON, validated server-side.
+    if (second === 'media' && segments.length === 3) return { kind: 'submit-media' };
     return { kind: 'not-found' };
   }
 
   if (first === 'admin') {
     if (second === 'pending' && segments.length === 3) return { kind: 'admin-pending' };
+    // Admin media preview for pending submissions (Bearer-gated).
+    if (second === 'media' && segments[3] && MEDIA_ID_RE.test(segments[3]) && segments.length === 4) {
+      return { kind: 'admin-media', id: segments[3] };
+    }
     const scope = segments[2];
     const id = segments[3];
     const action = segments[4];
@@ -354,6 +377,8 @@ async function serveAsset(
 function guessContentType(file: string): string {
   if (file.endsWith('.json')) return JSON_TYPE;
   if (file.endsWith('.png')) return 'image/png';
+  if (file.endsWith('.webp')) return 'image/webp';
+  if (file.endsWith('.jpeg')) return 'image/jpeg';
   return 'image/jpeg';
 }
 
@@ -388,19 +413,23 @@ async function serveStoryPackage(
 const POST_ROUTES = new Set([
   'submit-idea',
   'submit-story',
+  'submit-media',
   'admin-idea-accept',
   'admin-idea-reject',
   'admin-story-accept',
   'admin-story-reject',
 ]);
 
-async function readJsonBody(request: Request): Promise<unknown> {
-  const length = Number(request.headers.get('Content-Length') ?? '0');
-  if (!Number.isFinite(length) || length > 600_000) {
-    throw new Error('payload_too_large');
-  }
+/** Base64 image uploads are larger than JSON submissions (3 MB image ≈ 4 MB). */
+const MEDIA_UPLOAD_MAX = 5_500_000;
+
+async function readJsonBody(request: Request, maxBytes = 600_000): Promise<unknown> {
+  // Enforce the cap on the ACTUAL body bytes (a missing Content-Length must
+  // not allow an oversized chunked payload through).
+  const buf = await request.arrayBuffer();
+  if (buf.byteLength > maxBytes) throw new Error('payload_too_large');
   try {
-    return (await request.json()) as unknown;
+    return JSON.parse(new TextDecoder('utf-8').decode(buf)) as unknown;
   } catch {
     throw new Error('invalid_json');
   }
@@ -508,9 +537,37 @@ async function handleApi(request: Request, env: Env, url: URL): Promise<Response
       const index = await getContentIndex(env);
       if (!index.storyDirs.has(route.storyDir)) return withCors(errorJson(404, 'not_found'), cors);
       if (route.storyDir.startsWith('community/')) {
-        // Community stories only expose the combined package endpoint;
-        // individual file access is not needed since the app uses the bundle.
-        return withCors(errorJson(404, 'not_found'), cors);
+        // Community story JSON lives in one package; the ALLOWLISTED media
+        // files (cover + gallery) are served from permanent KV storage.
+        if (!route.file.startsWith('assets/')) return withCors(errorJson(404, 'not_found'), cors);
+        const media = await getCommunityMediaFile(env, route.storyDir, route.file);
+        if (!media) return withCors(errorJson(404, 'not_found'), cors);
+        if (method === 'HEAD') {
+          return withCors(
+            new Response(null, {
+              status: 200,
+              headers: {
+                'Content-Type': media.mime,
+                'Cache-Control': CACHE_COVER,
+                'X-Content-Type-Options': 'nosniff',
+                'Referrer-Policy': 'no-referrer',
+              },
+            }),
+            cors,
+          );
+        }
+        return withCors(
+          new Response(media.bytes as unknown as BodyInit, {
+            status: 200,
+            headers: {
+              'Content-Type': media.mime,
+              'Cache-Control': CACHE_COVER,
+              'X-Content-Type-Options': 'nosniff',
+              'Referrer-Policy': 'no-referrer',
+            },
+          }),
+          cors,
+        );
       }
       const key = `content/stories/${route.storyDir}/${route.file}`;
       const cache = route.file.startsWith('assets/') ? CACHE_COVER : CACHE_STORY;
@@ -525,6 +582,19 @@ async function handleApi(request: Request, env: Env, url: URL): Promise<Response
     case 'submit-limit': {
       const lim = await getLimitStatus(kvFor(env));
       return withCors(json({ ok: true, ...lim }, 200, { 'Cache-Control': 'no-store' }), cors);
+    }
+    case 'submit-media': {
+      let body: unknown;
+      try {
+        body = await readJsonBody(request, MEDIA_UPLOAD_MAX);
+      } catch (e) {
+        const msg = (e as Error).message;
+        if (msg === 'payload_too_large')
+          return withCors(errorJson(413, 'payload_too_large', 'Image is too large (max 3 MB).'), cors);
+        return withCors(errorJson(400, 'invalid_json', 'Request body must be valid JSON.'), cors);
+      }
+      const res = await uploadMedia(env, body as { kind?: unknown; image?: unknown });
+      return withCors(res, cors);
     }
     case 'submit-idea':
     case 'submit-story': {
@@ -548,6 +618,22 @@ async function handleApi(request: Request, env: Env, url: URL): Promise<Response
     case 'admin-pending': {
       const r = await listPending(env);
       return withCors(r, cors);
+    }
+    case 'admin-media': {
+      // Preview of a PENDING submission's uploaded image (already Bearer-gated).
+      const media = await getPendingMedia(env, route.id);
+      if (!media) return withCors(errorJson(404, 'not_found', undefined, { 'Cache-Control': 'no-store' }), cors);
+      return withCors(
+        new Response(media.bytes as unknown as BodyInit, {
+          status: 200,
+          headers: {
+            'Content-Type': media.mime,
+            'Cache-Control': 'no-store',
+            'X-Content-Type-Options': 'nosniff',
+          },
+        }),
+        cors,
+      );
     }
     case 'admin-idea-accept': {
       const r = await acceptIdea(env, route.id);

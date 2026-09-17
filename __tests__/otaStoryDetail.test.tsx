@@ -8,7 +8,6 @@
  */
 import React from 'react';
 import renderer from 'react-test-renderer';
-import { COLORS } from '../src/theme';
 
 (globalThis as unknown as { IS_REACT_ACT_ENVIRONMENT: boolean }).IS_REACT_ACT_ENVIRONMENT = true;
 
@@ -24,6 +23,7 @@ jest.mock('react-native', () => {
     Image: el('Image'),
     ActivityIndicator: el('ActivityIndicator'),
     StatusBar: el('StatusBar'),
+    Modal: (p: any) => R.createElement('Modal', p, p.children),
     Alert: { alert: jest.fn() },
   };
 });
@@ -73,6 +73,8 @@ const isStoryOnDevice = jest.fn(async () => true);
 jest.mock('../src/content/loader', () => ({
   getBundledCoverSource: () => ({ uri: 'https://example.test/cover.jpg' }),
   effectiveContentApiBaseUrl: () => 'https://example.test/api',
+  mediaApiUrl: (base: string, storyDir: string, file: string) =>
+    `${String(base).replace(/\/+$/, '')}/stories/${storyDir}/${file}`,
   getBundle: (...a: unknown[]) => getBundle(...(a as [])),
   downloadStory: (...a: unknown[]) => downloadStory(...(a as [])),
   isStoryOnDevice: (...a: unknown[]) => isStoryOnDevice(...(a as [])),
@@ -279,5 +281,56 @@ describe('StoryDetail (V2: streamed playback, offline gate)', () => {
     expect(text).toContain('Chat Now');
     expect(text).toContain('Ankit');
     expect(text).not.toContain("Couldn't open story");
+  });
+
+  test('renders the Media Library between About and Story Creator, with resolved asset URLs', async () => {
+    getBundle.mockResolvedValue({
+      ...validBundle(),
+      story: {
+        ...validBundle().story,
+        media: {
+          cover: 'assets/cover.jpg',
+          gallery: [
+            { id: 'cover', file: 'assets/cover.jpg', kind: 'cover', label: 'Cover' },
+            { id: 'img-1', file: 'assets/gallery/image-01.jpg', kind: 'character-portrait', characterId: 'aria' },
+          ],
+        },
+      },
+    });
+
+    await render();
+    const text = renderText();
+
+    // The library exists with its item count.
+    expect(text).toContain('Media Library (2)');
+    // Gallery entries resolve to the story API, not arbitrary paths.
+    expect(text).toContain('/stories/goddess-who-chose-me/assets/cover.jpg');
+    expect(text).toContain('/stories/goddess-who-chose-me/assets/gallery/image-01.jpg');
+    // Character portraits are labelled with the character name.
+    expect(text).toContain('Aria');
+
+    // Canonical section order: About (title) → Media Library → Story Creator → Refer Kissa.
+    const order = [STORY.title, 'Media Library (2)', 'Story Creator', 'Refer Kissa'];
+    let last = -1;
+    for (const marker of order) {
+      const idx = text.indexOf(marker);
+      expect(idx).toBeGreaterThan(last);
+      last = idx;
+    }
+
+    // No visible Characters section.
+    expect(text).not.toContain('Characters (');
+  });
+
+  test('hides the Media Library entirely when the story has no media block', async () => {
+    getBundle.mockResolvedValue(validBundle()); // no story.media
+
+    await render();
+    const text = renderText();
+    expect(text).not.toContain('Media Library');
+    // The rest of the canonical layout is intact.
+    expect(text).toContain('Story Creator');
+    expect(text).toContain('Refer Kissa');
+    expect(text).toContain('Chat Now');
   });
 });

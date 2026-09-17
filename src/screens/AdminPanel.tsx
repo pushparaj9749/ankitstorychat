@@ -9,6 +9,7 @@ import React, { useCallback, useEffect, useState } from 'react';
 import {
   ActivityIndicator,
   Alert,
+  Image,
   Modal,
   Pressable,
   RefreshControl,
@@ -29,6 +30,7 @@ import {
   acceptIdeaAdmin,
   acceptStoryAdmin,
   clearAdminToken,
+  fetchAdminMediaAsDataUri,
   formatRemaining,
   getAdminToken,
   hasAdminToken,
@@ -134,7 +136,9 @@ export function AdminPanel({ navigation }: Props) {
             setViewing(null);
             await load();
           } catch (e) {
-            Alert.alert('Publish failed', (e as Error).message);
+            const err = e as SubmissionApiError;
+            const details = err.issues?.map((i) => `• ${i.path}: ${i.message}`).join('\n');
+            Alert.alert('Publish failed', details ? `${err.message}\n\n${details}` : err.message);
           }
         },
       },
@@ -314,18 +318,32 @@ export function AdminPanel({ navigation }: Props) {
                     {formatRemaining(Math.max(0, new Date(viewing.expiresAt).getTime() - Date.now()))}
                   </Text>
 
-                  <SectionHeader title="Content" />
+                  {viewing.type === 'story' ? (
+                    <>
+                      <SectionHeader title="Cover & Media Gallery" />
+                      <StoryMediaPreview payload={viewing.payload} apiBase={apiBase} />
+                    </>
+                  ) : null}
+
+                  <SectionHeader title={viewing.type === 'idea' ? 'Idea' : 'Story content'} />
                   {viewing.type === 'idea' ? (
                     <View style={[styles.preview, { backgroundColor: theme.surface, borderColor: theme.border }]}>
                       <IdeaPreview sub={viewing} />
                     </View>
                   ) : (
                     <View style={[styles.preview, { backgroundColor: theme.surface, borderColor: theme.border }]}>
-                      <Text style={{ color: theme.textDim, fontSize: FONTS.small }} selectable>
-                        {JSON.stringify(viewing.payload, null, 2)}
-                      </Text>
+                      <StoryContentPreview payload={viewing.payload} />
                     </View>
                   )}
+
+                  <SectionHeader title="Validation" />
+                  <View style={[styles.preview, { backgroundColor: theme.surface, borderColor: theme.border }]}>
+                    <Text style={{ color: theme.textDim, fontSize: FONTS.small }}>
+                      Structure, schema, age rating and media were validated at submission time.
+                      Final content checks run again at Accept &amp; Publish — if they fail, the
+                      story stays pending and the issues are shown here.
+                    </Text>
+                  </View>
 
                   <View style={{ height: SPACING.lg }} />
                   {viewing.type === 'idea' ? (
@@ -348,6 +366,190 @@ export function AdminPanel({ navigation }: Props) {
         </View>
       </Modal>
     </Screen>
+  );
+}
+
+/**
+ * Admin preview of a PENDING story's uploaded media. Images are fetched with
+ * the admin token (they are private until accepted) and shown as data URIs.
+ */
+function StoryMediaPreview({ payload, apiBase }: { payload: unknown; apiBase: string }) {
+  const { theme } = useApp();
+  const p = (payload as { story?: Record<string, unknown>; characters?: { characters?: { id?: string; name?: string }[] } }) ?? {};
+  const media = p.story?.media as
+    | { cover?: string; gallery?: { id?: string; file?: string; kind?: string; label?: string; characterId?: string }[] }
+    | undefined;
+  const charName = (id?: string) =>
+    id ? p.characters?.characters?.find((c) => c.id === id)?.name : undefined;
+
+  const refs = React.useMemo(() => {
+    if (!media || !Array.isArray(media.gallery)) return [];
+    const out: { ref: string; kind: string; label: string }[] = [];
+    if (typeof media.cover === 'string') {
+      out.push({ ref: media.cover, kind: 'cover', label: 'Cover' });
+    }
+    for (const g of media.gallery) {
+      if (!g || typeof g.file !== 'string') continue;
+      if (g.file === media.cover) continue; // already shown as the cover
+      const label =
+        g.kind === 'character-portrait'
+          ? charName(g.characterId) ?? 'Portrait'
+          : g.kind === 'scene'
+            ? 'Scene'
+            : g.label || 'Media';
+      out.push({ ref: g.file, kind: g.kind ?? 'other', label });
+    }
+    return out;
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [media]);
+
+  const [images, setImages] = useState<Record<string, string | null>>({});
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    let alive = true;
+    (async () => {
+      const next: Record<string, string | null> = {};
+      await Promise.all(
+        refs.map(async (r) => {
+          const id = r.ref.replace(/^media\//, '');
+          const uri = await fetchAdminMediaAsDataUri(id, apiBase);
+          next[r.ref] = uri;
+        }),
+      );
+      if (alive) {
+        setImages(next);
+        setLoading(false);
+      }
+    })();
+    return () => {
+      alive = false;
+    };
+  }, [refs, apiBase]);
+
+  if (!media) {
+    return (
+      <View style={[styles.preview, { backgroundColor: theme.surface, borderColor: theme.border }]}>
+        <Text style={{ color: theme.danger, fontSize: FONTS.small }}>
+          ⚠ No media block found — this story has no cover.
+        </Text>
+      </View>
+    );
+  }
+
+  if (refs.length === 0) {
+    return (
+      <View style={[styles.preview, { backgroundColor: theme.surface, borderColor: theme.border }]}>
+        <Text style={{ color: theme.textDim, fontSize: FONTS.small }}>No gallery images.</Text>
+      </View>
+    );
+  }
+
+  return (
+    <View>
+      {loading ? (
+        <View style={{ padding: 16, alignItems: 'center' }}>
+          <ActivityIndicator color={theme.accent} />
+          <Text style={{ color: theme.textFaint, fontSize: FONTS.tiny, marginTop: 8 }}>
+            Loading uploaded media…
+          </Text>
+        </View>
+      ) : (
+        <View style={styles.mediaGrid}>
+          {refs.map((r) => {
+            const uri = images[r.ref];
+            return (
+              <View
+                key={r.ref}
+                style={[styles.mediaTile, { backgroundColor: theme.bgSoft, borderColor: theme.border }]}
+              >
+                {uri ? (
+                  <Image source={{ uri }} style={styles.mediaTileImg} resizeMode="cover" />
+                ) : (
+                  <View style={[styles.mediaTile, { backgroundColor: theme.surface }]}>
+                    <Text style={{ color: theme.textFaint, fontSize: FONTS.tiny, textAlign: 'center' }}>
+                      unavailable
+                      {'\n'}(expired?)
+                    </Text>
+                  </View>
+                )}
+                <View style={[styles.mediaTileBadge, { backgroundColor: 'rgba(0,0,0,0.66)' }]}>
+                  <Text style={[styles.mediaTileBadgeText, { color: theme.accent }]}>
+                    {(r.kind ?? 'other').replace('-', ' ').toUpperCase()}
+                  </Text>
+                </View>
+                <Text
+                  style={[styles.mediaTileLabel, { color: '#fff' }]}
+                  numberOfLines={1}
+                >
+                  {r.label}
+                </Text>
+              </View>
+            );
+          })}
+        </View>
+      )}
+      <Text style={{ color: theme.textFaint, fontSize: FONTS.tiny, marginTop: 8 }}>
+        {refs.length} image(s) • served privately — only visible to admins until published.
+      </Text>
+    </View>
+  );
+}
+
+/** Structured read-only preview of the submitted story content. */
+function StoryContentPreview({ payload }: { payload: unknown }) {
+  const { theme } = useApp();
+  const p = payload as {
+    story?: Record<string, unknown>;
+    characters?: { characters?: { id?: string; name?: string; role?: string }[] };
+    scenes?: { scenes?: { id?: string; title?: string; narration?: string[] }[] };
+    world?: { premise?: string };
+    memory?: { seedMemories?: string[] };
+  };
+  const s = p.story ?? {};
+  const chars = Array.isArray(p.characters?.characters) ? p.characters!.characters! : [];
+  const scenes = Array.isArray(p.scenes?.scenes) ? p.scenes!.scenes! : [];
+  const opening = scenes.find((sc) => sc.id === s.openingSceneId) ?? scenes[0];
+
+  return (
+    <View>
+      <PreviewRow label="Story id" value={typeof s.id === 'string' ? s.id : '—'} />
+      <PreviewRow label="Age rating" value={typeof s.ageRating === 'string' ? s.ageRating : '—'} />
+      <PreviewRow label="Content level" value={typeof s.contentLevel === 'string' ? s.contentLevel : '—'} />
+      <PreviewRow
+        label="Genres"
+        value={Array.isArray(s.genres) ? (s.genres as string[]).join(', ') : '—'}
+      />
+      <PreviewRow label="Scenes" value={String(scenes.length)} />
+      <PreviewRow label="Characters" value={chars.map((c) => c.name).join(', ') || '—'} />
+      {p.world?.premise ? (
+        <PreviewRow label="Premise" value={String(p.world.premise).slice(0, 220)} />
+      ) : null}
+      {opening && Array.isArray(opening.narration) && opening.narration.length > 0 ? (
+        <View style={{ marginTop: 10 }}>
+          <Text style={{ color: theme.accent, fontSize: FONTS.tiny, fontWeight: '900' }}>
+            OPENING NARRATION
+          </Text>
+          <Text style={{ color: theme.text, fontSize: FONTS.small, lineHeight: 20, marginTop: 4 }} selectable>
+            {opening.narration.join('\n').slice(0, 500)}
+          </Text>
+        </View>
+      ) : null}
+    </View>
+  );
+}
+
+function PreviewRow({ label, value }: { label: string; value: string }) {
+  const { theme } = useApp();
+  return (
+    <View style={{ flexDirection: 'row', gap: 8, paddingVertical: 4 }}>
+      <Text style={{ color: theme.textFaint, fontSize: FONTS.small, width: 92, fontWeight: '700' }}>
+        {label}
+      </Text>
+      <Text style={{ color: theme.text, fontSize: FONTS.small, flex: 1 }} numberOfLines={2} selectable>
+        {value}
+      </Text>
+    </View>
   );
 }
 
@@ -385,4 +587,26 @@ const styles = StyleSheet.create({
   card: { borderWidth: 1, borderRadius: RADIUS.md, padding: 14, marginBottom: 10 },
   empty: { borderWidth: 1, borderStyle: 'dashed', borderRadius: RADIUS.md, padding: 24, marginTop: 20 },
   preview: { borderWidth: 1, borderRadius: RADIUS.md, padding: 14, marginTop: 8 },
+  mediaGrid: { flexDirection: 'row', flexWrap: 'wrap', gap: 8 },
+  mediaTile: {
+    width: '31%',
+    aspectRatio: 3 / 4,
+    borderRadius: RADIUS.md,
+    borderWidth: 1,
+    overflow: 'hidden',
+  },
+  mediaTileImg: { width: '100%', height: '100%' },
+  mediaTileBadge: { position: 'absolute', top: 6, left: 6, borderRadius: 999, paddingHorizontal: 7, paddingVertical: 2 },
+  mediaTileBadgeText: { fontSize: 8, fontWeight: '900', letterSpacing: 0.5 },
+  mediaTileLabel: {
+    position: 'absolute',
+    left: 8,
+    right: 8,
+    bottom: 6,
+    fontSize: 10,
+    fontWeight: '800',
+    textShadowColor: 'rgba(0,0,0,0.9)',
+    textShadowRadius: 4,
+    textShadowOffset: { width: 0, height: 1 },
+  },
 });

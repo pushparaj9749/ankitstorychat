@@ -20,7 +20,6 @@ export function Home({ navigation }: Props) {
     stories,
     recentPlaythroughs,
     favoriteIds,
-    updateAvailable,
   } = useApp();
 
   const byId = useMemo(() => new Map(stories.map((s) => [s.id, s])), [stories]);
@@ -60,9 +59,7 @@ export function Home({ navigation }: Props) {
         <EmptyState
           emoji="📚"
           title="No stories yet"
-          subtitle="Pull fresh stories from Content Updates, or check your connection."
-          action="Content Updates"
-          onAction={() => (navigation as unknown as { navigate: (s: string) => void }).navigate('ContentUpdates')}
+          subtitle="Fresh stories arrive over the air automatically — check your connection and open Discover."
         />
       </Screen>
     );
@@ -85,17 +82,6 @@ export function Home({ navigation }: Props) {
           >
             <Text style={{ color: theme.textFaint }}>🔍 Search stories, genres, characters…</Text>
           </Pressable>
-
-          {updateAvailable ? (
-            <Pressable
-              onPress={() => (navigation as unknown as { navigate: (s: string) => void }).navigate('ContentUpdates')}
-              style={[styles.updateBanner, { backgroundColor: theme.accentSoft, borderColor: theme.accent }]}
-            >
-              <Text style={[styles.updateText, { color: theme.accent }]}>
-                ✨ Nayi stories available hain — tap to update
-              </Text>
-            </Pressable>
-          ) : null}
 
           {activeRecent.length > 0 ? (
             <>
@@ -241,13 +227,6 @@ const styles = StyleSheet.create({
     marginBottom: 4,
     ...SHADOWS.card,
   },
-  updateBanner: {
-    borderWidth: 1,
-    borderRadius: RADIUS.md,
-    padding: 12,
-    marginTop: 12,
-  },
-  updateText: { fontWeight: '700', fontSize: FONTS.small },
   gap: { marginBottom: 10 },
   hlist: { paddingHorizontal: 16 },
   hitem: { marginRight: 12 },

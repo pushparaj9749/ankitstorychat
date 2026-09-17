@@ -88,6 +88,48 @@ function get(path: string): Promise<Response> {
   return fetchWith(path, { method: 'GET' });
 }
 
+/** A real, valid 1x1 JPEG (base64) for media upload tests. */
+const TINY_JPEG_B64 =
+  '/9j/4AAQSkZJRgABAQEAYABgAAD/2wBDAAgGBgcGBQgHBwcJCQgKDBQNDAsLDBkSEw8UHRofHh0aHBwgJC4nICIsIxwcKDcpLDAxNDQ0Hyc5PTgyPC4zNDL/wAALCAABAAEBAREA/8QAFAABAAAAAAAAAAAAAAAAAAAACf/EABQQAQAAAAAAAAAAAAAAAAAAAAD/2gAIAQEAAD8AKp//2Q==';
+
+/** Upload a small valid image and return its server-issued safe ref. */
+async function uploadCover(): Promise<string> {
+  const res = await post('/api/submit/media', { kind: 'cover', image: TINY_JPEG_B64 });
+  if (res.status !== 201) throw new Error(`media upload failed: ${res.status}`);
+  const body = (await res.json()) as { ref: string };
+  return body.ref;
+}
+
+/** A minimal VALID complete-story payload (with a real uploaded cover). */
+async function storyPayload(over: {
+  creatorName?: string;
+  creator?: Record<string, unknown>;
+  story?: Record<string, unknown>;
+  scenes?: Record<string, unknown>;
+  extra?: Record<string, unknown>;
+} = {}): Promise<Record<string, unknown>> {
+  const ref = await uploadCover();
+  return {
+    creatorName: over.creatorName ?? 'Test',
+    ...(over.creator ? { creator: over.creator } : {}),
+    story: {
+      id: 'test-story',
+      title: 'Test Story',
+      ageRating: '12-17',
+      contentLevel: 'teen',
+      openingSceneId: 's1',
+      media: {
+        cover: ref,
+        gallery: [{ id: 'cover', file: ref, kind: 'cover', label: 'Cover' }],
+      },
+      ...(over.story ?? {}),
+    },
+    scenes:
+      over.scenes ?? { scenes: [{ id: 's1', title: 'Start', narration: ['hi'], choices: [] }], endings: [] },
+    ...(over.extra ?? {}),
+  };
+}
+
 describe('submission validation helpers', () => {
   test('sanitizeName trims and rejects empty / scripted / long', () => {
     expect(sanitizeName('  Ankit  ')).toEqual({ ok: true, value: 'Ankit' });
@@ -119,13 +161,50 @@ describe('submission validation helpers', () => {
         ageRating: '12-17',
         contentLevel: 'teen',
         openingSceneId: 's1',
+        media: {
+          cover: 'media/media_abc123_abc12345',
+          gallery: [{ id: 'cover', file: 'media/media_abc123_abc12345', kind: 'cover', label: 'Cover' }],
+        },
       },
     });
     expect(good.ok).toBe(true);
+    // A complete story without a Media Library (cover) is rejected.
+    const noMedia = validateStorySubmission({
+      creatorName: 'Ankit',
+      story: { id: 'my-story-3', title: 'T', ageRating: '12-17', contentLevel: 'teen', openingSceneId: 's1' },
+    });
+    expect(noMedia.ok).toBe(false);
+    expect(noMedia.issues.some((i) => i.path === 'story.media')).toBe(true);
+    // Media refs must be the server-issued pending form — never arbitrary paths.
+    const badRef = validateStorySubmission({
+      creatorName: 'Ankit',
+      story: {
+        id: 'my-story-4',
+        title: 'T',
+        ageRating: '12-17',
+        contentLevel: 'teen',
+        openingSceneId: 's1',
+        media: {
+          cover: '../../etc/passwd',
+          gallery: [{ id: 'cover', file: '../../etc/passwd', kind: 'cover' }],
+        },
+      },
+    });
+    expect(badRef.ok).toBe(false);
     // Self-verification is silently dropped: cleaned bundle.story.creator.verified = false.
     const selfVerify = validateStorySubmission({
       creator: { name: 'Ankit', verified: true },
-      story: { id: 'my-story-2', title: 'T', ageRating: '12-17', contentLevel: 'teen', openingSceneId: 's1' },
+      story: {
+        id: 'my-story-2',
+        title: 'T',
+        ageRating: '12-17',
+        contentLevel: 'teen',
+        openingSceneId: 's1',
+        media: {
+          cover: 'media/media_abc123_abc12345',
+          gallery: [{ id: 'cover', file: 'media/media_abc123_abc12345', kind: 'cover' }],
+        },
+      },
     });
     expect(selfVerify.ok).toBe(true);
     const cleanedStory = selfVerify.cleaned?.bundle.story as Record<string, unknown> | undefined;
@@ -187,10 +266,7 @@ describe('global daily limit (50)', () => {
     expect(body.limitReached).toBe(true);
 
     // Cross-type: complete story submissions also count against the same limit.
-    const blockedStory = await post('/api/submit/story', {
-      creatorName: 'X',
-      story: { id: 'blocked-story', title: 'T', ageRating: '12-17', contentLevel: 'teen', openingSceneId: 's1' },
-    });
+    const blockedStory = await post('/api/submit/story', await storyPayload({ creatorName: 'X' }));
     expect(blockedStory.status).toBe(429);
   });
 });
@@ -221,11 +297,14 @@ describe('admin routes', () => {
 
   test('admin can accept a complete story submission', async () => {
     makeEnv('secret');
-    const submitted = await post('/api/submit/story', {
-      creatorName: 'Mira',
-      story: { id: 'mira-tale', title: 'Mira Tale', ageRating: '12-17', contentLevel: 'teen', openingSceneId: 's1' },
-      scenes: { scenes: [{ id: 's1', title: 'Start', narration: ['Hello'], choices: [] }], endings: [] },
-    });
+    const submitted = await post(
+      '/api/submit/story',
+      await storyPayload({
+        creatorName: 'Mira',
+        story: { id: 'mira-tale', title: 'Mira Tale' },
+        scenes: { scenes: [{ id: 's1', title: 'Start', narration: ['Hello'], choices: [] }], endings: [] },
+      }),
+    );
     const { id } = (await submitted.json()) as { id: string };
     const accepted = await adminPost(`/api/admin/story/${id}/accept`, {});
     expect(accepted.status).toBe(200);
@@ -238,19 +317,14 @@ describe('admin routes', () => {
 describe('end-to-end publish flow', () => {
   test('accepted story appears in public manifest and is fetchable; pending never leaks', async () => {
     makeEnv('secret');
-    const sub = await post('/api/submit/story', {
-      creatorName: 'Priya',
-      story: {
-        id: 'priya-forest',
-        title: 'Priya Forest Tale',
-        ageRating: '12-17',
-        contentLevel: 'teen',
-        openingSceneId: 's1',
-        tagline: 'A short tale',
-        genres: ['Fantasy'],
-      },
-      scenes: { scenes: [{ id: 's1', title: 'Start', narration: ['Once upon a time'], choices: [] }], endings: [] },
-    });
+    const sub = await post(
+      '/api/submit/story',
+      await storyPayload({
+        creatorName: 'Priya',
+        story: { id: 'priya-forest', title: 'Priya Forest Tale', tagline: 'A short tale', genres: ['Fantasy'] },
+        scenes: { scenes: [{ id: 's1', title: 'Start', narration: ['Once upon a time'], choices: [] }], endings: [] },
+      }),
+    );
     expect(sub.status).toBe(201);
     const { id } = (await sub.json()) as { id: string };
 
@@ -273,20 +347,43 @@ describe('end-to-end publish flow', () => {
 
     const pkgRes = await get('/api/stories/community/priya-forest');
     expect(pkgRes.status).toBe(200);
-    const pkg = (await pkgRes.json()) as { source: string; creator: { name: string; verified: boolean } };
+    const pkg = (await pkgRes.json()) as {
+      source: string;
+      creator: { name: string; verified: boolean };
+      story: { media?: { cover?: string; gallery?: { file?: string }[] } };
+    };
     expect(pkg.source).toBe('community');
     expect(pkg.creator.name).toBe('Priya');
     expect(pkg.creator.verified).toBe(false);
+    // Pending media refs are rewritten to allowlisted published asset paths.
+    expect(pkg.story?.media?.cover).toMatch(/^assets\/cover\.(jpg|png|webp)$/);
+    expect(pkg.story?.media?.gallery?.[0]?.file).toBe(pkg.story?.media?.cover);
+    const publishedCover = String(pkg.story?.media?.cover ?? '');
+    expect((published as Record<string, unknown> | undefined)?.coverUrl).toBe(
+      `stories/community/priya-forest/${publishedCover}`,
+    );
+
+    // The published cover is publicly served (and only the allowlisted paths).
+    const coverRes = await get(`/api/stories/community/priya-forest/${publishedCover}`);
+    expect(coverRes.status).toBe(200);
+    expect(coverRes.headers.get('Content-Type')).toBe('image/jpeg');
+    const raw = await coverRes.arrayBuffer();
+    expect(new Uint8Array(raw)[0]).toBe(0xff); // JPEG magic byte
+    // Arbitrary paths are still refused.
+    expect((await get('/api/stories/community/priya-forest/assets/../../etc/passwd')).status).toBe(404);
   });
 
   test('self-supplied verified flag is ignored', async () => {
     makeEnv('secret');
-    const sub = await post('/api/submit/story', {
-      creatorName: 'Hacker',
-      creator: { name: 'Hacker', verified: true },
-      story: { id: 'hack-tale', title: 'Hack', ageRating: '12-17', contentLevel: 'teen', openingSceneId: 's1' },
-      scenes: { scenes: [{ id: 's1', title: 'Start', narration: ['nope'], choices: [] }], endings: [] },
-    });
+    const sub = await post(
+      '/api/submit/story',
+      await storyPayload({
+        creatorName: 'Hacker',
+        creator: { name: 'Hacker', verified: true },
+        story: { id: 'hack-tale', title: 'Hack' },
+        scenes: { scenes: [{ id: 's1', title: 'Start', narration: ['nope'], choices: [] }], endings: [] },
+      }),
+    );
     const { id } = (await sub.json()) as { id: string };
     const acc = await adminPost(`/api/admin/story/${id}/accept`, {});
     expect(acc.status).toBe(200);
@@ -298,11 +395,14 @@ describe('end-to-end publish flow', () => {
 
   test('stories with unsafe markup are rejected at publish', async () => {
     makeEnv('secret');
-    const sub = await post('/api/submit/story', {
-      creatorName: 'XSS',
-      story: { id: 'xss-tale', title: '<script>alert(1)</script>', ageRating: '12-17', contentLevel: 'teen', openingSceneId: 's1' },
-      scenes: { scenes: [{ id: 's1', title: 'Start', narration: ['hi'], choices: [] }], endings: [] },
-    });
+    const sub = await post(
+      '/api/submit/story',
+      await storyPayload({
+        creatorName: 'XSS',
+        story: { id: 'xss-tale', title: '<script>alert(1)</script>' },
+        scenes: { scenes: [{ id: 's1', title: 'Start', narration: ['hi'], choices: [] }], endings: [] },
+      }),
+    );
     const { id } = (await sub.json()) as { id: string };
     const acc = await adminPost(`/api/admin/story/${id}/accept`, {});
     expect(acc.status).toBe(400);
@@ -310,11 +410,14 @@ describe('end-to-end publish flow', () => {
 
   test('age/content mismatch rejected at publish', async () => {
     makeEnv('secret');
-    const sub = await post('/api/submit/story', {
-      creatorName: 'Teen',
-      story: { id: 'mismatch', title: 'Mismatch', ageRating: '12-17', contentLevel: 'mature', openingSceneId: 's1' },
-      scenes: { scenes: [{ id: 's1', title: 'Start', narration: ['x'], choices: [] }], endings: [] },
-    });
+    const sub = await post(
+      '/api/submit/story',
+      await storyPayload({
+        creatorName: 'Teen',
+        story: { id: 'mismatch', title: 'Mismatch', ageRating: '12-17', contentLevel: 'mature' },
+        scenes: { scenes: [{ id: 's1', title: 'Start', narration: ['x'], choices: [] }], endings: [] },
+      }),
+    );
     const { id } = (await sub.json()) as { id: string };
     const acc = await adminPost(`/api/admin/story/${id}/accept`, {});
     expect(acc.status).toBe(400);
