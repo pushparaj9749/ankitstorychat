@@ -95,41 +95,11 @@ jobs:
           fi
 
       - name: Ensure KISSA_SUBMISSIONS KV namespace exists and wire ids into wrangler.jsonc
-        working-directory: worker
         env:
           CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
           CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
-        run: |
-          set -euo pipefail
-          echo "Checking for KISSA_SUBMISSIONS KV namespace..."
-          LIST=$(npx wrangler kv:namespace list)
-          EXISTING_ID=$(echo "$LIST" | node -e 'let s="";process.stdin.on("data",d=>s+=d);process.stdin.on("end",()=>{try{const arr=JSON.parse(s);const hit=arr.find(x=>x.title==="KISSA_SUBMISSIONS");process.stdout.write(hit?hit.id:"");}catch(e){process.stdout.write("");}})')
-          if [ -z "$EXISTING_ID" ]; then
-            echo "Creating KISSA_SUBMISSIONS KV namespace..."
-            CREATE_OUT=$(npx wrangler kv:namespace create KISSA_SUBMISSIONS)
-            EXISTING_ID=$(echo "$CREATE_OUT" | grep -oE 'id = [a-f0-9]+' | head -n1 | awk '{print $3}')
-            if [ -z "$EXISTING_ID" ]; then
-              EXISTING_ID=$(echo "$CREATE_OUT" | grep -oE '"id":"[a-f0-9]+"' | head -n1 | sed -E 's/"id":"([a-f0-9]+)"/\1/')
-            fi
-            echo "Created KV namespace: $EXISTING_ID"
-          else
-            echo "Reusing existing KV namespace: $EXISTING_ID"
-          fi
-          export KV_ID="$EXISTING_ID"
-          node -e "
-          const fs=require('fs');
-          const p='wrangler.jsonc';
-          let s=fs.readFileSync(p,'utf8');
-          const kvBlock = '\n  \"kv_namespaces\": [\n    { \"binding\": \"KISSA_SUBMISSIONS\", \"id\": \"'+process.env.KV_ID+'\", \"preview_id\": \"'+process.env.KV_ID+'\" }\n  ],\n';
-          // Inject right before the \"unsafe\" block (splice after assets block closes).
-          if (!s.includes('\"kv_namespaces\"')) {
-            s = s.replace(/(\n  "unsafe":\s*\{)/, kvBlock + '\n  "unsafe": {');
-          } else {
-            s = s.replace(/\"kv_namespaces\"\s*:\s*\[[^\]]*\]/, '\"kv_namespaces\": [\\n    { \"binding\": \"KISSA_SUBMISSIONS\", \"id\": \"'+process.env.KV_ID+'\", \"preview_id\": \"'+process.env.KV_ID+'\" }\\n  ]');
-          }
-          fs.writeFileSync(p,s);
-          console.log('wrote KV id', process.env.KV_ID, 'into wrangler.jsonc');
-          "
+        run: node scripts/ci-kv-setup.mjs
+        working-directory: worker/..
 
       - name: Put ADMIN_TOKEN secret when present
         working-directory: worker
