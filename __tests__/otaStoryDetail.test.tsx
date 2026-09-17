@@ -76,8 +76,6 @@ jest.mock('../src/content/loader', () => ({
   getBundle: (...a: unknown[]) => getBundle(...(a as [])),
   downloadStory: (...a: unknown[]) => downloadStory(...(a as [])),
   isStoryOnDevice: (...a: unknown[]) => isStoryOnDevice(...(a as [])),
-  storyErrorMessage: (e: { code?: string }) =>
-    e?.code === 'notfound' ? "This story isn't available." : "Couldn't prepare this story. Try again.",
   StoryContentError: class StoryContentError extends Error {
     code: string;
     constructor(message: string, code = 'missing') {
@@ -183,31 +181,32 @@ function validBundle() {
     scenes: { scenes: [{ id: 's1', title: 'Start', narration: ['hi'], choices: [] }], endings: [] },
     memory: { seedMemories: [] },
     source: 'remote',
+    creator: { name: 'Ankit', avatar: null, verified: true },
   };
 }
 
-describe('StoryDetail (auto-download, cache-first, friendly retry)', () => {
-  test('without a cached package and no network shows retry, not a dead end', async () => {
+describe('StoryDetail (V2: streamed playback, offline gate)', () => {
+  test('without network shows the offline gate with Retry, not a dead end', async () => {
     getBundle.mockRejectedValue(new StoryContentError('No internet connection.', 'network'));
 
     await render();
     const text = renderText();
 
     expect(text).not.toContain("Couldn't open story");
-    expect(text).toContain("Couldn't prepare this story");
-    expect(text).toContain('Try again');
+    expect(text).toContain('Internet connection required');
+    expect(text).toContain('Retry');
   });
 
-  test('Try again re-attempts the load (which auto-downloads if needed)', async () => {
+  test('Retry re-attempts the streamed load', async () => {
     getBundle
       .mockRejectedValueOnce(new StoryContentError('No internet connection.', 'network'))
       .mockResolvedValueOnce(validBundle());
 
     await render();
-    expect(renderText()).toContain("Couldn't prepare this story");
+    expect(renderText()).toContain('Internet connection required');
 
     const button = tree.root.findAll(
-      (n) => typeof n.type === 'function' && n.props.title?.includes('Try again'),
+      (n) => typeof n.type === 'function' && n.props.title?.includes('Retry'),
     )[0];
     expect(button).toBeTruthy();
 
@@ -227,6 +226,7 @@ describe('StoryDetail (auto-download, cache-first, friendly retry)', () => {
       scenes: { scenes: [{ id: 's1', title: 'Start', narration: ['hi'], choices: [] }], endings: [] },
       memory: { seedMemories: [] },
       source: 'bundled',
+      creator: { name: 'Ankit', avatar: null, verified: true },
     });
 
     await render();
@@ -241,7 +241,7 @@ describe('StoryDetail (auto-download, cache-first, friendly retry)', () => {
     getBundle.mockRejectedValue(new StoryContentError('Story data is invalid (story.id: required).', 'invalid'));
 
     await render();
-    expect(renderText()).toContain("Couldn't prepare this story");
+    expect(renderText()).toContain("Couldn't open story");
   });
 
   test('renders normally once the story is on the device', async () => {
@@ -271,11 +271,13 @@ describe('StoryDetail (auto-download, cache-first, friendly retry)', () => {
       scenes: { scenes: [{ id: 's1', title: 'Start', narration: ['hi'], choices: [] }], endings: [] },
       memory: { seedMemories: [] },
       source: 'bundled',
+      creator: { name: 'Ankit', avatar: null, verified: true },
     });
 
     await render();
     const text = renderText();
-    expect(text).toContain('Start story');
+    expect(text).toContain('Chat Now');
+    expect(text).toContain('Ankit');
     expect(text).not.toContain("Couldn't open story");
   });
 });

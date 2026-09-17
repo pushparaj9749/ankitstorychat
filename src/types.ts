@@ -16,13 +16,108 @@ export type ContentLevel = 'teen' | 'mature';
 /** Supported story languages. v1 ships Hinglish; the schema is ready for more. */
 export type StoryLanguage = 'hinglish' | 'english';
 
+/* ------------------------------------------------------------------ */
+/* Creator attribution                                                  */
+/* ------------------------------------------------------------------ */
+
+/**
+ * Story creator metadata. Lives inside each story package.
+ *
+ * - `name` is mandatory; the admin sets/overrides it at publish time.
+ * - `verified` is controlled only by the admin/system; users can never grant
+ *   it to themselves via a submission.
+ * - `avatar` is optional (reserved for future use) and must never come from
+ *   untrusted user input without sanitisation.
+ */
+export interface StoryCreator {
+  name: string;
+  avatar?: string | null;
+  verified?: boolean;
+}
+
+/** Default creator for all Kissa owner/admin-produced stories. */
+export const KISSA_OWNER_CREATOR: StoryCreator = {
+  name: 'Ankit',
+  avatar: null,
+  verified: true,
+};
+
+/* ------------------------------------------------------------------ */
+/* User submissions (ideas + complete stories)                          */
+/* ------------------------------------------------------------------ */
+
+export type SubmissionType = 'idea' | 'story';
+export type SubmissionStatus = 'pending' | 'accepted' | 'rejected' | 'expired';
+
+export interface IdeaPayload {
+  title: string;
+  concept: string;
+  genre: string;
+  characters?: string;
+  notes?: string;
+}
+
+/**
+ * A complete story submission in JSON form. Mirrors the bundle structure the
+ * Kissa runtime already understands so that an accepted submission can be
+ * merged into the published catalog without transformation.
+ */
+export interface StorySubmissionPayload {
+  story: Partial<StoryFile>;
+  characters?: Partial<CharactersFile>;
+  world?: Partial<WorldFile>;
+  scenes?: Partial<ScenesFile>;
+  memory?: Partial<MemoryFile>;
+}
+
+export interface StorySubmission {
+  id: string;
+  type: SubmissionType;
+  status: SubmissionStatus;
+  creator: StoryCreator;
+  title: string;
+  /** Submission timestamp (UTC ISO). */
+  submittedAt: string;
+  /** Auto-expiry timestamp, exactly 24h after submittedAt (UTC ISO). */
+  expiresAt: string;
+  /** Genre declared by submitter. */
+  genre?: string;
+  /** Submitter client metadata (never trusted, for logging). */
+  client?: string;
+  /** Type-specific payload. */
+  payload: IdeaPayload | StorySubmissionPayload;
+}
+
+/** Server response shape for the submission endpoints. */
+export interface SubmitResponse {
+  ok: boolean;
+  id?: string;
+  message?: string;
+  /** Present when the global daily limit has been reached. */
+  limitReached?: boolean;
+  /** Unix-epoch ms when the current 24h window resets (informational). */
+  resetsAt?: number;
+  /** Validation issues, if any. */
+  issues?: { path: string; message: string }[];
+}
+
+/** Admin-panel list response. */
+export interface PendingListResponse {
+  ok: boolean;
+  ideas: StorySubmission[];
+  stories: StorySubmission[];
+  remaining: number;
+  resetsAt: number;
+}
+
 /**
  * Where a story bundle came from.
- * Playback is cache-first: bundled packages (if any) and previously
- * downloaded packages open immediately (including offline). The story API
- * is only contacted when a package is missing or outdated.
+ * V2: playback always STREAMS the package from the story API, so the only
+ * runtime source is 'remote'. 'bundled'/'downloaded' are retained only so
+ * older in-memory fixtures and migrations keep type-checking; they are no
+ * longer used for playback.
  */
-export type StorySource = 'bundled' | 'downloaded' | 'remote';
+export type StorySource = 'bundled' | 'downloaded' | 'remote' | 'community';
 
 /* ------------------------------------------------------------------ */
 /* Content manifest                                                    */
@@ -55,6 +150,10 @@ export interface StoryMeta {
   popularity: number;
   /** Directory name under content/stories (and under the remote repo). */
   storyDir: string;
+  /** Story creator (defaults to Ankit for owner-produced content). */
+  creator?: StoryCreator;
+  /** Community-submitted story accepted by admin (served from KV package). */
+  community?: boolean;
   updatedAt: string;
 }
 
@@ -85,6 +184,8 @@ export interface StoryFile {
   tone: string;
   /** Safety guidance for the AI narrator, e.g. "no gore". */
   safetyNotes: string[];
+  /** Story creator (defaults to Ankit for owner-produced content). */
+  creator?: StoryCreator;
 }
 
 export interface StoryCharacter {
@@ -204,6 +305,8 @@ export interface StoryBundle {
   scenes: ScenesFile;
   memory: MemoryFile;
   source: StorySource;
+  /** Effective creator (meta.creator preferred, story.creator fallback, owner default). */
+  creator: StoryCreator;
 }
 
 /* ------------------------------------------------------------------ */
@@ -447,6 +550,11 @@ export type RootStackParamList = {
   Terms: undefined;
   Privacy: undefined;
   About: undefined;
+  ContentUpdates: undefined;
+  SubmitStory: { mode?: 'idea' | 'story' };
+  SubmissionSuccess: { id: string; type: 'idea' | 'story'; creatorName: string; resetsAt: number };
+  MySubmissions: undefined;
+  AdminPanel: undefined;
 };
 
 export type MainTabParamList = {

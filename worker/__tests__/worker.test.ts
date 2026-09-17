@@ -125,9 +125,10 @@ describe('GET endpoints', () => {
     expect(res.status).toBe(200);
     expect(res.headers.get('Content-Type')).toContain('application/json');
     const cc = res.headers.get('Cache-Control') ?? '';
-    expect(cc).toContain('max-age=60');
-    const body = (await res.json()) as { contentVersion: number };
+    expect(cc).toContain('max-age=15'); // short TTL so new community stories propagate quickly
+    const body = (await res.json()) as { contentVersion: number; stories: unknown[] };
     expect(body.contentVersion).toBe(5);
+    expect(Array.isArray(body.stories)).toBe(true);
   });
 
   test('story file is served as JSON with cache headers', async () => {

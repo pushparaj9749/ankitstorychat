@@ -52,6 +52,10 @@ export function manifestApiUrl(base: string): string {
 export function storyFileApiUrl(base: string, storyDir: string, file: string): string {
   return contentApiUrl(base, `stories/${storyDir}/${file}`);
 }
+/** GET <base>/stories/<storyDir> (whole bundle in one JSON response) */
+export function storyPackageApiUrl(base: string, storyDir: string): string {
+  return contentApiUrl(base, `stories/${storyDir}`);
+}
 
 /** Resolve a manifest coverUrl (may be a relative API path) for display/fetch. */
 export function coverApiUrl(base: string, coverUrl: string): string {

@@ -74,14 +74,10 @@ export function LoadingState({ label = 'Loading…' }: { label?: string }) {
   );
 }
 
-/** In-story download / open — same visual language, no technical copy. */
-export function PreparingState({ label = 'Preparing your story…' }: { label?: string }) {
-  return <LoadingState label={label} />;
-}
-
 /**
- * Friendly retry when a remote story package could not be prepared.
- * Cached stories never reach this — they open from disk.
+ * V2: polished offline / no-network state for story playback.
+ * Story content now streams from the API, so when there is no connection we
+ * show this and offer Retry — never silently falling back to cached content.
  */
 export function OfflineState({
   subtitle,
@@ -102,9 +98,9 @@ export function OfflineState({
       <View style={[styles.offlineIcon, { backgroundColor: theme.primarySoft }]}>
         <Text style={styles.offlineIconText}>📡</Text>
       </View>
-      <Text style={[styles.title, { color: theme.text }]}>Couldn't prepare this story</Text>
+      <Text style={[styles.title, { color: theme.text }]}>Internet connection required</Text>
       <Text style={[styles.sub, { color: theme.textDim }]}>
-        {subtitle ?? 'Try again. Stories you already opened still work without internet.'}
+        {subtitle ?? 'Connect to the internet to continue this story.'}
       </Text>
       <View style={styles.btnRow}>
         {retry && onRetry ? <GradientButton title={retry} onPress={onRetry} /> : null}

@@ -6,8 +6,17 @@
   "language": "hinglish",
   "ageRating": "18+",
   "contentLevel": "mature",
-  "genres": ["Sci-Fi", "Thriller"],
-  "tags": ["cyberpunk", "dystopia", "memories", "corporation", "dark"],
+  "genres": [
+    "Sci-Fi",
+    "Thriller"
+  ],
+  "tags": [
+    "cyberpunk",
+    "dystopia",
+    "memories",
+    "corporation",
+    "dark"
+  ],
   "userRole": "Memory courier in flooded Neo Delhi",
   "setting": "Flooded cyberpunk Delhi, year 2099",
   "openingSceneId": "s1_package",
@@ -16,5 +25,9 @@
     "Mature themes (surveillance, exploitation) handled with gravity, never glamorized.",
     "No sexual content, no gore detail.",
     "Violence stays off-screen and consequential."
-  ]
+  ],
+  "creator": {
+    "name": "Ankit",
+    "verified": true
+  }
 }

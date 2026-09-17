@@ -11,7 +11,6 @@ import { readFileSync } from 'node:fs';
 import { join } from 'node:path';
 import type { ScenesFile, StoryBundle, StoryMeta } from '../src/types';
 import { validateBundle } from '../src/lib/validate';
-import { endingIdForTurn, isOngoingStory } from '../src/lib/engine';
 
 const ROOT = join(__dirname, '..');
 
@@ -204,14 +203,6 @@ describe('validator enforces the endless-story rule', () => {
       scenes: { ...scenesOk, endings: [{ id: 'end', title: 'The End', description: 'd' }] },
     } as never);
     expect(res.issues.some((i) => /ongoing/.test(i.message))).toBe(false);
-  });
-
-  test('runtime never ends an ongoing story even if effects ask it to', () => {
-    const bundle = loadBundle(ongoingStories[0].id);
-    expect(isOngoingStory(bundle)).toBe(true);
-    const scene = bundle.scenes.scenes[0];
-    expect(endingIdForTurn(bundle, scene, { endStory: 'the-end' })).toBeNull();
-    expect(endingIdForTurn(bundle, { ...scene, isEnding: true, endingId: 'the-end' }, undefined)).toBeNull();
   });
 
   test('a character NAME may not contain a {{placeholder}}', () => {

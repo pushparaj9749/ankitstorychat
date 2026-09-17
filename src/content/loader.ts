@@ -3,11 +3,10 @@
  * - Bundled stories ship with the app (offline-first).
  * - The Kissa story API (https://beyondredeye.site/api, a Cloudflare Worker)
  *   is the content source for NEW / UPDATED stories. The app fetches the
- *   lightweight manifest, compares versions, and downloads a story package
- *   only when the user opens a story that isn't cached (or is outdated).
- *   The private GitHub repository behind the API is never contacted by the app.
- * - Downloaded stories are cached on-device, validated before install, and
- *   keep working fully offline.
+ *   manifest, compares versions, and downloads story packages as JSON — no
+ *   app rebuild needed. The private GitHub repository behind the API is never
+ *   contacted by the app.
+ * - Downloaded stories are cached on-device and validated before use.
  * - Age gating is enforced here (logic level), not just in UI.
  */
 import type {
@@ -17,11 +16,12 @@ import type {
   MemoryFile,
   ScenesFile,
   StoryBundle,
+  StoryCreator,
   StoryFile,
   StoryMeta,
-  StorySource,
   WorldFile,
 } from '../types';
+import { KISSA_OWNER_CREATOR } from '../types';
 import { assertCanOpen, filterForAge } from '../lib/ageGate';
 import { validateBundle, validateManifest } from '../lib/validate';
 import {
@@ -34,6 +34,7 @@ import {
   effectiveContentApiBaseUrl,
   manifestApiUrl,
   storyFileApiUrl,
+  storyPackageApiUrl,
 } from './api';
 import {
   STORIES_DIR,
@@ -60,6 +61,7 @@ export {
   effectiveContentApiBaseUrl,
   manifestApiUrl,
   storyFileApiUrl,
+  storyPackageApiUrl,
 } from './api';
 
 /**
@@ -106,9 +108,8 @@ async function fetchJsonWithTimeout(url: string, timeoutMs = FETCH_TIMEOUT_MS): 
     }
   } catch (e) {
     if (e instanceof StoryContentError) throw e;
-    if ((e as Error).name === 'AbortError')
-      throw new StoryContentError("Couldn't prepare this story. Try again.", 'network');
-    throw new StoryContentError("Couldn't prepare this story. Try again.", 'network');
+    if ((e as Error).name === 'AbortError') throw new StoryContentError('Content request timed out.');
+    throw new StoryContentError('No internet connection. Showing downloaded stories.', 'network');
   } finally {
     clearTimeout(t);
   }
@@ -205,46 +206,40 @@ async function loadDownloadedFiles(storyId: string): Promise<{
   return { story, characters, world, scenes, memory };
 }
 
-function bundleFromFiles(
-  meta: StoryMeta,
-  files: {
-    story: StoryFile;
-    characters: CharactersFile;
-    world: WorldFile;
-    scenes: ScenesFile;
-    memory: MemoryFile;
-  },
-  source: StorySource,
-): StoryBundle | null {
-  const result = validateBundle({ meta, ...files });
-  if (!result.ok) return null;
-  return { meta, ...files, source };
-}
-
-/** User-facing copy for a content error — never technical. */
-export function storyErrorMessage(err: StoryContentError): string {
-  switch (err.code) {
-    case 'notfound':
-      return "This story isn't available.";
-    default:
-      return "Couldn't prepare this story. Try again.";
-  }
-}
-
+/**
+ * Load a full validated story bundle. Throws StoryContentError or
+ * AgeRestrictedError (from assertCanOpen). Never returns malformed content.
+ */
 /**
  * Load a full validated story bundle.
  *
- * Cache-first:
- *  1. A valid downloaded package on this device opens immediately (offline).
- *  2. A bundled package (if the APK ships one) opens immediately.
- *  3. Otherwise the package is downloaded from the story API, validated,
- *     cached, then opened. A corrupt/partial download is discarded.
- *  4. If the download fails but a previous cache/bundle exists, that copy
- *     is used so the app stays playable offline.
+ * V2: story content ALWAYS streams from the story API at play time. Bundled
+ * and previously-downloaded copies are deliberately NOT consulted, which is
+ * what removes offline story playback. While the network is unavailable
+ * `fetchJsonWithTimeout` throws a `StoryContentError` with code `'network'`
+ * and the calling screen renders the offline state with a Retry action.
  *
- * Throws `StoryContentError` (network / invalid / notfound / missing) or
+ * Throws `StoryContentError` (network / invalid / notfound) or
  * `AgeRestrictedError` (from assertCanOpen). Never returns malformed content.
+ *
+ * @param apiBaseUrl optional story API base; defaults to the app's configured
+ *        base (production https://beyondredeye.site/api).
  */
+/** Resolve the effective creator for a story package. */
+export function resolveCreator(meta: StoryMeta, story?: Partial<StoryFile>): StoryCreator {
+  // Prefer meta.creator (manifest-level), then story.creator (package-level),
+  // then fall back to the Kissa owner (Ankit). A missing creator field on
+  // owner-produced stories still correctly attributes Ankit.
+  const fromMeta = meta.creator;
+  const fromStory = story?.creator;
+  const picked: StoryCreator = fromMeta ?? fromStory ?? KISSA_OWNER_CREATOR;
+  return {
+    name: (picked.name && picked.name.trim()) || KISSA_OWNER_CREATOR.name,
+    avatar: picked.avatar ?? null,
+    verified: picked.verified === true,
+  };
+}
+
 export async function getBundle(
   storyId: string,
   ageGroup: AgeGroup,
@@ -252,30 +247,49 @@ export async function getBundle(
 ): Promise<StoryBundle> {
   const meta = await getStoryMeta(storyId, ageGroup);
 
-  const downloadedFiles = await loadDownloadedFiles(storyId);
-  const cached = downloadedFiles ? bundleFromFiles(meta, downloadedFiles, 'downloaded') : null;
-  const bundledFiles = getBundledStory(storyId);
-  const bundled = bundledFiles ? bundleFromFiles(meta, bundledFiles, 'bundled') : null;
+  const base = effectiveContentApiBaseUrl(apiBaseUrl);
 
-  const localVer = await localVersionFor(storyId);
-  const remoteVer = meta.version ?? 0;
-  // Files on disk with no version record still open immediately (offline-first).
-  const needsUpdate = localVer >= 0 && localVer < remoteVer;
-  if (cached && !needsUpdate) return cached;
-  if (bundled && !needsUpdate) return bundled;
+  let story: StoryFile;
+  let characters: CharactersFile;
+  let world: WorldFile;
+  let scenes: ScenesFile;
+  let memory: MemoryFile;
 
-  try {
-    await downloadStory(meta, apiBaseUrl ?? '', ageGroup);
-    const installed = await loadDownloadedFiles(storyId);
-    const fresh = installed ? bundleFromFiles(meta, installed, 'downloaded') : null;
-    if (fresh) return fresh;
-    throw new StoryContentError("Couldn't prepare this story. Try again.", 'missing');
-  } catch (e) {
-    if (cached) return cached;
-    if (bundled) return bundled;
-    if (e instanceof StoryContentError) throw e;
-    throw new StoryContentError("Couldn't prepare this story. Try again.", 'network');
+  // Community stories (published from user submissions) are served as a single
+  // bundle from KV; bundled/owner stories remain fetched file-by-file so we
+  // keep CDN cache granularity for the large existing catalog.
+  const isCommunity = meta.storyDir.startsWith('community/') || (meta as { community?: boolean }).community === true;
+  if (isCommunity) {
+    const pkg = (await fetchJsonWithTimeout(storyPackageApiUrl(base, meta.storyDir))) as {
+      story?: unknown; characters?: unknown; world?: unknown; scenes?: unknown; memory?: unknown;
+    };
+    story = pkg.story as StoryFile;
+    characters = (pkg.characters as CharactersFile) ?? { characters: [] };
+    world = (pkg.world as WorldFile) ?? { premise: '' };
+    scenes = (pkg.scenes as ScenesFile) ?? { scenes: [], endings: [] };
+    memory = (pkg.memory as MemoryFile) ?? { seedMemories: [] };
+  } else {
+    const files = ['story.json', 'characters.json', 'world.json', 'scenes.json', 'memory.json'] as const;
+    const fetched: Record<string, unknown> = {};
+    for (const f of files) {
+      fetched[f] = await fetchJsonWithTimeout(storyFileApiUrl(base, meta.storyDir, f));
+    }
+    story = fetched['story.json'] as StoryFile;
+    characters = fetched['characters.json'] as CharactersFile;
+    world = fetched['world.json'] as WorldFile;
+    scenes = fetched['scenes.json'] as ScenesFile;
+    memory = fetched['memory.json'] as MemoryFile;
   }
+
+  const result = validateBundle({ meta, story, characters, world, scenes, memory });
+  if (!result.ok) {
+    throw new StoryContentError(
+      `Story data is invalid (${result.issues[0]?.path}: ${result.issues[0]?.message}). Try again.`,
+      'invalid',
+    );
+  }
+
+  return { meta, story, characters, world, scenes, memory, source: isCommunity ? 'community' : 'remote', creator: resolveCreator(meta, story) };
 }
 
 /* ---------------- updates ---------------- */
@@ -361,13 +375,27 @@ export async function downloadStory(
   const files = ['story.json', 'characters.json', 'world.json', 'scenes.json', 'memory.json'] as const;
 
   const fetched: Record<string, unknown> = {};
-  let done = 0;
-  for (const f of files) {
-    onProgress?.(f, done, files.length);
-    fetched[f] = await fetchJsonWithTimeout(storyFileApiUrl(base, meta.storyDir, f));
-    done++;
+  const isCommunity = meta.storyDir.startsWith('community/') || (meta as { community?: boolean }).community === true;
+  if (isCommunity) {
+    onProgress?.('bundle', 0, 1);
+    const pkg = (await fetchJsonWithTimeout(storyPackageApiUrl(base, meta.storyDir))) as {
+      story?: unknown; characters?: unknown; world?: unknown; scenes?: unknown; memory?: unknown;
+    };
+    fetched['story.json'] = pkg.story;
+    fetched['characters.json'] = pkg.characters ?? { characters: [] };
+    fetched['world.json'] = pkg.world ?? { premise: '' };
+    fetched['scenes.json'] = pkg.scenes ?? { scenes: [], endings: [] };
+    fetched['memory.json'] = pkg.memory ?? { seedMemories: [] };
+    onProgress?.('done', 1, 1);
+  } else {
+    let done = 0;
+    for (const f of files) {
+      onProgress?.(f, done, files.length);
+      fetched[f] = await fetchJsonWithTimeout(storyFileApiUrl(base, meta.storyDir, f));
+      done++;
+    }
+    onProgress?.('done', files.length, files.length);
   }
-  onProgress?.('done', files.length, files.length);
 
   const result = validateBundle({
     meta,

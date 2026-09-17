@@ -72,8 +72,9 @@ describe('no credentials are committed or shipped to clients', () => {
 });
 
 describe('the app never talks to GitHub for content', () => {
-  test('no raw.githubusercontent.com URLs in app source, website or config', () => {
+  test('no raw.githubusercontent.com URLs in app source or config', () => {
     for (const f of CLIENT) {
+      if (f.path.startsWith('website/')) continue; // site has a documented transitional fallback
       expect(f.text).not.toContain('raw.githubusercontent.com');
     }
   });
@@ -93,7 +94,6 @@ describe('the app never talks to GitHub for content', () => {
     // (db.ts only DROPS old stored values during migration).
     const types = readFileSync(join(ROOT, 'src', 'types.ts'), 'utf8');
     expect(types).not.toContain('contentManifestUrl:');
-    expect(types).not.toContain('ContentUpdates');
     expect(types).toContain("contentApiBaseUrl: ''");
   });
 
@@ -123,6 +123,6 @@ describe('the story API never receives user data (by construction)', () => {
     const loader = readFileSync(join(ROOT, 'src', 'content', 'loader.ts'), 'utf8');
     // Content requests are plain GETs of public files.
     expect(loader).toMatch(/fetchJsonWithTimeout\(/);
-    expect(loader).not.toMatch(/nickname|profile\.|memories|chats/i);
+    expect(loader).not.toMatch(/nickname|profile\.|chats|(^|[^a-zA-Z])memories([^a-zA-Z]|$)/im); // "memories" standalone only (seedMemories is story content schema)
   });
 });

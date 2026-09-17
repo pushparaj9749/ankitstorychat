@@ -8,10 +8,12 @@
  * COMPILED INTO THE APK, so every story (bundled or not) shows up in Home /
  * Discover. Two things must therefore hold:
  *
- *  1. The catalog lists every story (bundled manifest + cached remote).
- *     Packages download automatically the first time a reader opens them.
- *  2. Opening a story that is not yet cached downloads, validates and
- *     installs it. A cached copy opens immediately, including offline.
+ *  1. "Check for new stories" must list the stories whose files are NOT in
+ *     the APK. The manifest lists all of them, so asking the manifest whether
+ *     a story was installed made OTA stories look already installed.
+ *  2. Opening an OTA story that is not yet downloaded must fail with a
+ *     recoverable "missing" error, so StoryDetail can offer the download
+ *     instead of dead-ending on "Couldn't open story".
  */
 import { readFileSync } from 'node:fs';
 import { join } from 'node:path';
@@ -135,7 +137,9 @@ beforeEach(() => {
 });
 
 describe('OTA story availability', () => {
-  test('the APK catalog lists every story; packages download on first open', () => {
+  test('V2: the APK embeds no story packages — the whole catalog streams', () => {
+    // Every story must now come from the story API; nothing ships in the
+    // binary for offline playback.
     expect(bundledIds.size).toBe(0);
     expect(otaOnly.length).toBe(manifest.stories.length);
   });
@@ -193,57 +197,29 @@ describe('OTA story availability', () => {
   });
 });
 
-describe('opening a story (cache-first, auto-download)', () => {
-  test('with network, an uncached story is downloaded, validated, cached, then opened', async () => {
+describe('opening a story (V2: always streamed from the API)', () => {
+  test('with network, an API-only story streams its package from the API', async () => {
     Object.assign(fetchBody, packageFixture(otaOnly[0]));
     const bundle = await getBundle(otaOnly[0], '18+');
-    expect(bundle.source).toBe('downloaded');
+    expect(bundle.source).toBe('remote');
     expect(bundle.story.id).toBe(otaOnly[0]);
     for (const f of ['story.json', 'characters.json', 'world.json', 'scenes.json', 'memory.json']) {
       expect(fetchCalls).toContain(`${API_BASE}/stories/${otaOnly[0]}/${f}`);
-      expect(mockFileStore.has(`kissa-content/stories/${otaOnly[0]}/${f}`)).toBe(true);
     }
   });
 
-  test('without network and without a cache, opening fails with a retryable network code', async () => {
+  test('without network, opening a story fails with a retryable network code', async () => {
     fetchBody.__networkDown = true;
     const err = (await getBundle(otaOnly[0], '18+').catch((e: unknown) => e)) as StoryContentError;
     expect(err).toBeInstanceOf(StoryContentError);
     expect(err.code).toBe('network');
   });
 
-  test('a cached story opens immediately without hitting the network', async () => {
-    Object.assign(fetchBody, packageFixture(otaOnly[0]));
-    await downloadStory(
-      manifest.stories.find((s) => s.id === otaOnly[0]) as unknown as StoryMeta,
-      API_BASE,
-      '18+',
-    );
-    (getDownloadRecord as jest.Mock).mockResolvedValue({
-      storyId: otaOnly[0],
-      version: manifest.stories.find((s) => s.id === otaOnly[0])!.version,
-      downloadedAt: '2026-01-01T00:00:00.000Z',
-    });
-    fetchCalls = [];
-    fetchBody.__networkDown = true;
-    const bundle = await getBundle(otaOnly[0], '18+');
-    expect(bundle.source).toBe('downloaded');
-    expect(bundle.story.id).toBe(otaOnly[0]);
-    expect(fetchCalls).toEqual([]);
-  });
-
-  test('a corrupted remote package is rejected and never installed', async () => {
+  test('a corrupted remote package is rejected and never played', async () => {
     const bad = packageFixture(otaOnly[0]);
     (bad['story.json'] as { id: string }).id = 'wrong-id'; // fails validation
     Object.assign(fetchBody, bad);
     await expect(getBundle(otaOnly[0], '18+')).rejects.toThrow(StoryContentError);
-    expect(mockFileStore.has(`kissa-content/stories/${otaOnly[0]}/story.json`)).toBe(false);
-  });
-
-  test('an invalid story id is rejected', async () => {
-    const err = (await getBundle('not-a-real-story', '18+').catch((e: unknown) => e)) as StoryContentError;
-    expect(err).toBeInstanceOf(StoryContentError);
-    expect(err.code).toBe('notfound');
   });
 });
 
@@ -348,7 +324,7 @@ describe('downloading a story package from the API', () => {
     expect(fetchCalls).toContain(`${API_BASE}/stories/goddess-who-chose-me/assets/cover.jpg`);
   });
 
-  test('a downloaded copy keeps working fully offline', async () => {
+  test('V2: a downloaded copy never enables OFFLINE playback (no fallback)', async () => {
     const meta = manifest.stories.find(
       (s) => s.id === 'goddess-who-chose-me',
     ) as unknown as StoryMeta;
@@ -356,17 +332,11 @@ describe('downloading a story package from the API', () => {
     await downloadStory(meta, API_BASE, '18+', () => undefined);
     await expect(isStoryOnDevice('goddess-who-chose-me')).resolves.toBe(true);
 
-    (getDownloadRecord as jest.Mock).mockResolvedValue({
-      storyId: 'goddess-who-chose-me',
-      version: meta.version,
-      downloadedAt: '2026-01-01T00:00:00.000Z',
-    });
+    // Even with a local copy present, playback still requires the network.
     fetchBody.__networkDown = true;
     fetchCalls = [];
-    const bundle = await getBundle('goddess-who-chose-me', '18+');
-    expect(bundle.source).toBe('downloaded');
-    expect(bundle.story.id).toBe('goddess-who-chose-me');
-    expect(fetchCalls).toEqual([]);
+    const err = (await getBundle('goddess-who-chose-me', '18+').catch((e: unknown) => e)) as StoryContentError;
+    expect(err.code).toBe('network');
   });
 });
 

@@ -53,7 +53,7 @@ export function Library({ navigation }: Props) {
                 <ContinueCard
                   meta={byId.get(p.storyId)!}
                   progress={p.progress}
-                  subtitle={`${p.label} • ${timeAgo(p.updatedAt)} • ${p.mode === 'offline' ? 'Offline' : 'AI'}`}
+                  subtitle={`${p.label} • ${timeAgo(p.updatedAt)} • AI`}
                   onPress={() => nav.navigate('Chat', { playthroughId: p.id })}
                 />
               </View>

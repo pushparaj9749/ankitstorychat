@@ -7,7 +7,7 @@
  * keyword-matched free text with fallback lines, and true endings.
  */
 import type { Playthrough, StoryBundle, StoryState } from '../types';
-import { applyEffects, availableChoices, endingIdForTurn, getScene, isOngoingStory, matchChoice } from './engine';
+import { applyEffects, availableChoices, getScene, matchChoice } from './engine';
 import { isFullyFadedLine, splitSpeakerLine, stripStoryMarkup } from './markup';
 import { interpolatePlayerName } from './playerName';
 
@@ -89,8 +89,8 @@ export function offlineStep(
   const scene = getScene(bundle, playthrough.currentSceneId);
   const choices = availableChoices(scene, playthrough.state);
 
-  // Ending scenes: nothing more to do (ongoing stories never end).
-  if (scene.isEnding && !isOngoingStory(bundle)) {
+  // Ending scenes: nothing more to do.
+  if (scene.isEnding) {
     return {
       step: {
         lines: [
@@ -141,7 +141,7 @@ export function offlineStep(
 
   const lines: OfflineLine[] = toOfflineLines(bundle, nextScene.narration, playerName);
 
-  const endId = endingIdForTurn(bundle, nextScene, matched.effects);
+  const endId = matched.effects?.endStory ?? (nextScene.isEnding ? nextScene.endingId ?? null : null);
 
   return {
     step: {

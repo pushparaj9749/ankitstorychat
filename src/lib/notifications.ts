@@ -76,8 +76,8 @@ export async function notifyContentUpdate(count: number): Promise<void> {
       title: 'Nayi kahaniyan aayi hain! ✨',
       body:
         count === 1
-          ? 'Ek nayi story catalog mein aa gayi hai.'
-          : `${count} nayi stories catalog mein aa gayi hain.`,
+          ? 'Ek nayi story available hai. Content Updates mein dekho.'
+          : `${count} nayi stories available hain. Content Updates mein dekho.`,
       data: { kind: 'content-update' },
     },
     trigger: null,

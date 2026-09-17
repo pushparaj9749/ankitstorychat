@@ -11,7 +11,8 @@ import { join } from 'node:path';
 import { offlineChoose, offlineOpening, offlineStep, toOfflineLines } from '../src/lib/offlineEngine';
 import type { OfflineStep } from '../src/lib/offlineEngine';
 import { freshStateFor, getScene } from '../src/lib/engine';
-import type { Playthrough, StoryBundle } from '../src/types';
+import type { Playthrough, StoryBundle, StoryCreator } from '../src/types';
+import { KISSA_OWNER_CREATOR } from '../src/types';
 
 const ROOT = join(__dirname, '..');
 
@@ -21,15 +22,18 @@ function loadBundle(id: string): StoryBundle {
   const manifest = JSON.parse(readFileSync(join(ROOT, 'content', 'manifest.json'), 'utf8')) as {
     stories: { id: string }[];
   };
-  const meta = manifest.stories.find((s) => s.id === id)!;
+  const meta = manifest.stories.find((s) => s.id === id)! as StoryBundle['meta'];
+  const story = read('story.json');
+  const creator: StoryCreator = meta.creator ?? story.creator ?? KISSA_OWNER_CREATOR;
   return {
-    meta: meta as StoryBundle['meta'],
-    story: read('story.json'),
+    meta,
+    story,
     characters: read('characters.json'),
     world: read('world.json'),
     scenes: read('scenes.json'),
     memory: read('memory.json'),
     source: 'bundled',
+    creator,
   };
 }
 

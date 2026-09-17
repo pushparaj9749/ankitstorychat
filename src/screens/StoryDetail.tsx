@@ -1,21 +1,20 @@
-/** Story detail: cover, meta, characters, start/continue, saves. Auto-downloads if needed. */
+/** Story detail: cover, meta, characters, start/continue, saves, download. AI-only now. */
 import React, { useEffect, useState } from 'react';
-import { Pressable, ScrollView, StyleSheet, Text, View } from 'react-native';
+import { Alert, Image, Pressable, ScrollView, StyleSheet, Text, View } from 'react-native';
 import { LinearGradient } from 'expo-linear-gradient';
 import type { NativeStackScreenProps } from '@react-navigation/native-stack';
-import type { Playthrough, RootStackParamList, StoryBundle } from '../types';
+import type { Playthrough, RootStackParamList, StoryBundle, StoryCreator } from '../types';
+import { KISSA_OWNER_CREATOR } from '../types';
 import { useApp } from '../state/AppContext';
 import { Screen } from '../components/Screen';
 import { GradientButton } from '../components/GradientButton';
 import { AgeBadge, Avatar, GenreChip, SectionHeader } from '../components/bits';
-import { CoverImage } from '../components/CoverImage';
-import { ErrorState, PreparingState } from '../components/states';
+import { EmptyState, ErrorState, LoadingState, OfflineState } from '../components/states';
 import {
   getBundledCoverSource,
   getBundle,
   effectiveContentApiBaseUrl,
   StoryContentError,
-  storyErrorMessage,
 } from '../content/loader';
 import { interpolatePlayerName, makePlayerTextFn } from '../lib/playerName';
 import { AgeRestrictedError } from '../lib/ageGate';
@@ -23,9 +22,8 @@ import { listPlaythroughsForStory, updateStats } from '../lib/db';
 import { createPlaythrough, playthroughLabel } from '../lib/playthrough';
 import { seedMemoriesIfEmpty } from '../lib/memory';
 import { insertMessage } from '../lib/db';
-import { offlineOpening } from '../lib/offlineEngine';
 import { FONTS, RADIUS, SHADOWS, SPACING, TYPE } from '../theme';
-import { uid } from '../lib/utils';
+import { nowIso, uid } from '../lib/utils';
 
 type Props = NativeStackScreenProps<RootStackParamList, 'StoryDetail'>;
 
@@ -41,6 +39,7 @@ export function StoryDetail({ navigation, route }: Props) {
     activeProvider,
     providersWithKeys,
     refreshRecent,
+    refreshStories,
   } = useApp();
 
   const [bundle, setBundle] = useState<StoryBundle | null>(null);
@@ -48,21 +47,26 @@ export function StoryDetail({ navigation, route }: Props) {
   const [restricted, setRestricted] = useState(false);
   const [saves, setSaves] = useState<Playthrough[]>([]);
   const [starting, setStarting] = useState(false);
+  /** V2: playback streams from the API; when offline show the offline gate. */
+  const [offline, setOffline] = useState(false);
   const [reloadKey, setReloadKey] = useState(0);
 
   const meta = stories.find((s) => s.id === storyId);
   const isFav = favoriteIds.has(storyId);
   const apiBase = effectiveContentApiBaseUrl(settings.contentApiBaseUrl);
   const cover = meta ? getBundledCoverSource(meta, apiBase) : null;
+  /** Story text refers to the reader via {{playerName}} — show the real name. */
   const forPlayer = makePlayerTextFn(meta, profile?.nickname);
 
   useEffect(() => {
     let alive = true;
     (async () => {
       if (!profile) return;
+      setOffline(false);
       setError(null);
-      setBundle(null);
       try {
+        // V2: the package always streams from the story API. Offline, this
+        // throws a 'network' StoryContentError and we show the offline gate.
         const b = await getBundle(storyId, profile.ageGroup, apiBase);
         if (!alive) return;
         setBundle(b);
@@ -70,8 +74,8 @@ export function StoryDetail({ navigation, route }: Props) {
       } catch (e) {
         if (!alive) return;
         if (e instanceof AgeRestrictedError) setRestricted(true);
-        else if (e instanceof StoryContentError) setError(storyErrorMessage(e));
-        else setError(e instanceof Error ? e.message : "Couldn't open story.");
+        else if (e instanceof StoryContentError && e.code === 'network') setOffline(true);
+        else setError(e instanceof Error ? e.message : 'Could not open story.');
       }
     })();
     return () => {
@@ -91,37 +95,47 @@ export function StoryDetail({ navigation, route }: Props) {
     if (!bundle || !profile || starting) return;
 
     const canUseAI = !!activeProvider && providersWithKeys.has(activeProvider.id);
-    const mode = canUseAI ? ('ai' as const) : ('offline' as const);
+    if (!canUseAI) {
+      Alert.alert('AI Setup Required 🤖', 'Story khelne ke liye pehle AI provider add karo. Offline mode ab hataya gaya hai.', [
+        { text: 'Cancel', style: 'cancel' },
+        { text: 'Add AI', onPress: () => navigation.navigate('AIAddons') },
+      ]);
+      return;
+    }
 
     setStarting(true);
     try {
       const existing = await listPlaythroughsForStory(storyId);
+      const mode = 'ai' as const;
       const pt = await createPlaythrough(
         bundle,
         playthroughLabel(existing.length),
         mode,
-        canUseAI ? activeProvider!.id : null,
+        activeProvider!.id,
       );
 
-      // Pre-chat cinematic introduction — the reader's own name, never a hardcoded one.
-      const opening = offlineOpening(bundle, profile.nickname);
+      // Seed opening narration as messages + seed memories (from bundle directly, no offline engine).
+      // The opening block is the pre-chat cinematic introduction — the reader's
+      // own name must appear in it, never a hardcoded one.
+      const openingScene = bundle.scenes.scenes.find((s) => s.id === bundle.story.openingSceneId) ?? bundle.scenes.scenes[0];
+      const pn = profile.nickname;
+      const pnOptions = { protectedNames: bundle.characters.characters.map((c) => c.name) };
       let i = 0;
-      for (const line of opening.lines) {
+      for (const rawLine of openingScene.narration) {
         await insertMessage({
           id: uid('m'),
           playthroughId: pt.id,
-          role: line.role,
-          speaker: line.speaker,
-          text: line.text,
-          sceneId: opening.sceneId,
+          role: i === 0 ? 'narration' : 'assistant',
+          speaker: null,
+          text: interpolatePlayerName(rawLine, pn, pnOptions),
+          sceneId: openingScene.id,
           createdAt: new Date(Date.now() + i).toISOString(),
         });
         i++;
       }
-      const pnOptions = { protectedNames: bundle.characters.characters.map((c) => c.name) };
       await seedMemoriesIfEmpty(
         pt,
-        bundle.memory.seedMemories.map((m) => interpolatePlayerName(m, profile.nickname, pnOptions)),
+        bundle.memory.seedMemories.map((m) => interpolatePlayerName(m, pn, pnOptions)),
       );
       await updateStats({ storiesStarted: 1 });
       await refreshRecent();
@@ -145,14 +159,14 @@ export function StoryDetail({ navigation, route }: Props) {
       </Screen>
     );
   }
-
-  if (error || !meta) {
+  // V2: playback streams from the story API. Without a connection we show a
+  // clear offline gate with Retry — never a silent fallback to cached content.
+  if (offline) {
     return (
       <Screen>
-        <ErrorState
-          title="Couldn't prepare this story"
-          subtitle={error ?? 'Story not found.'}
-          retry="Try again"
+        <OfflineState
+          subtitle={`Connect to the internet to play "${meta?.title ?? 'this story'}". Your progress and history stay safe on this device.`}
+          retry="↻ Retry"
           onRetry={() => setReloadKey((k) => k + 1)}
           secondary="Go back"
           onSecondary={() => navigation.goBack()}
@@ -161,10 +175,23 @@ export function StoryDetail({ navigation, route }: Props) {
     );
   }
 
+  if (error || !meta) {
+    return (
+      <Screen>
+        <ErrorState
+          title="Couldn't open story"
+          subtitle={error ?? 'Story not found.'}
+          retry="Go back"
+          onRetry={() => navigation.goBack()}
+        />
+      </Screen>
+    );
+  }
+
   if (!bundle) {
     return (
       <Screen>
-        <PreparingState label="Preparing your story…" />
+        <LoadingState label="Loading story…" />
       </Screen>
     );
   }
@@ -176,13 +203,15 @@ export function StoryDetail({ navigation, route }: Props) {
     <Screen padded={false}>
       <ScrollView showsVerticalScrollIndicator={false}>
         <View style={styles.coverWrap}>
-          <CoverImage
-            source={cover}
-            accentColor={meta.accentColor}
-            fallbackLetter={meta.title}
-            style={styles.cover}
+          {cover ? (
+            <Image source={cover} style={styles.cover} resizeMode="cover" />
+          ) : (
+            <View style={[styles.cover, { backgroundColor: `${meta.accentColor}44` }]} />
+          )}
+          <LinearGradient
+            colors={['transparent', theme.bg]}
+            style={styles.coverShade}
           />
-          <LinearGradient colors={['transparent', theme.bg]} style={styles.coverShade} />
           <Pressable onPress={() => navigation.goBack()} style={styles.back} accessibilityLabel="Go back">
             <Text style={styles.backText}>‹ Back</Text>
           </Pressable>
@@ -214,26 +243,10 @@ export function StoryDetail({ navigation, route }: Props) {
             <InfoRow label="⏱ Length" value={`~${meta.estimatedMinutes} min`} />
             <InfoRow
               label="💬 Mode"
-              value={hasAI ? `AI • ${activeProvider!.model}` : 'Offline Story Mode'}
+              value={hasAI ? `AI • ${activeProvider!.model}` : 'AI Required'}
             />
           </View>
 
-          {activeSave ? (
-            <View style={styles.gap}>
-              <GradientButton
-                title={`▶ Continue — ${activeSave.label}`}
-                onPress={() => navigation.navigate('Chat', { playthroughId: activeSave.id })}
-              />
-            </View>
-          ) : null}
-          <View style={styles.gap}>
-            <GradientButton
-              title={activeSave ? '✨ Start new journey' : '▶ Start story'}
-              variant={activeSave ? 'ghost' : 'primary'}
-              loading={starting}
-              onPress={startNew}
-            />
-          </View>
           {saves.length > 0 ? (
             <View style={styles.gap}>
               <GradientButton
@@ -260,7 +273,7 @@ export function StoryDetail({ navigation, route }: Props) {
               style={[styles.aiHint, { backgroundColor: theme.primarySoft, borderColor: theme.primary }]}
             >
               <Text style={[styles.aiHintText, { color: '#D9CFFF' }]}>
-                📖 Playing in Offline Story Mode. Tap to add your own AI key for free-chat narration.
+                🤖 AI provider setup karo to play. Offline mode hata diya gaya hai. Tap to add your own AI key.
               </Text>
             </Pressable>
           ) : null}
@@ -287,10 +300,106 @@ export function StoryDetail({ navigation, route }: Props) {
               </View>
             ))}
           </View>
-          <View style={{ height: SPACING.xxl }} />
+
+          <CreatorBlock creator={bundle.creator} />
+
+          <SimilarStoriesBlock storyId={storyId} navigation={navigation} />
+
+          <SectionHeader title="Refer Kissa" />
+          <Pressable
+            onPress={() => {
+              // Clipboard requires expo-clipboard; avoid adding a new dep — use Alert for now.
+              Alert.alert(
+                'Refer Kissa',
+                'Share Kissa with a friend — download the free APK from the official site and send them your favorite story. No account, no limits, no tracking.',
+              );
+            }}
+            style={[styles.referCard, { backgroundColor: theme.accentSoft, borderColor: theme.accent }]}
+          >
+            <Text style={[styles.referTitle, { color: theme.accent }]}>🎁 Invite a friend</Text>
+            <Text style={[styles.referSub, { color: theme.textDim }]}>
+              Free forever. No coins, no sign-up, no tracking.
+            </Text>
+          </Pressable>
+
+          <View style={{ height: SPACING.xxl + 80 }} />
         </View>
       </ScrollView>
+
+      {/* Fixed Chat Now button — always above the keyboard/bottom chrome. */}
+      <View style={[styles.fixedBar, { backgroundColor: theme.bgSoft, borderTopColor: theme.border }]}>
+        {activeSave ? (
+          <GradientButton title={`▶ Continue — ${activeSave.label}`} onPress={() => navigation.navigate('Chat', { playthroughId: activeSave.id })} />
+        ) : (
+          <GradientButton title="💬 Chat Now" onPress={startNew} loading={starting} disabled={starting} />
+        )}
+      </View>
     </Screen>
+  );
+}
+
+function CreatorBlock({ creator }: { creator: StoryCreator }) {
+  const { theme } = useApp();
+  const display: StoryCreator = {
+    name: (creator?.name && creator.name.trim()) || KISSA_OWNER_CREATOR.name,
+    avatar: creator?.avatar ?? null,
+    verified: creator?.verified === true,
+  };
+  return (
+    <>
+      <SectionHeader title="Story Creator" />
+      <View style={[styles.creatorCard, { backgroundColor: theme.surface, borderColor: theme.border }]}>
+        <View style={[styles.creatorAvatar, { backgroundColor: theme.primarySoft }]}>
+          <Text style={styles.creatorInitial}>{display.name[0]?.toUpperCase() ?? '?'}</Text>
+        </View>
+        <View style={{ flex: 1 }}>
+          <Text style={[styles.creatorName, { color: theme.text }]}>
+            {display.name}
+            {display.verified ? (
+              <Text style={{ color: theme.info, fontWeight: '900' }}> ✓ Verified</Text>
+            ) : null}
+          </Text>
+          <Text style={[styles.creatorSub, { color: theme.textDim }]}>
+            {display.name === KISSA_OWNER_CREATOR.name ? 'Kissa creator & curator' : 'Community storyteller'}
+          </Text>
+        </View>
+      </View>
+    </>
+  );
+}
+
+function SimilarStoriesBlock({
+  storyId,
+  navigation,
+}: {
+  storyId: string;
+  navigation: Props['navigation'];
+}) {
+  const { theme, stories } = useApp();
+  // Pick up to 3 other stories deterministically as "similar" — avoids adding
+  // a heavy recommendation engine while still showing the section.
+  const others = stories.filter((s) => s.id !== storyId).slice(0, 3);
+  if (others.length === 0) return null;
+  return (
+    <>
+      <SectionHeader title="Similar Stories" />
+      <View style={styles.similarRow}>
+        {others.map((s) => (
+          <Pressable
+            key={s.id}
+            style={[styles.similarCard, { backgroundColor: theme.surface, borderColor: theme.border }]}
+            onPress={() => navigation.push('StoryDetail', { storyId: s.id })}
+          >
+            <Text style={[styles.similarTitle, { color: theme.text }]} numberOfLines={2}>
+              {s.title}
+            </Text>
+            <Text style={[styles.similarGenre, { color: theme.accent }]} numberOfLines={1}>
+              {s.genres[0]}
+            </Text>
+          </Pressable>
+        ))}
+      </View>
+    </>
   );
 }
 
@@ -311,15 +420,18 @@ const infoStyles = StyleSheet.create({
 });
 
 const styles = StyleSheet.create({
-  coverWrap: { width: '100%', maxHeight: 420, alignItems: 'center', backgroundColor: '#0B0620' },
-  cover: { width: '72%', maxWidth: 280, borderRadius: 0 },
-  coverShade: { position: 'absolute', left: 0, right: 0, bottom: 0, height: 80 },
+  coverWrap: { height: 300 },
+  cover: { width: '100%', height: 300 },
+  coverShade: { position: 'absolute', left: 0, right: 0, top: 140, height: 160 },
   back: { position: 'absolute', top: 52, left: 16 },
   backText: { color: '#fff', fontSize: 17, fontWeight: '700' },
   fav: { position: 'absolute', top: 48, right: 16 },
   favText: { fontSize: 26 },
-  body: { paddingHorizontal: 16, marginTop: 8 },
+  body: { paddingHorizontal: 16, marginTop: -30 },
   metaRow: { flexDirection: 'row', flexWrap: 'wrap', gap: 8, marginBottom: 12 },
+  dlBadge: { paddingHorizontal: 10, paddingVertical: 4, borderRadius: 999 },
+  dlText: { fontSize: 11, fontWeight: '800' },
+  step: { fontSize: FONTS.small, marginTop: 8, textAlign: 'center' },
   title: { ...TYPE.display, lineHeight: TYPE.display.fontSize + 6 },
   tagline: { fontSize: FONTS.body, fontWeight: '600', marginTop: 5, letterSpacing: 0.1 },
   desc: { fontSize: FONTS.body, lineHeight: 24, marginTop: 10 },
@@ -342,4 +454,47 @@ const styles = StyleSheet.create({
   tags: { flexDirection: 'row', flexWrap: 'wrap', gap: 8 },
   tag: { borderWidth: 1, borderRadius: 999, paddingHorizontal: 12, paddingVertical: 6 },
   tagText: { fontSize: FONTS.small },
+  creatorCard: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: 12,
+    borderWidth: 1,
+    borderRadius: RADIUS.lg,
+    padding: 14,
+    marginTop: 4,
+    ...SHADOWS.card,
+  },
+  creatorAvatar: {
+    width: 48,
+    height: 48,
+    borderRadius: 24,
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  creatorInitial: { color: '#fff', fontSize: 20, fontWeight: '900' },
+  creatorName: { fontSize: FONTS.body, fontWeight: '800' },
+  creatorSub: { fontSize: FONTS.small, marginTop: 2 },
+  similarRow: { flexDirection: 'row', gap: 10, marginTop: 4 },
+  similarCard: {
+    flex: 1,
+    borderWidth: 1,
+    borderRadius: RADIUS.md,
+    padding: 12,
+    minHeight: 90,
+    justifyContent: 'center',
+  },
+  similarTitle: { fontSize: FONTS.small, fontWeight: '800' },
+  similarGenre: { fontSize: FONTS.tiny, fontWeight: '700', marginTop: 4 },
+  referCard: { borderWidth: 1, borderRadius: RADIUS.lg, padding: 16, marginTop: 4, ...SHADOWS.card },
+  referTitle: { fontSize: FONTS.heading, fontWeight: '900' },
+  referSub: { fontSize: FONTS.small, marginTop: 6, lineHeight: 20 },
+  fixedBar: {
+    position: 'absolute',
+    left: 0,
+    right: 0,
+    bottom: 0,
+    borderTopWidth: StyleSheet.hairlineWidth,
+    padding: 12,
+    paddingBottom: 16,
+  },
 });

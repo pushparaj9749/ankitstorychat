@@ -269,11 +269,6 @@ function sceneDigest(scene: StoryScene): string {
   return lines.join('\n');
 }
 
-function ongoingGuidance(bundle: StoryBundle): string {
-  if (!isOngoingStory(bundle)) return '';
-  return `\nONGOING STORY: this tale has no final ending. Never write "The End", never send endStory, never wrap the plot up permanently. Chapter/arc beats are fine; always leave a door open.\n`;
-}
-
 export interface PromptInput {
   bundle: StoryBundle;
   profile: LocalProfile;
@@ -341,7 +336,6 @@ ${bundle.world.rules.map((r, i) => `${i + 1}. ${r}`).join('\n')}
 LORE: ${bundle.world.lore.join(' | ')}
 
 ${sceneDigest(scene)}
-${ongoingGuidance(bundle)}
 
 STORY STATE SO FAR:
 ${stateDigest(playthrough.state)}
@@ -397,24 +391,6 @@ export function buildContext(input: PromptInput, ageGroup: AgeGroup): BuiltConte
     }
   }
   return { system: buildSystemPrompt(input, ageGroup), messages };
-}
-
-/** Stories tagged `ongoing` must never receive a permanent final ending. */
-export function isOngoingStory(bundle: StoryBundle): boolean {
-  return (bundle.meta.tags ?? []).includes('ongoing');
-}
-
-/**
- * Resolve whether this turn ends the story. Ongoing stories always return
- * null — chapter/arc milestones are fine, "The End" is not.
- */
-export function endingIdForTurn(
-  bundle: StoryBundle,
-  scene: StoryScene,
-  effects?: ChoiceEffects,
-): string | null {
-  if (isOngoingStory(bundle)) return null;
-  return effects?.endStory ?? (scene.isEnding ? scene.endingId ?? null : null);
 }
 
 export function progressEstimate(bundle: StoryBundle, playthrough: Playthrough): number {

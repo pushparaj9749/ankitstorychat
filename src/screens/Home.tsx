@@ -20,7 +20,7 @@ export function Home({ navigation }: Props) {
     stories,
     recentPlaythroughs,
     favoriteIds,
-    catalogError,
+    updateAvailable,
   } = useApp();
 
   const byId = useMemo(() => new Map(stories.map((s) => [s.id, s])), [stories]);
@@ -60,7 +60,9 @@ export function Home({ navigation }: Props) {
         <EmptyState
           emoji="📚"
           title="No stories yet"
-          subtitle={catalogError ?? "Stories will appear here. Check your connection and try again."}
+          subtitle="Pull fresh stories from Content Updates, or check your connection."
+          action="Content Updates"
+          onAction={() => (navigation as unknown as { navigate: (s: string) => void }).navigate('ContentUpdates')}
         />
       </Screen>
     );
@@ -84,10 +86,15 @@ export function Home({ navigation }: Props) {
             <Text style={{ color: theme.textFaint }}>🔍 Search stories, genres, characters…</Text>
           </Pressable>
 
-          {catalogError ? (
-            <View style={[styles.updateBanner, { backgroundColor: theme.surface, borderColor: theme.border }]}>
-              <Text style={[styles.updateText, { color: theme.textDim }]}>{catalogError}</Text>
-            </View>
+          {updateAvailable ? (
+            <Pressable
+              onPress={() => (navigation as unknown as { navigate: (s: string) => void }).navigate('ContentUpdates')}
+              style={[styles.updateBanner, { backgroundColor: theme.accentSoft, borderColor: theme.accent }]}
+            >
+              <Text style={[styles.updateText, { color: theme.accent }]}>
+                ✨ Nayi stories available hain — tap to update
+              </Text>
+            </Pressable>
           ) : null}
 
           {activeRecent.length > 0 ? (

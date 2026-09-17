@@ -35,20 +35,16 @@ export function SelectableChip({
   selected: boolean;
   onPress: () => void;
 }) {
-  const { theme, settings } = useApp();
-  const reduce = !settings?.animations || !!settings?.reducedMotion;
+  const { theme } = useApp();
   return (
     <Pressable
       onPress={onPress}
       accessibilityRole="button"
-      accessibilityState={{ selected }}
-      style={({ pressed }) => [
+      style={[
         styles.selectChip,
         {
           backgroundColor: selected ? theme.primary : 'transparent',
           borderColor: selected ? theme.primary : theme.border,
-          opacity: pressed ? 0.75 : 1,
-          transform: reduce ? [] : [{ scale: pressed ? 0.96 : 1 }],
         },
       ]}
     >

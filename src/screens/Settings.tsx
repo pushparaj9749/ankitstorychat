@@ -11,20 +11,17 @@ import { FONTS, RADIUS, SPACING } from '../theme';
 type Props = BottomTabScreenProps<MainTabParamList, 'Settings'>;
 
 export function Settings({ navigation }: Props) {
-  const { theme, profile, activeProvider } = useApp();
+  const { theme, profile, activeProvider, updateAvailable } = useApp();
   const nav = navigation as unknown as { navigate: (s: string, o?: object) => void };
 
-  function row(emoji: string, title: string, sub: string, target: string, badge?: string) {
+  function row(emoji: string, title: string, sub: string, target: string, badge?: string, params?: object) {
     return (
       <Pressable
         key={target + title}
-        onPress={() => nav.navigate(target)}
+        onPress={() => nav.navigate(target, params ?? {})}
         accessibilityRole="button"
         accessibilityLabel={title}
-        style={({ pressed }) => [
-          styles.row,
-          { backgroundColor: theme.surface, borderColor: theme.border, opacity: pressed ? 0.85 : 1 },
-        ]}
+        style={[styles.row, { backgroundColor: theme.surface, borderColor: theme.border }]}
       >
         <Text style={styles.emoji}>{emoji}</Text>
         <View style={styles.rowBody}>
@@ -55,9 +52,16 @@ export function Settings({ navigation }: Props) {
         {row(
           '🤖',
           'AI Setup',
-          activeProvider ? `${activeProvider.name} • ${activeProvider.model}` : 'Offline Story Mode — tap to add AI',
+          activeProvider ? `${activeProvider.name} • ${activeProvider.model}` : 'AI Required — tap to add API key',
           'AIAddons',
         )}
+
+        <SectionHeader title="Stories" />
+        {row('📚', 'Content Updates', 'Nayi stories GitHub se lao', 'ContentUpdates', updateAvailable ? 'NEW' : undefined)}
+        {row('💡', 'Suggest an Idea', 'Ek kahani ka idea bhejo', 'SubmitStory', undefined, { mode: 'idea' })}
+        {row('📝', 'Submit a Story', 'Apni poori kahani submit karo', 'SubmitStory', undefined, { mode: 'story' })}
+        {row('📨', 'My Submissions', 'Apne bheje hue submissions dekho', 'MySubmissions')}
+        {__DEV__ ? row('🛡', 'Admin Panel', 'Dev only — review pending submissions', 'AdminPanel') : null}
 
         <SectionHeader title="Appearance" />
         {row('🎨', 'Theme & Text', 'Dark, AMOLED, text size, motion', 'SettingsAppearance')}

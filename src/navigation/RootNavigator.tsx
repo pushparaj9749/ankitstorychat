@@ -30,7 +30,11 @@ import { SettingsStorage } from '../screens/SettingsStorage';
 import { Terms } from '../screens/Terms';
 import { Privacy } from '../screens/Privacy';
 import { About } from '../screens/About';
-
+import { ContentUpdates } from '../screens/ContentUpdates';
+import { SubmitStory } from '../screens/SubmitStory';
+import { SubmissionSuccess } from '../screens/SubmissionSuccess';
+import { MySubmissions } from '../screens/MySubmissions';
+import { AdminPanel } from '../screens/AdminPanel';
 
 const Stack = createNativeStackNavigator<RootStackParamList>();
 const Tab = createBottomTabNavigator<MainTabParamList>();
@@ -41,7 +45,7 @@ function tabIcon(name: string, focused: boolean) {
 }
 
 function MainTabs() {
-  const { theme, profile, settings, setUpdateAvailable, setCatalogError, refreshStories } = useApp();
+  const { theme, profile, settings, setUpdateAvailable } = useApp();
   const checked = useRef(false);
 
   // Silent content check once per launch (best-effort, offline-safe).
@@ -54,9 +58,6 @@ function MainTabs() {
         try {
           const base = effectiveContentApiBaseUrl(settings.contentApiBaseUrl);
           const res = await checkForUpdates(base, profile.ageGroup);
-          setCatalogError(null);
-          await refreshStories();
-          // New stories appear in the catalog automatically — no "updates" UI.
           if (res.hasUpdate) {
             setUpdateAvailable(true);
             if (settings.notifications.enabled && settings.notifications.contentUpdates) {
@@ -64,12 +65,12 @@ function MainTabs() {
             }
           }
         } catch {
-          setCatalogError("Couldn't refresh stories. Your downloaded stories are still available.");
+          // Offline or unreachable — the app works fully offline anyway.
         }
       })();
     }, 4000);
     return () => clearTimeout(t);
-  }, [profile, settings, setUpdateAvailable, setCatalogError, refreshStories]);
+  }, [profile, settings, setUpdateAvailable]);
 
   return (
     <Tab.Navigator
@@ -147,6 +148,11 @@ export function RootNavigator() {
             <Stack.Screen name="Terms" component={Terms} />
             <Stack.Screen name="Privacy" component={Privacy} />
             <Stack.Screen name="About" component={About} />
+            <Stack.Screen name="ContentUpdates" component={ContentUpdates} />
+            <Stack.Screen name="SubmitStory" component={SubmitStory} />
+            <Stack.Screen name="SubmissionSuccess" component={SubmissionSuccess} />
+            <Stack.Screen name="MySubmissions" component={MySubmissions} />
+            <Stack.Screen name="AdminPanel" component={AdminPanel} />
           </>
         )}
       </Stack.Navigator>
