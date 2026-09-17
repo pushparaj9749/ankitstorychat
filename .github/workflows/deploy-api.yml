@@ -21,7 +21,7 @@ on:
       - 'worker/**'
       - 'website/**'
       - 'assets/covers/**'
-      - 'scripts/build-worker-assets.mjs'
+      - 'scripts/**'
       - '.github/workflows/deploy-api.yml'
   workflow_dispatch:
 
