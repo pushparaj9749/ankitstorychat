@@ -1,7 +1,7 @@
 {
-  "contentVersion": 17,
+  "contentVersion": 18,
   "minAppVersion": "1.0.0",
-  "updatedAt": "2026-09-17T21:00:00.000Z",
+  "updatedAt": "2026-09-17T22:00:00.000Z",
   "stories": [
     {
       "id": "goddess-who-chose-me",
@@ -1181,7 +1181,7 @@
       "ageRating": "18+",
       "contentLevel": "mature",
       "language": "hinglish",
-      "version": 1,
+      "version": 2,
       "coverUrl": "stories/contract-wali-shaadi/assets/cover.jpg",
       "accentColor": "#EC4899",
       "userRole": "{{playerName}} — Singhania khandan ka young billionaire jise empire bachane ke liye ek contract marriage karni hai",
@@ -1191,7 +1191,7 @@
       "isNew": true,
       "popularity": 85,
       "storyDir": "contract-wali-shaadi",
-      "updatedAt": "2026-09-16T19:03:50.706Z",
+      "updatedAt": "2026-09-17T22:00:00.000Z",
       "creator": {
         "name": "Ankit",
         "avatar": null,
@@ -1224,7 +1224,7 @@
       "ageRating": "18+",
       "contentLevel": "mature",
       "language": "hinglish",
-      "version": 1,
+      "version": 2,
       "coverUrl": "stories/meri-khoonkhar-boss/assets/cover.jpg",
       "accentColor": "#DC2626",
       "userRole": "{{playerName}} — Shivangi Sharma ka naya executive assistant jo uske gusse aur corporate jungle ko handle kar raha hai",
@@ -1234,7 +1234,7 @@
       "isNew": true,
       "popularity": 85,
       "storyDir": "meri-khoonkhar-boss",
-      "updatedAt": "2026-09-16T19:03:50.707Z",
+      "updatedAt": "2026-09-17T22:00:00.000Z",
       "creator": {
         "name": "Ankit",
         "avatar": null,
