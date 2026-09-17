@@ -1,7 +1,7 @@
 {
-  "contentVersion": 15,
+  "contentVersion": 16,
   "minAppVersion": "1.0.0",
-  "updatedAt": "2026-09-17T19:00:00.000Z",
+  "updatedAt": "2026-09-17T20:00:00.000Z",
   "stories": [
     {
       "id": "goddess-who-chose-me",
@@ -794,7 +794,7 @@
       "ageRating": "12-17",
       "contentLevel": "teen",
       "language": "hinglish",
-      "version": 1,
+      "version": 2,
       "coverBundled": "aakhri-yodha",
       "accentColor": "#F5B841",
       "userRole": "Village teen chosen as the Mani-bearer",
@@ -804,12 +804,13 @@
       "isNew": true,
       "popularity": 95,
       "storyDir": "aakhri-yodha",
-      "updatedAt": "2026-09-11T00:00:00.000Z",
+      "updatedAt": "2026-09-17T20:00:00.000Z",
       "creator": {
         "name": "Ankit",
         "avatar": null,
         "verified": true
-      }
+      },
+      "coverUrl": "stories/aakhri-yodha/assets/cover.jpg"
     },
     {
       "id": "chai-dreams",
@@ -1092,7 +1093,7 @@
       "ageRating": "12-17",
       "contentLevel": "teen",
       "language": "hinglish",
-      "version": 1,
+      "version": 2,
       "coverUrl": "stories/ghost-behind-the-quiet-boy/assets/cover.jpg",
       "accentColor": "#10B981",
       "userRole": "{{playerName}} (alias Vihaan) — ek masoom aur shant student jo secret mein Dark Web ka badshah The Ghost hai",
@@ -1102,7 +1103,7 @@
       "isNew": true,
       "popularity": 85,
       "storyDir": "ghost-behind-the-quiet-boy",
-      "updatedAt": "2026-09-16T19:03:50.704Z",
+      "updatedAt": "2026-09-17T20:00:00.000Z",
       "creator": {
         "name": "Ankit",
         "avatar": null,

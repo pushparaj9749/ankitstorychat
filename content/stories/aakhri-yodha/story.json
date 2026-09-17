@@ -2,7 +2,7 @@
   "id": "aakhri-yodha",
   "title": "Aakhri Yodha",
   "description": "Agni Mani ko Surya Mandir tak pahunchana hai. Desi fantasy adventure.",
-  "version": 1,
+  "version": 2,
   "language": "hinglish",
   "ageRating": "12-17",
   "contentLevel": "teen",
@@ -39,6 +39,41 @@
         "file": "assets/cover.jpg",
         "kind": "cover",
         "label": "Cover"
+      },
+      {
+        "id": "devika-portrait",
+        "file": "assets/gallery/image-01.jpg",
+        "kind": "character-portrait",
+        "label": "Devika",
+        "characterId": "devika"
+      },
+      {
+        "id": "kaal-jungle",
+        "file": "assets/gallery/image-02.jpg",
+        "kind": "scene",
+        "label": "Kaal Jungle",
+        "sceneId": "s3_jungle"
+      },
+      {
+        "id": "mani-gift",
+        "file": "assets/gallery/image-03.jpg",
+        "kind": "scene",
+        "label": "Agni Mani ka daan",
+        "sceneId": "s1_guard"
+      },
+      {
+        "id": "surya-mandir",
+        "file": "assets/gallery/image-04.jpg",
+        "kind": "scene",
+        "label": "Surya Mandir",
+        "sceneId": "s5_temple"
+      },
+      {
+        "id": "kund-agni",
+        "file": "assets/gallery/image-05.jpg",
+        "kind": "scene",
+        "label": "Kund mein Mani",
+        "sceneId": "end_restore"
       }
     ]
   }

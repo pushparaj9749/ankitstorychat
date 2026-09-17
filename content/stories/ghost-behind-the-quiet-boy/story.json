@@ -2,7 +2,7 @@
   "id": "ghost-behind-the-quiet-boy",
   "title": "The Ghost Behind the Quiet Boy",
   "description": "Tum {{playerName}} ho (alias Vihaan) — Imperial College ki library ke aakhri kone mein moti kitabon ke peeche chhupa ek seedha-saadha, masoom student. Duniya samajhti hai ki tumhein kisi se baat karna nahi aata. Lekin tumhari doosri pehchaan hai \"The Ghost\" — Dark Web ka sabse khaufnaak aur azeem hacker jiske ek code se sarkarein hil jaati hain. Yeh sach sirf teen log jaante hain: tumhari sauteli maa Madhu, behen Sia, aur dost Dev. Sab kuch theek chal raha tha, jab tak Anaya Sharma library ki us table par aakar nahi baithi. Uski tez nazar tumhare shareef chehre ke peeche chhupe shaitaan ko bhaampne lagi hai.",
-  "version": 1,
+  "version": 2,
   "language": "hinglish",
   "ageRating": "12-17",
   "contentLevel": "teen",
@@ -43,6 +43,41 @@
         "file": "assets/cover.jpg",
         "kind": "cover",
         "label": "Cover"
+      },
+      {
+        "id": "anaya-portrait",
+        "file": "assets/gallery/image-01.jpg",
+        "kind": "character-portrait",
+        "label": "Anaya Sharma",
+        "characterId": "anaya"
+      },
+      {
+        "id": "library-quiet-boy",
+        "file": "assets/gallery/image-02.jpg",
+        "kind": "scene",
+        "label": "Library corner",
+        "sceneId": "s1_library_corner"
+      },
+      {
+        "id": "anaya-sits-down",
+        "file": "assets/gallery/image-03.jpg",
+        "kind": "scene",
+        "label": "Anaya ki table",
+        "sceneId": "s2_teaser_entry"
+      },
+      {
+        "id": "anaya-finds-code",
+        "file": "assets/gallery/image-04.jpg",
+        "kind": "scene",
+        "label": "Anaya ki uljhan",
+        "sceneId": "s4_anaya_deduction"
+      },
+      {
+        "id": "cyber-den",
+        "file": "assets/gallery/image-05.jpg",
+        "kind": "scene",
+        "label": "Underground server den",
+        "sceneId": "s3_phone_buzz"
       }
     ]
   }
