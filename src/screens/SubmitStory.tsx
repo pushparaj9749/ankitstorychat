@@ -11,7 +11,6 @@ import React, { useCallback, useMemo, useState } from 'react';
 import {
   ActivityIndicator,
   Alert,
-  Image,
   KeyboardAvoidingView,
   Modal,
   Platform,
@@ -28,6 +27,7 @@ import { KISSA_OWNER_CREATOR } from '../types';
 import { useApp } from '../state/AppContext';
 import { Screen } from '../components/Screen';
 import { GradientButton } from '../components/GradientButton';
+import { NaturalImage } from '../components/NaturalImage';
 import { SectionHeader } from '../components/bits';
 import { FONTS, RADIUS, SPACING } from '../theme';
 import {
@@ -479,7 +479,8 @@ export function SubmitStory({ navigation, route }: Props) {
         {cover ? (
           <View>
             <View style={styles.coverBox}>
-              <Image source={{ uri: cover.uri }} style={styles.coverPreview} resizeMode="cover" />
+              {/* User-picked cover preview at ITS OWN aspect ratio. */}
+              <NaturalImage source={{ uri: cover.uri }} style={styles.coverPreview} />
               {cover.uploading ? (
                 <View style={styles.uploadOverlay}>
                   <ActivityIndicator color="#fff" />
@@ -534,7 +535,8 @@ export function SubmitStory({ navigation, route }: Props) {
             onLongPress={() => replaceGalleryImage(i)}
             accessibilityLabel={`Gallery image ${i + 1}`}
           >
-            <Image source={{ uri: it.uri }} style={styles.galleryThumb} resizeMode="cover" />
+            {/* Gallery tile at the image's OWN aspect ratio — no forced shape. */}
+            <NaturalImage source={{ uri: it.uri }} style={styles.galleryThumb} />
             <Pressable
               onPress={() => cycleGalleryKind(i)}
               style={[styles.kindChip, { backgroundColor: 'rgba(0,0,0,0.66)' }]}
@@ -774,7 +776,7 @@ export function SubmitStory({ navigation, route }: Props) {
       <Modal visible={!!preview} transparent animationType="fade" onRequestClose={() => setPreview(null)}>
         <Pressable style={styles.previewBackdrop} onPress={() => setPreview(null)} accessibilityLabel="Close preview">
           {preview ? (
-            <Image source={{ uri: preview.uri }} style={styles.previewImage} resizeMode="contain" />
+            <NaturalImage source={{ uri: preview.uri }} style={styles.previewImage} />
           ) : null}
           {preview ? (
             <Text style={[styles.previewLabel, { color: '#fff' }]}>{preview.label}</Text>
@@ -810,8 +812,9 @@ const styles = StyleSheet.create({
   pill: { borderWidth: 1, borderRadius: RADIUS.pill, paddingHorizontal: 12, paddingVertical: 6, marginRight: 8, marginBottom: 8 },
   /* ---------------- media (cover + gallery) ---------------- */
   mediaCard: { borderWidth: 1, borderRadius: RADIUS.lg, padding: 12, marginTop: 2 },
-  coverBox: { borderRadius: RADIUS.md, overflow: 'hidden', aspectRatio: 3 / 4, maxHeight: 320 },
-  coverPreview: { width: '100%', height: '100%' },
+  // The cover preview renders at the picked image's OWN aspect ratio.
+  coverBox: { borderRadius: RADIUS.md, overflow: 'hidden' },
+  coverPreview: { width: '100%' },
   uploadOverlay: { ...{ position: 'absolute' as const, top: 0, left: 0, right: 0, bottom: 0 }, backgroundColor: 'rgba(0,0,0,0.6)', alignItems: 'center', justifyContent: 'center', padding: 12 },
   uploadOverlayText: { fontSize: 12, fontWeight: '700', textAlign: 'center' },
   coverEmpty: { alignItems: 'center', paddingVertical: 28, borderRadius: RADIUS.md },
@@ -824,20 +827,22 @@ const styles = StyleSheet.create({
   mediaBtn: { flex: 1, borderWidth: 1, borderRadius: RADIUS.md, paddingVertical: 10, alignItems: 'center' },
   mediaBtnText: { fontSize: FONTS.small, fontWeight: '800' },
   galleryGrid: { flexDirection: 'row', flexWrap: 'wrap', gap: 10 },
-  galleryTile: { width: '31%', aspectRatio: 3 / 4, borderRadius: RADIUS.md, overflow: 'hidden', borderWidth: 1 },
-  galleryThumb: { width: '100%', height: '100%' },
+  // Gallery tiles: fixed width, height follows each image's own ratio.
+  galleryTile: { width: '31%', borderRadius: RADIUS.md, overflow: 'hidden', borderWidth: 1 },
+  galleryThumb: { width: '100%' },
   kindChip: { position: 'absolute', top: 6, left: 6, borderRadius: 999, paddingHorizontal: 8, paddingVertical: 3 },
   kindChipText: { fontSize: 10, fontWeight: '800' },
   removeChip: { position: 'absolute', top: 5, right: 5, width: 22, height: 22, borderRadius: 11, alignItems: 'center', justifyContent: 'center' },
   removeChipText: { fontSize: 11, fontWeight: '900' },
   galleryOverlay: { ...{ position: 'absolute' as const, top: 0, left: 0, right: 0, bottom: 0 }, backgroundColor: 'rgba(0,0,0,0.55)', alignItems: 'center', justifyContent: 'center', padding: 8 },
-  galleryAdd: { width: '31%', aspectRatio: 3 / 4, borderRadius: RADIUS.md, borderWidth: 1, alignItems: 'center', justifyContent: 'center' },
+  galleryAdd: { width: '31%', minHeight: 108, borderRadius: RADIUS.md, borderWidth: 1, alignItems: 'center', justifyContent: 'center' },
   galleryAddPlus: { fontSize: 26, fontWeight: '300' },
   galleryAddText: { fontSize: 11, fontWeight: '700', marginTop: 4 },
   refsBox: { borderWidth: 1, borderRadius: RADIUS.md, padding: 12, marginTop: 12 },
   refsTitle: { fontSize: FONTS.tiny, fontWeight: '800', marginBottom: 6 },
   refsLine: { fontSize: FONTS.tiny, marginTop: 3 },
   previewBackdrop: { flex: 1, backgroundColor: 'rgba(0,0,0,0.94)', alignItems: 'center', justifyContent: 'center' },
-  previewImage: { width: '100%', height: '82%' },
+  // Fullscreen preview: contain-bounded so the image keeps its own ratio.
+  previewImage: { width: '100%', maxHeight: '82%' },
   previewLabel: { fontSize: FONTS.body, fontWeight: '700', marginTop: 10 },
 });

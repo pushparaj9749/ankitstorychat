@@ -18,7 +18,6 @@ import React, { useEffect, useState } from 'react';
 import {
   ActivityIndicator,
   Alert,
-  Image,
   Modal,
   Pressable,
   ScrollView,
@@ -39,6 +38,8 @@ import { KISSA_OWNER_CREATOR } from '../types';
 import { useApp } from '../state/AppContext';
 import { Screen } from '../components/Screen';
 import { GradientButton } from '../components/GradientButton';
+import { CoverImage } from '../components/CoverImage';
+import { NaturalImage } from '../components/NaturalImage';
 import { AgeBadge, GenreChip, SectionHeader } from '../components/bits';
 import { ErrorState, LoadingState, OfflineState } from '../components/states';
 import {
@@ -233,13 +234,15 @@ export function StoryDetail({ navigation, route }: Props) {
   return (
     <Screen padded={false}>
       <ScrollView showsVerticalScrollIndicator={false}>
-        {/* 1. Hero cover */}
+        {/* 1. Hero cover — rendered at the artwork's own aspect ratio. */}
         <View style={styles.coverWrap}>
-          {cover ? (
-            <Image source={cover} style={styles.cover} resizeMode="cover" />
-          ) : (
-            <View style={[styles.cover, { backgroundColor: `${meta.accentColor}44` }]} />
-          )}
+          <CoverImage
+            source={cover}
+            accentColor={meta.accentColor}
+            fallbackLetter={meta.title}
+            style={styles.cover}
+            placeholderMinHeight={300}
+          />
           <LinearGradient
             colors={['transparent', theme.bg]}
             style={styles.coverShade}
@@ -469,8 +472,6 @@ function MediaThumb({
   onOpen: () => void;
 }) {
   const { theme } = useApp();
-  const [loaded, setLoaded] = useState(false);
-  const [failed, setFailed] = useState(false);
 
   return (
     <Pressable
@@ -478,29 +479,22 @@ function MediaThumb({
       style={[styles.mediaTile, { backgroundColor: theme.bgSoft, borderColor: theme.border }]}
       accessibilityLabel={`Open ${label}`}
     >
-      {failed ? (
-        <View style={[styles.mediaFallback, { backgroundColor: theme.surface }]}>
-          <Text style={styles.mediaFallbackEmoji}>🖼️</Text>
-          <Text style={[styles.mediaFallbackText, { color: theme.textFaint }]} numberOfLines={1}>
-            {label}
-          </Text>
-        </View>
-      ) : (
-        <>
-          {!loaded ? (
-            <View style={[styles.mediaFallback, { backgroundColor: theme.surface }]}>
-              <ActivityIndicator size="small" color={theme.accent} />
-            </View>
-          ) : null}
-          <Image
-            source={{ uri: url }}
-            style={[styles.mediaImg, { opacity: loaded ? 1 : 0 }]}
-            resizeMode="cover"
-            onLoad={() => setLoaded(true)}
-            onError={() => setFailed(true)}
-          />
-        </>
-      )}
+      {/* Gallery tile at the image's OWN aspect ratio — tiles are not forced
+          into one shape; the two-column wrap flows around each natural size. */}
+      <NaturalImage
+        source={{ uri: url }}
+        style={styles.mediaImg}
+        tint={theme.surface}
+        placeholder={<ActivityIndicator size="small" color={theme.accent} />}
+        fallback={
+          <View style={styles.mediaFallback}>
+            <Text style={styles.mediaFallbackEmoji}>🖼️</Text>
+            <Text style={[styles.mediaFallbackText, { color: theme.textFaint }]} numberOfLines={1}>
+              {label}
+            </Text>
+          </View>
+        }
+      />
       <View style={[styles.mediaBadge, { backgroundColor: 'rgba(0,0,0,0.62)' }]}>
         <Text style={[styles.mediaBadgeText, { color: theme.accent }]}>{KIND_BADGE[item.kind]}</Text>
       </View>
@@ -517,29 +511,23 @@ function MediaThumb({
 }
 
 function LightboxImage({ url, accent }: { url: string; accent: string }) {
-  const [loaded, setLoaded] = useState(false);
-  const [failed, setFailed] = useState(false);
   return (
     <View style={styles.lightboxImageWrap}>
-      {failed ? (
-        <View style={styles.lightboxFallback}>
-          <Text style={styles.lightboxFallbackEmoji}>🖼️</Text>
-          <Text style={[styles.lightboxFallbackText, { color: '#B9AEE0' }]}>
-            Image could not be loaded.
-          </Text>
-        </View>
-      ) : (
-        <>
-          {!loaded ? <ActivityIndicator size="large" color={accent} /> : null}
-          <Image
-            source={{ uri: url }}
-            style={[styles.lightboxImage, { opacity: loaded ? 1 : 0 }]}
-            resizeMode="contain"
-            onLoad={() => setLoaded(true)}
-            onError={() => setFailed(true)}
-          />
-        </>
-      )}
+      {/* Fullscreen view: the image keeps its own ratio, bounded by contain —
+          tall artwork letterboxes instead of being cropped or stretched. */}
+      <NaturalImage
+        source={{ uri: url }}
+        style={styles.lightboxImage}
+        placeholder={<ActivityIndicator size="large" color={accent} />}
+        fallback={
+          <View style={styles.lightboxFallback}>
+            <Text style={styles.lightboxFallbackEmoji}>🖼️</Text>
+            <Text style={[styles.lightboxFallbackText, { color: '#B9AEE0' }]}>
+              Image could not be loaded.
+            </Text>
+          </View>
+        }
+      />
     </View>
   );
 }
@@ -630,9 +618,11 @@ const infoStyles = StyleSheet.create({
 });
 
 const styles = StyleSheet.create({
-  coverWrap: { height: 300 },
-  cover: { width: '100%', height: 300 },
-  coverShade: { position: 'absolute', left: 0, right: 0, top: 140, height: 160 },
+  // Hero cover: in-flow child rendered at the artwork's own aspect ratio —
+  // the wrap and the gradient shade follow the cover's natural height.
+  coverWrap: { width: '100%' },
+  cover: { width: '100%' },
+  coverShade: { position: 'absolute', left: 0, right: 0, bottom: 0, height: 170 },
   back: { position: 'absolute', top: 52, left: 16 },
   backText: { color: '#fff', fontSize: 17, fontWeight: '700' },
   fav: { position: 'absolute', top: 48, right: 16 },
@@ -651,24 +641,25 @@ const styles = StyleSheet.create({
   tagText: { fontSize: FONTS.small },
   /* ---------------- media library ---------------- */
   mediaGrid: { flexDirection: 'row', flexWrap: 'wrap', gap: 10, marginTop: 4 },
+  // Masonry-style tiles: fixed width, height follows each image's own ratio.
   mediaTile: {
     width: '47%',
-    aspectRatio: 3 / 4,
     borderRadius: RADIUS.md,
     borderWidth: 1,
     overflow: 'hidden',
   },
-  mediaImg: { width: '100%', height: '100%' },
+  mediaImg: { width: '100%' },
   mediaBadge: { position: 'absolute', top: 8, left: 8, borderRadius: 999, paddingHorizontal: 8, paddingVertical: 3 },
   mediaBadgeText: { fontSize: 9, fontWeight: '900', letterSpacing: 0.6 },
   mediaLabelShade: { position: 'absolute', left: 0, right: 0, bottom: 0, height: 44 },
   mediaLabel: { position: 'absolute', left: 10, right: 10, bottom: 8, fontSize: FONTS.small, fontWeight: '800' },
-  mediaFallback: { ...StyleSheet.absoluteFill, alignItems: 'center', justifyContent: 'center', gap: 6, padding: 10 },
+  mediaFallback: { alignItems: 'center', justifyContent: 'center', gap: 6, padding: 10 },
   mediaFallbackEmoji: { fontSize: 26 },
   mediaFallbackText: { fontSize: 11, fontWeight: '700' },
   lightbox: { flex: 1, backgroundColor: 'rgba(0,0,0,0.96)', alignItems: 'center', justifyContent: 'center' },
-  lightboxImageWrap: { width: '100%', height: '78%', alignItems: 'center', justifyContent: 'center' },
-  lightboxImage: { width: '100%', height: '100%' },
+  lightboxImageWrap: { flex: 1, width: '100%', alignItems: 'center', justifyContent: 'center' },
+  // Bounded fullscreen view: contain-sized, so the image keeps its own ratio.
+  lightboxImage: { width: '100%', maxHeight: '100%' },
   lightboxLabel: { color: '#F5F1FF', fontSize: FONTS.body, fontWeight: '700', marginTop: 10, paddingHorizontal: 24 },
   lightboxNav: {
     position: 'absolute',

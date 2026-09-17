@@ -1,6 +1,6 @@
 /** Story cards: hero (featured), wide (continue), grid (browse). */
 import React from 'react';
-import { Image, Pressable, StyleSheet, Text, View } from 'react-native';
+import { Pressable, StyleSheet, Text, View } from 'react-native';
 import { LinearGradient } from 'expo-linear-gradient';
 import type { StoryMeta } from '../types';
 import { useApp } from '../state/AppContext';
@@ -9,20 +9,32 @@ import { makePlayerTextFn } from '../lib/playerName';
 import { FONTS, RADIUS, SPACING } from '../theme';
 import { AgeBadge, GenreChip, ProgressBar } from './bits';
 import { SHADOWS, TYPE } from '../theme';
+import { CoverImage } from './CoverImage';
 
-function Cover({ meta, style }: { meta: StoryMeta; style?: object }) {
+/**
+ * Story cover at the artwork's OWN aspect ratio (no fixed shape, no cropping).
+ * `fallbackMinHeight` only sizes the letter placeholder when a story has no
+ * artwork at all — it never applies to rendered covers.
+ */
+function Cover({
+  meta,
+  style,
+  fallbackMinHeight,
+}: {
+  meta: StoryMeta;
+  style?: object;
+  fallbackMinHeight?: number;
+}) {
   const { settings } = useApp();
   const src = getBundledCoverSource(meta, effectiveContentApiBaseUrl(settings?.contentApiBaseUrl));
   return (
-    <View style={[styles.coverWrap, style, { backgroundColor: `${meta.accentColor}33` }]}>
-      {src ? (
-        <Image source={src} style={styles.coverImg} resizeMode="cover" />
-      ) : (
-        <Text style={[styles.coverFallback, { color: meta.accentColor }]}>
-          {(meta.title[0] ?? '?').toUpperCase()}
-        </Text>
-      )}
-    </View>
+    <CoverImage
+      source={src}
+      accentColor={meta.accentColor}
+      fallbackLetter={meta.title}
+      style={style}
+      placeholderMinHeight={fallbackMinHeight}
+    />
   );
 }
 
@@ -42,7 +54,7 @@ export function HeroCard({
       accessibilityLabel={`${meta.title}. ${forPlayer(meta.tagline)}`}
       style={[styles.hero, { backgroundColor: theme.surface, borderColor: theme.border }]}
     >
-      <Cover meta={meta} style={styles.heroCover} />
+      <Cover meta={meta} style={styles.heroCover} fallbackMinHeight={200} />
       <LinearGradient
         colors={['transparent', 'rgba(5,2,15,0.92)']}
         style={styles.heroShade}
@@ -86,7 +98,7 @@ export function ContinueCard({
       accessibilityLabel={`Continue ${meta.title}`}
       style={[styles.row, { backgroundColor: theme.surface, borderColor: theme.border }]}
     >
-      <Cover meta={meta} style={styles.thumb} />
+      <Cover meta={meta} style={styles.thumb} fallbackMinHeight={64} />
       <View style={styles.rowBody}>
         <Text style={[styles.rowTitle, { color: theme.text }]} numberOfLines={1}>
           {meta.title}
@@ -109,7 +121,7 @@ export function GridCard({ meta, onPress }: { meta: StoryMeta; onPress: () => vo
       accessibilityLabel={meta.title}
       style={[styles.grid, { backgroundColor: theme.surface, borderColor: theme.border }]}
     >
-      <Cover meta={meta} style={styles.gridCover} />
+      <Cover meta={meta} style={styles.gridCover} fallbackMinHeight={122} />
       <View style={styles.gridBody}>
         <Text style={[styles.gridTitle, { color: theme.text }]} numberOfLines={1}>
           {meta.title}
@@ -135,7 +147,7 @@ export function WideCard({ meta, onPress }: { meta: StoryMeta; onPress: () => vo
       accessibilityLabel={meta.title}
       style={[styles.wide, { backgroundColor: theme.surface, borderColor: theme.border }]}
     >
-      <Cover meta={meta} style={styles.wideCover} />
+      <Cover meta={meta} style={styles.wideCover} fallbackMinHeight={140} />
       <View style={styles.wideBody}>
         <Text style={[styles.wideTitle, { color: theme.text }]} numberOfLines={1}>
           {meta.title}
@@ -153,12 +165,12 @@ export function WideCard({ meta, onPress }: { meta: StoryMeta; onPress: () => vo
 }
 
 const styles = StyleSheet.create({
-  coverWrap: { overflow: 'hidden', alignItems: 'center', justifyContent: 'center' },
-  coverImg: { width: '100%', height: '100%' },
-  coverFallback: { fontSize: 52, fontWeight: '900' },
-  hero: { height: 252, borderRadius: RADIUS.xl, overflow: 'hidden', borderWidth: 1, ...SHADOWS.hero },
-  heroCover: { ...StyleSheet.absoluteFill, borderRadius: RADIUS.xl },
-  heroShade: { ...StyleSheet.absoluteFill },
+  // The hero card adapts to the featured cover's own aspect ratio: the cover
+  // is an in-flow child (width 100%, natural height) and the gradient + text
+  // overlay its bottom edge. No fixed card height, no cropping, no stretching.
+  hero: { borderRadius: RADIUS.xl, overflow: 'hidden', borderWidth: 1, ...SHADOWS.hero },
+  heroCover: { width: '100%' },
+  heroShade: { position: 'absolute', left: 0, right: 0, bottom: 0, height: 150 },
   heroBody: { position: 'absolute', left: SPACING.lg, right: SPACING.lg, bottom: SPACING.lg },
   heroTop: { flexDirection: 'row', gap: 8, marginBottom: 8 },
   heroTitle: { color: '#fff', fontSize: TYPE.display.fontSize, fontWeight: '900', letterSpacing: TYPE.display.letterSpacing },
@@ -181,18 +193,19 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     ...SHADOWS.card,
   },
-  thumb: { width: 64, height: 64, borderRadius: RADIUS.md },
+  // Continue-row thumbnail: fixed width, height follows the cover's own ratio.
+  thumb: { width: 64, borderRadius: RADIUS.md },
   rowBody: { flex: 1, gap: 6 },
   rowTitle: { fontSize: FONTS.body, fontWeight: '800', letterSpacing: -0.2 },
   rowSub: { fontSize: FONTS.small },
   grid: { width: 158, borderRadius: RADIUS.lg, borderWidth: 1, overflow: 'hidden', ...SHADOWS.card },
-  gridCover: { width: 158, height: 122 },
+  gridCover: { width: 158 },
   gridBody: { padding: 10, gap: 4 },
   gridTitle: { fontSize: FONTS.body, fontWeight: '800', letterSpacing: -0.2 },
   gridSub: { fontSize: FONTS.tiny },
   gridMeta: { marginTop: 4 },
   wide: { borderRadius: RADIUS.lg, borderWidth: 1, overflow: 'hidden', ...SHADOWS.card },
-  wideCover: { width: '100%', height: 140 },
+  wideCover: { width: '100%' },
   wideBody: { padding: 12, gap: 8 },
   wideTitle: { fontSize: FONTS.heading, fontWeight: '800', letterSpacing: -0.2 },
   wideDesc: { fontSize: FONTS.small },

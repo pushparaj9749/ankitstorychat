@@ -9,7 +9,6 @@ import React, { useCallback, useEffect, useState } from 'react';
 import {
   ActivityIndicator,
   Alert,
-  Image,
   Modal,
   Pressable,
   RefreshControl,
@@ -24,6 +23,7 @@ import type { RootStackParamList, StorySubmission } from '../types';
 import { useApp } from '../state/AppContext';
 import { Screen } from '../components/Screen';
 import { GradientButton } from '../components/GradientButton';
+import { NaturalImage } from '../components/NaturalImage';
 import { SectionHeader } from '../components/bits';
 import { FONTS, RADIUS, SPACING } from '../theme';
 import {
@@ -464,9 +464,20 @@ function StoryMediaPreview({ payload, apiBase }: { payload: unknown; apiBase: st
                 style={[styles.mediaTile, { backgroundColor: theme.bgSoft, borderColor: theme.border }]}
               >
                 {uri ? (
-                  <Image source={{ uri }} style={styles.mediaTileImg} resizeMode="cover" />
+                  // Admin media preview at the image's OWN aspect ratio.
+                  <NaturalImage
+                    source={{ uri }}
+                    style={styles.mediaTileImg}
+                    tint={theme.surface}
+                    fallback={
+                      <Text style={{ color: theme.textFaint, fontSize: FONTS.tiny, textAlign: 'center' }}>
+                        unavailable
+                        {'\n'}(expired?)
+                      </Text>
+                    }
+                  />
                 ) : (
-                  <View style={[styles.mediaTile, { backgroundColor: theme.surface }]}>
+                  <View style={[styles.mediaTileUnavailable, { backgroundColor: theme.surface }]}>
                     <Text style={{ color: theme.textFaint, fontSize: FONTS.tiny, textAlign: 'center' }}>
                       unavailable
                       {'\n'}(expired?)
@@ -588,14 +599,22 @@ const styles = StyleSheet.create({
   empty: { borderWidth: 1, borderStyle: 'dashed', borderRadius: RADIUS.md, padding: 24, marginTop: 20 },
   preview: { borderWidth: 1, borderRadius: RADIUS.md, padding: 14, marginTop: 8 },
   mediaGrid: { flexDirection: 'row', flexWrap: 'wrap', gap: 8 },
+  // Admin preview tiles: fixed width, height follows each image's own ratio.
   mediaTile: {
     width: '31%',
-    aspectRatio: 3 / 4,
     borderRadius: RADIUS.md,
     borderWidth: 1,
     overflow: 'hidden',
   },
-  mediaTileImg: { width: '100%', height: '100%' },
+  mediaTileImg: { width: '100%' },
+  // Placeholder box for refs whose upload already expired — no artwork to size.
+  mediaTileUnavailable: {
+    width: '100%',
+    minHeight: 90,
+    alignItems: 'center',
+    justifyContent: 'center',
+    padding: 6,
+  },
   mediaTileBadge: { position: 'absolute', top: 6, left: 6, borderRadius: 999, paddingHorizontal: 7, paddingVertical: 2 },
   mediaTileBadgeText: { fontSize: 8, fontWeight: '900', letterSpacing: 0.5 },
   mediaTileLabel: {

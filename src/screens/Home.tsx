@@ -228,7 +228,7 @@ const styles = StyleSheet.create({
     ...SHADOWS.card,
   },
   gap: { marginBottom: 10 },
-  hlist: { paddingHorizontal: 16 },
+  hlist: { paddingHorizontal: 16, alignItems: 'flex-start' },
   hitem: { marginRight: 12 },
   cats: { flexDirection: 'row', flexWrap: 'wrap', gap: 8 },
 });
