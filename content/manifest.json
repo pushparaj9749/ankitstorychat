@@ -1,7 +1,7 @@
 {
-  "contentVersion": 18,
+  "contentVersion": 19,
   "minAppVersion": "1.0.0",
-  "updatedAt": "2026-09-17T22:00:00.000Z",
+  "updatedAt": "2026-09-17T23:00:00.000Z",
   "stories": [
     {
       "id": "goddess-who-chose-me",
@@ -838,7 +838,7 @@
       "ageRating": "12-17",
       "contentLevel": "teen",
       "language": "hinglish",
-      "version": 1,
+      "version": 2,
       "coverBundled": "chai-dreams",
       "accentColor": "#34D399",
       "userRole": "First-year student, accidental theatre club member",
@@ -848,12 +848,13 @@
       "isNew": true,
       "popularity": 90,
       "storyDir": "chai-dreams",
-      "updatedAt": "2026-09-11T00:00:00.000Z",
+      "updatedAt": "2026-09-17T23:00:00.000Z",
       "creator": {
         "name": "Ankit",
         "avatar": null,
         "verified": true
-      }
+      },
+      "coverUrl": "stories/chai-dreams/assets/cover.jpg"
     },
     {
       "id": "starship-vikrant",
@@ -1008,7 +1009,7 @@
       "ageRating": "18+",
       "contentLevel": "mature",
       "language": "hinglish",
-      "version": 1,
+      "version": 2,
       "coverUrl": "stories/bhabi-ka-ladla-devar/assets/cover.jpg",
       "accentColor": "#BE185D",
       "userRole": "{{playerName}} — chhota beta aur pati, jo apni patni Tanvi ke shaq aur apni vidhwa bhabhi Sunaina ke parivarik aadar ke beech santulan bana raha hai",
@@ -1018,7 +1019,7 @@
       "isNew": true,
       "popularity": 85,
       "storyDir": "bhabi-ka-ladla-devar",
-      "updatedAt": "2026-09-16T19:03:50.700Z",
+      "updatedAt": "2026-09-17T23:00:00.000Z",
       "creator": {
         "name": "Ankit",
         "avatar": null,
