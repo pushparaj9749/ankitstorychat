@@ -10,7 +10,9 @@ const { execSync } = require('node:child_process');
 const fs = require('node:fs');
 const path = require('node:path');
 
-const Wrangler = path.resolve(__dirname, '..', 'worker', 'wrangler.jsonc');
+// Script is run with cwd=worker/ (so wrangler auto-loads wrangler.jsonc for
+// auth/account config); wrangler.jsonc is therefore at ./wrangler.jsonc.
+const Wrangler = path.resolve('wrangler.jsonc');
 
 function run(cmd, opts = {}) {
   console.log('$', cmd);
@@ -45,11 +47,15 @@ function extractId(createOut) {
 function injectId(file, id) {
   let s = fs.readFileSync(file, 'utf8');
   const block = `\n  "kv_namespaces": [\n    { "binding": "KISSA_SUBMISSIONS", "id": "${id}", "preview_id": "${id}" }\n  ],\n`;
-  if (s.includes('"kv_namespaces"')) {
-    s = s.replace(
-      /"kv_namespaces"\s*:\s*\[[\s\S]*?\]/m,
-      `"kv_namespaces": [\n    { "binding": "KISSA_SUBMISSIONS", "id": "${id}", "preview_id": "${id}" }\n  ]`,
-    );
+  // Find a non-commented kv_namespaces line (start of line, no leading //).
+  const existing = s.match(/^  "kv_namespaces"\s*:/m);
+  if (existing) {
+    // Replace the existing array (from "kv_namespaces": [ to the matching ]).
+    const start = existing.index;
+    const after = s.slice(start);
+    const arrEnd = after.indexOf(']');
+    // Find the closing bracket and replace span.
+    s = s.slice(0, start) + `"kv_namespaces": [\n    { "binding": "KISSA_SUBMISSIONS", "id": "${id}", "preview_id": "${id}" }\n  ]` + after.slice(arrEnd + 1);
   } else {
     // Insert immediately before the "unsafe" block so the config stays valid.
     s = s.replace(/(\n  "unsafe"\s*:\s*\{)/, block + '\n  "unsafe": {');

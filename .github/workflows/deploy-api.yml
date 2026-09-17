@@ -98,8 +98,12 @@ jobs:
         env:
           CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
           CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
-        run: node scripts/ci-kv-setup.mjs
-        working-directory: worker/..
+          CLOUDFLARE_API_TOKEN_ALSO_SET: "yes" # wrangler auto-discovers these names
+        run: node ../scripts/ci-kv-setup.cjs
+        working-directory: worker
+        shell: bash
+        # The script walks up to ../worker/wrangler.jsonc — keep cwd inside
+        # worker/ so wrangler finds wrangler.jsonc for auth+account lookups.
 
       - name: Put ADMIN_TOKEN secret when present
         working-directory: worker
