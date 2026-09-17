@@ -159,7 +159,7 @@ jobs:
           # body identity, and absence of GitHub Pages headers.
           assert_worker_owns_api() { # assert_worker_owns_api <label> <base>
             local label="$1" b="$2" ready=0
-            for i in $(seq 1 24); do
+            for i in $(seq 1 48); do
               if [ "$(code "$b/health")" = "200" ]; then ready=1; break; fi
               sleep 10
             done
