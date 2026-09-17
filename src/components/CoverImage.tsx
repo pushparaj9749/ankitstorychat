@@ -1,80 +1,50 @@
-/** Story cover: 3:4 portrait, cached, placeholder, failure fallback. */
-import React, { useEffect, useState } from 'react';
-import { Image, StyleSheet, Text, View, type StyleProp, type ViewStyle } from 'react-native';
+/**
+ * Story cover — cached, placeholder, failure fallback.
+ *
+ * Renders at the artwork's OWN aspect ratio (see NaturalImage): covers ship as
+ * 16:9, 3:2, 3:4, 2:3, 9:16 and more, so no fixed ratio is forced anywhere.
+ * IMAGE RATIO = SOURCE IMAGE RATIO.
+ */
+import React from 'react';
+import { StyleSheet, Text, type ImageSourcePropType, type StyleProp, type ImageStyle } from 'react-native';
 import type { CoverSource } from '../content/loader';
-import { RADIUS } from '../theme';
-
-export const COVER_ASPECT = 3 / 4;
+import { NaturalImage } from './NaturalImage';
 
 export function CoverImage({
   source,
   accentColor,
   style,
   fallbackLetter,
-  wide,
+  maxHeight,
+  placeholderMinHeight,
 }: {
   source: CoverSource | null;
   accentColor?: string;
-  style?: StyleProp<ViewStyle>;
+  style?: StyleProp<ImageStyle>;
   fallbackLetter?: string;
-  /** Featured/hero only — keep the existing wide presentation. */
-  wide?: boolean;
+  /**
+   * Optional upper bound for bounded layouts. Contain-sized — the cover keeps
+   * its own ratio and letterboxes; it is never cropped.
+   */
+  maxHeight?: number | `${number}%`;
+  /** Letter/skeleton placeholder height when no artwork is available. Chrome only. */
+  placeholderMinHeight?: number;
 }) {
-  const bundled = typeof source === 'number';
-  const [failed, setFailed] = useState(false);
-  const [loaded, setLoaded] = useState(bundled);
-
-  useEffect(() => {
-    setFailed(false);
-    setLoaded(typeof source === 'number');
-  }, [source]);
-
-  const showImage = !!source && !failed;
   const letter = (fallbackLetter ?? '?').slice(0, 1).toUpperCase();
+  const accent = accentColor ?? '#8B5CF6';
 
   return (
-    <View
-      style={[
-        styles.wrap,
-        wide ? undefined : { aspectRatio: COVER_ASPECT },
-        { backgroundColor: `${accentColor ?? '#8B5CF6'}33` },
-        style,
-      ]}
-    >
-      {showImage ? (
-        <Image
-          source={source}
-          style={styles.img}
-          resizeMode="cover"
-          onLoad={() => setLoaded(true)}
-          onError={() => {
-            setFailed(true);
-            setLoaded(true);
-          }}
-        />
-      ) : (
-        <Text style={[styles.fallback, { color: accentColor ?? '#8B5CF6' }]}>{letter}</Text>
-      )}
-      {showImage && !loaded ? <View style={styles.skeleton} pointerEvents="none" /> : null}
-    </View>
+    <NaturalImage
+      source={source as ImageSourcePropType | null}
+      style={style}
+      maxHeight={maxHeight}
+      placeholderMinHeight={placeholderMinHeight}
+      tint={`${accent}33`}
+      fallback={<Text style={[styles.fallback, { color: accent }]}>{letter}</Text>}
+    />
   );
 }
 
 const styles = StyleSheet.create({
-  wrap: {
-    overflow: 'hidden',
-    alignItems: 'center',
-    justifyContent: 'center',
-    borderRadius: RADIUS.md,
-  },
-  img: { width: '100%', height: '100%' },
   fallback: { fontSize: 52, fontWeight: '900' },
-  skeleton: {
-    position: 'absolute',
-    top: 0,
-    right: 0,
-    bottom: 0,
-    left: 0,
-    backgroundColor: 'rgba(255,255,255,0.06)',
-  },
 });
