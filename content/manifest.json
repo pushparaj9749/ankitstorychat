@@ -1,7 +1,7 @@
 {
-  "contentVersion": 24,
+  "contentVersion": 25,
   "minAppVersion": "1.0.0",
-  "updatedAt": "2026-09-18T10:14:51.000Z",
+  "updatedAt": "2026-09-18T13:47:11.000Z",
   "stories": [
     {
       "id": "duniya-ka-aakhri-mard",
@@ -39,7 +39,7 @@
       "ageRating": "12-17",
       "contentLevel": "teen",
       "language": "hinglish",
-      "version": 1,
+      "version": 2,
       "coverUrl": "stories/duniya-ka-aakhri-mard/assets/cover.jpg",
       "accentColor": "#D946EF",
       "userRole": "{{playerName}} — purani duniya ka aam young ladka, ab Vaelthara ka sabse anokha aur aakhri mard",
@@ -49,7 +49,7 @@
       "isNew": true,
       "popularity": 96,
       "storyDir": "duniya-ka-aakhri-mard",
-      "updatedAt": "2026-09-18T10:14:51.000Z",
+      "updatedAt": "2026-09-18T13:47:11.000Z",
       "creator": {
         "name": "Ankit",
         "avatar": null,
