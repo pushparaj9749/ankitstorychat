@@ -23,6 +23,7 @@ import { isFullyFadedLine, matchSpeakerPrefix } from './markup';
 import { MAX_MEMORY_NOTES, renderMemoryLine } from './memoryCore';
 import { interpolatePlayerName } from './playerName';
 import { clamp, norm, tokens } from './utils';
+import type { WorldState } from './worldState';
 
 /* ---------------- scene helpers ---------------- */
 
@@ -92,9 +93,11 @@ export interface ParsedAssistant {
   effects?: ChoiceEffects;
   memoryNotes: string[];
   speaker: string | null;
+  worldStateRaw?: unknown;
+  rawStateJson?: Record<string, unknown>;
 }
 
-function parseStateBlock(jsonText: string): ChoiceEffects | undefined {
+function parseStateBlock(jsonText: string): { effects: ChoiceEffects; raw: Record<string, unknown> } | undefined {
   try {
     const obj = JSON.parse(jsonText.trim()) as Record<string, unknown>;
     if (!obj || typeof obj !== 'object') return undefined;
@@ -135,7 +138,7 @@ function parseStateBlock(jsonText: string): ChoiceEffects | undefined {
     if (Array.isArray(obj.memory)) {
       effects.memory = obj.memory.filter((x): x is string => typeof x === 'string').slice(0, MAX_MEMORY_NOTES);
     }
-    return effects;
+    return { effects, raw: obj };
   } catch {
     return undefined;
   }
@@ -145,6 +148,8 @@ export function parseAssistantResponse(raw: string): ParsedAssistant {
   let displayText = raw || '';
   let effects: ChoiceEffects | undefined;
   const memoryNotes: string[] = [];
+  let worldStateRaw: unknown = undefined;
+  let rawStateJson: Record<string, unknown> | undefined = undefined;
 
   const merged: ChoiceEffects = {};
   let found = false;
@@ -152,24 +157,27 @@ export function parseAssistantResponse(raw: string): ParsedAssistant {
     const parsed = parseStateBlock(jsonText);
     if (parsed) {
       found = true;
-      if (parsed.relationships) {
+      if (parsed.effects.relationships) {
         merged.relationships = { ...(merged.relationships ?? {}) };
-        for (const [k, v] of Object.entries(parsed.relationships)) {
+        for (const [k, v] of Object.entries(parsed.effects.relationships)) {
           merged.relationships[k] = (merged.relationships[k] ?? 0) + v;
         }
       }
-      if (parsed.flags) merged.flags = { ...(merged.flags ?? {}), ...parsed.flags };
-      if (parsed.choicesRecord) {
-        merged.choicesRecord = { ...(merged.choicesRecord ?? {}), ...parsed.choicesRecord };
+      if (parsed.effects.flags) merged.flags = { ...(merged.flags ?? {}), ...parsed.effects.flags };
+      if (parsed.effects.choicesRecord) {
+        merged.choicesRecord = { ...(merged.choicesRecord ?? {}), ...parsed.effects.choicesRecord };
       }
-      if (parsed.inventoryAdd) merged.inventoryAdd = [...(merged.inventoryAdd ?? []), ...parsed.inventoryAdd];
-      if (parsed.inventoryRemove) {
-        merged.inventoryRemove = [...(merged.inventoryRemove ?? []), ...parsed.inventoryRemove];
+      if (parsed.effects.inventoryAdd) merged.inventoryAdd = [...(merged.inventoryAdd ?? []), ...parsed.effects.inventoryAdd];
+      if (parsed.effects.inventoryRemove) {
+        merged.inventoryRemove = [...(merged.inventoryRemove ?? []), ...parsed.effects.inventoryRemove];
       }
-      if (parsed.location) merged.location = parsed.location;
-      if (parsed.scene) merged.scene = parsed.scene;
-      if (parsed.endStory) merged.endStory = parsed.endStory;
-      if (parsed.memory) memoryNotes.push(...parsed.memory.slice(0, MAX_MEMORY_NOTES));
+      if (parsed.effects.location) merged.location = parsed.effects.location;
+      if (parsed.effects.scene) merged.scene = parsed.effects.scene;
+      if (parsed.effects.endStory) merged.endStory = parsed.effects.endStory;
+      if (parsed.effects.memory) memoryNotes.push(...parsed.effects.memory.slice(0, MAX_MEMORY_NOTES));
+      // Preserve raw for worldState extraction
+      worldStateRaw = parsed.raw;
+      rawStateJson = parsed.raw;
     }
     return '';
   });
@@ -192,7 +200,7 @@ export function parseAssistantResponse(raw: string): ParsedAssistant {
     break;
   }
 
-  return { displayText, effects, memoryNotes, speaker };
+  return { displayText, effects, memoryNotes, speaker, worldStateRaw, rawStateJson };
 }
 
 /* ---------------- free-text -> choice matching ---------------- */
@@ -278,11 +286,22 @@ export interface PromptInput {
   history: ChatMessage[];
   /** Rolling compressed digest of everything folded out of the window. */
   summary?: string;
+  worldState?: WorldState | null;
+  immediateContext?: string;
 }
 
 export function buildSystemPrompt(input: PromptInput, ageGroup: AgeGroup): string {
   const { bundle, profile, playthrough, memories } = input;
   const scene = getScene(bundle, playthrough.currentSceneId);
+  // World state is injected here if present; otherwise fall back to legacy stateDigest
+  const worldBlock = input.worldState ? (() => {
+    try {
+      const { renderWorldStateForPrompt } = require('./worldState');
+      return renderWorldStateForPrompt(input.worldState as WorldState);
+    } catch {
+      return '';
+    }
+  })() : '';
   // The reader's name must come from the profile, never from hardcoded story
   // text: {{playerName}} placeholders (and legacy hardcoded names) resolve to
   // profile.nickname, while CHARACTER names stay untouched.
@@ -337,8 +356,8 @@ LORE: ${bundle.world.lore.join(' | ')}
 
 ${sceneDigest(scene)}
 
-STORY STATE SO FAR:
-${stateDigest(playthrough.state)}
+${worldBlock ? worldBlock + '\n\nLEGACY STATE (for compat):\n' + stateDigest(playthrough.state) : `STORY STATE SO FAR:
+${stateDigest(playthrough.state)}`}
 
 ${summaryBlock}WHAT YOU REMEMBER ABOUT THIS READER'S JOURNEY (most relevant first — this is ALREADY known, so never repeat it back, just act on it):
 ${memLines}
@@ -360,11 +379,26 @@ HOW TO RESPOND:
 3. Respect the current scene and its available directions; do NOT teleport the plot or invent contradicting events. If the reader does something wild, react believably and steer back toward the scene.
 4. NEVER speak as the reader. NEVER decide the reader's actions for them.
 5. When addressing the reader, use "${profile.nickname}" occasionally.
-6. After your visible reply, append a hidden state block when something changed (relationship shift, item gained/lost, location change, important flag, scene move, story end) OR when a durable new fact happened (a promise, a secret, a name, a decision). Format exactly:
+6. After your visible reply, append a hidden state block when something changed OR when a durable new fact happened. Format exactly:
 \`\`\`kissa-state
-{"relationships": {"characterId": +5}, "flags": {"gateOpened": true}, "inventoryAdd": ["item-id"], "location": "Place name", "scene": "next-scene-id", "endStory": "ending-id", "memory": ["short fact to remember"]}
+{
+  "relationships": {"characterId": +5},
+  "flags": {"gateOpened": true},
+  "inventoryAdd": ["item-id"],
+  "location": "Place name",
+  "scene": "next-scene-id",
+  "endStory": "ending-id",
+  "presentCharacters": ["maya","kabir"],
+  "activity": "having chai in library",
+  "playerAction": "sitting opposite Maya",
+  "storyTime": {"clockTime": "8:42 PM", "timeOfDay": "evening"},
+  "importantObjects": [{"name": "old photograph", "holder": "Maya", "significance": "first clue"}],
+  "threads": [{"title": "Unknown photograph", "status": "unresolved", "involvedCharacters": ["Maya"], "relatedLocation": "Library"}],
+  "threadsResolved": ["Old promise"],
+  "memory": ["short fact to remember"]
+}
 \`\`\`
-Omit keys that didn't change. "scene" must be one of the story's scene ids (or omit to stay). "endStory" only at a true ending. Keep memory facts short (under 120 chars), up to ${MAX_MEMORY_NOTES} per reply — include every distinct durable fact from this turn, do not hold back. Nothing you write in "memory" is shown to the reader.
+Omit keys that didn't change. "scene" must be one of the story's scene ids. "endStory" only at a true ending. Keep memory facts short (under 120 chars), up to ${MAX_MEMORY_NOTES} per reply. Also use presentCharacters/activity/storyTime/importantObjects/threads when relevant. Nothing you write in "memory" or this block is shown to the reader. For high continuity, always emit location/activity/presentCharacters when they change.
 7. If the reader greets you out-of-story ("hi", "hello"), stay in character briefly and pull them back into the scene.`;
 
   return interpolatePlayerName(prompt, profile.nickname, playerNameContext);

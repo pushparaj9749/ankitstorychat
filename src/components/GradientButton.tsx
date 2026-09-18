@@ -1,14 +1,8 @@
 import React from 'react';
-import {
-  ActivityIndicator,
-  Pressable,
-  StyleSheet,
-  Text,
-  View,
-} from 'react-native';
+import { ActivityIndicator, Pressable, StyleSheet, Text, View } from 'react-native';
 import { LinearGradient } from 'expo-linear-gradient';
 import { useApp } from '../state/AppContext';
-import { GRADIENTS, INK, RADIUS, SPACING } from '../theme';
+import { GRADIENTS, INK, RADIUS, SHADOWS, SPACING, withAlpha } from '../theme';
 
 export function GradientButton({
   title,
@@ -17,6 +11,7 @@ export function GradientButton({
   loading,
   variant = 'primary',
   accessibilityLabel,
+  icon,
 }: {
   title: string;
   onPress: () => void;
@@ -24,6 +19,7 @@ export function GradientButton({
   loading?: boolean;
   variant?: 'primary' | 'gold' | 'ghost';
   accessibilityLabel?: string;
+  icon?: string;
 }) {
   const { theme } = useApp();
   if (variant === 'ghost') {
@@ -35,13 +31,21 @@ export function GradientButton({
         accessibilityLabel={accessibilityLabel ?? title}
         style={({ pressed }) => [
           styles.ghost,
-          { borderColor: theme.border, opacity: disabled ? 0.5 : pressed ? 0.7 : 1 },
+          {
+            borderColor: theme.border,
+            backgroundColor: withAlpha(theme.surface, pressed ? 0.9 : 1),
+            opacity: disabled ? 0.5 : 1,
+            transform: [{ scale: pressed ? 0.98 : 1 }],
+          },
         ]}
       >
         {loading ? (
           <ActivityIndicator color={theme.text} />
         ) : (
-          <Text style={[styles.ghostText, { color: theme.text }]}>{title}</Text>
+          <View style={styles.ghostInner}>
+            {icon ? <Text style={[styles.ghostIcon, { color: theme.textDim }]}>{icon}</Text> : null}
+            <Text style={[styles.ghostText, { color: theme.text }]}>{title}</Text>
+          </View>
         )}
       </Pressable>
     );
@@ -55,14 +59,23 @@ export function GradientButton({
       accessibilityLabel={accessibilityLabel ?? title}
       style={({ pressed }) => [
         styles.wrap,
-        { opacity: disabled ? 0.5 : pressed ? 0.85 : 1 },
+        { opacity: disabled ? 0.5 : 1, transform: [{ scale: pressed ? 0.98 : 1 }] },
+        SHADOWS.glowAccent,
       ]}
     >
-      <LinearGradient colors={[...colors]} start={{ x: 0, y: 0 }} end={{ x: 1, y: 0 }} style={styles.grad}>
+      <LinearGradient
+        colors={[...colors]}
+        start={{ x: 0, y: 0 }}
+        end={{ x: 1, y: 0 }}
+        style={styles.grad}
+      >
         {loading ? (
           <ActivityIndicator color={INK} />
         ) : (
-          <Text style={styles.text}>{title}</Text>
+          <View style={styles.primaryInner}>
+            {icon ? <Text style={styles.primaryIcon}>{icon}</Text> : null}
+            <Text style={styles.text}>{title}</Text>
+          </View>
         )}
       </LinearGradient>
     </Pressable>
@@ -81,13 +94,18 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     borderRadius: RADIUS.md,
   },
-  text: { color: INK, fontWeight: '800', fontSize: 16, letterSpacing: 0.2 },
+  primaryInner: { flexDirection: 'row', alignItems: 'center', gap: 8 },
+  primaryIcon: { fontSize: 16 },
+  text: { color: INK, fontWeight: '800', fontSize: 15, letterSpacing: 0.3 },
   ghost: {
     borderWidth: 1,
     borderRadius: RADIUS.md,
     paddingVertical: 13,
     alignItems: 'center',
+    justifyContent: 'center',
   },
-  ghostText: { fontWeight: '600', fontSize: 15 },
+  ghostInner: { flexDirection: 'row', alignItems: 'center', gap: 8 },
+  ghostIcon: { fontSize: 14 },
+  ghostText: { fontWeight: '700', fontSize: 14, letterSpacing: 0.15 },
   row: { flexDirection: 'row', gap: 10 },
 });

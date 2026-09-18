@@ -1,6 +1,6 @@
-/** Root navigation: onboarding stack -> main tabs -> detail screens. */
+/** Root navigation — cinematic premium tabs + stack. Memory UI removed (internal only). */
 import React, { useEffect, useRef } from 'react';
-import { Text, View } from 'react-native';
+import { Text, View, StyleSheet } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
@@ -19,7 +19,6 @@ import { Settings } from '../screens/Settings';
 import { StoryDetail } from '../screens/StoryDetail';
 import { Saves } from '../screens/Saves';
 import { Chat } from '../screens/Chat';
-import { Memory } from '../screens/Memory';
 import { AIAddons } from '../screens/AIAddons';
 import { ProviderEditor } from '../screens/ProviderEditor';
 import { SettingsProfile } from '../screens/SettingsProfile';
@@ -34,6 +33,7 @@ import { SubmitStory } from '../screens/SubmitStory';
 import { SubmissionSuccess } from '../screens/SubmissionSuccess';
 import { MySubmissions } from '../screens/MySubmissions';
 import { AdminPanel } from '../screens/AdminPanel';
+import { withAlpha } from '../theme';
 
 const Stack = createNativeStackNavigator<RootStackParamList>();
 const Tab = createBottomTabNavigator<MainTabParamList>();
@@ -45,13 +45,27 @@ const TAB_META: Record<string, { glyph: string; label: string }> = {
   Settings: { glyph: '○', label: 'You' },
 };
 
-function tabIcon(name: string, focused: boolean, color: string) {
+function TabIcon({ name, focused, color }: { name: string; focused: boolean; color: string }) {
   const meta = TAB_META[name] ?? { glyph: '•', label: name };
   return (
-    <View style={{ alignItems: 'center', minWidth: 48 }}>
-      <Text style={{ fontSize: focused ? 16 : 15, color, fontWeight: focused ? '800' : '500' }}>
-        {meta.glyph}
-      </Text>
+    <View style={tabStyles.wrap}>
+      <View
+        style={[
+          tabStyles.iconBox,
+          focused && { backgroundColor: withAlpha(color, 0.14), borderColor: withAlpha(color, 0.18) },
+        ]}
+      >
+        <Text
+          style={{
+            fontSize: focused ? 15 : 14,
+            color,
+            fontWeight: focused ? '800' : '600',
+          }}
+        >
+          {meta.glyph}
+        </Text>
+      </View>
+      {focused ? <View style={[tabStyles.dot, { backgroundColor: color }]} /> : <View style={tabStyles.dotIdle} />}
     </View>
   );
 }
@@ -60,12 +74,9 @@ function MainTabs() {
   const { theme, profile, settings } = useApp();
   const checked = useRef(false);
 
-  // Silent content check once per launch (best-effort, offline-safe). Stories
-  // are fetched/cached automatically — there is no manual "update" UI.
   useEffect(() => {
     if (checked.current || !profile) return;
     checked.current = true;
-    // Small delay so first paint stays fast.
     const t = setTimeout(() => {
       void (async () => {
         try {
@@ -74,9 +85,7 @@ function MainTabs() {
           if (res.hasUpdate && settings.notifications.enabled && settings.notifications.contentUpdates) {
             await notifyContentUpdate(res.newStories.length + res.updatedStories.length);
           }
-        } catch {
-          // Offline or unreachable — the app works fully offline anyway.
-        }
+        } catch {}
       })();
     }, 4000);
     return () => clearTimeout(t);
@@ -86,18 +95,20 @@ function MainTabs() {
     <Tab.Navigator
       screenOptions={({ route }) => ({
         headerShown: false,
-        tabBarIcon: ({ focused, color }) => tabIcon(route.name, focused, color),
+        tabBarIcon: ({ focused, color }) => <TabIcon name={route.name} focused={focused} color={color} />,
         tabBarLabel: TAB_META[route.name]?.label ?? route.name,
         tabBarActiveTintColor: theme.accent,
         tabBarInactiveTintColor: theme.textFaint,
-        tabBarLabelStyle: { fontSize: 11, fontWeight: '700', letterSpacing: 0.3, marginBottom: 4 },
+        tabBarLabelStyle: { fontSize: 11, fontWeight: '700', letterSpacing: 0.3, marginBottom: 4, marginTop: 2 },
         tabBarStyle: {
-          backgroundColor: theme.bgSoft,
+          backgroundColor: withAlpha(theme.bgSoft, 0.96),
           borderTopColor: theme.border,
-          borderTopWidth: 0.5,
-          height: 62,
+          borderTopWidth: StyleSheet.hairlineWidth,
+          height: 66,
           paddingTop: 6,
+          paddingBottom: 4,
         },
+        tabBarHideOnKeyboard: true,
       })}
     >
       <Tab.Screen name="Home" component={Home} options={{ tabBarAccessibilityLabel: 'Home' }} />
@@ -108,7 +119,6 @@ function MainTabs() {
   );
 }
 
-/** One-time side effects after boot (ambient music, etc.). */
 function BootEffects() {
   const { settings } = useApp();
   const started = useRef(false);
@@ -155,7 +165,6 @@ export function RootNavigator() {
             <Stack.Screen name="StoryDetail" component={StoryDetail} />
             <Stack.Screen name="Saves" component={Saves} />
             <Stack.Screen name="Chat" component={Chat} options={{ animation: 'fade' }} />
-            <Stack.Screen name="Memory" component={Memory} />
             <Stack.Screen name="AIAddons" component={AIAddons} />
             <Stack.Screen name="ProviderEditor" component={ProviderEditor} />
             <Stack.Screen name="SettingsProfile" component={SettingsProfile} />
@@ -176,3 +185,18 @@ export function RootNavigator() {
     </NavigationContainer>
   );
 }
+
+const tabStyles = StyleSheet.create({
+  wrap: { alignItems: 'center', minWidth: 56, gap: 3 },
+  iconBox: {
+    width: 28,
+    height: 28,
+    borderRadius: 14,
+    alignItems: 'center',
+    justifyContent: 'center',
+    borderWidth: 1,
+    borderColor: 'transparent',
+  },
+  dot: { width: 4, height: 4, borderRadius: 2, marginTop: 1 },
+  dotIdle: { width: 4, height: 4, borderRadius: 2, marginTop: 1, opacity: 0 },
+});
