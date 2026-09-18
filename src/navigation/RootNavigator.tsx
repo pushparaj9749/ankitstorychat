@@ -1,6 +1,6 @@
 /** Root navigation: onboarding stack -> main tabs -> detail screens. */
 import React, { useEffect, useRef } from 'react';
-import { Text } from 'react-native';
+import { Text, View } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
@@ -38,9 +38,22 @@ import { AdminPanel } from '../screens/AdminPanel';
 const Stack = createNativeStackNavigator<RootStackParamList>();
 const Tab = createBottomTabNavigator<MainTabParamList>();
 
-function tabIcon(name: string, focused: boolean) {
-  const map: Record<string, string> = { Home: '🏠', Discover: '🔍', Library: '📚', Settings: '⚙️' };
-  return <Text style={{ fontSize: focused ? 22 : 20 }}>{map[name] ?? '•'}</Text>;
+const TAB_META: Record<string, { glyph: string; label: string }> = {
+  Home: { glyph: '◆', label: 'Home' },
+  Discover: { glyph: '◎', label: 'Shows' },
+  Library: { glyph: '▣', label: 'Library' },
+  Settings: { glyph: '○', label: 'You' },
+};
+
+function tabIcon(name: string, focused: boolean, color: string) {
+  const meta = TAB_META[name] ?? { glyph: '•', label: name };
+  return (
+    <View style={{ alignItems: 'center', minWidth: 48 }}>
+      <Text style={{ fontSize: focused ? 16 : 15, color, fontWeight: focused ? '800' : '500' }}>
+        {meta.glyph}
+      </Text>
+    </View>
+  );
 }
 
 function MainTabs() {
@@ -73,16 +86,24 @@ function MainTabs() {
     <Tab.Navigator
       screenOptions={({ route }) => ({
         headerShown: false,
-        tabBarIcon: ({ focused }) => tabIcon(route.name, focused),
+        tabBarIcon: ({ focused, color }) => tabIcon(route.name, focused, color),
+        tabBarLabel: TAB_META[route.name]?.label ?? route.name,
         tabBarActiveTintColor: theme.accent,
         tabBarInactiveTintColor: theme.textFaint,
-        tabBarStyle: { backgroundColor: theme.bgSoft, borderTopColor: theme.border },
+        tabBarLabelStyle: { fontSize: 11, fontWeight: '700', letterSpacing: 0.3, marginBottom: 4 },
+        tabBarStyle: {
+          backgroundColor: theme.bgSoft,
+          borderTopColor: theme.border,
+          borderTopWidth: 0.5,
+          height: 62,
+          paddingTop: 6,
+        },
       })}
     >
-      <Tab.Screen name="Home" component={Home} />
-      <Tab.Screen name="Discover" component={Discover} />
-      <Tab.Screen name="Library" component={Library} />
-      <Tab.Screen name="Settings" component={Settings} />
+      <Tab.Screen name="Home" component={Home} options={{ tabBarAccessibilityLabel: 'Home' }} />
+      <Tab.Screen name="Discover" component={Discover} options={{ tabBarAccessibilityLabel: 'Discover shows' }} />
+      <Tab.Screen name="Library" component={Library} options={{ tabBarAccessibilityLabel: 'Library' }} />
+      <Tab.Screen name="Settings" component={Settings} options={{ tabBarAccessibilityLabel: 'You, settings' }} />
     </Tab.Navigator>
   );
 }

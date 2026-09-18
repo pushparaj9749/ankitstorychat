@@ -1,4 +1,4 @@
-/** Home: greeting, continue, featured, recommended, new & hot, categories, favorites. */
+/** Home: wordmark, continue strip, featured poster, shows, categories. */
 import React, { useMemo } from 'react';
 import { FlatList, Pressable, ScrollView, StyleSheet, Text, View } from 'react-native';
 import type { BottomTabScreenProps } from '@react-navigation/bottom-tabs';
@@ -57,9 +57,9 @@ export function Home({ navigation }: Props) {
     return (
       <Screen>
         <EmptyState
-          emoji="📚"
+          emoji="▣"
           title="No stories yet"
-          subtitle="Fresh stories arrive over the air automatically — check your connection and open Discover."
+          subtitle="Fresh stories arrive over the air automatically — check your connection and open Shows."
         />
       </Screen>
     );
@@ -69,9 +69,10 @@ export function Home({ navigation }: Props) {
     <Screen padded={false}>
       <ScrollView contentContainerStyle={styles.scroll} showsVerticalScrollIndicator={false}>
         <View style={styles.pad}>
-          <Text style={[styles.hello, { color: theme.textDim }]}>{greeting.split(',')[0]},</Text>
+          <Text style={[styles.brand, { color: theme.accent }]}>KISSA</Text>
+          <Text style={[styles.hello, { color: theme.textDim }]}>{greeting.split(',')[0]}</Text>
           <Text style={[styles.name, { color: theme.text }]}>
-            {profile?.nickname ?? 'Traveller'} 👋
+            {profile?.nickname ?? 'Traveller'}
           </Text>
 
           <Pressable
@@ -80,12 +81,12 @@ export function Home({ navigation }: Props) {
             accessibilityLabel="Search stories"
             style={[styles.searchBar, { backgroundColor: theme.surface, borderColor: theme.border }]}
           >
-            <Text style={{ color: theme.textFaint }}>🔍 Search stories, genres, characters…</Text>
+            <Text style={{ color: theme.textFaint, letterSpacing: 0.2 }}>Search shows, genres, characters</Text>
           </Pressable>
 
           {activeRecent.length > 0 ? (
             <>
-              <SectionHeader title="Continue Story" />
+              <SectionHeader title="Continue" />
               {activeRecent.map((p) => {
                 const meta = byId.get(p.storyId)!;
                 return (
@@ -109,7 +110,7 @@ export function Home({ navigation }: Props) {
 
           {featured ? (
             <>
-              <SectionHeader title="Featured Story" />
+              <SectionHeader title="Tonight’s lead" />
               <HeroCard
                 meta={featured}
                 onPress={() =>
@@ -125,7 +126,7 @@ export function Home({ navigation }: Props) {
 
         <View style={styles.pad}>
           <SectionHeader
-            title="Recommended"
+            title="Shows for you"
             action="See all"
             onAction={() => navigation.navigate('Discover')}
           />
@@ -154,7 +155,7 @@ export function Home({ navigation }: Props) {
         {newHot.length > 0 ? (
           <>
             <View style={styles.pad}>
-              <SectionHeader title="New & Hot 🔥" />
+              <SectionHeader title="New this week" />
               {newHot.slice(0, 3).map((s) => (
                 <View key={s.id} style={styles.gap}>
                   <ContinueCard
@@ -175,7 +176,7 @@ export function Home({ navigation }: Props) {
         ) : null}
 
         <View style={styles.pad}>
-          <SectionHeader title="Categories" />
+          <SectionHeader title="Genres" />
           <View style={styles.cats}>
             {categories.map((c) => (
               <SelectableChip
@@ -189,7 +190,7 @@ export function Home({ navigation }: Props) {
 
           {favorites.length > 0 ? (
             <>
-              <SectionHeader title="Favorites ❤️" />
+              <SectionHeader title="Saved" />
               {favorites.map((s) => (
                 <View key={s.id} style={styles.gap}>
                   <ContinueCard
@@ -216,19 +217,20 @@ export function Home({ navigation }: Props) {
 
 const styles = StyleSheet.create({
   scroll: { paddingBottom: 8 },
-  pad: { paddingHorizontal: 16 },
-  hello: { fontSize: FONTS.small, marginTop: 10, letterSpacing: 0.4, textTransform: 'uppercase' },
-  name: { ...TYPE.display, marginBottom: 14 },
+  pad: { paddingHorizontal: 20 },
+  brand: { fontSize: 11, fontWeight: '800', letterSpacing: 3.2, marginTop: 8 },
+  hello: { fontSize: FONTS.small, marginTop: 14, letterSpacing: 0.6, textTransform: 'uppercase' },
+  name: { ...TYPE.display, marginBottom: 16 },
   searchBar: {
     borderWidth: 1,
-    borderRadius: RADIUS.lg,
-    paddingHorizontal: 16,
+    borderRadius: RADIUS.pill,
+    paddingHorizontal: 18,
     paddingVertical: 13,
     marginBottom: 4,
     ...SHADOWS.card,
   },
   gap: { marginBottom: 10 },
-  hlist: { paddingHorizontal: 16, alignItems: 'flex-start' },
-  hitem: { marginRight: 12 },
+  hlist: { paddingHorizontal: 20, alignItems: 'flex-start' },
+  hitem: { marginRight: 14 },
   cats: { flexDirection: 'row', flexWrap: 'wrap', gap: 8 },
 });

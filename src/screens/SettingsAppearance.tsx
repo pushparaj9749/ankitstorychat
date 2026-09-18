@@ -28,7 +28,7 @@ export function SettingsAppearance(_props: Props) {
           },
         ]}
       >
-        <Text style={[styles.optText, { color: selected ? '#D9CFFF' : theme.text }]}>{label}</Text>
+        <Text style={[styles.optText, { color: selected ? theme.accent : theme.text }]}>{label}</Text>
       </Pressable>
     );
   }

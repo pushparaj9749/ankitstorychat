@@ -59,7 +59,7 @@ import {
   updateStats,
 } from '../lib/db';
 import { completePlaythrough } from '../lib/playthrough';
-import { interpolatePlayerName } from '../lib/playerName';
+import { interpolatePlayerName, makePlayerTextFn } from '../lib/playerName';
 import { FONTS, RADIUS } from '../theme';
 import { nowIso, uid } from '../lib/utils';
 import { playReceive } from '../lib/sound';
@@ -371,7 +371,7 @@ export function Chat({ navigation, route }: Props) {
 
   return (
     <SafeAreaView style={[styles.safe, { backgroundColor: theme.bg }]} edges={['top', 'left', 'right', 'bottom']}>
-      <View style={[styles.header, { borderColor: theme.border }]}>
+      <View style={[styles.header, { borderColor: theme.border, backgroundColor: theme.bgSoft }]}>
         <Pressable onPress={() => navigation.goBack()} hitSlop={10} accessibilityLabel="Go back">
           <Text style={[styles.back, { color: theme.text }]}>‹</Text>
         </Pressable>
@@ -391,7 +391,7 @@ export function Chat({ navigation, route }: Props) {
             accessibilityRole="button"
             accessibilityLabel="Kya yaad hai"
           >
-            <Text style={[styles.modeText, { color: theme.textDim }]}>🧠</Text>
+            <Text style={[styles.modeText, { color: theme.textDim }]}>Memory</Text>
           </Pressable>
           <View
             style={[
@@ -402,12 +402,20 @@ export function Chat({ navigation, route }: Props) {
               },
             ]}
           >
-            <Text style={[styles.modeText, { color: aiReady ? '#D9CFFF' : theme.textDim }]}>
-              🤖 AI
+            <Text style={[styles.modeText, { color: aiReady ? theme.accent : theme.textDim }]}>
+              AI
             </Text>
           </View>
         </View>
       </View>
+      {bundle.story.userRole ? (
+        <View style={[styles.roleBanner, { backgroundColor: theme.surface, borderColor: theme.border }]}>
+          <Text style={[styles.roleLabel, { color: theme.textFaint }]}>YOU ARE</Text>
+          <Text style={[styles.roleText, { color: theme.text }]} numberOfLines={1}>
+            {makePlayerTextFn(bundle.meta, profile?.nickname)(bundle.story.userRole)}
+          </Text>
+        </View>
+      ) : null}
 
       <KeyboardAvoidingView
         behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
@@ -474,7 +482,7 @@ export function Chat({ navigation, route }: Props) {
             placeholder={
               playthrough.status === 'completed'
                 ? 'Journey complete — replay for new endings…'
-                : 'Type karo… kuch bhi!'
+                : 'Apni line likho…'
             }
             placeholderTextColor={theme.textFaint}
             multiline
@@ -493,7 +501,7 @@ export function Chat({ navigation, route }: Props) {
             accessibilityLabel="Send"
             style={[
               styles.send,
-              { backgroundColor: theme.primary, opacity: sending || !input.trim() ? 0.5 : 1 },
+              { backgroundColor: theme.accent, opacity: sending || !input.trim() ? 0.5 : 1 },
             ]}
           >
             <Text style={styles.sendText}>➤</Text>
@@ -507,12 +515,22 @@ export function Chat({ navigation, route }: Props) {
 const styles = StyleSheet.create({
   safe: { flex: 1 },
   flex: { flex: 1 },
+  roleBanner: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: 10,
+    paddingHorizontal: 16,
+    paddingVertical: 8,
+    borderBottomWidth: StyleSheet.hairlineWidth,
+  },
+  roleLabel: { fontSize: 10, fontWeight: '800', letterSpacing: 1.2 },
+  roleText: { flex: 1, fontSize: FONTS.small, fontWeight: '600' },
   header: {
     flexDirection: 'row',
     alignItems: 'center',
     paddingHorizontal: 12,
     paddingVertical: 10,
-    borderBottomWidth: 1,
+    borderBottomWidth: StyleSheet.hairlineWidth,
     gap: 10,
   },
   back: { fontSize: 30, fontWeight: '400', marginTop: -4 },
@@ -548,7 +566,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
   },
-  sendText: { color: '#fff', fontSize: 18, fontWeight: '800' },
+  sendText: { color: '#1A100C', fontSize: 18, fontWeight: '800' },
   errCard: { borderWidth: 1, borderRadius: RADIUS.md, padding: 12, marginVertical: 8 },
   errTitle: { fontSize: FONTS.body, fontWeight: '800' },
   errSub: { fontSize: FONTS.small, marginTop: 4, lineHeight: 19 },

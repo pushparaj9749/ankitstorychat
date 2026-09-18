@@ -317,7 +317,7 @@ export function StoryDetail({ navigation, route }: Props) {
               onPress={() => navigation.navigate('AIAddons')}
               style={[styles.aiHint, { backgroundColor: theme.primarySoft, borderColor: theme.primary }]}
             >
-              <Text style={[styles.aiHintText, { color: '#D9CFFF' }]}>
+              <Text style={[styles.aiHintText, { color: theme.text }]}>
                 🤖 AI provider setup karo to play. Offline mode hata diya gaya hai. Tap to add your own AI key.
               </Text>
             </Pressable>
@@ -358,7 +358,7 @@ export function StoryDetail({ navigation, route }: Props) {
         {activeSave ? (
           <GradientButton title={`▶ Continue — ${activeSave.label}`} onPress={() => navigation.navigate('Chat', { playthroughId: activeSave.id })} />
         ) : (
-          <GradientButton title="💬 Chat Now" onPress={startNew} loading={starting} disabled={starting} />
+          <GradientButton title="Chat Now" onPress={startNew} loading={starting} disabled={starting} />
         )}
       </View>
     </Screen>

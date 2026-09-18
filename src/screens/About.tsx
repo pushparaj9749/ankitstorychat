@@ -22,7 +22,7 @@ export function About({ navigation }: Props) {
     <Screen>
       <ScrollView showsVerticalScrollIndicator={false} contentContainerStyle={styles.wrap}>
         <LinearGradient colors={[...GRADIENTS.hero]} style={styles.logo}>
-          <Text style={styles.logoText}>कि</Text>
+          <Text style={[styles.logoText, { color: '#1A100C' }]}>कि</Text>
         </LinearGradient>
         <Text style={[styles.name, { color: theme.text }]}>Kissa</Text>
         <Text style={[styles.ver, { color: theme.textDim }]}>v{version} • Local-first AI story chat</Text>

@@ -52,7 +52,7 @@ export function Discover({ navigation, route }: Props) {
         <TextInput
           value={query}
           onChangeText={setQuery}
-          placeholder="🔍 Search title, genre, tag, character…"
+          placeholder="Search title, genre, tag, character…"
           placeholderTextColor={theme.textFaint}
           accessibilityLabel="Search stories"
           style={[
@@ -78,7 +78,7 @@ export function Discover({ navigation, route }: Props) {
       </View>
       {results.length === 0 ? (
         <EmptyState
-          emoji="🔎"
+          emoji="◎"
           title="No stories found"
           subtitle="Try another search — new stories arrive in the catalog automatically."
         />
@@ -110,8 +110,8 @@ const styles = StyleSheet.create({
   pad: { paddingHorizontal: 16, paddingTop: 8 },
   input: {
     borderWidth: 1,
-    borderRadius: RADIUS.md,
-    paddingHorizontal: 14,
+    borderRadius: RADIUS.pill,
+    paddingHorizontal: 18,
     paddingVertical: 12,
     fontSize: 15,
   },
