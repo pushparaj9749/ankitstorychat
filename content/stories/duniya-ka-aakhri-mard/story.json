@@ -1,0 +1,100 @@
+{
+  "id": "duniya-ka-aakhri-mard",
+  "title": "Duniya Ka Aakhri Mard",
+  "description": "Tum {{playerName}} ho — ek aam ladka jiski zindagi ek raat ek gehre gaddhar mein girti hui badal gayi. Andhere mein ek chamakta hua purana darwaaza mila, aur uske paar thi Vaelthara — kingdoms, monsters, magic aur saat shaktishaali mahaaraniyon ki duniya. Par sabse ajeeb baat: is duniya mein ladke exist hi nahi karte. Tum duniya ka aakhri mard ho — ek zinda raaz. Kaun tumhare saath khadi hogi, kaun tumhe control karna chahegi, aur tum khud kya banoge — ye kissto tum khud likhoge. Ye kahani kabhi khatam nahi hoti.",
+  "version": 1,
+  "language": "hinglish",
+  "ageRating": "12-17",
+  "contentLevel": "teen",
+  "genres": [
+    "Fantasy",
+    "Isekai",
+    "Adventure",
+    "Mystery",
+    "Action"
+  ],
+  "tags": [
+    "isekai",
+    "portal",
+    "saat-shaktiyan",
+    "kingdom",
+    "monsters",
+    "mystery",
+    "ongoing",
+    "hinglish"
+  ],
+  "userRole": "{{playerName}} — purani duniya ka aam young ladka, ab Vaelthara ka sabse anokha aur aakhri mard",
+  "setting": "Vaelthara — saat mahashaktiyon ki fantasy duniya: sunehri samrajya, demon citadel, mage ka Spire, dragon parvat, beast-kin ke jungle-rajya, pardaon ki shehar, aur beech mein monster-bhara Ghor",
+  "openingSceneId": "s1_the_fall",
+  "tone": "Cinematic portal-fantasy adventure. Hinglish narration — mystery, thrill, thoda humour aur earned drama. Duniya badi, khoobsurat aur khatarnak hai; har mulaqat mein curiosity aur wariness dono chalti hain. Rishte dheere-dheere kamaye jaate hain, kabhi gifted nahi.",
+  "safetyNotes": [
+    "Teen-safe: no gore — monster fights cinematic aur dramatic hote hain, graphic nahi.",
+    "No explicit content; romance sirf tasteful tension tak.",
+    "Har lead character adult hai.",
+    "Player ki apni morality, decisions aur feelings par respect — kabhi force nahi."
+  ],
+  "creator": {
+    "name": "Ankit",
+    "avatar": null,
+    "verified": true
+  },
+  "media": {
+    "cover": "assets/cover.jpg",
+    "gallery": [
+      {
+        "id": "cover",
+        "file": "assets/cover.jpg",
+        "kind": "cover",
+        "label": "Cover"
+      },
+      {
+        "id": "portal-aagman",
+        "file": "assets/gallery/image-01.jpg",
+        "kind": "scene",
+        "label": "Portal Se Aagman",
+        "sceneId": "s1_the_fall"
+      },
+      {
+        "id": "simhagarh-fort",
+        "file": "assets/gallery/image-03.jpg",
+        "kind": "scene",
+        "label": "Simhagarh — Pehla Killa",
+        "sceneId": "s3_simhagarh"
+      },
+      {
+        "id": "valeria-portrait",
+        "file": "assets/gallery/image-04.jpg",
+        "kind": "character-portrait",
+        "label": "Valeria — Tum... Ladke Ho?",
+        "characterId": "valeria",
+        "sceneId": "s4_tum_ladke_ho"
+      },
+      {
+        "id": "solmerra-city",
+        "file": "assets/gallery/image-05.jpg",
+        "kind": "scene",
+        "label": "Solmerra — Celestial Capital"
+      },
+      {
+        "id": "ghor-monster",
+        "file": "assets/gallery/image-06.jpg",
+        "kind": "scene",
+        "label": "Ghor Ka Khatra",
+        "sceneId": "s7_kagaar"
+      },
+      {
+        "id": "vel-narai-ruins",
+        "file": "assets/gallery/image-07.jpg",
+        "kind": "scene",
+        "label": "Vel-Narai Ke Avshesh",
+        "sceneId": "s9_rahasya"
+      },
+      {
+        "id": "saat-shaktiyan",
+        "file": "assets/gallery/image-09.jpg",
+        "kind": "other",
+        "label": "Saat Shaktiyan"
+      }
+    ]
+  }
+}

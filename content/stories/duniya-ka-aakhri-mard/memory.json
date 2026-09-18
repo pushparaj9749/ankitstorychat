@@ -1,0 +1,28 @@
+{
+  "storyId": "duniya-ka-aakhri-mard",
+  "version": 1,
+  "shortTermWindow": 16,
+  "seedMemories": [
+    "{{playerName}} ek gehre gaddhar ke chamakte portal se hoke Vaelthara naam ki fantasy duniya mein aa gaya hai.",
+    "Vaelthara mein koi mard nahi — har samrajya, sena aur taqat aurton ke haath mein hai. {{playerName}} is duniya ka aakhri mard hai.",
+    "War Queen Valeria ne {{playerName}} ko Kagaar mein dhoondh kar apne kile Simhagarh mein apni hifazat mein liya hai.",
+    "Valeria ki pehli badi line thi: Tum... ladke ho?",
+    "{{playerName}} ke paas ek dull crystal shard hai jis par Vel-Narai jaise purane ruins ka symbol milta hai.",
+    "Wapas jaane ka rasta abhi kisi ko nahi pata — portal ka arch murjha chuka hai."
+  ],
+  "extractionHints": [
+    "{{playerName}} ki personality, morality aur goals — jo wo apne messages se dikhata hai",
+    "Har rishta: kis se bharosa, dosti, respect ya nafrat — aur kyun",
+    "Valeria, Tara, Miraal aur saat shaktiyon ke saath relationship progress",
+    "Duniya ke raaz: Maha Sannata, Vel-Narai, wards aur shard ke naye clues",
+    "Naye locations, factions aur log jo kahani mein aate hain",
+    "Alliances, rivalries aur saude jo {{playerName}} khud karta hai",
+    "Kaun {{playerName}} ko dhoondh raha hai aur kyun",
+    "Bade wade, oaths aur promises jo aage kaam aayenge"
+  ],
+  "neverRemember": [
+    "Real-world personal data ({{playerName}} ki asli identity, address, phone — kuch nahi)",
+    "Maha Sannata ka poora sach — raaz sirf dheere-dheere clues se khulta hai, kabhi ek saath nahi",
+    "Kisi character ke mann ki baat — attachment sirf earned history ke baad, achanak nahi"
+  ]
+}
