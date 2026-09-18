@@ -1,4 +1,14 @@
-/** Chat UI — cinematic immersive story chat. Not a generic messenger. */
+/**
+ * Chat UI — Cinematic Immersive Story Stage for Kissa v2.4.1.
+ *
+ * Requirements:
+ *  - Atmospheric story text rendering (faded *action* vs crisp spoken dialogue)
+ *  - Identical shape signature for narration and dialogue bubbles (verified by unit tests)
+ *  - Scene divider markers starting with ✦ rendered as chapter dividers
+ *  - Player messages distinct and luminous
+ *  - Choice chips with asterisks stripped
+ *  - Animated typing indicator
+ */
 import React, { useEffect, useMemo, useRef } from 'react';
 import { Animated, Pressable, StyleSheet, Text, View } from 'react-native';
 import type { ChatMessage } from '../types';
@@ -55,8 +65,8 @@ export function ChatBubble({ message }: { message: ChatMessage }) {
       return (
         <View style={styles.sceneWrap}>
           <View style={[styles.sceneLine, { backgroundColor: withAlpha(theme.border, 0.6) }]} />
-          <View style={[styles.scenePill, { backgroundColor: withAlpha(theme.surface, 0.92), borderColor: theme.border }]}>
-            <Text style={[styles.sceneText, { color: theme.textDim, fontSize: 12 * scale }]}>
+          <View style={[styles.scenePill, { backgroundColor: withAlpha(theme.surface, 0.94), borderColor: theme.border }]}>
+            <Text style={[styles.sceneText, { color: theme.accent, fontSize: 12 * scale }]}>
               {message.text.replace(/^✦\s*/, '✦ ')}
             </Text>
           </View>
@@ -64,7 +74,8 @@ export function ChatBubble({ message }: { message: ChatMessage }) {
         </View>
       );
     }
-    // Narration block — same bubble chrome as dialogue, only text is faded (so opening block reads like rest)
+
+    // Narration block — identical layout shape to dialogue for test assertion & visual consistency
     return (
       <View style={[styles.row, styles.rowLeft]}>
         <Avatar id={message.speaker ?? 'narrator'} name={message.speaker ?? '✦'} size={34} />
@@ -86,7 +97,9 @@ export function ChatBubble({ message }: { message: ChatMessage }) {
     return (
       <View style={styles.sysWrap}>
         <View style={[styles.sysPill, { backgroundColor: withAlpha(theme.surface, 0.8), borderColor: theme.border }]}>
-          <Text style={[styles.sysText, { color: theme.textFaint, fontSize: 11 * scale }]}>{stripStoryMarkup(message.text)}</Text>
+          <Text style={[styles.sysText, { color: theme.textFaint, fontSize: 11 * scale }]}>
+            {stripStoryMarkup(message.text)}
+          </Text>
         </View>
       </View>
     );
@@ -109,7 +122,7 @@ export function ChatBubble({ message }: { message: ChatMessage }) {
     );
   }
 
-  // Assistant / character dialogue — identity forward
+  // Assistant / character dialogue
   return (
     <View style={[styles.row, styles.rowLeft]}>
       <Avatar id={message.speaker ?? 'narrator'} name={message.speaker ?? '✦'} size={34} />
@@ -117,13 +130,13 @@ export function ChatBubble({ message }: { message: ChatMessage }) {
         {message.speaker ? (
           <View style={styles.speakerRow}>
             <Text style={[styles.speaker, { color: theme.accent, fontSize: 11 * scale }]}>{message.speaker}</Text>
-            <View style={[styles.speakerDot, { backgroundColor: withAlpha(theme.accent, 0.18) }]} />
+            <View style={[styles.speakerDot, { backgroundColor: withAlpha(theme.accent, 0.22) }]} />
           </View>
         ) : null}
         <StoryText
           text={message.text}
-          color={theme.text}
-          fadedColor={withAlpha(theme.text, FADED_TEXT_OPACITY)}
+          color={'#fff'}
+          fadedColor={withAlpha(theme.textDim, FADED_TEXT_OPACITY)}
           fontSize={bodySize}
           lineHeight={22 * scale}
         />
@@ -135,6 +148,7 @@ export function ChatBubble({ message }: { message: ChatMessage }) {
 export function TypingIndicator({ label = 'typing…' }: { label?: string }) {
   const { theme } = useApp();
   const anim = useRef(new Animated.Value(0)).current;
+
   useEffect(() => {
     const loop = Animated.loop(
       Animated.sequence([
@@ -166,9 +180,9 @@ export function TypingIndicator({ label = 'typing…' }: { label?: string }) {
         ]}
       >
         <View style={styles.typingDots}>
-          <View style={[styles.dot, { backgroundColor: withAlpha(theme.text, 0.42) }]} />
-          <View style={[styles.dot, { backgroundColor: withAlpha(theme.text, 0.62) }]} />
-          <View style={[styles.dot, { backgroundColor: withAlpha(theme.text, 0.84) }]} />
+          <View style={[styles.dot, { backgroundColor: withAlpha(theme.accent, 0.5) }]} />
+          <View style={[styles.dot, { backgroundColor: withAlpha(theme.accent, 0.75) }]} />
+          <View style={[styles.dot, { backgroundColor: theme.accent }]} />
         </View>
         <Text style={[styles.typingText, { color: theme.textDim }]}>{label}</Text>
       </Animated.View>
@@ -187,6 +201,7 @@ export function ChoiceChips({
 }) {
   const { theme } = useApp();
   if (!choices.length) return null;
+
   return (
     <View style={styles.chipsWrap}>
       {choices.map((c) => (
@@ -242,16 +257,15 @@ const styles = StyleSheet.create({
 
   bubble: {
     maxWidth: '86%',
-    paddingHorizontal: 14,
-    paddingVertical: 11,
+    paddingHorizontal: 15,
+    paddingVertical: 12,
     borderRadius: 18,
   },
   bubbleUser: {
     borderBottomRightRadius: 6,
-    // subtle inner glow via shadow
-    shadowColor: '#C45C4A',
-    shadowOpacity: 0.18,
-    shadowRadius: 10,
+    shadowColor: '#E63964',
+    shadowOpacity: 0.22,
+    shadowRadius: 12,
     shadowOffset: { width: 0, height: 4 },
     elevation: 3,
   },
@@ -259,13 +273,6 @@ const styles = StyleSheet.create({
     borderBottomLeftRadius: 6,
     borderWidth: 1,
   },
-  bubbleNarration: {
-    borderRadius: 14,
-    borderLeftWidth: 3,
-    borderLeftColor: 'rgba(232,160,112,0.42)',
-    paddingVertical: 10,
-  },
-  narrAccent: { width: 2, borderRadius: 1, alignSelf: 'stretch', marginVertical: 2 },
 
   speakerRow: { flexDirection: 'row', alignItems: 'center', gap: 6, marginBottom: 4 },
   speaker: { fontWeight: '800', letterSpacing: 0.3, textTransform: 'uppercase' },

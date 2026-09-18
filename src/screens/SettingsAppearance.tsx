@@ -1,4 +1,7 @@
-/** Appearance: theme, text size, animations, reduced motion. All live. */
+/**
+ * Appearance Settings: Theme, text size, animations, reduced motion.
+ * Kissa v2.4.1.
+ */
 import React from 'react';
 import { Pressable, StyleSheet, Switch, Text, View } from 'react-native';
 import type { NativeStackScreenProps } from '@react-navigation/native-stack';
@@ -6,7 +9,8 @@ import type { RootStackParamList } from '../types';
 import { useApp } from '../state/AppContext';
 import { Screen } from '../components/Screen';
 import { SectionHeader } from '../components/bits';
-import { FONTS, RADIUS } from '../theme';
+import { FONTS, RADIUS, SHADOWS, SPACING, TYPE, withAlpha } from '../theme';
+import { lightBuzz } from '../lib/haptics';
 
 type Props = NativeStackScreenProps<RootStackParamList, 'SettingsAppearance'>;
 
@@ -17,15 +21,19 @@ export function SettingsAppearance(_props: Props) {
     return (
       <Pressable
         key={value}
-        onPress={onPress}
+        onPress={() => {
+          lightBuzz();
+          onPress();
+        }}
         accessibilityRole="radio"
         accessibilityState={{ selected }}
         style={[
           styles.opt,
           {
-            backgroundColor: selected ? theme.primarySoft : theme.surface,
-            borderColor: selected ? theme.primary : theme.border,
+            backgroundColor: selected ? theme.primarySoft : withAlpha(theme.surface, 0.9),
+            borderColor: selected ? theme.accent : theme.border,
           },
+          SHADOWS.card,
         ]}
       >
         <Text style={[styles.optText, { color: selected ? theme.accent : theme.text }]}>{label}</Text>
@@ -35,51 +43,103 @@ export function SettingsAppearance(_props: Props) {
 
   function toggleRow(label: string, desc: string, value: boolean, onChange: (v: boolean) => void) {
     return (
-      <View style={[styles.toggle, { backgroundColor: theme.surface, borderColor: theme.border }]}>
+      <View
+        style={[
+          styles.toggle,
+          { backgroundColor: withAlpha(theme.surface, 0.9), borderColor: theme.border },
+          SHADOWS.card,
+        ]}
+      >
         <View style={styles.toggleBody}>
           <Text style={[styles.toggleLabel, { color: theme.text }]}>{label}</Text>
           <Text style={[styles.toggleDesc, { color: theme.textDim }]}>{desc}</Text>
         </View>
-        <Switch value={value} onValueChange={onChange} />
+        <Switch
+          value={value}
+          onValueChange={onChange}
+          trackColor={{ false: theme.surface2, true: theme.primary }}
+          thumbColor={value ? theme.accent : theme.textFaint}
+        />
       </View>
     );
   }
 
   return (
     <Screen>
-      <Text style={[styles.title, { color: theme.text }]}>Appearance</Text>
-      <SectionHeader title="Theme" />
-      <View style={styles.row}>
-        {optionRow('🌙 Midnight', 'midnight', settings.theme === 'midnight', () => void updateSettings({ theme: 'midnight' }))}
-        {optionRow('⬛ AMOLED', 'amoled', settings.theme === 'amoled', () => void updateSettings({ theme: 'amoled' }))}
+      <View style={styles.header}>
+        <Text style={[styles.kicker, { color: theme.accent }]}>DISPLAY & FEEL</Text>
+        <Text style={[styles.title, { color: theme.text }]}>Appearance</Text>
       </View>
-      <SectionHeader title="Text size" />
+
+      <SectionHeader title="Visual Theme" kicker="Palette" />
       <View style={styles.row}>
-        {optionRow('Small', 'small', settings.textSize === 'small', () => void updateSettings({ textSize: 'small' }))}
-        {optionRow('Medium', 'medium', settings.textSize === 'medium', () => void updateSettings({ textSize: 'medium' }))}
-        {optionRow('Large', 'large', settings.textSize === 'large', () => void updateSettings({ textSize: 'large' }))}
+        {optionRow('🌙 Midnight Obsidian', 'midnight', settings.theme === 'midnight', () =>
+          void updateSettings({ theme: 'midnight' }),
+        )}
+        {optionRow('⬛ Pure AMOLED', 'amoled', settings.theme === 'amoled', () =>
+          void updateSettings({ theme: 'amoled' }),
+        )}
       </View>
-      <Text style={[styles.preview, { color: theme.textDim, fontSize: [13, 15, 18][['small', 'medium', 'large'].indexOf(settings.textSize)] }]}>
-        Preview: "Arre, tum yahan itni raat ko kya kar rahe ho?"
-      </Text>
-      <SectionHeader title="Motion" />
-      {toggleRow('Animations', 'Smooth transitions across the app', settings.animations, (v) => void updateSettings({ animations: v }))}
-      {toggleRow('Reduced motion', 'Minimize movement effects', settings.reducedMotion, (v) => void updateSettings({ reducedMotion: v }))}
+
+      <SectionHeader title="Typography Scale" kicker="Reading" />
+      <View style={styles.row}>
+        {optionRow('Small', 'small', settings.textSize === 'small', () =>
+          void updateSettings({ textSize: 'small' }),
+        )}
+        {optionRow('Standard', 'medium', settings.textSize === 'medium', () =>
+          void updateSettings({ textSize: 'medium' }),
+        )}
+        {optionRow('Large', 'large', settings.textSize === 'large', () =>
+          void updateSettings({ textSize: 'large' }),
+        )}
+      </View>
+
+      <View
+        style={[
+          styles.previewBox,
+          { backgroundColor: withAlpha(theme.surface, 0.7), borderColor: theme.border },
+        ]}
+      >
+        <Text
+          style={[
+            styles.preview,
+            {
+              color: theme.textDim,
+              fontSize: [13, 15, 18][['small', 'medium', 'large'].indexOf(settings.textSize)],
+            },
+          ]}
+        >
+          Preview: "Arre, tum yahan itni raat ko kya kar rahe ho?"
+        </Text>
+      </View>
+
+      <SectionHeader title="Motion & Effects" kicker="Performance" />
+      {toggleRow('Smooth Animations', 'Fluid 60fps transitions across the app', settings.animations, (v) =>
+        void updateSettings({ animations: v }),
+      )}
+      {toggleRow('Reduced Motion', 'Minimize movement effects for comfort', settings.reducedMotion, (v) =>
+        void updateSettings({ reducedMotion: v }),
+      )}
+
+      <View style={{ height: SPACING.xxl }} />
     </Screen>
   );
 }
 
 const styles = StyleSheet.create({
-  title: { fontSize: 24, fontWeight: '900', marginTop: 8 },
+  header: { paddingTop: 6, paddingBottom: 4 },
+  kicker: { ...TYPE.overline, marginTop: 4 },
+  title: { ...TYPE.title, marginTop: 2 },
   row: { flexDirection: 'row', gap: 10 },
-  opt: { flex: 1, borderWidth: 2, borderRadius: RADIUS.md, paddingVertical: 12, alignItems: 'center' },
+  opt: { flex: 1, borderWidth: 1.5, borderRadius: RADIUS.md, paddingVertical: 12, alignItems: 'center' },
   optText: { fontWeight: '700', fontSize: FONTS.small },
-  preview: { marginTop: 12, fontStyle: 'italic' },
+  previewBox: { borderWidth: 1, borderRadius: RADIUS.md, padding: 14, marginTop: 12 },
+  preview: { fontStyle: 'italic', lineHeight: 22 },
   toggle: {
     flexDirection: 'row',
     alignItems: 'center',
     borderWidth: 1,
-    borderRadius: RADIUS.md,
+    borderRadius: RADIUS.lg,
     padding: 14,
     marginBottom: 10,
   },

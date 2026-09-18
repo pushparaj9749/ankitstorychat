@@ -1,37 +1,45 @@
-/** Saves: multiple playthroughs per story — resume / replay / delete. Cinematic premium. */
+/**
+ * Saves Screen — Manage journeys per story.
+ * Replay, resume, delete. Memory UI removed (internal only).
+ * Kissa v2.4.1.
+ */
 import React, { useEffect, useState } from 'react';
 import { Alert, FlatList, Pressable, StyleSheet, Text, View } from 'react-native';
 import type { NativeStackScreenProps } from '@react-navigation/native-stack';
 import type { Playthrough, RootStackParamList } from '../types';
 import { useApp } from '../state/AppContext';
 import { Screen } from '../components/Screen';
-import { ProgressBar } from '../components/bits';
+import { ProgressBar, SectionHeader } from '../components/bits';
 import { EmptyState, LoadingState } from '../components/states';
 import { deletePlaythrough, listPlaythroughsForStory } from '../lib/db';
 import { FONTS, RADIUS, SHADOWS, SPACING, TYPE, withAlpha } from '../theme';
 import { timeAgo } from '../lib/utils';
+import { lightBuzz } from '../lib/haptics';
 
 type Props = NativeStackScreenProps<RootStackParamList, 'Saves'>;
 
 export function Saves({ navigation, route }: Props) {
-  const { theme } = useApp();
-  const { refreshRecent } = useApp();
+  const { theme, stories, refreshRecent } = useApp();
   const [saves, setSaves] = useState<Playthrough[] | null>(null);
 
+  const storyId = route.params.storyId;
+  const meta = stories.find((s) => s.id === storyId);
+
   async function load() {
-    setSaves(await listPlaythroughsForStory(route.params.storyId));
+    setSaves(await listPlaythroughsForStory(storyId));
   }
+
   useEffect(() => {
     void load();
     const unsub = navigation.addListener('focus', () => void load());
     return unsub;
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [route.params.storyId]);
+  }, [storyId]);
 
   function confirmDelete(p: Playthrough) {
     Alert.alert(
       'Delete journey?',
-      `"${p.label}" ki saari chat, memory aur progress delete ho jayegi. Ye undo nahi hoga.`,
+      `"${p.label}" will be permanently removed from this device.`,
       [
         { text: 'Cancel', style: 'cancel' },
         {
@@ -48,7 +56,7 @@ export function Saves({ navigation, route }: Props) {
     );
   }
 
-  if (!saves) {
+  if (saves === null) {
     return (
       <Screen>
         <LoadingState label="Loading journeys…" />
@@ -58,79 +66,92 @@ export function Saves({ navigation, route }: Props) {
 
   return (
     <Screen>
-      <View style={styles.head}>
-        <Text style={[styles.kicker, { color: theme.accent }]}>YOUR STORY</Text>
-        <Text style={[styles.title, { color: theme.text }]}>Journeys</Text>
+      <View style={styles.header}>
+        <Text style={[styles.kicker, { color: theme.accent }]}>JOURNEY ARCHIVE</Text>
+        <Text style={[styles.title, { color: theme.text }]}>
+          {meta?.title ?? 'Saved Journeys'}
+        </Text>
         <Text style={[styles.sub, { color: theme.textDim }]}>
-          {saves.length === 0 ? 'No journeys yet — start fresh from the story.' : `${saves.length} ${saves.length === 1 ? 'journey' : 'journeys'} • all on this device`}
+          Every branch, choice, and ending is saved locally on your device.
         </Text>
       </View>
 
+      <SectionHeader title="Your Journeys" kicker={`${saves.length} saved`} />
+
       {saves.length === 0 ? (
-        <EmptyState emoji="🌱" title="No journeys yet" subtitle="Start a new journey from the story page — your world state and memories live here." />
+        <EmptyState
+          emoji="📖"
+          title="No journeys yet"
+          subtitle="Start playing this story to create your first journey."
+          action="Back to Story"
+          onAction={() => navigation.goBack()}
+        />
       ) : (
         <FlatList
           data={saves}
           keyExtractor={(p) => p.id}
           contentContainerStyle={styles.list}
           renderItem={({ item: p }) => {
-            const isCompleted = p.status === 'completed';
-            const isActive = p.status === 'active';
-            const statusLabel = isCompleted ? '✓ Completed' : p.status === 'abandoned' ? 'Paused' : '▶ Active';
-            const statusColor = isCompleted ? theme.success : isActive ? theme.accent : theme.textDim;
-            const progressPct = Math.round((p.progress ?? 0) * 100);
+            const completed = p.status === 'completed';
             return (
-              <View
-                style={[
+              <Pressable
+                onPress={() => {
+                  lightBuzz();
+                  navigation.navigate('Chat', { playthroughId: p.id });
+                }}
+                accessibilityRole="button"
+                accessibilityLabel={`${p.label}, ${completed ? 'completed' : 'in progress'}`}
+                style={({ pressed }) => [
                   styles.card,
                   {
-                    backgroundColor: withAlpha(theme.surface, 0.96),
-                    borderColor: withAlpha(theme.border, 0.9),
+                    backgroundColor: withAlpha(theme.surface, pressed ? 0.95 : 0.88),
+                    borderColor: theme.border,
+                    transform: [{ scale: pressed ? 0.985 : 1 }],
                   },
+                  SHADOWS.card,
                 ]}
               >
-                {/* Glow rail for active */}
-                {isActive ? <View style={[styles.glow, { backgroundColor: withAlpha(theme.accent, 0.12) }]} /> : null}
-
-                <Pressable
-                  onPress={() => navigation.navigate('Chat', { playthroughId: p.id })}
-                  accessibilityRole="button"
-                  accessibilityLabel={`Resume ${p.label}`}
-                  style={styles.cardPress}
-                >
-                  <View style={styles.row}>
-                    <View style={styles.labelWrap}>
-                      <Text style={[styles.label, { color: theme.text }]} numberOfLines={1}>
-                        {p.label}
-                      </Text>
-                      <Text style={[styles.meta, { color: theme.textDim }]} numberOfLines={1}>
-                        🤖 AI • {p.messageCount} msgs • {timeAgo(p.updatedAt)} {progressPct > 0 ? `• ${progressPct}%` : ''}
-                      </Text>
-                    </View>
-                    <View style={[styles.chip, { backgroundColor: withAlpha(statusColor, 0.12), borderColor: withAlpha(statusColor, 0.18) }]}>
-                      <Text style={[styles.chipText, { color: statusColor }]}>{statusLabel}</Text>
-                    </View>
-                  </View>
-                  <View style={styles.bar}>
-                    <ProgressBar value={p.progress} />
-                  </View>
-                </Pressable>
-
-                <View style={styles.actions}>
-                  <Pressable
-                    onPress={() => navigation.navigate('Chat', { playthroughId: p.id })}
-                    style={[styles.btnPrimary, { backgroundColor: theme.primary, borderColor: withAlpha(theme.primary, 0.28) }]}
+                <View style={styles.cardHeader}>
+                  <Text style={[styles.label, { color: theme.text }]}>{p.label}</Text>
+                  <View
+                    style={[
+                      styles.statusPill,
+                      {
+                        backgroundColor: completed ? withAlpha(theme.success, 0.16) : withAlpha(theme.accent, 0.14),
+                      },
+                    ]}
                   >
-                    <Text style={[styles.btnPrimaryText, { color: '#FFF8F0' }]}>{isCompleted ? '↺ Replay' : 'Resume'}</Text>
-                  </Pressable>
+                    <Text
+                      style={[
+                        styles.statusText,
+                        { color: completed ? theme.success : theme.accent },
+                      ]}
+                    >
+                      {completed ? 'COMPLETED' : 'ACTIVE'}
+                    </Text>
+                  </View>
+                </View>
+
+                <Text style={[styles.meta, { color: theme.textDim }]}>
+                  {p.messageCount} messages • Updated {timeAgo(p.updatedAt)}
+                </Text>
+
+                <ProgressBar value={p.progress} color={meta?.accentColor ?? theme.accent} />
+
+                <View style={styles.cardFooter}>
                   <Pressable
                     onPress={() => confirmDelete(p)}
-                    style={[styles.btnGhost, { backgroundColor: withAlpha(theme.surface2, 0.92), borderColor: withAlpha(theme.border, 0.9) }]}
+                    hitSlop={8}
+                    style={styles.deleteBtn}
                   >
-                    <Text style={[styles.btnGhostText, { color: theme.danger }]}>Delete</Text>
+                    <Text style={[styles.deleteText, { color: theme.danger }]}>Delete</Text>
                   </Pressable>
+
+                  <View style={[styles.resumeBtn, { backgroundColor: theme.primary }]}>
+                    <Text style={styles.resumeText}>Resume ›</Text>
+                  </View>
                 </View>
-              </View>
+              </Pressable>
             );
           }}
         />
@@ -140,30 +161,35 @@ export function Saves({ navigation, route }: Props) {
 }
 
 const styles = StyleSheet.create({
-  head: { paddingTop: 8, paddingBottom: 14, gap: 4 },
-  kicker: { ...TYPE.overline, letterSpacing: 1.8 },
-  title: { ...TYPE.displaySmall, marginTop: 2 },
-  sub: { fontSize: 13, lineHeight: 18, marginTop: 6, letterSpacing: 0.1, opacity: 0.92 },
-  list: { gap: 14, paddingBottom: SPACING.xxl + 12 },
+  header: { paddingTop: 6, paddingBottom: 4 },
+  kicker: { ...TYPE.overline, marginTop: 4 },
+  title: { ...TYPE.title, marginTop: 2 },
+  sub: { fontSize: 13, marginTop: 4, letterSpacing: 0.1 },
+  list: { paddingBottom: 24, gap: 12, marginTop: 4 },
   card: {
     borderWidth: 1,
     borderRadius: RADIUS.lg,
     padding: 16,
-    overflow: 'hidden',
-    ...SHADOWS.card,
+    gap: 8,
   },
-  glow: { position: 'absolute', top: 0, left: 0, right: 0, height: 1, opacity: 0.9 },
-  cardPress: { gap: 10 },
-  row: { flexDirection: 'row', justifyContent: 'space-between', alignItems: 'flex-start', gap: 12 },
-  labelWrap: { flex: 1, gap: 4 },
-  label: { ...TYPE.subheading, letterSpacing: -0.2 },
-  meta: { fontSize: FONTS.small, lineHeight: 16, letterSpacing: 0.1 },
-  chip: { borderWidth: 1, borderRadius: RADIUS.pill, paddingHorizontal: 10, paddingVertical: 5, alignItems: 'center', justifyContent: 'center' },
-  chipText: { fontSize: 11, fontWeight: '800', letterSpacing: 0.3 },
-  bar: { marginTop: 2 },
-  actions: { flexDirection: 'row', gap: 10, marginTop: 14 },
-  btnPrimary: { flex: 1, paddingVertical: 12, borderRadius: RADIUS.pill, alignItems: 'center', borderWidth: 1, ...SHADOWS.card },
-  btnPrimaryText: { fontWeight: '800', fontSize: 13, letterSpacing: 0.3 },
-  btnGhost: { flex: 1, paddingVertical: 12, borderRadius: RADIUS.pill, alignItems: 'center', borderWidth: 1 },
-  btnGhostText: { fontWeight: '800', fontSize: 13, letterSpacing: 0.2 },
+  cardHeader: { flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between' },
+  label: { fontSize: 16, fontWeight: '800', letterSpacing: -0.2 },
+  statusPill: { paddingHorizontal: 8, paddingVertical: 3, borderRadius: RADIUS.pill },
+  statusText: { fontSize: 10, fontWeight: '900', letterSpacing: 0.4 },
+  meta: { fontSize: 12, letterSpacing: 0.1 },
+  cardFooter: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+    marginTop: 6,
+    paddingTop: 8,
+  },
+  deleteBtn: { paddingVertical: 4, paddingHorizontal: 6 },
+  deleteText: { fontSize: 12, fontWeight: '700' },
+  resumeBtn: {
+    paddingHorizontal: 14,
+    paddingVertical: 7,
+    borderRadius: RADIUS.pill,
+  },
+  resumeText: { color: '#fff', fontSize: 12, fontWeight: '800' },
 });

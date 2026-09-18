@@ -1,4 +1,7 @@
-/** Add / edit one AI provider + test connection. Key -> SecureStore only. */
+/**
+ * Provider Editor / Setup Screen — Redesigned for Kissa v2.4.1.
+ * Add / edit AI provider + test connection safely.
+ */
 import React, { useEffect, useState } from 'react';
 import { Pressable, ScrollView, StyleSheet, Text, TextInput, View } from 'react-native';
 import type { NativeStackScreenProps } from '@react-navigation/native-stack';
@@ -9,7 +12,7 @@ import { GradientButton } from '../components/GradientButton';
 import { getProvider, upsertProvider } from '../lib/db';
 import { getApiKey, hasApiKey, saveApiKey } from '../lib/secureKeys';
 import { aiErrorMessage, normalizeBaseUrl, PROVIDER_PRESETS, testConnection } from '../lib/ai';
-import { FONTS, RADIUS, SPACING } from '../theme';
+import { FONTS, RADIUS, SHADOWS, SPACING, TYPE, withAlpha } from '../theme';
 import { nowIso, uid } from '../lib/utils';
 
 type Props = NativeStackScreenProps<RootStackParamList, 'ProviderEditor'>;
@@ -18,7 +21,7 @@ export function ProviderEditor({ navigation, route }: Props) {
   const { theme, refreshProviders, updateSettings, settings } = useApp();
   const editingId = route.params.providerId;
 
-  const [name, setName] = useState('My AI');
+  const [name, setName] = useState('OpenAI');
   const [baseUrl, setBaseUrl] = useState('https://api.openai.com/v1');
   const [model, setModel] = useState('gpt-4o-mini');
   const [apiKey, setApiKey] = useState('');
@@ -56,7 +59,7 @@ export function ProviderEditor({ navigation, route }: Props) {
     try {
       let key = apiKey.trim();
       if (!key && editingId) key = (await getApiKey(editingId)) ?? '';
-      if (!key) throw new Error('Pehle API key daalo, phir Test karo.');
+      if (!key) throw new Error('Enter an API key first, then test.');
       const res = await testConnection(
         { baseUrl: normalizeBaseUrl(baseUrl), model: model.trim(), temperature: 0.2 },
         key,
@@ -78,11 +81,11 @@ export function ProviderEditor({ navigation, route }: Props) {
 
   async function onSave() {
     setError(null);
-    if (!name.trim()) return setError('Provider ka naam likho.');
-    if (!normalizeBaseUrl(baseUrl)) return setError('Base URL likho (https://...).');
-    if (!model.trim()) return setError('Model ka naam likho.');
+    if (!name.trim()) return setError('Enter a provider name.');
+    if (!normalizeBaseUrl(baseUrl)) return setError('Enter a valid Base URL (https://...).');
+    if (!model.trim()) return setError('Enter a model identifier.');
     const key = apiKey.trim();
-    if (!key && !keySaved) return setError('API key daalo (sirf device par save hogi).');
+    if (!key && !keySaved) return setError('Enter an API key (encrypted locally).');
     setSaving(true);
     try {
       const now = nowIso();
@@ -103,7 +106,6 @@ export function ProviderEditor({ navigation, route }: Props) {
         lastTestOk: testOk ?? existing?.lastTestOk ?? null,
       });
       if (key) await saveApiKey(id, key);
-      // First provider becomes active automatically.
       if (!settings.activeProviderId) await updateSettings({ activeProviderId: id });
       await refreshProviders();
       navigation.goBack();
@@ -117,40 +119,44 @@ export function ProviderEditor({ navigation, route }: Props) {
   return (
     <Screen>
       <ScrollView showsVerticalScrollIndicator={false}>
-        <Text style={[styles.title, { color: theme.text }]}>
-          {editingId ? 'Edit provider' : 'Add AI provider'}
-        </Text>
+        <View style={styles.header}>
+          <Text style={[styles.kicker, { color: theme.accent }]}>AI ENGINE</Text>
+          <Text style={[styles.title, { color: theme.text }]}>
+            {editingId ? 'Edit Provider' : 'Add AI Provider'}
+          </Text>
+        </View>
 
-        <Text style={[styles.label, { color: theme.textDim }]}>Preset</Text>
+        <Text style={[styles.label, { color: theme.textDim }]}>Popular Presets</Text>
         <View style={styles.presets}>
           {PROVIDER_PRESETS.map((p, i) => (
             <Pressable
               key={p.label}
               onPress={() => applyPreset(i)}
-              style={[styles.preset, { backgroundColor: theme.surface, borderColor: theme.border }]}
+              style={[
+                styles.preset,
+                { backgroundColor: withAlpha(theme.surface, 0.9), borderColor: theme.border },
+              ]}
             >
               <Text style={[styles.presetText, { color: theme.text }]}>{p.label}</Text>
             </Pressable>
           ))}
         </View>
-        <Text style={[styles.hint, { color: theme.textFaint }]}>
-          Preset sirf URL/model bharta hai — API key TUMHARI hogi.
-        </Text>
 
-        <Field label="Name" value={name} onChange={setName} placeholder="e.g. My OpenAI" theme={theme} />
-        <Field label="Base URL" value={baseUrl} onChange={setBaseUrl} placeholder="https://..." autoCapitalize="none" theme={theme} />
+        <Field label="Display Name" value={name} onChange={setName} placeholder="e.g. OpenAI" theme={theme} />
+        <Field label="Base URL" value={baseUrl} onChange={setBaseUrl} placeholder="https://api.openai.com/v1" autoCapitalize="none" theme={theme} />
         <Field label="Model" value={model} onChange={setModel} placeholder="e.g. gpt-4o-mini" autoCapitalize="none" theme={theme} />
         <Field
-          label={keySaved && !apiKey ? 'API key (saved •••• — replace?)' : 'API key'}
+          label={keySaved && !apiKey ? 'API Key (saved encrypted •••• — tap to replace)' : 'API Key'}
           value={apiKey}
           onChange={setApiKey}
-          placeholder={keySaved ? 'Nayi key yahan daalo (optional)' : 'sk-...'}
+          placeholder={keySaved ? 'Enter new key to replace' : 'sk-...'}
           secure
           autoCapitalize="none"
           theme={theme}
         />
+
         <Text style={[styles.hint, { color: theme.textFaint }]}>
-          🔒 Key Android Keystore / iOS Keychain mein save hoti hai. GitHub par kabhi nahi jaati.
+          🔒 Your key is securely stored in your device's hardware-backed keystore.
         </Text>
 
         {testResult ? (
@@ -169,13 +175,13 @@ export function ProviderEditor({ navigation, route }: Props) {
 
         <View style={styles.btns}>
           <View style={styles.half}>
-            <GradientButton title="Test" variant="ghost" loading={testing} onPress={onTest} />
+            <GradientButton title="Test Connection" variant="ghost" loading={testing} onPress={onTest} />
           </View>
           <View style={styles.half}>
-            <GradientButton title="Save" loading={saving} onPress={onSave} />
+            <GradientButton title="Save Provider" loading={saving} onPress={onSave} />
           </View>
         </View>
-        <View style={{ height: SPACING.xl }} />
+        <View style={{ height: SPACING.xxl }} />
       </ScrollView>
     </Screen>
   );
@@ -209,24 +215,29 @@ function Field({
         secureTextEntry={secure}
         autoCapitalize={autoCapitalize}
         accessibilityLabel={label}
-        style={[styles.input, { backgroundColor: theme.surface, borderColor: theme.border, color: theme.text }]}
+        style={[
+          styles.input,
+          { backgroundColor: withAlpha(theme.surface, 0.94), borderColor: theme.border, color: theme.text },
+        ]}
       />
     </View>
   );
 }
 
 const styles = StyleSheet.create({
-  title: { fontSize: 24, fontWeight: '900', marginTop: 8, marginBottom: 12 },
-  label: { fontSize: FONTS.small, fontWeight: '700', marginBottom: 6 },
+  header: { paddingTop: 6, paddingBottom: 6 },
+  kicker: { ...TYPE.overline, marginTop: 4 },
+  title: { ...TYPE.title, marginTop: 2 },
+  label: { fontSize: FONTS.small, fontWeight: '700', marginBottom: 6, marginTop: 10 },
   presets: { flexDirection: 'row', flexWrap: 'wrap', gap: 8 },
-  preset: { borderWidth: 1, borderRadius: 999, paddingHorizontal: 12, paddingVertical: 8 },
+  preset: { borderWidth: 1, borderRadius: RADIUS.pill, paddingHorizontal: 13, paddingVertical: 8 },
   presetText: { fontSize: FONTS.small, fontWeight: '600' },
-  hint: { fontSize: FONTS.tiny, marginTop: 6, lineHeight: 17 },
+  hint: { fontSize: FONTS.tiny, marginTop: 8, lineHeight: 18 },
   field: { marginTop: 14 },
   input: { borderWidth: 1, borderRadius: RADIUS.md, paddingHorizontal: 14, paddingVertical: 12, fontSize: 15 },
   testBox: { borderWidth: 1, borderRadius: RADIUS.md, padding: 12, marginTop: 14 },
   testText: { fontSize: FONTS.small, lineHeight: 20 },
   error: { fontSize: FONTS.small, marginTop: 10 },
-  btns: { flexDirection: 'row', gap: 10, marginTop: 16 },
+  btns: { flexDirection: 'row', gap: 10, marginTop: 18 },
   half: { flex: 1 },
 });

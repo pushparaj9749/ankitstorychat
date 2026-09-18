@@ -1,9 +1,28 @@
-/** Discover — cinematic browse with glass search + premium filters. */
+/**
+ * Discover / Search Screen — Redesigned for Kissa v2.4.1.
+ *
+ * Features:
+ *  - Large rounded frosted search bar
+ *  - Genre & Category filters carousel
+ *  - Sort options (Recommended, Newest, Popular)
+ *  - Natural-ratio story cards (WideCard)
+ *  - Clean empty state & clear actions
+ *  - Direction-aware scroll handling
+ */
 import React, { useMemo, useState } from 'react';
-import { FlatList, Pressable, StyleSheet, Text, TextInput, View } from 'react-native';
+import {
+  FlatList,
+  Pressable,
+  ScrollView,
+  StyleSheet,
+  Text,
+  TextInput,
+  View,
+} from 'react-native';
 import type { BottomTabScreenProps } from '@react-navigation/bottom-tabs';
 import type { MainTabParamList } from '../types';
 import { useApp } from '../state/AppContext';
+import { useNavScroll } from '../navigation/NavScrollContext';
 import { Screen } from '../components/Screen';
 import { WideCard } from '../components/StoryCard';
 import { SelectableChip } from '../components/bits';
@@ -16,6 +35,7 @@ type Sort = 'Recommended' | 'Newest' | 'Popular';
 
 export function Discover({ navigation, route }: Props) {
   const { theme, stories } = useApp();
+  const { handleScroll } = useNavScroll();
   const [query, setQuery] = useState('');
   const [genre, setGenre] = useState<string>('All');
   const [sort, setSort] = useState<Sort>('Recommended');
@@ -47,10 +67,20 @@ export function Discover({ navigation, route }: Props) {
   return (
     <Screen padded={false}>
       <View style={styles.header}>
-        <Text style={[styles.kicker, { color: theme.accent }]}>EXPLORE</Text>
+        <Text style={[styles.kicker, { color: theme.accent }]}>EXPLORE UNIVERSE</Text>
         <Text style={[styles.title, { color: theme.text }]}>Find your next story</Text>
-        <View style={[styles.searchWrap, { backgroundColor: withAlpha(theme.surface, 0.94), borderColor: theme.border }]}>
-          <Text style={[styles.searchIcon, { color: theme.textFaint }]}>◎</Text>
+
+        {/* Large Rounded Search Bar */}
+        <View
+          style={[
+            styles.searchWrap,
+            {
+              backgroundColor: withAlpha(theme.surface, 0.94),
+              borderColor: theme.border,
+            },
+          ]}
+        >
+          <Text style={[styles.searchIcon, { color: theme.accent }]}>⌕</Text>
           <TextInput
             value={query}
             onChangeText={setQuery}
@@ -61,37 +91,62 @@ export function Discover({ navigation, route }: Props) {
             returnKeyType="search"
           />
           {query.length > 0 ? (
-            <Pressable onPress={() => setQuery('')} hitSlop={8} style={[styles.clearBtn, { backgroundColor: theme.surface2 }]}>
+            <Pressable
+              onPress={() => setQuery('')}
+              hitSlop={8}
+              style={[styles.clearBtn, { backgroundColor: theme.surface2 }]}
+            >
               <Text style={[styles.clearText, { color: theme.textDim }]}>✕</Text>
             </Pressable>
           ) : null}
         </View>
-        <FlatList
+
+        {/* Genre filters */}
+        <ScrollView
           horizontal
-          data={genres}
-          keyExtractor={(g) => g}
           showsHorizontalScrollIndicator={false}
           style={styles.genres}
           contentContainerStyle={styles.genresContent}
-          renderItem={({ item }) => (
-            <SelectableChip label={item} selected={genre === item} onPress={() => setGenre(item)} />
-          )}
-        />
+        >
+          {genres.map((item) => (
+            <SelectableChip
+              key={item}
+              label={item}
+              selected={genre === item}
+              onPress={() => setGenre(item)}
+            />
+          ))}
+        </ScrollView>
+
+        {/* Sort filters */}
         <View style={styles.sorts}>
           {(['Recommended', 'Newest', 'Popular'] as Sort[]).map((s) => (
-            <SelectableChip key={s} label={s} selected={sort === s} onPress={() => setSort(s)} />
+            <SelectableChip
+              key={s}
+              label={s}
+              selected={sort === s}
+              onPress={() => setSort(s)}
+            />
           ))}
         </View>
+
         <View style={[styles.divider, { backgroundColor: withAlpha(theme.border, 0.6) }]} />
         <Text style={[styles.count, { color: theme.textFaint }]}>
           {results.length} {results.length === 1 ? 'story' : 'stories'}
           {genre !== 'All' ? ` • ${genre}` : ''} {query ? `• “${query}”` : ''}
         </Text>
       </View>
+
       {results.length === 0 ? (
-        <EmptyState emoji="◎" title="No stories found" subtitle="Try another search — new stories arrive in the catalog automatically." />
+        <EmptyState
+          emoji="⌕"
+          title="No stories found"
+          subtitle="Try another search term or select a different genre category."
+        />
       ) : (
         <FlatList
+          onScroll={handleScroll}
+          scrollEventThrottle={16}
           data={results}
           keyExtractor={(s) => s.id}
           contentContainerStyle={styles.list}
@@ -107,6 +162,7 @@ export function Discover({ navigation, route }: Props) {
               />
             </View>
           )}
+          ListFooterComponent={<View style={{ height: SPACING.xxxl + 32 }} />}
         />
       )}
     </Screen>
@@ -114,9 +170,19 @@ export function Discover({ navigation, route }: Props) {
 }
 
 const styles = StyleSheet.create({
-  header: { paddingHorizontal: 18, paddingTop: 8, gap: 8 },
-  kicker: { ...TYPE.overline, marginTop: 4 },
-  title: { ...TYPE.title, marginTop: 2 },
+  header: {
+    paddingHorizontal: 18,
+    paddingTop: 8,
+    gap: 6,
+  },
+  kicker: {
+    ...TYPE.overline,
+    marginTop: 4,
+  },
+  title: {
+    ...TYPE.title,
+    marginTop: 2,
+  },
   searchWrap: {
     flexDirection: 'row',
     alignItems: 'center',
@@ -125,17 +191,56 @@ const styles = StyleSheet.create({
     borderRadius: RADIUS.pill,
     paddingHorizontal: 16,
     paddingVertical: 5,
+    marginTop: 6,
+  },
+  searchIcon: {
+    fontSize: 18,
+    fontWeight: '700',
+  },
+  input: {
+    flex: 1,
+    fontSize: 15,
+    paddingVertical: 10,
+  },
+  clearBtn: {
+    width: 26,
+    height: 26,
+    borderRadius: 13,
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  clearText: {
+    fontSize: 11,
+    fontWeight: '800',
+  },
+  genres: {
+    marginTop: 10,
+    marginHorizontal: -4,
+  },
+  genresContent: {
+    paddingRight: 18,
+  },
+  sorts: {
+    flexDirection: 'row',
+    marginTop: 10,
+    gap: 0,
+  },
+  divider: {
+    height: StyleSheet.hairlineWidth,
+    marginTop: 12,
+  },
+  count: {
+    fontSize: 12,
+    fontWeight: '600',
+    letterSpacing: 0.2,
     marginTop: 8,
   },
-  searchIcon: { fontSize: 16 },
-  input: { flex: 1, fontSize: 15, paddingVertical: 10 },
-  clearBtn: { width: 28, height: 28, borderRadius: 14, alignItems: 'center', justifyContent: 'center' },
-  clearText: { fontSize: 12, fontWeight: '800' },
-  genres: { marginTop: 10, marginHorizontal: -4 },
-  genresContent: { paddingRight: 18 },
-  sorts: { flexDirection: 'row', marginTop: 10, gap: 0 },
-  divider: { height: StyleSheet.hairlineWidth, marginTop: 14 },
-  count: { fontSize: 12, fontWeight: '600', letterSpacing: 0.2, marginTop: 10 },
-  list: { padding: 18, gap: 12, paddingBottom: 24 },
-  item: { marginBottom: 2 },
+  list: {
+    paddingHorizontal: 18,
+    paddingTop: 12,
+    gap: 14,
+  },
+  item: {
+    marginBottom: 2,
+  },
 });

@@ -2,7 +2,7 @@
   "expo": {
     "name": "Kissa",
     "slug": "kissa-ai-story-chat",
-    "version": "2.4.0",
+    "version": "2.4.1",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
     "scheme": "kissa",
@@ -10,7 +10,7 @@
     "splash": {
       "image": "./assets/splash-icon.png",
       "resizeMode": "contain",
-      "backgroundColor": "#0B0620"
+      "backgroundColor": "#09080C"
     },
     "assetBundlePatterns": [
       "**/*"
@@ -18,13 +18,13 @@
     "ios": {
       "supportsTablet": true,
       "bundleIdentifier": "com.kissa.storychat",
-      "buildNumber": "13"
+      "buildNumber": "14"
     },
     "android": {
       "package": "com.kissa.storychat",
-      "versionCode": 13,
+      "versionCode": 14,
       "adaptiveIcon": {
-        "backgroundColor": "#0B0620",
+        "backgroundColor": "#09080C",
         "foregroundImage": "./assets/android-icon-foreground.png",
         "backgroundImage": "./assets/android-icon-background.png"
       },
@@ -40,7 +40,7 @@
         "expo-notifications",
         {
           "icon": "./assets/icon.png",
-          "color": "#8B5CF6"
+          "color": "#E63964"
         }
       ]
     ],
