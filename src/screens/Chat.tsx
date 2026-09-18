@@ -1,5 +1,5 @@
 /**
- * KISSA v2.4.2 — Chat / Interactive Fiction Stage
+ * KISSA v2.4.3 — Chat / Interactive Fiction Stage
  * Completely rebuilt: cinematic story experience, NOT WhatsApp/Telegram clone.
  * - Narration: atmospheric, editorial, faded italic
  * - Character dialogue: name + dialogue, distinct
@@ -21,7 +21,7 @@ import { effectiveContentApiBaseUrl, getBundle, getBundledCoverSource, mediaApiU
 import { getApiKey } from '../lib/secureKeys';
 import { aiErrorMessage, chatCompletion } from '../lib/ai';
 import { applyEffects, buildContext, getScene, HISTORY_HEADROOM, parseAssistantResponse, progressEstimate, shortTermWindowOf } from '../lib/engine';
-import { consolidateMemories, logEpisode, recallForTurn, rememberMany, rememberPreferences } from '../lib/memory';
+import { consolidateMemories, logEpisode, putMemory, recallForTurn, rememberMany, rememberPreferences, episodeLine } from '../lib/memory';
 import { ensureWorldState } from '../lib/worldState';
 import { runMemoryWritePipeline, recallWithWorldState } from '../lib/memoryEngine';
 import { listMemoryCandidates } from '../lib/db';
@@ -192,6 +192,13 @@ export function Chat({ navigation, route }: Props) {
       summary = fb.summary;
     }
 
+    // L1 FIX: Remember preferences BEFORE calling AI, so user's turn survives provider failures
+    void rememberPreferences(userText).catch(() => undefined);
+
+    // L1 FIX: Log user-side of the episode BEFORE AI, so it persists even on timeout
+    // L6: Use the canonical episodeLine format
+    void putMemory(pt.id, 'episode', episodeLine(userText, ''), 1).catch(() => undefined);
+
     const ctx = buildContext({ bundle: b, profile, playthrough: pt, memories: relevant, history, summary, worldState: wsForPrompt }, profile.ageGroup);
     const raw = await chatCompletion(activeProvider, apiKey, [{ role: 'system', content: ctx.system }, ...ctx.messages, { role: 'user', content: userText }]);
 
@@ -209,9 +216,9 @@ export function Chat({ navigation, route }: Props) {
       });
     } catch {}
 
+    // L6: Merge assistant text into the episode (hash-dedupe keeps single row)
     void logEpisode(pt.id, userText, displayText).catch(() => undefined);
     if (parsed.memoryNotes?.length) void rememberMany(pt.id, parsed.memoryNotes, 'story', 3).catch(() => undefined);
-    void rememberPreferences(userText).catch(() => undefined);
 
     const saved = await persistAssistantLines(pt, [{ role: 'assistant', speaker: parsed.speaker, text: displayText }], pt.currentSceneId);
     setMessages((prev) => [...saved.reverse(), ...prev]);
@@ -226,7 +233,8 @@ export function Chat({ navigation, route }: Props) {
       const title = interpolatePlayerName(sc.title, profile?.nickname ?? '', { protectedNames: b.characters.characters.map((c) => c.name) });
       const extra = await persistAssistantLines(updatedPt, [{ role: 'narration', speaker: null, text: `✦ ${title}` }], updatedPt.currentSceneId);
       setMessages((prev) => [...extra.reverse(), ...prev]);
-      void consolidateMemories(pt.id, summarize, { minLiveEpisodes: 12, keepLiveEpisodes: 4 }).catch(() => undefined);
+      // L5 FIX: Less aggressive folding — keep ≥8 live, fold at most half
+      void consolidateMemories(pt.id, summarize).catch(() => undefined);
     }
 
     if (updatedPt.messageCount % 8 === 0) void consolidateMemories(pt.id, summarize).catch(() => undefined);

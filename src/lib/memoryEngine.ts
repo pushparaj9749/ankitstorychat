@@ -14,8 +14,8 @@
  */
 
 import type { MemoryEntry } from '../types';
-import { hashText, sanitize, looksTooPrivate, MEMORY_MAX_CHARS } from './memoryCore';
-import { insertMemory, kvGet, kvSet } from './db';
+import { hashText, sanitize, looksTooPrivate, MEMORY_MAX_CHARS, episodeLine } from './memoryCore';
+import { insertMemory, kvGet, kvSet, reinforceMemories, restoreMemory } from './db';
 import { nowIso, uid } from './utils';
 import {
   getWorldState,
@@ -36,10 +36,12 @@ import { selectRelevant, tokenize, buildQuery, overlapScore } from './memoryCore
 export function inferConfidence(text: string, evidence: string | null): Confidence {
   if (!text) return 'low';
   const t = text.toLowerCase();
-  // High: explicit statements with clear actors
-  if (/^(maya|kabir|aarav|myra|player).*?(hai|gaya|gayi|tha|thi)/i.test(text) && evidence) return 'high';
+  // L9: Generic confidence — no hardcoded character names
+  // High: explicit statements with evidence and action verbs
+  if (evidence && evidence.length > 20 && /\b(hai|gaya|gayi|tha|thi|hua|hui|kiya|kaha)\b/i.test(text)) return 'high';
   if (evidence && evidence.length > 10) return 'high';
-  if (t.includes('lagta hai') || t.includes('shayad') || t.includes('maybe')) return 'low';
+  // Low: hedging language
+  if (/\b(lagta hai|shayad|maybe|perhaps|lagta|hosakta)\b/i.test(t)) return 'low';
   if (t.length < 10) return 'low';
   return 'medium';
 }
@@ -70,18 +72,40 @@ export function deterministicImportance(text: string, meta: { isPromise?: boolea
   return score as ImportanceLevel;
 }
 
-// Simple trivial filter: short greetings, etc.
+/**
+ * Simple trivial filter: short greetings, chit-chat, emoji-only.
+ * L3 FIX: Do NOT reject short facts that name a character/location/object
+ * or carry an importance signal (promise/discovery/conflict/relationship).
+ */
 export function isTrivial(text: string): boolean {
   const t = text.trim().toLowerCase();
-  if (t.length < 12) return true;
-  const trivialPatterns = [
-    /^(hi|hello|hey|namaste|hmm|ok|okay|haan|nahi|acha|arre|kya|kyu|hello ji)\b/,
-    /^(lol|haha|😂|❤️|😊|👍)$/,
-    /^.{0,15}\?$/,
-  ];
-  // Very short generic chat
-  if (t.split(/\s+/).length <= 3 && !t.includes('waada') && !t.includes('promise')) return true;
-  for (const p of trivialPatterns) if (p.test(t)) return true;
+  if (t.length < 4) return true;
+  // Pure emoji / single-word greetings
+  if (/^(hi|hello|hey|namaste|hmm|ok|okay|haan|nahi|acha|arre|kya|kyu|hello ji)$/i.test(t)) return true;
+  if (/^(lol|haha|😂|❤️|😊|👍)$/.test(t)) return true;
+  // Short questions without substance
+  if (t.length < 15 && t.endsWith('?')) return true;
+  return false;
+}
+
+/**
+ * L3: Check if a short fact carries enough signal to be stored.
+ * Named entities (character/location/object names) and importance keywords
+ * (promise/discovery/conflict/relationship) are exempt from length filters.
+ */
+export function hasSignal(fact: string, bundle?: StoryBundle): boolean {
+  const lower = fact.toLowerCase();
+  // Importance keyword signals
+  if (/\b(waada|promise|kasam|vow|raaz|secret|dhokha|betray|mila|mili|found|discovered|pyaar|love|nafrat|hate|maafi|apology|photograph|tasveer|scarf|ring|key|diary|letter)\b/i.test(lower)) return true;
+  // Named character/location/object from bundle
+  if (bundle) {
+    for (const ch of bundle.characters.characters) {
+      if (lower.includes(ch.name.toLowerCase())) return true;
+    }
+    for (const loc of bundle.world.locations) {
+      if (lower.includes(loc.name.toLowerCase())) return true;
+    }
+  }
   return false;
 }
 
@@ -290,9 +314,35 @@ export function heuristicExtraction(userText: string, assistantText: string, bun
     has = true;
   }
 
-  // Activity: simple
-  if (/\b(baat kar raha|conversation|talking|discussing|arguing|ladai|jhadga)\b/.test(combined)) {
-    // Keep existing
+  // L4: Derive deterministic facts from detected signals
+  const derivedFacts: string[] = [];
+
+  // Location change → fact
+  if (out.location && out.location !== currentWorld.currentLocation) {
+    const verb = /\b(pahucha|pahunchi|entered|walked|aaya|aayi)\b/.test(combined) ? 'pahucha' : 'gaya';
+    const subject = present.length ? (bundle.characters.characters.find(c => c.id === present[0])?.name ?? 'Player') : 'Player';
+    derivedFacts.push(`${subject} ${verb} ${out.location}`);
+  }
+
+  // Named object mention → fact
+  if (out.importantObjects?.length) {
+    for (const obj of out.importantObjects.slice(0, 2)) {
+      derivedFacts.push(`${obj.name} ka zikr hua`);
+    }
+  }
+
+  // Promise/conflict keywords in user text → fact
+  if (/\b(waada|promise|kasam)\b/.test(userText.toLowerCase())) {
+    derivedFacts.push(`User ne koi waada kiya`);
+  }
+  if (/\b(ladai|jhadga|conflict|argument|gussa)\b/.test(combined)) {
+    derivedFacts.push(`Ladai ya conflict hua`);
+  }
+
+  // Cap at 3 facts
+  if (derivedFacts.length) {
+    out.facts = derivedFacts.slice(0, 3);
+    has = true;
   }
 
   return has ? out : null;
@@ -435,15 +485,19 @@ export async function runMemoryWritePipeline(input: WritePipelineInput): Promise
     // Store facts into memories table with importance
     if (rawExtraction.facts && rawExtraction.facts.length) {
       for (const fact of rawExtraction.facts) {
-        if (isTrivial(fact)) continue;
+        // L3 FIX: For AI-emitted facts, use hasSignal instead of isTrivial
+        // Only drop facts that are both short AND signal-free
+        if (fact.length < 8) continue;
+        if (looksTooPrivate(fact)) continue;
         const importance = deterministicImportance(fact, {
           isPromise: /\b(waada|promise)\b/i.test(fact),
           isDiscovery: /\b(mila|mili|discovered|found|photograph)\b/i.test(fact),
           hasNamedObject: /\b(photograph|ring|key|diary|letter|scarf)\b/i.test(fact),
         });
-        if (importance < 2 && fact.length < 30) continue; // filter low importance tiny
+        // L3: Only filter short+low-importance facts if they lack signals
+        if (importance < 2 && fact.length < 30 && !hasSignal(fact, bundle)) continue;
         const clean = sanitize(fact, MEMORY_MAX_CHARS);
-        if (clean.length < 8) continue;
+        if (clean.length < 4) continue;
         await insertMemory(
           {
             id: uid('mem'),
@@ -501,10 +555,9 @@ function inferMemoryKind(fact: string, bundle: StoryBundle): 'story' | 'characte
   return 'story';
 }
 
+// L6: Use the canonical episodeLine from memoryCore (shared format for hash-dedupe)
 function buildEpisodeLine(userText: string, assistantText: string): string {
-  const u = sanitize(userText, 100);
-  const a = sanitize(assistantText.replace(/\*/g, ''), 150);
-  return `U: ${u}${a ? ` | ${a}` : ''}`.slice(0, 260);
+  return episodeLine(userText, assistantText);
 }
 
 // ------------------------------------------------------------------
@@ -579,6 +632,14 @@ export async function recallWithWorldState(
   }
 
   // If ws has threads, prioritize memories mentioning them even if low score? Already boosted.
+
+  // L7: Reinforce ONLY the memories that actually enter the prompt
+  if (chosen.length) void reinforceMemories(chosen.map((m) => m.id), nowIso()).catch(() => undefined);
+
+  // L5: Un-archive resurrected rows so they stay live for future turns
+  for (const m of chosen) {
+    if ((m as any).resurrected) void restoreMemory(m.id).catch(() => undefined);
+  }
 
   return { worldState: ws, memories: chosen, summary, immediateContext: immediate, candidates: pool.length };
 }

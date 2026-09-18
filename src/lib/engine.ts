@@ -87,7 +87,7 @@ export function freshStateFor(bundle: StoryBundle): StoryState {
 /* ---------------- response parsing ---------------- */
 
 /**
- * KISSA v2.4.2 — Robust internal state parser.
+ * KISSA v2.4.3 — Robust internal state parser.
  *
  * Pipeline:
  *  AI RESPONSE
@@ -117,12 +117,129 @@ export interface ParsedAssistant {
   rawStateJson?: Record<string, unknown>;
 }
 
+/**
+ * L2 FIX: Attempt to repair common JSON malformations before giving up.
+ * Pipeline: strict parse → strip trailing commas → normalize smart quotes → salvage.
+ */
+function repairJson(text: string): Record<string, unknown> | undefined {
+  // 1. Try strict parse
+  try {
+    const obj = JSON.parse(text);
+    if (obj && typeof obj === 'object') return obj as Record<string, unknown>;
+  } catch { /* continue */ }
+
+  // 2. Strip trailing commas before } or ]
+  try {
+    const fixed = text.replace(/,(\s*[}\]])/g, '$1');
+    const obj = JSON.parse(fixed);
+    if (obj && typeof obj === 'object') return obj as Record<string, unknown>;
+  } catch { /* continue */ }
+
+  // 3. Normalize smart quotes to straight quotes
+  try {
+    const fixed = text
+      .replace(/[\u201C\u201D\u201E\u201F\u2033\u2036]/g, '"')
+      .replace(/[\u2018\u2019\u201A\u201B\u2032\u2035]/g, "'")
+      .replace(/,(\s*[}\]])/g, '$1'); // also strip trailing commas
+    const obj = JSON.parse(fixed);
+    if (obj && typeof obj === 'object') return obj as Record<string, unknown>;
+  } catch { /* continue */ }
+
+  // 4. L10: Accept single-quoted JSON by normalizing to double quotes
+  try {
+    // Simple single-quote to double-quote (not perfect but covers common cases)
+    const fixed = text
+      .replace(/'/g, '"')
+      .replace(/,(\s*[}\]])/g, '$1');
+    const obj = JSON.parse(fixed);
+    if (obj && typeof obj === 'object') return obj as Record<string, unknown>;
+  } catch { /* continue */ }
+
+  return undefined;
+}
+
+/** L2 SALVAGE: regex-extract the "memory" array and simple scalar keys from broken JSON. */
+function salvageFromBrokenJson(text: string): { effects: ChoiceEffects; raw: Record<string, unknown> } | undefined {
+  const raw: Record<string, unknown> = {};
+  let hasSomething = false;
+
+  // Extract "memory": [...] or "memory": "string" (L10)
+  const memMatch = text.match(/"memory"\s*:\s*(\[[\s\S]*?\])/);
+  if (memMatch) {
+    try {
+      const arr = JSON.parse(memMatch[1]);
+      if (Array.isArray(arr)) {
+        raw.memory = arr.filter((x: unknown) => typeof x === 'string');
+        hasSomething = true;
+      }
+    } catch { /* try salvage individual strings */ 
+      const strings = memMatch[1].match(/"([^"]+)"/g);
+      if (strings) {
+        raw.memory = strings.map(s => s.replace(/"/g, ''));
+        hasSomething = true;
+      }
+    }
+  } else {
+    // L10: memory might be a plain string
+    const memStrMatch = text.match(/"memory"\s*:\s*"([^"]+)"/);
+    if (memStrMatch) {
+      // Split on sentence boundaries
+      raw.memory = memStrMatch[1].split(/[.!?]+/).map(s => s.trim()).filter(s => s.length > 0);
+      hasSomething = true;
+    }
+  }
+
+  // Extract simple scalar keys
+  const scalarKeys = ['location', 'scene', 'activity', 'presentCharacters'];
+  for (const key of scalarKeys) {
+    const re = new RegExp(`"${key}"\\s*:\\s*"([^"]+)"`, 'i');
+    const match = text.match(re);
+    if (match) {
+      raw[key] = match[1];
+      hasSomething = true;
+    }
+  }
+  // presentCharacters as array
+  const pcMatch = text.match(/"presentCharacters"\s*:\s*\[([\s\S]*?)\]/);
+  if (pcMatch) {
+    const strings = pcMatch[1].match(/"([^"]+)"/g);
+    if (strings) {
+      raw.presentCharacters = strings.map(s => s.replace(/"/g, ''));
+      hasSomething = true;
+    }
+  }
+
+  if (!hasSomething) return undefined;
+
+  const effects: ChoiceEffects = {};
+  if (Array.isArray(raw.memory) && raw.memory.length) {
+    effects.memory = raw.memory.filter((x: unknown): x is string => typeof x === 'string').slice(0, MAX_MEMORY_NOTES);
+  }
+  if (typeof raw.location === 'string') effects.location = raw.location;
+  if (typeof raw.scene === 'string') effects.scene = raw.scene;
+
+  return { effects, raw };
+}
+
 function parseStateBlock(jsonText: string): { effects: ChoiceEffects; raw: Record<string, unknown> } | undefined {
   const trimmed = (jsonText || '').trim();
   if (!trimmed) return undefined;
+
+  // L2: Try repair ladder first (strict → trailing commas → smart quotes → single quotes)
+  const repaired = repairJson(trimmed);
+  if (repaired) {
+    // Successfully parsed — extract effects from the repaired object
+    return extractEffects(repaired);
+  }
+
+  // L2 SALVAGE: regex-extract memory array and scalar keys from broken JSON
+  return salvageFromBrokenJson(trimmed);
+}
+
+/** Extract effects from a successfully parsed JSON object. */
+function extractEffects(obj: Record<string, unknown>): { effects: ChoiceEffects; raw: Record<string, unknown> } | undefined {
+  if (!obj || typeof obj !== 'object') return undefined;
   try {
-    const obj = JSON.parse(trimmed) as Record<string, unknown>;
-    if (!obj || typeof obj !== 'object') return undefined;
     const effects: ChoiceEffects = {};
     if (obj.relationships && typeof obj.relationships === 'object') {
       effects.relationships = {};

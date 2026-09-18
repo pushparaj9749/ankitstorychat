@@ -47,6 +47,32 @@ export const MAX_MEMORY_NOTES = 8;
 
 /* ---------------- tokenizing ---------------- */
 
+/** Hinglish↔English alias table: canonical form on the right. */
+const ALIAS_MAP: Record<string, string> = {
+  tasveer: 'photograph', photo: 'photograph', picture: 'photograph',
+  gaadi: 'car', gadi: 'car',
+  maafi: 'apology', mafi: 'apology',
+  dushman: 'enemy', dost: 'friend', yaar: 'friend',
+  shaadi: 'wedding', vivah: 'wedding',
+  raaz: 'secret', bhed: 'secret',
+  khat: 'letter', patra: 'letter',
+  chitthi: 'letter',
+  khoj: 'discovery', talash: 'discovery',
+  waada: 'promise', wada: 'promise', kasam: 'promise', vachan: 'promise',
+  pyaar: 'love', mohabbat: 'love', ishq: 'love',
+  nafrat: 'hate', gussa: 'anger',
+  haveli: 'mansion', mahal: 'palace',
+  zindagi: 'life', maut: 'death',
+  sach: 'truth', jhooth: 'lie',
+  aansu: 'tears', muskaan: 'smile',
+  darr: 'fear', khauf: 'fear',
+  sapna: 'dream', khwaab: 'dream',
+  dhokha: 'betrayal', bewafai: 'betrayal',
+  scarf: 'scarf',
+  diary: 'diary',
+  chabi: 'key', kunci: 'key',
+};
+
 /** Doubled vowels are Hinglish spelling noise: "waada"/"wada", "Myraa"/"myra". */
 function foldVowels(word: string): string {
   return word.replace(/([aeiou])\1+/g, '$1');
@@ -61,7 +87,12 @@ export function tokenize(text: string): string[] {
   for (const raw of (text || '').toLowerCase().split(/[^\p{L}\p{M}\p{N}]+/u)) {
     if (raw.length < 3) continue;
     const t = foldVowels(raw);
-    if (t.length >= 3 && !STOPWORDS.has(t) && !STOPWORDS.has(raw)) out.push(t);
+    const canon = ALIAS_MAP[t] ?? ALIAS_MAP[raw];
+    if (canon) {
+      out.push(canon);
+    } else if (t.length >= 3 && !STOPWORDS.has(t) && !STOPWORDS.has(raw)) {
+      out.push(t);
+    }
   }
   return out;
 }
@@ -213,11 +244,16 @@ export interface SelectOptions {
  * Order: pinned (summary/preferences) → importance-pinned core facts → best matches.
  * Stops at the character budget so the prompt stays bounded whatever the story size.
  */
+export interface SelectResult extends MemoryEntry {
+  /** Set to true when an archived row was resurrected by strong keyword match. */
+  resurrected?: boolean;
+}
+
 export function selectRelevant(
   all: MemoryEntry[],
   queryText: string,
   opts: SelectOptions = {},
-): MemoryEntry[] {
+): SelectResult[] {
   const {
     charBudget = MEMORY_CHAR_BUDGET,
     maxItems = MEMORY_MAX_ITEMS,
@@ -226,17 +262,27 @@ export function selectRelevant(
   } = opts;
   const query = buildQuery(queryText);
 
-  const scored = all
-    .filter((m) => !m.archived)
-    .map((m) => ({ m, score: scoreMemory(m, query, nowMs), hit: hasOverlap(m, query) }));
+  // Separate live and archived; archived may be resurrected on strong match
+  const live = all.filter((m) => !m.archived);
+  const archived = all.filter((m) => m.archived);
+  const resurrected: SelectResult[] = [];
+  for (const m of archived) {
+    const score = overlapScore(m.text, query);
+    if (score >= 3) {
+      resurrected.push({ ...m, archived: false, resurrected: true });
+    }
+  }
+
+  const scored = [...live, ...resurrected]
+    .map((m) => ({ m: m as MemoryEntry & { resurrected?: boolean }, score: scoreMemory(m as MemoryEntry, query, nowMs), hit: hasOverlap(m, query) }));
   scored.sort((a, b) => b.score - a.score || (a.m.createdAt < b.m.createdAt ? 1 : -1));
 
-  const chosen: MemoryEntry[] = [];
+  const chosen: SelectResult[] = [];
   const seen = new Set<string>();
   let used = 0;
 
   type Take = 'taken' | 'dup' | 'full';
-  const take = (m: MemoryEntry, weight: number): Take => {
+  const take = (m: MemoryEntry & { resurrected?: boolean }, weight: number): Take => {
     if (seen.has(m.id)) return 'dup';
     if (used + m.text.length > charBudget && chosen.length >= 4) return 'full';
     seen.add(m.id);
@@ -306,6 +352,49 @@ export function episodeLine(userText: string, replyText: string): string {
   return `U: ${u}${a ? ` | ${a}` : ''}`;
 }
 
+/* ---------------- preference contradiction detection ---------------- */
+
+/**
+ * L9: When a new preference contradicts an existing one about the same object,
+ * the superseded preference should be archived. Returns the texts of preferences
+ * that should be archived (matched by object name overlap).
+ */
+export function preferenceSupersededTexts(newNote: string, existingPrefs: { text: string }[]): string[] {
+  const superseded: string[] = [];
+  const newLower = newNote.toLowerCase();
+
+  // Detect like/dislike polarity
+  const newLikes = /\b(likes?|love|enjoy|pasand)\b/i.test(newNote);
+  const newDislikes = /\b(dislikes?|hate|nahi pasand|bilkul nahi)\b/i.test(newNote);
+
+  if (!newLikes && !newDislikes) return superseded;
+
+  // Extract the object from the new preference
+  const objMatch = newNote.match(/(?:likes?|love|enjoy|dislikes?|hate|pasand)\s+(.+?)(?:\.|$)/i);
+  if (!objMatch) return superseded;
+  const newObj = objMatch[1].toLowerCase().trim();
+
+  for (const pref of existingPrefs) {
+    const existing = pref.text.toLowerCase();
+    // Check if same object is mentioned
+    if (existing.includes(newObj) || newObj.split(/\s+/).some(w => w.length >= 4 && existing.includes(w))) {
+      // Check opposite polarity
+      const existingLikes = /\b(likes?|love|enjoy|pasand)\b/i.test(existing);
+      const existingDislikes = /\b(dislikes?|hate|nahi pasand|bilkul nahi)\b/i.test(existing);
+      if ((newLikes && existingDislikes) || (newDislikes && existingLikes)) {
+        superseded.push(pref.text);
+      }
+      // Also supersede same-polarity with different qualifier (updated info)
+      if ((newLikes && existingLikes) || (newDislikes && existingDislikes)) {
+        if (newObj !== existing.replace(/.*?(likes?|love|enjoy|dislikes?|hate|pasand)\s+/i, '').replace(/\.$/, '').trim()) {
+          superseded.push(pref.text);
+        }
+      }
+    }
+  }
+  return superseded;
+}
+
 /* ---------------- local (no-AI) fact extraction ---------------- */
 
 /**
@@ -343,8 +432,17 @@ export function extractPreferenceNotes(userText: string): string[] {
   const fear = raw.match(/(?:mujhe|I)\s+(?:bahut\s+)?([\p{L}]{3,24})\s+se\s+(?:dar\s+lagta|darr|lagta hai\s+\w+\s+dar)/iu);
   if (fear) notes.push(`User is scared of ${fear[1]}.`);
 
-  const habit = raw.match(/\b(hamesha|always|kabhi nahi|never)\b[^.,!?;]{4,50}/iu);
-  if (habit) notes.push(`User preference: ${habit[0].trim().toLowerCase()}.`);
+  // L9: Require ≥2 meaningful tokens after hamesha/always/never to avoid "never mind" etc.
+  const HABIT_FILLER = new Set(['mind', 'bas', 'kuch', 'the', 'and', 'but', 'that', 'this', 'koi']);
+  const habitMatch = raw.match(/\b(hamesha|always|kabhi nahi|never)\b\s+(.{4,50})/iu);
+  if (habitMatch) {
+    const after = habitMatch[2].trim();
+    // Require at least 2 meaningful words (3+ chars, not filler) after the keyword
+    const meaningfulWords = after.split(/[\s,]+/).filter(w => w.length >= 3 && !HABIT_FILLER.has(w.toLowerCase()));
+    if (meaningfulWords.length >= 2) {
+      notes.push(`User preference: ${habitMatch[1].toLowerCase()} ${after}.`);
+    }
+  }
 
   return notes;
 }
