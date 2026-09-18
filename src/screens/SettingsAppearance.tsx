@@ -1,6 +1,6 @@
 /**
  * Appearance Settings: Theme, text size, animations, reduced motion.
- * Kissa v2.4.1.
+ * Kissa v2.4.2.
  */
 import React from 'react';
 import { Pressable, StyleSheet, Switch, Text, View } from 'react-native';
@@ -73,10 +73,10 @@ export function SettingsAppearance(_props: Props) {
 
       <SectionHeader title="Visual Theme" kicker="Palette" />
       <View style={styles.row}>
-        {optionRow('🌙 Midnight Obsidian', 'midnight', settings.theme === 'midnight', () =>
+        {optionRow('Midnight Obsidian', 'midnight', settings.theme === 'midnight', () =>
           void updateSettings({ theme: 'midnight' }),
         )}
-        {optionRow('⬛ Pure AMOLED', 'amoled', settings.theme === 'amoled', () =>
+        {optionRow('Pure AMOLED', 'amoled', settings.theme === 'amoled', () =>
           void updateSettings({ theme: 'amoled' }),
         )}
       </View>

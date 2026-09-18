@@ -1,6 +1,6 @@
 /**
  * "My Submissions" Screen — Track local submissions until 24h review expiry.
- * Kissa v2.4.1.
+ * Kissa v2.4.2.
  */
 import React, { useCallback, useEffect, useState } from 'react';
 import { Pressable, RefreshControl, ScrollView, StyleSheet, Text, View } from 'react-native';
@@ -10,6 +10,7 @@ import { useApp } from '../state/AppContext';
 import { Screen } from '../components/Screen';
 import { GradientButton } from '../components/GradientButton';
 import { SectionHeader } from '../components/bits';
+import { Icon } from '../components/icons';
 import { FONTS, RADIUS, SHADOWS, SPACING, TYPE, withAlpha } from '../theme';
 import { formatRemaining } from '../content/submissions';
 import { kvGet, kvSet } from '../lib/db';
@@ -79,8 +80,9 @@ export function MySubmissions({ navigation }: Props) {
         contentContainerStyle={{ paddingBottom: SPACING.xxl }}
         refreshControl={<RefreshControl refreshing={refreshing} onRefresh={onRefresh} tintColor={theme.accent} />}
       >
-        <Pressable onPress={() => navigation.goBack()} style={{ paddingVertical: 8 }}>
-          <Text style={{ color: theme.text, fontSize: 17, fontWeight: '700' }}>‹ Back</Text>
+        <Pressable onPress={() => navigation.goBack()} style={{ paddingVertical: 8, flexDirection: 'row', alignItems: 'center', gap: 4 }}>
+          <Icon name="chevron-back" size={16} color={theme.text} />
+          <Text style={{ color: theme.text, fontSize: 17, fontWeight: '700' }}>Back</Text>
         </Pressable>
 
         <View style={styles.header}>
@@ -94,13 +96,13 @@ export function MySubmissions({ navigation }: Props) {
 
         <View style={{ height: SPACING.md }} />
         <GradientButton
-          title="💡 Suggest an Idea"
+          title="Suggest an Idea"
           variant="gold"
           onPress={() => navigation.navigate('SubmitStory', { mode: 'idea' })}
         />
         <View style={{ height: SPACING.sm }} />
         <GradientButton
-          title="📖 Submit a Story"
+          title="Submit a Story"
           variant="ghost"
           onPress={() => navigation.navigate('SubmitStory', { mode: 'story' })}
         />
@@ -126,12 +128,15 @@ export function MySubmissions({ navigation }: Props) {
                 ]}
               >
                 <View style={{ flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center' }}>
-                  <Text
-                    style={{ color: theme.text, fontWeight: '800', fontSize: 15, flex: 1, marginRight: 8 }}
-                    numberOfLines={1}
-                  >
-                    {s.type === 'idea' ? '💡' : '📖'} {s.title || '(untitled)'}
-                  </Text>
+                  <View style={{ flexDirection: 'row', alignItems: 'center', flex: 1, marginRight: 8, gap: 6 }}>
+                    <Icon name={s.type === 'idea' ? 'bulb-outline' : 'book-outline'} size={16} color={theme.textDim} />
+                    <Text
+                      style={{ color: theme.text, fontWeight: '800', fontSize: 15, flex: 1 }}
+                      numberOfLines={1}
+                    >
+                      {s.title || '(untitled)'}
+                    </Text>
+                  </View>
                   <View style={[styles.statusBadge, { backgroundColor: withAlpha(statusColor(s.knownStatus), 0.14) }]}>
                     <Text style={{ color: statusColor(s.knownStatus), fontSize: 10, fontWeight: '900' }}>
                       {statusLabel(s.knownStatus)}

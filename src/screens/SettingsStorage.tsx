@@ -1,6 +1,6 @@
 /**
  * Storage & Data Screen — Export/import backup, clear cache, delete data.
- * Local-first data sovereignty. Kissa v2.4.1.
+ * Local-first data sovereignty. Kissa v2.4.2.
  */
 import React, { useEffect, useState } from 'react';
 import { Alert, ScrollView, StyleSheet, Text, View } from 'react-native';

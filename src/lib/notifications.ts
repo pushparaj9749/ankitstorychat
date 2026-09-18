@@ -46,7 +46,7 @@ export async function scheduleDailyReminder(hour: number, nickname: string): Pro
   await cancelDailyReminder();
   const id = await Notifications.scheduleNotificationAsync({
     content: {
-      title: 'Kissa 📖',
+      title: 'Kissa',
       body: `Hey ${nickname || 'traveller'}, tumhari kahani tumhara intezaar kar rahi hai. Continue karein?`,
       data: { kind: 'reminder' },
     },
@@ -73,7 +73,7 @@ export async function cancelDailyReminder(): Promise<void> {
 export async function notifyContentUpdate(count: number): Promise<void> {
   await Notifications.scheduleNotificationAsync({
     content: {
-      title: 'Nayi kahaniyan aayi hain! ✨',
+      title: 'Nayi kahaniyan aayi hain!',
       body:
         count === 1
           ? 'Ek nayi story available hai. Open Discover aur check karo.'
@@ -88,7 +88,7 @@ export async function notifyContentUpdate(count: number): Promise<void> {
 export async function notifyDownloadDone(title: string): Promise<void> {
   await Notifications.scheduleNotificationAsync({
     content: {
-      title: 'Download complete ✅',
+      title: 'Download complete',
       body: `"${title}" ab offline available hai.`,
       data: { kind: 'download-done' },
     },

@@ -87,7 +87,7 @@ export function freshStateFor(bundle: StoryBundle): StoryState {
 /* ---------------- response parsing ---------------- */
 
 /**
- * KISSA v4.2 — Robust internal state parser.
+ * KISSA v2.4.2 — Robust internal state parser.
  *
  * Pipeline:
  *  AI RESPONSE

@@ -1,5 +1,5 @@
 /**
- * KISSA v4.2 — Bottom Navigation
+ * KISSA v2.4.2 — Bottom Navigation
  * Original, minimal, editorial, safe-area aware.
  * Direction-aware auto-hide with hysteresis, no flicker.
  */
@@ -10,17 +10,18 @@ import type { BottomTabBarProps } from '@react-navigation/bottom-tabs';
 import { useApp } from '../state/AppContext';
 import { useNavScroll } from '../navigation/NavScrollContext';
 import { RADIUS, SHADOWS, withAlpha, LAYOUT } from '../theme';
+import { Icon, type IconName } from './icons';
 
 interface TabMeta {
   label: string;
-  icon: string;
+  icon: IconName;
 }
 
 const TAB_CONFIG: Record<string, TabMeta> = {
-  Home: { label: 'Home', icon: '◐' },
-  Discover: { label: 'Explore', icon: '⌕' },
-  Library: { label: 'Library', icon: '▤' },
-  Settings: { label: 'You', icon: '○' },
+  Home: { label: 'Home', icon: 'home' },
+  Discover: { label: 'Explore', icon: 'compass' },
+  Library: { label: 'Library', icon: 'library' },
+  Settings: { label: 'You', icon: 'person' },
 };
 
 export function KissaBottomTabBar({ state, descriptors, navigation }: BottomTabBarProps) {
@@ -47,7 +48,7 @@ export function KissaBottomTabBar({ state, descriptors, navigation }: BottomTabB
         {state.routes.map((route, index) => {
           const isFocused = state.index === index;
           const { options } = descriptors[route.key];
-          const meta = TAB_CONFIG[route.name] ?? { label: route.name, icon: '•' };
+          const meta = TAB_CONFIG[route.name] ?? { label: route.name, icon: 'ellipse' as IconName };
 
           const onPress = () => {
             const event = navigation.emit({
@@ -85,16 +86,11 @@ export function KissaBottomTabBar({ state, descriptors, navigation }: BottomTabB
                   },
                 ]}
               >
-                <Text
-                  style={[
-                    styles.glyph,
-                    {
-                      color: isFocused ? theme.bg : theme.textFaint,
-                    },
-                  ]}
-                >
-                  {meta.icon}
-                </Text>
+                <Icon
+                  name={(isFocused ? meta.icon : (`${meta.icon}-outline` as IconName))}
+                  size={18}
+                  color={isFocused ? theme.bg : theme.textFaint}
+                />
               </View>
               <Text
                 style={[
@@ -146,10 +142,6 @@ const styles = StyleSheet.create({
     borderRadius: 10,
     alignItems: 'center',
     justifyContent: 'center',
-  },
-  glyph: {
-    fontSize: 14,
-    fontWeight: '700',
   },
   label: {
     fontSize: 10,

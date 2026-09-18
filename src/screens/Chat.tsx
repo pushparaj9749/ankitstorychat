@@ -1,5 +1,5 @@
 /**
- * KISSA v4.2 — Chat / Interactive Fiction Stage
+ * KISSA v2.4.2 — Chat / Interactive Fiction Stage
  * Completely rebuilt: cinematic story experience, NOT WhatsApp/Telegram clone.
  * - Narration: atmospheric, editorial, faded italic
  * - Character dialogue: name + dialogue, distinct
@@ -29,6 +29,7 @@ import { countMessages, getPlaythrough, insertMessage, listMessages, listRecentM
 import { completePlaythrough } from '../lib/playthrough';
 import { interpolatePlayerName, makePlayerTextFn } from '../lib/playerName';
 import { RADIUS, SHADOWS, TYPE, withAlpha, LAYOUT } from '../theme';
+import { Icon, ICON_SIZE } from '../components/icons';
 import { nowIso, uid } from '../lib/utils';
 import { playReceive, playSend } from '../lib/sound';
 import { lightBuzz, successBuzz } from '../lib/haptics';
@@ -308,7 +309,7 @@ export function Chat({ navigation, route }: Props) {
     <SafeAreaView style={[styles.safe, { backgroundColor: theme.bg }]} edges={['top', 'left', 'right', 'bottom']}>
       <View style={[styles.header, { borderColor: theme.borderSoft, backgroundColor: theme.bgSoft }]}>
         <Pressable onPress={() => navigation.goBack()} hitSlop={10} style={styles.backBtn}>
-          <Text style={[styles.back, { color: theme.text }]}>‹</Text>
+          <Icon name="arrow-back" size={22} color={theme.text} />
         </Pressable>
 
         <Pressable onPress={openStoryProfile} style={styles.headerIdentity} accessibilityRole="button">
@@ -395,7 +396,7 @@ export function Chat({ navigation, route }: Props) {
             disabled={sending || !input.trim()}
             style={[styles.send, { backgroundColor: theme.text, opacity: sending || !input.trim() ? 0.4 : 1 }]}
           >
-            <Text style={[styles.sendText, { color: theme.bg }]}>↑</Text>
+            <Icon name="arrow-up" size={ICON_SIZE.md} color={theme.bg} />
           </Pressable>
         </View>
       </KeyboardAvoidingView>
@@ -414,8 +415,7 @@ const styles = StyleSheet.create({
     borderBottomWidth: StyleSheet.hairlineWidth,
     gap: 10,
   },
-  backBtn: { paddingRight: 4 },
-  back: { fontSize: 28, fontWeight: '300', marginTop: -2 },
+  backBtn: { paddingRight: 4, width: 32, height: 32, alignItems: 'center', justifyContent: 'center' },
   headerIdentity: { flex: 1, flexDirection: 'row', alignItems: 'center', gap: 10, minWidth: 0 },
   face: { width: 36, height: 36, borderRadius: 12, overflow: 'hidden', borderWidth: 1, alignItems: 'center', justifyContent: 'center' },
   faceImg: { width: 36, height: 36 },
@@ -441,7 +441,6 @@ const styles = StyleSheet.create({
   },
   input: { flex: 1, borderWidth: 1, borderRadius: 20, paddingHorizontal: 16, paddingVertical: 10, fontSize: 14.5, lineHeight: 20, maxHeight: 120 },
   send: { width: 40, height: 40, borderRadius: 20, alignItems: 'center', justifyContent: 'center' },
-  sendText: { fontSize: 16, fontWeight: '800' },
   errCard: { borderWidth: 1, borderRadius: RADIUS.lg, padding: 14, marginVertical: 10 },
   errTitle: { fontSize: 14, fontWeight: '700' },
   errSub: { fontSize: 12.5, marginTop: 6, lineHeight: 18 },

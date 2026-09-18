@@ -1,6 +1,6 @@
 /**
  * Audio Settings: Sound effects, ambient music, and haptic feedback.
- * Kissa v2.4.1.
+ * Kissa v2.4.2.
  */
 import React from 'react';
 import { StyleSheet, Switch, Text, View } from 'react-native';
@@ -62,7 +62,7 @@ export function SettingsAudio(_props: Props) {
       )}
 
       <Text style={[styles.note, { color: theme.textFaint }]}>
-        🎵 Original soundscapes and haptic patterns designed specifically for Kissa.
+        Original soundscapes and haptic patterns designed specifically for Kissa.
       </Text>
     </Screen>
   );

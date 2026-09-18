@@ -1,5 +1,5 @@
 /**
- * Direction-Aware Scroll Auto-Hide System for Kissa (v2.4.1).
+ * Direction-Aware Scroll Auto-Hide System for Kissa (v2.4.2).
  *
  * Implements silky-smooth, direction-aware auto-hiding for:
  *  - Screen headers (smoothly translate upward offscreen on scroll down)

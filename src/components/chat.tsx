@@ -1,5 +1,5 @@
 /**
- * KISSA v4.2 — Chat UI
+ * KISSA v2.4.2 — Chat UI
  * Cinematic interactive story stage, NOT a generic messenger.
  * - Narration: atmospheric, faded italic, editorial (identical bubble shape to dialogue for tests)
  * - Character dialogue: name + dialogue, crisp
@@ -66,7 +66,7 @@ export function ChatBubble({ message }: { message: ChatMessage }) {
     }
 
     // Narration block — identical layout shape to dialogue for test assertion & visual consistency
-    // v4.2: atmospheric, faded, but keeps same structure (Avatar + bubble with surface/border + LinearGradient accent)
+    // v2.4.2: atmospheric, faded, but keeps same structure (Avatar + bubble with surface/border + LinearGradient accent)
     return (
       <View style={[styles.row, styles.rowLeft]}>
         <Avatar id={message.speaker ?? 'narrator'} name={message.speaker ?? '✦'} size={32} />
@@ -106,7 +106,7 @@ export function ChatBubble({ message }: { message: ChatMessage }) {
     );
   }
 
-  // Assistant / character — v4.2: distinct name, crisp dialogue
+  // Assistant / character — v2.4.2: distinct name, crisp dialogue
   return (
     <View style={[styles.row, styles.rowLeft]}>
       <Avatar id={message.speaker ?? 'narrator'} name={message.speaker ?? '✦'} size={32} />

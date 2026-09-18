@@ -1,6 +1,6 @@
 /**
  * Onboarding Screen 2: "How old are you?" — drives catalog filtering.
- * Kissa v2.4.1.
+ * Kissa v2.4.2.
  */
 import React, { useState } from 'react';
 import { Pressable, StyleSheet, Text, View } from 'react-native';
@@ -10,6 +10,7 @@ import { useApp } from '../state/AppContext';
 import { Screen } from '../components/Screen';
 import { GradientButton } from '../components/GradientButton';
 import { FONTS, RADIUS, SHADOWS, SPACING, TYPE, withAlpha } from '../theme';
+import { Icon, type IconName } from '../components/icons';
 import { nowIso } from '../lib/utils';
 import { lightBuzz } from '../lib/haptics';
 
@@ -31,7 +32,7 @@ export function OnboardingAge({ navigation, route }: Props) {
     }
   }
 
-  function card(value: AgeGroup, emoji: string, title: string, desc: string) {
+  function card(value: AgeGroup, icon: IconName, title: string, desc: string) {
     const selected = age === value;
     return (
       <Pressable
@@ -51,7 +52,9 @@ export function OnboardingAge({ navigation, route }: Props) {
           SHADOWS.card,
         ]}
       >
-        <Text style={styles.emoji}>{emoji}</Text>
+        <View style={styles.emojiBox}>
+          <Icon name={icon} size={26} color={selected ? theme.accent : theme.textDim} />
+        </View>
         <View style={styles.cardBody}>
           <Text style={[styles.cardTitle, { color: theme.text }]}>{title}</Text>
           <Text style={[styles.cardDesc, { color: theme.textDim }]}>{desc}</Text>
@@ -74,11 +77,11 @@ export function OnboardingAge({ navigation, route }: Props) {
         <Text style={[styles.title, { color: theme.text }]}>How old are you?</Text>
         <Text style={[styles.sub, { color: theme.textDim }]}>
           Iske hisaab se tumhe sahi stories dikhengi. 12–17 walo ko sirf age-appropriate
-          catalog dikhega. 🔞
+          catalog dikhega.
         </Text>
-        {card('12-17', '🎒', '12–17', 'Teen-safe stories. Mature content hidden rahega.')}
+        {card('12-17', 'school-outline', '12–17', 'Teen-safe stories. Mature content hidden rahega.')}
         <View style={{ height: SPACING.md }} />
-        {card('18+', '🌙', '18+', 'Full catalog — teen + mature stories.')}
+        {card('18+', 'moon-outline', '18+', 'Full catalog — teen + mature stories.')}
         <View style={styles.spacer} />
         <GradientButton title="Get Started" disabled={!age} loading={saving} onPress={getStarted} />
         <Text style={[styles.note, { color: theme.textFaint }]}>
@@ -102,7 +105,7 @@ const styles = StyleSheet.create({
     padding: SPACING.lg,
     gap: SPACING.md,
   },
-  emoji: { fontSize: 34 },
+  emojiBox: { width: 40, height: 40, alignItems: 'center', justifyContent: 'center' },
   cardBody: { flex: 1 },
   cardTitle: { fontSize: FONTS.heading, fontWeight: '800' },
   cardDesc: { fontSize: FONTS.small, marginTop: 3, lineHeight: 18 },

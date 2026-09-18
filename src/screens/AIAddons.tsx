@@ -1,5 +1,5 @@
 /**
- * AI Setup / Providers — Redesigned for Kissa v2.4.1.
+ * AI Setup / Providers — Redesigned for Kissa v2.4.2.
  * Mandatory AI configuration with clean visual cards.
  */
 import React, { useEffect, useState } from 'react';
@@ -77,9 +77,9 @@ export function AIAddons({ navigation }: Props) {
         ]}
       >
         <Text style={[styles.infoText, { color: theme.textDim }]}>
-          <Text style={{ color: theme.accent, fontWeight: '800' }}>✦ AI STORY CHAT:</Text>
+          <Text style={{ color: theme.accent, fontWeight: '800' }}>AI STORY CHAT:</Text>
           {' Kissa brings characters to life with an OpenAI-compatible LLM.\n\n'}
-          <Text style={{ color: theme.accentAmber, fontWeight: '800' }}>🔒 PRIVATE API KEY:</Text>
+          <Text style={{ color: theme.accentAmber, fontWeight: '800' }}>PRIVATE API KEY:</Text>
           {' Your key stays encrypted on your device and is never sent to our servers.'}
         </Text>
       </View>
@@ -87,7 +87,7 @@ export function AIAddons({ navigation }: Props) {
       <SectionHeader title="Your Providers" kicker="Configured" />
       {providers.length === 0 ? (
         <EmptyState
-          emoji="🔑"
+          icon="key-outline"
           title="No AI provider added"
           subtitle="Add an API key to bring story characters and worlds to life."
         />
@@ -120,7 +120,7 @@ export function AIAddons({ navigation }: Props) {
                     ) : null}
                   </View>
                   <Text style={[styles.sub, { color: theme.textDim }]} numberOfLines={1}>
-                    {p.model || '(no model)'} • {hasKey ? '🔑 Key Encrypted' : '⚠️ No key'}
+                    {p.model || '(no model)'} • {hasKey ? 'Key Encrypted' : 'No key'}
                   </Text>
                   <Text style={[styles.subUrl, { color: theme.textFaint }]} numberOfLines={1}>
                     {p.baseUrl}

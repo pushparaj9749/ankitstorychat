@@ -1,5 +1,5 @@
 /**
- * KISSA v4.2 — Library / Chats
+ * KISSA v2.4.2 — Library / Chats
  * Active journeys prioritized, saved shelf, no memory UI.
  */
 import React, { useMemo, useState } from 'react';
@@ -40,7 +40,7 @@ export function Library({ navigation }: Props) {
           <Text style={[styles.kicker, { color: theme.textFaint }]}>YOUR SHELF</Text>
           <Text style={[styles.title, { color: theme.text }]}>Library</Text>
         </View>
-        <EmptyState emoji="▤" title="Your library is empty" subtitle="Explore stories and start journeys — they live here." action="Explore" onAction={() => navigation.navigate('Discover')} />
+        <EmptyState icon="library-outline" title="Your library is empty" subtitle="Explore stories and start journeys — they live here." action="Explore" onAction={() => navigation.navigate('Discover')} />
       </Screen>
     );
   }

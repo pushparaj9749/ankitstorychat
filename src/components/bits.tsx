@@ -1,11 +1,12 @@
 /**
- * KISSA v4.2 — Core UI Bits
+ * KISSA v2.4.2 — Core UI Bits
  * Original, cinematic, minimal, editorial.
  * Components: AgeBadge, GenreChip, CategoryChip, SectionHeader, ProgressBar, Avatar, KissaHeader
  */
 import React from 'react';
-import { Animated, Pressable, StyleSheet, Text, View } from 'react-native';
+import { Animated, Image, Pressable, StyleSheet, Text, View } from 'react-native';
 import { LinearGradient } from 'expo-linear-gradient';
+import { KISSA_LOGO } from './brand';
 import { useApp } from '../state/AppContext';
 import { useNavScroll } from '../navigation/NavScrollContext';
 import { FONTS, GRADIENTS, RADIUS, SPACING, TYPE, avatarColors, genreColor, withAlpha, LAYOUT, KISSA } from '../theme';
@@ -41,7 +42,7 @@ export function GenreChip({ genre }: { genre: string }) {
   );
 }
 
-/* Selectable category chip — v4.2: subtle, editorial, not neon */
+/* Selectable category chip — v2.4.2: subtle, editorial, not neon */
 export function SelectableChip({
   label,
   selected,
@@ -158,7 +159,7 @@ export function Dot({ color }: { color: string }) {
   return <View style={[styles.dot, { backgroundColor: color }]} />;
 }
 
-/* KissaHeader — v4.2: editorial wordmark, minimal, auto-hide aware */
+/* KissaHeader — v2.4.2: editorial wordmark, minimal, auto-hide aware */
 export function KissaHeader({
   title,
   subtitle,
@@ -188,9 +189,7 @@ export function KissaHeader({
       <View style={styles.headerContent}>
         {showLogo ? (
           <View style={styles.brandRow}>
-            <View style={[styles.brandMark, { backgroundColor: theme.text }]}>
-              <Text style={[styles.brandMarkText, { color: theme.bg }]}>K</Text>
-            </View>
+            <Image source={KISSA_LOGO} style={styles.brandLogo} resizeMode="contain" accessibilityLabel="Kissa" />
             <View>
               <Text style={[styles.brandWordmark, { color: theme.text }]}>{KISSA.wordmark}</Text>
               <Text style={[styles.brandTagline, { color: theme.textFaint }]}>{KISSA.tagline}</Text>
@@ -297,17 +296,10 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     gap: 10,
   },
-  brandMark: {
-    width: 28,
-    height: 28,
-    borderRadius: 8,
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-  brandMarkText: {
-    fontSize: 14,
-    fontWeight: '900',
-    letterSpacing: 0,
+  brandLogo: {
+    width: 30,
+    height: 30,
+    borderRadius: 9,
   },
   brandWordmark: {
     fontSize: 14,

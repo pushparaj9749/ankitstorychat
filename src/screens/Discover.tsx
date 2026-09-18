@@ -1,5 +1,5 @@
 /**
- * KISSA v4.2 — Discover / Search
+ * KISSA v2.4.2 — Discover / Search
  * Editorial search, genre filters, natural-ratio cards.
  */
 import React, { useMemo, useState, useEffect } from 'react';
@@ -12,6 +12,7 @@ import { Screen } from '../components/Screen';
 import { WideCard } from '../components/StoryCard';
 import { SelectableChip } from '../components/bits';
 import { EmptyState } from '../components/states';
+import { Icon, ICON_SIZE } from '../components/icons';
 import { RADIUS, SPACING, TYPE, withAlpha } from '../theme';
 import { searchStories } from '../lib/search';
 
@@ -56,7 +57,7 @@ export function Discover({ navigation, route }: Props) {
         <Text style={[styles.title, { color: theme.text }]}>Find your next story</Text>
 
         <View style={[styles.searchWrap, { backgroundColor: theme.surface, borderColor: theme.border }]}>
-          <Text style={[styles.searchIcon, { color: theme.textFaint }]}>⌕</Text>
+          <Icon name="search" size={ICON_SIZE.sm} color={theme.textFaint} />
           <TextInput
             value={query}
             onChangeText={setQuery}
@@ -67,7 +68,7 @@ export function Discover({ navigation, route }: Props) {
           />
           {query.length > 0 ? (
             <Pressable onPress={() => setQuery('')} hitSlop={8} style={[styles.clearBtn, { backgroundColor: theme.surface2 }]}>
-              <Text style={[styles.clearText, { color: theme.textDim }]}>✕</Text>
+              <Icon name="close" size={12} color={theme.textDim} />
             </Pressable>
           ) : null}
         </View>
@@ -92,7 +93,7 @@ export function Discover({ navigation, route }: Props) {
       </View>
 
       {results.length === 0 ? (
-        <EmptyState emoji="⌕" title="No stories found" subtitle="Try another term or genre." />
+        <EmptyState icon="search" title="No stories found" subtitle="Try another term or genre." />
       ) : (
         <FlatList
           onScroll={handleScroll}
@@ -126,10 +127,8 @@ const styles = StyleSheet.create({
     paddingVertical: 5,
     marginTop: 8,
   },
-  searchIcon: { fontSize: 16, fontWeight: '500' },
   input: { flex: 1, fontSize: 14, paddingVertical: 10 },
   clearBtn: { width: 24, height: 24, borderRadius: 12, alignItems: 'center', justifyContent: 'center' },
-  clearText: { fontSize: 10, fontWeight: '700' },
   genres: { marginTop: 12, marginHorizontal: -4 },
   genresContent: { paddingRight: 18 },
   sorts: { flexDirection: 'row', marginTop: 10 },

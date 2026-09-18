@@ -1,5 +1,5 @@
 /**
- * KISSA v4.2 — Story Detail
+ * KISSA v2.4.2 — Story Detail
  * Structure: Hero Cover (natural ratio), Title, Tags, About, Media Library, Creator, Similar, Fixed Chat Now
  * No comments, ratings, chat stats, external share.
  */
@@ -24,6 +24,7 @@ import { createPlaythrough, playthroughLabel } from '../lib/playthrough';
 import { seedMemoriesIfEmpty } from '../lib/memory';
 import { ensureWorldState } from '../lib/worldState';
 import { RADIUS, SHADOWS, TYPE, withAlpha, GRADIENTS } from '../theme';
+import { Icon, ICON_SIZE } from '../components/icons';
 import { uid } from '../lib/utils';
 import { mediumBuzz } from '../lib/haptics';
 
@@ -169,10 +170,11 @@ export function StoryDetail({ navigation, route }: Props) {
           <CoverImage source={cover} accentColor={meta.accentColor} fallbackLetter={meta.title} style={styles.cover} placeholderMinHeight={320} />
           <LinearGradient colors={['transparent', 'rgba(6,6,10,0.55)', theme.bg]} locations={[0, 0.5, 1]} style={styles.coverShade} />
           <Pressable onPress={() => navigation.goBack()} style={styles.back} accessibilityLabel="Go back">
-            <Text style={styles.backText}>‹ Back</Text>
+            <Icon name="chevron-back" size={ICON_SIZE.xs} color="#F2F0EB" />
+            <Text style={styles.backText}>Back</Text>
           </Pressable>
           <Pressable onPress={() => void toggleFavorite(storyId)} style={styles.fav} accessibilityLabel={isFav ? 'Remove favorite' : 'Add favorite'}>
-            <Text style={styles.favText}>{isFav ? '♥' : '♡'}</Text>
+            <Icon name={isFav ? 'heart' : 'heart-outline'} size={ICON_SIZE.md} color={isFav ? '#FF6B7E' : '#F2F0EB'} />
           </Pressable>
         </View>
 
@@ -254,16 +256,16 @@ export function StoryDetail({ navigation, route }: Props) {
         <Modal visible transparent animationType="fade" onRequestClose={() => setLightboxIndex(null)}>
           <View style={styles.lightbox}>
             <Pressable style={styles.lightboxClose} onPress={() => setLightboxIndex(null)} accessibilityLabel="Close">
-              <Text style={styles.lightboxCloseText}>✕</Text>
+              <Icon name="close" size={ICON_SIZE.sm} color="#fff" />
             </Pressable>
             {lightboxIndex > 0 ? (
               <Pressable style={[styles.lightboxNav, { left: 16 }]} onPress={() => setLightboxIndex(lightboxIndex - 1)}>
-                <Text style={styles.lightboxNavText}>‹</Text>
+                <Icon name="chevron-back" size={22} color="#fff" />
               </Pressable>
             ) : null}
             {lightboxIndex < gallery.length - 1 ? (
               <Pressable style={[styles.lightboxNav, { right: 16 }]} onPress={() => setLightboxIndex(lightboxIndex + 1)}>
-                <Text style={styles.lightboxNavText}>›</Text>
+                <Icon name="chevron-forward" size={22} color="#fff" />
               </Pressable>
             ) : null}
             <LightboxImage url={mediaApiUrl(apiBase, bundle.meta.storyDir, gallery[lightboxIndex].file)} accent={meta.accentColor} />
@@ -309,7 +311,7 @@ function MediaTile({
         style={styles.mediaImg}
         fallback={
           <View style={styles.mediaFallback}>
-            <Text style={styles.mediaFallbackEmoji}>◐</Text>
+            <Icon name="image-outline" size={ICON_SIZE.md} color={theme.textDim} />
             <Text style={[styles.mediaFallbackText, { color: theme.textDim }]}>{label}</Text>
           </View>
         }
@@ -334,7 +336,7 @@ function LightboxImage({ url, accent }: { url: string; accent: string }) {
         placeholder={<ActivityIndicator size="small" color={accent} />}
         fallback={
           <View style={styles.lightboxFallback}>
-            <Text style={styles.lightboxFallbackEmoji}>◐</Text>
+            <Icon name="image-outline" size={ICON_SIZE.lg} color="#A09CA8" />
             <Text style={[styles.lightboxFallbackText, { color: '#A09CA8' }]}>Image unavailable.</Text>
           </View>
         }
@@ -409,6 +411,9 @@ const styles = StyleSheet.create({
     paddingHorizontal: 12,
     paddingVertical: 6,
     borderRadius: RADIUS.pill,
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: 4,
   },
   backText: { color: '#F2F0EB', fontSize: 13, fontWeight: '600' },
   fav: {
@@ -444,7 +449,6 @@ const styles = StyleSheet.create({
   mediaLabelShade: { position: 'absolute', left: 0, right: 0, bottom: 0, height: 44 },
   mediaLabel: { position: 'absolute', left: 8, right: 8, bottom: 6, fontSize: 11, fontWeight: '600' },
   mediaFallback: { alignItems: 'center', justifyContent: 'center', gap: 6, padding: 14, minHeight: 110 },
-  mediaFallbackEmoji: { fontSize: 20 },
   mediaFallbackText: { fontSize: 11, fontWeight: '500' },
   lightbox: { flex: 1, backgroundColor: 'rgba(0,0,0,0.96)', alignItems: 'center', justifyContent: 'center' },
   lightboxImageWrap: { flex: 1, width: '100%', alignItems: 'center', justifyContent: 'center', paddingHorizontal: 12 },
@@ -463,7 +467,6 @@ const styles = StyleSheet.create({
     borderColor: 'rgba(255,255,255,0.14)',
     zIndex: 10,
   },
-  lightboxNavText: { color: '#fff', fontSize: 22, fontWeight: '300' },
   lightboxClose: {
     position: 'absolute',
     top: 52,
@@ -478,9 +481,7 @@ const styles = StyleSheet.create({
     borderColor: 'rgba(255,255,255,0.16)',
     zIndex: 10,
   },
-  lightboxCloseText: { color: '#fff', fontSize: 14, fontWeight: '700' },
   lightboxFallback: { alignItems: 'center', justifyContent: 'center', gap: 8 },
-  lightboxFallbackEmoji: { fontSize: 28 },
   lightboxFallbackText: { fontSize: 12, fontWeight: '600' },
   creatorCard: { flexDirection: 'row', alignItems: 'center', gap: 12, borderWidth: 1, borderRadius: RADIUS.lg, padding: 14, marginTop: 6 },
   creatorAvatar: { width: 44, height: 44, borderRadius: 14, alignItems: 'center', justifyContent: 'center' },

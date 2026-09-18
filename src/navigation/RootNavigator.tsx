@@ -1,5 +1,5 @@
 /**
- * Root Navigation — Cinematic Tabs + Stack for Kissa v2.4.1.
+ * Root Navigation — Cinematic Tabs + Stack for Kissa v2.4.2.
  * Memory UI completely removed (internal engine only).
  */
 import React, { useEffect, useRef } from 'react';

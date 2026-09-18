@@ -25,6 +25,7 @@ import { Screen } from '../components/Screen';
 import { GradientButton } from '../components/GradientButton';
 import { NaturalImage } from '../components/NaturalImage';
 import { SectionHeader } from '../components/bits';
+import { Icon } from '../components/icons';
 import { FONTS, RADIUS, SPACING } from '../theme';
 import {
   acceptIdeaAdmin,
@@ -172,10 +173,14 @@ export function AdminPanel({ navigation }: Props) {
     return (
       <Screen>
         <ScrollView contentContainerStyle={{ padding: 16 }}>
-          <Pressable onPress={() => navigation.goBack()} style={{ paddingVertical: 8 }}>
-            <Text style={{ color: theme.text, fontSize: 17, fontWeight: '700' }}>‹ Back</Text>
+          <Pressable onPress={() => navigation.goBack()} style={{ paddingVertical: 8, flexDirection: 'row', alignItems: 'center', gap: 4 }}>
+            <Icon name="chevron-back" size={16} color={theme.text} />
+            <Text style={{ color: theme.text, fontSize: 17, fontWeight: '700' }}>Back</Text>
           </Pressable>
-          <Text style={{ color: theme.text, fontSize: 24, fontWeight: '900', marginTop: 4 }}>🔒 Admin Access</Text>
+          <View style={{ flexDirection: 'row', alignItems: 'center', gap: 8, marginTop: 4 }}>
+            <Icon name="lock-closed-outline" size={22} color={theme.text} />
+            <Text style={{ color: theme.text, fontSize: 24, fontWeight: '900' }}>Admin Access</Text>
+          </View>
           <Text style={{ color: theme.textDim, marginTop: 8, lineHeight: 22 }}>
             Enter the admin token to review submissions. Users do not see this screen by default.
           </Text>
@@ -217,15 +222,19 @@ export function AdminPanel({ navigation }: Props) {
         refreshControl={<RefreshControl refreshing={refreshing} onRefresh={onRefresh} tintColor={theme.accent} />}
       >
         <View style={{ flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center' }}>
-          <Pressable onPress={() => navigation.goBack()} style={{ paddingVertical: 8 }}>
-            <Text style={{ color: theme.text, fontSize: 17, fontWeight: '700' }}>‹ Back</Text>
+          <Pressable onPress={() => navigation.goBack()} style={{ paddingVertical: 8, flexDirection: 'row', alignItems: 'center', gap: 4 }}>
+            <Icon name="chevron-back" size={16} color={theme.text} />
+            <Text style={{ color: theme.text, fontSize: 17, fontWeight: '700' }}>Back</Text>
           </Pressable>
           <Pressable onPress={onLogout}>
             <Text style={{ color: theme.danger, fontSize: FONTS.small, fontWeight: '800' }}>Log out</Text>
           </Pressable>
         </View>
 
-        <Text style={{ color: theme.text, fontSize: 26, fontWeight: '900' }}>🛡 Admin Panel</Text>
+        <View style={{ flexDirection: 'row', alignItems: 'center', gap: 8 }}>
+          <Icon name="shield-outline" size={24} color={theme.text} />
+          <Text style={{ color: theme.text, fontSize: 26, fontWeight: '900' }}>Admin Panel</Text>
+        </View>
         <Text style={{ color: theme.textDim, fontSize: FONTS.small, marginTop: 6 }}>
           Pending submissions — review before anything goes live.
         </Text>
@@ -245,7 +254,7 @@ export function AdminPanel({ navigation }: Props) {
             style={[styles.tab, { backgroundColor: tab === 'ideas' ? theme.primary : 'transparent', borderColor: theme.border }]}
           >
             <Text style={{ color: tab === 'ideas' ? '#fff' : theme.textDim, fontWeight: '800' }}>
-              💡 Ideas ({ideas.length})
+              Ideas ({ideas.length})
             </Text>
           </Pressable>
           <Pressable
@@ -253,7 +262,7 @@ export function AdminPanel({ navigation }: Props) {
             style={[styles.tab, { backgroundColor: tab === 'stories' ? theme.primary : 'transparent', borderColor: theme.border }]}
           >
             <Text style={{ color: tab === 'stories' ? '#fff' : theme.textDim, fontWeight: '800' }}>
-              📖 Stories ({stories.length})
+              Stories ({stories.length})
             </Text>
           </Pressable>
         </View>
@@ -276,17 +285,20 @@ export function AdminPanel({ navigation }: Props) {
               onPress={() => setViewing(s)}
               style={[styles.card, { backgroundColor: theme.surface, borderColor: theme.border }]}
             >
-              <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
-                <Text style={{ color: theme.text, fontWeight: '800', flex: 1, marginRight: 8 }} numberOfLines={1}>
-                  {s.type === 'idea' ? '💡' : '📖'} {s.title || '(untitled)'}
-                </Text>
+              <View style={{ flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center' }}>
+                <View style={{ flexDirection: 'row', alignItems: 'center', flex: 1, marginRight: 8, gap: 6 }}>
+                  <Icon name={s.type === 'idea' ? 'bulb-outline' : 'book-outline'} size={16} color={theme.textDim} />
+                  <Text style={{ color: theme.text, fontWeight: '800', flex: 1 }} numberOfLines={1}>
+                    {s.title || '(untitled)'}
+                  </Text>
+                </View>
                 <Text style={{ color: theme.accent, fontSize: FONTS.tiny, fontWeight: '900' }}>
                   PENDING
                 </Text>
               </View>
               <Text style={{ color: theme.textDim, fontSize: FONTS.small, marginTop: 4 }}>
                 by {s.creator.name}
-                {s.creator.verified ? ' ✓' : ''}
+                {s.creator.verified ? ' · Verified' : ''}
                 {s.genre ? ` • ${s.genre}` : ''}
               </Text>
               <Text style={{ color: theme.textFaint, fontSize: FONTS.tiny, marginTop: 4 }}>
@@ -301,17 +313,21 @@ export function AdminPanel({ navigation }: Props) {
         <View style={{ flex: 1, backgroundColor: theme.bg }}>
           <Screen>
             <ScrollView contentContainerStyle={{ paddingBottom: 60 }}>
-              <Pressable onPress={() => setViewing(null)} style={{ paddingVertical: 8 }}>
-                <Text style={{ color: theme.text, fontSize: 17, fontWeight: '700' }}>‹ Close</Text>
+              <Pressable onPress={() => setViewing(null)} style={{ paddingVertical: 8, flexDirection: 'row', alignItems: 'center', gap: 4 }}>
+                <Icon name="chevron-back" size={16} color={theme.text} />
+                <Text style={{ color: theme.text, fontSize: 17, fontWeight: '700' }}>Close</Text>
               </Pressable>
               {viewing ? (
                 <>
-                  <Text style={{ color: theme.text, fontSize: 24, fontWeight: '900', marginTop: 4 }}>
-                    {viewing.type === 'idea' ? '💡' : '📖'} {viewing.title}
-                  </Text>
+                  <View style={{ flexDirection: 'row', alignItems: 'center', gap: 8, marginTop: 4 }}>
+                    <Icon name={viewing.type === 'idea' ? 'bulb-outline' : 'book-outline'} size={22} color={theme.text} />
+                    <Text style={{ color: theme.text, fontSize: 24, fontWeight: '900' }} numberOfLines={2}>
+                      {viewing.title}
+                    </Text>
+                  </View>
                   <Text style={{ color: theme.textDim, marginTop: 6 }}>
                     Creator: <Text style={{ color: theme.text, fontWeight: '700' }}>{viewing.creator.name}</Text>
-                    {viewing.creator.verified ? ' ✓' : ''}
+                    {viewing.creator.verified ? ' · Verified' : ''}
                   </Text>
                   <Text style={{ color: theme.textFaint, fontSize: FONTS.tiny, marginTop: 4 }}>
                     Submitted {new Date(viewing.submittedAt).toLocaleString()} • Expires{' '}
@@ -348,15 +364,15 @@ export function AdminPanel({ navigation }: Props) {
                   <View style={{ height: SPACING.lg }} />
                   {viewing.type === 'idea' ? (
                     <>
-                      <GradientButton title="✅ Accept Idea" variant="gold" onPress={() => acceptIdea(viewing.id)} />
+                      <GradientButton title="Accept Idea" variant="gold" onPress={() => acceptIdea(viewing.id)} />
                       <View style={{ height: SPACING.sm }} />
-                      <GradientButton title="❌ Reject" variant="ghost" onPress={() => rejectIdea(viewing.id)} />
+                      <GradientButton title="Reject" variant="ghost" onPress={() => rejectIdea(viewing.id)} />
                     </>
                   ) : (
                     <>
-                      <GradientButton title="✅ Accept & Publish" variant="gold" onPress={() => acceptStory(viewing.id)} />
+                      <GradientButton title="Accept & Publish" variant="gold" onPress={() => acceptStory(viewing.id)} />
                       <View style={{ height: SPACING.sm }} />
-                      <GradientButton title="❌ Reject" variant="ghost" onPress={() => rejectStory(viewing.id)} />
+                      <GradientButton title="Reject" variant="ghost" onPress={() => rejectStory(viewing.id)} />
                     </>
                   )}
                 </>
@@ -430,9 +446,12 @@ function StoryMediaPreview({ payload, apiBase }: { payload: unknown; apiBase: st
   if (!media) {
     return (
       <View style={[styles.preview, { backgroundColor: theme.surface, borderColor: theme.border }]}>
-        <Text style={{ color: theme.danger, fontSize: FONTS.small }}>
-          ⚠ No media block found — this story has no cover.
-        </Text>
+        <View style={{ flexDirection: 'row', alignItems: 'center', gap: 6 }}>
+          <Icon name="warning-outline" size={14} color={theme.danger} />
+          <Text style={{ color: theme.danger, fontSize: FONTS.small }}>
+            No media block found — this story has no cover.
+          </Text>
+        </View>
       </View>
     );
   }

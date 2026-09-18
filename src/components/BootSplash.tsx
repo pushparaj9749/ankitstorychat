@@ -1,10 +1,10 @@
 /**
- * Branded Boot Splash for Kissa v2.4.1.
+ * Branded Boot Splash for Kissa v2.4.2.
  */
 import React, { useEffect, useRef } from 'react';
-import { Animated, StyleSheet, Text, View } from 'react-native';
-import { LinearGradient } from 'expo-linear-gradient';
-import { COLORS, GRADIENTS, INK, RADIUS, SHADOWS } from '../theme';
+import { Animated, Image, StyleSheet, Text, View } from 'react-native';
+import { COLORS, RADIUS, SHADOWS } from '../theme';
+import { KISSA_LOGO } from './brand';
 
 export function BootSplash() {
   const fade = useRef(new Animated.Value(0)).current;
@@ -20,9 +20,7 @@ export function BootSplash() {
   return (
     <View style={[styles.wrap, { backgroundColor: COLORS.midnight.bg }]}>
       <Animated.View style={{ opacity: fade, transform: [{ scale }], alignItems: 'center' }}>
-        <LinearGradient colors={[...GRADIENTS.hero]} style={[styles.logo, SHADOWS.glowRose]}>
-          <Text style={styles.logoText}>✦</Text>
-        </LinearGradient>
+        <Image source={KISSA_LOGO} style={[styles.logo, SHADOWS.glowRose]} resizeMode="contain" accessibilityLabel="Kissa" />
         <Text style={styles.name}>KISSA</Text>
         <Text style={styles.tag}>Interactive Cinematic Story Platform</Text>
       </Animated.View>
@@ -33,14 +31,11 @@ export function BootSplash() {
 const styles = StyleSheet.create({
   wrap: { flex: 1, alignItems: 'center', justifyContent: 'center' },
   logo: {
-    width: 84,
-    height: 84,
+    width: 96,
+    height: 96,
     borderRadius: RADIUS.xl,
-    alignItems: 'center',
-    justifyContent: 'center',
     marginBottom: 20,
   },
-  logoText: { fontSize: 44, fontWeight: '900', color: '#0E070B' },
   name: { fontSize: 34, fontWeight: '900', color: '#F6F4F8', letterSpacing: 4 },
   tag: { fontSize: 13, color: '#B8B1C6', marginTop: 10, letterSpacing: 0.6, fontWeight: '600' },
 });

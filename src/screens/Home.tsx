@@ -1,5 +1,5 @@
 /**
- * KISSA v4.2 — Home Screen
+ * KISSA v2.4.2 — Home Screen
  * Completely rebuilt from scratch, original identity.
  * - Editorial brand header (KISSA wordmark)
  * - Horizontally scrollable discovery categories (For You, New, Popular, genres)
@@ -10,7 +10,7 @@
  * - Natural image ratios preserved everywhere
  */
 import React, { useMemo, useState, useCallback } from 'react';
-import { FlatList, Pressable, ScrollView, StyleSheet, Text, View } from 'react-native';
+import { FlatList, Image, Pressable, ScrollView, StyleSheet, Text, View } from 'react-native';
 import type { BottomTabScreenProps } from '@react-navigation/bottom-tabs';
 import type { MainTabParamList, StoryMeta } from '../types';
 import { useApp } from '../state/AppContext';
@@ -19,6 +19,8 @@ import { Screen } from '../components/Screen';
 import { ContinueCard, GridCard, HeroCard } from '../components/StoryCard';
 import { SectionHeader, SelectableChip } from '../components/bits';
 import { EmptyState } from '../components/states';
+import { Icon, ICON_SIZE } from '../components/icons';
+import { KISSA_LOGO } from '../components/brand';
 import { SPACING, TYPE, KISSA } from '../theme';
 import { greetingForHour, timeAgo } from '../lib/utils';
 
@@ -70,7 +72,7 @@ export function Home({ navigation }: Props) {
   if (!stories.length) {
     return (
       <Screen>
-        <EmptyState emoji="◐" title="No stories yet" subtitle="Stories arrive automatically. Check your connection." />
+        <EmptyState icon="book-outline" title="No stories yet" subtitle="Stories arrive automatically. Check your connection." />
       </Screen>
     );
   }
@@ -81,9 +83,7 @@ export function Home({ navigation }: Props) {
         {/* Brand Header */}
         <View style={styles.topHeader}>
           <View style={styles.brandRow}>
-            <View style={[styles.brandMark, { backgroundColor: theme.text }]}>
-              <Text style={[styles.brandMarkText, { color: theme.bg }]}>K</Text>
-            </View>
+            <Image source={KISSA_LOGO} style={styles.brandLogo} resizeMode="contain" accessibilityLabel="Kissa" />
             <View>
               <Text style={[styles.brandText, { color: theme.text }]}>{KISSA.wordmark}</Text>
               <Text style={[styles.brandTag, { color: theme.textFaint }]}>{KISSA.tagline}</Text>
@@ -102,7 +102,7 @@ export function Home({ navigation }: Props) {
             accessibilityRole="search"
             style={[styles.searchTrigger, { backgroundColor: theme.surface, borderColor: theme.border }]}
           >
-            <Text style={[styles.searchIcon, { color: theme.textFaint }]}>⌕</Text>
+            <Icon name="search" size={ICON_SIZE.sm} color={theme.textFaint} />
             <Text style={[styles.searchText, { color: theme.textFaint }]}>Search stories, characters…</Text>
           </Pressable>
         </View>
@@ -192,16 +192,10 @@ const styles = StyleSheet.create({
     gap: 10,
     marginTop: 4,
   },
-  brandMark: {
-    width: 28,
-    height: 28,
-    borderRadius: 8,
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-  brandMarkText: {
-    fontSize: 14,
-    fontWeight: '900',
+  brandLogo: {
+    width: 32,
+    height: 32,
+    borderRadius: 10,
   },
   brandText: {
     fontSize: 14,
@@ -237,7 +231,6 @@ const styles = StyleSheet.create({
     paddingVertical: 12,
     marginTop: 4,
   },
-  searchIcon: { fontSize: 16, fontWeight: '500' },
   searchText: { flex: 1, fontSize: 13, letterSpacing: 0.1 },
   categoriesWrap: { marginTop: 14, marginBottom: 4 },
   categoriesScroll: { paddingHorizontal: 18 },

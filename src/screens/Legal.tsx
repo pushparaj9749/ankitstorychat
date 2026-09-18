@@ -1,6 +1,6 @@
 /**
  * Shared legal-document renderer (Terms, Privacy).
- * Kissa v2.4.1.
+ * Kissa v2.4.2.
  */
 import React from 'react';
 import { ScrollView, StyleSheet, Text, View } from 'react-native';

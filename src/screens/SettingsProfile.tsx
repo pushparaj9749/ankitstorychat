@@ -1,6 +1,6 @@
 /**
  * Profile Settings: Nickname + Age Group (local-only storage).
- * Kissa v2.4.1.
+ * Kissa v2.4.2.
  */
 import React, { useState } from 'react';
 import { Alert, Pressable, StyleSheet, Text, TextInput, View } from 'react-native';
@@ -95,12 +95,12 @@ export function SettingsProfile({ navigation }: Props) {
 
       <Text style={[styles.label, { color: theme.textDim, marginTop: SPACING.lg }]}>Age Group Filter</Text>
       <View style={styles.ageRow}>
-        {ageCard('12-17', '🎒 12–17', 'Teen-safe catalog')}
-        {ageCard('18+', '🌙 18+', 'Full catalog (18+)')}
+        {ageCard('12-17', '12–17', 'Teen-safe catalog')}
+        {ageCard('18+', '18+', 'Full catalog (18+)')}
       </View>
 
       <Text style={[styles.note, { color: theme.textFaint }]}>
-        🔒 Your nickname and age are stored strictly on your local device.
+        Your nickname and age are stored strictly on your local device.
       </Text>
 
       <View style={styles.spacer} />

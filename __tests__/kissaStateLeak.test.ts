@@ -1,10 +1,10 @@
 /**
- * KISSA v4.2 — kissa-state leak bug tests
+ * KISSA v2.4.2 — kissa-state leak bug tests
  * Covers all required cases from spec section 27.
  */
 import { parseAssistantResponse } from '../src/lib/engine';
 
-describe('kissa-state leak fix — v4.2', () => {
+describe('kissa-state leak fix — v2.4.2', () => {
   test('normal story response without state', () => {
     const raw = `*Beena ke honton par halki si muskaan ubharti hai.*\nBeena: "Achchha. Zubaan mein dum toh hai tumhare."`;
     const p = parseAssistantResponse(raw);

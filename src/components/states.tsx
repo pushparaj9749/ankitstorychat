@@ -1,5 +1,5 @@
 /**
- * KISSA v4.2 — Empty, Error, Loading, Offline States
+ * KISSA v2.4.2 — Empty, Error, Loading, Offline States
  * Minimal, editorial, calm. No excessive emoji, no neon.
  */
 import React from 'react';
@@ -7,15 +7,16 @@ import { ActivityIndicator, StyleSheet, Text, View } from 'react-native';
 import { useApp } from '../state/AppContext';
 import { RADIUS, SPACING, TYPE, withAlpha } from '../theme';
 import { GradientButton } from './GradientButton';
+import { Icon, ICON_SIZE, type IconName } from './icons';
 
 export function EmptyState({
-  emoji,
+  icon,
   title,
   subtitle,
   action,
   onAction,
 }: {
-  emoji: string;
+  icon: IconName;
   title: string;
   subtitle?: string;
   action?: string;
@@ -25,7 +26,7 @@ export function EmptyState({
   return (
     <View style={styles.wrap}>
       <View style={[styles.iconCircle, { backgroundColor: theme.surface, borderColor: theme.border }]}>
-        <Text style={styles.emoji}>{emoji}</Text>
+        <Icon name={icon} size={ICON_SIZE.lg} color={theme.textDim} />
       </View>
       <Text style={[styles.title, { color: theme.text }]}>{title}</Text>
       {subtitle ? <Text style={[styles.sub, { color: theme.textDim }]}>{subtitle}</Text> : null}
@@ -57,7 +58,7 @@ export function ErrorState({
   return (
     <View style={styles.wrap}>
       <View style={[styles.iconCircle, { backgroundColor: withAlpha(theme.danger, 0.08), borderColor: withAlpha(theme.danger, 0.18) }]}>
-        <Text style={styles.emoji}>!</Text>
+        <Icon name="alert-circle-outline" size={ICON_SIZE.lg} color={theme.danger} />
       </View>
       <Text style={[styles.title, { color: theme.text }]}>{title}</Text>
       {subtitle ? <Text style={[styles.sub, { color: theme.textDim }]}>{subtitle}</Text> : null}
@@ -98,7 +99,7 @@ export function OfflineState({
   return (
     <View style={styles.wrap}>
       <View style={[styles.iconCircle, { backgroundColor: theme.surface, borderColor: theme.border }]}>
-        <Text style={styles.emoji}>↯</Text>
+        <Icon name="cloud-offline-outline" size={ICON_SIZE.lg} color={theme.textDim} />
       </View>
       <Text style={[styles.title, { color: theme.text }]}>Internet connection required</Text>
       <Text style={[styles.sub, { color: theme.textDim }]}>{subtitle ?? 'Connect to the internet to continue.'}</Text>
@@ -148,7 +149,6 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
   },
-  emoji: { fontSize: 20, fontWeight: '700' },
   title: { fontSize: 17, fontWeight: '700', textAlign: 'center', letterSpacing: -0.2 },
   sub: { fontSize: 13, textAlign: 'center', lineHeight: 19, maxWidth: 300 },
   btn: { marginTop: SPACING.md, minWidth: 180 },

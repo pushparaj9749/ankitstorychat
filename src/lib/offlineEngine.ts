@@ -97,7 +97,7 @@ export function offlineStep(
           {
             role: 'narration',
             speaker: null,
-            text: '✨ Kahani yahin poori hoti hai. Replay karke doosri endings bhi try karo!',
+            text: 'Kahani yahin poori hoti hai. Replay karke doosri endings bhi try karo!',
           },
         ],
         newSceneId: scene.id,

@@ -21,7 +21,6 @@ import React, { useEffect, useRef, useState } from 'react';
 import {
   Image,
   StyleSheet,
-  Text,
   View,
   type ImageErrorEvent,
   type ImageLoadEvent,
@@ -29,6 +28,7 @@ import {
   type StyleProp,
   type ImageStyle,
 } from 'react-native';
+import { Ionicons } from '@expo/vector-icons';
 
 /** Default height of the loading/failure placeholder when no ratio is known yet. */
 export const NATURAL_IMAGE_PLACEHOLDER_MIN_HEIGHT = 120;
@@ -196,9 +196,9 @@ export function NaturalImage({
       ) : null}
       {!showImage ? (
         fallback ?? (
-          <Text style={styles.defaultFallback} accessibilityLabel="Image unavailable">
-            🖼️
-          </Text>
+          <View style={styles.defaultFallback} accessibilityLabel="Image unavailable">
+            <Ionicons name="image-outline" size={28} color="#6F6B78" />
+          </View>
         )
       ) : null}
     </View>
@@ -227,5 +227,5 @@ const styles = StyleSheet.create({
     left: 0,
     backgroundColor: 'rgba(255,255,255,0.06)',
   },
-  defaultFallback: { fontSize: 30 },
+  defaultFallback: { padding: 12 },
 });

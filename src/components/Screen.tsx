@@ -1,5 +1,5 @@
 /**
- * KISSA v4.2 — Screen Wrapper
+ * KISSA v2.4.2 — Screen Wrapper
  * Cinematic dark foundation, subtle vignette, safe-area aware.
  * No neon, no excessive glow — sophisticated stage for stories.
  */
