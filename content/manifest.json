@@ -1,7 +1,7 @@
 {
-  "contentVersion": 20,
+  "contentVersion": 21,
   "minAppVersion": "1.0.0",
-  "updatedAt": "2026-09-18T02:30:00.000Z",
+  "updatedAt": "2026-09-18T03:00:00.000Z",
   "stories": [
     {
       "id": "goddess-who-chose-me",
@@ -482,7 +482,7 @@
       "ageRating": "12-17",
       "contentLevel": "teen",
       "language": "hinglish",
-      "version": 1,
+      "version": 2,
       "coverBundled": "midnight-local",
       "accentColor": "#60A5FA",
       "userRole": "First-year college student, late-night local traveller",
@@ -492,12 +492,13 @@
       "isNew": true,
       "popularity": 98,
       "storyDir": "midnight-local",
-      "updatedAt": "2026-09-11T00:00:00.000Z",
+      "updatedAt": "2026-09-18T03:00:00.000Z",
       "creator": {
         "name": "Ankit",
         "avatar": null,
         "verified": true
-      }
+      },
+      "coverUrl": "stories/midnight-local/assets/cover.jpg"
     },
     {
       "id": "hawa-band-dhaba",
@@ -923,7 +924,7 @@
       "ageRating": "18+",
       "contentLevel": "mature",
       "language": "hinglish",
-      "version": 1,
+      "version": 2,
       "coverBundled": "neo-delhi-2099",
       "accentColor": "#F472B6",
       "userRole": "Memory courier in flooded Neo Delhi",
@@ -933,12 +934,13 @@
       "isNew": true,
       "popularity": 92,
       "storyDir": "neo-delhi-2099",
-      "updatedAt": "2026-09-11T00:00:00.000Z",
+      "updatedAt": "2026-09-18T03:00:00.000Z",
       "creator": {
         "name": "Ankit",
         "avatar": null,
         "verified": true
-      }
+      },
+      "coverUrl": "stories/neo-delhi-2099/assets/cover.jpg"
     },
     {
       "id": "pahadon-wali-haveli",
