@@ -1,8 +1,11 @@
-/** Empty / error / loading states used across screens. */
+/**
+ * Empty, Error, Loading, and Offline States for Kissa (v2.4.1).
+ * Minimal, cinematic, and clear.
+ */
 import React from 'react';
 import { ActivityIndicator, StyleSheet, Text, View } from 'react-native';
 import { useApp } from '../state/AppContext';
-import { FONTS, SPACING } from '../theme';
+import { FONTS, RADIUS, SPACING, TYPE, withAlpha } from '../theme';
 import { GradientButton } from './GradientButton';
 
 export function EmptyState({
@@ -21,7 +24,9 @@ export function EmptyState({
   const { theme } = useApp();
   return (
     <View style={styles.wrap}>
-      <Text style={styles.emoji}>{emoji}</Text>
+      <View style={[styles.iconCircle, { backgroundColor: withAlpha(theme.surface2, 0.7), borderColor: theme.border }]}>
+        <Text style={styles.emoji}>{emoji}</Text>
+      </View>
       <Text style={[styles.title, { color: theme.text }]}>{title}</Text>
       {subtitle ? <Text style={[styles.sub, { color: theme.textDim }]}>{subtitle}</Text> : null}
       {action && onAction ? (
@@ -51,7 +56,9 @@ export function ErrorState({
   const { theme } = useApp();
   return (
     <View style={styles.wrap}>
-      <Text style={styles.emoji}>⚠️</Text>
+      <View style={[styles.iconCircle, { backgroundColor: withAlpha(theme.danger, 0.12), borderColor: withAlpha(theme.danger, 0.25) }]}>
+        <Text style={styles.emoji}>⚠️</Text>
+      </View>
       <Text style={[styles.title, { color: theme.text }]}>{title}</Text>
       {subtitle ? <Text style={[styles.sub, { color: theme.textDim }]}>{subtitle}</Text> : null}
       <View style={styles.btnRow}>
@@ -64,21 +71,18 @@ export function ErrorState({
   );
 }
 
-export function LoadingState({ label = 'Loading…' }: { label?: string }) {
+export function LoadingState({ label = 'Loading story universe…' }: { label?: string }) {
   const { theme } = useApp();
   return (
     <View style={styles.wrap}>
-      <ActivityIndicator size="large" color={theme.primary} />
+      <View style={[styles.loadingCircle, { borderColor: withAlpha(theme.primary, 0.25) }]}>
+        <ActivityIndicator size="large" color={theme.accent} />
+      </View>
       <Text style={[styles.sub, { color: theme.textDim, marginTop: SPACING.md }]}>{label}</Text>
     </View>
   );
 }
 
-/**
- * V2: polished offline / no-network state for story playback.
- * Story content now streams from the API, so when there is no connection we
- * show this and offer Retry — never silently falling back to cached content.
- */
 export function OfflineState({
   subtitle,
   retry,
@@ -95,7 +99,7 @@ export function OfflineState({
   const { theme } = useApp();
   return (
     <View style={styles.wrap}>
-      <View style={[styles.offlineIcon, { backgroundColor: theme.primarySoft }]}>
+      <View style={[styles.offlineIcon, { backgroundColor: theme.primarySoft, borderColor: withAlpha(theme.primary, 0.3) }]}>
         <Text style={styles.offlineIconText}>📡</Text>
       </View>
       <Text style={[styles.title, { color: theme.text }]}>Internet connection required</Text>
@@ -113,19 +117,37 @@ export function OfflineState({
 }
 
 const styles = StyleSheet.create({
-  wrap: { flex: 1, alignItems: 'center', justifyContent: 'center', padding: SPACING.xl, gap: 8 },
-  emoji: { fontSize: 52 },
-  offlineIcon: {
-    width: 72,
-    height: 72,
-    borderRadius: 36,
+  wrap: { flex: 1, alignItems: 'center', justifyContent: 'center', padding: SPACING.xl, gap: 10 },
+  iconCircle: {
+    width: 76,
+    height: 76,
+    borderRadius: 38,
+    borderWidth: 1,
     alignItems: 'center',
     justifyContent: 'center',
-    marginBottom: 4,
+    marginBottom: 6,
+  },
+  loadingCircle: {
+    width: 64,
+    height: 64,
+    borderRadius: 32,
+    borderWidth: 1,
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  emoji: { fontSize: 32 },
+  offlineIcon: {
+    width: 76,
+    height: 76,
+    borderRadius: 38,
+    borderWidth: 1,
+    alignItems: 'center',
+    justifyContent: 'center',
+    marginBottom: 6,
   },
   offlineIconText: { fontSize: 34 },
-  title: { fontSize: FONTS.heading, fontWeight: '800', textAlign: 'center' },
-  sub: { fontSize: FONTS.small, textAlign: 'center', lineHeight: 20 },
-  btn: { marginTop: SPACING.md, minWidth: 200 },
-  btnRow: { marginTop: SPACING.md, gap: 10, minWidth: 240 },
+  title: { fontSize: FONTS.heading, fontWeight: '800', textAlign: 'center', letterSpacing: -0.2 },
+  sub: { fontSize: FONTS.small, textAlign: 'center', lineHeight: 21, maxWidth: 320 },
+  btn: { marginTop: SPACING.md, minWidth: 190 },
+  btnRow: { marginTop: SPACING.md, gap: 10, minWidth: 230 },
 });

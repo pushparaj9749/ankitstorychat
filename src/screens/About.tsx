@@ -1,4 +1,6 @@
-/** About: version, links, Help the Developer (Coming Soon). */
+/**
+ * About Kissa — Version 2.4.1, links, credits.
+ */
 import React from 'react';
 import { Linking, Pressable, ScrollView, StyleSheet, Text, View } from 'react-native';
 import { LinearGradient } from 'expo-linear-gradient';
@@ -8,7 +10,7 @@ import type { RootStackParamList } from '../types';
 import { useApp } from '../state/AppContext';
 import { Screen } from '../components/Screen';
 import { GradientButton } from '../components/GradientButton';
-import { FONTS, GRADIENTS, RADIUS, SPACING } from '../theme';
+import { FONTS, GRADIENTS, RADIUS, SHADOWS, SPACING, TYPE, withAlpha } from '../theme';
 
 type Props = NativeStackScreenProps<RootStackParamList, 'About'>;
 
@@ -16,19 +18,19 @@ const REPO = 'https://github.com/pushparaj9749/ankitstorychat';
 
 export function About({ navigation }: Props) {
   const { theme } = useApp();
-  const version = Constants.expoConfig?.version ?? '1.0.0';
+  const version = Constants.expoConfig?.version ?? '2.4.1';
 
   return (
     <Screen>
       <ScrollView showsVerticalScrollIndicator={false} contentContainerStyle={styles.wrap}>
-        <LinearGradient colors={[...GRADIENTS.hero]} style={styles.logo}>
-          <Text style={[styles.logoText, { color: '#1A100C' }]}>कि</Text>
+        <LinearGradient colors={[...GRADIENTS.hero]} style={[styles.logo, SHADOWS.glowRose]}>
+          <Text style={styles.logoText}>✦</Text>
         </LinearGradient>
         <Text style={[styles.name, { color: theme.text }]}>Kissa</Text>
-        <Text style={[styles.ver, { color: theme.textDim }]}>v{version} • Local-first AI story chat</Text>
+        <Text style={[styles.ver, { color: theme.accent }]}>v{version} • Cinematic Interactive Story Platform</Text>
         <Text style={[styles.desc, { color: theme.textDim }]}>
           Tumhari kahani, tumhare words. Koi account nahi, koi coins nahi, koi message limits
-          nahi — bas kahaniyan. Sab kuch tumhare device par. 🔒
+          nahi — bas immersive kahaniyan. Sab kuch tumhare device par 100% private. 🔒
         </Text>
 
         <View style={styles.gap}>
@@ -41,25 +43,33 @@ export function About({ navigation }: Props) {
           <GradientButton title="🔒 Privacy Policy" variant="ghost" onPress={() => navigation.navigate('Privacy')} />
         </View>
 
-        <View style={[styles.dev, { backgroundColor: theme.surface, borderColor: theme.border }]}>
+        <View
+          style={[
+            styles.dev,
+            {
+              backgroundColor: withAlpha(theme.surface, 0.9),
+              borderColor: theme.border,
+            },
+            SHADOWS.card,
+          ]}
+        >
           <Text style={styles.devEmoji}>❤️</Text>
           <Text style={[styles.devTitle, { color: theme.text }]}>Help the Developer</Text>
-          <Text style={[styles.soon, { backgroundColor: theme.accentSoft, color: theme.accent }]}>
+          <Text style={[styles.soon, { backgroundColor: theme.primarySoft, color: theme.accent }]}>
             Coming Soon
           </Text>
           <Text style={[styles.devDesc, { color: theme.textDim }]}>
-            Voluntary donations aa rahe hain. Tab tak — stories khelo, doston ko batao, aur GitHub
-            par star ⭐ do! Koi payment kabhi zaroori nahi hoga.
+            Voluntary donations are on the way. Until then — immerse yourself in stories, share with fellow storytellers, and star ⭐ on GitHub!
           </Text>
           <Pressable onPress={() => void Linking.openURL(REPO)} accessibilityRole="button">
-            <Text style={[styles.link, { color: theme.primary }]}>Star on GitHub →</Text>
+            <Text style={[styles.link, { color: theme.accent }]}>Star on GitHub →</Text>
           </Pressable>
         </View>
 
         <Text style={[styles.credit, { color: theme.textFaint }]}>
-          Original stories, art & sounds crafted for Kissa. Made with ❤️ in India.
+          Original stories, artwork & sounds crafted for Kissa. Made with ❤️ in India.
         </Text>
-        <View style={{ height: SPACING.xl }} />
+        <View style={{ height: SPACING.xxl }} />
       </ScrollView>
     </Screen>
   );
@@ -67,11 +77,11 @@ export function About({ navigation }: Props) {
 
 const styles = StyleSheet.create({
   wrap: { alignItems: 'center', paddingTop: SPACING.xl },
-  logo: { width: 84, height: 84, borderRadius: 24, alignItems: 'center', justifyContent: 'center' },
-  logoText: { fontSize: 44, fontWeight: '900', color: '#fff' },
-  name: { fontSize: 30, fontWeight: '900', marginTop: 12 },
-  ver: { fontSize: FONTS.small, marginTop: 4 },
-  desc: { fontSize: FONTS.small, textAlign: 'center', lineHeight: 21, marginTop: 12, paddingHorizontal: 8 },
+  logo: { width: 76, height: 76, borderRadius: 24, alignItems: 'center', justifyContent: 'center' },
+  logoText: { fontSize: 38, fontWeight: '900', color: '#0E070B' },
+  name: { fontSize: 32, fontWeight: '900', marginTop: 14, letterSpacing: -0.5 },
+  ver: { fontSize: FONTS.small, marginTop: 4, fontWeight: '700' },
+  desc: { fontSize: FONTS.small, textAlign: 'center', lineHeight: 22, marginTop: 12, paddingHorizontal: 10 },
   gap: { width: '100%', marginTop: 10 },
   dev: {
     width: '100%',
@@ -81,10 +91,18 @@ const styles = StyleSheet.create({
     marginTop: SPACING.xl,
     alignItems: 'center',
   },
-  devEmoji: { fontSize: 40 },
+  devEmoji: { fontSize: 36 },
   devTitle: { fontSize: FONTS.heading, fontWeight: '800', marginTop: 8 },
-  soon: { fontSize: FONTS.tiny, fontWeight: '800', marginTop: 8, paddingHorizontal: 12, paddingVertical: 5, borderRadius: 999, overflow: 'hidden' },
-  devDesc: { fontSize: FONTS.small, textAlign: 'center', lineHeight: 20, marginTop: 10 },
-  link: { fontWeight: '700', marginTop: 10 },
-  credit: { fontSize: FONTS.tiny, textAlign: 'center', marginTop: SPACING.xl },
+  soon: {
+    fontSize: FONTS.tiny,
+    fontWeight: '800',
+    marginTop: 8,
+    paddingHorizontal: 12,
+    paddingVertical: 4,
+    borderRadius: RADIUS.pill,
+    overflow: 'hidden',
+  },
+  devDesc: { fontSize: FONTS.small, textAlign: 'center', lineHeight: 21, marginTop: 10 },
+  link: { fontWeight: '800', marginTop: 12, fontSize: FONTS.small },
+  credit: { fontSize: FONTS.tiny, textAlign: 'center', marginTop: SPACING.xl, lineHeight: 18 },
 });

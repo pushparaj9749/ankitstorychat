@@ -1,8 +1,13 @@
+/**
+ * Premium Kissa Buttons: Primary Luminous Gradient, Sunset Gold, Ghost Glass.
+ * Kissa v2.4.1.
+ */
 import React from 'react';
 import { ActivityIndicator, Pressable, StyleSheet, Text, View } from 'react-native';
 import { LinearGradient } from 'expo-linear-gradient';
 import { useApp } from '../state/AppContext';
 import { GRADIENTS, INK, RADIUS, SHADOWS, SPACING, withAlpha } from '../theme';
+import { lightBuzz } from '../lib/haptics';
 
 export function GradientButton({
   title,
@@ -22,10 +27,16 @@ export function GradientButton({
   icon?: string;
 }) {
   const { theme } = useApp();
+
+  const handlePress = () => {
+    lightBuzz();
+    onPress();
+  };
+
   if (variant === 'ghost') {
     return (
       <Pressable
-        onPress={onPress}
+        onPress={handlePress}
         disabled={disabled || loading}
         accessibilityRole="button"
         accessibilityLabel={accessibilityLabel ?? title}
@@ -33,14 +44,14 @@ export function GradientButton({
           styles.ghost,
           {
             borderColor: theme.border,
-            backgroundColor: withAlpha(theme.surface, pressed ? 0.9 : 1),
-            opacity: disabled ? 0.5 : 1,
+            backgroundColor: withAlpha(theme.surface, pressed ? 0.94 : 0.82),
+            opacity: disabled ? 0.45 : 1,
             transform: [{ scale: pressed ? 0.98 : 1 }],
           },
         ]}
       >
         {loading ? (
-          <ActivityIndicator color={theme.text} />
+          <ActivityIndicator color={theme.text} size="small" />
         ) : (
           <View style={styles.ghostInner}>
             {icon ? <Text style={[styles.ghostIcon, { color: theme.textDim }]}>{icon}</Text> : null}
@@ -50,16 +61,17 @@ export function GradientButton({
       </Pressable>
     );
   }
+
   const colors = variant === 'gold' ? GRADIENTS.gold : GRADIENTS.primary;
   return (
     <Pressable
-      onPress={onPress}
+      onPress={handlePress}
       disabled={disabled || loading}
       accessibilityRole="button"
       accessibilityLabel={accessibilityLabel ?? title}
       style={({ pressed }) => [
         styles.wrap,
-        { opacity: disabled ? 0.5 : 1, transform: [{ scale: pressed ? 0.98 : 1 }] },
+        { opacity: disabled ? 0.45 : 1, transform: [{ scale: pressed ? 0.98 : 1 }] },
         SHADOWS.glowAccent,
       ]}
     >
@@ -70,7 +82,7 @@ export function GradientButton({
         style={styles.grad}
       >
         {loading ? (
-          <ActivityIndicator color={INK} />
+          <ActivityIndicator color={INK} size="small" />
         ) : (
           <View style={styles.primaryInner}>
             {icon ? <Text style={styles.primaryIcon}>{icon}</Text> : null}
@@ -87,25 +99,27 @@ export function Row({ children }: { children: React.ReactNode }) {
 }
 
 const styles = StyleSheet.create({
-  wrap: { borderRadius: RADIUS.md, overflow: 'hidden' },
+  wrap: { borderRadius: RADIUS.pill, overflow: 'hidden' },
   grad: {
     paddingVertical: 14,
     paddingHorizontal: SPACING.xl,
     alignItems: 'center',
-    borderRadius: RADIUS.md,
+    justifyContent: 'center',
+    borderRadius: RADIUS.pill,
   },
-  primaryInner: { flexDirection: 'row', alignItems: 'center', gap: 8 },
+  primaryInner: { flexDirection: 'row', alignItems: 'center', justifyContent: 'center', gap: 8 },
   primaryIcon: { fontSize: 16 },
-  text: { color: INK, fontWeight: '800', fontSize: 15, letterSpacing: 0.3 },
+  text: { color: INK, fontWeight: '900', fontSize: 15, letterSpacing: 0.3 },
   ghost: {
     borderWidth: 1,
-    borderRadius: RADIUS.md,
+    borderRadius: RADIUS.pill,
     paddingVertical: 13,
+    paddingHorizontal: SPACING.lg,
     alignItems: 'center',
     justifyContent: 'center',
   },
-  ghostInner: { flexDirection: 'row', alignItems: 'center', gap: 8 },
-  ghostIcon: { fontSize: 14 },
-  ghostText: { fontWeight: '700', fontSize: 14, letterSpacing: 0.15 },
+  ghostInner: { flexDirection: 'row', alignItems: 'center', justifyContent: 'center', gap: 8 },
+  ghostIcon: { fontSize: 15 },
+  ghostText: { fontWeight: '700', fontSize: 14, letterSpacing: 0.2 },
   row: { flexDirection: 'row', gap: 10 },
 });

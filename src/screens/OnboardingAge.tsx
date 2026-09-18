@@ -1,4 +1,7 @@
-/** Onboarding screen 2: "How old are you?" — drives catalog filtering. */
+/**
+ * Onboarding Screen 2: "How old are you?" — drives catalog filtering.
+ * Kissa v2.4.1.
+ */
 import React, { useState } from 'react';
 import { Pressable, StyleSheet, Text, View } from 'react-native';
 import type { NativeStackScreenProps } from '@react-navigation/native-stack';
@@ -6,8 +9,9 @@ import type { AgeGroup, RootStackParamList } from '../types';
 import { useApp } from '../state/AppContext';
 import { Screen } from '../components/Screen';
 import { GradientButton } from '../components/GradientButton';
-import { FONTS, RADIUS, SPACING } from '../theme';
+import { FONTS, RADIUS, SHADOWS, SPACING, TYPE, withAlpha } from '../theme';
 import { nowIso } from '../lib/utils';
+import { lightBuzz } from '../lib/haptics';
 
 type Props = NativeStackScreenProps<RootStackParamList, 'OnboardingAge'>;
 
@@ -31,16 +35,20 @@ export function OnboardingAge({ navigation, route }: Props) {
     const selected = age === value;
     return (
       <Pressable
-        onPress={() => setAge(value)}
+        onPress={() => {
+          lightBuzz();
+          setAge(value);
+        }}
         accessibilityRole="radio"
         accessibilityState={{ selected }}
         accessibilityLabel={title}
         style={[
           styles.card,
           {
-            backgroundColor: selected ? theme.primarySoft : theme.surface,
-            borderColor: selected ? theme.primary : theme.border,
+            backgroundColor: selected ? theme.primarySoft : withAlpha(theme.surface, 0.9),
+            borderColor: selected ? theme.accent : theme.border,
           },
+          SHADOWS.card,
         ]}
       >
         <Text style={styles.emoji}>{emoji}</Text>
@@ -51,10 +59,10 @@ export function OnboardingAge({ navigation, route }: Props) {
         <View
           style={[
             styles.radio,
-            { borderColor: selected ? theme.primary : theme.textFaint },
+            { borderColor: selected ? theme.accent : theme.textFaint },
           ]}
         >
-          {selected ? <View style={[styles.radioDot, { backgroundColor: theme.primary }]} /> : null}
+          {selected ? <View style={[styles.radioDot, { backgroundColor: theme.accent }]} /> : null}
         </View>
       </Pressable>
     );
@@ -76,6 +84,7 @@ export function OnboardingAge({ navigation, route }: Props) {
         <Text style={[styles.note, { color: theme.textFaint }]}>
           Baad mein Settings → Profile se badal sakte ho.
         </Text>
+        <View style={{ height: SPACING.lg }} />
       </View>
     </Screen>
   );
@@ -83,29 +92,29 @@ export function OnboardingAge({ navigation, route }: Props) {
 
 const styles = StyleSheet.create({
   wrap: { flex: 1, paddingTop: SPACING.xxl },
-  title: { fontSize: 30, fontWeight: '900', marginBottom: SPACING.sm },
+  title: { fontSize: 30, fontWeight: '900', marginBottom: SPACING.sm, letterSpacing: -0.5 },
   sub: { fontSize: FONTS.body, lineHeight: 22, marginBottom: SPACING.xl },
   card: {
     flexDirection: 'row',
     alignItems: 'center',
-    borderWidth: 2,
+    borderWidth: 1.5,
     borderRadius: RADIUS.lg,
     padding: SPACING.lg,
     gap: SPACING.md,
   },
-  emoji: { fontSize: 36 },
+  emoji: { fontSize: 34 },
   cardBody: { flex: 1 },
   cardTitle: { fontSize: FONTS.heading, fontWeight: '800' },
-  cardDesc: { fontSize: FONTS.small, marginTop: 2 },
+  cardDesc: { fontSize: FONTS.small, marginTop: 3, lineHeight: 18 },
   radio: {
-    width: 24,
-    height: 24,
-    borderRadius: 12,
+    width: 22,
+    height: 22,
+    borderRadius: 11,
     borderWidth: 2,
     alignItems: 'center',
     justifyContent: 'center',
   },
-  radioDot: { width: 12, height: 12, borderRadius: 6 },
+  radioDot: { width: 10, height: 10, borderRadius: 5 },
   spacer: { flex: 1 },
   note: { fontSize: FONTS.tiny, textAlign: 'center', marginTop: SPACING.md },
 });

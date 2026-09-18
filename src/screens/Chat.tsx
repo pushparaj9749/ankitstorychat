@@ -1,10 +1,12 @@
 /**
- * Chat — AI-only interactive-fiction experience.
- * Offline mode removed as per requirement.
- * - Only AI mode, free chat with user's own provider (OpenAI-compatible).
- * - No recommended chips above input.
- * - Keyboard now correctly pushes input up (KeyboardAvoidingView fixed).
- * - AI replies are medium-short (40-90 words).
+ * Chat / Interactive Fiction Stage — Redesigned for Kissa v2.4.1.
+ *
+ * Immersive Stage Philosophy:
+ *  - Atmospheric character & narration bubbles with crisp distinctions
+ *  - Player messages with luminous accent styling
+ *  - Scene markers as chapter dividers
+ *  - Pinned keyboard-safe composer with smooth touch feedback
+ *  - Zero technical memory UI exposed
  */
 import React, { useEffect, useMemo, useRef, useState } from 'react';
 import {
@@ -73,14 +75,13 @@ import { completePlaythrough } from '../lib/playthrough';
 import { interpolatePlayerName, makePlayerTextFn } from '../lib/playerName';
 import { FONTS, RADIUS, SHADOWS, TYPE, withAlpha } from '../theme';
 import { nowIso, uid } from '../lib/utils';
-import { playReceive } from '../lib/sound';
-import { successBuzz } from '../lib/haptics';
+import { playReceive, playSend } from '../lib/sound';
+import { lightBuzz, successBuzz } from '../lib/haptics';
 
 type Props = NativeStackScreenProps<RootStackParamList, 'Chat'>;
 
 const PAGE = 40;
 
-/** Circular story face — contain-fitted inside a circle, never cover-cropped. */
 function ChatStoryFace({
   source,
   letter,
@@ -93,7 +94,7 @@ function ChatStoryFace({
   const [failed, setFailed] = useState(false);
   const initial = (letter?.trim()?.[0] ?? '?').toUpperCase();
   return (
-    <View style={[styles.face, { backgroundColor: `${accent}33`, borderColor: 'rgba(244,237,228,0.18)' }]}>
+    <View style={[styles.face, { backgroundColor: `${accent}2A`, borderColor: 'rgba(246,244,248,0.18)' }]}>
       {source && !failed ? (
         <Image
           source={source}
@@ -118,7 +119,6 @@ export function Chat({ navigation, route }: Props) {
   const [messages, setMessages] = useState<ChatMessage[]>([]);
   const [loading, setLoading] = useState(true);
   const [loadError, setLoadError] = useState<string | null>(null);
-  /** V2: playback needs the network; show the offline gate instead of an error. */
   const [offline, setOffline] = useState(false);
   const [reloadKey, setReloadKey] = useState(0);
   const [loadingMore, setLoadingMore] = useState(false);
@@ -146,7 +146,7 @@ export function Chat({ navigation, route }: Props) {
         const pt = await getPlaythrough(playthroughId);
         if (!pt) throw new Error('Journey not found. It may have been deleted.');
         if (!profile) throw new Error('Profile missing.');
-        // V2: content always streams from the API; pass the configured base.
+
         const b = await getBundle(pt.storyId, profile.ageGroup, settings.contentApiBaseUrl);
         const first = await listMessages(pt.id, PAGE);
         const total = await countMessages(pt.id);
@@ -158,7 +158,6 @@ export function Chat({ navigation, route }: Props) {
         setBundle(b);
         setMessages(first);
         setHasMore(total > first.length);
-        // Ensure world state exists for continuity (lazy init, offline-safe)
         void ensureWorldState(pt, b).catch(() => undefined);
       } catch (e) {
         if (!alive) return;
@@ -253,7 +252,6 @@ export function Chat({ navigation, route }: Props) {
     } else {
       await updatePlaythrough(next);
     }
-    // importance 3: curated facts must outrank episodic log lines (importance 1).
     if (memoryNotes.length) await rememberMany(pt.id, memoryNotes, 'story', 3);
     return { pt: next, sceneChanged };
   }
@@ -275,9 +273,9 @@ export function Chat({ navigation, route }: Props) {
     // Rank memories against the whole recent exchange, not just this one line.
     const query = [...history.slice(-2).map((m) => m.text), userText].join('\n');
 
-    // New god-level recall: world-state aware relevance
+    // Recall with world-state aware relevance
     const pool = await listMemoryCandidates([pt.id, '*']).catch(() => [] as any[]);
-    const summaryRaw = await recallForTurn(pt.id, query).then(r => r.summary).catch(() => '');
+    const summaryRaw = await recallForTurn(pt.id, query).then((r) => r.summary).catch(() => '');
     let relevant: any[] = [];
     let summary = summaryRaw;
     let wsForPrompt = worldState;
@@ -305,10 +303,11 @@ export function Chat({ navigation, route }: Props) {
         { role: 'user', content: userText },
       ],
     );
+
     const parsed = parseAssistantResponse(raw);
     const displayText = parsed.displayText || '...';
 
-    // God-level write pipeline: validates, checks contradictions, updates world state, stores facts
+    // Memory write pipeline
     try {
       await runMemoryWritePipeline({
         playthrough: pt,
@@ -319,81 +318,88 @@ export function Chat({ navigation, route }: Props) {
         worldState: wsForPrompt,
       });
     } catch {}
-    // Fallback episodic trace if pipeline didn't store (ensures continuity)
+
     void logEpisode(pt.id, userText, displayText).catch(() => undefined);
+    if (parsed.memoryNotes?.length) {
+      void rememberMany(pt.id, parsed.memoryNotes, 'story', 3).catch(() => undefined);
+    }
+    void rememberPreferences(userText).catch(() => undefined);
 
     const saved = await persistAssistantLines(
       pt,
       [{ role: 'assistant', speaker: parsed.speaker, text: displayText }],
       pt.currentSceneId,
     );
-    const { pt: next, sceneChanged } = await applyTurnEffects(
+    setMessages((prev) => [...saved.reverse(), ...prev]);
+
+    const { pt: updatedPt, sceneChanged } = await applyTurnEffects(
       pt,
       b,
       parsed.effects,
       parsed.memoryNotes,
     );
+    setPlaythrough(updatedPt);
+
     const summarize = (prompt: string) =>
       chatCompletion(activeProvider, apiKey, [{ role: 'user', content: prompt }], { timeoutMs: 30000 });
 
-    let extra: ChatMessage[] = [];
     if (sceneChanged) {
-      const sc = getScene(b, next.currentSceneId);
+      const sc = getScene(b, updatedPt.currentSceneId);
       const title = interpolatePlayerName(sc.title, profile?.nickname ?? '', {
         protectedNames: b.characters.characters.map((c) => c.name),
       });
-      extra = await persistAssistantLines(
-        next,
+      const extra = await persistAssistantLines(
+        updatedPt,
         [{ role: 'narration', speaker: null, text: `✦ ${title}` }],
-        next.currentSceneId,
+        updatedPt.currentSceneId,
       );
+      setMessages((prev) => [...extra.reverse(), ...prev]);
       void consolidateMemories(pt.id, summarize, { minLiveEpisodes: 12, keepLiveEpisodes: 4 }).catch(
         () => undefined,
       );
     }
 
-    if (next.messageCount % 8 === 0) {
+    if (updatedPt.messageCount % 8 === 0) {
       void consolidateMemories(pt.id, summarize).catch(() => undefined);
     }
-    return { saved: [...extra, ...saved], next };
+
+    playReceive(settings.sound);
+    if (settings.haptics) successBuzz();
   }
 
-  async function send(userText: string) {
-    const text = userText.trim();
-    if (!text || !playthrough || !bundle || sending) return;
+  async function send(textToSend: string) {
+    const clean = textToSend.trim();
+    if (!clean || !playthrough || !bundle || sending) return;
+
+    lightBuzz();
+    playSend(settings.sound);
     setSending(true);
     setAiError(null);
-    setLastUserText(text);
+    setLastUserText(clean);
+    setInput('');
+
+    const userMsg: ChatMessage = {
+      id: uid('m'),
+      playthroughId: playthrough.id,
+      role: 'user',
+      speaker: profile?.nickname ?? null,
+      text: clean,
+      sceneId: playthrough.currentSceneId,
+      createdAt: nowIso(),
+    };
+
+    await insertMessage(userMsg);
+    setMessages((prev) => [userMsg, ...prev]);
+    await updateStats({ messagesSent: 1 });
+
     try {
-      const userMsg: ChatMessage = {
-        id: uid('m'),
-        playthroughId: playthrough.id,
-        role: 'user',
-        speaker: null,
-        text,
-        sceneId: playthrough.currentSceneId,
-        createdAt: nowIso(),
-      };
-      await insertMessage(userMsg);
-      setMessages((prev) => [userMsg, ...prev]);
-      setInput('');
-      await updateStats({ messagesSent: 1 });
-
-      // Learned-about-the-reader facts are global: they survive into every other story.
-      await rememberPreferences(text);
-
-      const result = await aiTurn(playthrough, bundle, text);
-      setPlaythrough(result.next);
-      setMessages((prev) => [...result.saved, ...prev]);
-      playReceive(settings.sound);
-      if (result.next.status === 'completed') void successBuzz(settings.haptics);
-      await refreshRecent();
-    } catch (e) {
-      const err = (e as { code?: string })?.code
+      await aiTurn(playthrough, bundle, clean);
+    } catch (e: any) {
+      const err: AIError = e && typeof e === 'object' && 'code' in e
         ? (e as AIError)
         : {
-            code: 'provider_error' as const,
-            message: e instanceof Error ? e.message : 'Something went wrong.',
+            code: 'provider_error',
+            message: e instanceof Error ? e.message : 'AI error occurred',
             retryable: true,
           };
       setAiError(err);
@@ -409,10 +415,11 @@ export function Chat({ navigation, route }: Props) {
   if (loading) {
     return (
       <SafeAreaView style={[styles.safe, { backgroundColor: theme.bg }]}>
-        <LoadingState label="Opening your journey…" />
+        <LoadingState label="Entering story realm…" />
       </SafeAreaView>
     );
   }
+
   if (offline) {
     return (
       <SafeAreaView style={[styles.safe, { backgroundColor: theme.bg }]}>
@@ -425,6 +432,7 @@ export function Chat({ navigation, route }: Props) {
       </SafeAreaView>
     );
   }
+
   if (loadError || !playthrough || !bundle) {
     return (
       <SafeAreaView style={[styles.safe, { backgroundColor: theme.bg }]}>
@@ -450,11 +458,21 @@ export function Chat({ navigation, route }: Props) {
   }
 
   return (
-    <SafeAreaView style={[styles.safe, { backgroundColor: theme.bg }]} edges={['top', 'left', 'right', 'bottom']}>
+    <SafeAreaView
+      style={[styles.safe, { backgroundColor: theme.bg }]}
+      edges={['top', 'left', 'right', 'bottom']}
+    >
+      {/* Cinematic Chat Header */}
       <View style={[styles.header, { borderColor: theme.border, backgroundColor: theme.bgSoft }]}>
-        <Pressable onPress={() => navigation.goBack()} hitSlop={10} accessibilityLabel="Go back">
+        <Pressable
+          onPress={() => navigation.goBack()}
+          hitSlop={10}
+          accessibilityLabel="Go back"
+          style={styles.backBtn}
+        >
           <Text style={[styles.back, { color: theme.text }]}>‹</Text>
         </Pressable>
+
         <Pressable
           onPress={openStoryProfile}
           style={styles.headerIdentity}
@@ -471,36 +489,43 @@ export function Chat({ navigation, route }: Props) {
             </Text>
           </View>
         </Pressable>
+
         <View style={styles.headerRight}>
-          
           <View
             style={[
               styles.modeBtn,
               {
                 backgroundColor: aiReady ? theme.primarySoft : theme.surface,
-                borderColor: aiReady ? theme.primary : theme.border,
+                borderColor: aiReady ? theme.accent : theme.border,
               },
             ]}
           >
             <Text style={[styles.modeText, { color: aiReady ? theme.accent : theme.textDim }]}>
-              AI
+              ✦ AI
             </Text>
           </View>
         </View>
       </View>
+
+      {/* Role Banner */}
       {bundle.story.userRole ? (
-        <View style={[styles.roleBanner, { backgroundColor: theme.surface, borderColor: theme.border }]}>
-          <Text style={[styles.roleLabel, { color: theme.textFaint }]}>YOU ARE</Text>
+        <View
+          style={[
+            styles.roleBanner,
+            { backgroundColor: withAlpha(theme.surface, 0.95), borderColor: theme.border },
+          ]}
+        >
+          <Text style={[styles.roleLabel, { color: theme.accent }]}>YOU ARE</Text>
           <Text style={[styles.roleText, { color: theme.text }]} numberOfLines={1}>
             {makePlayerTextFn(bundle.meta, profile?.nickname)(bundle.story.userRole)}
           </Text>
         </View>
       ) : null}
 
+      {/* Keyboard-Safe Interactive Chat View */}
       <KeyboardAvoidingView
-        behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
+        behavior={Platform.OS === 'ios' ? 'padding' : undefined}
         style={styles.flex}
-        keyboardVerticalOffset={Platform.OS === 'ios' ? 0 : 0}
       >
         <FlatList
           ref={listRef}
@@ -518,9 +543,14 @@ export function Chat({ navigation, route }: Props) {
           removeClippedSubviews={false}
           ListHeaderComponent={
             <>
-              {sending ? <TypingIndicator label="AI soch raha hai…" /> : null}
+              {sending ? <TypingIndicator label="AI is shaping the story…" /> : null}
               {aiError ? (
-                <View style={[styles.errCard, { backgroundColor: theme.surface, borderColor: theme.danger }]}>
+                <View
+                  style={[
+                    styles.errCard,
+                    { backgroundColor: theme.surface, borderColor: theme.danger },
+                  ]}
+                >
                   <Text style={[styles.errTitle, { color: theme.text }]}>
                     Couldn't generate a response.
                   </Text>
@@ -555,13 +585,19 @@ export function Chat({ navigation, route }: Props) {
           renderItem={({ item }) => <ChatBubble message={item} />}
         />
 
-        <View style={[styles.inputBar, { borderColor: theme.border, backgroundColor: theme.bgSoft }]}>
+        {/* Pinned Minimal Chat Composer */}
+        <View
+          style={[
+            styles.inputBar,
+            { borderColor: theme.border, backgroundColor: theme.bgSoft },
+          ]}
+        >
           <TextInput
             value={input}
             onChangeText={setInput}
             placeholder={
               playthrough.status === 'completed'
-                ? 'Journey complete — replay for new endings…'
+                ? 'Journey completed — replay for new endings…'
                 : 'Apni line likho…'
             }
             placeholderTextColor={theme.textFaint}
@@ -581,7 +617,11 @@ export function Chat({ navigation, route }: Props) {
             accessibilityLabel="Send"
             style={[
               styles.send,
-              { backgroundColor: theme.accent, opacity: sending || !input.trim() ? 0.5 : 1 },
+              {
+                backgroundColor: theme.accent,
+                opacity: sending || !input.trim() ? 0.45 : 1,
+              },
+              SHADOWS.glowAccent,
             ]}
           >
             <Text style={styles.sendText}>➤</Text>
@@ -595,45 +635,53 @@ export function Chat({ navigation, route }: Props) {
 const styles = StyleSheet.create({
   safe: { flex: 1 },
   flex: { flex: 1 },
-  roleBanner: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    gap: 10,
-    paddingHorizontal: 16,
-    paddingVertical: 10,
-    borderBottomWidth: StyleSheet.hairlineWidth,
-  },
-  roleLabel: { ...TYPE.caption, letterSpacing: 1.3, opacity: 0.9 },
-  roleText: { flex: 1, fontSize: FONTS.small, fontWeight: '700', letterSpacing: 0.1 },
   header: {
     flexDirection: 'row',
     alignItems: 'center',
-    paddingHorizontal: 12,
-    paddingVertical: 11,
+    paddingHorizontal: 14,
+    paddingVertical: 10,
     borderBottomWidth: StyleSheet.hairlineWidth,
     gap: 10,
     ...SHADOWS.card,
   },
-  back: { fontSize: 30, fontWeight: '400', marginTop: -4, letterSpacing: 0.2 },
+  backBtn: {
+    paddingRight: 4,
+  },
+  back: { fontSize: 32, fontWeight: '300', marginTop: -4 },
   headerIdentity: { flex: 1, flexDirection: 'row', alignItems: 'center', gap: 10, minWidth: 0 },
   face: {
-    width: 42,
-    height: 42,
-    borderRadius: 21,
+    width: 40,
+    height: 40,
+    borderRadius: 20,
     overflow: 'hidden',
     borderWidth: 1,
     alignItems: 'center',
     justifyContent: 'center',
     ...SHADOWS.card,
   },
-  faceImg: { width: 42, height: 42 },
-  faceLetter: { fontSize: 16, fontWeight: '900', letterSpacing: -0.2 },
+  faceImg: { width: 40, height: 40 },
+  faceLetter: { fontSize: 16, fontWeight: '900' },
   headerBody: { flex: 1, minWidth: 0 },
   headerTitle: { ...TYPE.subheading, letterSpacing: -0.2 },
   headerSub: { ...TYPE.tiny, letterSpacing: 0.2, marginTop: 1 },
   headerRight: { flexDirection: 'row', alignItems: 'center', gap: 8 },
-  modeBtn: { borderWidth: 1, borderRadius: RADIUS.pill, paddingHorizontal: 12, paddingVertical: 7 },
-  modeText: { fontSize: FONTS.small, fontWeight: '800', letterSpacing: 0.3 },
+  modeBtn: {
+    borderWidth: 1,
+    borderRadius: RADIUS.pill,
+    paddingHorizontal: 11,
+    paddingVertical: 6,
+  },
+  modeText: { fontSize: FONTS.tiny, fontWeight: '800', letterSpacing: 0.4 },
+  roleBanner: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: 10,
+    paddingHorizontal: 16,
+    paddingVertical: 9,
+    borderBottomWidth: StyleSheet.hairlineWidth,
+  },
+  roleLabel: { ...TYPE.caption, letterSpacing: 1.4, fontWeight: '900' },
+  roleText: { flex: 1, fontSize: FONTS.small, fontWeight: '700', letterSpacing: 0.1 },
   list: { paddingHorizontal: 12, paddingVertical: 10, gap: 2 },
   more: { textAlign: 'center', fontSize: FONTS.tiny, padding: 10, letterSpacing: 0.2 },
   inputBar: {
@@ -641,8 +689,8 @@ const styles = StyleSheet.create({
     alignItems: 'flex-end',
     gap: 10,
     paddingHorizontal: 12,
-    paddingVertical: 12,
-    borderTopWidth: 1,
+    paddingVertical: 10,
+    borderTopWidth: StyleSheet.hairlineWidth,
     ...SHADOWS.floating,
   },
   input: {
@@ -650,25 +698,30 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     borderRadius: 22,
     paddingHorizontal: 16,
-    paddingVertical: 11,
+    paddingVertical: 10,
     fontSize: 15,
     lineHeight: 20,
     maxHeight: 120,
     letterSpacing: 0.1,
   },
   send: {
-    width: 46,
-    height: 46,
-    borderRadius: 23,
+    width: 44,
+    height: 44,
+    borderRadius: 22,
     alignItems: 'center',
     justifyContent: 'center',
-    ...SHADOWS.card,
   },
-  sendText: { color: '#1A100C', fontSize: 18, fontWeight: '900', marginLeft: 1 },
+  sendText: { color: '#0E070B', fontSize: 16, fontWeight: '900', marginLeft: 2 },
   errCard: { borderWidth: 1, borderRadius: RADIUS.lg, padding: 14, marginVertical: 10, ...SHADOWS.card },
   errTitle: { ...TYPE.subheading },
   errSub: { fontSize: FONTS.small, marginTop: 6, lineHeight: 19, opacity: 0.9 },
   errBtns: { flexDirection: 'row', gap: 8, marginTop: 12 },
-  errBtn: { paddingHorizontal: 14, paddingVertical: 10, borderRadius: RADIUS.pill, borderWidth: 1, borderColor: 'transparent' },
+  errBtn: {
+    paddingHorizontal: 14,
+    paddingVertical: 9,
+    borderRadius: RADIUS.pill,
+    borderWidth: 1,
+    borderColor: 'transparent',
+  },
   errBtnText: { color: '#fff', fontWeight: '800', fontSize: FONTS.small, letterSpacing: 0.2 },
 });

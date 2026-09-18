@@ -1,9 +1,12 @@
-/** Shared legal-document renderer (Terms, Privacy). */
+/**
+ * Shared legal-document renderer (Terms, Privacy).
+ * Kissa v2.4.1.
+ */
 import React from 'react';
 import { ScrollView, StyleSheet, Text, View } from 'react-native';
 import { useApp } from '../state/AppContext';
 import { Screen } from '../components/Screen';
-import { FONTS, SPACING } from '../theme';
+import { FONTS, RADIUS, SPACING, TYPE, withAlpha } from '../theme';
 
 export interface LegalSectionT {
   heading: string;
@@ -25,10 +28,20 @@ export function LegalDoc({
   return (
     <Screen>
       <ScrollView showsVerticalScrollIndicator={false}>
-        <Text style={[styles.title, { color: theme.text }]}>{title}</Text>
-        <Text style={[styles.updated, { color: theme.textFaint }]}>Updated: {updated}</Text>
+        <View style={styles.header}>
+          <Text style={[styles.kicker, { color: theme.accent }]}>LEGAL & POLICIES</Text>
+          <Text style={[styles.title, { color: theme.text }]}>{title}</Text>
+          <Text style={[styles.updated, { color: theme.textFaint }]}>Last Updated: {updated}</Text>
+        </View>
+
         {sections.map((s) => (
-          <View key={s.heading} style={styles.section}>
+          <View
+            key={s.heading}
+            style={[
+              styles.sectionCard,
+              { backgroundColor: withAlpha(theme.surface, 0.85), borderColor: theme.border },
+            ]}
+          >
             <Text style={[styles.heading, { color: theme.accent }]}>{s.heading}</Text>
             {s.body.map((p, i) => (
               <Text key={i} style={[styles.para, { color: theme.textDim }]}>
@@ -37,18 +50,26 @@ export function LegalDoc({
             ))}
           </View>
         ))}
+
         {footer ? <Text style={[styles.footer, { color: theme.textFaint }]}>{footer}</Text> : null}
-        <View style={{ height: SPACING.xxl }} />
+        <View style={{ height: SPACING.xxxl }} />
       </ScrollView>
     </Screen>
   );
 }
 
 const styles = StyleSheet.create({
-  title: { fontSize: 26, fontWeight: '900', marginTop: 8 },
+  header: { paddingTop: 6, paddingBottom: 10 },
+  kicker: { ...TYPE.overline, marginTop: 4 },
+  title: { ...TYPE.title, marginTop: 2 },
   updated: { fontSize: FONTS.small, marginTop: 4, marginBottom: 8 },
-  section: { marginTop: 16 },
-  heading: { fontSize: FONTS.body, fontWeight: '800', marginBottom: 6 },
-  para: { fontSize: FONTS.small, lineHeight: 21, marginBottom: 8 },
-  footer: { fontSize: FONTS.tiny, marginTop: 20, fontStyle: 'italic', lineHeight: 18 },
+  sectionCard: {
+    borderWidth: 1,
+    borderRadius: RADIUS.lg,
+    padding: 16,
+    marginTop: 12,
+  },
+  heading: { fontSize: FONTS.body, fontWeight: '800', marginBottom: 8 },
+  para: { fontSize: FONTS.small, lineHeight: 22, marginBottom: 8 },
+  footer: { fontSize: FONTS.tiny, marginTop: 24, fontStyle: 'italic', lineHeight: 18, textAlign: 'center' },
 });

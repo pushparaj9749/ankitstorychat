@@ -1,4 +1,7 @@
-/** Notifications: local-only reminders + update alerts. Opt-in. */
+/**
+ * Notifications Settings: Local reminders & content alerts.
+ * Kissa v2.4.1.
+ */
 import React, { useEffect, useState } from 'react';
 import { Alert, StyleSheet, Switch, Text, View } from 'react-native';
 import * as Notifications from 'expo-notifications';
@@ -14,7 +17,7 @@ import {
   requestPermission,
   scheduleDailyReminder,
 } from '../lib/notifications';
-import { FONTS, RADIUS, SPACING } from '../theme';
+import { FONTS, RADIUS, SHADOWS, SPACING, TYPE, withAlpha } from '../theme';
 
 type Props = NativeStackScreenProps<RootStackParamList, 'SettingsNotifications'>;
 
@@ -33,8 +36,8 @@ export function SettingsNotifications(_props: Props) {
       const ok = await requestPermission();
       if (!ok) {
         Alert.alert(
-          'Permission chahiye',
-          'Reminders ke liye notification permission do — phone Settings mein allow karo.',
+          'Permission Required',
+          'Please allow notifications in your phone system settings to receive story reminders.',
         );
         setPerm(await permissionStatus());
         return;
@@ -68,8 +71,8 @@ export function SettingsNotifications(_props: Props) {
   async function sendTest() {
     await Notifications.scheduleNotificationAsync({
       content: {
-        title: 'Kissa 📖 (test)',
-        body: 'Reminders kaam kar rahe hain! Ab kahani continue karo. 😉',
+        title: 'Kissa ✦ (test)',
+        body: 'Story reminders are active! Your interactive stories await. ✨',
         data: { kind: 'test' },
       },
       trigger: null,
@@ -80,35 +83,39 @@ export function SettingsNotifications(_props: Props) {
 
   return (
     <Screen>
-      <Text style={[styles.title, { color: theme.text }]}>Notifications</Text>
+      <View style={styles.header}>
+        <Text style={[styles.kicker, { color: theme.accent }]}>ALERTS & NUDGES</Text>
+        <Text style={[styles.title, { color: theme.text }]}>Notifications</Text>
+      </View>
+
       <Text style={[styles.perm, { color: theme.textDim }]}>
-        System permission: <Text style={{ color: theme.accent, fontWeight: '700' }}>{perm}</Text>
-        {'\n'}100% local — koi server nahi, koi tracking nahi. 🔒
+        System Status: <Text style={{ color: theme.accent, fontWeight: '800' }}>{perm}</Text>
+        {'\n'}100% local reminders — no tracking, no ad notifications. 🔒
       </Text>
 
-      <SectionHeader title="General" />
+      <SectionHeader title="Preferences" kicker="Toggle" />
       <ToggleRow
-        label="Enable notifications"
+        label="Enable Notifications"
         desc="Master switch for all Kissa reminders"
         value={n.enabled}
         onChange={(v) => void setEnabled(v)}
       />
       <ToggleRow
-        label="Story reminders"
-        desc="Daily nudge to continue your story"
+        label="Daily Story Nudges"
+        desc="Gentle evening reminder to continue your journey"
         value={n.storyReminders}
         onChange={(v) => void setReminders(v)}
       />
       <ToggleRow
-        label="New story alerts"
-        desc="Tell me when new stories arrive in the catalog"
+        label="New Story Drops"
+        desc="Alerts when new stories arrive in the catalog"
         value={n.contentUpdates}
         onChange={(v) =>
           void updateSettings({ notifications: { ...n, contentUpdates: v } })
         }
       />
 
-      <SectionHeader title="Reminder time" />
+      <SectionHeader title="Reminder Hour" kicker="Schedule" />
       <View style={styles.hours}>
         {HOURS.map((h) => (
           <SelectableChip
@@ -121,7 +128,8 @@ export function SettingsNotifications(_props: Props) {
       </View>
 
       <View style={{ height: SPACING.xl }} />
-      <GradientButton title="Send test reminder" variant="ghost" onPress={() => void sendTest()} />
+      <GradientButton title="Send Test Reminder" variant="ghost" onPress={() => void sendTest()} />
+      <View style={{ height: SPACING.xxl }} />
     </Screen>
   );
 }
@@ -139,25 +147,38 @@ function ToggleRow({
 }) {
   const { theme } = useApp();
   return (
-    <View style={[styles.row, { backgroundColor: theme.surface, borderColor: theme.border }]}>
+    <View
+      style={[
+        styles.row,
+        { backgroundColor: withAlpha(theme.surface, 0.9), borderColor: theme.border },
+        SHADOWS.card,
+      ]}
+    >
       <View style={styles.body}>
         <Text style={[styles.label, { color: theme.text }]}>{label}</Text>
         <Text style={[styles.desc, { color: theme.textDim }]}>{desc}</Text>
       </View>
-      <Switch value={value} onValueChange={onChange} />
+      <Switch
+        value={value}
+        onValueChange={onChange}
+        trackColor={{ false: theme.surface2, true: theme.primary }}
+        thumbColor={value ? theme.accent : theme.textFaint}
+      />
     </View>
   );
 }
 
 const styles = StyleSheet.create({
-  title: { fontSize: 24, fontWeight: '900', marginTop: 8 },
+  header: { paddingTop: 6, paddingBottom: 4 },
+  kicker: { ...TYPE.overline, marginTop: 4 },
+  title: { ...TYPE.title, marginTop: 2 },
   perm: { fontSize: FONTS.small, marginTop: 6, lineHeight: 20 },
   row: {
     flexDirection: 'row',
     alignItems: 'center',
     borderWidth: 1,
-    borderRadius: RADIUS.md,
-    padding: 14,
+    borderRadius: RADIUS.lg,
+    padding: 16,
     marginBottom: 10,
   },
   body: { flex: 1 },

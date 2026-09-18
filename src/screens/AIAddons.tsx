@@ -1,6 +1,6 @@
 /**
- * AI Add-ons: user configures their OWN AI provider.
- * Offline mode removed — AI is now mandatory.
+ * AI Setup / Providers — Redesigned for Kissa v2.4.1.
+ * Mandatory AI configuration with clean visual cards.
  */
 import React, { useEffect, useState } from 'react';
 import { Alert, FlatList, Pressable, StyleSheet, Text, View } from 'react-native';
@@ -13,7 +13,7 @@ import { SectionHeader } from '../components/bits';
 import { EmptyState } from '../components/states';
 import { deleteProvider } from '../lib/db';
 import { deleteApiKey } from '../lib/secureKeys';
-import { FONTS, RADIUS, SPACING } from '../theme';
+import { FONTS, RADIUS, SHADOWS, SPACING, TYPE, withAlpha } from '../theme';
 
 type Props = NativeStackScreenProps<RootStackParamList, 'AIAddons'>;
 
@@ -26,7 +26,7 @@ export function AIAddons({ navigation }: Props) {
     updateSettings,
     refreshProviders,
   } = useApp();
-  const [busy, setBusy] = useState(false);
+  const [_busy, setBusy] = useState(false);
 
   useEffect(() => {
     const unsub = navigation.addListener('focus', () => void refreshProviders());
@@ -61,22 +61,35 @@ export function AIAddons({ navigation }: Props) {
 
   return (
     <Screen>
-      <Text style={[styles.title, { color: theme.text }]}>AI Setup</Text>
-      <View style={[styles.info, { backgroundColor: theme.surface, borderColor: theme.border }]}>
+      <View style={styles.header}>
+        <Text style={[styles.kicker, { color: theme.accent }]}>INTELLIGENCE ENGINE</Text>
+        <Text style={[styles.title, { color: theme.text }]}>AI Setup</Text>
+      </View>
+
+      <View
+        style={[
+          styles.info,
+          {
+            backgroundColor: withAlpha(theme.surface, 0.92),
+            borderColor: theme.border,
+          },
+          SHADOWS.card,
+        ]}
+      >
         <Text style={[styles.infoText, { color: theme.textDim }]}>
-          <Text style={{ color: theme.success, fontWeight: '800' }}>AI ONLY MODE</Text>
-          {' — Offline mode hata diya gaya hai. Ab sirf AI chat available hai.\n\n'}
-          <Text style={{ color: theme.accent, fontWeight: '800' }}>API KEY:</Text>
-          {' — tum apni API key lagate ho; key sirf tumhare device par rehti hai 🔒 Provider ke rates apply honge.'}
+          <Text style={{ color: theme.accent, fontWeight: '800' }}>✦ AI STORY CHAT:</Text>
+          {' Kissa brings characters to life with an OpenAI-compatible LLM.\n\n'}
+          <Text style={{ color: theme.accentAmber, fontWeight: '800' }}>🔒 PRIVATE API KEY:</Text>
+          {' Your key stays encrypted on your device and is never sent to our servers.'}
         </Text>
       </View>
 
-      <SectionHeader title="Your providers" />
+      <SectionHeader title="Your Providers" kicker="Configured" />
       {providers.length === 0 ? (
         <EmptyState
           emoji="🔑"
-          title="No AI provider yet"
-          subtitle="Apni API key add karo. Bina iske chat nahi chalega."
+          title="No AI provider added"
+          subtitle="Add an API key to bring story characters and worlds to life."
         />
       ) : (
         <FlatList
@@ -91,26 +104,35 @@ export function AIAddons({ navigation }: Props) {
                 style={[
                   styles.card,
                   {
-                    backgroundColor: active ? theme.primarySoft : theme.surface,
-                    borderColor: active ? theme.primary : theme.border,
+                    backgroundColor: active ? theme.primarySoft : withAlpha(theme.surface, 0.88),
+                    borderColor: active ? theme.accent : theme.border,
                   },
+                  SHADOWS.card,
                 ]}
               >
                 <View style={styles.body}>
-                  <Text style={[styles.name, { color: theme.text }]}>
-                    {p.name} {active ? '✓' : ''}
-                  </Text>
+                  <View style={styles.nameRow}>
+                    <Text style={[styles.name, { color: theme.text }]}>{p.name}</Text>
+                    {active ? (
+                      <View style={[styles.activeBadge, { backgroundColor: theme.accent }]}>
+                        <Text style={styles.activeBadgeText}>ACTIVE</Text>
+                      </View>
+                    ) : null}
+                  </View>
                   <Text style={[styles.sub, { color: theme.textDim }]} numberOfLines={1}>
-                    {p.model || '(no model)'} • {hasKey ? '🔑 key saved' : '⚠️ no key'}
+                    {p.model || '(no model)'} • {hasKey ? '🔑 Key Encrypted' : '⚠️ No key'}
                   </Text>
-                  <Text style={[styles.sub, { color: theme.textFaint }]} numberOfLines={1}>
+                  <Text style={[styles.subUrl, { color: theme.textFaint }]} numberOfLines={1}>
                     {p.baseUrl}
                   </Text>
                 </View>
                 <View style={styles.actions}>
                   {!active ? (
-                    <Pressable onPress={() => void setActive(p.id)} style={styles.link}>
-                      <Text style={[styles.linkText, { color: theme.primary }]}>Use</Text>
+                    <Pressable
+                      onPress={() => void setActive(p.id)}
+                      style={[styles.useBtn, { backgroundColor: theme.primary }]}
+                    >
+                      <Text style={styles.useBtnText}>Use</Text>
                     </Pressable>
                   ) : null}
                   <Pressable
@@ -130,35 +152,48 @@ export function AIAddons({ navigation }: Props) {
       )}
 
       <View style={{ height: SPACING.md }} />
-      <GradientButton title="+ Add AI provider" onPress={() => navigation.navigate('ProviderEditor', {})} />
-      <View style={{ height: SPACING.md }} />
-      {!settings.activeProviderId && providers.length > 0 ? (
-        <Text style={[styles.hint, { color: theme.textFaint }]}>
-          Tip: Kisi provider par 'Use' tap karo to active banao.
-        </Text>
-      ) : null}
+      <GradientButton
+        title="+ Add AI Provider"
+        onPress={() => navigation.navigate('ProviderEditor', {})}
+      />
+      <View style={{ height: SPACING.xl }} />
     </Screen>
   );
 }
 
 const styles = StyleSheet.create({
-  title: { fontSize: 24, fontWeight: '900', marginTop: 8, marginBottom: 12 },
-  info: { borderWidth: 1, borderRadius: RADIUS.md, padding: 12 },
-  infoText: { fontSize: FONTS.small, lineHeight: 20 },
+  header: { paddingTop: 6, paddingBottom: 4 },
+  kicker: { ...TYPE.overline, marginTop: 4 },
+  title: { ...TYPE.title, marginTop: 2 },
+  info: { borderWidth: 1, borderRadius: RADIUS.lg, padding: 14, marginTop: 10 },
+  infoText: { fontSize: FONTS.small, lineHeight: 21 },
   card: {
     flexDirection: 'row',
     alignItems: 'center',
-    borderWidth: 2,
-    borderRadius: RADIUS.md,
-    padding: 12,
-    gap: 10,
+    borderWidth: 1.5,
+    borderRadius: RADIUS.lg,
+    padding: 14,
+    gap: 12,
     marginBottom: 10,
   },
-  body: { flex: 1 },
+  body: { flex: 1, gap: 2 },
+  nameRow: { flexDirection: 'row', alignItems: 'center', gap: 8 },
   name: { fontSize: FONTS.body, fontWeight: '800' },
+  activeBadge: {
+    paddingHorizontal: 7,
+    paddingVertical: 2,
+    borderRadius: RADIUS.pill,
+  },
+  activeBadgeText: { color: '#0E070B', fontSize: 9, fontWeight: '900', letterSpacing: 0.5 },
   sub: { fontSize: FONTS.small, marginTop: 2 },
-  actions: { gap: 6, alignItems: 'flex-end' },
+  subUrl: { fontSize: FONTS.tiny, marginTop: 1 },
+  actions: { gap: 8, alignItems: 'flex-end' },
+  useBtn: {
+    paddingHorizontal: 12,
+    paddingVertical: 5,
+    borderRadius: RADIUS.pill,
+  },
+  useBtnText: { color: '#fff', fontSize: 11, fontWeight: '800' },
   link: { paddingVertical: 2, paddingHorizontal: 4 },
   linkText: { fontWeight: '700', fontSize: FONTS.small },
-  hint: { fontSize: FONTS.tiny, textAlign: 'center', marginTop: 8 },
 });
