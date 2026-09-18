@@ -1,7 +1,7 @@
 {
-  "contentVersion": 21,
+  "contentVersion": 22,
   "minAppVersion": "1.0.0",
-  "updatedAt": "2026-09-18T03:00:00.000Z",
+  "updatedAt": "2026-09-18T04:00:00.000Z",
   "stories": [
     {
       "id": "goddess-who-chose-me",
@@ -709,7 +709,7 @@
       "ageRating": "18+",
       "contentLevel": "mature",
       "language": "hinglish",
-      "version": 2,
+      "version": 3,
       "coverBundled": "night-courier",
       "coverUrl": "stories/night-courier/assets/cover.jpg",
       "accentColor": "#818CF8",
@@ -720,7 +720,7 @@
       "isNew": true,
       "popularity": 91,
       "storyDir": "night-courier",
-      "updatedAt": "2026-09-16T07:12:02.819Z",
+      "updatedAt": "2026-09-18T04:00:00.000Z",
       "creator": {
         "name": "Ankit",
         "avatar": null,
@@ -967,7 +967,7 @@
       "ageRating": "18+",
       "contentLevel": "mature",
       "language": "hinglish",
-      "version": 1,
+      "version": 2,
       "coverBundled": "pahadon-wali-haveli",
       "accentColor": "#A855F7",
       "userRole": "City heir visiting an inherited hill haveli",
@@ -977,12 +977,13 @@
       "isNew": true,
       "popularity": 85,
       "storyDir": "pahadon-wali-haveli",
-      "updatedAt": "2026-09-11T00:00:00.000Z",
+      "updatedAt": "2026-09-18T04:00:00.000Z",
       "creator": {
         "name": "Ankit",
         "avatar": null,
         "verified": true
-      }
+      },
+      "coverUrl": "stories/pahadon-wali-haveli/assets/cover.jpg"
     },
     {
       "id": "bhabi-ka-ladla-devar",

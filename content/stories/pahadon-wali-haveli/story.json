@@ -2,7 +2,7 @@
   "id": "pahadon-wali-haveli",
   "title": "Pahaadon Wali Haveli",
   "description": "Viraasat mein mili haveli... aur usmein rehne wali 'Baai'. Horror mystery.",
-  "version": 1,
+  "version": 2,
   "language": "hinglish",
   "ageRating": "18+",
   "contentLevel": "mature",
@@ -39,6 +39,42 @@
         "file": "assets/cover.jpg",
         "kind": "cover",
         "label": "Cover"
+      },
+      {
+        "id": "haveli-path",
+        "file": "assets/gallery/image-01.jpg",
+        "kind": "scene",
+        "label": "Kohre mein haveli",
+        "sceneId": "s1_arrival"
+      },
+      {
+        "id": "bisht-portrait",
+        "file": "assets/gallery/image-02.jpg",
+        "kind": "character-portrait",
+        "label": "Bisht",
+        "characterId": "bisht"
+      },
+      {
+        "id": "diary-room",
+        "file": "assets/gallery/image-03.jpg",
+        "kind": "scene",
+        "label": "Dadi ke alfaaz",
+        "sceneId": "s2_diary"
+      },
+      {
+        "id": "baai-mulaqat",
+        "file": "assets/gallery/image-04.jpg",
+        "kind": "character-portrait",
+        "label": "Baai",
+        "characterId": "baai",
+        "sceneId": "s3_baai"
+      },
+      {
+        "id": "sookha-fountain",
+        "file": "assets/gallery/image-05.jpg",
+        "kind": "scene",
+        "label": "Garden ki samaadhi",
+        "sceneId": "s4_pages"
       }
     ]
   }
