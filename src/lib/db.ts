@@ -19,7 +19,7 @@ import type {
 import { DEFAULT_SETTINGS } from '../types';
 
 const DB_NAME = 'kissa.db';
-const SCHEMA_VERSION = 4;
+const SCHEMA_VERSION = 5;
 
 let dbPromise: Promise<SQLite.SQLiteDatabase> | null = null;
 
@@ -126,6 +126,23 @@ async function migrate(db: SQLite.SQLiteDatabase): Promise<void> {
       } catch {
         /* column/index already present */
       }
+    }
+  }
+
+  if (current < 5) {
+    try {
+      await db.execAsync(`
+        CREATE TABLE IF NOT EXISTS world_states (
+          playthrough_id TEXT PRIMARY KEY,
+          story_id TEXT NOT NULL,
+          state TEXT NOT NULL,
+          version INTEGER NOT NULL DEFAULT 2,
+          updated_at TEXT NOT NULL
+        );
+        CREATE INDEX IF NOT EXISTS idx_world_states_story ON world_states(story_id);
+      `);
+    } catch {
+      /* table already present */
     }
   }
 
@@ -354,6 +371,15 @@ export async function deletePlaythrough(id: string): Promise<void> {
   await db.runAsync('DELETE FROM messages WHERE playthrough_id = ?', id);
   await db.runAsync('DELETE FROM memories WHERE playthrough_id = ?', id);
   await db.runAsync('DELETE FROM playthroughs WHERE id = ?', id);
+  try {
+    await db.runAsync('DELETE FROM world_states WHERE playthrough_id = ?', id);
+  } catch {}
+  // KV mirror (worldState:<id>)
+  try {
+    await db.runAsync('DELETE FROM kv WHERE key = ?', `worldState:${id}`);
+    await db.runAsync('DELETE FROM kv WHERE key = ?', `worldStatePrev:${id}`);
+    await db.runAsync('DELETE FROM kv WHERE key = ?', `worldStateSchema:${id}`);
+  } catch {}
 }
 
 export async function deletePlaythroughsForStory(storyId: string): Promise<void> {
@@ -822,6 +848,10 @@ export async function getProvider(id: string): Promise<AIProvider | null> {
 
 export async function clearAllUserData(): Promise<void> {
   const db = await getDb();
+  // Best-effort: world_states may not exist on old installs until migration runs
+  try {
+    await db.execAsync('DELETE FROM world_states;');
+  } catch {}
   await db.execAsync(`
     DELETE FROM messages;
     DELETE FROM memories;
@@ -831,6 +861,18 @@ export async function clearAllUserData(): Promise<void> {
     DELETE FROM providers;
     DELETE FROM kv;
   `);
+  // Re-create world_states if cleared so subsequent ensureWorldState succeeds even if migration flag unchanged
+  try {
+    await db.execAsync(`
+      CREATE TABLE IF NOT EXISTS world_states (
+        playthrough_id TEXT PRIMARY KEY,
+        story_id TEXT NOT NULL,
+        state TEXT NOT NULL,
+        version INTEGER NOT NULL DEFAULT 2,
+        updated_at TEXT NOT NULL
+      );
+    `);
+  } catch {}
 }
 
 export async function clearCacheTables(): Promise<void> {

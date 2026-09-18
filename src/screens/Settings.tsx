@@ -1,4 +1,4 @@
-/** Settings hub: profile, AI, appearance, audio, notifications, data, about. */
+/** Settings — clean cinematic list with soft cards and premium hierarchy. */
 import React from 'react';
 import { Pressable, ScrollView, StyleSheet, Text, View } from 'react-native';
 import type { BottomTabScreenProps } from '@react-navigation/bottom-tabs';
@@ -6,7 +6,7 @@ import type { MainTabParamList } from '../types';
 import { useApp } from '../state/AppContext';
 import { Screen } from '../components/Screen';
 import { SectionHeader } from '../components/bits';
-import { FONTS, RADIUS, SPACING } from '../theme';
+import { RADIUS, SPACING, TYPE, withAlpha } from '../theme';
 
 type Props = BottomTabScreenProps<MainTabParamList, 'Settings'>;
 
@@ -21,9 +21,17 @@ export function Settings({ navigation }: Props) {
         onPress={() => nav.navigate(target, params ?? {})}
         accessibilityRole="button"
         accessibilityLabel={title}
-        style={[styles.row, { backgroundColor: theme.surface, borderColor: theme.border }]}
+        style={({ pressed }) => [
+          styles.row,
+          {
+            backgroundColor: withAlpha(theme.surface, pressed ? 0.86 : 0.92),
+            borderColor: theme.border,
+            opacity: pressed ? 0.96 : 1,
+            transform: [{ scale: pressed ? 0.98 : 1 }],
+          },
+        ]}
       >
-        <View style={[styles.mark, { backgroundColor: theme.primarySoft }]}>
+        <View style={[styles.mark, { backgroundColor: withAlpha(theme.accent, 0.14), borderColor: withAlpha(theme.accent, 0.18) }]}>
           <Text style={[styles.markText, { color: theme.accent }]}>{mark}</Text>
         </View>
         <View style={styles.rowBody}>
@@ -44,14 +52,19 @@ export function Settings({ navigation }: Props) {
 
   return (
     <Screen>
-      <ScrollView showsVerticalScrollIndicator={false}>
-        <Text style={[styles.kicker, { color: theme.accent }]}>YOU</Text>
-        <Text style={[styles.hello, { color: theme.text }]}>{profile?.nickname ?? 'traveller'}</Text>
+      <ScrollView showsVerticalScrollIndicator={false} contentContainerStyle={styles.scroll}>
+        <View style={styles.header}>
+          <Text style={[styles.kicker, { color: theme.accent }]}>YOU</Text>
+          <Text style={[styles.hello, { color: theme.text }]} numberOfLines={1}>
+            {profile?.nickname ?? 'traveller'}
+          </Text>
+          <Text style={[styles.sub, { color: theme.textDim }]}>Manage your stories, voice and data — all local.</Text>
+        </View>
 
-        <SectionHeader title="Profile" />
+        <SectionHeader title="Profile" kicker="Identity" />
         {row('Aa', 'Nickname & Age', `${profile?.nickname} • ${profile?.ageGroup}`, 'SettingsProfile')}
 
-        <SectionHeader title="AI" />
+        <SectionHeader title="AI" kicker="Voice" />
         {row(
           'AI',
           'AI Setup',
@@ -59,59 +72,63 @@ export function Settings({ navigation }: Props) {
           'AIAddons',
         )}
 
-        <SectionHeader title="Stories" />
+        <SectionHeader title="Stories" kicker="Create" />
         {row('+', 'Suggest an Idea', 'Ek kahani ka idea bhejo', 'SubmitStory', undefined, { mode: 'idea' })}
         {row('✎', 'Submit a Story', 'Apni poori kahani submit karo', 'SubmitStory', undefined, { mode: 'story' })}
         {row('☰', 'My Submissions', 'Apne bheje hue submissions dekho', 'MySubmissions')}
         {__DEV__ ? row('◆', 'Admin Panel', 'Dev only — review pending submissions', 'AdminPanel') : null}
 
-        <SectionHeader title="Appearance" />
-        {row('Aa', 'Theme & Text', 'Dark, AMOLED, text size, motion', 'SettingsAppearance')}
+        <SectionHeader title="Appearance" kicker="Look" />
+        {row('◐', 'Theme & Text', 'Dark, AMOLED, text size, motion', 'SettingsAppearance')}
 
-        <SectionHeader title="Audio" />
+        <SectionHeader title="Audio" kicker="Feel" />
         {row('♪', 'Sound & Haptics', 'Sound, music, vibrations', 'SettingsAudio')}
 
-        <SectionHeader title="Notifications" />
-        {row('●', 'Reminders', 'Story reminders, update alerts', 'SettingsNotifications')}
+        <SectionHeader title="Notifications" kicker="Reminders" />
+        {row('◑', 'Reminders', 'Story reminders, update alerts', 'SettingsNotifications')}
 
-        <SectionHeader title="Data" />
+        <SectionHeader title="Data" kicker="Local-first" />
         {row('▢', 'Storage & Backup', 'Export, import, clear data', 'SettingsStorage')}
 
-        <SectionHeader title="About" />
+        <SectionHeader title="About" kicker="Kissa" />
         {row('¶', 'Terms & Conditions', 'App ke niyam', 'Terms')}
         {row('○', 'Privacy Policy', 'Tumhara data kahan rehta hai', 'Privacy')}
         {row('♡', 'Help the Developer', 'Coming Soon', 'About')}
         {row('i', 'About Kissa', 'Version, GitHub, credits', 'About')}
-        <View style={{ height: SPACING.xxl }} />
+        <View style={{ height: SPACING.xxl + 12 }} />
       </ScrollView>
     </Screen>
   );
 }
 
 const styles = StyleSheet.create({
-  kicker: { fontSize: 11, fontWeight: '800', letterSpacing: 3, marginTop: 8 },
-  hello: { fontSize: 28, fontWeight: '800', marginTop: 4, letterSpacing: -0.4 },
+  scroll: { paddingBottom: 8 },
+  header: { paddingTop: 8, paddingBottom: 4 },
+  kicker: { ...TYPE.overline, marginTop: 4 },
+  hello: { ...TYPE.display, marginTop: 4, letterSpacing: -0.4 },
+  sub: { fontSize: 13, marginTop: 6, lineHeight: 18, letterSpacing: 0.1 },
   row: {
     flexDirection: 'row',
     alignItems: 'center',
     borderWidth: 1,
-    borderRadius: RADIUS.md,
-    padding: 12,
-    gap: 12,
+    borderRadius: RADIUS.lg,
+    padding: 14,
+    gap: 14,
     marginBottom: 10,
   },
   mark: {
-    width: 36,
-    height: 36,
+    width: 38,
+    height: 38,
     borderRadius: 12,
+    borderWidth: 1,
     alignItems: 'center',
     justifyContent: 'center',
   },
   markText: { fontSize: 12, fontWeight: '800' },
-  rowBody: { flex: 1 },
-  rowTitle: { fontSize: FONTS.body, fontWeight: '700' },
-  rowSub: { fontSize: FONTS.small, marginTop: 2 },
-  chev: { fontSize: 22 },
-  badge: { borderRadius: 999, paddingHorizontal: 8, paddingVertical: 3 },
-  badgeText: { color: '#1A100C', fontSize: 10, fontWeight: '900' },
+  rowBody: { flex: 1, gap: 2 },
+  rowTitle: { fontSize: 15, fontWeight: '700', letterSpacing: -0.1 },
+  rowSub: { fontSize: 12, marginTop: 1, letterSpacing: 0.1 },
+  chev: { fontSize: 22, fontWeight: '300', marginLeft: 4 },
+  badge: { borderRadius: 999, paddingHorizontal: 9, paddingVertical: 4 },
+  badgeText: { color: '#1A100C', fontSize: 10, fontWeight: '900', letterSpacing: 0.4 },
 });

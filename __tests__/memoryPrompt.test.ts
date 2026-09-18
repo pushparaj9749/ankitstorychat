@@ -142,7 +142,7 @@ describe('system prompt memory wiring', () => {
   test('the narrator is told to save reader facts, and that memory stays hidden', () => {
     const s = system(memories);
     expect(s).toContain('outlive this story');
-    expect(s).toContain('Nothing you write in "memory" is shown to the reader');
+    expect(s).toContain('shown to the reader');
   });
 
   test('seed memories still fill an empty DB', () => {

@@ -55,6 +55,7 @@ import { listPlaythroughsForStory, updateStats } from '../lib/db';
 import { createPlaythrough, playthroughLabel } from '../lib/playthrough';
 import { seedMemoriesIfEmpty } from '../lib/memory';
 import { insertMessage } from '../lib/db';
+import { ensureWorldState } from '../lib/worldState';
 import { FONTS, RADIUS, SHADOWS, SPACING, TYPE } from '../theme';
 import { uid } from '../lib/utils';
 
@@ -169,6 +170,8 @@ export function StoryDetail({ navigation, route }: Props) {
         pt,
         bundle.memory.seedMemories.map((m) => interpolatePlayerName(m, pn, pnOptions)),
       );
+      // Initialize god-level world state (location/time/threads) — lazy but explicit on new journey
+      void ensureWorldState(pt, bundle).catch(() => undefined);
       await updateStats({ storiesStarted: 1 });
       await refreshRecent();
       navigation.navigate('Chat', { playthroughId: pt.id });
@@ -301,17 +304,7 @@ export function StoryDetail({ navigation, route }: Props) {
               />
             </View>
           ) : null}
-          {activeSave ? (
-            <View style={styles.gap}>
-              <GradientButton
-                title="🧠 Kya yaad hai"
-                variant="ghost"
-                onPress={() =>
-                  navigation.navigate('Memory', { playthroughId: activeSave.id, storyTitle: meta.title })
-                }
-              />
-            </View>
-          ) : null}
+          
           {!hasAI ? (
             <Pressable
               onPress={() => navigation.navigate('AIAddons')}
@@ -618,49 +611,74 @@ const infoStyles = StyleSheet.create({
 });
 
 const styles = StyleSheet.create({
-  // Hero cover: in-flow child rendered at the artwork's own aspect ratio —
-  // the wrap and the gradient shade follow the cover's natural height.
   coverWrap: { width: '100%' },
   cover: { width: '100%' },
-  coverShade: { position: 'absolute', left: 0, right: 0, bottom: 0, height: 170 },
-  back: { position: 'absolute', top: 52, left: 16 },
-  backText: { color: '#fff', fontSize: 17, fontWeight: '700' },
-  fav: { position: 'absolute', top: 48, right: 16 },
-  favText: { fontSize: 26 },
-  body: { paddingHorizontal: 16, marginTop: -30 },
-  metaRow: { flexDirection: 'row', flexWrap: 'wrap', gap: 8, marginBottom: 12 },
-  title: { ...TYPE.display, lineHeight: TYPE.display.fontSize + 6 },
-  tagline: { fontSize: FONTS.body, fontWeight: '600', marginTop: 5, letterSpacing: 0.1 },
-  desc: { fontSize: FONTS.body, lineHeight: 24, marginTop: 10 },
-  infoBox: { borderWidth: 1, borderRadius: RADIUS.lg, padding: 14, marginTop: 16, ...SHADOWS.card },
-  gap: { marginTop: 12 },
-  aiHint: { borderWidth: 1, borderRadius: RADIUS.md, padding: 12, marginTop: 12 },
-  aiHintText: { fontSize: FONTS.small, lineHeight: 20 },
+  coverShade: { position: 'absolute', left: 0, right: 0, bottom: 0, height: 220 },
+  back: {
+    position: 'absolute',
+    top: 52,
+    left: 16,
+    backgroundColor: 'rgba(12,11,10,0.52)',
+    borderWidth: 1,
+    borderColor: 'rgba(244,237,228,0.14)',
+    paddingHorizontal: 14,
+    paddingVertical: 7,
+    borderRadius: 999,
+  },
+  backText: { color: '#F4EDE4', fontSize: 14, fontWeight: '800', letterSpacing: 0.2 },
+  fav: {
+    position: 'absolute',
+    top: 48,
+    right: 16,
+    width: 44,
+    height: 44,
+    borderRadius: 22,
+    backgroundColor: 'rgba(12,11,10,0.52)',
+    borderWidth: 1,
+    borderColor: 'rgba(244,237,228,0.14)',
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  favText: { fontSize: 20 },
+  body: { paddingHorizontal: 18, marginTop: -28 },
+  metaRow: { flexDirection: 'row', flexWrap: 'wrap', gap: 8, marginBottom: 14, marginTop: 4 },
+  title: { ...TYPE.display, lineHeight: 34, letterSpacing: -0.6 },
+  tagline: { fontSize: 15, fontWeight: '600', marginTop: 6, letterSpacing: 0.15, lineHeight: 22 },
+  desc: { fontSize: 15, lineHeight: 24, marginTop: 12, letterSpacing: 0.1 },
+  infoBox: {
+    borderWidth: 1,
+    borderRadius: RADIUS.lg,
+    padding: 16,
+    marginTop: 18,
+    ...SHADOWS.card,
+    backgroundColor: 'rgba(28,25,22,0.92)',
+  },
+  gap: { marginTop: 14 },
+  aiHint: { borderWidth: 1, borderRadius: RADIUS.md, padding: 14, marginTop: 14, borderStyle: 'dashed' },
+  aiHintText: { fontSize: FONTS.small, lineHeight: 20, fontWeight: '500' },
   tags: { flexDirection: 'row', flexWrap: 'wrap', gap: 8 },
-  tag: { borderWidth: 1, borderRadius: 999, paddingHorizontal: 12, paddingVertical: 6 },
-  tagText: { fontSize: FONTS.small },
-  /* ---------------- media library ---------------- */
-  mediaGrid: { flexDirection: 'row', flexWrap: 'wrap', gap: 10, marginTop: 4 },
-  // Masonry-style tiles: fixed width, height follows each image's own ratio.
+  tag: { borderWidth: 1, borderRadius: 999, paddingHorizontal: 12, paddingVertical: 7, backgroundColor: 'rgba(28,25,22,0.76)' },
+  tagText: { fontSize: 12, fontWeight: '600' },
+  mediaGrid: { flexDirection: 'row', flexWrap: 'wrap', gap: 12, marginTop: 6 },
   mediaTile: {
-    width: '47%',
+    width: '47.8%',
     borderRadius: RADIUS.md,
     borderWidth: 1,
     overflow: 'hidden',
+    backgroundColor: '#141210',
   },
   mediaImg: { width: '100%' },
-  mediaBadge: { position: 'absolute', top: 8, left: 8, borderRadius: 999, paddingHorizontal: 8, paddingVertical: 3 },
-  mediaBadgeText: { fontSize: 9, fontWeight: '900', letterSpacing: 0.6 },
-  mediaLabelShade: { position: 'absolute', left: 0, right: 0, bottom: 0, height: 44 },
-  mediaLabel: { position: 'absolute', left: 10, right: 10, bottom: 8, fontSize: FONTS.small, fontWeight: '800' },
-  mediaFallback: { alignItems: 'center', justifyContent: 'center', gap: 6, padding: 10 },
-  mediaFallbackEmoji: { fontSize: 26 },
+  mediaBadge: { position: 'absolute', top: 8, left: 8, borderRadius: 999, paddingHorizontal: 8, paddingVertical: 4, backgroundColor: 'rgba(0,0,0,0.58)' },
+  mediaBadgeText: { fontSize: 9, fontWeight: '900', letterSpacing: 0.7, color: '#E8A070' },
+  mediaLabelShade: { position: 'absolute', left: 0, right: 0, bottom: 0, height: 48 },
+  mediaLabel: { position: 'absolute', left: 10, right: 10, bottom: 9, fontSize: 12, fontWeight: '800', color: '#fff', letterSpacing: 0.1 },
+  mediaFallback: { alignItems: 'center', justifyContent: 'center', gap: 8, padding: 14, minHeight: 120 },
+  mediaFallbackEmoji: { fontSize: 28 },
   mediaFallbackText: { fontSize: 11, fontWeight: '700' },
   lightbox: { flex: 1, backgroundColor: 'rgba(0,0,0,0.96)', alignItems: 'center', justifyContent: 'center' },
-  lightboxImageWrap: { flex: 1, width: '100%', alignItems: 'center', justifyContent: 'center' },
-  // Bounded fullscreen view: contain-sized, so the image keeps its own ratio.
-  lightboxImage: { width: '100%', maxHeight: '100%' },
-  lightboxLabel: { color: '#F5F1FF', fontSize: FONTS.body, fontWeight: '700', marginTop: 10, paddingHorizontal: 24 },
+  lightboxImageWrap: { flex: 1, width: '100%', alignItems: 'center', justifyContent: 'center', paddingHorizontal: 12 },
+  lightboxImage: { width: '100%', maxHeight: '88%' },
+  lightboxLabel: { color: '#F5F1FF', fontSize: 14, fontWeight: '700', marginTop: 14, paddingHorizontal: 24, letterSpacing: 0.2 },
   lightboxNav: {
     position: 'absolute',
     top: '44%',
@@ -670,52 +688,56 @@ const styles = StyleSheet.create({
     backgroundColor: 'rgba(255,255,255,0.10)',
     alignItems: 'center',
     justifyContent: 'center',
+    borderWidth: 1,
+    borderColor: 'rgba(255,255,255,0.14)',
   },
-  lightboxNavText: { color: '#fff', fontSize: 30, fontWeight: '300', lineHeight: 34 },
+  lightboxNavText: { color: '#fff', fontSize: 28, fontWeight: '300', lineHeight: 34 },
   lightboxClose: {
     position: 'absolute',
-    top: 48,
+    top: 52,
     right: 16,
-    width: 40,
-    height: 40,
-    borderRadius: 20,
+    width: 42,
+    height: 42,
+    borderRadius: 21,
     backgroundColor: 'rgba(255,255,255,0.12)',
     alignItems: 'center',
     justifyContent: 'center',
+    borderWidth: 1,
+    borderColor: 'rgba(255,255,255,0.14)',
   },
   lightboxCloseText: { color: '#fff', fontSize: 16, fontWeight: '800' },
   lightboxFallback: { alignItems: 'center', justifyContent: 'center', gap: 10 },
   lightboxFallbackEmoji: { fontSize: 40 },
   lightboxFallbackText: { fontSize: FONTS.small, fontWeight: '700' },
-  /* ---------------- creator / similar / refer ---------------- */
   creatorCard: {
     flexDirection: 'row',
     alignItems: 'center',
-    gap: 12,
+    gap: 14,
     borderWidth: 1,
     borderRadius: RADIUS.lg,
-    padding: 14,
-    marginTop: 4,
+    padding: 16,
+    marginTop: 6,
     ...SHADOWS.card,
   },
-  creatorAvatar: { width: 48, height: 48, borderRadius: 24, alignItems: 'center', justifyContent: 'center' },
-  creatorInitial: { color: '#fff', fontSize: 20, fontWeight: '900' },
-  creatorName: { fontSize: FONTS.body, fontWeight: '800' },
-  creatorSub: { fontSize: FONTS.small, marginTop: 2 },
-  similarRow: { flexDirection: 'row', gap: 10, marginTop: 4 },
-  similarCard: { flex: 1, borderWidth: 1, borderRadius: RADIUS.md, padding: 12, minHeight: 90, justifyContent: 'center' },
-  similarTitle: { fontSize: FONTS.small, fontWeight: '800' },
-  similarGenre: { fontSize: FONTS.tiny, fontWeight: '700', marginTop: 4 },
-  referCard: { borderWidth: 1, borderRadius: RADIUS.lg, padding: 16, marginTop: 4, ...SHADOWS.card },
-  referTitle: { fontSize: FONTS.heading, fontWeight: '900' },
-  referSub: { fontSize: FONTS.small, marginTop: 6, lineHeight: 20 },
+  creatorAvatar: { width: 52, height: 52, borderRadius: 26, alignItems: 'center', justifyContent: 'center', borderWidth: 1, borderColor: 'rgba(244,237,228,0.12)' },
+  creatorInitial: { color: '#fff', fontSize: 21, fontWeight: '900' },
+  creatorName: { fontSize: 15, fontWeight: '800', letterSpacing: -0.2 },
+  creatorSub: { fontSize: 12, marginTop: 3, opacity: 0.92 },
+  similarRow: { flexDirection: 'row', gap: 12, marginTop: 6 },
+  similarCard: { flex: 1, borderWidth: 1, borderRadius: RADIUS.md, padding: 14, minHeight: 96, justifyContent: 'center', ...SHADOWS.card },
+  similarTitle: { fontSize: 13, fontWeight: '800', lineHeight: 18, letterSpacing: -0.1 },
+  similarGenre: { fontSize: 10, fontWeight: '700', marginTop: 6, letterSpacing: 0.4, textTransform: 'uppercase' as const },
+  referCard: { borderWidth: 1, borderRadius: RADIUS.lg, padding: 18, marginTop: 6, ...SHADOWS.card, borderStyle: 'dashed' },
+  referTitle: { fontSize: 17, fontWeight: '800', letterSpacing: -0.2 },
+  referSub: { fontSize: 13, marginTop: 8, lineHeight: 20, opacity: 0.92 },
   fixedBar: {
     position: 'absolute',
     left: 0,
     right: 0,
     bottom: 0,
     borderTopWidth: StyleSheet.hairlineWidth,
-    padding: 12,
-    paddingBottom: 16,
+    padding: 14,
+    paddingBottom: 18,
+    ...SHADOWS.floating,
   },
 });

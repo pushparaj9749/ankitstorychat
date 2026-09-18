@@ -57,6 +57,9 @@ import {
   rememberMany,
   rememberPreferences,
 } from '../lib/memory';
+import { ensureWorldState, getWorldState, renderWorldStateForPrompt } from '../lib/worldState';
+import { runMemoryWritePipeline, recallWithWorldState } from '../lib/memoryEngine';
+import { listMemoryCandidates } from '../lib/db';
 import {
   countMessages,
   getPlaythrough,
@@ -68,7 +71,7 @@ import {
 } from '../lib/db';
 import { completePlaythrough } from '../lib/playthrough';
 import { interpolatePlayerName, makePlayerTextFn } from '../lib/playerName';
-import { FONTS, RADIUS } from '../theme';
+import { FONTS, RADIUS, SHADOWS, TYPE, withAlpha } from '../theme';
 import { nowIso, uid } from '../lib/utils';
 import { playReceive } from '../lib/sound';
 import { successBuzz } from '../lib/haptics';
@@ -155,6 +158,8 @@ export function Chat({ navigation, route }: Props) {
         setBundle(b);
         setMessages(first);
         setHasMore(total > first.length);
+        // Ensure world state exists for continuity (lazy init, offline-safe)
+        void ensureWorldState(pt, b).catch(() => undefined);
       } catch (e) {
         if (!alive) return;
         if (e instanceof StoryContentError && e.code === 'network') {
@@ -258,6 +263,9 @@ export function Chat({ navigation, route }: Props) {
     const apiKey = await getApiKey(activeProvider.id);
     if (!apiKey) throw new Error('API key missing. Re-enter it in AI Add-ons.');
 
+    // Ensure world state initialized
+    const worldState = await ensureWorldState(pt, b).catch(() => null);
+
     // Load one window-sized slab plus headroom, so `shortTermWindow` is honoured in full.
     const recent = await listRecentMessagesAsc(pt.id, shortTermWindowOf(b) + HISTORY_HEADROOM);
     // `send()` already stored this turn's user line — don't feed it twice.
@@ -266,9 +274,26 @@ export function Chat({ navigation, route }: Props) {
     );
     // Rank memories against the whole recent exchange, not just this one line.
     const query = [...history.slice(-2).map((m) => m.text), userText].join('\n');
-    const { memories: relevant, summary } = await recallForTurn(pt.id, query);
+
+    // New god-level recall: world-state aware relevance
+    const pool = await listMemoryCandidates([pt.id, '*']).catch(() => [] as any[]);
+    const summaryRaw = await recallForTurn(pt.id, query).then(r => r.summary).catch(() => '');
+    let relevant: any[] = [];
+    let summary = summaryRaw;
+    let wsForPrompt = worldState;
+    try {
+      const read = await recallWithWorldState(pt, b, query, history, pool, summaryRaw);
+      relevant = read.memories;
+      summary = read.summary;
+      wsForPrompt = read.worldState ?? worldState;
+    } catch {
+      const fb = await recallForTurn(pt.id, query).catch(() => ({ memories: [], summary: '' } as any));
+      relevant = fb.memories;
+      summary = fb.summary;
+    }
+
     const ctx = buildContext(
-      { bundle: b, profile, playthrough: pt, memories: relevant, history, summary },
+      { bundle: b, profile, playthrough: pt, memories: relevant, history, summary, worldState: wsForPrompt },
       profile.ageGroup,
     );
     const raw = await chatCompletion(
@@ -283,7 +308,18 @@ export function Chat({ navigation, route }: Props) {
     const parsed = parseAssistantResponse(raw);
     const displayText = parsed.displayText || '...';
 
-    // Episodic trace: every turn stays retrievable even if no fact was volunteered.
+    // God-level write pipeline: validates, checks contradictions, updates world state, stores facts
+    try {
+      await runMemoryWritePipeline({
+        playthrough: pt,
+        bundle: b,
+        userText,
+        assistantText: displayText,
+        parsedExtractionRaw: (parsed as any).worldStateRaw ?? (parsed as any).rawStateJson ?? null,
+        worldState: wsForPrompt,
+      });
+    } catch {}
+    // Fallback episodic trace if pipeline didn't store (ensures continuity)
     void logEpisode(pt.id, userText, displayText).catch(() => undefined);
 
     const saved = await persistAssistantLines(
@@ -303,8 +339,6 @@ export function Chat({ navigation, route }: Props) {
     let extra: ChatMessage[] = [];
     if (sceneChanged) {
       const sc = getScene(b, next.currentSceneId);
-      // Scene titles may address the reader — resolve {{playerName}} to the
-      // profile nickname (character names are protected).
       const title = interpolatePlayerName(sc.title, profile?.nickname ?? '', {
         protectedNames: b.characters.characters.map((c) => c.name),
       });
@@ -313,13 +347,11 @@ export function Chat({ navigation, route }: Props) {
         [{ role: 'narration', speaker: null, text: `✦ ${title}` }],
         next.currentSceneId,
       );
-      // New chapter: fold what we can so the scene starts with its past compressed.
       void consolidateMemories(pt.id, summarize, { minLiveEpisodes: 12, keepLiveEpisodes: 4 }).catch(
         () => undefined,
       );
     }
 
-    // Steady rhythm otherwise — every few turns, off the hot path.
     if (next.messageCount % 8 === 0) {
       void consolidateMemories(pt.id, summarize).catch(() => undefined);
     }
@@ -440,15 +472,7 @@ export function Chat({ navigation, route }: Props) {
           </View>
         </Pressable>
         <View style={styles.headerRight}>
-          <Pressable
-            onPress={() => navigation.navigate('Memory', { playthroughId: playthrough.id, storyTitle: bundle.meta.title })}
-            hitSlop={8}
-            style={[styles.modeBtn, { backgroundColor: theme.surface, borderColor: theme.border }]}
-            accessibilityRole="button"
-            accessibilityLabel="Kya yaad hai"
-          >
-            <Text style={[styles.modeText, { color: theme.textDim }]}>Memory</Text>
-          </Pressable>
+          
           <View
             style={[
               styles.modeBtn,
@@ -576,56 +600,61 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     gap: 10,
     paddingHorizontal: 16,
-    paddingVertical: 8,
+    paddingVertical: 10,
     borderBottomWidth: StyleSheet.hairlineWidth,
   },
-  roleLabel: { fontSize: 10, fontWeight: '800', letterSpacing: 1.2 },
-  roleText: { flex: 1, fontSize: FONTS.small, fontWeight: '600' },
+  roleLabel: { ...TYPE.caption, letterSpacing: 1.3, opacity: 0.9 },
+  roleText: { flex: 1, fontSize: FONTS.small, fontWeight: '700', letterSpacing: 0.1 },
   header: {
     flexDirection: 'row',
     alignItems: 'center',
     paddingHorizontal: 12,
-    paddingVertical: 10,
+    paddingVertical: 11,
     borderBottomWidth: StyleSheet.hairlineWidth,
     gap: 10,
+    ...SHADOWS.card,
   },
-  back: { fontSize: 30, fontWeight: '400', marginTop: -4 },
+  back: { fontSize: 30, fontWeight: '400', marginTop: -4, letterSpacing: 0.2 },
   headerIdentity: { flex: 1, flexDirection: 'row', alignItems: 'center', gap: 10, minWidth: 0 },
   face: {
-    width: 40,
-    height: 40,
-    borderRadius: 20,
+    width: 42,
+    height: 42,
+    borderRadius: 21,
     overflow: 'hidden',
     borderWidth: 1,
     alignItems: 'center',
     justifyContent: 'center',
+    ...SHADOWS.card,
   },
-  faceImg: { width: 40, height: 40 },
-  faceLetter: { fontSize: 16, fontWeight: '800' },
+  faceImg: { width: 42, height: 42 },
+  faceLetter: { fontSize: 16, fontWeight: '900', letterSpacing: -0.2 },
   headerBody: { flex: 1, minWidth: 0 },
-  headerTitle: { fontSize: FONTS.body, fontWeight: '800' },
-  headerSub: { fontSize: FONTS.tiny },
+  headerTitle: { ...TYPE.subheading, letterSpacing: -0.2 },
+  headerSub: { ...TYPE.tiny, letterSpacing: 0.2, marginTop: 1 },
   headerRight: { flexDirection: 'row', alignItems: 'center', gap: 8 },
   modeBtn: { borderWidth: 1, borderRadius: RADIUS.pill, paddingHorizontal: 12, paddingVertical: 7 },
-  modeText: { fontSize: FONTS.small, fontWeight: '700' },
-  list: { paddingHorizontal: 12, paddingVertical: 8 },
-  more: { textAlign: 'center', fontSize: FONTS.tiny, padding: 8 },
+  modeText: { fontSize: FONTS.small, fontWeight: '800', letterSpacing: 0.3 },
+  list: { paddingHorizontal: 12, paddingVertical: 10, gap: 2 },
+  more: { textAlign: 'center', fontSize: FONTS.tiny, padding: 10, letterSpacing: 0.2 },
   inputBar: {
     flexDirection: 'row',
     alignItems: 'flex-end',
-    gap: 8,
+    gap: 10,
     paddingHorizontal: 12,
-    paddingVertical: 10,
+    paddingVertical: 12,
     borderTopWidth: 1,
+    ...SHADOWS.floating,
   },
   input: {
     flex: 1,
     borderWidth: 1,
-    borderRadius: RADIUS.md,
-    paddingHorizontal: 14,
-    paddingVertical: 10,
+    borderRadius: 22,
+    paddingHorizontal: 16,
+    paddingVertical: 11,
     fontSize: 15,
+    lineHeight: 20,
     maxHeight: 120,
+    letterSpacing: 0.1,
   },
   send: {
     width: 46,
@@ -633,12 +662,13 @@ const styles = StyleSheet.create({
     borderRadius: 23,
     alignItems: 'center',
     justifyContent: 'center',
+    ...SHADOWS.card,
   },
-  sendText: { color: '#1A100C', fontSize: 18, fontWeight: '800' },
-  errCard: { borderWidth: 1, borderRadius: RADIUS.md, padding: 12, marginVertical: 8 },
-  errTitle: { fontSize: FONTS.body, fontWeight: '800' },
-  errSub: { fontSize: FONTS.small, marginTop: 4, lineHeight: 19 },
-  errBtns: { flexDirection: 'row', gap: 8, marginTop: 10 },
-  errBtn: { paddingHorizontal: 14, paddingVertical: 9, borderRadius: RADIUS.sm },
-  errBtnText: { color: '#fff', fontWeight: '700', fontSize: FONTS.small },
+  sendText: { color: '#1A100C', fontSize: 18, fontWeight: '900', marginLeft: 1 },
+  errCard: { borderWidth: 1, borderRadius: RADIUS.lg, padding: 14, marginVertical: 10, ...SHADOWS.card },
+  errTitle: { ...TYPE.subheading },
+  errSub: { fontSize: FONTS.small, marginTop: 6, lineHeight: 19, opacity: 0.9 },
+  errBtns: { flexDirection: 'row', gap: 8, marginTop: 12 },
+  errBtn: { paddingHorizontal: 14, paddingVertical: 10, borderRadius: RADIUS.pill, borderWidth: 1, borderColor: 'transparent' },
+  errBtnText: { color: '#fff', fontWeight: '800', fontSize: FONTS.small, letterSpacing: 0.2 },
 });
