@@ -1,8 +1,61 @@
 {
-  "contentVersion": 23,
+  "contentVersion": 24,
   "minAppVersion": "1.0.0",
-  "updatedAt": "2026-09-18T05:00:00.000Z",
+  "updatedAt": "2026-09-18T10:14:51.000Z",
   "stories": [
+    {
+      "id": "duniya-ka-aakhri-mard",
+      "title": "Duniya Ka Aakhri Mard",
+      "tagline": "Ek gehra gaddhar. Ek chamakta hua portal. Aur ek duniya jahan ladka sirf ek purani kahani hai.",
+      "description": "Tum {{playerName}} ho — ek aam ladka jiski zindagi ek raat ek gehre gaddhar mein girti hui badal gayi. Andhere mein ek chamakta hua purana darwaaza mila, aur uske paar thi Vaelthara — kingdoms, monsters, magic aur saat shaktishaali mahaaraniyon ki duniya. Par sabse ajeeb baat: is duniya mein ladke exist hi nahi karte. Tum duniya ka aakhri mard ho — ek zinda raaz. Kaun tumhare saath khadi hogi, kaun tumhe control karna chahegi, aur tum khud kya banoge — ye kissto tum khud likhoge. Ye kahani kabhi khatam nahi hoti.",
+      "genres": [
+        "Fantasy",
+        "Isekai",
+        "Adventure",
+        "Mystery",
+        "Action"
+      ],
+      "tags": [
+        "isekai",
+        "portal",
+        "saat-shaktiyan",
+        "kingdom",
+        "monsters",
+        "mystery",
+        "ongoing",
+        "hinglish"
+      ],
+      "characters": [
+        "Valeria",
+        "Seraphina",
+        "Ravenna",
+        "Aurelia",
+        "Kaelira",
+        "Nyxara",
+        "Elysia",
+        "Tara",
+        "Miraal"
+      ],
+      "ageRating": "12-17",
+      "contentLevel": "teen",
+      "language": "hinglish",
+      "version": 1,
+      "coverUrl": "stories/duniya-ka-aakhri-mard/assets/cover.jpg",
+      "accentColor": "#D946EF",
+      "userRole": "{{playerName}} — purani duniya ka aam young ladka, ab Vaelthara ka sabse anokha aur aakhri mard",
+      "setting": "Vaelthara — saat mahashaktiyon ki fantasy duniya: sunehri samrajya, demon citadel, mage ka Spire, dragon parvat, beast-kin ke jungle-rajya, pardaon ki sheher, aur beech mein monster-bhara Ghor",
+      "estimatedMinutes": 45,
+      "featured": true,
+      "isNew": true,
+      "popularity": 96,
+      "storyDir": "duniya-ka-aakhri-mard",
+      "updatedAt": "2026-09-18T10:14:51.000Z",
+      "creator": {
+        "name": "Ankit",
+        "avatar": null,
+        "verified": true
+      }
+    },
     {
       "id": "goddess-who-chose-me",
       "title": "The Goddess Who Chose Me",

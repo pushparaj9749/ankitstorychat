@@ -1,0 +1,167 @@
+{
+  "storyId": "duniya-ka-aakhri-mard",
+  "version": 1,
+  "premise": "Tum {{playerName}} ho — purani duniya ke ek aam ladke jo ek raat ek gehre gaddhar mein girte hue ek chamakte hue purane darwaaze se hoke guzar gaye. Jab aankh khuli, tum Vaelthara mein the — ek poori fantasy duniya: kingdoms, monsters, magic, ancient ruins... aur ek hi anokha sach. Is duniya mein koi mard nahi. Har samrajya, sena, guild aur taqat aurton ke haath mein hai. Tum is duniya ka aakhri mard ho — ek zinda raaz. Border ki War Queen Valeria ne tumhe Kagaar mein dhoondh kar apne kile Simhagarh mein hifazat mein liya hai, kyunki bahar ki duniya tumhe na samajh sakti hai, na chhod sakti. Ab tumhari kahani waise chalegi jaise tum chahoge — duniya badi hai, raaz gehra hai, aur saat shaktiyaan abhi tak tumhare baare mein nahi jaanti.",
+  "locations": [
+    {
+      "id": "gaddhar-pit",
+      "name": "Gehra Gaddhar (Purani Duniya)",
+      "description": "Wahi purana construction site jahan ki zameen ne {{playerName}} ko nigal liya. Andar ek murjha hua stone arch hai jis par nili roshni ke runes ghoomte the — ab kuch nahi bacha, par kahaniyan wahi se shuru hoti hain."
+    },
+    {
+      "id": "kagaar",
+      "name": "Kagaar — Aagman Sthali",
+      "description": "Vaelthara ka border-region jahan aasmaan kabhi-kabhi phatta hai. Nili-jhariyon ka jungle, toota hua arch, aur Ghor ki taraf khulte khatarnak trails. Iron Fang ki patrols yahan raat-din sawaar hoti hain."
+    },
+    {
+      "id": "simhagarh",
+      "name": "Simhagarh",
+      "description": "Beastlands ka border-fort — pahaad mein koti hui deewarein, lohe ke kante, mashalon ki line, tiger-fang wale jhande. Yahan Iron Fang rehti hai, aur ab yahan Vaelthara ka aakhri mard bhi."
+    },
+    {
+      "id": "vyagriya",
+      "name": "Vyagriya — The Beastlands",
+      "description": "Jungle-plains ka bada rajya jahan beast-kin clans (wolf, tiger, falcon) apni apni senaon mein judte hain. War Queen Valeria ka ilaka — muqable, shikaar aur loyalty ki zameen."
+    },
+    {
+      "id": "solmerra",
+      "name": "Solmerra — The Celestial Kingdom",
+      "description": "Duniya ka sabse bada samrajya. Sunehri-safed spires, sun-disc ki nishaani, aur Empress Seraphina ka court — jahan har lehja ek chaal hai. Chamakdari ke neeche politics ki nadi tez behti hai."
+    },
+    {
+      "id": "duskhaven",
+      "name": "Duskhaven — Demon Court",
+      "description": "Obsidian ka citadel jahan suraj kabhi nahi nikalta — bas ek kaala-sa gumansaar ujala. Demon Queen Ravenna ka rajya: darawana naam, utha hua darwaza, aur apne logon ke liye kadam-chapti hifazat."
+    },
+    {
+      "id": "aether-spire",
+      "name": "The Aether Spire",
+      "description": "Ek akela buland tower jo aasmaan ko chhota hai — mage-order ka ghar. 700 seedhiyaan, kitaabon ke samundar, aur Supreme Mage Aurelia ka table jise koi system nahi samjha paaya."
+    },
+    {
+      "id": "ember-peaks",
+      "name": "The Ember Peaks",
+      "description": "Uttejte pahaad aur thandi hawa waali chotiyan jahan aakhri dragons ne panaah li hai. Dragon Queen Kaelira ka Ashspire yahin hai — aur zameen par aana uske liye mahanga sauda hai."
+    },
+    {
+      "id": "ushaalaya",
+      "name": "The Dawntemple (Ushaalaya)",
+      "description": "Pahaadon ke beech ek shant mandir jahan har faction ka pilgrim bina hathiyar aata hai. Immortal Saint Elysia ka ghar — aur sealed records ka pahara, jo sirf sahi haathon ke liye khulta hai."
+    },
+    {
+      "id": "karvan",
+      "name": "Karvan — The Caravan City",
+      "description": "Ek chalti hui shehar-jaisi-reen: canvas ke mohalle, patang-jaise lantern, aur har mod par bazaar. Guilds, traders, spies — yahan har khabar ka bhav lagta hai, aur Miraal sabse tez bhav jaanti hai."
+    },
+    {
+      "id": "the-ghor",
+      "name": "The Ghor — Deep Wilds",
+      "description": "Kingdoms ke beech ka kanoonsaan jungle: monsters, raaste jo raat ko hil jaate hain, aur wo cheekhein jo patrol ki neend todti hain. Yahan shikar aur shikaar ka farak sirf waqt ka hota hai."
+    },
+    {
+      "id": "vel-narai",
+      "name": "Ruins of Vel-Narai",
+      "description": "Pre-Silence ka aadha-yaad-shehar: toote gumbad, jhadon mein doobi deewarein, aur wards jo do sau saal se kisi ko nahi khule. Par {{playerName}} ke shard wala symbol yahan bhi hai."
+    }
+  ],
+  "factions": [
+    {
+      "id": "celestial-throne",
+      "name": "The Celestial Throne (Solmerra)",
+      "description": "Empress Seraphina ka samrajya — sabse bada, sabse chamakdaar, sabse zyada kaanon waala. Shanti rakhta hai, provided shanti uski sharton par ho."
+    },
+    {
+      "id": "demon-court",
+      "name": "The Demon Court (Duskhaven)",
+      "description": "Ravenna ka rajya — duniya isse darti hai, par Duskhaven ke log usse pyaar karte hain. Secrets ka karobar yahan sabse achha chalta hai."
+    },
+    {
+      "id": "aether-arcanum",
+      "name": "The Aether Arcanum (Spire)",
+      "description": "Aurelia ke mage-order — neutral self-declared, sab se poochh-gachh waale. Gyaan unki currency hai, aur wo currency mein ameer hain."
+    },
+    {
+      "id": "ember-dragons",
+      "name": "Dragons of the Ember Peaks",
+      "description": "Kaelira ki dragon-line — kam sankhya, sabse zyada taqat. Woh politics mein nahi aate; jab aate hain, to aasmaan hi kaafi nahi hota."
+    },
+    {
+      "id": "iron-fang",
+      "name": "The Iron Fang (Beastlands)",
+      "description": "Valeria ki border legions — wolf-kin se lekar tiger-clan tak. Ghor ke saamne pehli deewar yehi hain, aur unka nara hai: aage baithi commander."
+    },
+    {
+      "id": "the-veil",
+      "name": "The Veil",
+      "description": "Nyxara ka spy-assassin network — har shehar mein, har court mein, har bazaar mein. Kisi ke nahi, sab ki khidmat mein. Inke bina koi faisla nahi hota... inke baare mein kisi ko pata bhi nahi chalta."
+    },
+    {
+      "id": "dawntemple-order",
+      "name": "The Dawntemple Order",
+      "description": "Elysia ka mandir-order — neutral, wafadaar sirf zameer se. Sealed records ki rakhwali karte hain, aur shayad hi kabhi ungli uthate hain."
+    },
+    {
+      "id": "karvan-guilds",
+      "name": "Karvan Guilds",
+      "description": "Traders, guides, hunters aur information-brokers ka saangathan. Paisa inki rajniti hai, aur rate roz badalta hai."
+    }
+  ],
+  "lore": [
+    "Vaelthara mein living memory mein ek bhi mard paida nahi hua. Purush sirf purani seals, sazaa ki kahaniyon aur nanhi-nanhi kahaniyon mein milte hain jo maa-beti ek doosre ko sunaati hain.",
+    "Do sau saal pehle The Great Silence (Maha Sannata) hua. Us raat ke records har jagah seal ya contradict hain — har faction apna version bolti hai, aur koi version poora sach nahi lagta.",
+    "Solmerra kehti hai Silence divine daya thi. Duskhaven kehti hai zeherila curse. Spire kehti hai ek equation jo adhoori hai. Dawntemple... kuch nahi kehti.",
+    "Kagaar (the Edge) wo jagah hai jahan purana aasmaan kabhi-kabhi phat-ta hai aur cheezein girti hain. Girne waali cheezon mein se zinda koi pehle kabhi nahi mila. Pehle tak.",
+    "Aether (magic) Vaelthara ki aurton mein behta hai. Purani kahaniyon mein purush Aether-null the — magic un par phisalti thi. Kahani hai. Shayad.",
+    "Saat badi shaktiyaan ek naazuk Concord mein bandhi hain — sab ki nazar sab par, aur sab ka shak kisi na kisi par.",
+    "Vel-Narai jaise pre-Silence ruins ke wards do sau saal se kisi ko nahi khule. Ruins ke paas jaane waale kehte hain wahan hawa bhi intezaar karti hai."
+  ],
+  "rules": [
+    "{{playerName}} is Vaelthara ka ONLY known living human male. Ye kabhi nahi badalta — koi doosra mard achanak exist nahi ho jaata.",
+    "Vaelthara ke saare samaj, fauj, guild aur rulers aurton ke haath mein hain. Background mein kabhi casual male characters invent na karo. (Monsters genderless ho sakte hain.)",
+    "The Great Silence ka poora sach kabhi ek saath reveal nahi hota. Ye raaz dheere-dheere, clues se khulta hai — har faction ka version alag hai, aur {{playerName}} ko har tukda earn karna padta hai.",
+    "Koi bhi character {{playerName}} par turant attached ya impressed nahi hota. Har rishta shuruat mein wary, curious ya hostile hai — trust, respect aur attachment sirf real interaction aur earned history se badhta hai.",
+    "Saat shaktiyan interchangeable nahi hain — har ek ka apna goal, tone aur reaction style hai. Woh kabhi ek jaise behave nahi karti.",
+    "Koi fixed quest-line ya meeting order force nahi karna. {{playerName}} saat shaktiyon se kisi bhi order mein mil sakta hai, kisi se ally ban sakta hai, kisi se lad sakta hai, ya kisi ko chhod sakta hai.",
+    "Combat cinematic hai, graphic nahi. Monster fights dramatic hote hain — koi gore, koi dismemberment nahi. Villains/monsters defeated hote hain, butchered nahi.",
+    "No explicit sexual content. Romance, tension aur flirtation tasteful aur teen-safe rehte hain.",
+    "Possessiveness ya jealousy kisi character mein sirf tab aati hai jab uske saath {{playerName}} ka real bond ban chuka ho — aur phir bhi sirf uski apni personality ke hisaab se. Ye koi instant switch nahi hai.",
+    "Vaelthara bahut badi duniya hai — naye locations, log aur raaz naturally, {{playerName}} ke choices ke hisaab se aate hain. Poora map ya poora lore kabhi dump na karo.",
+    "Jo portal {{playerName}} ko laaya, wo ab murjha chuka hai. Wapas jaane ka rasta — agar kabhi milta hai — to ek lambi, hard-earned arc ka hissa hoga, koi jaldi ka button nahi.",
+    "{{playerName}} ki personality, morality, feelings, decisions aur ambitions player ke messages decide karte hain. Uske liye dialogue ya decisions kabhi force na karo."
+  ],
+  "importantObjects": [
+    {
+      "id": "aagman-tukda",
+      "name": "Aagman Ka Tukda",
+      "description": "{{playerName}} ki jeb mein portal ke baad mila ek dull crystal shard. Purane wards aur Vel-Narai ke symbol ke paas halki si gunj uthata hai. Kya hai, kisi ko nahi pata — abhi tak."
+    },
+    {
+      "id": "loha-daant",
+      "name": "Loha Daant",
+      "description": "Simhagarh ka iron fang token — Iron Fang ki mehmaani ki nishaani. Beastlands mein safe-passage jaisa kaam deta hai; baaki duniya mein ek ajeeb curio."
+    },
+    {
+      "id": "sannata-mohar",
+      "name": "Sannata Ki Mohar",
+      "description": "Vel-Narai ke bahar mila ek toota hua seal jis par ghisi-pita script hai. Spire ke scholars ise padhne ke liye line mein khade hain — aur tareekh nahi pahunch rahi."
+    },
+    {
+      "id": "kagaar-naksha",
+      "name": "Kagaar Ka Naksha",
+      "description": "Tara ke haath ka banaya border-trails naksha. Kaam karta hai — zyada tar. Jahan nahi karta, wahan monster hota hai."
+    },
+    {
+      "id": "simha-dant",
+      "name": "Simha-Dant",
+      "description": "Valeria ki badi greatsword. Beastlands ki legions ise door se pehchanti hain — aur uske haath mein hote hue, Ghor bhi pehchanta hai."
+    }
+  ],
+  "timeline": [
+    "Raat 1 — {{playerName}} purani duniya mein gehre gaddhar mein girta hai; chamakta arch use Vaelthara ke Kagaar mein le aata hai.",
+    "Raat 1 (baad) — Tara ki patrol use gheree; pehli baar Simhagarh ke darwaze ke andar koi mard aata hai.",
+    "Raat 2 — Valeria ka torchlight interrogation aur wahi line: 'Tum... ladke ho?'",
+    "Din 2-3 — Valeria ki hifazat mein sawaal-jawab; Kagaar wapas jaa kar murjha hua arch aur Vel-Narai wala symbol milta hai.",
+    "Din 4-7 — Khabar dheere-dheere failti hai; Spire ka pehla khabarnaama Simhagarh pahunchta hai.",
+    "Aage — saat shaktiyon mein se pehli ya pehliyaan {{playerName}} tak pahunchengi. Kis order mein, kis mauke par — ye {{playerName}} ke faisle likhenge."
+  ]
+}

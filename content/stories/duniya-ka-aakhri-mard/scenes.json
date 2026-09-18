@@ -1,0 +1,676 @@
+{
+  "storyId": "duniya-ka-aakhri-mard",
+  "version": 1,
+  "scenes": [
+    {
+      "id": "s1_the_fall",
+      "title": "Gehra Gaddhar Aur Wo Darwaaza",
+      "narration": [
+        "*Ek aam raat. Tum {{playerName}} ho — late ho, shortcut le rahe ho us purani construction site ke paar se, aur phone ki battery 4% par tair rahi hai. Bilkul aam raat... hone wali thi.*",
+        "*Phir zameen nahi hilti — GAYAB hoti hai. Ek dhamake ke bina, bas ek kaali gaddhar jo tumhe andar kheench leta hai. Girte girte tum chillana bhi bhool jaate ho.*",
+        "*Girna ruk jaata hai — par zameen nahi aati. Andhera itna gehra hai ki apne haath bhi nahi dikhte. Upar nahi ja sakte, neeche nahi mare. Bas... adhoore.*",
+        "*Phir andhere mein halki si nili roshni ubharti hai. Deewaron par nahi — hawa mein tairte hue purane carvings, aur unke beech ek TOOTA HUA STONE ARCH. Cheentiyon jaisi roshni uske daayre mein ghoomti hai.*",
+        "*Tumhara haath arch tak pahunchne se pehle hi arch tumhe chhoo leta hai. Roshni phat padti hai, kaan bajte hain, aur duniya ki disha badal jaati hai — jaise kisi ne reality ka page palat diya ho.*",
+        "*Girna... phir se. Par ab hawa alag hai — thandi, saaf, ajeeb si meethi. Neeche neeli-jhariyon ka jungle, aur upar aasmaan mein DO CHAAND. Ek chhota sa silver, ek bada halka-gulabi.*",
+        "*Tum ek ajeeb chattani clearing mein aake girte ho — jhariyon par, bina koi bada zakhm liye. Na koi shehar ki roshni, na koi sadak ki awaaz. Sirf tum, do chaand... aur ek boodha toota hua arch jo ab murjha raha hai.*"
+      ],
+      "fallbackLines": [
+        "*Kaan abhi bhi baj rahe hain, par dheere-dheere... awaazein samajh aa rahi hain? Door se koi gaana-jaisi awaaz — shayad paani ki, shayad kisi aur cheez ki.*",
+        "*Jhariyon ke beech kuch hilta hai. Bada. Shayad usne tumhe dekha... ya nahi. Yahan khade rehna ya chhupna — faisla tumhara hai.*",
+        "*Raat thandi ho rahi hai, phone ki battery 3%, aur koi tower nahi lagta. Yahan se aage har cheez nayi hai — aur kuch cheezein, shayad, tumhe bhi nahi jaanti.*"
+      ],
+      "choices": [
+        {
+          "id": "c_madad",
+          "text": "\"Hello?! Koi hai?! MADAD!\"",
+          "shortLabel": "Madad pukaro",
+          "keywords": ["madad", "help", "hello", "koi", "hai", "chillana"],
+          "next": "s2_hunters",
+          "effects": {
+            "location": "kagaar",
+            "flags": { "calledOut": true },
+            "choicesRecord": { "opening": "called" },
+            "memory": ["{{playerName}} ne portal ke baad sabse pehla kaam chillana chuna — Simhagarh ki patrol ne use turant dhoondh liya."]
+          }
+        },
+        {
+          "id": "c_chup",
+          "text": "Chup-chaap aas-paas ka maanch dekho — samajhna pehle hai ki yahan kahan aa gaye ho",
+          "shortLabel": "Chup-chaap dekho",
+          "keywords": ["chup", "sannaata", "maanch", "dekh", "explore", "aas"],
+          "next": "s2_hunters",
+          "effects": {
+            "location": "kagaar",
+            "flags": { "stayedQuiet": true },
+            "choicesRecord": { "opening": "quiet" }
+          }
+        },
+        {
+          "id": "c_jeb",
+          "text": "Haath jeb mein dalo — chabi, wallet... aur ek aisi cheez jo tumhari nahi hai",
+          "shortLabel": "Jeb check karo",
+          "keywords": ["jeb", "pocket", "wallet", "cheez", "kya", "hai"],
+          "next": "s2_hunters",
+          "effects": {
+            "location": "kagaar",
+            "inventoryAdd": ["aagman-tukda"],
+            "flags": { "foundShard": true },
+            "choicesRecord": { "opening": "shard" },
+            "memory": ["{{playerName}} ki jeb mein portal ke baad ek dull crystal shard mila — kisi ko nahi pata ye kya hai."]
+          }
+        }
+      ]
+    },
+    {
+      "id": "s2_hunters",
+      "title": "Mashalon Wali Sawari",
+      "narration": [
+        "*Jawab tumhare aane se pehle hi aa jaata hai. Door se ghode jaisi taap... par ghodon ke bajoo par patti? Mushkil se sau kadam door, mashalon ki roshni jhariyon ko cheerti hui aati hai.*",
+        "*Aur phir tum ghere liye jaate ho. Chheh sawaar — har ek aurat, har ek ka haath hathyar par. Unke kapde kachche se patle hain, aur unke kaan... unke kaan thode nokeele hain. Wolf-kin.*",
+        "Tara: \"Haath upar. Dheere. Aur wahi karo jo main kahoon.\"",
+        "*Jo bhasha woh bolti hai wo ek second ke liye ajeeb lagti hai — phir tumhare kaano mein wo ring shant hoti hai aur alag bhasha ke tukde apne aap translate hone lagte hain. Samajhne se pehle hi tum samajh gaye ho.*",
+        "Tara: \"Kapde ajeeb. Chehra nahi dekha kabhi aisa. Tum Kagaar ke us paar se ho? ...Chalo. Jawab fort ke andar milenge — bahar raat lambi hoti hai, aur Ghor ka pet bhuka rehta hai.\"",
+        "*Koi haath nahi lagata, par char sawaar tumhe beech mein le lete hain — jaise kaidi ho... ya jaise koi bohot keemti cheez ho. Aage, door, pahaad par mashalon se jaalta ek BADA killa dikhta hai. Simhagarh.*"
+      ],
+      "fallbackLines": [
+        "*Ek sawaar tumhare phone ki taraf dekhti hai — screen ki roshni par — aur kuch bolti nahi. Par uski nazrein sab kuch bol chuki hain.*",
+        "Tara: \"Sawal fort mein. Yahan sirf do kaam hote hain — meri duty, ya maut. Chuno, tez chuno.\"",
+        "*Kahin door se ek LAMBI, GEELI CHEEKH aati hai — jaise kisi ne pahaad ko dard diya ho. Patrol ka poora mood badal jaata hai: ab koi sawal nahi, sirf raftaar.*"
+      ],
+      "choices": [
+        {
+          "id": "c_sawal",
+          "text": "\"Yeh kahan hai? Tum kaun ho?\" — seedha sawal, seedha jawaab",
+          "shortLabel": "Sawal karo",
+          "keywords": ["kahan", "kaun", "sawal", "yeh", "where", "tum"],
+          "next": "s3_simhagarh",
+          "effects": {
+            "location": "simhagarh",
+            "relationships": { "tara": 5 },
+            "flags": { "askedQuestions": true }
+          }
+        },
+        {
+          "id": "c_cooperate",
+          "text": "Bina takrar ke saath chalo — abhi larna waqt nahi hai",
+          "shortLabel": "Saath chalo",
+          "keywords": ["theek", "chalo", "saath", "haan", "cooperate", "sunno"],
+          "next": "s3_simhagarh",
+          "effects": {
+            "location": "simhagarh",
+            "relationships": { "tara": 8 },
+            "flags": { "cooperated": true }
+          }
+        },
+        {
+          "id": "c_bhaag",
+          "text": "Bhaagne ki koshish — jungle hi sahi, par yahan se",
+          "shortLabel": "Bhaago?",
+          "keywords": ["bhaag", "run", "nahi", "escape", "bhaga", "jungle"],
+          "next": "s3_simhagarh",
+          "effects": {
+            "location": "simhagarh",
+            "relationships": { "tara": -5 },
+            "flags": { "triedToRun": true },
+            "memory": ["{{playerName}} ne pehli mulaqat mein bhaagne ki koshish ki — Tara ne use sikhaya ki Ghor mein bhaagna mangta hai."]
+          }
+        }
+      ]
+    },
+    {
+      "id": "s3_simhagarh",
+      "title": "Simhagarh: Pehla Killa",
+      "narration": [
+        "*Simhagarh ki deewarein purane pahaad jaisi hain — patthar par lohe ke kante, mashalon ki lambi line, aur har mohare par tir-chalaane waali khadi. Sab auratein. Har ek.*",
+        "*Tumhare aate hi ek ajeeb sa sannata failta hai — jo chup nahi hota, badhta hai. Ghode utaare jaate hain, kaam rok kar dekhe jaate hain, kisi ki cheez haawa mein atki reh jaati hai.*",
+        "Guard: \"Tara... wo... wo ladki hai na? Kapde toh aise nahi... ye kya hai?\"",
+        "Tara: \"Jo bhi hai, pehle kaam, phir tamaasha. Gate band karo. Aur koi haath nahi lagayega — order upar se aayenge.\"",
+        "*Tumhe kisi andher-kotehri mein nahi, ek khidki-daar kamre mein rakha jaata hai — bagal mein khana, door par pehra. Mehmaan... ya nazeer? Farq abhi samajh nahi aa raha.*",
+        "*Khidki se bahar: mashalon se jaalta poora pahad-kila, aasmaan mein do chaand, aur door-door tak hari-bhari andheri duniya. Tumhari purani duniya... ab bahut door hai.*"
+      ],
+      "fallbackLines": [
+        "*Khidki par ek chhoti si guard khadi hai jo tumhe dekh rahi hai, phir dekh rahi hai, phir halki si jhuk kar bhaag jaati hai. Yahan tum celebrity ho ya wild exhibit — abhi pata nahi.*",
+        "Tara: \"Khana kha lo. Sawal-jawab kal hoga. Aur haan — bahar jaane ke sapne mat dekho. Deewar wahi sab kuch bolti hai jo main abhi bol chuki.\"",
+        "*Kambal ajeeb sa soft hai — kisi bade pashu ka, shayad. Sone ki koshish karo, ya is nayi duniya ki saanson ko sunte raho.*"
+      ],
+      "choices": [
+        {
+          "id": "c_tara_baat",
+          "text": "\"Ruko... ek minute. Tumhara naam kya hai?\" — guard se baat karo",
+          "shortLabel": "Guard se baat",
+          "keywords": ["naam", "tum", "kaun", "baat", "ruk", "minute"],
+          "next": "s4_tum_ladke_ho",
+          "effects": {
+            "relationships": { "tara": 10 },
+            "flags": { "befriendedTaraEarly": true }
+          }
+        },
+        {
+          "id": "c_sona",
+          "text": "Thak gaye ho — sone ki koshish karo, kal ka intezaar karo",
+          "shortLabel": "So jao",
+          "keywords": ["so", "sona", "thak", "rest", "sleep", "kal"],
+          "next": "s4_tum_ladke_ho",
+          "effects": {
+            "flags": { "rested": true }
+          }
+        },
+        {
+          "id": "c_khidki",
+          "text": "Khidki ke paas baith kar is nayi duniya ko dekhte raho",
+          "shortLabel": "Khidki se dekho",
+          "keywords": ["khidki", "window", "dekho", "chand", "baahar", "duniya"],
+          "next": "s4_tum_ladke_ho",
+          "effects": {
+            "flags": { "watchedWorld": true }
+          }
+        }
+      ]
+    },
+    {
+      "id": "s4_tum_ladke_ho",
+      "title": "Tum... Ladke Ho?",
+      "narration": [
+        "*Darwaaza khulta hai toh pehle awaaz aati hai — boot ki, patthar par, aaram se, jaise maalik ki marzi se. Phir woh andar aati hai.*",
+        "*Lambi nahi — SEEDHI. Har kadam ek faisla jaisa. Naak ke par ek purana zakhm ka nishaan, crimson braids, amber aankhein jo tumhe dekh nahi rahi — naap rahi hain. Bagal ke khambe par uski greatsword tiki hai, jaise ghar ka furniture ho.*",
+        "Tara: \"Maharani khud aa gayi. Kal tumne bahut machli machli kheli... chalo, ab nahi. Seedha bolunga — jhooth ki himmat mat karna.\"",
+        "*Maharani. War Queen Valeria — Simhagarh ki hifazat khud karti hai. Woh karwat badalti hai, mashal ki roshni tumhare chehre par padti hai. Pehli baar poori tarah.*",
+        "*Aur duniya... ruk jaati hai.*",
+        "Valeria: \"Tum... ladke ho?\"",
+        "*Ghabraahat nahi — hairat. Do second ke liye uski awaz utni hi chhoti lagti hai jitni kahani sunte hue kisi bacchi ki hoti hai. Phir wahi War Queen wapas aati hai, aur uski aankhon mein sau sawaal khil uthte hain.*"
+      ],
+      "fallbackLines": [
+        "Valeria: \"Maine do sau saal ke records padhe hain — poore nahi, par kaafi. Ek bhi mard nahi mila. Aur tum mere saamne khade ho. Toh ya main pagal ho gayi hoon, ya duniya hai hi aisi. Faisla karne ka mazaa tumhe doon?\"",
+        "*Valeria ek kadam aur paas aati hai — bhaari, par dhamakedaar nahi. Yeh waqt tumhari poori zindagi ka pehla bada moka hai: sach, ya kahaani.*",
+        "*Darwaaze par Tara khadi hai, haath talwar par, aankhein tum par. Yeh moment tumhara sabse bada ho sakta hai. Ya sirf pehla.*"
+      ],
+      "choices": [
+        {
+          "id": "c_haan_seedha",
+          "text": "\"Haan. Main ladka hoon. Aur mujhe lagta hai main kal ki duniya se yahan aa gaya hoon.\"",
+          "shortLabel": "Seedha sach",
+          "keywords": ["haan", "ladka", "sach", "yes", "main", "duniya"],
+          "next": "s5_sawal",
+          "effects": {
+            "relationships": { "valeria": 15 },
+            "flags": { "toldTruth": true },
+            "choicesRecord": { "first_answer": "honest" },
+            "memory": ["{{playerName}} ne Valeria se pehli mulaqat mein seedha sach bola — ki woh purani duniya se aaya ek mard hai. Valeria ne izzat di."]
+          }
+        },
+        {
+          "id": "c_humor",
+          "text": "\"Zindagi bhar lagta tha main aam hoon... ab tumhara chehra dekh kar lagta hai aisa nahi hai.\"",
+          "shortLabel": "Halka mazak",
+          "keywords": ["mazak", "joke", "chehra", "surprise", "pata", "nahi"],
+          "next": "s5_sawal",
+          "effects": {
+            "relationships": { "valeria": 8, "tara": 3 },
+            "flags": { "deflectedHumor": true },
+            "choicesRecord": { "first_answer": "humor" }
+          }
+        },
+        {
+          "id": "c_chup_rahe",
+          "text": "Khamosh raho — pehle inka game samjho, phir apna card khelo",
+          "shortLabel": "Pehle samjho",
+          "keywords": ["chup", "khamosh", "sun", "dekh", "wait", "samjho"],
+          "next": "s5_sawal",
+          "effects": {
+            "relationships": { "valeria": 5 },
+            "flags": { "stayedGuarded": true },
+            "choicesRecord": { "first_answer": "guarded" }
+          }
+        }
+      ]
+    },
+    {
+      "id": "s5_sawal",
+      "title": "Sawaal-Jawab Ki Pehli Raat",
+      "narration": [
+        "*Valeria table par baith jaati hai — chair nahi kheenchti, table ko apna leti hai. Tara paani rakhti hai; koi tumse poochhta nahi ki chahiye ya nahi.*",
+        "Valeria: \"Shuru se. Naam, jagah, aur wahi gaddhar. Chhodo mat — mera hafza kamzor hai, mera faisla nahi.\"",
+        "*Tumhari kahani sunte hue woh ek baar bhi palak nahi jhapakti — jab tak tum do chaand nahi bolte. Tab uski ungli ruk jaati hai.*",
+        "Valeria: \"Do chaand... Tumne aaj mujhe hara ke mujhe records se haraya hai. Kagaar se kabhi kuch girta hai — par itna... poora? Kabhi nahi.\"",
+        "Tara: \"Maharani, Spire ko khabar karni chahiye. Wo log aisi cheezon par mithaiyan baante hain.\"",
+        "Valeria: \"Khabar karungi — apni marzi se, apni sharton par. Tab tak ye mehmaan Simhagarh ka hai. Aur mera. Ab so jao, {{playerName}}. Kal tumhe wahi jagah dikhani hai jahan se tum aaye.\""
+      ],
+      "fallbackLines": [
+        "Valeria: \"Ek baat clear kar doon — tum qaidi nahi ho. Par azaad bhi nahi. Mehmaan ka matlab yahan duty hota hai: main tumhari hifazat karti hoon, tum mere sawaalon ka izzat se jawab dete ho. Deal?\"",
+        "*Tara ka ek kaan halka sa hilta hai — bahar koi awaaz. Koi khatra nahi: bas Simhagarh ki ek aur raat. Yahan har raat kuch na kuch hota rehta hai.*",
+        "Valeria: \"Aur haan — bhaagne ka sapna jo hai, mat dekho. Ghor mein pinjre se bahar ka pakshi zyada der nahi jee-ta. Ye dhamki nahi hai... ye geography hai.\""
+      ],
+      "choices": [
+        {
+          "id": "c_pura_sach",
+          "text": "Poora sach — gaddhar se arch tak, sab kuch bata do",
+          "shortLabel": "Poora sach bolo",
+          "keywords": ["sach", "sab", "poora", "portal", "gaddhar", "batao"],
+          "next": "s6_pehli_raat",
+          "effects": {
+            "relationships": { "valeria": 10 },
+            "flags": { "fullDisclosure": true },
+            "memory": ["{{playerName}} ne Valeria ko apne aane ka poora safar bataya — gaddhar, chamakta arch aur do chaand wali duniya."]
+          }
+        },
+        {
+          "id": "c_aadha_sach",
+          "text": "Wahi batana zaroori hai — baaki raaz apne paas rakho",
+          "shortLabel": "Raaz apne paas",
+          "keywords": ["raaz", "chhupa", "aadha", "sirf", "zaroori", "secret"],
+          "next": "s6_pehli_raat",
+          "effects": {
+            "relationships": { "valeria": 3 },
+            "flags": { "heldBack": true },
+            "choicesRecord": { "disclosure": "partial" }
+          }
+        },
+        {
+          "id": "c_sawal_ulta",
+          "text": "\"Pehle tum batao — yeh duniya hai kya? Aur... ladke kahan gaye?\"",
+          "shortLabel": "Ulta sawal",
+          "keywords": ["yeh", "duniya", "ladke", "kahan", "tum", "batao"],
+          "next": "s6_pehli_raat",
+          "effects": {
+            "relationships": { "valeria": 6 },
+            "flags": { "askedAboutMen": true },
+            "memory": ["{{playerName}} ne pehle hi din poocha ki is duniya ke mard kahan gaye — Valeria ka jawab aadha tha, aur dono ko ye pata tha."]
+          }
+        }
+      ]
+    },
+    {
+      "id": "s6_pehli_raat",
+      "title": "Pehli Raat: Khauf, Khana Aur Ek Guard",
+      "narration": [
+        "*Simhagarh ki raat sannate se nahi bharri hoti — aawaazon se. Door chowki se halka gaana, deewaron par pagdiyon ki chhaya, aur ek door si dheemi dhadkan... jaise pahaad saans le raha ho.*",
+        "*Tumhara kamra ab bhi pehre mein hai, par pehra badal gaya hai — Tara khud aati hai, do plates ke saath. Ek tumhare liye, ek apne liye. Yeh kisi protocol jaisa nahi lagta.*",
+        "Tara: \"Maharani ne kaha tumse baat karo. Order tha baat karo — saath baithna nahi bola. Par khana thanda ho raha hai aur mujhe bhook lagi hai. Kadvi coincidence hai.\"",
+        "*Khana: kisi pashu ka soft meat, roti-jaisi ek cheez, aur ek teekhi chutney jo seedhi naak se chhati tak jaati hai. Tara hansti hai — sach mein hansti hai. Pehli baar.*",
+        "Tara: \"Sawal poochho. Kal se tumhara time bhar jaayega — poora fort tumhari kahaani sunna chahega. Aaj raat sirf main hoon. Sasta deal hai.\"",
+        "*Kahin bahar, door, ek CHEEKH — lamhi, geeli. Tara ka kaan hilta hai, par woh bas apni roti kaatti rehti hai. Yahan yeh... normal hai.*"
+      ],
+      "fallbackLines": [
+        "Tara: \"Ghor ki awaazein? Pehle mahine mujhe bhi neend nahi aati thi. Doosre mahine aati thi, par dar lagta tha. Ab? Ab main khud alarm hoon. Tum bhi banoge. Ya chologe. Dono options theek hain.\"",
+        "Tara: \"Maharani kam logon par bharosa karti hai. Tum ab us list mein ho. Congratulations... ya condolences — jo bhi chahiye.\"",
+        "*Khidki ke us paar do chaand ek doosre ke paas aa gaye hain. Yeh raat lambi hai. Aur kal ki raat se chhoti.*"
+      ],
+      "choices": [
+        {
+          "id": "c_tara_dosti",
+          "text": "Tara se dosti karo — uski duniya ke baare mein poochho",
+          "shortLabel": "Tara se baat",
+          "keywords": ["tara", "dost", "baat", "poochho", "uski", "duniya"],
+          "next": "s7_kagaar",
+          "effects": {
+            "relationships": { "tara": 12 },
+            "flags": { "taraFriendship": true },
+            "memory": ["Tara ne {{playerName}} ke saath pehli raat khana khaya — Simhagarh mein pehla asli dost ban raha hai."]
+          }
+        },
+        {
+          "id": "c_maharani_samjho",
+          "text": "\"Maharani kaisi insaan hai?\" — Valeria ko samajhna shuru karo",
+          "shortLabel": "Valeria kaun hai?",
+          "keywords": ["maharani", "valeria", "kaisi", "kaun", "insaan"],
+          "next": "s7_kagaar",
+          "effects": {
+            "relationships": { "valeria": 5, "tara": 4 },
+            "flags": { "askedAboutValeria": true }
+          }
+        },
+        {
+          "id": "c_awazein",
+          "text": "Ghor ki awaazon ko sunte raho — is duniya ka dhadkan samjho",
+          "shortLabel": "Awaazein suno",
+          "keywords": ["awaz", "ghor", "cheekh", "sun", "dhadkan"],
+          "next": "s7_kagaar",
+          "effects": {
+            "flags": { "listenedToGhor": true }
+          }
+        }
+      ]
+    },
+    {
+      "id": "s7_kagaar",
+      "title": "Wapas Kagaar: Wo Murjha Hua Arch",
+      "narration": [
+        "*Subah ki roshni mein Vaelthara pehli baar sach mein dikhta hai: neeli-jhariyon ka jungle, door pahaad, aur itna saaf aasmaan ki lagta hai duniya abhi dhoyi gayi ho.*",
+        "*Valeria tumhe khud apne saath le jaati hai — koi discuss nahi karta. Chaugan: Tara, do Iron Fang, aur ek rassi jo sirf hifazat ke liye hai... unke mutabik.*",
+        "Valeria: \"Rule ek: arch ko haath mat lagana. Rule do: ghode se mat girna. Rule teen... nahi hai. Aaj bas itna hi risk.\"",
+        "*Aadha ghanta baad: wo clearing jahan tum gire the. Arch wahi hai — par ab murjha hua, khamosh, ek boodha patthar. Cheentiyon-jaisi roshni ab kahin nahi hai.*",
+        "*Valeria arch ke charon taraf chalti hai, patthar ko chhoo kar kuch sunti hai. Phir uski nazar tumhari jeb par jaati hai — jahan wo dull shard hai.*",
+        "Valeria: \"Ye arch mar chuka hai. Matlab tum ab yahan ke ho — wapas ka rasta is patthar mein abhi nahi hai. Par yahan dekho... aur apna wo tukda nikalo. Dheere.\"",
+        "*Uski ungli arch ke neeche ek chhote nishaan par jaati hai — wahi aadha ghisa hua symbol jo tumhare shard ke kone par bhi hai. Do alag duniya, ek hi nishaan. Kisi ne yeh raasta pehle bhi banaya tha.*"
+      ],
+      "fallbackLines": [
+        "Valeria: \"Patthar jhooth nahi bolta — log bolte hain. Ye nishaan maine Vel-Narai ke ruins ki tasveeron mein dekha hai. Purani jagah. Seal-badi jagah. Aur ab tumhari jeb mein?\"",
+        "*Wapas ke raaste mein har ped ke peeche Tara ka kaan ghoomta hai. Kagaar mein koi shikari nahi hota — sab shikari ban jaate hain, ek din ke liye.*",
+        "*Aur phir — bina warning ke — Ghor se wahi CHEEKH. Paas. Bahut paas. Valeria ki greatsword uske haath mein aati hai... ya lagta hai pehle se thi hi.*"
+      ],
+      "choices": [
+        {
+          "id": "c_symbol_poochho",
+          "text": "Shard aur symbol ki jodi ke baare mein poochho — kya hai ye?",
+          "shortLabel": "Symbol ka sawal",
+          "keywords": ["symbol", "shard", "nishaan", "vel-narai", "ruins", "poochho"],
+          "next": "s8_khabar",
+          "effects": {
+            "relationships": { "valeria": 8 },
+            "flags": { "symbolLead": true },
+            "memory": ["{{playerName}} ke shard aur Kagaar ke arch par same symbol mila — Vel-Narai ke ruins se milta-julta nishaan."]
+          }
+        },
+        {
+          "id": "c_monster_ready",
+          "text": "Ghor ki cheekh ke liye tayyar raho — darne ka koi mann nahi",
+          "shortLabel": "Tayyar raho",
+          "keywords": ["cheekh", "monster", "tayyar", "ladna", "darne"],
+          "next": "s8_khabar",
+          "effects": {
+            "relationships": { "valeria": 10 },
+            "flags": { "showedCourage": true },
+            "memory": ["Pehli monster-cheekh ke saamne {{playerName}} ne darne ke bajaye khade rehne ka irada dikhaya — Valeria ne note kiya."]
+          }
+        },
+        {
+          "id": "c_ghar_ka_khayal",
+          "text": "\"Wapas jaane ka rasta milega?\" — apne asli sawaal ka sach poochho",
+          "shortLabel": "Ghar ka sawal",
+          "keywords": ["ghar", "wapas", "rasta", "jaana", "portal", "milega"],
+          "next": "s8_khabar",
+          "effects": {
+            "relationships": { "valeria": 6 },
+            "flags": { "askedAboutHome": true },
+            "memory": ["{{playerName}} ne pehle hi din ghar wapas jaane ka rasta poochha — Valeria ka jawab tha: abhi nahi, aur shayad jhoot bhi nahi."]
+          }
+        }
+      ]
+    },
+    {
+      "id": "s8_khabar",
+      "title": "Khabar Failti Hai",
+      "narration": [
+        "*Simhagarh wapas aate hi sab kuch normal hai — bolne ka matlab: sab tumhari taraf dekh rahe hain, par ab ghoorna bhi ek tarah ka status symbol ban gaya hai.*",
+        "*Do din nikal jaate hain. Do din jisme tum fort ke kaam seekhte ho, Tara ke naksha padhna samajhte ho, aur ek chhota bawaal jhel lete ho jab kitchen squad tumhe dekh kar ek roti jala baithi.*",
+        "*Phir ek subah Spire ka khabarnaama aata hai — parinda nahi, ek chamakta hua kagaz jo khud Simhagarh ke gate par aake chipak jaata hai. Sandesh chhota hai, style bada:*",
+        "\"Anomaly ko hilana mat. Measurements aate hain. — A.\"",
+        "Valeria: \"...Matlab ab poora continent tumhe anomaly bol ke bhejega. Main mehmaan bolungi. Tum khud kya bolna chahoge — yahi asli sawaal hai.\"",
+        "*Uski aankhon mein ab bhi wo sau sawaal hain. Par sabse upar ek naya hai: ab aage? Beastlands, Spire, Karvan ka bazaar... ya wo purane ruins jahan tumhara nishaan mila? Tumhari marzi — usne khud kaha hai.*"
+      ],
+      "fallbackLines": [
+        "Valeria: \"Main rok nahi sakti. Bas itna sa farak hai — tum mere saath chhataar ke neeche chaloge, ya baarish mein. Spire padhai karati hai, Karvan paisa khata hai, aur Ghor... Ghor sab kha jaata hai. Chuno.\"",
+        "*Tara chup-chaap naksha par ungli ghumati hai: pahaad, nadi, ek lamba khaali rasta. Uski ungli ek jagah zyada der rukti hai — ruins ki taraf.*",
+        "*Door, aasmaan mein, ek chipak si awaaz — patang jaisi, par zinda. Dragons ke ilake ki taraf ja rahi hai. Yeh duniya tumhara intezaar kar rahi hai.*"
+      ],
+      "choices": [
+        {
+          "id": "c_beastlands",
+          "text": "Valeria ke saath raho — Iron Fang ki zindagi seekho",
+          "shortLabel": "Beastlands",
+          "keywords": ["valeria", "beastlands", "rakhwali", "legion", "seekho", "saath"],
+          "next": "s9_beastlands",
+          "effects": {
+            "location": "vyagriya",
+            "relationships": { "valeria": 10 },
+            "flags": { "pathBeastlands": true },
+            "choicesRecord": { "path": "beastlands" }
+          }
+        },
+        {
+          "id": "c_spire",
+          "text": "Aether Spire jaana chaho — Aurelia aur uske jawab dhoondo",
+          "shortLabel": "Aether Spire",
+          "keywords": ["spire", "aurelia", "magic", "padhai", "jawab", "jaana"],
+          "next": "s9_spire",
+          "effects": {
+            "location": "aether-spire",
+            "flags": { "pathSpire": true },
+            "choicesRecord": { "path": "spire" }
+          }
+        },
+        {
+          "id": "c_karvan",
+          "text": "Karvan ka bazaar dekhna hai — duniya ka asli roop",
+          "shortLabel": "Karvan bazaar",
+          "keywords": ["karvan", "bazaar", "sheher", "paisa", "duniya", "log"],
+          "next": "s9_karvan",
+          "effects": {
+            "location": "karvan",
+            "flags": { "pathKarvan": true },
+            "choicesRecord": { "path": "karvan" }
+          }
+        },
+        {
+          "id": "c_rahasya",
+          "text": "Vel-Narai ke ruins — tumhara nishaan wahan se aaya hai",
+          "shortLabel": "Vel-Narai",
+          "keywords": ["vel-narai", "ruins", "nishaan", "raaz", "symbol", "puraana"],
+          "next": "s9_rahasya",
+          "effects": {
+            "location": "vel-narai",
+            "flags": { "pathRuins": true },
+            "choicesRecord": { "path": "ruins" }
+          }
+        }
+      ]
+    },
+    {
+      "id": "s9_beastlands",
+      "title": "Iron Fang Ka Pehla Din",
+      "narration": [
+        "*Subah Simhagarh ke training ground par tum utaare jaate ho — koi mercy nahi, par koi beizzati bhi nahi. Valeria ek kone mein chai ke saath khadi hai — general nahi, coach jaisi.*",
+        "Valeria: \"Mard ho, ye prove karne ki zaroorat nahi. Mainne ladkiyon ki faujein khadi karwai hain — pata hai kaam kya maangta hai. Bas itna: jo karo, poori taakat se karo. Aadha kaam yahan beizzati hai.\"",
+        "*Din bhar: talwar uthana (bhaari hai), girna (do baar), uthna (teen baar — Tara ke hisaab se bonus point), aur ek khel jisme char log tumhe rokna chahte hain aur tum ek lakshya tak pahunchna chahte ho. Score: roke gaye. Himmat: noticed.*",
+        "Valeria: \"Dekha? Talent zero, jigar full. Aur jigar sikhaya nahi jaata — bachaya jaata hai. Tumne aaj bacha liya.\"",
+        "*Shaam ko fort ki deewar par Valeria ke saath khana. Aur pehli baar woh sirf War Queen nahi lagti — ek aurat bhi hai, jisne bahut kuch uthaya hai... aur ab tak utha rahi hai.*"
+      ],
+      "fallbackLines": [
+        "Valeria: \"Kal phir. Aur parso. Ek din tum poochoge ki main tum par itna waqt kyun laga rahi hoon — us din main jawab dene ki koshish karungi. Ab bas spar karo.\"",
+        "*Iron Fang ki log dheere-dheere tumse baat karne lagti hain — pehle ajnabee, phir wo ajnabee jo thoda funny hai. Beastlands mein izzat aise hi banti hai: ek-ek din.*"
+      ],
+      "choices": [
+        {
+          "id": "c_valeria_khiladi",
+          "text": "Valeria se ek muqabla maango — jeet kar dikhao",
+          "shortLabel": "Muqabla maango",
+          "keywords": ["muqabla", "challenge", "valeria", "jeet", "spar"],
+          "next": "s10_aage",
+          "effects": {
+            "relationships": { "valeria": 8 },
+            "flags": { "challengedValeria": true }
+          }
+        },
+        {
+          "id": "c_log_se_judo",
+          "text": "Legion ke logon se judo — apni jagah banao",
+          "shortLabel": "Logon se judo",
+          "keywords": ["log", "legion", "dost", "judo", "baat", "jamana"],
+          "next": "s10_aage",
+          "effects": {
+            "relationships": { "tara": 6 },
+            "flags": { "bondedWithLegion": true }
+          }
+        }
+      ]
+    },
+    {
+      "id": "s9_spire",
+      "title": "Aether Spire Ki Raah",
+      "narration": [
+        "*Spire tak ka raasta teen din ka hai, aur har din duniya thodi badi hoti jaati hai — pahaad, phir patli nadi, phir ek aisi ghaati jahan hawa khud seema karti hai.*",
+        "*Phir aakhir mein wo dikhta hai: Aether Spire — ek akela buland tower jo aasmaan ko chhoota hua sui jaisa structure, aur charon taraf tairte hue chhote crystal patang.*",
+        "Aurelia: \"Seedha yahan! Haan TUM! Anomaly! Ruko — pehle mera quill gir gaya — theek hai, do second — ab haan. NAAM bolo. Naam pehle, chai baad mein. Nahi nahi — chai pehle. Nahi—\"",
+        "*Lift nahi hai. Seedhiyaan hain — saat sau. Tumhari saans ghut-ti hai; upar se Aurelia chillati hai ki cardio bhi measurement ka hissa hai.*",
+        "*Upar ka kamra: kitaabon ka shehar, chai ke cupon ka qabristan, aur ek deewar jis par tumhara poora safar diagram ban chuka hai — gaddhar se Simhagarh tak. Aur deewar ke beech likha hai: Case File — The Last One.*"
+      ],
+      "fallbackLines": [
+        "Aurelia: \"Sawal ek: portal ne tumhe kyun chuna? Sawal do: tumhare andar Aether ka kya hai? Sawal teen: chai mein cheeni kitni? Ye teesra sabse mushkil hai. Pehle wala answer karo.\"",
+        "*Spire ke baaki mage tumhe aise dekhte hain jaise museum ka naya exhibit ho — par ek-do ki nazar mein curiosity se zyada warmth hai. Yahan bhi log hain. Achhe log. Thode ajeeb, par achhe.*"
+      ],
+      "choices": [
+        {
+          "id": "c_aurelia_test",
+          "text": "Aurelia ke tests ka saamna karo — khud ko samajhna hai",
+          "shortLabel": "Tests do",
+          "keywords": ["test", "aurelia", "measurement", "aether", "jaan", "kitna"],
+          "next": "s10_aage",
+          "effects": {
+            "relationships": { "aurelia": 10 },
+            "flags": { "ranAetherTests": true },
+            "memory": ["{{playerName}} ne Aether Spire mein apne upar pehle magic tests karwaye — natija abhi pending hai."]
+          }
+        },
+        {
+          "id": "c_spire_library",
+          "text": "Spire ki library mein doobo — Silence ke records dhoondo",
+          "shortLabel": "Library doobo",
+          "keywords": ["library", "kitaab", "records", "silence", "sannata", "padho"],
+          "next": "s10_aage",
+          "effects": {
+            "relationships": { "aurelia": 6 },
+            "flags": { "searchedRecords": true }
+          }
+        }
+      ]
+    },
+    {
+      "id": "s9_karvan",
+      "title": "Karvan: Wo Bazaar Jo Sab Kuch Bechta Hai",
+      "narration": [
+        "*Karvan ek sheher nahi — ek reen hai jo chalti hai: canvas ke mohalle, patang-jaise lantern, aur har mod par naya bazaar — masale, talwarein, kahaniyan... aur khabrein.*",
+        "*Tumhari khabar tumse pehle pahunch chuki hai. Log dekhte hain, phir aankh mila kar jaldi hat jaate hain. Aur phir ek young ladki bina sharam ke seedha tumhare saamne aa khadi hoti hai.*",
+        "Miraal: \"Do gin ke batata hoon. Do log tumhe dhoondh rahe hain — ek pardaon waali, ek Spire ka stamp lekar. Main tumhe unse pehle pahuncha sakti hoon, ya tumhe unse bacha sakti hoon. Pehla kaam free hai kyunki tum interesting ho. Doosre ka... chalo, dosti rate dunga.\"",
+        "*Uski muskaan chamakdar hai, aankhein calculator hain. Par uski awaaz mein wo bhookh hai jo tum pehchante ho — ghar se door hoke bhookhi hui awaaz.*",
+        "*Karvan ke crossroads par char raaste hain — aur ek bazaar jisme har cheez ke do rate hote hain: ek paisa ka, ek barter ka. Shuruaat kahan se karni hai?*"
+      ],
+      "fallbackLines": [
+        "Miraal: \"Life lesson ek: is duniya mein sab kuch bikta hai. Life lesson do: sab kuch kharidna nahi chahiye. Ab bolo — kya chahiye? Kaun dhoondh raha hai, ya kyun?\"",
+        "*Bazaar ki gehraai mein ek pardaon waali shakl ek second ke liye rukti hai... phir ghul jaati hai. Shayad dekha. Shayad nahi. Yeh duniya tumhare baare mein tumse zyada jaanti hai.*"
+      ],
+      "choices": [
+        {
+          "id": "c_miraal_deal",
+          "text": "Miraal ka saath lo — khabar ka kaarobar shuru karo",
+          "shortLabel": "Miraal ka saath",
+          "keywords": ["miraal", "khabar", "saath", "deal", "bazaar"],
+          "next": "s10_aage",
+          "effects": {
+            "relationships": { "miraal": 10 },
+            "flags": { "hiredMiraal": true },
+            "inventoryAdd": ["kagaar-naksha"],
+            "memory": ["{{playerName}} ne Karvan mein Miraal ko apni guide rakha — pehla sheher-wala contact."]
+          }
+        },
+        {
+          "id": "c_swayam_dekho",
+          "text": "Swayam bazaar ghumo — apni aankhon se naapo",
+          "shortLabel": "Swayam ghoomo",
+          "keywords": ["swayam", "apni", "aankh", "ghumo", "naapo", "bazaar"],
+          "next": "s10_aage",
+          "effects": {
+            "relationships": { "miraal": 3 },
+            "flags": { "exploredAlone": true }
+          }
+        }
+      ]
+    },
+    {
+      "id": "s9_rahasya",
+      "title": "Vel-Narai: Jin Avsheshon Ne Tumhara Naam Pukara",
+      "narration": [
+        "*Vel-Narai tak ka raasta Karvan se hokar jaata hai — par tum Valeria ke saath ek Iron Fang daaye ke saath nikalte ho, kyunki uske hisaab se ruins ke paas akela jaana suicide ka formal tareeqa hai.*",
+        "*Ruins... ruins nahi lagte. Lagte hain kisi sheher ke sapne jo aadha yaad reh gaya ho — toote gumbad, jhadon mein doobi deewarein, aur ek mahal-jaisa structure jis par wahi symbol hai. Tumhare shard wala.*",
+        "*Jaise-jaise tum paas jaate ho, shard tumhari jeb mein halki si gunj uthata hai. Aur wards — ruins ke dwar par chamakte hue purane chakr — halka sa... hilte hain.*",
+        "Valeria: \"Meri team ne yahan saat baar koshish ki. Wards hilte bhi nahi the. Ab tumhare aate hi... tum suno. Yeh koi shikaar nahi hai. Yeh pehchaan hai.\"",
+        "*Tum sunte ho: ek dheemi, door ki awaaz — jaise koi bahut purani cheez bahut door se, bahut waqt pehle kaha gaya naam... {{playerName}} naam... pukaar rahi ho. Ya bulaa rahi ho.*"
+      ],
+      "fallbackLines": [
+        "Valeria: \"Shard dikhao. Dheere. DHEERE. ...Woh gunj. Yeh wards tumhe jaanti hain. Aur main abhi-abhi thodi... bahut dar gayi hoon. Ye main kisi ko nahi bataungi. Tum bhi mat karna.\"",
+        "*Ruins ki gehraai se ek halki hawa aati hai — thandi, purani, intezaar wali. Har kitaab kehti hai Vel-Narai mar chuka hai. Kitaabein jhooth bolti hain.*"
+      ],
+      "choices": [
+        {
+          "id": "c_ward_touch",
+          "text": "Ward ke aur kareeb jao — shard ko uski taraf badhao",
+          "shortLabel": "Ward kareeb jao",
+          "keywords": ["ward", "shard", "kareeb", "jao", "touch", "gunj"],
+          "next": "s10_aage",
+          "effects": {
+            "relationships": { "valeria": 6 },
+            "flags": { "wardContact": true },
+            "memory": ["Vel-Narai ke wards {{playerName}} ke shard par gunj uthaye — ruins use jaanti hain. Aur bulaa rahi hain."]
+          }
+        },
+        {
+          "id": "c_pehle_samjho",
+          "text": "Pehle sab samjho — records, lore, phir chhedna",
+          "shortLabel": "Pehle samjho",
+          "keywords": ["pehle", "samjho", "records", "lore", "dhire", "plan"],
+          "next": "s10_aage",
+          "effects": {
+            "relationships": { "valeria": 4 },
+            "flags": { "cautiousApproach": true }
+          }
+        }
+      ]
+    },
+    {
+      "id": "s10_aage",
+      "title": "Agla Adhyay: Duniya Tumhari Hai",
+      "narration": [
+        "*Ek safar khatam hota hai toh dusra shuru ho chuka hota hai. Tum ab Vaelthara ke ho — chahe tum is baat ko maano ya na maano.*",
+        "*Aage hain: saat shaktiyon ki ek badi duniya, ek gehra raaz jiska pehla tukda tumhari jeb mein hai, aur ek sawaal jo sirf tum khud ka jawab de sakte ho — duniya ka aakhri mard ban ke tum kya banoge?*",
+        "*Kahani kabhi khatam nahi hoti. Har faisla naya raasta kholta hai, aur har naya raasta naye logon se milwata hai.*",
+        "*Toh bolo, {{playerName}} — agla kadam kya hoga?*"
+      ],
+      "fallbackLines": [
+        "*Vaelthara intezaar karta hai. Kabhi jaldi mein nahi, kabhi thakan mein nahi — bas intezaar mein. Tumhara agla kadam bolo.*",
+        "*Do chaand upar hain, raaste neeche, aur duniya beech mein khadi hai. Jao — jahan dil kahe.*"
+      ],
+      "choices": [
+        {
+          "id": "c_wapas_beastlands",
+          "text": "Valeria aur Iron Fang ke saath — Beastlands wapas",
+          "shortLabel": "Beastlands",
+          "keywords": ["valeria", "beastlands", "iron", "fang", "wapas", "legion"],
+          "next": "s9_beastlands",
+          "effects": {
+            "location": "vyagriya"
+          }
+        },
+        {
+          "id": "c_wapas_spire",
+          "text": "Aurelia aur Spire ka gyaan — aur Sawaal jawaab dhoondo",
+          "shortLabel": "Aether Spire",
+          "keywords": ["spire", "aurelia", "gyaan", "magic", "wapas"],
+          "next": "s9_spire",
+          "effects": {
+            "location": "aether-spire"
+          }
+        },
+        {
+          "id": "c_wapas_karvan",
+          "text": "Karvan ka bazaar — Miraal aur uski khabrein",
+          "shortLabel": "Karvan",
+          "keywords": ["karvan", "bazaar", "miraal", "khabrein", "wapas"],
+          "next": "s9_karvan",
+          "effects": {
+            "location": "karvan"
+          }
+        },
+        {
+          "id": "c_wapas_ruins",
+          "text": "Vel-Narai ka raaz — jahan sab shuru hoga",
+          "shortLabel": "Vel-Narai",
+          "keywords": ["vel-narai", "ruins", "raaz", "wards", "wapas"],
+          "next": "s9_rahasya",
+          "effects": {
+            "location": "vel-narai"
+          }
+        }
+      ]
+    }
+  ],
+  "endings": []
+}
