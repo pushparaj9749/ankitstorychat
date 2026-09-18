@@ -110,7 +110,8 @@ export function Memory({ navigation, route }: Props) {
         <Pressable onPress={() => navigation.goBack()} style={styles.back} accessibilityLabel="Go back">
           <Text style={styles.backText}>‹ Back</Text>
         </Pressable>
-        <Text style={[styles.title, { color: theme.text }]}>🧠 Kya yaad hai</Text>
+        <Text style={[styles.kicker, { color: theme.accent }]}>MEMORY</Text>
+        <Text style={[styles.title, { color: theme.text }]}>Kya yaad hai</Text>
         {storyTitle ? (
           <Text style={[styles.sub, { color: theme.textDim }]}>{storyTitle}</Text>
         ) : null}
@@ -250,7 +251,8 @@ function MemoryRow({
 const styles = StyleSheet.create({
   back: { marginTop: 6 },
   backText: { color: '#fff', fontSize: 17, fontWeight: '700' },
-  title: { fontSize: FONTS.display, fontWeight: '900', marginTop: 6 },
+  kicker: { fontSize: 11, fontWeight: '800', letterSpacing: 2.4, marginTop: 8 },
+  title: { fontSize: FONTS.display, fontWeight: '800', marginTop: 4 },
   sub: { fontSize: FONTS.small, marginTop: 2 },
   box: { borderWidth: 1, borderRadius: RADIUS.md, padding: 12, gap: 10 },
   digest: { fontSize: FONTS.small, lineHeight: 20 },

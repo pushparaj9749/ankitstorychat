@@ -14,7 +14,7 @@ export function Settings({ navigation }: Props) {
   const { theme, profile, activeProvider } = useApp();
   const nav = navigation as unknown as { navigate: (s: string, o?: object) => void };
 
-  function row(emoji: string, title: string, sub: string, target: string, badge?: string, params?: object) {
+  function row(mark: string, title: string, sub: string, target: string, badge?: string, params?: object) {
     return (
       <Pressable
         key={target + title}
@@ -23,7 +23,9 @@ export function Settings({ navigation }: Props) {
         accessibilityLabel={title}
         style={[styles.row, { backgroundColor: theme.surface, borderColor: theme.border }]}
       >
-        <Text style={styles.emoji}>{emoji}</Text>
+        <View style={[styles.mark, { backgroundColor: theme.primarySoft }]}>
+          <Text style={[styles.markText, { color: theme.accent }]}>{mark}</Text>
+        </View>
         <View style={styles.rowBody}>
           <Text style={[styles.rowTitle, { color: theme.text }]}>{title}</Text>
           <Text style={[styles.rowSub, { color: theme.textDim }]} numberOfLines={1}>
@@ -43,42 +45,43 @@ export function Settings({ navigation }: Props) {
   return (
     <Screen>
       <ScrollView showsVerticalScrollIndicator={false}>
-        <Text style={[styles.hello, { color: theme.text }]}>Hey, {profile?.nickname ?? 'traveller'} 👋</Text>
+        <Text style={[styles.kicker, { color: theme.accent }]}>YOU</Text>
+        <Text style={[styles.hello, { color: theme.text }]}>{profile?.nickname ?? 'traveller'}</Text>
 
         <SectionHeader title="Profile" />
-        {row('🙋', 'Nickname & Age', `${profile?.nickname} • ${profile?.ageGroup}`, 'SettingsProfile')}
+        {row('Aa', 'Nickname & Age', `${profile?.nickname} • ${profile?.ageGroup}`, 'SettingsProfile')}
 
         <SectionHeader title="AI" />
         {row(
-          '🤖',
+          'AI',
           'AI Setup',
           activeProvider ? `${activeProvider.name} • ${activeProvider.model}` : 'AI Required — tap to add API key',
           'AIAddons',
         )}
 
         <SectionHeader title="Stories" />
-        {row('💡', 'Suggest an Idea', 'Ek kahani ka idea bhejo', 'SubmitStory', undefined, { mode: 'idea' })}
-        {row('📝', 'Submit a Story', 'Apni poori kahani submit karo', 'SubmitStory', undefined, { mode: 'story' })}
-        {row('📨', 'My Submissions', 'Apne bheje hue submissions dekho', 'MySubmissions')}
-        {__DEV__ ? row('🛡', 'Admin Panel', 'Dev only — review pending submissions', 'AdminPanel') : null}
+        {row('+', 'Suggest an Idea', 'Ek kahani ka idea bhejo', 'SubmitStory', undefined, { mode: 'idea' })}
+        {row('✎', 'Submit a Story', 'Apni poori kahani submit karo', 'SubmitStory', undefined, { mode: 'story' })}
+        {row('☰', 'My Submissions', 'Apne bheje hue submissions dekho', 'MySubmissions')}
+        {__DEV__ ? row('◆', 'Admin Panel', 'Dev only — review pending submissions', 'AdminPanel') : null}
 
         <SectionHeader title="Appearance" />
-        {row('🎨', 'Theme & Text', 'Dark, AMOLED, text size, motion', 'SettingsAppearance')}
+        {row('Aa', 'Theme & Text', 'Dark, AMOLED, text size, motion', 'SettingsAppearance')}
 
         <SectionHeader title="Audio" />
-        {row('🔊', 'Sound & Haptics', 'Sound, music, vibrations', 'SettingsAudio')}
+        {row('♪', 'Sound & Haptics', 'Sound, music, vibrations', 'SettingsAudio')}
 
         <SectionHeader title="Notifications" />
-        {row('🔔', 'Reminders', 'Story reminders, update alerts', 'SettingsNotifications')}
+        {row('●', 'Reminders', 'Story reminders, update alerts', 'SettingsNotifications')}
 
         <SectionHeader title="Data" />
-        {row('💾', 'Storage & Backup', 'Export, import, clear data', 'SettingsStorage')}
+        {row('▢', 'Storage & Backup', 'Export, import, clear data', 'SettingsStorage')}
 
         <SectionHeader title="About" />
-        {row('📄', 'Terms & Conditions', 'App ke niyam', 'Terms')}
-        {row('🔒', 'Privacy Policy', 'Tumhara data kahan rehta hai', 'Privacy')}
-        {row('❤️', 'Help the Developer', 'Coming Soon', 'About')}
-        {row('ℹ️', 'About Kissa', 'Version, GitHub, credits', 'About')}
+        {row('¶', 'Terms & Conditions', 'App ke niyam', 'Terms')}
+        {row('○', 'Privacy Policy', 'Tumhara data kahan rehta hai', 'Privacy')}
+        {row('♡', 'Help the Developer', 'Coming Soon', 'About')}
+        {row('i', 'About Kissa', 'Version, GitHub, credits', 'About')}
         <View style={{ height: SPACING.xxl }} />
       </ScrollView>
     </Screen>
@@ -86,21 +89,29 @@ export function Settings({ navigation }: Props) {
 }
 
 const styles = StyleSheet.create({
-  hello: { fontSize: 24, fontWeight: '900', marginTop: 8 },
+  kicker: { fontSize: 11, fontWeight: '800', letterSpacing: 3, marginTop: 8 },
+  hello: { fontSize: 28, fontWeight: '800', marginTop: 4, letterSpacing: -0.4 },
   row: {
     flexDirection: 'row',
     alignItems: 'center',
     borderWidth: 1,
     borderRadius: RADIUS.md,
-    padding: 14,
+    padding: 12,
     gap: 12,
     marginBottom: 10,
   },
-  emoji: { fontSize: 24 },
+  mark: {
+    width: 36,
+    height: 36,
+    borderRadius: 12,
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  markText: { fontSize: 12, fontWeight: '800' },
   rowBody: { flex: 1 },
   rowTitle: { fontSize: FONTS.body, fontWeight: '700' },
   rowSub: { fontSize: FONTS.small, marginTop: 2 },
   chev: { fontSize: 22 },
   badge: { borderRadius: 999, paddingHorizontal: 8, paddingVertical: 3 },
-  badgeText: { color: '#1A0B2E', fontSize: 10, fontWeight: '900' },
+  badgeText: { color: '#1A100C', fontSize: 10, fontWeight: '900' },
 });

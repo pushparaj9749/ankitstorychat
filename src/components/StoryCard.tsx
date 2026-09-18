@@ -56,7 +56,7 @@ export function HeroCard({
     >
       <Cover meta={meta} style={styles.heroCover} fallbackMinHeight={200} />
       <LinearGradient
-        colors={['transparent', 'rgba(5,2,15,0.92)']}
+        colors={['transparent', 'rgba(12,11,10,0.94)']}
         style={styles.heroShade}
       />
       <View style={styles.heroBody}>
@@ -173,8 +173,8 @@ const styles = StyleSheet.create({
   heroShade: { position: 'absolute', left: 0, right: 0, bottom: 0, height: 150 },
   heroBody: { position: 'absolute', left: SPACING.lg, right: SPACING.lg, bottom: SPACING.lg },
   heroTop: { flexDirection: 'row', gap: 8, marginBottom: 8 },
-  heroTitle: { color: '#fff', fontSize: TYPE.display.fontSize, fontWeight: '900', letterSpacing: TYPE.display.letterSpacing },
-  heroTag: { color: '#E4DDFB', fontSize: FONTS.small, marginTop: 5, letterSpacing: 0.1 },
+  heroTitle: { color: '#F4EDE4', fontSize: TYPE.display.fontSize, fontWeight: '800', letterSpacing: TYPE.display.letterSpacing },
+  heroTag: { color: '#C4B6A6', fontSize: FONTS.small, marginTop: 5, letterSpacing: 0.15 },
   newBadge: {
     position: 'absolute',
     top: 12,
@@ -183,7 +183,7 @@ const styles = StyleSheet.create({
     paddingVertical: 4,
     borderRadius: RADIUS.pill,
   },
-  newText: { color: '#1A0B2E', fontSize: FONTS.tiny, fontWeight: '900' },
+  newText: { color: '#1A100C', fontSize: FONTS.tiny, fontWeight: '900', letterSpacing: 0.8 },
   row: {
     flexDirection: 'row',
     borderRadius: RADIUS.lg,

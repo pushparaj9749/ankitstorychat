@@ -605,7 +605,7 @@ export function SubmitStory({ navigation, route }: Props) {
           </Pressable>
 
           <Text style={[styles.heading, { color: theme.text }]}>
-            {mode === 'idea' ? '💡 Suggest an Idea' : '📖 Submit a Story'}
+            {mode === 'idea' ? 'Suggest an Idea' : 'Submit a Story'}
           </Text>
           <Text style={[styles.subheading, { color: theme.textDim }]}>
             Every submission is reviewed by the Kissa team before it goes live. You will see a

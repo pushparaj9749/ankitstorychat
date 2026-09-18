@@ -57,7 +57,7 @@ export function Saves({ navigation, route }: Props) {
 
   return (
     <Screen>
-      <Text style={[styles.title, { color: theme.text }]}>💾 Journeys</Text>
+      <Text style={[styles.title, { color: theme.text }]}>Journeys</Text>
       {saves.length === 0 ? (
         <EmptyState emoji="🌱" title="No journeys yet" subtitle="Start a new journey from the story page." />
       ) : (

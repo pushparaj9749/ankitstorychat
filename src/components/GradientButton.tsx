@@ -8,7 +8,7 @@ import {
 } from 'react-native';
 import { LinearGradient } from 'expo-linear-gradient';
 import { useApp } from '../state/AppContext';
-import { GRADIENTS, RADIUS, SPACING } from '../theme';
+import { GRADIENTS, INK, RADIUS, SPACING } from '../theme';
 
 export function GradientButton({
   title,
@@ -60,7 +60,7 @@ export function GradientButton({
     >
       <LinearGradient colors={[...colors]} start={{ x: 0, y: 0 }} end={{ x: 1, y: 0 }} style={styles.grad}>
         {loading ? (
-          <ActivityIndicator color="#fff" />
+          <ActivityIndicator color={INK} />
         ) : (
           <Text style={styles.text}>{title}</Text>
         )}
@@ -81,7 +81,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     borderRadius: RADIUS.md,
   },
-  text: { color: '#fff', fontWeight: '700', fontSize: 16 },
+  text: { color: INK, fontWeight: '800', fontSize: 16, letterSpacing: 0.2 },
   ghost: {
     borderWidth: 1,
     borderRadius: RADIUS.md,

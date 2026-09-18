@@ -61,7 +61,7 @@ export function AIAddons({ navigation }: Props) {
 
   return (
     <Screen>
-      <Text style={[styles.title, { color: theme.text }]}>🤖 AI Setup</Text>
+      <Text style={[styles.title, { color: theme.text }]}>AI Setup</Text>
       <View style={[styles.info, { backgroundColor: theme.surface, borderColor: theme.border }]}>
         <Text style={[styles.infoText, { color: theme.textDim }]}>
           <Text style={{ color: theme.success, fontWeight: '800' }}>AI ONLY MODE</Text>

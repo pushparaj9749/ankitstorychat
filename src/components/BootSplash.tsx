@@ -2,15 +2,15 @@
 import React, { useEffect, useRef } from 'react';
 import { Animated, StyleSheet, Text, View } from 'react-native';
 import { LinearGradient } from 'expo-linear-gradient';
-import { COLORS, GRADIENTS } from '../theme';
+import { COLORS, GRADIENTS, INK } from '../theme';
 
 export function BootSplash() {
   const fade = useRef(new Animated.Value(0)).current;
-  const scale = useRef(new Animated.Value(0.9)).current;
+  const scale = useRef(new Animated.Value(0.94)).current;
   useEffect(() => {
     Animated.parallel([
-      Animated.timing(fade, { toValue: 1, duration: 600, useNativeDriver: true }),
-      Animated.spring(scale, { toValue: 1, useNativeDriver: true }),
+      Animated.timing(fade, { toValue: 1, duration: 700, useNativeDriver: true }),
+      Animated.spring(scale, { toValue: 1, useNativeDriver: true, friction: 8 }),
     ]).start();
   }, [fade, scale]);
 
@@ -30,14 +30,14 @@ export function BootSplash() {
 const styles = StyleSheet.create({
   wrap: { flex: 1, alignItems: 'center', justifyContent: 'center' },
   logo: {
-    width: 96,
-    height: 96,
-    borderRadius: 28,
+    width: 88,
+    height: 88,
+    borderRadius: 24,
     alignItems: 'center',
     justifyContent: 'center',
-    marginBottom: 16,
+    marginBottom: 18,
   },
-  logoText: { fontSize: 52, fontWeight: '900', color: '#fff' },
-  name: { fontSize: 40, fontWeight: '900', color: '#F5F1FF', letterSpacing: 1 },
-  tag: { fontSize: 14, color: '#B9AEE0', marginTop: 8 },
+  logoText: { fontSize: 46, fontWeight: '800', color: INK },
+  name: { fontSize: 36, fontWeight: '800', color: '#F4EDE4', letterSpacing: 1.4 },
+  tag: { fontSize: 14, color: '#C4B6A6', marginTop: 8, letterSpacing: 0.2 },
 });

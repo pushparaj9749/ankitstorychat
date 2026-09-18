@@ -1,55 +1,63 @@
 /**
- * Kissa design system — cinematic dark theme.
- * Original palette: deep-space violet + neon amber accents.
+ * Kissa design system — Kavana-inspired premium dark.
+ *
+ * Rules we took from Kavana (feel, not a clone):
+ *  1. Obsidian / warm-black canvas, cream type — not neon-violet glow.
+ *  2. One warm terracotta accent, used sparingly on tabs, CTAs, progress.
+ *  3. Poster cards: quiet borders, soft radius, art-first, readable labels.
+ *  4. Chat chrome is a stage: sticky role line, cream bubbles, warm send.
  */
 
 export const COLORS = {
   midnight: {
-    bg: '#0B0620',
-    bgSoft: '#120B2E',
-    surface: '#181036',
-    surface2: '#1F1545',
-    card: 'rgba(255,255,255,0.06)',
-    border: 'rgba(255,255,255,0.10)',
-    text: '#F5F1FF',
-    textDim: '#B9AEE0',
-    textFaint: '#7C72A3',
-    primary: '#8B5CF6',
-    primarySoft: 'rgba(139,92,246,0.16)',
-    accent: '#F5B841',
-    accentSoft: 'rgba(245,184,65,0.14)',
-    success: '#34D399',
-    danger: '#F87171',
-    info: '#60A5FA',
+    bg: '#0C0B0A',
+    bgSoft: '#141210',
+    surface: '#1C1916',
+    surface2: '#26221E',
+    card: 'rgba(255,244,230,0.05)',
+    border: 'rgba(244,237,228,0.10)',
+    text: '#F4EDE4',
+    textDim: '#C4B6A6',
+    textFaint: '#8A7D70',
+    primary: '#C45C4A',
+    primarySoft: 'rgba(196,92,74,0.18)',
+    accent: '#E8A070',
+    accentSoft: 'rgba(232,160,112,0.16)',
+    success: '#6FBF9A',
+    danger: '#E07A7A',
+    info: '#7BA3C9',
   },
   amoled: {
     bg: '#000000',
-    bgSoft: '#050505',
-    surface: '#0D0D12',
-    surface2: '#14141B',
-    card: 'rgba(255,255,255,0.05)',
-    border: 'rgba(255,255,255,0.09)',
-    text: '#F5F1FF',
-    textDim: '#B9AEE0',
-    textFaint: '#6E6591',
-    primary: '#8B5CF6',
-    primarySoft: 'rgba(139,92,246,0.18)',
-    accent: '#F5B841',
-    accentSoft: 'rgba(245,184,65,0.14)',
-    success: '#34D399',
-    danger: '#F87171',
-    info: '#60A5FA',
+    bgSoft: '#070706',
+    surface: '#12110F',
+    surface2: '#1A1816',
+    card: 'rgba(255,244,230,0.04)',
+    border: 'rgba(244,237,228,0.08)',
+    text: '#F4EDE4',
+    textDim: '#C4B6A6',
+    textFaint: '#7A7066',
+    primary: '#C45C4A',
+    primarySoft: 'rgba(196,92,74,0.20)',
+    accent: '#E8A070',
+    accentSoft: 'rgba(232,160,112,0.16)',
+    success: '#6FBF9A',
+    danger: '#E07A7A',
+    info: '#7BA3C9',
   },
 } as const;
 
 export type ThemeName = keyof typeof COLORS;
 export type Theme = (typeof COLORS)[ThemeName];
 
+/** Ink on terracotta CTAs. */
+export const INK = '#1A100C';
+
 export const GRADIENTS = {
-  hero: ['#8B5CF6', '#EC4899', '#F5B841'] as const,
-  primary: ['#8B5CF6', '#6D28D9'] as const,
-  gold: ['#F5B841', '#EA7C28'] as const,
-  card: ['rgba(139,92,246,0.28)', 'rgba(11,6,32,0.0)'] as const,
+  hero: ['#C45C4A', '#E8A070'] as const,
+  primary: ['#C45C4A', '#9E3F32'] as const,
+  gold: ['#E8A070', '#C45C4A'] as const,
+  card: ['rgba(196,92,74,0.18)', 'rgba(12,11,10,0.0)'] as const,
 };
 
 export const FONTS = {
@@ -91,7 +99,6 @@ export function withAlpha(color: string, alpha: number): string {
   return `rgba(${r}, ${g}, ${b}, ${a})`;
 }
 
-
 export const TEXT_SIZE_MULTIPLIER: Record<'small' | 'medium' | 'large', number> = {
   small: 0.9,
   medium: 1,
@@ -108,35 +115,35 @@ export const SPACING = {
 };
 
 export const RADIUS = {
-  sm: 8,
-  md: 14,
-  lg: 20,
+  sm: 10,
+  md: 16,
+  lg: 22,
   xl: 28,
   pill: 999,
 };
 
 /** Genre -> accent color mapping for chips and cards. */
 export const GENRE_COLORS: Record<string, string> = {
-  Fantasy: '#8B5CF6',
-  Mystery: '#60A5FA',
-  Thriller: '#F87171',
-  Adventure: '#34D399',
-  'Sci-Fi': '#22D3EE',
-  Drama: '#F472B6',
-  Comedy: '#F5B841',
-  Horror: '#A855F7',
+  Fantasy: '#C9A27A',
+  Mystery: '#7BA3C9',
+  Thriller: '#E07A7A',
+  Adventure: '#6FBF9A',
+  'Sci-Fi': '#7BB8C4',
+  Drama: '#D4788A',
+  Comedy: '#E8A070',
+  Horror: '#A878C4',
   Historical: '#D4A373',
-  Mythology: '#FB923C',
-  Superhero: '#EF4444',
-  Anime: '#F0ABFC',
-  Magical: '#C084FC',
-  Action: '#F97316',
-  Romance: '#FB7185',
-  Crime: '#94A3B8',
+  Mythology: '#E08A4A',
+  Superhero: '#E07A5A',
+  Anime: '#D9A0C4',
+  Magical: '#C4A0D9',
+  Action: '#E08A4A',
+  Romance: '#E08A9A',
+  Crime: '#A8A09A',
 };
 
 export function genreColor(genre: string): string {
-  return GENRE_COLORS[genre] ?? '#8B5CF6';
+  return GENRE_COLORS[genre] ?? '#C45C4A';
 }
 
 /* ------------------------------------------------------------------ */
@@ -145,48 +152,48 @@ export function genreColor(genre: string): string {
 
 /** Elevated, premium type ramp with tightened tracking for display text. */
 export const TYPE = {
-  displayXL: { fontSize: 34, fontWeight: '900', letterSpacing: -0.6 },
-  display: { fontSize: 28, fontWeight: '900', letterSpacing: -0.5 },
-  title: { fontSize: 22, fontWeight: '800', letterSpacing: -0.3 },
-  heading: { fontSize: 18, fontWeight: '800', letterSpacing: -0.2 },
-  body: { fontSize: 15, fontWeight: '500', letterSpacing: 0 },
-  small: { fontSize: 13, fontWeight: '500', letterSpacing: 0.1 },
-  tiny: { fontSize: 11, fontWeight: '600', letterSpacing: 0.2 },
+  displayXL: { fontSize: 34, fontWeight: '800' as const, letterSpacing: -0.8 },
+  display: { fontSize: 28, fontWeight: '800' as const, letterSpacing: -0.5 },
+  title: { fontSize: 22, fontWeight: '700' as const, letterSpacing: -0.3 },
+  heading: { fontSize: 18, fontWeight: '700' as const, letterSpacing: -0.2 },
+  body: { fontSize: 15, fontWeight: '500' as const, letterSpacing: 0.1 },
+  small: { fontSize: 13, fontWeight: '500' as const, letterSpacing: 0.15 },
+  tiny: { fontSize: 11, fontWeight: '600' as const, letterSpacing: 0.4 },
 } as const;
 
 /** Soft depth so cards and hero art float above the background. */
 export const SHADOWS = {
   card: {
     shadowColor: '#000',
-    shadowOffset: { width: 0, height: 6 },
-    shadowOpacity: 0.35,
-    shadowRadius: 14,
-    elevation: 6,
+    shadowOffset: { width: 0, height: 8 },
+    shadowOpacity: 0.28,
+    shadowRadius: 16,
+    elevation: 5,
   },
   hero: {
-    shadowColor: '#8B5CF6',
-    shadowOffset: { width: 0, height: 10 },
-    shadowOpacity: 0.35,
-    shadowRadius: 24,
-    elevation: 10,
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 12 },
+    shadowOpacity: 0.4,
+    shadowRadius: 22,
+    elevation: 8,
   },
 } as const;
 
 /** Glassmorphism values for frosted overlays (hero badges, sheets). */
 export const GLASS = {
-  bg: 'rgba(16,10,40,0.55)',
-  stroke: 'rgba(255,255,255,0.14)',
+  bg: 'rgba(12,11,10,0.62)',
+  stroke: 'rgba(244,237,228,0.12)',
 } as const;
 
 /** Deterministic gradient avatar colors from any string id. */
 export function avatarColors(id: string): [string, string] {
   const pairs: [string, string][] = [
-    ['#8B5CF6', '#EC4899'],
-    ['#22D3EE', '#3B82F6'],
-    ['#F5B841', '#EA7C28'],
-    ['#34D399', '#0EA5E9'],
-    ['#F472B6', '#8B5CF6'],
-    ['#A3E635', '#10B981'],
+    ['#C45C4A', '#E8A070'],
+    ['#7BA3C9', '#4A6FA5'],
+    ['#6FBF9A', '#3D8A6A'],
+    ['#D4788A', '#C45C4A'],
+    ['#C9A27A', '#8A6A48'],
+    ['#A878C4', '#6A4A8A'],
   ];
   let h = 0;
   for (let i = 0; i < id.length; i++) h = (h * 31 + id.charCodeAt(i)) >>> 0;

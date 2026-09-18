@@ -32,7 +32,7 @@ export function OnboardingName({ navigation }: Props) {
         style={styles.wrap}
       >
         <LinearGradient colors={[...GRADIENTS.hero]} style={styles.logo}>
-          <Text style={styles.logoText}>कि</Text>
+          <Text style={[styles.logoText, { color: '#1A100C' }]}>कि</Text>
         </LinearGradient>
         <Text style={[styles.title, { color: theme.text }]}>What should we call you?</Text>
         <Text style={[styles.sub, { color: theme.textDim }]}>

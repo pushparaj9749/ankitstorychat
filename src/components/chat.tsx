@@ -184,7 +184,7 @@ export function ChoiceChips({
             },
           ]}
         >
-          <Text style={[styles.chipText, { color: '#D9CFFF' }]} numberOfLines={2}>
+          <Text style={[styles.chipText, { color: theme.text }]} numberOfLines={2}>
             {stripStoryMarkup(c.label)}
           </Text>
         </Pressable>

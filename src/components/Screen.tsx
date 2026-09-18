@@ -23,5 +23,5 @@ export function Screen({
 const styles = StyleSheet.create({
   safe: { flex: 1 },
   body: { flex: 1 },
-  padded: { paddingHorizontal: 16 },
+  padded: { paddingHorizontal: 20 },
 });

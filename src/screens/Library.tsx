@@ -32,7 +32,7 @@ export function Library({ navigation }: Props) {
     return (
       <Screen>
         <EmptyState
-          emoji="📖"
+          emoji="▣"
           title="Library khaali hai"
           subtitle="Koi story shuru karo — tumhari journeys yahan dikhengi."
           action="Browse stories"
@@ -47,7 +47,7 @@ export function Library({ navigation }: Props) {
       <ScrollView showsVerticalScrollIndicator={false}>
         {active.length > 0 ? (
           <>
-            <SectionHeader title="Continue Journeys" />
+            <SectionHeader title="In play" />
             {active.map((p) => (
               <View key={p.id} style={styles.gap}>
                 <ContinueCard
@@ -62,7 +62,7 @@ export function Library({ navigation }: Props) {
         ) : null}
         {favorites.length > 0 ? (
           <>
-            <SectionHeader title="Favorites ❤️" />
+            <SectionHeader title="Saved" />
             {favorites.map((s) => (
               <View key={s.id} style={styles.gap}>
                 <ContinueCard
