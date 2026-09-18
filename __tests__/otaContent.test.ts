@@ -271,9 +271,12 @@ describe('downloading a story package from the API', () => {
     await downloadStory(meta, API_BASE, '18+', () => undefined);
 
     const files = ['story.json', 'characters.json', 'world.json', 'scenes.json', 'memory.json'];
-    // Exactly the package files were fetched from the API (midnight-local
-    // relies on its bundled cover, so no cover fetch happens).
-    expect(fetchCalls).toEqual(files.map((f) => `${API_BASE}/stories/midnight-local/${f}`));
+    // JSON package files plus a best-effort cover fetch (midnight-local now
+    // publishes coverUrl for OTA Media Library, same as every other story).
+    expect(fetchCalls).toEqual([
+      ...files.map((f) => `${API_BASE}/stories/midnight-local/${f}`),
+      `${API_BASE}/stories/midnight-local/assets/cover.jpg`,
+    ]);
     // Installed into the local cache…
     for (const f of files) {
       expect(writeText).toHaveBeenCalledWith(
