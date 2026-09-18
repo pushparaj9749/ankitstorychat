@@ -2,7 +2,7 @@
   "id": "starship-vikrant",
   "title": "Starship Vikrant",
   "description": "Cadet se hero tak — first contact protocol activated. Space adventure.",
-  "version": 1,
+  "version": 2,
   "language": "hinglish",
   "ageRating": "12-17",
   "contentLevel": "teen",
@@ -39,6 +39,43 @@
         "file": "assets/cover.jpg",
         "kind": "cover",
         "label": "Cover"
+      },
+      {
+        "id": "cadet-viewport",
+        "file": "assets/gallery/image-01.jpg",
+        "kind": "scene",
+        "label": "Bridge par nebula",
+        "sceneId": "s1_signal"
+      },
+      {
+        "id": "zoya-jugaad",
+        "file": "assets/gallery/image-02.jpg",
+        "kind": "character-portrait",
+        "label": "Zoya",
+        "characterId": "zoya"
+      },
+      {
+        "id": "first-contact",
+        "file": "assets/gallery/image-03.jpg",
+        "kind": "scene",
+        "label": "First contact",
+        "characterId": "krrtik",
+        "sceneId": "s2_contact"
+      },
+      {
+        "id": "captain-rao",
+        "file": "assets/gallery/image-04.jpg",
+        "kind": "scene",
+        "label": "Teen pulse, ek pause",
+        "characterId": "rao",
+        "sceneId": "s1_signal"
+      },
+      {
+        "id": "crystal-heart",
+        "file": "assets/gallery/image-05.jpg",
+        "kind": "scene",
+        "label": "Dying crystal-heart",
+        "sceneId": "s3_heart"
       }
     ]
   }

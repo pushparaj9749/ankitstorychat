@@ -1,7 +1,7 @@
 {
-  "contentVersion": 22,
+  "contentVersion": 23,
   "minAppVersion": "1.0.0",
-  "updatedAt": "2026-09-18T04:00:00.000Z",
+  "updatedAt": "2026-09-18T05:00:00.000Z",
   "stories": [
     {
       "id": "goddess-who-chose-me",
@@ -882,7 +882,7 @@
       "ageRating": "12-17",
       "contentLevel": "teen",
       "language": "hinglish",
-      "version": 1,
+      "version": 2,
       "coverBundled": "starship-vikrant",
       "accentColor": "#22D3EE",
       "userRole": "Youngest cadet aboard the starship INS Vikrant",
@@ -892,12 +892,13 @@
       "isNew": true,
       "popularity": 88,
       "storyDir": "starship-vikrant",
-      "updatedAt": "2026-09-11T00:00:00.000Z",
+      "updatedAt": "2026-09-18T05:00:00.000Z",
       "creator": {
         "name": "Ankit",
         "avatar": null,
         "verified": true
-      }
+      },
+      "coverUrl": "stories/starship-vikrant/assets/cover.jpg"
     },
     {
       "id": "neo-delhi-2099",
@@ -1274,7 +1275,7 @@
       "ageRating": "18+",
       "contentLevel": "mature",
       "language": "hinglish",
-      "version": 1,
+      "version": 2,
       "coverUrl": "stories/playboy-reborn/assets/cover.jpg",
       "accentColor": "#B45309",
       "userRole": "{{playerName}} — 19 saal ke jism mein reborn hua mastermind jiske paas bhavishya ka gyaan aur badle ki aag hai",
@@ -1284,7 +1285,7 @@
       "isNew": true,
       "popularity": 85,
       "storyDir": "playboy-reborn",
-      "updatedAt": "2026-09-16T19:03:50.708Z",
+      "updatedAt": "2026-09-18T05:00:00.000Z",
       "creator": {
         "name": "Ankit",
         "avatar": null,
