@@ -1,19 +1,14 @@
 /**
- * Cinematic UI bits: badges, category chips, section headers, progress, avatars.
- * Original Kissa v2.4.1 visual language.
+ * KISSA v4.2 — Core UI Bits
+ * Original, cinematic, minimal, editorial.
+ * Components: AgeBadge, GenreChip, CategoryChip, SectionHeader, ProgressBar, Avatar, KissaHeader
  */
 import React from 'react';
-import {
-  Animated,
-  Pressable,
-  StyleSheet,
-  Text,
-  View,
-} from 'react-native';
+import { Animated, Pressable, StyleSheet, Text, View } from 'react-native';
 import { LinearGradient } from 'expo-linear-gradient';
 import { useApp } from '../state/AppContext';
 import { useNavScroll } from '../navigation/NavScrollContext';
-import { FONTS, GRADIENTS, RADIUS, SPACING, TYPE, avatarColors, genreColor, withAlpha } from '../theme';
+import { FONTS, GRADIENTS, RADIUS, SPACING, TYPE, avatarColors, genreColor, withAlpha, LAYOUT, KISSA } from '../theme';
 import { ratingLabel } from '../lib/ageGate';
 
 export function AgeBadge({ ageRating }: { ageRating: string }) {
@@ -23,18 +18,13 @@ export function AgeBadge({ ageRating }: { ageRating: string }) {
       style={[
         styles.ageBadge,
         {
-          backgroundColor: mature ? 'rgba(248,113,113,0.16)' : 'rgba(52,211,153,0.14)',
-          borderColor: mature ? 'rgba(248,113,113,0.28)' : 'rgba(52,211,153,0.28)',
+          backgroundColor: mature ? 'rgba(248,113,113,0.12)' : 'rgba(94,233,181,0.10)',
+          borderColor: mature ? 'rgba(248,113,113,0.22)' : 'rgba(94,233,181,0.20)',
         },
       ]}
     >
-      <View
-        style={[
-          styles.ageDot,
-          { backgroundColor: mature ? '#F87171' : '#34D399' },
-        ]}
-      />
-      <Text style={[styles.ageText, { color: mature ? '#FEB4B4' : '#6EE7B7' }]}>
+      <View style={[styles.ageDot, { backgroundColor: mature ? '#FF7A7A' : '#5EE9B5' }]} />
+      <Text style={[styles.ageText, { color: mature ? '#FFB4B4' : '#8CECC7' }]}>
         {ratingLabel({ ageRating: ageRating as '12-17' | '18+' })}
       </Text>
     </View>
@@ -44,13 +34,14 @@ export function AgeBadge({ ageRating }: { ageRating: string }) {
 export function GenreChip({ genre }: { genre: string }) {
   const c = genreColor(genre);
   return (
-    <View style={[styles.chip, { backgroundColor: withAlpha(c, 0.14), borderColor: withAlpha(c, 0.28) }]}>
+    <View style={[styles.chip, { backgroundColor: withAlpha(c, 0.11), borderColor: withAlpha(c, 0.22) }]}>
       <View style={[styles.chipDot, { backgroundColor: c }]} />
       <Text style={[styles.chipText, { color: c }]}>{genre}</Text>
     </View>
   );
 }
 
+/* Selectable category chip — v4.2: subtle, editorial, not neon */
 export function SelectableChip({
   label,
   selected,
@@ -68,9 +59,9 @@ export function SelectableChip({
       style={({ pressed }) => [
         styles.selectChip,
         {
-          backgroundColor: selected ? theme.primary : withAlpha(theme.surface2, 0.85),
-          borderColor: selected ? theme.accent : theme.border,
-          opacity: pressed ? 0.88 : 1,
+          backgroundColor: selected ? theme.text : withAlpha(theme.surface2, 0.9),
+          borderColor: selected ? theme.text : theme.border,
+          opacity: pressed ? 0.86 : 1,
           transform: [{ scale: pressed ? 0.97 : 1 }],
         },
       ]}
@@ -78,7 +69,7 @@ export function SelectableChip({
       <Text
         style={[
           styles.selectChipText,
-          { color: selected ? '#FFF' : theme.textDim },
+          { color: selected ? theme.bg : theme.textDim },
           selected && { fontWeight: '800' },
         ]}
       >
@@ -87,6 +78,9 @@ export function SelectableChip({
     </Pressable>
   );
 }
+
+/* CategoryChip alias for new design system */
+export const CategoryChip = SelectableChip;
 
 export function SectionHeader({
   title,
@@ -103,7 +97,7 @@ export function SectionHeader({
   return (
     <View style={styles.section}>
       <View style={styles.sectionLeft}>
-        {kicker ? <Text style={[styles.kicker, { color: theme.accent }]}>{kicker}</Text> : null}
+        {kicker ? <Text style={[styles.kicker, { color: theme.textFaint }]}>{kicker.toUpperCase()}</Text> : null}
         <Text style={[styles.sectionTitle, { color: theme.text }]}>{title}</Text>
       </View>
       {action && onAction ? (
@@ -113,14 +107,13 @@ export function SectionHeader({
           style={({ pressed }) => [
             styles.sectionActionWrap,
             {
-              backgroundColor: withAlpha(theme.primary, 0.12),
-              borderColor: withAlpha(theme.primary, 0.22),
-              opacity: pressed ? 0.72 : 1,
+              backgroundColor: withAlpha(theme.surface2, 0.9),
+              borderColor: theme.border,
+              opacity: pressed ? 0.7 : 1,
             },
           ]}
         >
-          <Text style={[styles.sectionAction, { color: theme.accent }]}>{action}</Text>
-          <Text style={[styles.sectionArrow, { color: theme.accent }]}>›</Text>
+          <Text style={[styles.sectionAction, { color: theme.textDim }]}>{action}</Text>
         </Pressable>
       ) : null}
     </View>
@@ -130,23 +123,17 @@ export function SectionHeader({
 export function ProgressBar({ value, color }: { value: number; color?: string }) {
   const { theme } = useApp();
   const pct = Math.round(Math.min(1, Math.max(0, value)) * 100);
-  const fill = color ?? theme.accent;
+  const fill = color ?? theme.primary;
   return (
-    <View style={[styles.progressTrack, { backgroundColor: withAlpha(theme.text, 0.08) }]}>
+    <View style={[styles.progressTrack, { backgroundColor: withAlpha(theme.text, 0.07) }]}>
       <View style={[styles.progressFillWrap, { width: `${pct}%` }]}>
-        <LinearGradient
-          colors={[fill, withAlpha(fill, 0.85)]}
-          start={{ x: 0, y: 0 }}
-          end={{ x: 1, y: 0 }}
-          style={styles.progressFill}
-        />
-        <View style={[styles.progressGlow, { backgroundColor: fill }]} />
+        <View style={[styles.progressFill, { backgroundColor: fill }]} />
       </View>
     </View>
   );
 }
 
-export function Avatar({ id, name, size = 44 }: { id: string; name: string; size?: number }) {
+export function Avatar({ id, name, size = 40 }: { id: string; name: string; size?: number }) {
   const [a, b] = avatarColors(id);
   const initial = (name?.trim()?.[0] ?? '?').toUpperCase();
   return (
@@ -154,17 +141,14 @@ export function Avatar({ id, name, size = 44 }: { id: string; name: string; size
       style={[
         styles.avatarWrap,
         {
-          width: size + 4,
-          height: size + 4,
-          borderRadius: (size + 4) / 2,
+          width: size + 2,
+          height: size + 2,
+          borderRadius: (size + 2) / 2,
         },
       ]}
     >
-      <LinearGradient
-        colors={[a, b]}
-        style={[styles.avatar, { width: size, height: size, borderRadius: size / 2 }]}
-      >
-        <Text style={[styles.avatarText, { fontSize: size * 0.42 }]}>{initial}</Text>
+      <LinearGradient colors={[a, b]} style={[styles.avatar, { width: size, height: size, borderRadius: size / 2 }]}>
+        <Text style={[styles.avatarText, { fontSize: size * 0.38 }]}>{initial}</Text>
       </LinearGradient>
     </View>
   );
@@ -174,9 +158,7 @@ export function Dot({ color }: { color: string }) {
   return <View style={[styles.dot, { backgroundColor: color }]} />;
 }
 
-/**
- * Direction-Aware Top Header for Screens
- */
+/* KissaHeader — v4.2: editorial wordmark, minimal, auto-hide aware */
 export function KissaHeader({
   title,
   subtitle,
@@ -198,7 +180,7 @@ export function KissaHeader({
         {
           transform: [{ translateY: headerTranslateY }],
           opacity: headerOpacity,
-          backgroundColor: withAlpha(theme.bg, 0.94),
+          backgroundColor: withAlpha(theme.bg, 0.92),
           borderBottomColor: theme.borderSoft,
         },
       ]}
@@ -206,17 +188,17 @@ export function KissaHeader({
       <View style={styles.headerContent}>
         {showLogo ? (
           <View style={styles.brandRow}>
-            <LinearGradient colors={[...GRADIENTS.hero]} style={styles.brandBadge}>
-              <Text style={styles.brandBadgeText}>✦</Text>
-            </LinearGradient>
+            <View style={[styles.brandMark, { backgroundColor: theme.text }]}>
+              <Text style={[styles.brandMarkText, { color: theme.bg }]}>K</Text>
+            </View>
             <View>
-              <Text style={[styles.brandWordmark, { color: theme.text }]}>KISSA</Text>
-              <Text style={[styles.brandTagline, { color: theme.textFaint }]}>INTERACTIVE CINEMA</Text>
+              <Text style={[styles.brandWordmark, { color: theme.text }]}>{KISSA.wordmark}</Text>
+              <Text style={[styles.brandTagline, { color: theme.textFaint }]}>{KISSA.tagline}</Text>
             </View>
           </View>
         ) : (
           <View style={styles.headerTitleWrap}>
-            {subtitle ? <Text style={[styles.headerSubtitle, { color: theme.accent }]}>{subtitle}</Text> : null}
+            {subtitle ? <Text style={[styles.headerSubtitle, { color: theme.textFaint }]}>{subtitle.toUpperCase()}</Text> : null}
             {title ? <Text style={[styles.headerMainTitle, { color: theme.text }]}>{title}</Text> : null}
           </View>
         )}
@@ -237,28 +219,28 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     alignSelf: 'flex-start',
   },
-  ageDot: { width: 6, height: 6, borderRadius: 3 },
-  ageText: { fontSize: FONTS.tiny, fontWeight: '800', letterSpacing: 0.4 },
+  ageDot: { width: 5, height: 5, borderRadius: 2.5 },
+  ageText: { fontSize: FONTS.tiny, fontWeight: '700', letterSpacing: 0.4 },
   chip: {
     flexDirection: 'row',
     alignItems: 'center',
-    gap: 6,
+    gap: 5,
     paddingHorizontal: 10,
-    paddingVertical: 5,
+    paddingVertical: 4,
     borderRadius: RADIUS.pill,
     borderWidth: 1,
     alignSelf: 'flex-start',
   },
-  chipDot: { width: 6, height: 6, borderRadius: 3, opacity: 0.9 },
-  chipText: { fontSize: FONTS.tiny, fontWeight: '700', letterSpacing: 0.2 },
+  chipDot: { width: 5, height: 5, borderRadius: 2.5, opacity: 0.9 },
+  chipText: { fontSize: FONTS.tiny, fontWeight: '600', letterSpacing: 0.2 },
   selectChip: {
-    paddingHorizontal: 15,
-    paddingVertical: 8,
+    paddingHorizontal: 16,
+    paddingVertical: 9,
     borderRadius: RADIUS.pill,
     borderWidth: 1,
     marginRight: 8,
   },
-  selectChipText: { fontSize: FONTS.small, fontWeight: '600', letterSpacing: 0.1 },
+  selectChipText: { fontSize: 13, fontWeight: '600', letterSpacing: 0.15 },
   section: {
     flexDirection: 'row',
     alignItems: 'flex-end',
@@ -267,43 +249,31 @@ const styles = StyleSheet.create({
     marginBottom: SPACING.md,
     gap: 12,
   },
-  sectionLeft: { flex: 1, gap: 2 },
-  kicker: { ...TYPE.overline, opacity: 0.9 },
-  sectionTitle: { fontSize: 18, fontWeight: '800', letterSpacing: -0.3, lineHeight: 22 },
+  sectionLeft: { flex: 1, gap: 3 },
+  kicker: { ...TYPE.tiny, letterSpacing: 1.2, fontWeight: '700' as const },
+  sectionTitle: { fontSize: 19, fontWeight: '700', letterSpacing: -0.3, lineHeight: 24 },
   sectionActionWrap: {
     flexDirection: 'row',
     alignItems: 'center',
-    gap: 4,
-    paddingHorizontal: 11,
+    paddingHorizontal: 12,
     paddingVertical: 6,
     borderRadius: RADIUS.pill,
     borderWidth: 1,
   },
-  sectionAction: { fontSize: 12, fontWeight: '800', letterSpacing: 0.2 },
-  sectionArrow: { fontSize: 14, fontWeight: '700', marginTop: -1 },
-  progressTrack: { height: 4, borderRadius: 2, overflow: 'hidden', marginTop: 6 },
-  progressFillWrap: { height: 4, borderRadius: 2, overflow: 'visible' },
-  progressFill: { flex: 1, borderRadius: 2 },
-  progressGlow: {
-    position: 'absolute',
-    right: -6,
-    top: -2,
-    width: 8,
-    height: 8,
-    borderRadius: 4,
-    opacity: 0.5,
-  },
+  sectionAction: { fontSize: 12, fontWeight: '600', letterSpacing: 0.15 },
+  progressTrack: { height: 3, borderRadius: 1.5, overflow: 'hidden', marginTop: 8 },
+  progressFillWrap: { height: 3, borderRadius: 1.5, overflow: 'visible' },
+  progressFill: { flex: 1, borderRadius: 1.5 },
   avatarWrap: {
     alignItems: 'center',
     justifyContent: 'center',
-    backgroundColor: 'rgba(255,255,255,0.06)',
+    backgroundColor: 'rgba(255,255,255,0.05)',
     borderWidth: 1,
-    borderColor: 'rgba(255,255,255,0.12)',
+    borderColor: 'rgba(255,255,255,0.08)',
   },
   avatar: { alignItems: 'center', justifyContent: 'center' },
   avatarText: { color: '#fff', fontWeight: '800' },
-  dot: { width: 8, height: 8, borderRadius: 4 },
-
+  dot: { width: 6, height: 6, borderRadius: 3 },
   headerContainer: {
     position: 'absolute',
     top: 0,
@@ -314,6 +284,8 @@ const styles = StyleSheet.create({
     paddingHorizontal: 18,
     paddingTop: 8,
     paddingBottom: 10,
+    height: LAYOUT.headerHeight,
+    justifyContent: 'center',
   },
   headerContent: {
     flexDirection: 'row',
@@ -325,34 +297,36 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     gap: 10,
   },
-  brandBadge: {
+  brandMark: {
     width: 28,
     height: 28,
-    borderRadius: 9,
+    borderRadius: 8,
     alignItems: 'center',
     justifyContent: 'center',
   },
-  brandBadgeText: {
-    color: '#0E070B',
-    fontSize: 15,
+  brandMarkText: {
+    fontSize: 14,
     fontWeight: '900',
+    letterSpacing: 0,
   },
   brandWordmark: {
-    fontSize: 15,
+    fontSize: 14,
     fontWeight: '900',
-    letterSpacing: 2.4,
+    letterSpacing: 2.2,
   },
   brandTagline: {
-    fontSize: 9,
+    fontSize: 8.5,
     fontWeight: '700',
     letterSpacing: 1.2,
+    marginTop: 1,
   },
   headerTitleWrap: {
     flex: 1,
   },
   headerSubtitle: {
-    ...TYPE.overline,
+    ...TYPE.tiny,
     marginBottom: 2,
+    letterSpacing: 1.2,
   },
   headerMainTitle: {
     ...TYPE.title,

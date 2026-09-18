@@ -1,23 +1,9 @@
 /**
- * Library / Chats Screen — Redesigned for Kissa v2.4.1.
- *
- * Features:
- *  - Active interactive fiction journeys prioritized
- *  - Story artwork (natural ratio), title, progress bar, last updated time
- *  - Saved / Favorited stories shelf
- *  - Zero technical memory UI
- *  - Elegant empty states
- *  - Direction-aware scroll handling
+ * KISSA v4.2 — Library / Chats
+ * Active journeys prioritized, saved shelf, no memory UI.
  */
 import React, { useMemo, useState } from 'react';
-import {
-  FlatList,
-  Pressable,
-  ScrollView,
-  StyleSheet,
-  Text,
-  View,
-} from 'react-native';
+import { FlatList, ScrollView, StyleSheet, Text, View } from 'react-native';
 import type { BottomTabScreenProps } from '@react-navigation/bottom-tabs';
 import type { MainTabParamList } from '../types';
 import { useApp } from '../state/AppContext';
@@ -26,7 +12,7 @@ import { Screen } from '../components/Screen';
 import { GridCard, ContinueCard } from '../components/StoryCard';
 import { SectionHeader, SelectableChip } from '../components/bits';
 import { EmptyState } from '../components/states';
-import { RADIUS, SPACING, TYPE, withAlpha } from '../theme';
+import { SPACING, TYPE } from '../theme';
 import { timeAgo } from '../lib/utils';
 
 type Props = BottomTabScreenProps<MainTabParamList, 'Library'>;
@@ -51,55 +37,31 @@ export function Library({ navigation }: Props) {
     return (
       <Screen>
         <View style={styles.header}>
-          <Text style={[styles.kicker, { color: theme.accent }]}>YOUR SHELF</Text>
-          <Text style={[styles.title, { color: theme.text }]}>Story Library</Text>
+          <Text style={[styles.kicker, { color: theme.textFaint }]}>YOUR SHELF</Text>
+          <Text style={[styles.title, { color: theme.text }]}>Library</Text>
         </View>
-        <EmptyState
-          emoji="▣"
-          title="Your library is empty"
-          subtitle="Explore stories and enter interactive journeys — your active adventures and saved stories live here."
-          action="Explore Stories"
-          onAction={() => navigation.navigate('Discover')}
-        />
+        <EmptyState emoji="▤" title="Your library is empty" subtitle="Explore stories and start journeys — they live here." action="Explore" onAction={() => navigation.navigate('Discover')} />
       </Screen>
     );
   }
 
   return (
     <Screen padded={false}>
-      <ScrollView
-        onScroll={handleScroll}
-        scrollEventThrottle={16}
-        showsVerticalScrollIndicator={false}
-        contentContainerStyle={styles.scroll}
-      >
+      <ScrollView onScroll={handleScroll} scrollEventThrottle={16} showsVerticalScrollIndicator={false} contentContainerStyle={styles.scroll}>
         <View style={styles.header}>
-          <Text style={[styles.kicker, { color: theme.accent }]}>YOUR SHELF</Text>
-          <Text style={[styles.title, { color: theme.text }]}>Story Library</Text>
-          <Text style={[styles.sub, { color: theme.textDim }]}>
-            {favStories.length} saved • {recentPlaythroughs.length} interactive journeys
-          </Text>
-
-          {/* Filter Pills */}
+          <Text style={[styles.kicker, { color: theme.textFaint }]}>YOUR SHELF</Text>
+          <Text style={[styles.title, { color: theme.text }]}>Library</Text>
+          <Text style={[styles.sub, { color: theme.textDim }]}>{favStories.length} saved · {recentPlaythroughs.length} journeys</Text>
           <View style={styles.filterRow}>
             {(['All', 'Active', 'Completed', 'Saved'] as FilterTab[]).map((tab) => (
-              <SelectableChip
-                key={tab}
-                label={tab}
-                selected={filter === tab}
-                onPress={() => setFilter(tab)}
-              />
+              <SelectableChip key={tab} label={tab} selected={filter === tab} onPress={() => setFilter(tab)} />
             ))}
           </View>
         </View>
 
-        {/* Active / In-Progress Journeys */}
         {filter !== 'Saved' && filteredPlaythroughs.length > 0 ? (
           <View style={styles.pad}>
-            <SectionHeader
-              title={filter === 'Completed' ? 'Completed Stories' : 'Interactive Journeys'}
-              kicker={`${filteredPlaythroughs.length} journeys`}
-            />
+            <SectionHeader title={filter === 'Completed' ? 'Completed' : 'Journeys'} kicker={`${filteredPlaythroughs.length}`} />
             {filteredPlaythroughs.map((p) => {
               const meta = byId.get(p.storyId);
               if (!meta) return null;
@@ -108,30 +70,23 @@ export function Library({ navigation }: Props) {
                   <ContinueCard
                     meta={meta}
                     progress={p.progress}
-                    subtitle={`${p.label} • ${p.status === 'completed' ? 'Completed' : timeAgo(p.updatedAt)}`}
-                    onPress={() =>
-                      (navigation as unknown as { navigate: (s: string, o: object) => void }).navigate('Chat', {
-                        playthroughId: p.id,
-                      })
-                    }
+                    subtitle={`${p.label} · ${p.status === 'completed' ? 'Completed' : timeAgo(p.updatedAt)}`}
+                    onPress={() => (navigation as any).navigate('Chat', { playthroughId: p.id })}
                   />
                 </View>
               );
             })}
           </View>
-        ) : filter !== 'Saved' && filteredPlaythroughs.length === 0 ? (
+        ) : filter !== 'Saved' ? (
           <View style={styles.emptyWrap}>
-            <Text style={[styles.emptyText, { color: theme.textFaint }]}>
-              No {filter.toLowerCase()} journeys found.
-            </Text>
+            <Text style={[styles.emptyText, { color: theme.textFaint }]}>No {filter.toLowerCase()} journeys.</Text>
           </View>
         ) : null}
 
-        {/* Saved Stories Rail */}
         {(filter === 'All' || filter === 'Saved') && favStories.length > 0 ? (
           <>
             <View style={styles.pad}>
-              <SectionHeader title="Saved Stories" kicker={`${favStories.length} favorites`} />
+              <SectionHeader title="Saved" kicker={`${favStories.length}`} />
             </View>
             <FlatList
               horizontal
@@ -141,14 +96,7 @@ export function Library({ navigation }: Props) {
               contentContainerStyle={styles.hlist}
               renderItem={({ item }) => (
                 <View style={styles.hitem}>
-                  <GridCard
-                    meta={item}
-                    onPress={() =>
-                      (navigation as unknown as { navigate: (s: string, o: object) => void }).navigate('StoryDetail', {
-                        storyId: item.id,
-                      })
-                    }
-                  />
+                  <GridCard meta={item} onPress={() => (navigation as any).navigate('StoryDetail', { storyId: item.id })} />
                 </View>
               )}
             />
@@ -164,14 +112,14 @@ export function Library({ navigation }: Props) {
 const styles = StyleSheet.create({
   scroll: { paddingBottom: 16 },
   header: { paddingHorizontal: 18, paddingTop: 8, paddingBottom: 4 },
-  kicker: { ...TYPE.overline, marginTop: 4 },
+  kicker: { ...TYPE.tiny, letterSpacing: 1.2, fontWeight: '700' as const, marginTop: 4 },
   title: { ...TYPE.title, marginTop: 2 },
-  sub: { fontSize: 13, marginTop: 4, letterSpacing: 0.1 },
-  filterRow: { flexDirection: 'row', marginTop: 12, marginBottom: 4 },
+  sub: { fontSize: 12.5, marginTop: 4, letterSpacing: 0.1 },
+  filterRow: { flexDirection: 'row', marginTop: 14, marginBottom: 4 },
   pad: { paddingHorizontal: 18 },
   gap: { marginBottom: 10 },
-  hlist: { paddingHorizontal: 18, alignItems: 'flex-start' },
-  hitem: { marginRight: 14 },
+  hlist: { paddingHorizontal: 18 },
+  hitem: { marginRight: 12 },
   emptyWrap: { padding: 24, alignItems: 'center' },
-  emptyText: { fontSize: 13, fontWeight: '600' },
+  emptyText: { fontSize: 12.5, fontWeight: '500' },
 });

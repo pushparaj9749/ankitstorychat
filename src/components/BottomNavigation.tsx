@@ -1,36 +1,26 @@
 /**
- * Custom Cinematic Bottom Navigation for Kissa v2.4.1.
- *
- * Features:
- *  - Direction-aware auto-hide (smoothly translates down on scroll down, returns on scroll up)
- *  - Frosted glass finish with subtle border glow
- *  - Safe area aware (Android gesture navigation & iOS home bar)
- *  - Minimal, high-clarity iconography + typography
+ * KISSA v4.2 — Bottom Navigation
+ * Original, minimal, editorial, safe-area aware.
+ * Direction-aware auto-hide with hysteresis, no flicker.
  */
 import React from 'react';
-import {
-  Animated,
-  Pressable,
-  StyleSheet,
-  Text,
-  View,
-} from 'react-native';
+import { Animated, Pressable, StyleSheet, Text, View } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import type { BottomTabBarProps } from '@react-navigation/bottom-tabs';
 import { useApp } from '../state/AppContext';
 import { useNavScroll } from '../navigation/NavScrollContext';
-import { FONTS, RADIUS, SHADOWS, withAlpha } from '../theme';
+import { RADIUS, SHADOWS, withAlpha, LAYOUT } from '../theme';
 
 interface TabMeta {
-  glyph: string;
   label: string;
+  icon: string;
 }
 
 const TAB_CONFIG: Record<string, TabMeta> = {
-  Home: { glyph: '◆', label: 'Home' },
-  Discover: { glyph: '◎', label: 'Explore' },
-  Library: { glyph: '▣', label: 'Library' },
-  Settings: { glyph: '○', label: 'Profile' },
+  Home: { label: 'Home', icon: '◐' },
+  Discover: { label: 'Explore', icon: '⌕' },
+  Library: { label: 'Library', icon: '▤' },
+  Settings: { label: 'You', icon: '○' },
 };
 
 export function KissaBottomTabBar({ state, descriptors, navigation }: BottomTabBarProps) {
@@ -47,7 +37,8 @@ export function KissaBottomTabBar({ state, descriptors, navigation }: BottomTabB
           opacity: tabBarOpacity,
           paddingBottom: Math.max(insets.bottom, 8),
           backgroundColor: withAlpha(theme.bgSoft, 0.96),
-          borderTopColor: theme.border,
+          borderTopColor: theme.borderSoft,
+          height: LAYOUT.tabBarHeight + Math.max(insets.bottom, 8),
         },
         SHADOWS.floating,
       ]}
@@ -56,7 +47,7 @@ export function KissaBottomTabBar({ state, descriptors, navigation }: BottomTabB
         {state.routes.map((route, index) => {
           const isFocused = state.index === index;
           const { options } = descriptors[route.key];
-          const meta = TAB_CONFIG[route.name] ?? { glyph: '•', label: route.name };
+          const meta = TAB_CONFIG[route.name] ?? { label: route.name, icon: '•' };
 
           const onPress = () => {
             const event = navigation.emit({
@@ -64,7 +55,6 @@ export function KissaBottomTabBar({ state, descriptors, navigation }: BottomTabB
               target: route.key,
               canPreventDefault: true,
             });
-
             if (!isFocused && !event.defaultPrevented) {
               navigation.navigate(route.name);
             }
@@ -83,7 +73,6 @@ export function KissaBottomTabBar({ state, descriptors, navigation }: BottomTabB
               accessibilityRole="tab"
               accessibilityState={isFocused ? { selected: true } : {}}
               accessibilityLabel={options.tabBarAccessibilityLabel ?? meta.label}
-              testID={options.tabBarButtonTestID}
               onPress={onPress}
               onLongPress={onLongPress}
               style={styles.tabItem}
@@ -92,8 +81,7 @@ export function KissaBottomTabBar({ state, descriptors, navigation }: BottomTabB
                 style={[
                   styles.iconBox,
                   isFocused && {
-                    backgroundColor: withAlpha(theme.primary, 0.16),
-                    borderColor: withAlpha(theme.primary, 0.35),
+                    backgroundColor: theme.text,
                   },
                 ]}
               >
@@ -101,13 +89,11 @@ export function KissaBottomTabBar({ state, descriptors, navigation }: BottomTabB
                   style={[
                     styles.glyph,
                     {
-                      color: isFocused ? theme.accent : theme.textFaint,
-                      fontWeight: isFocused ? '800' : '500',
-                      fontSize: isFocused ? 16 : 14,
+                      color: isFocused ? theme.bg : theme.textFaint,
                     },
                   ]}
                 >
-                  {meta.glyph}
+                  {meta.icon}
                 </Text>
               </View>
               <Text
@@ -115,17 +101,12 @@ export function KissaBottomTabBar({ state, descriptors, navigation }: BottomTabB
                   styles.label,
                   {
                     color: isFocused ? theme.text : theme.textFaint,
-                    fontWeight: isFocused ? '800' : '600',
+                    fontWeight: isFocused ? '700' : '500',
                   },
                 ]}
               >
                 {meta.label}
               </Text>
-              {isFocused ? (
-                <View style={[styles.activeDot, { backgroundColor: theme.accent }]} />
-              ) : (
-                <View style={styles.idleDot} />
-              )}
             </Pressable>
           );
         })}
@@ -141,50 +122,38 @@ const styles = StyleSheet.create({
     right: 0,
     bottom: 0,
     borderTopWidth: StyleSheet.hairlineWidth,
-    paddingTop: 8,
+    paddingTop: 6,
     zIndex: 100,
+    justifyContent: 'flex-start',
   },
   inner: {
     flexDirection: 'row',
     justifyContent: 'space-around',
     alignItems: 'center',
     paddingHorizontal: 8,
+    flex: 1,
   },
   tabItem: {
     flex: 1,
     alignItems: 'center',
     justifyContent: 'center',
+    gap: 4,
     paddingVertical: 2,
-    gap: 3,
   },
   iconBox: {
-    width: 32,
-    height: 30,
-    borderRadius: RADIUS.pill,
+    width: 30,
+    height: 28,
+    borderRadius: 10,
     alignItems: 'center',
     justifyContent: 'center',
-    borderWidth: 1,
-    borderColor: 'transparent',
   },
   glyph: {
-    letterSpacing: -0.2,
+    fontSize: 14,
+    fontWeight: '700',
   },
   label: {
     fontSize: 10,
     letterSpacing: 0.3,
     textTransform: 'uppercase',
-  },
-  activeDot: {
-    width: 4,
-    height: 4,
-    borderRadius: 2,
-    marginTop: 1,
-  },
-  idleDot: {
-    width: 4,
-    height: 4,
-    borderRadius: 2,
-    marginTop: 1,
-    opacity: 0,
   },
 });

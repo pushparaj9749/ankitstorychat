@@ -1,19 +1,17 @@
 /**
- * Chat UI — Cinematic Immersive Story Stage for Kissa v2.4.1.
- *
- * Requirements:
- *  - Atmospheric story text rendering (faded *action* vs crisp spoken dialogue)
- *  - Identical shape signature for narration and dialogue bubbles (verified by unit tests)
- *  - Scene divider markers starting with ✦ rendered as chapter dividers
- *  - Player messages distinct and luminous
- *  - Choice chips with asterisks stripped
- *  - Animated typing indicator
+ * KISSA v4.2 — Chat UI
+ * Cinematic interactive story stage, NOT a generic messenger.
+ * - Narration: atmospheric, faded italic, editorial (identical bubble shape to dialogue for tests)
+ * - Character dialogue: name + dialogue, crisp
+ * - Player: distinct, warm, minimal (solid text bubble)
+ * - Scene markers: chapter dividers preserving "✦" marker
  */
 import React, { useEffect, useMemo, useRef } from 'react';
 import { Animated, Pressable, StyleSheet, Text, View } from 'react-native';
+import { LinearGradient } from 'expo-linear-gradient';
 import type { ChatMessage } from '../types';
 import { useApp } from '../state/AppContext';
-import { FADED_TEXT_OPACITY, FONTS, RADIUS, SPACING, TEXT_SIZE_MULTIPLIER, TYPE, withAlpha } from '../theme';
+import { FADED_TEXT_OPACITY, RADIUS, SPACING, TYPE, withAlpha, FONTS, TEXT_SIZE_MULTIPLIER } from '../theme';
 import { parseStoryMarkup, stripStoryMarkup } from '../lib/markup';
 import { Avatar } from './bits';
 
@@ -21,9 +19,6 @@ function isSceneMarker(text: string): boolean {
   return (text ?? '').trimStart().startsWith('✦');
 }
 
-/**
- * Story text renderer — faded *action* vs crisp dialogue.
- */
 export function StoryText({
   text,
   color,
@@ -43,10 +38,7 @@ export function StoryText({
   return (
     <Text style={[styles.body, { color, fontSize }, lineHeight ? { lineHeight } : null]}>
       {spans.map((s, i) => (
-        <Text
-          key={`${i}-${s.faded ? 'f' : 'p'}`}
-          style={s.faded || faded ? [styles.faded, { color: fadedColor }] : undefined}
-        >
+        <Text key={`${i}-${s.faded ? 'f' : 'p'}`} style={s.faded || faded ? [styles.faded, { color: fadedColor }] : undefined}>
           {s.text}
         </Text>
       ))}
@@ -64,28 +56,28 @@ export function ChatBubble({ message }: { message: ChatMessage }) {
     if (isSceneMarker(message.text)) {
       return (
         <View style={styles.sceneWrap}>
-          <View style={[styles.sceneLine, { backgroundColor: withAlpha(theme.border, 0.6) }]} />
-          <View style={[styles.scenePill, { backgroundColor: withAlpha(theme.surface, 0.94), borderColor: theme.border }]}>
-            <Text style={[styles.sceneText, { color: theme.accent, fontSize: 12 * scale }]}>
-              {message.text.replace(/^✦\s*/, '✦ ')}
-            </Text>
+          <View style={[styles.sceneLine, { backgroundColor: withAlpha(theme.border, 0.5) }]} />
+          <View style={[styles.scenePill, { backgroundColor: theme.surface2, borderColor: theme.borderSoft }]}>
+            <Text style={[styles.sceneText, { color: theme.textFaint, fontSize: 11 * scale }]}>{message.text}</Text>
           </View>
-          <View style={[styles.sceneLine, { backgroundColor: withAlpha(theme.border, 0.6) }]} />
+          <View style={[styles.sceneLine, { backgroundColor: withAlpha(theme.border, 0.5) }]} />
         </View>
       );
     }
 
     // Narration block — identical layout shape to dialogue for test assertion & visual consistency
+    // v4.2: atmospheric, faded, but keeps same structure (Avatar + bubble with surface/border + LinearGradient accent)
     return (
       <View style={[styles.row, styles.rowLeft]}>
-        <Avatar id={message.speaker ?? 'narrator'} name={message.speaker ?? '✦'} size={34} />
+        <Avatar id={message.speaker ?? 'narrator'} name={message.speaker ?? '✦'} size={32} />
         <View style={[styles.bubble, styles.bubbleAI, { backgroundColor: theme.surface, borderColor: theme.border }]}>
+          <LinearGradient colors={['rgba(233,67,94,0.08)', 'transparent']} style={styles.bubbleGlow} pointerEvents="none" />
           <StoryText
             text={message.text}
             color={theme.textDim}
             fadedColor={withAlpha(theme.textDim, FADED_TEXT_OPACITY)}
             fontSize={smallBody}
-            lineHeight={21 * scale}
+            lineHeight={20 * scale}
             faded
           />
         </View>
@@ -96,10 +88,8 @@ export function ChatBubble({ message }: { message: ChatMessage }) {
   if (message.role === 'system') {
     return (
       <View style={styles.sysWrap}>
-        <View style={[styles.sysPill, { backgroundColor: withAlpha(theme.surface, 0.8), borderColor: theme.border }]}>
-          <Text style={[styles.sysText, { color: theme.textFaint, fontSize: 11 * scale }]}>
-            {stripStoryMarkup(message.text)}
-          </Text>
+        <View style={[styles.sysPill, { backgroundColor: withAlpha(theme.surface2, 0.8), borderColor: theme.borderSoft }]}>
+          <Text style={[styles.sysText, { color: theme.textFaint, fontSize: 11 * scale }]}>{stripStoryMarkup(message.text)}</Text>
         </View>
       </View>
     );
@@ -109,43 +99,32 @@ export function ChatBubble({ message }: { message: ChatMessage }) {
   if (isUser) {
     return (
       <View style={[styles.row, styles.rowRight]}>
-        <View style={[styles.bubble, styles.bubbleUser, { backgroundColor: theme.primary }]}>
-          <StoryText
-            text={message.text}
-            color={'#FFF8F0'}
-            fadedColor={withAlpha('#FFF8F0', 0.78)}
-            fontSize={bodySize}
-            lineHeight={22 * scale}
-          />
+        <View style={[styles.bubble, styles.bubbleUser, { backgroundColor: theme.text }]}>
+          <StoryText text={message.text} color={theme.bg} fadedColor={withAlpha(theme.bg, 0.72)} fontSize={bodySize} lineHeight={21 * scale} />
         </View>
       </View>
     );
   }
 
-  // Assistant / character dialogue
+  // Assistant / character — v4.2: distinct name, crisp dialogue
   return (
     <View style={[styles.row, styles.rowLeft]}>
-      <Avatar id={message.speaker ?? 'narrator'} name={message.speaker ?? '✦'} size={34} />
+      <Avatar id={message.speaker ?? 'narrator'} name={message.speaker ?? '✦'} size={32} />
       <View style={[styles.bubble, styles.bubbleAI, { backgroundColor: theme.surface, borderColor: theme.border }]}>
+        <LinearGradient colors={['rgba(233,67,94,0.06)', 'transparent']} style={styles.bubbleGlow} pointerEvents="none" />
         {message.speaker ? (
           <View style={styles.speakerRow}>
-            <Text style={[styles.speaker, { color: theme.accent, fontSize: 11 * scale }]}>{message.speaker}</Text>
-            <View style={[styles.speakerDot, { backgroundColor: withAlpha(theme.accent, 0.22) }]} />
+            <Text style={[styles.speaker, { color: theme.textFaint, fontSize: 11 * scale }]}>{message.speaker}</Text>
+            <View style={[styles.speakerDot, { backgroundColor: withAlpha(theme.textFaint, 0.3) }]} />
           </View>
         ) : null}
-        <StoryText
-          text={message.text}
-          color={'#fff'}
-          fadedColor={withAlpha(theme.textDim, FADED_TEXT_OPACITY)}
-          fontSize={bodySize}
-          lineHeight={22 * scale}
-        />
+        <StoryText text={message.text} color={'#fff'} fadedColor={withAlpha(theme.textDim, FADED_TEXT_OPACITY)} fontSize={bodySize} lineHeight={22 * scale} />
       </View>
     </View>
   );
 }
 
-export function TypingIndicator({ label = 'typing…' }: { label?: string }) {
+export function TypingIndicator({ label = 'Story continues…' }: { label?: string }) {
   const { theme } = useApp();
   const anim = useRef(new Animated.Value(0)).current;
 
@@ -161,30 +140,19 @@ export function TypingIndicator({ label = 'typing…' }: { label?: string }) {
   }, [anim]);
 
   const dotAnim = {
-    opacity: anim.interpolate({ inputRange: [0, 1], outputRange: [0.42, 1] }),
-    transform: [
-      {
-        scale: anim.interpolate({ inputRange: [0, 1], outputRange: [0.96, 1] }),
-      },
-    ],
+    opacity: anim.interpolate({ inputRange: [0, 1], outputRange: [0.4, 1] }),
   };
 
   return (
     <View style={styles.typingRow}>
-      <Avatar id="narrator" name="✦" size={30} />
-      <Animated.View
-        style={[
-          styles.typingBubble,
-          { backgroundColor: withAlpha(theme.surface, 0.96), borderColor: theme.border },
-          dotAnim,
-        ]}
-      >
+      <Avatar id="narrator" name="✦" size={28} />
+      <Animated.View style={[styles.typingBubble, { backgroundColor: withAlpha(theme.surface, 0.9), borderColor: theme.borderSoft }, dotAnim]}>
         <View style={styles.typingDots}>
-          <View style={[styles.dot, { backgroundColor: withAlpha(theme.accent, 0.5) }]} />
-          <View style={[styles.dot, { backgroundColor: withAlpha(theme.accent, 0.75) }]} />
-          <View style={[styles.dot, { backgroundColor: theme.accent }]} />
+          <View style={[styles.dot, { backgroundColor: theme.textFaint }]} />
+          <View style={[styles.dot, { backgroundColor: theme.textDim }]} />
+          <View style={[styles.dot, { backgroundColor: theme.text }]} />
         </View>
-        <Text style={[styles.typingText, { color: theme.textDim }]}>{label}</Text>
+        <Text style={[styles.typingText, { color: theme.textFaint }]}>{label}</Text>
       </Animated.View>
     </View>
   );
@@ -214,14 +182,14 @@ export function ChoiceChips({
           style={({ pressed }) => [
             styles.chip,
             {
-              backgroundColor: withAlpha(theme.primary, 0.14),
-              borderColor: withAlpha(theme.primary, 0.32),
+              backgroundColor: withAlpha(theme.surface2, 0.9),
+              borderColor: theme.border,
               opacity: disabled ? 0.4 : pressed ? 0.78 : 1,
               transform: [{ scale: pressed ? 0.98 : 1 }],
             },
           ]}
         >
-          <Text style={[styles.chipText, { color: theme.text }]} numberOfLines={2}>
+          <Text style={[styles.chipText, { color: theme.textDim }]} numberOfLines={2}>
             {stripStoryMarkup(c.label)}
           </Text>
         </Pressable>
@@ -236,72 +204,69 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     marginVertical: SPACING.md,
     gap: 10,
-    paddingHorizontal: 12,
+    paddingHorizontal: 8,
   },
-  sceneLine: { flex: 1, height: StyleSheet.hairlineWidth, opacity: 0.9 },
+  sceneLine: { flex: 1, height: StyleSheet.hairlineWidth },
   scenePill: {
-    paddingHorizontal: 14,
-    paddingVertical: 7,
+    paddingHorizontal: 12,
+    paddingVertical: 5,
     borderRadius: 999,
     borderWidth: 1,
   },
-  sceneText: { fontStyle: 'italic', fontWeight: '700', letterSpacing: 0.2, textAlign: 'center' },
-
+  sceneText: { fontWeight: '600', letterSpacing: 0.2, textAlign: 'center' },
   sysWrap: { alignItems: 'center', marginVertical: 6 },
-  sysPill: { paddingHorizontal: 12, paddingVertical: 6, borderRadius: 999, borderWidth: 1 },
+  sysPill: { paddingHorizontal: 12, paddingVertical: 5, borderRadius: 999, borderWidth: 1 },
   sysText: { fontWeight: '600', letterSpacing: 0.2 },
-
-  row: { flexDirection: 'row', marginVertical: 5, gap: 9, alignItems: 'flex-end', paddingHorizontal: 2 },
-  rowRight: { justifyContent: 'flex-end', marginLeft: 52 },
-  rowLeft: { justifyContent: 'flex-start', marginRight: 16 },
-
+  row: { flexDirection: 'row', marginVertical: 5, gap: 8, alignItems: 'flex-end', paddingHorizontal: 2 },
+  rowRight: { justifyContent: 'flex-end', marginLeft: 48 },
+  rowLeft: { justifyContent: 'flex-start', marginRight: 12 },
   bubble: {
-    maxWidth: '86%',
-    paddingHorizontal: 15,
-    paddingVertical: 12,
+    maxWidth: '84%',
+    paddingHorizontal: 14,
+    paddingVertical: 11,
     borderRadius: 18,
+    overflow: 'hidden',
   },
   bubbleUser: {
     borderBottomRightRadius: 6,
-    shadowColor: '#E63964',
-    shadowOpacity: 0.22,
-    shadowRadius: 12,
-    shadowOffset: { width: 0, height: 4 },
-    elevation: 3,
   },
   bubbleAI: {
     borderBottomLeftRadius: 6,
     borderWidth: 1,
   },
-
+  bubbleGlow: {
+    position: 'absolute',
+    top: 0,
+    left: 0,
+    right: 0,
+    height: 40,
+    opacity: 0.8,
+  },
   speakerRow: { flexDirection: 'row', alignItems: 'center', gap: 6, marginBottom: 4 },
-  speaker: { fontWeight: '800', letterSpacing: 0.3, textTransform: 'uppercase' },
-  speakerDot: { width: 5, height: 5, borderRadius: 2.5 },
-
+  speaker: { fontWeight: '700', letterSpacing: 0.3 },
+  speakerDot: { width: 4, height: 4, borderRadius: 2 },
   body: { lineHeight: 22 },
-  faded: { fontStyle: 'italic', letterSpacing: 0.05 },
-
-  typingRow: { flexDirection: 'row', alignItems: 'center', gap: 9, marginVertical: 6, paddingHorizontal: 2 },
+  faded: { fontStyle: 'italic', letterSpacing: 0.08 },
+  typingRow: { flexDirection: 'row', alignItems: 'center', gap: 8, marginVertical: 6, paddingHorizontal: 2 },
   typingBubble: {
     flexDirection: 'row',
     alignItems: 'center',
-    gap: 10,
-    paddingHorizontal: 14,
-    paddingVertical: 11,
-    borderRadius: 16,
+    gap: 8,
+    paddingHorizontal: 12,
+    paddingVertical: 9,
+    borderRadius: 14,
     borderWidth: 1,
   },
-  typingDots: { flexDirection: 'row', gap: 4, alignItems: 'center' },
-  dot: { width: 6, height: 6, borderRadius: 3 },
-  typingText: { fontStyle: 'italic', fontSize: 12, fontWeight: '600' },
-
+  typingDots: { flexDirection: 'row', gap: 3, alignItems: 'center' },
+  dot: { width: 4, height: 4, borderRadius: 2 },
+  typingText: { fontStyle: 'italic', fontSize: 11, fontWeight: '500' },
   chipsWrap: { flexDirection: 'row', flexWrap: 'wrap', gap: 8, marginVertical: 8, paddingHorizontal: 2 },
   chip: {
     borderWidth: 1,
     borderRadius: 999,
     paddingHorizontal: 14,
-    paddingVertical: 10,
+    paddingVertical: 9,
     maxWidth: '100%',
   },
-  chipText: { fontSize: FONTS.small, fontWeight: '600', letterSpacing: 0.1 },
+  chipText: { fontSize: 13, fontWeight: '500', letterSpacing: 0.1 },
 });

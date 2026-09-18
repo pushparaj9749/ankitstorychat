@@ -1,12 +1,12 @@
 /**
- * Premium Kissa Buttons: Primary Luminous Gradient, Sunset Gold, Ghost Glass.
- * Kissa v2.4.1.
+ * KISSA v4.2 — Buttons
+ * Primary: solid text on rose, minimal, editorial.
+ * Ghost: subtle surface, border.
  */
 import React from 'react';
 import { ActivityIndicator, Pressable, StyleSheet, Text, View } from 'react-native';
-import { LinearGradient } from 'expo-linear-gradient';
 import { useApp } from '../state/AppContext';
-import { GRADIENTS, INK, RADIUS, SHADOWS, SPACING, withAlpha } from '../theme';
+import { RADIUS, SPACING, withAlpha, INK } from '../theme';
 import { lightBuzz } from '../lib/haptics';
 
 export function GradientButton({
@@ -22,7 +22,7 @@ export function GradientButton({
   onPress: () => void;
   disabled?: boolean;
   loading?: boolean;
-  variant?: 'primary' | 'gold' | 'ghost';
+  variant?: 'primary' | 'gold' | 'ghost' | 'secondary';
   accessibilityLabel?: string;
   icon?: string;
 }) {
@@ -33,7 +33,7 @@ export function GradientButton({
     onPress();
   };
 
-  if (variant === 'ghost') {
+  if (variant === 'ghost' || variant === 'secondary') {
     return (
       <Pressable
         onPress={handlePress}
@@ -44,7 +44,7 @@ export function GradientButton({
           styles.ghost,
           {
             borderColor: theme.border,
-            backgroundColor: withAlpha(theme.surface, pressed ? 0.94 : 0.82),
+            backgroundColor: withAlpha(theme.surface2, pressed ? 0.95 : 0.88),
             opacity: disabled ? 0.45 : 1,
             transform: [{ scale: pressed ? 0.98 : 1 }],
           },
@@ -62,7 +62,6 @@ export function GradientButton({
     );
   }
 
-  const colors = variant === 'gold' ? GRADIENTS.gold : GRADIENTS.primary;
   return (
     <Pressable
       onPress={handlePress}
@@ -70,46 +69,44 @@ export function GradientButton({
       accessibilityRole="button"
       accessibilityLabel={accessibilityLabel ?? title}
       style={({ pressed }) => [
-        styles.wrap,
-        { opacity: disabled ? 0.45 : 1, transform: [{ scale: pressed ? 0.98 : 1 }] },
-        SHADOWS.glowAccent,
+        styles.primaryWrap,
+        {
+          backgroundColor: theme.text,
+          opacity: disabled ? 0.45 : 1,
+          transform: [{ scale: pressed ? 0.98 : 1 }],
+        },
       ]}
     >
-      <LinearGradient
-        colors={[...colors]}
-        start={{ x: 0, y: 0 }}
-        end={{ x: 1, y: 0 }}
-        style={styles.grad}
-      >
-        {loading ? (
-          <ActivityIndicator color={INK} size="small" />
-        ) : (
-          <View style={styles.primaryInner}>
-            {icon ? <Text style={styles.primaryIcon}>{icon}</Text> : null}
-            <Text style={styles.text}>{title}</Text>
-          </View>
-        )}
-      </LinearGradient>
+      {loading ? (
+        <ActivityIndicator color={theme.bg} size="small" />
+      ) : (
+        <View style={styles.primaryInner}>
+          {icon ? <Text style={[styles.primaryIcon, { color: theme.bg }]}>{icon}</Text> : null}
+          <Text style={[styles.primaryText, { color: theme.bg }]}>{title}</Text>
+        </View>
+      )}
     </Pressable>
   );
 }
+
+export const PrimaryButton = GradientButton;
+export const SecondaryButton = (props: any) => <GradientButton {...props} variant="ghost" />;
 
 export function Row({ children }: { children: React.ReactNode }) {
   return <View style={styles.row}>{children}</View>;
 }
 
 const styles = StyleSheet.create({
-  wrap: { borderRadius: RADIUS.pill, overflow: 'hidden' },
-  grad: {
+  primaryWrap: {
+    borderRadius: RADIUS.pill,
     paddingVertical: 14,
     paddingHorizontal: SPACING.xl,
     alignItems: 'center',
     justifyContent: 'center',
-    borderRadius: RADIUS.pill,
   },
   primaryInner: { flexDirection: 'row', alignItems: 'center', justifyContent: 'center', gap: 8 },
-  primaryIcon: { fontSize: 16 },
-  text: { color: INK, fontWeight: '900', fontSize: 15, letterSpacing: 0.3 },
+  primaryIcon: { fontSize: 14, fontWeight: '800' },
+  primaryText: { fontWeight: '800', fontSize: 14, letterSpacing: 0.4 },
   ghost: {
     borderWidth: 1,
     borderRadius: RADIUS.pill,
@@ -119,7 +116,7 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
   },
   ghostInner: { flexDirection: 'row', alignItems: 'center', justifyContent: 'center', gap: 8 },
-  ghostIcon: { fontSize: 15 },
-  ghostText: { fontWeight: '700', fontSize: 14, letterSpacing: 0.2 },
+  ghostIcon: { fontSize: 14 },
+  ghostText: { fontWeight: '600', fontSize: 13.5, letterSpacing: 0.2 },
   row: { flexDirection: 'row', gap: 10 },
 });
