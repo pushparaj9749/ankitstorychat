@@ -103,7 +103,7 @@ describe('write path', () => {
 });
 
 describe('recall', () => {
-  test('digest + preferences are pinned, used rows get reinforced', async () => {
+  test('digest + preferences are pinned, recallForTurn is pure-read (no reinforce)', async () => {
     await putMemory('pt1', 'story', 'Haveli ka raaz: teeja kamora band hai', 4);
     await rememberPreferences('mujhe andhera pasand nahi');
     kv.set('memsum:pt1', 'Raj haveli mein fasa hai.');
@@ -113,7 +113,8 @@ describe('recall', () => {
     expect(r.summary).toBe('Raj haveli mein fasa hai.');
     expect(r.memories.some((m) => m.kind === 'preference')).toBe(true);
     expect(r.memories.some((m) => m.text.includes('teeja kamora'))).toBe(true);
-    expect(reinforceCalls[0]).toHaveLength(r.memories.length);
+    // L7 FIX: recallForTurn no longer reinforces (only recallWithWorldState does)
+    expect(reinforceCalls).toHaveLength(0);
   });
 
   test('archived rows never resurface', async () => {

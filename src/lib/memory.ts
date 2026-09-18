@@ -59,8 +59,11 @@ export {
   buildDigestFallback,
   renderMemoryLine,
   extractPreferenceNotes,
+  overlapScore,
+  buildQuery,
+  preferenceSupersededTexts,
 } from './memoryCore';
-export type { SelectOptions } from './memoryCore';
+export type { SelectOptions, SelectResult } from './memoryCore';
 
 /* ---------------- writing ---------------- */
 
@@ -203,7 +206,8 @@ export async function recallForTurn(
     getSummary(playthroughId),
   ]);
   const picked = selectRelevant(pool, queryText, opts);
-  if (picked.length) void reinforceMemories(picked.map((m) => m.id), nowIso()).catch(() => undefined);
+  // L7 FIX: Do NOT reinforce here — reinforce only happens for memories
+  // that actually enter buildContext (see recallWithWorldState in memoryEngine).
   return { memories: picked, summary, candidates: pool.length };
 }
 
@@ -212,7 +216,8 @@ export async function recallForTurn(
 export const FOLD_AT_EPISODES = 40;
 export const KEEP_LIVE_EPISODES = 16;
 export const FOLD_BATCH = 30;
-/** Above this many live curated facts, the oldest ones join the digest too. */
+/** At least this many live episodes must remain after folding. */
+export const MIN_LIVE_AFTER_FOLD = 8;
 export const MAX_LIVE_FACTS = 240;
 const FACT_KINDS = ['story', 'character', 'world'];
 
@@ -239,7 +244,9 @@ export async function consolidateMemories(
   const live = await countMemories(ids, ['episode']);
   if (live < minLive) return { folded: 0, summaryChars: 0, usedAI: false };
 
-  const budget = Math.max(1, Math.min(FOLD_BATCH, live - keep));
+  // L5 FIX: fold at most HALF the live episodes, never keep fewer than MIN_LIVE_AFTER_FOLD
+  const effectiveKeep = Math.max(MIN_LIVE_AFTER_FOLD, keep, Math.ceil(live / 2));
+  const budget = Math.max(1, Math.min(FOLD_BATCH, live - effectiveKeep));
   const fold = await listOldestMemories(ids, ['episode'], budget);
 
   // Second tier: in a 1000-turn saga the curated facts alone can overflow the
@@ -283,7 +290,11 @@ export async function consolidateMemories(
   return { folded: fold.length, summaryChars: digest.length, usedAI };
 }
 
-/** No-AI path: append folded lines to the existing digest, oldest lines evicted first. */
+/**
+ * No-AI path: append folded lines to the existing digest, oldest lines evicted
+ * first when over budget. L5 FIX: within the tail, dedupe exact duplicate lines
+ * and sort by importance so higher-importance lines are kept when evicting.
+ */
 function mergeDigestFallback(prev: string, fold: MemoryEntry[]): string {
   const tail = buildDigestFallback(fold, SUMMARY_MAX_CHARS);
   if (!prev) return tail.slice(0, SUMMARY_MAX_CHARS);
