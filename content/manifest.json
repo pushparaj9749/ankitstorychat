@@ -1,7 +1,7 @@
 {
-  "contentVersion": 19,
+  "contentVersion": 20,
   "minAppVersion": "1.0.0",
-  "updatedAt": "2026-09-17T23:00:00.000Z",
+  "updatedAt": "2026-09-18T02:30:00.000Z",
   "stories": [
     {
       "id": "goddess-who-chose-me",
@@ -1139,7 +1139,7 @@
       "ageRating": "18+",
       "contentLevel": "mature",
       "language": "hinglish",
-      "version": 1,
+      "version": 2,
       "coverUrl": "stories/girlfriends-unlimited/assets/cover.jpg",
       "accentColor": "#F59E0B",
       "userRole": "{{playerName}} — ek karzdar aam ladka jise UnHinge Pro system mila hai aur Malvika Mehta se pehli takkar hui hai",
@@ -1149,7 +1149,7 @@
       "isNew": true,
       "popularity": 85,
       "storyDir": "girlfriends-unlimited",
-      "updatedAt": "2026-09-16T19:03:50.705Z",
+      "updatedAt": "2026-09-18T02:30:00.000Z",
       "creator": {
         "name": "Ankit",
         "avatar": null,

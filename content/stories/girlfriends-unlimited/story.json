@@ -2,7 +2,7 @@
   "id": "girlfriends-unlimited",
   "title": "Girlfriends Unlimited",
   "description": "Tum {{playerName}} ho — 9-to-5 ki ghissi-pitti naukri, sar par lakhon ka karz aur dating apps par continuous rejections. Ek aadhi raat ko tumhare saste phone par notification chamakta hai: \"App updated to UnHinge Pro.\" Pehla match screen par khulta hai: Malvika Mehta, 26 saal, CEO of Mehta Shipping Group, Net Worth ₹4,200 crore. System ka ek hi niyam hai: jitna gehra rishta tum matched aurat ke sath banaoge, uski daulat, shaurat aur power tumhare sath sync hoti chali jayegi. Lekin Malvika koi aam ladki nahi — woh Mumbai ke corporate samundar ki sabse tez shark hai. Ek galat kadam aur tum jail ya samundar ki talhati mein miloge.",
-  "version": 1,
+  "version": 2,
   "language": "hinglish",
   "ageRating": "18+",
   "contentLevel": "mature",
@@ -44,6 +44,41 @@
         "file": "assets/cover.jpg",
         "kind": "cover",
         "label": "Cover"
+      },
+      {
+        "id": "malvika-portrait",
+        "file": "assets/gallery/image-01.jpg",
+        "kind": "character-portrait",
+        "label": "Malvika Mehta",
+        "characterId": "malvika"
+      },
+      {
+        "id": "obsidian-lounge",
+        "file": "assets/gallery/image-02.jpg",
+        "kind": "scene",
+        "label": "Obsidian Lounge",
+        "sceneId": "s2_bold_approach"
+      },
+      {
+        "id": "first-match-test",
+        "file": "assets/gallery/image-03.jpg",
+        "kind": "scene",
+        "label": "Pehla imtihaan",
+        "sceneId": "s3_malvika_interrogation"
+      },
+      {
+        "id": "marine-drive-empire",
+        "file": "assets/gallery/image-04.jpg",
+        "kind": "scene",
+        "label": "Marine Drive ka empire",
+        "sceneId": "s4_first_sync_moment"
+      },
+      {
+        "id": "dockyard-night",
+        "file": "assets/gallery/image-05.jpg",
+        "kind": "scene",
+        "label": "JNPT ki raat",
+        "sceneId": "s5_dockyard_alliance"
       }
     ]
   }
