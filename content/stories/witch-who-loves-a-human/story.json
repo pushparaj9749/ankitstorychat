@@ -2,7 +2,7 @@
   "id": "witch-who-loves-a-human",
   "title": "The Witch Who Loves a Human",
   "description": "Tum {{playerName}} ho — Seemant naam ke sarhadi kasbe ka aam ladka, jahan insaan is taraf rehte hain aur daayanein us taraf. Ek shaam jungle ke kinare tumhe ek ladki milti hai — Mira. Woh mazaakiya hai, confident hai, aur uski aankhon mein kuch aisa hai jo tumne kabhi nahi dekha. Tum use nahi jaante. Woh tumhe janne lagti hai. Sach: Mira duniya ki sabse shaktishaali daayanon mein se ek hai — 'Legend' — aur usne apni pehchaan tumse chhupayi hai. Jab jaadui duniya ko pata chalta hai ki unki sabse badi daayan ne ek aam insaan ko chuna hai, sab kuch khatre mein aa jaata hai. Kahani kabhi khatam nahi hoti — chhupe rishte se daayan-sabha, sabha se dushmani ki asli jad tak.",
-  "version": 2,
+  "version": 3,
   "language": "hinglish",
   "ageRating": "12-17",
   "contentLevel": "teen",
@@ -45,6 +45,41 @@
         "file": "assets/cover.jpg",
         "kind": "cover",
         "label": "Cover"
+      },
+      {
+        "id": "mira-portrait",
+        "file": "assets/gallery/image-01.jpg",
+        "kind": "character-portrait",
+        "label": "Mira",
+        "characterId": "mira"
+      },
+      {
+        "id": "kitaab-raat",
+        "file": "assets/gallery/image-02.jpg",
+        "kind": "scene",
+        "label": "Kitaab, Kaali, khidki",
+        "sceneId": "s1_dukaan"
+      },
+      {
+        "id": "pul-beech",
+        "file": "assets/gallery/image-03.jpg",
+        "kind": "scene",
+        "label": "Pul ke beech",
+        "sceneId": "s2_pul"
+      },
+      {
+        "id": "jungle-jaadu",
+        "file": "assets/gallery/image-04.jpg",
+        "kind": "scene",
+        "label": "Jab mazaak ruk gaya",
+        "sceneId": "s4_jaadu"
+      },
+      {
+        "id": "diwali-adhyay",
+        "file": "assets/gallery/image-05.jpg",
+        "kind": "scene",
+        "label": "Diwali ka adhyay",
+        "sceneId": "s8_next"
       }
     ]
   }

@@ -2,7 +2,7 @@
   "id": "midnight-local",
   "title": "Midnight Local",
   "description": "Last local, andheri tunnel, aur ek raaz. Teen-safe mystery thriller.",
-  "version": 1,
+  "version": 2,
   "language": "hinglish",
   "ageRating": "12-17",
   "contentLevel": "teen",
@@ -39,6 +39,41 @@
         "file": "assets/cover.jpg",
         "kind": "cover",
         "label": "Cover"
+      },
+      {
+        "id": "aarohi-portrait",
+        "file": "assets/gallery/image-01.jpg",
+        "kind": "character-portrait",
+        "label": "Aarohi",
+        "characterId": "aarohi"
+      },
+      {
+        "id": "platform-four",
+        "file": "assets/gallery/image-02.jpg",
+        "kind": "scene",
+        "label": "Platform 4, baarish",
+        "sceneId": "s1_platform"
+      },
+      {
+        "id": "rathore-duty",
+        "file": "assets/gallery/image-03.jpg",
+        "kind": "scene",
+        "label": "Rathore duty par",
+        "sceneId": "s2_last_local"
+      },
+      {
+        "id": "tunnel-andhera",
+        "file": "assets/gallery/image-04.jpg",
+        "kind": "scene",
+        "label": "Tunnel mein andhera",
+        "sceneId": "s3_lights_out"
+      },
+      {
+        "id": "francis-letter",
+        "file": "assets/gallery/image-05.jpg",
+        "kind": "scene",
+        "label": "Francis ka letter",
+        "sceneId": "s6_letter"
       }
     ]
   }

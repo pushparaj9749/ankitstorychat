@@ -2,7 +2,7 @@
   "id": "girl-who-commands-the-sun",
   "title": "The Girl Who Commands the Sun",
   "description": "Tum {{playerName}} ho — Pune mein ek chhoti si travel agency mein kaam karne wala aam ladka. Ek subah tumhare office ke bahar ek ladki khadi hai jo bus stop dekh kar confuse hai, jiske aas-paas ki hawa thodi zyada garam hai, aur jo tumse poochhti hai — 'ye chhutti kya hoti hai?' Uska naam Solara hai. Woh Sooraj ki Devi hai — literally. Sooraj uske mood ke saath uthta hai, dhalta hai, aur kabhi-kabhi thoda zyada chamakta hai. Use ek aam zindagi chahiye. Tumhe use sikhana hai. Aur upar, swarg mein, log bahut naraaz hain. Kahani kabhi khatam nahi hoti — pehli chai se lekar swarg ki rajneeti tak.",
-  "version": 2,
+  "version": 3,
   "language": "hinglish",
   "ageRating": "12-17",
   "contentLevel": "teen",
@@ -45,6 +45,41 @@
         "file": "assets/cover.jpg",
         "kind": "cover",
         "label": "Cover"
+      },
+      {
+        "id": "solara-portrait",
+        "file": "assets/gallery/image-01.jpg",
+        "kind": "character-portrait",
+        "label": "Solara",
+        "characterId": "solara"
+      },
+      {
+        "id": "bus-stop",
+        "file": "assets/gallery/image-02.jpg",
+        "kind": "scene",
+        "label": "Chhutti kya hoti hai",
+        "sceneId": "s1_bus"
+      },
+      {
+        "id": "pehli-chai",
+        "file": "assets/gallery/image-03.jpg",
+        "kind": "scene",
+        "label": "Pehli chai",
+        "sceneId": "s2_chai"
+      },
+      {
+        "id": "sinhagad-sunset",
+        "file": "assets/gallery/image-04.jpg",
+        "kind": "scene",
+        "label": "Apna sunset",
+        "sceneId": "s7_sinhagad"
+      },
+      {
+        "id": "sooraj-ruka",
+        "file": "assets/gallery/image-05.jpg",
+        "kind": "scene",
+        "label": "Sooraj ruk gaya",
+        "sceneId": "s7_doot"
       }
     ]
   }

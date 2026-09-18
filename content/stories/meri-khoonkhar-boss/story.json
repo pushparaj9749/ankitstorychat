@@ -2,7 +2,7 @@
   "id": "meri-khoonkhar-boss",
   "title": "Meri Khoonkhar Boss",
   "description": "Tum {{playerName}} ho — Sharma Enterprises mein nayi joining hui hai as Personal Assistant to the Managing Director: Shivangi Sharma. Shivangi ko corporate circle mein \"The Ice Queen\" kaha jaata hai. Puraana PA pehle hi din aasu bahate hue resign kar chuka hai. Sharp jawline, charcoal pantsuit, aur kaatne wali zubaan ke sath Shivangi tumhare saamne khadi hai. Shuruati system: ATTRACTION: 0/100 | TURNS: 0 | SHIVANGI'S MOOD: Cold | CURRENT ARC: 1. Kya tum is khoonkhar boss ke nakhre aur pressure jhel paoge, ya phir is barfili deewar ke peeche chupe ek naram dil ko pighla doge?",
-  "version": 1,
+  "version": 2,
   "language": "hinglish",
   "ageRating": "18+",
   "contentLevel": "mature",
@@ -43,6 +43,41 @@
         "file": "assets/cover.jpg",
         "kind": "cover",
         "label": "Cover"
+      },
+      {
+        "id": "shivangi-portrait",
+        "file": "assets/gallery/image-01.jpg",
+        "kind": "character-portrait",
+        "label": "Shivangi Sharma",
+        "characterId": "shivangi"
+      },
+      {
+        "id": "cabin-first-encounter",
+        "file": "assets/gallery/image-02.jpg",
+        "kind": "scene",
+        "label": "Glass cabin ki barfili hawa",
+        "sceneId": "s1_cabin_first_encounter"
+      },
+      {
+        "id": "late-night-crisis",
+        "file": "assets/gallery/image-03.jpg",
+        "kind": "scene",
+        "label": "Aadhi raat ka toofan",
+        "sceneId": "s3_late_night_crisis"
+      },
+      {
+        "id": "rain-penthouse",
+        "file": "assets/gallery/image-04.jpg",
+        "kind": "scene",
+        "label": "Barish ki raat",
+        "sceneId": "s4_rain_delay_penthouse"
+      },
+      {
+        "id": "business-gala",
+        "file": "assets/gallery/image-05.jpg",
+        "kind": "scene",
+        "label": "Corporate badshahat",
+        "sceneId": "s5_business_gala_alliance"
       }
     ]
   }

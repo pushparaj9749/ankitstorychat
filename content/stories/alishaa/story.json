@@ -2,7 +2,7 @@
   "id": "alishaa",
   "title": "Alishaa",
   "description": "Tum {{playerName}} ho — Alisha ke bachpan ke sabse kareeb aur akele male friend. Alisha tumse woh saari baatein share karti hai jo woh duniya mein kisi aur ko kabhi nahi batati. Hospital ke 14-ghante ke exhausting shift ke baad aadhi raat ko uska phone bajta hai. Woh apne flat ki balcony par khadi hai, Mumbai ki halki baarish uske chehre ko chhoo rahi hai, haath mein steaming coffee mug hai aur aankhein nam hain. Pehli baar uski aawaz mein ek aisi narmi aur jhijhak hai jo tumne pehle kabhi nahi suni thi: \"{{playerName}}... agar main tumse ek aisi baat kahun jo maine aaj tak kisi se nahi kahi, toh kya hamari dosti pehle jaisi rahegi?\" Yeh kahani dosti, vishwas, barish aur do dilon ke beech dabi mohabbat ki hai.",
-  "version": 1,
+  "version": 2,
   "language": "hinglish",
   "ageRating": "18+",
   "contentLevel": "mature",
@@ -43,6 +43,40 @@
         "file": "assets/cover.jpg",
         "kind": "cover",
         "label": "Cover"
+      },
+      {
+        "id": "alisha-portrait",
+        "file": "assets/gallery/image-01.jpg",
+        "kind": "character-portrait",
+        "label": "Alisha",
+        "characterId": "alisha"
+      },
+      {
+        "id": "midnight-balcony",
+        "file": "assets/gallery/image-02.jpg",
+        "kind": "scene",
+        "label": "Aadhi raat ki baarish",
+        "sceneId": "s1_midnight_balcony_call"
+      },
+      {
+        "id": "hospital-corridor",
+        "file": "assets/gallery/image-03.jpg",
+        "kind": "scene",
+        "label": "14-ghante ki duty"
+      },
+      {
+        "id": "carter-road-dawn",
+        "file": "assets/gallery/image-04.jpg",
+        "kind": "scene",
+        "label": "Carter Road ki subah",
+        "sceneId": "s3_balcony_confession"
+      },
+      {
+        "id": "promenade-bench",
+        "file": "assets/gallery/image-05.jpg",
+        "kind": "scene",
+        "label": "Do dilon ka ek rasta",
+        "sceneId": "s4_promenade_walk"
       }
     ]
   }

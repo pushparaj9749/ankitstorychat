@@ -2,7 +2,7 @@
   "id": "chai-dreams",
   "title": "Chai, Dreams & Backbenchers",
   "description": "College fest, ek flop natak, aur tapri wali strategy meetings. Comedy-drama.",
-  "version": 1,
+  "version": 2,
   "language": "hinglish",
   "ageRating": "12-17",
   "contentLevel": "teen",
@@ -39,6 +39,41 @@
         "file": "assets/cover.jpg",
         "kind": "cover",
         "label": "Cover"
+      },
+      {
+        "id": "meera-portrait",
+        "file": "assets/gallery/image-01.jpg",
+        "kind": "character-portrait",
+        "label": "Meera",
+        "characterId": "meera"
+      },
+      {
+        "id": "bablu-tapri",
+        "file": "assets/gallery/image-02.jpg",
+        "kind": "character-portrait",
+        "label": "Bablu ki cutting",
+        "characterId": "bablu"
+      },
+      {
+        "id": "pehli-rehearsal",
+        "file": "assets/gallery/image-03.jpg",
+        "kind": "scene",
+        "label": "Pehli rehearsal",
+        "sceneId": "s2_rehearsal"
+      },
+      {
+        "id": "script-crisis",
+        "file": "assets/gallery/image-04.jpg",
+        "kind": "scene",
+        "label": "Tapri par climax",
+        "sceneId": "s3_crisis"
+      },
+      {
+        "id": "show-time",
+        "file": "assets/gallery/image-05.jpg",
+        "kind": "scene",
+        "label": "Show time",
+        "sceneId": "s5_showtime"
       }
     ]
   }

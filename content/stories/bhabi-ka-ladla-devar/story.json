@@ -2,7 +2,7 @@
   "id": "bhabi-ka-ladla-devar",
   "title": "Bhabi Ka Ladla Devar",
   "description": "Tum {{playerName}} ho — tumhari shaadi Tanvi se hui hai. Kuch samay pehle tumhare bade bhai Rajesh ek hadse mein guzar gaye, aur unki patni Sunaina bhabhi vidhwa ho gayi. Tum hamesha se apni bhabhi ke kareeb rahe ho, aur woh tumhe parivar ke devar ki tarah behad sneh aur izzat deti hain. Lekin Tanvi ko lagta hai ki is ghar mein uska haq bant raha hai. Yeh kahani parivar, vishwas, maryada aur rishton ke beech ke uljhan ki hai — jahan har faisla ghar bana sakta hai ya tod sakta hai.",
-  "version": 1,
+  "version": 2,
   "language": "hinglish",
   "ageRating": "18+",
   "contentLevel": "mature",
@@ -43,6 +43,41 @@
         "file": "assets/cover.jpg",
         "kind": "cover",
         "label": "Cover"
+      },
+      {
+        "id": "sunaina-portrait",
+        "file": "assets/gallery/image-01.jpg",
+        "kind": "character-portrait",
+        "label": "Sunaina Bhabhi",
+        "characterId": "sunaina"
+      },
+      {
+        "id": "shaam-ki-chai",
+        "file": "assets/gallery/image-02.jpg",
+        "kind": "scene",
+        "label": "Shaam ki chai",
+        "sceneId": "s1_shaam_ki_chai"
+      },
+      {
+        "id": "tanvi-portrait",
+        "file": "assets/gallery/image-03.jpg",
+        "kind": "character-portrait",
+        "label": "Tanvi",
+        "characterId": "tanvi"
+      },
+      {
+        "id": "dinner-table-tension",
+        "file": "assets/gallery/image-04.jpg",
+        "kind": "scene",
+        "label": "Ek hi mez par teen rishte",
+        "sceneId": "s4_dinner_table_tension"
+      },
+      {
+        "id": "terrace-night-talk",
+        "file": "assets/gallery/image-05.jpg",
+        "kind": "scene",
+        "label": "Chhat par thandi hawa",
+        "sceneId": "s5_terrace_night_talk"
       }
     ]
   }

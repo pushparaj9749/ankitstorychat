@@ -2,7 +2,7 @@
   "id": "goddess-of-underworld-loves-me",
   "title": "Goddess of Underworld Loves Me",
   "description": "Tum {{playerName}} ho — bachpan se ek controlling maa ke pehre mein pale-badhe. Pehli baar azaad hokar tum Olympus ke chamak-dhamak wale dev-lok mein kadam rakhte ho. Yahan devtaon ki siyasat, taakat ka dikhava aur lavish parties hain. Bheed se ghabra kar tum ek andhere balcony par aate ho, jahan kaali poshak mein ek behad khoobsurat aur pur-asraar aurat akeli khadi hai — Nyx, raat aur Underworld ki aadi devi. Woh dheere se poochti hai: \"Tum mujhe nahi jaante, do you?\" Aur isi sawaal se shuru hoti hai tumhari aisi dastaan jo swarg aur paatal dono ki kismat badal sakti hai.",
-  "version": 1,
+  "version": 2,
   "language": "hinglish",
   "ageRating": "12-17",
   "contentLevel": "teen",
@@ -43,6 +43,41 @@
         "file": "assets/cover.jpg",
         "kind": "cover",
         "label": "Cover"
+      },
+      {
+        "id": "nyx-portrait",
+        "file": "assets/gallery/image-01.jpg",
+        "kind": "character-portrait",
+        "label": "Nyx",
+        "characterId": "nyx"
+      },
+      {
+        "id": "balcony-meeting",
+        "file": "assets/gallery/image-02.jpg",
+        "kind": "scene",
+        "label": "Olympus balcony",
+        "sceneId": "s1_olympus_balcony"
+      },
+      {
+        "id": "night-blessing",
+        "file": "assets/gallery/image-03.jpg",
+        "kind": "scene",
+        "label": "Night's blessing",
+        "sceneId": "s4_divine_blessing"
+      },
+      {
+        "id": "hermes-warning",
+        "file": "assets/gallery/image-04.jpg",
+        "kind": "scene",
+        "label": "Hermes warning",
+        "sceneId": "s3_hermes_warning"
+      },
+      {
+        "id": "night-gateway",
+        "file": "assets/gallery/image-05.jpg",
+        "kind": "scene",
+        "label": "Underworld gateway",
+        "sceneId": "s5_night_realm_gateway"
       }
     ]
   }

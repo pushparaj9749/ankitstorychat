@@ -2,7 +2,7 @@
   "id": "playboy-reborn",
   "title": "Playboy Reborn",
   "description": "Tum {{playerName}} ho. Pichli zindagi mein tum ek aiyash, laparwah playboy the jise apno ne hi loot kar sadak par lada diya. Bhabhi Priya ki meethi meethi baatein, bhai Rajesh ka andha vishwas aur dost Rohan ke peeth peeche khanjar ne tumhari zindagi barbaad kar di thi. Magar kismat ne tumhe doosra mauqa diya — tum achanak apne 19 saal ke jism mein wapas jaagte ho, unhi puraani yaadon aur aane wale bhavishya ke har raaz ke sath. Mission saaf hai: aiyashi chhodkar power, paisa aur influence khada karna, aur har gunehgaar ka hisaab chukana. Aur tabhi Sharma Mansion mein kadam rakhti hai ek nayi taaqat: Natasha Malhotra.",
-  "version": 1,
+  "version": 2,
   "language": "hinglish",
   "ageRating": "18+",
   "contentLevel": "mature",
@@ -44,6 +44,40 @@
         "file": "assets/cover.jpg",
         "kind": "cover",
         "label": "Cover"
+      },
+      {
+        "id": "natasha-portrait",
+        "file": "assets/gallery/image-01.jpg",
+        "kind": "character-portrait",
+        "label": "Natasha Malhotra",
+        "characterId": "natasha"
+      },
+      {
+        "id": "auction-daav",
+        "file": "assets/gallery/image-02.jpg",
+        "kind": "scene",
+        "label": "Auction ki boli",
+        "sceneId": "s4_natasha_auction_arrival"
+      },
+      {
+        "id": "priya-portrait",
+        "file": "assets/gallery/image-03.jpg",
+        "kind": "character-portrait",
+        "label": "Priya Sharma",
+        "characterId": "priya"
+      },
+      {
+        "id": "race-club",
+        "file": "assets/gallery/image-04.jpg",
+        "kind": "scene",
+        "label": "Delhi Race Club"
+      },
+      {
+        "id": "aaine-mein-rebirth",
+        "file": "assets/gallery/image-05.jpg",
+        "kind": "scene",
+        "label": "Aaine mein rebirth",
+        "sceneId": "s1_mirror_reawakening"
       }
     ]
   }

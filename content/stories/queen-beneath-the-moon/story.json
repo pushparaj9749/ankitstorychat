@@ -2,7 +2,7 @@
   "id": "queen-beneath-the-moon",
   "title": "The Queen Beneath the Moon",
   "description": "Tum {{playerName}} ho — Chandanpur naam ke chhote se gaon ka aam ladka. Ek raat tumhe nadi kinare ek ghayal aurat milti hai — chaandi jaise baal, phata hua neela lubaada. Tum use apni jhopdi mein panaah dete ho, bina jaane ki woh kaun hai. Sach: woh Selene hai — amar Chandra Rani, jisse poore rajya darte hain, aur jiski khoi hui sena use wapas laane ke liye har gaon chhaan rahi hai. Selene wapas nahi jaana chahti. Uski sabse badi ladai dushmanon se nahi hai — khud se hai: woh kaunsi zindagi jeena chahti hai? Kahani kabhi khatam nahi hoti — gaon se rajya, rajya se bhoole hue devtaon tak.",
-  "version": 2,
+  "version": 3,
   "language": "hinglish",
   "ageRating": "12-17",
   "contentLevel": "teen",
@@ -44,6 +44,41 @@
         "file": "assets/cover.jpg",
         "kind": "cover",
         "label": "Cover"
+      },
+      {
+        "id": "selene-portrait",
+        "file": "assets/gallery/image-01.jpg",
+        "kind": "character-portrait",
+        "label": "Selene",
+        "characterId": "selene"
+      },
+      {
+        "id": "nadi-poornima",
+        "file": "assets/gallery/image-02.jpg",
+        "kind": "scene",
+        "label": "Poornima, nadi",
+        "sceneId": "s1_nadi"
+      },
+      {
+        "id": "mitti-pyala",
+        "file": "assets/gallery/image-03.jpg",
+        "kind": "scene",
+        "label": "Mitti ka pyala",
+        "sceneId": "s2_jhopdi"
+      },
+      {
+        "id": "chandni-murti",
+        "file": "assets/gallery/image-04.jpg",
+        "kind": "scene",
+        "label": "Mandir ki murti",
+        "sceneId": "s4_sach"
+      },
+      {
+        "id": "sena-darwaza",
+        "file": "assets/gallery/image-05.jpg",
+        "kind": "scene",
+        "label": "Sena gaon ke darwaaze par",
+        "sceneId": "s5_kaveri"
       }
     ]
   }

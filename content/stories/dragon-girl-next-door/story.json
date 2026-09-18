@@ -2,7 +2,7 @@
   "id": "dragon-girl-next-door",
   "title": "The Dragon Girl Next Door",
   "description": "Tum {{playerName}} ho, aur tumhare bagal wale flat mein ek nayi ladki shift hui hai — Rhea. Woh energetic hai, curious hai, ziddi hai, aur usne pehle hi din toaster jala diya, doodh wale se ladai ki, aur chhat se 'gir' ke bina khoronch ke uth gayi. Sach: Rhea ek prachin dragon hai jo insaano ke beech rehna seekh rahi hai. Woh kisi bhi supernatural cheez ko haath se hara sakti hai — par auto-wale se bhaav-taav nahi kar paati. Tum uske 'insaaniyat ke guide' ban jaate ho. Aur phir doosre dragons ko pata chalta hai woh kahan hai. Kahani kabhi khatam nahi hoti — mohalle se dragon clans, clans se prachin rajneeti tak.",
-  "version": 2,
+  "version": 3,
   "language": "hinglish",
   "ageRating": "12-17",
   "contentLevel": "teen",
@@ -45,6 +45,41 @@
         "file": "assets/cover.jpg",
         "kind": "cover",
         "label": "Cover"
+      },
+      {
+        "id": "rhea-portrait",
+        "file": "assets/gallery/image-01.jpg",
+        "kind": "character-portrait",
+        "label": "Rhea",
+        "characterId": "rhea"
+      },
+      {
+        "id": "flat-302",
+        "file": "assets/gallery/image-02.jpg",
+        "kind": "scene",
+        "label": "Flat 302",
+        "sceneId": "s2_guide"
+      },
+      {
+        "id": "sarafa-poha",
+        "file": "assets/gallery/image-03.jpg",
+        "kind": "scene",
+        "label": "Chaalis plate",
+        "sceneId": "s3_poha"
+      },
+      {
+        "id": "chhat-pankh",
+        "file": "assets/gallery/image-04.jpg",
+        "kind": "scene",
+        "label": "Chhat, teen baje",
+        "sceneId": "s4_pankh"
+      },
+      {
+        "id": "ralamandal",
+        "file": "assets/gallery/image-05.jpg",
+        "kind": "scene",
+        "label": "Ralamandal",
+        "sceneId": "s5_sach"
       }
     ]
   }

@@ -2,7 +2,7 @@
   "id": "contract-wali-shaadi",
   "title": "Contract Wali Shaadi",
   "description": "Tum {{playerName}} ho — Singhania Enterprises ke ek laakh crore ke empire ke akele waris aur billionaire. Tumhari bhabhi Ruchika ne parivar aur board of directors ke samne ek aakhri shart rakh di hai: agar agle ek mahine mein tumhari shaadi nahi hui, toh company ke voting rights family trust ko chale jayenge. Office ke ahem din par tumhari mulaqat Akshara se hoti hai. Akshara ek behad shareef, mehanti aur swabhimani ladki hai, jise apni bimar choti behen ke ilaaj ke liye turant badi raqam ki zaroorat hai. Yeh mauqa banata hai ek zabardast mod: \"Akshara ko contract marriage ka offer do... kya woh haan kahegi?\"",
-  "version": 1,
+  "version": 2,
   "language": "hinglish",
   "ageRating": "18+",
   "contentLevel": "mature",
@@ -43,6 +43,41 @@
         "file": "assets/cover.jpg",
         "kind": "cover",
         "label": "Cover"
+      },
+      {
+        "id": "akshara-portrait",
+        "file": "assets/gallery/image-01.jpg",
+        "kind": "character-portrait",
+        "label": "Akshara",
+        "characterId": "akshara"
+      },
+      {
+        "id": "delhi-boardroom",
+        "file": "assets/gallery/image-02.jpg",
+        "kind": "scene",
+        "label": "45th floor ka boardroom",
+        "sceneId": "s1_boardroom_ultimatum"
+      },
+      {
+        "id": "marriage-agreement",
+        "file": "assets/gallery/image-03.jpg",
+        "kind": "scene",
+        "label": "Kaagaz ka rishta",
+        "sceneId": "s2_business_terms"
+      },
+      {
+        "id": "haveli-pariksha",
+        "file": "assets/gallery/image-04.jpg",
+        "kind": "scene",
+        "label": "Bhabhi ka shaq",
+        "sceneId": "s4_ruchika_meeting"
+      },
+      {
+        "id": "penthouse-khamoshi",
+        "file": "assets/gallery/image-05.jpg",
+        "kind": "scene",
+        "label": "Penthouse ki raat",
+        "sceneId": "s5_first_public_appearance"
       }
     ]
   }

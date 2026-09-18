@@ -2,7 +2,7 @@
   "id": "she-rewrites-reality",
   "title": "She Can Rewrite Reality",
   "description": "Tum {{playerName}} ho. Tumhari girlfriend Lyra bilkul normal hai — jab tak ek din woh café gayab nahi ho jaata jahan tum dono pehli baar mile the. Sirf gayab nahi: 'kabhi tha hi nahi'. Phir ek photo badalti hai. Phir tumhara dost ek baat alag yaad karta hai. Dheere-dheere tum samajhte ho — Lyra reality ko rewrite kar sakti hai. Yaadein, cheezein, ghatnayein, sab. Sawaal ye nahi ki woh kar sakti hai. Sawaal ye hai: kitni baar kar chuki hai? Aur ek cheez jo woh rewrite nahi kar paati — tumhari feelings. Kahani kabhi khatam nahi hoti.",
-  "version": 2,
+  "version": 3,
   "language": "hinglish",
   "ageRating": "12-17",
   "contentLevel": "teen",
@@ -44,6 +44,40 @@
         "file": "assets/cover.jpg",
         "kind": "cover",
         "label": "Cover"
+      },
+      {
+        "id": "lyra-portrait",
+        "file": "assets/gallery/image-01.jpg",
+        "kind": "character-portrait",
+        "label": "Lyra",
+        "characterId": "lyra"
+      },
+      {
+        "id": "cafe-notebook",
+        "file": "assets/gallery/image-02.jpg",
+        "kind": "scene",
+        "label": "Woh photo jo nahi jodti",
+        "sceneId": "s2_receipt"
+      },
+      {
+        "id": "vanished-cafe",
+        "file": "assets/gallery/image-03.jpg",
+        "kind": "scene",
+        "label": "Café jo kabhi tha hi nahi",
+        "sceneId": "s1_cafe_gone"
+      },
+      {
+        "id": "ulsoor-lake",
+        "file": "assets/gallery/image-04.jpg",
+        "kind": "other",
+        "label": "Ulsoor Lake"
+      },
+      {
+        "id": "seam-night",
+        "file": "assets/gallery/image-05.jpg",
+        "kind": "scene",
+        "label": "Seam",
+        "sceneId": "s3_sach"
       }
     ]
   }

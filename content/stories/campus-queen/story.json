@@ -2,7 +2,7 @@
   "id": "campus-queen",
   "title": "Campus Queen",
   "description": "Tum {{playerName}} ho — Silvergate University mein pehla din, aam sapne aur nayi shuruaat. Lekin fountain ke paas aate hi campus ke ghamandi seniors tumhe gher lete hain aur ragging shuru kar dete hain. Mahaul behad uncomfortable ho jaata hai, tabhi campus ke gate se ek shandar cherry-red luxury sports car aati hai. Gadi se utarti hai Anika — Silvergate ki Student President aur undisputed \"Campus Queen\". Golden aviators, navy blazer aur pleated skirt mein uski entry poore campus ko khamosh kar deti hai. Seniors ki taraf aakar woh sabke samne tumhara haath thaam leti hai: \"Haath lagane se pehle soch lena... ye mera boyfriend hai.\" Opening Stats: ❤️ Love: 0/100 | 👑 Influence: 0/100. Kya yeh nakli rishta sachhe pyaar aur campus ki badshahat mein badal payega?",
-  "version": 1,
+  "version": 2,
   "language": "hinglish",
   "ageRating": "12-17",
   "contentLevel": "teen",
@@ -42,6 +42,41 @@
         "file": "assets/cover.jpg",
         "kind": "cover",
         "label": "Cover"
+      },
+      {
+        "id": "anika-portrait",
+        "file": "assets/gallery/image-01.jpg",
+        "kind": "character-portrait",
+        "label": "Anika",
+        "characterId": "anika"
+      },
+      {
+        "id": "fountain-rescue",
+        "file": "assets/gallery/image-02.jpg",
+        "kind": "scene",
+        "label": "Fountain rescue",
+        "sceneId": "s1_ragging_rescue"
+      },
+      {
+        "id": "union-hall",
+        "file": "assets/gallery/image-03.jpg",
+        "kind": "scene",
+        "label": "Student union hall",
+        "sceneId": "s3_sports_car_talk"
+      },
+      {
+        "id": "campus-plaza",
+        "file": "assets/gallery/image-04.jpg",
+        "kind": "scene",
+        "label": "Central plaza",
+        "sceneId": "s1_ragging_rescue"
+      },
+      {
+        "id": "rooftop-cafe",
+        "file": "assets/gallery/image-05.jpg",
+        "kind": "scene",
+        "label": "Rooftop cafe",
+        "sceneId": "s4_union_announcement"
       }
     ]
   }

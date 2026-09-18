@@ -2,7 +2,7 @@
   "id": "girl-of-thousand-lives",
   "title": "My Girlfriend Has Lived 1,000 Lives",
   "description": "Tum {{playerName}} ho, aur tum Elena se pehli baar mile ho — par woh tumhe aise dekhti hai jaise sadiyon se jaanti ho. Woh tumhari aadatein jaanti hai. Woh cheezein hone se pehle react karti hai. Woh kabhi batati nahi kyun. Sach: Elena ne hazaaron timelines jeeyi hain, aur har ek mein woh tumhe dhoondhti hai. Har baar sab alag hota hai. Is baar usne tay kiya hai ki woh tumhe sab nahi batayegi — kyunki woh jaanna chahti hai ki kya ye zindagi aakhirkaar alag ho sakti hai. Kahani kabhi khatam nahi hoti — har loop ek naya darwaaza hai.",
-  "version": 2,
+  "version": 3,
   "language": "hinglish",
   "ageRating": "12-17",
   "contentLevel": "teen",
@@ -45,6 +45,40 @@
         "file": "assets/cover.jpg",
         "kind": "cover",
         "label": "Cover"
+      },
+      {
+        "id": "elena-portrait",
+        "file": "assets/gallery/image-01.jpg",
+        "kind": "character-portrait",
+        "label": "Elena",
+        "characterId": "elena"
+      },
+      {
+        "id": "hawa-mahal-chai",
+        "file": "assets/gallery/image-02.jpg",
+        "kind": "scene",
+        "label": "Hawa Mahal wali chai",
+        "sceneId": "s2_chai"
+      },
+      {
+        "id": "platform3",
+        "file": "assets/gallery/image-03.jpg",
+        "kind": "scene",
+        "label": "Platform 3",
+        "sceneId": "s1_platform3"
+      },
+      {
+        "id": "chand-baori",
+        "file": "assets/gallery/image-04.jpg",
+        "kind": "scene",
+        "label": "Chand Baori",
+        "sceneId": "s4_sach"
+      },
+      {
+        "id": "jantar-mantar",
+        "file": "assets/gallery/image-05.jpg",
+        "kind": "other",
+        "label": "Jantar Mantar"
       }
     ]
   }

@@ -2,7 +2,7 @@
   "id": "night-courier",
   "title": "Night Courier",
   "description": "Raat 2:11. Tumhare rider app par ek order aata hai: 'Black Lifafa — handle with care, no photo, no signature.' 18,000 rupaye ek delivery ke. Par lifafa halka hai, hotel ka room 304 andar se band hai, aur corridor mein ek aurat do baar guzar chuki hai — dono baar bina awaaz ke. Tumhare paas teen raaste hain: protocol follow karo, lifafa kholo, ya 100 dial karo. Ek baat yaad rakhna: app ka algorithm tumhara dost nahi hai.",
-  "version": 2,
+  "version": 3,
   "language": "hinglish",
   "ageRating": "18+",
   "contentLevel": "mature",
@@ -44,6 +44,41 @@
         "file": "assets/cover.jpg",
         "kind": "cover",
         "label": "Cover"
+      },
+      {
+        "id": "tara-portrait",
+        "file": "assets/gallery/image-01.jpg",
+        "kind": "character-portrait",
+        "label": "Tara",
+        "characterId": "tara"
+      },
+      {
+        "id": "hotel-arrival",
+        "file": "assets/gallery/image-02.jpg",
+        "kind": "scene",
+        "label": "Green Fortune, 2:11 AM",
+        "sceneId": "s1_order"
+      },
+      {
+        "id": "green-corridor",
+        "file": "assets/gallery/image-03.jpg",
+        "kind": "scene",
+        "label": "2nd floor ka corridor",
+        "sceneId": "s1_order"
+      },
+      {
+        "id": "room-304",
+        "file": "assets/gallery/image-04.jpg",
+        "kind": "scene",
+        "label": "Room 304, darwaza khula",
+        "sceneId": "s3_confront"
+      },
+      {
+        "id": "ishaan-tapri",
+        "file": "assets/gallery/image-05.jpg",
+        "kind": "character-portrait",
+        "label": "PI Ishaan",
+        "characterId": "ishaan"
       }
     ]
   }
