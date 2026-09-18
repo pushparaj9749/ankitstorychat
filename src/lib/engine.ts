@@ -86,7 +86,27 @@ export function freshStateFor(bundle: StoryBundle): StoryState {
 
 /* ---------------- response parsing ---------------- */
 
-const STATE_BLOCK_RE = /```kissa-state\s*([\s\S]*?)```/gi;
+/**
+ * KISSA v4.2 — Robust internal state parser.
+ *
+ * Pipeline:
+ *  AI RESPONSE
+ *    ↓ Detect internal kissa-state block (fenced OR unfenced)
+ *    ↓ Extract state
+ *    ↓ Validate state
+ *    ↓ Persist state using existing Memory/State system (handled outside)
+ *    ↓ Remove internal state block
+ *    ↓ Render ONLY story content
+ *
+ * Must handle:
+ *  - fenced blocks: ```kissa-state { ... } ```
+ *  - unfenced: kissa-state { ... }  / kissa-state\n{ ... }
+ *  - whitespace variations, before/after dialogue, multiple blocks
+ *  - malformed JSON must NOT leak (suppress)
+ *  - normal dialogue containing the words must NOT be removed unless followed by JSON
+ */
+
+const FENCED_STATE_RE = /```\s*kissa-state\s*([\s\S]*?)```/gi;
 
 export interface ParsedAssistant {
   displayText: string;
@@ -98,8 +118,10 @@ export interface ParsedAssistant {
 }
 
 function parseStateBlock(jsonText: string): { effects: ChoiceEffects; raw: Record<string, unknown> } | undefined {
+  const trimmed = (jsonText || '').trim();
+  if (!trimmed) return undefined;
   try {
-    const obj = JSON.parse(jsonText.trim()) as Record<string, unknown>;
+    const obj = JSON.parse(trimmed) as Record<string, unknown>;
     if (!obj || typeof obj !== 'object') return undefined;
     const effects: ChoiceEffects = {};
     if (obj.relationships && typeof obj.relationships === 'object') {
@@ -144,46 +166,216 @@ function parseStateBlock(jsonText: string): { effects: ChoiceEffects; raw: Recor
   }
 }
 
+/**
+ * Extract balanced JSON object starting at `start` (which must be '{').
+ * Handles strings and escapes, ignores braces inside strings.
+ * Returns null if no balanced closing brace found.
+ */
+function extractBalancedJson(str: string, start: number): { jsonStr: string; endIdx: number } | null {
+  if (str[start] !== '{') return null;
+  let depth = 0;
+  let inString = false;
+  let escape = false;
+  for (let i = start; i < str.length; i++) {
+    const ch = str[i];
+    if (escape) {
+      escape = false;
+      continue;
+    }
+    if (ch === '\\' && inString) {
+      escape = true;
+      continue;
+    }
+    if (ch === '"' ) {
+      inString = !inString;
+      continue;
+    }
+    if (inString) continue;
+    if (ch === '{') depth++;
+    else if (ch === '}') {
+      depth--;
+      if (depth === 0) {
+        return { jsonStr: str.slice(start, i + 1), endIdx: i + 1 };
+      }
+      if (depth < 0) return null;
+    }
+  }
+  return null;
+}
+
+/**
+ * Merge parsed effects into accumulator.
+ */
+function mergeEffectsInto(
+  target: ChoiceEffects,
+  src: ChoiceEffects,
+  memoryNotes: string[],
+  onRaw: (raw: Record<string, unknown>) => void,
+  raw: Record<string, unknown>,
+) {
+  if (src.relationships) {
+    target.relationships = { ...(target.relationships ?? {}) };
+    for (const [k, v] of Object.entries(src.relationships)) {
+      target.relationships[k] = (target.relationships[k] ?? 0) + v;
+    }
+  }
+  if (src.flags) target.flags = { ...(target.flags ?? {}), ...src.flags };
+  if (src.choicesRecord) target.choicesRecord = { ...(target.choicesRecord ?? {}), ...src.choicesRecord };
+  if (src.inventoryAdd) target.inventoryAdd = [...(target.inventoryAdd ?? []), ...src.inventoryAdd];
+  if (src.inventoryRemove) target.inventoryRemove = [...(target.inventoryRemove ?? []), ...src.inventoryRemove];
+  if (src.location) target.location = src.location;
+  if (src.scene) target.scene = src.scene;
+  if (src.endStory) target.endStory = src.endStory;
+  if (src.memory) memoryNotes.push(...src.memory.slice(0, MAX_MEMORY_NOTES));
+  onRaw(raw);
+}
+
 export function parseAssistantResponse(raw: string): ParsedAssistant {
   let displayText = raw || '';
-  let effects: ChoiceEffects | undefined;
   const memoryNotes: string[] = [];
   let worldStateRaw: unknown = undefined;
   let rawStateJson: Record<string, unknown> | undefined = undefined;
-
   const merged: ChoiceEffects = {};
-  let found = false;
-  displayText = displayText.replace(STATE_BLOCK_RE, (_m, jsonText: string) => {
-    const parsed = parseStateBlock(jsonText);
+  let foundAnyState = false;
+
+  const setRaw = (r: Record<string, unknown>) => {
+    worldStateRaw = r;
+    rawStateJson = r;
+  };
+
+  // 1) Fenced blocks: ```kissa-state ... ```
+  // Remove ALL fenced blocks, even malformed ones, to prevent leakage.
+  displayText = displayText.replace(FENCED_STATE_RE, (_full, inner: string) => {
+    const trimmedInner = (inner || '').trim();
+    // Try to parse; even if fails we suppress the block
+    const parsed = parseStateBlock(trimmedInner);
     if (parsed) {
-      found = true;
-      if (parsed.effects.relationships) {
-        merged.relationships = { ...(merged.relationships ?? {}) };
-        for (const [k, v] of Object.entries(parsed.effects.relationships)) {
-          merged.relationships[k] = (merged.relationships[k] ?? 0) + v;
+      foundAnyState = true;
+      mergeEffectsInto(merged, parsed.effects, memoryNotes, setRaw, parsed.raw);
+    } else {
+      // Malformed fenced block: attempt generic JSON parse for worldState, but still suppress
+      foundAnyState = true;
+      try {
+        const generic = JSON.parse(trimmedInner) as Record<string, unknown>;
+        if (generic && typeof generic === 'object') {
+          setRaw(generic);
         }
+      } catch {
+        // Still suppress, no effects
       }
-      if (parsed.effects.flags) merged.flags = { ...(merged.flags ?? {}), ...parsed.effects.flags };
-      if (parsed.effects.choicesRecord) {
-        merged.choicesRecord = { ...(merged.choicesRecord ?? {}), ...parsed.effects.choicesRecord };
-      }
-      if (parsed.effects.inventoryAdd) merged.inventoryAdd = [...(merged.inventoryAdd ?? []), ...parsed.effects.inventoryAdd];
-      if (parsed.effects.inventoryRemove) {
-        merged.inventoryRemove = [...(merged.inventoryRemove ?? []), ...parsed.effects.inventoryRemove];
-      }
-      if (parsed.effects.location) merged.location = parsed.effects.location;
-      if (parsed.effects.scene) merged.scene = parsed.effects.scene;
-      if (parsed.effects.endStory) merged.endStory = parsed.effects.endStory;
-      if (parsed.effects.memory) memoryNotes.push(...parsed.effects.memory.slice(0, MAX_MEMORY_NOTES));
-      // Preserve raw for worldState extraction
-      worldStateRaw = parsed.raw;
-      rawStateJson = parsed.raw;
     }
     return '';
   });
-  if (found) effects = merged;
 
+  // 2) Unfenced blocks: kissa-state { ... }
+  // Scan repeatedly because removal changes indices.
+  // We require "kissa-state" followed within ~300 chars by a "{".
+  // If found, extract balanced JSON and remove from displayText.
+  let scanPos = 0;
+  const lowerMarker = 'kissa-state';
+  // Safety counter to avoid infinite loops
+  let iterations = 0;
+  const maxIterations = 20;
+
+  while (iterations < maxIterations) {
+    iterations++;
+    const lowerText = displayText.toLowerCase();
+    const idx = lowerText.indexOf(lowerMarker, scanPos);
+    if (idx === -1) break;
+
+    // Find opening brace after marker
+    const braceStart = displayText.indexOf('{', idx);
+    if (braceStart === -1 || braceStart - idx > 400) {
+      // No JSON nearby — not a state block, move forward
+      scanPos = idx + lowerMarker.length;
+      continue;
+    }
+
+    // Validate that between marker and brace there is only allowed chars: whitespace, colon, dash, newline, maybe "```" remnants
+    const between = displayText.slice(idx + lowerMarker.length, braceStart);
+    const betweenStripped = between.replace(/[\s:]/g, '');
+    // If between contains a lot of alphanumeric content (>30 chars) it's likely normal text mentioning kissa-state
+    if (betweenStripped.length > 30) {
+      scanPos = idx + lowerMarker.length;
+      continue;
+    }
+    // If between contains letters that are not just whitespace/colon and looks like sentence, skip
+    // Heuristic: if between contains a period or more than 3 words, skip
+    if (/[a-z]{2,}\.[a-z]/i.test(between) || between.trim().split(/\s+/).filter(Boolean).length > 8) {
+      scanPos = idx + lowerMarker.length;
+      continue;
+    }
+
+    const extracted = extractBalancedJson(displayText, braceStart);
+    if (!extracted) {
+      // Malformed / unbalanced: try to find next closing brace as fallback and suppress up to there
+      const nextClose = displayText.indexOf('}', braceStart);
+      if (nextClose !== -1) {
+        const jsonPart = displayText.slice(braceStart, nextClose + 1);
+        const parsed = parseStateBlock(jsonPart);
+        if (parsed) {
+          foundAnyState = true;
+          mergeEffectsInto(merged, parsed.effects, memoryNotes, setRaw, parsed.raw);
+        } else {
+          // Attempt generic parse for world state
+          try {
+            const generic = JSON.parse(jsonPart) as Record<string, unknown>;
+            if (generic && typeof generic === 'object') setRaw(generic);
+            foundAnyState = true;
+          } catch {
+            // Still consider it a leak and suppress
+            foundAnyState = true;
+          }
+        }
+        // Remove from marker to closing brace
+        displayText = displayText.slice(0, idx) + displayText.slice(nextClose + 1);
+        scanPos = idx;
+        continue;
+      } else {
+        // No closing brace at all: truncate from marker onward (suppress leak)
+        // But to avoid deleting legitimate story after, we only truncate if remaining text is short (<2000) and looks like JSON
+        const remaining = displayText.slice(idx);
+        // If remaining contains "relationships" or "location" etc., treat as state leak and remove from idx
+        if (/(relationships|presentCharacters|storyTime|importantObjects|location)/i.test(remaining)) {
+          displayText = displayText.slice(0, idx);
+          foundAnyState = true;
+          break;
+        } else {
+          scanPos = idx + lowerMarker.length;
+          continue;
+        }
+      }
+    } else {
+      // Balanced JSON found
+      const { jsonStr, endIdx } = extracted;
+      const parsed = parseStateBlock(jsonStr);
+      if (parsed) {
+        foundAnyState = true;
+        mergeEffectsInto(merged, parsed.effects, memoryNotes, setRaw, parsed.raw);
+      } else {
+        // Malformed JSON but balanced: try generic parse for worldState, still suppress
+        try {
+          const generic = JSON.parse(jsonStr) as Record<string, unknown>;
+          if (generic && typeof generic === 'object') {
+            setRaw(generic);
+            // Even if parseStateBlock failed due to empty effects, we still have raw
+            foundAnyState = true;
+          }
+        } catch {
+          foundAnyState = true;
+        }
+      }
+      // Remove entire block from marker to endIdx
+      displayText = displayText.slice(0, idx) + displayText.slice(endIdx);
+      scanPos = idx;
+      continue;
+    }
+  }
+
+  // 3) Cleanup display text
   displayText = displayText.replace(/\n{3,}/g, '\n\n').trim();
+
+  // Also remove any stray leftover markers like "kissa-state" at end with empty JSON? Already handled.
 
   let speaker: string | null = null;
   const lines = displayText.split('\n');
@@ -200,7 +392,19 @@ export function parseAssistantResponse(raw: string): ParsedAssistant {
     break;
   }
 
-  return { displayText, effects, memoryNotes, speaker, worldStateRaw, rawStateJson };
+  const effects = foundAnyState && Object.keys(merged).length > 0 ? merged : foundAnyState ? merged : undefined;
+  // If foundAnyState but no effects, we still want to indicate that state was present and removed (memoryNotes may be empty)
+  // For compatibility, return effects as merged if any state was found, else undefined
+  const finalEffects = foundAnyState ? (Object.keys(merged).length > 0 ? merged : {}) : undefined;
+
+  return {
+    displayText,
+    effects: finalEffects && Object.keys(finalEffects).length > 0 ? finalEffects : foundAnyState ? (Object.keys(merged).length ? merged : undefined) : undefined,
+    memoryNotes,
+    speaker,
+    worldStateRaw,
+    rawStateJson,
+  };
 }
 
 /* ---------------- free-text -> choice matching ---------------- */

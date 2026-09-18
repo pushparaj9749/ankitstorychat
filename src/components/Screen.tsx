@@ -1,6 +1,7 @@
 /**
- * Screen wrapper: Safe Area aware, dark cinematic depth & ambient aura.
- * Kissa v2.4.1.
+ * KISSA v4.2 — Screen Wrapper
+ * Cinematic dark foundation, subtle vignette, safe-area aware.
+ * No neon, no excessive glow — sophisticated stage for stories.
  */
 import React from 'react';
 import { StatusBar, StyleSheet, View } from 'react-native';
@@ -21,16 +22,15 @@ export function Screen({
   return (
     <View style={[styles.root, { backgroundColor: theme.bg }]}>
       <StatusBar barStyle="light-content" backgroundColor={theme.bg} translucent={false} />
-      {/* Cinematic subtle top aura & bottom vignette */}
       <View pointerEvents="none" style={StyleSheet.absoluteFill}>
         <LinearGradient
-          colors={['rgba(230,57,100,0.08)', 'rgba(9,8,12,0.0)']}
+          colors={['rgba(233,67,94,0.06)', 'rgba(6,6,10,0.0)']}
           start={{ x: 0.5, y: 0 }}
           end={{ x: 0.5, y: 1 }}
           style={styles.glowTop}
         />
         <LinearGradient
-          colors={['transparent', 'rgba(0,0,0,0.36)']}
+          colors={['transparent', 'rgba(0,0,0,0.30)']}
           start={{ x: 0.5, y: 0 }}
           end={{ x: 0.5, y: 1 }}
           style={styles.vignetteBottom}
@@ -56,15 +56,14 @@ const styles = StyleSheet.create({
     top: 0,
     left: 0,
     right: 0,
-    height: 240,
-    opacity: 1,
+    height: 200,
   },
   vignetteBottom: {
     position: 'absolute',
     left: 0,
     right: 0,
     bottom: 0,
-    height: 160,
+    height: 140,
     opacity: 0.9,
   },
 });

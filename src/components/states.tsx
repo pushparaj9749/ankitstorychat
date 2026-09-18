@@ -1,11 +1,11 @@
 /**
- * Empty, Error, Loading, and Offline States for Kissa (v2.4.1).
- * Minimal, cinematic, and clear.
+ * KISSA v4.2 — Empty, Error, Loading, Offline States
+ * Minimal, editorial, calm. No excessive emoji, no neon.
  */
 import React from 'react';
 import { ActivityIndicator, StyleSheet, Text, View } from 'react-native';
 import { useApp } from '../state/AppContext';
-import { FONTS, RADIUS, SPACING, TYPE, withAlpha } from '../theme';
+import { RADIUS, SPACING, TYPE, withAlpha } from '../theme';
 import { GradientButton } from './GradientButton';
 
 export function EmptyState({
@@ -24,7 +24,7 @@ export function EmptyState({
   const { theme } = useApp();
   return (
     <View style={styles.wrap}>
-      <View style={[styles.iconCircle, { backgroundColor: withAlpha(theme.surface2, 0.7), borderColor: theme.border }]}>
+      <View style={[styles.iconCircle, { backgroundColor: theme.surface, borderColor: theme.border }]}>
         <Text style={styles.emoji}>{emoji}</Text>
       </View>
       <Text style={[styles.title, { color: theme.text }]}>{title}</Text>
@@ -56,29 +56,27 @@ export function ErrorState({
   const { theme } = useApp();
   return (
     <View style={styles.wrap}>
-      <View style={[styles.iconCircle, { backgroundColor: withAlpha(theme.danger, 0.12), borderColor: withAlpha(theme.danger, 0.25) }]}>
-        <Text style={styles.emoji}>⚠️</Text>
+      <View style={[styles.iconCircle, { backgroundColor: withAlpha(theme.danger, 0.08), borderColor: withAlpha(theme.danger, 0.18) }]}>
+        <Text style={styles.emoji}>!</Text>
       </View>
       <Text style={[styles.title, { color: theme.text }]}>{title}</Text>
       {subtitle ? <Text style={[styles.sub, { color: theme.textDim }]}>{subtitle}</Text> : null}
       <View style={styles.btnRow}>
         {retry && onRetry ? <GradientButton title={retry} onPress={onRetry} /> : null}
-        {secondary && onSecondary ? (
-          <GradientButton title={secondary} onPress={onSecondary} variant="ghost" />
-        ) : null}
+        {secondary && onSecondary ? <GradientButton title={secondary} onPress={onSecondary} variant="ghost" /> : null}
       </View>
     </View>
   );
 }
 
-export function LoadingState({ label = 'Loading story universe…' }: { label?: string }) {
+export function LoadingState({ label = 'Opening story…' }: { label?: string }) {
   const { theme } = useApp();
   return (
     <View style={styles.wrap}>
-      <View style={[styles.loadingCircle, { borderColor: withAlpha(theme.primary, 0.25) }]}>
-        <ActivityIndicator size="large" color={theme.accent} />
+      <View style={[styles.loadingCircle, { borderColor: theme.border }]}>
+        <ActivityIndicator size="small" color={theme.textDim} />
       </View>
-      <Text style={[styles.sub, { color: theme.textDim, marginTop: SPACING.md }]}>{label}</Text>
+      <Text style={[styles.sub, { color: theme.textFaint, marginTop: SPACING.md }]}>{label}</Text>
     </View>
   );
 }
@@ -99,19 +97,34 @@ export function OfflineState({
   const { theme } = useApp();
   return (
     <View style={styles.wrap}>
-      <View style={[styles.offlineIcon, { backgroundColor: theme.primarySoft, borderColor: withAlpha(theme.primary, 0.3) }]}>
-        <Text style={styles.offlineIconText}>📡</Text>
+      <View style={[styles.iconCircle, { backgroundColor: theme.surface, borderColor: theme.border }]}>
+        <Text style={styles.emoji}>↯</Text>
       </View>
       <Text style={[styles.title, { color: theme.text }]}>Internet connection required</Text>
-      <Text style={[styles.sub, { color: theme.textDim }]}>
-        {subtitle ?? 'Connect to the internet to continue this story.'}
-      </Text>
+      <Text style={[styles.sub, { color: theme.textDim }]}>{subtitle ?? 'Connect to the internet to continue.'}</Text>
       <View style={styles.btnRow}>
         {retry && onRetry ? <GradientButton title={retry} onPress={onRetry} /> : null}
-        {secondary && onSecondary ? (
-          <GradientButton title={secondary} onPress={onSecondary} variant="ghost" />
-        ) : null}
+        {secondary && onSecondary ? <GradientButton title={secondary} onPress={onSecondary} variant="ghost" /> : null}
       </View>
+    </View>
+  );
+}
+
+export function LoadingSkeleton({ lines = 3 }: { lines?: number }) {
+  const { theme } = useApp();
+  return (
+    <View style={{ gap: 10, paddingVertical: 8 }}>
+      {Array.from({ length: lines }).map((_, i) => (
+        <View
+          key={i}
+          style={{
+            height: 14,
+            borderRadius: 7,
+            backgroundColor: withAlpha(theme.surface2, 0.9),
+            width: `${92 - i * 12}%`,
+          }}
+        />
+      ))}
     </View>
   );
 }
@@ -119,35 +132,25 @@ export function OfflineState({
 const styles = StyleSheet.create({
   wrap: { flex: 1, alignItems: 'center', justifyContent: 'center', padding: SPACING.xl, gap: 10 },
   iconCircle: {
-    width: 76,
-    height: 76,
-    borderRadius: 38,
+    width: 56,
+    height: 56,
+    borderRadius: 18,
     borderWidth: 1,
     alignItems: 'center',
     justifyContent: 'center',
-    marginBottom: 6,
+    marginBottom: 4,
   },
   loadingCircle: {
-    width: 64,
-    height: 64,
-    borderRadius: 32,
+    width: 48,
+    height: 48,
+    borderRadius: 16,
     borderWidth: 1,
     alignItems: 'center',
     justifyContent: 'center',
   },
-  emoji: { fontSize: 32 },
-  offlineIcon: {
-    width: 76,
-    height: 76,
-    borderRadius: 38,
-    borderWidth: 1,
-    alignItems: 'center',
-    justifyContent: 'center',
-    marginBottom: 6,
-  },
-  offlineIconText: { fontSize: 34 },
-  title: { fontSize: FONTS.heading, fontWeight: '800', textAlign: 'center', letterSpacing: -0.2 },
-  sub: { fontSize: FONTS.small, textAlign: 'center', lineHeight: 21, maxWidth: 320 },
-  btn: { marginTop: SPACING.md, minWidth: 190 },
-  btnRow: { marginTop: SPACING.md, gap: 10, minWidth: 230 },
+  emoji: { fontSize: 20, fontWeight: '700' },
+  title: { fontSize: 17, fontWeight: '700', textAlign: 'center', letterSpacing: -0.2 },
+  sub: { fontSize: 13, textAlign: 'center', lineHeight: 19, maxWidth: 300 },
+  btn: { marginTop: SPACING.md, minWidth: 180 },
+  btnRow: { marginTop: SPACING.md, gap: 10, minWidth: 220 },
 });
