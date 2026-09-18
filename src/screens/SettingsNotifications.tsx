@@ -1,6 +1,6 @@
 /**
  * Notifications Settings: Local reminders & content alerts.
- * Kissa v2.4.1.
+ * Kissa v2.4.2.
  */
 import React, { useEffect, useState } from 'react';
 import { Alert, StyleSheet, Switch, Text, View } from 'react-native';
@@ -71,8 +71,8 @@ export function SettingsNotifications(_props: Props) {
   async function sendTest() {
     await Notifications.scheduleNotificationAsync({
       content: {
-        title: 'Kissa ✦ (test)',
-        body: 'Story reminders are active! Your interactive stories await. ✨',
+        title: 'Kissa (test)',
+        body: 'Story reminders are active! Your interactive stories await.',
         data: { kind: 'test' },
       },
       trigger: null,
@@ -90,7 +90,7 @@ export function SettingsNotifications(_props: Props) {
 
       <Text style={[styles.perm, { color: theme.textDim }]}>
         System Status: <Text style={{ color: theme.accent, fontWeight: '800' }}>{perm}</Text>
-        {'\n'}100% local reminders — no tracking, no ad notifications. 🔒
+        {'\n'}100% local reminders — no tracking, no ad notifications.
       </Text>
 
       <SectionHeader title="Preferences" kicker="Toggle" />

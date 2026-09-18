@@ -1,5 +1,5 @@
 /**
- * Provider Editor / Setup Screen — Redesigned for Kissa v2.4.1.
+ * Provider Editor / Setup Screen — Redesigned for Kissa v2.4.2.
  * Add / edit AI provider + test connection safely.
  */
 import React, { useEffect, useState } from 'react';
@@ -9,6 +9,7 @@ import type { AIError, RootStackParamList } from '../types';
 import { useApp } from '../state/AppContext';
 import { Screen } from '../components/Screen';
 import { GradientButton } from '../components/GradientButton';
+import { Icon } from '../components/icons';
 import { getProvider, upsertProvider } from '../lib/db';
 import { getApiKey, hasApiKey, saveApiKey } from '../lib/secureKeys';
 import { aiErrorMessage, normalizeBaseUrl, PROVIDER_PRESETS, testConnection } from '../lib/ai';
@@ -156,7 +157,7 @@ export function ProviderEditor({ navigation, route }: Props) {
         />
 
         <Text style={[styles.hint, { color: theme.textFaint }]}>
-          🔒 Your key is securely stored in your device's hardware-backed keystore.
+          Your key is securely stored in your device's hardware-backed keystore.
         </Text>
 
         {testResult ? (
@@ -167,7 +168,8 @@ export function ProviderEditor({ navigation, route }: Props) {
             ]}
           >
             <Text style={[styles.testText, { color: testOk ? theme.success : theme.danger }]}>
-              {testOk ? '✅ ' : '❌ '}{testResult}
+              <Icon name={testOk ? 'checkmark-circle' : 'close-circle'} size={14} color={testOk ? theme.success : theme.danger} />{' '}
+              {testResult}
             </Text>
           </View>
         ) : null}

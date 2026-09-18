@@ -1,7 +1,7 @@
 /**
- * KISSA v4.2 — CINEMATIC DESIGN SYSTEM
+ * KISSA v2.4.2 — CINEMATIC DESIGN SYSTEM
  *
- * 100% Original Kissa Visual Identity (v4.2)
+ * 100% Original Kissa Visual Identity (v2.4.2)
  * -------------------------------------------------
  * Foundation: very dark near-black ink (#06060A), charcoal depth (#0E0E14)
  * Surfaces: deep charcoal #13131B, elevated #1C1C27, soft elevated #262636

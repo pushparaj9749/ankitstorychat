@@ -1,5 +1,5 @@
 /**
- * KISSA v4.2 — Story Cards
+ * KISSA v2.4.2 — Story Cards
  * Artwork-first, natural aspect ratio, editorial, minimal.
  * No cropping, no forced ratios, no neon.
  */
@@ -13,6 +13,7 @@ import { makePlayerTextFn } from '../lib/playerName';
 import { RADIUS, SHADOWS, TYPE, withAlpha, GRADIENTS } from '../theme';
 import { AgeBadge, GenreChip, ProgressBar } from './bits';
 import { CoverImage } from './CoverImage';
+import { Icon, ICON_SIZE } from './icons';
 
 function Cover({
   meta,
@@ -141,7 +142,7 @@ export function ContinueCard({
       </View>
 
       <View style={[styles.rowArrow, { borderColor: theme.border, backgroundColor: withAlpha(theme.surface2, 0.9) }]}>
-        <Text style={[styles.rowArrowText, { color: theme.textFaint }]}>›</Text>
+        <Icon name="chevron-forward" size={ICON_SIZE.sm} color={theme.textFaint} />
       </View>
     </Pressable>
   );
@@ -296,7 +297,6 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
   },
-  rowArrowText: { fontSize: 18, fontWeight: '300', marginTop: -1 },
   grid: { width: 148, borderRadius: RADIUS.lg, borderWidth: 1, overflow: 'hidden' },
   gridCover: { width: 148 },
   gridBody: { padding: 10, gap: 3 },

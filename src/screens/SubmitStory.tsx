@@ -1,6 +1,6 @@
 /**
  * Submit a Story / Suggest an Idea — Creator Studio Form.
- * Redesigned for Kissa v2.4.1.
+ * Redesigned for Kissa v2.4.2.
  *
  * Two modes:
  *   - "idea" :  simple 5-field form (creator, title, concept, genre, characters, notes).
@@ -27,6 +27,7 @@ import { Screen } from '../components/Screen';
 import { GradientButton } from '../components/GradientButton';
 import { NaturalImage } from '../components/NaturalImage';
 import { SectionHeader } from '../components/bits';
+import { Icon } from '../components/icons';
 import { FONTS, RADIUS, SHADOWS, SPACING, TYPE, withAlpha } from '../theme';
 import {
   SubmissionApiError,
@@ -58,9 +59,9 @@ interface MediaDraft {
 const KIND_CYCLE: StoryMediaKind[] = ['character-portrait', 'scene', 'other'];
 const KIND_LABEL: Record<StoryMediaKind, string> = {
   cover: 'Cover',
-  'character-portrait': '👤 Portrait',
-  scene: '🎬 Scene',
-  other: '✨ Other',
+  'character-portrait': 'Portrait',
+  scene: 'Scene',
+  other: 'Other',
 };
 
 type Props = NativeStackScreenProps<RootStackParamList, 'SubmitStory'>;
@@ -448,7 +449,7 @@ export function SubmitStory({ navigation, route }: Props) {
                 {cover.name} ({Math.round(cover.size / 1024)} KB)
               </Text>
               <Text style={{ color: cover.ref ? theme.success : theme.danger, fontSize: FONTS.tiny, fontWeight: '800' }}>
-                {cover.ref ? '✓ Uploaded' : cover.error ?? 'Upload failed'}
+                {cover.ref ? 'Uploaded' : cover.error ?? 'Upload failed'}
               </Text>
             </View>
             <View style={styles.mediaActions}>
@@ -462,7 +463,7 @@ export function SubmitStory({ navigation, route }: Props) {
           </View>
         ) : (
           <Pressable onPress={pickCover} style={styles.coverEmpty}>
-            <Text style={styles.coverEmptyEmoji}>🖼️</Text>
+            <Icon name="image-outline" size={26} color={theme.textFaint} />
             <Text style={[styles.coverEmptyTitle, { color: theme.text }]}>Pick Cover Image</Text>
             <Text style={[styles.coverEmptySub, { color: theme.textFaint }]}>PNG, JPEG, WebP (up to 5 MB)</Text>
           </Pressable>
@@ -483,14 +484,14 @@ export function SubmitStory({ navigation, route }: Props) {
               <Text style={[styles.kindChipText, { color: theme.accent }]}>{KIND_LABEL[g.kind ?? 'character-portrait']}</Text>
             </Pressable>
             <Pressable onPress={() => removeGalleryImage(slot)} style={[styles.removeChip, { backgroundColor: 'rgba(0,0,0,0.78)' }]}>
-              <Text style={[styles.removeChipText, { color: theme.danger }]}>✕</Text>
+              <Icon name="close" size={12} color={theme.danger} />
             </Pressable>
           </View>
         ))}
 
         {gallery.length < 8 ? (
           <Pressable onPress={addGalleryImage} style={[styles.galleryAdd, { borderColor: theme.border, backgroundColor: withAlpha(theme.surface, 0.6) }]}>
-            <Text style={[styles.galleryAddPlus, { color: theme.accent }]}>+</Text>
+            <Icon name="add" size={18} color={theme.accent} />
             <Text style={[styles.galleryAddText, { color: theme.textDim }]}>Add image</Text>
           </Pressable>
         ) : null}
@@ -503,7 +504,8 @@ export function SubmitStory({ navigation, route }: Props) {
       <KeyboardAvoidingView behavior={Platform.OS === 'ios' ? 'padding' : undefined} style={{ flex: 1 }}>
         <ScrollView contentContainerStyle={styles.container} showsVerticalScrollIndicator={false}>
           <Pressable onPress={() => navigation.goBack()} style={styles.back}>
-            <Text style={[styles.backText, { color: theme.text }]}>‹ Back</Text>
+            <Icon name="chevron-back" size={16} color={theme.text} />
+            <Text style={[styles.backText, { color: theme.text }]}>Back</Text>
           </Pressable>
 
           <View style={styles.header}>
@@ -520,7 +522,7 @@ export function SubmitStory({ navigation, route }: Props) {
           </Text>
 
           <View style={[styles.limitBox, { backgroundColor: withAlpha(theme.surface, 0.9), borderColor: theme.border }]}>
-            <Text style={[styles.limitText, { color: theme.accent }]}>✦ {limitLabel}</Text>
+            <Text style={[styles.limitText, { color: theme.accent }]}>{limitLabel}</Text>
           </View>
 
           {/* Mode Selector */}
@@ -529,13 +531,13 @@ export function SubmitStory({ navigation, route }: Props) {
               onPress={() => setMode('idea')}
               style={[styles.tab, { backgroundColor: mode === 'idea' ? theme.primary : 'transparent', borderColor: theme.border }]}
             >
-              <Text style={{ color: mode === 'idea' ? '#fff' : theme.textDim, fontWeight: '800' }}>💡 Suggest an Idea</Text>
+              <Text style={{ color: mode === 'idea' ? '#fff' : theme.textDim, fontWeight: '800' }}>Suggest an Idea</Text>
             </Pressable>
             <Pressable
               onPress={() => setMode('story')}
               style={[styles.tab, { backgroundColor: mode === 'story' ? theme.primary : 'transparent', borderColor: theme.border }]}
             >
-              <Text style={{ color: mode === 'story' ? '#fff' : theme.textDim, fontWeight: '800' }}>📖 Full Story</Text>
+              <Text style={{ color: mode === 'story' ? '#fff' : theme.textDim, fontWeight: '800' }}>Full Story</Text>
             </Pressable>
           </View>
 
@@ -565,7 +567,7 @@ export function SubmitStory({ navigation, route }: Props) {
               {label('Additional notes (optional)')}
               <TextInput style={fieldStyle()} placeholder="Tones, endings, branch ideas…" placeholderTextColor={theme.textFaint} value={notes} onChangeText={setNotes} />
               <View style={{ height: SPACING.xl }} />
-              <GradientButton title={loading ? 'Submitting…' : '💡 Send Idea'} onPress={handleSubmitIdea} disabled={loading} loading={loading} />
+              <GradientButton title={loading ? 'Submitting…' : 'Send Idea'} onPress={handleSubmitIdea} disabled={loading} loading={loading} />
             </>
           ) : (
             <>
@@ -615,7 +617,7 @@ export function SubmitStory({ navigation, route }: Props) {
                   <TextInput style={[fieldStyle(true), { fontFamily: Platform.OS === 'ios' ? 'Menlo' : 'monospace' }]} placeholder='{"scenes": [...], "characters": {...}}' placeholderTextColor={theme.textFaint} value={storyContent} onChangeText={setStoryContent} multiline autoCapitalize="none" autoCorrect={false} />
                   {mediaSection}
                   <View style={{ height: SPACING.xl }} />
-                  <GradientButton title={loading ? 'Submitting…' : '📖 Submit Story Package'} onPress={handleSubmitStoryForm} disabled={loading} loading={loading} />
+                  <GradientButton title={loading ? 'Submitting…' : 'Submit Story Package'} onPress={handleSubmitStoryForm} disabled={loading} loading={loading} />
                 </>
               ) : (
                 <>
@@ -636,7 +638,7 @@ export function SubmitStory({ navigation, route }: Props) {
                   />
                   {mediaSection}
                   <View style={{ height: SPACING.xl }} />
-                  <GradientButton title={loading ? 'Validating & submitting…' : '📖 Submit JSON Story'} onPress={handleSubmitStoryJson} disabled={loading} loading={loading} />
+                  <GradientButton title={loading ? 'Validating & submitting…' : 'Submit JSON Story'} onPress={handleSubmitStoryJson} disabled={loading} loading={loading} />
                 </>
               )}
             </>
@@ -658,7 +660,7 @@ export function SubmitStory({ navigation, route }: Props) {
 
 const styles = StyleSheet.create({
   container: { padding: 16, paddingBottom: 60 },
-  back: { paddingVertical: 8, marginBottom: 4 },
+  back: { paddingVertical: 8, marginBottom: 4, flexDirection: 'row', alignItems: 'center', gap: 4 },
   backText: { fontSize: 17, fontWeight: '700' },
   header: { paddingTop: 2, paddingBottom: 4 },
   kicker: { ...TYPE.overline, marginTop: 2 },
@@ -686,7 +688,7 @@ const styles = StyleSheet.create({
   uploadOverlay: { position: 'absolute', top: 0, left: 0, right: 0, bottom: 0, backgroundColor: 'rgba(0,0,0,0.65)', alignItems: 'center', justifyContent: 'center', padding: 12 },
   uploadOverlayText: { fontSize: 12, fontWeight: '700', textAlign: 'center', marginTop: 6 },
   coverEmpty: { alignItems: 'center', paddingVertical: 28, borderRadius: RADIUS.md },
-  coverEmptyEmoji: { fontSize: 34 },
+
   coverEmptyTitle: { fontSize: FONTS.body, fontWeight: '800', marginTop: 8 },
   coverEmptySub: { fontSize: FONTS.tiny, marginTop: 4 },
   mediaMeta: { flexDirection: 'row', justifyContent: 'space-between', marginTop: 8, gap: 8 },
@@ -700,10 +702,10 @@ const styles = StyleSheet.create({
   kindChip: { position: 'absolute', top: 6, left: 6, borderRadius: RADIUS.pill, paddingHorizontal: 8, paddingVertical: 3 },
   kindChipText: { fontSize: 10, fontWeight: '800' },
   removeChip: { position: 'absolute', top: 5, right: 5, width: 22, height: 22, borderRadius: 11, alignItems: 'center', justifyContent: 'center' },
-  removeChipText: { fontSize: 11, fontWeight: '900' },
+
   galleryOverlay: { position: 'absolute', top: 0, left: 0, right: 0, bottom: 0, backgroundColor: 'rgba(0,0,0,0.6)', alignItems: 'center', justifyContent: 'center', padding: 8 },
   galleryAdd: { width: '31%', minHeight: 108, borderRadius: RADIUS.md, borderWidth: 1, borderStyle: 'dashed', alignItems: 'center', justifyContent: 'center' },
-  galleryAddPlus: { fontSize: 28, fontWeight: '300' },
+
   galleryAddText: { fontSize: 11, fontWeight: '700', marginTop: 4 },
   previewBackdrop: { flex: 1, backgroundColor: 'rgba(0,0,0,0.96)', alignItems: 'center', justifyContent: 'center' },
   previewImage: { width: '100%', maxHeight: '82%' },

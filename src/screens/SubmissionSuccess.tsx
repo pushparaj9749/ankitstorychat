@@ -1,6 +1,6 @@
 /**
  * Submission Success Confirmation Screen.
- * Kissa v2.4.1.
+ * Kissa v2.4.2.
  */
 import React, { useEffect, useState } from 'react';
 import { Platform, ScrollView, StyleSheet, Text, View } from 'react-native';
@@ -9,6 +9,7 @@ import type { RootStackParamList } from '../types';
 import { useApp } from '../state/AppContext';
 import { Screen } from '../components/Screen';
 import { GradientButton } from '../components/GradientButton';
+import { Icon } from '../components/icons';
 import { FONTS, RADIUS, SHADOWS, SPACING, TYPE, withAlpha } from '../theme';
 import { formatRemaining } from '../content/submissions';
 
@@ -30,7 +31,7 @@ export function SubmissionSuccess({ navigation, route }: Props) {
     <Screen>
       <ScrollView contentContainerStyle={styles.container} showsVerticalScrollIndicator={false}>
         <View style={[styles.checkCircle, { backgroundColor: withAlpha(theme.success, 0.15), borderColor: theme.success }]}>
-          <Text style={[styles.check, { color: theme.success }]}>✓</Text>
+          <Icon name="checkmark" size={40} color={theme.success} />
         </View>
 
         <Text style={[styles.title, { color: theme.text }]}>Submitted Successfully</Text>
@@ -47,7 +48,7 @@ export function SubmissionSuccess({ navigation, route }: Props) {
             SHADOWS.card,
           ]}
         >
-          <Row label="Type" value={type === 'idea' ? '💡 Story Concept' : '📖 Complete Story Package'} />
+          <Row label="Type" value={type === 'idea' ? 'Story Concept' : 'Complete Story Package'} />
           <Row label="Creator" value={creatorName} />
           <Row label="Submission ID" value={id} mono />
           <Row label="Review Window" value={`Expires in ${formatRemaining(remaining)} (24h)`} />
@@ -104,7 +105,7 @@ const styles = StyleSheet.create({
     alignSelf: 'center',
     marginBottom: 16,
   },
-  check: { fontSize: 44, fontWeight: '900' },
+
   title: { fontSize: 26, fontWeight: '900', textAlign: 'center', letterSpacing: -0.4 },
   sub: { fontSize: FONTS.body, textAlign: 'center', marginTop: 10, lineHeight: 22, paddingHorizontal: 16 },
   card: { borderWidth: 1, borderRadius: RADIUS.lg, padding: 18, marginTop: SPACING.xl },

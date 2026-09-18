@@ -1,9 +1,10 @@
 /**
  * Onboarding Screen 1: "What should we call you?"
- * Kissa v2.4.1.
+ * Kissa v2.4.2.
  */
 import React, { useState } from 'react';
 import {
+  Image,
   KeyboardAvoidingView,
   Platform,
   StyleSheet,
@@ -11,13 +12,13 @@ import {
   TextInput,
   View,
 } from 'react-native';
-import { LinearGradient } from 'expo-linear-gradient';
+import { KISSA_LOGO } from '../components/brand';
 import type { NativeStackScreenProps } from '@react-navigation/native-stack';
 import type { RootStackParamList } from '../types';
 import { useApp } from '../state/AppContext';
 import { Screen } from '../components/Screen';
 import { GradientButton } from '../components/GradientButton';
-import { FONTS, GRADIENTS, RADIUS, SHADOWS, SPACING, TYPE, withAlpha } from '../theme';
+import { FONTS, RADIUS, SHADOWS, SPACING, TYPE, withAlpha } from '../theme';
 
 type Props = NativeStackScreenProps<RootStackParamList, 'OnboardingName'>;
 
@@ -34,13 +35,11 @@ export function OnboardingName({ navigation }: Props) {
         behavior={Platform.OS === 'ios' ? 'padding' : undefined}
         style={styles.wrap}
       >
-        <LinearGradient colors={[...GRADIENTS.hero]} style={[styles.logo, SHADOWS.glowRose]}>
-          <Text style={styles.logoText}>✦</Text>
-        </LinearGradient>
+        <Image source={KISSA_LOGO} style={[styles.logo, SHADOWS.glowRose]} resizeMode="contain" accessibilityLabel="Kissa" />
         <Text style={[styles.title, { color: theme.text }]}>What should we call you?</Text>
         <Text style={[styles.sub, { color: theme.textDim }]}>
           Yehi naam story ke characters use karenge. Koi account nahi, koi password nahi — bas
-          tum aur tumhari interactive kahaniyan. 🔒
+          tum aur tumhari interactive kahaniyan.
         </Text>
         <TextInput
           value={name}
@@ -64,7 +63,7 @@ export function OnboardingName({ navigation }: Props) {
           </Text>
         ) : (
           <Text style={[styles.hint, { color: theme.textFaint }]}>
-            Sirf tumhare device par encrypted save hoga. ✦
+            Sirf tumhare device par encrypted save hoga.
           </Text>
         )}
         <View style={styles.spacer} />
@@ -82,14 +81,11 @@ export function OnboardingName({ navigation }: Props) {
 const styles = StyleSheet.create({
   wrap: { flex: 1, paddingTop: SPACING.xxl },
   logo: {
-    width: 68,
-    height: 68,
-    borderRadius: 22,
-    alignItems: 'center',
-    justifyContent: 'center',
+    width: 76,
+    height: 76,
+    borderRadius: 24,
     marginBottom: SPACING.xl,
   },
-  logoText: { fontSize: 32, fontWeight: '900', color: '#0E070B' },
   title: { fontSize: 30, fontWeight: '900', marginBottom: SPACING.sm, letterSpacing: -0.5 },
   sub: { fontSize: FONTS.body, lineHeight: 22, marginBottom: SPACING.xl },
   input: {

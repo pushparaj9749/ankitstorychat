@@ -1,5 +1,5 @@
 /**
- * KISSA v4.2 — Buttons
+ * KISSA v2.4.2 — Buttons
  * Primary: solid text on rose, minimal, editorial.
  * Ghost: subtle surface, border.
  */

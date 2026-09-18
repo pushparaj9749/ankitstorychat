@@ -1,7 +1,7 @@
 /**
  * Saves Screen — Manage journeys per story.
  * Replay, resume, delete. Memory UI removed (internal only).
- * Kissa v2.4.1.
+ * Kissa v2.4.2.
  */
 import React, { useEffect, useState } from 'react';
 import { Alert, FlatList, Pressable, StyleSheet, Text, View } from 'react-native';
@@ -11,6 +11,7 @@ import { useApp } from '../state/AppContext';
 import { Screen } from '../components/Screen';
 import { ProgressBar, SectionHeader } from '../components/bits';
 import { EmptyState, LoadingState } from '../components/states';
+import { Icon } from '../components/icons';
 import { deletePlaythrough, listPlaythroughsForStory } from '../lib/db';
 import { FONTS, RADIUS, SHADOWS, SPACING, TYPE, withAlpha } from '../theme';
 import { timeAgo } from '../lib/utils';
@@ -80,7 +81,7 @@ export function Saves({ navigation, route }: Props) {
 
       {saves.length === 0 ? (
         <EmptyState
-          emoji="📖"
+          icon="book-outline"
           title="No journeys yet"
           subtitle="Start playing this story to create your first journey."
           action="Back to Story"
@@ -148,7 +149,8 @@ export function Saves({ navigation, route }: Props) {
                   </Pressable>
 
                   <View style={[styles.resumeBtn, { backgroundColor: theme.primary }]}>
-                    <Text style={styles.resumeText}>Resume ›</Text>
+                    <Text style={styles.resumeText}>Resume</Text>
+                    <Icon name="chevron-forward" size={12} color="#fff" />
                   </View>
                 </View>
               </Pressable>
@@ -190,6 +192,9 @@ const styles = StyleSheet.create({
     paddingHorizontal: 14,
     paddingVertical: 7,
     borderRadius: RADIUS.pill,
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: 4,
   },
   resumeText: { color: '#fff', fontSize: 12, fontWeight: '800' },
 });

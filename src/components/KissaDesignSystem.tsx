@@ -1,5 +1,5 @@
 /**
- * KISSA v4.2 — Design System
+ * KISSA v2.4.2 — Design System
  * Centralized reusable components for original Kissa identity.
  * Exports: KissaHeader, StoryCard, FeaturedStory, SectionHeader, CategoryChip,
  * SearchBar, PrimaryButton, SecondaryButton, StoryHero, CharacterCard,
@@ -18,6 +18,7 @@ import { EmptyState, ErrorState, LoadingState, OfflineState, LoadingSkeleton } f
 import { KissaBottomTabBar as BottomNavigationBase } from './BottomNavigation';
 import { CoverImage } from './CoverImage';
 import { NaturalImage } from './NaturalImage';
+import { Icon, ICON_SIZE } from './icons';
 
 export const KissaHeader = KissaHeaderBase;
 export const StoryCard = GridCard;
@@ -44,7 +45,7 @@ export function SearchBar({
   const { theme } = useApp();
   return (
     <View style={[styles.searchWrap, { backgroundColor: theme.surface, borderColor: theme.border }]}>
-      <Text style={[styles.searchIcon, { color: theme.textFaint }]}>⌕</Text>
+      <Icon name="search" size={ICON_SIZE.sm} color={theme.textFaint} />
       <TextInput
         value={value}
         onChangeText={onChangeText}
@@ -55,7 +56,7 @@ export function SearchBar({
       />
       {value.length > 0 && onClear ? (
         <Pressable onPress={onClear} hitSlop={8} style={[styles.clearBtn, { backgroundColor: theme.surface2 }]}>
-          <Text style={[styles.clearText, { color: theme.textDim }]}>✕</Text>
+          <Icon name="close" size={12} color={theme.textDim} />
         </Pressable>
       ) : null}
     </View>
@@ -81,7 +82,7 @@ export function MediaCard({ uri, label, onPress }: { uri: string; label?: string
   const { theme } = useApp();
   return (
     <Pressable onPress={onPress} style={[styles.mediaCard, { borderColor: theme.border }]}>
-      <NaturalImage source={{ uri }} style={styles.mediaImg} fallback={<Text>◐</Text>} />
+      <NaturalImage source={{ uri }} style={styles.mediaImg} fallback={<Icon name="image-outline" size={ICON_SIZE.md} color={theme.textFaint} />} />
       {label ? <Text style={[styles.mediaLabel, { color: theme.textDim }]} numberOfLines={1}>{label}</Text> : null}
     </Pressable>
   );
@@ -118,7 +119,7 @@ export function ChatComposer({
         style={[styles.composerInput, { backgroundColor: theme.surface, borderColor: theme.border, color: theme.text }]}
       />
       <Pressable onPress={onSend} disabled={sending || !value.trim()} style={[styles.composerSend, { backgroundColor: theme.text, opacity: sending || !value.trim() ? 0.4 : 1 }]}>
-        <Text style={[styles.composerSendText, { color: theme.bg }]}>↑</Text>
+        <Icon name="arrow-up" size={ICON_SIZE.md} color={theme.bg} />
       </Pressable>
     </View>
   );
@@ -162,10 +163,8 @@ const styles = StyleSheet.create({
     paddingHorizontal: 16,
     paddingVertical: 5,
   },
-  searchIcon: { fontSize: 16 },
   input: { flex: 1, fontSize: 14, paddingVertical: 10 },
   clearBtn: { width: 24, height: 24, borderRadius: 12, alignItems: 'center', justifyContent: 'center' },
-  clearText: { fontSize: 10, fontWeight: '700' },
   charCard: { flexDirection: 'row', alignItems: 'center', gap: 12, borderWidth: 1, borderRadius: RADIUS.lg, padding: 12 },
   charName: { fontSize: 14, fontWeight: '600' },
   charRole: { fontSize: 11.5, marginTop: 2 },
@@ -175,7 +174,6 @@ const styles = StyleSheet.create({
   composerBar: { flexDirection: 'row', alignItems: 'flex-end', gap: 10, padding: 12, borderTopWidth: StyleSheet.hairlineWidth },
   composerInput: { flex: 1, borderWidth: 1, borderRadius: 20, paddingHorizontal: 16, paddingVertical: 10, fontSize: 14.5, maxHeight: 120 },
   composerSend: { width: 40, height: 40, borderRadius: 20, alignItems: 'center', justifyContent: 'center' },
-  composerSendText: { fontSize: 16, fontWeight: '800' },
   modalOverlay: { flex: 1, alignItems: 'center', justifyContent: 'center', padding: 20 },
   modalBox: { borderRadius: RADIUS.xl, borderWidth: 1, padding: 18, width: '100%', maxWidth: 360 },
   sheetOverlay: { flex: 1, justifyContent: 'flex-end', backgroundColor: 'rgba(0,0,0,0.5)' },
