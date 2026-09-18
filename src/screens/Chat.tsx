@@ -9,6 +9,7 @@
 import React, { useEffect, useMemo, useRef, useState } from 'react';
 import {
   FlatList,
+  Image,
   KeyboardAvoidingView,
   Platform,
   Pressable,
@@ -30,7 +31,14 @@ import type {
 import { useApp } from '../state/AppContext';
 import { ChatBubble, TypingIndicator } from '../components/chat';
 import { ErrorState, LoadingState, OfflineState } from '../components/states';
-import { getBundle, StoryContentError } from '../content/loader';
+import {
+  effectiveContentApiBaseUrl,
+  getBundle,
+  getBundledCoverSource,
+  mediaApiUrl,
+  StoryContentError,
+  type CoverSource,
+} from '../content/loader';
 import { getApiKey } from '../lib/secureKeys';
 import { aiErrorMessage, chatCompletion } from '../lib/ai';
 import {
@@ -68,6 +76,35 @@ import { successBuzz } from '../lib/haptics';
 type Props = NativeStackScreenProps<RootStackParamList, 'Chat'>;
 
 const PAGE = 40;
+
+/** Circular story face — contain-fitted inside a circle, never cover-cropped. */
+function ChatStoryFace({
+  source,
+  letter,
+  accent,
+}: {
+  source: CoverSource | null;
+  letter: string;
+  accent: string;
+}) {
+  const [failed, setFailed] = useState(false);
+  const initial = (letter?.trim()?.[0] ?? '?').toUpperCase();
+  return (
+    <View style={[styles.face, { backgroundColor: `${accent}33`, borderColor: 'rgba(244,237,228,0.18)' }]}>
+      {source && !failed ? (
+        <Image
+          source={source}
+          style={styles.faceImg}
+          resizeMode="contain"
+          onError={() => setFailed(true)}
+          accessibilityIgnoresInvertColors
+        />
+      ) : (
+        <Text style={[styles.faceLetter, { color: accent }]}>{initial}</Text>
+      )}
+    </View>
+  );
+}
 
 export function Chat({ navigation, route }: Props) {
   const { playthroughId } = route.params;
@@ -369,20 +406,39 @@ export function Chat({ navigation, route }: Props) {
     );
   }
 
+  const apiBase = effectiveContentApiBaseUrl(settings.contentApiBaseUrl);
+  const portrait = bundle.story.media?.gallery?.find((g) => g.kind === 'character-portrait');
+  const faceSource: CoverSource | null = portrait
+    ? { uri: mediaApiUrl(apiBase, bundle.meta.storyDir, portrait.file) }
+    : getBundledCoverSource(bundle.meta, apiBase);
+
+  const storyId = playthrough.storyId;
+  function openStoryProfile() {
+    navigation.navigate('StoryDetail', { storyId });
+  }
+
   return (
     <SafeAreaView style={[styles.safe, { backgroundColor: theme.bg }]} edges={['top', 'left', 'right', 'bottom']}>
       <View style={[styles.header, { borderColor: theme.border, backgroundColor: theme.bgSoft }]}>
         <Pressable onPress={() => navigation.goBack()} hitSlop={10} accessibilityLabel="Go back">
           <Text style={[styles.back, { color: theme.text }]}>‹</Text>
         </Pressable>
-        <View style={styles.headerBody}>
-          <Text style={[styles.headerTitle, { color: theme.text }]} numberOfLines={1}>
-            {bundle.meta.title}
-          </Text>
-          <Text style={[styles.headerSub, { color: theme.textDim }]} numberOfLines={1}>
-            {scene?.title ?? playthrough.label} • {playthrough.label}
-          </Text>
-        </View>
+        <Pressable
+          onPress={openStoryProfile}
+          style={styles.headerIdentity}
+          accessibilityRole="button"
+          accessibilityLabel={`Open ${bundle.meta.title} profile`}
+        >
+          <ChatStoryFace source={faceSource} letter={bundle.meta.title} accent={bundle.meta.accentColor} />
+          <View style={styles.headerBody}>
+            <Text style={[styles.headerTitle, { color: theme.text }]} numberOfLines={1}>
+              {bundle.meta.title}
+            </Text>
+            <Text style={[styles.headerSub, { color: theme.textDim }]} numberOfLines={1}>
+              {scene?.title ?? playthrough.label} • {playthrough.label}
+            </Text>
+          </View>
+        </Pressable>
         <View style={styles.headerRight}>
           <Pressable
             onPress={() => navigation.navigate('Memory', { playthroughId: playthrough.id, storyTitle: bundle.meta.title })}
@@ -534,7 +590,19 @@ const styles = StyleSheet.create({
     gap: 10,
   },
   back: { fontSize: 30, fontWeight: '400', marginTop: -4 },
-  headerBody: { flex: 1 },
+  headerIdentity: { flex: 1, flexDirection: 'row', alignItems: 'center', gap: 10, minWidth: 0 },
+  face: {
+    width: 40,
+    height: 40,
+    borderRadius: 20,
+    overflow: 'hidden',
+    borderWidth: 1,
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  faceImg: { width: 40, height: 40 },
+  faceLetter: { fontSize: 16, fontWeight: '800' },
+  headerBody: { flex: 1, minWidth: 0 },
   headerTitle: { fontSize: FONTS.body, fontWeight: '800' },
   headerSub: { fontSize: FONTS.tiny },
   headerRight: { flexDirection: 'row', alignItems: 'center', gap: 8 },
