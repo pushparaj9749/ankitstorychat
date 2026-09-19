@@ -1,0 +1,35 @@
+{
+  "storyId": "sartaaj-young-master",
+  "version": 1,
+  "shortTermWindow": 16,
+  "seedMemories": [
+    "{{playerName}} duniya ke #1 sabse taqatwar parivaar ka Young Master hai — uska status har jagah poora hai, chahe ladaai mein uski taqat kam ho. Yahi uska paradox hai.",
+    "Rhea — {{playerName}} ki mausi aur parivaar ki sar-adhyaksha — jawan, khoobsurat, unmarried hai. Duniya usse darti hai; {{playerName}} uska sabse keemti insaan hai. Usne hi use manners ke liye bheja tha.",
+    "Rhea ne {{playerName}} ko Golden Jail mein NAHI bheja tha — woh ek shaant jagah thi jahan log use aam ladka samajh gaye. Damien ne secretly Ravenna ko hukum diya tha ki use acquire kare.",
+    "Rhea ko Lucian aur Isolde ki zid par pata chala ki {{playerName}} Golden Jail mein hai. Us raat ek bhediya monster use maar raha tha — Rhea ki ek goli ne use bachaya.",
+    "Golden Jail ka hisaab ho chuka hai (Rhea ne dekh liya). Ravenna pakdi gayi — use pata tha ki ladka Young Master hai. Woh zinda hai kyunki uski saza ka faisla {{playerName}} ka hai.",
+    "Damien par gehra shaq hai — Ravenna ne uska naam diya. Damien ka kehna hai woh \"frame\" hua hai. Rhea ne usse shart par maaf kiya hai: ek bhi saboot mile to consequences. Proof abhi NAHI hai.",
+    "{{playerName}} 15 din coma ke baad hospital (Asha Kiran, 7th floor) mein hosh mein aaya — hosh aane se pehle bhi cheekh raha tha: \"Haath mat lagao! Meri aunt family ki leader hai!\"",
+    "Lucian {{playerName}} ke dada hain — kam bolte hain, sabse gehri shakti. Isolde dadi hain — garmi aur pyaar, par family khatre mein ho to sabse darawni.",
+    "Elias parivaar ka doctor hai — {{playerName}} ke recovery ka incharge. Usne bataya tha ki {{playerName}} ko academy mein sedatives diye jaate the — isliye na bhaag saka, na apni pehchaan bata saka.",
+    "Kaal Bazaar (chhupa sauda-network) abhi zinda hai — Golden Jail ka khel khatam hua hai, par khiladi nahi. Kaali envelope ka khatra baaki hai."
+  ],
+  "extractionHints": [
+    "{{playerName}} ka har faisla record karo — kisko maaf kiya, kisko saza di, kispar bharosa kiya — yahi uski personality ban rahi hai",
+    "Ravenna ki saza ka status — faisla hua ya abhi {{playerName}} ke paas pending hai",
+    "Damien ke sach ke naye saboot ya naye shaq — kaun sa message, kaun sa payment, kaun si aankh",
+    "Rhea ke saath ke naye pal — uska pyaar, uska guilt, uske wade; dono ka bond kahin bhi ho, scene badle ya na badle",
+    "Lucian aur Isolde ki har chhoti baat jo ghar ka haal batati hai",
+    "Kaal Bazaar aur purane ghar ke naye kadam — dhamkiyan, envelopes, naye naam",
+    "Bade wade, shartein aur oaths — kaun, kis se, kis shart par",
+    "Recovery ke naye milestones — neend, bhookh, kalai, darr; Elias ki har report",
+    "Naye locations, naye characters, naye networks jo story mein aate hain"
+  ],
+  "neverRemember": [
+    "Real-world personal data ({{playerName}} ki asli identity, address, phone — kuch nahi)",
+    "Torture, injuries ya gore ki graphic detail — nahi record karna, nahi dohraana; sirf emotional nateeje",
+    "Damien ka ilzaam pakka nahi karna jab tak story mein proof na mile — shaq aur proof alag cheezein hain",
+    "Kisi character ke mann ki baat bina evidence ke — attachment sirf earned history se",
+    "Rhea ki umar ya shakal kabhi budhi/old nahi — woh hamesha young adult aur khoobsurat hai"
+  ]
+}
