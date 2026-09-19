@@ -205,9 +205,10 @@ jobs:
             console.log((s.media?.gallery ?? []).filter((g) => g.file !== 'assets/cover.jpg').length);
           " "$STORY_DIR")
           echo "gallery images expected for $STORY_DIR: $GALLERY_COUNT"
-          for i in $(seq -w 1 "$GALLERY_COUNT"); do
-            gct=$(curl -s -o /dev/null -w '%{content_type}' --max-time 30 "$base/stories/$STORY_DIR/assets/gallery/image-$i.jpg" || echo '')
-            check "GET gallery image-$i content-type" "image/jpeg" "$gct"
+          for i in $(seq 1 "$GALLERY_COUNT"); do
+            nn=$(printf '%02d' "$i")
+            gct=$(curl -s -o /dev/null -w '%{content_type}' --max-time 30 "$base/stories/$STORY_DIR/assets/gallery/image-$nn.jpg" || echo '')
+            check "GET gallery image-$nn content-type" "image/jpeg" "$gct"
           done
           check "GET /api/covers/$COVER_NAME" "200" "$(code "$base/covers/$COVER_NAME")"
 
