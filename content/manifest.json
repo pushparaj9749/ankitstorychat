@@ -1,8 +1,56 @@
 {
-  "contentVersion": 25,
+  "contentVersion": 26,
   "minAppVersion": "1.0.0",
-  "updatedAt": "2026-09-18T13:47:11.000Z",
+  "updatedAt": "2026-09-19T00:11:07.000Z",
   "stories": [
+    {
+      "id": "my-absolute-revenge",
+      "title": "My Absolute Revenge",
+      "tagline": "Uski duniya loot li gayi. Ab woh hisaab lega — ek-ek karke.",
+      "description": "Tum {{playerName}} ho — Ashvale gaon ka ladka, jisne isi duniya mein aankh kholi thi. Teen bachpan ki dost — Lyra, Seris, Valeria — jinhone tumse shaadi ka wada kiya tha. Ek devi ka sapna jisne tumhe Hero ke saath chun liya. Aur ek Prince jisne tumhara sab kuch cheen liya: dost, izzat, gaon, maa-baap — sab kuch. Ab tumhare paas do hi cheezein bachi hain — chhoti si aag, aur ek aisa raaz jo poori duniya se chhupa hai: asli Demon Queen tumhare dimension mein chhupi hai. Badle ka hisaab shuru hota hai. Kis se, kaise, aur kahan tak — ye sirf tum decide karoge. Ye kahani kabhi khatam nahi hoti.",
+      "genres": [
+        "Fantasy",
+        "Action",
+        "Drama",
+        "Supernatural"
+      ],
+      "tags": [
+        "revenge",
+        "betrayal",
+        "dark-fantasy",
+        "demon-queen",
+        "hero",
+        "ongoing",
+        "hinglish"
+      ],
+      "characters": [
+        "Lyra",
+        "Seris",
+        "Valeria",
+        "Aldric",
+        "Lilith",
+        "Seren"
+      ],
+      "ageRating": "18+",
+      "contentLevel": "mature",
+      "language": "hinglish",
+      "version": 1,
+      "coverUrl": "stories/my-absolute-revenge/assets/cover.jpg",
+      "accentColor": "#C1121F",
+      "userRole": "{{playerName}} — Ashvale ka ladka, isi duniya mein paida hua; chhoti fire magic aur unlimited dimensional storage ka maalik; duniya ka sabse bada dhokha khaaya hua insaan",
+      "setting": "Eldrane kingdom — Ashvale gaon, chamakti capital Velmora, obsidian fortress Malgareth aur Crucible arena; aage poori fantasy duniya: kingdoms, demons, monsters, magic, beast-races, free cities",
+      "estimatedMinutes": 45,
+      "featured": true,
+      "isNew": true,
+      "popularity": 97,
+      "storyDir": "my-absolute-revenge",
+      "updatedAt": "2026-09-19T00:11:07.000Z",
+      "creator": {
+        "name": "Ankit",
+        "avatar": null,
+        "verified": true
+      }
+    },
     {
       "id": "duniya-ka-aakhri-mard",
       "title": "Duniya Ka Aakhri Mard",

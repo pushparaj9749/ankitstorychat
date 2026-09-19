@@ -1,0 +1,99 @@
+{
+  "id": "my-absolute-revenge",
+  "title": "My Absolute Revenge",
+  "description": "Tum {{playerName}} ho — Ashvale gaon ka ladka, jisne isi duniya mein aankh kholi thi. Teen bachpan ki dost — Lyra, Seris, Valeria — jinhone tumse shaadi ka wada kiya tha. Ek devi ka sapna jisne tumhe Hero ke saath chun liya. Aur ek Prince jisne tumhara sab kuch cheen liya: dost, izzat, gaon, maa-baap — sab kuch. Ab tumhare paas do hi cheezein bachi hain — chhoti si aag, aur ek aisa raaz jo poori duniya se chhupa hai: asli Demon Queen tumhare dimension mein chhupi hai. Badle ka hisaab shuru hota hai. Kis se, kaise, aur kahan tak — ye sirf tum decide karoge. Ye kahani kabhi khatam nahi hoti.",
+  "version": 1,
+  "language": "hinglish",
+  "ageRating": "18+",
+  "contentLevel": "mature",
+  "genres": [
+    "Fantasy",
+    "Action",
+    "Drama",
+    "Supernatural"
+  ],
+  "tags": [
+    "revenge",
+    "betrayal",
+    "dark-fantasy",
+    "demon-queen",
+    "hero",
+    "ongoing",
+    "hinglish"
+  ],
+  "userRole": "{{playerName}} — Ashvale ka ladka, isi duniya mein paida hua; chhoti fire magic aur unlimited dimensional storage ka maalik; duniya ka sabse bada dhokha khaaya hua insaan",
+  "setting": "Eldrane kingdom — Ashvale gaon, chamakti capital Velmora, obsidian fortress Malgareth aur Crucible arena; aage poori fantasy duniya: kingdoms, demons, monsters, magic, beast-races, free cities",
+  "openingSceneId": "s1_ashvale",
+  "tone": "Dark cinematic revenge drama. Hinglish narration — intense emotional beats, thandi strategy, sharp dialogue. Gaddari ka dard gehra hai, par {{playerName}} ka reaction kabhi force nahi hota — ruthless bhi ho sakta hai, compassionate bhi, jo player chune. Romance dheere-dheere earned hota hai, kabhi instant nahi. Har kirdar apne alag raaste par evolve karta hai.",
+  "safetyNotes": [
+    "18+ mature: betrayal, qaid aur psychological pain intense hote hain — par gore graphic detail mein kabhi nahi.",
+    "Arena ki ladaiyaan dramatic aur emotional hain, khoon ka vivid detail nahi.",
+    "Sab lead characters adults hain.",
+    "Player ki morality, decisions aur feelings par poora respect — kabhi force nahi."
+  ],
+  "creator": {
+    "name": "Ankit",
+    "avatar": null,
+    "verified": true
+  },
+  "media": {
+    "cover": "assets/cover.jpg",
+    "gallery": [
+      {
+        "id": "cover",
+        "file": "assets/cover.jpg",
+        "kind": "cover",
+        "label": "Cover"
+      },
+      {
+        "id": "bachpan",
+        "file": "assets/gallery/image-01.jpg",
+        "kind": "scene",
+        "label": "Bachpan — Chaar Dost",
+        "sceneId": "s1_ashvale"
+      },
+      {
+        "id": "devi-ka-sapna",
+        "file": "assets/gallery/image-02.jpg",
+        "kind": "scene",
+        "label": "Devi Ka Sapna",
+        "sceneId": "s2_dream"
+      },
+      {
+        "id": "hero-party",
+        "file": "assets/gallery/image-04.jpg",
+        "kind": "scene",
+        "label": "Hero Party — Mission Par",
+        "sceneId": "s5_missions"
+      },
+      {
+        "id": "malgareth",
+        "file": "assets/gallery/image-06.jpg",
+        "kind": "scene",
+        "label": "Malgareth Ka Aakhri Daar",
+        "sceneId": "s7_malgareth"
+      },
+      {
+        "id": "lilith",
+        "file": "assets/gallery/image-07.jpg",
+        "kind": "scene",
+        "label": "Lilith — Asli Demon Queen",
+        "sceneId": "s8_lilith"
+      },
+      {
+        "id": "jashn-tanhaai",
+        "file": "assets/gallery/image-08.jpg",
+        "kind": "scene",
+        "label": "Jashn Aur Tanhaai",
+        "sceneId": "s9_celebration"
+      },
+      {
+        "id": "crucible",
+        "file": "assets/gallery/image-09.jpg",
+        "kind": "scene",
+        "label": "Crucible Ka Andhera",
+        "sceneId": "s11_arena"
+      }
+    ]
+  }
+}

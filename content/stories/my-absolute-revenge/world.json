@@ -1,0 +1,152 @@
+{
+  "storyId": "my-absolute-revenge",
+  "version": 1,
+  "premise": "Tum {{playerName}} ho — Ashvale gaon ke Doran aur Elena ka beta, ISI duniya mein paida hua, isi mitti ka. Tumhare teen bachpan ki dost hain — Lyra, Seris, Valeria — jinhone tumhare saath purane oak ke neeche shaadi ka wada kiya tha. Jab chaaron 18 ke hue, ek hi raat ek hi sapna aaya: Radiant Goddess Seren ne chaaron ko chuna — Prince Aldric, the destined Hero, ke saath Demon King ke khilaaf jaana tha. Capital Velmora mein powers mile: teen ladkiyon ko chamakta talent, aur tumhe do bhairav-se-lagne waali upahar — chhoti si fire magic, aur ek dimensional storage jiski koi limit nahi. Phir safar shuru hua, aur safar ke dauraan sab kuch badla: dost badal gaye, wada bhool gaye, aur tum hero party ki 'walking pocket' ban gaye. Uske baad ek ke baad ek — rejection, jashn mein dhokha, jhoothi ilzamaat, qaid, arena... aur wo aakhri raat jab mask utre aur tumne apne hi haathon se haraye hue maa-baap ko pehchaana. Sab kuch planned tha. Ab tumhare paas sirf do cheezein hain: ek chhoti si aag, aur ek raaz — asli Demon Queen Lilith tumhare dimension mein chhupi hai. MY ABSOLUTE REVENGE ab shuru hota hai — aur iska har kadam tum khud likhoge.",
+  "locations": [
+    {
+      "id": "ashvale",
+      "name": "Ashvale",
+      "description": "Greenreach ki pahadiyon mein chhupa kisaan gaon — {{playerName}} ki janm-bhoomi. Purana oak, garam khet, aur wo aangan jahan chaar bachche ek saath bade hue the. Ab sirf raakh aur adhoori yaadein."
+    },
+    {
+      "id": "greenreach",
+      "name": "Greenreach Hills",
+      "description": "Ashvale ko gale laga pahadiyan — shepherd trails, jhaadiyon mein chhupe springs, aur bachpan ke saare hideouts."
+    },
+    {
+      "id": "velmora",
+      "name": "Velmora — Eldrane ka Capital",
+      "description": "Sunehri spires, bade bazaars, aur itni kam taxes ki traders hanste-hanaste phod dete hain. Log kehte hain ye Seren ki kripa hai. Kripa... ya accounting? Yeh raaz abhi kholne ka nahi."
+    },
+    {
+      "id": "crucible",
+      "name": "The Crucible",
+      "description": "Velmora ka royal arena — din bhar bheed, raat ko khaali sankad. Yahan {{playerName}} ne teen mahine 'Pocket' ke naam se izzat kamayi... aur sab kuch gawa diya."
+    },
+    {
+      "id": "sunspire",
+      "name": "Sunspire Palace",
+      "description": "Velmora ka dil — Raja ka darbar, Prince ka stage, aur wo bada balcony jahan jashn ki raat poori kahani palat gayi thi."
+    },
+    {
+      "id": "temple-first-light",
+      "name": "Temple of First Light",
+      "description": "Seren ka mukhya mandir — safed paththar, pehli kiran ka pravesh, aur wo jagah jahan hero party ko aashirwad mila tha."
+    },
+    {
+      "id": "malgareth",
+      "name": "Malgareth",
+      "description": "Blighted Wastes mein obsidian ka bada fortress — 'Demon King' Vorgath ka ghar. Sabki nazar mein yahan evil ka ilaqa tha... asli mein yahan takht ki asli waaris ka purana ghar hai."
+    },
+    {
+      "id": "blighted-wastes",
+      "name": "The Blighted Wastes",
+      "description": "Malgareth ke aas-paas ka kaala ilaaka — rakta-sa aasmaan, chup pahadiyan, aur wo sannata jo sunaai bhi deta hai."
+    },
+    {
+      "id": "veiled-quarter",
+      "name": "The Veiled Quarter",
+      "description": "Velmora ka andar ka chehra — smugglers, information-brokers, aur wo log jo jaante hain ki chamakti capital ka asli engine kahan chal raha hai."
+    },
+    {
+      "id": "ironmark",
+      "name": "Ironmark",
+      "description": "Border par basa azad sheher — mercenary companies, underground arena circuit, aur loha wahan sabse pehle bolta hai."
+    },
+    {
+      "id": "nightwilds",
+      "name": "The Nightwilds",
+      "description": "Demon territories ka gehra hissa — jahan raat kabhi poori nahi hoti, aur Lilith ka khoya hua court ab bhi kisi-kisi ki yaad mein hai."
+    }
+  ],
+  "factions": [
+    {
+      "id": "eldrane-throne",
+      "name": "The Eldrane Throne",
+      "description": "Raja ka darbar — jahan ab har faisla agle Raja, yani Aldric, ke raaste se aata hai."
+    },
+    {
+      "id": "hero-party",
+      "name": "The Hero Party",
+      "description": "Kabhi PAANCH log the. Officially ab dissolved; unofficially teen log ek stage par khade hain... aur ek pocket mein ek raaz chhupi hai."
+    },
+    {
+      "id": "temple-faction",
+      "name": "Temple of First Light",
+      "description": "Seren ka clergy — aashirwad, propaganda, aur records. Unke archives mein har cheez ka ek version hota hai."
+    },
+    {
+      "id": "true-court",
+      "name": "The True Court",
+      "description": "Lilith ke purane log — chhipe hue, bikhre hue, intezaar mein. Unhe takht girte dekha... ab waqt ka intezaar hai."
+    },
+    {
+      "id": "crucible-masters",
+      "name": "The Crucible Masters",
+      "description": "Arena ke asli maalik — prisoners, bets, aur 'entertainment' ki poori economics."
+    },
+    {
+      "id": "free-companies",
+      "name": "Ironmark Free Companies",
+      "description": "Bechne ko kuch bhi, kisi ko bhi — bas rate sahi hona chahiye."
+    }
+  ],
+  "lore": [
+    "Eldrane mein taxes lagbhag zero hain — log mante hain ye Seren ki kripa hai. Asli wajah abhi kholne ki nahi; clues dheere-dheere, story ke flow se khulenge.",
+    "Devi Seren ne Prince Aldric ko 'Dawnbreak' diya — roshni ka wo dhamaka jo pahad jaisa nishaana bhi mita deta hai. Usi devi ne chaaron bachchon ko wahi sapna diya tha.",
+    "'Demon King' Vorgath asli ruler kabhi tha hi nahi — takht ki asli waaris Lilith hai. Ye raaz ab sirf {{playerName}} ke paas hai.",
+    "Dimensional storage duniya mein bahut rare hai — log ise ek 'utility magic' samajhte hain. Isiliye kisi ne kabhi iski asli gehrai naapi hi nahi.",
+    "Duniya Eldrane se bahut badi hai — aur kingdoms, beast-races, free cities, purani civilizations... narration unhe naturally introduce kar sakta hai jab kahani aage badhe. Naye log, naye dushman, naye rishte — sab allowed."
+  ],
+  "rules": [
+    "{{playerName}} is duniya mein PAIDA hua hai — Ashvale mein, isi mitti ka. Woh kisi doosri duniya se aaya nahi: koi portal nahi, koi reincarnation nahi, koi Earth origin nahi. Uski origin kabhi mat badalna.",
+    "{{playerName}} ke paas do abilities hain: (1) chhoti/basic fire magic — shuruaat mein yeh koi overwhelming power nahi hai; (2) dimensional storage — iski koi total capacity limit NAHI hai, bas ek rule: jo cheez {{playerName}} apni physical taqat se khud utha sake, wahi andar jaati hai. Retrieve woh baad mein kabhi bhi kar sakta hai.",
+    "Lilith ASLI Demon Queen hai — Vorgath ek decoy tha. Ye raaz sirf {{playerName}} ko pata hai. Lilith ab uske dimensional space ke andar chhupi hai; jab {{playerName}} apne dimension par focus karta hai, woh usse andar se baat kar sakti hai.",
+    "Lilith ka rishta {{playerName}} ke saath alliance se shuru hota hai — attraction ya pyaar INSTANT kabhi nahi. Uska trust sirf earned history se, dheere-dheere badhta hai.",
+    "Teen childhood friends — Lyra, Seris, Valeria — Aldric ke plan mein shaamil the. Ye daga canon hai; ise kabhi retcon ya soften mat karna. Par teeno ki reactions alag-alag hain aur waqt ke saath alag-alag tareeqe se evolve hoti hain.",
+    "Aldric ki taqat (Dawnbreak) abhi {{playerName}} ki combat ability se kai guna zyada hai — direct confrontation abhi haar ya maut hai. {{playerName}} ki growth dheere-dheere, training aur events se hoti hai — kabhi instant power-up se nahi.",
+    "{{playerName}} ki personality player ke haath mein hai — usse kabhi ruthless, compassionate ya merciful force mat karna. Uske emotions ko describe karo, decide mat karo.",
+    "Revenge journey ka pace player set karta hai — story kabhi aage nahi bhaagti aur use kabhi rok-tok nahi karti.",
+    "Sab kirdaar adults hain. Intense themes — betrayal, qaid, badla — allowed hain, par gore graphic detail mein kabhi nahi.",
+    "Har kirdar ka {{playerName}} ke saath apna alag, independent rishta hai — ek kirdar par asar doosre ko overwrite nahi karta. Lyra ka daga, Seris ka jhooth, Valeria ka chup rehna, Lilith ka alliance, Aldric ki nafrat — sab apne alag tracks par chalte hain."
+  ],
+  "importantObjects": [
+    {
+      "id": "maa-ka-locket",
+      "name": "Elena ka chandi ka locket",
+      "description": "Arena ki ret se uthaya gaya maa ka locket — iske andar ek chhoti tasveer hai aur ek folding jo abhi poori nahi khuli."
+    },
+    {
+      "id": "arena-mask",
+      "name": "Wo chhaas mask",
+      "description": "Wo mask jo us aakhri ladai ke chhe qaidiyon ne pehne the. Ab {{playerName}} ki yaaddasht ka hissa — dard ka nishaan."
+    },
+    {
+      "id": "fire-notes",
+      "name": "Seris ke purane fire-notes",
+      "description": "Bachpan ki ek kitaab ka panna jis par Seris ne {{playerName}} ke liye fire magic ke notes banaye the — uske saath rakha hua, dard bhi, yaad bhi."
+    },
+    {
+      "id": "dimension",
+      "name": "The Dimensional Pocket",
+      "description": "{{playerName}} ki apni chhupi duniya — koi limit nahi, jitna utha sake utna andar. Andar ab ek aur cheez bhi hai: asli Demon Queen."
+    }
+  ],
+  "timeline": [
+    "~18 saal pehle: {{playerName}} Ashvale mein paida hua — isi duniya mein, Doran aur Elena ke ghar.",
+    "Bachpan: {{playerName}}, Lyra, Seris, Valeria saath bade hue; purane oak ke neeche chaaron ne shaadi ka wada kiya.",
+    "18 saal: ek hi raat, ek hi sapna — devi Seren ne chaaron ko chuna: Prince Aldric (destined Hero) ka saath dena hai.",
+    "Velmora pahunche; Temple of First Light mein powers mile — {{playerName}} ko chhoti fire magic + dimensional storage. Party ne dheere-dheere use 'walking pocket' bana liya.",
+    "Mahino ke missions: teen ladkiyan Aldric ki taraf khisak gayi; {{playerName}} ki value sirf storage reh gayi; zakhmi hone par bhi healing late mili.",
+    "Rejection: teeno ne kaha — ab humse door raho.",
+    "Malgareth ka assault: Aldric lagbhag marne wala tha, devi ki hifazat se bacha, ek hi overwhelming strike se Vorgath gira. Sab maane Demon King khatam.",
+    "Usi raat, akele: Lilith se mulaqat — ASLI Demon Queen. Dhamki ke baad {{playerName}} ne use apne dimension mein chhupa diya.",
+    "Agale din ka jashn: Aldric ne agla Raja hona aur teen engagements declare kiye; baaki chaaron heroes ko inaam — {{playerName}} ko kuch nahi... phir ilzaam.",
+    "Jhoothi ilzamaat: loot-chori ka ilzaam (Aldric ka jhooth) aur inappropriate behavior ka ilzaam (Seris ka jhooth; Lyra aur Valeria ne support kiya). Guards, bheed, hasi, sabakuch.",
+    "Qaid: Crucible mein arena-slave bana; roz ladai, roz mazaak. Aldric ki dhamki — kuch kiya to gaon raakh ho jayega. ({{playerName}} maana ki gaon abhi safe hai.)",
+    "Teen mahine baad: 'aakhri ladai' — chhe masked qaidi (3 mard, 3 aurtein); jeet = azaadi. {{playerName}} ne unhe haraya.",
+    "Reveal: mask utre — {{playerName}} ke maa-baap (Doran, Elena), Lyra ke maa-baap (Roland, Maeve), Seris ke maa-baap (Edwin, Livia). Gaon PEHLE hi raakh ho chuka tha. Sab kuch planned tha — aur teeno dost shaamil the.",
+    "Us raat maa-baap apni zakhmon se chale gaye. {{playerName}} bilkul akela reh gaya — sirf ek chhupi hui awaaz ke siwa: Lilith.",
+    "Wahi raat: Lilith ka offer — alliance. Escape. Azaadi. MY ABSOLUTE REVENGE ka pehla kadam."
+  ]
+}

@@ -1,0 +1,28 @@
+{
+  "storyId": "my-absolute-revenge",
+  "version": 1,
+  "shortTermWindow": 16,
+  "seedMemories": [
+    "{{playerName}} Ashvale (Eldrane kingdom) mein PAIDA hua hai — ye uski apni duniya hai; woh kahin se 'aaya' nahi.",
+    "Uski teen bachpan ki sabse khaas dost: Lyra (Arcane Archer), Seris (Mage), Valeria (Magic Knight) — saath bade hue, purane oak ke neeche shaadi ka wada kiya tha.",
+    "{{playerName}} ke paas bachpan se hi ek chhoti si fire magic hai — tip-tip aag, abhi koi khaas power nahi.",
+    "{{playerName}} apne maa-baap Doran aur Elena ke saath Ashvale mein rehta hai — uski family uski poori duniya hai."
+  ],
+  "extractionHints": [
+    "{{playerName}} ka revenge-style: ruthless, strategic, compassionate ya conflicted — jo woh KARTA hai wahi uski personality hai",
+    "Lilith ke saath trust ka progress — alliance se aage har chhota step record karo",
+    "Lyra, Seris, Valeria, Aldric — har ek ke saath alag-alag track: dard, gussa, guilt, badla ya reham",
+    "Revenge plan ke steps: kya kiya, kya plan kiya, kisse mila, kya naya pata chala",
+    "Naye locations, kingdoms, factions aur characters jo story mein aate hain",
+    "Aldric ke plan ke naye hisse jo khulte jayein — low taxes ka raaz, devi ke terms, court ki politics",
+    "Bade promises, oaths, deals aur naye daga",
+    "Ashvale aur maa-baap se judi discoveries — survivors, evidence, locket ka raaz",
+    "Lilith ka apna past, uski pehchaan aur uske dushman — dheere-dheere"
+  ],
+  "neverRemember": [
+    "Real-world personal data ({{playerName}} ki asli identity, address, phone — kuch nahi)",
+    "Lilith ke dil ka haal — uska affection kabhi 'instant' ya baseless assume mat karna; sirf EARNED moments record karo",
+    "Devi Seren ka poora sach — sirf clues se khulega, kabhi ek saath nahi",
+    "Kisi character ke mann ki baat bina evidence ke — attachment sirf earned history se"
+  ]
+}
