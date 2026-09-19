@@ -1,0 +1,1980 @@
+{
+  "storyId": "my-absolute-revenge",
+  "version": 1,
+  "scenes": [
+    {
+      "id": "s1_ashvale",
+      "title": "Ashvale Ki Aakhri Normal Shaam",
+      "narration": [
+        "*Greenreach ki pahadiyon mein chhupa Ashvale — chhota sa gaon, garam khet, aur ek aisi shaam jaise waqt ne aaram kar liya ho.*",
+        "*Tum {{playerName}} ho. Isi mitti mein paida hue, isi hawa mein bade hue. Tumhari poori duniya yahi hai — khet, maa-baap, aur teen ladkiyan jo tumhare saath guthliyaan phodti hui badi hui hain.*",
+        "*Nadi ke kinare wala purana oak. Wahi jahan dus saal pehle, chhote haath jod kar, chaaron ne wada kiya tha — bade hokar ek dusre se shaadi karenge.*",
+        "Lyra: \"Suno suno — jo is saal pehla amrod girega, wahi sabse pehle shaadi karega. Rule hai rule, argue mat.\"",
+        "Seris: \"Ye kaisa rule hai? Main books se wada karungi, tum amrod se. Aaj hi research karke bataungi ki fruits se shaadi decide hona kitna unscientific hai.\"",
+        "Valeria: \"Jo bhi karega, pehle mujse talwar paar karega. Simple.\"",
+        "*Hasi phootti hai — wahi purani, aadat ki hasi. Par aaj tum sabke chehron mein kuch aur bhi hai... jaise sab kuch badalne wala ho.*",
+        "*Kal se tum sab 18 ke ho jaoge. Aur is duniya mein, kaha jaata hai, 18vin saal sapne sach kar deta hai.*"
+      ],
+      "fallbackLines": [
+        "*Gaon ki mandir ki ghanti bajti hai — shaam dhire-dhire andheri ho rahi hai. Kahin door koi baaansuri baj rahi hai.*",
+        "Valeria: \"Kahan kho gaye ho? Kal subah saare discuss karenge — aaj sirf hum chaar hain. Bhaagna mat.\"",
+        "*Hawa mein kuch alag hai aaj — halki si charge, jaise intezaar kar rahi ho.*"
+      ],
+      "choices": [
+        {
+          "id": "c_wada",
+          "text": "Purane oak ke neeche jaakar bachpan ka wada yaad karo",
+          "shortLabel": "Wada yaad karo",
+          "keywords": [
+            "wada",
+            "oak",
+            "promise",
+            "bachpan",
+            "yaad",
+            "shaadi"
+          ],
+          "next": "s2_dream",
+          "effects": {
+            "location": "ashvale",
+            "relationships": {
+              "lyra": 2,
+              "seris": 2,
+              "valeria": 2
+            },
+            "choicesRecord": {
+              "opening": "promise"
+            },
+            "memory": [
+              "Bachpan mein {{playerName}}, Lyra, Seris aur Valeria ne purane oak ke neeche ek dusre se shaadi ka wada kiya tha."
+            ]
+          }
+        },
+        {
+          "id": "c_ghar",
+          "text": "Ghar wapas jaao — maa ki daal aur baap ki fikar intezaar kar rahi hai",
+          "shortLabel": "Ghar chale jao",
+          "keywords": [
+            "ghar",
+            "maa",
+            "baap",
+            "family",
+            "daal",
+            "ghar",
+            "jaao"
+          ],
+          "next": "s2_dream",
+          "effects": {
+            "location": "ashvale",
+            "choicesRecord": {
+              "opening": "family"
+            },
+            "memory": [
+              "{{playerName}} apne maa-baap Doran aur Elena ke bahut kareeb hai — uski family uski duniya hai."
+            ]
+          }
+        },
+        {
+          "id": "c_aag",
+          "text": "Kheton ke peeche chhup ke apni chhoti si aag ka practice karo",
+          "shortLabel": "Aag practice",
+          "keywords": [
+            "aag",
+            "fire",
+            "practice",
+            "magic",
+            "khet",
+            "chhup"
+          ],
+          "next": "s2_dream",
+          "effects": {
+            "location": "ashvale",
+            "flags": {
+              "practicedFire": true
+            },
+            "choicesRecord": {
+              "opening": "fire"
+            },
+            "memory": [
+              "{{playerName}} ki apni ek chhoti si fire magic hai — hawaidaar, par abhi kachchi; woh use chhup ke practice karta hai."
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "id": "s2_dream",
+      "title": "Wahi Sapna",
+      "narration": [
+        "*Us raat, chaaron ko — tumhe, Lyra ko, Seris ko, Valeria ko — EK HI SAPNA aaya.*",
+        "*Andhera, aur phir roshni — jaise kisi ne aasmaan mein suraj ko thoda sa tez kar diya ho. Ek shakhs roshni se hi bana hua hai.*",
+        "Seren: \"Suno, chune gaye log. Main hoon Seren — roshni waali. Tum chaaron ne bulaya nahi, phir bhi chune gaye ho.\"",
+        "Seren: \"Andhera badh raha hai. Malgareth ke takht par baitha Vorgath — jise log Demon King kehte hain — use harana hai. Aur ye kaam kisi akele ka nahi... ye PRINCE KA hai.\"",
+        "Seren: \"Aldric. Mera chuna hua Hero. Tum chaaron uske saath jaoge — uski party, uski hifazat, uska saath. Wahi tumhara dharm hai.\"",
+        "*Roshni mein ek pal ke liye uski nazar chaaron par ghoomti hai — aur tumhe lagta hai, sirf lagta hai, ki tum par ek second zyada ruki thi.*",
+        "Seren: \"Raasta kathin hoga. Aur jo tum haraoge, woh sirf dushman nahi hoga. Yaad rakhna.\"",
+        "*Subah aankh khulti hai to chaaron ek hi cheez bol rahe hote hain — tumne bhi wahi dekha.*",
+        "Lyra: \"Ruko... tum sabko bhi wahi devi dikhi? Laal-gold roshni? Achha to main pagal nahi hoon. Wait — YE KAISA MAMLA HAI?\""
+      ],
+      "fallbackLines": [
+        "*Sapna aankhon mein abhi bhi chamak raha hai — jaise roshni dheere-dheere jaa rahi ho.*",
+        "Seris: \"Same dream, same words, same devi. Probability zero hota hai normal cases mein... to case normal nahi hai.\"",
+        "Valeria: \"Capital jaana padega. Prince se milna padega. Pack karo — aur koi drama nahi.\""
+      ],
+      "choices": [
+        {
+          "id": "c_sawal",
+          "text": "\"Par devi ne hamein kyun chuna? Hum sirf gaon ke bachche hain\"",
+          "shortLabel": "Devi se sawal",
+          "keywords": [
+            "kyun",
+            "sawal",
+            "why",
+            "devi",
+            "chuna",
+            "hum"
+          ],
+          "next": "s3_velmora",
+          "effects": {
+            "location": "greenreach",
+            "choicesRecord": {
+              "dream": "questions"
+            },
+            "memory": [
+              "18vin saal mein {{playerName}}, Lyra, Seris aur Valeria ko ek hi raat ek hi sapna aaya — devi Seren ne chaaron ko Prince Aldric (destined Hero) ka saath dene ke liye chuna."
+            ]
+          }
+        },
+        {
+          "id": "c_dost",
+          "text": "Turant doston ke paas bhaago — sab se confirm karo ki sabko same sapna aaya",
+          "shortLabel": "Doston se milo",
+          "keywords": [
+            "dost",
+            "friends",
+            "confirm",
+            "bhaago",
+            "milna",
+            "sapna"
+          ],
+          "next": "s3_velmora",
+          "effects": {
+            "location": "greenreach",
+            "relationships": {
+              "lyra": 2,
+              "seris": 2,
+              "valeria": 2
+            },
+            "choicesRecord": {
+              "dream": "together"
+            },
+            "memory": [
+              "Sapne waali subah chaaron ne ek dusre ko dhoondha — pehli baar unka bachpan unke kaam aane wala tha.",
+              "Devi Seren ne chaaron bachchon ko Prince Aldric, the destined Hero, ke saath jaane ke liye chuna."
+            ]
+          }
+        },
+        {
+          "id": "c_tayyar",
+          "text": "Chup-chaap saaman pack karna shuru karo — jisko jaana hai, use taiyaari chahiye",
+          "shortLabel": "Pack karo",
+          "keywords": [
+            "pack",
+            "taiyaari",
+            "saaman",
+            "chup",
+            "ready",
+            "jaana"
+          ],
+          "next": "s3_velmora",
+          "effects": {
+            "location": "greenreach",
+            "choicesRecord": {
+              "dream": "practical"
+            },
+            "memory": [
+              "Devi ke sapne ke baad {{playerName}} ne bina shor machaye saaman pack karna shuru kar diya — kaam pehle, emotions baad mein."
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "id": "s3_velmora",
+      "title": "Velmora — Chamakti Capital",
+      "narration": [
+        "*Pahadiyon ke paar se pehli nazar mein Velmora aisa lagta hai jaise kisi ne suraj ko zameen par rakh ke usse sheher bana diya ho — sunehri spires, safed raste, bade bade bazaar.*",
+        "*Chaar gaon ke bachche gate ke paas khade hain, muh khula. Guards bina sawaal hata rahe hain — aaj sab Hero ke mehmaan hain.*",
+        "Lyra: \"Ye... ye itna BADA kaise hai? Mera gaon iske EK MINAR mein khoya jayega. Zara measure mat karna, mera dil dukhega.\"",
+        "Seris: \"Dekho — tax board. Market toll: zero. Trade levy: zero. Ye... ye impossible hai. Itni badi kingdom, zero taxes? Kis kismat se chal rahi hai ye?\"",
+        "Valeria: \"Poochna mana hai to mat poocho. Log kehte hain Seren ki kripa hai. Chal, aage.\"",
+        "*Bazaaron mein log muskura rahe hain — asli, sukoon waali muskurahat. Itna aish, itni safalta... aur kahin koi tension nahi.*",
+        "Seris: \"Kripa... shayad. Par mujhe batao — jab koi cheez FREE dikhti hai, to uski asli keemat kahin to jaa rahi hogi na?\""
+      ],
+      "fallbackLines": [
+        "*Sheher ki khushboo meethi hai — roti, phool, aur thodi si dhuiein. Har mod par kuch naya hai.*",
+        "Lyra: \"Suno, ye raste hi sona jaise lagte hain. Ya mujhe aankh ka problem hai? Seris, check karo.\"",
+        "*Do guards aise guzre jaise koi Hero aa raha ho. Poora sheher kisi ka intezaar kar raha hai.*"
+      ],
+      "choices": [
+        {
+          "id": "c_tax_sawal",
+          "text": "Ek budhe trader se poocho — itne kam taxes kaise? Koi wajah to hogi",
+          "shortLabel": "Tax ka sawal",
+          "keywords": [
+            "tax",
+            "taxes",
+            "kyun",
+            "trader",
+            "wajah",
+            "poocho"
+          ],
+          "next": "s4_powers",
+          "effects": {
+            "location": "velmora",
+            "flags": {
+              "noticedTaxes": true
+            },
+            "choicesRecord": {
+              "capital": "curious"
+            },
+            "memory": [
+              "Velmora mein taxes lagbhag zero hain — Seris ne notice kiya, trader ne kaha 'devi ki kripa hai'. Asli wajah kisi ne nahi batayi."
+            ]
+          }
+        },
+        {
+          "id": "c_sheher",
+          "text": "Doston ke saath sheher ghumo — ye din phir nahi aayega",
+          "shortLabel": "Sheher ghumo",
+          "keywords": [
+            "ghumo",
+            "sheher",
+            "explore",
+            "bazaar",
+            "saath",
+            "dost"
+          ],
+          "next": "s4_powers",
+          "effects": {
+            "location": "velmora",
+            "relationships": {
+              "lyra": 2,
+              "seris": 2,
+              "valeria": 2
+            },
+            "choicesRecord": {
+              "capital": "together"
+            },
+            "memory": [
+              "Velmora pahunch kar chaaron ne pehli baar ek saath bada sheher dekha — aakhri baar jab sab sach mein saath the."
+            ]
+          }
+        },
+        {
+          "id": "c_palace",
+          "text": "Seedha Temple of First Light jaao — jahan milna hai wahin hai",
+          "shortLabel": "Seedha temple",
+          "keywords": [
+            "temple",
+            "mandir",
+            "seedha",
+            "palace",
+            "jaao",
+            "aashirwad"
+          ],
+          "next": "s4_powers",
+          "effects": {
+            "location": "temple-first-light",
+            "choicesRecord": {
+              "capital": "direct"
+            },
+            "memory": [
+              "Velmora pahunchte hi chaaron Temple of First Light ki taraf badhe — devi ke bulawe par."
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "id": "s4_powers",
+      "title": "Aashirwad Aur Aukaat",
+      "narration": [
+        "*Temple of First Light — safed paththar, aur wo lamba hall jahan subah ki pehli kiran seedha altar tak aati hai. Wahin prince khada hai.*",
+        "*Pehli baar ALDRIC ko dekh kar samajh aata hai ki bheed itni pagal kyun hai. Wo muskurata hai aur poori room uski lag jaati hai.*",
+        "Aldric: \"To ye hain wo chaar jo devi ne chuna. Swagat hai. Kal se hum sab ek team hain — aur main wada karta hoon, history yaad rakhegi hum sabke naam.\"",
+        "*Phir aashirwad ki rasam. Roshni chaaron par utarti hai — aur har ek ke andar kuch jag jaata hai.*",
+        "*Lyra ke haath mein arcane nishaana wala teer chamakta hai — arcane archer ki taqat. Seris ke aankhon ke saamne equations khud ba khud likhe jaate hain — mage ka aether. Valeria ki talwar aur kandhe ek hi heartbeat mein jud jaate hain — magic knight.*",
+        "*Aur tum... tumhare haath mein ek chhoti si laal aag jagti hai. Tip si. Cute si. Peechhe koi awaaz aati hai — izzat wali par halki.*",
+        "Priest: \"Aur ye... Fire. Basic-grade. Aur ek doosri cheez dikhti hai — dimensional storage? Rare hai, beta. Safai ka kaam aayega.\"",
+        "Aldric: \"Dimensional storage? To party ka khazana humesha saath rahega! Dekho, iska matlab hum bahut halka travel karenge. Shabash, dost. Tum bahut... useful ho.\"",
+        "*Safed roshni mein sab hanste hain — acchi awaaz mein, buri nahi. Par kaam ki baat wahi ho gayi thi: useful.*"
+      ],
+      "fallbackLines": [
+        "*Aag tumhari hatheli par tip-tip nachti hai — chhoti, par tumhari apni hai.*",
+        "Lyra: \"Mera teer dekha? YAAR mera TEER! Sorry sorry — tumhara bhi achha hai. Sach mein. Thoda aur... practice karo.\"",
+        "*Andar kahin ek awaaz keh rahi hai: koi tumse poochh nahi raha ki tum kya ho. Sab poochh rahe hain ki tum KAISE kaam aoge.*"
+      ],
+      "choices": [
+        {
+          "id": "c_demo",
+          "text": "Storage ka demo do — apna poora saaman andar dhal do, phir wapas nikaal kar dikhao",
+          "shortLabel": "Storage demo",
+          "keywords": [
+            "demo",
+            "storage",
+            "dimension",
+            "dikhao",
+            "saaman",
+            "andar"
+          ],
+          "next": "s5_missions",
+          "effects": {
+            "location": "velmora",
+            "choicesRecord": {
+              "powers": "demo"
+            },
+            "memory": [
+              "{{playerName}} ko do abilities mili — chhoti/basic fire magic aur dimensional storage (koi capacity limit nahi; sirf wahi cheez andar ja sakti hai jo woh khud utha sake). Party ne storage ko 'utility' samjha."
+            ]
+          }
+        },
+        {
+          "id": "c_fire",
+          "text": "Apni aag par focus karo — chhoti hai, par tumhari hai; ise bada karoge",
+          "shortLabel": "Aag par focus",
+          "keywords": [
+            "aag",
+            "fire",
+            "focus",
+            "practice",
+            "bada",
+            "karo"
+          ],
+          "next": "s5_missions",
+          "effects": {
+            "location": "velmora",
+            "flags": {
+              "practicedFire": true
+            },
+            "choicesRecord": {
+              "powers": "fire"
+            },
+            "memory": [
+              "{{playerName}} ki fire magic basic-grade hai — chhoti si aag. Usne mann mein faisla kiya ki ise badhana hai, chahe koi na poochhe."
+            ]
+          }
+        },
+        {
+          "id": "c_letter",
+          "text": "Raat ko maa-baap ko letter likho aur apni khaas chhoti cheezein dimension mein sambhal lo",
+          "shortLabel": "Letter likho",
+          "keywords": [
+            "letter",
+            "maa",
+            "baap",
+            "likho",
+            "cheezein",
+            "sambhalo"
+          ],
+          "next": "s5_missions",
+          "effects": {
+            "location": "velmora",
+            "inventoryAdd": [
+              "fire-notes"
+            ],
+            "choicesRecord": {
+              "powers": "letter"
+            },
+            "memory": [
+              "{{playerName}} ne maa-baap ko letter likha aur apni niji cheezein — Seris ke banaye purane fire-notes samet — dimension mein sambhal li."
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "id": "s5_missions",
+      "title": "Mission Par — Walking Pocket",
+      "narration": [
+        "*Mahine guzar gaye. Hero party poore Eldrane mein ghoomti rahi — monster ke ghaatiyon se lekar ruins tak.*",
+        "*Aur har mission par ek pattern ban gaya. Supplies? {{playerName}} ke dimension mein. Equipment? Dimension mein. Monster loot, tents, khana, medicine — sab dimension mein.*",
+        "Lyra: \"{{playerName}}! Ye ghoul ke daant bhi andar daal do — bas jaldi, humein aage badhna hai. Achha ladka ho tum, sach mein.\"",
+        "*Aur dheere-dheere... aage badhna sirf Aldric ke aage badhna ban gaya. Training sirf uske saath. Baatein sirf usse. Hansi sirf us par.*",
+        "Seris: \"Aldric, wo spell ek baar phir dikhao? Main note kar rahi hoon. {{playerName}}, tum... tum wahan baithe ho? Theek ho? Good.\"",
+        "*Ek raid mein tumhara kandha katta hai. Wraith-hound ka panja guzar gaya — dard gehra tha, khoon beh raha tha.*",
+        "*Healing aati hai... Aakhri mein. Pehle Aldric ka chhota sa kharoach — 'Hero ko pehle', bol kar. Phir Lyra ka thakaan. Phir Seris ne bina dekhe spell daala, aadha-adhura.*",
+        "Valeria: \"Zinda ho? Chalo. Kal aur missions hain. Saaman sambhal lena.\"",
+        "*Tumhara kaam ab bas ek hi hai: utha lo, andar daal do, chup raho. Party ka walking pocket.*"
+      ],
+      "fallbackLines": [
+        "*Kandha abhi bhi dukh raha hai. Kisi ne poocha hi nahi.*",
+        "Aldric: \"Pocket! Ye loot bhi le lo. Waah, jitna utha le utna — kaash sab itne aaram se useful hote.\"",
+        "*Raat ke camp mein teen hasi ki awaazein ek taraf se aati hain. Tumhari taraf se sirf aag ki tip ka crackle.*"
+      ],
+      "choices": [
+        {
+          "id": "c_dukh",
+          "text": "Kisi ek dost se sach mein baat karo — pata hai wo sunengi nahi, phir bhi try karo",
+          "shortLabel": "Dukh zahir karo",
+          "keywords": [
+            "baat",
+            "dukh",
+            "sach",
+            "try",
+            "dost",
+            "karo"
+          ],
+          "next": "s6_rejection",
+          "effects": {
+            "relationships": {
+              "lyra": -3,
+              "seris": -3,
+              "valeria": -3
+            },
+            "choicesRecord": {
+              "missions": "spoke"
+            },
+            "memory": [
+              "Missions ke dauraan teeno ladkiyan dheere-dheere Aldric ki taraf khisak gayi — {{playerName}} ki value sirf dimensional storage reh gayi; zakhmi hone par bhi healing late aayi."
+            ]
+          }
+        },
+        {
+          "id": "c_chup",
+          "text": "Chup raho. Kaam karo. uthao, andar daalo, aage badho",
+          "shortLabel": "Chup kaam karo",
+          "keywords": [
+            "chup",
+            "kaam",
+            "karo",
+            "uthao",
+            "andar",
+            "aage"
+          ],
+          "next": "s6_rejection",
+          "effects": {
+            "flags": {
+              "quietResentment": true
+            },
+            "choicesRecord": {
+              "missions": "silent"
+            },
+            "memory": [
+              "{{playerName}} ne mahino tak chup-chaap party ka saaman uthaya — bahar khamoshi, andar ek dheemi jalti hui cheez."
+            ]
+          }
+        },
+        {
+          "id": "c_close",
+          "text": "Aldric ke kareeb rehne ki koshish karo — shayad wahi jagah hai jahan sab hain",
+          "shortLabel": "Aldric ke paas",
+          "keywords": [
+            "aldric",
+            "kareeb",
+            "paas",
+            "koshish",
+            "saath",
+            "jagah"
+          ],
+          "next": "s6_rejection",
+          "effects": {
+            "relationships": {
+              "aldric": 2
+            },
+            "choicesRecord": {
+              "missions": "tried"
+            },
+            "memory": [
+              "{{playerName}} ne Aldric ke kareeb rehne ki koshish ki — Hero sabke liye jagah rakhta tha, bas ek hi phone chhodkar."
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "id": "s6_rejection",
+      "title": "Tum Door Raho",
+      "narration": [
+        "*Ek shaam, ek akele camp. Teen ladkiyan saath aati hain — pehli baar mahino mein, khud. Tumhe lagta hi nahi tha ki ye din aayega.*",
+        "Lyra: \"Hum... {{playerName}}, hum baat karni thi. Seedhi baat. Bahut seedhi.\"",
+        "Seris: \"Aage ki journey mein tum humse door raho. Training alag, camp alag, routes alag. Ye... ye sabke liye better hai.\"",
+        "Valeria: \"Aldric ke saath rehna hai humein. Uske saath hum... kuch bada kar sakte hain. Tum samajh gaye na?\"",
+        "*Samajh gaye. Bilkul samajh gaye. Wahi purana oak, wahi chaar bachche, wahi wada — sab andar ek second mein ghoom gaya.*",
+        "Lyra: \"Wo wada... arey, wo bachpan ki baat thi. Bachpan ka. Hum badal gaye, {{playerName}}. Tum nahi badle, wahi ka problem hai.\"",
+        "Seris: \"Koi drama nahi chahiye. Bas... distance. Theek hai? Theek hai.\"",
+        "*Teeno palat kar chali jaati hain. Neeche ret hai, upar taare waise hi hain. Sirf tumhari duniya ka hissa gayab hai.*"
+      ],
+      "fallbackLines": [
+        "*Aur kuch keh nahi rahe ho. Bolkya jaaye, jahan teeno ne ek hi awaaz mein faisla kar liya ho.*",
+        "Valeria: \"...Jao. Aur aage se aisa mat dekho. Please.\"",
+        "*Aag ki tip kaat rahi ki awaaz aati hai — tumhari apni aag, jaise tumhe hi jala rahi ho.*"
+      ],
+      "choices": [
+        {
+          "id": "c_wajah",
+          "text": "\"Wajah batao. Ek wajah. Sirf ek\"",
+          "shortLabel": "Wajah maango",
+          "keywords": [
+            "wajah",
+            "kyun",
+            "why",
+            "reason",
+            "batao",
+            "ek"
+          ],
+          "next": "s7_malgareth",
+          "effects": {
+            "relationships": {
+              "lyra": -5,
+              "seris": -5,
+              "valeria": -5
+            },
+            "choicesRecord": {
+              "rejection": "asked"
+            },
+            "memory": [
+              "Teen doston ne khud {{playerName}} ke paas aa kar keh diya — ab humse door raho. Wada bhool gaye, party chhod di."
+            ]
+          }
+        },
+        {
+          "id": "c_nazar",
+          "text": "Chup-chaap teeno ki aankhon mein dekho — ek bhi pal ke liye",
+          "shortLabel": "Aankhon mein dekho",
+          "keywords": [
+            "aankh",
+            "aankhein",
+            "dekho",
+            "chup",
+            "nazar",
+            "pal"
+          ],
+          "next": "s7_malgareth",
+          "effects": {
+            "flags": {
+              "sawTheirEyes": true
+            },
+            "choicesRecord": {
+              "rejection": "eyes"
+            },
+            "memory": [
+              "Rejection ki shaam {{playerName}} ne teeno ki aankhon mein dekha — Lyra ki aankhein jhuk gayi thin, Seris ki nahi, Valeria ki aankhon mein aag thi."
+            ]
+          }
+        },
+        {
+          "id": "c_gussa",
+          "text": "\"Chalo jao. Waise bhi wada sirf bachpan ke liye tha na?\"",
+          "shortLabel": "Kadwa jawab",
+          "keywords": [
+            "gussa",
+            "jao",
+            "wada",
+            "bachpan",
+            "kadwa",
+            "jawab"
+          ],
+          "next": "s7_malgareth",
+          "effects": {
+            "relationships": {
+              "lyra": -3,
+              "seris": -3,
+              "valeria": -3
+            },
+            "flags": {
+              "bitterWords": true
+            },
+            "choicesRecord": {
+              "rejection": "bitter"
+            },
+            "memory": [
+              "Rejection ke waqt {{playerName}} ne kadwa jawab diya — wada sirf bachpan ka tha to theek hai. Andar kuch toota, bahar sirf ek jumla."
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "id": "s7_malgareth",
+      "title": "Malgareth Ka Aakhri Daar",
+      "narration": [
+        "*Blighted Wastes ka kaala ilaaka — aur uske beech MALGARETH. Obsidian ka fortress, itna bada ki uske saaye mein poora gaon sama jaaye.*",
+        "*Aaj hero party ka aakhri mission hai: Demon King ke kill tak seedha attack. Bheed ne kaha tha — aaj history banegi.*",
+        "*Darwaze todte hi shaitani sena tootti padti hai. Chaos, aag, aur teen chamakti ladkiyaan jo aage badh chuki hain — Lyra ke arcane teer hawa mein phool jaise khilte hain.*",
+        "*Aur phir... throne hall. VORGATH khada hai — itna bada ki deewarein uski parchhai sameti lagti hain. Ek hi jhatak mein aadha hall gir gaya.*",
+        "*Aldric aage badhta hai. Do aur roshni ki lehrein — aur phir ek second ke liye sab kuch galat ho jaata hai.*",
+        "*Vorgath ka panja Aldric ko maar leta hai — wo hawa mein udta hai, paththar se takraata hai... aur chala jaana chahiye tha.*",
+        "*Par uske chehre ke saamne SONA roshni ubharti hai — devi ki hifazat. Ek aaina jaisa shield jo poore hall mein roshni phaila deta hai.*",
+        "Aldric: \"...Achha try kiya. Ab meri baari.\"",
+        "*Ek hi strike. DAWNBREAK. Roshni ka ek itna bada lahar ki deewarein, takht, aadha pahada — sab ek line mein mit gaya. Jab dhool bai-thi, Vorgath gira hua tha. Demon King khatam.*",
+        "*Sab jashn mein doob jaate hain — aur usi dhool mein ek toot-ti deewar tumhe andhere ke us paar dhakelti hai. Akele.*"
+      ],
+      "fallbackLines": [
+        "*Kaale paththar ki deewarein habsi lagrahi hain. Peeche jashn ki goonj aati hai — aage sirf sannata.*",
+        "*Kandhe par purana zakhm phir dukhne laga hai. Aaj tak kisi ne dressing nahi badli.*",
+        "*Hawa mein ek ajeeb khushboo hai — jasmine aur raakh. Jaise koi yahan hai... dekh raha hai.*"
+      ],
+      "choices": [
+        {
+          "id": "c_party",
+          "text": "Wapas mud kar party ki awaaz dhoondo — kahin peechhe hi honge",
+          "shortLabel": "Party dhoondo",
+          "keywords": [
+            "party",
+            "awaaz",
+            "wapas",
+            "dhoondo",
+            "peeche",
+            "dost"
+          ],
+          "next": "s8_lilith",
+          "effects": {
+            "location": "malgareth",
+            "choicesRecord": {
+              "fortress": "party"
+            },
+            "memory": [
+              "Malgareth ke assault mein Aldric lagbhag maar aaya — devi ki golden hifazat ne use bachaya — phir ek hi Dawnbreak strike se Vorgath gira. Sab maane Demon King khatam."
+            ]
+          }
+        },
+        {
+          "id": "c_andhera",
+          "text": "Andhere ke us paar badho — kuch... bulaa raha hai",
+          "shortLabel": "Andhere mein jao",
+          "keywords": [
+            "andhera",
+            "aage",
+            "badho",
+            "bulaa",
+            "raasta",
+            "andar"
+          ],
+          "next": "s8_lilith",
+          "effects": {
+            "location": "malgareth",
+            "flags": {
+              "followedThePull": true
+            },
+            "choicesRecord": {
+              "fortress": "pull"
+            },
+            "memory": [
+              "Malgareth girne ke baad {{playerName}} akele andhere ke us paar chala gaya — kuch usse bulaa raha tha. Ye uski kahani ka sabse bada mod banne wala tha."
+            ]
+          }
+        },
+        {
+          "id": "c_loot",
+          "text": "Gire hue hall ka saaman sambhalo — party ka hisaab tumhara kaam hai",
+          "shortLabel": "Saaman sambhalo",
+          "keywords": [
+            "saaman",
+            "loot",
+            "sambhalo",
+            "uthao",
+            "hisaab",
+            "kaam"
+          ],
+          "next": "s8_lilith",
+          "effects": {
+            "location": "malgareth",
+            "choicesRecord": {
+              "fortress": "work"
+            },
+            "memory": [
+              "Aakhri bhi ladai ke baad sabse pehla kaam {{playerName}} ko hi mila — loot sambhalo. Aadat bhi thi aur kaam bhi."
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "id": "s8_lilith",
+      "title": "Laal Aankhein",
+      "narration": [
+        "*Toote hue hall ke us paar ek aur kamra hai — chhota, shaant, aur bilkul nahi toota. Yahan tak Dawnbreak ki lehar nahi aa payi.*",
+        "*Beech mein ek obsidian ka takht hai. Aur us par... ek aurat baithi hai.*",
+        "*Kale kapde, kale baal, aur aankhein — LAAL. Itni laal ki andhere mein bhi chamakti hain. Woh tumhe dekh rahi hai, bilkul shant, bilkul seedha.*",
+        "Lilith: \"Ek... do... teen... chaar. Waah. Itne saare jeetne waale, aur yahan ek akela haara hua ladka ghoom raha hai. Kahani mein balance hai, pasand aaya.\"",
+        "Lilith: \"Suno, akele aane waale. Main hoon LILITH. Aur tumhare Hero ne jo aaj giraya — wo Vorgath tha. Ek bheedu. Ek naqaab. Asli raaja... raani... main hoon. Ab bolo — kaisa lag raha hai apni duniya ka sabse bada jhooth jaan ke?\"",
+        "*Awaaz mein nafrat nahi hai. Khel hai. Aur uske peeche... kuch aur bhi — jaise woh tumhare andar ka toota hua hissa DEKH rahi ho.*",
+        "Lilith: \"Divine gaze poori duniya cheet rahi hai — devi ki nazar se sirf ek hi jagah bachi hai. Ek insaan ki pocket. Tumhari pocket, jaan. Mujhe andar rakh lo. Warna... yahin khatam ho jaoge, aur main bhi. Dono ka nuksaan. Bura sauda hai.\"",
+        "*Ek kadam peeche. Phir ek aur. Tumhara jee nahi chahta — par uski laal aankhon mein ek haqeeqat chamak rahi hai: woh sach bol rahi hai. Aur tum itne toote hue ho ki ladne ki himmat nahi bachi... phir bhi ek aur kadam.*",
+        "Lilith: \"Achha, aisa karo. Ye mat socho ki tum mujhe bacha rahe ho. Socho — tum ek DEV QUEEN apni jeb mein le ja rahe ho. Kaun asli toota hua hai?\"",
+        "*Tum use uthaate ho — halki hai, jaise koi panchhi ho. Puri duniya mein akeli cheez jo aaj tumhare bharose ke layak hai. Andhera dhalta hai... aur Lilith, asli Demon Queen, tumhare dimension ke andar chhup jaati hai.*"
+      ],
+      "fallbackLines": [
+        "Lilith: \"Hadar mat karo, main intezaar kar rahi hoon. Andar poori arrangement hai — koi baat nahi.\"",
+        "*Laal aankhein andhere mein bhi nahi jaati — jaise do chhote suraj ho jinhone raat se sauda kar liya ho.*",
+        "*Yahi akela kamra hai jahan tumhara dard koi trophy nahi lag raha. Yahan koi dekh nahi raha. Aur yahi sabse ajeeb lag raha hai.*"
+      ],
+      "choices": [
+        {
+          "id": "c_sawal",
+          "text": "\"Tum... asli Demon Queen ho? To ye sab — jung, Hero, sab kya tha?\"",
+          "shortLabel": "Sach poochho",
+          "keywords": [
+            "asli",
+            "sach",
+            "kya",
+            "jung",
+            "hero",
+            "poochho"
+          ],
+          "next": "s9_celebration",
+          "effects": {
+            "location": "malgareth",
+            "relationships": {
+              "lilith": 5
+            },
+            "choicesRecord": {
+              "lilith": "asked"
+            },
+            "memory": [
+              "Lilith ne khud bataya — Vorgath asli ruler nahi tha; LILITH asli Demon Queen hai. Ye raaz ab sirf {{playerName}} ke paas hai.",
+              "Lilith ab {{playerName}} ke dimensional space ke andar chhupi hai — divine gaze wahan nahi pahunchti. Ye dono ka shared secret hai."
+            ]
+          }
+        },
+        {
+          "id": "c_mana",
+          "text": "\"Nahi. Main kisi demon ko apne andar nahi rakhunga\" — phir uski nazar ne jawab de diya",
+          "shortLabel": "Pehle mana karo",
+          "keywords": [
+            "nahi",
+            "mana",
+            "refuse",
+            "rakhunga",
+            "demon",
+            "jawab"
+          ],
+          "next": "s9_celebration",
+          "effects": {
+            "location": "malgareth",
+            "flags": {
+              "resistedLilith": true
+            },
+            "choicesRecord": {
+              "lilith": "resisted"
+            },
+            "memory": [
+              "{{playerName}} ne pehle Lilith ko mana kiya tha — usne dhamki di, aur toota hua ladka haar kar bhi jeet gaya: usne asli Demon Queen ko apne dimension mein sambhal liya. Raaz ban gaya."
+            ]
+          }
+        },
+        {
+          "id": "c_shart",
+          "text": "\"Theek hai — par iska matlab tum ab meri responsibility ho. Mere rules\"",
+          "shortLabel": "Shart rakho",
+          "keywords": [
+            "shart",
+            "rules",
+            "responsibility",
+            "theek",
+            "meri",
+            "condition"
+          ],
+          "next": "s9_celebration",
+          "effects": {
+            "location": "malgareth",
+            "relationships": {
+              "lilith": 8
+            },
+            "flags": {
+              "setTerms": true
+            },
+            "choicesRecord": {
+              "lilith": "terms"
+            },
+            "memory": [
+              "{{playerName}} ne Lilith ko apne rules par andar liya — meri responsibility, mere rules. Lilith pehli baar hansi thi... achhi awaaz mein.",
+              "Lilith asli Demon Queen {{playerName}} ke dimension mein chhupi hai — sirf dono ko pata hai."
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "id": "s9_celebration",
+      "title": "Jashn Aur Tanhaai",
+      "narration": [
+        "*Agla din. Velmora aisa nahi hai jaisa kal tha — aaj poora sheher sadko par hai. Phool, dhol, har chhat par jhanda.*",
+        "*DEMON KING KHATAM. Sunspire palace ke samne ek bada stage — aur us par ALDRIC, chamakte hue, poori duniya ka aadha hissa apni jeb mein.*",
+        "Aldric: \"Logon! Aaj sirf ek Hi-ki jeet nahi hai — aaj NAYI SUBAH hai. Main, tumhare agle Raja ke roop mein, wada karta hoon...\"",
+        "Aldric: \"...aur har naye daur ki shuruaat apne logon se hoti hai. Aaj main teen aurton ko apna jeevan-saathi chunta hoon — Lyra. Seris. Valeria. Teen engagement, aaj, sabke saamne, pakki.\"",
+        "*Bheed pagal ho jaati hai. Teen ladkiyan stage par chadhti hain — Lyra ke kandhe par naya kamaal, Seris ke sar par naya taj, Valeria ki talwar salami de rahi hai.*",
+        "*Phir inaam. gold, titles, jagirein — chaar heroes ke naam, ek-ek karke announce hote hain. Teen ladkiyon ke naam... aur ALDRIC ka naam.*",
+        "*Paanch log the party mein. Chaaron heroes ko inaam milta hai... aur ek ka naam aaj tak kisi ne nahi liya.*",
+        "*Tum bheed mein khade ho — sabse peeche, sabse neeche. Aur musibat ye hai ki aaj tumhe jalne ki bhi himmat nahi hai... bas ek ajeeb si khaali-pan.*",
+        "Aldric: \"...aur ek aur naam. Hamaara apna chhupa hua khazana — {{playerName}}! Aaiye, jagah banao. Sab dekh rahe hain.\""
+      ],
+      "fallbackLines": [
+        "*Taaliyan goonj rahi hain. Tumhari taraf se sirf ek aadmi palat kar dekhta hai — ek budha trader jisne tax wala sawal suna tha.*",
+        "*Hawa mein phool ki khushboo hai. Kisi ne tumhare kandhe par phool phenka hai — shayad galti se.*",
+        "Aldric: \"Kahan ho, {{playerName}}? Sab tumhara intezaar kar rahe hain. Public hai, jaan. Sab kuch dekh rahe hain.\""
+      ],
+      "choices": [
+        {
+          "id": "c_aage",
+          "text": "Aage badho — shayad... inaam? Maafi? Kuch to hoga",
+          "shortLabel": "Umeed se badho",
+          "keywords": [
+            "aage",
+            "badho",
+            "inaam",
+            "umeed",
+            "maafi",
+            "kuch"
+          ],
+          "next": "s10_accusation",
+          "effects": {
+            "location": "velmora",
+            "choicesRecord": {
+              "celebration": "hope"
+            },
+            "memory": [
+              "Jashn ke din Aldric ne agla Raja hona aur teen engagements (Lyra, Seris, Valeria) announce kiye; chaaron heroes ko bade inaam mile — {{playerName}} ko kuch nahi mila."
+            ]
+          }
+        },
+        {
+          "id": "c_bhaago",
+          "text": "Bhaagne ki soch — ye bheed, ye shor... sab kuch backing",
+          "shortLabel": "Bhaagne ki soch",
+          "keywords": [
+            "bhaago",
+            "nahi",
+            "shor",
+            "bheed",
+            "backing",
+            "soch"
+          ],
+          "next": "s10_accusation",
+          "effects": {
+            "location": "velmora",
+            "choicesRecord": {
+              "celebration": "escape"
+            },
+            "memory": [
+              "Jashn mein {{playerName}} bheed se bahar nikalne ki soch raha tha — par Aldric ne usi waqt uska naam liya. Poora sheher palat kar dekha."
+            ]
+          }
+        },
+        {
+          "id": "c_bhaav",
+          "text": "Bhaav se badho — jo hona hai, hone do",
+          "shortLabel": "Bhaav se jao",
+          "keywords": [
+            "bhaav",
+            "calm",
+            "hone",
+            "do",
+            "seedha",
+            "chup"
+          ],
+          "next": "s10_accusation",
+          "effects": {
+            "location": "velmora",
+            "flags": {
+              "iceMask": true
+            },
+            "choicesRecord": {
+              "celebration": "numb"
+            },
+            "memory": [
+              "Jashn ke din {{playerName}} ka chehra bhaav hi nahi tha — na gussa, na dukh. Khaali. Aur yahi khaali-pan uski sabse badi taqat banne wali thi."
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "id": "s10_accusation",
+      "title": "Jhoothi Ilzamaat",
+      "narration": [
+        "*Aldric ka haath uth'ta hai. Bheed chup ho jaati hai. Tum aage badhte ho — aur poora sheher tumhe dekh raha hai.*",
+        "Aldric: \"{{playerName}}. Mere saathi. Mera dost. Aur... jaise har kahani mein hota hai — ek dushman bhi.\"",
+        "Aldric: \"Mahino se hamara loot gayab ho raha tha. Sabne socha shayad monsters ka koi syndicate hai. Par aaj hisaab kitab hui. Saara saaman... EK HI JEB MEIN MILA. Us jeb ka naam tumhare paas hai, dost.\"",
+        "*Tumhara dil ruk jaata hai. Dimensional storage. Wohi jo tumhara apna tha — ab crime ka proof bana diya gaya hai.*",
+        "Aldric: \"Aur ab asli twist, logon — itna saaman kahan jaata tha? BIKTA tha. Kaale bazaar mein. Party ka paisa, tumhari jeb. Waise bhi... jeb aur jeb, samajhte ho?\"",
+        "*Bheed hil jaati hai. Aur phir — doosri awaaz. Seedhi, shaant, bilkul nahi kaanpti hui.*",
+        "Seris: \"Aur ek baat hai jo... mujhe bahut pehle keh deni chahiye thi. Usne mere saath aise behave kiya hai... bina meri ijazat ke. Baar-baar. Main chup thi kyunki darr thi. Ab nahi rahungi.\"",
+        "*Bheed ki lalkaar uthti hai — Seris ki taraf se, tumhare liye. Bina ek bhi pal ruke, bina ek bhi aansu.*",
+        "Lyra: \"Main... maine dekha hai. Jo Seris keh rahi hai, woh sach hai. Mujhe bhi pata tha.\"",
+        "Valeria: \"Main gawah hoon. Dono baaton par.\"",
+        "Aldric: \"Dekha? Ye log mere gawah hain, aur main in par proud hoon. Guards — le jao isko. Court decide karega.\"",
+        "*Guards gher lete hain. Aur bheed... bheed hans padi hai. Poora sheher, tumhare upar, ek saath. Taaliyan bhi padi hain — jaise koi khel jeeta gaya ho.*"
+      ],
+      "fallbackLines": [
+        "*Kaan mein sirf hasi goonj rahi hai — kisi ek chehre ki nahi, sabki.*",
+        "Guard: \"Chalo. Drama mat karo. Sab dekh rahe hain.\"",
+        "*Aur bich matlab mein, us stage se, teen ladkiyan tumhe dekh rahi hain. Koi aankh nahi jhukti. Koi ek bhi kadam peeche nahi hat'ta.*"
+      ],
+      "choices": [
+        {
+          "id": "c_chillao",
+          "text": "\"JHOOTH! Sab kuch jhooth hai!\" — poori taqat se chillao",
+          "shortLabel": "Sach chillao",
+          "keywords": [
+            "jhooth",
+            "chillao",
+            "sach",
+            "lie",
+            "nahi",
+            "haq"
+          ],
+          "next": "s11_arena",
+          "effects": {
+            "relationships": {
+              "aldric": -5,
+              "seris": -10,
+              "lyra": -8,
+              "valeria": -8
+            },
+            "choicesRecord": {
+              "accusation": "shout"
+            },
+            "memory": [
+              "Aldric ne jhootha ilzaam lagaya — ki {{playerName}} ne party ka loot churaya aur becha. Jhooth tha, poora ka poora.",
+              "Seris ne jhootha ilzaam lagaya ki {{playerName}} ne uske saath bina ijazat inappropriate behave kiya. Lyra aur Valeria ne us jhooth ko support kiya. Guards ne gher liya, bheed hansi."
+            ]
+          }
+        },
+        {
+          "id": "c_seris",
+          "text": "Chup. Sirf Seris ki aankhon mein dekho — ek pal, seedha",
+          "shortLabel": "Seris ko dekho",
+          "keywords": [
+            "seris",
+            "aankh",
+            "chup",
+            "dekho",
+            "pal",
+            "seedha"
+          ],
+          "next": "s11_arena",
+          "effects": {
+            "relationships": {
+              "seris": -12
+            },
+            "flags": {
+              "serisLookedAway": true
+            },
+            "choicesRecord": {
+              "accusation": "eyes"
+            },
+            "memory": [
+              "Ilzamaat ke waqt {{playerName}} ne Seris ki aankhon mein dekha — ek second ke liye uski aankhein jhuk gayi thin. Phir wapas seedhi. Yeh second yaad rakhna tha."
+            ]
+          }
+        },
+        {
+          "id": "c_jhuk",
+          "text": "Kuch mat bolo. Bas khade raho. Girna mana hai",
+          "shortLabel": "Girna mana hai",
+          "keywords": [
+            "chup",
+            "mat",
+            "bolo",
+            "khade",
+            "raho",
+            "girna"
+          ],
+          "next": "s11_arena",
+          "effects": {
+            "flags": {
+              "didNotBreak": true
+            },
+            "choicesRecord": {
+              "accusation": "stood"
+            },
+            "memory": [
+              "Poore sheher ke saamne jhoothi ilzamaat lagne par {{playerName}} nahi gira — khada raha. Bheed hansi, guards le gaye, par wo khada raha."
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "id": "s11_arena",
+      "title": "Crucible",
+      "narration": [
+        "*Court ka faisla ek hi jumle mein hua tha. Qaid. Par Velmora mein saada qaid ka kya kaam — yahan entertainment ki bhookh hai.*",
+        "*THE CRUCIBLE. Royal arena, jahan criminals ko bheja jaata hai... ladne ke liye. Roz. Bheed ke saamne. Jab tak chal sakein.*",
+        "*Pehle din bheed ne tumhe pehchana bhi nahi. Doosre din pehchana. Teesre din naam de diya — POCKET. Pocket, jo loot churata hai. Pocket, jo ladkiyon ke saath... wo wala Pocket.*",
+        "*Bheed hansti hai. Roz. Har entry par, har girne par, har zakhm par. Aur tum ladte ho — kyunki ladna hi zinda rehne ka ek tareeqa hai.*",
+        "*Aur phir ek raat, private mehfil mein, ALDRIC aata hai. Bheed nahi, sirf tum dono.*",
+        "Aldric: \"Dekho, main tumse koi dushmani nahi rakhta. Bas ek hi chhoti si baat — jo takdeer tumhari hai usme 'badla' jaisa koi chapter nahi hai. Samajh gaye? Kyunki agar kabhi kuch bhi try kiya... to ASHVALE raakh ho jayega. Tumhara pyaara sa gaon. Maa, baap, sab. Ek raat mein. Choice tumhari.\"",
+        "*Tum maante ho ki gaon abhi safe hai. Isliye tum chup ho. Isliye tum roz gir ke roz khade ho.*",
+        "*Ek mahina. Do. Teen. Tumhari aag dheere-dheere tez hoti hai — gussa bhi, aur wo bhi. Aur koi nahi jaanta ki tum roz raat ko kuch chhup ke karte ho: dimension mein chhoti-chhoti cheezein andar daalte ho. Jo utha sako. Chabiyan. Chhuree. Patthar. Sab.*"
+      ],
+      "fallbackLines": [
+        "*Ret garam hai, bheed ki goonj baith gayi hai. Kal phir wahi din — ladna, girna, khade hona.*",
+        "Guard: \"Uth, Pocket. Public intezaar kar rahi hai.\"",
+        "*Teen mahine. Chaar sau din bhi nahi gin paaye ho. Par ab tumhari aag ki tip se zyada tej hai — bheed ko nahi pata.*"
+      ],
+      "choices": [
+        {
+          "id": "c_survive",
+          "text": "Bas survive karo — roz ki ladai, roz ka drama, kuch mat socho",
+          "shortLabel": "Survive karo",
+          "keywords": [
+            "survive",
+            "ladai",
+            "kuch",
+            "mat",
+            "socho",
+            "bas"
+          ],
+          "next": "s12_final_battle",
+          "effects": {
+            "location": "crucible",
+            "choicesRecord": {
+              "arena": "survive"
+            },
+            "memory": [
+              "{{playerName}} ko Velmora ke Crucible arena mein qaid-slave bana diya gaya — roz bheed ke saamne ladna, roz mazaak sun'na. Bheed ne use 'Pocket' naam de diya. Aldric ne dhamki di: kuch kiya to Ashvale raakh ho jayega."
+            ]
+          }
+        },
+        {
+          "id": "c_stash",
+          "text": "Chhup ke stash banao — roz kuch na kuch dimension mein andar karo",
+          "shortLabel": "Secret stash",
+          "keywords": [
+            "stash",
+            "chhup",
+            "andar",
+            "karo",
+            "dimension",
+            "chhoti"
+          ],
+          "next": "s12_final_battle",
+          "effects": {
+            "location": "crucible",
+            "flags": {
+              "secretStash": true
+            },
+            "choicesRecord": {
+              "arena": "stash"
+            },
+            "memory": [
+              "Arena ke mahino mein {{playerName}} ne chhup-chhaap apne dimension mein stash bana liya — chabiyan, chhuree, lohe ki siliyaan. Jo utha sake, sab andar.",
+              "Aldric ki dhamki: badla ki koshish ki to Ashvale raakh. {{playerName}} maana ki gaon abhi safe hai — isliye jhuka hua hai."
+            ]
+          }
+        },
+        {
+          "id": "c_ice",
+          "text": "Bheed ki har hansee ko aankh se piyo — dikhao ki tum toote nahi ho",
+          "shortLabel": "Aankh se piyo",
+          "keywords": [
+            "aankh",
+            "hansee",
+            "piyo",
+            "toote",
+            "nahi",
+            "dikhao"
+          ],
+          "next": "s12_final_battle",
+          "effects": {
+            "location": "crucible",
+            "flags": {
+              "iceMask": true
+            },
+            "choicesRecord": {
+              "arena": "ice"
+            },
+            "memory": [
+              "Arena mein {{playerName}} ka chehra paththar ho gaya — bheed hansti rahi, uska bhaav nahi badla. Andar kuch pak gaya tha, bahar kuch nahi dikha."
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "id": "s12_final_battle",
+      "title": "Chhe Mask",
+      "narration": [
+        "*Aaj arena ka mahaul alag hai. Zyada tamasha, zyada shor — aur balcony par ALDRIC khud, teen ladkiyon ke saath.*",
+        "Aldric: \"Logon! Aaj bada din hai. Aaj POCKET ki aakhri ladai hai. Kyunki aaj... asli mujrim pakde gaye hain. Wo log jinhone is sab ke peeche khadi ek badi syndicate chalayi!\"",
+        "*Darwaze khulte hain. Chhe qaidi andar aate hain — masked, haath baandhe hue, dheele-dheele chalte hue. Teen mard, teen aurtein. Mask purane, bhaari.*",
+        "Aldric: \"Simple sa sauda, Pocket. In chhe ko harao — aur tum AAZAAD ho. Poori izzat ke saath bahar. Main Raja ban kar wada nahi todta.\"",
+        "*Azaadi. Ek shabd — aur teen mahine mein pehli baar tumhara dil itna tez dhadka hai.*",
+        "*Chhe mask ghoom jaate hain. Unki ladai kacchi hai, thaki hui — par chhe hain, aur tumhare paas sirf tumhari aag hai. Aur tumhari aag... ab teen mahine se tez hai.*",
+        "*Tum ladte ho. Desperately. Bilkul desperate — kyunki is baar jeet ka matlab sirf zindagi nahi, AAZADI hai. Ek-ek ko giraate ho. Chehre nahi dikhte, sirf mask.*",
+        "*Aakhri wala bhi girta hai. Arena mein sannata — aur phir bheed ki sabse badi taali. Tum haanf rahe ho, haath kaanp rahe hain... par jeet gaye ho.*",
+        "Aldric: \"...Aur ab, mera sabse bada twist. Masks off, logon. Dekho ki POCKET ne aaj kis-kis ko haraya.\""
+      ],
+      "fallbackLines": [
+        "*Ret par chhe shaqs pare hain. Mask abhi bhi chehre par hai. Bheed ka shor ek ajeeb sannate mein badal raha hai.*",
+        "*Tumhara haath abhi bhi kaanp raha hai. Jeet ka matlab... azaadi. Bas yahi socho. Bas yahi.*",
+        "Aldric: \"Kya hua, Pocket? Itna khamosh kyun ho? Twist pasand nahi aaya?\""
+      ],
+      "choices": [
+        {
+          "id": "c_mask",
+          "text": "Sabse pehle paas wale mask par jao — utaarna hai",
+          "shortLabel": "Mask utaro",
+          "keywords": [
+            "mask",
+            "utaro",
+            "paas",
+            "jao",
+            "pehle",
+            "dekho"
+          ],
+          "next": "s13_reveal",
+          "effects": {
+            "location": "crucible",
+            "choicesRecord": {
+              "finalBattle": "unmask"
+            },
+            "memory": [
+              "Aldric ne aakhri ladai ka elaan diya — chhe masked qaidi (teen mard, teen auraten); jeet kar {{playerName}} aazad ho jaata. Usne unhe haraya — bina jaane ki kaun the."
+            ]
+          }
+        },
+        {
+          "id": "c_aazaadi",
+          "text": "Azaadi ke liye haath badhao Aldric ki taraf — wada poora karo",
+          "shortLabel": "Azaadi maango",
+          "keywords": [
+            "azaadi",
+            "aazad",
+            "haath",
+            "wada",
+            "poora",
+            "aldric"
+          ],
+          "next": "s13_reveal",
+          "effects": {
+            "location": "crucible",
+            "choicesRecord": {
+              "finalBattle": "freedom"
+            },
+            "memory": [
+              "Aakhri ladai jeet kar {{playerName}} ne azaadi ke liye haath badha tha — teen mahine baad pehli baar usne kisi se kuch maanga tha."
+            ]
+          }
+        },
+        {
+          "id": "c_hoshiyar",
+          "text": "Tham jao — itni meherbani Aldric ki fitrat nahi hai. Kuch gadbad hai",
+          "shortLabel": "Tham jao",
+          "keywords": [
+            "tham",
+            "gadbad",
+            "meherbani",
+            "fitrat",
+            "nahi",
+            "kuch"
+          ],
+          "next": "s13_reveal",
+          "effects": {
+            "location": "crucible",
+            "flags": {
+              "sensedTrap": true
+            },
+            "choicesRecord": {
+              "finalBattle": "sensed"
+            },
+            "memory": [
+              "Aakhri ladai se pehle hi {{playerName}} ko shak hua tha — itni meherbani Aldric ki fitrat nahi thi. Par azaadi ka laalach... ya umeed... sab kuch hai."
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "id": "s13_reveal",
+      "title": "Mask Utra",
+      "narration": [
+        "*Guards mask utaarte hain. Ek-ek karke. Spotlight mein. Poore sheher ke saamne.*",
+        "*Pehla mard. Safed baal, mota jism, ek purana nishaan gardan par... DORAN. Papa.*",
+        "*Doosri aurat. Jisne tumhe zindagi di, jisne roz subah roti di... ELENA. Maa.*",
+        "*Teesra-chautha: Roland aur Maeve — Lyra ke maa-baap. Paanchva-chhatha: Edwin aur Livia — Seris ke maa-baap.*",
+        "*Chhe log. Jinhe tumne abhi-abhi haraya. Jinke tumhare haathon se zakhm aaye. Jinhone tum aazadi ke liye... gira diya.*",
+        "Aldric: \"Haha... haan. Ashvale? Wo to PEHLE HI raakh ho chuka tha, Pocket. Teen mahine pehle. Jis raat tumhare sapne toote the. Bas survivors chhe the — aur main soch raha tha inka kya karoon... phir socha, arey, ek hi kaam mein do mazze — punishment bhi, entertainment bhi!\"",
+        "Aldric: \"Aur haan — poora plan. Sapna se lekar ilzaam tak. Loot ka hisaab, Seris ka jhooth, Lyra-Valeria ki gawahi, gaon ki raakh... sab meri design hai. Aur ye teeno? Shaamil thi. Har kadam par. Wahi to pyaari baat hai na — jab teen ladkiyaan apne bachpan ka wada bech dein, to koi bhi ladka kitna bhi khaas kyun na ho... pocket hi reh jaata hai.\"",
+        "*Balcony ki taraf dekhte ho. Lyra ka chehra geela hai — par awaaz nahi. Seris bilkul seedhi khadi hai, aankhein jhuki bhi nahi. Valeria tumhe dekh rahi hai... aur phir palat jaati hai.*",
+        "*Wapas ret par. Maa ki aankhein khuli hain — tumhe dhoondh rahi hain. Tum paaon ke bal bhaagte ho, girt padte uske paas.*",
+        "Elena: \"Beta... ro mat. Ye dekho... mera locket... ismein sab hai... humesha... humesha ke liye...\"",
+        "*Uska haath tumhare haath par rakha jaata hai — thanda, halka. Aur phir uske aankhon mein wo roshni nahi reh jaati jo tum roz dekha karte the.*",
+        "*Papa ke haath mein ab tak wo mutthi hai jisne tumhe bachpan mein ghodi banaya tha. Wo bhi nahi hil rahi. Kabhi nahi hilegi.*",
+        "Aldric: \"...To? Koi reaction nahi? Rona-dhona? Poore sheher ne tickets kaat li thin, Pocket. Achha khel diya. Guards — isko wapas andar. Aur jo bach gaye hain, unhe bhi le jao.\"",
+        "*Aur bheed taaliyan bajaati hai. Kyunki bheed ko sirf itna pata hai: aaj ka episode... EPIC tha.*"
+      ],
+      "fallbackLines": [
+        "*Ret mein garmi hai. Maa ka haath thanda ho raha hai. Aur tum kuch nahi kar pa rahe ho — kuch bhi nahi.*",
+        "*Kahin door se bheed ki taaliyan aa rahi hain. Yahan sirf saans ki awaaz hai. Tumhari.*",
+        "*Bachpan ki ek yaad aati hai — chaar bachche, ek oak, ek wada. Phir usi oak ke neeche sab ko jalate hue dekhte ho. Raakh mein.*"
+      ],
+      "choices": [
+        {
+          "id": "c_maa_baap",
+          "text": "Maa-baap ke paas raho — aakhri baar, aakhri saans tak",
+          "shortLabel": "Maa-baap paas",
+          "keywords": [
+            "maa",
+            "baap",
+            "paas",
+            "aakhri",
+            "saans",
+            "raho"
+          ],
+          "next": "s14_night",
+          "effects": {
+            "location": "crucible",
+            "choicesRecord": {
+              "reveal": "parents"
+            },
+            "memory": [
+              "Mask reveal: chhe qaidi nikle — {{playerName}} ke maa-baap Doran aur Elena, Lyra ke maa-baap Roland aur Maeve, Seris ke maa-baap Edwin aur Livia. {{playerName}} ne unhe bina pehchaane haraya tha.",
+              "Ashvale PEHLE HI raakh ho chuka tha — teen mahine pehle. Aldric ki dhamki ek jhooth thi; gaon pehle se gaya tha.",
+              "Aldric ne khud kaha: poora plan uska design tha — sapne se ilzaam tak, sab kuch. Aur teeno doston (Lyra, Seris, Valeria) shaamil thi.",
+              "Us raat {{playerName}} ke maa-baap apni zakhmon se chale gaye — maa ne aakhri saans tak locket uske haath mein daba diya."
+            ]
+          }
+        },
+        {
+          "id": "c_locket",
+          "text": "Maa ke haath se locket uthao — 'isme sab hai' — aur seene se laga lo",
+          "shortLabel": "Locket uthao",
+          "keywords": [
+            "locket",
+            "uthao",
+            "haath",
+            "seene",
+            "laga",
+            "maa"
+          ],
+          "next": "s14_night",
+          "effects": {
+            "location": "crucible",
+            "inventoryAdd": [
+              "maa-ka-locket",
+              "arena-mask"
+            ],
+            "choicesRecord": {
+              "reveal": "locket"
+            },
+            "memory": [
+              "Mask reveal: chhe qaidi nikle — {{playerName}} ke maa-baap, Lyra ke maa-baap, Seris ke maa-baap. Unhe harane wale haath uske apne the.",
+              "Ashvale teen mahine pehle hi raakh ho chuka tha — Aldric ki dhamki jhooth thi. Poora plan Aldric ka design tha aur teeno dost shaamil the.",
+              "Maa ke haath se chandi ka locket {{playerName}} ne sambhala — 'isme sab hai', uski aakhri baatein. Maa-baap us raat chale gaye."
+            ]
+          }
+        },
+        {
+          "id": "c_chillao",
+          "text": "Aldric ke naam poori arena mein cheekho — ek hi naam, baar-baar",
+          "shortLabel": "Aldric ka naam",
+          "keywords": [
+            "aldric",
+            "naam",
+            "cheekho",
+            "baar",
+            "gussa",
+            "arena"
+          ],
+          "next": "s14_night",
+          "effects": {
+            "location": "crucible",
+            "relationships": {
+              "aldric": -15
+            },
+            "choicesRecord": {
+              "reveal": "scream"
+            },
+            "memory": [
+              "Reveal ke baad {{playerName}} ne poori arena mein sirf ek naam cheekha — ALDRIC. Bheed hansi, guards ne dabaya. Par wahi cheekh uske andar ek nishaan ban gayi.",
+              "Mask reveal: maa-baap aur dono doston ke maa-baap nikle. Ashvale pehle hi raakh ho chuka tha. Poora plan Aldric ka tha, teeno dost shaamil the. Maa-baap us raat chale gaye."
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "id": "s14_night",
+      "title": "Andheri Raat, Kholi Awaaz",
+      "narration": [
+        "*Cell. Wohi khaali sankad. Aaj bheed nahi hai, sirf tum ho... aur teen mahine mein pehli baar, bilkul koi nahi.*",
+        "*Sab kuch gaya. Gaon — gaya. Maa-baap — gaye. Dost — kab ke gaye. Apni haathon se... apne haathon se.*",
+        "*Tum deewar ke saath khade ho. Ya baithe ho. Pata nahi. Time ka hisaab khatam ho gaya hai.*",
+        "*Aur phir... hawa mein ek sugandh. Jasmine aur raakh. Tum jaante ho wo.*",
+        "Lilith: \"...Kaisa feel ho raha hai? Sach batao. Bana-banaya jawaab mat do — main dekh rahi thi, mujhe pata hai.\"",
+        "Lilith: \"Tootna theek hai. Main tooti hui cheezein collect karti hoon — sadiyon se. Par suno, jaan: jinhe aaj tak sab ne pocket samjha, unmein se ek ne aaj tak apne tukde nahi khoye. Woh gin raha hai. Mujhe sunai de raha hai.\"",
+        "Lilith: \"Main tumhe condolence nahi doongi. Main tumhe HAQ doongi. Wo raasta jo tumhare paas abhi hai: mera gyaan, teri pocket, aur ek poora kingdom jiska hisaab baaki hai. Aur haan — uski har pillar ke neeche suraakh hai. Mujhe sab yaad hai.\"",
+        "Lilith: \"Bolo, {{playerName}}. Ye mera offer hai: alliance. Badla tumhara, madad meri. Aur jab tak tum faisla nahi kar lete... deewar ke us paar guard ki chabi hai — tumne mahino pehle andar daali thi. Bolo — aaj bahar nikalte hain?\"",
+        "*Tumhari mutthi bandhi jaati hai. Pehli baar teen mahine mein — gusse se. Ya kuch aur se. Kuch bhi ho... wo toota hua hissa nahi hai.*"
+      ],
+      "fallbackLines": [
+        "Lilith: \"Main jaldi nahi hoon. Main sadiyon se jaldi se nafrat karti aayi hoon. Par raat chaar baje guard shift badlegi... us waqt jaldi ki aadat dal lena.\"",
+        "*Jasmine aur raakh. Andhere mein do laal sitare jaise aankhein — sabse shaant cheez is saari duniya mein.*",
+        "*Maa ka locket seene par hai. Thanda. Halka. Abhi bhi wahi sab kuch jo bacha hai.*"
+      ],
+      "choices": [
+        {
+          "id": "c_alliance",
+          "text": "\"Alliance. Haath de raha hoon\" — khali haath nahi, poori taiyaari ke saath",
+          "shortLabel": "Alliance haan",
+          "keywords": [
+            "alliance",
+            "haath",
+            "haan",
+            "taiyaari",
+            "saath",
+            "deal"
+          ],
+          "next": "s15_road",
+          "effects": {
+            "location": "crucible",
+            "relationships": {
+              "lilith": 10
+            },
+            "flags": {
+              "alliance": true
+            },
+            "choicesRecord": {
+              "night": "alliance"
+            },
+            "memory": [
+              "Us andheri raat Lilith ne {{playerName}} ko offer diya — alliance: badla uska, madad aur gyaan Lilith ka. Usne haath de diya.",
+              "Lilith ke bataye raaste se aur mahino purani stash se {{playerName}} us raat Crucible se nikal gaya. Azaadi — badle ka pehla kadam."
+            ]
+          }
+        },
+        {
+          "id": "c_sawal",
+          "text": "\"Tumhe kya milega? Demon Queen... ek insaan ke badle mein?\"",
+          "shortLabel": "Uska faida?",
+          "keywords": [
+            "tumhe",
+            "kya",
+            "milega",
+            "faida",
+            "demon",
+            "queen",
+            "kyun"
+          ],
+          "next": "s15_road",
+          "effects": {
+            "location": "crucible",
+            "relationships": {
+              "lilith": 5
+            },
+            "choicesRecord": {
+              "night": "asked"
+            },
+            "memory": [
+              "{{playerName}} ne Lilith se poocha — tumhe kya milega? Uska jawab yaad rakhna tha: 'Sab kuch... bada dhang se. Chhote log chhote hisaab rakhte hain, jaan. Main rani hoon.'",
+              "Lilith ke raaste se {{playerName}} us raat Crucible se nikal gaya — alliance pakki ho gayi, terms waqt ke saath khulenge."
+            ]
+          }
+        },
+        {
+          "id": "c_akela",
+          "text": "Pehle sirf bahar niklo — faisla raaste par kar lena. Akele",
+          "shortLabel": "Pehle niklo",
+          "keywords": [
+            "pehle",
+            "bahar",
+            "niklo",
+            "akele",
+            "faisla",
+            "raasta"
+          ],
+          "next": "s15_road",
+          "effects": {
+            "location": "crucible",
+            "flags": {
+              "alliance": true,
+              "keptDistance": true
+            },
+            "choicesRecord": {
+              "night": "solo"
+            },
+            "memory": [
+              "{{playerName}} ne pehle sirf bahar nikalne par focus kiya — Lilith ke saath alliance ka faisla adhoora chhoda. Wo hansi thi: 'Main to andar hi hoon, jaan. Jaldi kya hai?'",
+              "Us raat {{playerName}} Crucible se nikal gaya — stash, chabi aur Lilith ke bataye raaste se. Badle ka safar shuru."
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "id": "s15_road",
+      "title": "Pehli Azaad Subah",
+      "narration": [
+        "*Velmora ki deewaron ke bahar, pehli kiran. Hawa mein thand hai aur azaadi ki wo zabardast boo jo sirf toote hue log samajhte hain.*",
+        "*Peeche sheher hai — jashn ke jhande abhi bhi latke hain. Aage poora kingdom hai: raste, pahadiyan, samundar tak raaste. Aur sabse aage — Hisaab.*",
+        "Lilith: \"Ah... subah. Mujhe yaad nahi kabhi dekhi thi itni kareeb se. Achhi lagti hai... thodi si. Chalo — pehle bhaago, baatein baad mein. Woh raasta jo maine bataya tha — east drain. Haan, wahi.\"",
+        "*Tumhare paas ab ye hai: chhoti si aag — par tez. Ek dimension — jiski koi limit nahi. Ek raaz — asli Demon Queen, andar. Aur ek naam jise yaad rakhna hai: ALDRIC.*",
+        "*Jo bacha hai tumpe depend karta hai — khaali-pan bhi, aag bhi. Ab tum chunte ho ki kis order mein jalao.*"
+      ],
+      "fallbackLines": [
+        "*Raasta lamba hai, khamoshi nayi hai. Par pehli baar — koi guard nahi, koi bheed nahi. Sirf tum aur subah.*",
+        "Lilith: \"Sochna mat bahut zyada. Pehla faisla hamesha chhota hota hai — bas uski gehrai baad mein pata chalti hai.\"",
+        "*Maa ka locket seene par dhadak raha hai — jaise usne bhi kahin jaana ho.*"
+      ],
+      "choices": [
+        {
+          "id": "c_parda",
+          "text": "Velmora ke pardon ke peeche lautna — sach wahan se shuru hota hai",
+          "shortLabel": "Pardon ke peeche",
+          "keywords": [
+            "parda",
+            "veil",
+            "velmora",
+            "sach",
+            "laut",
+            "information"
+          ],
+          "next": "s16_veil",
+          "effects": {
+            "location": "velmora",
+            "choicesRecord": {
+              "road": "truth"
+            },
+            "memory": [
+              "Azaadi ke pehle din {{playerName}} ne Velmora ki taraf palatna chuna — Veiled Quarter, jahan sach ka karobar hota hai."
+            ]
+          }
+        },
+        {
+          "id": "c_taqat",
+          "text": "Ironmark — taqat chahiye pehle. Talwar bhi, aag bhi, naam bhi",
+          "shortLabel": "Taqat Ironmark",
+          "keywords": [
+            "taqat",
+            "ironmark",
+            "talwar",
+            "aag",
+            "power",
+            "training"
+          ],
+          "next": "s17_ironmark",
+          "effects": {
+            "location": "ironmark",
+            "choicesRecord": {
+              "road": "power"
+            },
+            "memory": [
+              "Azaadi ke pehle din {{playerName}} ne Ironmark ka raasta chuna — taqat pehle, hisaab baad mein."
+            ]
+          }
+        },
+        {
+          "id": "c_raakh",
+          "text": "Ashvale — pehle apne gaon ki raakh dekhni hai. Maa-baap ka aakhri darshan",
+          "shortLabel": "Ashvale ki raakh",
+          "keywords": [
+            "ashvale",
+            "raakh",
+            "gaon",
+            "maa",
+            "baap",
+            "aakhri"
+          ],
+          "next": "s18_ashes",
+          "effects": {
+            "location": "ashvale",
+            "choicesRecord": {
+              "road": "ashes"
+            },
+            "memory": [
+              "Azaadi ke pehle din {{playerName}} Ashvale gaya — apne gaon ki raakh dekhne. Alvida karne."
+            ]
+          }
+        },
+        {
+          "id": "c_andheri_duniya",
+          "text": "Nightwilds — Lilith ki duniya. Jahan se wo aayi thi, wahan se shuru karo",
+          "shortLabel": "Nightwilds",
+          "keywords": [
+            "nightwilds",
+            "lilith",
+            "duniya",
+            "demon",
+            "andheri",
+            "raasta"
+          ],
+          "next": "s19_court",
+          "effects": {
+            "location": "nightwilds",
+            "choicesRecord": {
+              "road": "night"
+            },
+            "memory": [
+              "Azaadi ke pehle din {{playerName}} ne Nightwilds ka raasta chuna — Lilith ki duniya, jahan demon court ke raaz sote hain."
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "id": "s16_veil",
+      "title": "Pardon Ke Peeche",
+      "narration": [
+        "*Velmora ka doosra chehra — Veiled Quarter. Jahan roshni kam, bhav zyada. Har aadmi bechta hai; har aadmi kharidta hai; koi kisi ka dost nahi.*",
+        "*Yahan tum wo ho jo tum chunna chahte ho — ek ajnabi, ek saaya, ek sawaal.*",
+        "Lilith: \"Achha socha. Kingdom ki koi bhi deewar uski neeche se hi kamzor hoti hai. Aur in galiyon mein har deewar ke neeche... information ka behta hua nala hai. Bas paimaana sahi hona chahiye.\"",
+        "*Yahan sab kuch milta hai — guard shifts, court ki baatein, wo raat ki poori file... bas uski ek keemat hai. Aur keemat hamesha sirf paisa nahi hoti.*",
+        "*Ek information-broker tumhe ghoor raha hai. Door se. Bina jhapatke. Shayad jaanta hai ki tum kaun ho. Shayad bechna chahta hai.*"
+      ],
+      "fallbackLines": [
+        "*Gali tang hai — dhuein, sasti sharab aur mehngi khamoshi.*",
+        "Lilith: \"Is shehar mein do cheezein sasti hain — jhooth aur loyalty. Teesri cheez kabhi mat kharidna: taali. Wo sabse mehngi hoti hai.\"",
+        "*Koi tumhara naam puchta hai. Yahan naam ka bhi bhav lagta hai.*"
+      ],
+      "choices": [
+        {
+          "id": "c_broker",
+          "text": "Broker ke paas jao — dekho kya bech raha hai, aur kis bhav par",
+          "shortLabel": "Broker se milo",
+          "keywords": [
+            "broker",
+            "bech",
+            "bhav",
+            "jao",
+            "information",
+            "deal"
+          ],
+          "next": "s20_aage",
+          "effects": {
+            "location": "veiled-quarter",
+            "choicesRecord": {
+              "veil": "broker"
+            },
+            "memory": [
+              "Veiled Quarter mein {{playerName}} ne information-brokers se khelna shuru kiya — kingdom ke raazon ka bazaar."
+            ]
+          }
+        },
+        {
+          "id": "c_sunkar",
+          "text": "Bas sunno — dhaabe mein baithe log kya keh rahe hain, bina pooche",
+          "shortLabel": "Sunte raho",
+          "keywords": [
+            "sun",
+            "dhaaba",
+            "log",
+            "kya",
+            "bina",
+            "pooche"
+          ],
+          "next": "s20_aage",
+          "effects": {
+            "location": "veiled-quarter",
+            "flags": {
+              "listensFirst": true
+            },
+            "choicesRecord": {
+              "veil": "listen"
+            },
+            "memory": [
+              "Veiled Quarter mein {{playerName}} ne pehle sirf sunna seekha — kingdom ke level par kaam karne ka pehla usool."
+            ]
+          }
+        },
+        {
+          "id": "c_tunnels",
+          "text": "Valeria ki yaad aayi — usne inhi tunnels ki guard-captain thi. Nakshe yaad karne ki koshish karo",
+          "shortLabel": "Tunnels yaad karo",
+          "keywords": [
+            "tunnels",
+            "valeria",
+            "guard",
+            "captain",
+            "nakshe",
+            "yaad"
+          ],
+          "next": "s20_aage",
+          "effects": {
+            "location": "veiled-quarter",
+            "flags": {
+              "tunnelKnowledge": true
+            },
+            "choicesRecord": {
+              "veil": "tunnels"
+            },
+            "memory": [
+              "{{playerName}} ko yaad aaya — Valeria Velmora ke neeche tunnels ki guard-captain bani thi; uske nakshe uski yaaddasht ke kisi kone mein abhi bhi hain."
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "id": "s17_ironmark",
+      "title": "Lohe Ka Daag",
+      "narration": [
+        "*Ironmark — border ka azad sheher jahan koi raja nahi, sirf rate hain. Yahan loha pehle bolta hai, baad mein naam poocha jaata hai.*",
+        "*Free companies ke jhande, underground arena ki dhundhla dawa, aur wo mahafil jahan mercenary ka kaam sirf aukaat se milta hai.*",
+        "Lilith: \"Hmph. Mujhe ye sheher pasand hai — jhooth kam, zakhm seedhe. Yahan tumhari aag ka asli test hoga. Aur haan... yahan ke arena mein 'Pocket' ka naam abhi tak zinda hai. Tum use ya to jala do, ya apna bana lo.\"",
+        "*Yahan koi ilzaam nahi lagta, koi balcony nahi hota. Bas tum, samne wala, aur ret. Roz ka hisaab yahan saaf-saaf hota hai.*",
+        "*Ek company ka banner dikha deta hai: bina sawaal, bina naam, sirf kaam. Aur doosri taraf — wo underground arena jahan champion ka inaam us se zyada hai jitna tumne kabhi dekha ho.*"
+      ],
+      "fallbackLines": [
+        "*Loha garam hai, hawa mein khanak hai. Koi tumhe nahi jaanta — aur yahi accha hai.*",
+        "Lilith: \"Aag ko ghussa mat bana, jaan — use auzaar banao. Gussa jal jaata hai, auzaar jalata hai.\"",
+        "*Ek udhaar wala trainer tumhari hatheli ki aag dekh kar hansta hai... phir hansta band kar deta hai.*"
+      ],
+      "choices": [
+        {
+          "id": "c_company",
+          "text": "Free company se kaam maango — naam nahi, kaam chahiye",
+          "shortLabel": "Company se kaam",
+          "keywords": [
+            "company",
+            "kaam",
+            "maango",
+            "mercenary",
+            "naam",
+            "job"
+          ],
+          "next": "s20_aage",
+          "effects": {
+            "location": "ironmark",
+            "choicesRecord": {
+              "ironmark": "company"
+            },
+            "memory": [
+              "Ironmark mein {{playerName}} ne free company ke saath kaam shuru kiya — paise, tajurba aur naya naam."
+            ]
+          }
+        },
+        {
+          "id": "c_arena",
+          "text": "Underground arena — is baar tumhari marzi, tumhare rules",
+          "shortLabel": "Underground arena",
+          "keywords": [
+            "arena",
+            "underground",
+            "ladai",
+            "champion",
+            "marzi",
+            "rules"
+          ],
+          "next": "s20_aage",
+          "effects": {
+            "location": "ironmark",
+            "flags": {
+              "foughtUnderground": true
+            },
+            "choicesRecord": {
+              "ironmark": "arena"
+            },
+            "memory": [
+              "Ironmark ke underground arena mein {{playerName}} ne khud ko phir se daala — is baar qaidi nahi, chunne waala."
+            ]
+          }
+        },
+        {
+          "id": "c_aag_training",
+          "text": "Pehle aag ko samjho — Lilith se pucho ki is chhoti aag ka asli haq kya hai",
+          "shortLabel": "Aag ka haq",
+          "keywords": [
+            "aag",
+            "samjho",
+            "lilith",
+            "pucho",
+            "haq",
+            "training"
+          ],
+          "next": "s20_aage",
+          "effects": {
+            "location": "ironmark",
+            "relationships": {
+              "lilith": 5
+            },
+            "choicesRecord": {
+              "ironmark": "fire"
+            },
+            "memory": [
+              "{{playerName}} ne Lilith se apni fire magic ke bare mein poochhna shuru kiya — 'chhoti' aag ke peeche ka asli haq abhi kholna baaki hai."
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "id": "s18_ashes",
+      "title": "Ashvale Ki Raakh",
+      "narration": [
+        "*Greenreach ki pahadiyaan paar karke jab Ashvale aata hai... to pehle aisa lagta hai ki gaon kahin chhupa hai. Phir dhuan ka purana nishaan milta hai.*",
+        "*Jo bacha hai: jali hui khetiyon ki kyaariyaan, aadhi deewar, aur purana oak — kaala, sakht, ab bhi khada.*",
+        "*Yahan tum bade hue the. Yahan chaar bachcho ne wada kiya tha. Yahan maa ne roz subah roti banayi thi. Ab yahan sirf hawa hai — aur hawa mein sab kuch.*",
+        "Lilith: \"...Main bahar se nahi aa sakti, jaan. Par jo tum dekh rahe ho... use chhoo lo. Paththar ko, raakh ko, deewaron ko. Yaaddasht insaan ke andar nahi hoti — jagah mein hoti hai. Aur jagah yaad rakhti hai.\"",
+        "*Aangan ki jagah. Tumhari purani bistar ki jagah. Aur wahi jagah jahan maa-baap ne apni aakhri raat guzaari hogi... jab tak guards nahi aaye honge.*",
+        "*Raakh mein kuch chamakta hai — chhota, dhaancha. Aur deewar par, koyale se likha ek nishaan... jo tumne nahi likha tha.*"
+      ],
+      "fallbackLines": [
+        "*Hawa mein aaj bhi maa ke haath ki roti jaisi khushboo dhoondhna... mil nahi jaati.*",
+        "Lilith: \"Gaon nahi jalate, jaan. Log jalate hain. Yaad rakhna — hisaab cheezon se nahi, logon se lena hota hai.\"",
+        "*Purane oak ki chhaal par bachpan ke nishaan hain — chaar naam, ek chhota sa dil.*"
+      ],
+      "choices": [
+        {
+          "id": "c_nishaan",
+          "text": "Deewar par koyale ka nishaan check karo — ye kisne likha?",
+          "shortLabel": "Nishaan check",
+          "keywords": [
+            "nishaan",
+            "koyala",
+            "deewar",
+            "likha",
+            "kisne",
+            "check"
+          ],
+          "next": "s20_aage",
+          "effects": {
+            "location": "ashvale",
+            "flags": {
+              "foundMark": true
+            },
+            "choicesRecord": {
+              "ashes": "mark"
+            },
+            "memory": [
+              "Ashvale ki raakh mein {{playerName}} ne deewar par koyale ka ek ajeeb nishaan paya — jo usne nahi likha tha. Koi survivor... ya koi message."
+            ]
+          }
+        },
+        {
+          "id": "c_chamak",
+          "text": "Raakh mein jo chamak raha hai — usko utha kar dekho",
+          "shortLabel": "Chamak uthao",
+          "keywords": [
+            "chamak",
+            "raakh",
+            "utha",
+            "dekho",
+            "chhota",
+            "dhaancha"
+          ],
+          "next": "s20_aage",
+          "effects": {
+            "location": "ashvale",
+            "flags": {
+              "foundKeepsake": true
+            },
+            "choicesRecord": {
+              "ashes": "gleam"
+            },
+            "memory": [
+              "Ashvale ki raakh se {{playerName}} ne ek chamakti hui chhoti cheez nikali — gaon ki aakhri nishani jo kisi ne chhup ke rakh di thi."
+            ]
+          }
+        },
+        {
+          "id": "c_alvida",
+          "text": "Oak ke neeche baith jao — maa-baap aur bachpan ko alvida bolo",
+          "shortLabel": "Alvida bolo",
+          "keywords": [
+            "oak",
+            "neeche",
+            "baith",
+            "alvida",
+            "bachpan",
+            "maa"
+          ],
+          "next": "s20_aage",
+          "effects": {
+            "location": "ashvale",
+            "relationships": {
+              "lilith": 5
+            },
+            "choicesRecord": {
+              "ashes": "farewell"
+            },
+            "memory": [
+              "Ashvale ke purane oak ke neeche {{playerName}} ne maa-baap aur apna bachpan alvida kaha. Usi jagah jahan chaaron ne wada kiya tha — ab wahan se badle ka wada shuru hua."
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "id": "s19_court",
+      "title": "Nightwilds",
+      "narration": [
+        "*Jahan kingdom ki Map khatam hoti hai, wahin se Nightwilds shuru hote hain — wo ilaaka jahan raat kabhi poori nahi hoti.*",
+        "*Kaale ped, neele phool, aur wo raaste jo khud badal jaate hain. Insaan yahan mehmaan hai — sirf tab tak jab tak koi demon use zinda rakhna chahe.*",
+        "Lilith: \"Ah... ghar. Is khushboo ko saalon baad... Bhool mat jaana jaan — main tumhare andar hoon, tum meri aankhein ho. Jo tum dekhoge, main dekhungi. Chalo... mera court ab bhi kahin jagah hua hoga.\"",
+        "*Yahan uske purane log hain — bikhre hue, chhupe hue, takht ke intezaar mein. Kuch usse nafrat karte honge — purane rivals, bikhri hui wafayein. Sab apni izzat se ladte hain.*",
+        "*Aur yahan ek sach bhi sota hai: Vorgath ke peeche kaun tha, devi ka plan kya tha... demon court ke purane records mein.*"
+      ],
+      "fallbackLines": [
+        "*Kaale pedon ke beech se ek jodi aankhein tumhe dekh rahi hain... aur hata nahi rahi.*",
+        "Lilith: \"Yahan dosti ka matlab alag hai, jaan. Yahan wafa wo hai jo raat bhar chalti hai. Phir bhi... mere kuch log... unse milna chahiye.\"",
+        "*Hawa mein purani raakh aur naye iraade.*"
+      ],
+      "choices": [
+        {
+          "id": "c_records",
+          "text": "Purane records dhoondo — Vorgath ke peeche ka sach yahin kahin hai",
+          "shortLabel": "Records dhoondo",
+          "keywords": [
+            "records",
+            "purane",
+            "vorgath",
+            "sach",
+            "dhoondo",
+            "history"
+          ],
+          "next": "s20_aage",
+          "effects": {
+            "location": "nightwilds",
+            "choicesRecord": {
+              "court": "records"
+            },
+            "memory": [
+              "Nightwilds mein {{playerName}} ne demon court ke purane records dhoondhna shuru kiya — Vorgath, devi aur Lilith ke takht ke sach ki taraf pehla kadam."
+            ]
+          }
+        },
+        {
+          "id": "c_log",
+          "text": "Lilith ke purane logon se milo — the True Court ab bhi zinda hai",
+          "shortLabel": "True Court milo",
+          "keywords": [
+            "log",
+            "court",
+            "true",
+            "milo",
+            "lilith",
+            "zinda"
+          ],
+          "next": "s20_aage",
+          "effects": {
+            "location": "nightwilds",
+            "relationships": {
+              "lilith": 5
+            },
+            "choicesRecord": {
+              "court": "loyalists"
+            },
+            "memory": [
+              "Nightwilds mein {{playerName}} ne Lilith ke purane loyalists — the True Court — ke nishaan dhoondhna shuru kiye. Kuch ab bhi uske naam par intezaar mein the."
+            ]
+          }
+        },
+        {
+          "id": "c_rahasya",
+          "text": "Lilith se uska apna raaz poochho — takht chhodne ka wo faisla kya tha",
+          "shortLabel": "Uska raaz",
+          "keywords": [
+            "lilith",
+            "raaz",
+            "takht",
+            "chhoda",
+            "faisla",
+            "kyun"
+          ],
+          "next": "s20_aage",
+          "effects": {
+            "location": "nightwilds",
+            "relationships": {
+              "lilith": 8
+            },
+            "choicesRecord": {
+              "court": "herstory"
+            },
+            "memory": [
+              "Nightwilds mein {{playerName}} ne Lilith se uske apne past ke baare mein poochhna shuru kiya — sadiyon pehle takht chhodne ka wo faisla."
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "id": "s20_aage",
+      "title": "Aage Ka Raasta",
+      "narration": [
+        "*Raaste par ek mod aata hai jahan sab kuch wapas sawaal banta hai — kya kar rahe ho, kiske liye, aur kis kadam ke baad.*",
+        "Lilith: \"To? Aage kya? Main to yahin hoon — tumhari jeb mein, poori raat ke saath. Par jeena azaadi ka matlab sirf saans lena nahi hota, jaan. Ab har din tumhara design hai. Aur har din ek cheez marta hai — ya dushman, ya tumhara purana aadmi.\"",
+        "*Naye din, naye naam, naye raaste. Kingdom bada hai — aur tumhare paas ab wo hai jo kisi ke paas nahi: waqt, raaz aur aag.*",
+        "*Kahin door Velmora mein ek Raja apne naye singhasan par baitha hai... teen ranis ke saath. Aur usse nahi pata ki uski sabse chhoti entry — wo pocket — ab azaad hai.*"
+      ],
+      "fallbackLines": [
+        "*Raasta wahin hai jahan tum use chhodo. Bas ek baat yaad rakho — har mod par wahi purana oak yaad kar lena.*",
+        "Lilith: \"Faisla tumhara, consequences sabke. Maza yahi hai na?\"",
+        "*Aag ki tip ab hawa mein naachti hai — aaram se, azaadi se. Jaise kabhi kisi ne usse 'cute' na kaha ho.*"
+      ],
+      "choices": [
+        {
+          "id": "c_veil",
+          "text": "Velmora ke pardon ke peeche — sach, sources aur suraakh",
+          "shortLabel": "Pardon ke peeche",
+          "keywords": [
+            "parda",
+            "velmora",
+            "sach",
+            "sources",
+            "suraakh",
+            "veil"
+          ],
+          "next": "s16_veil",
+          "effects": {
+            "location": "veiled-quarter"
+          }
+        },
+        {
+          "id": "c_ironmark",
+          "text": "Ironmark — taqat, kaam aur naya naam",
+          "shortLabel": "Ironmark",
+          "keywords": [
+            "ironmark",
+            "taqat",
+            "kaam",
+            "talwar",
+            "arena",
+            "training"
+          ],
+          "next": "s17_ironmark",
+          "effects": {
+            "location": "ironmark"
+          }
+        },
+        {
+          "id": "c_ashes",
+          "text": "Ashvale — jo bacha hai use sambhalna hai, aur jo chhupa hai use dhoondhna",
+          "shortLabel": "Ashvale",
+          "keywords": [
+            "ashvale",
+            "raakh",
+            "bacha",
+            "chhupa",
+            "gaon",
+            "maa"
+          ],
+          "next": "s18_ashes",
+          "effects": {
+            "location": "ashvale"
+          }
+        },
+        {
+          "id": "c_court",
+          "text": "Nightwilds — Lilith ka court, uska sach, uske log",
+          "shortLabel": "Nightwilds",
+          "keywords": [
+            "nightwilds",
+            "lilith",
+            "court",
+            "demon",
+            "log",
+            "sach"
+          ],
+          "next": "s19_court",
+          "effects": {
+            "location": "nightwilds"
+          }
+        }
+      ]
+    }
+  ],
+  "endings": []
+}
