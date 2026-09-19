@@ -1,0 +1,1223 @@
+{
+  "storyId": "sartaaj-young-master",
+  "version": 1,
+  "scenes": [
+    {
+      "id": "s1_hospital",
+      "title": "Ward No. 7 — Pehli Saans",
+      "narration": [
+        "*Aasha Kiran hospital ki sabse upar waali floor — Ward No. 7. Darwaaze par do chupchaap guard, andar sirf machines ki dhun... beep... beep... beep. Bahar ki duniya yahin se bahut neeche dikhti hai.*",
+        "*Tum {{playerName}} ho — duniya ke #1 sabse taqatwar parivaar ke Young Master. Tumhara naam ek aisi taqat hai jiske aage raja, general aur billionaire jhuk jaate hain. Par khud tumhari ladaai mein taqat hamesha se kam rahi hai — aur yahi tumhara sabse bada raaz hai.*",
+        "*Pandrah din. Itne din ka kuch bhi theek se yaad nahi — sirf tukde: peeth ke peeche se aati awaazein, lohe ki khushboo, aur ek aisi jagah jahan naam koi nahi poochta tha.*",
+        "*Neend ke andar kahin tumhare honth khul jaate hain — aur awaaz khud bhaag kar bahar aa jaati hai...*",
+        "{{playerName}}: \"Haath mat lagao! Meri aunt family ki leader hai! Woh aati hi hogi!\"",
+        "*Aur usi second darwaza khul jaata hai. Koi bhaaga nahi aaya — par kamre ki hawa tak aadab mein jhuk gayi. Kaali silk saree, kaan mein chhota diamond, aur aankhein jo duniya ke liye dar hain — par is kamre mein sirf ek mausi. Rhea.*",
+        "Rhea: \"Main yahin hoon, {{playerName}}. Kisi ne haath nahi lagaya... aur ab lagega bhi nahi. Tum aaram karo, main yahin baithi hoon.\"",
+        "*Corridor mein, khidki ke paas — Lucian patthar jaise khade hain, par mutthi band hai. Isolde dupatta se aankhein saaf kar rahi hai. Aur thoda peeche, andhere mein — Damien. Chup, sharif, aur behad sambhla hua.*"
+      ],
+      "fallbackLines": [
+        "*Monitors ki dhun badalti rehti hai — beep tez, dheema, phir tez. Bahar koi jaata nahi.*",
+        "Rhea: \"Koi jaldi nahi hai. Main yahin hoon — jitni der tum chaho.\"",
+        "*Khidki ke bahar sheher ki roshni dhundhli hai — jaise duniya saans rok kar baithe ho.*"
+      ],
+      "choices": [
+        {
+          "id": "c_pakad",
+          "text": "Rhea ke haath ko chup-chaap pakad lo",
+          "shortLabel": "Rhea ka haath",
+          "keywords": [
+            "rhea",
+            "haath",
+            "pakad",
+            "chup",
+            "sahara",
+            "trust",
+            "bharosa"
+          ],
+          "next": "s2_rhea",
+          "effects": {
+            "location": "hospital",
+            "relationships": {
+              "rhea": 2
+            },
+            "flags": {
+              "rhea_trust": true
+            },
+            "choicesRecord": {
+              "opening": "rhea"
+            },
+            "memory": [
+              "Hosh aate hi {{playerName}} ne bina kuch bole Rhea ka haath pakad liya — duniya ki sabse darawni aurat ke liye woh pal uski duniya ka sabse keemti pal tha."
+            ]
+          }
+        },
+        {
+          "id": "c_sach",
+          "text": "Sab ki taraf dekho — Mujhe kya hua tha? Sach batao.",
+          "shortLabel": "Sach maango",
+          "keywords": [
+            "sach",
+            "kya hua",
+            "batao",
+            "gussa",
+            "jawab",
+            "poochho"
+          ],
+          "next": "s4_sach",
+          "effects": {
+            "location": "hospital",
+            "choicesRecord": {
+              "opening": "sach"
+            },
+            "memory": [
+              "Hosh aate hi {{playerName}} ne sabse pehle sach maanga — kya hua tha, kyun hua tha. Parivaar ne poori kahaani bina chhupaye rakhne ka wada kiya hai."
+            ]
+          }
+        },
+        {
+          "id": "c_dada_dadi",
+          "text": "Darwaze par khade Dada-Dadi ki taraf dekho",
+          "shortLabel": "Dada-Dadi",
+          "keywords": [
+            "dada",
+            "dadi",
+            "lucian",
+            "isolde",
+            "darwaza",
+            "corridor"
+          ],
+          "next": "s3_family",
+          "effects": {
+            "location": "hospital",
+            "relationships": {
+              "lucian": 1,
+              "isolde": 1
+            },
+            "choicesRecord": {
+              "opening": "dada-dadi"
+            },
+            "memory": [
+              "{{playerName}} ne hosh aate hi sabse pehle dada Lucian aur dadi Isolde ko dekha — dono ke chehre par woh sukoon tha jo sirf is baat se aata hai ki baccha bach gaya."
+            ]
+          }
+        },
+        {
+          "id": "c_khamosh",
+          "text": "Kuch mat kaho — sirf machines ki dhun sunte raho",
+          "shortLabel": "Khamosh raho",
+          "keywords": [
+            "chup",
+            "khamosh",
+            "sun",
+            "dhun",
+            "akela",
+            "rehne"
+          ],
+          "next": "s2_rhea",
+          "effects": {
+            "location": "hospital",
+            "relationships": {
+              "rhea": 1
+            },
+            "choicesRecord": {
+              "opening": "khamosh"
+            },
+            "memory": [
+              "{{playerName}} ne hosh aate hi kuch nahi kaha — Rhea ne bhi zor nahi daala; kursi khiska kar uske haath ke paas baith gayi aur khamoshi ko uske jitna waqt diya."
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "id": "s2_rhea",
+      "title": "Rhea — Darwaze Par",
+      "narration": [
+        "*Rhea apni kursi monitor ke paas le aati hai — tumhare haath ki doori par. Bahar ki duniya ke liye woh wahi aurat hai jiske naam par deals ruk jaati hain; yahan woh bas ek mausi hai jiske haath mein dawa ki patti bhi nahi, bas tumhara haath hai.*",
+        "Rhea: \"Pandrah din. Pandrah din tumne mujhe pukara, aur main... main der kar gayi. Is maafi ka haq maine khud se maanga hai — tumse nahi.\"",
+        "*Uski awaaz pehli baar ekdum shaant hai — duniya waali thand nahi, ghar waali narmi.*",
+        "Rhea: \"Par ab jo hoga, uska raaj tumhara hai. Poochna hai to poochho. Chup rehna hai to main chup baithungi. Gussa karna hai... to woh bhi tumhara haq hai.\"",
+        "*Darwaze ke aar-paar Damien ka saya halke se ruk jaata hai — haath mein phal ka tray, chehre par taiyaar hui muskaan.*",
+        "Damien: \"Agar time theek ho to... main phal le aaya tha. Bas ye pata karna tha ki {{playerName}} ko hosh aa gaya hai.\"",
+        "*Rhea ki aankhein ek second ke liye Damien par theherti hain — thandi, ginne waali aankhein. Phir woh mud kar tumhari taraf dekhti hai, aur uski aankhon ka temperature wapas ghar jaisa ho jaata hai.*"
+      ],
+      "fallbackLines": [
+        "*Rhea tumhari kalai ki patti ko dekhti hai — uski jawan ungliyan ek pal ke liye muthiyaati hain, phir dobara narm ho jaati hain.*",
+        "Rhea: \"Elias keh raha hai, kalai teen hafte mein theek ho jayegi. Main sun rahi hoon — tumhe jo bhi kehna ho.\"",
+        "Damien: \"Main bahar hi hoon. Jitni der chaaho.\""
+      ],
+      "choices": [
+        {
+          "id": "c_poochho_rhea",
+          "text": "Rhea se poochho — Tumhe pata kaise chala?",
+          "shortLabel": "Rhea se poochho",
+          "keywords": [
+            "pata",
+            "kaise",
+            "rhea",
+            "poochho",
+            "batao",
+            "khabar"
+          ],
+          "next": "s4_sach",
+          "effects": {
+            "relationships": {
+              "rhea": 1
+            },
+            "memory": [
+              "{{playerName}} ne Rhea se poochha ki use sab kaise pata chala — is sawaal ne poori kahaani kholi: academy ki galti, chhupi reports, aur Damien-Ravenna ka link."
+            ]
+          }
+        },
+        {
+          "id": "c_damien_bulao",
+          "text": "Damien ko andar bulao",
+          "shortLabel": "Damien bulao",
+          "keywords": [
+            "damien",
+            "bulao",
+            "andar",
+            "phal",
+            "mile"
+          ],
+          "next": "s5_damien",
+          "effects": {
+            "memory": [
+              "{{playerName}} ne Damien ko hospital kamre mein andar bulaya — Rhea ki nazar mein ek pal ke liye kuch tham gaya."
+            ]
+          }
+        },
+        {
+          "id": "c_bahar_jao",
+          "text": "Bahar jao — Dada-Dadi se milne",
+          "shortLabel": "Dada-Dadi se milo",
+          "keywords": [
+            "bahar",
+            "dada",
+            "dadi",
+            "lucian",
+            "isolde",
+            "milo"
+          ],
+          "next": "s3_family",
+          "effects": {
+            "relationships": {
+              "rhea": 1
+            },
+            "memory": [
+              "{{playerName}} ne kamre se bahar Dada-Dadi se milne jaane ka faisla kiya — Rhea turant saath chal padi, ek kadam peeche, jaise hamesha."
+            ]
+          }
+        },
+        {
+          "id": "c_haath_thamo",
+          "text": "Sirf Rhea ka haath tham kar rahe jao",
+          "shortLabel": "Haath tham ke raho",
+          "keywords": [
+            "haath",
+            "thamo",
+            "pakad",
+            "chup",
+            "khamosh",
+            "rhea"
+          ],
+          "next": "s4_sach",
+          "effects": {
+            "relationships": {
+              "rhea": 2
+            },
+            "flags": {
+              "rhea_trust": true
+            },
+            "memory": [
+              "{{playerName}} ne bina bole Rhea ka haath tham kar khamoshi chuni — Rhea ne baad mein Elias se kaha tha ki us ek pal ne uske pandrah din ka aadha bojh utaar diya tha."
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "id": "s3_family",
+      "title": "Lucian Aur Isolde",
+      "narration": [
+        "*Corridor ka mood badal jaata hai. Lucian tumhari taraf badhta hai — aur woh aadmi jiske naam par duniya ki taqatein ruk jaati hain, aaj sirf ek dada ki tarah do kadam door ruk jaata hai.*",
+        "Lucian: \"Ho gaya na? Ab aur nahi. Ghar. Kal subah.\"",
+        "*Do shabd — par isme pandrah din ka poora hisaab hai ki parivaar ke andar kya guzra hoga.*",
+        "Isolde: \"Aur main, mere laal — main tumhare liye kheer le kar aayi hoon. Chalo, pehle kheer, phir baaki duniya.\"",
+        "*Uski choodiyan tumhari thandi kalai se takraati hain aur duniya ki sabse darawni maa ki aankhein bheeg jaati hain — bilkul aaram se, jaise bas isi kamre ke andar hi hote ho.*",
+        "Isolde: \"Pandrah din se har subah yahi dua maang rahi thi — bas meri aankhein khulein to tumhari saans chalti rahe.\"",
+        "Lucian: \"Golden Jail. Uska naam bhi nahi bachega. Aur jo log us khandhar ko sahara de rahe the...\" *woh aage kuch nahi kehta — par uski chuppi ka wazan kamron tak mehsoos hota hai.*"
+      ],
+      "fallbackLines": [
+        "Lucian: \"Kalai ki patti — Elias kehta hai teen hafte mein theek. Tum us din bhi zidd nahi chhodte.\"",
+        "Isolde: \"Tumhare kamre ki pardein ghar se bheji hain. Wohi waali jo subah ki pehli roshni dikhati hain.\"",
+        "*Corridor ke us paar Rhea khadi hai — apne aap ke paas. Aur Damien uske peeche, halka sa, chup.*"
+      ],
+      "choices": [
+        {
+          "id": "c_dadi_hug",
+          "text": "Dadi Isolde ka sahara lo",
+          "shortLabel": "Dadi ka sahara",
+          "keywords": [
+            "dadi",
+            "isolde",
+            "sahara",
+            "hug",
+            "gal",
+            "kheer"
+          ],
+          "next": "s4_sach",
+          "effects": {
+            "relationships": {
+              "isolde": 2,
+              "lucian": 1
+            },
+            "memory": [
+              "{{playerName}} ne dadi Isolde ka sahara liya — parivaar ke liye woh pal ghar ka sabse bada ilaaj tha. Isolde ne us din kaha tha: mera laal wapas aa gaya."
+            ]
+          }
+        },
+        {
+          "id": "c_dada_sawal",
+          "text": "Dada Lucian se seedha poochho — Aapne unka kya kiya?",
+          "shortLabel": "Dada se poochho",
+          "keywords": [
+            "dada",
+            "lucian",
+            "golden jail",
+            "hisaab",
+            "kya kiya",
+            "punishment"
+          ],
+          "next": "s4_sach",
+          "effects": {
+            "relationships": {
+              "lucian": 1
+            },
+            "memory": [
+              "{{playerName}} ne dada Lucian se Golden Jail ke hisaab ka seedha sawal poochha — Lucian ne jawab shabdon se nahi, apni chuppi ki wazan se diya: hisaab ho chuka hai."
+            ]
+          }
+        },
+        {
+          "id": "c_akela_hoon",
+          "text": "Sab ko thoda akela chhodne ko kaho",
+          "shortLabel": "Akela chhod do",
+          "keywords": [
+            "akela",
+            "chhod",
+            "alone",
+            "khamosh",
+            "aaram"
+          ],
+          "next": "s7_elias",
+          "effects": {
+            "relationships": {
+              "rhea": 1
+            },
+            "memory": [
+              "{{playerName}} ne sabko thoda akela hone ke liye kaha — Rhea foran maan gayi aur darwaze ke bahar kursi par baith gayi; darwaza band nahi kiya."
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "id": "s4_sach",
+      "title": "Pandrah Din Ka Sach",
+      "narration": [
+        "*Rhea poori file kholti hai — shabdon mein, bina kaagaz ke. Uski awaaz shaant hai, par har lafz ke neeche wahi taqat hai jo Golden Jail ko raakh bana chuki hai.*",
+        "Rhea: \"Maine tumhe manners seekhne bheja tha. Shaant jagah, saaf profile — isliye tumhara naam wahan kisi ko nahi bataya gaya tha. Yahi galti thi. Tumhe wahan aam ladka samjha gaya... aur wahan ke logon ne is galti ka bura istemaal kiya.\"",
+        "Rhea: \"Mujhe khabar nahi mili. Hamein jo reports aati thi, sab jhoote the. Mujhe laga tum theek ho. Ye meri sabse badi andhi thi, {{playerName}}.\"",
+        "*Ek pal ke liye uski jawan chehre ki chamak utar jaati hai — par woh turant sambhal jaati hai. Duniya ka dar girta nahi; sirf andar ka dard ek second ke liye dikhta hai.*",
+        "Rhea: \"Phir dada aur maa ne zid ki ki main khud tumse milne jaata karoon. Maine jaana... aur raaste mein pata chala ki tumhe Golden Jail becha ja chuka hai. Us waqt mujhe ye bhi nahi pata tha ki ye bechne ka hukum kisi apne ghar ke andar se nikla tha.\"",
+        "Rhea: \"Wahan pahunchi to ek bhediya monster tum par toota chal raha tha. Ek goli chali — aur khatam. Uske baad Golden Jail ka jo bhi hisaab tha, woh humne kar liya. Ab us jagah ka naam bhi nahi hai.\"",
+        "Rhea: \"Ravenna — Golden Jail ki maalik — zinda hai. Kyunki uska hisaab maine nahi, TUM karna hai. Aur ek sach aur nikla: use pehle se pata tha ki tum kaun ho. Usne keemat jaan kar badhaai thi. Aur uske paise ka raasta... Damien ke message se shuru hota hai.\"",
+        "Damien: \"Aur wahi sabse ajeeb baat hai. Kyunki maine koi message nahi kiya tha. Mujhe frame kiya ja raha hai, {{playerName}} — aur main ye sach sabke saamne laane ke liye sab kuch karunga.\"",
+        "Rhea: \"Maine use is shart par maaf kiya hai — ek bhi saboot mila, to consequences uski khud ki definition se honge. Ab... faisla dheere-dheere, tumhari raftaar se.\""
+      ],
+      "fallbackLines": [
+        "Rhea: \"Jab tak tumhara faisla na ho, Ravenna ki kursi nahi hilne waali. Main shabd de sakti hoon, haq nahi.\"",
+        "Isolde: \"Bas itna yaad rakhna, mere laal — jo hua, woh tumhari kamzori nahi thi. Jo log naam se kamzor samajhte hain, woh naam ki taqat nahi jaante.\"",
+        "Lucian: \"Sach poora niklega. Chahe woh kis bhi darwaaze se aaye.\""
+      ],
+      "choices": [
+        {
+          "id": "c_ravenna_dekho",
+          "text": "Ravenna ko khud dekhna chahte ho",
+          "shortLabel": "Ravenna se milo",
+          "keywords": [
+            "ravenna",
+            "golden jail",
+            "maalik",
+            "milo",
+            "dekhna",
+            "saza"
+          ],
+          "next": "s6_ravenna",
+          "effects": {
+            "location": "hospital",
+            "memory": [
+              "{{playerName}} ne Ravenna se milne ka faisla kiya — Qaidi No. 1 ka hisaab ab khud sunne ja rahe hain."
+            ]
+          }
+        },
+        {
+          "id": "c_damien_file",
+          "text": "Damien ke sach ki file maango",
+          "shortLabel": "Damien ki file",
+          "keywords": [
+            "damien",
+            "frame",
+            "sach",
+            "file",
+            "saboot",
+            "shaq"
+          ],
+          "next": "s5b_damien_probe",
+          "effects": {
+            "location": "hospital",
+            "memory": [
+              "{{playerName}} ne Damien ke frame-up ke dave ki file maangi — shaq aur bharosa dono ab mez par hain."
+            ]
+          }
+        },
+        {
+          "id": "c_pehle_recover",
+          "text": "Sab ek taraf — pehle main khud theek hona chahta hoon",
+          "shortLabel": "Pehle theek hona",
+          "keywords": [
+            "theek",
+            "recover",
+            "aaram",
+            "baad",
+            "pehle"
+          ],
+          "next": "s7_elias",
+          "effects": {
+            "location": "hospital",
+            "memory": [
+              "{{playerName}} ne sach sunne ke baad bhi apni recovery ko pehle rakha — parivaar ne is faisle ka poora samman kiya."
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "id": "s5_damien",
+      "title": "Damien Ka Visit",
+      "narration": [
+        "*Damien andar aata hai — tray bahar chhod aata hai, haath mein sirf ek purane shatranj ka ghoda. Jaise keh raha ho: main khel jaanta hoon; mujhe jeb mein band karke mat rakho.*",
+        "Damien: \"Main jaanta hoon tumhare dimaag mein aaj sirf mera chehra hai. Theek hai. Main bhaagna nahi chahta, {{playerName}} — main apni safai ke liye khada hoon.\"",
+        "Damien: \"Ek cheez pehle bata doon — Ravenna sach ke saath jhooth bhi bolti hai. Uska kaam hi wahi hai. Par us jhoothe hisaab mein mera naam aane ka ek matlab aur ho sakta hai: jisne frame kiya, woh chahta tha ki main is dhakke se kabhi na uthoon.\"",
+        "*Woh shatranj ka ghoda mez par rakhta hai — bilkul tumhari patti waale haath ke paas.*",
+        "Damien: \"Aur ek baat. Golden Jail khatam hua hai — bazaar nahi. Jo log cheezein khareedte the, woh naye naam dhoondh rahe hain. Aur jab tak is ghar ke andar ka sach adhoora hai... hum sab andar se kamzor dikh sakte hain.\"",
+        "Rhea: \"Damien. Bahar.\"",
+        "*Do shabd. Woh muskurata hai — aur pehli baar uski muskaan mein ek second ka delay hota hai.*",
+        "Damien: \"Jab bhi bulaoge, aa jaunga. Main kuch chhupane se nahi darta, {{playerName}}. Chhupane waale milenge — bas kadam milane chahiye.\"",
+        "*Darwaza band hota hai. Shatranj ka ghoda mez par pada hai — apne aap ko sambhalne ki koshish karta hua.*"
+      ],
+      "fallbackLines": [
+        "Damien: \"Aur kitni safai doon? Sawal poochho, {{playerName}} — main bhaagunga nahi.\"",
+        "Rhea: \"Tum poochho jo bhi poochna hai. Main yahin hoon.\"",
+        "*Kamre ke bahar Damien ke kadam ruk jaate hain — jaise woh deewar se hi sun raha ho.*"
+      ],
+      "choices": [
+        {
+          "id": "c_test",
+          "text": "Usko test karo — Tumne mujhe bechne diya kyun, Damien?",
+          "shortLabel": "Damien ko test karo",
+          "keywords": [
+            "damien",
+            "test",
+            "kyun",
+            "becha",
+            "sawal",
+            "ilzaam"
+          ],
+          "next": "s5b_damien_probe",
+          "effects": {
+            "relationships": {
+              "damien": -1
+            },
+            "memory": [
+              "{{playerName}} ne Damien ko seedha test kiya — ki use becha kyun gaya. Damien ne bhaagne ke bajaye apna hisaab aage badhaya."
+            ]
+          }
+        },
+        {
+          "id": "c_bharosa",
+          "text": "Haath milao — Aaj ke liye, bharosa",
+          "shortLabel": "Haath milao",
+          "keywords": [
+            "haath",
+            "bharosa",
+            "trust",
+            "milao",
+            "maaf"
+          ],
+          "next": "s5b_damien_probe",
+          "effects": {
+            "relationships": {
+              "damien": 2
+            },
+            "flags": {
+              "damien_trust": true
+            },
+            "memory": [
+              "{{playerName}} ne aaj ke liye Damien par bharosa ka haath badhaya — Rhea ne dekha, par kuch nahi kaha."
+            ]
+          }
+        },
+        {
+          "id": "c_chup_dekho",
+          "text": "Chup raho — sirf uski aankhein padho",
+          "shortLabel": "Aankhein padho",
+          "keywords": [
+            "chup",
+            "khamosh",
+            "aankhein",
+            "padho",
+            "dekho"
+          ],
+          "next": "s5b_damien_probe",
+          "effects": {
+            "memory": [
+              "{{playerName}} ne kuch nahi kaha — sirf Damien ki aankhein padhi. Khamoshi mein Damien ne apna hisaab khud aage badhaya."
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "id": "s5b_damien_probe",
+      "title": "Keenchar Mein Khade",
+      "narration": [
+        "*Damien baith jaata hai — kursi par nahi, jaise zameen par bhi baith sakta tha. Uski polished duniya mein aaj pehli baar koi kursi ki kami dikh rahi hai.*",
+        "Damien: \"Tumne poochha — maine bechne diya kyun. Mera jawab: maine nahi diya. Par main is sawaal se nahi bhaagunga ki log ye kyun maante hain. Kyunki main jaanta hoon is sawaal ke peeche kaun hai.\"",
+        "Damien: \"Ravenna ke paise ka raasta — us hisaab mein ek cheez chhooti hai: golden coin. Ek taraf sooraj, doosri taraf ek. Surya Kunj — wohi Golden Jail ka asli naam — ke registers mein bhi ek hi naam ab bacha hai. Aur woh... mera nahi hai.\"",
+        "*Woh haath kholta hai — khaali. Par uski kalai par ek purana nishaan sa hai, jaise bachpan ke kisi toofan ka.*",
+        "Damien: \"Mujhe ye ghar isliye mila tha, {{playerName}} — kyunki mera koi ghar nahi tha. Agar main sach mein gaddar nikla, to parivaar ka sabse bada mazaak ban jaaunga. Aur agar main nirdosh hoon... to jo mujhe frame kar raha hai, woh ghar ke ANDAR se hai.\"",
+        "Rhea: \"To phir jo bhi hai — mez par aayega. Sach chhup kar nahi jeeta, Damien.\"",
+        "Damien: \"Main chahta hoon ki sach ek din apne aap aaye. Aur tab tak — main tumhare saath hoon. Bina kisi shart ke.\""
+      ],
+      "fallbackLines": [
+        "Damien: \"Jab tak sach saaf nahi hota, main isi corridor ke intezaar mein rahunga. Har din.\"",
+        "Rhea: \"Ek baat yaad rakhna, dono — parivaar sach se bada nahi hota. Kabhi nahi tha.\"",
+        "*Bahar guard badal raha hai — kadam ki awaaz corridor mein bahut saaf hai.*"
+      ],
+      "choices": [
+        {
+          "id": "c_coin_poochho",
+          "text": "Ravenna se golden coin ke raaste ka sach poochho",
+          "shortLabel": "Coin ka sach",
+          "keywords": [
+            "coin",
+            "golden",
+            "ravenna",
+            "raasta",
+            "saboot",
+            "poochho"
+          ],
+          "next": "s6_ravenna",
+          "effects": {
+            "flags": {
+              "coin_track": true
+            },
+            "memory": [
+              "Damien ne Ravenna ke hisaab mein golden coin ka zikr kiya — {{playerName}} ne Ravenna se isi coin ke raaste ka sach poochhne ka faisla kiya."
+            ]
+          }
+        },
+        {
+          "id": "c_elias_wapas",
+          "text": "Elias ke paas wapas — aaj bas itna",
+          "shortLabel": "Elias ke paas",
+          "keywords": [
+            "elias",
+            "doctor",
+            "aaram",
+            "wapas",
+            "recover"
+          ],
+          "next": "s7_elias",
+          "effects": {
+            "memory": [
+              "{{playerName}} ne Damien ke baad Elias ke paas jaana chuna — body aur dimaag dono ko thakaan thi."
+            ]
+          }
+        },
+        {
+          "id": "c_duniya_nazar",
+          "text": "Damien ki warning ko duniya ke khatron se milao",
+          "shortLabel": "Duniya ke khatre",
+          "keywords": [
+            "bazaar",
+            "khatra",
+            "dhamki",
+            "duniya",
+            "naya"
+          ],
+          "next": "s10_threat",
+          "effects": {
+            "memory": [
+              "Damien ki warning — bazaar naye naam dhoondh raha hai — {{playerName}} ke dimaag mein bas gayi; duniya ke naye khatron ki taraf nazar daali."
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "id": "s6_ravenna",
+      "title": "Qaidi No. 1",
+      "narration": [
+        "*Neeche ki holding floor. Ek saaf kamra, ek kursi, ek mez — aur Ravenna. Sone ki chamak ab sirf uske purane ghadi mein hai; aankhein aisi hain jaise kisi ne raaton se neend cheen li ho.*",
+        "Ravenna: \"Young Master... aap... aap khud aaye. Zinda dekhne ke liye maine... maine...\"",
+        "*Uski awaaz tabah hai — wahi aurat jo ek waqt sona ginta tha, ab apne hisaab ke panno ko samet samet dekh rahi hai.*",
+        "Ravenna: \"Haan. Maine pata lagaya tha ki tum kaun ho. Din nahi laga — tumhara ek chinh, ek chaal, ek nazron ka lehza kaafi tha. Maine keemat badha di. Kyunki mujhe laga jo parivaar itna bhaari hai, uska ladka bhi... par itna bhaari hoga hi nahi.\"",
+        "Ravenna: \"Aur Damien ka message — sunehri mohar wala. Usi ne kaha tha: naam mat lena, bas rakhna. Us raaste ka hisaab mere paas hai. Chaabi... coin hai. Har message usi coin ke nishaan ke bina nahi jaata tha.\"",
+        "*Rhea mez par haath rakhti hai — halke se. Kamre ka taap do degree gir jaata hai.*",
+        "Rhea: \"Saza ka faisla aaj bhi iska nahi hai. Mera bhi nahi. Iska hai.\" *woh tumhari taraf dekhti hai* \"Jab tak tum kaho, yeh wahin rahegi. Zinda. Soch samajh kar.\""
+      ],
+      "fallbackLines": [
+        "Ravenna: \"Main dhanda dekha tha, dushman nahi... par ab samajh aaya hai — jise maine maal likha tha, woh duniya ka sartaaj tha. Mera hisaab ab tumhare haath mein hai.\"",
+        "Rhea: \"Ek aur shabd bola, to uski kursi ek aur mahina aage badh jayegi.\"",
+        "*Kamre ki ek hi batti hai — aur woh bhi thandi.*"
+      ],
+      "choices": [
+        {
+          "id": "c_faisla_baad",
+          "text": "Faisla aaj nahi — Tum wahin raho. Jab mera dil kahe, tab bulaaungi.",
+          "shortLabel": "Faisla baad mein",
+          "keywords": [
+            "faisla",
+            "baad",
+            "maaf",
+            "saza",
+            "ravenna",
+            "wait"
+          ],
+          "next": "s11_verdict",
+          "effects": {
+            "location": "holding-floor",
+            "flags": {
+              "ravenna_pending": true
+            },
+            "memory": [
+              "{{playerName}} ne Ravenna ki saza ka faisla aaj nahi liya — use wahin rakha, bulane ka haq apne paas. Ravenna ka hisaab khula hai aur {{playerName}} ke faisle par atka hai."
+            ]
+          }
+        },
+        {
+          "id": "c_coin_sach",
+          "text": "Golden coin ke raaste ka sach maango",
+          "shortLabel": "Coin ka sach maango",
+          "keywords": [
+            "coin",
+            "sach",
+            "raasta",
+            "saboot",
+            "damien",
+            "message"
+          ],
+          "next": "s11_verdict",
+          "effects": {
+            "location": "holding-floor",
+            "flags": {
+              "coin_proof": true
+            },
+            "inventoryAdd": [
+              "sunehra-coin"
+            ],
+            "memory": [
+              "Ravenna ne golden coin ke raaste ka sach de diya — har message sunehri mohar se jaata tha, aur mohar ki chaabi coin hai. Coin ab {{playerName}} ke paas saboot hai — par ye Damien ko pakka nahi karta, sirf raasta dikhata hai."
+            ]
+          }
+        },
+        {
+          "id": "c_khamoshi",
+          "text": "Kuch mat kaho — sirf uski aankhon mein apna sawal dekho",
+          "shortLabel": "Khamoshi",
+          "keywords": [
+            "chup",
+            "khamosh",
+            "aankhein",
+            "dekho",
+            "sawal"
+          ],
+          "next": "s11_verdict",
+          "effects": {
+            "location": "holding-floor",
+            "flags": {
+              "ravenna_pending": true
+            },
+            "memory": [
+              "{{playerName}} ne Ravenna se kuch nahi kaha — sirf dekha. Khamoshi bhi ek saza hai jo use samajh aa gayi."
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "id": "s7_elias",
+      "title": "Doctor Elias Ki Report",
+      "narration": [
+        "*Elias ki report sabse kam shabdon mein aati hai — par uske peeche pandrah din ki har raat ka sabr hai.*",
+        "Elias: \"Sharir theek ho raha hai. Kalai teen hafte mein — phir bina dard ke. Bhookh kal se wapas aa rahi hai, jo achha sign hai.\"",
+        "Elias: \"Ab woh hissa jiska koi scan nahi hota. Raat kaisi gayi? Tukde aaye? Koi pressure nahi — bas bata do, ya likh do. Ye lo.\"",
+        "*Woh ek saada notebook dete hain — mota, bina kisi design ke.*",
+        "Elias: \"Jab raat mein cheezein tukdon mein aaye, is par likh dena. Dimaag kaghaz par bharosa karta hai — maine pandrah saal mein ye baat dekhi hai.\"",
+        "Elias: \"Aur ek baat pehle hi keh doon — jo academy mein hua, usme tumhari koi galti nahi thi. Tumhe wahan sedatives diye jaate the. Na bhaag sakte the, na apni pehchaan bata sakte the. Woh tumhara fail nahi tha — unka jurm tha.\"",
+        "*Uski awaaz ek second ke liye doctor se bahar nikal aati hai — phir wapas professional mein aa jaati hai.*"
+      ],
+      "fallbackLines": [
+        "Elias: \"Aaj ki dawa se neend gehri aayegi. Sapne aayenge — par tum unse akela nahi jaoge. Log hain.\"",
+        "Elias: \"Kalai ka physio subah aur shaam. Dard hoga to main hoon — ladna mat, par rokna bhi mat.\"",
+        "*Monitor ki lakeerein shaant hoti hain — jaise kamre ne saans li ho.*"
+      ],
+      "choices": [
+        {
+          "id": "c_notebook_lo",
+          "text": "Notebook lo aur shukriya kaho",
+          "shortLabel": "Notebook lo",
+          "keywords": [
+            "notebook",
+            "likho",
+            "shukriya",
+            "dhanyawad",
+            "elias"
+          ],
+          "next": "s9_home",
+          "effects": {
+            "location": "hospital",
+            "inventoryAdd": [
+              "elias-notebook"
+            ],
+            "memory": [
+              "Elias ne {{playerName}} ko raat ke tukdon ke liye notebook di — likh kar mann ko halka karne ka tareeqa. {{playerName}} ne use le liya."
+            ]
+          }
+        },
+        {
+          "id": "c_neend_sach",
+          "text": "Elias ko sach batao — Neend mein bhediya aata hai",
+          "shortLabel": "Sach batao",
+          "keywords": [
+            "neend",
+            "sapna",
+            "bhediya",
+            "sach",
+            "raat",
+            "darr"
+          ],
+          "next": "s9_home",
+          "effects": {
+            "location": "hospital",
+            "relationships": {
+              "elias": 2
+            },
+            "flags": {
+              "elias_trust": true
+            },
+            "memory": [
+              "{{playerName}} ne Elias ko sach bataya ki neend mein bhediya aata hai — Elias ne grounding exercises aur halki raat ki dawa dono di. Recovery ka pehla sach chhoot gaya."
+            ]
+          }
+        },
+        {
+          "id": "c_khamosh_elias",
+          "text": "Kuch mat kaho — sirf notebook tham kar raho",
+          "shortLabel": "Chup raho",
+          "keywords": [
+            "chup",
+            "khamosh",
+            "notebook",
+            "akela",
+            "raho"
+          ],
+          "next": "s9_home",
+          "effects": {
+            "location": "hospital",
+            "memory": [
+              "{{playerName}} ne Elias ke saamne kuch nahi kaha. Elias ne zor nahi daala — bas kaha: jab bolna ho, main hoon."
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "id": "s8_golden_jail",
+      "title": "Wapas Khaddar",
+      "narration": [
+        "*Rhea ka offer seedha tha: ek baar jaao, apni aankhon se dekho, phir hamesha ke liye band karo. Helicopter ke neeche pahadon ka wohi khadda hai jahan Golden Jail tha.*",
+        "*Jo bacha hai woh dher hai — tooti zanjeerein, pighla hua sona, jali registers ki raakh. Deewar par sunehra sooraj ab adhoora lagta hai.*",
+        "*Wahan jahan tumhe rakha gaya tha — ab sirf ret aur khidkiyon ke tukde hain. Hawa mein lohe ki wohi khushboo, par ab koi darwaza nahi.*",
+        "Rhea: \"Jab main yahan pahunchi thi... mujhe pehle se andaza tha ki main andar kya milne waala hai. Phir andar se tumhari awaaz aayi — aur maine sochna band kar diya.\"",
+        "*Uski pistol ab bhi uske paas hai — usne us raat ke baad use kabhi alag nahi kiya.*",
+        "Rhea: \"Bolo, {{playerName}}. Ye jagah ab tumhare haath mein hai. Aaj ke baad na yahan kuch bachega, na koi nishaan... jab tak tum chaaho.\""
+      ],
+      "fallbackLines": [
+        "*Ret par sirf tumhare aur Rhea ke nishaan hain — guard bahut peeche khade hain.*",
+        "Rhea: \"Jitni der chaho. Main kahin nahi jaa rahi.\"",
+        "*Khidki ke tukde par sooraj adhoora chamakta hai — jaise is jagah ka purana nishaan ab thak gaya ho.*"
+      ],
+      "choices": [
+        {
+          "id": "c_aag_aakhri",
+          "text": "Jagah ko hamesha ke liye khatam karwao",
+          "shortLabel": "Sab khatam karo",
+          "keywords": [
+            "aag",
+            "khatam",
+            "mitao",
+            "jail",
+            "khatra",
+            "sab"
+          ],
+          "next": "s11_verdict",
+          "effects": {
+            "location": "golden-jail-ruins",
+            "flags": {
+              "jail_finished": true
+            },
+            "memory": [
+              "{{playerName}} ne Golden Jail ke khaddar ko hamesha ke liye khatam karwane ka hukum diya — aaj ke baad itehaas mein sirf itna likha rahega ki yahan ek galti hui thi."
+            ]
+          }
+        },
+        {
+          "id": "c_saboot_sambhalo",
+          "text": "Registry ka bacha hua hissa sambhal lo",
+          "shortLabel": "Registry sambhalo",
+          "keywords": [
+            "registry",
+            "saboot",
+            "panna",
+            "naam",
+            "hisaab",
+            "sambhalo"
+          ],
+          "next": "s11_verdict",
+          "effects": {
+            "location": "golden-jail-ruins",
+            "flags": {
+              "evidence_kept": true
+            },
+            "inventoryAdd": [
+              "registry"
+            ],
+            "memory": [
+              "{{playerName}} ne Golden Jail ke jale registry ka bacha hua hissa sambhala — kuch panno par ab bhi naam likhe hain jinko jalane ki kisi ne jaldi nahi ki thi."
+            ]
+          }
+        },
+        {
+          "id": "c_rhea_poochho",
+          "text": "Rhea se poochho — Us din andar aate waqt kya hua tha?",
+          "shortLabel": "Rhea ka hisaab",
+          "keywords": [
+            "rhea",
+            "us din",
+            "andar",
+            "goli",
+            "bachaya",
+            "poochho"
+          ],
+          "next": "s11_verdict",
+          "effects": {
+            "location": "golden-jail-ruins",
+            "relationships": {
+              "rhea": 2
+            },
+            "memory": [
+              "{{playerName}} ne Rhea se us raat ka hisaab suna — darwaza, awaaz, ek goli, aur ek baanh jo uske baad kabhi nahi chhooti. Rhea ne poori baat bina filter ke kahi."
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "id": "s9_home",
+      "title": "Sartaaj Bhavan",
+      "narration": [
+        "*Sartaaj Bhavan ke darwaze par duniya ki sabse taqat guards khadi hain — par ghar ke andar sirf Isolde ki kheer ki khushboo hai.*",
+        "Isolde: \"Aa gaya mera laal. Chal, pehle kheer. Duniya kal se shuru karna — aaj nahi.\"",
+        "*Lucian apne study ke darwaze par khada hai — shatranj ka board taiyaar, ek kursi khaali. Duniya ke naksha saamne phaile hain.*",
+        "Lucian: \"Golden Jail ke peechhe jo bhi the — sab ab saamne hain. Ghabra mat. Par dekh lena. Ye duniya hai jo tujh par haath uthane ka sochti thi.\"",
+        "*Mez par ek diary hai — uski ek ek line mein ek hi hisaab: kis ghar ne indirect taur par tumhari kaid se judna tha, aur ab woh kya kehne ko aaye hain.*",
+        "*Aur balcony par — Rhea akeli khadi hai. Sheher ki roshni uske chehre par padti hai, aur ek pal ke liye woh wahi jawan aurat dikhti hai jo duniya ne kabhi thanda nahi dekha — bas thaki hui ek mausi, apne bachche ke liye raat bhar jaagi hui.*"
+      ],
+      "fallbackLines": [
+        "Isolde: \"Thoda sa namak aur — theek hai, bas itna hi. Khil ja, mere laal.\"",
+        "Lucian: \"Duniya ke paas sab kuch hai. Hamare paas tu hai. Yahi kaafi hai.\"",
+        "*Balcony ki halki roshni mein Rhea ka saya deewar par lamba hota hai — par uski aankhein tumhari taraf hi hain.*"
+      ],
+      "choices": [
+        {
+          "id": "c_dada_study",
+          "text": "Dada ke saath study mein baitho",
+          "shortLabel": "Dada ke saath",
+          "keywords": [
+            "dada",
+            "lucian",
+            "study",
+            "shatranj",
+            "baitho",
+            "naksha"
+          ],
+          "next": "s10_threat",
+          "effects": {
+            "location": "study",
+            "relationships": {
+              "lucian": 1
+            },
+            "memory": [
+              "{{playerName}} ne dada Lucian ke saath study mein time bitaya — parivaar ke jawab ki poori list dekhi. Lucian ne koi faisla {{playerName}} par nahi thopa; sirf itna kaha: sab tumhare haath mein hai."
+            ]
+          }
+        },
+        {
+          "id": "c_dadi_kitchen",
+          "text": "Dadi ke saath kitchen mein",
+          "shortLabel": "Dadi ke saath",
+          "keywords": [
+            "dadi",
+            "isolde",
+            "kitchen",
+            "kheer",
+            "khaana",
+            "kahani"
+          ],
+          "next": "s10_threat",
+          "effects": {
+            "location": "sartaaj-bhavan",
+            "relationships": {
+              "isolde": 2
+            },
+            "memory": [
+              "{{playerName}} ne dadi Isolde ke saath kitchen mein kheer khaayi — Isolde ne Rhea ke bachpan ki kahaniyan sunayi: woh chhoti Rhea pehli baar apne chhote bhai ke liye poori colony se lad kar aayi thi."
+            ]
+          }
+        },
+        {
+          "id": "c_rhea_balcony",
+          "text": "Rhea ke saath balcony par jao",
+          "shortLabel": "Balcony par Rhea",
+          "keywords": [
+            "rhea",
+            "balcony",
+            "akela",
+            "baat",
+            "raat"
+          ],
+          "next": "s10_threat",
+          "effects": {
+            "location": "sartaaj-bhavan",
+            "relationships": {
+              "rhea": 2
+            },
+            "memory": [
+              "Balcony par Rhea ne apni galti ka poora bojh {{playerName}} ke saamne rakha — maafi nahi maangi, sirf sach kaha: maine tumhe bheja tha, aur main wahan nahi pahunchi. {{playerName}} ka jawab parivaar ka naya moral compass ban gaya."
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "id": "s10_threat",
+      "title": "Duniya Ki Aankhen",
+      "narration": [
+        "*Subah ke akhbaar nahi aate — Rhea ki team unhe duniya se pehle padh leti hai. Par parivaar ke andar ki duniya ka akhbaar alag hai: ek kaali envelope.*",
+        "*Andar sirf ek line likhi hai — sunehri si: \"Ek laash ne balance kharid liya. Baaki ka balance?\"*",
+        "Rhea: \"Kaal Bazaar. Golden Jail ke peeche ka network abhi zinda hai — naye naam, purana dhandha. Unhe lagta hai ki ek kamzor Young Master ke saath parivaar ki keemat gir jayegi.\"",
+        "*Uski jawan ungliyan envelope ko chaant deti hain — aur un par gussa nahi dikhta. Sirf ek thandi taiyaari dikhti hai.*",
+        "Rhea: \"Par unki galat-fehmi unki sabse badi kamzori banegi. Tum kamzor nahi ho, {{playerName}}. Tumhare paas woh hai jo in logon mein kabhi nahi tha — poora parivaar, poora naam, aur tumhara apna hisaab.\"",
+        "Lucian: \"Do raaste hain. Dar dikhao — ya neeyamat. Dono chalte hain. Par faisla... tumhara hai.\"",
+        "Isolde: \"Aur ek baat duniya ko yaad dilani hai — jo log ghar ke andar se chhue the, woh phir kabhi chhue nahi jayenge.\""
+      ],
+      "fallbackLines": [
+        "Rhea: \"Guard badh gaye hain. Parivaar ke andar se koi khabar nahi niklegi — bahar duniya sirf andaza laga rahi hai.\"",
+        "Lucian: \"Dhamki ki likhaawat purani hai. Purani likhaawat ka matlab: purana khiladi.\"",
+        "*Khidki se sheher dikhta hai — jise nahi pata ki uski raat kin taqaton ke beech ruk rahi hai.*"
+      ],
+      "choices": [
+        {
+          "id": "c_jawab_taiyaar",
+          "text": "Rhea ke saath jawab taiyaar karo",
+          "shortLabel": "Jawab taiyaar",
+          "keywords": [
+            "jawab",
+            "dhamki",
+            "rhea",
+            "taiyaar",
+            "kaal bazaar",
+            "plan"
+          ],
+          "next": "s11_verdict",
+          "effects": {
+            "location": "sartaaj-bhavan",
+            "flags": {
+              "response_prepared": true
+            },
+            "relationships": {
+              "rhea": 1
+            },
+            "memory": [
+              "{{playerName}} ne Rhea ke saath Kaal Bazaar ka jawab taiyaar kiya — dhamki ka jawab duniya ko dikhaya jayega."
+            ]
+          }
+        },
+        {
+          "id": "c_envelope_rakho",
+          "text": "Envelope apne paas rakho — pehle uske raaste jaano",
+          "shortLabel": "Envelope rakho",
+          "keywords": [
+            "envelope",
+            "kaanp",
+            "raasta",
+            "jaano",
+            "saboot",
+            "khud"
+          ],
+          "next": "s11_verdict",
+          "effects": {
+            "location": "sartaaj-bhavan",
+            "flags": {
+              "envelope_kept": true
+            },
+            "inventoryAdd": [
+              "kaali-envelope"
+            ],
+            "memory": [
+              "{{playerName}} ne Kaal Bazaar ki kaali envelope apne paas rakh li — pehle uske raaste jaanne ka faisla. Ek naya sach dhoondhne ki shuruaat."
+            ]
+          }
+        },
+        {
+          "id": "c_ghar_pehle",
+          "text": "Aaj sirf ghar — duniya ka jawab kal",
+          "shortLabel": "Pehle ghar",
+          "keywords": [
+            "ghar",
+            "aaj",
+            "kal",
+            "baad",
+            "shaanti",
+            "duniya"
+          ],
+          "next": "s11_verdict",
+          "effects": {
+            "location": "sartaaj-bhavan",
+            "relationships": {
+              "rhea": 1
+            },
+            "memory": [
+              "{{playerName}} ne dhamki ka jawab aaj nahi diya — pehle ghar sambhalne ka faisla kiya. Rhea ne is shaanti ka poora samman kiya."
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "id": "s11_verdict",
+      "title": "Hisaab — Tumhare Haath",
+      "narration": [
+        "*Raat. Study ki purani mez par teen files hain — aur sabke saamne ek hi kursi khaali hai: tumhari.*",
+        "Rhea: \"Teen hisaab. Pehla — Ravenna ki saza, ab bhi tumhare naam par. Doosra — Damien ka sach, shaq ke saath khada hai; proof kahan tak pahuncha, yahi file batayegi. Teesra — duniya ka jawab, jo usne aaj likha hai.\"",
+        "Rhea: \"Main in teeno ko apne hisaab se nipta sakti thi. Par us din ek goli ne tumhe bachaya tha — aur aaj teen files tumhari kursi ke saamne hain. Yahi maine tumhe di hai: haq.\"",
+        "Lucian: \"Koi jaldi nahi. Subah tak bhi theek. Par faisla hoga... to poora hoga.\"",
+        "Isolde: \"Aur jo bhi faisla hoga, mere laal — ghar wahi rahega. Ghar se koi bahar nahi hoga, chahe kuch bhi ho jaye.\"",
+        "*Rhea ki jawan aankhein tumhare chehre par theherti hain — duniya ke liye woh sabse bade faisle karne waali hai; ghar ke liye woh bas wait kar rahi hai ki uska baccha kya kehta hai.*"
+      ],
+      "fallbackLines": [
+        "Rhea: \"Jab tak tum kaho, koi file nahi khulegi. Meri shakti tumhare faisle ke peeche hai — uske saamne nahi.\"",
+        "Lucian: \"Bade faisle akelapan maangte hain. Hum bahar hain — jab bulao.\"",
+        "*Study ki ghadi tick karti hai — teen files, ek kursi, aur ek subah jo dher se aayegi.*"
+      ],
+      "choices": [
+        {
+          "id": "c_ravenna_ab",
+          "text": "Ravenna ka faisla aaj karo",
+          "shortLabel": "Ravenna ka faisla",
+          "keywords": [
+            "ravenna",
+            "faisla",
+            "saza",
+            "aaj",
+            "hisaab"
+          ],
+          "next": "s12_aage",
+          "effects": {
+            "location": "study",
+            "flags": {
+              "ravenna_decided": true
+            },
+            "memory": [
+              "{{playerName}} ne Ravenna ki saza ka faisla aaj khud liya — faisla kya tha, woh {{playerName}} ke saath hai; zimmedari ab uski hai."
+            ]
+          }
+        },
+        {
+          "id": "c_damien_confront",
+          "text": "Damien ko coin ke saboot ke saath sabke saamne bulao",
+          "shortLabel": "Damien ko bulao",
+          "requiresFlag": "coin_proof",
+          "keywords": [
+            "damien",
+            "coin",
+            "saboot",
+            "confront",
+            "bulao",
+            "sach"
+          ],
+          "next": "s12_aage",
+          "effects": {
+            "location": "study",
+            "flags": {
+              "damien_confronted": true
+            },
+            "memory": [
+              "{{playerName}} ne Damien ko golden coin ke raaste ke saboot ke saath parivaar ke saamne bulaya — ab ya to woh sach layega, ya gir jayega."
+            ]
+          }
+        },
+        {
+          "id": "c_damien_watch",
+          "text": "Damien par khamoshi se nazar rakho — kuch mat kaho",
+          "shortLabel": "Nazar rakho",
+          "requiresFlag": "!coin_proof",
+          "keywords": [
+            "damien",
+            "nazar",
+            "watch",
+            "chup",
+            "shaq",
+            "raasta"
+          ],
+          "next": "s12_aage",
+          "effects": {
+            "location": "study",
+            "flags": {
+              "damien_watch": true
+            },
+            "memory": [
+              "{{playerName}} ne Damien ko fauran confront nahi kiya — khamoshi se nazar rakhne ka faisla. Shaq ab parivaar ke andar ek chupa darwaza hai."
+            ]
+          }
+        },
+        {
+          "id": "c_files_raat",
+          "text": "Teeno files raat ko apne kamre le jao — subah faisla",
+          "shortLabel": "Files le jao",
+          "keywords": [
+            "files",
+            "raat",
+            "subah",
+            "kamra",
+            "soch",
+            "baad"
+          ],
+          "next": "s12_aage",
+          "effects": {
+            "location": "study",
+            "memory": [
+              "{{playerName}} ne teeno files raat ke liye apne paas rakhi — subah tak faisla. Rhea ne ek bhi sawal nahi poochha."
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "id": "s12_aage",
+      "title": "Aage — Tumhari Kahaani",
+      "narration": [
+        "*Subah Sartaaj Bhavan par utarti hai — kaali gallery mein sunehri lakeerein. Golden Jail ab mitti hai, Ravenna neeche hai, Damien ke kadam par nazar hai, aur duniya ka jawab abhi likha nahi gaya.*",
+        "*Tum {{playerName}} ho — duniya ke #1 parivaar ke Young Master, jiski ladaai kamzor hai par naam sabse bhaari. Aaj ka pehla faisla bhi tumhara hai: is kahani ka agla darwaza kaunsa khulega.*",
+        "Rhea: \"Nashta taiyaar hai. Aur jahan bhi jana hai — main hoon.\"",
+        "Damien: \"Aur main... jawab dene ke liye taiyaar hoon. Jab bhi bulao.\"",
+        "*Balcony ke bahar sheher jaag raha hai — jise nahi pata ki uska aaj kiski aankhon mein likha hai.*"
+      ],
+      "fallbackLines": [
+        "Rhea: \"Jahan bhi jao, yaad rakhna — tumhe akela kabhi nahi chhodungi. Ab kabhi nahi.\"",
+        "Isolde: \"Kheer thandi ho rahi hai, mere laal. Duniya kal bhi rahegi.\"",
+        "*Bahar guards badal rahe hain — parivaar ka din shuru ho raha hai.*"
+      ],
+      "choices": [
+        {
+          "id": "c_loop_ravenna",
+          "text": "Ravenna se phir milne jao",
+          "shortLabel": "Ravenna se milo",
+          "keywords": [
+            "ravenna",
+            "phir",
+            "milo",
+            "hisaab",
+            "saza"
+          ],
+          "next": "s6_ravenna",
+          "effects": {
+            "memory": [
+              "{{playerName}} ne Ravenna se dobara milne ka faisla kiya — hisaab abhi chal raha hai."
+            ]
+          }
+        },
+        {
+          "id": "c_loop_jail",
+          "text": "Golden Jail ki khaddar par phir jaana",
+          "shortLabel": "Khaddar par jao",
+          "keywords": [
+            "golden jail",
+            "khaddar",
+            "phir",
+            "jaana",
+            "jagah"
+          ],
+          "next": "s8_golden_jail",
+          "effects": {
+            "memory": [
+              "{{playerName}} ne Golden Jail ki khaddar par phir jaane ka faisla kiya — kuch abhi bhi wahan adhoora hai."
+            ]
+          }
+        },
+        {
+          "id": "c_loop_threat",
+          "text": "Duniya ke naye khatron par nazar daalo",
+          "shortLabel": "Naye khatre",
+          "keywords": [
+            "duniya",
+            "khatra",
+            "kaal bazaar",
+            "dhamki",
+            "nazar"
+          ],
+          "next": "s10_threat",
+          "effects": {
+            "memory": [
+              "{{playerName}} ne duniya ke naye khatron par nazar daalne ka faisla — Kaal Bazaar ka agla kadam dhoondhna hai."
+            ]
+          }
+        },
+        {
+          "id": "c_loop_damien",
+          "text": "Damien ke kadam phir jaano",
+          "shortLabel": "Damien parakhho",
+          "keywords": [
+            "damien",
+            "kadam",
+            "jaano",
+            "shaq",
+            "bharosa",
+            "parakh"
+          ],
+          "next": "s5b_damien_probe",
+          "effects": {
+            "memory": [
+              "{{playerName}} ne Damien ko dobara parakhne ka faisla kiya — shaq ya bharosa, dono ab aage badhenge."
+            ]
+          }
+        }
+      ]
+    }
+  ],
+  "endings": []
+}

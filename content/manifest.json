@@ -1,8 +1,58 @@
 {
-  "contentVersion": 26,
+  "contentVersion": 27,
   "minAppVersion": "1.0.0",
-  "updatedAt": "2026-09-19T00:11:07.000Z",
+  "updatedAt": "2026-09-19T12:00:00.000Z",
   "stories": [
+    {
+      "id": "sartaaj-young-master",
+      "title": "Sartaaj — The Young Master",
+      "tagline": "Duniya jhukti hai tumhare parivaar ke naam par. Tum khud ladaai mein kamzor ho — aur ye tumhara sabse bada raaz hai.",
+      "description": "Tum {{playerName}} ho — duniya ke sabse taqatwar parivaar ke Young Master. Jiska naam sunte hi raja, general aur billionaire jhuk jaate hain. Par tumhari apni ladaai mein taqat thodi hai — aur yahi tumhara sabse bada raaz hai. Tumhe manners seekhne bheja gaya tha... aur galti se woh haath badal gaya jisne tumhe Golden Jail bech diya. Tumhari aunt Rhea — jawaan, khoobsurat aur poori duniya ka dar — ne ek goli se tumhe bachaya, par ab tak jo sach adhoora hai, woh tumhare faisle ka intezaar kar raha hai: Ravenna ki saza, Damien par shaq, aur duniya ki jalti hui aankhen. Ye kahani tum utaaroge — ek-ek faisla tumhara. Ye kahani kabhi khatam nahi hoti.",
+      "genres": [
+        "Dark Fantasy",
+        "Thriller",
+        "Drama",
+        "Mystery",
+        "Family Power"
+      ],
+      "tags": [
+        "young-master",
+        "family-power",
+        "dark-fantasy",
+        "psychological",
+        "mystery",
+        "betrayal",
+        "ongoing",
+        "hinglish"
+      ],
+      "characters": [
+        "Rhea",
+        "Lucian",
+        "Isolde",
+        "Damien",
+        "Ravenna",
+        "Elias"
+      ],
+      "ageRating": "18+",
+      "contentLevel": "mature",
+      "language": "hinglish",
+      "version": 1,
+      "coverUrl": "stories/sartaaj-young-master/assets/cover.jpg",
+      "accentColor": "#C9A227",
+      "userRole": "{{playerName}} — duniya ke #1 sabse taqatwar parivaar ka Young Master; ladaai mein kamzor par status mein ajay; recovery, hisaab aur naye khatron ke beech faisla sirf tumhare haath mein",
+      "setting": "Aaj ka world — Sartaaj Bhavan (parivaar ka estate), Asha Kiran hospital ka 7th floor, Golden Jail ke tabaah hue niche-khadda Complex, aur neeche duniya ka chhupa sauda-bazaar; ek aisi duniya jahan parivaar ka naam hi ek fatwa hai",
+      "estimatedMinutes": 45,
+      "featured": true,
+      "isNew": true,
+      "popularity": 98,
+      "storyDir": "sartaaj-young-master",
+      "updatedAt": "2026-09-19T12:00:00.000Z",
+      "creator": {
+        "name": "Ankit",
+        "avatar": null,
+        "verified": true
+      }
+    },
     {
       "id": "my-absolute-revenge",
       "title": "My Absolute Revenge",

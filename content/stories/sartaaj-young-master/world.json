@@ -1,0 +1,137 @@
+{
+  "storyId": "sartaaj-young-master",
+  "version": 1,
+  "premise": "Tum {{playerName}} ho — duniya ke #1 sabse taqatwar parivaar ka Young Master. Parivaar ka naam ek fatwa hai: raja, general, media-magnate aur billionaire sab uske saamne jhukte hain. Par tumhari apni ladaai mein taqat thodi hai — yahi tumhara sabse gehra raaz hai, aur parivaar ke liye ye kabhi kamzori nahi rahi. Mausi Rhea ne tumhe manners aur discipline seekhne bheja tha — jagah galat nikli, logon ne tumhe aam ladka samjha, aur dhokhe ki ek zanjeer chal padi. Rhea ko pata chala to woh khud Golden Jail pahunch gayi — ek goli, ek bhaunk, aur ek baanh. Golden Jail ab mitti ka dher hai; Ravenna zinda hai, saza tumhare faisle par atki hai; Damien par shaq hai, proof nahi. Ab tum hospital ki ek khamosh kamre se duniya ki sabse badi kursi ki taraf wapas ja rahe ho — aur har kadam par duniya dekh rahi hai ki Young Master kaun hai. Faisle sirf tumhare: kisko maaf, kisko saza, kispar bharosa — aur khud ko kaise wapas jeena hai. Ye kahani kabhi khatam nahi hoti.",
+  "locations": [
+    {
+      "id": "hospital",
+      "name": "Asha Kiran Hospital — 7th Floor",
+      "description": "Parivaar ka private wing — poora floor khaali, darwaze par do chupchaap guard, aur andar sirf monitors ki dhun. Ward No. 7 ki khidki se sheher bahut neeche dikhta hai — jaise duniya ki height se dekh rahe ho."
+    },
+    {
+      "id": "sartaaj-bhavan",
+      "name": "Sartaaj Bhavan",
+      "description": "Parivaar ka estate — kaali sangemarmar ki gallery, purana shatranj-kamra, Isolde ka garam kitchen, Lucian ka study jahan duniya ke naksha badle, aur Rhea ka balcony jahan se poori raat chamakti hai."
+    },
+    {
+      "id": "golden-jail-ruins",
+      "name": "Golden Jail — Khandaar",
+      "description": "Pahadon ke neeche ek chhupa complex jo ab dhuan aur dhool hai. Tooti zanjeerein, jalta hua registry, aur deewaron par ab bhi sooraj ka sunehra chinh. Hawa mein ab bhi lohe ki khushboo hai."
+    },
+    {
+      "id": "holding-floor",
+      "name": "Neeche Ki Holding Floor",
+      "description": "Parivaar ke estate ke sabse neeche — jahan duniya ke sabse khatarnaak mehmaan \"reh\" sakte hain. Qaidi No. 1 yahin hai. Sona, sauda aur sabr — sab yahin ruk gaya hai."
+    },
+    {
+      "id": "study",
+      "name": "Lucian Ka Study",
+      "description": "Ek kamra jahan duniya ke taqdeer ke faisle hote aaye hain. Mez par do cheezein hamesha rehti hain — ek shatranj ka board, aur ek diary jo kabhi koi aur nahi kholta."
+    },
+    {
+      "id": "bazaar",
+      "name": "Kaal Bazaar (chhupa sauda-network)",
+      "description": "Golden Jail khatam ho gaya, par jo bazaar usko jeeta tha woh abhi zinda hai. Naye naam, purane dhandhe. Aur ek khamosh sawal — ab kaun Young Master ki keemat likhega?"
+    }
+  ],
+  "factions": [
+    {
+      "id": "sartaaj-parivaar",
+      "name": "Sartaaj Parivaar",
+      "description": "Duniya ka #1 parivaar — paison se nahi, taqat se. Bahar ke liye thand aur dar; andar ke liye pyaar aur chhaanv. Betrayal ke jawab ka dar duniya ne dekha hai — par innocent log kabhi nahi."
+    },
+    {
+      "id": "kaal-bazaar",
+      "name": "Kaal Bazaar",
+      "description": "Golden Jail jaise daag-dhue logon ka chhupa network. Iski kaali-envelopes abhi bhi kisi na kisi ke darwaze par pahunchti hain. Kaun chala raha hai — abhi koi nahi jaanta."
+    },
+    {
+      "id": "purane-ghar",
+      "name": "Purane Ghar (old-money coalition)",
+      "description": "Woh kuch purane khandan jo parivaar ki chhaanv mein kabhi seethe the. Golden Jail ka tabaah unke liye ek message tha — par kuch logon ne isse darr ki jagah izzat ka jhooth samjha hai."
+    },
+    {
+      "id": "media-duniya",
+      "name": "Media aur Duniya",
+      "description": "Parivaar ke baare mein koi khabar nahi nikalti — par ab sab duniya ke kaan khade hain. Ek chhoti si news bhi Young Master ki kamzori ko duniya ka headline bana sakti hai. Rhea ke liye ye maidaan hai."
+    }
+  ],
+  "lore": [
+    "Sartaaj parivaar ki taqat sirf paison ki nahi — uske peeche ek poori chhupi hui duniya hai: elite guards, intelligence network, aur aise log jo kabhi raat mein awaaz nahi karte.",
+    "Parivaar ka usool: jo bahaar hai, woh darr ka hissa hai; jo andar hai, woh sab kuch hai. Yahi usool use duniya ka #1 banata hai.",
+    "Golden Jail ka naam purane registers mein sirf \"Surya Kunj\" likha jaata tha — sunehra sooraj uska brand tha. Ab woh chinh kaat diye jaate hain.",
+    "Rhea ki ek goli se shuru hui us raat ke baad se duniya ne do baar dekha hai ki parivaar ka darr kaisa hota hai — dono baar usne aankhein nahi kholi.",
+    "{{playerName}} ki taqat ladai mein kam hai — par uska naam itna bhaari hai ki taqat use pehchaan karti hai. Yahi paradox uski asli pehchaan hai.",
+    "Ravenna ka sunehra coin — ek taraf sooraj, doosri taraf \"1\" — ab ek saboot hai jo parivaar ke vault mein rakha hai. Kaun kaun is coin ko jaanta hai, yahi ek naya raasta hai."
+  ],
+  "rules": [
+    "Duniya Sartaaj naam se darti hai — par {{playerName}} ke saamne log uski izzat mein jhukte hain, dar se nahi, taqat ke aadab mein. Young Master ka status har jagah poora rehta hai.",
+    "{{playerName}} ki ladaai mein taqat kam hai — ye uska raaz hai, uska mazaak nahi. Parivaar isse kabhi kamzori nahi maanta.",
+    "Rhea hamesha jawan, khoobsurat aur elegant rehti hai — uske liye duniya ke liye thandi, {{playerName}} ke liye pighli hui. Uski har reaction mein {{playerName}} sabse pehle hai.",
+    "Lucian kam bolta hai; Isolde ke pyaar mein garmi hai — par dono ki shakti duniya ne dekhi hai. Ghar ke andar dono narm hain.",
+    "Damien par shaq hai — par proof ke bina usse ilzaam pakka nahi karna. Uska har scene mein yahi uncertainty saans leti rahegi jab tak player khud faisla na kare.",
+    "Ravenna zinda hai — uski saza ka faisla sirf {{playerName}} karega. Koi aur is faisle ko aage nahi badha sakta.",
+    "Kabhi bhi {{playerName}} ki feelings, morality, dialogue ya decisions force mat karo — uska jawab hamesha player ke choice se aayega. Narration mein MC ka mann kabhi nahi likhna.",
+    "Violence hamesha non-graphic: nateeje, awaazein, parchhaiyan aur emotion dikhao — torture, khoon ya zakhm ki detail kabhi nahi.",
+    "Har bade raaz, wada aur faisla ko memory mein record karo — Golden Jail, Damien ka shaq, Ravenna ka intezaar, hospital ki raatein — scene badle ya app band ho, kuch nahi bhoolna."
+  ],
+  "importantObjects": [
+    {
+      "id": "sunehra-coin",
+      "name": "Sunehra Coin",
+      "description": "Ravenna ka token — ek taraf sooraj, doosri taraf \"1\". Golden Jail ka saboot, aur naye network ki chaabi ka shayad pehla sukha."
+    },
+    {
+      "id": "kaali-envelope",
+      "name": "Kaali Envelope",
+      "description": "Kaal Bazaar ka nishaan — andar sirf ek line: \"Ek laash ne balance kharid liya. Baaki ka balance?\""
+    },
+    {
+      "id": "elias-notebook",
+      "name": "Elias Ki Notebook",
+      "description": "Raat ke tukdon ko kaghaz par utaarne ke liye. Elias ka kehna hai — dimaag kaghaz par bharosa karta hai."
+    },
+    {
+      "id": "rhea-pistol",
+      "name": "Rhea Ki Pistol",
+      "description": "Wahi jo us raat boli thi. Ab bhi uski saree ke neeche, jab woh akeli hoti hai."
+    },
+    {
+      "id": "registry",
+      "name": "Jala Registry",
+      "description": "Golden Jail ka adhoora hisaab — kuch panno par ab bhi naam likhe hain jo kisi ne jalane ka jaldi nahi kiya."
+    }
+  ],
+  "timeline": [
+    {
+      "id": "t1",
+      "when": "Pehle",
+      "what": "Rhea {{playerName}} ko manners aur discipline seekhne bhejti hai — ek shaant academy, achhe intentions."
+    },
+    {
+      "id": "t2",
+      "when": "Wahan",
+      "what": "Log use aam ladka samajhte hain. Naam koi nahi poochta. Haalaat dheere dheere bigad jaate hain — Rhea ko khabar nahi."
+    },
+    {
+      "id": "t3",
+      "when": "Usi dauraan",
+      "what": "Damien secretly Ravenna se contact karta hai. Hukum: {{playerName}} ko acquire karo. Ravenna use Golden Jail le aati hai — use pata hai ladka kaun hai."
+    },
+    {
+      "id": "t4",
+      "when": "Us raat",
+      "what": "Lucian aur Isolde ki zid par Rhea khud jaati hai. Golden Jail mein ek bhediya monster {{playerName}} par toot raha hota hai — ek goli, aur sab khatam."
+    },
+    {
+      "id": "t5",
+      "when": "Uske baad",
+      "what": "Golden Jail ka hisaab ho jaata hai (non-graphic). Ravenna pakdi jaati hai — zinda, {{playerName}} ke faisle ke liye. Damien \"frame-up\" kehta hai; Rhea shart-par maanti hai."
+    },
+    {
+      "id": "t6",
+      "when": "Ab",
+      "what": "{{playerName}} 15 din ke baad hosh mein aata hai. Kahani yahin se shuru hoti hai."
+    }
+  ]
+}

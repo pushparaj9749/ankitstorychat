@@ -1,0 +1,102 @@
+{
+  "id": "sartaaj-young-master",
+  "title": "Sartaaj — The Young Master",
+  "description": "Tum {{playerName}} ho — duniya ke sabse taqatwar parivaar ke Young Master. Jiska naam sunte hi raja, general aur billionaire jhuk jaate hain. Par tumhari apni ladaai mein taqat thodi hai — aur yahi tumhara sabse bada raaz hai. Tumhe manners seekhne bheja gaya tha... aur galti se woh haath badal gaya jisne tumhe Golden Jail bech diya. Tumhari aunt Rhea — jawaan, khoobsurat aur poori duniya ka dar — ne ek goli se tumhe bachaya, par ab tak jo sach adhoora hai, woh tumhare faisle ka intezaar kar raha hai: Ravenna ki saza, Damien par shaq, aur duniya ki jalti hui aankhen. Ye kahani tum utaaroge — ek-ek faisla tumhara. Ye kahani kabhi khatam nahi hoti.",
+  "version": 1,
+  "language": "hinglish",
+  "ageRating": "18+",
+  "contentLevel": "mature",
+  "genres": [
+    "Dark Fantasy",
+    "Thriller",
+    "Drama",
+    "Mystery",
+    "Family Power"
+  ],
+  "tags": [
+    "young-master",
+    "family-power",
+    "dark-fantasy",
+    "psychological",
+    "mystery",
+    "betrayal",
+    "ongoing",
+    "hinglish"
+  ],
+  "userRole": "{{playerName}} — duniya ke #1 sabse taqatwar parivaar ka Young Master; ladaai mein kamzor par status mein ajay; recovery, hisaab aur naye khatron ke beech faisla sirf tumhare haath mein",
+  "setting": "Aaj ka world — Sartaaj Bhavan (parivaar ka estate), Asha Kiran hospital ka 7th floor, Golden Jail ke tabaah hue niche-khadda Complex, aur neeche duniya ka chhupa sauda-bazaar; ek aisi duniya jahan parivaar ka naam hi ek fatwa hai",
+  "openingSceneId": "s1_hospital",
+  "tone": "Dark cinematic family-power drama. Hinglish narration — thick atmosphere, sharp dialogue, emotional weight. Rhea duniya ke liye thandi hai, {{playerName}} ke liye pighli hui. {{playerName}} ka reaction, gussa, maafi, darr ya himmat — KABHI force nahi hota; jo player choose kare wahi MC ki personality hai. Damien par shaq rehta hai, proof ke bina ilzaam pakka nahi. Violence hamesha non-graphic — nateeja aur emotion dikhao, khoon nahi.",
+  "safetyNotes": [
+    "18+ mature: betrayal, captivity aur psychological pain intense hote hain — par torture, injuries ya gore ki graphic detail kabhi nahi.",
+    "Rhea ek YOUNG ADULT aurat hai (jawaaan, khoobsurat, elegant) — \"aunt\" sirf rishta hai, umar nahi.",
+    "{{playerName}} ki ladaai mein kamzori kabhi uska mazaak nahi banegi — uska status Young Master ka poora rehta hai.",
+    "Player ki morality, decisions aur feelings par poora respect — koi choice ya emotion force nahi.",
+    "Ravenna zinda hai — uski saza ka faisla {{playerName}} ka hai. Damien guilty ya innocent — story proof ke hisaab se aage badhegi."
+  ],
+  "creator": {
+    "name": "Ankit",
+    "avatar": null,
+    "verified": true
+  },
+  "media": {
+    "cover": "assets/cover.jpg",
+    "gallery": [
+      {
+        "id": "cover",
+        "file": "assets/cover.jpg",
+        "kind": "cover",
+        "label": "Cover"
+      },
+      {
+        "id": "sartaaj-parivaar",
+        "file": "assets/gallery/image-01.jpg",
+        "kind": "scene",
+        "label": "Sartaaj Parivaar",
+        "sceneId": "s9_home"
+      },
+      {
+        "id": "vidai",
+        "file": "assets/gallery/image-02.jpg",
+        "kind": "scene",
+        "label": "Vidai — Ek Normal Shuruaat",
+        "sceneId": "s4_sach"
+      },
+      {
+        "id": "andheri-academy",
+        "file": "assets/gallery/image-03.jpg",
+        "kind": "scene",
+        "label": "Jahan Naam Mat Poocha Gaya",
+        "sceneId": "s4_sach"
+      },
+      {
+        "id": "golden-sauda",
+        "file": "assets/gallery/image-04.jpg",
+        "kind": "scene",
+        "label": "Golden Jail Ka Sauda",
+        "sceneId": "s6_ravenna"
+      },
+      {
+        "id": "ek-goli",
+        "file": "assets/gallery/image-05.jpg",
+        "kind": "scene",
+        "label": "Rhea Ki Entry — Ek Goli",
+        "sceneId": "s8_golden_jail"
+      },
+      {
+        "id": "pehli-baanh",
+        "file": "assets/gallery/image-06.jpg",
+        "kind": "scene",
+        "label": "Pehli Baanh",
+        "sceneId": "s2_rhea"
+      },
+      {
+        "id": "hisaab-ki-mez",
+        "file": "assets/gallery/image-07.jpg",
+        "kind": "scene",
+        "label": "Hisaab Ki Mez",
+        "sceneId": "s11_verdict"
+      }
+    ]
+  }
+}
