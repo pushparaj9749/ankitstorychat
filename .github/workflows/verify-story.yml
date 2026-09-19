@@ -1,0 +1,83 @@
+name: Verify story on production API
+
+# On-demand production verification (workflow_dispatch only — never runs
+# automatically). Checks the live story API:
+#   /api/health          → Worker identity + contentVersion
+#   /api/manifest        → the story entry exists
+#   /api/stories/<dir>   → package 200
+#   cover + gallery 01..NN → 200 and image/jpeg
+
+on:
+  workflow_dispatch:
+    inputs:
+      story_dir:
+        description: 'storyDir to verify on production'
+        required: false
+        default: 'sartaaj-young-master'
+      gallery_count:
+        description: 'expected gallery image count (image-01..NN)'
+        required: false
+        default: '7'
+      min_content_version:
+        description: 'fail if production contentVersion is lower than this'
+        required: false
+        default: '27'
+
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Verify production story API
+        shell: bash
+        run: |
+          set -uo pipefail
+          DIR="${{ inputs.story_dir }}"
+          N="${{ inputs.gallery_count }}"
+          MINV="${{ inputs.min_content_version }}"
+          BASE="https://beyondredeye.site/api"
+          fails=0
+          pass=0
+          code() { curl -s -o /dev/null -w '%{http_code}' --max-time 30 "$@"; }
+          ctype() { curl -s -o /dev/null -w '%{content_type}' --max-time 30 "$@"; }
+
+          hb=$(curl -s --max-time 30 "$BASE/health")
+          case "$hb" in
+            *kissa-content-api*) echo "✅ health identifies kissa-content-api"; pass=$((pass+1));;
+            *) echo "❌ health body unexpected: $(echo "$hb" | head -c 120)"; fails=$((fails+1));;
+          esac
+          v=$(node -e "try{console.log(JSON.parse(process.argv[1]).contentVersion)}catch(e){console.log(0)}" "$hb")
+          if [ "$v" -ge "$MINV" ] 2>/dev/null; then
+            echo "✅ contentVersion $v >= $MINV"; pass=$((pass+1))
+          else
+            echo "❌ contentVersion $v < $MINV"; fails=$((fails+1))
+          fi
+
+          man=$(curl -s --max-time 30 "$BASE/manifest")
+          if echo "$man" | node -e "
+            let d='';process.stdin.on('data',c=>d+=c).on('end',()=>{
+              const m=JSON.parse(d);
+              const s=m.stories.find(x=>x.storyDir===process.argv[1]||x.id===process.argv[1]);
+              if(!s){console.error('❌ story missing from production manifest');process.exit(1);}
+              console.log('✅ manifest entry: '+s.title+' (coverUrl: '+s.coverUrl+')');
+            });" "$DIR"; then pass=$((pass+1)); else fails=$((fails+1)); fi
+
+          c=$(code "$BASE/stories/$DIR")
+          if [ "$c" = "200" ]; then echo "✅ GET /api/stories/$DIR -> 200"; pass=$((pass+1));
+          else echo "❌ package -> $c"; fails=$((fails+1)); fi
+
+          cc=$(ctype "$BASE/stories/$DIR/assets/cover.jpg")
+          if [ "$cc" = "image/jpeg" ]; then echo "✅ cover -> image/jpeg"; pass=$((pass+1));
+          else echo "❌ cover content-type: $cc"; fails=$((fails+1)); fi
+
+          for i in $(seq -w 1 "$N"); do
+            ct=$(ctype "$BASE/stories/$DIR/assets/gallery/image-$i.jpg")
+            if [ "$ct" = "image/jpeg" ]; then echo "✅ gallery image-$i.jpg -> image/jpeg"; pass=$((pass+1));
+            else echo "❌ gallery image-$i.jpg content-type: $ct"; fails=$((fails+1)); fi
+          done
+
+          echo "--- production verification: $pass passed, $fails failed ---"
+          if [ "$fails" -ne 0 ]; then
+            echo "::error title=Production verification::$fails check(s) failed for $DIR"
+            exit 1
+          fi
+          echo "::notice title=Production verification::All $pass checks passed for $DIR — story + cover + $N gallery images live."
