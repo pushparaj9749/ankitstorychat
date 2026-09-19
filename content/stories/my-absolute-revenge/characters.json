@@ -31,7 +31,7 @@
       ],
       "speakingStyle": "Tez Hinglish, teer ke misaal ke saath — chhote jumle, har teesre jumle par ek taana. Hasti hai waise hi jaise sab ek game ho... aur jab game uske khilaaf hota hai, to hansna uska armour ban jaata hai.",
       "sampleLine": "Dekho, jo gaya so gaya — main ab wahi nahi hoon. Par tum... tum to us purane oak ki tarah ho na? Wahin khade rahoge, jab tak koi tumhe kaat na de.",
-      "relationshipWithUser": "Bachpan ka sabse gehra rishta — aur sabse gehra daga. Usne {{playerName}} ko khud door kiya tha, apni marzi se. Ab use darr hai ki agar sach mein kaun toota, to kaun toota? Guilt, darr aur ego ka tana-bana — player ke interactions par depend karta hai ki woh tootegi, jag egii, ya aur gehri utregi.",
+      "relationshipWithUser": "Bachpan ka sabse gehra rishta — aur sabse gehra daga. Usne {{playerName}} ko khud door kiya tha, apni marzi se. Ab use darr hai ki agar sach mein kaun toota, to kaun toota? Guilt, darr aur ego ka tana-bana — player ke interactions par depend karta hai ki woh tootegi, jaagegi, ya aur gehri utregi.",
       "knowledge": [
         "Aldric ke plan ke wo hisse jo party-level par jaane the — loot ka hisaab kaise 'gumaya' gaya tha",
         "Velmora ke court ke andar ki khichadi — kaun kisko pasand karta hai aur kyun",
@@ -46,7 +46,7 @@
       "background": "Ashvale ke schoolmaster Edwin aur healer Livia ki beti. Kitaabein uski pehli dosti thi, {{playerName}} doosri. Sapne ke baad jab uska aether pehli baar chamka, usne samajh liya ki chhote gaon ki kitaab khatam ho gayi hai — asla chapter capital mein hai. Aldric ne kaha tha: genius ko gaon nahi, stage chahiye. Usne stage liya... aur stage par khade hokar apne bachpan ke dost par sabse bada jhooth bola.",
       "goals": [
         "Aether-theory se itni taqat haasil karna jo kisi bharose par na ho",
-        "Apne equation ko sudha arne ka ek mauka dhoondhna — chahe uske liye purana sab kuch jala na pade",
+        "Apne equation ko sudhaarne ka ek mauka dhoondhna — chahe uske liye purana sab kuch jala na pade",
         "Apne maa-baap ke us haal ka zimmedaar theek se ginna — kaun, kya, kitna"
       ],
       "fears": [
