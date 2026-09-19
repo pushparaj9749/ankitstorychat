@@ -196,6 +196,19 @@ jobs:
           check "GET /api/stories/$STORY_DIR/story.json" "200" "$(code "$base/stories/$STORY_DIR/story.json")"
           cover_type=$(curl -s -o /dev/null -w '%{content_type}' --max-time 30 "$base/stories/$STORY_DIR/assets/cover.jpg" || echo '')
           check "GET story cover content-type" "image/jpeg" "$cover_type"
+
+          # Media Library: every gallery image of the newest story must be
+          # served from the Worker as image/jpeg (catches missing assets in
+          # the deploy bundle, not just the cover).
+          GALLERY_COUNT=$(node -e "
+            const s = require('./content/stories/' + process.argv[1] + '/story.json');
+            console.log((s.media?.gallery ?? []).filter((g) => g.file !== 'assets/cover.jpg').length);
+          " "$STORY_DIR")
+          echo "gallery images expected for $STORY_DIR: $GALLERY_COUNT"
+          for i in $(seq -w 1 "$GALLERY_COUNT"); do
+            gct=$(curl -s -o /dev/null -w '%{content_type}' --max-time 30 "$base/stories/$STORY_DIR/assets/gallery/image-$i.jpg" || echo '')
+            check "GET gallery image-$i content-type" "image/jpeg" "$gct"
+          done
           check "GET /api/covers/$COVER_NAME" "200" "$(code "$base/covers/$COVER_NAME")"
 
           # 3) CORS: allowed origin reflected, foreign origin refused.
