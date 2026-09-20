@@ -21,7 +21,7 @@ import { effectiveContentApiBaseUrl, getBundle, getBundledCoverSource, mediaApiU
 import { getApiKey } from '../lib/secureKeys';
 import { aiErrorMessage, chatCompletion } from '../lib/ai';
 import { applyEffects, buildContext, getScene, HISTORY_HEADROOM, parseAssistantResponse, progressEstimate, shortTermWindowOf } from '../lib/engine';
-import { consolidateMemories, logEpisode, putMemory, recallForTurn, rememberMany, rememberPreferences, episodeLine } from '../lib/memory';
+import { completeEpisode, consolidateMemories, putMemory, recallForTurn, rememberMany, rememberPreferences, episodeLine } from '../lib/memory';
 import { ensureWorldState } from '../lib/worldState';
 import { runMemoryWritePipeline, recallWithWorldState } from '../lib/memoryEngine';
 import { listMemoryCandidates } from '../lib/db';
@@ -176,15 +176,21 @@ export function Chat({ navigation, route }: Props) {
     const history = recent.filter((m, i) => !(i === recent.length - 1 && m.role === 'user' && m.text === userText));
     const query = [...history.slice(-2).map((m) => m.text), userText].join('\n');
 
+    // Persist reader-authored preferences before retrieval. The current turn
+    // must be visible to the narrator even on a first mention, and it must
+    // survive a provider timeout.
+    await rememberPreferences(userText).catch(() => 0);
     const pool = await listMemoryCandidates([pt.id, '*']).catch(() => [] as any[]);
     const summaryRaw = await recallForTurn(pt.id, query).then((r) => r.summary).catch(() => '');
     let relevant: any[] = [];
     let summary = summaryRaw;
+    let immediateContext = '';
     let wsForPrompt = worldState;
     try {
       const read = await recallWithWorldState(pt, b, query, history, pool, summaryRaw);
       relevant = read.memories;
       summary = read.summary;
+      immediateContext = read.immediateContext;
       wsForPrompt = read.worldState ?? worldState;
     } catch {
       const fb = await recallForTurn(pt.id, query).catch(() => ({ memories: [], summary: '' } as any));
@@ -192,14 +198,11 @@ export function Chat({ navigation, route }: Props) {
       summary = fb.summary;
     }
 
-    // L1 FIX: Remember preferences BEFORE calling AI, so user's turn survives provider failures
-    void rememberPreferences(userText).catch(() => undefined);
+    // Log the user side before AI. completeEpisode upgrades this exact row on
+    // success; on failure it remains a useful, searchable trace.
+    await putMemory(pt.id, 'episode', episodeLine(userText, ''), 1, { source: 'episode', confidence: 'high' }).catch(() => 'skipped');
 
-    // L1 FIX: Log user-side of the episode BEFORE AI, so it persists even on timeout
-    // L6: Use the canonical episodeLine format
-    void putMemory(pt.id, 'episode', episodeLine(userText, ''), 1).catch(() => undefined);
-
-    const ctx = buildContext({ bundle: b, profile, playthrough: pt, memories: relevant, history, summary, worldState: wsForPrompt }, profile.ageGroup);
+    const ctx = buildContext({ bundle: b, profile, playthrough: pt, memories: relevant, history, summary, worldState: wsForPrompt, immediateContext }, profile.ageGroup);
     const raw = await chatCompletion(activeProvider, apiKey, [{ role: 'system', content: ctx.system }, ...ctx.messages, { role: 'user', content: userText }]);
 
     const parsed = parseAssistantResponse(raw);
@@ -213,11 +216,13 @@ export function Chat({ navigation, route }: Props) {
         assistantText: displayText,
         parsedExtractionRaw: (parsed as any).worldStateRaw ?? (parsed as any).rawStateJson ?? null,
         worldState: wsForPrompt,
+        skipEpisode: true,
       });
     } catch {}
 
-    // L6: Merge assistant text into the episode (hash-dedupe keeps single row)
-    void logEpisode(pt.id, userText, displayText).catch(() => undefined);
+    // Upgrade the pre-AI user-only episode in place. This keeps one complete
+    // turn in long-term memory instead of two near-identical rows.
+    void completeEpisode(pt.id, userText, displayText).catch(() => undefined);
     if (parsed.memoryNotes?.length) void rememberMany(pt.id, parsed.memoryNotes, 'story', 3).catch(() => undefined);
 
     const saved = await persistAssistantLines(pt, [{ role: 'assistant', speaker: parsed.speaker, text: displayText }], pt.currentSceneId);

@@ -122,40 +122,29 @@ GitHub Actions (deploy-api.yml)  ←— push to main (this private repo)
 ## 🧠 Memory: how the narrator keeps track
 
 Memory is **local SQLite rows + retrieval scoring** — no vector store, no server, no embeddings.
+It now behaves like a bounded hybrid memory rather than a newest-N transcript.
 
 | Layer | What | Lives in | Prompt budget |
 |---|---|---|---|
 | Short-term | last `shortTermWindow` messages (clamped 4–48, default 16) | `messages` | verbatim |
-| Episodic | one auto-logged line **every turn** (`U: … \| …`) | `memories` kind=`episode`, importance 1 | ranked |
-| Curated | facts the narrator volunteered in the hidden state block (`"memory"` array) | `memories` kind=`story`, importance 3 | ranked + pinned |
-| Preferences | what the reader reveals about themselves (regex, works offline) | `memories` kind=`preference`, scope `*` | pinned |
-| Digest | rolling "story so far", folded from the oldest lines | SQLite `kv` → `memsum:<playthroughId>` | pinned section |
+| Episodic | one durable trace for every turn, including the user side before an AI request | `memories` kind=`episode` | ranked |
+| Curated | narrator facts, character facts, world facts, objects, promises and discoveries | `memories` | ranked + pinned |
+| Preferences | what the reader reveals about themselves, shared across stories | `memories` kind=`preference`, scope `*` | pinned |
+| World state | location, time, presence, relationships, objects, events and unresolved threads | KV + SQLite mirror | compact state block |
+| Digest | rolling "story so far", folded from old logs without deleting raw rows | SQLite `kv` → `memsum:<playthroughId>` | pinned section |
 
 Flow per send (`src/screens/Chat.tsx` → `src/lib/memory.ts`):
 
-1. `listRecentMessagesAsc(shortTermWindow + 8)` — headroom so the declared window is honoured in full.
-2. `listMemoryCandidates()` — UNION of three buckets (160 newest / 160 highest-importance / all pinned),
-   so a fact from turn 3 is still reachable at turn 900. Never `LIMIT newest-N`.
-3. `selectRelevant()` (pure, in `src/lib/memoryCore.ts`) scores every candidate as
-   `importance*2 + weighted keyword overlap with the last 3 turns + recency decay (12-day half-life) + hits`,
-   then fills a **3800-char** budget (max 28 entries). The digest and preferences always ride along.
-4. Selected rows are **reinforced** (`hits+1`, `importance+1` every 3rd hit, capped at 9) — what gets used, sticks.
-   Matching is vowel-folded + 4-char stemmed, so "waada"/"wada" and "Myraa"/"myra" hit the same fact.
-5. `putMemory()` refuses anything that looks like real-world PII and dedupes on the `UNIQUE(playthrough_id, hash)` index, so a repeated fact strengthens the existing row instead of duplicating it.
-6. Every 8th turn — and on every scene change (12-line threshold) — `consolidateMemories()` folds the oldest 30 log lines (and, past 240 curated facts, the
-   oldest ones too) into the digest — via a small AI call, with a deterministic no-AI fallback. Folded rows are
-   only `archived = 1`: **nothing is ever deleted**, so recall can be re-expanded later.
+1. The current reader preference is extracted and persisted **before** the provider call, while a user-only episodic row protects the turn from timeouts and rate limits.
+2. `listRecentMessagesAsc(shortTermWindow + 8)` supplies headroom so the declared window is honoured in full.
+3. `listMemoryCandidates()` unions newest, important, pinned **and archived** rows. Archived rows are eligible for strong-match resurrection, so a fact from turn 3 can still be reached at turn 900. The real SQLite query binds every scope parameter safely.
+4. `selectRelevant()` (pure, in `src/lib/memoryCore.ts`) combines importance, weighted keyword overlap, Hinglish aliases/stems, recency, usefulness hits, provenance and confidence, then fills a **4600-character** budget (max 32 entries). Expiring temporary facts are ignored, and verbatim episodic copies already in the short-term window are not re-injected.
+5. Selected rows are reinforced (`hits+1`, `importance+1 every 3rd hit`, capped at 9) — what gets used, sticks. Reader-authored facts receive a small trust edge without overpowering exact story matches.
+6. After a successful response the pending episode is upgraded in place, avoiding duplicate user-only + complete-turn rows. Repeated or corrected facts dedupe through `UNIQUE(playthrough_id, hash)` and carry source/confidence metadata through backup/restore.
+7. Every 8th turn — and on every scene change — `consolidateMemories()` folds the oldest log lines (and, past 240 curated facts, the oldest facts too) into the digest via a small AI call, with a deterministic no-AI fallback. Folded rows are only `archived = 1`: **nothing is ever deleted**, so recall can be re-expanded later.
 
 Story packs steer this: `memory.json`'s `extractionHints` and `neverRemember` are injected as a
-**MEMORY DISCIPLINE** block, so each pack decides what is worth remembering (and privacy stays enforced in code too).
-
-### 👁 Viewing and editing memory (`src/screens/Memory.tsx`)
-
-Reachable from the chat header (🧠), Story Detail ("Kya yaad hai") and each row in Saves. It shows the
-digest, live facts (with strength + how often they were reused), the turn log and the reader-level
-preferences, plus the folded rows. Per row: 📌 pin (importance 9), 🗑 forget just that fact, ↩︎ bring a
-folded fact back. "Forget everything" clears memory but keeps the chat — the reader can always correct
-the narrator without losing progress.
+**MEMORY DISCIPLINE** block, while code-level PII protection remains active even if a provider ignores instructions.
 
 ---
 

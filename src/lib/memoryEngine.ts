@@ -27,7 +27,7 @@ import {
   type StateUpdate,
 } from './worldState';
 import type { StoryBundle, Playthrough, ChatMessage } from '../types';
-import { selectRelevant, tokenize, buildQuery, overlapScore } from './memoryCore';
+import { selectRelevant, buildQuery, overlapScore } from './memoryCore';
 
 // ------------------------------------------------------------------
 // Confidence helpers
@@ -246,6 +246,16 @@ export function validateExtraction(raw: unknown): RawExtraction | null {
       out.facts = [...(out.facts ?? []), ...arr].slice(0, 8);
     }
   }
+  // Some providers emit one string instead of the documented `memory` array.
+  // Accept both forms here so a slightly malformed response still contributes
+  // durable facts; engine.ts remains responsible for hiding the block.
+  if (typeof o.memory === 'string') {
+    const arr = o.memory.split(/[.!?\u0964]+/).map((s) => sanitize(s, MEMORY_MAX_CHARS)).filter((s) => s.length > 4);
+    out.facts = [...(out.facts ?? []), ...arr].slice(0, 8);
+  } else if (Array.isArray(o.memory)) {
+    const arr = o.memory.filter((x): x is string => typeof x === 'string' && x.trim().length > 4).map((s) => sanitize(s.trim(), MEMORY_MAX_CHARS));
+    out.facts = [...(out.facts ?? []), ...arr].slice(0, 8);
+  }
   // Filter out private data
   if (out.facts) {
     out.facts = out.facts.filter((f) => !looksTooPrivate(f));
@@ -436,6 +446,8 @@ export interface WritePipelineInput {
   assistantText: string;
   parsedExtractionRaw?: unknown; // from kissa-state block
   worldState?: WorldState | null;
+  /** Chat writes a user-only episode before the provider call; upgrade it in place. */
+  skipEpisode?: boolean;
 }
 
 export interface WritePipelineResult {
@@ -457,12 +469,26 @@ export async function runMemoryWritePipeline(input: WritePipelineInput): Promise
   if (input.parsedExtractionRaw) {
     rawExtraction = validateExtraction(input.parsedExtractionRaw);
   }
-  // Step 2: if no structured block, try deterministic + heuristic
+  // Step 2: always run the cheap deterministic extractor as a safety net.
+  // Providers often return a valid state block but omit one important field;
+  // filling only missing fields avoids letting a noisy heuristic overwrite a
+  // deliberate model decision.
+  const heuristic = heuristicExtraction(userText, assistantText, bundle, ws);
   if (!rawExtraction) {
-    rawExtraction = heuristicExtraction(userText, assistantText, bundle, ws);
+    rawExtraction = heuristic;
+  } else if (heuristic) {
+    const facts = [...(rawExtraction.facts ?? []), ...(heuristic.facts ?? [])];
+    rawExtraction = {
+      ...heuristic,
+      ...rawExtraction,
+      location: rawExtraction.location ?? heuristic.location,
+      activity: rawExtraction.activity ?? heuristic.activity,
+      presentCharacters: rawExtraction.presentCharacters ?? heuristic.presentCharacters,
+      importantObjects: rawExtraction.importantObjects ?? heuristic.importantObjects,
+      threads: rawExtraction.threads ?? heuristic.threads,
+      facts: Array.from(new Set(facts)).slice(0, 8),
+    };
   }
-  // Step 3: also extract facts heuristically even if structured present
-  // Merge heuristic threads/objects? For now trust structured primary, but also check heuristic for missing
 
   let worldStateUpdated = ws;
   let threadsUpdated = 0;
@@ -508,6 +534,8 @@ export async function runMemoryWritePipeline(input: WritePipelineInput): Promise
             createdAt: nowIso(),
             hash: hashText(clean),
             hits: 0,
+            confidence: rawExtraction.confidence ?? 'medium',
+            source: 'narrator',
             archived: false,
           },
           hashText(clean),
@@ -516,10 +544,12 @@ export async function runMemoryWritePipeline(input: WritePipelineInput): Promise
     }
   }
 
-  // Always log episodic trace (never filtered as trivial if has substance)
+  // Always log episodic trace (never filtered as trivial if has substance).
+  // Chat can opt out because it already persisted a user-only fallback before
+  // calling the provider and will upgrade that row after this pipeline.
   let episodeStored = false;
   const episodeText = buildEpisodeLine(userText, assistantText);
-  if (episodeText && !looksTooPrivate(episodeText)) {
+  if (!input.skipEpisode && episodeText && !looksTooPrivate(episodeText)) {
     try {
       await insertMemory(
         {
@@ -531,6 +561,8 @@ export async function runMemoryWritePipeline(input: WritePipelineInput): Promise
           createdAt: nowIso(),
           hash: hashText(episodeText),
           hits: 0,
+          confidence: 'high',
+          source: 'episode',
           archived: false,
         },
         hashText(episodeText),
@@ -588,57 +620,34 @@ export async function recallWithWorldState(
   // Build immediate context: last 4 turns
   const immediate = recentHistory.slice(-6).map((m) => `${m.role === 'user' ? 'Player' : m.speaker ?? 'Narrator'}: ${m.text.slice(0, 120)}`).join('\n');
 
-  // Character/location aware scoring: boost memories that match current scene
-  const location = ws?.currentLocation?.toLowerCase() ?? '';
-  const presentNames = ws?.presentCharacters.map((id) => ws.characterStates[id]?.name?.toLowerCase() ?? id.toLowerCase()) ?? [];
-  const threadTitles = ws?.unresolvedThreads.map((t) => t.title.toLowerCase()) ?? [];
+  // Character/location/thread cues become part of the retrieval query, then the
+  // canonical selector applies the same pinning, budget, expiry and archived
+  // resurrection rules everywhere. The old bespoke scorer could accidentally
+  // starve preferences and resurrected facts.
+  const location = ws?.currentLocation ?? '';
+  const presentNames = ws?.presentCharacters.map((id) => ws.characterStates[id]?.name ?? id) ?? [];
+  const threadTitles = ws?.unresolvedThreads.map((t) => t.title) ?? [];
+  const augmentedQuery = [queryText, location, ...presentNames, ...threadTitles].filter(Boolean).join(' ');
 
-  // Create augmented query that includes world state cues
-  const augmentedQuery = [queryText, location, ...presentNames, ...threadTitles].join(' ');
-
-  // Use existing selectRelevant but with augmented query
-  const queryProfile = buildQuery(augmentedQuery);
-
-  // Pre-score with bonuses for character/location/thread matches
-  const scored = pool.map((m) => {
-    let bonus = 0;
-    const lower = m.text.toLowerCase();
-    if (location && lower.includes(location)) bonus += 8;
-    for (const pn of presentNames) if (pn && lower.includes(pn)) bonus += 6;
-    for (const th of threadTitles) if (th && lower.includes(th.split(' ')[0])) bonus += 5;
-    // Character-specific: if memory mentions a present character, prioritize
-    const baseScore = overlapScore(m.text, queryProfile) * 3 + m.importance * 2;
-    return { m, score: baseScore + bonus, lower };
+  // Messages already in the short-term window are verbatim in the prompt. Do
+  // not spend long-term budget echoing their episodic copies; older episodes
+  // remain eligible and can still be resurrected when a later question matches.
+  const recentText = recentHistory.map((m) => m.text).join(' ');
+  const recentQuery = buildQuery(recentText);
+  const candidates = pool.filter((m) => m.kind !== 'episode' || overlapScore(m.text, recentQuery) < 2);
+  const chosen = selectRelevant(candidates, augmentedQuery, {
+    charBudget,
+    maxItems,
+    pinnedByImportance: 8,
   });
-  scored.sort((a, b) => b.score - a.score);
 
-  // Select within budget, pinned by importance & world relevance
-  const chosen: MemoryEntry[] = [];
-  let used = 0;
-  const seen = new Set<string>();
-
-  // 1) Always include unresolved threads as synthetic memories? We'll inject via world state block, not as memory entries.
-  // 2) Pick top scored within budget
-  for (const s of scored) {
-    if (chosen.length >= maxItems) break;
-    if (used + s.m.text.length > charBudget && chosen.length >= 4) break;
-    if (seen.has(s.m.id)) continue;
-    if (s.m.archived) continue;
-    // Filter trivial with low score
-    if (s.score < 2 && s.m.importance <= 1 && chosen.length >= 8) continue;
-    seen.add(s.m.id);
-    chosen.push(s.m);
-    used += s.m.text.length + 3;
-  }
-
-  // If ws has threads, prioritize memories mentioning them even if low score? Already boosted.
-
-  // L7: Reinforce ONLY the memories that actually enter the prompt
+  // L7: Reinforce ONLY the memories that actually enter the prompt.
   if (chosen.length) void reinforceMemories(chosen.map((m) => m.id), nowIso()).catch(() => undefined);
 
-  // L5: Un-archive resurrected rows so they stay live for future turns
+  // L5: A strong query can resurrect an archived memory. Keep it live after the
+  // turn so the same fact does not require another expensive resurrection.
   for (const m of chosen) {
-    if ((m as any).resurrected) void restoreMemory(m.id).catch(() => undefined);
+    if (m.resurrected) void restoreMemory(m.id).catch(() => undefined);
   }
 
   return { worldState: ws, memories: chosen, summary, immediateContext: immediate, candidates: pool.length };

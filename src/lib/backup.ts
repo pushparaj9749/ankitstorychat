@@ -114,6 +114,7 @@ export async function importBackup(d: DataExport): Promise<void> {
     DELETE FROM favorites;
     DELETE FROM downloads;
     DELETE FROM providers;
+    DELETE FROM world_states;
     DELETE FROM kv;
   `);
 
@@ -174,9 +175,10 @@ export async function importBackup(d: DataExport): Promise<void> {
   }
   for (const m of d.memories ?? []) {
     await db.runAsync(
-      `INSERT OR IGNORE INTO memories (id, playthrough_id, kind, text, importance, created_at,
-        hash, hits, archived)
-       VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)`,
+      `INSERT OR IGNORE INTO memories (
+        id, playthrough_id, kind, text, importance, created_at, hash, hits,
+        last_used, confidence, source, entities, expires_at, archived
+      ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`,
       m.id,
       m.playthroughId,
       m.kind,
@@ -185,6 +187,11 @@ export async function importBackup(d: DataExport): Promise<void> {
       m.createdAt,
       m.hash ?? null,
       m.hits ?? 0,
+      m.lastUsedAt ?? null,
+      m.confidence ?? 'medium',
+      m.source ?? 'derived',
+      m.entities?.length ? JSON.stringify(m.entities) : null,
+      m.expiresAt ?? null,
       m.archived ? 1 : 0,
     );
   }

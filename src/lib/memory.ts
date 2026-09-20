@@ -14,11 +14,12 @@
  * rolling `summary` digest so the compressed past is always in the prompt, and the
  * raw rows stay on disk (archived) — nothing is ever thrown away.
  */
-import type { MemoryEntry, MemoryKind, Playthrough } from '../types';
+import type { MemoryConfidence, MemoryEntry, MemoryKind, MemorySource, Playthrough } from '../types';
 import {
   archiveMemories,
   countMemories,
   insertMemory,
+  completePendingEpisode,
   listGlobalMemories,
   listJourneyMemories,
   pinMemory,
@@ -41,6 +42,7 @@ import {
   SUMMARY_MAX_CHARS,
   hashText,
   extractPreferenceNotes,
+  preferenceSupersededTexts,
   MAX_MEMORY_NOTES,
   type SelectOptions,
 } from './memoryCore';
@@ -76,11 +78,26 @@ export type RememberStatus = 'inserted' | 'reinforced' | 'skipped';
  *   promise from the story packs, enforced in code and not only in the prompt)
  * - duplicates reinforce the existing row instead of adding another copy
  */
+export interface RememberOptions {
+  source?: MemorySource;
+  confidence?: MemoryConfidence;
+  entities?: string[];
+  expiresAt?: string | null;
+}
+
+function defaultSourceFor(kind: MemoryKind): MemorySource {
+  if (kind === 'episode') return 'episode';
+  if (kind === 'preference') return 'user';
+  if (kind === 'summary') return 'derived';
+  return 'narrator';
+}
+
 export async function putMemory(
   playthroughId: string,
   kind: MemoryKind,
   text: string,
   importance = 1,
+  options: RememberOptions = {},
 ): Promise<RememberStatus> {
   const clean = sanitize(text, MEMORY_MAX_CHARS);
   if (clean.length < 4) return 'skipped';
@@ -92,10 +109,14 @@ export async function putMemory(
       playthroughId,
       kind,
       text: clean,
-      importance,
+      importance: Math.max(1, Math.min(9, Math.round(importance))),
       createdAt: nowIso(),
       hash,
       hits: 0,
+      confidence: options.confidence ?? (kind === 'preference' || kind === 'story' ? 'high' : 'medium'),
+      source: options.source ?? defaultSourceFor(kind),
+      entities: options.entities,
+      expiresAt: options.expiresAt,
       archived: false,
     },
     hash,
@@ -117,24 +138,56 @@ export async function rememberMany(
   notes: string[],
   kind: MemoryKind = 'story',
   importance = 1,
+  options: RememberOptions = {},
 ): Promise<number> {
   let stored = 0;
   for (const n of notes.slice(0, MAX_MEMORY_NOTES)) {
     if (!n || !n.trim()) continue;
-    if ((await putMemory(playthroughId, kind, n, importance)) !== 'skipped') stored++;
+    if ((await putMemory(playthroughId, kind, n, importance, options)) !== 'skipped') stored++;
   }
   return stored;
 }
 
 /** One line per turn, always — this is what makes "everything" retrievable. */
 export async function logEpisode(playthroughId: string, userText: string, replyText: string): Promise<void> {
-  await putMemory(playthroughId, 'episode', episodeLine(userText, replyText), 1);
+  await putMemory(playthroughId, 'episode', episodeLine(userText, replyText), 1, { source: 'episode' });
+}
+
+/**
+ * Complete the durable user-side episode written before an AI request. This
+ * preserves the turn when the provider times out, then upgrades that same row
+ * with the assistant side on success instead of leaving two near-duplicates.
+ */
+export async function completeEpisode(playthroughId: string, userText: string, replyText: string): Promise<void> {
+  const pending = episodeLine(userText, '');
+  const complete = episodeLine(userText, replyText);
+  const pendingHash = hashText(pending);
+  const completeHash = hashText(complete);
+  try {
+    const updated = await completePendingEpisode(playthroughId, pendingHash, sanitize(complete, 260), completeHash, nowIso());
+    if (updated) return;
+  } catch {
+    // A legacy/mock database may not have the upgrade helper yet.
+  }
+  await logEpisode(playthroughId, userText, replyText);
 }
 
 /** Preference facts are global: they carry into every other story the reader plays. */
 export async function rememberPreferences(userText: string): Promise<number> {
   const notes = extractPreferenceNotes(userText);
-  return rememberMany(GLOBAL_SCOPE, notes, 'preference', 3);
+  // Preferences are durable user-authored facts. Archive an opposite or
+  // superseded preference before writing the new one, otherwise contradictory
+  // likes/dislikes compete forever during recall.
+  try {
+    const existing = await listGlobalMemories();
+    const superseded = preferenceSupersededTexts(notes.join(' '), existing);
+    if (superseded.length) {
+      await archiveMemories(existing.filter((m) => superseded.includes(m.text)).map((m) => m.id));
+    }
+  } catch {
+    // Preference extraction must never block the chat or a first-turn write.
+  }
+  return rememberMany(GLOBAL_SCOPE, notes, 'preference', 3, { source: 'user', confidence: 'high' });
 }
 
 export async function seedMemoriesIfEmpty(
@@ -143,7 +196,7 @@ export async function seedMemoriesIfEmpty(
 ): Promise<void> {
   const existing = await countMemories([playthrough.id]);
   if (existing > 0) return;
-  await rememberMany(playthrough.id, seed, 'story', 2);
+  await rememberMany(playthrough.id, seed, 'story', 2, { source: 'seed', confidence: 'high' });
 }
 
 /* ---------------- reading ---------------- */

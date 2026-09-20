@@ -522,6 +522,12 @@ export interface ChatMessage {
  */
 export type MemoryKind = 'story' | 'character' | 'world' | 'preference' | 'episode' | 'summary';
 
+/** How certain the narrator is that a memory is true. */
+export type MemoryConfidence = 'low' | 'medium' | 'high';
+
+/** Where a memory came from. This lets retrieval prefer reader-authored facts. */
+export type MemorySource = 'seed' | 'user' | 'narrator' | 'derived' | 'episode' | 'manual';
+
 export interface MemoryEntry {
   id: string;
   /** Playthrough id, or '*' for cross-story (global) memories. */
@@ -535,6 +541,16 @@ export interface MemoryEntry {
   hash?: string;
   /** Times this memory was selected into a prompt. */
   hits?: number;
+  /** Last time this memory was actually injected into a prompt. */
+  lastUsedAt?: string;
+  /** Confidence is separate from importance: a dramatic guess can still be uncertain. */
+  confidence?: MemoryConfidence;
+  /** Provenance used for ranking, diagnostics and future migrations. */
+  source?: MemorySource;
+  /** Optional canonical entities mentioned by this memory (character/location/object ids). */
+  entities?: string[];
+  /** Optional expiry for temporary facts (for example, an active disguise). */
+  expiresAt?: string | null;
   /** Folded into the digest: kept on disk, excluded from retrieval. */
   archived?: boolean;
 }

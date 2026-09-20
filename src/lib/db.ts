@@ -19,7 +19,7 @@ import type {
 import { DEFAULT_SETTINGS } from '../types';
 
 const DB_NAME = 'kissa.db';
-const SCHEMA_VERSION = 5;
+const SCHEMA_VERSION = 6;
 
 let dbPromise: Promise<SQLite.SQLiteDatabase> | null = null;
 
@@ -81,6 +81,10 @@ async function migrate(db: SQLite.SQLiteDatabase): Promise<void> {
       hash TEXT,
       hits INTEGER NOT NULL DEFAULT 0,
       last_used TEXT,
+      confidence TEXT NOT NULL DEFAULT 'medium',
+      source TEXT NOT NULL DEFAULT 'derived',
+      entities TEXT,
+      expires_at TEXT,
       archived INTEGER NOT NULL DEFAULT 0
     );
     CREATE INDEX IF NOT EXISTS idx_memories_playthrough ON memories(playthrough_id);
@@ -143,6 +147,24 @@ async function migrate(db: SQLite.SQLiteDatabase): Promise<void> {
       `);
     } catch {
       /* table already present */
+    }
+  }
+
+  // v5 -> v6: provenance and confidence make long-lived memories safer to
+  // rank. Every ALTER is idempotent so interrupted upgrades can be retried.
+  if (current < 6) {
+    for (const ddl of [
+      "ALTER TABLE memories ADD COLUMN confidence TEXT NOT NULL DEFAULT 'medium'",
+      "ALTER TABLE memories ADD COLUMN source TEXT NOT NULL DEFAULT 'derived'",
+      'ALTER TABLE memories ADD COLUMN entities TEXT',
+      'ALTER TABLE memories ADD COLUMN expires_at TEXT',
+      'CREATE INDEX IF NOT EXISTS idx_memories_expiry ON memories(expires_at)',
+    ]) {
+      try {
+        await db.execAsync(ddl);
+      } catch {
+        /* column/index already present */
+      }
     }
   }
 
@@ -491,7 +513,25 @@ interface MemoryRow {
   hash: string | null;
   hits: number | null;
   last_used: string | null;
+  confidence: string | null;
+  source: string | null;
+  entities: string | null;
+  expires_at: string | null;
   archived: number | null;
+}
+
+function parseMemoryEntities(raw: string | null): string[] | undefined {
+  if (!raw) return undefined;
+  try {
+    const value = JSON.parse(raw) as unknown;
+    if (Array.isArray(value)) {
+      const entities = value.filter((item): item is string => typeof item === 'string' && item.length > 0).slice(0, 24);
+      return entities.length ? entities : undefined;
+    }
+  } catch {
+    /* Older/corrupt metadata must never make the whole memory unreadable. */
+  }
+  return undefined;
 }
 
 function rowToMemory(r: MemoryRow): MemoryEntry {
@@ -504,6 +544,11 @@ function rowToMemory(r: MemoryRow): MemoryEntry {
     createdAt: r.created_at,
     hash: r.hash ?? undefined,
     hits: r.hits ?? 0,
+    lastUsedAt: r.last_used ?? undefined,
+    confidence: (r.confidence as MemoryEntry['confidence']) ?? 'medium',
+    source: (r.source as MemoryEntry['source']) ?? 'derived',
+    entities: parseMemoryEntities(r.entities),
+    expiresAt: r.expires_at ?? undefined,
     archived: !!r.archived,
   };
 }
@@ -525,34 +570,98 @@ export async function insertMemory(m: MemoryEntry, hash?: string): Promise<Inser
     );
     if (dup) {
       await db.runAsync(
-        'UPDATE memories SET importance = MIN(9, importance + 1), hits = hits + 1, archived = 0 WHERE id = ?',
+        `UPDATE memories SET
+           importance = MIN(9, MAX(importance, ?) + 1),
+           hits = hits + 1,
+           last_used = ?,
+           confidence = CASE WHEN ? = 'high' THEN 'high' ELSE confidence END,
+           source = CASE WHEN ? = 'user' THEN 'user' ELSE source END,
+           archived = 0
+         WHERE id = ?`,
+        Math.max(1, Math.min(9, m.importance)),
+        m.createdAt,
+        m.confidence ?? 'medium',
+        m.source ?? 'derived',
         dup.id,
       );
       return 'reinforced';
     }
   }
   await db.runAsync(
-    `INSERT INTO memories (id, playthrough_id, kind, text, importance, created_at, hash, hits, archived)
-     VALUES (?, ?, ?, ?, ?, ?, ?, 0, 0)`,
+    `INSERT INTO memories (
+      id, playthrough_id, kind, text, importance, created_at, hash, hits,
+      last_used, confidence, source, entities, expires_at, archived
+    ) VALUES (?, ?, ?, ?, ?, ?, ?, 0, ?, ?, ?, ?, ?, 0)`,
     m.id,
     m.playthroughId,
     m.kind,
     m.text,
-    m.importance,
+    Math.max(1, Math.min(9, Math.round(m.importance))),
     m.createdAt,
-    hash ?? null,
+    hash ?? m.hash ?? null,
+    m.lastUsedAt ?? null,
+    m.confidence ?? 'medium',
+    m.source ?? 'derived',
+    m.entities?.length ? JSON.stringify(m.entities.slice(0, 24)) : null,
+    m.expiresAt ?? null,
   );
   return 'inserted';
+}
+
+/**
+ * Complete a user-only episode after the provider responds. Updating the same
+ * row keeps a failed/retried turn from creating duplicate episodic memories.
+ */
+export async function completePendingEpisode(
+  playthroughId: string,
+  pendingHash: string,
+  text: string,
+  hash: string,
+  updatedAt: string,
+): Promise<boolean> {
+  const db = await getDb();
+  const row = await db.getFirstAsync<{ id: string }>(
+    "SELECT id FROM memories WHERE playthrough_id = ? AND kind = 'episode' AND hash = ? LIMIT 1",
+    playthroughId,
+    pendingHash,
+  );
+  if (!row) return false;
+
+  const collision = await db.getFirstAsync<{ id: string }>(
+    "SELECT id FROM memories WHERE playthrough_id = ? AND kind = 'episode' AND hash = ? LIMIT 1",
+    playthroughId,
+    hash,
+  );
+  if (collision && collision.id !== row.id) {
+    await db.runAsync(
+      'UPDATE memories SET hits = hits + 1, last_used = ?, archived = 0 WHERE id = ?',
+      updatedAt,
+      collision.id,
+    );
+    await db.runAsync('DELETE FROM memories WHERE id = ?', row.id);
+    return true;
+  }
+
+  await db.runAsync(
+    "UPDATE memories SET text = ?, hash = ?, last_used = ?, source = 'episode', archived = 0 WHERE id = ?",
+    text,
+    hash,
+    updatedAt,
+    row.id,
+  );
+  return true;
 }
 
 export interface CandidateCaps {
   recent: number;
   important: number;
   pinned: number;
+  /** Archived rows are eligible for strong-match resurrection in memoryCore. */
+  archived: number;
   total: number;
 }
 
-const DEFAULT_CAPS: CandidateCaps = { recent: 160, important: 160, pinned: 120, total: 420 };
+const DEFAULT_CAPS: CandidateCaps = { recent: 180, important: 180, pinned: 140, archived: 120, total: 520 };
 
 /**
  * Retrieval pool for one turn. A UNION of buckets instead of "the newest N rows",
@@ -586,8 +695,17 @@ export async function listMemoryCandidates(
            AND kind IN ('preference','summary')
          ORDER BY created_at DESC LIMIT ${c.pinned}
        )
+       UNION
+       SELECT * FROM (
+         SELECT * FROM memories WHERE playthrough_id IN (${ph}) AND archived = 1
+         ORDER BY importance DESC, created_at DESC LIMIT ${c.archived}
+       )
      )
-     ORDER BY importance DESC, created_at DESC LIMIT ${c.total}`,
+     ORDER BY archived ASC, importance DESC, created_at DESC LIMIT ${c.total}`,
+    ...ids,
+    ...ids,
+    ...ids,
+    ...ids,
   );
   return rows.map(rowToMemory);
 }
