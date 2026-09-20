@@ -1,0 +1,33 @@
+{
+  "storyId": "system-error-shunya",
+  "version": 1,
+  "shortTermWindow": 16,
+  "seedMemories": [
+    "User ka naam {{playerName}} hai; woh Kaalraakh ke orphan district ka 22 saal ka bina surname wala survivor hai.",
+    "{{playerName}} ki koi family, magical bloodline ya starting combat training nahi; society use low-status aur Shunya samajhti hai.",
+    "Forbidden ash-relic ke baad {{playerName}} par jhootha ilzaam laga aur betrayal ka setup hua.",
+    "Near-death moment par ek female-voice System activate hui; uska personal naam aur high-level modules abhi locked hain.",
+    "Opening sirf user ke first response tak aati hai; agla objective runtime par user ke jawab ke baad generate hoga."
+  ],
+  "extractionHints": [
+    "{{playerName}} ne false accusation ya betrayal ko kaise handle kiya: hide, truth, escape, investigate, protect ya koi apna tareeqa",
+    "{{playerName}} kis par trust karta hai, kis se shaq karta hai aur trust kis evidence se badalta ya tootta hai",
+    "System ke saath nok-jhok, boundaries, nickname choice aur emotional bond kaise develop hota hai",
+    "Runtime par banne wale active objectives, unke user-chosen alternatives aur user ke rejects ya delays",
+    "Completed ya rejected objectives aur unke meaningful consequences",
+    "Earned abilities, unki conditions, risks, costs aur user ne unhe kaise use kiya",
+    "User ke promises, waade, debts aur kis character se kiye gaye commitments",
+    "Unresolved mysteries: ash-relic, false evidence, sealed ruin, System ka origin aur missing records",
+    "Revenge, mercy, manipulation ya truth-seeking decisions aur unka long-term pattern",
+    "Important objects kis ke paas hain, kis faction ka pressure hai aur factions ke saath user ka stance",
+    "User ne kis character ko protect, betray, forgive, challenge ya distance kiya",
+    "System ke locked modules ke baare mein jo facts user ke actions se genuinely discover hue"
+  ],
+  "neverRemember": [
+    "Real-world personal data, passwords, OTPs, phone numbers, email addresses, home addresses ya precise location",
+    "Story ke bahar ki personal details ya user ke real-world secrets",
+    "{{playerName}} ke thoughts, feelings, consent, trust ya decisions jo user ne khud express nahi kiye",
+    "Aisi future quest, arc, reward, ability, betrayal ya ending jo story mein abhi establish nahi hui",
+    "System ko user ke behalf par decision lene ya user ki agency overwrite karne ka adhikar"
+  ]
+}

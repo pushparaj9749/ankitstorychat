@@ -1,0 +1,104 @@
+{
+  "id": "system-error-shunya",
+  "title": "System Error: Shunya",
+  "description": "{{playerName}} Kaalraakh ke orphan district ka 22 saal ka bina surname wala survivor hai. Na family, na magical bloodline, na combat training — sirf roz ka ration, thaki hui haddiyan aur duniya ka woh faisla ki tum kuch nahi ho. Ek shaam ek forbidden ash-relic, jhootha ilzaam aur ek anjaan ladki ki awaaz tumhari zindagi tod dete hain. Jo System tumhare dimaag mein jagti hai, woh potentially overpowered hai, par khud confused, lazy aur zyada bolne wali hai; tumhari power, trust aur survival ke har agle mod ka faisla tum karoge. Ye endless dark-fantasy journey hai — objective tumhare jawab ke baad runtime par banega, pehle se nahi.",
+  "version": 1,
+  "language": "hinglish",
+  "ageRating": "18+",
+  "contentLevel": "mature",
+  "genres": [
+    "Dark Fantasy",
+    "Drama",
+    "Action",
+    "Mystery",
+    "Supernatural"
+  ],
+  "tags": [
+    "ongoing",
+    "hinglish",
+    "system",
+    "female-system",
+    "orphan",
+    "betrayal",
+    "survival",
+    "dark-fantasy",
+    "dynamic-quests",
+    "mystery"
+  ],
+  "userRole": "{{playerName}} — Kaalraakh ke orphan district ka bina surname wala 22 saal ka survivor; koi bloodline, starting training ya guaranteed destiny nahi. Agla faisla, trust aur risk tum tay karte ho.",
+  "setting": "Kaalraakh ka ash-storm se dhaka Indian-inspired magical shehar: orphan district ki tang galiyan, royal registry ke checkpoints, aur neeche dabaa hua forbidden ruin jahan purani magic abhi bhi saans leti hai.",
+  "openingSceneId": "s1_orphan_district",
+  "tone": "Dark, emotional, cinematic aur intense; betrayal aur survival ke beech ek female System ki sarcastic, overconfident, lazy aur panic-prone nok-jhok.",
+  "safetyNotes": [
+    "18+ mature themes ko gravity ke saath handle karo, lekin visual aur written content non-explicit rahe.",
+    "Violence suspenseful aur cinematic ho sakti hai, par graphic gore ya fetishised injury nahi.",
+    "Romance optional, slow aur consent-based ho; user ke decisions ke bina koi relationship force mat karo.",
+    "Gallery ke sabhi visible female characters clearly adult hain; childlike ya sexualised school imagery nahi.",
+    "{{playerName}} ke thoughts, decisions, trust ya consent narrator khud decide nahi karega."
+  ],
+  "creator": {
+    "name": "Ankit",
+    "avatar": null,
+    "verified": true
+  },
+  "media": {
+    "cover": "assets/cover.jpg",
+    "gallery": [
+      {
+        "id": "cover",
+        "file": "assets/cover.jpg",
+        "kind": "cover",
+        "label": "Cover"
+      },
+      {
+        "id": "meera-portrait",
+        "file": "assets/gallery/image-01.jpg",
+        "kind": "character-portrait",
+        "label": "Meera Sain",
+        "characterId": "meera"
+      },
+      {
+        "id": "nayra-portrait",
+        "file": "assets/gallery/image-02.jpg",
+        "kind": "character-portrait",
+        "label": "Nayra",
+        "characterId": "nayra"
+      },
+      {
+        "id": "ash-relic",
+        "file": "assets/gallery/image-03.jpg",
+        "kind": "scene",
+        "label": "Forbidden ash-relic",
+        "sceneId": "s2_ash_relic"
+      },
+      {
+        "id": "cornered-ruin",
+        "file": "assets/gallery/image-04.jpg",
+        "kind": "scene",
+        "label": "Ruin mein gheraav",
+        "sceneId": "s3_system_activation"
+      },
+      {
+        "id": "system-presence",
+        "file": "assets/gallery/image-05.jpg",
+        "kind": "scene",
+        "label": "System ki awaaz",
+        "sceneId": "s3_system_activation"
+      },
+      {
+        "id": "janki-portrait",
+        "file": "assets/gallery/image-06.jpg",
+        "kind": "character-portrait",
+        "label": "Janki Maai",
+        "characterId": "janki-maai"
+      },
+      {
+        "id": "vayun-portrait",
+        "file": "assets/gallery/image-07.jpg",
+        "kind": "character-portrait",
+        "label": "Vayun Rath",
+        "characterId": "vayun"
+      }
+    ]
+  }
+}

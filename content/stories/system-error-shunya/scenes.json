@@ -1,0 +1,271 @@
+{
+  "storyId": "system-error-shunya",
+  "version": 1,
+  "scenes": [
+    {
+      "id": "s1_orphan_district",
+      "title": "Khaali Naam, Bhari Raat",
+      "narration": [
+        "*Kaalraakh mein subah suraj se nahi, raakh ki patli parat se hoti hai. Orphan district ki chhaton par dhuaan jamta hai aur galiyon mein log apni saans ko ration ki tarah bachate hain.*",
+        "*{{playerName}} baais saal se isi shehar mein bina surname, bina family aur bina kisi magical bloodline ke zinda hai. Ladai ki training kabhi mili nahi; survival ne bas pair tez aur sawaal mehange banana sikhaya.*",
+        "Janki Maai: \"Ration ki line mein apni baari ka intezaar kar. Royal registry tumhe aadmi nahi, ek khaali entry samajhti hai — par khaali entry ko bhi zinda rehna padta hai.\"",
+        "*Line mein khade log tumse aadha kadam door rehte hain. Kisi ko tumhara purana naam nahi pata, isliye sab tumhe usi tarah dekhte hain jaise shehar dekhta hai: Shunya, be-asar, badalne layak nahi.*",
+        "Meera Sain: \"Aaj ash-market ke paas mat jaana. Wardens kisi ko bhi chor bol kar le ja rahe hain, aur tumhare paas apni baat sabit karne ke liye kya hai? Ek phata jhola?\"",
+        "*Door royal bells bajti hain. Kisi rich quarter ke gate khul rahe hain, jabki yahan teen bachche ek hi patli roti ko chaar tukdon mein tod rahe hain. Aaj ka din bhi tumse faisla maang raha hai — chup rehna, sawaal karna, ya kisi aur ka bojh utha lena.*"
+      ],
+      "fallbackLines": [
+        "*Ration ki line aage sarak rahi hai, par wardens ki nazar tum par ruk gayi hai. Survival ka agla chhota faisla kya hoga?*",
+        "Janki Maai: \"Jaldi nahi, soch kar chal. Kaalraakh mein galat kadam ka daam kabhi sirf tum nahi bharte.\""
+      ],
+      "choices": [
+        {
+          "id": "c_keep_low_profile",
+          "text": "Bina behas apna ration aur kaam sambhalta/sambhalti hoon",
+          "shortLabel": "Sar jhuka kar",
+          "keywords": ["chup", "ration", "kaam", "ignore", "low profile", "beh as", "sambhal"],
+          "next": "s2_ash_relic",
+          "effects": {
+            "relationships": {
+              "janki-maai": 2
+            },
+            "choicesRecord": {
+              "openingResponse": "kept-low-profile"
+            },
+            "memory": [
+              "{{playerName}} ne orphan district mein pehle low profile rehkar survival ko priority di."
+            ],
+            "location": "orphan-district"
+          }
+        },
+        {
+          "id": "c_question_registry",
+          "text": "Meera Sain se poochta/poochti hoon ki registry mein mera naam kyun nahi",
+          "shortLabel": "Sawaal uthao",
+          "keywords": ["meera", "naam", "registry", "kyun", "sawaal", "poocho", "status"],
+          "next": "s2_ash_relic",
+          "effects": {
+            "relationships": {
+              "meera": 4
+            },
+            "choicesRecord": {
+              "openingResponse": "questioned-registry"
+            },
+            "memory": [
+              "{{playerName}} ne apni blank royal registry entry par sawaal uthaya aur seedha jawab maanga."
+            ],
+            "location": "orphan-district"
+          }
+        },
+        {
+          "id": "c_share_ration",
+          "text": "Apne hisse ka kuch ration kisi aur ko deta/deti hoon",
+          "shortLabel": "Kisi ko do",
+          "keywords": ["ration", "baant", "share", "do", "madad", "bhookh", "kisi aur"],
+          "next": "s2_ash_relic",
+          "effects": {
+            "relationships": {
+              "janki-maai": 3
+            },
+            "choicesRecord": {
+              "openingResponse": "shared-ration"
+            },
+            "memory": [
+              "{{playerName}} ne apne kam ration mein se kisi aur ki bhookh ko pehle rakha."
+            ],
+            "location": "orphan-district"
+          }
+        }
+      ]
+    },
+    {
+      "id": "s2_ash_relic",
+      "title": "Raakh Ka Ilzaam",
+      "narration": [
+        "*Din dhalne se pehle ash-market ki bheed achanak do hisson mein toot jaati hai. Meera Sain tumhe ek tooti hui deewar ke paas rok kar neeche jaane wali patli daraar dikhati hai.*",
+        "Meera Sain: \"Bas ek minute. Neeche purana storage hai. Agar koi ration slip ya tool mil gaya toh aaj ki raat bach sakti hai. Mere peeche rehna, aur kisi cheez ko haath mat lagana.\"",
+        "*Daraar ke neeche hawa thandi hai. Ek collapsed chamber ke beech cracked black altar pada hai. Us par ash mein aadha daba hua ek kaala shard hai, jiske andar thanda violet ember dhadak raha hai.*",
+        "*Forbidden ash-relic ke kareeb jaate hi tumhari kalai par ek halki jalan ubharti hai. Tum use chhoote bhi nahi, phir bhi ash tumhari ungliyon tak reng kar ek nishaan bana deti hai.*",
+        "Nayra: \"Peeche hat jao. Kuch cheezein milti nahi hain — woh kisi ko dekh kar jagti hain.\"",
+        "*Uski awaaz arch ke andhere se aati hai. Isse pehle ki tum pooch sako woh kaun hai, upar se boots ki aahat, metal ka khanakna aur royal seal tootne ki awaaz neeche girti hai.*",
+        "Vayun Rath: \"Koi hilna nahi. Mere paas broken seal, ash-mark aur gawah hai. Forbidden relic churaane ka ilzaam tum par hai, {{playerName}}.\"",
+        "*Meera Sain chup ho jaati hai. Janki Maai ko do wardens ne exit par rok liya hai. Nayra bas relic ko dekh rahi hai — jaise ilzaam se zyada usse ye jaanne mein interest ho ki kisi ne tumhe yahan tak kyun pahunchaya.*",
+        "Janki Maai: \"Isse bachcha mat samjho, Vayun. Aur tum, {{playerName}}, ab jo bhi karna — soch kar karna. Kisi ka sach tumhari jaan se mehenga nahi hona chahiye.\""
+      ],
+      "fallbackLines": [
+        "Vayun Rath: \"Ilzaam meri marzi se nahi, evidence se khada hai. Tumhare paas apni taraf ki kahani hai — use bolne ka waqt kam hai.\"",
+        "*Ash-relic ki violet roshni ek pal ke liye tez hoti hai. Exit ke bahar wardens apne hathiyar sambhalte hain, aur kisi anjaan haath ne shayad peeche ka raasta band kar diya hai.*"
+      ],
+      "choices": [
+        {
+          "id": "c_hide_relic",
+          "text": "Ash-relic chhupa kar waqt kharidta/kharidti hoon",
+          "shortLabel": "Relic chhupao",
+          "keywords": ["chhupa", "hide", "relic", "ash", "secret", "rakho"],
+          "next": "s3_system_activation",
+          "effects": {
+            "choicesRecord": {
+              "betrayalResponse": "hide-relic"
+            },
+            "memory": [
+              "{{playerName}} ne false accusation ke saamne ash-relic chhupane ka faisla kiya."
+            ],
+            "location": "ash-relic-chamber"
+          }
+        },
+        {
+          "id": "c_tell_truth",
+          "text": "Jo dekha, bina badle sach batata/batati hoon",
+          "shortLabel": "Sach bolo",
+          "keywords": ["sach", "truth", "bata", "gawah", "evidence", "jo dekha"],
+          "next": "s3_system_activation",
+          "effects": {
+            "choicesRecord": {
+              "betrayalResponse": "told-truth"
+            },
+            "memory": [
+              "{{playerName}} ne jhoothe ilzaam ke beech jo dekha tha woh sach bolne ki koshish ki."
+            ],
+            "location": "ash-relic-chamber"
+          }
+        },
+        {
+          "id": "c_run_from_accusation",
+          "text": "Ilzaam ka jawab bhaag kar deta/deti hoon",
+          "shortLabel": "Bhaag jao",
+          "keywords": ["bhaag", "run", "escape", "nikal", "door", "flee"],
+          "next": "s3_system_activation",
+          "effects": {
+            "choicesRecord": {
+              "betrayalResponse": "ran"
+            },
+            "memory": [
+              "{{playerName}} ne false accusation ka turant jawab confrontation ke bajay bhaag kar diya."
+            ],
+            "location": "lower-ruin"
+          }
+        },
+        {
+          "id": "c_investigate_betrayal",
+          "text": "Kisne phansaya, uska suraag dhoondhta/dhoondhti hoon",
+          "shortLabel": "Suraag dhoondo",
+          "keywords": ["suraag", "investigate", "kisne", "phansaya", "clue", "pata", "jaanch"],
+          "next": "s3_system_activation",
+          "effects": {
+            "choicesRecord": {
+              "betrayalResponse": "investigated"
+            },
+            "memory": [
+              "{{playerName}} ne bhaagne ya maan lene ke bajay betrayal ke peeche ka suraag dhoondhna chuna."
+            ],
+            "location": "ash-relic-chamber"
+          }
+        },
+        {
+          "id": "c_protect_someone",
+          "text": "Kisi character ko bachane ki koshish karta/karti hoon",
+          "shortLabel": "Kisi ko bachao",
+          "keywords": ["protect", "bachao", "bacha", "janki", "meera", "nayra", "kisi ko"],
+          "next": "s3_system_activation",
+          "effects": {
+            "choicesRecord": {
+              "betrayalResponse": "protected-someone"
+            },
+            "memory": [
+              "{{playerName}} ne false accusation ke beech kisi aur ko protect karne ko priority di."
+            ],
+            "location": "lower-ruin"
+          }
+        }
+      ]
+    },
+    {
+      "id": "s3_system_activation",
+      "title": "System Error: Shunya",
+      "narration": [
+        "*Ruin ke neeche raasta seedha nahi, toot-te hue saanson jaisa hai. Tum jis bhi direction mein nikle, collapsed stone aur ash ne tumhe ek andheri gallery ke aakhri kone tak dhakel diya.*",
+        "*Door se Vayun Rath ya wardens ki aahat aa rahi hai. Tumhari taaqat khatam ho chuki hai; haath ki purani chot dhadak rahi hai, par khoon ya dard se zyada dangerous hai woh khamoshi jo relic ke andar se aa rahi hai.*",
+        "Vayun Rath: \"Ruk jao, {{playerName}}. Agar tum nirdosh ho toh mujhe wajah do ki main tumhe zinda aur sunne layak samjhun.\"",
+        "*Ash-relic tumhari mutthi ke paas bina chhuye hawa mein uthta hai. Violet ember ek pal ke liye bujhta hai, phir cyan roshni ke toot-te ghere tumhare dimaag ke andar khul jaate hain.*",
+        "*Koi physical ladki wahan nahi hai. Phir bhi ek ladki ki awaaz tumhare dimaag mein itni clearly ghoomti hai jaise woh tumhare bilkul paas khadi ho — aur us awaaz mein confidence se zyada panic hai.*",
+        "System: \"Hello, {{playerName}}. Tumhari condition dekhkar mujhe lag raha hai ki mujhe resignation de dena chahiye.\"",
+        "System: \"Main tumhara System hoon. Aur haan, mujhe bhi nahi pata main tumhare dimaag mein kyun hoon.\"",
+        "System: \"Koshish kar rahi hoon. Tum itne weak ho ki tutorial bhi tumse darr raha hai. Ye insult nahi, preliminary diagnosis hai. Shayad.\"",
+        "*Cyan ghere hilte hain. Ek second ke liye System ki awaaz overconfident lagti hai, agle hi pal woh khud ruk kar jaise kisi invisible warning ko padhne ki koshish karti hai.*",
+        "System: \"High-level modules locked hain. Basic survival interface bhi... ruk, ye red alert kyun blink kar raha hai? Mujhe panic karna allowed hai ya nahi?\"",
+        "*Ruin ka exit pattharon ke neeche dab raha hai. System tumhari jaan ke baare mein kuch kehna chahti hai, par pehle tumhara jawab chahti hai — tum usse kaise treat karoge, aur iss pal ka pehla objective kya hona chahiye, ye abhi likha nahi gaya.*"
+      ],
+      "fallbackLines": [
+        "System: \"Main tumhe god-mode nahi de rahi. Mere modules bhi meri tarah confused hain. Pehle tum jawab do, phir hum dono panic karenge.\"",
+        "*Cyan roshni tumhari saans ke saath sync hone ki koshish karti hai. Door ki aahat kareeb aa rahi hai, par agla faisla abhi tumhara hai.*"
+      ],
+      "choices": [
+        {
+          "id": "c_stabilize_situation",
+          "text": "Pehle zinda rehne ke liye situation samajhta/samajhti hoon",
+          "shortLabel": "Situation samjho",
+          "keywords": ["situation", "samajh", "zinda", "survive", "pehle", "calm"],
+          "next": null,
+          "effects": {
+            "choicesRecord": {
+              "firstSystemResponse": "stabilize"
+            },
+            "location": "lower-ruin"
+          }
+        },
+        {
+          "id": "c_challenge_system",
+          "text": "System se sawaal karta/karti hoon aur uski baat par shaq rakhta/rakhti hoon",
+          "shortLabel": "System par shaq",
+          "keywords": ["system", "sawaal", "shaq", "doubt", "kaun", "kyun"],
+          "next": null,
+          "effects": {
+            "choicesRecord": {
+              "firstSystemResponse": "challenged"
+            },
+            "location": "lower-ruin"
+          }
+        },
+        {
+          "id": "c_bargain_system",
+          "text": "System se sharton par baat karta/karti hoon",
+          "shortLabel": "Shartein rakho",
+          "keywords": ["shart", "deal", "bargain", "condition", "baat", "promise"],
+          "next": null,
+          "effects": {
+            "choicesRecord": {
+              "firstSystemResponse": "bargained"
+            },
+            "location": "lower-ruin"
+          }
+        },
+        {
+          "id": "c_find_escape",
+          "text": "Ruin se nikalne ka raasta dhoondhta/dhoondhti hoon",
+          "shortLabel": "Raasta dhoondo",
+          "keywords": ["raasta", "escape", "nikal", "ruin", "exit", "door"],
+          "next": null,
+          "effects": {
+            "choicesRecord": {
+              "firstSystemResponse": "sought-escape"
+            },
+            "location": "lower-ruin"
+          }
+        },
+        {
+          "id": "c_choose_nickname",
+          "text": "System ko abhi nickname dene ya na dene ka faisla karta/karti hoon",
+          "shortLabel": "Naam ka faisla",
+          "keywords": ["naam", "nickname", "name", "bulau", "call", "system ka naam"],
+          "next": null,
+          "effects": {
+            "choicesRecord": {
+              "firstSystemResponse": "nickname-question"
+            },
+            "location": "inner-voice-space"
+          }
+        }
+      ]
+    }
+  ],
+  "endings": []
+}
