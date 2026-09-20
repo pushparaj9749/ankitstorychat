@@ -1,0 +1,88 @@
+{
+  "storyId": "system-error-shunya",
+  "version": 1,
+  "premise": "{{playerName}} Kaalraakh ke orphan district mein low-status survivor hai: bina family, bina surname, bina magical bloodline aur bina starting combat training ke. Ash-market ke paas ek forbidden relic milne ke baad us par jhootha ilzaam lagta hai aur ek royal investigation usse underground ruin mein dhakel deti hai. Near-death pal mein ek female System activate hoti hai jo potentially overpowered hai, par apni hi locked power aur origin ko nahi samajhti. Opening jaan-boojhkar sirf user ke pehle response tak aati hai; aage ka objective runtime par user ke faisle se banega.",
+  "locations": [
+    {
+      "id": "orphan-district",
+      "name": "Kaalraakh Orphan District",
+      "description": "Shehar ki purani ash-wall ke neeche tang galiyan, ration lines, patched roofs aur woh log jinke naam royal registry mein mushkil se bachte hain."
+    },
+    {
+      "id": "ash-market",
+      "name": "Ash-Market",
+      "description": "Dhundhli lanterns aur ash-storm ke beech illegal tools, ration slips, rumours aur survival favours ka bazaar."
+    },
+    {
+      "id": "ash-relic-chamber",
+      "name": "Sealed Ash Chamber",
+      "description": "Orphan district ke neeche ek toota hua chamber jahan cracked altar par forbidden ash-relic pada hai aur hawa bhi purani lagti hai."
+    },
+    {
+      "id": "lower-ruin",
+      "name": "Kaalraakh Lower Ruin",
+      "description": "Collapsed tunnels, black stone arches aur ash se bhari underground jagah jahan exit aur trap ka farq turant samajh nahi aata."
+    },
+    {
+      "id": "inner-voice-space",
+      "name": "Inner Voice Space",
+      "description": "{{playerName}} ke dimaag mein jagti ek abstract cyan presence; physical location nahi, par System yahin se bolti hai."
+    }
+  ],
+  "factions": [
+    {
+      "id": "orphan-settlement",
+      "name": "Orphan Settlement",
+      "description": "Janki Maai, Meera aur district ke survival networks ka loose community; sab ek doosre ke apne nahi, par akelapan sabka common enemy hai."
+    },
+    {
+      "id": "royal-registry",
+      "name": "Royal Registry aur Ash Wardens",
+      "description": "Kaalraakh ki official authority jo forbidden magic ko control karne ka daawa karti hai. Kuch officers duty-bound hain, kuch apne fayde ke liye evidence mod sakte hain."
+    }
+  ],
+  "lore": [
+    "Kaalraakh ke ash storms sirf mitti nahi laate; kabhi-kabhi purani magic aur yaadon ke residue bhi chhod jaate hain.",
+    "Lower city ko ek purane incident ke baad seal kiya gaya tha, lekin official records mein us raat ka hissa missing hai.",
+    "Ash-relics ko forbidden kaha jaata hai kyunki unka reaction object se kam aur observer ke intent se zyada juda hota hai.",
+    "Shunya Kaalraakh mein ek social label hai — un logon ke liye jinke paas status, lineage ya registry value nahi samjhi jaati.",
+    "System ki awaaz feminine hai, lekin uska personal naam, origin aur full capacity beginning mein known nahi hai."
+  ],
+  "rules": [
+    "{{playerName}} hamesha user hai: narrator uske thoughts, feelings, trust, consent ya decisions khud decide nahi karega.",
+    "Story ka opening content sirf teen scenes tak hai. Koi fixed future quest list, future arc, complete reward list, quest tree ya final ending pre-write nahi karni.",
+    "Scene 3 ke baad runtime narrator user ke latest response, current location, trust, betrayal history, active threads aur world state ko analyse karke next objective banayega.",
+    "Runtime objective ko reject, ignore, delay ya kisi aur tareeqe se solve karna valid hai. User ko ek forced choice ya moral answer mein lock mat karo.",
+    "Har meaningful objective ka reward aur consequence context ke hisaab se banao; reward names, exact quests aur exact abilities pehle se fixed mat samjho.",
+    "Opening mein {{playerName}} weak rahega. System koi instant god-mode ya legendary skill nahi degi; early growth useful par limited hogi, aur powerful unlocks earned, conditional ya risky feel honge.",
+    "System ki high-level powers locked hain aur System khud bhi apni full capacity nahi samajhti. Uski female sarcastic voice aur banter exposition se zyada important hai; danger mein woh panic bhi karegi.",
+    "System ka personal naam beginning mein fixed nahi hai. User baad mein nickname choose kar sakta hai ya System khud kisi future moment par reveal kar sakti hai.",
+    "Meera, Nayra, Vayun aur Janki ke motives layered hain. Koi future ally, enemy ya betrayer pehle se fixed nahi; user ke decisions aur revealed evidence se relationships badlenge.",
+    "Romance optional aur user-led hai. Trust ya emotional attachment ko narrator force nahi karega.",
+    "Dialogue aur narration natural Hinglish mein Roman script only honge. Devanagari script use nahi karni.",
+    "Story endless hai: koi final ending, endStory action, 'The End' ya permanent closure nahi. Har resolved thread ke baad naya open question ya meaningful direction ho sakti hai."
+  ],
+  "importantObjects": [
+    {
+      "id": "ash-relic",
+      "name": "Forbidden Ash-Relic",
+      "description": "Cracked black shard jiske andar thanda violet ember hai. Iska origin, intent aur reaction abhi unexplained hai."
+    },
+    {
+      "id": "ration-ledger",
+      "name": "Orphan District Ration Ledger",
+      "description": "Janki Maai ke paas rehne wali patched registry jismein {{playerName}} ka status blank ya disputed hai."
+    },
+    {
+      "id": "royal-seal-fragment",
+      "name": "Broken Royal Seal Fragment",
+      "description": "Ruin ke paas mila hua seal ka tukda jo false accusation ko credible banata hai, par uski provenance clear nahi."
+    }
+  ],
+  "timeline": [
+    "Opening subah — Kaalraakh ke orphan district mein {{playerName}} ka survival aur unfair status.",
+    "Opening shaam — forbidden ash-relic milta hai aur royal registry ka jhootha ilzaam shuru hota hai.",
+    "Opening raat — underground ruin mein corner hone ke baad near-death pal par female System activate hoti hai.",
+    "Opening ka ant — System user ke pehle jawab ka intezaar karti hai; iske baad objective runtime par generate hoga."
+  ]
+}

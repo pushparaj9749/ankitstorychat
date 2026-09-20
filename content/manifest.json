@@ -1,7 +1,7 @@
 {
-  "contentVersion": 27,
+  "contentVersion": 28,
   "minAppVersion": "1.0.0",
-  "updatedAt": "2026-09-19T12:00:00.000Z",
+  "updatedAt": "2026-09-20T09:03:52.000Z",
   "stories": [
     {
       "id": "sartaaj-young-master",
@@ -1565,6 +1565,57 @@
       "popularity": 85,
       "storyDir": "alishaa",
       "updatedAt": "2026-09-17T21:00:00.000Z",
+      "creator": {
+        "name": "Ankit",
+        "avatar": null,
+        "verified": true
+      }
+    },
+    {
+      "id": "system-error-shunya",
+      "title": "System Error: Shunya",
+      "tagline": "Jis ladke ke paas kuch nahi tha, usse ek aisa system mila jo khud kuch nahi samajhta tha... lekin rewards duniya hila sakte the.",
+      "description": "{{playerName}} Kaalraakh ke orphan district ka 22 saal ka bina surname wala survivor hai. Na family, na magical bloodline, na combat training — sirf roz ka ration, thaki hui haddiyan aur duniya ka woh faisla ki tum kuch nahi ho. Ek shaam ek forbidden ash-relic, jhootha ilzaam aur ek anjaan ladki ki awaaz tumhari zindagi tod dete hain. Jo System tumhare dimaag mein jagti hai, woh potentially overpowered hai, par khud confused, lazy aur zyada bolne wali hai; tumhari power, trust aur survival ke har agle mod ka faisla tum karoge. Ye endless dark-fantasy journey hai — objective tumhare jawab ke baad runtime par banega, pehle se nahi.",
+      "genres": [
+        "Dark Fantasy",
+        "Drama",
+        "Action",
+        "Mystery",
+        "Supernatural"
+      ],
+      "tags": [
+        "ongoing",
+        "hinglish",
+        "system",
+        "female-system",
+        "orphan",
+        "betrayal",
+        "survival",
+        "dark-fantasy",
+        "dynamic-quests",
+        "mystery"
+      ],
+      "characters": [
+        "Meera Sain",
+        "Nayra",
+        "Vayun Rath",
+        "Janki Maai",
+        "System"
+      ],
+      "ageRating": "18+",
+      "contentLevel": "mature",
+      "language": "hinglish",
+      "version": 1,
+      "coverUrl": "stories/system-error-shunya/assets/cover.jpg",
+      "accentColor": "#6D28D9",
+      "userRole": "{{playerName}} — Kaalraakh ke orphan district ka bina surname wala 22 saal ka survivor; koi bloodline, starting training ya guaranteed destiny nahi. Agla faisla, trust aur risk tum tay karte ho.",
+      "setting": "Kaalraakh ka ash-storm se dhaka Indian-inspired magical shehar: orphan district ki tang galiyan, royal registry ke checkpoints, aur neeche dabaa hua forbidden ruin jahan purani magic abhi bhi saans leti hai.",
+      "estimatedMinutes": 35,
+      "featured": true,
+      "isNew": true,
+      "popularity": 96,
+      "storyDir": "system-error-shunya",
+      "updatedAt": "2026-09-20T09:03:52.000Z",
       "creator": {
         "name": "Ankit",
         "avatar": null,
