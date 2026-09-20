@@ -645,6 +645,9 @@ export function buildSystemPrompt(input: PromptInput, ageGroup: AgeGroup): strin
   const summaryBlock = input.summary?.trim()
     ? `STORY SO FAR (compressed memory — already known, never restate it):\n${input.summary.trim()}\n\n`
     : '';
+  const immediateBlock = input.immediateContext?.trim()
+    ? `LATEST TURN CUES (verbatim history is also provided below; do not repeat these lines):\n${input.immediateContext.trim()}\n\n`
+    : '';
 
   const saveHints =
     bundle.memory.extractionHints?.length
@@ -680,7 +683,7 @@ ${sceneDigest(scene)}
 ${worldBlock ? worldBlock + '\n\nLEGACY STATE (for compat):\n' + stateDigest(playthrough.state) : `STORY STATE SO FAR:
 ${stateDigest(playthrough.state)}`}
 
-${summaryBlock}WHAT YOU REMEMBER ABOUT THIS READER'S JOURNEY (most relevant first — this is ALREADY known, so never repeat it back, just act on it):
+${summaryBlock}${immediateBlock}WHAT YOU REMEMBER ABOUT THIS READER'S JOURNEY (most relevant first — this is ALREADY known, so never repeat it back, just act on it):
 ${memLines}
 
 MEMORY DISCIPLINE — what belongs in the hidden "memory" array:

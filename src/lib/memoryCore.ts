@@ -15,8 +15,8 @@ import type { MemoryEntry, MemoryKind } from '../types';
 /** Story-level preferences are shared across every playthrough of every story. */
 export const GLOBAL_SCOPE = '*';
 
-export const MEMORY_CHAR_BUDGET = 3800;
-export const MEMORY_MAX_ITEMS = 28;
+export const MEMORY_CHAR_BUDGET = 4600;
+export const MEMORY_MAX_ITEMS = 32;
 export const MEMORY_MAX_CHARS = 500;
 export const EPISODE_MAX_CHARS = 260;
 export const SUMMARY_MAX_CHARS = 1800;
@@ -218,14 +218,36 @@ export function scoreMemory(
   query: Set<string> | QueryProfile,
   nowMs = Date.now(),
 ): number {
+  // Expiring memories are useful until their deadline, never after it. Keeping
+  // this in the pure scorer means every caller (including future offline mode)
+  // gets the same safety behaviour.
+  if (m.expiresAt && Number.isFinite(Date.parse(m.expiresAt)) && Date.parse(m.expiresAt) <= nowMs) return -Infinity;
+
   let score = m.importance * WEIGHTS.importance;
   const overlap = overlapScore(m.text, query);
   if (overlap > 0) {
     score += Math.min(overlap, WEIGHTS.overlapFloor) * WEIGHTS.overlap;
     score += WEIGHTS.anyHit * Math.min(1, overlap);
   }
-  score += recencyBoost(m.createdAt, nowMs);
+
+  // A fact that was useful recently should not be treated as forgotten merely
+  // because it was learned early in a long story. `lastUsedAt` is intentionally
+  // a smaller signal than semantic overlap, so repetition can never manufacture
+  // relevance on its own.
+  score += Math.max(
+    recencyBoost(m.createdAt, nowMs),
+    m.lastUsedAt ? recencyBoost(m.lastUsedAt, nowMs) * 0.82 : 0,
+  );
   score += Math.min(m.hits ?? 0, WEIGHTS.hitsFloor) * WEIGHTS.hits;
+
+  // Provenance and confidence are tie-breakers, not hard filters. A low
+  // confidence narrator inference can still be recalled when the reader asks
+  // about exactly that subject, while a user-authored fact gets a gentle edge.
+  if (m.confidence === 'high') score += 3;
+  else if (m.confidence === 'low') score -= 1;
+  if (m.source === 'user' || m.source === 'manual') score += 2;
+  else if (m.source === 'seed') score += 1;
+
   if (m.kind === 'summary') score += WEIGHTS.pinSummary;
   else if (m.kind === 'preference') score += WEIGHTS.pinPreference;
   return score;
@@ -262,9 +284,12 @@ export function selectRelevant(
   } = opts;
   const query = buildQuery(queryText);
 
-  // Separate live and archived; archived may be resurrected on strong match
-  const live = all.filter((m) => !m.archived);
-  const archived = all.filter((m) => m.archived);
+  // Separate live and archived; archived may be resurrected on strong match.
+  // Expired temporary facts are deliberately excluded before pinning so an old
+  // disguise/appointment cannot override the current story state.
+  const active = (m: MemoryEntry) => !m.expiresAt || !Number.isFinite(Date.parse(m.expiresAt)) || Date.parse(m.expiresAt) > nowMs;
+  const live = all.filter((m) => !m.archived && active(m));
+  const archived = all.filter((m) => m.archived && active(m));
   const resurrected: SelectResult[] = [];
   for (const m of archived) {
     const score = overlapScore(m.text, query);
@@ -272,6 +297,10 @@ export function selectRelevant(
       resurrected.push({ ...m, archived: false, resurrected: true });
     }
   }
+  // A very broad query can match hundreds of folded episodes. Keep the
+  // resurrection lane small; live curated facts always get first-class space.
+  resurrected.sort((a, b) => scoreMemory(b, query, nowMs) - scoreMemory(a, query, nowMs));
+  resurrected.splice(6);
 
   const scored = [...live, ...resurrected]
     .map((m) => ({ m: m as MemoryEntry & { resurrected?: boolean }, score: scoreMemory(m as MemoryEntry, query, nowMs), hit: hasOverlap(m, query) }));
