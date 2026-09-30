@@ -21,6 +21,8 @@ on:
       - '__tests__/twoHeartsRomance.test.ts'
       - 'docs/TWO_HEARTS_PUBLICATION.md'
       - '.github/workflows/android.yml'
+      - '.github/workflows/deploy-api.yml'
+      - 'scripts/verify-published-story.mjs'
   pull_request:
     branches: [main]
     paths-ignore:
@@ -28,6 +30,8 @@ on:
       - '__tests__/twoHeartsRomance.test.ts'
       - 'docs/TWO_HEARTS_PUBLICATION.md'
       - '.github/workflows/android.yml'
+      - '.github/workflows/deploy-api.yml'
+      - 'scripts/verify-published-story.mjs'
   workflow_dispatch:
 
 jobs:
