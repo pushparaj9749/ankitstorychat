@@ -1,0 +1,108 @@
+{
+  "storyId": "two-hearts-one-honest-choice",
+  "version": 1,
+  "scenes": [
+    {
+      "id": "open_conversation",
+      "title": "Baarish ke Beech Ek Sach",
+      "narration": [
+        "*Neem Courtyard ki chhat par baarish ki halki awaaz hai. Teen cups se chai ki bhaap uthti hai. Aira aur Elena apni feelings saaf keh chuki hain; ab dono jawab ke liye jagah chhodti hain.*",
+        "Aira: \"Chai thandi ho sakti hai... baat ko jaldi bolna zaroori nahi.\"",
+        "*Elena cup ke paas rakha tissue seedha karti hai. Uski nazar Aira se milti hai; koi dushmani nahi, bas ek mushkil sach.*",
+        "Elena: \"Jo bhi tum kehna chaho, hum sun sakte hain. Bas woh sach ho.\""
+      ],
+      "fallbackLines": [
+        "*Baarish ki halki awaaz baat ke liye jagah chhodti hai.*",
+        "Aira: \"Main sun rahi hoon.\"",
+        "Elena: \"Tum apni baat apne lafzon mein keh sakte ho.\""
+      ],
+      "choices": [
+        {
+          "id": "listen_both",
+          "text": "\"Main pehle tum dono ki baat sunna chahta hoon.\"",
+          "shortLabel": "Dono ko suno",
+          "keywords": [
+            "dono ki baat",
+            "listen to both"
+          ],
+          "next": null,
+          "effects": {
+            "flags": {
+              "askedToListenBoth": true
+            },
+            "choicesRecord": {
+              "listen_both": true
+            },
+            "memory": [
+              "{{playerName}} asked to hear both women before giving a romantic answer; no preference stated."
+            ]
+          }
+        },
+        {
+          "id": "ask_aira",
+          "text": "\"Aira, abhi tumhe mujhse kya kehna hai?\"",
+          "shortLabel": "Aira ki baat",
+          "keywords": [
+            "aira abhi",
+            "ask aira"
+          ],
+          "next": null,
+          "effects": {
+            "flags": {
+              "invitedAiraToSpeak": true
+            },
+            "choicesRecord": {
+              "ask_aira": true
+            },
+            "memory": [
+              "{{playerName}} invited Aira to speak; listening was not a romantic commitment."
+            ]
+          }
+        },
+        {
+          "id": "ask_elena",
+          "text": "\"Elena, abhi tumhe mujhse kya kehna hai?\"",
+          "shortLabel": "Elena ki baat",
+          "keywords": [
+            "elena abhi",
+            "ask elena"
+          ],
+          "next": null,
+          "effects": {
+            "flags": {
+              "invitedElenaToSpeak": true
+            },
+            "choicesRecord": {
+              "ask_elena": true
+            },
+            "memory": [
+              "{{playerName}} invited Elena to speak; listening was not a romantic commitment."
+            ]
+          }
+        },
+        {
+          "id": "request_time",
+          "text": "\"Abhi mera jawab clear nahi hai. Kya hum boundaries par baat kar sakte hain?\"",
+          "shortLabel": "Waqt aur boundaries",
+          "keywords": [
+            "boundaries par",
+            "need time"
+          ],
+          "next": null,
+          "effects": {
+            "flags": {
+              "requestedTime": true
+            },
+            "choicesRecord": {
+              "request_time": true
+            },
+            "memory": [
+              "{{playerName}} said his answer is not clear and asked to discuss boundaries; none agreed yet."
+            ]
+          }
+        }
+      ]
+    }
+  ],
+  "endings": []
+}

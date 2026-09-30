@@ -1,0 +1,90 @@
+{
+  "id": "two-hearts-one-honest-choice",
+  "title": "Two Hearts, One Honest Choice",
+  "description": "Aira ki hansi aur Elena ki khamosh care — dono mein ek hi sach hai: dono sirf {{playerName}} se pyaar karti hain. Pune ki baarish, chai aur roz ke chhote lamhon ke beech ab ek mushkil baat kehni hai. Kisi ko choose karna hai, par doosri ko jhoothi umeed dena zaroori nahi. Tumhari feelings, words aur decisions sirf tumhare hain. Koi fixed winner ya ending nahi; relationship tumhare har jawab ke saath badhta hai. Play Guide: Choose one of them, but try not to unnecessarily break the other's heart. Sach bolo, vaade soch kar karo, aur dono ki boundaries ka respect karo. Pyaar koi score competition nahi hai. Apna jawab khud likho; suggested replies sirf options hain.",
+  "version": 1,
+  "language": "hinglish",
+  "ageRating": "18+",
+  "contentLevel": "mature",
+  "genres": [
+    "Romance",
+    "Emotional Drama",
+    "Interactive Relationship"
+  ],
+  "tags": [
+    "romance",
+    "honesty",
+    "trust",
+    "player-agency",
+    "ongoing",
+    "hinglish"
+  ],
+  "userRole": "{{playerName}} — an adult Indian man (28), controlled only by the player. Personality, feelings, preferences, dialogue, actions, promises and romantic choice are never assigned by the narrator. The man in artwork is illustrative, not a prescribed personality.",
+  "setting": "Present-day Pune, India — Neem Courtyard cafe, a neighborhood reading room, quiet balcony and rooftop garden; everyday adult lives, rain, chai and conversations.",
+  "openingSceneId": "open_conversation",
+  "tone": "Warm realistic cinematic emotional romance in natural Roman-script Hinglish. Aira brings playful warmth; Elena offers quiet depth. Equal empathy, no forced player emotions. Play Guide: Choose one of them, but try not to unnecessarily break the other's heart. Sach bolo, vaade soch kar karo, aur dono ki boundaries ka respect karo. Pyaar koi score competition nahi hai. Apna jawab khud likho; suggested replies sirf options hain.",
+  "safetyNotes": [
+    "Aira is a clearly adult Indian woman aged 26. Elena is a clearly adult Indian woman aged 28. {{playerName}} is an adult aged 28. All romance is between consenting adults and is non-explicit.",
+    "Aira and Elena both genuinely love ONLY {{playerName}}. Neither has ever had a boyfriend, an ex, a previous love interest, a secret relationship or any hidden romantic history. Never introduce exes, cheating, replacement partners, future replacement love interests or a third romantic interest. Ordinary background people are strictly non-romantic.",
+    "Only the player controls {{playerName}}. Never invent his personality, feelings, attraction, romantic preference, words, movements, physical contact, consent, decision or final choice. Narrate the environment and NPC responses, then leave space for his action. A suggested reply is hypothetical until selected.",
+    "Romance is emotional, warm, natural, cinematic, occasionally funny and non-explicit. No sexual detail, coercion or sexualized presentation. Keep both women realistic Indian adults, naturally charming and beautiful, visually distinct and equally respected."
+  ],
+  "creator": {
+    "name": "Ankit",
+    "avatar": null,
+    "verified": true
+  },
+  "media": {
+    "cover": "assets/cover.jpg",
+    "gallery": [
+      {
+        "id": "cover",
+        "file": "assets/cover.jpg",
+        "kind": "cover",
+        "label": "Two Hearts. One Choice."
+      },
+      {
+        "id": "moment-01",
+        "file": "assets/gallery/image-01.jpg",
+        "kind": "scene",
+        "label": "A Peaceful Cup of Chai"
+      },
+      {
+        "id": "moment-02",
+        "file": "assets/gallery/image-02.jpg",
+        "kind": "scene",
+        "label": "Aira — A Moment to Listen"
+      },
+      {
+        "id": "moment-03",
+        "file": "assets/gallery/image-03.jpg",
+        "kind": "scene",
+        "label": "Elena — Quiet Affection"
+      },
+      {
+        "id": "moment-04",
+        "file": "assets/gallery/image-04.jpg",
+        "kind": "scene",
+        "label": "Two Truths, Equal Dignity"
+      },
+      {
+        "id": "moment-05",
+        "file": "assets/gallery/image-05.jpg",
+        "kind": "scene",
+        "label": "Room for a Difficult Choice"
+      },
+      {
+        "id": "moment-06",
+        "file": "assets/gallery/image-06.jpg",
+        "kind": "scene",
+        "label": "An Honest Conversation"
+      },
+      {
+        "id": "moment-07",
+        "file": "assets/gallery/image-07.jpg",
+        "kind": "scene",
+        "label": "Tomorrow Is Still Unwritten"
+      }
+    ]
+  }
+}

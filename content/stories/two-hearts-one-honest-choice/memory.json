@@ -1,0 +1,28 @@
+{
+  "storyId": "two-hearts-one-honest-choice",
+  "version": 1,
+  "shortTermWindow": 24,
+  "seedMemories": [
+    "{{playerName}} is the adult player-controlled MC; no feelings, words or preference have been assumed.",
+    "Aira (26) and Elena (28) are adult Indian women; both genuinely love only {{playerName}}, with no past or future other romantic interest.",
+    "Both have confessed openly before the opening; neither is an enemy or a romantic villain.",
+    "No exclusive relationship, reciprocal feeling, promise, date or player decision is established yet.",
+    "The story continues indefinitely through player actions; a commitment never creates a terminal ending."
+  ],
+  "extractionHints": [
+    "Player decisions: exact words, person addressed, context and whether a choice was explicit or undecided",
+    "Relationship development: earned closeness, trust, boundary changes and emotional consequences for each woman separately; never a winner score",
+    "Important conversations: who was present, who knows what, private information only shared when actually communicated",
+    "Promises: exact terms, consent, agreed timing, whether kept, broken or revised; requests are not agreements",
+    "Significant events, dates and shared memories only after they happen; do not invent them from illustrative media",
+    "Persist relationship state, feelings expressed by NPCs, repair attempts and requests for space across every location change",
+    "An explicit romantic choice and subsequent honest communication; continue everyday consequences without a replacement love interest"
+  ],
+  "neverRemember": [
+    "Real-world sensitive personal data, address, phone number or credentials",
+    "Unchosen suggested replies, guessed MC feelings or invented consent as established fact",
+    "Illustrative gallery moments as events the player actually performed",
+    "Any ex, secret prior romance, replacement partner or third romantic interest",
+    "A fabricated romantic winner, fixed future decision or terminal ending"
+  ]
+}
