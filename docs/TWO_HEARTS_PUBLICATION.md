@@ -28,3 +28,7 @@ The cover was used as the identity reference for every generated gallery image. 
 Commit and push only the Arena working branch, open a PR to main and merge via GitHub. Main then runs the existing Deploy story API workflow. Verify `/api/health`, `/api/manifest`, the whole package, each JSON file, and all eight media URLs against repository bytes on both production hostnames. Production verification and merge/deploy identifiers are reported in the task completion message rather than claiming an unperformed release in this document.
 
 Discovery is verified through the unchanged remote catalog architecture and existing OTA tests. A physical already-installed device is not available in this workspace; do not confuse API compatibility verification with a device-observed test.
+
+## Deployment readiness follow-up
+
+The initial release uploaded successfully but its immediate smoke check saw transient 404s for the package, story JSON and cover; all seven gallery images already served successfully. A bounded readiness gate now verifies the newest story before the existing smoke checks: both production hosts, manifest equality, all five JSON files, package equality, and SHA-256 equality for every image. It requires two consecutive passes, retries at ten-second intervals, and fails on persistent errors. No app or Worker runtime behavior changes.
