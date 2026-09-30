@@ -1,7 +1,7 @@
 # Two Hearts, One Honest Choice — remote publication
 
 - Story ID: `two-hearts-one-honest-choice`
-- Catalog contentVersion: 29; minimum app version remains 1.0.0.
+^- Catalog contentVersion: 30 (artwork regeneration); minimum app version remains 1.0.0.
 - Player: `{{playerName}}`, adult, exclusively player-controlled. The existing schema represents the player in `userRole`, not as an NPC with a placeholder name.
 - NPCs: Aira (26) and Elena (28), adult Indian women who love only the player. Canon forbids prior/other romantic interests, cheating, replacement partners, villainization and ranking.
 - Existing five-file package, one opening conversation seed, no terminal effects or predefined future route graph. Choices store factual flags and memories, not affection scores.
@@ -13,7 +13,15 @@
 
 Exactly eight generated JPEGs: one cover and seven scene images. The existing `media.gallery` includes the cover, so it contains eight entries, not seven. All references are in-package and unique. Gallery moments are illustrative possibilities, not established player actions or future outcomes.
 
-The cover was used as the identity reference for every generated gallery image. Visual review checked adult Indian appearance, distinct faces, modest outfits, sympathetic portrayal and absence of a chosen winner. Source images were not cropped, resized or re-encoded: cover and images 01, 02, 04–07 are 848×1264; image 03 is 1408×768. Existing natural-image rendering handles their native ratios.
+### Regenerated premium artwork (v2, contentVersion 30, story version 2)
+
+The first artwork set was fully replaced with a new premium photorealistic live-action Indian romance-movie set — the previous images are no longer registered anywhere: the same eight allowlisted paths (`assets/cover.jpg`, `assets/gallery/image-01..07.jpg`) now carry entirely new bytes, and the `media` block was not edited, so there is no second story, no duplicate registration and no orphan asset.
+
+- All eight images regenerated from scratch as new compositions (no minor edits of the old frames), each 848×1264 (2:3), shipped un-resized and un-re-encoded.
+- The new cover is the identity anchor: face-reference crops cut from it steered every gallery image, keeping Aira (26 — peach chikankari kurti, wavy half-up hair, gold jhumkas), Elena (28 — sage silk kurti, ivory dupatta, low bun) and the male lead (28 — trimmed beard, olive overshirt over charcoal henley) visually consistent across all eight frames.
+- Style bar: realistic Indian facial features, expressive eyes, natural skin texture and asymmetry, believable adult proportions, elegant modern Indian styling, high-end cinematic photography and lighting. Both women are equally attractive and cute; no ranking, no chosen winner in any frame.
+- Visual review repeated on the new set: adult Indian appearance, distinct consistent faces, modest outfits, sympathetic portrayal, absence of a chosen winner.
+- OTA signals bumped: catalog `contentVersion` 29 → 30 and the story's `version` 1 → 2 (manifest meta + `story.json`). Installed apps stream this story's JSON from the API at play time and resolve every media reference against the same package paths, so the new artwork reaches already-installed Kissa apps with no APK update.
 
 ## Checks before publication
 
