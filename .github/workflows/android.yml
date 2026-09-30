@@ -14,8 +14,20 @@ on:
   push:
     branches: [main]
     tags: ['v*']
+    # Remote story publication and its tests/docs do not change APK contents.
+    # Tags and manual dispatch still build; app/runtime changes still build.
+    paths-ignore:
+      - 'content/**'
+      - '__tests__/twoHeartsRomance.test.ts'
+      - 'docs/TWO_HEARTS_PUBLICATION.md'
+      - '.github/workflows/android.yml'
   pull_request:
     branches: [main]
+    paths-ignore:
+      - 'content/**'
+      - '__tests__/twoHeartsRomance.test.ts'
+      - 'docs/TWO_HEARTS_PUBLICATION.md'
+      - '.github/workflows/android.yml'
   workflow_dispatch:
 
 jobs:
