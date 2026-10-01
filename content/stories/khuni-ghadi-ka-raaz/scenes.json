@@ -1,0 +1,120 @@
+{
+  "storyId": "khuni-ghadi-ka-raaz",
+  "version": 1,
+  "scenes": [
+    {
+      "id": "interrogation_room",
+      "title": "Interrogation Room — Raat Ki Baarish",
+      "narration": [
+        "*Concrete interrogation room ki thandi deewaron par flickering tube light ki safed roshni kaanp rahi hai. Bahar bhaari toofan hai aur tez baarish building ke sheeshon se takra rahi hai.*",
+        "*Metal table ke us paar DCP Maaya khadi hai. Uske samne transparent evidence pouch mein woh rare, limited-edition watch aur case ke saboot rakhe hain. Maaya ki tez, shant nazar seedhi us ghadi par tiki hai.*",
+        "Maaya: \"Serial number jhooth nahi ho sakta.\"",
+        "Maaya: \"Bahut achha game khela tumne, {{playerName}}.\"",
+        "Maaya: \"Lekin ab tum is serial killing case ke prime suspect ho.\"",
+        "*Kamre mein ek gehra, tanav bhara sannata chha jaata hai. Tube light ek baar phir jhilmilati hai, aur Maaya table par halka sa jhuk kar tumhari aankhon mein dekhti hai.*",
+        "Maaya: \"Ab sach sach batao.\"",
+        "Maaya: \"Ye watch waqai chori hui thi.\"",
+        "Maaya: \"Ya tum mujhe bewakoof bana rahe ho?\""
+      ],
+      "fallbackLines": [
+        "*Flickering tube light ke neeche DCP Maaya ki nazar tumhare chehre aur table par rakhi limited-edition watch ke beech tiki rehti hai.*",
+        "Maaya: \"Main sun rahi hoon, {{playerName}}. Jo bhi kehna hai, saboot aur timeline ke saath kaho.\""
+      ],
+      "choices": [
+        {
+          "id": "explain_missing_watch",
+          "text": "\"Meri watch kuch din pehle gayab ho gayi thi — main sach keh raha hoon.\"",
+          "shortLabel": "Watch gayab hui thi",
+          "keywords": [
+            "watch gayab",
+            "chori hui",
+            "missing watch",
+            "sach keh raha"
+          ],
+          "next": null,
+          "effects": {
+            "flags": {
+              "claimedWatchMissing": true
+            },
+            "choicesRecord": {
+              "explain_missing_watch": true
+            },
+            "memory": [
+              "{{playerName}} stated in interrogation that his rare limited-edition watch disappeared several days ago."
+            ]
+          }
+        },
+        {
+          "id": "ask_for_evidence",
+          "text": "\"Mujhe batao ye watch crime scene par kis haalat mein aur kahan mili?\"",
+          "shortLabel": "Evidence dikhao",
+          "keywords": [
+            "kahan mili",
+            "evidence dikhao",
+            "crime scene",
+            "saboot"
+          ],
+          "next": null,
+          "effects": {
+            "flags": {
+              "requestedWatchEvidence": true
+            },
+            "choicesRecord": {
+              "ask_for_evidence": true
+            },
+            "memory": [
+              "{{playerName}} asked DCP Maaya for the exact crime-scene recovery details of the watch."
+            ]
+          }
+        },
+        {
+          "id": "challenge_framing",
+          "text": "\"Mera crime scenes par jaana mera forensic kaam hai — agar mujhe maarna hota toh apni serial number wali ghadi wahan kyun chhodta?\"",
+          "shortLabel": "Framing par sawaal",
+          "keywords": [
+            "forensic kaam",
+            "serial number",
+            "frame",
+            "kyun chhodta"
+          ],
+          "next": null,
+          "effects": {
+            "flags": {
+              "challengedAlibiTheory": true
+            },
+            "choicesRecord": {
+              "challenge_framing": true
+            },
+            "memory": [
+              "{{playerName}} challenged Maaya to consider why a forensic photographer would leave his own serialized watch at a crime scene unless framed."
+            ]
+          }
+        },
+        {
+          "id": "demand_case_details",
+          "text": "\"Pehle mujhe murder ka exact time aur crime scene ki forensic report dikhao, phir main har sawaal ka jawab dunga.\"",
+          "shortLabel": "Forensic report",
+          "keywords": [
+            "forensic report",
+            "exact time",
+            "time of death",
+            "case file"
+          ],
+          "next": null,
+          "effects": {
+            "flags": {
+              "demandedForensicReport": true
+            },
+            "choicesRecord": {
+              "demand_case_details": true
+            },
+            "memory": [
+              "{{playerName}} asked to inspect the time-of-death and forensic report before answering further questions."
+            ]
+          }
+        }
+      ]
+    }
+  ],
+  "endings": []
+}
