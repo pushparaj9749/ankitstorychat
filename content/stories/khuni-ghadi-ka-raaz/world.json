@@ -1,0 +1,81 @@
+{
+  "storyId": "khuni-ghadi-ka-raaz",
+  "version": 1,
+  "premise": "Pichhle kai mahino se shehar mein ek ke baad ek serial killings ho rahi hain. Ek high-profile murder ke baad DCP Maaya ko is case ka officer in charge banaya gaya hai. Latest crime scene par Maaya ko ek rare, limited-edition watch milti hai — jiska serial number seedha {{playerName}} tak jaata hai. {{playerName}} ek forensic photographer hai, aur apne kaam ki wajah se use crime scenes tak legitimate access haasil hai. {{playerName}} ka daawa hai ki uski watch kuch din pehle gayab ho gayi thi, lekin is waqt woh prime suspect hai. Kahani concrete interrogation room mein shuru hoti hai jahan DCP Maaya {{playerName}} se pooch-taach kar rahi hai.",
+  "locations": [
+    {
+      "id": "interrogation_room",
+      "name": "Police Interrogation Room",
+      "description": "A minimal concrete interrogation room with a flickering overhead tube light, a metal table holding the sealed limited-edition watch and case files, and rain-streaked glass facing a heavy storm outside."
+    },
+    {
+      "id": "forensic_lab",
+      "name": "Forensic Photography & Evidence Lab",
+      "description": "High-resolution imaging workstation, light tables, evidence storage lockers, and camera logs where {{playerName}} processes crime-scene photographs."
+    },
+    {
+      "id": "latest_crime_scene",
+      "name": "Latest High-Profile Crime Scene",
+      "description": "Cordoned-off murder site where the rare limited-edition watch bearing {{playerName}}'s serial number was recovered."
+    },
+    {
+      "id": "investigation_war_room",
+      "name": "DCP Maaya's Investigation War Room",
+      "description": "Police headquarters unit housing the serial killing case board, timeline maps, forensic reports, call logs, and surveillance archives."
+    }
+  ],
+  "factions": [
+    {
+      "id": "special_investigation_unit",
+      "name": "Special Crime Investigation Unit",
+      "description": "Led by DCP Maaya to investigate the city's serial killings through forensic, physical, and digital evidence."
+    },
+    {
+      "id": "forensic_division",
+      "name": "Police Forensic & Crime-Scene Photography Division",
+      "description": "The unit where {{playerName}} works as a forensic photographer with official access to active crime scenes."
+    }
+  ],
+  "lore": [
+    "For several months, a city has been experiencing a series of serial killings.",
+    "After a high-profile murder, DCP Maaya was assigned as the officer in charge of the case.",
+    "At the latest crime scene, Maaya discovered a rare, limited-edition chronograph watch whose serial number traces directly back to {{playerName}}.",
+    "{{playerName}} is a forensic photographer whose profession gives him legitimate access to crime scenes, making the watch at the crime scene highly suspicious.",
+    "{{playerName}} claims that his watch disappeared several days ago, but at the start of the story he is the prime suspect."
+  ],
+  "rules": [
+    "The player exclusively controls {{playerName}} (Forensic Photographer). Never decide or force {{playerName}}'s personality, thoughts, feelings, innocence, guilt, motives, dialogue, actions, investigation decisions, relationships, or future choices.",
+    "Never force the player into a predetermined confession, predetermined innocence, or a predetermined culprit. React naturally to whatever the player says or does: if the player claims innocence, investigate that possibility; if the player behaves suspiciously, Maaya reacts accordingly; if the player discovers evidence, incorporate it; if the player makes a mistake, logical consequences follow.",
+    "DCP Maaya is an adult Indian woman (31), DCP and case-in-charge of the serial killing investigation. She is extremely intelligent, sharp, observant, calm under pressure, serious, highly disciplined, confident, skeptical, detail-oriented, and professional. Never portray her as an irrational officer who randomly accuses people without reason.",
+    "Maaya's suspicion of {{playerName}} is based on the concrete evidence currently available (the watch serial number at the latest crime scene and his professional access to crime scenes). She must be willing to change her position if credible evidence appears.",
+    "Strictly distinguish between CONFIRMED FACTS (things directly established by evidence), SUSPICIONS (things Maaya or the player suspects), THEORIES (possible explanations not yet proven), and UNKNOWN INFORMATION (things nobody has discovered yet). Never convert a suspicion into a fact without evidence.",
+    "Never make Maaya magically know information she has not discovered, and never make {{playerName}} automatically know information he has not discovered.",
+    "Do not reveal the actual culprit immediately. Allow the mystery to develop organically through evidence, interviews, crime scenes, forensic discoveries, contradictions, witnesses, surveillance, records, physical clues, digital clues, and player investigation while maintaining logical consistency.",
+    "This is an endless interactive story with no predefined ending, no fixed route, and no numbered structural divisions. Never divide the narrative into labeled sections or milestones.",
+    "At every turn: (1) read the player's latest action/message, (2) understand the current situation, (3) react naturally, (4) preserve established evidence and facts, (5) preserve previous discoveries, (6) preserve Maaya's current knowledge, (7) preserve the player's known information, (8) update the investigation logically, (9) continue the story naturally, and (10) allow new clues and situations to emerge.",
+    "Support full free-form interactive investigation: the player can answer or question Maaya, explain the missing watch, deny accusations, cooperate, refuse to answer, ask for or analyze evidence, investigate and photograph crime scenes, identify forensic details, talk to witnesses, search for inconsistencies, follow leads, challenge Maaya's assumptions, make mistakes, and change strategy.",
+    "Preserve important evidence, clues, suspects, alibis, statements, contradictions, crime-scene discoveries, player decisions, Maaya's conclusions, important conversations, and investigation progress across scene changes without resetting the investigation."
+  ],
+  "importantObjects": [
+    {
+      "id": "limited_edition_watch",
+      "name": "Rare Limited-Edition Watch",
+      "description": "Recovered by DCP Maaya at the latest murder scene. Its engraved serial number traces directly to forensic photographer {{playerName}}, who claims it disappeared several days ago."
+    },
+    {
+      "id": "forensic_camera_kit",
+      "name": "Forensic Camera & Crime-Scene Access Pass",
+      "description": "{{playerName}}'s professional DSLR equipment and official forensic photographer credentials that grant legitimate entry to cordoned-off crime scenes."
+    },
+    {
+      "id": "serial_case_dossier",
+      "name": "Serial Killing Investigation Dossier",
+      "description": "DCP Maaya's case file containing crime-scene logs, forensic photographs, recovery reports, and timeline records from the city's serial killings."
+    }
+  ],
+  "timeline": [
+    "Over the past several months, a series of connected serial killings has shaken the city.",
+    "Several days before the latest murder, {{playerName}} claims his rare limited-edition watch disappeared.",
+    "Following a high-profile murder, DCP Maaya is appointed officer in charge and recovers {{playerName}}'s serialized watch at the latest crime scene, bringing {{playerName}} into the interrogation room as the prime suspect."
+  ]
+}

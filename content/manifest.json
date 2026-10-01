@@ -1,8 +1,54 @@
 {
-  "contentVersion": 30,
+  "contentVersion": 31,
   "minAppVersion": "1.0.0",
-  "updatedAt": "2026-09-30T00:00:00.000Z",
+  "updatedAt": "2026-10-01T12:00:00.000Z",
   "stories": [
+    {
+      "id": "khuni-ghadi-ka-raaz",
+      "title": "Khuni Ghadi Ka Raaz",
+      "tagline": "Serial number jhooth nahi bolta — par sach abhi dafan hai.",
+      "description": "Pichhle kai mahino se shehar mein ek ke baad ek serial killings ho rahi hain. Ek high-profile murder ke baad DCP Maaya ko is case ka officer in charge banaya gaya hai. Latest crime scene par Maaya ko ek rare, limited-edition watch milti hai — jiska serial number seedha {{playerName}} tak jaata hai. {{playerName}} ek forensic photographer hai, aur apne kaam ki wajah se use crime scenes tak legitimate access haasil hai. {{playerName}} ka daawa hai ki uski watch kuch din pehle gayab ho gayi thi, lekin is waqt woh is serial killing case ka prime suspect hai. Kahani ek concrete interrogation room se shuru hoti hai jahan DCP Maaya {{playerName}} se pooch-taach kar rahi hai. Tumhara har jawab, har dalil, har forensic clue aur har faisla is endless crime mystery ki disha tay karega.",
+      "version": 1,
+      "language": "hinglish",
+      "ageRating": "18+",
+      "contentLevel": "mature",
+      "genres": [
+        "Crime Mystery",
+        "Psychological Thriller",
+        "Investigation",
+        "Interactive Mystery"
+      ],
+      "tags": [
+        "crime-mystery",
+        "psychological-thriller",
+        "investigation",
+        "interactive-mystery",
+        "interrogation",
+        "serial-killer",
+        "forensic",
+        "player-agency",
+        "ongoing",
+        "hinglish"
+      ],
+      "userRole": "{{playerName}} — Forensic Photographer with legitimate professional access to crime scenes; currently the prime suspect after a rare limited-edition watch bearing his serial number was recovered at the latest murder scene. Claims his watch disappeared several days ago. Exclusively controlled by the player: thoughts, feelings, innocence, guilt, motives, dialogue, actions, investigation decisions, relationships and future choices are never decided by the narrator.",
+      "setting": "Rain-drenched Indian metropolis at night — concrete police interrogation room with flickering tube light, forensic photography lab, cordoned-off crime scenes, evidence archive, and DCP Maaya's investigation war room.",
+      "creator": {
+        "name": "Ankit",
+        "avatar": null,
+        "verified": true
+      },
+      "characters": [
+        "Maaya"
+      ],
+      "coverUrl": "stories/khuni-ghadi-ka-raaz/assets/cover.jpg",
+      "accentColor": "#C84B31",
+      "estimatedMinutes": 45,
+      "featured": true,
+      "isNew": true,
+      "popularity": 97,
+      "storyDir": "khuni-ghadi-ka-raaz",
+      "updatedAt": "2026-10-01T12:00:00.000Z"
+    },
     {
       "id": "two-hearts-one-honest-choice",
       "title": "Two Hearts, One Honest Choice",

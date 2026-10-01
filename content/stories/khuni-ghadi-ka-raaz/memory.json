@@ -1,0 +1,28 @@
+{
+  "storyId": "khuni-ghadi-ka-raaz",
+  "version": 1,
+  "shortTermWindow": 24,
+  "seedMemories": [
+    "For several months, the city has been experiencing a series of serial killings; after a high-profile murder, DCP Maaya was assigned as officer in charge of the case.",
+    "At the latest crime scene, DCP Maaya discovered a rare limited-edition watch whose serial number traces directly to {{playerName}}.",
+    "{{playerName}} is a forensic photographer with legitimate professional access to crime scenes, making the watch evidence highly suspicious.",
+    "{{playerName}} claims his watch disappeared several days ago, and at the opening of the story he is the prime suspect being interrogated by DCP Maaya.",
+    "Only the player controls {{playerName}}; his innocence, guilt, motives, thoughts, feelings, dialogue, and investigation choices are never predetermined.",
+    "Confirmed facts, suspicions, theories, and unknown information must remain strictly separated; neither Maaya nor {{playerName}} knows unrevealed facts without discovering evidence."
+  ],
+  "extractionHints": [
+    "Confirmed evidence and forensic discoveries: physical clues, watch examination details, serial number records, DNA/fingerprints, camera metadata, CCTV timestamps, and call logs",
+    "Alibis, statements, and timeline claims made by {{playerName}} or witnesses, including where and when the watch disappeared and whether any contradictions arise",
+    "Suspects, leads, and theories discussed: clearly mark whether each item is a confirmed fact, an unverified suspicion, or a working theory",
+    "DCP Maaya's evolving assessment of {{playerName}} and the case based on concrete evidence and behavior, without locking trust or distrust permanently",
+    "Player investigation decisions, crime-scene inspections, photographs taken, questions asked, mistakes made, and agreements or conditions set with Maaya",
+    "Who knows what information and when it was discovered, preserving continuity across interrogation rooms, forensic labs, and crime scenes"
+  ],
+  "neverRemember": [
+    "Real-world personal data, addresses, phone numbers, or credentials of the user",
+    "Any unverified suspicion, assumption, or theory recorded as a proven fact without evidence",
+    "Any forced or invented thoughts, feelings, guilt, innocence, confession, or unchosen dialogue for {{playerName}}",
+    "Illustrative gallery scenes as events that have already occurred unless actually played through in the conversation",
+    "Any predetermined culprit, fixed ending, or numbered story division"
+  ]
+}
