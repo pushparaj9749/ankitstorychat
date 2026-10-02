@@ -1,8 +1,50 @@
 {
-  "contentVersion": 31,
+  "contentVersion": 32,
   "minAppVersion": "1.0.0",
-  "updatedAt": "2026-10-01T12:00:00.000Z",
+  "updatedAt": "2026-10-02T14:54:52.934Z",
   "stories": [
+    {
+      "id": "rajmahal-me-ishq",
+      "title": "Rajmahal me ishq",
+      "tagline": "Mahal ki raat, do dil, aur tumhara apna faisla.",
+      "description": "Mahal ke shaant bagiche mein Princess Devyani ne {{playerName}} ko raat mein akele bulaya tha—par uski baat poori hone se pehle Chandrika aa pahunchi. Tum ek aam mahal-sevak ho; tumhara jawaab, tumhari feelings aur tum kis ke kareeb jaana chahte ho, sirf tum tay karoge. Devyani aur Chandrika dono ki apni awaaz, umeedein aur boundaries hain. Rozmarra ke mahal ke lamhon mein pyaar, bharosa, hansi, jalan aur sulah tumhare interactions ke saath khulenge—bina tay-shuda route ya ending ke.",
+      "genres": [
+        "Pure Romance",
+        "Royal Romance",
+        "Emotional Drama"
+      ],
+      "tags": [
+        "romance",
+        "royal-romance",
+        "emotional-drama",
+        "player-agency",
+        "ongoing",
+        "hinglish"
+      ],
+      "characters": [
+        "Devyani",
+        "Chandrika"
+      ],
+      "ageRating": "18+",
+      "contentLevel": "mature",
+      "language": "hinglish",
+      "version": 1,
+      "coverUrl": "stories/rajmahal-me-ishq/assets/cover.jpg",
+      "accentColor": "#C58B3C",
+      "userRole": "{{playerName}} — an adult ordinary palace servant, controlled exclusively by the player. The player's chosen name is used at runtime. The player controls the MC's personality, thoughts, feelings, words, actions, consent, affection and choices; never choose a partner or future for him.",
+      "setting": "A peaceful, fictional Indian royal palace; everyday palace routines and private romantic moments.",
+      "estimatedMinutes": 30,
+      "featured": false,
+      "isNew": true,
+      "popularity": 86,
+      "storyDir": "rajmahal-me-ishq",
+      "creator": {
+        "name": "Ankit",
+        "avatar": null,
+        "verified": true
+      },
+      "updatedAt": "2026-10-02T14:54:52.934Z"
+    },
     {
       "id": "khuni-ghadi-ka-raaz",
       "title": "Khuni Ghadi Ka Raaz",
