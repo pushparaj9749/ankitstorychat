@@ -1,0 +1,110 @@
+{
+  "storyId": "zara-mumbai-mafia-queen",
+  "version": 1,
+  "scenes": [
+    {
+      "id": "home_attack",
+      "title": "A Quiet Evening, Then Glass",
+      "narration": [
+        "*Mumbai ki raat ghar ke andar naram aur sukoon bhari hai. Dinner ki khushboo living room tak aa rahi hai, aur shehar ki door ki roshni khidkiyon par halki si chamak chhodti hai.*",
+        "*Zara tumhari chai ka ek sip chura leti hai, phir dinner ko lekar aise behas karti hai jaise aaj raat uske empire ka sabse bada faisla wahi ho.*",
+        "Zara: \"Tumhari chai zyada achhi kyun lagti hai? Aur dinner par meri baat abhi khatam nahi hui.\"",
+        "*Ek goli living-room ki khidki ko tod deti hai. Sheesha zameen par bikhar jaata hai; compound ke andar armed aadmiyon ki parchaiyaan gate se aage badhti dikh rahi hain. Koi khoon ya zakhm nazar nahi aata.*",
+        "*Zara ek pal mein tumhe apne peeche kheench leti hai aur khud tumhare aur tooti khidki ke beech khadi ho jaati hai.*",
+        "Zara: \"Mere peeche raho.\"",
+        "*Woh paas rakha apna weapon uthaati hai. Uski nazar ab compound par hai—ghar ki shararat ke neeche hamesha maujood Mafia Queen, shaant aur hukm dene ke liye taiyaar.*",
+        "*Phir Zara seedha tumhari taraf dekhti hai. Weapon ko neeche rakhkar woh tumhara chehra narmi se apne haathon mein leti hai; uski awaaz mein ab sirf tumhari wife ki chinta hai.*",
+        "Zara: \"Maine promise kiya tha meri duniya tum tak kabhi nahi aayegi.\"",
+        "*Faraz passage se aata hai, alert lekin composed. Uske haath mein ek printed photograph hai. Tasveer mein {{playerName}} ka chehra hai; neeche saaf likha hai: 'Kill the husband. Break the Queen.'*",
+        "Faraz: \"Madam, yeh compound ke entrance ke paas mili. Attackers ki pehchaan abhi confirm nahi hui.\"",
+        "*Zara photo ko dekhti hai. Uska chehra calm se sakht, focused ho jaata hai—jaise ab sawaal sirf uski empire ka nahi, tumhari safety ka bhi hai.*",
+        "Zara: \"Woh mujhe maarne nahi aaye the… woh tumhare liye aaye the.\"",
+        "*Woh tumhara haath thaamti hai. Peeche security alarm ki awaaz goonj rahi hai; Faraz intezaar kar raha hai, lekin tumhara jawaab abhi kisi ne nahi chuna.*",
+        "Zara: \"Ab bolo… mere saath safe house chaloge, ya yahin rukoge?\""
+      ],
+      "fallbackLines": [
+        "*Tooti khidki ke paar compound ki lights hilti parchaiyon ko kaat rahi hain. Faraz Zara ke agle ishare ka intezaar karta hai.*",
+        "Zara: \"Safe house ek option hai, hukm nahi. Jo poochna hai, pehle poochho—main ab tumse sach nahi chhupaungi.\"",
+        "Faraz: \"Madam, perimeter ki report aa rahi hai. Jo confirm hoga, main wahi bataunga.\""
+      ],
+      "choices": [
+        {
+          "id": "choose_safehouse",
+          "text": "Zara ke saath safe house jaane ke liye haan kaho.",
+          "shortLabel": "Safe house chalein",
+          "keywords": [
+            "safe house",
+            "haan",
+            "saath chalo",
+            "chalte hain",
+            "nikalte hain"
+          ],
+          "next": null,
+          "effects": {
+            "location": "Discreet safe house",
+            "flags": {
+              "chose_safehouse": true
+            },
+            "choicesRecord": {
+              "choose_safehouse": true
+            },
+            "memory": [
+              "{{playerName}} chose to go with Zara to a safe house after the attack. Preserve any conditions or questions the player expressed; do not infer trust, fear or criminal involvement from this choice."
+            ]
+          }
+        },
+        {
+          "id": "ask_for_truth",
+          "text": "Pehle photograph, attackers aur Zara ki chhupayi hui duniya ke baare mein sach poochho.",
+          "shortLabel": "Pehle sach batao",
+          "keywords": [
+            "photo",
+            "tasveer",
+            "sach",
+            "attackers",
+            "duniya",
+            "promise"
+          ],
+          "next": null,
+          "effects": {
+            "flags": {
+              "asked_zara_for_truth": true
+            },
+            "choicesRecord": {
+              "ask_for_truth": true
+            },
+            "memory": [
+              "{{playerName}} asked Zara for the truth about the photograph, attackers and the criminal world she kept hidden. Record exactly what Zara reveals and what remains unknown."
+            ]
+          }
+        },
+        {
+          "id": "stay_and_assess",
+          "text": "Abhi yahin rukne ka faisla karke pehle security aur apne options samjho.",
+          "shortLabel": "Yahin rukkar poochho",
+          "keywords": [
+            "yahin raho",
+            "rukna",
+            "security",
+            "options",
+            "perimeter"
+          ],
+          "next": null,
+          "effects": {
+            "location": "Zara and {{playerName}}'s home",
+            "flags": {
+              "stayed_for_now": true
+            },
+            "choicesRecord": {
+              "stay_and_assess": true
+            },
+            "memory": [
+              "{{playerName}} chose to stay at home for now and assess the situation. This does not imply a desire to fight, join Zara's organization or reject safety later."
+            ]
+          }
+        }
+      ]
+    }
+  ],
+  "endings": []
+}

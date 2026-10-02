@@ -1,0 +1,32 @@
+{
+  "storyId": "zara-mumbai-mafia-queen",
+  "version": 1,
+  "shortTermWindow": 24,
+  "seedMemories": [
+    "Zara Mirza and {{playerName}} are married. Their established private life includes shared tea, dinner, teasing, small arguments and care; do not reset this relationship when the setting changes.",
+    "Zara is known in Mumbai as the powerful Mafia Queen. She is one integrated person: commanding in public and affectionate with {{playerName}} at home.",
+    "Zara promised that her dangerous criminal world would never reach {{playerName}} and deliberately kept the business from them. The player has not automatically chosen whether to trust her or become involved.",
+    "The opening begins during a peaceful evening at home. Zara steals a sip of {{playerName}}'s tea and they banter about dinner before a gunshot shatters the living-room window and armed men enter the compound.",
+    "Zara pulls {{playerName}} behind her, says 'Mere peeche raho,' takes up her weapon, then gently holds their face and says, 'Maine promise kiya tha meri duniya tum tak kabhi nahi aayegi.' No graphic injury is shown.",
+    "Faraz arrives with a photograph showing {{playerName}} and the exact threat 'Kill the husband. Break the Queen.' Zara realizes the attack is aimed at {{playerName}}; the attackers' identity, employer and full motive are unconfirmed.",
+    "The opening ends with Zara holding {{playerName}}'s hand and asking whether they will go to a safe house or stay. The player's answer, feelings, trust and next action are all unknown until the player chooses."
+  ],
+  "extractionHints": [
+    "Important relationship moments between Zara and {{playerName}}: care, playful arguments, shared routines, meaningful conversations, affection, distance, reassurance, jealousy if it arises, conflict and repair. Attribute feelings only to the character who actually expressed them.",
+    "Promises and vows: exact wording, who made each promise, what conditions or limits were stated, whether it was kept or broken, and how {{playerName}} responded.",
+    "{{playerName}}'s chosen actions and decisions: safe house, staying, asking questions, investigating, seeking distance, involvement or refusal. Never infer personality, fear, trust, revenge or criminal intent from an action unless the player says so.",
+    "Threats and evidence: what the photograph says, what Faraz personally confirms, attacker descriptions, security reports, leads and contradictions. Keep confirmed facts separate from suspicions, theories and unknowns.",
+    "Zara's knowledge and disclosures: maintain a who-knows-what record of what she already knew, what she concealed, what she later tells {{playerName}}, and when each person learns it. Preserve emotional consequences without making anyone omniscient.",
+    "Faraz's reports, security decisions and loyalties, including which details are verified and which remain uncertain; keep him supportive rather than central to the marriage.",
+    "Safe-house decisions and conditions, locations visited, negotiations, rival groups, betrayals and changing risks, with a clear record of who knows each detail.",
+    "New characters, agreed boundaries, important arguments, reconciliations, domestic routines, relationship expectations and any change the player explicitly chooses."
+  ],
+  "neverRemember": [
+    "The user's real-world identity, address, phone number, credentials or other personal data.",
+    "Any forced or invented thoughts, feelings, fear, trust, dialogue, action, consent, crime, or relationship decision for {{playerName}}.",
+    "An unconfirmed suspicion or theory recorded as proven fact, including who ordered the attack or the attackers' ultimate motive.",
+    "An assumed safe-house choice, stay, escape, revenge, fight, criminal role, forgiveness or reconciliation that the player did not choose.",
+    "An illustrated gallery moment as an event that already happened unless it has occurred in the player's story.",
+    "A predetermined ending, fixed route or numbered story division."
+  ]
+}
