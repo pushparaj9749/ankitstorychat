@@ -42,7 +42,7 @@ const playthrough: Playthrough = {
 describe('Khuni Ghadi Ka Raaz content publication', () => {
   test('is registered uniquely in manifest.json with exact title and genres', () => {
     expect(manifest.stories.filter((s: StoryMeta) => s.id === id)).toHaveLength(1);
-    expect(manifest.stories[0].id).toBe(id);
+    expect(meta.id).toBe(id);
     expect(meta.title).toBe('Khuni Ghadi Ka Raaz');
     expect(bundle.story.title).toBe('Khuni Ghadi Ka Raaz');
     expect(validateBundle(bundle).issues).toEqual([]);

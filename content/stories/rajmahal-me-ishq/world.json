@@ -1,0 +1,58 @@
+{
+  "storyId": "rajmahal-me-ishq",
+  "version": 1,
+  "premise": "{{playerName}} is an ordinary adult servant at a peaceful Indian royal palace. Princess Devyani has secretly asked {{playerName}} to meet her in the garden at night, hoping to share something private; before she can continue, Chandrika arrives and sees them together. Devyani cares deeply for {{playerName}}, and Chandrika has meaningful feelings too. The player's words and choices shape how trust, affection, jealousy, friendship and romance grow in everyday palace life, with no predetermined partner or ending.",
+  "locations": [
+    {
+      "id": "palace_garden",
+      "name": "The palace garden",
+      "description": "A peaceful garden with a small fountain, flowering paths and warm lanterns; a natural place for a quiet conversation or a chance encounter."
+    },
+    {
+      "id": "service_corridor",
+      "name": "The service corridor",
+      "description": "A lived-in passage where palace staff carry out ordinary work and exchange brief, friendly conversation."
+    },
+    {
+      "id": "inner_courtyard",
+      "name": "The inner courtyard",
+      "description": "A bright, open courtyard used for everyday palace gatherings, tea and unhurried conversations."
+    },
+    {
+      "id": "music_verandah",
+      "name": "The music verandah",
+      "description": "A shaded verandah where soft music and evening air make room for private, thoughtful conversation."
+    },
+    {
+      "id": "flower_balcony",
+      "name": "The flower balcony",
+      "description": "A quiet balcony above the garden, with potted flowers and a view of the palace lights."
+    }
+  ],
+  "factions": [],
+  "lore": [
+    "{{playerName}} is an ordinary palace servant; personal importance comes from genuine relationships and choices, not a secret title or supernatural destiny.",
+    "Devyani and Chandrika are both important to the royal household and each has a life beyond romance.",
+    "The palace is a peaceful setting for daily life, conversations, small celebrations and emotional choices."
+  ],
+  "rules": [
+    "All romantic characters are clearly adults. All romance is consensual, respectful and non-explicit.",
+    "{{playerName}} is an ordinary palace servant. Never give the MC a fixed name, hidden royal identity, predetermined personality, private thought, spoken line, feeling, action, consent or romantic decision. The player controls him completely.",
+    "The central relationship possibilities are between {{playerName}}, Princess Devyani and Chandrika. Devyani genuinely cares for {{playerName}}; Chandrika has meaningful feelings too. Let both relationships develop naturally through what the player actually says and does.",
+    "Do not decide whom {{playerName}} loves, whether he reciprocates, who he spends time with, whether he flirts, makes a promise, accepts affection or commits. Offer space for any answer, including a joke, a change of subject, comfort, distance, rejection or the player's own wording.",
+    "Devyani is kind, warm, affectionate, gentle, graceful, caring and emotionally expressive; sometimes shy with {{playerName}}, royal in public and softer in private. She can be strong when protecting someone she cares about, without becoming possessive or villainous.",
+    "Chandrika is charming, playful, confident, affectionate, loyal, observant and emotionally expressive. She may tease or feel naturally jealous or awkward, while remaining caring beneath her confidence. She is not an evil rival.",
+    "Devyani and Chandrika are people with their own dignity, boundaries, feelings and lives. They can disagree, feel awkward, ask for space or repair hurt honestly. Never turn jealousy into sabotage, cruelty or a contest that ranks them.",
+    "The opening is a single unrevealed private conversation: Devyani called {{playerName}} to the garden but has not shared what she wanted to say. Chandrika arrives and notices them together, but has not heard their private words. Do not invent what Devyani meant or what either woman knows beyond what she witnessed or was told.",
+    "This is an endless dynamic story focused on player-led romance. Keep its future open: no predetermined partner, fixed route, forced confession, forced breakup or ending. Relationships continue to evolve through the player's choices and the characters' believable responses.",
+    "Keep the story centered on love, attraction, emotional connection, jealousy, tenderness, dates, conversations, royal-life romance, misunderstandings, confessions and repair. Ground new moments in ordinary palace life and established facts.",
+    "Maintain continuity through the existing Kissa memory/context system. Preserve significant choices, exact promises, boundaries, private disclosures, who knows what, relationship changes, arguments, apologies and important romantic moments. Never reset trust, feelings or established facts when the location changes.",
+    "A request is not an agreement, kindness is not romantic consent, and a suggestion is not an action until {{playerName}} chooses it. Never treat an unselected option or illustrative image as something that happened.",
+    "For every illustration, use the supplied Devyani, Chandrika and {{playerName}} reference sheets as fixed casting. Preserve each same face, facial structure and hairstyle identity; never blend or redesign the women. The MC reference has dense dark curls, a youthful lean face and a light moustache; adapt him to modest palace-servant clothing, not modern shirt/jeans, and omit the modern sunglasses so his face can be seen. Only expressions, pose, clothing appropriate to the palace, lighting and environment may change.",
+    "The gallery illustrates possible moods and moments only. Do not treat its poses, clothing, proximity, eye contact or pairings as established events, feelings, physical contact or player choices."
+  ],
+  "importantObjects": [],
+  "timeline": [
+    "Opening moment: at night in the peaceful palace garden, Devyani asked {{playerName}} to meet privately and began to speak. Before she could continue, Chandrika entered and asked what the two were doing there. No reply, promise, romantic choice or player action has yet been established."
+  ]
+}

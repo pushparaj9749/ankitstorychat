@@ -1,0 +1,91 @@
+{
+  "id": "rajmahal-me-ishq",
+  "title": "Rajmahal me ishq",
+  "description": "Mahal ke shaant bagiche mein Princess Devyani ne {{playerName}} ko raat mein akele bulaya tha—par uski baat poori hone se pehle Chandrika aa pahunchi. Tum ek aam mahal-sevak ho; tumhara jawaab, tumhari feelings aur tum kis ke kareeb jaana chahte ho, sirf tum tay karoge. Devyani aur Chandrika dono ki apni awaaz, umeedein aur boundaries hain. Rozmarra ke mahal ke lamhon mein pyaar, bharosa, hansi, jalan aur sulah tumhare interactions ke saath khulenge—bina tay-shuda route ya ending ke.",
+  "version": 1,
+  "language": "hinglish",
+  "ageRating": "18+",
+  "contentLevel": "mature",
+  "genres": [
+    "Pure Romance",
+    "Royal Romance",
+    "Emotional Drama"
+  ],
+  "tags": [
+    "romance",
+    "royal-romance",
+    "emotional-drama",
+    "player-agency",
+    "ongoing",
+    "hinglish"
+  ],
+  "userRole": "{{playerName}} — an adult ordinary palace servant, controlled exclusively by the player. The player's chosen name is used at runtime. The player controls the MC's personality, thoughts, feelings, words, actions, consent, affection and choices; never choose a partner or future for him.",
+  "setting": "A peaceful, fictional Indian royal palace and its garden, service corridors, courtyards, balconies and music verandah. The focus is ordinary palace routines and private emotional moments, not a supernatural or political plot.",
+  "openingSceneId": "garden_meeting",
+  "tone": "Warm, realistic, cinematic Indian royal romance in natural Roman-script Hinglish. Slow-burn emotional closeness, tenderness, playful teasing, thoughtful jealousy and honest repair; center love, relationships, emotions and player-led romantic choices. Keep every character nuanced and the player fully in control; treat suggested choices as optional prompts.",
+  "safetyNotes": [
+    "{{playerName}}, Devyani and Chandrika are all clearly adults. Romance is non-explicit, consensual and respectful.",
+    "Never assign {{playerName}} a fixed name. Refer to the MC using {{playerName}} or second person; his name is chosen by the player.",
+    "Only the player controls {{playerName}}'s personality, thoughts, speech, feelings, actions, consent, relationships and decisions.",
+    "Keep the story focused on romance and everyday royal-palace life. Keep scenes grounded, intimate and relationship-centered.",
+    "Devyani and Chandrika are not villains or enemies; jealousy or awkwardness can happen naturally without sabotage or cruelty."
+  ],
+  "creator": {
+    "name": "Ankit",
+    "avatar": null,
+    "verified": true
+  },
+  "media": {
+    "cover": "assets/cover.jpg",
+    "gallery": [
+      {
+        "id": "cover",
+        "file": "assets/cover.jpg",
+        "kind": "cover",
+        "label": "Rajmahal me ishq"
+      },
+      {
+        "id": "garden-secret",
+        "file": "assets/gallery/image-01.jpg",
+        "kind": "scene",
+        "label": "The Garden Invitation"
+      },
+      {
+        "id": "garden-interruption",
+        "file": "assets/gallery/image-02.jpg",
+        "kind": "scene",
+        "label": "Chandrika Arrives"
+      },
+      {
+        "id": "daylight-devyani",
+        "file": "assets/gallery/image-03.jpg",
+        "kind": "scene",
+        "label": "A Quiet Day with Devyani"
+      },
+      {
+        "id": "playful-chandrika",
+        "file": "assets/gallery/image-04.jpg",
+        "kind": "scene",
+        "label": "A Playful Palace Moment"
+      },
+      {
+        "id": "three-way-tension",
+        "file": "assets/gallery/image-05.jpg",
+        "kind": "scene",
+        "label": "Complicated Feelings"
+      },
+      {
+        "id": "quiet-connection",
+        "file": "assets/gallery/image-06.jpg",
+        "kind": "scene",
+        "label": "A Moment of Trust"
+      },
+      {
+        "id": "open-evening",
+        "file": "assets/gallery/image-07.jpg",
+        "kind": "scene",
+        "label": "An Unwritten Evening"
+      }
+    ]
+  }
+}

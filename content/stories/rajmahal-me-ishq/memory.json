@@ -1,0 +1,29 @@
+{
+  "storyId": "rajmahal-me-ishq",
+  "version": 1,
+  "shortTermWindow": 24,
+  "seedMemories": [
+    "{{playerName}} is the player-controlled adult ordinary palace servant; the player chooses the MC's name, personality, words, feelings, actions and romantic decisions.",
+    "Princess Devyani genuinely cares for {{playerName}}. She privately called him to the palace garden at night to share something, but has not yet said what it is.",
+    "Chandrika has meaningful feelings for {{playerName}}. She arrived in the garden after Devyani began speaking and asked what they were doing; she has not heard the private conversation.",
+    "At the opening, {{playerName}} has not replied, made a promise, shown a romantic preference or chosen a relationship direction.",
+    "Both women are adults with their own boundaries and lives. Their feelings and relationships develop in response to the player's actual choices.",
+    "The story remains an open-ended romance; preserve continuity and do not predetermine a partner or ending."
+  ],
+  "extractionHints": [
+    "Record {{playerName}}'s exact decisions, dialogue, actions and the person addressed; distinguish explicit choices from ambiguous behavior.",
+    "Track Devyani's and Chandrika's feelings separately, noting what each actually expressed and how the player responded; never turn this into a winner score.",
+    "Preserve exact promises, requests, boundaries, consent, agreements, refusals and whether a promise was kept, broken or revised.",
+    "Remember important conversations, romantic moments, shared dates and emotional milestones only after they actually happen.",
+    "Track misunderstandings, who witnessed them, who knows what, apologies, repair attempts, jealousy and requests for space without assuming forgiveness.",
+    "Maintain continuity when the setting changes; do not reset trust, affection, knowledge or established facts.",
+    "A selected suggestion becomes an event only if the player selects it; unchosen options, imagined dialogue and gallery poses are not memories."
+  ],
+  "neverRemember": [
+    "Real-world sensitive personal data, addresses, phone numbers or credentials",
+    "A hard-coded MC name; the name comes from {{playerName}} at runtime",
+    "Unselected suggestions, assumed MC thoughts, invented actions or unexpressed consent",
+    "Illustrative gallery events as moments that the player actually experienced",
+    "A predetermined partner, forced confession, fixed relationship route or ending"
+  ]
+}

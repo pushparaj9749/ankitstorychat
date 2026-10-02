@@ -1,0 +1,114 @@
+{
+  "storyId": "rajmahal-me-ishq",
+  "version": 1,
+  "scenes": [
+    {
+      "id": "garden_meeting",
+      "title": "Bagiche Mein Achanak Mulaqat",
+      "narration": [
+        "*Raat ko rajmahal ka bagicha shaant hai. Fawware ki halki awaaz aur deepakon ki naram roshni pattiyon par thehri hai.*",
+        "*Princess Devyani ne {{playerName}} ko yahan akele bulaya hai. Woh aaj kuch alag si lag rahi hai — uske chehre par narmi hai, par baat kehne ki halki si hichkichahat bhi.*",
+        "Devyani: \"{{playerName}}… tum aa gaye. Mujhe tumse akele mein kuch kehna tha.\"",
+        "*Woh apni baat aage badhane hi wali hoti hai ki bagiche ke raaste se Chandrika achanak saamne aa jaati hai. Uski nazar Devyani se {{playerName}} tak jaati hai.*",
+        "Chandrika: \"Tum dono yahan kya kar rahe ho?\"",
+        "*Ek pal mein bagiche ka sukoon tanav bhari khamoshi mein badal jaata hai. Devyani aur Chandrika dono ab {{playerName}} ki taraf dekh rahi hain; ab tumhari baari hai.*"
+      ],
+      "fallbackLines": [
+        "*Fawware ki awaaz khamoshi ko naram rakhti hai; raat ab bhi tumhare jawab ka intezaar kar rahi hai.*",
+        "Devyani: \"Jaldi ka koi sawaal nahi. Jo kehna ho, apne lafzon mein kaho.\"",
+        "Chandrika: \"Main bhi sunungi—agar tum chaho.\""
+      ],
+      "choices": [
+        {
+          "id": "ask_devyani",
+          "text": "\"Devyani, tum kya kehna chahti thi?\"",
+          "shortLabel": "Devyani ko suno",
+          "keywords": [
+            "devyani kya kehna",
+            "devi ko suno",
+            "what did you want to say"
+          ],
+          "next": null,
+          "effects": {
+            "flags": {
+              "gardenAskedDevyaniToContinue": true
+            },
+            "choicesRecord": {
+              "gardenOpening": "askedDevyani"
+            },
+            "memory": [
+              "At the opening garden meeting, {{playerName}} asked Devyani what she wanted to say; this does not imply reciprocal feelings, consent or a romantic commitment."
+            ]
+          }
+        },
+        {
+          "id": "ask_chandrika",
+          "text": "\"Chandrika, tum yahan kaise? Tum kuch kehna chahti ho?\"",
+          "shortLabel": "Chandrika se poocho",
+          "keywords": [
+            "chandrika kya kehna",
+            "chandrika se poocho",
+            "ask chandrika"
+          ],
+          "next": null,
+          "effects": {
+            "flags": {
+              "gardenAddressedChandrika": true
+            },
+            "choicesRecord": {
+              "gardenOpening": "askedChandrika"
+            },
+            "memory": [
+              "At the opening garden meeting, {{playerName}} addressed Chandrika and asked what she wanted to say; no romantic preference or commitment was stated."
+            ]
+          }
+        },
+        {
+          "id": "invite_both_to_speak",
+          "text": "\"Main tum dono ki baat sunna chahta hoon—ek-ek karke.\"",
+          "shortLabel": "Dono ko suno",
+          "keywords": [
+            "dono ki baat",
+            "listen to both",
+            "ek ek karke"
+          ],
+          "next": null,
+          "effects": {
+            "flags": {
+              "gardenInvitedBothToSpeak": true
+            },
+            "choicesRecord": {
+              "gardenOpening": "invitedBoth"
+            },
+            "memory": [
+              "At the opening garden meeting, {{playerName}} invited both women to speak in turn; no romantic choice or promise was made."
+            ]
+          }
+        },
+        {
+          "id": "ask_for_a_moment",
+          "text": "\"Mujhe ek pal do. Main tum dono ki baat dhyaan se sunna chahta hoon.\"",
+          "shortLabel": "Ek pal maango",
+          "keywords": [
+            "ek pal",
+            "thoda waqt",
+            "give me a moment"
+          ],
+          "next": null,
+          "effects": {
+            "flags": {
+              "gardenAskedForMoment": true
+            },
+            "choicesRecord": {
+              "gardenOpening": "askedForMoment"
+            },
+            "memory": [
+              "At the opening garden meeting, {{playerName}} asked for a moment before responding; neither woman's feelings or boundaries changed by that request alone."
+            ]
+          }
+        }
+      ]
+    }
+  ],
+  "endings": []
+}
