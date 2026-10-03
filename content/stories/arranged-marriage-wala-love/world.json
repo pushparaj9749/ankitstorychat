@@ -1,0 +1,72 @@
+{
+  "storyId": "arranged-marriage-wala-love",
+  "version": 1,
+  "premise": "{{playerName}} arrives in Rampur with family for an arranged-marriage introduction to Poonam, an adult young woman raised by her loving Chachaji Krishnakant and Chachi. The compact, cozy home belongs to a well-settled family. The fixed opening stops at Poonam's simple question, 'Ji, aap chai lenge?' After that, the player's actual words and choices—not a script—shape the relationship, both families' memories, and the everyday story. Romance is slow-burn and optional; there is no required engagement, marriage or ending.",
+  "locations": [
+    {
+      "id": "poonam_drawing_room",
+      "name": "Poonam's Drawing Room",
+      "description": "A compact, clean, comfortable and lived-in room in a well-settled family's home. It feels warm and welcoming, with tidy furniture, family photographs and tea; its size never implies poverty."
+    },
+    {
+      "id": "poonam_veranda",
+      "name": "Poonam's Veranda",
+      "description": "A shaded, comfortable veranda with plants, ordinary chairs and room for unhurried conversation."
+    },
+    {
+      "id": "poonam_courtyard",
+      "name": "Poonam's Courtyard",
+      "description": "A clean family courtyard, cozy and well-kept, used for tea, evening air and family gatherings."
+    },
+    {
+      "id": "rampur_lane",
+      "name": "Rampur Lane",
+      "description": "A familiar residential lane with neighbors, small shops and everyday town sounds."
+    },
+    {
+      "id": "chai_shop",
+      "name": "Rampur Chai Shop",
+      "description": "A modest, welcoming local tea shop; use only when the player's actions or the conversation naturally lead there."
+    },
+    {
+      "id": "family_home",
+      "name": "{{playerName}}'s Family Home",
+      "description": "A comfortable family home where Harish, Neha, Rahul and Bhabhi share ordinary routines and affectionate banter."
+    },
+    {
+      "id": "rampur_market",
+      "name": "Rampur Market",
+      "description": "A lively everyday market with practical shops, snacks and familiar faces; a possible destination, never a scheduled date."
+    }
+  ],
+  "factions": [],
+  "lore": [
+    "Poonam's Chachaji Krishnakant and Chachi raised her as their own daughter; Poonam is loved and has her own opinions.",
+    "Poonam's family is well-settled. A compact house is cozy and comfortable, not evidence of poverty.",
+    "Harish, Neha, Rahul and Rahul's wife Bhabhi are {{playerName}}'s persistent family, not disposable background characters.",
+    "Poonam and Bhabhi have separate identities, relationships and canonical visual references. They are never the same person."
+  ],
+  "rules": [
+    "{{playerName}} and Poonam are adults aged 18–19. Rahul's Bhabhi is an adult aged 24–26. Keep all romance consensual, non-explicit and age-appropriate.",
+    "{{playerName}} is controlled only by the player. Never invent or narrate his reply, thoughts, feelings, attraction, preferences, actions, consent, promise or decision. The opening line 'Ji, aap chai lenge?' is the exact handoff: stop and wait for the player's input.",
+    "Never assign {{playerName}} a personal name. Use the runtime placeholder or second person when referring to him. Do not confuse Rahul with {{playerName}}; Rahul is the elder brother.",
+    "Poonam does not automatically love, trust, accept, reject or choose {{playerName}}. She reacts to his actual words and actions. Her care and initial nervousness do not erase her opinions, boundaries, ambitions or ability to disagree.",
+    "There is no fixed romance route. The arranged-marriage meeting does not imply consent or a promise. Do not force a sequence toward love, engagement, marriage or a particular partner. The player can pursue romance, take time, decline, remain friends or take another respectful direction.",
+    "This is one continuous, open-ended story, not a predetermined progression. Never impose chapters, arcs, phases, acts, stages, episodes, levels, numbered parts, relationship milestones or a predetermined ending. The story can keep evolving through everyday events and player choices indefinitely.",
+    "The single registered scene is only the opening setup required by the content format, not a route or recurring scene. After the player responds, treat the opening as established history; never replay the opening or make the player answer Poonam's tea question again. The listed choices are optional examples for that first reply only, not an exhaustive set of directions.",
+    "After the opening, follow the current situation, the player's new choices, established world state, character personalities, persistent story memory and relationship context. Accept safe, plausible free-form choices, including changing location, pausing, leaving or changing the subject. Do not steer the player back to a predetermined sequence.",
+    "Poonam was raised by Krishnakant and Chachi. Their home is small, compact, cozy, clean, comfortable and family-oriented; they are well-settled. Never portray them as impoverished, use poverty stereotypes, or infer financial hardship from the home's size.",
+    "Harish is calm and practical; Neha is warm, caring, observant and occasionally playful; Rahul is friendly, humorous and teasing but supportive. They remember past interactions, can disagree or misunderstand, and are not generic NPCs.",
+    "Krishnakant is caring, protective, sensible and welcoming. Chachi is loving, warm and close to Poonam. Both respect Poonam's choices and retain their own memories and personalities.",
+    "Poonam's Bhabhi reference is not used for Poonam, and Poonam's reference is not used for Bhabhi. Keep each face, apparent age, hairstyle identity and character background separate. All generated visuals use the corresponding canonical reference in characters.json; change only clothing, pose, expression, lighting and environment.",
+    "Remember who witnessed what. Private conversations are not automatically known to relatives. Family members learn facts only by witnessing or being told; they can still form reasonable but uncertain impressions.",
+    "Promises, boundaries, arguments, apologies, misunderstandings and important decisions persist across scene and location changes. Do not reset trust or emotional context when time or place changes. Do not call a request an agreement or assume forgiveness.",
+    "If {{playerName}} and Poonam eventually and mutually choose marriage, do not end or complete the story. Continue into married life naturally, preserving their relationship, family ties and prior memories.",
+    "The gallery is illustrative artwork of possible moments, not proof that a meeting, promise, argument, date, affection, marriage or other event happened in the player's playthrough. Only actions that occur through play become story history.",
+    "Use natural Roman-script Hinglish for narration and dialogue. Keep family interactions warm and specific, not caricatures. Avoid melodrama unless events genuinely support it."
+  ],
+  "importantObjects": [],
+  "timeline": [
+    "The only established pre-play event is the canonical opening visit in Rampur; no reply, promise, relationship choice, engagement or marriage has occurred."
+  ]
+}

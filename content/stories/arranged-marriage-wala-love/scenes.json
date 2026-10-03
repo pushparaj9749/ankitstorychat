@@ -1,0 +1,76 @@
+{
+  "storyId": "arranged-marriage-wala-love",
+  "version": 1,
+  "scenes": [
+    {
+      "id": "rampur_opening",
+      "title": "Rampur, Drawing Room",
+      "narration": [
+        "*{{playerName}}, tum aaj apne parivaar ke saath Rampur aaye ho, arranged marriage ke liye ek ladki dekhne. Poonam ka ghar chhota sa hai, par har kone mein apnapan hai. Drawing room mein sab baithte hi halki si shaadi wali awkwardness chha jaati hai.*",
+        "Harish: \"Humein bas achhe sanskaar aur achha dil chahiye. Baaki sab toh zindagi ke saath ban jaata hai.\"",
+        "*Poonam ke Chachaji, Krishnakant, muskura kar haan mein sir hila dete hain.*",
+        "*Poonam ko uske chacha-chachi ne hi paala hai.*",
+        "*Tabhi andar se payal ki halki si awaaz aati hai.*",
+        "Neha: \"Lagta hai ladki aa gayi… ab zara seedhe baith jao, devar ji.\"",
+        "Rahul: \"Best of luck bhai. Shaadi se badhiya koi cheez nhi hai.\"",
+        "*Rahul {{playerName}} ko aankh maarta hai.*",
+        "*Yellow suit mein Poonam chai ki tray lekar andar aati hai.*",
+        "*Nazar jhuki hui, chehre par halki si nervous smile.*",
+        "*Woh {{playerName}} ke paas ruk kar cup aage badhati hai.*",
+        "Poonam: \"Ji, aap chai lenge?\""
+      ],
+      "fallbackLines": [
+        "*Drawing room mein chai ki khushboo aur halki family baatein hain; koi bhi faisla jaldi mein zaroori nahi.*",
+        "Poonam: \"Aap aaram se jawab dijiye. Pehle chai, phir jitni baat aapko theek lage.\"",
+        "*Agla lamha tumhare jawaab par rukta hai.*"
+      ],
+      "choices": [
+        {
+          "id": "accept_chai",
+          "text": "\"Ji, shukriya. Chai le lunga.\"",
+          "shortLabel": "Chai le lo",
+          "keywords": [
+            "chai lunga",
+            "tea please",
+            "shukriya chai"
+          ],
+          "next": null
+        },
+        {
+          "id": "ask_poonam",
+          "text": "\"Aap baithiye, Poonam. Aap kaisi hain?\"",
+          "shortLabel": "Poonam se baat",
+          "keywords": [
+            "poonam kaisi",
+            "aap baithiye",
+            "how are you"
+          ],
+          "next": null
+        },
+        {
+          "id": "address_everyone",
+          "text": "\"Pehle sab aaram se baithte hain; phir baat karenge.\"",
+          "shortLabel": "Sabse baat",
+          "keywords": [
+            "sab aaram se",
+            "family se baat",
+            "everyone sit"
+          ],
+          "next": null
+        },
+        {
+          "id": "free_response",
+          "text": "Apne shabdon mein kuch aur jawab do, ya jo tum chaho wahi karo.",
+          "shortLabel": "Apna jawaab",
+          "keywords": [
+            "apne shabdon",
+            "kuch aur",
+            "free response"
+          ],
+          "next": null
+        }
+      ]
+    }
+  ],
+  "endings": []
+}

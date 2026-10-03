@@ -29,6 +29,7 @@ const STORIES = {
   'content/stories/goddess-who-chose-me/scenes.json': JSON.stringify({ storyId: 'goddess-who-chose-me' }),
   'content/stories/goddess-who-chose-me/memory.json': JSON.stringify({ storyId: 'goddess-who-chose-me' }),
   'content/stories/goddess-who-chose-me/assets/cover.jpg': 'JPEGBYTES',
+  'content/stories/goddess-who-chose-me/assets/references/mc.jpg': 'REFERENCEBYTES',
   'covers/cafe-queen-myra.jpg': 'JPEGBYTES2',
 };
 
@@ -72,6 +73,11 @@ describe('routing (parseApiRoute)', () => {
       storyDir: 'x',
       file: 'assets/cover.jpg',
     });
+    expect(parseApiRoute('/api/stories/x/assets/references/poonam.jpg')).toEqual({
+      kind: 'story-file',
+      storyDir: 'x',
+      file: 'assets/references/poonam.jpg',
+    });
     expect(parseApiRoute('/api/covers/x.jpg')).toEqual({ kind: 'cover', name: 'x.jpg' });
   });
 
@@ -95,6 +101,9 @@ describe('routing (parseApiRoute)', () => {
       '/api/stories/x/secrets.json',
       '/api/stories/x/package.json',
       '/api/stories/x/assets/secret.key',
+      '/api/stories/x/assets/references/secret.key',
+      '/api/stories/x/assets/references/poonam.png',
+      '/api/stories/x/assets/references/Bad Name.jpg',
       '/api/stories/X/story.json', // uppercase dir
       '/api/stories/x./story.json', // dot in dir
       '/api/stories/x/story.json/extra',
@@ -144,6 +153,13 @@ describe('GET endpoints', () => {
     expect(res.status).toBe(200);
     expect(res.headers.get('Content-Type')).toBe('image/jpeg');
     expect(res.headers.get('Cache-Control')).toContain('max-age=86400');
+  });
+
+  test('canonical visual references are served as story-local image assets', async () => {
+    const res = await get('/api/stories/goddess-who-chose-me/assets/references/mc.jpg');
+    expect(res.status).toBe(200);
+    expect(res.headers.get('Content-Type')).toBe('image/jpeg');
+    expect(await res.text()).toBe('REFERENCEBYTES');
   });
 
   test('whole story package is served in one JSON response', async () => {

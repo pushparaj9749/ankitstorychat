@@ -1,0 +1,30 @@
+{
+  "storyId": "arranged-marriage-wala-love",
+  "version": 1,
+  "shortTermWindow": 24,
+  "seedMemories": [
+    "{{playerName}} is the adult player-controlled MC, aged 18–19; never assign him another name or decide his reply, feelings, consent or choices.",
+    "The story opens with {{playerName}}'s family visiting Poonam's family in Rampur for an arranged-marriage introduction; the opening stops at Poonam asking, 'Ji, aap chai lenge?' No answer or relationship choice exists yet.",
+    "Poonam is an adult aged 18–19. She is initially nervous but caring, thoughtful, emotionally intelligent and has her own opinions; she does not fall in love automatically.",
+    "Krishnakant and Chachi raised Poonam as their daughter. They are loving and well-settled; their compact, cozy, clean and comfortable home is not a sign of poverty.",
+    "{{playerName}}'s family includes his father Harish, mother Neha, elder brother Rahul and Rahul's wife Bhabhi. Bhabhi is an adult aged 24–26 and is a distinct person from Poonam.",
+    "This story has no predetermined route or ending. An arranged-marriage introduction is not a promise, engagement, consent or marriage; any relationship develops only through actual player-led events."
+  ],
+  "extractionHints": [
+    "Record the player's actual words, choices and actions, who they were directed to, and whether the player was explicit or undecided; never infer the player's feelings.",
+    "Remember Poonam's own expressed preferences, boundaries, ambitions and opinions; track trust or comfort only from concrete interactions, not a romance score.",
+    "Preserve exact promises and requests, who made them, what was agreed, whether they were kept, broken or revised; a request is not consent or an agreement.",
+    "Remember important conversations, emotional moments, disagreements, misunderstandings, apologies, repair attempts and unresolved matters, including who witnessed each event.",
+    "Track the separate relationships and family interactions involving Harish, Neha, Rahul, Bhabhi, Krishnakant and Chachi; remember who knows what and how they reacted.",
+    "Carry story facts, relationship context, promises, emotional consequences and unresolved matters across location or scene changes; never replace the whole history with only the latest scene.",
+    "Remember a marriage or shared milestone only after the player and the characters actually choose it together; if marriage occurs, preserve the memory and continue married life.",
+    "Treat gallery images and optional choices as illustrative possibilities only. A depicted moment or unselected suggestion is never an event in the playthrough."
+  ],
+  "neverRemember": [
+    "Real-world sensitive personal data, home address, phone number, credentials or private contact information",
+    "A hard-coded MC name; the display name comes from {{playerName}} at runtime",
+    "Unselected suggested replies, invented MC dialogue or actions, assumed thoughts, feelings, consent, promises or forgiveness",
+    "Gallery artwork as proof that an illustrative event happened",
+    "A predetermined romantic partner, forced relationship outcome, required engagement or marriage, or a terminal ending"
+  ]
+}

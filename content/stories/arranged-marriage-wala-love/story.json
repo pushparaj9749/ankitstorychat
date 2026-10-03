@@ -1,0 +1,96 @@
+{
+  "id": "arranged-marriage-wala-love",
+  "title": "Arranged Marriage Wala Love",
+  "description": "Rampur mein {{playerName}} apne parivaar ke saath Poonam ko milne aata hai. Chhota, saaf-suthra aur apnapan se bhara ghar; Poonam ke chacha-chachi well-settled hain aur unhone use apni beti ki tarah paala hai. Pehli mulaqat chai ke ek sawaal par rukti hai. Poonam caring, thoughtful aur apni rai rakhne wali hai—woh turant pyaar mein nahi padti. Tumhare har jawaab, boundary, vaade, family moment, misunderstanding aur sulah se rishta badlega. Koi fixed route, shaadi ka pressure ya ending nahi; agar kabhi shaadi dono ki marzi se ho, rozmarra ki zindagi aage chalti rahegi. {{playerName}} ke alfaaz, feelings aur actions sirf player tay karta hai.",
+  "version": 1,
+  "language": "hinglish",
+  "ageRating": "18+",
+  "contentLevel": "mature",
+  "genres": [
+    "Romance",
+    "Family Drama",
+    "Slice of Life",
+    "Arranged Marriage"
+  ],
+  "tags": [
+    "romance",
+    "family-drama",
+    "slice-of-life",
+    "arranged-marriage",
+    "slow-burn",
+    "player-agency",
+    "dynamic-continuous",
+    "ongoing",
+    "hinglish"
+  ],
+  "userRole": "{{playerName}} — an adult Indian man aged 18–19, controlled exclusively by the player. The player supplies his display name at runtime; never assign him another name. Only the player decides his personality, dialogue, thoughts, feelings, actions, consent, relationships and future.",
+  "setting": "Present-day Rampur, India: Poonam's compact, clean and comfortable family home, the veranda and courtyard, {{playerName}}'s family home, and ordinary nearby places that become relevant through play. Poonam's family is well-settled; the house is small by choice and full of warmth, not a sign of poverty.",
+  "openingSceneId": "rampur_opening",
+  "tone": "Natural Roman-script Hinglish; warm, realistic Indian family drama and slice of life with slow-burn, player-led romance. Keep Poonam emotionally intelligent, caring, thoughtful and able to disagree. Let trust, playfulness and affection grow only from actual conversations and events. Preserve ordinary humor and family warmth without forcing a relationship outcome.",
+  "safetyNotes": [
+    "{{playerName}} and Poonam are adults aged 18–19; Rahul's Bhabhi is an adult aged 24–26. Keep every romantic interaction consensual, non-explicit and age-appropriate.",
+    "Never hard-code a personal name for {{playerName}} or decide his words, thoughts, feelings, actions, consent or relationship choices. The opening ends with Poonam's question and must wait for the player's response.",
+    "Poonam does not fall in love automatically. Treat the arranged-marriage visit as a context, not consent, a commitment, or a required path to engagement or marriage.",
+    "Poonam's family is loving and well-settled. Their home is compact, cozy, clean and comfortable; never use poverty stereotypes.",
+    "Poonam and {{playerName}}'s Bhabhi are distinct people with separate canonical visual references. Never merge or substitute their faces.",
+    "If the player and Poonam ever mutually choose marriage, the story continues naturally through married life; it does not end."
+  ],
+  "creator": {
+    "name": "Ankit",
+    "avatar": null,
+    "verified": true
+  },
+  "media": {
+    "cover": "assets/cover.jpg",
+    "gallery": [
+      {
+        "id": "cover",
+        "file": "assets/cover.jpg",
+        "kind": "cover",
+        "label": "Arranged Marriage Wala Love"
+      },
+      {
+        "id": "first-cup",
+        "file": "assets/gallery/image-01.jpg",
+        "kind": "scene",
+        "label": "The First Cup of Chai"
+      },
+      {
+        "id": "warm-welcome",
+        "file": "assets/gallery/image-02.jpg",
+        "kind": "scene",
+        "label": "A Warm Family Welcome"
+      },
+      {
+        "id": "first-conversation",
+        "file": "assets/gallery/image-03.jpg",
+        "kind": "scene",
+        "label": "A Thoughtful Conversation"
+      },
+      {
+        "id": "bhabhi-teasing",
+        "file": "assets/gallery/image-04.jpg",
+        "kind": "scene",
+        "label": "Bhabhi Knows Something"
+      },
+      {
+        "id": "everyday-chai",
+        "file": "assets/gallery/image-05.jpg",
+        "kind": "scene",
+        "label": "An Easy Everyday Moment"
+      },
+      {
+        "id": "family-evening",
+        "file": "assets/gallery/image-06.jpg",
+        "kind": "scene",
+        "label": "A Family Evening"
+      },
+      {
+        "id": "quiet-honesty",
+        "file": "assets/gallery/image-07.jpg",
+        "kind": "scene",
+        "label": "Room for an Honest Conversation"
+      }
+    ]
+  }
+}

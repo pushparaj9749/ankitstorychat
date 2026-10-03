@@ -1,0 +1,1 @@
+These three independent JPEGs are crop-only derivatives of the repository's user-supplied MC and Poonam/Bhabhi reference collages. They are canonical identity assets, not story artwork. Exact file paths and per-person identity-lock instructions are recorded in content/stories/arranged-marriage-wala-love/characters.json.
