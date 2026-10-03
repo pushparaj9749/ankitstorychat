@@ -1,8 +1,59 @@
 {
-  "contentVersion": 33,
+  "contentVersion": 34,
   "minAppVersion": "1.0.0",
-  "updatedAt": "2026-10-02T15:17:49.667Z",
+  "updatedAt": "2026-10-03T14:46:42Z",
   "stories": [
+    {
+      "id": "arranged-marriage-wala-love",
+      "title": "Arranged Marriage Wala Love",
+      "tagline": "Ek chai ke sawaal se shuru—iske baad har mod tumhare haath mein.",
+      "description": "Rampur mein {{playerName}} apne parivaar ke saath Poonam ko milne aata hai. Chhota, saaf-suthra aur apnapan se bhara ghar; Poonam ke chacha-chachi well-settled hain aur unhone use apni beti ki tarah paala hai. Pehli mulaqat chai ke ek sawaal par rukti hai. Poonam caring, thoughtful aur apni rai rakhne wali hai—woh turant pyaar mein nahi padti. Tumhare har jawaab, boundary, vaade, family moment, misunderstanding aur sulah se rishta badlega. Koi fixed route, shaadi ka pressure ya ending nahi; agar kabhi shaadi dono ki marzi se ho, rozmarra ki zindagi aage chalti rahegi. {{playerName}} ke alfaaz, feelings aur actions sirf player tay karta hai.",
+      "genres": [
+        "Romance",
+        "Family Drama",
+        "Slice of Life",
+        "Arranged Marriage"
+      ],
+      "tags": [
+        "romance",
+        "family-drama",
+        "slice-of-life",
+        "arranged-marriage",
+        "slow-burn",
+        "player-agency",
+        "dynamic-continuous",
+        "ongoing",
+        "hinglish"
+      ],
+      "characters": [
+        "Poonam",
+        "Krishnakant",
+        "Chachi",
+        "Harish",
+        "Neha",
+        "Rahul",
+        "Bhabhi"
+      ],
+      "ageRating": "18+",
+      "contentLevel": "mature",
+      "language": "hinglish",
+      "version": 1,
+      "coverUrl": "stories/arranged-marriage-wala-love/assets/cover.jpg",
+      "accentColor": "#C88A43",
+      "userRole": "{{playerName}} — an adult Indian man aged 18–19, controlled exclusively by the player. The player supplies his display name at runtime; never assign him another name. Only the player decides his personality, dialogue, thoughts, feelings, actions, consent, relationships and future.",
+      "setting": "Present-day Rampur, India: Poonam's compact, clean and comfortable family home, the veranda and courtyard, {{playerName}}'s family home, and ordinary nearby places that become relevant through play. Poonam's family is well-settled; the house is small by choice and full of warmth, not a sign of poverty.",
+      "estimatedMinutes": 45,
+      "featured": true,
+      "isNew": true,
+      "popularity": 96,
+      "storyDir": "arranged-marriage-wala-love",
+      "creator": {
+        "name": "Ankit",
+        "avatar": null,
+        "verified": true
+      },
+      "updatedAt": "2026-10-03T14:46:42Z"
+    },
     {
       "id": "zara-mumbai-mafia-queen",
       "title": "Zara: Mumbai's Mafia Queen",

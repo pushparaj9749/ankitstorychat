@@ -47,7 +47,25 @@ export async function verify(base, transport = fetch) {
     assert.equal(hash, sha(readFileSync(join(dir, file))), `${file}: deployed bytes differ`);
     hashes.push({ file, sha256: hash, bytes: bytes.length });
   }
-  return { base, story: entry.id, contentVersion: remote.contentVersion, jsonFiles: files.length, images: hashes };
+
+  // Canonical identity references are stored separately from gallery media,
+  // but remain part of the same remote story package and must be served by the
+  // same Worker allowlist with byte-for-byte integrity.
+  const referenceFiles = Array.from(new Set([
+    expected.characters.playerVisualReference?.file,
+    ...expected.characters.characters.map((character) => character.visualReference?.file),
+  ].filter((file) => typeof file === 'string')));
+  const referenceHashes = [];
+  for (const file of referenceFiles) {
+    assert.match(file, /^assets\/references\/[a-z0-9][a-z0-9-]{0,63}\.jpg$/);
+    const contentType = 'image/jpeg';
+    const res = await get(`stories/${entry.storyDir}/${file}`, contentType);
+    const bytes = Buffer.from(await res.arrayBuffer());
+    const hash = sha(bytes);
+    assert.equal(hash, sha(readFileSync(join(dir, file))), `${file}: deployed reference bytes differ`);
+    referenceHashes.push({ file, sha256: hash, bytes: bytes.length });
+  }
+  return { base, story: entry.id, contentVersion: remote.contentVersion, jsonFiles: files.length, images: hashes, references: referenceHashes };
 }
 
 async function main() {
@@ -62,7 +80,7 @@ async function main() {
         consecutive++;
         console.log(JSON.stringify(result));
         if (consecutive === 2) {
-          console.log(`::notice title=Published story verified::${base}: ${entry.id}, contentVersion ${manifest.contentVersion}; manifest, package, 5 JSON files, ${result.images.length} byte-identical images; two consecutive passes.`);
+          console.log(`::notice title=Published story verified::${base}: ${entry.id}, contentVersion ${manifest.contentVersion}; manifest, package, 5 JSON files, ${result.images.length} byte-identical cover/gallery images and ${result.references.length} canonical identity references; two consecutive passes.`);
           break;
         }
       } catch (error) {

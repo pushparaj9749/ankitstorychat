@@ -18,6 +18,11 @@ on:
     # Tags and manual dispatch still build; app/runtime changes still build.
     paths-ignore:
       - 'content/**'
+      - '__tests__/arrangedMarriageWalaLove.test.ts'
+      - '__tests__/arrangedMarriageMemoryIsolation.test.ts'
+      - 'docs/ARRANGED_MARRIAGE_WALA_LOVE_PUBLICATION.md'
+      - 'worker/src/router.ts'
+      - 'worker/__tests__/worker.test.ts'
       - '__tests__/twoHeartsRomance.test.ts'
       - '__tests__/khuniGhadiMystery.test.ts'
       - '__tests__/rajmahalMeIshq.test.ts'
@@ -30,6 +35,11 @@ on:
     branches: [main]
     paths-ignore:
       - 'content/**'
+      - '__tests__/arrangedMarriageWalaLove.test.ts'
+      - '__tests__/arrangedMarriageMemoryIsolation.test.ts'
+      - 'docs/ARRANGED_MARRIAGE_WALA_LOVE_PUBLICATION.md'
+      - 'worker/src/router.ts'
+      - 'worker/__tests__/worker.test.ts'
       - '__tests__/twoHeartsRomance.test.ts'
       - '__tests__/khuniGhadiMystery.test.ts'
       - '__tests__/rajmahalMeIshq.test.ts'

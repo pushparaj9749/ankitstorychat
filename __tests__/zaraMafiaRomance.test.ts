@@ -45,7 +45,7 @@ const playthrough: Playthrough = {
 describe('Zara: Mumbai\'s Mafia Queen publication', () => {
   test('is registered once in the existing remote catalog and validates against the Kissa schema', () => {
     expect(manifest.stories.filter((entry) => entry.id === id)).toHaveLength(1);
-    expect(manifest.stories[0].id).toBe(id); // deploy verifier publishes the leading manifest entry
+    expect(meta.storyDir).toBe(id); // this package remains addressable by its stable id
     expect(meta.title).toBe("Zara: Mumbai's Mafia Queen");
     expect(bundle.story.title).toBe(meta.title);
     expect(meta.coverUrl).toBe(`stories/${id}/assets/cover.jpg`);
