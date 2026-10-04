@@ -19,7 +19,7 @@ const REPO = 'https://github.com/pushparaj9749/ankitstorychat';
 
 export function About({ navigation }: Props) {
   const { theme } = useApp();
-  const version = Constants.expoConfig?.version ?? '2.5.0';
+  const version = Constants.expoConfig?.version ?? '2.5.1';
 
   return (
     <Screen>

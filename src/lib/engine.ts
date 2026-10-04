@@ -347,6 +347,196 @@ function mergeEffectsInto(
   onRaw(raw);
 }
 
+/* ------------------------------------------------------------------ */
+/* v2.5.1 — last-line-of-defence: internal state must NEVER be shown   */
+/* ------------------------------------------------------------------ */
+
+const STATE_MARKER_RE = /kissa[\s_-]*state/i;
+const STATE_KEYS = [
+  'relationships', 'relationshipstatus', 'relationshipstates', 'presentcharacters', 'worldstate',
+  'storytime', 'importantobjects', 'characterstates', 'unresolvedthreads', 'memoryindex',
+  'characterknowledge', 'threads', 'memory', 'location', 'scene', 'activity', 'flags',
+  'inventoryadd', 'inventoryremove', 'endstory', 'playeraction', 'promises', 'decisions', 'secrets',
+];
+const STATE_KEY_SET = new Set(STATE_KEYS);
+const STATEY_KEYS_RE = /"(?:relationships|relationshipStatus|relationshipStates|presentCharacters|worldState|storyTime|importantObjects|characterStates|unresolvedThreads|memoryIndex|characterKnowledge|threads|memory)"\s*:/gi;
+
+/** How many known internal-state keys a JSON body carries. */
+function stateyKeyCount(body: string): number {
+  const re = new RegExp(STATEY_KEYS_RE.source, 'gi');
+  const seen = new Set<string>();
+  let m: RegExpExecArray | null;
+  while ((m = re.exec(body))) seen.add(m[0].toLowerCase());
+  return seen.size;
+}
+
+/**
+ * Top-level keys of a JSON object written as text (strings are skipped, so
+ * nested keys never count). Lets us recognise internal state objects without a
+ * real JSON parser, and without touching ordinary story JSON.
+ */
+function topLevelKeys(body: string): string[] {
+  const keys: string[] = [];
+  let depth = 0;
+  let i = 0;
+  const n = body.length;
+  while (i < n) {
+    const ch = body[i];
+    if (ch === '"') {
+      let j = i + 1;
+      let value = '';
+      while (j < n) {
+        if (body[j] === '\\') {
+          value += body[j + 1] ?? '';
+          j += 2;
+          continue;
+        }
+        if (body[j] === '"') break;
+        value += body[j];
+        j++;
+      }
+      if (depth === 1 && /^\s*:/.test(body.slice(j + 1))) keys.push(value.toLowerCase());
+      i = j + 1;
+      continue;
+    }
+    if (ch === '{' || ch === '[') depth++;
+    else if (ch === '}' || ch === ']') depth--;
+    i++;
+  }
+  return keys;
+}
+
+/**
+ * True when a JSON object is clearly INTERNAL state: ≥2 known state keys, or a
+ * set of keys that are all state keys (catches `{"memory":[…]}` too).
+ * Deliberately conservative — ordinary story text is never deleted.
+ */
+function looksLikeStateObject(body: string): boolean {
+  const keys = topLevelKeys(body);
+  if (!keys.length) return false;
+  const stateKeys = keys.filter((k) => STATE_KEY_SET.has(k));
+  if (stateKeys.length >= 2) return true;
+  return stateKeys.length >= 1 && stateKeys.length === keys.length;
+}
+
+/**
+ * The safety net for story text. The structured parser above removes well-formed
+ * blocks; this pass catches everything the model can still do wrong, because
+ * internal state must NEVER be rendered as story text (and is never hidden with
+ * CSS, which would still put it in the view tree):
+ *
+ *  - fenced blocks with any state-ish info string (```kissa-state, ```kissa_state,
+ *    ```kissaState, ```json carrying state keys …)
+ *  - unfenced `kissa-state` / `kissaState` / `kissa_state` + JSON payloads
+ *  - unterminated blocks (marker + `{` with no closing brace)
+ *  - bare state-shaped JSON that lost its marker entirely
+ *
+ * Prose that merely mentions the word (or contains normal JSON) is untouched.
+ */
+export function stripStateLeakage(text: string): string {
+  if (!text) return '';
+  let out = text;
+
+  // 1) Fenced block whose body looks like state (marker or state-shaped JSON).
+  out = out.replace(/```[^\n`]*\n?([\s\S]*?)```/g, (full, body: string) => {
+    const head = full.slice(0, full.indexOf('\n') >= 0 ? full.indexOf('\n') : full.length);
+    if (STATE_MARKER_RE.test(head) || looksLikeStateObject(body)) return '';
+    return full;
+  });
+
+  // 2) Marker + JSON, balanced or not (case/separator-insensitive).
+  let guard = 0;
+  while (guard++ < 20) {
+    const match = STATE_MARKER_RE.exec(out);
+    if (!match) break;
+    const idx = match.index;
+    const braceStart = out.indexOf('{', idx + match[0].length);
+    if (braceStart === -1 || braceStart - idx > 400) {
+      // The marker is mentioned without any JSON payload: that is prose, not a
+      // state block — leave it alone.
+      break;
+    }
+    const between = out.slice(idx + match[0].length, braceStart);
+    if (between.replace(/[\s:`~]/g, '').length > 24) {
+      // Prose that only mentions the marker.
+      out = out.slice(0, idx) + ' ' + out.slice(idx + match[0].length);
+      continue;
+    }
+    // Include a leading fence opener on the same line ("```kissa-state").
+    const lineStart = out.lastIndexOf('\n', idx) + 1;
+    const prefix = out.slice(lineStart, idx);
+    const removeFrom = /^\s*`{1,3}\s*$/.test(prefix) ? lineStart : idx;
+    const end = findBalancedJsonEnd(out, braceStart);
+    if (end === -1) {
+      out = out.slice(0, removeFrom); // unterminated payload: truncate the leak
+      break;
+    }
+    out = out.slice(0, removeFrom) + out.slice(end);
+  }
+
+  // 3) Bare state-shaped JSON without any marker (last resort).
+  if (!STATE_MARKER_RE.test(text)) {
+    let i = 0;
+    let scanned = 0;
+    while (i < out.length && scanned < 60) {
+      scanned++;
+      const brace = out.indexOf('{', i);
+      if (brace === -1) break;
+      const end = findBalancedJsonEnd(out, brace);
+      if (end === -1) break;
+      const body = out.slice(brace, end);
+      if (body.length <= 4000 && looksLikeStateObject(body)) {
+        out = out.slice(0, brace) + out.slice(end);
+        i = brace;
+      } else {
+        i = end;
+      }
+    }
+  }
+
+  return out.replace(/\n{3,}/g, '\n\n').trim();
+}
+
+/** Index just past the matching `}` for a JSON object starting at `start`. */
+function findBalancedJsonEnd(str: string, start: number): number {
+  if (str[start] !== '{') return -1;
+  let depth = 0;
+  let inString = false;
+  let escape = false;
+  for (let i = start; i < str.length; i++) {
+    const ch = str[i];
+    if (escape) {
+      escape = false;
+      continue;
+    }
+    if (ch === '\\' && inString) {
+      escape = true;
+      continue;
+    }
+    if (ch === '"') {
+      inString = !inString;
+      continue;
+    }
+    if (inString) continue;
+    if (ch === '{') depth++;
+    else if (ch === '}') {
+      depth--;
+      if (depth === 0) return i + 1;
+    }
+  }
+  return -1;
+}
+
+/**
+ * Response-processing entry point used by the chat screen:
+ * AI response → detect → parse → validate → (persist by caller) → strip → render.
+ * Guarantees a non-empty, state-free display string.
+ */
+export function finalizeAssistantText(parsed: ParsedAssistant, fallback = '...'): string {
+  const cleaned = stripStateLeakage(parsed.displayText ?? '');
+  return cleaned.trim().length ? cleaned : fallback;
+}
+
 export function parseAssistantResponse(raw: string): ParsedAssistant {
   let displayText = raw || '';
   const memoryNotes: string[] = [];
@@ -609,6 +799,12 @@ export interface PromptInput {
   summary?: string;
   worldState?: WorldState | null;
   immediateContext?: string;
+  /**
+   * v2.5.1 universal memory engine block: retrieved events, persistent
+   * relationship state, character knowledge and raw evidence for THIS turn.
+   * Bounded by the engine — the full archive is never dumped into the prompt.
+   */
+  storyMemoryBlock?: string;
 }
 
 export function buildSystemPrompt(input: PromptInput, ageGroup: AgeGroup): string {
@@ -648,6 +844,9 @@ export function buildSystemPrompt(input: PromptInput, ageGroup: AgeGroup): strin
   const immediateBlock = input.immediateContext?.trim()
     ? `LATEST TURN CUES (verbatim history is also provided below; do not repeat these lines):\n${input.immediateContext.trim()}\n\n`
     : '';
+  const storyMemoryBlock = input.storyMemoryBlock?.trim()
+    ? `LONG-TERM STORY ARCHIVE (local, source-tagged, retrieved for this turn — treat as established canon; a later turn never erases it):\n${input.storyMemoryBlock.trim()}\n\n`
+    : '';
 
   const saveHints =
     bundle.memory.extractionHints?.length
@@ -683,7 +882,7 @@ ${sceneDigest(scene)}
 ${worldBlock ? worldBlock + '\n\nLEGACY STATE (for compat):\n' + stateDigest(playthrough.state) : `STORY STATE SO FAR:
 ${stateDigest(playthrough.state)}`}
 
-${summaryBlock}${immediateBlock}WHAT YOU REMEMBER ABOUT THIS READER'S JOURNEY (most relevant first — this is ALREADY known, so never repeat it back, just act on it):
+${summaryBlock}${immediateBlock}${storyMemoryBlock}WHAT YOU REMEMBER ABOUT THIS READER'S JOURNEY (most relevant first — this is ALREADY known, so never repeat it back, just act on it):
 ${memLines}
 
 MEMORY DISCIPLINE — what belongs in the hidden "memory" array:
@@ -692,6 +891,13 @@ MEMORY DISCIPLINE — what belongs in the hidden "memory" array:
 - Also save whatever the reader tells you about themselves (their name, likes, fears, promises, how they want to be treated) — those facts outlive this story.
 - Save a fact only if it will still matter 20 turns from now. Write each one as a short standalone sentence (max 120 chars) naming the people involved, e.g. "Aarav ne Myra ko chai ka glass lautane ka wada kiya."
 - If a previously remembered fact turns out to be wrong or changes, save the corrected version as a new memory.
+
+CONTINUITY LAW (never break it):
+- Scene, location or time changes NEVER erase memory. What happened before still happened.
+- The LONG-TERM STORY ARCHIVE and CURRENT RELATIONSHIP STATE above are established canon. Never contradict them, never reset a relationship (a married couple stays married unless the story explicitly shows a break).
+- Each character may act ONLY on what THEY know (see CHARACTER KNOWLEDGE). A character who was not present did not witness it and must not reference it unless someone told them in-story.
+- Promises, decisions and secrets remain in force until the story explicitly resolves them.
+- If the reader asks about something from long ago, use the archive instead of guessing.
 ${teenBlock}
 
 HOW TO RESPOND:

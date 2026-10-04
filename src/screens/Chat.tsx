@@ -20,12 +20,13 @@ import { ErrorState, LoadingState, OfflineState } from '../components/states';
 import { effectiveContentApiBaseUrl, getBundle, getBundledCoverSource, mediaApiUrl, StoryContentError, type CoverSource } from '../content/loader';
 import { getApiKey } from '../lib/secureKeys';
 import { aiErrorMessage, chatCompletion } from '../lib/ai';
-import { applyEffects, buildContext, getScene, HISTORY_HEADROOM, parseAssistantResponse, progressEstimate, shortTermWindowOf } from '../lib/engine';
+import { applyEffects, buildContext, finalizeAssistantText, getScene, HISTORY_HEADROOM, parseAssistantResponse, progressEstimate, shortTermWindowOf } from '../lib/engine';
 import { completeEpisode, consolidateMemories, putMemory, recallForTurn, rememberMany, rememberPreferences, episodeLine } from '../lib/memory';
 import { ensureWorldState } from '../lib/worldState';
 import { runMemoryWritePipeline, recallWithWorldState } from '../lib/memoryEngine';
 import { listMemoryCandidates } from '../lib/db';
-import { countMessages, getPlaythrough, insertMessage, listMessages, listRecentMessagesAsc, updatePlaythrough, updateStats } from '../lib/db';
+import { countMessages, getPlaythrough, insertMessage, listMessages, listMessagesAsc, listRecentMessagesAsc, updatePlaythrough, updateStats } from '../lib/db';
+import { consolidateStoryMemory, migrateStoryMemory, recallStoryMemoryForPrompt, rememberTurn } from '../lib/storyMemory';
 import { completePlaythrough } from '../lib/playthrough';
 import { interpolatePlayerName, makePlayerTextFn } from '../lib/playerName';
 import { RADIUS, SHADOWS, TYPE, withAlpha, LAYOUT } from '../theme';
@@ -94,6 +95,16 @@ export function Chat({ navigation, route }: Props) {
         setMessages(first);
         setHasMore(total > first.length);
         void ensureWorldState(pt, b).catch(() => undefined);
+        // v2.5.1: give older journeys their typed archive. Runs in the
+        // background, is idempotent, and only reads local rows.
+        void (async () => {
+          try {
+            const archive = await listMessagesAsc(pt.id);
+            await migrateStoryMemory({ playthrough: pt, bundle: b, messages: archive, playerName: profile.nickname });
+          } catch {
+            /* migration is best effort — chat must never be blocked by it */
+          }
+        })();
       } catch (e) {
         if (!alive) return;
         if (e instanceof StoryContentError && e.code === 'network') setOffline(true);
@@ -174,6 +185,9 @@ export function Chat({ navigation, route }: Props) {
     const worldState = await ensureWorldState(pt, b).catch(() => null);
     const recent = await listRecentMessagesAsc(pt.id, shortTermWindowOf(b) + HISTORY_HEADROOM);
     const history = recent.filter((m, i) => !(i === recent.length - 1 && m.role === 'user' && m.text === userText));
+    // Raw archive row of the reader's own turn: the event record links to it.
+    const userMessageId =
+      recent.length && recent[recent.length - 1].role === 'user' ? recent[recent.length - 1].id : undefined;
     const query = [...history.slice(-2).map((m) => m.text), userText].join('\n');
 
     // Persist reader-authored preferences before retrieval. The current turn
@@ -202,11 +216,35 @@ export function Chat({ navigation, route }: Props) {
     // success; on failure it remains a useful, searchable trace.
     await putMemory(pt.id, 'episode', episodeLine(userText, ''), 1, { source: 'episode', confidence: 'high' }).catch(() => 'skipped');
 
-    const ctx = buildContext({ bundle: b, profile, playthrough: pt, memories: relevant, history, summary, worldState: wsForPrompt, immediateContext }, profile.ageGroup);
+    // v2.5.1 universal memory retrieval: search the LOCAL archive for what this
+    // turn actually needs (events, relationship state, character knowledge,
+    // verbatim evidence). Never the whole archive — a ranked, bounded slice.
+    let storyMemoryBlock = '';
+    try {
+      const sceneCharacters = (wsForPrompt?.presentCharacters ?? []).slice(0, 6);
+      const mentioned = b.characters.characters
+        .filter((c) => query.toLowerCase().includes(c.name.toLowerCase()))
+        .map((c) => c.id);
+      const recall = await recallStoryMemoryForPrompt({
+        playthrough: pt,
+        bundle: b,
+        query,
+        characters: [...new Set([...sceneCharacters, ...mentioned])],
+        location: wsForPrompt?.currentLocation ?? null,
+        currentSeq: wsForPrompt?.episodeCount ?? pt.messageCount,
+      });
+      storyMemoryBlock = recall.block;
+    } catch {
+      storyMemoryBlock = '';
+    }
+
+    const ctx = buildContext({ bundle: b, profile, playthrough: pt, memories: relevant, history, summary, worldState: wsForPrompt, immediateContext, storyMemoryBlock }, profile.ageGroup);
     const raw = await chatCompletion(activeProvider, apiKey, [{ role: 'system', content: ctx.system }, ...ctx.messages, { role: 'user', content: userText }]);
 
     const parsed = parseAssistantResponse(raw);
-    const displayText = parsed.displayText || '...';
+    // displayText is already state-free; stripStateLeakage is the final net for
+    // malformed/multiple/unterminated kissa-state blocks (never rendered).
+    const displayText = finalizeAssistantText(parsed);
 
     try {
       await runMemoryWritePipeline({
@@ -228,6 +266,25 @@ export function Chat({ navigation, route }: Props) {
     const saved = await persistAssistantLines(pt, [{ role: 'assistant', speaker: parsed.speaker, text: displayText }], pt.currentSceneId);
     setMessages((prev) => [...saved.reverse(), ...prev]);
 
+    // v2.5.1 archive write: typed events, validated relationship transitions and
+    // character knowledge — linked back to the raw message ids of this turn.
+    try {
+      await rememberTurn({
+        playthrough: pt,
+        bundle: b,
+        userText,
+        assistantText: displayText,
+        parsedState: (parsed as any).worldStateRaw ?? (parsed as any).rawStateJson ?? null,
+        messageIds: [userMessageId, ...saved.map((m) => m.id)].filter((x): x is string => !!x),
+        sceneId: pt.currentSceneId,
+        location: wsForPrompt?.currentLocation ?? null,
+        storyDay: wsForPrompt?.storyTime?.day ?? null,
+        playerName: profile.nickname,
+      });
+    } catch {
+      /* the archive is additive: a failure must never break the chat */
+    }
+
     const { pt: updatedPt, sceneChanged } = await applyTurnEffects(pt, b, parsed.effects, parsed.memoryNotes);
     setPlaythrough(updatedPt);
 
@@ -240,9 +297,15 @@ export function Chat({ navigation, route }: Props) {
       setMessages((prev) => [...extra.reverse(), ...prev]);
       // L5 FIX: Less aggressive folding — keep ≥8 live, fold at most half
       void consolidateMemories(pt.id, summarize).catch(() => undefined);
+      // v2.5.1: the typed archive folds old events into rollups on the same
+      // cadence. Raw events and raw messages are kept — never deleted.
+      void consolidateStoryMemory(pt.id, pt.storyId).catch(() => undefined);
     }
 
-    if (updatedPt.messageCount % 8 === 0) void consolidateMemories(pt.id, summarize).catch(() => undefined);
+    if (updatedPt.messageCount % 8 === 0) {
+      void consolidateMemories(pt.id, summarize).catch(() => undefined);
+      void consolidateStoryMemory(pt.id, pt.storyId).catch(() => undefined);
+    }
 
     playReceive(settings.sound);
     if (settings.haptics) successBuzz();

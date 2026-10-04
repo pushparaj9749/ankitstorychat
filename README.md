@@ -41,9 +41,36 @@ moves the tale forward — with memory, relationships, branching, and multiple e
 - **Endless stories** — stories tagged `ongoing` never get final endings; the
   content validator rejects endings/`isEnding`/`endStory` for them. Legacy bundled
   stories keep their classic ending mechanics.
-- **Memory engine** — sliding short-term window + per-turn episodic log + curated story/character/world
-  facts + cross-story preferences + a rolling "story so far" digest, all ranked into the prompt per turn.
+- **Universal memory engine (v2.5.1)** — a local story archive (raw messages, typed events,
+  persistent relationship state per pair, character knowledge, contradictions, inverted index) with
+  validated state transitions and meaning-based retrieval, on top of the sliding short-term window,
+  episodic log, curated facts, cross-story preferences and rolling digest.
 - **Backup/restore, local notifications, storage manager, AMOLED theme, sounds, haptics.**
+
+---
+
+## 🆕 Release notes
+
+### v2.5.1 — Universal extreme memory architecture
+
+- **Story memory that does not forget.** New local archive tables (`story_events`,
+  `relationship_states`, `character_knowledge`, `memory_index`, `memory_contradictions`, schema v7)
+  record *what happened*, *what is true now*, and *who knows what* — for every story, with no
+  per-story rules.
+- **Relationships persist and are validated.** `MC + Poonam = married` survives scene changes;
+  a contradicting reply is rejected and flagged instead of silently rewriting story state.
+- **Character-pair memory.** An important MC ↔ Bhabhi conversation stays retrievable through their
+  pair even after other characters and locations take over.
+- **Meaning-based local retrieval.** Concept lexicon + Hinglish aliases + stems + trigram fallback,
+  an inverted index, multi-hop expansion (knowledge → event → raw messages) and chronological
+  timeline output. No external/paid service.
+- **Character perspective.** Knowledge is tracked per character with source and time, and injected as
+  a map so nobody remembers what they never learned.
+- **Lossless consolidation.** Old events fold into rollups; raw events and raw messages stay on disk.
+- **Backward compatible.** Existing journeys are migrated once from their raw history; old backups
+  import cleanly; the UI is unchanged.
+- **State-leak fix hardened.** The `kissa-state` block (fenced, unfenced, multiple, malformed,
+  unterminated or marker-less) is stripped in the response pipeline and can never reach the story text.
 
 ---
 
@@ -121,17 +148,57 @@ GitHub Actions (deploy-api.yml)  ←— push to main (this private repo)
 
 ## 🧠 Memory: how the narrator keeps track
 
-Memory is **local SQLite rows + retrieval scoring** — no vector store, no server, no embeddings.
-It now behaves like a bounded hybrid memory rather than a newest-N transcript.
+Memory is **local SQLite rows + local retrieval** — no vector store, no server, no embeddings,
+no external service. Since **v2.5.1** it is a *layered story archive* rather than a newest-N
+transcript: scene changes, app restarts and context trimming never erase it.
+
+```
+story ── messages        (raw archive, immutable — the highest-authority record)
+       ├── events         (typed, importance-ranked, timeline-ordered)
+       ├── relationships  (CURRENT state + full history, per character pair)
+       ├── knowledge      (what each character knows, how and when they learned it)
+       ├── contradictions (rejected state changes, kept for traceability)
+       └── memoryIndex    (local inverted index → fast, meaning-based search)
+```
 
 | Layer | What | Lives in | Prompt budget |
 |---|---|---|---|
 | Short-term | last `shortTermWindow` messages (clamped 4–48, default 16) | `messages` | verbatim |
-| Episodic | one durable trace for every turn, including the user side before an AI request | `memories` kind=`episode` | ranked |
-| Curated | narrator facts, character facts, world facts, objects, promises and discoveries | `memories` | ranked + pinned |
-| Preferences | what the reader reveals about themselves, shared across stories | `memories` kind=`preference`, scope `*` | pinned |
-| World state | location, time, presence, relationships, objects, events and unresolved threads | KV + SQLite mirror | compact state block |
-| Digest | rolling "story so far", folded from old logs without deleting raw rows | SQLite `kv` → `memsum:<playthroughId>` | pinned section |
+| Raw archive | every user/assistant turn, never overwritten | `messages` | on-demand (multi-hop evidence) |
+| Events | marriage/promise/secret/discovery/conflict/decision/object/location… with importance + sources | `story_events` | ranked slice |
+| Relationship state | persistent current status per pair (`married`, `dating`, or a story's own label) + history | `relationship_states` | always when relevant |
+| Character knowledge | `Bhabhi knows X (told by Y, scene Z)` — characters can only act on what they know | `character_knowledge` | perspective-filtered |
+| Episodic + curated | one durable trace per turn + narrator facts | `memories` | ranked + pinned |
+| Preferences | what the reader reveals about themselves, shared across stories | `memories` scope `*` | pinned |
+| World state | location, time, presence, numeric relationships, objects, threads | KV + SQLite mirror | compact state block |
+| Digest / rollups | "story so far" + consolidated event clusters — accelerators, never replacements | `kv` + `story_events` rollups | pinned section |
+
+Flow per send (`src/screens/Chat.tsx` → `src/lib/storyMemory.ts`):
+
+1. **Write** — reader preferences and a user-only episode are persisted *before* the provider call
+   (a timeout can never lose the turn). After the reply: `detectEvents()` classifies what actually
+   happened, relationships go through `validateTransition()`, knowledge is attributed to whoever
+   learned it, and everything is linked back to the raw message ids of that turn.
+2. **Validate** — a proposed state change is compared with stored state. An established
+   relationship cannot silently revert (e.g. `married → stranger` is rejected and recorded as a
+   contradiction); a large jump with weak evidence is accepted but flagged. Only explicit,
+   in-story break evidence (talaq/divorce/breakup/death) moves a relationship down.
+3. **Retrieve** — the inverted index returns candidates for the current turn's tokens and
+   concepts (Hinglish↔English lexicon, e.g. `tasveer` ↔ `photograph`), multi-hop expansion
+   follows knowledge → source event → related pair interactions, and a bounded structural lane
+   always carries open promises/decisions/secrets plus recent + high-importance events.
+4. **Rank & inject** — relevance combines semantic overlap, character and pair relevance, location,
+   scene, event type, importance, recency (history questions decay slower), unresolved status and
+   confidence. The narrator receives a compact, source-tagged block (≤ ~4.2k chars) with a
+   **CONTINUITY LAW** and a **CHARACTER KNOWLEDGE** map.
+5. **Consolidate** — every 8th turn and on scene changes, old events fold into rollups (raw rows and
+   raw messages stay; rollups resolve back to their source events on retrieval). Digest folding for
+   the episodic log happens on the same cadence.
+
+Isolation & privacy: every table is namespaced by `playthrough_id` **and** `story_id`, so a Poonam
+story can never bleed into a Zara story. The archive is local-only; it is included in the user's own
+export/import backup file and never uploaded anywhere. Stories played before v2.5.1 are migrated
+once, in the background, from their existing raw messages and character packs (idempotent).
 
 Flow per send (`src/screens/Chat.tsx` → `src/lib/memory.ts`):
 
@@ -144,7 +211,11 @@ Flow per send (`src/screens/Chat.tsx` → `src/lib/memory.ts`):
 7. Every 8th turn — and on every scene change — `consolidateMemories()` folds the oldest log lines (and, past 240 curated facts, the oldest facts too) into the digest via a small AI call, with a deterministic no-AI fallback. Folded rows are only `archived = 1`: **nothing is ever deleted**, so recall can be re-expanded later.
 
 Story packs steer this: `memory.json`'s `extractionHints` and `neverRemember` are injected as a
-**MEMORY DISCIPLINE** block, while code-level PII protection remains active even if a provider ignores instructions.
+**MEMORY DISCIPLINE** block, while code-level PII protection remains active even if a provider
+ignores instructions. Nothing in the engine is hard-coded per story — the same universal vocabulary,
+relationship ladder, transition rules and ranker serve every pack.
+
+Full architecture, guarantees and the v2.5.1 test/QA matrix: **docs/V2.5.1_MEMORY_ARCHITECTURE.md**.
 
 ---
 
@@ -323,7 +394,11 @@ settings page.
 
 ## 🧪 Testing
 
-- `npm test` — unit tests (engine parsing/effects/matching, age-gate incl. fail-closed unknowns, search).
+- `npm test` — unit tests (engine parsing/effects/matching, age-gate incl. fail-closed unknowns,
+  search, and the full universal-memory suite: scene-change persistence, restarts, relationship and
+  marriage persistence, character-pair memory, semantic + long-distance retrieval, timeline ordering,
+  character knowledge, contradiction detection, state-transition validation, story isolation,
+  consolidation, source tracking, migration and kissa-state stripping).
 - `npm run content:validate` — validates manifest + **every** story package (fields, ratings, scene graph, reachability, choice targets, cross-file consistency).
 - `npm run typecheck` — strict TS.
 - Manual QA checklist (first launch → onboarding → teen filter → story → chat → choices → branching → memory → saves/replay → favorites → search → AI config + bad key + offline → updates → notifications → export/import → terms/privacy → APK → site) — see CI + this README; all flows implemented and wired.

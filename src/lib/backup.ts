@@ -24,12 +24,15 @@ import {
   kvEntries,
   kvSet,
   getDb,
+  exportStoryMemoryArchive,
+  importStoryMemoryArchive,
 } from './db';
+import { createSqliteStoryMemoryStore } from './storyMemoryStore';
 import { cachePath, docPath, readText, writeText } from './files';
 import { nowIso } from './utils';
 
 export async function buildExport(): Promise<DataExport> {
-  const [profile, settings, providers, playthroughs, messages, memories, favorites, stats, digests] =
+  const [profile, settings, providers, playthroughs, messages, memories, favorites, stats, digests, storyMemoryArchive] =
     await Promise.all([
       getProfile(),
       getSettings(),
@@ -40,6 +43,8 @@ export async function buildExport(): Promise<DataExport> {
       listFavorites(),
       getStats(),
       kvEntries('memsum:'),
+      // v2.5.1: the local memory archive travels with the user's own backup file.
+      exportStoryMemoryArchive().catch(() => undefined),
     ]);
   return {
     format: 'kissa-backup',
@@ -55,6 +60,7 @@ export async function buildExport(): Promise<DataExport> {
     favorites,
     stats,
     memoryDigests: digests,
+    storyMemoryArchive,
   };
 }
 
@@ -117,6 +123,18 @@ export async function importBackup(d: DataExport): Promise<void> {
     DELETE FROM world_states;
     DELETE FROM kv;
   `);
+  // v2.5.1 archive tables may not exist on a partially migrated install.
+  for (const table of [
+    'story_events',
+    'relationship_states',
+    'character_knowledge',
+    'memory_index',
+    'memory_contradictions',
+  ]) {
+    try {
+      await db.execAsync(`DELETE FROM ${table};`);
+    } catch {}
+  }
 
   if (d.profile) await saveProfile(d.profile);
   if (d.settings) await saveSettings({ ...d.settings, activeProviderId: null });
@@ -201,6 +219,12 @@ export async function importBackup(d: DataExport): Promise<void> {
   }
   for (const f of d.favorites ?? []) {
     await db.runAsync('INSERT INTO favorites (story_id, created_at) VALUES (?, ?)', f.storyId, f.createdAt);
+  }
+  // v2.5.1: restore the local story-memory archive and rebuild its index.
+  // Older backups simply have no archive section (nothing to restore).
+  if (d.storyMemoryArchive) {
+    await importStoryMemoryArchive(d.storyMemoryArchive);
+    await createSqliteStoryMemoryStore().rebuildIndex().catch(() => 0);
   }
 }
 

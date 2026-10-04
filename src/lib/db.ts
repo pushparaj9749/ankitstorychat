@@ -19,7 +19,7 @@ import type {
 import { DEFAULT_SETTINGS } from '../types';
 
 const DB_NAME = 'kissa.db';
-const SCHEMA_VERSION = 6;
+const SCHEMA_VERSION = 7;
 
 let dbPromise: Promise<SQLite.SQLiteDatabase> | null = null;
 
@@ -165,6 +165,116 @@ async function migrate(db: SQLite.SQLiteDatabase): Promise<void> {
       } catch {
         /* column/index already present */
       }
+    }
+  }
+
+  // v6 -> v7 (Kissa v2.5.1): the universal story-memory archive. These tables
+  // hold the typed, local, per-playthrough record of events, relationship state
+  // and history, character knowledge, contradictions and the inverted index
+  // used for fast meaning-based retrieval. Raw chat rows stay in `messages` and
+  // remain the highest-authority source; nothing here ever leaves the device.
+  if (current < 7) {
+    try {
+      await db.execAsync(`
+        CREATE TABLE IF NOT EXISTS story_events (
+          id TEXT PRIMARY KEY,
+          playthrough_id TEXT NOT NULL,
+          story_id TEXT NOT NULL,
+          seq INTEGER NOT NULL DEFAULT 0,
+          type TEXT NOT NULL,
+          summary TEXT NOT NULL,
+          detail TEXT,
+          importance INTEGER NOT NULL DEFAULT 2,
+          importance_label TEXT NOT NULL DEFAULT 'MEDIUM',
+          confidence TEXT NOT NULL DEFAULT 'medium',
+          source TEXT NOT NULL DEFAULT 'derived',
+          source_message_ids TEXT,
+          source_event_ids TEXT,
+          scene_id TEXT,
+          location TEXT,
+          participants TEXT,
+          pair_keys TEXT,
+          objects TEXT,
+          story_day INTEGER,
+          occurred_at TEXT NOT NULL,
+          created_at TEXT NOT NULL,
+          status TEXT NOT NULL DEFAULT 'active',
+          superseded_by TEXT,
+          keywords TEXT,
+          archived INTEGER NOT NULL DEFAULT 0
+        );
+        CREATE INDEX IF NOT EXISTS idx_story_events_pt ON story_events(playthrough_id, seq);
+        CREATE INDEX IF NOT EXISTS idx_story_events_type ON story_events(playthrough_id, type, archived);
+        CREATE TABLE IF NOT EXISTS relationship_states (
+          playthrough_id TEXT NOT NULL,
+          story_id TEXT NOT NULL,
+          pair_key TEXT NOT NULL,
+          a_id TEXT NOT NULL,
+          a_name TEXT NOT NULL,
+          b_id TEXT NOT NULL,
+          b_name TEXT NOT NULL,
+          status TEXT NOT NULL,
+          tier INTEGER NOT NULL DEFAULT -1,
+          trust REAL,
+          affection REAL,
+          tension REAL,
+          respect REAL,
+          confidence TEXT NOT NULL DEFAULT 'medium',
+          history TEXT,
+          source_event_ids TEXT,
+          created_at TEXT NOT NULL,
+          updated_at TEXT NOT NULL,
+          last_confirmed_at TEXT NOT NULL,
+          PRIMARY KEY (playthrough_id, pair_key)
+        );
+        CREATE INDEX IF NOT EXISTS idx_rel_state_story ON relationship_states(story_id);
+        CREATE TABLE IF NOT EXISTS character_knowledge (
+          id TEXT PRIMARY KEY,
+          playthrough_id TEXT NOT NULL,
+          story_id TEXT NOT NULL,
+          character_id TEXT NOT NULL,
+          character_name TEXT NOT NULL,
+          fact TEXT NOT NULL,
+          fact_key TEXT NOT NULL,
+          source TEXT NOT NULL DEFAULT 'witnessed',
+          learned_from TEXT,
+          source_event_id TEXT,
+          source_message_ids TEXT,
+          learned_at TEXT NOT NULL,
+          story_day INTEGER,
+          confidence TEXT NOT NULL DEFAULT 'medium',
+          status TEXT NOT NULL DEFAULT 'believed',
+          invalidated_by TEXT,
+          invalidated_at TEXT
+        );
+        CREATE INDEX IF NOT EXISTS idx_knowledge_pt ON character_knowledge(playthrough_id, character_id);
+        CREATE UNIQUE INDEX IF NOT EXISTS u_knowledge_fact ON character_knowledge(playthrough_id, character_id, fact_key);
+        CREATE TABLE IF NOT EXISTS memory_index (
+          playthrough_id TEXT NOT NULL,
+          story_id TEXT NOT NULL,
+          record_type TEXT NOT NULL,
+          record_id TEXT NOT NULL,
+          token TEXT NOT NULL,
+          weight REAL NOT NULL DEFAULT 1,
+          PRIMARY KEY (playthrough_id, record_type, record_id, token)
+        );
+        CREATE INDEX IF NOT EXISTS idx_memory_index_token ON memory_index(playthrough_id, token);
+        CREATE TABLE IF NOT EXISTS memory_contradictions (
+          id TEXT PRIMARY KEY,
+          playthrough_id TEXT NOT NULL,
+          story_id TEXT NOT NULL,
+          at TEXT NOT NULL,
+          kind TEXT NOT NULL,
+          expected TEXT NOT NULL,
+          proposed TEXT NOT NULL,
+          reason TEXT NOT NULL,
+          evidence TEXT,
+          resolved INTEGER NOT NULL DEFAULT 0
+        );
+        CREATE INDEX IF NOT EXISTS idx_contradictions_pt ON memory_contradictions(playthrough_id, at DESC);
+      `);
+    } catch {
+      /* tables already present */
     }
   }
 
@@ -396,6 +506,22 @@ export async function deletePlaythrough(id: string): Promise<void> {
   try {
     await db.runAsync('DELETE FROM world_states WHERE playthrough_id = ?', id);
   } catch {}
+  // v2.5.1 archive tables (best effort: a partially migrated install may not
+  // have them yet, and deleting a journey must never fail because of that).
+  for (const table of [
+    'story_events',
+    'relationship_states',
+    'character_knowledge',
+    'memory_index',
+    'memory_contradictions',
+  ]) {
+    try {
+      await db.runAsync(`DELETE FROM ${table} WHERE playthrough_id = ?`, id);
+    } catch {}
+  }
+  try {
+    await db.runAsync('DELETE FROM kv WHERE key LIKE ?', `storyMem:${id}:%`);
+  } catch {}
   // KV mirror (worldState:<id>)
   try {
     await db.runAsync('DELETE FROM kv WHERE key = ?', `worldState:${id}`);
@@ -475,6 +601,21 @@ export async function listRecentMessagesAsc(playthroughId: string, limit = 30): 
   const rows = await db.getAllAsync<MessageRow>(
     `SELECT * FROM (SELECT * FROM messages WHERE playthrough_id = ? ORDER BY created_at DESC LIMIT ?)
      ORDER BY created_at ASC`,
+    playthroughId,
+    limit,
+  );
+  return rows.map(rowToMessage);
+}
+
+/**
+ * Full raw archive for one journey, oldest first. Used by the v2.5.1 memory
+ * migration to rebuild typed events from chats written by older builds.
+ * Bounded so a huge story cannot stall app start.
+ */
+export async function listMessagesAsc(playthroughId: string, limit = 4000): Promise<ChatMessage[]> {
+  const db = await getDb();
+  const rows = await db.getAllAsync<MessageRow>(
+    'SELECT * FROM messages WHERE playthrough_id = ? ORDER BY created_at ASC, id ASC LIMIT ?',
     playthroughId,
     limit,
   );
@@ -962,6 +1103,88 @@ export async function getProvider(id: string): Promise<AIProvider | null> {
   return row ? rowToProvider(row) : null;
 }
 
+/* ---------------- v2.5.1 story-memory archive (backup/restore) ---------------- */
+
+/** Raw dump of the local archive tables — used only by the local backup file. */
+export async function exportStoryMemoryArchive(): Promise<{
+  events: Record<string, unknown>[];
+  relationships: Record<string, unknown>[];
+  knowledge: Record<string, unknown>[];
+  contradictions: Record<string, unknown>[];
+  meta: Record<string, string>;
+}> {
+  const db = await getDb();
+  const safeAll = async (sql: string): Promise<Record<string, unknown>[]> => {
+    try {
+      return await db.getAllAsync<Record<string, unknown>>(sql);
+    } catch {
+      return [];
+    }
+  };
+  const [events, relationships, knowledge, contradictions] = await Promise.all([
+    safeAll('SELECT * FROM story_events ORDER BY playthrough_id, seq'),
+    safeAll('SELECT * FROM relationship_states'),
+    safeAll('SELECT * FROM character_knowledge'),
+    safeAll('SELECT * FROM memory_contradictions'),
+  ]);
+  const meta: Record<string, string> = {};
+  try {
+    const rows = await db.getAllAsync<{ key: string; value: string }>(
+      "SELECT key, value FROM kv WHERE key LIKE 'storyMem:%'",
+    );
+    for (const r of rows) meta[r.key] = r.value;
+  } catch {}
+  return { events, relationships, knowledge, contradictions, meta };
+}
+
+/** Restore the archive from a local backup file (destructive tables cleared first). */
+export async function importStoryMemoryArchive(dump: {
+  events?: Record<string, unknown>[];
+  relationships?: Record<string, unknown>[];
+  knowledge?: Record<string, unknown>[];
+  contradictions?: Record<string, unknown>[];
+  meta?: Record<string, string>;
+}): Promise<void> {
+  const db = await getDb();
+  for (const table of [
+    'story_events',
+    'relationship_states',
+    'character_knowledge',
+    'memory_contradictions',
+  ]) {
+    try {
+      await db.execAsync(`DELETE FROM ${table};`);
+    } catch {}
+  }
+  const insertRows = async (table: string, rows: Record<string, unknown>[] | undefined) => {
+    if (!rows?.length) return;
+    for (const row of rows.slice(0, 20000)) {
+      const cols = Object.keys(row);
+      if (!cols.length) continue;
+      try {
+        await db.runAsync(
+          `INSERT OR REPLACE INTO ${table} (${cols.join(', ')}) VALUES (${cols.map(() => '?').join(', ')})`,
+          ...cols.map((c) => (row[c] ?? null) as string | number | null),
+        );
+      } catch {
+        /* skip malformed rows rather than losing the whole restore */
+      }
+    }
+  };
+  await insertRows('story_events', dump.events);
+  await insertRows('relationship_states', dump.relationships);
+  await insertRows('character_knowledge', dump.knowledge);
+  await insertRows('memory_contradictions', dump.contradictions);
+  for (const [key, value] of Object.entries(dump.meta ?? {})) {
+    if (key.startsWith('storyMem:') && typeof value === 'string') await kvSet(key, value);
+  }
+  // The inverted index is derivable — the caller rebuilds it from the restored
+  // records via StoryMemoryStore.rebuildIndex() (see backup.ts).
+  try {
+    await db.execAsync('DELETE FROM memory_index;');
+  } catch {}
+}
+
 /* ---------------- destructive ---------------- */
 
 export async function clearAllUserData(): Promise<void> {
@@ -979,6 +1202,18 @@ export async function clearAllUserData(): Promise<void> {
     DELETE FROM providers;
     DELETE FROM kv;
   `);
+  // v2.5.1 local archive — wiped with every other personal table.
+  for (const table of [
+    'story_events',
+    'relationship_states',
+    'character_knowledge',
+    'memory_index',
+    'memory_contradictions',
+  ]) {
+    try {
+      await db.execAsync(`DELETE FROM ${table};`);
+    } catch {}
+  }
   // Re-create world_states if cleared so subsequent ensureWorldState succeeds even if migration flag unchanged
   try {
     await db.execAsync(`

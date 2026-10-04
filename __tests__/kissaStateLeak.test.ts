@@ -2,7 +2,7 @@
  * KISSA v2.4.2 — kissa-state leak bug tests
  * Covers all required cases from spec section 27.
  */
-import { parseAssistantResponse } from '../src/lib/engine';
+import { finalizeAssistantText, parseAssistantResponse, stripStateLeakage } from '../src/lib/engine';
 
 describe('kissa-state leak fix — v2.4.2', () => {
   test('normal story response without state', () => {
@@ -159,5 +159,88 @@ describe('kissa-state leak fix — v2.4.2', () => {
     expect(p.displayText).not.toContain('this is not json');
     // Should preserve surrounding dialogue except the leak
     expect(p.displayText).toContain('Hi there');
+  });
+});
+
+/**
+ * v2.5.1 — response-pipeline hardening.
+ *
+ * The parser above removes well-formed blocks; these tests cover the last-line
+ * defence that guarantees internal state is NEVER rendered as story text, no
+ * matter how malformed the model's output is. (No CSS is involved anywhere.)
+ */
+describe('v2.5.1 state-stripping pipeline', () => {
+  test('unfenced camelCase marker is removed', () => {
+    expect(stripStateLeakage('Story line\nkissaState {"location":"Cafe","relationships":{"a":1}}')).toBe('Story line');
+  });
+
+  test('underscore / spaced separators are removed', () => {
+    expect(stripStateLeakage('A\nkissa_state: {"memory":["x"]}')).toBe('A');
+    expect(stripStateLeakage('B\nkissa - state\n{"storyTime":{"day":2}}')).toBe('B');
+  });
+
+  test('multiple blocks in one reply are all removed', () => {
+    const raw = '```kissa-state\n{"location":"A"}\n```\nLine one\n```kissa-state\n{"location":"B"}\n```\nLine two\nkissa-state {"scene":"s9"}';
+    const out = stripStateLeakage(raw);
+    expect(out).toContain('Line one');
+    expect(out).toContain('Line two');
+    expect(out).not.toMatch(/kissa/i);
+    expect(out).not.toContain('{');
+  });
+
+  test('state before AND after dialogue is removed, dialogue survives', () => {
+    const raw = '```kissa-state\n{"location":"Park"}\n```\nPoonam: "Aap aa gaye?"\n*Usne chai di.*\n```kissa-state\n{"memory":["chai di"]}\n```';
+    const out = stripStateLeakage(raw);
+    expect(out).toContain('Aap aa gaye?');
+    expect(out).toContain('Usne chai di.');
+    expect(out).not.toContain('location');
+    expect(out).not.toContain('memory');
+  });
+
+  test('malformed / unterminated state never leaks raw JSON', () => {
+    const unterminated = 'Poonam: "Kya hua?"\nkissa-state\n{"relationships": {"poonam": 9}, "scene": "s2"';
+    const out = stripStateLeakage(unterminated);
+    expect(out).toBe('Poonam: "Kya hua?"');
+    expect(out).not.toContain('{');
+
+    const broken = 'Line A\nkissa-state {this is not json at all]\nLine B';
+    const out2 = stripStateLeakage(broken);
+    expect(out2).toContain('Line A');
+    expect(out2).not.toContain('not json');
+
+    const empty = stripStateLeakage('```kissa-state\n{\n```');
+    expect(empty).toBe('');
+  });
+
+  test('bare state JSON without any marker is still suppressed', () => {
+    const raw = 'Maya: "Ruko."\n{"relationships":{"maya":5,"kabir":-2},"location":"Cafe","scene":"s3"}';
+    const out = stripStateLeakage(raw);
+    expect(out).toContain('Ruko.');
+    expect(out).not.toContain('relationships');
+    expect(out).not.toContain('maya\":');
+  });
+
+  test('a single-key leftover state array is suppressed too', () => {
+    expect(stripStateLeakage('Text\n{"memory":["a","b"]}')).toBe('Text');
+  });
+
+  test('legitimate prose that merely mentions the word is preserved', () => {
+    const prose = 'I heard about kissa-state feature in the app. It is cool.';
+    expect(stripStateLeakage(prose)).toBe(prose);
+    const prose2 = 'Uska state of mind theek nahi tha, aur usne ye baat kahi.';
+    expect(stripStateLeakage(prose2)).toBe(prose2);
+  });
+
+  test('finalizeAssistantText always returns story text, never state or empty output', () => {
+    const onlyState = parseAssistantResponse('```kissa-state\n{"location":"X"}\n```');
+    expect(finalizeAssistantText(onlyState)).toBe('...');
+    const withLeak = parseAssistantResponse('Poonam: "Chalo."');
+    // The parser already lifted the speaker prefix; stripping changes nothing.
+    expect(finalizeAssistantText(withLeak)).toBe(withLeak.displayText);
+    // A reply whose parser failed but whose text still contains raw state JSON.
+    const noMarker = parseAssistantResponse('Poonam: "Ruko."\n{"presentCharacters":["poonam"],"activity":"chai"}');
+    const finalText = finalizeAssistantText(noMarker);
+    expect(finalText).toContain('Ruko.');
+    expect(finalText).not.toContain('presentCharacters');
   });
 });
