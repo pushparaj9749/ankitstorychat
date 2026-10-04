@@ -555,6 +555,209 @@ export interface MemoryEntry {
   archived?: boolean;
 }
 
+/* ------------------------------------------------------------------ */
+/* v2.5.1 — Universal story memory architecture                       */
+/* ------------------------------------------------------------------ */
+
+/**
+ * Priority bucket for a story event. Four coarse levels (as required by the
+ * memory spec) that map onto the 1..4 numeric importance already used by the
+ * classic memory rows, so both systems can be ranked side by side.
+ */
+export type MemoryImportanceLabel = 'VERY_HIGH' | 'HIGH' | 'MEDIUM' | 'LOW';
+
+export const MEMORY_IMPORTANCE_SCORE: Record<MemoryImportanceLabel, number> = {
+  VERY_HIGH: 4,
+  HIGH: 3,
+  MEDIUM: 2,
+  LOW: 1,
+};
+
+export function importanceLabel(score: number): MemoryImportanceLabel {
+  if (score >= 4) return 'VERY_HIGH';
+  if (score === 3) return 'HIGH';
+  if (score === 2) return 'MEDIUM';
+  return 'LOW';
+}
+
+/**
+ * What kind of thing happened. Deliberately story-agnostic: every story pack
+ * is classified with the same vocabulary, and packs can add their own types
+ * without a code change (unknown types are stored verbatim).
+ */
+export type StoryEventType =
+  | 'relationship_change'
+  | 'marriage'
+  | 'engagement'
+  | 'meeting'
+  | 'conversation'
+  | 'promise'
+  | 'decision'
+  | 'secret'
+  | 'discovery'
+  | 'conflict'
+  | 'resolution'
+  | 'location_change'
+  | 'object'
+  | 'emotional'
+  | 'task'
+  | 'knowledge'
+  | 'rollup'
+  | 'contradiction'
+  | 'other';
+
+/** Where a memory record came from — used for ranking and traceability. */
+export type StoryMemorySource = 'narrator' | 'user' | 'derived' | 'seed' | 'migration' | 'manual';
+
+/** Lifecycle of a stored record. Nothing is ever deleted; it is superseded. */
+export type StoryRecordStatus = 'active' | 'resolved' | 'superseded';
+
+/**
+ * One important thing that happened in a playthrough. The raw chat messages
+ * (`sourceMessageIds`) are the highest-authority evidence; a derived event only
+ * ever points at them, it never replaces them.
+ */
+export interface StoryEventRecord {
+  id: string;
+  storyId: string;
+  playthroughId: string;
+  /** Monotonic position inside the playthrough (timeline order). */
+  seq: number;
+  type: StoryEventType;
+  summary: string;
+  detail?: string | null;
+  /** 1..4 — see MEMORY_IMPORTANCE_SCORE. */
+  importance: number;
+  importanceLabel: MemoryImportanceLabel;
+  confidence: MemoryConfidence;
+  source: StoryMemorySource;
+  /** Raw archive rows this event was derived from (never overwritten). */
+  sourceMessageIds: string[];
+  /** Events that this record was consolidated from (rollups). */
+  sourceEventIds?: string[];
+  sceneId: string | null;
+  location: string | null;
+  /** Character ids involved. */
+  participants: string[];
+  /** Canonical, order-independent relationship keys ("a::b", sorted). */
+  pairKeys: string[];
+  objectNames: string[];
+  storyDay: number | null;
+  occurredAt: string;
+  createdAt: string;
+  status: StoryRecordStatus;
+  /** When superseded: the record that replaced this one. */
+  supersededBy?: string | null;
+  /** Concept tokens powering local semantic retrieval. */
+  keywords: string[];
+  /** Folded into a rollup: still on disk, reachable via sourceEventIds. */
+  archived?: boolean;
+}
+
+/** One durable relationship between two parties (player or characters). */
+export interface RelationshipStateRecord {
+  id: string;
+  storyId: string;
+  playthroughId: string;
+  playthroughIdKey?: string;
+  pairKey: string;
+  /** Player side is the literal id `player` unless a story defines otherwise. */
+  a: { id: string; name: string };
+  b: { id: string; name: string };
+  /** Free-form label: "married", "dating", "bhai-behan", … (never a fixed enum). */
+  status: string;
+  /** Position on the universal closeness ladder; -1 when the story invented it. */
+  tier: number;
+  trust?: number | null;
+  affection?: number | null;
+  tension?: number | null;
+  respect?: number | null;
+  confidence: MemoryConfidence;
+  /** Status history, oldest first — "history" and "current state" both survive. */
+  history: { status: string; tier: number; at: string; eventId?: string | null; note?: string | null }[];
+  sourceEventIds: string[];
+  createdAt: string;
+  updatedAt: string;
+  lastConfirmedAt: string;
+}
+
+/** How a character came to know something (drives perspective-safe retrieval). */
+export type KnowledgeSource = 'seed' | 'witnessed' | 'told' | 'discovered' | 'inferred' | 'migration';
+
+/**
+ * "X knows Y" — tracked separately from the global archive so a character can
+ * never act on information they never learned.
+ */
+export interface CharacterKnowledgeRecord {
+  id: string;
+  storyId: string;
+  playthroughId: string;
+  characterId: string;
+  characterName: string;
+  fact: string;
+  /** Normalized dedupe/retrieval key for this fact. */
+  factKey: string;
+  source: KnowledgeSource;
+  /** Who told them (character id) when `source === 'told'`. */
+  learnedFrom: string | null;
+  /** Event that carries the information. */
+  sourceEventId: string | null;
+  sourceMessageIds: string[];
+  learnedAt: string;
+  storyDay: number | null;
+  confidence: MemoryConfidence;
+  /** Still true / no longer believed. */
+  status: 'believed' | 'doubted' | 'invalidated';
+  invalidatedBy?: string | null;
+  invalidatedAt?: string | null;
+}
+
+/** A rejected/flagged state change: AI proposed something history contradicts. */
+export interface MemoryContradiction {
+  id: string;
+  storyId: string;
+  playthroughId: string;
+  at: string;
+  kind: 'relationship_downgrade' | 'knowledge_conflict' | 'timeline_conflict' | 'state_rejected';
+  expected: string;
+  proposed: string;
+  reason: string;
+  /** The turn's raw evidence so the original wording can be re-checked. */
+  evidence: string;
+  resolved: boolean;
+}
+
+/** Everything the engine can hand back for one retrieval request. */
+export interface StoryMemoryQuery {
+  storyId: string;
+  playthroughId: string;
+  query: string;
+  /** Character ids the current scene knows about (boosts their records). */
+  characters?: string[];
+  /** Explicit pair ("player::poonam") to focus on. */
+  relationshipPair?: string | null;
+  sceneId?: string | null;
+  eventTypes?: StoryEventType[];
+  timeRange?: { from?: number; to?: number };
+  importance?: MemoryImportanceLabel[];
+  limit?: number;
+  /** Character whose perspective the retrieval must respect. */
+  perspective?: string | null;
+}
+
+export interface StoryMemoryQueryResult {
+  events: StoryEventRecord[];
+  relationships: RelationshipStateRecord[];
+  knowledge: CharacterKnowledgeRecord[];
+  /** Chronological (oldest → newest) view of the retrieved events. */
+  timeline: StoryEventRecord[];
+  /** Verbatim raw-archive evidence pulled in by multi-hop retrieval. */
+  evidence: { messageId: string; role: string; speaker: string | null; text: string; createdAt: string }[];
+  /** Explanation of which hops fired (diagnostics + tests). */
+  hops: string[];
+  candidates: number;
+}
+
 export interface Favorite {
   storyId: string;
   createdAt: string;
@@ -593,6 +796,22 @@ export interface DataExport {
   stats: LocalStats | null;
   /** Rolling memory digests, keyed by playthrough id (additive; older files lack it). */
   memoryDigests?: Record<string, string>;
+  /**
+   * v2.5.1 universal story-memory archive (additive; older backups lack it, and
+   * importing such a file simply leaves the archive empty for a fresh start).
+   * Stays in the local backup file — it is never uploaded anywhere.
+   */
+  storyMemoryArchive?: StoryMemoryArchiveDump;
+}
+
+/** Raw export/import shape of the local story-memory archive. */
+export interface StoryMemoryArchiveDump {
+  events: Record<string, unknown>[];
+  relationships: Record<string, unknown>[];
+  knowledge: Record<string, unknown>[];
+  contradictions: Record<string, unknown>[];
+  /** Per-playthrough kv values (migration flags, cursors) keyed by full key. */
+  meta: Record<string, string>;
 }
 
 /* ------------------------------------------------------------------ */
