@@ -394,11 +394,13 @@ settings page.
 
 ## 🧪 Testing
 
-- `npm test` — unit tests (engine parsing/effects/matching, age-gate incl. fail-closed unknowns,
-  search, and the full universal-memory suite: scene-change persistence, restarts, relationship and
-  marriage persistence, character-pair memory, semantic + long-distance retrieval, timeline ordering,
-  character knowledge, contradiction detection, state-transition validation, story isolation,
-  consolidation, source tracking, migration and kissa-state stripping).
+- `npm test` — **401 tests / 30 suites**. Beyond engine parsing/effects/matching, age-gate
+  (fail-closed on unknowns) and search, the universal-memory suites pin down: scene-change
+  persistence, restarts, relationship and marriage persistence, character-pair memory, semantic and
+  long-distance retrieval, timeline ordering, character knowledge and its validity, contradiction
+  detection, state-transition validation, story isolation, lossless consolidation, source/confidence
+  tracking, migration, index-backed retrieval on a 20k-record archive, the two hand-played QA
+  stories (MC + Poonam, MC + Bhabhi) and `kissa-state` stripping.
 - `npm run content:validate` — validates manifest + **every** story package (fields, ratings, scene graph, reachability, choice targets, cross-file consistency).
 - `npm run typecheck` — strict TS.
 - Manual QA checklist (first launch → onboarding → teen filter → story → chat → choices → branching → memory → saves/replay → favorites → search → AI config + bad key + offline → updates → notifications → export/import → terms/privacy → APK → site) — see CI + this README; all flows implemented and wired.

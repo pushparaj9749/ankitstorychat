@@ -493,15 +493,24 @@ export interface KnowledgeSignal {
 }
 
 const KNOWS_RE = /\b(jaanta|jaanti|jaante|janta|janti|pata hai|pata tha|knows|knew|know)\b/i;
-const LEARNS_RE = /\b(pata chala|pata laga|seekha|suni|suna|bataya|bata diya|bata di|revealed|told|found out|learned|learnt)\b/i;
+const LEARNS_RE = /\b(pata chala|pata laga|seekha|suni|suna|bataya|bata diya|bata di|bata rahi|bata raha|bata rahe|bataungi|bataunga|revealed|told|found out|learned|learnt)\b/i;
+/**
+ * Generic attribution: "X ne Y kiya" / "maine X chhupaya" attached to an
+ * information noun, i.e. the speaker/subject is holding, telling or learning
+ * information. Story-agnostic — it only reads grammar and information words.
+ */
+const ATTRIBUTED_RE =
+  /\b(?:maine|usne|tumne|aapne|hamne|[\p{L}]{3,}\s+ne)\b[^.]{0,80}?\b(raaz|secret|sach|jhooth|jhoot|chhupaya|chhupayi|bataya|bata diya|bata\s?di|pata hai|jaanta|jaanti)\b/iu;
+const IMPERATIVE_RE = /\b(batao|bata\s?do|bata\s?de|bataiye|kaho|bolo|batana)\b/i;
 
 /**
  * Extract "who knows what" from a statement.
- *  - "Poonam ko pata hai ki X"          → Poonam knows X (seed/told)
- *  - "Bhabhi ko pata nahi ki X"          → Bhabhi does NOT know X (returns null:
- *    absence of knowledge is the default, so there is nothing to store)
- *  - "Bhabhi ne bataya ki X"             → Bhabhi knows X (told, source=told)
- *  - "Bhabhi ne Poonam ko bataya ki X"   → Poonam learns X from Bhabhi
+ *  - "Poonam ko pata hai ki X"                 → Poonam knows X
+ *  - "Bhabhi: \"Maine ek raaz chhupaya hai\""   → Bhabhi knows that secret
+ *  - "Bhabhi ne bataya ki X"                   → Bhabhi knows X (she is the source)
+ *  - "Bhabhi ne Poonam ko bataya ki X"         → Poonam learns X from Bhabhi
+ *  - "Bhabhi ko pata nahi ki X"                → nothing stored (ignorance is the default)
+ * Questions and imperative requests ("mujhe batao") never create knowledge.
  */
 export function extractKnowledgeSignals(
   statement: string,
@@ -513,37 +522,37 @@ export function extractKnowledgeSignals(
   const mentioned = participants.filter((p) => p !== ctx.playerId);
   if (!mentioned.length) return [];
 
-  const negated = /\b(nahi|nahi|nahin|nahi hai|does not|doesn't)\b/i.test(
-    text.match(/\b(jaanta|jaanti|janta|janti|pata hai|pata tha|knows)\b[^.]{0,12}/i)?.[0] ?? '',
-  ) || /\b(nahi jaanta|nahi jaanti|nahi janta|nahi janti|pata nahi|pata nahin|doesn't know|does not know)\b/i.test(text);
+  const negated =
+    /\b(nahi jaanta|nahi jaanti|nahi janta|nahi janti|pata nahi|pata nahin|doesn't know|does not know|koi nahi jaanta)\b/i.test(text);
   if (negated) return [];
 
-  const learns = LEARNS_RE.test(text) && KNOWS_RE.test(text)
-    ? true
-    : LEARNS_RE.test(text);
   const knows = KNOWS_RE.test(text);
-  if (!knows && !learns) return [];
+  const learns = LEARNS_RE.test(text);
+  const isQuestion = /\?\s*$/.test(text.trim());
+  const imperative = IMPERATIVE_RE.test(text) && !knows; // "mujhe sach batao" is a request
+  const attributed = !isQuestion && !imperative && ATTRIBUTED_RE.test(text);
+  const holds = attributed && !knows && !learns;
+  if (!knows && !learns && !holds) return [];
 
-  const signalList: KnowledgeSignal[] = [];
+  const signals: KnowledgeSignal[] = [];
   for (const id of mentioned) {
     const ch = ctx.characters.find((c) => c.id === id);
     if (!ch) continue;
-    // Don't record a knowledge claim when the character is only the source of
-    // the statement's clause ("Bhabhi ne bataya ki ...") — the listener learns.
     const nameIdx = text.toLowerCase().indexOf(ch.name.toLowerCase());
+    // "Bhabhi ne ... bataya" — when someone else is also in the sentence, the
+    // speaker is the source and the listener is the one who learns.
     const isSubjectSource = nameIdx >= 0 && nameIdx <= 2 && /^(ne|ki|ka|ke)\b/i.test(text.slice(ch.name.length).trim());
-    const fact = sanitize(text.replace(/\s+/g, ' '), 240);
-    if (isSubjectSource && mentioned.length > 1) continue;
-    signalList.push({
+    if (isSubjectSource && mentioned.length > 1 && !holds) continue;
+    signals.push({
       characterId: id,
       characterName: ch.name,
-      fact,
+      fact: sanitize(text.replace(/\s+/g, ' '), 240),
       source: learns ? 'told' : 'witnessed',
       learnedFrom: null,
-      confidence: negated ? 'low' : 'high',
+      confidence: holds && !knows ? 'medium' : 'high',
     });
   }
-  return signalList.slice(0, 3);
+  return signals.slice(0, 3);
 }
 
 /* ---- main detector ---- */
