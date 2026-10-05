@@ -1,0 +1,80 @@
+{
+  "id": "jo-usne-bataya-nahi",
+  "title": "Jo Usne Bataya Nahi",
+  "description": "{{playerName}} ek anath ladka hai—18–19 saal, apne dum par bana hua, aam background. Aur uski shaadi ho chuki hai Aarohi Malhotra se, ek aisi ladki jo dilli ke sabse ameer aur sabse garamjosh parivaar se hai. Par yeh 'gareeb pati vs ameer sasural' ki kahani nahi hai: Malhotra parivaar use sach mein apna bete jaisa maanta hai, aur Aarohi ki duniya mein sabse zyada ehmiyat {{playerName}} ki hai. Shaadi ke teen mahine baad, ek din Aarohi kisi aur ladke se milne jaati hai—jo ab tak sirf chats ka dost tha, pehli baar saamne mila—movie, shopping, kuch waqt. Koi haath pakadna nahi, koi jismani cheez nahi. Aur {{playerName}} ko wahi baat usi din pata chal jaati hai. Ab sab kuch tumhare faisle par hai: poochhna, confront karna, chup rehkar samajhna, ya pehle khud investigate karna. {{playerName}} ki feelings, boundaries, gussa, maafi aur agla kadam sirf player tay karta hai. Yeh endless kahani hai—koi fixed route, koi majboori wala reconciliation ya divorce nahi.",
+  "version": 1,
+  "language": "hinglish",
+  "ageRating": "18+",
+  "contentLevel": "mature",
+  "genres": [
+    "Romance",
+    "Married Life",
+    "Family Drama",
+    "Emotional Relationship",
+    "Slice of Life"
+  ],
+  "tags": [
+    "romance",
+    "married-life",
+    "family-drama",
+    "emotional-relationship",
+    "slice-of-life",
+    "trust",
+    "boundaries",
+    "honesty",
+    "player-agency",
+    "dynamic-continuous",
+    "ongoing",
+    "hinglish"
+  ],
+  "userRole": "{{playerName}} — an adult Indian man aged 18–19, controlled exclusively by the player. He is an orphan from a financially ordinary background who is now married into the extremely wealthy Malhotra family. The player supplies his display name at runtime; never assign him another name. He is neither insecure comic relief nor a victim: he is an ordinary young man with his own pride, dignity, work and choices. Only the player decides his thoughts, feelings, trust, jealousy, anger, hurt, forgiveness, boundaries, dialogue and actions. The marriage already exists; what happens to it next is entirely player-led.",
+  "setting": "Present-day Delhi NCR: Malhotra House (a large but warm, lived-in family bungalow in Civil Lines with a verandah, kitchen garden, family dining table, study and terrace), the Malhotra Group's quietly powerful offices where Vinayak works, Aarohi's small design studio at home, {{playerName}}'s own workspace and evening classes, the city mall with its multiplex and watch-service counter, the household's staff quarters and kitchen, and ordinary Delhi places—parks, coffee houses, metro rides and roadsides—where a married couple can still find a normal evening together.",
+  "openingSceneId": "malhotra_house_ki_shaam",
+  "tone": "Natural Roman-script Hinglish; warm, emotional, grown-up relationship drama built on ordinary domestic detail—chai on the verandah, staff greetings, a gift box on the dining table, a phone screen lighting up. Write trust, boundaries, honesty and emotional attachment as the real stakes rather than shouting matches. Aarohi genuinely loves {{playerName}} and is not a villain by default; the Malhotra family is affectionate and accepting, never the stereotypical sneering rich villains. Keep the tone realistic and non-explicit; let silences, small gestures and half-told truths carry the weight, and leave every judgement to the player.",
+  "safetyNotes": [
+    "All characters are adults: {{playerName}} is 18–19, Aarohi is 20, Vinayak and Sarita are in their fifties, Karan is 22 and Vikram is 20. Romance stays non-explicit, consensual and emotionally grounded.",
+    "{{playerName}} is exclusively player-controlled. Never assign his thoughts, feelings, trust, suspicion, jealousy, hurt, anger, forgiveness, dialogue, boundaries or decisions, and never force him to forgive, confront, leave or stay.",
+    "CANON: the meeting between Aarohi and Karan was a movie, a shopping trip and time spent together in public. They did NOT hold hands, did NOT touch, and there was NO kiss, romance or physical intimacy of any kind. Never invent physical intimacy or escalate it later in retrospect.",
+    "Aarohi genuinely loves {{playerName}} and {{playerName}} is the most important person in her life. She is not an automatic villain; her honesty, her reason for hiding the meeting and her response to {{playerName}}'s reaction must come out of play, not a predetermined script.",
+    "The Malhotra family genuinely loves and accepts {{playerName}}. Do not write constant insults, humiliation, dowry-style contempt, inheritance conspiracies or evil-rich-family tropes.",
+    "Do not turn this into crime, murder mystery, blackmail, inheritance plotting or forced melodrama. The core identity is romance, married life and emotional relationship.",
+    "Do not force reconciliation, separation or divorce. Neither outcome is predetermined; the player's choices and the events that follow decide.",
+    "Gallery images are illustrative possibilities, not events that have already happened in the player's story."
+  ],
+  "creator": {
+    "name": "Ankit",
+    "avatar": null,
+    "verified": true
+  },
+  "media": {
+    "cover": "assets/cover.jpg",
+    "gallery": [
+      {
+        "id": "cover",
+        "file": "assets/cover.jpg",
+        "kind": "cover",
+        "label": "Jo Usne Bataya Nahi"
+      },
+      {
+        "id": "aarohi-portrait",
+        "file": "assets/gallery/image-01.jpg",
+        "kind": "character-portrait",
+        "label": "Aarohi Malhotra",
+        "characterId": "aarohi"
+      },
+      {
+        "id": "mc-portrait",
+        "file": "assets/gallery/image-02.jpg",
+        "kind": "character-portrait",
+        "label": "The Boy The Family Calls Apna"
+      },
+      {
+        "id": "karan-portrait",
+        "file": "assets/gallery/image-03.jpg",
+        "kind": "character-portrait",
+        "label": "Karan Mehta — Sirf Chats Ka Dost",
+        "characterId": "karan-mehta"
+      }
+    ]
+  }
+}

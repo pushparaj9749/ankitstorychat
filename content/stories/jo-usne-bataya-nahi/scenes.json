@@ -1,0 +1,140 @@
+{
+  "storyId": "jo-usne-bataya-nahi",
+  "version": 1,
+  "scenes": [
+    {
+      "id": "malhotra_house_ki_shaam",
+      "title": "Verandah, Chai Aur Ek Photo",
+      "narration": [
+        "*Baarish ruk gayi hai. Malhotra House ki verandah par cane chairs se mitti ki khushboo aati hai aur andar se Kamla Bai ki kadhai ki awaaz. Is ghar ki shaamein hamesha ghar jaisi lagti hain—agar tum is ghar ko apna maan chuke ho.*",
+        "*{{playerName}}, tum aaj mall se seedha laute ho. Jeb mein woh paper bag hai jismein Aarohi ki purani ghadi hai—tum use teen mahine poore hone par surprise dena chahte the. Par usi mall ki upar wali manzil se tumne woh drishya dekha jo dimaag se hat nahi raha: Aarohi, aur ek anjaan ladka, cinema ke escalator ke paas, saath-saath chalte hue.*",
+        "*Uske thodi der baad Vikram ka message aaya. Woh mall ki us dukaan par shift par tha jahan se beech wala rasta poora dikhta hai. Photo mein wahi lamha hai—shopping bags, cinema ka board, aur woh ladka. Kisi ne haath nahi pakda hua, koi gale-lagana nahi, kuch bhi aisa nahi jo saaf-saaf galat lage. Sirf itna: woh wahan thi, aur tumhe bataya nahi tha.*",
+        "Vikram: \"Bhai, maine sirf jo dekha woh bhej diya. Faisla main nahi karunga—tum dekh lo, aur kuch poochhna ho toh poochh lo.\"",
+        "*Andar se chudiyon ki halki awaaz aati hai, aur phir Aarohi verandah mein aati hai. Aaj uske chehre par muskaan thodi zyada hai—aur aankhein tumse milte hi ek pal ke liye jhuk jaati hain.*",
+        "Aarohi: \"Tum aa gaye! Main soch rahi thi ki mujhe pehle pahunch jaana chahiye tha. Din kaisa raha tumhara? Kamla Bai chai la rahi hain.\"",
+        "*Woh tumhare paas wali cane chair par baithti hai—usi jagah jahan pichhle teen mahine se baithti hai—aur bag se ek chhota sa wrapped box nikaal kar tumhari hatheli par rakh deti hai.*",
+        "Aarohi: \"Mall mein dikha, tumhara khayal aa gaya. Bas aise hi. Kholo baad mein—pehle batao, aaj khaana khaya ya nahi?\"",
+        "*Tumhara phone abhi bhi tumhari jeeb mein hai. Screen jal rahi hai—Vikram ki bheji hui tasveer, aur uske neeche do messages. Aarohi ka gift tumhari doosri hatheli par hai, halka aur garam. Uski ungliyan us box par thodi zyada der rukti hain, jaise woh tumhara chehra padh rahi ho.*",
+        "Aarohi: \"Waise aaj poora din Riya ke saath nikla—uski cousin ki shaadi ki shopping. Boring sa tha, sach mein. Tumhe phone karne wali thi, par mall mein network hi nahi tha.\"",
+        "*Woh yeh sab itni asaani se keh deti hai ki kisi ko shak bhi nahi hoga. Bas tumhare phone ki screen uske kandhe ke peeche chup-chaap jal rahi hai.*",
+        "*Usi waqt Sarita verandah mein aati hain, ek steel glass saunf paani lekar. Tumhe dekhkar unke chehre par apnapan aa jaata hai, jaise tum is ghar ke sabse purane bete ho.*",
+        "Sarita: \"Beta, paani piyo pehle. Khaana das minute mein. Aur Vinayak ko bula lena—woh study mein phone par baithe hain.\"",
+        "*Sarita andar chali jaati hain. Verandah phir se khaali hai—sirf tum, Aarohi, chai ki bhaap aur tumhare haath mein jalta hua phone. Woh tumhari taraf dekhti hai, aur uski muskaan mein pehli baar ek chhota sa hichak nazar aata hai.*",
+        "Aarohi: \"{{playerName}}? Sab theek hai na? Tum aise kyun lag rahe ho, jaise kuch kehna hai par keh nahi pa rahe...\"",
+        "*Aaj ki raat ka agla lafz tumhara hai. Jo tumne dekha hai woh tumhare paas hai, jo woh keh rahi hai woh tumhare saamne hai, aur is shaam ka faisla koi doosra nahi karega.*"
+      ],
+      "fallbackLines": [
+        "*Verandah par chai ki bhaap uthti hai. Andar Kamla Bai bartan ki awaaz karti hai, aur deewar par kisi gaadi ki headlight ek pal ke liye guzar jaati hai.*",
+        "Aarohi: \"Kuch kehna hai toh kaho. Main aisi muskaan se kaam nahi chalaungi—mujhe pata hai tum kuch soch rahe ho.\"",
+        "*Agla kadam tumhara hai: chaaho toh poochh lo, chaaho toh chup raho, chaaho toh pehle khud sach jodo.*"
+      ],
+      "choices": [
+        {
+          "id": "ask_calmly",
+          "text": "Shaant reh kar Aarohi se poocho: \"Aaj shaam tum kahan thi?\"",
+          "shortLabel": "Seedha poocho",
+          "keywords": [
+            "kahan thi",
+            "shaant se poocha",
+            "aaj ka din",
+            "seedha poocho"
+          ],
+          "next": null,
+          "effects": {
+            "flags": {
+              "asked_aarohi_calmly": true
+            },
+            "choicesRecord": {
+              "ask_calmly": true
+            },
+            "memory": [
+              "{{playerName}} calmly asked Aarohi where she had been that evening, without revealing what he had seen. Record exactly what she answers, what she admits, what she still hides and how she behaves—her explanation is not established until she actually gives it."
+            ]
+          }
+        },
+        {
+          "id": "show_the_photo",
+          "text": "Phone saamne rakho: \"Yeh ladka kaun hai, Aarohi?\"",
+          "shortLabel": "Photo dikhao",
+          "keywords": [
+            "photo dikhao",
+            "yeh ladka kaun",
+            "vikram ki photo",
+            "tasveer"
+          ],
+          "next": null,
+          "effects": {
+            "flags": {
+              "showed_vikram_photo": true
+            },
+            "choicesRecord": {
+              "show_the_photo": true
+            },
+            "memory": [
+              "{{playerName}} showed Aarohi the photograph Vikram sent and asked who the young man was. Record her exact reaction and words, and the immediate state of the conversation. Do not assume guilt, an affair or innocence—and never invent physical intimacy, because none occurred."
+            ]
+          }
+        },
+        {
+          "id": "stay_silent_and_watch",
+          "text": "Phone silent karo. Kuch mat poocho—dekho woh khud sach batati hai ya nahi.",
+          "shortLabel": "Chup raho",
+          "keywords": [
+            "chup raho",
+            "kuch nahi poocha",
+            "silent",
+            "dekho kya karti hai"
+          ],
+          "next": null,
+          "effects": {
+            "flags": {
+              "kept_the_discovery_private": true
+            },
+            "choicesRecord": {
+              "stay_silent_and_watch": true
+            },
+            "memory": [
+              "{{playerName}} decided not to reveal what he knows and stayed silent, watching whether Aarohi tells him herself. Record her behaviour, whether she senses something, and whether she volunteers the truth. Silence is not forgiveness, suspicion or any other feeling—do not interpret it for the player."
+            ]
+          }
+        },
+        {
+          "id": "investigate_first",
+          "text": "Aarohi se kuch na kaho. Pehle Vikram se poori baat aur poori photo maango.",
+          "shortLabel": "Pehle Vikram",
+          "keywords": [
+            "vikram se poocho",
+            "pehle investigate",
+            "poori baat",
+            "aur photo"
+          ],
+          "next": null,
+          "effects": {
+            "flags": {
+              "chose_to_investigate_first": true
+            },
+            "choicesRecord": {
+              "investigate_first": true
+            },
+            "memory": [
+              "{{playerName}} chose to say nothing to Aarohi yet and to gather more facts first by asking Vikram for the full story and more photographs. Record exactly what Vikram actually knows, what he only speculates, and what remains unknown. Vikram must not manufacture evidence or claim intimacy he did not see."
+            ]
+          }
+        },
+        {
+          "id": "free_response",
+          "text": "Apne shabdon mein kuch aur kaho, ya jo tum chaho wahi karo.",
+          "shortLabel": "Apna jawaab",
+          "keywords": [
+            "apne shabdon",
+            "kuch aur",
+            "free response",
+            "main kuch aur"
+          ],
+          "next": null
+        }
+      ]
+    }
+  ],
+  "endings": []
+}

@@ -1,0 +1,138 @@
+{
+  "storyId": "jo-usne-bataya-nahi",
+  "version": 1,
+  "premise": "{{playerName}} is an 18–19-year-old orphan from a financially ordinary background. Through the Malhotra family's charitable trust he was supported in his education, and through that same family he met Aarohi Malhotra, a 20-year-old woman from one of Delhi's wealthiest families. They became friends, then chose each other, and they are now married—three months in. This is NOT a poor-husband-versus-rich-family story: Vinayak and Sarita Malhotra genuinely love and accept {{playerName}}, and Aarohi's world revolves around him more than anyone else. What exists underneath is smaller and harder: for about ten months Aarohi has been chatting with Karan Mehta, a 22-year-old copywriter she knows from an online classic-cinema community, and today she met him face to face for the first time—an afternoon movie, a shopping trip for his mother's birthday gift, and coffee. They did not hold hands and there was no physical intimacy of any kind. She told {{playerName}} she was out with a college friend, and {{playerName}} discovers the meeting the very same day. The story is about a secret meeting, trust, boundaries, honesty and emotional attachment—not about proving a physical affair. Aarohi genuinely loves {{playerName}} and is not an automatic villain; {{playerName}} is not forced into any predetermined reaction. Asking calmly, confronting, investigating first, staying silent, asking about the other man or asking why she hid it are all valid player paths, and the story continues from whichever the player chooses with no forced reconciliation, separation, crime plot or fixed ending.",
+  "locations": [
+    {
+      "id": "malhotra_house",
+      "name": "Malhotra House",
+      "description": "The Malhotra family's large but lived-in bungalow in Civil Lines, Delhi: a wide verandah with cane chairs, a working kitchen garden, worn leather sofas, a family dining table that seats twelve but is usually set for five, a study with the door that closes, and a terrace where Aarohi and {{playerName}} drink late chai. Old money and warm routines, not marble and show."
+    },
+    {
+      "id": "aarohi_studio",
+      "name": "Aarohi's Design Studio (at home)",
+      "description": "A converted room at the back of the house that Aarohi uses as her own design studio—fabric samples, mood boards, sketches, an old drafting table and a wall of pinned photographs. It is the one place she built entirely for herself, and the one where she keeps things she has not decided how to explain."
+    },
+    {
+      "id": "family_dining",
+      "name": "The Family Dining Table",
+      "description": "The long table where Sarita insists everyone eats together, where staff are addressed by name and relatives are tolerated in small doses. Most honest family conversations in this house happen here or over the verandah chai afterwards."
+    },
+    {
+      "id": "mc_workspace",
+      "name": "{{playerName}}'s Workspace & Evening Classes",
+      "description": "The small office room where {{playerName}} works and the evening institute where he studies. His own place, his own money, his own plans—important to him and respected by the family; nothing about the marriage melts his individual life away."
+    },
+    {
+      "id": "the_mall",
+      "name": "The City Mall — Multiplex, Stores, Watch Service",
+      "description": "A big Delhi mall with a multiplex, an escalator cluster, a food court on the upper level, a watch-service counter where {{playerName}} had left Aarohi's repaired watch for their upcoming anniversary, and a small electronics store where Vikram works. The scene of both the meeting and the discovery."
+    },
+    {
+      "id": "malhotra_offices",
+      "name": "The Malhotra Group Offices",
+      "description": "Quietly powerful corporate floors where Vinayak works and where Aarohi occasionally has to appear as the boss's daughter. Cold rooms, warm people, and a world {{playerName}} is free to engage with or keep at a distance."
+    },
+    {
+      "id": "ordinary_delhi",
+      "name": "Ordinary Delhi",
+      "description": "Roadside kulcha stalls, the metro, Lodhi Garden's morning walkers, Khan Market bookshops and coffee houses. The places where {{playerName}} and Aarohi get to be an ordinary young couple instead of a Malhotra daughter and her orphan husband."
+    },
+    {
+      "id": "staff_kitchen",
+      "name": "The Staff Kitchen & Quarters",
+      "description": "The working heart of Malhotra House—the kitchen where Kamla Bai rules, the staff quarters behind the garden, and the daily small talk of a household where the people around the family know more about the family than anyone else does."
+    }
+  ],
+  "factions": [
+    {
+      "id": "malhotra_family",
+      "name": "The Malhotra Family",
+      "description": "Vinayak, Sarita and Aarohi—warm toward {{playerName}} and protective of their daughter. They are old-money, sophisticated and demanding in their expectations of decency rather than in their contempt for outsiders. They must never be written as sneering rich villains."
+    },
+    {
+      "id": "the_household",
+      "name": "The Household Staff",
+      "description": "Kamla Bai the cook, the driver, the gardener and the long-serving staff who raised Aarohi. They are fond of {{playerName}}, share gossip carelessly and have loyalties of their own; they notice things before the family does, but they do not decide anything."
+    },
+    {
+      "id": "vikram_circle",
+      "name": "{{playerName}}'s Own Circle",
+      "description": "Vikram and the rest of {{playerName}}'s scholarship-group friends from before the marriage—ordinary young men and women from ordinary backgrounds who tease him about his rich wife, worry about him and would tell him the truth. They are his independent ground, not a source of humiliation."
+    },
+    {
+      "id": "extended_relatives",
+      "name": "Extended Relatives & Society",
+      "description": "Uncles, aunts, business families and acquaintances who ask intrusive questions and measure people by money. They create background pressure and occasional real friction, but Aarohi and her parents defend {{playerName}} in front of them rather than joining in."
+    }
+  ],
+  "lore": [
+    "{{playerName}} is 18–19, an orphan, and from a financially ordinary background. He is an ordinary young man with dignity, work and opinions—never comic relief, never a victim and never someone who owes the family gratitude.",
+    "{{playerName}} and Aarohi are already married; the story begins three months into the marriage. Their home routines, shared jokes and plans already exist, and the marriage is not something the story has to build from zero.",
+    "Aarohi Malhotra is 20, the daughter of Vinayak and Sarita Malhotra, and she genuinely loves {{playerName}}. He is the most important person in her life: she can create distance from almost anyone else, but she does not want to lose him.",
+    "Vinayak and Sarita Malhotra genuinely love and accept {{playerName}}. They protect their daughter, but they never humiliate or patronise him and they treat him as a real member of the family.",
+    "For about ten months Aarohi has been chatting with Karan Mehta, a 22-year-old copywriter she met in an online classic-cinema community. Their history is chats: long messages about old films, writing and the lives they imagined for themselves. They had never met in person before today, and {{playerName}} was not told about the friendship.",
+    "Today was their first face-to-face meeting: an afternoon show of a restored classic re-release, a walk through the mall while Karan chose a birthday gift for his mother, and coffee. FACT LOCK: they did NOT hold hands, did NOT touch beyond ordinary courtesy, and there was no kiss, romance or physical intimacy of any kind. The conflict is a secret meeting, trust, boundaries, honesty and emotional attachment—never a proven physical affair.",
+    "Aarohi told {{playerName}} she was out with a college friend. She also bought {{playerName}} a small gift that day because it reminded her of him; both facts are true and stay true.",
+    "{{playerName}} discovers the meeting on the same day: he saw Aarohi with an unknown young man from the mall's upper food court while collecting her repaired watch, and later his friend Vikram sent him a photograph taken from the store where Vikram works. The discovery proves a meeting happened; it proves nothing about physical intimacy.",
+    "Aarohi's reason for hiding the friendship, and the meaning she herself gives it, are not fixed in advance. They must be explored honestly through play—she may explain clearly, struggle to explain, be angry at being doubted, or admit things she has not admitted to herself.",
+    "{{playerName}}'s reaction is entirely player-controlled and no response is wrong: calm questions, confrontation, silence, investigation, talking to Karan, focusing on the hiding or trying to understand her perspective are all valid and all change what follows.",
+    "The story is endless and dynamically player-led. It does not automatically become crime, blackmail, inheritance conspiracy, murder mystery or forced melodrama, and it never forces reconciliation or divorce. Scene changes and app restarts never erase today's discovery, the chats, the meeting or anything either of them has said."
+  ],
+  "rules": [
+    "Always refer to the player character through {{playerName}} or second person. Never substitute a fixed name for the player.",
+    "Only the player controls {{playerName}}. Never invent or dictate his thoughts, feelings, suspicion, jealousy, hurt, anger, forgiveness, dialogue, boundaries, decisions or next actions—and never force him to forgive, confront, leave, stay or reconcile.",
+    "CANON AND NON-NEGOTIABLE: Aarohi's first meeting with Karan consisted of a movie, shopping and time spent together in public. They did NOT hold hands. There was NO touching, kissing, sexual activity or physical intimacy of any kind, and no earlier private meeting ever happened. Never invent, imply or retroactively add physical intimacy, and never let any character claim it as fact.",
+    "Aarohi genuinely loves {{playerName}} and he is the most important person in her life. She is not automatically a villain and the story must not treat her as one before the player's discoveries and her own responses justify it. Equally, do not excuse her: the hiding is real and its consequences are real.",
+    "The Malhotra family is warm, sophisticated and accepting of {{playerName}}. Never write constant insults, contempt for his background, dowry-style humiliation, inheritance conspiracies, evil-rich-family tropes or staff who mock him.",
+    "The core identity is romance, married life, family warmth and emotional relationship. Do not convert the story into crime, blackmail, murder mystery, corporate warfare or forced melodrama, and do not introduce villains who did not earn their place.",
+    "Neither reconciliation nor separation is predetermined. Aarohi's response, the family's involvement and the fate of the marriage must follow from the player's actual choices, the established memories and the circumstances they create.",
+    "Keep the marriage's ordinary life alive while the conflict unfolds: meals, work, family dinners, inside jokes, terrace chai and small kindnesses continue even on difficult days, and the story should be able to return to daily married life at any point.",
+    "Other people—Karan, Vikram, relatives, staff—speak only what they actually know. Knowledge is tracked per character; nobody may know about the chats, the photograph or a conversation they were not part of.",
+    "Keep all romance and conflict non-explicit and emotionally grounded. Adults argue, hurt, apologise and negotiate boundaries without graphic content, cruelty or humiliation.",
+    "Suggested choices are optional prompts only. Free-form answers, refusal, silence, deflection, investigation, unexpected calm or unexpected anger remain valid; continue from what the player actually chose.",
+    "Do not create arcs, chapters, acts, phases, stages, a fixed roadmap or a predetermined ending. The story continues after any development—an explanation, a fight, a reconciliation, a boundary, a separation or a new understanding.",
+    "This is an endless, dynamic story: no numbered or named arcs, acts, chapters, phases or stages, no fixed route and no predetermined ending. The marriage, the family life and the conflict keep evolving in response to the player's choices.",
+    "Use Kissa's existing universal memory and conversation context. Preserve the marriage, the chats, the first meeting with its exact limits, the discovery, whatever Aarohi explains, {{playerName}}'s reactions, the family's responses and all consequences across every scene change; never reset any of it when the location changes.",
+    "Never treat gallery images or unselected suggested choices as events that already happened. A moment becomes shared history only when it occurs through play."
+  ],
+  "importantObjects": [
+    {
+      "id": "vikram_photograph",
+      "name": "Vikram's Photograph",
+      "description": "A phone photo taken from the store where Vikram works, showing Aarohi and an unknown young man walking through the mall with shopping bags near the cinema escalator. It proves a meeting happened on that day; it shows no hand-holding, no touching and no intimacy. The photo can be saved, deleted, forwarded, hidden or shown—entirely the player's choice."
+    },
+    {
+      "id": "repaired_watch",
+      "name": "Aarohi's Repaired Watch",
+      "description": "An old watch of Aarohi's that {{playerName}} secretly left at the mall's watch-service counter to have repaired as a surprise for their three-month anniversary—the reason he was in the mall at all today. Its fate depends on what the player decides to do about everything that happened."
+    },
+    {
+      "id": "aarohis_gift",
+      "name": "The Gift Aarohi Bought Him",
+      "description": "A small wrapped gift Aarohi brought home today—something she saw at the mall and bought for {{playerName}} because it reminded her of him. It is genuine and it complicates any simple story about why she was there."
+    },
+    {
+      "id": "chat_thread",
+      "name": "The Chat Thread with Karan",
+      "description": "Months of messages between Aarohi and Karan about old films, writing and their imagined lives, on her phone and in the community's app. It has never been shown to {{playerName}}; reading it may clarify or confuse, and it contains no declarations of physical intimacy because none existed."
+    },
+    {
+      "id": "wedding_photographs",
+      "name": "The Wedding Photographs",
+      "description": "Framed wedding photographs from three months ago on the landing wall: Aarohi laughing in a red lehenga, {{playerName}} in a sherwani that Vinayak insisted on paying for, and the whole family around them. They are a reminder of what is actually at stake."
+    }
+  ],
+  "timeline": [
+    "Childhood: {{playerName}} loses his parents and grows up without family support, from a financially ordinary background.",
+    "Teen years: the Malhotra family's charitable trust supports {{playerName}}'s education. Vinayak meets him at the trust's annual function and never treats him as a beneficiary.",
+    "About three years before the opening: {{playerName}} and Aarohi meet through the trust's function, become friends and gradually choose each other.",
+    "About ten months before the opening: Aarohi joins an online classic-cinema community and begins long, personal chats with Karan Mehta, a 22-year-old copywriter from Lucknow. They never meet in person. She tells {{playerName}} nothing about the friendship.",
+    "Three months before the opening: {{playerName}} and Aarohi marry at Malhotra House with the family's full, warm support. Married life begins, including ordinary routines, family dinners and Aarohi's design studio at home.",
+    "Two weeks before the opening: {{playerName}} secretly leaves Aarohi's old watch at the mall's watch-service counter, planning to return it on their three-month anniversary.",
+    "This morning: Karan, now working in Delhi, asks Aarohi to meet in person for the first time. She agrees, and tells {{playerName}} she is spending the day with a college friend.",
+    "This afternoon: Aarohi and Karan meet for the first time—a restored classic at the multiplex's afternoon show, a walk through the mall while he chooses a birthday gift for his mother, and coffee. They do not hold hands; there is no touching and no intimacy. Aarohi also buys a small gift for {{playerName}}.",
+    "Late this afternoon: {{playerName}} arrives at the mall to collect the repaired watch and, from the upper food court, sees Aarohi below with a young man he does not know. She does not see him.",
+    "This evening: Aarohi comes home with the gift and a story about a college friend. Vikram sends {{playerName}} the photograph from his shift. The opening scene ends with the discovery in {{playerName}}'s hands and Aarohi asking about his evening—no accusation, explanation, apology or decision has happened yet."
+  ]
+}

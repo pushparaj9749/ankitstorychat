@@ -14,7 +14,7 @@ moves the tale forward — with memory, relationships, branching, and multiple e
 ## ✨ Highlights
 
 - **100% local-first** — profile, chats, memories, saves, favorites, settings on-device (SQLite + SecureStore). No login, no cloud user DB.
-- **32 original Hinglish stories** (23 teen-safe, 9 mature) with scenes, choices, branching, endings — including 20 ongoing "endless" romance-fantasy sagas.
+- **43 original Hinglish stories** (24 teen-safe, 19 mature) with scenes, choices, branching, endings — including 31 ongoing "endless" romance sagas delivered over the air.
 - **New stories arrive without an app update** — new packs land in `content/manifest.json`
   (`contentVersion`), and existing installs pick them up automatically from the live story API
   (or straight from a story's page via its in-place **Download** button).
@@ -32,7 +32,7 @@ moves the tale forward — with memory, relationships, branching, and multiple e
   uploader. Every submission is **admin-reviewed and never auto-published**, gated by a
   global 50-submissions/24h limit and a 24h expiry. Complete stories must ship a **Media
   Library** (cover + gallery, character portraits, scenes); the story detail page renders
-  it as a responsive, lazy-loading gallery with a full-screen lightbox. All 32 shipped
+  it as a responsive, lazy-loading gallery with a full-screen lightbox. All 43 shipped
   stories are credited to **Ankit (verified)** with their real artwork in the gallery.
 - **Player-name interpolation** — story text uses `{{playerName}}`, resolved at
   runtime to the locally stored nickname in narration, the pre-chat introduction,
