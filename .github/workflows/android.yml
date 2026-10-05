@@ -18,6 +18,8 @@ on:
     # Tags and manual dispatch still build; app/runtime changes still build.
     paths-ignore:
       - 'content/**'
+      - 'README.md'
+      - 'docs/**'
       - '__tests__/arrangedMarriageWalaLove.test.ts'
       - '__tests__/arrangedMarriageMemoryIsolation.test.ts'
       - 'docs/ARRANGED_MARRIAGE_WALA_LOVE_PUBLICATION.md'
@@ -39,6 +41,8 @@ on:
     branches: [main]
     paths-ignore:
       - 'content/**'
+      - 'README.md'
+      - 'docs/**'
       - '__tests__/arrangedMarriageWalaLove.test.ts'
       - '__tests__/arrangedMarriageMemoryIsolation.test.ts'
       - 'docs/ARRANGED_MARRIAGE_WALA_LOVE_PUBLICATION.md'
