@@ -18,6 +18,8 @@ on:
     # Tags and manual dispatch still build; app/runtime changes still build.
     paths-ignore:
       - 'content/**'
+      - 'README.md'
+      - 'docs/**'
       - '__tests__/arrangedMarriageWalaLove.test.ts'
       - '__tests__/arrangedMarriageMemoryIsolation.test.ts'
       - 'docs/ARRANGED_MARRIAGE_WALA_LOVE_PUBLICATION.md'
@@ -28,6 +30,10 @@ on:
       - '__tests__/rajmahalMeIshq.test.ts'
       - '__tests__/zaraMafiaRomance.test.ts'
       - 'docs/TWO_HEARTS_PUBLICATION.md'
+      - 'docs/TWO_NEW_REMOTE_STORIES_PUBLICATION.md'
+      - '__tests__/tumheKabhiPataHiNahiChala.test.ts'
+      - '__tests__/joUsneBatayaNahi.test.ts'
+      - 'worker/__tests__/ota-catalog.test.ts'
       - '.github/workflows/android.yml'
       - '.github/workflows/deploy-api.yml'
       - 'scripts/verify-published-story.mjs'
@@ -35,6 +41,8 @@ on:
     branches: [main]
     paths-ignore:
       - 'content/**'
+      - 'README.md'
+      - 'docs/**'
       - '__tests__/arrangedMarriageWalaLove.test.ts'
       - '__tests__/arrangedMarriageMemoryIsolation.test.ts'
       - 'docs/ARRANGED_MARRIAGE_WALA_LOVE_PUBLICATION.md'
@@ -45,6 +53,10 @@ on:
       - '__tests__/rajmahalMeIshq.test.ts'
       - '__tests__/zaraMafiaRomance.test.ts'
       - 'docs/TWO_HEARTS_PUBLICATION.md'
+      - 'docs/TWO_NEW_REMOTE_STORIES_PUBLICATION.md'
+      - '__tests__/tumheKabhiPataHiNahiChala.test.ts'
+      - '__tests__/joUsneBatayaNahi.test.ts'
+      - 'worker/__tests__/ota-catalog.test.ts'
       - '.github/workflows/android.yml'
       - '.github/workflows/deploy-api.yml'
       - 'scripts/verify-published-story.mjs'

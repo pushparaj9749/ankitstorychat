@@ -1,0 +1,45 @@
+{
+  "storyId": "jo-usne-bataya-nahi",
+  "version": 1,
+  "shortTermWindow": 24,
+  "seedMemories": [
+    "{{playerName}} is the adult player-controlled MC, aged 18–19; never assign him another name or decide his reply, feelings, trust, jealousy, anger, hurt, forgiveness, boundaries, investigation or choices.",
+    "{{playerName}} is an orphan from a financially ordinary background. The Malhotra family's charitable trust supported his education; he is an ordinary young man with dignity and his own work and studies, never comic relief or a victim.",
+    "The marriage already exists: {{playerName}} and Aarohi Malhotra chose each other and have been married for three months. Their home routines, terrace chai, family dinners, inside jokes and plans are established and continue; the story begins after the marriage, not before it.",
+    "Aarohi Malhotra is 20, from an extremely wealthy Delhi family, and she genuinely loves {{playerName}}. He is the most important person in her life—she can create distance from almost anyone else, but she does not want to lose him.",
+    "Vinayak and Sarita Malhotra, Aarohi's parents, genuinely love and accept {{playerName}} as a son. They are warm, protective of their daughter and never humiliate him for his background. No arrogant-rich-villain or inheritance-conspiracy trope applies.",
+    "For about ten months Aarohi has been chatting with Karan Mehta, a 22-year-old copywriter she met in an online classic-cinema community. Their history is long messages about old films, writing and imagined lives. They had never met in person before today, and she never told {{playerName}} about the friendship.",
+    "Today Aarohi and Karan met face to face for the first time: an afternoon show of a restored classic re-release, a walk through the mall while he chose a birthday gift for his mother, and coffee.",
+    "LOCKED FACT: During that meeting Aarohi and Karan did NOT hold hands, did NOT touch beyond ordinary courtesy, and there was no kiss, romantic contact or physical intimacy of any kind. Never invent, imply or retroactively add physical intimacy, and never let any character claim it as fact.",
+    "Aarohi told {{playerName}} she was spending the day with her college friend Riya. She also bought {{playerName}} a small gift at the mall because it reminded her of him. Both of these are true facts and must not be dropped.",
+    "{{playerName}} discovered the meeting on the same day: he was at the mall to collect Aarohi's repaired watch for their upcoming three-month anniversary, saw her with an unknown young man from the upper food court, and later received Vikram's photograph taken from the store where Vikram worked. The discovery proves a meeting happened; it proves nothing about intimacy.",
+    "Why Aarohi hid the friendship, what the chats actually meant to her, and whether she considers it a betrayal are NOT established yet. They must come out of play; no explanation, verdict or excuse is predetermined.",
+    "{{playerName}}'s reaction is entirely undecided. No accusation, confrontation, silence, investigation, reconciliation or separation has happened. The player decides everything that follows.",
+    "This is an endless, player-led story with no arcs, chapters, stages, fixed roadmap or predetermined ending, and no automatic crime, blackmail, inheritance or murder-mystery turn. It never forces reconciliation or divorce; the marriage's future follows from play."
+  ],
+  "extractionHints": [
+    "Record the player's actual words, choices and actions, and whether the player was calm, confrontational, silent, investigative, hurt, forgiving, undecided or something else. Never infer the player's feelings, trust, suspicion or intentions.",
+    "Preserve the marriage history between {{playerName}} and Aarohi: routines, affection, arguments, promises, anniversaries, shared jokes and plans, and every moment that shows what is genuinely at stake between them.",
+    "Keep a precise record of the chats with Karan: when they began, what they were about, how often they continued after the wedding, what Aarohi actually said in them, and exactly what she has and has not told {{playerName}} about them.",
+    "Preserve the first face-to-face meeting exactly as it happened—movie, shopping for Karan's mother's gift, coffee—including the locked fact that there was no hand-holding, no touching and no intimacy. Never upgrade the meeting beyond these facts.",
+    "Track the discovery: how {{playerName}} found out, who knows what, whether the photograph was saved, deleted, forwarded, hidden or shown, and whether Aarohi knows that {{playerName}} knows.",
+    "Remember Aarohi's explanations, admissions, silences, anger, apologies and contradictions exactly as she expresses them, and remember what she was still unable to explain. Do not resolve ambiguity into a verdict.",
+    "Track {{playerName}}'s boundaries and decisions as he states them—what he asks for, what he refuses, what he needs, what conditions he sets—and whether they were honoured later.",
+    "Preserve every consequence and its ripple: family reactions (Vinayak, Sarita, staff), conversations with Vikram or Karan, gossip from relatives, changes in daily routines, sleeping arrangements, distance or repair between {{playerName}} and Aarohi.",
+    "Carry all of this across location and scene changes—verandah, dining table, studio, offices, mall, ordinary Delhi outings—and never replace the history with only the newest scene.",
+    "Continue married life naturally whenever the player steers back towards it: meals, work, family evenings and ordinary affection remain part of the story alongside the conflict.",
+    "Treat gallery images and unselected suggested choices as illustrative possibilities only. A depicted moment or unselected suggestion is never an event in the playthrough—and no image ever establishes physical intimacy, because none occurred."
+  ],
+  "neverRemember": [
+    "Real-world sensitive personal data, home address, phone number, credentials or private contact information",
+    "A hard-coded personal name for {{playerName}}; the display name always comes from {{playerName}} at runtime",
+    "Unselected suggested replies, invented player dialogue or actions, and assumed thoughts, feelings, trust, jealousy, anger, forgiveness, decisions or consent for {{playerName}}",
+    "Any invented hand-holding, kissing, touching, sexual activity, physical intimacy or private meeting between Aarohi and Karan; none of it happened and it must never become canon",
+    "A verdict that Aarohi is guilty or innocent, a fixed reason for her hiding the chats, or a predetermined meaning for her emotional attachment; these must be discovered through play",
+    "Any forced reconciliation, forced divorce, forced separation, revenge plot, blackmail, inheritance conspiracy, murder mystery or crime turn",
+    "Contempt, humiliation or poverty-shaming of {{playerName}} by the Malhotra family; that is contrary to canon",
+    "Knowledge a character did not actually acquire—Vikram cannot know about the chats, Karan cannot know about the photograph until told, and nobody knows a private conversation they were not part of",
+    "Gallery artwork as proof that an illustrative event happened, or as evidence of intimacy: no image can establish intimacy, because no intimacy occurred",
+    "A predetermined ending, fixed route, numbered story division or terminal ending"
+  ]
+}

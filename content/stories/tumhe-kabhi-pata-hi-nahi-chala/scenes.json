@@ -1,0 +1,139 @@
+{
+  "storyId": "tumhe-kabhi-pata-hi-nahi-chala",
+  "version": 1,
+  "scenes": [
+    {
+      "id": "chai_tapri_ki_shaam",
+      "title": "Bus Stop, Barish Aur Do Cutting Chai",
+      "narration": [
+        "*Bhopal ki shaam par barish aa gayi hai. Bus stop ke paas wali chai tapri par tarpaulin se paani tapak raha hai, aur usi taraf se Aanya ke hostel ka gate dikhta hai.*",
+        "*{{playerName}}, tum Sharma Photo Studio se seedhe aaye ho—kandhe par geela bag, mood bhaari, kyunki aaj printing ke order par Sharma ji ne sabke saamne tumhe suna diya tha.*",
+        "*Aanya tarpaulin ke neeche khadi hai, haath mein do cutting chai. Uske sandal ke paas paani jama hai. Lagta hai woh yahaan kaafi der se khadi hai.*",
+        "Aanya: \"Arre, aa gaye! Chalo, chai abhi bhi garam hai. Main jaanti thi tum late aaoge—jab studio mein Sharma ji ki awaaz unchi hoti hai, tum hamesha late aate ho.\"",
+        "*Woh ek chai tumhari taraf badhati hai aur doosri apne paas rakhti hai. Biscuit ka packet pehle se khola hua hai, jaise usne pehle hi decide kar liya ho ki aaj kuch share karna hai.*",
+        "Aanya: \"Aur haan, aaj khaana bhi theek se nahi khaya hoga. Bol na.\"",
+        "*Tumhara chehra dekhkar hi woh sab samajh gayi hai. Woh tumhare geelon jooton par nazar daalti hai, phir halki si hansi ke saath chai ka glass tumhari taraf aur badha deti hai.*",
+        "Aanya: \"Pehle chai. Baaki duniya ka faisla kal.\"",
+        "*Kuch der dono chup-chaap chai peete ho. Sirf barish ki awaaz hai—aur tumhare bag se tapakta paani, jo bench ke neeche ek chhota sa gadda bana raha hai.*",
+        "*Phir Aanya tumhari left eyebrow wale chhote se nishaan par dekhti hai. Uske saamne ka glass dheere se ruk jaata hai, jaise woh kuch kehne wali ho aur khud ko rok rahi ho.*",
+        "Aanya: \"{{playerName}}… ek baat hai. Nahi, kuch nahi. Aise hi—\"",
+        "*Baat adhoori hi reh jaati hai. Woh aakhri ghoont leti hai, glass ko stall par rakh deti hai, aur muskurakar aise baat badal deti hai jaise usne kuch kaha hi na ho.*",
+        "Aanya: \"Chhod na, rehne do. Tum apna din batao—aaj studio mein kya hua?\"",
+        "*Barish tez hoti hai. Woh tumhari taraf dekhti hai; uski aankhon mein kuch chhupa hai aur muskaan mein kuch aur. Tapri wala chai banate-banaate dono ki taraf ek nazar daalta hai. Aaj ki shaam sirf tumhare jawaab ka intezaar kar rahi hai.*"
+      ],
+      "fallbackLines": [
+        "*Barish ki awaaz tarpaulin par thap-thap chalti rehti hai. Gaadi ke headlight paani mein ek lambi lakeer banate hue guzar jaate hain.*",
+        "Aanya: \"Kuch nahi bolna ho toh mat bolo. Main yahin hoon, chai ke saath.\"",
+        "*Agla lamha tumhare jawaab par rukta hai—jaise bachpan mein bhi rukta tha, jab faisla hamesha tumhara hota tha.*"
+      ],
+      "choices": [
+        {
+          "id": "tell_her_about_day",
+          "text": "\"Haan, din kharaab tha. Sharma ji ne sabke saamne bahut sunaya.\"",
+          "shortLabel": "Sach bata do",
+          "keywords": [
+            "din kharaab tha",
+            "sach bataya",
+            "sharma ji",
+            "boss ne sunaya",
+            "honest answer"
+          ],
+          "next": null,
+          "effects": {
+            "flags": {
+              "told_aanya_about_bad_day": true
+            },
+            "choicesRecord": {
+              "tell_her_about_day": true
+            },
+            "memory": [
+              "{{playerName}} actually told Aanya that his day at Sharma Photo Studio had gone badly and that Sharma ji had scolded him in front of others. Record exactly what he shared, what he left out, and how Aanya responded; do not infer any feeling he did not express."
+            ]
+          }
+        },
+        {
+          "id": "ask_about_her_wait",
+          "text": "\"Mera din chhodo—tu itni der se yahaan kyun khadi hai, barish mein?\"",
+          "shortLabel": "Uska din poocho",
+          "keywords": [
+            "itni der se",
+            "kyun khadi ho",
+            "tumhara din",
+            "barish mein kyun"
+          ],
+          "next": null,
+          "effects": {
+            "flags": {
+              "asked_why_she_waited": true
+            },
+            "choicesRecord": {
+              "ask_about_her_wait": true
+            },
+            "memory": [
+              "{{playerName}} asked Aanya why she had been waiting so long in the rain instead of talking about his own day. Record her exact answer and behaviour without assuming what it means."
+            ]
+          }
+        },
+        {
+          "id": "ask_about_the_pause",
+          "text": "\"Ruk—tune kuch kehna shuru kiya tha. Poora bol na, main sun raha hoon.\"",
+          "shortLabel": "Adhoori baat",
+          "keywords": [
+            "adhoori baat",
+            "poora bol",
+            "kuch kehna tha",
+            "tune kaha tha"
+          ],
+          "next": null,
+          "effects": {
+            "flags": {
+              "noticed_her_hesitation": true
+            },
+            "choicesRecord": {
+              "ask_about_the_pause": true
+            },
+            "memory": [
+              "{{playerName}} noticed that Aanya had started to say something and stopped, and asked her to finish it. Record exactly what she does next—she may deflect, joke, go quiet or share something—and never invent a confession or feeling she did not express."
+            ]
+          }
+        },
+        {
+          "id": "stay_silent_with_her",
+          "text": "Kuch mat bolo. Chai khatam karo aur bas uske saath bench par baith jao.",
+          "shortLabel": "Chup baitho",
+          "keywords": [
+            "chup raho",
+            "kuch nahi bola",
+            "bas saath baitho",
+            "silence"
+          ],
+          "next": null,
+          "effects": {
+            "flags": {
+              "chose_silence_tonight": true
+            },
+            "choicesRecord": {
+              "stay_silent_with_her": true
+            },
+            "memory": [
+              "{{playerName}} chose not to say anything and simply stayed with Aanya in the rain. Record what she does with the silence. Silence is not agreement, rejection, forgiveness or any feeling—do not interpret it for the player."
+            ]
+          }
+        },
+        {
+          "id": "free_response",
+          "text": "Apne shabdon mein kuch aur kaho, ya jo tum chaho wahi karo.",
+          "shortLabel": "Apna jawaab",
+          "keywords": [
+            "apne shabdon",
+            "kuch aur",
+            "free response",
+            "main kuch aur"
+          ],
+          "next": null
+        }
+      ]
+    }
+  ],
+  "endings": []
+}

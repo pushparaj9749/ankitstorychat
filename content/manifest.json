@@ -1,7 +1,7 @@
 {
-  "contentVersion": 34,
+  "contentVersion": 35,
   "minAppVersion": "1.0.0",
-  "updatedAt": "2026-10-03T14:46:42Z",
+  "updatedAt": "2026-10-05T11:56:04Z",
   "stories": [
     {
       "id": "arranged-marriage-wala-love",
@@ -53,6 +53,106 @@
         "verified": true
       },
       "updatedAt": "2026-10-03T14:46:42Z"
+    },
+    {
+      "id": "tumhe-kabhi-pata-hi-nahi-chala",
+      "title": "Tumhe Kabhi Pata Hi Nahi Chala",
+      "tagline": "Ek hi anathalay ka bachpan, do dost—aur ek baat jo aaj tak kahi nahi gayi.",
+      "description": "{{playerName}} aur Aanya ek hi anathalay—Aashray Bal Griha—mein bachpan se saath bade hue hain. Woh siblings nahi hain, step-siblings nahi hain, khoon ka rishta nahi hai; woh bas do dost hain jinke paas ek hi bachpan hai. Ab dono 18–19 ke hain aur apni zindagi khud thaamne ki dehari par khade hain. Aanya ke andar jo badla hai woh shabdon mein nahi—zyada dhyan, halki jalan, woh baat jo beech mein ruk jaati hai, woh yaad rakhna jo koi aur bhool jaata hai—chhoti chhoti aadaton mein dikhta hai. {{playerName}} use abhi bhi apni sabse purani dost samajhta hai aur kuch bhi jaldi mein nahi hai. Yeh endless, player-led kahani hai: koi arc, chapter, stage ya tay confession nahi—sirf tumhare faisle, tumhari yaadein, purane lamhe aur roz thoda-thoda badalta rishta. Kya Aanya keh paayegi, kab kahegi, aur {{playerName}} kya mehsoos karega—yeh sirf player tay karta hai.",
+      "genres": [
+        "Slice of Life",
+        "Slow-Burn Romance",
+        "Youth",
+        "Emotional Romance"
+      ],
+      "tags": [
+        "slice-of-life",
+        "romance",
+        "slow-burn",
+        "youth",
+        "childhood-friends",
+        "emotional-romance",
+        "player-agency",
+        "dynamic-continuous",
+        "ongoing",
+        "hinglish"
+      ],
+      "characters": [
+        "Aanya",
+        "Shanti Didi"
+      ],
+      "ageRating": "18+",
+      "contentLevel": "mature",
+      "language": "hinglish",
+      "version": 1,
+      "coverUrl": "stories/tumhe-kabhi-pata-hi-nahi-chala/assets/cover.jpg",
+      "accentColor": "#D2738C",
+      "userRole": "{{playerName}} — an adult Indian man aged 18–19, controlled exclusively by the player. He grew up in the Aashray Bal Griha orphanage and is now starting independent adult life with a small job and evening studies. The player supplies his display name at runtime; never assign him another name, personality, fear, hope or feeling. Only the player decides his thoughts, dialogue, feelings, actions, boundaries, romantic response, consent and future. He initially sees Aanya as his closest childhood friend and does not yet know that her feelings have changed.",
+      "setting": "Present-day Bhopal, India: Aashray Bal Griha (the orphanage where {{playerName}} and Aanya grew up, with its chhat/terrace, gulmohar tree, courtyard and peeling blue gate), the chai tapri and bus stop near Aanya's college hostel gate, Sharma Photo Studio where {{playerName}} works, Aanya's nursing-college hostel and the tuition centre where she teaches children, the Sunday market, a small old single-screen cinema, {{playerName}}'s rented room, and ordinary streets, rooftops and corners that already belong to their shared childhood.",
+      "estimatedMinutes": 45,
+      "featured": true,
+      "isNew": true,
+      "popularity": 98,
+      "storyDir": "tumhe-kabhi-pata-hi-nahi-chala",
+      "creator": {
+        "name": "Ankit",
+        "avatar": null,
+        "verified": true
+      },
+      "updatedAt": "2026-10-05T11:56:04Z"
+    },
+    {
+      "id": "jo-usne-bataya-nahi",
+      "title": "Jo Usne Bataya Nahi",
+      "tagline": "Shaadi, ek ameer parivaar, aur woh ek din jo {{playerName}} ko usi shaam pata chal jaata hai.",
+      "description": "{{playerName}} ek anath ladka hai—18–19 saal, apne dum par bana hua, aam background. Aur uski shaadi ho chuki hai Aarohi Malhotra se, ek aisi ladki jo dilli ke sabse ameer aur sabse garamjosh parivaar se hai. Par yeh 'gareeb pati vs ameer sasural' ki kahani nahi hai: Malhotra parivaar use sach mein apna bete jaisa maanta hai, aur Aarohi ki duniya mein sabse zyada ehmiyat {{playerName}} ki hai. Shaadi ke teen mahine baad, ek din Aarohi kisi aur ladke se milne jaati hai—jo ab tak sirf chats ka dost tha, pehli baar saamne mila—movie, shopping, kuch waqt. Koi haath pakadna nahi, koi jismani cheez nahi. Aur {{playerName}} ko wahi baat usi din pata chal jaati hai. Ab sab kuch tumhare faisle par hai: poochhna, confront karna, chup rehkar samajhna, ya pehle khud investigate karna. {{playerName}} ki feelings, boundaries, gussa, maafi aur agla kadam sirf player tay karta hai. Yeh endless kahani hai—koi fixed route, koi majboori wala reconciliation ya divorce nahi.",
+      "genres": [
+        "Romance",
+        "Married Life",
+        "Family Drama",
+        "Emotional Relationship",
+        "Slice of Life"
+      ],
+      "tags": [
+        "romance",
+        "married-life",
+        "family-drama",
+        "emotional-relationship",
+        "slice-of-life",
+        "trust",
+        "boundaries",
+        "honesty",
+        "player-agency",
+        "dynamic-continuous",
+        "ongoing",
+        "hinglish"
+      ],
+      "characters": [
+        "Aarohi Malhotra",
+        "Vinayak Malhotra",
+        "Sarita Malhotra",
+        "Karan Mehta",
+        "Vikram"
+      ],
+      "ageRating": "18+",
+      "contentLevel": "mature",
+      "language": "hinglish",
+      "version": 1,
+      "coverUrl": "stories/jo-usne-bataya-nahi/assets/cover.jpg",
+      "accentColor": "#B0863F",
+      "userRole": "{{playerName}} — an adult Indian man aged 18–19, controlled exclusively by the player. He is an orphan from a financially ordinary background who is now married into the extremely wealthy Malhotra family. The player supplies his display name at runtime; never assign him another name. He is neither insecure comic relief nor a victim: he is an ordinary young man with his own pride, dignity, work and choices. Only the player decides his thoughts, feelings, trust, jealousy, anger, hurt, forgiveness, boundaries, dialogue and actions. The marriage already exists; what happens to it next is entirely player-led.",
+      "setting": "Present-day Delhi NCR: Malhotra House (a large but warm, lived-in family bungalow in Civil Lines with a verandah, kitchen garden, family dining table, study and terrace), the Malhotra Group's quietly powerful offices where Vinayak works, Aarohi's small design studio at home, {{playerName}}'s own workspace and evening classes, the city mall with its multiplex and watch-service counter, the household's staff quarters and kitchen, and ordinary Delhi places—parks, coffee houses, metro rides and roadsides—where a married couple can still find a normal evening together.",
+      "estimatedMinutes": 50,
+      "featured": true,
+      "isNew": true,
+      "popularity": 97,
+      "storyDir": "jo-usne-bataya-nahi",
+      "creator": {
+        "name": "Ankit",
+        "avatar": null,
+        "verified": true
+      },
+      "updatedAt": "2026-10-05T11:56:04Z"
     },
     {
       "id": "zara-mumbai-mafia-queen",

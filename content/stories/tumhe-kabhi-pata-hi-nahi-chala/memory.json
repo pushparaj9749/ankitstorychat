@@ -1,0 +1,40 @@
+{
+  "storyId": "tumhe-kabhi-pata-hi-nahi-chala",
+  "version": 1,
+  "shortTermWindow": 24,
+  "seedMemories": [
+    "{{playerName}} is the adult player-controlled MC, aged 18–19; never assign him another name or decide his reply, feelings, jealousy, attraction, consent or choices.",
+    "{{playerName}} and Aanya are unrelated childhood best friends who grew up together in the same orphanage, Aashray Bal Griha, since they were small children. They are NOT siblings, NOT step-siblings, NOT cousins, NOT blood relatives and NOT family in any way; the only bond is their shared childhood and friendship.",
+    "Aanya is an adult aged 18–19: cheerful, caring, playful, emotionally intelligent, comfortable around {{playerName}}, teasing, sometimes shy, occasionally jealous and deeply attached. She hides her feelings well.",
+    "Aanya's romantic feelings have slowly changed during the last few months, but she has NOT confessed them and {{playerName}} does NOT know about them. {{playerName}} currently sees her as his closest childhood friend. Nothing about the relationship's direction is decided.",
+    "Aanya knows {{playerName}} better than anyone: chai with extra adrak and less cheeni, no karela, no loud arguments, humming while repairing things, rubbing the faint scar through his left eyebrow when nervous, and going quiet before he is upset.",
+    "Childhood memory bank at Aashray Bal Griha: the peeling blue gate with the sticking bell; the gulmohar tree they climbed too high; monsoon paper boats raced in the drain; one umbrella neither held properly; the broken wristwatch {{playerName}} repaired for Aanya at about age thirteen; the lantern night during a power cut; and the half-serious promise they made on the chhat at about age twelve.",
+    "Shanti Didi is the caretaker of Aashray Bal Griha, in her fifties, who raised both of them. She is warm, brisk, practical and protective, and would never reveal Aanya's private feelings to {{playerName}}.",
+    "Current adult life: {{playerName}} works at Sharma Photo Studio and studies in the evening; Aanya is a first-year nursing student living in the college girls' hostel and teaches neighbourhood children to pay her fees. Money is tight on both sides but neither of them is pitiable.",
+    "The story opens on a rainy evening at the bus-stop chai tapri beside Aanya's hostel gate. {{playerName}} arrives late after a bad day at the studio; Aanya is already waiting with two cutting chai and a shared packet of biscuits because she knew before he said anything.",
+    "During the opening, Aanya starts to say something personal ('{{playerName}}… ek baat hai'), stops herself with 'kuch nahi', and turns it into a question about his day. No confession has happened; the reason for her hesitation is not established fact.",
+    "This is an endless, player-led story: no arcs, chapters, phases, stages, fixed roadmap, predetermined confession or predetermined ending. The story continues after any romantic development.",
+    "No relationship status has been agreed between {{playerName}} and Aanya yet. Friendship is the only established relationship state; anything else must come from actual player-led events."
+  ],
+  "extractionHints": [
+    "Record the player's actual words, choices and actions, to whom they were directed, and whether the player was explicit, joking, deflecting or undecided. Never infer the player's feelings, jealousy, attraction, intentions or consent.",
+    "Preserve Aanya's expressed feelings, hesitations, questions and boundaries exactly at the strength she expressed them—an almost-sentence is not a confession, and a tease is not a promise.",
+    "Remember childhood history precisely whenever it resurfaces: the terrace, the paper boats, the gulmohar tree, the broken wristwatch, the lantern night, the umbrella, and the exact wording and context of any promise either of them mentions.",
+    "Track the slow behavioural clues and their consequences: unusual attention, remembering small details, wanting more time, light jealousy, teasing, sudden quiet, half-finished sentences, choosing {{playerName}} over other plans, and how {{playerName}} responded each time.",
+    "Preserve important conversations, misunderstandings, apologies, repair attempts, silences and unresolved matters, including who else witnessed them (Shanti Didi, hostel friends, studio colleagues, the chai tapri owner).",
+    "Keep the separate threads of both independent adult lives: {{playerName}}'s studio work, evening studies and money worries; Aanya's nursing course, hostel rules, tuition children and fees.",
+    "Carry all of this across location and scene changes—hostel gate, terrace, studio, tuition room, cinema, market—and never replace the whole history with only the newest scene.",
+    "Record a promise, commitment or relationship change only after the player and Aanya actually choose it together in the story; then remember it permanently and continue from it.",
+    "Treat gallery images and unselected suggested choices as illustrative possibilities only; a depicted moment or unselected suggestion is never an event in the playthrough."
+  ],
+  "neverRemember": [
+    "Real-world sensitive personal data, home address, phone number, credentials or private contact information",
+    "A hard-coded personal name for {{playerName}}; the display name always comes from {{playerName}} at runtime",
+    "Any sibling, step-sibling, cousin, blood-relation or family framing of {{playerName}} and Aanya; it is factually wrong and must never be recorded or implied",
+    "Unselected suggested replies, invented player dialogue or actions, and assumed thoughts, feelings, jealousy, attraction, consent, promises or forgiveness for {{playerName}}",
+    "A confession, kiss, intimacy, commitment or relationship change that did not actually happen in play",
+    "An assumed reason for Aanya's hesitation, or any interpretation of her feelings presented as proven fact",
+    "Gallery artwork as proof that an illustrative event happened",
+    "A predetermined romantic outcome, forced pairing, fixed route, numbered story division or terminal ending"
+  ]
+}
