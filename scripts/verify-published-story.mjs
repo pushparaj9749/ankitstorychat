@@ -11,6 +11,18 @@ const readJson = (path) => JSON.parse(readFileSync(path, 'utf8'));
 const sha = (bytes) => createHash('sha256').update(bytes).digest('hex');
 const files = ['story', 'characters', 'world', 'scenes', 'memory'];
 const expectedDynamicMediaDimensions = { width: 1376, height: 768 };
+// A full catalog verification makes more requests than the Worker’s 120/min
+// per-IP limit. Pace every remote call below the limit so the verifier cannot
+// rate-limit itself while checking all ten packages and their media.
+const remoteRequestIntervalMs = 600;
+let nextRemoteRequestAt = 0;
+
+async function waitForRemoteRequestSlot() {
+  const now = Date.now();
+  const slot = Math.max(now, nextRemoteRequestAt);
+  nextRemoteRequestAt = slot + remoteRequestIntervalMs;
+  if (slot > now) await delay(slot - now);
+}
 
 function jpegDimensions(bytes, label) {
   assert(bytes.length > 4 && bytes[0] === 0xff && bytes[1] === 0xd8, `${label}: not a JPEG`);
@@ -73,6 +85,7 @@ export async function verify(base, transport = fetch, entry = entriesFor()[0]) {
 
   async function get(path, type) {
     const url = `${base}/${path}`;
+    await waitForRemoteRequestSlot();
     const res = await transport(url, { signal: AbortSignal.timeout(30_000) });
     assert.equal(res.status, 200, `${url}: HTTP ${res.status}`);
     assert.equal(res.headers.get('content-type')?.split(';')[0], type, `${url}: wrong content type`);
