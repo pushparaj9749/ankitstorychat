@@ -46,12 +46,37 @@ moves the tale forward — with memory, relationships, branching, and multiple e
   validated state transitions and meaning-based retrieval, on top of the sliding short-term window,
   episodic log, curated facts, cross-story preferences and rolling digest.
 - **Backup/restore, local notifications, storage manager, AMOLED theme, sounds, haptics.**
+- **v2.5.3 Long-term memory precision & turn-based continuity** — turn-based sequence decay (no wall-clock fading),
+  strict Hinglish negation & hypothetical guards, zero-score trigram fuzzy fallback, expanded kinship & emotion
+  lexicon, and permanent milestone canon locks.
 - **v2.5.2 UI design pass** — cinematic Home/Story Detail/Chat layouts, one canonical type scale, floating glass
   navigation, memory visible on Home; see the release notes below and `docs/UI_V2.5.2_DESIGN_PASS.md`.
 
 ---
 
 ## 🆕 Release notes
+
+### v2.5.3 — Long-Term Memory Precision & Turn-Based Continuity
+
+A dedicated memory intelligence and reliability release:
+
+- **Turn-based sequence decay replaces calendar days.** Memories are no longer demoted simply because
+  the reader paused their playthrough for days or weeks. Memory recency is now indexed by story turn sequence
+  (`currentSeq - event.seq`), ensuring true narrative continuity across app sessions.
+- **Strict Hinglish negation & hypothetical guards.** Targeted detection filters prevent accidental relationship
+  state pollution from negated phrases (*"shaadi nahi hui"*, *"dost nahi hain"*, *"mana kar diya"*) and
+  conditional/sarcastic statements (*"agar shaadi kar lein"*, *"kash hum dost hote"*, *"sirf mazak tha"*).
+- **Trigram fuzzy matching on zero initial score.** Fixed the trigram fallback gating bug in semantic retrieval;
+  misspelled and colloquial Hinglish words (*"bhabie"*, *"shadii"*, *"mohbat"*) now resolve cleanly via fuzzy trigram
+  overlap even when no exact tokens or concepts matched initially.
+- **Expanded Hinglish concept lexicon.** Extended kinship vocabulary (*saali, jija, mama, mami, dada, dadi, bahu, damad*),
+  emotional and behavioral cues (*jalan, pachtawa, sharminda, khauf, ghabrahat*), betrayal terms (*dhokhebaj, farebi, dagabaaz*),
+  and vows/decisions (*irada, qubool, inqaar, thukraya*).
+- **Permanent canon milestone locks.** High-importance events (`importance === 4` such as marriages, major vows, pivotal
+  revelations) receive a permanent canon baseline and are explicitly labeled `[PERMANENT CANON]` in narrator context blocks.
+- **Player personalization in memory context.** Context assembly resolves the player's actual nickname instead of
+  hardcoded placeholders.
+- **463 tests passing.** Added comprehensive test suite `__tests__/longTermMemoryEnhancement.test.ts`.
 
 ### v2.5.2 — UI design pass (cinematic layouts, one type scale)
 
