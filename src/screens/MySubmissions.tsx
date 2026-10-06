@@ -11,7 +11,7 @@ import { Screen } from '../components/Screen';
 import { GradientButton } from '../components/GradientButton';
 import { SectionHeader } from '../components/bits';
 import { Icon } from '../components/icons';
-import { FONTS, RADIUS, SHADOWS, SPACING, TYPE, withAlpha } from '../theme';
+import { RADIUS, SCALE, SHADOWS, SPACING, TYPE, withAlpha } from '../theme';
 import { formatRemaining } from '../content/submissions';
 import { kvGet, kvSet } from '../lib/db';
 
@@ -138,16 +138,16 @@ export function MySubmissions({ navigation }: Props) {
                     </Text>
                   </View>
                   <View style={[styles.statusBadge, { backgroundColor: withAlpha(statusColor(s.knownStatus), 0.14) }]}>
-                    <Text style={{ color: statusColor(s.knownStatus), fontSize: 10, fontWeight: '900' }}>
+                    <Text style={{ color: statusColor(s.knownStatus), fontSize: SCALE.micro, fontWeight: '900' }}>
                       {statusLabel(s.knownStatus)}
                     </Text>
                   </View>
                 </View>
-                <Text style={{ color: theme.textDim, fontSize: FONTS.small, marginTop: 6 }}>
+                <Text style={{ color: theme.textDim, fontSize: SCALE.small, marginTop: 6 }}>
                   by {s.creatorName} • {new Date(s.submittedAt).toLocaleDateString()}
                 </Text>
                 {s.knownStatus === 'pending' ? (
-                  <Text style={{ color: theme.textFaint, fontSize: FONTS.tiny, marginTop: 4 }}>
+                  <Text style={{ color: theme.textFaint, fontSize: SCALE.micro, marginTop: 4 }}>
                     Expires in {formatRemaining(remaining)}
                   </Text>
                 ) : null}
@@ -163,8 +163,8 @@ export function MySubmissions({ navigation }: Props) {
 const styles = StyleSheet.create({
   header: { paddingTop: 4, paddingBottom: 4 },
   kicker: { ...TYPE.overline, marginTop: 4 },
-  title: { ...TYPE.title, marginTop: 2 },
-  sub: { fontSize: FONTS.small, marginTop: 6, lineHeight: 21 },
+  title: { ...TYPE.displaySmall, marginTop: 4 },
+  sub: { fontSize: SCALE.small, marginTop: 6, lineHeight: 21 },
   card: { borderWidth: 1, borderRadius: RADIUS.lg, padding: 16, marginBottom: 10 },
   statusBadge: { paddingHorizontal: 8, paddingVertical: 3, borderRadius: RADIUS.pill },
   empty: { borderWidth: 1, borderStyle: 'dashed', borderRadius: RADIUS.lg, padding: 28, alignItems: 'center', marginTop: 8 },

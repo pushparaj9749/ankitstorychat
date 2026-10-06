@@ -1,5 +1,5 @@
 /**
- * KISSA v2.6 — Story Cards
+ * KISSA v2.5.2 — Story Cards
  * Artwork-first, natural aspect ratio, editorial, minimal.
  *
  * Layout rule (unchanged): IMAGE RATIO = SOURCE IMAGE RATIO. Covers ship as

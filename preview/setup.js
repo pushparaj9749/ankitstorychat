@@ -24,3 +24,8 @@ if (!global.requestAnimationFrame) {
   global.requestAnimationFrame = (cb) => setTimeout(() => cb(Date.now()), 0);
   global.cancelAnimationFrame = (id) => clearTimeout(id);
 }
+
+/* React Native's dev flag — the app's screens read it directly. */
+if (typeof global.__DEV__ === 'undefined') {
+  global.__DEV__ = true;
+}

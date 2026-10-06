@@ -1,5 +1,5 @@
 /**
- * KISSA v2.6 — Home
+ * KISSA v2.5.2 — Home
  * One focal point, then everything else in support:
  *
  *   brand bar → greeting + one clear question → search → categories
@@ -25,7 +25,7 @@ import { IconButton, SectionHeader, SelectableChip } from '../components/bits';
 import { EmptyState } from '../components/states';
 import { Icon, ICON_SIZE } from '../components/icons';
 import { KISSA_LOGO } from '../components/brand';
-import { LAYOUT, RADIUS, SCALE, SPACING, TOUCH, TYPE, KISSA, withAlpha } from '../theme';
+import { KISSA, LAYOUT, RADIUS, SCALE, SPACING, TOUCH, TYPE, withAlpha } from '../theme';
 import { greetingForHour, timeAgo } from '../lib/utils';
 
 type Props = BottomTabScreenProps<MainTabParamList, 'Home'>;

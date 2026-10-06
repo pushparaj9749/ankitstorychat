@@ -1,5 +1,5 @@
 /**
- * KISSA v2.6 — Story Detail
+ * KISSA v2.5.2 — Story Detail
  *
  * Question this screen answers: "should I start this story, and how big is it?"
  *

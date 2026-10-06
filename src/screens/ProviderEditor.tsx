@@ -13,7 +13,7 @@ import { Icon } from '../components/icons';
 import { getProvider, upsertProvider } from '../lib/db';
 import { getApiKey, hasApiKey, saveApiKey } from '../lib/secureKeys';
 import { aiErrorMessage, normalizeBaseUrl, PROVIDER_PRESETS, testConnection } from '../lib/ai';
-import { FONTS, RADIUS, SHADOWS, SPACING, TYPE, withAlpha } from '../theme';
+import { LAYOUT, RADIUS, SCALE, SHADOWS, SPACING, TYPE, withAlpha } from '../theme';
 import { nowIso, uid } from '../lib/utils';
 
 type Props = NativeStackScreenProps<RootStackParamList, 'ProviderEditor'>;
@@ -119,7 +119,7 @@ export function ProviderEditor({ navigation, route }: Props) {
 
   return (
     <Screen>
-      <ScrollView showsVerticalScrollIndicator={false}>
+      <ScrollView showsVerticalScrollIndicator={false} contentContainerStyle={styles.page}>
         <View style={styles.header}>
           <Text style={[styles.kicker, { color: theme.accent }]}>AI ENGINE</Text>
           <Text style={[styles.title, { color: theme.text }]}>
@@ -227,19 +227,20 @@ function Field({
 }
 
 const styles = StyleSheet.create({
+  page: { width: '100%', maxWidth: LAYOUT.contentMaxWidth + 120, alignSelf: 'center' },
   header: { paddingTop: 6, paddingBottom: 6 },
   kicker: { ...TYPE.overline, marginTop: 4 },
-  title: { ...TYPE.title, marginTop: 2 },
-  label: { fontSize: FONTS.small, fontWeight: '700', marginBottom: 6, marginTop: 10 },
+  title: { ...TYPE.displaySmall, marginTop: 4 },
+  label: { fontSize: SCALE.small, fontWeight: '700', marginBottom: 6, marginTop: 10 },
   presets: { flexDirection: 'row', flexWrap: 'wrap', gap: 8 },
   preset: { borderWidth: 1, borderRadius: RADIUS.pill, paddingHorizontal: 13, paddingVertical: 8 },
-  presetText: { fontSize: FONTS.small, fontWeight: '600' },
-  hint: { fontSize: FONTS.tiny, marginTop: 8, lineHeight: 18 },
+  presetText: { fontSize: SCALE.small, fontWeight: '600' },
+  hint: { fontSize: SCALE.micro, marginTop: 8, lineHeight: 18 },
   field: { marginTop: 14 },
   input: { borderWidth: 1, borderRadius: RADIUS.md, paddingHorizontal: 14, paddingVertical: 12, fontSize: 15 },
   testBox: { borderWidth: 1, borderRadius: RADIUS.md, padding: 12, marginTop: 14 },
-  testText: { fontSize: FONTS.small, lineHeight: 20 },
-  error: { fontSize: FONTS.small, marginTop: 10 },
+  testText: { fontSize: SCALE.small, lineHeight: 20 },
+  error: { fontSize: SCALE.small, marginTop: 10 },
   btns: { flexDirection: 'row', gap: 10, marginTop: 18 },
   half: { flex: 1 },
 });

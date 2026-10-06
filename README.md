@@ -46,10 +46,53 @@ moves the tale forward — with memory, relationships, branching, and multiple e
   validated state transitions and meaning-based retrieval, on top of the sliding short-term window,
   episodic log, curated facts, cross-story preferences and rolling digest.
 - **Backup/restore, local notifications, storage manager, AMOLED theme, sounds, haptics.**
+- **v2.5.2 UI design pass** — cinematic Home/Story Detail/Chat layouts, one canonical type scale, floating glass
+  navigation, memory visible on Home; see the release notes below and `docs/UI_V2.5.2_DESIGN_PASS.md`.
 
 ---
 
 ## 🆕 Release notes
+
+### v2.5.2 — UI design pass (cinematic layouts, one type scale)
+
+Purely a presentation release: **no behaviour, memory or content changes** — the
+455-test suite and the story API are untouched, and the app ships no new
+dependency.
+
+- **One canonical type scale.** Screens used to carry 24 different font sizes
+  (8px → 52px) and 20 different corner radii; both now come from tokens in
+  `src/theme.ts` (`SCALE`, `RADIUS`, `TOUCH`). Nothing renders below 11px.
+- **Home rebuilt around one focal point.** Bounded cinematic hero (the artwork
+  is never cropped — it letterboxes over the story's own accent tint), search +
+  filter row, rose-tinted category chips, a **Continue** strip with progress
+  percentages, fixed-frame rail cards so mixed cover ratios share one baseline,
+  and a new **"Because you liked X"** rail that surfaces what the memory engine
+  already knew: your favourites and the journey you opened last.
+- **Story Detail answers "should I start this?"** Immersive hero with floating
+  glass controls, a scenes / cast / endings stat row, a collapsible description,
+  and a **Cast** row built from the story's own character references (you first).
+  Internal metadata tags (`#ongoing`, `#slow-burn`) no longer appear as UI chips.
+  Section order is unchanged.
+- **Chat reads like a story, not a messenger.** Narration, character dialogue and
+  the player's own lines each get a distinct treatment inside the same shared
+  bubble layout: narration whispers (faded italic on a quiet surface), dialogue
+  is named with a rose reading edge, the player speaks in a rose-gradient bubble.
+  Scene header shows the current scene plus who is present, the stage keeps a
+  subtle accent atmosphere, **choices are now full-width cards** instead of
+  two-line pills, and the composer tells you how many moments this journey has
+  remembered.
+- **Floating glass navigation.** The tab bar hovers above the content with 48px
+  targets and a rose active pill instead of slicing the screen with a full-width
+  band; the direction-aware auto-hide behaviour is unchanged.
+- **Onboarding and Settings.** Onboarding has a two-step indicator, brand mark and
+  a larger input; Settings is now a profile header (avatar, nickname, age group)
+  plus an AI status card and grouped rows, instead of twelve separate cards.
+- **Explore, Library, Saves, creator tools and legal screens** share the same
+  header voice, spacing tokens and centred max-width content (large screens no
+  longer stretch edge to edge).
+- **Design review artifacts in-repo:** `docs/UI_V2.5.2_DESIGN_PASS.md` (audit +
+  change log) plus `docs/ui-preview/live.html`, a page rendered from the real
+  screen code through `preview/` (react-native-web) — no mockups.
 
 ### v2.5.1 — Universal extreme memory architecture
 

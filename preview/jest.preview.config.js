@@ -40,6 +40,7 @@ module.exports = {
     '^react-native$': 'react-native-web',
     '^react-native-safe-area-context$': STUB,
     '^expo-linear-gradient$': STUB,
+    '^expo-constants$': STUB,
     '^@expo/vector-icons$': STUB,
     '^(.*)/lib/(haptics|sound|secureKeys|ai|engine|memory|memoryEngine|memoryCore|worldState|storyMemory|storyMemoryCore|storyMemoryStore|db|playthrough|backup|notifications|storage|files|filesSafe|imagePicker|offlineEngine|validate)$': STUB,
     '^(.*)/content/loader$': STUB,

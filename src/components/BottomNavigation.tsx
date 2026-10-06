@@ -1,5 +1,5 @@
 /**
- * KISSA v2.6 — Bottom Navigation
+ * KISSA v2.5.2 — Bottom Navigation
  * Floating glass bar: the tab strip hovers above the content instead of
  * slicing the screen with a hard 64px band, so artwork keeps the whole stage.
  * Direction-aware auto-hide with hysteresis, no flicker (unchanged).

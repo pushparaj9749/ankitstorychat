@@ -1,7 +1,8 @@
-# Kissa UI v2.6 — design pass
+# Kissa UI v2.5.2 — design pass
 
-Status: **implemented** (Wave 1 + Wave 2 of the audit). Everything below is in
-`src/`; the app's 455 tests and `tsc --noEmit` are green.
+Status: **implemented and released as v2.5.2** (Wave 1 + Wave 2 + the secondary
+screens of the audit). Everything below is in `src/`; the app's 455 tests and
+`tsc --noEmit` are green.
 
 Visual proof: **[`docs/ui-preview/live.html`](ui-preview/live.html)** — a page
 rendered from the real components via react-native-web (`npm run`-able through
@@ -72,6 +73,18 @@ that is no longer 10px.
   direction-aware auto-hide behaviour is unchanged.
 * Discover and Library got the same header voice (accent micro-kicker, 26px
   display title, 44px search field, tokenised spacing) and centred content.
+
+### Secondary screens (same pass)
+* Settings is a profile header + AI status card + grouped rows (was twelve
+  separate cards with six section headers); rows are hairline-separated inside
+  one surface with 52px targets.
+* Onboarding: two-step indicator, brand mark, 56px nickname field with counter,
+  selection cards with press feedback and an explicit privacy line.
+* Saves, AIAddons, ProviderEditor, SettingsProfile/Appearance/Audio/Notifications/
+  Storage, MySubmissions, SubmissionSuccess, SubmitStory, AdminPanel, About and
+  the legal screens: screen-title voice unified (26px display + accent micro
+  kicker), every sub-11px size removed, legacy `FONTS.*` mapped onto `SCALE`,
+  and page content capped and centred on large screens.
 
 ## 3. Still open (Wave 3 / 4, untouched)
 

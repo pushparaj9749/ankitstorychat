@@ -1,5 +1,5 @@
 /**
- * KISSA v2.6 — Core UI Bits
+ * KISSA v2.5.2 — Core UI Bits
  * Original, cinematic, minimal, editorial.
  *
  * Design pass notes:

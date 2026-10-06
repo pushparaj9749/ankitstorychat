@@ -1,5 +1,5 @@
 /**
- * KISSA v2.6 — Chat UI
+ * KISSA v2.5.2 — Chat UI
  * Cinematic interactive story stage, NOT a generic messenger.
  *
  * Reading model (unchanged structure, sharper treatment):

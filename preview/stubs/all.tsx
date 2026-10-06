@@ -55,6 +55,11 @@ export const useSafeAreaFrame = () => ({ x: 0, y: 0, width: 340, height: 700 });
 export const initialWindowMetrics = { frame: { x: 0, y: 0, width: 340, height: 700 }, insets: INSETS };
 export const withSafeAreaInsets = (C: any) => C;
 
+/* --------------------------------------------------------------- expo-constants */
+const expoConstants: any = { expoConfig: { version: '2.5.2', name: 'Kissa' } };
+expoConstants.default = expoConstants;
+export default expoConstants;
+
 const noop = () => undefined;
 export const lightBuzz = noop;
 export const mediumBuzz = noop;
@@ -348,6 +353,7 @@ const APP_VALUE = {
   settings: { textSize: 'medium', sound: false, haptics: true, contentApiBaseUrl: '' },
   stories: PREVIEW_STORIES,
   favoriteIds: new Set(['campus-queen', 'midnight-local']),
+  saveProfile: async () => undefined,
   recentPlaythroughs: PREVIEW_PLAYTHROUGHS,
   toggleFavorite: async () => true,
   refreshRecent: async () => undefined,

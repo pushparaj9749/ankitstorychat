@@ -10,7 +10,7 @@ import { useApp } from '../state/AppContext';
 import { Screen } from '../components/Screen';
 import { GradientButton } from '../components/GradientButton';
 import { Icon } from '../components/icons';
-import { FONTS, RADIUS, SHADOWS, SPACING, TYPE, withAlpha } from '../theme';
+import { LAYOUT, RADIUS, SCALE, SHADOWS, SPACING, TYPE, withAlpha } from '../theme';
 import { formatRemaining } from '../content/submissions';
 
 type Props = NativeStackScreenProps<RootStackParamList, 'SubmissionSuccess'>;
@@ -29,7 +29,7 @@ export function SubmissionSuccess({ navigation, route }: Props) {
 
   return (
     <Screen>
-      <ScrollView contentContainerStyle={styles.container} showsVerticalScrollIndicator={false}>
+      <ScrollView contentContainerStyle={[styles.container, styles.page]} showsVerticalScrollIndicator={false}>
         <View style={[styles.checkCircle, { backgroundColor: withAlpha(theme.success, 0.15), borderColor: theme.success }]}>
           <Icon name="checkmark" size={40} color={theme.success} />
         </View>
@@ -94,6 +94,7 @@ function Row({ label, value, mono }: { label: string; value: string; mono?: bool
 }
 
 const styles = StyleSheet.create({
+  page: { width: '100%', maxWidth: LAYOUT.contentMaxWidth + 120, alignSelf: 'center' },
   container: { paddingTop: 40, paddingBottom: 40 },
   checkCircle: {
     width: 80,
@@ -107,10 +108,10 @@ const styles = StyleSheet.create({
   },
 
   title: { fontSize: 26, fontWeight: '900', textAlign: 'center', letterSpacing: -0.4 },
-  sub: { fontSize: FONTS.body, textAlign: 'center', marginTop: 10, lineHeight: 22, paddingHorizontal: 16 },
+  sub: { fontSize: SCALE.body, textAlign: 'center', marginTop: 10, lineHeight: 22, paddingHorizontal: 16 },
   card: { borderWidth: 1, borderRadius: RADIUS.lg, padding: 18, marginTop: SPACING.xl },
   row: { flexDirection: 'row', justifyContent: 'space-between', gap: 12, paddingVertical: 8 },
-  rowLabel: { fontSize: FONTS.small, fontWeight: '700', width: 110 },
-  rowValue: { fontSize: FONTS.small, flex: 1, textAlign: 'right', fontWeight: '600' },
-  note: { fontSize: FONTS.small, marginTop: SPACING.lg, textAlign: 'center', lineHeight: 20, paddingHorizontal: 16 },
+  rowLabel: { fontSize: SCALE.small, fontWeight: '700', width: 110 },
+  rowValue: { fontSize: SCALE.small, flex: 1, textAlign: 'right', fontWeight: '600' },
+  note: { fontSize: SCALE.small, marginTop: SPACING.lg, textAlign: 'center', lineHeight: 20, paddingHorizontal: 16 },
 });

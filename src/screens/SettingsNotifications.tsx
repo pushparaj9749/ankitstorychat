@@ -17,7 +17,7 @@ import {
   requestPermission,
   scheduleDailyReminder,
 } from '../lib/notifications';
-import { FONTS, RADIUS, SHADOWS, SPACING, TYPE, withAlpha } from '../theme';
+import { RADIUS, SCALE, SHADOWS, SPACING, TYPE, withAlpha } from '../theme';
 
 type Props = NativeStackScreenProps<RootStackParamList, 'SettingsNotifications'>;
 
@@ -171,8 +171,8 @@ function ToggleRow({
 const styles = StyleSheet.create({
   header: { paddingTop: 6, paddingBottom: 4 },
   kicker: { ...TYPE.overline, marginTop: 4 },
-  title: { ...TYPE.title, marginTop: 2 },
-  perm: { fontSize: FONTS.small, marginTop: 6, lineHeight: 20 },
+  title: { ...TYPE.displaySmall, marginTop: 4 },
+  perm: { fontSize: SCALE.small, marginTop: 6, lineHeight: 20 },
   row: {
     flexDirection: 'row',
     alignItems: 'center',
@@ -182,7 +182,7 @@ const styles = StyleSheet.create({
     marginBottom: 10,
   },
   body: { flex: 1 },
-  label: { fontSize: FONTS.body, fontWeight: '700' },
-  desc: { fontSize: FONTS.small, marginTop: 2 },
+  label: { fontSize: SCALE.body, fontWeight: '700' },
+  desc: { fontSize: SCALE.small, marginTop: 2 },
   hours: { flexDirection: 'row', flexWrap: 'wrap', gap: 4 },
 });

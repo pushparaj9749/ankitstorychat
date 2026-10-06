@@ -1,5 +1,5 @@
 /**
- * Renders the real Kissa UI (v2.6 design pass) to a static HTML page so the
+ * Renders the real Kissa UI (v2.5.2 design pass) to a static HTML page so the
  * layout can be reviewed in a browser without a device build.
  *
  * Panels: Home · Story Detail · Chat · Component gallery.
@@ -13,6 +13,9 @@ import { NavScrollProvider } from '../src/navigation/NavScrollContext';
 import { Home } from '../src/screens/Home';
 import { StoryDetail } from '../src/screens/StoryDetail';
 import { Chat } from '../src/screens/Chat';
+import { Settings } from '../src/screens/Settings';
+import { OnboardingName } from '../src/screens/OnboardingName';
+import { OnboardingAge } from '../src/screens/OnboardingAge';
 import { HeroCard, GridCard, ContinueCard, WideCard } from '../src/components/StoryCard';
 import { AgeBadge, GenreChip, SectionHeader, SelectableChip, IconButton, Avatar } from '../src/components/bits';
 import { EmptyState, ErrorState, OfflineState } from '../src/components/states';
@@ -169,7 +172,7 @@ function Preview() {
       <NavScrollProvider>
         <div className="page">
           <div className="head">
-            <div className="kicker">KISSA UI v2.6 · LIVE RENDER</div>
+            <div className="kicker">KISSA UI v2.5.2 · LIVE RENDER</div>
             <h1>Design pass — rendered from the real source</h1>
             <p className="lede">
               Ye page <code>src/screens</code> aur <code>src/components</code> ke actual components ko
@@ -190,6 +193,21 @@ function Preview() {
 
             <Frame title="Chat — cinematic stage, live content">
               <Chat navigation={nav} route={{ params: { playthroughId: 'pt_1' } } as any} />
+            </Frame>
+
+            <Frame title="Settings — grouped rows, profile header">
+              <Settings navigation={nav} route={{ key: 'Settings', name: 'Settings', params: {} } as any} />
+            </Frame>
+
+            <Frame title="Onboarding — step 1 & 2" height={1480}>
+              <div style={{ display: 'flex', flexDirection: 'column', gap: 40 }}>
+                <div style={{ height: 700 }}>
+                  <OnboardingName navigation={nav} route={{ key: 'OnboardingName', name: 'OnboardingName', params: {} } as any} />
+                </div>
+                <div style={{ height: 700 }}>
+                  <OnboardingAge navigation={nav} route={{ key: 'OnboardingAge', name: 'OnboardingAge', params: { nickname: 'Ankit' } } as any} />
+                </div>
+              </div>
             </Frame>
 
             <GalleryPanel />
@@ -241,7 +259,7 @@ test('render UI preview', async () => {
 <head>
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>Kissa UI v2.6 — live render</title>
+<title>Kissa UI v2.5.2 — live render</title>
 <style>${css}</style>
 <style>${FRAME_CSS}</style>
 </head>
