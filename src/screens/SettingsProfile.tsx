@@ -9,7 +9,7 @@ import type { AgeGroup, RootStackParamList } from '../types';
 import { useApp } from '../state/AppContext';
 import { Screen } from '../components/Screen';
 import { GradientButton } from '../components/GradientButton';
-import { FONTS, RADIUS, SHADOWS, SPACING, TYPE, withAlpha } from '../theme';
+import { RADIUS, SCALE, SHADOWS, SPACING, TYPE, withAlpha } from '../theme';
 import { lightBuzz } from '../lib/haptics';
 
 type Props = NativeStackScreenProps<RootStackParamList, 'SettingsProfile'>;
@@ -113,13 +113,13 @@ export function SettingsProfile({ navigation }: Props) {
 const styles = StyleSheet.create({
   header: { paddingTop: 6, paddingBottom: 4 },
   kicker: { ...TYPE.overline, marginTop: 4 },
-  title: { ...TYPE.title, marginTop: 2, marginBottom: 12 },
-  label: { fontSize: FONTS.small, fontWeight: '700', marginBottom: 8 },
+  title: { ...TYPE.displaySmall, marginTop: 4, marginBottom: 12 },
+  label: { fontSize: SCALE.small, fontWeight: '700', marginBottom: 8 },
   input: { borderWidth: 1, borderRadius: RADIUS.md, paddingHorizontal: 16, paddingVertical: 14, fontSize: 16 },
   ageRow: { flexDirection: 'row', gap: 10 },
   card: { flex: 1, borderWidth: 1.5, borderRadius: RADIUS.lg, padding: 14 },
-  cardTitle: { fontSize: FONTS.body, fontWeight: '800' },
-  cardDesc: { fontSize: FONTS.tiny, marginTop: 4, lineHeight: 16 },
-  note: { fontSize: FONTS.tiny, marginTop: SPACING.md, lineHeight: 18 },
+  cardTitle: { fontSize: SCALE.body, fontWeight: '800' },
+  cardDesc: { fontSize: SCALE.micro, marginTop: 4, lineHeight: 16 },
+  note: { fontSize: SCALE.micro, marginTop: SPACING.md, lineHeight: 18 },
   spacer: { flex: 1 },
 });

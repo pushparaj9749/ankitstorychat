@@ -9,7 +9,7 @@ import type { RootStackParamList } from '../types';
 import { useApp } from '../state/AppContext';
 import { Screen } from '../components/Screen';
 import { setAmbientPlaying } from '../lib/sound';
-import { FONTS, RADIUS, SHADOWS, SPACING, TYPE, withAlpha } from '../theme';
+import { RADIUS, SCALE, SHADOWS, SPACING, TYPE, withAlpha } from '../theme';
 
 type Props = NativeStackScreenProps<RootStackParamList, 'SettingsAudio'>;
 
@@ -71,7 +71,7 @@ export function SettingsAudio(_props: Props) {
 const styles = StyleSheet.create({
   header: { paddingTop: 6, paddingBottom: 10 },
   kicker: { ...TYPE.overline, marginTop: 4 },
-  title: { ...TYPE.title, marginTop: 2 },
+  title: { ...TYPE.displaySmall, marginTop: 4 },
   row: {
     flexDirection: 'row',
     alignItems: 'center',
@@ -81,7 +81,7 @@ const styles = StyleSheet.create({
     marginBottom: 12,
   },
   body: { flex: 1 },
-  label: { fontSize: FONTS.body, fontWeight: '700' },
-  desc: { fontSize: FONTS.small, marginTop: 2 },
-  note: { fontSize: FONTS.tiny, marginTop: 10, lineHeight: 18 },
+  label: { fontSize: SCALE.body, fontWeight: '700' },
+  desc: { fontSize: SCALE.small, marginTop: 2 },
+  note: { fontSize: SCALE.micro, marginTop: 10, lineHeight: 18 },
 });

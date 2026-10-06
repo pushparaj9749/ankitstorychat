@@ -13,7 +13,7 @@ import { SectionHeader } from '../components/bits';
 import { EmptyState } from '../components/states';
 import { deleteProvider } from '../lib/db';
 import { deleteApiKey } from '../lib/secureKeys';
-import { FONTS, RADIUS, SHADOWS, SPACING, TYPE, withAlpha } from '../theme';
+import { RADIUS, SCALE, SHADOWS, SPACING, TYPE, withAlpha } from '../theme';
 
 type Props = NativeStackScreenProps<RootStackParamList, 'AIAddons'>;
 
@@ -164,9 +164,9 @@ export function AIAddons({ navigation }: Props) {
 const styles = StyleSheet.create({
   header: { paddingTop: 6, paddingBottom: 4 },
   kicker: { ...TYPE.overline, marginTop: 4 },
-  title: { ...TYPE.title, marginTop: 2 },
+  title: { ...TYPE.displaySmall, marginTop: 4 },
   info: { borderWidth: 1, borderRadius: RADIUS.lg, padding: 14, marginTop: 10 },
-  infoText: { fontSize: FONTS.small, lineHeight: 21 },
+  infoText: { fontSize: SCALE.small, lineHeight: 21 },
   card: {
     flexDirection: 'row',
     alignItems: 'center',
@@ -178,15 +178,15 @@ const styles = StyleSheet.create({
   },
   body: { flex: 1, gap: 2 },
   nameRow: { flexDirection: 'row', alignItems: 'center', gap: 8 },
-  name: { fontSize: FONTS.body, fontWeight: '800' },
+  name: { fontSize: SCALE.body, fontWeight: '800' },
   activeBadge: {
     paddingHorizontal: 7,
     paddingVertical: 2,
     borderRadius: RADIUS.pill,
   },
-  activeBadgeText: { color: '#0E070B', fontSize: 9, fontWeight: '900', letterSpacing: 0.5 },
-  sub: { fontSize: FONTS.small, marginTop: 2 },
-  subUrl: { fontSize: FONTS.tiny, marginTop: 1 },
+  activeBadgeText: { color: '#0E070B', fontSize: SCALE.micro, fontWeight: '900', letterSpacing: 0.5 },
+  sub: { fontSize: SCALE.small, marginTop: 2 },
+  subUrl: { fontSize: SCALE.micro, marginTop: 1 },
   actions: { gap: 8, alignItems: 'flex-end' },
   useBtn: {
     paddingHorizontal: 12,
@@ -195,5 +195,5 @@ const styles = StyleSheet.create({
   },
   useBtnText: { color: '#fff', fontSize: 11, fontWeight: '800' },
   link: { paddingVertical: 2, paddingHorizontal: 4 },
-  linkText: { fontWeight: '700', fontSize: FONTS.small },
+  linkText: { fontWeight: '700', fontSize: SCALE.small },
 });

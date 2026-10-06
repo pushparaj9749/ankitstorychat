@@ -16,7 +16,7 @@ import { deleteApiKey } from '../lib/secureKeys';
 import { clearCache, getStorageUsage, type StorageUsage } from '../lib/storage';
 import { exportAndShare, importBackup, importFromUri, pickBackupFile } from '../lib/backup';
 import { downloadedStoryIds, removeDownloadedStory } from '../content/loader';
-import { FONTS, RADIUS, SHADOWS, SPACING, TYPE, withAlpha } from '../theme';
+import { LAYOUT, RADIUS, SCALE, SHADOWS, SPACING, TYPE, withAlpha } from '../theme';
 import { formatBytes } from '../lib/utils';
 
 type Props = NativeStackScreenProps<RootStackParamList, 'SettingsStorage'>;
@@ -206,7 +206,7 @@ export function SettingsStorage(_props: Props) {
 
   return (
     <Screen>
-      <ScrollView showsVerticalScrollIndicator={false}>
+      <ScrollView showsVerticalScrollIndicator={false} contentContainerStyle={styles.page}>
         <View style={styles.header}>
           <Text style={[styles.kicker, { color: theme.accent }]}>LOCAL DATA</Text>
           <Text style={[styles.title, { color: theme.text }]}>Storage & Backup</Text>
@@ -307,9 +307,10 @@ export function SettingsStorage(_props: Props) {
 }
 
 const styles = StyleSheet.create({
+  page: { width: '100%', maxWidth: LAYOUT.contentMaxWidth + 120, alignSelf: 'center' },
   header: { paddingTop: 6, paddingBottom: 4 },
   kicker: { ...TYPE.overline, marginTop: 4 },
-  title: { ...TYPE.title, marginTop: 2 },
+  title: { ...TYPE.displaySmall, marginTop: 4 },
   usageCard: {
     borderWidth: 1,
     borderRadius: RADIUS.lg,
@@ -320,13 +321,13 @@ const styles = StyleSheet.create({
   usageSub: { fontSize: 13, marginTop: 4 },
   divider: { height: StyleSheet.hairlineWidth, marginVertical: 14 },
   usageRow: { flexDirection: 'row', justifyContent: 'space-between', paddingVertical: 4 },
-  usageLabel: { fontSize: FONTS.small },
-  usageVal: { fontSize: FONTS.small, fontWeight: '700' },
-  hint: { fontSize: FONTS.tiny, marginTop: 8, lineHeight: 16 },
-  note: { fontSize: FONTS.small, fontWeight: '700', marginTop: 10, textAlign: 'center' },
+  usageLabel: { fontSize: SCALE.small },
+  usageVal: { fontSize: SCALE.small, fontWeight: '700' },
+  hint: { fontSize: SCALE.micro, marginTop: 8, lineHeight: 16 },
+  note: { fontSize: SCALE.small, fontWeight: '700', marginTop: 10, textAlign: 'center' },
   box: { borderWidth: 1, borderRadius: RADIUS.md, padding: 12 },
-  boxTitle: { fontSize: FONTS.body, fontWeight: '800', marginBottom: 8 },
+  boxTitle: { fontSize: SCALE.body, fontWeight: '800', marginBottom: 8 },
   dlRow: { flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between', gap: 10, paddingVertical: 6 },
-  dlName: { fontSize: FONTS.small, flex: 1 },
+  dlName: { fontSize: SCALE.small, flex: 1 },
   gap: { marginTop: 10 },
 });

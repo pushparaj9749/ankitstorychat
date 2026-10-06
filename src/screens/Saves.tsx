@@ -13,7 +13,7 @@ import { ProgressBar, SectionHeader } from '../components/bits';
 import { EmptyState, LoadingState } from '../components/states';
 import { Icon } from '../components/icons';
 import { deletePlaythrough, listPlaythroughsForStory } from '../lib/db';
-import { FONTS, RADIUS, SHADOWS, SPACING, TYPE, withAlpha } from '../theme';
+import { RADIUS, SCALE, SHADOWS, SPACING, TYPE, withAlpha } from '../theme';
 import { timeAgo } from '../lib/utils';
 import { lightBuzz } from '../lib/haptics';
 
@@ -165,7 +165,7 @@ export function Saves({ navigation, route }: Props) {
 const styles = StyleSheet.create({
   header: { paddingTop: 6, paddingBottom: 4 },
   kicker: { ...TYPE.overline, marginTop: 4 },
-  title: { ...TYPE.title, marginTop: 2 },
+  title: { ...TYPE.displaySmall, marginTop: 4 },
   sub: { fontSize: 13, marginTop: 4, letterSpacing: 0.1 },
   list: { paddingBottom: 24, gap: 12, marginTop: 4 },
   card: {
@@ -177,7 +177,7 @@ const styles = StyleSheet.create({
   cardHeader: { flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between' },
   label: { fontSize: 16, fontWeight: '800', letterSpacing: -0.2 },
   statusPill: { paddingHorizontal: 8, paddingVertical: 3, borderRadius: RADIUS.pill },
-  statusText: { fontSize: 10, fontWeight: '900', letterSpacing: 0.4 },
+  statusText: { fontSize: SCALE.micro, fontWeight: '900', letterSpacing: 0.4 },
   meta: { fontSize: 12, letterSpacing: 0.1 },
   cardFooter: {
     flexDirection: 'row',

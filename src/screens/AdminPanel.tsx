@@ -26,7 +26,7 @@ import { GradientButton } from '../components/GradientButton';
 import { NaturalImage } from '../components/NaturalImage';
 import { SectionHeader } from '../components/bits';
 import { Icon } from '../components/icons';
-import { FONTS, RADIUS, SPACING } from '../theme';
+import { RADIUS, SCALE, SPACING } from '../theme';
 import {
   acceptIdeaAdmin,
   acceptStoryAdmin,
@@ -194,7 +194,7 @@ export function AdminPanel({ navigation }: Props) {
               borderRadius: RADIUS.md,
               paddingHorizontal: 14,
               paddingVertical: 12,
-              fontSize: FONTS.body,
+              fontSize: SCALE.body,
               fontFamily: Platform.select({ ios: 'Menlo', default: 'monospace' }),
             }}
             placeholder="Admin token"
@@ -227,7 +227,7 @@ export function AdminPanel({ navigation }: Props) {
             <Text style={{ color: theme.text, fontSize: 17, fontWeight: '700' }}>Back</Text>
           </Pressable>
           <Pressable onPress={onLogout}>
-            <Text style={{ color: theme.danger, fontSize: FONTS.small, fontWeight: '800' }}>Log out</Text>
+            <Text style={{ color: theme.danger, fontSize: SCALE.small, fontWeight: '800' }}>Log out</Text>
           </Pressable>
         </View>
 
@@ -235,15 +235,15 @@ export function AdminPanel({ navigation }: Props) {
           <Icon name="shield-outline" size={24} color={theme.text} />
           <Text style={{ color: theme.text, fontSize: 26, fontWeight: '900' }}>Admin Panel</Text>
         </View>
-        <Text style={{ color: theme.textDim, fontSize: FONTS.small, marginTop: 6 }}>
+        <Text style={{ color: theme.textDim, fontSize: SCALE.small, marginTop: 6 }}>
           Pending submissions — review before anything goes live.
         </Text>
 
         <View style={[styles.limitBox, { backgroundColor: theme.surface, borderColor: theme.border }]}>
-          <Text style={{ color: theme.text, fontSize: FONTS.small, fontWeight: '800' }}>
+          <Text style={{ color: theme.text, fontSize: SCALE.small, fontWeight: '800' }}>
             Global 24h limit: {remaining}/50 slots left
           </Text>
-          <Text style={{ color: theme.textDim, fontSize: FONTS.tiny, marginTop: 2 }}>
+          <Text style={{ color: theme.textDim, fontSize: SCALE.micro, marginTop: 2 }}>
             Window resets in {formatRemaining(Math.max(0, resetsAt - now))}
           </Text>
         </View>
@@ -292,16 +292,16 @@ export function AdminPanel({ navigation }: Props) {
                     {s.title || '(untitled)'}
                   </Text>
                 </View>
-                <Text style={{ color: theme.accent, fontSize: FONTS.tiny, fontWeight: '900' }}>
+                <Text style={{ color: theme.accent, fontSize: SCALE.micro, fontWeight: '900' }}>
                   PENDING
                 </Text>
               </View>
-              <Text style={{ color: theme.textDim, fontSize: FONTS.small, marginTop: 4 }}>
+              <Text style={{ color: theme.textDim, fontSize: SCALE.small, marginTop: 4 }}>
                 by {s.creator.name}
                 {s.creator.verified ? ' · Verified' : ''}
                 {s.genre ? ` • ${s.genre}` : ''}
               </Text>
-              <Text style={{ color: theme.textFaint, fontSize: FONTS.tiny, marginTop: 4 }}>
+              <Text style={{ color: theme.textFaint, fontSize: SCALE.micro, marginTop: 4 }}>
                 Expires in {formatRemaining(exp)}
               </Text>
             </Pressable>
@@ -329,7 +329,7 @@ export function AdminPanel({ navigation }: Props) {
                     Creator: <Text style={{ color: theme.text, fontWeight: '700' }}>{viewing.creator.name}</Text>
                     {viewing.creator.verified ? ' · Verified' : ''}
                   </Text>
-                  <Text style={{ color: theme.textFaint, fontSize: FONTS.tiny, marginTop: 4 }}>
+                  <Text style={{ color: theme.textFaint, fontSize: SCALE.micro, marginTop: 4 }}>
                     Submitted {new Date(viewing.submittedAt).toLocaleString()} • Expires{' '}
                     {formatRemaining(Math.max(0, new Date(viewing.expiresAt).getTime() - Date.now()))}
                   </Text>
@@ -354,7 +354,7 @@ export function AdminPanel({ navigation }: Props) {
 
                   <SectionHeader title="Validation" />
                   <View style={[styles.preview, { backgroundColor: theme.surface, borderColor: theme.border }]}>
-                    <Text style={{ color: theme.textDim, fontSize: FONTS.small }}>
+                    <Text style={{ color: theme.textDim, fontSize: SCALE.small }}>
                       Structure, schema, age rating and media were validated at submission time.
                       Final content checks run again at Accept &amp; Publish — if they fail, the
                       story stays pending and the issues are shown here.
@@ -448,7 +448,7 @@ function StoryMediaPreview({ payload, apiBase }: { payload: unknown; apiBase: st
       <View style={[styles.preview, { backgroundColor: theme.surface, borderColor: theme.border }]}>
         <View style={{ flexDirection: 'row', alignItems: 'center', gap: 6 }}>
           <Icon name="warning-outline" size={14} color={theme.danger} />
-          <Text style={{ color: theme.danger, fontSize: FONTS.small }}>
+          <Text style={{ color: theme.danger, fontSize: SCALE.small }}>
             No media block found — this story has no cover.
           </Text>
         </View>
@@ -459,7 +459,7 @@ function StoryMediaPreview({ payload, apiBase }: { payload: unknown; apiBase: st
   if (refs.length === 0) {
     return (
       <View style={[styles.preview, { backgroundColor: theme.surface, borderColor: theme.border }]}>
-        <Text style={{ color: theme.textDim, fontSize: FONTS.small }}>No gallery images.</Text>
+        <Text style={{ color: theme.textDim, fontSize: SCALE.small }}>No gallery images.</Text>
       </View>
     );
   }
@@ -469,7 +469,7 @@ function StoryMediaPreview({ payload, apiBase }: { payload: unknown; apiBase: st
       {loading ? (
         <View style={{ padding: 16, alignItems: 'center' }}>
           <ActivityIndicator color={theme.accent} />
-          <Text style={{ color: theme.textFaint, fontSize: FONTS.tiny, marginTop: 8 }}>
+          <Text style={{ color: theme.textFaint, fontSize: SCALE.micro, marginTop: 8 }}>
             Loading uploaded media…
           </Text>
         </View>
@@ -489,7 +489,7 @@ function StoryMediaPreview({ payload, apiBase }: { payload: unknown; apiBase: st
                     style={styles.mediaTileImg}
                     tint={theme.surface}
                     fallback={
-                      <Text style={{ color: theme.textFaint, fontSize: FONTS.tiny, textAlign: 'center' }}>
+                      <Text style={{ color: theme.textFaint, fontSize: SCALE.micro, textAlign: 'center' }}>
                         unavailable
                         {'\n'}(expired?)
                       </Text>
@@ -497,7 +497,7 @@ function StoryMediaPreview({ payload, apiBase }: { payload: unknown; apiBase: st
                   />
                 ) : (
                   <View style={[styles.mediaTileUnavailable, { backgroundColor: theme.surface }]}>
-                    <Text style={{ color: theme.textFaint, fontSize: FONTS.tiny, textAlign: 'center' }}>
+                    <Text style={{ color: theme.textFaint, fontSize: SCALE.micro, textAlign: 'center' }}>
                       unavailable
                       {'\n'}(expired?)
                     </Text>
@@ -519,7 +519,7 @@ function StoryMediaPreview({ payload, apiBase }: { payload: unknown; apiBase: st
           })}
         </View>
       )}
-      <Text style={{ color: theme.textFaint, fontSize: FONTS.tiny, marginTop: 8 }}>
+      <Text style={{ color: theme.textFaint, fontSize: SCALE.micro, marginTop: 8 }}>
         {refs.length} image(s) • served privately — only visible to admins until published.
       </Text>
     </View>
@@ -557,10 +557,10 @@ function StoryContentPreview({ payload }: { payload: unknown }) {
       ) : null}
       {opening && Array.isArray(opening.narration) && opening.narration.length > 0 ? (
         <View style={{ marginTop: 10 }}>
-          <Text style={{ color: theme.accent, fontSize: FONTS.tiny, fontWeight: '900' }}>
+          <Text style={{ color: theme.accent, fontSize: SCALE.micro, fontWeight: '900' }}>
             OPENING NARRATION
           </Text>
-          <Text style={{ color: theme.text, fontSize: FONTS.small, lineHeight: 20, marginTop: 4 }} selectable>
+          <Text style={{ color: theme.text, fontSize: SCALE.small, lineHeight: 20, marginTop: 4 }} selectable>
             {opening.narration.join('\n').slice(0, 500)}
           </Text>
         </View>
@@ -573,10 +573,10 @@ function PreviewRow({ label, value }: { label: string; value: string }) {
   const { theme } = useApp();
   return (
     <View style={{ flexDirection: 'row', gap: 8, paddingVertical: 4 }}>
-      <Text style={{ color: theme.textFaint, fontSize: FONTS.small, width: 92, fontWeight: '700' }}>
+      <Text style={{ color: theme.textFaint, fontSize: SCALE.small, width: 92, fontWeight: '700' }}>
         {label}
       </Text>
-      <Text style={{ color: theme.text, fontSize: FONTS.small, flex: 1 }} numberOfLines={2} selectable>
+      <Text style={{ color: theme.text, fontSize: SCALE.small, flex: 1 }} numberOfLines={2} selectable>
         {value}
       </Text>
     </View>
@@ -588,20 +588,20 @@ function IdeaPreview({ sub }: { sub: StorySubmission }) {
   const p = sub.payload as { concept?: string; genre?: string; characters?: string; notes?: string };
   return (
     <View>
-      <Text style={{ color: theme.accent, fontSize: FONTS.tiny, fontWeight: '900' }}>GENRE</Text>
-      <Text style={{ color: theme.text, fontSize: FONTS.body, marginBottom: 10 }}>{p.genre}</Text>
-      <Text style={{ color: theme.accent, fontSize: FONTS.tiny, fontWeight: '900' }}>CONCEPT</Text>
-      <Text style={{ color: theme.text, fontSize: FONTS.small, lineHeight: 22, marginBottom: 10 }}>{p.concept}</Text>
+      <Text style={{ color: theme.accent, fontSize: SCALE.micro, fontWeight: '900' }}>GENRE</Text>
+      <Text style={{ color: theme.text, fontSize: SCALE.body, marginBottom: 10 }}>{p.genre}</Text>
+      <Text style={{ color: theme.accent, fontSize: SCALE.micro, fontWeight: '900' }}>CONCEPT</Text>
+      <Text style={{ color: theme.text, fontSize: SCALE.small, lineHeight: 22, marginBottom: 10 }}>{p.concept}</Text>
       {p.characters ? (
         <>
-          <Text style={{ color: theme.accent, fontSize: FONTS.tiny, fontWeight: '900' }}>CHARACTERS</Text>
-          <Text style={{ color: theme.text, fontSize: FONTS.small, lineHeight: 22, marginBottom: 10 }}>{p.characters}</Text>
+          <Text style={{ color: theme.accent, fontSize: SCALE.micro, fontWeight: '900' }}>CHARACTERS</Text>
+          <Text style={{ color: theme.text, fontSize: SCALE.small, lineHeight: 22, marginBottom: 10 }}>{p.characters}</Text>
         </>
       ) : null}
       {p.notes ? (
         <>
-          <Text style={{ color: theme.accent, fontSize: FONTS.tiny, fontWeight: '900' }}>NOTES</Text>
-          <Text style={{ color: theme.text, fontSize: FONTS.small, lineHeight: 22 }}>{p.notes}</Text>
+          <Text style={{ color: theme.accent, fontSize: SCALE.micro, fontWeight: '900' }}>NOTES</Text>
+          <Text style={{ color: theme.text, fontSize: SCALE.small, lineHeight: 22 }}>{p.notes}</Text>
         </>
       ) : null}
     </View>
@@ -635,13 +635,13 @@ const styles = StyleSheet.create({
     padding: 6,
   },
   mediaTileBadge: { position: 'absolute', top: 6, left: 6, borderRadius: 999, paddingHorizontal: 7, paddingVertical: 2 },
-  mediaTileBadgeText: { fontSize: 8, fontWeight: '900', letterSpacing: 0.5 },
+  mediaTileBadgeText: { fontSize: SCALE.micro, fontWeight: '900', letterSpacing: 0.5 },
   mediaTileLabel: {
     position: 'absolute',
     left: 8,
     right: 8,
     bottom: 6,
-    fontSize: 10,
+    fontSize: SCALE.micro,
     fontWeight: '800',
     textShadowColor: 'rgba(0,0,0,0.9)',
     textShadowRadius: 4,

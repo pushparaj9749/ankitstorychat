@@ -6,7 +6,7 @@ import React from 'react';
 import { ScrollView, StyleSheet, Text, View } from 'react-native';
 import { useApp } from '../state/AppContext';
 import { Screen } from '../components/Screen';
-import { FONTS, RADIUS, SPACING, TYPE, withAlpha } from '../theme';
+import { LAYOUT, RADIUS, SCALE, SPACING, TYPE, withAlpha } from '../theme';
 
 export interface LegalSectionT {
   heading: string;
@@ -27,7 +27,7 @@ export function LegalDoc({
   const { theme } = useApp();
   return (
     <Screen>
-      <ScrollView showsVerticalScrollIndicator={false}>
+      <ScrollView showsVerticalScrollIndicator={false} contentContainerStyle={styles.page}>
         <View style={styles.header}>
           <Text style={[styles.kicker, { color: theme.accent }]}>LEGAL & POLICIES</Text>
           <Text style={[styles.title, { color: theme.text }]}>{title}</Text>
@@ -59,17 +59,18 @@ export function LegalDoc({
 }
 
 const styles = StyleSheet.create({
+  page: { width: '100%', maxWidth: LAYOUT.contentMaxWidth + 120, alignSelf: 'center' },
   header: { paddingTop: 6, paddingBottom: 10 },
   kicker: { ...TYPE.overline, marginTop: 4 },
-  title: { ...TYPE.title, marginTop: 2 },
-  updated: { fontSize: FONTS.small, marginTop: 4, marginBottom: 8 },
+  title: { ...TYPE.displaySmall, marginTop: 4 },
+  updated: { fontSize: SCALE.small, marginTop: 4, marginBottom: 8 },
   sectionCard: {
     borderWidth: 1,
     borderRadius: RADIUS.lg,
     padding: 16,
     marginTop: 12,
   },
-  heading: { fontSize: FONTS.body, fontWeight: '800', marginBottom: 8 },
-  para: { fontSize: FONTS.small, lineHeight: 22, marginBottom: 8 },
-  footer: { fontSize: FONTS.tiny, marginTop: 24, fontStyle: 'italic', lineHeight: 18, textAlign: 'center' },
+  heading: { fontSize: SCALE.body, fontWeight: '800', marginBottom: 8 },
+  para: { fontSize: SCALE.small, lineHeight: 22, marginBottom: 8 },
+  footer: { fontSize: SCALE.micro, marginTop: 24, fontStyle: 'italic', lineHeight: 18, textAlign: 'center' },
 });

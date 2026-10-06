@@ -1,7 +1,13 @@
 /**
- * KISSA v2.4.2 — Core UI Bits
+ * KISSA v2.5.2 — Core UI Bits
  * Original, cinematic, minimal, editorial.
- * Components: AgeBadge, GenreChip, CategoryChip, SectionHeader, ProgressBar, Avatar, KissaHeader
+ *
+ * Design pass notes:
+ *  - one canonical type scale (SCALE / TYPE) — no more 8.5px labels
+ *  - every colour comes from the theme (no stray hex literals in screens)
+ *  - touch targets follow TOUCH tokens
+ * Components: AgeBadge, GenreChip, CategoryChip, SectionHeader, ProgressBar,
+ * Avatar, Dot, KissaHeader
  */
 import React from 'react';
 import { Animated, Image, Pressable, StyleSheet, Text, View } from 'react-native';
@@ -9,23 +15,34 @@ import { LinearGradient } from 'expo-linear-gradient';
 import { KISSA_LOGO } from './brand';
 import { useApp } from '../state/AppContext';
 import { useNavScroll } from '../navigation/NavScrollContext';
-import { FONTS, GRADIENTS, RADIUS, SPACING, TYPE, avatarColors, genreColor, withAlpha, LAYOUT, KISSA } from '../theme';
+import {
+  RADIUS,
+  SCALE,
+  SPACING,
+  TOUCH,
+  TYPE,
+  avatarColors,
+  genreColor,
+  withAlpha,
+  LAYOUT,
+  KISSA,
+} from '../theme';
 import { ratingLabel } from '../lib/ageGate';
+import { Icon, type IconName } from './icons';
 
 export function AgeBadge({ ageRating }: { ageRating: string }) {
+  const { theme } = useApp();
   const mature = ageRating === '18+';
+  const tint = mature ? theme.danger : theme.success;
   return (
     <View
       style={[
         styles.ageBadge,
-        {
-          backgroundColor: mature ? 'rgba(248,113,113,0.12)' : 'rgba(94,233,181,0.10)',
-          borderColor: mature ? 'rgba(248,113,113,0.22)' : 'rgba(94,233,181,0.20)',
-        },
+        { backgroundColor: withAlpha(tint, 0.12), borderColor: withAlpha(tint, 0.26) },
       ]}
     >
-      <View style={[styles.ageDot, { backgroundColor: mature ? '#FF7A7A' : '#5EE9B5' }]} />
-      <Text style={[styles.ageText, { color: mature ? '#FFB4B4' : '#8CECC7' }]}>
+      <View style={[styles.ageDot, { backgroundColor: tint }]} />
+      <Text style={[styles.ageText, { color: mature ? '#FFC0C0' : '#9BEFD0' }]}>
         {ratingLabel({ ageRating: ageRating as '12-17' | '18+' })}
       </Text>
     </View>
@@ -35,14 +52,15 @@ export function AgeBadge({ ageRating }: { ageRating: string }) {
 export function GenreChip({ genre }: { genre: string }) {
   const c = genreColor(genre);
   return (
-    <View style={[styles.chip, { backgroundColor: withAlpha(c, 0.11), borderColor: withAlpha(c, 0.22) }]}>
+    <View style={[styles.chip, { backgroundColor: withAlpha(c, 0.11), borderColor: withAlpha(c, 0.24) }]}>
       <View style={[styles.chipDot, { backgroundColor: c }]} />
       <Text style={[styles.chipText, { color: c }]}>{genre}</Text>
     </View>
   );
 }
 
-/* Selectable category chip — v2.4.2: subtle, editorial, not neon */
+/* Selectable category chip — selected state is rose, not a white block, so the
+   accent stays reserved for "where you are" and the artwork keeps the stage. */
 export function SelectableChip({
   label,
   selected,
@@ -57,21 +75,23 @@ export function SelectableChip({
     <Pressable
       onPress={onPress}
       accessibilityRole="button"
+      accessibilityState={{ selected }}
       style={({ pressed }) => [
         styles.selectChip,
         {
-          backgroundColor: selected ? theme.text : withAlpha(theme.surface2, 0.9),
-          borderColor: selected ? theme.text : theme.border,
-          opacity: pressed ? 0.86 : 1,
+          backgroundColor: selected ? withAlpha(theme.primary, 0.16) : withAlpha(theme.surface2, 0.7),
+          borderColor: selected ? withAlpha(theme.primary, 0.46) : theme.border,
+          opacity: pressed ? 0.85 : 1,
           transform: [{ scale: pressed ? 0.97 : 1 }],
         },
       ]}
     >
+      {selected ? <View style={[styles.selectDot, { backgroundColor: theme.accent }]} /> : null}
       <Text
         style={[
           styles.selectChipText,
-          { color: selected ? theme.bg : theme.textDim },
-          selected && { fontWeight: '800' },
+          { color: selected ? theme.text : theme.textDim },
+          selected ? styles.selectChipTextActive : null,
         ]}
       >
         {label}
@@ -98,23 +118,26 @@ export function SectionHeader({
   return (
     <View style={styles.section}>
       <View style={styles.sectionLeft}>
-        {kicker ? <Text style={[styles.kicker, { color: theme.textFaint }]}>{kicker.toUpperCase()}</Text> : null}
-        <Text style={[styles.sectionTitle, { color: theme.text }]}>{title}</Text>
+        <View style={styles.sectionTitleRow}>
+          <Text style={[styles.sectionTitle, { color: theme.text }]} numberOfLines={1}>
+            {title}
+          </Text>
+          {kicker ? (
+            <View style={[styles.kickerPill, { backgroundColor: withAlpha(theme.text, 0.06) }]}>
+              <Text style={[styles.kicker, { color: theme.textFaint }]}>{kicker.toUpperCase()}</Text>
+            </View>
+          ) : null}
+        </View>
       </View>
       {action && onAction ? (
         <Pressable
           onPress={onAction}
-          hitSlop={8}
-          style={({ pressed }) => [
-            styles.sectionActionWrap,
-            {
-              backgroundColor: withAlpha(theme.surface2, 0.9),
-              borderColor: theme.border,
-              opacity: pressed ? 0.7 : 1,
-            },
-          ]}
+          hitSlop={10}
+          accessibilityRole="button"
+          style={({ pressed }) => [styles.sectionActionWrap, { opacity: pressed ? 0.6 : 1 }]}
         >
-          <Text style={[styles.sectionAction, { color: theme.textDim }]}>{action}</Text>
+          <Text style={[styles.sectionAction, { color: theme.accent }]}>{action}</Text>
+          <Icon name="chevron-forward" size={12} color={theme.accent} />
         </Pressable>
       ) : null}
     </View>
@@ -126,9 +149,14 @@ export function ProgressBar({ value, color }: { value: number; color?: string })
   const pct = Math.round(Math.min(1, Math.max(0, value)) * 100);
   const fill = color ?? theme.primary;
   return (
-    <View style={[styles.progressTrack, { backgroundColor: withAlpha(theme.text, 0.07) }]}>
+    <View style={[styles.progressTrack, { backgroundColor: withAlpha(theme.text, 0.08) }]}>
       <View style={[styles.progressFillWrap, { width: `${pct}%` }]}>
-        <View style={[styles.progressFill, { backgroundColor: fill }]} />
+        <LinearGradient
+          colors={[withAlpha(fill, 0.95), fill]}
+          start={{ x: 0, y: 0.5 }}
+          end={{ x: 1, y: 0.5 }}
+          style={styles.progressFill}
+        />
       </View>
     </View>
   );
@@ -207,6 +235,50 @@ export function KissaHeader({
   );
 }
 
+/** Round glass icon button — the app's standard piece of icon chrome. */
+export function IconButton({
+  name,
+  onPress,
+  accessibilityLabel,
+  size = TOUCH.sm,
+  tint,
+  iconColor,
+  badge,
+}: {
+  name: IconName;
+  onPress?: () => void;
+  accessibilityLabel?: string;
+  size?: number;
+  tint?: string;
+  iconColor?: string;
+  badge?: boolean;
+}) {
+  const { theme } = useApp();
+  return (
+    <Pressable
+      onPress={onPress}
+      accessibilityRole="button"
+      accessibilityLabel={accessibilityLabel}
+      hitSlop={8}
+      style={({ pressed }) => [
+        styles.iconButton,
+        {
+          width: size,
+          height: size,
+          borderRadius: size >= TOUCH.min ? 16 : 12,
+          backgroundColor: tint ?? withAlpha(theme.surface2, 0.72),
+          borderColor: theme.border,
+          opacity: pressed ? 0.72 : 1,
+          transform: [{ scale: pressed ? 0.95 : 1 }],
+        },
+      ]}
+    >
+      <Icon name={name} size={size >= TOUCH.min ? 20 : 17} color={iconColor ?? theme.textDim} />
+      {badge ? <View style={[styles.iconBadge, { backgroundColor: theme.primary, borderColor: theme.bg }]} /> : null}
+    </Pressable>
+  );
+}
+
 const styles = StyleSheet.create({
   ageBadge: {
     flexDirection: 'row',
@@ -219,50 +291,51 @@ const styles = StyleSheet.create({
     alignSelf: 'flex-start',
   },
   ageDot: { width: 5, height: 5, borderRadius: 2.5 },
-  ageText: { fontSize: FONTS.tiny, fontWeight: '700', letterSpacing: 0.4 },
+  ageText: { fontSize: SCALE.micro, fontWeight: '800', letterSpacing: 0.5 },
   chip: {
     flexDirection: 'row',
     alignItems: 'center',
     gap: 5,
     paddingHorizontal: 10,
-    paddingVertical: 4,
+    paddingVertical: 5,
     borderRadius: RADIUS.pill,
     borderWidth: 1,
     alignSelf: 'flex-start',
   },
   chipDot: { width: 5, height: 5, borderRadius: 2.5, opacity: 0.9 },
-  chipText: { fontSize: FONTS.tiny, fontWeight: '600', letterSpacing: 0.2 },
+  chipText: { fontSize: SCALE.micro, fontWeight: '700', letterSpacing: 0.25 },
   selectChip: {
-    paddingHorizontal: 16,
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: 7,
+    paddingHorizontal: 15,
     paddingVertical: 9,
     borderRadius: RADIUS.pill,
     borderWidth: 1,
     marginRight: 8,
+    minHeight: TOUCH.sm,
   },
-  selectChipText: { fontSize: 13, fontWeight: '600', letterSpacing: 0.15 },
+  selectDot: { width: 5, height: 5, borderRadius: 2.5 },
+  selectChipText: { fontSize: SCALE.small, fontWeight: '600', letterSpacing: 0.1 },
+  selectChipTextActive: { fontWeight: '800' },
   section: {
     flexDirection: 'row',
     alignItems: 'flex-end',
     justifyContent: 'space-between',
-    marginTop: SPACING.xl,
+    marginTop: SPACING.xxl,
     marginBottom: SPACING.md,
     gap: 12,
   },
-  sectionLeft: { flex: 1, gap: 3 },
-  kicker: { ...TYPE.tiny, letterSpacing: 1.2, fontWeight: '700' as const },
-  sectionTitle: { fontSize: 19, fontWeight: '700', letterSpacing: -0.3, lineHeight: 24 },
-  sectionActionWrap: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    paddingHorizontal: 12,
-    paddingVertical: 6,
-    borderRadius: RADIUS.pill,
-    borderWidth: 1,
-  },
-  sectionAction: { fontSize: 12, fontWeight: '600', letterSpacing: 0.15 },
-  progressTrack: { height: 3, borderRadius: 1.5, overflow: 'hidden', marginTop: 8 },
-  progressFillWrap: { height: 3, borderRadius: 1.5, overflow: 'visible' },
-  progressFill: { flex: 1, borderRadius: 1.5 },
+  sectionLeft: { flex: 1, minWidth: 0 },
+  sectionTitleRow: { flexDirection: 'row', alignItems: 'center', gap: 8 },
+  kickerPill: { paddingHorizontal: 7, paddingVertical: 3, borderRadius: RADIUS.xs },
+  kicker: { fontSize: SCALE.micro, letterSpacing: 1.1, fontWeight: '800' },
+  sectionTitle: { ...TYPE.cardTitle },
+  sectionActionWrap: { flexDirection: 'row', alignItems: 'center', gap: 2, paddingVertical: 4 },
+  sectionAction: { fontSize: SCALE.small, fontWeight: '800', letterSpacing: 0.1 },
+  progressTrack: { height: 5, borderRadius: RADIUS.pill, overflow: 'hidden', marginTop: 8 },
+  progressFillWrap: { height: 5, borderRadius: RADIUS.pill, overflow: 'hidden' },
+  progressFill: { flex: 1, borderRadius: RADIUS.pill },
   avatarWrap: {
     alignItems: 'center',
     justifyContent: 'center',
@@ -297,9 +370,9 @@ const styles = StyleSheet.create({
     gap: 10,
   },
   brandLogo: {
-    width: 30,
-    height: 30,
-    borderRadius: 9,
+    width: 32,
+    height: 32,
+    borderRadius: 10,
   },
   brandWordmark: {
     fontSize: 14,
@@ -307,9 +380,9 @@ const styles = StyleSheet.create({
     letterSpacing: 2.2,
   },
   brandTagline: {
-    fontSize: 8.5,
+    fontSize: SCALE.micro,
     fontWeight: '700',
-    letterSpacing: 1.2,
+    letterSpacing: 1.1,
     marginTop: 1,
   },
   headerTitleWrap: {
@@ -328,5 +401,19 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     gap: 8,
+  },
+  iconButton: {
+    alignItems: 'center',
+    justifyContent: 'center',
+    borderWidth: 1,
+  },
+  iconBadge: {
+    position: 'absolute',
+    top: 5,
+    right: 5,
+    width: 8,
+    height: 8,
+    borderRadius: 4,
+    borderWidth: 1.5,
   },
 });

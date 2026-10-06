@@ -11,7 +11,7 @@ import type { RootStackParamList } from '../types';
 import { useApp } from '../state/AppContext';
 import { Screen } from '../components/Screen';
 import { GradientButton } from '../components/GradientButton';
-import { FONTS, RADIUS, SHADOWS, SPACING, TYPE, withAlpha } from '../theme';
+import { LAYOUT, RADIUS, SCALE, SHADOWS, SPACING, TYPE, withAlpha } from '../theme';
 
 type Props = NativeStackScreenProps<RootStackParamList, 'About'>;
 
@@ -19,11 +19,11 @@ const REPO = 'https://github.com/pushparaj9749/ankitstorychat';
 
 export function About({ navigation }: Props) {
   const { theme } = useApp();
-  const version = Constants.expoConfig?.version ?? '2.5.1';
+  const version = Constants.expoConfig?.version ?? '2.5.2';
 
   return (
     <Screen>
-      <ScrollView showsVerticalScrollIndicator={false} contentContainerStyle={styles.wrap}>
+      <ScrollView showsVerticalScrollIndicator={false} contentContainerStyle={[styles.wrap, styles.page]}>
         <Image source={KISSA_LOGO} style={[styles.logo, SHADOWS.glowRose]} resizeMode="contain" accessibilityLabel="Kissa" />
         <Text style={[styles.name, { color: theme.text }]}>Kissa</Text>
         <Text style={[styles.ver, { color: theme.accent }]}>v{version} • Cinematic Interactive Story Platform</Text>
@@ -75,11 +75,12 @@ export function About({ navigation }: Props) {
 }
 
 const styles = StyleSheet.create({
+  page: { width: '100%', maxWidth: LAYOUT.contentMaxWidth + 120, alignSelf: 'center' },
   wrap: { alignItems: 'center', paddingTop: SPACING.xl },
   logo: { width: 84, height: 84, borderRadius: 26 },
   name: { fontSize: 32, fontWeight: '900', marginTop: 14, letterSpacing: -0.5 },
-  ver: { fontSize: FONTS.small, marginTop: 4, fontWeight: '700' },
-  desc: { fontSize: FONTS.small, textAlign: 'center', lineHeight: 22, marginTop: 12, paddingHorizontal: 10 },
+  ver: { fontSize: SCALE.small, marginTop: 4, fontWeight: '700' },
+  desc: { fontSize: SCALE.small, textAlign: 'center', lineHeight: 22, marginTop: 12, paddingHorizontal: 10 },
   gap: { width: '100%', marginTop: 10 },
   dev: {
     width: '100%',
@@ -89,9 +90,9 @@ const styles = StyleSheet.create({
     marginTop: SPACING.xl,
     alignItems: 'center',
   },
-  devTitle: { fontSize: FONTS.heading, fontWeight: '800', marginTop: 8 },
+  devTitle: { fontSize: SCALE.title, fontWeight: '800', marginTop: 8 },
   soon: {
-    fontSize: FONTS.tiny,
+    fontSize: SCALE.micro,
     fontWeight: '800',
     marginTop: 8,
     paddingHorizontal: 12,
@@ -99,7 +100,7 @@ const styles = StyleSheet.create({
     borderRadius: RADIUS.pill,
     overflow: 'hidden',
   },
-  devDesc: { fontSize: FONTS.small, textAlign: 'center', lineHeight: 21, marginTop: 10 },
-  link: { fontWeight: '800', marginTop: 12, fontSize: FONTS.small },
-  credit: { fontSize: FONTS.tiny, textAlign: 'center', marginTop: SPACING.xl, lineHeight: 18 },
+  devDesc: { fontSize: SCALE.small, textAlign: 'center', lineHeight: 21, marginTop: 10 },
+  link: { fontWeight: '800', marginTop: 12, fontSize: SCALE.small },
+  credit: { fontSize: SCALE.micro, textAlign: 'center', marginTop: SPACING.xl, lineHeight: 18 },
 });

@@ -1,7 +1,8 @@
 /**
- * KISSA v2.4.2 — Bottom Navigation
- * Original, minimal, editorial, safe-area aware.
- * Direction-aware auto-hide with hysteresis, no flicker.
+ * KISSA v2.5.2 — Bottom Navigation
+ * Floating glass bar: the tab strip hovers above the content instead of
+ * slicing the screen with a hard 64px band, so artwork keeps the whole stage.
+ * Direction-aware auto-hide with hysteresis, no flicker (unchanged).
  */
 import React from 'react';
 import { Animated, Pressable, StyleSheet, Text, View } from 'react-native';
@@ -9,7 +10,7 @@ import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import type { BottomTabBarProps } from '@react-navigation/bottom-tabs';
 import { useApp } from '../state/AppContext';
 import { useNavScroll } from '../navigation/NavScrollContext';
-import { RADIUS, SHADOWS, withAlpha, LAYOUT } from '../theme';
+import { GLASS, RADIUS, SCALE, SHADOWS, TOUCH, withAlpha } from '../theme';
 import { Icon, type IconName } from './icons';
 
 interface TabMeta {
@@ -31,20 +32,17 @@ export function KissaBottomTabBar({ state, descriptors, navigation }: BottomTabB
 
   return (
     <Animated.View
+      pointerEvents="box-none"
       style={[
         styles.container,
         {
           transform: [{ translateY: tabBarTranslateY }],
           opacity: tabBarOpacity,
-          paddingBottom: Math.max(insets.bottom, 8),
-          backgroundColor: withAlpha(theme.bgSoft, 0.96),
-          borderTopColor: theme.borderSoft,
-          height: LAYOUT.tabBarHeight + Math.max(insets.bottom, 8),
+          paddingBottom: Math.max(insets.bottom, 10),
         },
-        SHADOWS.floating,
       ]}
     >
-      <View style={styles.inner}>
+      <View style={[styles.bar, { backgroundColor: GLASS.bgStrong, borderColor: GLASS.stroke }, SHADOWS.floating]}>
         {state.routes.map((route, index) => {
           const isFocused = state.index === index;
           const { options } = descriptors[route.key];
@@ -76,20 +74,23 @@ export function KissaBottomTabBar({ state, descriptors, navigation }: BottomTabB
               accessibilityLabel={options.tabBarAccessibilityLabel ?? meta.label}
               onPress={onPress}
               onLongPress={onLongPress}
-              style={styles.tabItem}
+              style={({ pressed }) => [styles.tabItem, { opacity: pressed ? 0.7 : 1 }]}
             >
               <View
                 style={[
                   styles.iconBox,
-                  isFocused && {
-                    backgroundColor: theme.text,
-                  },
+                  isFocused
+                    ? {
+                        backgroundColor: withAlpha(theme.primary, 0.18),
+                        borderColor: withAlpha(theme.primary, 0.42),
+                      }
+                    : { borderColor: 'transparent' },
                 ]}
               >
                 <Icon
-                  name={(isFocused ? meta.icon : (`${meta.icon}-outline` as IconName))}
-                  size={18}
-                  color={isFocused ? theme.bg : theme.textFaint}
+                  name={isFocused ? meta.icon : (`${meta.icon}-outline` as IconName)}
+                  size={19}
+                  color={isFocused ? theme.accent : theme.textFaint}
                 />
               </View>
               <Text
@@ -97,7 +98,7 @@ export function KissaBottomTabBar({ state, descriptors, navigation }: BottomTabB
                   styles.label,
                   {
                     color: isFocused ? theme.text : theme.textFaint,
-                    fontWeight: isFocused ? '700' : '500',
+                    fontWeight: isFocused ? '800' : '600',
                   },
                 ]}
               >
@@ -117,35 +118,36 @@ const styles = StyleSheet.create({
     left: 0,
     right: 0,
     bottom: 0,
-    borderTopWidth: StyleSheet.hairlineWidth,
+    paddingHorizontal: 14,
     paddingTop: 6,
     zIndex: 100,
-    justifyContent: 'flex-start',
   },
-  inner: {
+  bar: {
     flexDirection: 'row',
-    justifyContent: 'space-around',
     alignItems: 'center',
+    justifyContent: 'space-between',
+    height: 62,
+    borderRadius: RADIUS.xl,
+    borderWidth: 1,
     paddingHorizontal: 8,
-    flex: 1,
   },
   tabItem: {
     flex: 1,
+    minHeight: TOUCH.min,
     alignItems: 'center',
     justifyContent: 'center',
-    gap: 4,
-    paddingVertical: 2,
+    gap: 2,
   },
   iconBox: {
-    width: 30,
+    width: 46,
     height: 28,
-    borderRadius: 10,
+    borderRadius: RADIUS.sm,
+    borderWidth: 1,
     alignItems: 'center',
     justifyContent: 'center',
   },
   label: {
-    fontSize: 10,
+    fontSize: SCALE.micro,
     letterSpacing: 0.3,
-    textTransform: 'uppercase',
   },
 });

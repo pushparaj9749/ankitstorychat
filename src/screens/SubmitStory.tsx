@@ -28,7 +28,7 @@ import { GradientButton } from '../components/GradientButton';
 import { NaturalImage } from '../components/NaturalImage';
 import { SectionHeader } from '../components/bits';
 import { Icon } from '../components/icons';
-import { FONTS, RADIUS, SHADOWS, SPACING, TYPE, withAlpha } from '../theme';
+import { LAYOUT, RADIUS, SCALE, SHADOWS, SPACING, TYPE, withAlpha } from '../theme';
 import {
   SubmissionApiError,
   formatRemaining,
@@ -448,7 +448,7 @@ export function SubmitStory({ navigation, route }: Props) {
               <Text style={[styles.mediaMetaText, { color: theme.textDim }]} numberOfLines={1}>
                 {cover.name} ({Math.round(cover.size / 1024)} KB)
               </Text>
-              <Text style={{ color: cover.ref ? theme.success : theme.danger, fontSize: FONTS.tiny, fontWeight: '800' }}>
+              <Text style={{ color: cover.ref ? theme.success : theme.danger, fontSize: SCALE.micro, fontWeight: '800' }}>
                 {cover.ref ? 'Uploaded' : cover.error ?? 'Upload failed'}
               </Text>
             </View>
@@ -502,7 +502,7 @@ export function SubmitStory({ navigation, route }: Props) {
   return (
     <Screen>
       <KeyboardAvoidingView behavior={Platform.OS === 'ios' ? 'padding' : undefined} style={{ flex: 1 }}>
-        <ScrollView contentContainerStyle={styles.container} showsVerticalScrollIndicator={false}>
+        <ScrollView contentContainerStyle={[styles.container, styles.page]} showsVerticalScrollIndicator={false}>
           <Pressable onPress={() => navigation.goBack()} style={styles.back}>
             <Icon name="chevron-back" size={16} color={theme.text} />
             <Text style={[styles.backText, { color: theme.text }]}>Back</Text>
@@ -556,7 +556,7 @@ export function SubmitStory({ navigation, route }: Props) {
                     onPress={() => setGenre(g)}
                     style={[styles.pill, { backgroundColor: genre === g ? theme.primary : withAlpha(theme.surface, 0.9), borderColor: theme.border }]}
                   >
-                    <Text style={{ color: genre === g ? '#fff' : theme.textDim, fontSize: FONTS.small, fontWeight: '700' }}>{g}</Text>
+                    <Text style={{ color: genre === g ? '#fff' : theme.textDim, fontSize: SCALE.small, fontWeight: '700' }}>{g}</Text>
                   </Pressable>
                 ))}
               </ScrollView>
@@ -577,13 +577,13 @@ export function SubmitStory({ navigation, route }: Props) {
                   onPress={() => setStoryMode('form')}
                   style={[styles.subTab, { borderColor: storyMode === 'form' ? theme.accent : theme.border, backgroundColor: storyMode === 'form' ? theme.primarySoft : 'transparent' }]}
                 >
-                  <Text style={{ color: storyMode === 'form' ? theme.accent : theme.textDim, fontSize: FONTS.small, fontWeight: '800' }}>Guided Form</Text>
+                  <Text style={{ color: storyMode === 'form' ? theme.accent : theme.textDim, fontSize: SCALE.small, fontWeight: '800' }}>Guided Form</Text>
                 </Pressable>
                 <Pressable
                   onPress={() => setStoryMode('json')}
                   style={[styles.subTab, { borderColor: storyMode === 'json' ? theme.accent : theme.border, backgroundColor: storyMode === 'json' ? theme.primarySoft : 'transparent' }]}
                 >
-                  <Text style={{ color: storyMode === 'json' ? theme.accent : theme.textDim, fontSize: FONTS.small, fontWeight: '800' }}>JSON Editor</Text>
+                  <Text style={{ color: storyMode === 'json' ? theme.accent : theme.textDim, fontSize: SCALE.small, fontWeight: '800' }}>JSON Editor</Text>
                 </Pressable>
               </View>
 
@@ -600,17 +600,17 @@ export function SubmitStory({ navigation, route }: Props) {
                   <ScrollView horizontal showsHorizontalScrollIndicator={false} style={{ marginBottom: 8 }}>
                     {GENRES.map((g) => (
                       <Pressable key={g} onPress={() => setGenre(g)} style={[styles.pill, { backgroundColor: genre === g ? theme.primary : withAlpha(theme.surface, 0.9), borderColor: theme.border }]}>
-                        <Text style={{ color: genre === g ? '#fff' : theme.textDim, fontSize: FONTS.small, fontWeight: '700' }}>{g}</Text>
+                        <Text style={{ color: genre === g ? '#fff' : theme.textDim, fontSize: SCALE.small, fontWeight: '700' }}>{g}</Text>
                       </Pressable>
                     ))}
                   </ScrollView>
                   {label('Age Rating')}
                   <View style={styles.tabRow}>
                     <Pressable onPress={() => setStoryAgeRating('12-17')} style={[styles.subTab, { borderColor: storyAgeRating === '12-17' ? theme.accent : theme.border }]}>
-                      <Text style={{ color: storyAgeRating === '12-17' ? theme.text : theme.textDim, fontSize: FONTS.small, fontWeight: '700' }}>12–17</Text>
+                      <Text style={{ color: storyAgeRating === '12-17' ? theme.text : theme.textDim, fontSize: SCALE.small, fontWeight: '700' }}>12–17</Text>
                     </Pressable>
                     <Pressable onPress={() => setStoryAgeRating('18+')} style={[styles.subTab, { borderColor: storyAgeRating === '18+' ? theme.accent : theme.border }]}>
-                      <Text style={{ color: storyAgeRating === '18+' ? theme.text : theme.textDim, fontSize: FONTS.small, fontWeight: '700' }}>18+</Text>
+                      <Text style={{ color: storyAgeRating === '18+' ? theme.text : theme.textDim, fontSize: SCALE.small, fontWeight: '700' }}>18+</Text>
                     </Pressable>
                   </View>
                   {label('Story Content (JSON: scenes, characters, world, memory)')}
@@ -626,7 +626,7 @@ export function SubmitStory({ navigation, route }: Props) {
                     Paste complete Kissa story JSON. Required keys: story (with id, title, ageRating, contentLevel, openingSceneId), characters, world, scenes, memory, creator.name.
                   </Text>
                   <TextInput
-                    style={[fieldStyle(true), { fontFamily: Platform.OS === 'ios' ? 'Menlo' : 'monospace', fontSize: FONTS.small }]}
+                    style={[fieldStyle(true), { fontFamily: Platform.OS === 'ios' ? 'Menlo' : 'monospace', fontSize: SCALE.small }]}
                     placeholder={'{\n  "story": { "id": "my-story", ... },\n  "creator": { "name": "Your Name" },\n  ...\n}'}
                     placeholderTextColor={theme.textFaint}
                     value={jsonText}
@@ -659,15 +659,16 @@ export function SubmitStory({ navigation, route }: Props) {
 }
 
 const styles = StyleSheet.create({
+  page: { width: '100%', maxWidth: LAYOUT.contentMaxWidth + 120, alignSelf: 'center' },
   container: { padding: 16, paddingBottom: 60 },
   back: { paddingVertical: 8, marginBottom: 4, flexDirection: 'row', alignItems: 'center', gap: 4 },
   backText: { fontSize: 17, fontWeight: '700' },
   header: { paddingTop: 2, paddingBottom: 4 },
   kicker: { ...TYPE.overline, marginTop: 2 },
   heading: { ...TYPE.title, marginTop: 2 },
-  subheading: { fontSize: FONTS.body, lineHeight: 21, marginTop: 6 },
+  subheading: { fontSize: SCALE.body, lineHeight: 21, marginTop: 6 },
   limitBox: { borderWidth: 1, borderRadius: RADIUS.md, padding: 12, marginTop: 14 },
-  limitText: { fontSize: FONTS.small, fontWeight: '800', textAlign: 'center' },
+  limitText: { fontSize: SCALE.small, fontWeight: '800', textAlign: 'center' },
   tabRow: { flexDirection: 'row', gap: 10, marginTop: SPACING.md, marginBottom: SPACING.sm },
   tab: { flex: 1, borderWidth: 1, borderRadius: RADIUS.pill, paddingVertical: 10, alignItems: 'center' },
   subTab: { paddingHorizontal: 16, paddingVertical: 8, borderRadius: RADIUS.pill, borderWidth: 1 },
@@ -676,11 +677,11 @@ const styles = StyleSheet.create({
     borderRadius: RADIUS.md,
     paddingHorizontal: 14,
     paddingVertical: 12,
-    fontSize: FONTS.body,
+    fontSize: SCALE.body,
     marginBottom: 10,
   },
-  label: { fontSize: FONTS.small, fontWeight: '700', marginBottom: 6, marginTop: 6 },
-  hint: { fontSize: FONTS.small, marginTop: 4, marginBottom: 8, lineHeight: 18 },
+  label: { fontSize: SCALE.small, fontWeight: '700', marginBottom: 6, marginTop: 6 },
+  hint: { fontSize: SCALE.small, marginTop: 4, marginBottom: 8, lineHeight: 18 },
   pill: { borderWidth: 1, borderRadius: RADIUS.pill, paddingHorizontal: 14, paddingVertical: 7, marginRight: 8, marginBottom: 8 },
   mediaCard: { borderWidth: 1, borderRadius: RADIUS.lg, padding: 12, marginTop: 4 },
   coverBox: { borderRadius: RADIUS.md, overflow: 'hidden' },
@@ -689,18 +690,18 @@ const styles = StyleSheet.create({
   uploadOverlayText: { fontSize: 12, fontWeight: '700', textAlign: 'center', marginTop: 6 },
   coverEmpty: { alignItems: 'center', paddingVertical: 28, borderRadius: RADIUS.md },
 
-  coverEmptyTitle: { fontSize: FONTS.body, fontWeight: '800', marginTop: 8 },
-  coverEmptySub: { fontSize: FONTS.tiny, marginTop: 4 },
+  coverEmptyTitle: { fontSize: SCALE.body, fontWeight: '800', marginTop: 8 },
+  coverEmptySub: { fontSize: SCALE.micro, marginTop: 4 },
   mediaMeta: { flexDirection: 'row', justifyContent: 'space-between', marginTop: 8, gap: 8 },
-  mediaMetaText: { fontSize: FONTS.tiny, flex: 1 },
+  mediaMetaText: { fontSize: SCALE.micro, flex: 1 },
   mediaActions: { flexDirection: 'row', gap: 10, marginTop: 10 },
   mediaBtn: { flex: 1, borderWidth: 1, borderRadius: RADIUS.pill, paddingVertical: 9, alignItems: 'center' },
-  mediaBtnText: { fontSize: FONTS.small, fontWeight: '800' },
+  mediaBtnText: { fontSize: SCALE.small, fontWeight: '800' },
   galleryGrid: { flexDirection: 'row', flexWrap: 'wrap', gap: 10, marginTop: 8 },
   galleryTile: { width: '31%', borderRadius: RADIUS.md, overflow: 'hidden', borderWidth: 1 },
   galleryThumb: { width: '100%' },
   kindChip: { position: 'absolute', top: 6, left: 6, borderRadius: RADIUS.pill, paddingHorizontal: 8, paddingVertical: 3 },
-  kindChipText: { fontSize: 10, fontWeight: '800' },
+  kindChipText: { fontSize: SCALE.micro, fontWeight: '800' },
   removeChip: { position: 'absolute', top: 5, right: 5, width: 22, height: 22, borderRadius: 11, alignItems: 'center', justifyContent: 'center' },
 
   galleryOverlay: { position: 'absolute', top: 0, left: 0, right: 0, bottom: 0, backgroundColor: 'rgba(0,0,0,0.6)', alignItems: 'center', justifyContent: 'center', padding: 8 },
@@ -709,5 +710,5 @@ const styles = StyleSheet.create({
   galleryAddText: { fontSize: 11, fontWeight: '700', marginTop: 4 },
   previewBackdrop: { flex: 1, backgroundColor: 'rgba(0,0,0,0.96)', alignItems: 'center', justifyContent: 'center' },
   previewImage: { width: '100%', maxHeight: '82%' },
-  previewLabel: { fontSize: FONTS.body, fontWeight: '700', marginTop: 10 },
+  previewLabel: { fontSize: SCALE.body, fontWeight: '700', marginTop: 10 },
 });

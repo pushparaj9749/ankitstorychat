@@ -9,7 +9,7 @@ import type { RootStackParamList } from '../types';
 import { useApp } from '../state/AppContext';
 import { Screen } from '../components/Screen';
 import { SectionHeader } from '../components/bits';
-import { FONTS, RADIUS, SHADOWS, SPACING, TYPE, withAlpha } from '../theme';
+import { RADIUS, SCALE, SHADOWS, SPACING, TYPE, withAlpha } from '../theme';
 import { lightBuzz } from '../lib/haptics';
 
 type Props = NativeStackScreenProps<RootStackParamList, 'SettingsAppearance'>;
@@ -129,10 +129,10 @@ export function SettingsAppearance(_props: Props) {
 const styles = StyleSheet.create({
   header: { paddingTop: 6, paddingBottom: 4 },
   kicker: { ...TYPE.overline, marginTop: 4 },
-  title: { ...TYPE.title, marginTop: 2 },
+  title: { ...TYPE.displaySmall, marginTop: 4 },
   row: { flexDirection: 'row', gap: 10 },
   opt: { flex: 1, borderWidth: 1.5, borderRadius: RADIUS.md, paddingVertical: 12, alignItems: 'center' },
-  optText: { fontWeight: '700', fontSize: FONTS.small },
+  optText: { fontWeight: '700', fontSize: SCALE.small },
   previewBox: { borderWidth: 1, borderRadius: RADIUS.md, padding: 14, marginTop: 12 },
   preview: { fontStyle: 'italic', lineHeight: 22 },
   toggle: {
@@ -144,6 +144,6 @@ const styles = StyleSheet.create({
     marginBottom: 10,
   },
   toggleBody: { flex: 1 },
-  toggleLabel: { fontSize: FONTS.body, fontWeight: '700' },
-  toggleDesc: { fontSize: FONTS.small, marginTop: 2 },
+  toggleLabel: { fontSize: SCALE.body, fontWeight: '700' },
+  toggleDesc: { fontSize: SCALE.small, marginTop: 2 },
 });
