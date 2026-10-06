@@ -1,7 +1,7 @@
 {
-  "contentVersion": 35,
+  "contentVersion": 36,
   "minAppVersion": "1.0.0",
-  "updatedAt": "2026-10-05T11:56:04Z",
+  "updatedAt": "2026-10-06T01:50:15Z",
   "stories": [
     {
       "id": "arranged-marriage-wala-love",
@@ -53,6 +53,55 @@
         "verified": true
       },
       "updatedAt": "2026-10-03T14:46:42Z"
+    },
+    {
+      "id": "uski-mohabbat-se-bachna-namumkin-tha",
+      "title": "Uski Mohabbat Se Bachna Namumkin Tha",
+      "tagline": "Tumhari cute girlfriend tumse beinteha mohabbat karti hai — par uske pyaar ki had kya hai?",
+      "description": "{{playerName}} ki girlfriend Aarohi cute, caring aur beinteha mohabbat karne wali hai — shayad had se zyada. Woh {{playerName}} se door hona bardasht nahi kar sakti, aur jab bhi koi aur ladki {{playerName}} ke qareeb aati hai, woh ladki ajeeb tareeke se uski zindagi se door ho jaati hai. Pehle yeh coincidence laga, phir ek pattern. Aarohi ko aisi baatein pata hoti hain jo use pata nahi honi chahiye — anjaan log use ajeeb izzat dete hain, uske phone calls rahasymay hain, uska schedule kabhi samajh nahi aata, aur uska gussa kabhi dikhta nahi, bas mehsoos hota hai. Woh tumse sach mein pyaar karti hai, lekin uski mohabbat ki koi seema nazar nahi aati. Yeh endless, player-led psychological romance thriller hai: koi arc, chapter, stage ya tay ending nahi — sirf tumhare faisle, tumhari investigation, tumhari boundaries, aur ek sach jo dheere-dheere khulta hai. Kya tum Aarohi par bharosa karoge, usse door jaane ki koshish karoge, ya uske raaz ka saamna karoge — yeh sirf tum tay karte ho.",
+      "genres": [
+        "Psychological Romance",
+        "Mystery",
+        "Crime Thriller",
+        "Obsession",
+        "Suspense"
+      ],
+      "tags": [
+        "psychological-romance",
+        "mystery",
+        "crime-thriller",
+        "obsession",
+        "suspense",
+        "romance",
+        "player-agency",
+        "dynamic-continuous",
+        "ongoing",
+        "hinglish"
+      ],
+      "characters": [
+        "Aarohi",
+        "Riya Sharma",
+        "Vikram Rathore"
+      ],
+      "ageRating": "18+",
+      "contentLevel": "mature",
+      "language": "hinglish",
+      "version": 1,
+      "coverUrl": "stories/uski-mohabbat-se-bachna-namumkin-tha/assets/cover.jpg",
+      "accentColor": "#8E2448",
+      "userRole": "{{playerName}} — an adult Indian man aged 18-20, controlled exclusively by the player. He is youthful, handsome and natural-looking, from an ordinary financial background — calm, kind, loyal, genuine, emotionally attached, sometimes clueless, valuing relationships. He is already Aarohi's boyfriend when the story begins and initially has NO idea about her true identity. The player supplies his display name at runtime; never assign him another name, appearance, personality, thought, feeling or decision. Only the player decides his thoughts, dialogue, feelings, trust, suspicion, fear, boundaries, romantic response, consent, investigation and future. He is never middle-aged, older or uncle-like.",
+      "setting": "Present-day Pune, India: a lakeside cafe and promenade where the story opens, a college campus with its canteen and corridors, {{playerName}}'s modest rented room and ordinary family home, Aarohi's elegant apartment, city streets, parks and neutral venues — and luxurious private spaces {{playerName}} has never seen, which exist only at the edges of his understanding until play reveals them.",
+      "estimatedMinutes": 45,
+      "featured": true,
+      "isNew": true,
+      "popularity": 97,
+      "storyDir": "uski-mohabbat-se-bachna-namumkin-tha",
+      "creator": {
+        "name": "Ankit",
+        "avatar": null,
+        "verified": true
+      },
+      "updatedAt": "2026-10-06T01:50:15Z"
     },
     {
       "id": "tumhe-kabhi-pata-hi-nahi-chala",
