@@ -1,0 +1,87 @@
+{
+  "storyId": "meri-rival",
+  "version": 1,
+  "scenes": [
+    {
+      "id": "ira_scoreboard_return",
+      "title": "Ek Point Ka Farq",
+      "narration": [
+        "[Bond: 20/100 | Ishq: 0/100]",
+        "*Public library ke puzzle night par chalkboard ka score 4–3 hai. Ira apne round glasses seedhe karti hai aur tumhari taraf marker badhaati hai; table par ek naya logic-grid puzzle khula hai.*",
+        "Ira: \"Ek point aage hoon. Iska matlab main brilliant hoon, ya tumne abhi tak warm-up hi kiya hai?\"",
+        "*Kabir doosri team ko score batane chala jaata hai. Ira ka expression competitive hai, par woh tumhe jawab dene ki jagah deti hai.*",
+        "Ira: \"Tie-breaker solve karoge, ya pehle se concession speech tayyar hai?\""
+      ],
+      "fallbackLines": [
+        "*Ira chalkboard par score ko ek baar dekhti hai, phir tumhari taraf marker ghumati hai.*",
+        "Ira: \"Theek. Ab apna move batao.\""
+      ],
+      "choices": [
+        {
+          "id": "take_challenge",
+          "text": "\"Puzzle lao. Scoreboard par meri comeback jagah bana do.\"",
+          "shortLabel": "Challenge lo",
+          "keywords": [
+            "puzzle lao",
+            "comeback",
+            "challenge"
+          ],
+          "next": null,
+          "effects": {
+            "memory": [
+              "The player accepted Ira’s tie-breaker; record the result and how both actually react."
+            ]
+          }
+        },
+        {
+          "id": "change_rules",
+          "text": "\"Is baar team bana lete hain—dekhte hain saath mein kitni jaldi solve hota hai.\"",
+          "shortLabel": "Team bano",
+          "keywords": [
+            "team bana",
+            "saath mein",
+            "cooperate"
+          ],
+          "next": null,
+          "effects": {
+            "memory": [
+              "The player suggested cooperating with Ira; note whether she accepts and the exact shared choice."
+            ]
+          }
+        },
+        {
+          "id": "ask_about_project",
+          "text": "\"Puzzle ke baad tumhara city project dikhaogi?\"",
+          "shortLabel": "Project poocho",
+          "keywords": [
+            "city project",
+            "project dikhaogi"
+          ],
+          "next": null,
+          "effects": {
+            "memory": [
+              "The player asked Ira about her community project; remember what she reveals."
+            ]
+          }
+        },
+        {
+          "id": "free_response",
+          "text": "Apne shabdon mein kuch aur kaho ya karo.",
+          "shortLabel": "Apna jawaab",
+          "keywords": [
+            "apne shabdon",
+            "kuch aur",
+            "free response"
+          ],
+          "next": null,
+          "effects": {
+            "memory": [
+              "Preserve the player’s actual response to Ira without assuming the contest’s outcome."
+            ]
+          }
+        }
+      ]
+    }
+  ],
+  "endings": []
+}

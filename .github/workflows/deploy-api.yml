@@ -44,6 +44,20 @@ jobs:
       - name: Validate story content (schema, scenes, endings, player names)
         run: npm run content:validate
 
+      - name: Validate the 10 new stories and their 80 native-size images
+        run: >-
+          node scripts/verify-published-story.mjs --local-only
+          mere-ghar-ki-sabse-badi-paheli
+          woh-ladki-jo-mujhe-bhoolti-hi-nahi
+          meri-fake-girlfriend
+          nayi-padosan-purani-paheli
+          uski-muskaan-ke-peeche
+          meri-rival
+          woh-shaadi-jisme-main-mehmaan-tha
+          mujhe-tumse-nafrat-hai
+          woh-jo-hamesha-mere-saath-thi
+          bhaiya-ki-saali
+
       - name: Install (worker)
         working-directory: worker
         run: npm ci
@@ -127,8 +141,19 @@ jobs:
           CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
           CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
 
-      - name: Wait for published story and verify JSON/media integrity
-        run: node scripts/verify-published-story.mjs
+      - name: Wait for all 10 published stories and verify JSON/media integrity
+        run: >-
+          node scripts/verify-published-story.mjs
+          mere-ghar-ki-sabse-badi-paheli
+          woh-ladki-jo-mujhe-bhoolti-hi-nahi
+          meri-fake-girlfriend
+          nayi-padosan-purani-paheli
+          uski-muskaan-ke-peeche
+          meri-rival
+          woh-shaadi-jisme-main-mehmaan-tha
+          mujhe-tumse-nafrat-hai
+          woh-jo-hamesha-mere-saath-thi
+          bhaiya-ki-saali
 
       - name: Smoke test the deployed API
         run: |

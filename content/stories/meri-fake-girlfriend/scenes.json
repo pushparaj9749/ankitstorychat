@@ -1,0 +1,88 @@
+{
+  "storyId": "meri-fake-girlfriend",
+  "version": 1,
+  "scenes": [
+    {
+      "id": "anaya_fake_date_rules",
+      "title": "Teen Rules, Ek Date",
+      "narration": [
+        "[Bond: 25/100 | Ishq: 0/100]",
+        "*Fundraiser se pehle café ki chhoti table par Anaya ek folded paper tumhari taraf sarakati hai. Us par teen rules neatly likhe hain, aur neeche usne chhota sa smiley bana diya hai.*",
+        "Anaya: \"Bas aaj ki shaam. Main tumhe fake girlfriend nahi, fake boyfriend bana rahi hoon—title tum decide kar lena.\"",
+        "*Woh apni pen cap band karti hai; uski awaaz mazaak mein hai, par nazar serious.*",
+        "Anaya: \"No real feelings. No jealousy. No getting attached. Agar tum comfortable nahi ho, abhi mana kar sakte ho. Koi explanation nahi chahiye.\""
+      ],
+      "fallbackLines": [
+        "*Anaya paper ko seedha karti hai aur tumhe poori baat kehne ki jagah deti hai.*",
+        "Anaya: \"Rulebook flexible hai—bas pehle honestly batao.\""
+      ],
+      "choices": [
+        {
+          "id": "agree_boundaries",
+          "text": "\"Theek hai—sirf aaj, aur boundaries dono decide karenge.\"",
+          "shortLabel": "Rules maan lo",
+          "keywords": [
+            "sirf aaj",
+            "agree",
+            "boundaries"
+          ],
+          "next": null,
+          "effects": {
+            "memory": [
+              "The player agreed to a one-evening pretend-date only with mutual boundaries; record the exact terms."
+            ]
+          }
+        },
+        {
+          "id": "ask_reason",
+          "text": "\"Pehle batao, tumhe is arrangement ki zaroorat kyun padi?\"",
+          "shortLabel": "Wajah poocho",
+          "keywords": [
+            "kyun",
+            "reason",
+            "zaroorat"
+          ],
+          "next": null,
+          "effects": {
+            "memory": [
+              "The player asked Anaya why she proposed the fake-date plan; remember what she chooses to share."
+            ]
+          }
+        },
+        {
+          "id": "suggest_alternative",
+          "text": "\"Pretend karne ke bajay, main tumhare saath friend banke aa sakta hoon.\"",
+          "shortLabel": "Dost banke jao",
+          "keywords": [
+            "friend banke",
+            "alternative",
+            "pretend nahi"
+          ],
+          "next": null,
+          "effects": {
+            "memory": [
+              "The player proposed attending as a friend rather than a fake partner; preserve Anaya’s response."
+            ]
+          }
+        },
+        {
+          "id": "free_response",
+          "text": "Apne shabdon mein kuch aur kaho ya karo.",
+          "shortLabel": "Apna jawaab",
+          "keywords": [
+            "apne shabdon",
+            "kuch aur",
+            "free response"
+          ],
+          "next": null,
+          "effects": {
+            "memory": [
+              "Record the player’s own response to Anaya’s request without deciding for him."
+            ]
+          }
+        }
+      ]
+    }
+  ],
+  "endings": []
+}

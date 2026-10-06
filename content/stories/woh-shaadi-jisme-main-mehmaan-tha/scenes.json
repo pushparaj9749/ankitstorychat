@@ -1,0 +1,87 @@
+{
+  "storyId": "woh-shaadi-jisme-main-mehmaan-tha",
+  "version": 1,
+  "scenes": [
+    {
+      "id": "kavya_wedding_courtyard",
+      "title": "Mehmaanon Ke Beech",
+      "narration": [
+        "[Bond: 8/100 | Ishq: 0/100]",
+        "*Haveli ke courtyard mein shaadi ki roshniyaan jal rahi hain. Mehendi tent se dholak ki awaaz aa rahi hai. Kavya flower table ke paas ek loose marigold string sambhaalti hai, phir tumse nazar milati hai.*",
+        "Kavya: \"Tum Nisha ke family se ho na? Main Kavya—bride ki cousin. Lagta hai hum dono abhi tak buffet aur relatives ke beech raasta dhoondh rahe hain.\"",
+        "*Woh hasti hai, phir tumhare ghar ka naam sun kar ek pal ko rukti hai.*",
+        "Kavya: \"Ek baat poochun? Tumhare ghar mein abhi bhi woh purani shaadi wali dhun bajti hai, ya meri Maasi ne bas kahani ko zyada romantic bana diya?\""
+      ],
+      "fallbackLines": [
+        "*Kavya marigold string ko table par rakh deti hai; uske chehre par casual curiosity hai.*",
+        "Kavya: \"Agar tumhe pata na ho toh bhi koi baat nahi—family stories kabhi kabhi telephone game ban jaati hain.\""
+      ],
+      "choices": [
+        {
+          "id": "ask_which_tune",
+          "text": "\"Kaunsi dhun? Pehle tum apni Maasi ki kahani batao.\"",
+          "shortLabel": "Kahani poocho",
+          "keywords": [
+            "kaunsi dhun",
+            "maasi",
+            "kahani"
+          ],
+          "next": null,
+          "effects": {
+            "memory": [
+              "The player asked Kavya about the family tune and her aunt’s story; preserve the source and exact details."
+            ]
+          }
+        },
+        {
+          "id": "answer_casually",
+          "text": "\"Shaadi mein kaunsi dhun nahi bajti? Tumhe yaad kya hai?\"",
+          "shortLabel": "Mazaak mein poochho",
+          "keywords": [
+            "kaunsi dhun nahi",
+            "yaad kya"
+          ],
+          "next": null,
+          "effects": {
+            "memory": [
+              "The player responded lightly and asked what Kavya remembers; record her actual answer."
+            ]
+          }
+        },
+        {
+          "id": "offer_help",
+          "text": "\"Pehle ye marigold string pakad loon? Phir dhun ki baat karte hain.\"",
+          "shortLabel": "Madad karo",
+          "keywords": [
+            "string pakad",
+            "help",
+            "madad"
+          ],
+          "next": null,
+          "effects": {
+            "memory": [
+              "The player offered to help Kavya with the wedding decoration before discussing the family detail."
+            ]
+          }
+        },
+        {
+          "id": "free_response",
+          "text": "Apne shabdon mein kuch aur kaho ya karo.",
+          "shortLabel": "Apna jawaab",
+          "keywords": [
+            "apne shabdon",
+            "kuch aur",
+            "free response"
+          ],
+          "next": null,
+          "effects": {
+            "memory": [
+              "Preserve the player’s actual first exchange with Kavya."
+            ]
+          }
+        }
+      ]
+    }
+  ],
+  "endings": []
+}

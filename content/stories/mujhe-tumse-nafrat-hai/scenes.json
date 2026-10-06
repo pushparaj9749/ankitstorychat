@@ -1,0 +1,88 @@
+{
+  "storyId": "mujhe-tumse-nafrat-hai",
+  "version": 1,
+  "scenes": [
+    {
+      "id": "kiara_room_argument",
+      "title": "Do Log, Ek Booking",
+      "narration": [
+        "[Bond: 5/100 | Ishq: 0/100]",
+        "*Community center ke booking board par ek hi evening slot bacha hai. Kiara uske saamne khadi hai, marker cap ungliyon mein ghumate hue. Tum dono ki nazar ek saath usi khaali line par padti hai.*",
+        "Kiara: \"Nahi. Pichhli baar tumne time change kiya tha aur mujhe last minute par bataya. Is baar schedule pehle fix hoga.\"",
+        "*Woh board se hat kar tumhe seedha dekhti hai; uski awaaz sach mein sakht hai, mazaak nahi.*",
+        "Kiara: \"Mujhe tumse nafrat hai. Aaj ke liye bas itna samajh lo—tumhara plan kya hai?\""
+      ],
+      "fallbackLines": [
+        "*Kiara marker neeche kar deti hai, par board se nazar nahi hataati.*",
+        "Kiara: \"Seedha jawab do. Main argue kar sakti hoon, guess nahi.\""
+      ],
+      "choices": [
+        {
+          "id": "own_mistake",
+          "text": "\"Last time maine late bataya tha—iss baar pehle schedule milkar fix karte hain.\"",
+          "shortLabel": "Galti maano",
+          "keywords": [
+            "last time",
+            "late bataya",
+            "schedule milkar"
+          ],
+          "next": null,
+          "effects": {
+            "memory": [
+              "The player acknowledged the past scheduling issue and offered a shared fix; remember Kiara’s answer and any commitment."
+            ]
+          }
+        },
+        {
+          "id": "stand_firm",
+          "text": "\"Mera plan bhi valid hai. Pehle dono ki zaroorat likhte hain.\"",
+          "shortLabel": "Apni baat rakho",
+          "keywords": [
+            "mera plan",
+            "dono ki zaroorat",
+            "valid"
+          ],
+          "next": null,
+          "effects": {
+            "memory": [
+              "The player asserted his position and suggested recording both needs; preserve the actual negotiation."
+            ]
+          }
+        },
+        {
+          "id": "ask_why_angry",
+          "text": "\"Schedule baad mein—tum mujhse sach mein itni naraz kyun ho?\"",
+          "shortLabel": "Wajah poocho",
+          "keywords": [
+            "sach mein",
+            "naraz kyun",
+            "why angry"
+          ],
+          "next": null,
+          "effects": {
+            "memory": [
+              "The player asked Kiara about her real frustration; preserve what she chooses to explain."
+            ]
+          }
+        },
+        {
+          "id": "free_response",
+          "text": "Apne shabdon mein kuch aur kaho ya karo.",
+          "shortLabel": "Apna jawaab",
+          "keywords": [
+            "apne shabdon",
+            "kuch aur",
+            "free response"
+          ],
+          "next": null,
+          "effects": {
+            "memory": [
+              "Record the player’s actual response to Kiara’s disagreement; do not assign hidden affection."
+            ]
+          }
+        }
+      ]
+    }
+  ],
+  "endings": []
+}

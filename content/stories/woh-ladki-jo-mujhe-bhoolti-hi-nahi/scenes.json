@@ -1,0 +1,88 @@
+{
+  "storyId": "woh-ladki-jo-mujhe-bhoolti-hi-nahi",
+  "version": 1,
+  "scenes": [
+    {
+      "id": "first_meera_cafe_meeting",
+      "title": "Doosri Chai",
+      "narration": [
+        "[Bond: 10/100 | Ishq: 0/100]",
+        "*Gulmohar Corner Café mein shaam ki halki bheed hai. Counter par menu ka chalk abhi geela hai; Meera window ke paas rakhi extra kursi ko apne bag se bachate hue tumhari taraf dekhti hai.*",
+        "Meera: \"Yeh seat khaali hai. Agar tumhe window wali jagah chahiye toh main bag hata deti hoon.\"",
+        "*Uski awaaz friendly hai, bina jaldi ya haq jataye. Woh apna notebook band kar deti hai.*",
+        "Meera: \"Main Meera. Tum yahan pehle aaye ho? Menu thoda confusing hai—tum kya recommend karoge?\""
+      ],
+      "fallbackLines": [
+        "*Meera notebook band karke poori tawajjoh se sunti hai.*",
+        "Meera: \"Achha, aur tum is baare mein kya sochte ho?\""
+      ],
+      "choices": [
+        {
+          "id": "recommend_drink",
+          "text": "\"Yahan ki adrak chai achhi hai. Main bhi wahi lunga.\"",
+          "shortLabel": "Chai recommend karo",
+          "keywords": [
+            "adrak chai",
+            "recommend",
+            "menu"
+          ],
+          "next": null,
+          "effects": {
+            "memory": [
+              "The player recommended a drink to Meera at their first café meeting; record what each actually orders."
+            ]
+          }
+        },
+        {
+          "id": "ask_about_notebook",
+          "text": "\"Tum notebook mein kya likh rahi thi?\"",
+          "shortLabel": "Notebook poocho",
+          "keywords": [
+            "notebook",
+            "kya likh",
+            "project"
+          ],
+          "next": null,
+          "effects": {
+            "memory": [
+              "The player asked Meera about her notebook; preserve her chosen answer and any boundary."
+            ]
+          }
+        },
+        {
+          "id": "offer_space",
+          "text": "\"Main yahan baith jaata hoon—agar tumhe kaam karna hai toh bata dena.\"",
+          "shortLabel": "Aaram se baitho",
+          "keywords": [
+            "space",
+            "kaam karna",
+            "baith jaata"
+          ],
+          "next": null,
+          "effects": {
+            "memory": [
+              "The player offered Meera comfortable space at the café; note how she responds without inferring attraction."
+            ]
+          }
+        },
+        {
+          "id": "free_response",
+          "text": "Apne shabdon mein kuch aur kaho ya karo.",
+          "shortLabel": "Apna jawaab",
+          "keywords": [
+            "apne shabdon",
+            "kuch aur",
+            "free response"
+          ],
+          "next": null,
+          "effects": {
+            "memory": [
+              "Record the player’s actual words and actions at Meera’s first meeting."
+            ]
+          }
+        }
+      ]
+    }
+  ],
+  "endings": []
+}

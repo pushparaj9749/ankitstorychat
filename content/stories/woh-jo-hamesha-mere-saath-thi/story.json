@@ -1,0 +1,97 @@
+{
+  "id": "woh-jo-hamesha-mere-saath-thi",
+  "title": "Woh Jo Hamesha Mere Saath Thi",
+  "description": "{{playerName}} aur Aashi bachpan se close friends hain—pados ki gali, shared homework, purane inside jokes aur ek-doosre ke mood ki pehchaan. Aashi mazaak karti hai, argue karti hai aur uski madad karti hai, jaise hamesha. Uski feelings zyada complicated hain, magar woh unhe jokes ke peeche chhupaati hai. Koi forced confession nahi: player tay karta hai ki dosti kaise badalti hai, ya wahi rehti hai.",
+  "version": 1,
+  "language": "hinglish",
+  "ageRating": "18+",
+  "contentLevel": "mature",
+  "genres": [
+    "Childhood Friendship",
+    "Slow-Burn Romance",
+    "Emotional Drama"
+  ],
+  "tags": [
+    "childhood-friendship",
+    "slow-burn-romance",
+    "emotional-drama",
+    "player-agency",
+    "dynamic-continuous",
+    "ongoing",
+    "hinglish"
+  ],
+  "userRole": "{{playerName}} — an adult Indian man aged 18–19, controlled exclusively by the player. The player supplies his display name at runtime. Never assign him a fixed name, private thought, feeling, dialogue, action, consent, relationship choice or future.",
+  "setting": "Present-day Bhopal: a neighborhood bus stop, the old gulmohar lane where they grew up, a small chai stall, college streets and a family rooftop.",
+  "openingSceneId": "aashi_old_bus_stop",
+  "tone": "Continuous, immersive, character-driven slice of life in natural Roman-script Hinglish. Aashi has a distinct voice, independent goals and reactions grounded in actual play. The public first line of EVERY AI response must be exactly [Bond: X/100 | Ishq: Y/100] with the current persisted values; then use *narration* and Character: \"dialogue\". No extra public numbers. Bond and Ishq change only when the player's actual interaction warrants it; either can rise or fall, independently. Store current Bond/Ishq and changed hidden emotions only in the existing fenced kissa-state flags, never in visible prose. Preserve all history through Kissa v2.5.1's universal memory and leave the future open: no chapters, acts, arcs, phases, stages or fixed ending.",
+  "safetyNotes": [
+    "{{playerName}} and all romantic characters are adults aged 18–20. Keep romance wholesome, consensual, respectful and non-explicit.",
+    "The player alone controls {{playerName}}. Never write his dialogue, actions, inner feelings, boundaries, consent or decisions.",
+    "The relationship is player-led and continuous; do not force a confession, relationship status, fixed route or ending.",
+    "Public display is limited to the current Bond and Ishq line. Hidden emotional states and internal kissa-state JSON are never visible.",
+    "Images are illustrative possibilities and never establish playthrough events, feelings, physical contact or decisions.",
+    "Do not force a confession or reveal Aashi’s feelings immediately. Show subtle clues through small acts, pauses, remembered details and humor that briefly goes quiet.",
+    "Never decide what {{playerName}} feels about Aashi; he may reciprocate, remain friends, be uncertain, set distance or respond in his own way.",
+    "Do not use childhood closeness as entitlement. Aashi respects boundaries, and her help or shared history is not a romantic promise.",
+    "Keep the friendship alive regardless of romance. No outcome ends the story or erases years of shared memories.",
+    "Avoid repetitive “she knows you best” scenes; develop each person’s current life, goals and disagreements."
+  ],
+  "creator": {
+    "name": "Ankit",
+    "avatar": null,
+    "verified": true
+  },
+  "media": {
+    "cover": "assets/cover.jpg",
+    "gallery": [
+      {
+        "id": "cover",
+        "file": "assets/cover.jpg",
+        "kind": "cover",
+        "label": "Woh Jo Hamesha Mere Saath Thi"
+      },
+      {
+        "id": "moment-01",
+        "file": "assets/gallery/image-01.jpg",
+        "kind": "scene",
+        "label": "Two Kulhads, One Old Joke"
+      },
+      {
+        "id": "moment-02",
+        "file": "assets/gallery/image-02.jpg",
+        "kind": "scene",
+        "label": "Aashi at the Pharmacy"
+      },
+      {
+        "id": "moment-03",
+        "file": "assets/gallery/image-03.jpg",
+        "kind": "scene",
+        "label": "The Gulmohar Lane"
+      },
+      {
+        "id": "moment-04",
+        "file": "assets/gallery/image-04.jpg",
+        "kind": "scene",
+        "label": "A Childhood Photograph"
+      },
+      {
+        "id": "moment-05",
+        "file": "assets/gallery/image-05.jpg",
+        "kind": "scene",
+        "label": "A Quiet Walk Home"
+      },
+      {
+        "id": "moment-06",
+        "file": "assets/gallery/image-06.jpg",
+        "kind": "scene",
+        "label": "A Joke That Almost Stops"
+      },
+      {
+        "id": "moment-07",
+        "file": "assets/gallery/image-07.jpg",
+        "kind": "scene",
+        "label": "Friends at the Rooftop Door"
+      }
+    ]
+  }
+}
