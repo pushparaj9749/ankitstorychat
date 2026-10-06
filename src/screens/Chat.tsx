@@ -11,11 +11,13 @@
  */
 import React, { useEffect, useMemo, useRef, useState } from 'react';
 import { FlatList, Image, KeyboardAvoidingView, Platform, Pressable, StyleSheet, Text, TextInput, View } from 'react-native';
+import { LinearGradient } from 'expo-linear-gradient';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import type { NativeStackScreenProps } from '@react-navigation/native-stack';
 import type { AIError, ChatMessage, ChoiceEffects, Playthrough, RootStackParamList, StoryBundle } from '../types';
 import { useApp } from '../state/AppContext';
 import { ChatBubble, TypingIndicator } from '../components/chat';
+import { Avatar } from '../components/bits';
 import { ErrorState, LoadingState, OfflineState } from '../components/states';
 import { effectiveContentApiBaseUrl, getBundle, getBundledCoverSource, mediaApiUrl, StoryContentError, type CoverSource } from '../content/loader';
 import { getApiKey } from '../lib/secureKeys';
@@ -29,7 +31,7 @@ import { countMessages, getPlaythrough, insertMessage, listMessages, listMessage
 import { consolidateStoryMemory, migrateStoryMemory, recallStoryMemoryForPrompt, rememberTurn } from '../lib/storyMemory';
 import { completePlaythrough } from '../lib/playthrough';
 import { interpolatePlayerName, makePlayerTextFn } from '../lib/playerName';
-import { RADIUS, SHADOWS, TYPE, withAlpha, LAYOUT } from '../theme';
+import { RADIUS, SCALE, TOUCH, withAlpha } from '../theme';
 import { Icon, ICON_SIZE } from '../components/icons';
 import { nowIso, uid } from '../lib/utils';
 import { playReceive, playSend } from '../lib/sound';
@@ -374,6 +376,7 @@ export function Chat({ navigation, route }: Props) {
   }
 
   const apiBase = effectiveContentApiBaseUrl(settings.contentApiBaseUrl);
+  const cast = bundle.characters?.characters ?? [];
   const portrait = bundle.story.media?.gallery?.find((g) => g.kind === 'character-portrait');
   const faceSource: CoverSource | null = portrait ? { uri: mediaApiUrl(apiBase, bundle.meta.storyDir, portrait.file) } : getBundledCoverSource(bundle.meta, apiBase);
 
@@ -383,33 +386,53 @@ export function Chat({ navigation, route }: Props) {
 
   return (
     <SafeAreaView style={[styles.safe, { backgroundColor: theme.bg }]} edges={['top', 'left', 'right', 'bottom']}>
-      <View style={[styles.header, { borderColor: theme.borderSoft, backgroundColor: theme.bgSoft }]}>
-        <Pressable onPress={() => navigation.goBack()} hitSlop={10} style={styles.backBtn}>
-          <Icon name="arrow-back" size={22} color={theme.text} />
+      {/* ------------------------------------------------------ stage head */}
+      <View style={[styles.header, { borderColor: theme.borderSoft, backgroundColor: withAlpha(theme.bgSoft, 0.92) }]}>
+        <Pressable
+          onPress={() => navigation.goBack()}
+          hitSlop={10}
+          accessibilityRole="button"
+          accessibilityLabel="Go back"
+          style={({ pressed }) => [
+            styles.backBtn,
+            { borderColor: theme.border, backgroundColor: withAlpha(theme.surface2, 0.72), opacity: pressed ? 0.7 : 1 },
+          ]}
+        >
+          <Icon name="chevron-back" size={20} color={theme.text} />
         </Pressable>
 
-        <Pressable onPress={openStoryProfile} style={styles.headerIdentity} accessibilityRole="button">
+        <Pressable onPress={openStoryProfile} style={styles.headerIdentity} accessibilityRole="button" accessibilityLabel={bundle.meta.title}>
           <ChatStoryFace source={faceSource} letter={bundle.meta.title} accent={bundle.meta.accentColor} />
           <View style={styles.headerBody}>
             <Text style={[styles.headerTitle, { color: theme.text }]} numberOfLines={1}>
               {bundle.meta.title}
             </Text>
-            <Text style={[styles.headerSub, { color: theme.textFaint }]} numberOfLines={1}>
-              {scene?.title ?? playthrough.label}
+            <Text style={[styles.headerScene, { color: theme.accent }]} numberOfLines={1}>
+              {(scene?.title ?? playthrough.label).toUpperCase()}
             </Text>
           </View>
         </Pressable>
 
         <View style={styles.headerRight}>
-          <View style={[styles.modeBtn, { backgroundColor: aiReady ? withAlpha(theme.text, 0.08) : theme.surface, borderColor: theme.borderSoft }]}>
-            <Text style={[styles.modeText, { color: aiReady ? theme.textDim : theme.textFaint }]}>{aiReady ? 'AI' : 'Offline'}</Text>
+          {cast.length > 0 ? (
+            <View style={styles.presence}>
+              {cast.slice(0, 3).map((c, i) => (
+                <View key={c.id} style={[styles.presenceSlot, i > 0 && styles.presenceOverlap]}>
+                  <Avatar id={c.id} name={c.name} size={22} />
+                </View>
+              ))}
+            </View>
+          ) : null}
+          <View style={[styles.modeBtn, { backgroundColor: withAlpha(aiReady ? theme.success : theme.text, 0.10), borderColor: withAlpha(aiReady ? theme.success : theme.text, 0.22) }]}>
+            <View style={[styles.modeDot, { backgroundColor: aiReady ? theme.success : theme.textFaint }]} />
+            <Text style={[styles.modeText, { color: aiReady ? '#9BEFD0' : theme.textFaint }]}>{aiReady ? 'AI' : 'OFFLINE'}</Text>
           </View>
         </View>
       </View>
 
       {bundle.story.userRole ? (
-        <View style={[styles.roleBanner, { backgroundColor: theme.bgSoft, borderColor: theme.borderSoft }]}>
-          <Text style={[styles.roleLabel, { color: theme.textFaint }]}>YOU ARE</Text>
+        <View style={[styles.roleBanner, { backgroundColor: withAlpha(theme.primary, 0.07), borderColor: withAlpha(theme.primary, 0.16) }]}>
+          <Text style={[styles.roleLabel, { color: theme.accent }]}>YOU ARE</Text>
           <Text style={[styles.roleText, { color: theme.textDim }]} numberOfLines={1}>
             {makePlayerTextFn(bundle.meta, profile?.nickname)(bundle.story.userRole)}
           </Text>
@@ -417,6 +440,14 @@ export function Chat({ navigation, route }: Props) {
       ) : null}
 
       <KeyboardAvoidingView behavior={Platform.OS === 'ios' ? 'padding' : undefined} style={styles.flex}>
+        {/* Scene atmosphere — the story's own accent, never a photo crop. */}
+        <LinearGradient
+          colors={[withAlpha(bundle.meta.accentColor, 0.14), 'transparent', withAlpha(bundle.meta.accentColor, 0.05)]}
+          start={{ x: 0.5, y: 0 }}
+          end={{ x: 0.5, y: 1 }}
+          style={StyleSheet.absoluteFill}
+          pointerEvents="none"
+        />
         <FlatList
           ref={listRef}
           data={messages}
@@ -428,8 +459,8 @@ export function Chat({ navigation, route }: Props) {
           onEndReached={loadMore}
           onEndReachedThreshold={0.4}
           initialNumToRender={20}
-          maxToRenderPerBatch={20}
-          windowSize={10}
+          maxToRenderPerBatch={16}
+          windowSize={9}
           removeClippedSubviews={false}
           ListHeaderComponent={
             <>
@@ -456,24 +487,45 @@ export function Chat({ navigation, route }: Props) {
           renderItem={({ item }) => <ChatBubble message={item} />}
         />
 
-        <View style={[styles.inputBar, { borderColor: theme.borderSoft, backgroundColor: theme.bgSoft }]}>
-          <TextInput
-            value={input}
-            onChangeText={setInput}
-            placeholder={playthrough.status === 'completed' ? 'Journey ended — start new?' : 'Write your next move…'}
-            placeholderTextColor={theme.textFaint}
-            multiline
-            maxLength={2000}
-            editable={!sending}
-            style={[styles.input, { backgroundColor: theme.surface, borderColor: theme.border, color: theme.text }]}
-          />
-          <Pressable
-            onPress={() => void send(input)}
-            disabled={sending || !input.trim()}
-            style={[styles.send, { backgroundColor: theme.text, opacity: sending || !input.trim() ? 0.4 : 1 }]}
-          >
-            <Icon name="arrow-up" size={ICON_SIZE.md} color={theme.bg} />
-          </Pressable>
+        <View style={[styles.inputBar, { borderColor: theme.borderSoft, backgroundColor: withAlpha(theme.bgSoft, 0.94) }]}>
+          {playthrough.messageCount > 8 ? (
+            <View style={styles.memoryRow}>
+              <Icon name="sparkles-outline" size={12} color={theme.textFaint} />
+              <Text style={[styles.memoryText, { color: theme.textFaint }]}>
+                {playthrough.messageCount} moments remembered in this journey
+              </Text>
+            </View>
+          ) : null}
+          <View style={styles.inputRow}>
+            <TextInput
+              value={input}
+              onChangeText={setInput}
+              placeholder={playthrough.status === 'completed' ? 'Journey ended — start new?' : 'Write your next move…'}
+              placeholderTextColor={theme.textFaint}
+              multiline
+              maxLength={2000}
+              editable={!sending}
+              style={[styles.input, { backgroundColor: theme.surface, borderColor: theme.border, color: theme.text }]}
+            />
+            <Pressable
+              onPress={() => void send(input)}
+              disabled={sending || !input.trim()}
+              accessibilityRole="button"
+              accessibilityLabel="Send"
+              style={({ pressed }) => [
+                styles.send,
+                { opacity: sending || !input.trim() ? 0.4 : pressed ? 0.85 : 1, transform: [{ scale: pressed ? 0.96 : 1 }] },
+              ]}
+            >
+              <LinearGradient
+                colors={['#FF6B7E', '#E9435E']}
+                start={{ x: 0, y: 0 }}
+                end={{ x: 1, y: 1 }}
+                style={StyleSheet.absoluteFill}
+              />
+              <Icon name="arrow-up" size={ICON_SIZE.md} color="#fff" />
+            </Pressable>
+          </View>
         </View>
       </KeyboardAvoidingView>
     </SafeAreaView>
@@ -487,40 +539,77 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     paddingHorizontal: 14,
-    paddingVertical: 10,
+    paddingVertical: 9,
     borderBottomWidth: StyleSheet.hairlineWidth,
     gap: 10,
   },
-  backBtn: { paddingRight: 4, width: 32, height: 32, alignItems: 'center', justifyContent: 'center' },
+  backBtn: {
+    width: TOUCH.sm,
+    height: TOUCH.sm,
+    borderRadius: RADIUS.sm,
+    borderWidth: 1,
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
   headerIdentity: { flex: 1, flexDirection: 'row', alignItems: 'center', gap: 10, minWidth: 0 },
-  face: { width: 36, height: 36, borderRadius: 12, overflow: 'hidden', borderWidth: 1, alignItems: 'center', justifyContent: 'center' },
-  faceImg: { width: 36, height: 36 },
-  faceLetter: { fontSize: 14, fontWeight: '800' },
+  face: { width: 38, height: 38, borderRadius: RADIUS.sm, overflow: 'hidden', borderWidth: 1, alignItems: 'center', justifyContent: 'center' },
+  faceImg: { width: 38, height: 38 },
+  faceLetter: { fontSize: 15, fontWeight: '900' },
   headerBody: { flex: 1, minWidth: 0 },
-  headerTitle: { fontSize: 14.5, fontWeight: '700', letterSpacing: -0.2 },
-  headerSub: { fontSize: 11, letterSpacing: 0.2, marginTop: 1, fontWeight: '500' },
+  headerTitle: { fontSize: 14.5, fontWeight: '800', letterSpacing: -0.2 },
+  headerScene: { fontSize: SCALE.micro, letterSpacing: 0.9, marginTop: 2, fontWeight: '800' },
   headerRight: { flexDirection: 'row', alignItems: 'center', gap: 8 },
-  modeBtn: { borderWidth: 1, borderRadius: 999, paddingHorizontal: 10, paddingVertical: 5 },
-  modeText: { fontSize: 10, fontWeight: '700', letterSpacing: 0.5, textTransform: 'uppercase' },
-  roleBanner: { flexDirection: 'row', alignItems: 'center', gap: 8, paddingHorizontal: 16, paddingVertical: 8, borderBottomWidth: StyleSheet.hairlineWidth },
-  roleLabel: { fontSize: 10, fontWeight: '700', letterSpacing: 1.2 },
-  roleText: { flex: 1, fontSize: 12, fontWeight: '500' },
-  list: { paddingHorizontal: 12, paddingVertical: 10, gap: 2 },
-  more: { textAlign: 'center', fontSize: 11, padding: 10 },
-  inputBar: {
+  presence: { flexDirection: 'row', alignItems: 'center' },
+  presenceSlot: { alignItems: 'center', justifyContent: 'center' },
+  presenceOverlap: { marginLeft: -9 },
+  modeBtn: {
     flexDirection: 'row',
-    alignItems: 'flex-end',
-    gap: 10,
+    alignItems: 'center',
+    gap: 5,
+    borderWidth: 1,
+    borderRadius: RADIUS.pill,
+    paddingHorizontal: 9,
+    paddingVertical: 5,
+  },
+  modeDot: { width: 5, height: 5, borderRadius: 2.5 },
+  modeText: { fontSize: 9.5, fontWeight: '900', letterSpacing: 0.7 },
+  roleBanner: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: 9,
+    paddingHorizontal: 16,
+    paddingVertical: 9,
+    borderBottomWidth: StyleSheet.hairlineWidth,
+  },
+  roleLabel: { fontSize: SCALE.micro, fontWeight: '900', letterSpacing: 1.2 },
+  roleText: { flex: 1, fontSize: SCALE.caption, fontWeight: '500' },
+  list: { paddingHorizontal: 12, paddingVertical: 12, gap: 2 },
+  more: { textAlign: 'center', fontSize: SCALE.micro, padding: 10 },
+  inputBar: {
     paddingHorizontal: 12,
-    paddingVertical: 10,
+    paddingTop: 9,
+    paddingBottom: 12,
     borderTopWidth: StyleSheet.hairlineWidth,
   },
-  input: { flex: 1, borderWidth: 1, borderRadius: 20, paddingHorizontal: 16, paddingVertical: 10, fontSize: 14.5, lineHeight: 20, maxHeight: 120 },
-  send: { width: 40, height: 40, borderRadius: 20, alignItems: 'center', justifyContent: 'center' },
+  memoryRow: { flexDirection: 'row', alignItems: 'center', gap: 6, marginBottom: 8, paddingHorizontal: 4 },
+  memoryText: { fontSize: SCALE.micro, fontWeight: '600', fontStyle: 'italic' },
+  inputRow: { flexDirection: 'row', alignItems: 'flex-end', gap: 10 },
+  input: {
+    flex: 1,
+    borderWidth: 1,
+    borderRadius: RADIUS.lg,
+    paddingHorizontal: 15,
+    paddingVertical: 12,
+    fontSize: 14.5,
+    lineHeight: 20,
+    minHeight: 46,
+    maxHeight: 130,
+  },
+  send: { width: 46, height: 46, borderRadius: RADIUS.lg, overflow: 'hidden', alignItems: 'center', justifyContent: 'center' },
   errCard: { borderWidth: 1, borderRadius: RADIUS.lg, padding: 14, marginVertical: 10 },
-  errTitle: { fontSize: 14, fontWeight: '700' },
-  errSub: { fontSize: 12.5, marginTop: 6, lineHeight: 18 },
+  errTitle: { fontSize: 14.5, fontWeight: '800' },
+  errSub: { fontSize: SCALE.small, marginTop: 6, lineHeight: 19 },
   errBtns: { flexDirection: 'row', gap: 8, marginTop: 12 },
-  errBtn: { paddingHorizontal: 14, paddingVertical: 8, borderRadius: 999 },
-  errBtnText: { fontWeight: '700', fontSize: 12.5 },
+  errBtn: { paddingHorizontal: 15, paddingVertical: 9, borderRadius: RADIUS.pill },
+  errBtnText: { fontWeight: '800', fontSize: SCALE.small },
 });

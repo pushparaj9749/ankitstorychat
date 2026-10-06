@@ -12,7 +12,7 @@ import { Screen } from '../components/Screen';
 import { GridCard, ContinueCard } from '../components/StoryCard';
 import { SectionHeader, SelectableChip } from '../components/bits';
 import { EmptyState } from '../components/states';
-import { SPACING, TYPE } from '../theme';
+import { LAYOUT, SCALE, SPACING, TYPE } from '../theme';
 import { timeAgo } from '../lib/utils';
 
 type Props = BottomTabScreenProps<MainTabParamList, 'Library'>;
@@ -37,7 +37,7 @@ export function Library({ navigation }: Props) {
     return (
       <Screen>
         <View style={styles.header}>
-          <Text style={[styles.kicker, { color: theme.textFaint }]}>YOUR SHELF</Text>
+          <Text style={[styles.kicker, { color: theme.accent }]}>YOUR SHELF</Text>
           <Text style={[styles.title, { color: theme.text }]}>Library</Text>
         </View>
         <EmptyState icon="library-outline" title="Your library is empty" subtitle="Explore stories and start journeys — they live here." action="Explore" onAction={() => navigation.navigate('Discover')} />
@@ -47,11 +47,13 @@ export function Library({ navigation }: Props) {
 
   return (
     <Screen padded={false}>
-      <ScrollView onScroll={handleScroll} scrollEventThrottle={16} showsVerticalScrollIndicator={false} contentContainerStyle={styles.scroll}>
+      <ScrollView onScroll={handleScroll} scrollEventThrottle={16} showsVerticalScrollIndicator={false} contentContainerStyle={[styles.scroll, styles.container]}>
         <View style={styles.header}>
-          <Text style={[styles.kicker, { color: theme.textFaint }]}>YOUR SHELF</Text>
+          <Text style={[styles.kicker, { color: theme.accent }]}>YOUR SHELF</Text>
           <Text style={[styles.title, { color: theme.text }]}>Library</Text>
-          <Text style={[styles.sub, { color: theme.textDim }]}>{favStories.length} saved · {recentPlaythroughs.length} journeys</Text>
+          <Text style={[styles.sub, { color: theme.textDim }]}>
+            {favStories.length} saved · {recentPlaythroughs.length} journeys
+          </Text>
           <View style={styles.filterRow}>
             {(['All', 'Active', 'Completed', 'Saved'] as FilterTab[]).map((tab) => (
               <SelectableChip key={tab} label={tab} selected={filter === tab} onPress={() => setFilter(tab)} />
@@ -93,6 +95,7 @@ export function Library({ navigation }: Props) {
               data={favStories}
               keyExtractor={(s) => s.id}
               showsHorizontalScrollIndicator={false}
+              style={styles.container}
               contentContainerStyle={styles.hlist}
               renderItem={({ item }) => (
                 <View style={styles.hitem}>
@@ -111,15 +114,16 @@ export function Library({ navigation }: Props) {
 
 const styles = StyleSheet.create({
   scroll: { paddingBottom: 16 },
-  header: { paddingHorizontal: 18, paddingTop: 8, paddingBottom: 4 },
-  kicker: { ...TYPE.tiny, letterSpacing: 1.2, fontWeight: '700' as const, marginTop: 4 },
-  title: { ...TYPE.title, marginTop: 2 },
-  sub: { fontSize: 12.5, marginTop: 4, letterSpacing: 0.1 },
-  filterRow: { flexDirection: 'row', marginTop: 14, marginBottom: 4 },
-  pad: { paddingHorizontal: 18 },
+  container: { width: '100%', maxWidth: LAYOUT.contentMaxWidth + 120, alignSelf: 'center' },
+  header: { paddingHorizontal: SPACING.page, paddingTop: 8, paddingBottom: 4 },
+  kicker: { fontSize: SCALE.micro, letterSpacing: 1.4, fontWeight: '900' as const, marginTop: 4 },
+  title: { ...TYPE.displaySmall, marginTop: 2 },
+  sub: { fontSize: SCALE.small, marginTop: 5, letterSpacing: 0.1 },
+  filterRow: { flexDirection: 'row', marginTop: 16, marginBottom: 4 },
+  pad: { paddingHorizontal: SPACING.page },
   gap: { marginBottom: 10 },
-  hlist: { paddingHorizontal: 18 },
-  hitem: { marginRight: 12 },
+  hlist: { paddingHorizontal: SPACING.page, gap: 13 },
+  hitem: { marginRight: 0 },
   emptyWrap: { padding: 24, alignItems: 'center' },
-  emptyText: { fontSize: 12.5, fontWeight: '500' },
+  emptyText: { fontSize: SCALE.small, fontWeight: '500' },
 });

@@ -13,7 +13,7 @@ import { WideCard } from '../components/StoryCard';
 import { SelectableChip } from '../components/bits';
 import { EmptyState } from '../components/states';
 import { Icon, ICON_SIZE } from '../components/icons';
-import { RADIUS, SPACING, TYPE, withAlpha } from '../theme';
+import { LAYOUT, RADIUS, SCALE, SPACING, TOUCH, TYPE, withAlpha } from '../theme';
 import { searchStories } from '../lib/search';
 
 type Props = BottomTabScreenProps<MainTabParamList, 'Discover'>;
@@ -52,16 +52,16 @@ export function Discover({ navigation, route }: Props) {
 
   return (
     <Screen padded={false}>
-      <View style={styles.header}>
-        <Text style={[styles.kicker, { color: theme.textFaint }]}>EXPLORE</Text>
+      <View style={[styles.header, styles.container]}>
+        <Text style={[styles.kicker, { color: theme.accent }]}>EXPLORE</Text>
         <Text style={[styles.title, { color: theme.text }]}>Find your next story</Text>
 
-        <View style={[styles.searchWrap, { backgroundColor: theme.surface, borderColor: theme.border }]}>
+        <View style={[styles.searchWrap, { backgroundColor: withAlpha(theme.surface2, 0.72), borderColor: theme.border }]}>
           <Icon name="search" size={ICON_SIZE.sm} color={theme.textFaint} />
           <TextInput
             value={query}
             onChangeText={setQuery}
-            placeholder="Search stories, characters…"
+            placeholder="Story, character or mood"
             placeholderTextColor={theme.textFaint}
             style={[styles.input, { color: theme.text }]}
             returnKeyType="search"
@@ -86,7 +86,7 @@ export function Discover({ navigation, route }: Props) {
         </View>
 
         <View style={[styles.divider, { backgroundColor: withAlpha(theme.border, 0.6) }]} />
-        <Text style={[styles.count, { color: theme.textFaint }]}>
+        <Text style={[styles.count, { color: theme.textDim }]}>
           {results.length} {results.length === 1 ? 'story' : 'stories'}
           {genre !== 'All' ? ` · ${genre}` : ''} {query ? `· “${query}”` : ''}
         </Text>
@@ -98,6 +98,7 @@ export function Discover({ navigation, route }: Props) {
         <FlatList
           onScroll={handleScroll}
           scrollEventThrottle={16}
+          style={styles.container}
           data={results}
           keyExtractor={(s) => s.id}
           contentContainerStyle={styles.list}
@@ -114,26 +115,27 @@ export function Discover({ navigation, route }: Props) {
 }
 
 const styles = StyleSheet.create({
-  header: { paddingHorizontal: 18, paddingTop: 8, gap: 6 },
-  kicker: { ...TYPE.tiny, letterSpacing: 1.2, fontWeight: '700' as const, marginTop: 4 },
-  title: { ...TYPE.title, marginTop: 2 },
+  container: { width: '100%', maxWidth: LAYOUT.contentMaxWidth + 120, alignSelf: 'center' },
+  header: { paddingHorizontal: SPACING.page, paddingTop: 8, gap: 6 },
+  kicker: { fontSize: SCALE.micro, letterSpacing: 1.4, fontWeight: '900' as const, marginTop: 4 },
+  title: { ...TYPE.displaySmall, marginTop: 2 },
   searchWrap: {
     flexDirection: 'row',
     alignItems: 'center',
     gap: 10,
     borderWidth: 1,
-    borderRadius: RADIUS.pill,
-    paddingHorizontal: 16,
-    paddingVertical: 5,
-    marginTop: 8,
+    borderRadius: RADIUS.md,
+    paddingHorizontal: 14,
+    minHeight: TOUCH.min,
+    marginTop: 10,
   },
-  input: { flex: 1, fontSize: 14, paddingVertical: 10 },
-  clearBtn: { width: 24, height: 24, borderRadius: 12, alignItems: 'center', justifyContent: 'center' },
-  genres: { marginTop: 12, marginHorizontal: -4 },
-  genresContent: { paddingRight: 18 },
-  sorts: { flexDirection: 'row', marginTop: 10 },
-  divider: { height: StyleSheet.hairlineWidth, marginTop: 14 },
-  count: { fontSize: 11, fontWeight: '600', letterSpacing: 0.2, marginTop: 8 },
-  list: { paddingHorizontal: 18, paddingTop: 12, gap: 12 },
+  input: { flex: 1, fontSize: 14.5, paddingVertical: 10 },
+  clearBtn: { width: 26, height: 26, borderRadius: 13, alignItems: 'center', justifyContent: 'center' },
+  genres: { marginTop: 14, marginHorizontal: -4 },
+  genresContent: { paddingRight: SPACING.page },
+  sorts: { flexDirection: 'row', marginTop: 8 },
+  divider: { height: StyleSheet.hairlineWidth, marginTop: 16 },
+  count: { fontSize: SCALE.caption, fontWeight: '700', letterSpacing: 0.2, marginTop: 9 },
+  list: { paddingHorizontal: SPACING.page, paddingTop: 12, gap: 12 },
   item: { marginBottom: 2 },
 });

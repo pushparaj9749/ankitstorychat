@@ -109,6 +109,36 @@ export const FONTS = {
   tiny: 11,
 };
 
+/**
+ * CANONICAL TYPE SCALE — every piece of text in the app uses one of these.
+ *
+ * Screens used to ship 24 different font sizes (8 → 52), which flattened the
+ * hierarchy: an 8.5px tagline read as loudly as a 15px description. Six steps
+ * keep the rhythm readable and give every screen the same vertical voice.
+ */
+export const SCALE = {
+  /** Uppercase, wide-tracked micro labels (kickers, badge text). */
+  micro: 11,
+  /** Metadata, timestamps, secondary chips. */
+  caption: 12,
+  /** Secondary labels inside cards. */
+  small: 13,
+  /** Primary body copy — never smaller than this. */
+  body: 15,
+  /** Section titles and card titles. */
+  title: 17,
+  /** Screen headlines. */
+  h2: 22,
+  /** Editorial display (hero titles, greetings). */
+  display: 26,
+} as const;
+
+/** Minimum comfortable touch target (Material/iOS guidance). */
+export const TOUCH = {
+  min: 44,
+  sm: 36,
+} as const;
+
 export const FADED_TEXT_OPACITY = 0.62;
 
 export function withAlpha(color: string, alpha: number): string {
@@ -193,12 +223,13 @@ export const TYPE = {
   small: { fontSize: 13, fontWeight: '500' as const, letterSpacing: 0.12, lineHeight: 18 },
   smallStrong: { fontSize: 13, fontWeight: '700' as const, letterSpacing: 0.15, lineHeight: 18 },
   tiny: { fontSize: 11, fontWeight: '600' as const, letterSpacing: 0.35, lineHeight: 14 },
-  caption: { fontSize: 10, fontWeight: '700' as const, letterSpacing: 0.7, lineHeight: 12 },
-  overline: { fontSize: 11, fontWeight: '800' as const, letterSpacing: 1.6, lineHeight: 14 },
+  caption: { fontSize: 12, fontWeight: '600' as const, letterSpacing: 0.5, lineHeight: 15 },
+  overline: { fontSize: 11, fontWeight: '800' as const, letterSpacing: 1.4, lineHeight: 14 },
   brand: { fontSize: 15, fontWeight: '900' as const, letterSpacing: 2.6, lineHeight: 18 },
-  heroTitle: { fontSize: 28, fontWeight: '800' as const, letterSpacing: -0.6, lineHeight: 32 },
-  chatNarration: { fontSize: 14, fontWeight: '500' as const, letterSpacing: 0.15, lineHeight: 21 },
-  chatDialogue: { fontSize: 15, fontWeight: '600' as const, letterSpacing: 0.05, lineHeight: 22 },
+  heroTitle: { fontSize: 26, fontWeight: '800' as const, letterSpacing: -0.6, lineHeight: 31 },
+  cardTitle: { fontSize: 17, fontWeight: '800' as const, letterSpacing: -0.3, lineHeight: 22 },
+  chatNarration: { fontSize: 15, fontWeight: '500' as const, letterSpacing: 0.15, lineHeight: 23 },
+  chatDialogue: { fontSize: 15.5, fontWeight: '600' as const, letterSpacing: 0.05, lineHeight: 23 },
 } as const;
 
 export const SHADOWS = {
