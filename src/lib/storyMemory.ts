@@ -321,6 +321,7 @@ export function createStoryMemoryEngine(store: StoryMemoryStore = createSqliteSt
           timeRange: query.timeRange,
           importance: query.importance,
           relationshipPair: query.relationshipPair ?? null,
+          currentSeq: query.currentSeq,
         },
       );
 
@@ -881,6 +882,8 @@ export interface RecallForPromptInput {
   playthrough: Playthrough;
   bundle: StoryBundle;
   query: string;
+  /** Reader's nickname/display name for Player replacement. */
+  playerName?: string;
   /** Characters present/known in the current scene (ids). */
   characters?: string[];
   location?: string | null;
@@ -902,6 +905,7 @@ export interface RecallForPromptResult {
  */
 export async function recallStoryMemoryForPrompt(input: RecallForPromptInput): Promise<RecallForPromptResult> {
   const engine = input.engine ?? getStoryMemoryEngine();
+  const currentSeq = input.currentSeq ?? input.playthrough.messageCount;
   const result = await engine.memorySearch({
     storyId: input.playthrough.storyId,
     playthroughId: input.playthrough.id,
@@ -911,13 +915,14 @@ export async function recallStoryMemoryForPrompt(input: RecallForPromptInput): P
     sceneId: input.playthrough.currentSceneId,
     limit: input.limit ?? 14,
     perspective: input.perspective ?? null,
+    currentSeq,
   });
   const nameOf = (id: string): string => {
-    if (id === PLAYER_ID) return 'Player';
+    if (id === PLAYER_ID) return input.playerName || (input.playthrough as any).playerName || 'Player';
     return input.bundle.characters.characters.find((c) => c.id === id)?.name ?? id;
   };
   const block = engine.buildContextBlock(result, {
-    currentSeq: input.currentSeq ?? Math.max(0, ...result.events.map((e) => e.seq)),
+    currentSeq: currentSeq ?? Math.max(0, ...result.events.map((e) => e.seq)),
     nameOf,
     charBudget: input.charBudget ?? 4200,
   });

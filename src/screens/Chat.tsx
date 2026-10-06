@@ -231,6 +231,7 @@ export function Chat({ navigation, route }: Props) {
         playthrough: pt,
         bundle: b,
         query,
+        playerName: profile?.nickname,
         characters: [...new Set([...sceneCharacters, ...mentioned])],
         location: wsForPrompt?.currentLocation ?? null,
         currentSeq: wsForPrompt?.episodeCount ?? pt.messageCount,

@@ -743,6 +743,8 @@ export interface StoryMemoryQuery {
   limit?: number;
   /** Character whose perspective the retrieval must respect. */
   perspective?: string | null;
+  /** Story sequence/turn count at query time, enabling turn-based recency. */
+  currentSeq?: number;
 }
 
 export interface StoryMemoryQueryResult {
