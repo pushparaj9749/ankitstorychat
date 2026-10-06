@@ -92,6 +92,10 @@ export const CONCEPT_LEXICON: Record<string, string> = {
   behan: 'c:family', behen: 'c:family', maa: 'c:family', baap: 'c:family', papa: 'c:family',
   mummy: 'c:family', family: 'c:family', parivaar: 'c:family', pariwar: 'c:family', ghar: 'c:family',
   beti: 'c:family', beta: 'c:family', chacha: 'c:family', chachi: 'c:family', bua: 'c:family',
+  saali: 'c:family', sali: 'c:family', sala: 'c:family', saala: 'c:family', jija: 'c:family',
+  jijaji: 'c:family', mama: 'c:family', mami: 'c:family', nana: 'c:family', nani: 'c:family',
+  dada: 'c:family', dadi: 'c:family', bhanja: 'c:family', bhanji: 'c:family', bahu: 'c:family',
+  damad: 'c:family',
   // places / travel
   gaya: 'c:travel', gayi: 'c:travel', pahuncha: 'c:travel', pahunchi: 'c:travel', reached: 'c:travel',
   travel: 'c:travel', travelled: 'c:travel', returned: 'c:travel', wapas: 'c:travel', laut: 'c:travel',
@@ -102,21 +106,33 @@ export const CONCEPT_LEXICON: Record<string, string> = {
   anguthi: 'c:ring', ring: 'c:ring', haar: 'c:jewel', necklace: 'c:jewel', locket: 'c:jewel',
   chabi: 'c:key', key: 'c:key', taala: 'c:key', taalaa: 'c:key',
   paisa: 'c:money', money: 'c:money', peso: 'c:money', cash: 'c:money', karz: 'c:money', debt: 'c:money',
-  // story mechanics
+  // story mechanics & extended Hinglish
   kaam: 'c:task', task: 'c:task', mission: 'c:task', plan: 'c:task', planning: 'c:task',
   khoon: 'c:crime', crime: 'c:crime', chor: 'c:crime', thief: 'c:crime', police: 'c:crime',
   inspector: 'c:crime', case: 'c:crime', investigation: 'c:crime', jaanch: 'c:crime',
+  jalan: 'c:enmity', jalna: 'c:enmity', jealous: 'c:enmity', jealousy: 'c:enmity',
+  pachtawa: 'c:apology', pachtana: 'c:apology', regret: 'c:apology', sharm: 'c:emotional',
+  sharminda: 'c:emotional', ashamed: 'c:emotional', ehsaas: 'c:emotional', khauf: 'c:fear',
+  ghabrahat: 'c:fear', ghabraya: 'c:fear', dhokhebaj: 'c:betrayal', dhokhebaaz: 'c:betrayal',
+  fareb: 'c:betrayal', farebi: 'c:betrayal', dagabaaz: 'c:betrayal', chalbaaz: 'c:betrayal',
+  makkar: 'c:betrayal', gadari: 'c:betrayal', irada: 'c:decision', iraada: 'c:decision',
+  qubool: 'c:decision', qubool_hai: 'c:decision', manzoor: 'c:decision', inqaar: 'c:decision',
+  thukraya: 'c:decision', bhed: 'c:secret', bhaandafod: 'c:revelation', pakda: 'c:discovery',
+  pakdi: 'c:discovery', range_haath: 'c:discovery', mohbat: 'c:romance', shadii: 'c:wedding',
+  mangetar: 'c:engagement', humsafar: 'c:romance', mehboob: 'c:romance', deewana: 'c:romance',
+  deewani: 'c:romance',
 };
 
 /** Concept tags for hinge words (multi-word phrases handled separately). */
 const PHRASE_CONCEPTS: [RegExp, string][] = [
-  [/\bchali gayi\b|\bchala gaya\b|\bnikal gaya\b/i, 'c:separation'],
+  [/\bchali gayi\b|\bchala gaya\b|\bnikal gaya\b|\bchhod diya\b|\bchhod di\b|\bdoor ho gay(?:a|i|e)\b/i, 'c:separation'],
   [/\bshaadi kar(?:i|li|na|ni)\b|\bmarry kar/i, 'c:wedding'],
   [/\bmaafi maang|\bmaafi di|\bmaafi mil/i, 'c:apology'],
-  [/\bwaada kiya\b|\bwaada toda\b|\bpromise kiya\b|\bpromise toda\b/i, 'c:promise'],
-  [/\bpata chal(?:a|i)\b|\bpata laga\b/i, 'c:discovery'],
+  [/\bwaada kiya\b|\bwaada toda\b|\bpromise kiya\b|\bpromise toda\b|\bkasam kha(?:i|yi)\b|\bkasam tod(?:i|a)\b/i, 'c:promise'],
+  [/\bpata chal(?:a|i)\b|\bpata laga\b|\bpakda gaya\b|\bpakdi gayi\b|\brange haath\b/i, 'c:discovery'],
   [/\bmaar diya\b|\bmar gaya\b|\bmar gayi\b|\bqatl kar/i, 'c:death'],
-  [/\braaz khola\b|\braaz khul(?:a|i)\b|\bsach bata(?:ya|di)\b/i, 'c:revelation'],
+  [/\braaz khola\b|\braaz khul(?:a|i)\b|\bsach bata(?:ya|di)\b|\bsach saamne aa gaya\b/i, 'c:revelation'],
+  [/\bmana kar diya\b|\bmana kiya\b|\binqaar kar diya\b/i, 'c:decision'],
 ];
 
 /** Adds canonical concept tokens to a text's keyword list. */
@@ -406,6 +422,27 @@ export interface RelationshipSignal {
   explicit: boolean;
 }
 
+const HYPOTHETICAL_RE = /\b(?:agar|kash|kaash|suppose|mazak|joke|joking|prank)\b/i;
+
+function isStatusNegated(text: string, statusHit: { status: string; re: RegExp }): boolean {
+  const m = text.match(statusHit.re);
+  if (!m || m.index === undefined) return false;
+  const statusWord = m[0];
+  const start = Math.max(0, m.index - 35);
+  const end = Math.min(text.length, m.index + statusWord.length + 35);
+  const surrounding = text.slice(start, end);
+
+  if (/\b(?:mana|inqaar|refus)\b/i.test(surrounding)) return true;
+  const directNegation = new RegExp(
+    `(?:\\b(?:nahi|nahin|mat|kabhi nahi)\\s+(?:kar[a-z]*|hona|hogi|hoga|hue|hui|hai|tha|thi)?\\s*${statusWord}|${statusWord}\\s+(?:[\\w]+\\s+){0,3}(?:nahi|nahin|mat|tod[a-z]*|khatam)\\b)`,
+    'i',
+  );
+  if (directNegation.test(surrounding)) return true;
+  if (new RegExp(`\\b${statusWord}\\s+(?:bhi\\s+)?(?:nahi|nahin|mat)\\b`, 'i').test(surrounding)) return true;
+  if (new RegExp(`\\b(?:nahi|nahin|mat)\\s+(?:hai\\s+)?${statusWord}\\b`, 'i').test(surrounding)) return true;
+  return false;
+}
+
 /**
  * Detect "X and Y are now <status>" style statements.
  * Story-agnostic: it only needs the relationship VOCABULARY, never a story id.
@@ -418,6 +455,14 @@ export function detectRelationshipSignal(
   const text = statement || '';
   const hit = STATUS_LEXICON.find((s) => s.re.test(text));
   if (!hit) return null;
+
+  // Negation & hypothetical guard: do not accept a positive relationship when
+  // the status itself is negated ("shaadi nahi hui") or hypothetical ("agar shaadi kar lein").
+  if (hit.tier > 0) {
+    if (isStatusNegated(text, hit) || HYPOTHETICAL_RE.test(text)) return null;
+  } else if (hit.tier < 0) {
+    if (isStatusNegated(text, hit)) return null;
+  }
 
   // Who does this status belong to? Prefer a named character other than the
   // player; the reader is the MC, so "meri shaadi Poonam se hui" resolves too.
@@ -835,6 +880,10 @@ export interface RankOptions {
   halfLifeDays?: number;
   /** Weight multiplier for recency (history questions lower it). */
   recencyWeight?: number;
+  /** Current turn sequence in the story for turn-based recency. */
+  currentSeq?: number;
+  /** Half-life in story turns (default 35 turns). */
+  halfLifeTurns?: number;
 }
 
 /** Semantic (concept + token + trigram) overlap between a query and keywords. */
@@ -846,16 +895,14 @@ export function semanticOverlap(query: QueryProfileV2, keywords: string[], text:
     if (kw.has(t)) score += 1 + Math.min(1, Math.max(0, (t.length - 4) / 3));
   }
   for (const c of query.concepts) if (kw.has(c)) score += 2.2;
-  // Trigram fallback for spelling drift (bounded: only when there was some signal).
-  if (score > 0) {
-    for (const k of kw) {
-      if (k.length < 5) continue;
-      if (query.tokens.has(k)) continue;
-      for (const t of query.tokens) {
-        if (t.length >= 5 && trigramSimilarity(t, k) >= 0.6) {
-          score += 0.6;
-          break;
-        }
+  // Trigram fallback for spelling drift — evaluated even when exact token score is 0
+  for (const k of kw) {
+    if (k.length < 4) continue;
+    if (query.tokens.has(k)) continue;
+    for (const t of query.tokens) {
+      if (t.length >= 4 && trigramSimilarity(t, k) >= 0.48) {
+        score += 0.8;
+        break;
       }
     }
   }
@@ -888,9 +935,22 @@ export function scoreEvent(
   }
   if (query.eventTypes.length && query.eventTypes.includes(e.type)) score += 3;
   score += e.importance * 2;
-  score += recencyWeightOf(e.occurredAt, nowMs, halfLife, recencyWeight);
-  if (e.status === 'active' && (e.type === 'promise' || e.type === 'task' || e.type === 'secret')) score += 2.5;
-  if (query.wantsUnresolved && e.status === 'active') score += 2;
+
+  // Turn-based decay when currentSeq is available (preferred for turn-based story chat);
+  // falls back to calendar wall-clock decay if sequence is unavailable.
+  if (opts.currentSeq !== undefined && opts.currentSeq > 0 && e.seq !== undefined && e.seq >= 0) {
+    const deltaTurns = Math.max(0, opts.currentSeq - e.seq);
+    const turnHalfLife = opts.halfLifeTurns ?? (query.historyIntent ? 90 : 35);
+    score += recencyWeight * Math.pow(0.5, deltaTurns / turnHalfLife);
+  } else {
+    score += recencyWeightOf(e.occurredAt, nowMs, halfLife, recencyWeight);
+  }
+
+  // Permanent canon / major milestones (importance >= 4) never decay into obscurity
+  if (e.importance >= 4) score += 3.5;
+
+  if (e.status === 'active' && (e.type === 'promise' || e.type === 'task' || e.type === 'secret')) score += 3.0;
+  if (query.wantsUnresolved && e.status === 'active') score += 2.5;
   if (e.status === 'superseded') score -= 4;
   if (e.confidence === 'high') score += 1.2;
   else if (e.confidence === 'low') score -= 1.2;
@@ -1012,6 +1072,7 @@ export interface RetrieveOptions {
   importance?: MemoryImportanceLabel[];
   relationshipPair?: string | null;
   nowMs?: number;
+  currentSeq?: number;
 }
 
 export interface RankedArchive {
@@ -1052,7 +1113,7 @@ export function rankArchive(
 
   const scored: { e: StoryEventRecord; score: number }[] = [];
   for (const e of events) {
-    let score = scoreEvent(e, profile, { nowMs: opts.nowMs });
+    let score = scoreEvent(e, profile, { nowMs: opts.nowMs, currentSeq: opts.currentSeq });
     if (plan.eventIds.has(e.id)) score += 5;
     if (opts.relationshipPair && e.pairKeys.includes(opts.relationshipPair)) score += 6;
     if (score > 0.5) scored.push({ e, score });
@@ -1292,7 +1353,8 @@ export function renderMemoryBlock(input: RenderInput): string {
       const when = timelineLabel(e, input.currentSeq);
       const who = e.participants.length ? ` [${e.participants.map(nameOf).join(', ')}]` : '';
       const place = e.location ? ` @ ${e.location}` : '';
-      push(`- #${e.seq} (${when}) ${e.type}: ${e.summary}${who}${place} [${e.importanceLabel}, ${e.confidence}]`);
+      const canonTag = e.importance >= 4 ? ', PERMANENT CANON' : '';
+      push(`- #${e.seq} (${when}) ${e.type}: ${e.summary}${who}${place} [${e.importanceLabel}${canonTag}, ${e.confidence}]`);
     }
   }
 
