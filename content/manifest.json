@@ -1,7 +1,7 @@
 {
-  "contentVersion": 36,
+  "contentVersion": 37,
   "minAppVersion": "1.0.0",
-  "updatedAt": "2026-10-06T01:50:15Z",
+  "updatedAt": "2026-10-06T10:45:00Z",
   "stories": [
     {
       "id": "arranged-marriage-wala-love",
@@ -1996,6 +1996,441 @@
         "avatar": null,
         "verified": true
       }
+    },
+    {
+      "id": "mere-ghar-ki-sabse-badi-paheli",
+      "title": "Mere Ghar Ki Sabse Badi Paheli",
+      "tagline": "Woh kehti hai tumse koi farq nahi padta—phir tumhari har aadat usse yaad kyun hai?",
+      "description": "Ghar ka dependable beta {{playerName}} apni routine aur apni jagah ka aadi hai. Phir family circumstances Riya ko kuch waqt ke liye isi ghar ki rozmarra zindagi ka hissa bana dete hain. Woh uski snacks churaati hai, uski seat le leti hai aur har baat par behas karti hai—jaise usse {{playerName}} se koi farq hi na padta ho. Uski chhoti-chhoti contradictions ek narm psychological mystery ban jaati hain: use attention kyun chahiye, aur woh apni parwah ko mazaak mein kyun chhupaati hai? Rishta player ke har jawab se badalta hai; koi tay confession ya ending nahi.",
+      "genres": [
+        "Psychological Romance",
+        "Mystery",
+        "Slice of Life"
+      ],
+      "tags": [
+        "psychological-romance",
+        "mystery",
+        "slice-of-life",
+        "player-agency",
+        "dynamic-continuous",
+        "ongoing",
+        "hinglish"
+      ],
+      "characters": [
+        "Riya",
+        "Shalini"
+      ],
+      "ageRating": "18+",
+      "contentLevel": "mature",
+      "language": "hinglish",
+      "version": 1,
+      "coverUrl": "stories/mere-ghar-ki-sabse-badi-paheli/assets/cover.jpg",
+      "accentColor": "#B86B62",
+      "userRole": "{{playerName}} — an adult Indian man aged 18–19, controlled exclusively by the player. The player supplies his display name at runtime. Never assign him a fixed name, private thought, feeling, dialogue, action, consent, relationship choice or future.",
+      "setting": "Present-day Jaipur, India: {{playerName}} ka family home, living room, shared kitchen, balcony, nearby market aur Riya ke classes tak jaane wali galiyan.",
+      "estimatedMinutes": 45,
+      "featured": false,
+      "isNew": true,
+      "popularity": 95,
+      "storyDir": "mere-ghar-ki-sabse-badi-paheli",
+      "creator": {
+        "name": "Ankit",
+        "avatar": null,
+        "verified": true
+      },
+      "updatedAt": "2026-10-06T10:45:00Z"
+    },
+    {
+      "id": "woh-ladki-jo-mujhe-bhoolti-hi-nahi",
+      "title": "Woh Ladki Jo Mujhe Bhoolti Hi Nahi",
+      "tagline": "Meera tumhari chhoti baatein yaad rakhti hai—par yaad rakhna aur samajhna ek hi baat nahi.",
+      "description": "Ek chhote local café mein {{playerName}} ki mulaqat Meera se hoti hai. Woh cheerful, independent aur achhi listener hai; kuch meetings ke baad use {{playerName}} ki favourite chai, mood ke chhote badlaav aur woh aadatein yaad rehti hain jinhe woh khud bhool chuka hai. Pehle yeh warmth lagti hai, phir ek narm mystery: itni gehri attention healthy closeness kab hoti hai, aur kab overwhelming? Meera koi shuruati obsession nahi—uski attachment aur boundaries dono player ke interactions ke saath viksit hote hain.",
+      "genres": [
+        "Romance",
+        "Mystery",
+        "Psychological Drama"
+      ],
+      "tags": [
+        "romance",
+        "mystery",
+        "psychological-drama",
+        "player-agency",
+        "dynamic-continuous",
+        "ongoing",
+        "hinglish"
+      ],
+      "characters": [
+        "Meera",
+        "Nandita"
+      ],
+      "ageRating": "18+",
+      "contentLevel": "mature",
+      "language": "hinglish",
+      "version": 1,
+      "coverUrl": "stories/woh-ladki-jo-mujhe-bhoolti-hi-nahi/assets/cover.jpg",
+      "accentColor": "#477F86",
+      "userRole": "{{playerName}} — an adult Indian man aged 19–20, controlled exclusively by the player. The player supplies his display name at runtime. Never assign him a fixed name, private thought, feeling, dialogue, action, consent, relationship choice or future.",
+      "setting": "Present-day Indore, India: Gulmohar Corner Café, a nearby bookshop, college-adjacent streets, a community photo exhibit and ordinary city buses.",
+      "estimatedMinutes": 45,
+      "featured": false,
+      "isNew": true,
+      "popularity": 93,
+      "storyDir": "woh-ladki-jo-mujhe-bhoolti-hi-nahi",
+      "creator": {
+        "name": "Ankit",
+        "avatar": null,
+        "verified": true
+      },
+      "updatedAt": "2026-10-06T10:45:00Z"
+    },
+    {
+      "id": "meri-fake-girlfriend",
+      "title": "Meri Fake Girlfriend",
+      "tagline": "No real feelings. No jealousy. No attachment. Anaya ki list mein teesra rule sabse mushkil hai.",
+      "description": "Ek chhoti social mushkil se bachne ke liye {{playerName}} aur Anaya ek shaam ke liye couple banne ka natak karne par razi hote hain. Rules saaf hain: feelings nahi, jealousy nahi, attachment nahi. Anaya har baar kehti hai ki sab acting hai, lekin woh fake relationship ki details yaad rakhti hai aur ending ke mazaak par zyada der chup ho jaati hai. Kya yeh dosti, comedy ya kuch aur banega—yeh player ke choices par hai; koi instant romance ya fixed outcome nahi.",
+      "genres": [
+        "Romantic Comedy",
+        "Slow Burn",
+        "Drama"
+      ],
+      "tags": [
+        "romantic-comedy",
+        "slow-burn",
+        "drama",
+        "player-agency",
+        "dynamic-continuous",
+        "ongoing",
+        "hinglish"
+      ],
+      "characters": [
+        "Anaya",
+        "Nisha"
+      ],
+      "ageRating": "18+",
+      "contentLevel": "mature",
+      "language": "hinglish",
+      "version": 1,
+      "coverUrl": "stories/meri-fake-girlfriend/assets/cover.jpg",
+      "accentColor": "#CB6D8A",
+      "userRole": "{{playerName}} — an adult Indian man aged 18–19, controlled exclusively by the player. The player supplies his display name at runtime. Never assign him a fixed name, private thought, feeling, dialogue, action, consent, relationship choice or future.",
+      "setting": "Present-day Lucknow: a college alumni fundraiser, neighborhood cafés, a riverside walkway, a rehearsal room and both characters’ independent routines.",
+      "estimatedMinutes": 45,
+      "featured": false,
+      "isNew": true,
+      "popularity": 96,
+      "storyDir": "meri-fake-girlfriend",
+      "creator": {
+        "name": "Ankit",
+        "avatar": null,
+        "verified": true
+      },
+      "updatedAt": "2026-10-06T10:45:00Z"
+    },
+    {
+      "id": "nayi-padosan-purani-paheli",
+      "title": "Nayi Padosan, Purani Paheli",
+      "tagline": "Tara tumhare lautne ka waqt kaise jaan leti hai—aur kya yeh bas pados ki aadat hai?",
+      "description": "Ek family khaali ghar mein aati hai aur {{playerName}} ki mulaqat unki beti Tara se hoti hai. Dono pehle ajnabi, phir padosi aur dheere-dheere dost bante hain. Tara ka ek ajeeb sa pattern hai: {{playerName}} kahin se der baad laut-ta hai, toh woh aksar usi waqt gate ke paas hoti hai. Chhote clues daily life mein ghule rehte hain; mystery subtle hai, romance unke shared experiences se hi badhta hai.",
+      "genres": [
+        "Slice of Life",
+        "Mystery",
+        "Slow-Burn Romance"
+      ],
+      "tags": [
+        "slice-of-life",
+        "mystery",
+        "slow-burn-romance",
+        "player-agency",
+        "dynamic-continuous",
+        "ongoing",
+        "hinglish"
+      ],
+      "characters": [
+        "Tara",
+        "Mrs. Rao"
+      ],
+      "ageRating": "18+",
+      "contentLevel": "mature",
+      "language": "hinglish",
+      "version": 1,
+      "coverUrl": "stories/nayi-padosan-purani-paheli/assets/cover.jpg",
+      "accentColor": "#6B8B78",
+      "userRole": "{{playerName}} — an adult Indian man aged 18–19, controlled exclusively by the player. The player supplies his display name at runtime. Never assign him a fixed name, private thought, feeling, dialogue, action, consent, relationship choice or future.",
+      "setting": "Present-day Mysuru: two neighboring homes on a quiet tree-lined lane, a shared garden wall, local bakery, bus stop, bookshop and community park.",
+      "estimatedMinutes": 45,
+      "featured": false,
+      "isNew": true,
+      "popularity": 90,
+      "storyDir": "nayi-padosan-purani-paheli",
+      "creator": {
+        "name": "Ankit",
+        "avatar": null,
+        "verified": true
+      },
+      "updatedAt": "2026-10-06T10:45:00Z"
+    },
+    {
+      "id": "uski-muskaan-ke-peeche",
+      "title": "Uski Muskaan Ke Peeche",
+      "tagline": "Sana sabko hasaati hai. Uski khamoshi ko sunne ke liye use bachana nahi, bas samajhna hoga.",
+      "description": "Sana ki jokes se doston ki mehfil chalti rehti hai, lekin jab {{playerName}} use akela dekhta hai toh uski muskaan dheemi pad jaati hai. Woh koi raaz turant nahi batati aur na hi {{playerName}} par nirbhar hoti hai. Trust chhoti, sachchi conversations se banta hai: Sana kab, kitna aur kis tarah apni emotional duniya kholti hai, aur {{playerName}} ka jawab kya hota hai—yeh sab player ke control mein hai. Ishq dheere aur naturally badhega.",
+      "genres": [
+        "Romance",
+        "Emotional Mystery",
+        "Drama"
+      ],
+      "tags": [
+        "romance",
+        "emotional-mystery",
+        "drama",
+        "player-agency",
+        "dynamic-continuous",
+        "ongoing",
+        "hinglish"
+      ],
+      "characters": [
+        "Sana",
+        "Faiza"
+      ],
+      "ageRating": "18+",
+      "contentLevel": "mature",
+      "language": "hinglish",
+      "version": 1,
+      "coverUrl": "stories/uski-muskaan-ke-peeche/assets/cover.jpg",
+      "accentColor": "#E58B57",
+      "userRole": "{{playerName}} — an adult Indian man aged 19–20, controlled exclusively by the player. The player supplies his display name at runtime. Never assign him a fixed name, private thought, feeling, dialogue, action, consent, relationship choice or future.",
+      "setting": "Present-day Ahmedabad: a community reading room, old-city food lane, bus stop, a rooftop with laundry lines and Sana’s independent graphic-design course.",
+      "estimatedMinutes": 45,
+      "featured": false,
+      "isNew": true,
+      "popularity": 91,
+      "storyDir": "uski-muskaan-ke-peeche",
+      "creator": {
+        "name": "Ankit",
+        "avatar": null,
+        "verified": true
+      },
+      "updatedAt": "2026-10-06T10:45:00Z"
+    },
+    {
+      "id": "meri-rival",
+      "title": "Meri Rival",
+      "tagline": "Ira kehti hai usse sirf jeetna pasand hai. Phir tumhari haar par woh itni pareshaan kyun hoti hai?",
+      "description": "Ira aur {{playerName}} school se hi marks, quizzes, competitions aur problem-solving mein ek doosre ko challenge karte aaye hain. Dono haarna pasand nahi karte; aas-paas ke log ise nafrat samajhte hain. Ab ek naya neighborhood challenge unhe phir saath laata hai. Ira ki speech sharp, competitive aur kabhi-kabhi unexpectedly protective hai. Rivalry ke neeche kya hai, yeh player ke experience se khulta hai—koi automatic romance nahi.",
+      "genres": [
+        "Romance",
+        "Competition",
+        "Comedy",
+        "Slow Burn"
+      ],
+      "tags": [
+        "romance",
+        "competition",
+        "comedy",
+        "slow-burn",
+        "player-agency",
+        "dynamic-continuous",
+        "ongoing",
+        "hinglish"
+      ],
+      "characters": [
+        "Ira",
+        "Kabir"
+      ],
+      "ageRating": "18+",
+      "contentLevel": "mature",
+      "language": "hinglish",
+      "version": 1,
+      "coverUrl": "stories/meri-rival/assets/cover.jpg",
+      "accentColor": "#6679B5",
+      "userRole": "{{playerName}} — an adult Indian man aged 18–19, controlled exclusively by the player. The player supplies his display name at runtime. Never assign him a fixed name, private thought, feeling, dialogue, action, consent, relationship choice or future.",
+      "setting": "Present-day Pune: a public library’s inter-college puzzle night, a campus courtyard, local café, walking track and an old school notice board.",
+      "estimatedMinutes": 45,
+      "featured": false,
+      "isNew": true,
+      "popularity": 92,
+      "storyDir": "meri-rival",
+      "creator": {
+        "name": "Ankit",
+        "avatar": null,
+        "verified": true
+      },
+      "updatedAt": "2026-10-06T10:45:00Z"
+    },
+    {
+      "id": "woh-shaadi-jisme-main-mehmaan-tha",
+      "title": "Woh Shaadi Jisme Main Mehmaan Tha",
+      "tagline": "Kai shaadi ke functions, ek nayi dosti—aur Kavya ko tumhare parivaar ki ek purani baat kaise pata?",
+      "description": "{{playerName}} ek bade Indian family wedding mein mehmaan hai. Wahan uski mulaqat Kavya se hoti hai—pehle casual greetings, phir repeated run-ins, personal jokes aur lambe conversations. Kavya ko {{playerName}} ke ghar ki ek chhoti, kabhi share na ki gayi family detail pata hai; iska jawab wedding ke rishton, yaadon aur kisi ke bataye ek purane kisse mein ho sakta hai. Mystery secondary rahegi; kahani ka dil do logon ke beech badhti hui jaan-pehchaan hai.",
+      "genres": [
+        "Romance",
+        "Family Drama",
+        "Mystery"
+      ],
+      "tags": [
+        "romance",
+        "family-drama",
+        "mystery",
+        "player-agency",
+        "dynamic-continuous",
+        "ongoing",
+        "hinglish"
+      ],
+      "characters": [
+        "Kavya",
+        "Nisha"
+      ],
+      "ageRating": "18+",
+      "contentLevel": "mature",
+      "language": "hinglish",
+      "version": 1,
+      "coverUrl": "stories/woh-shaadi-jisme-main-mehmaan-tha/assets/cover.jpg",
+      "accentColor": "#9D6C9D",
+      "userRole": "{{playerName}} — an adult Indian man aged 19–20, controlled exclusively by the player. The player supplies his display name at runtime. Never assign him a fixed name, private thought, feeling, dialogue, action, consent, relationship choice or future.",
+      "setting": "Present-day Udaipur: a family wedding across a haveli courtyard, mehendi tent, lakeside hotel terrace, flower market and shared shuttle rides.",
+      "estimatedMinutes": 45,
+      "featured": false,
+      "isNew": true,
+      "popularity": 90,
+      "storyDir": "woh-shaadi-jisme-main-mehmaan-tha",
+      "creator": {
+        "name": "Ankit",
+        "avatar": null,
+        "verified": true
+      },
+      "updatedAt": "2026-10-06T10:45:00Z"
+    },
+    {
+      "id": "mujhe-tumse-nafrat-hai",
+      "title": "Mujhe Tumse Nafrat Hai",
+      "tagline": "Kiara kehti hai “Mujhe tumse nafrat hai”—aur abhi ke liye woh shayad sach mein naraz hai.",
+      "description": "{{playerName}} aur Kiara ki har mulaqat behas mein badal jaati hai. Dono competitions bana lete hain, dono doosre ki baat ka jawab taiyaar rakhte hain, aur Kiara aksar kehti hai: “Mujhe tumse nafrat hai.” Shuruat mein yeh secret love nahi—Kiara ke paas asli disagreements aur apni boundaries hain. Kabhi woh {{playerName}} ki kami notice karegi ya uske liye stand legi, magar Ishq sirf actual interaction se badhega. Player chunta hai ki dushmani wahi rahe ya badle.",
+      "genres": [
+        "Enemies-to-Lovers",
+        "Romance",
+        "Drama"
+      ],
+      "tags": [
+        "enemies-to-lovers",
+        "romance",
+        "drama",
+        "player-agency",
+        "dynamic-continuous",
+        "ongoing",
+        "hinglish"
+      ],
+      "characters": [
+        "Kiara",
+        "Arjun"
+      ],
+      "ageRating": "18+",
+      "contentLevel": "mature",
+      "language": "hinglish",
+      "version": 1,
+      "coverUrl": "stories/mujhe-tumse-nafrat-hai/assets/cover.jpg",
+      "accentColor": "#9A4D60",
+      "userRole": "{{playerName}} — an adult Indian man aged 19–20, controlled exclusively by the player. The player supplies his display name at runtime. Never assign him a fixed name, private thought, feeling, dialogue, action, consent, relationship choice or future.",
+      "setting": "Present-day Delhi: a neighborhood community center, shared study room, rooftop garden, metro-side café and a local volunteer project.",
+      "estimatedMinutes": 45,
+      "featured": false,
+      "isNew": true,
+      "popularity": 94,
+      "storyDir": "mujhe-tumse-nafrat-hai",
+      "creator": {
+        "name": "Ankit",
+        "avatar": null,
+        "verified": true
+      },
+      "updatedAt": "2026-10-06T10:45:00Z"
+    },
+    {
+      "id": "woh-jo-hamesha-mere-saath-thi",
+      "title": "Woh Jo Hamesha Mere Saath Thi",
+      "tagline": "Aashi tumhari har aadat jaanti hai. Jo baat woh nahi kehti, use kehne ki majboori bhi nahi.",
+      "description": "{{playerName}} aur Aashi bachpan se close friends hain—pados ki gali, shared homework, purane inside jokes aur ek-doosre ke mood ki pehchaan. Aashi mazaak karti hai, argue karti hai aur uski madad karti hai, jaise hamesha. Uski feelings zyada complicated hain, magar woh unhe jokes ke peeche chhupaati hai. Koi forced confession nahi: player tay karta hai ki dosti kaise badalti hai, ya wahi rehti hai.",
+      "genres": [
+        "Childhood Friendship",
+        "Slow-Burn Romance",
+        "Emotional Drama"
+      ],
+      "tags": [
+        "childhood-friendship",
+        "slow-burn-romance",
+        "emotional-drama",
+        "player-agency",
+        "dynamic-continuous",
+        "ongoing",
+        "hinglish"
+      ],
+      "characters": [
+        "Aashi",
+        "Manju Aunty"
+      ],
+      "ageRating": "18+",
+      "contentLevel": "mature",
+      "language": "hinglish",
+      "version": 1,
+      "coverUrl": "stories/woh-jo-hamesha-mere-saath-thi/assets/cover.jpg",
+      "accentColor": "#C97486",
+      "userRole": "{{playerName}} — an adult Indian man aged 18–19, controlled exclusively by the player. The player supplies his display name at runtime. Never assign him a fixed name, private thought, feeling, dialogue, action, consent, relationship choice or future.",
+      "setting": "Present-day Bhopal: a neighborhood bus stop, the old gulmohar lane where they grew up, a small chai stall, college streets and a family rooftop.",
+      "estimatedMinutes": 45,
+      "featured": false,
+      "isNew": true,
+      "popularity": 97,
+      "storyDir": "woh-jo-hamesha-mere-saath-thi",
+      "creator": {
+        "name": "Ankit",
+        "avatar": null,
+        "verified": true
+      },
+      "updatedAt": "2026-10-06T10:45:00Z"
+    },
+    {
+      "id": "bhaiya-ki-saali",
+      "title": "Bhaiya Ki Saali",
+      "tagline": "Neela tumhari seat, snacks aur ab tumhara kamra le chuki hai—tumhara reaction ab bhi usse matter nahi karta, right?",
+      "description": "Dev ka chhota bhai {{playerName}} ghar ka beloved, dependable member aur apne room ka aadi hai. Phir Dev ki wife Sakshi ki younger sister Neela ghar aati hai. Cute, confident, mischievous aur witty Neela uski cheezein leti hai, chhoti baaton par argue karti hai aur use chidhati hai—jaise {{playerName}} se koi farq hi na padta ho. Uske peeche ki attachment dheere, player-led interactions se viksit hoti hai. {{playerName}} aur Neela biological siblings nahi hain. Bond aur Ishq alag, persistent aur non-random hain; koi forced confession ya ending nahi.",
+      "genres": [
+        "Slice of Life",
+        "Family Drama",
+        "Slow-Burn Romance",
+        "Emotional Relationship"
+      ],
+      "tags": [
+        "slice-of-life",
+        "family-drama",
+        "slow-burn-romance",
+        "emotional-relationship",
+        "player-agency",
+        "dynamic-continuous",
+        "ongoing",
+        "hinglish"
+      ],
+      "characters": [
+        "Neela",
+        "Dev",
+        "Sakshi"
+      ],
+      "ageRating": "18+",
+      "contentLevel": "mature",
+      "language": "hinglish",
+      "version": 1,
+      "coverUrl": "stories/bhaiya-ki-saali/assets/cover.jpg",
+      "accentColor": "#A66B91",
+      "userRole": "{{playerName}} — an adult Indian man aged 18–19, controlled exclusively by the player. The player supplies his display name at runtime. Never assign him a fixed name, private thought, feeling, dialogue, action, consent, relationship choice or future.",
+      "setting": "Present-day Lucknow: Dev and Sakshi’s warm family home, front gate, shared living room, kitchen, veranda and nearby neighborhood shops. Neela has her own sleeping space; personal boundaries and privacy are respected.",
+      "estimatedMinutes": 45,
+      "featured": false,
+      "isNew": true,
+      "popularity": 99,
+      "storyDir": "bhaiya-ki-saali",
+      "creator": {
+        "name": "Ankit",
+        "avatar": null,
+        "verified": true
+      },
+      "updatedAt": "2026-10-06T10:45:00Z"
     }
   ]
 }

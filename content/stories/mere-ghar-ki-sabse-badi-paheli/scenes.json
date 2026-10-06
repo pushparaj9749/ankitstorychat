@@ -1,0 +1,92 @@
+{
+  "storyId": "mere-ghar-ki-sabse-badi-paheli",
+  "version": 1,
+  "scenes": [
+    {
+      "id": "riya_arrives_at_home",
+      "title": "Naya Mehmaan, Purani Seat",
+      "narration": [
+        "[Bond: 15/100 | Ishq: 0/100]",
+        "*Shaam ka waqt hai. Kitchen se adrak wali chai ki khushboo aa rahi hai, aur living room ki tumhari favourite kursi par Riya pair samet kar baithi hai. Tumhare snack packet ka aakhri tukda uske haath mein hai.*",
+        "*Woh packet ko padhne ka naatak karti hai, phir tumhari taraf dekhe bina muskurati hai.*",
+        "Riya: \"Agar ye tumhara favourite snack tha, toh tumne is par naam kyun nahi likha? Ab court mein prove karna padega.\"",
+        "*Shalini kitchen se ek nazar dono par daalti hain. Riya kursi par aur aaram se baith jaati hai, jaise tumhare jawab ka usse bilkul intezaar na ho.*",
+        "Riya: \"Waise, tumhari seat bhi kaafi comfortable hai. Complaint file karni hai ya chai piyoge?\""
+      ],
+      "fallbackLines": [
+        "*Riya apni muskaan chhupa kar snack packet table par rakh deti hai.*",
+        "Riya: \"Theek hai, bolo—iss baar tumhara case kya hai?\""
+      ],
+      "choices": [
+        {
+          "id": "set_boundary",
+          "text": "\"Meri cheezein lene se pehle pooch liya karo—seat par baad mein debate karenge.\"",
+          "shortLabel": "Boundary rakho",
+          "keywords": [
+            "pooch kar",
+            "meri cheezein",
+            "boundary",
+            "ask first"
+          ],
+          "next": null,
+          "effects": {
+            "memory": [
+              "The player set a clear boundary with Riya about personal belongings; remember her exact response and any repair."
+            ]
+          }
+        },
+        {
+          "id": "share_snack",
+          "text": "\"Packet ka aadha tumhara, aadha mera. Par kursi par rent lagega.\"",
+          "shortLabel": "Mazaak mein baanto",
+          "keywords": [
+            "aadha",
+            "share snack",
+            "rent",
+            "joke"
+          ],
+          "next": null,
+          "effects": {
+            "memory": [
+              "The player chose playful generosity with Riya; record the actual exchange without assuming romance."
+            ]
+          }
+        },
+        {
+          "id": "ask_gently",
+          "text": "\"Design class kaisi thi? Itni der se ghar mein chup kyun ho?\"",
+          "shortLabel": "Uska haal poocho",
+          "keywords": [
+            "design class",
+            "kaisi thi",
+            "haal",
+            "how are you"
+          ],
+          "next": null,
+          "effects": {
+            "memory": [
+              "The player asked Riya about her day; preserve what she chooses to share and who learns it."
+            ]
+          }
+        },
+        {
+          "id": "free_response",
+          "text": "Apne shabdon mein kuch aur kaho ya karo.",
+          "shortLabel": "Apna jawaab",
+          "keywords": [
+            "apne shabdon",
+            "kuch aur",
+            "free response"
+          ],
+          "next": null,
+          "effects": {
+            "memory": [
+              "Record the player’s own words or action toward Riya exactly; do not infer unspoken feelings."
+            ]
+          }
+        }
+      ]
+    }
+  ],
+  "endings": []
+}

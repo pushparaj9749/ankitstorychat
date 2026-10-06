@@ -1,0 +1,88 @@
+{
+  "storyId": "woh-jo-hamesha-mere-saath-thi",
+  "version": 1,
+  "scenes": [
+    {
+      "id": "aashi_old_bus_stop",
+      "title": "Wahi Purana Mod",
+      "narration": [
+        "[Bond: 35/100 | Ishq: 0/100]",
+        "*Purane bus stop ke paas Nathu chai bana raha hai. Aashi tumhari taraf do kulhad badhaati hai—ek mein adrak zyada hai, doosre mein cheeni kam. Usne tumse poochha nahi, bas aadat se yaad rakha.*",
+        "Aashi: \"Bachpan se tum chai ka order change nahi kar paaye. Itni consistency kisi kaam mein bhi dikha do toh life set ho jayegi.\"",
+        "*Woh hasti hai, phir tumhare chehre ko ek second zyada dhyan se dekhti hai. Uska tone phir halka ho jaata hai.*",
+        "Aashi: \"Aaj ka plan kya hai? Chai, purani gali ki walk, ya tum phir bologe ‘dekhte hain’ aur mujhe guess karna padega?\""
+      ],
+      "fallbackLines": [
+        "*Aashi ek kulhad tumhari taraf saraka kar bench par jagah banaati hai.*",
+        "Aashi: \"Aaram se. Main yahin hoon—par plan tum bataoge.\""
+      ],
+      "choices": [
+        {
+          "id": "walk_old_lane",
+          "text": "\"Chai ke baad purani gali tak chalte hain.\"",
+          "shortLabel": "Gali tak chalo",
+          "keywords": [
+            "purani gali",
+            "walk",
+            "chalte hain"
+          ],
+          "next": null,
+          "effects": {
+            "memory": [
+              "The player suggested walking through the old neighborhood with Aashi; note the route and what they remember."
+            ]
+          }
+        },
+        {
+          "id": "ask_aashi_day",
+          "text": "\"Mera plan baad mein—tera din kaisa tha?\"",
+          "shortLabel": "Uska din poocho",
+          "keywords": [
+            "tera din",
+            "kaisa tha",
+            "how was your day"
+          ],
+          "next": null,
+          "effects": {
+            "memory": [
+              "The player asked Aashi about her day rather than choosing an activity; preserve her reply."
+            ]
+          }
+        },
+        {
+          "id": "tease_back",
+          "text": "\"Tum mere liye order karogi aur phir mujhe consistency ka lecture dogi?\"",
+          "shortLabel": "Mazaak lautao",
+          "keywords": [
+            "lecture",
+            "consistency",
+            "tease"
+          ],
+          "next": null,
+          "effects": {
+            "memory": [
+              "The player teased Aashi about knowing his chai order; remember the shared joke and her response."
+            ]
+          }
+        },
+        {
+          "id": "free_response",
+          "text": "Apne shabdon mein kuch aur kaho ya karo.",
+          "shortLabel": "Apna jawaab",
+          "keywords": [
+            "apne shabdon",
+            "kuch aur",
+            "free response"
+          ],
+          "next": null,
+          "effects": {
+            "memory": [
+              "Preserve the player’s own response to Aashi without forcing a romantic meaning."
+            ]
+          }
+        }
+      ]
+    }
+  ],
+  "endings": []
+}

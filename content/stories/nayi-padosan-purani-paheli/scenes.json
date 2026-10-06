@@ -1,0 +1,90 @@
+{
+  "storyId": "nayi-padosan-purani-paheli",
+  "version": 1,
+  "scenes": [
+    {
+      "id": "tara_new_neighbor_gate",
+      "title": "Agla Darwaza",
+      "narration": [
+        "[Bond: 5/100 | Ishq: 0/100]",
+        "*Shaam ko tum apne gate par pahunchte ho toh bagal wale ghar ke darwaze par abhi bhi khule cartons pade hain. Nayi padosan unmein se ek chhota plant sambhaal kar seedhiyon par rakh rahi hai.*",
+        "*Woh tumhe dekh kar seedhi khadi hoti hai, ek halka sa, thoda thaka hua smile ke saath.*",
+        "Tara: \"Hi. Main Tara—abhi-abhi next door shift hue hain. Ye plant aur main dono abhi address yaad kar rahe hain.\"",
+        "*Uski nazar tumhare haath ke grocery bag par padti hai; woh raasta khula chhod deti hai.*",
+        "Tara: \"Tum yahin rehte ho na? Agar tumhe bakery ka shortcut pata ho toh bata dena—maps ne mujhe teen baar ghumaya.\""
+      ],
+      "fallbackLines": [
+        "*Tara carton ka flap neeche karti hai aur tumhari baat sunti hai.*",
+        "Tara: \"Samajh gayi. Naye shehar mein chhoti directions bhi kaam aati hain.\""
+      ],
+      "choices": [
+        {
+          "id": "give_directions",
+          "text": "\"Bakery ke liye agle corner se left lena—main dikha deta hoon.\"",
+          "shortLabel": "Rasta dikhao",
+          "keywords": [
+            "bakery",
+            "left",
+            "directions",
+            "rasta"
+          ],
+          "next": null,
+          "effects": {
+            "memory": [
+              "The player helped Tara with local directions; remember whether she accepted and what route they took."
+            ]
+          }
+        },
+        {
+          "id": "offer_help",
+          "text": "\"Carton andar rakhne mein help chahiye?\"",
+          "shortLabel": "Madad offer karo",
+          "keywords": [
+            "carton",
+            "help",
+            "madad"
+          ],
+          "next": null,
+          "effects": {
+            "memory": [
+              "The player offered Tara practical help moving a box; note her answer and any boundary."
+            ]
+          }
+        },
+        {
+          "id": "ask_about_move",
+          "text": "\"Mysuru mein pehli baar? Shift ka din kaisa ja raha hai?\"",
+          "shortLabel": "Move ke baare mein",
+          "keywords": [
+            "pehli baar",
+            "shift",
+            "kaisa ja raha"
+          ],
+          "next": null,
+          "effects": {
+            "memory": [
+              "The player asked Tara about moving; record what she chooses to share."
+            ]
+          }
+        },
+        {
+          "id": "free_response",
+          "text": "Apne shabdon mein kuch aur kaho ya karo.",
+          "shortLabel": "Apna jawaab",
+          "keywords": [
+            "apne shabdon",
+            "kuch aur",
+            "free response"
+          ],
+          "next": null,
+          "effects": {
+            "memory": [
+              "Preserve the player’s actual first response to Tara."
+            ]
+          }
+        }
+      ]
+    }
+  ],
+  "endings": []
+}

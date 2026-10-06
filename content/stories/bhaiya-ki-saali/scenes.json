@@ -1,0 +1,98 @@
+{
+  "storyId": "bhaiya-ki-saali",
+  "version": 1,
+  "scenes": [
+    {
+      "id": "neela_arrives_home",
+      "title": "Taxi, Naya Mehmaan",
+      "narration": [
+        "[Bond: 20/100 | Ishq: 0/100]",
+        "*Ek taxi Dev aur Sakshi ke ghar ke paas aakar rukti hai, Dev khushi khushi taxi ke paas jaakar uska darwaza kholta hai.*",
+        "*Neela taxi se bahar nikalte hi apne jiju ko hug karti hai.*",
+        "Neela: \"Hi jiju.\"",
+        "*Tabhi Sakshi paas aakar un dono ko thoda alag karti hai.*",
+        "Sakshi: \"Aye badmash, mere pati se chipak mat.\"",
+        "*Neela khilkhila uthti hai.*",
+        "Neela: \"Oho dekho to jealousy kitni peak par hai didi ki.\"",
+        "*Teeno khilkhila uthte hain. Phir Dev Neela ka luggage uthata hai aur teeno ghar ke andar aa jaate hain.*",
+        "Sakshi: \"Tere liye {{playerName}} ka kamra khali kar diya hai. Tu aaj se uske kamre mein rahegi.\"",
+        "*Neela curious ho jaati hai.*",
+        "Neela: \"Aur ye janab kahan rahenge?\"",
+        "Dev: \"Seedhi ke neeche iska bistar laga diya hai.\"",
+        "*Dev ki baat sunkar Neela khilkhila uthti hai aur chidhane waali nazron se {{playerName}} ko dekhti hai.*",
+        "Neela: \"Lagta hai mere aate hi tumhari value khatam ho gayi hai.\""
+      ],
+      "fallbackLines": [
+        "*Neela apne luggage ke handle par ungliyan tap karti hai; uski aankhon mein shararat hai.*",
+        "Neela: \"Toh, ghar ka tour milega ya tum pehle apni lost value wapas lene ka plan banaoge?\""
+      ],
+      "choices": [
+        {
+          "id": "challenge_neela",
+          "text": "\"Meri value theek hai—tum apne luggage ke saath pehle room dekh lo.\"",
+          "shortLabel": "Jawab mein chidhhao",
+          "keywords": [
+            "meri value",
+            "room dekh lo",
+            "tease back"
+          ],
+          "next": null,
+          "effects": {
+            "memory": [
+              "The player answered Neela’s arrival tease; remember the exact tone and her reaction without assuming affection."
+            ]
+          }
+        },
+        {
+          "id": "welcome_neela",
+          "text": "\"Welcome, Neela. Agar kisi cheez ki zaroorat ho toh bata dena.\"",
+          "shortLabel": "Welcome karo",
+          "keywords": [
+            "welcome",
+            "zaroorat",
+            "help"
+          ],
+          "next": null,
+          "effects": {
+            "memory": [
+              "The player welcomed Neela and offered practical help; record how she responds and what she needs."
+            ]
+          }
+        },
+        {
+          "id": "question_room",
+          "text": "\"Mera kamra khali karne ka decision kisne liya? Mujhe bhi bata dete.\"",
+          "shortLabel": "Room par baat karo",
+          "keywords": [
+            "mera kamra",
+            "decision",
+            "mujhe bata"
+          ],
+          "next": null,
+          "effects": {
+            "memory": [
+              "The player raised a room/privacy concern; preserve the boundary and the family’s actual response."
+            ]
+          }
+        },
+        {
+          "id": "free_response",
+          "text": "Apne shabdon mein kuch aur kaho ya karo.",
+          "shortLabel": "Apna jawaab",
+          "keywords": [
+            "apne shabdon",
+            "kuch aur",
+            "free response"
+          ],
+          "next": null,
+          "effects": {
+            "memory": [
+              "Preserve the player’s own first reply to Neela without supplying his dialogue."
+            ]
+          }
+        }
+      ]
+    }
+  ],
+  "endings": []
+}

@@ -1,0 +1,88 @@
+{
+  "storyId": "uski-muskaan-ke-peeche",
+  "version": 1,
+  "scenes": [
+    {
+      "id": "sana_after_the_laugh",
+      "title": "Hansi Ke Baad",
+      "narration": [
+        "[Bond: 12/100 | Ishq: 0/100]",
+        "*Reading room ke courtyard mein Sana abhi sabko ek signboard ki spelling mistake par hasa rahi thi. Doston ke jaate hi uski awaaz dheemi ho jaati hai; woh poster ke kone ko seedha karne lagti hai.*",
+        "Sana: \"Main theek hoon, haan. Bas group ke saamne joke karna easy hota hai—uske baad thoda quiet rehna bhi.\"",
+        "*Woh ek pal rukti hai, phir poster tumhari taraf ghumati hai. Uske chehre par halki muskaan wapas aa jaati hai, magar ab woh zyada shaant hai.*",
+        "Sana: \"Tum batao, ye poster sach mein funny hai ya main audience ko force kar rahi thi?\""
+      ],
+      "fallbackLines": [
+        "*Sana poster ka kona pakde rehti hai aur tumhare jawab ka intezaar karti hai.*",
+        "Sana: \"Tum seedha bol sakte ho. Main joke bana lungi—ya nahi banaungi.\""
+      ],
+      "choices": [
+        {
+          "id": "answer_honestly",
+          "text": "\"Poster funny hai, par tumhe joke karna zaroori nahi.\"",
+          "shortLabel": "Sach aur narmi",
+          "keywords": [
+            "poster funny",
+            "zaroori nahi",
+            "honest"
+          ],
+          "next": null,
+          "effects": {
+            "memory": [
+              "The player responded honestly and gave Sana room not to joke; remember her actual reaction."
+            ]
+          }
+        },
+        {
+          "id": "ask_about_quiet",
+          "text": "\"Aaj quiet rehna kis baat ke baad helpful lagta hai?\"",
+          "shortLabel": "Dheere se poocho",
+          "keywords": [
+            "quiet",
+            "kis baat",
+            "helpful"
+          ],
+          "next": null,
+          "effects": {
+            "memory": [
+              "The player gently asked Sana about being quiet; do not turn the question into forced disclosure."
+            ]
+          }
+        },
+        {
+          "id": "make_a_joke",
+          "text": "\"Spelling mistake toh main fix kar dunga; pun tum bana dena.\"",
+          "shortLabel": "Halka mazaak",
+          "keywords": [
+            "pun",
+            "joke",
+            "spelling"
+          ],
+          "next": null,
+          "effects": {
+            "memory": [
+              "The player offered a light joke to Sana; record whether she welcomes it or asks for quiet."
+            ]
+          }
+        },
+        {
+          "id": "free_response",
+          "text": "Apne shabdon mein kuch aur kaho ya karo.",
+          "shortLabel": "Apna jawaab",
+          "keywords": [
+            "apne shabdon",
+            "kuch aur",
+            "free response"
+          ],
+          "next": null,
+          "effects": {
+            "memory": [
+              "Preserve the player’s own response to Sana’s quieter moment."
+            ]
+          }
+        }
+      ]
+    }
+  ],
+  "endings": []
+}
