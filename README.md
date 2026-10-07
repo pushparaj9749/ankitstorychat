@@ -46,6 +46,8 @@ moves the tale forward — with memory, relationships, branching, and multiple e
   validated state transitions and meaning-based retrieval, on top of the sliding short-term window,
   episodic log, curated facts, cross-story preferences and rolling digest.
 - **Backup/restore, local notifications, storage manager, AMOLED theme, sounds, haptics.**
+- **v2.5.4 Deep transcript recall & fact recency** — searchable raw-story transcripts, numeric/detail matching,
+  rare-term ranking, focused evidence excerpts, Hinglish/English/Devanagari aliases, and safer older-archive migration.
 - **v2.5.3 Long-term memory precision & turn-based continuity** — turn-based sequence decay (no wall-clock fading),
   strict Hinglish negation & hypothetical guards, zero-score trigram fuzzy fallback, expanded kinship & emotion
   lexicon, and permanent milestone canon locks.
@@ -56,13 +58,26 @@ moves the tale forward — with memory, relationships, branching, and multiple e
 
 ## 🆕 Release notes
 
+### v2.5.4 — Deep Transcript Recall & Fact Recency
+
+A follow-up memory release focused on details that never became typed events:
+
+- **Search the whole raw transcript.** Existing journeys reindex archived user and assistant messages locally, including uncategorized details and numeric facts; long messages are indexed across their span rather than only at the opening.
+- **Rank specific matches higher.** Rare query terms receive inverse-document-frequency weighting, while a small recency tie-break prefers newer versions of repeated facts. An explicit value in the query still outweighs that tie-break.
+- **Use the current question first.** The current user line drives raw-message retrieval and focused excerpts; it is excluded from evidence already present in the live prompt. User lines are also indexed after provider failures.
+- **Match common writing variants.** Preference, color, food, and drink vocabulary now connects English, Hinglish, and common Devanagari spellings; numbers are searchable as exact tokens.
+- **Migrate safely.** First retrieval waits for/coalesces with transcript migration. Older typed events and rollups get repaired turn positions, and deleting chat data now clears its associated story archive too.
+- **469 tests passing.**
+
+Recall remains local lexical/concept matching, not an embedding-based guarantee: a paraphrase without a matching term or known alias can still be missed.
+
 ### v2.5.3 — Long-Term Memory Precision & Turn-Based Continuity
 
 A dedicated memory intelligence and reliability release:
 
 - **Turn-based sequence decay replaces calendar days.** Memories are no longer demoted simply because
   the reader paused their playthrough for days or weeks. Memory recency is now indexed by story turn sequence
-  (`currentSeq - event.seq`), ensuring true narrative continuity across app sessions.
+  (`currentSeq - event.turnSeq`), ensuring true narrative continuity across app sessions.
 - **Strict Hinglish negation & hypothetical guards.** Targeted detection filters prevent accidental relationship
   state pollution from negated phrases (*"shaadi nahi hui"*, *"dost nahi hain"*, *"mana kar diya"*) and
   conditional/sarcastic statements (*"agar shaadi kar lein"*, *"kash hum dost hote"*, *"sirf mazak tha"*).

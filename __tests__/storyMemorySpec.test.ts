@@ -14,9 +14,10 @@ import { readFileSync } from 'fs';
 import { join } from 'path';
 import type { ChatMessage, Playthrough, StoryBundle } from '../src/types';
 import { KISSA_OWNER_CREATOR, MEMORY_IMPORTANCE_SCORE, createInitialState } from '../src/types';
-import { createStoryMemoryEngine, pairKeyOf, PLAYER_ID, type StoryMemoryEngine } from '../src/lib/storyMemory';
+import { createStoryMemoryEngine, indexStoryMemoryMessages, pairKeyOf, PLAYER_ID, type StoryMemoryEngine } from '../src/lib/storyMemory';
 import { createInMemoryStoryMemoryStore, type InMemoryStoryMemoryStore } from '../src/lib/storyMemoryStore';
 import { detectEvents } from '../src/lib/storyMemoryCore';
+import { tokenize } from '../src/lib/memoryCore';
 
 const b = {
   meta: { id: 'spec-story', title: 'Spec Story' },
@@ -81,7 +82,7 @@ class Session {
     for (const r of rows) {
       ids.push(r.id);
       this.raw.push({ id: r.id, text: r.text });
-      this.store._data.messages.push({ id: r.id, role: r.role, speaker: r.speaker, text: r.text, createdAt: r.createdAt });
+      this.store._data.messages.push({ id: r.id, playthroughId: r.playthroughId, role: r.role, speaker: r.speaker, text: r.text, createdAt: r.createdAt });
     }
     await this.engine.writeTurn({
       playthrough: this.pt, bundle: this.bundle, playerName: 'Ankit',
@@ -152,6 +153,91 @@ describe('§5 raw history is the highest authority', () => {
     const rawIds = new Set(s.raw.map((r) => r.id));
     for (const ev of res.evidence) expect(rawIds.has(ev.messageId)).toBe(true);
     expect(res.evidence.some((e) => /shaadi/i.test(e.text))).toBe(true);
+  });
+});
+
+describe('raw transcript indexing without an assistant response', () => {
+  test('a user message survives a failed turn and can still be searched later', async () => {
+    const s = new Session();
+    const messages: ChatMessage[] = [
+      {
+        id: 'older-user-detail',
+        playthroughId: s.pt.id,
+        role: 'user',
+        speaker: 'Ankit',
+        text: 'Poonam ka pasandida phool raatrani hai.',
+        sceneId: 's1',
+        createdAt: at(1),
+      },
+      {
+        id: 'failed-turn-user-message',
+        playthroughId: s.pt.id,
+        role: 'user',
+        speaker: 'Ankit',
+        text: 'Poonam ka pasandida phool kya tha?',
+        sceneId: 's1',
+        createdAt: at(2),
+      },
+    ];
+    s.store._data.messages.push(...messages.map((message) => ({
+      id: message.id,
+      playthroughId: message.playthroughId,
+      role: message.role,
+      speaker: message.speaker,
+      text: message.text,
+      createdAt: message.createdAt,
+    })));
+    await indexStoryMemoryMessages(s.pt, messages, s.engine);
+
+    const result = await s.ask('Poonam ka pasandida phool raatrani kya tha?', ['poonam'], {
+      excludeMessageIds: ['failed-turn-user-message'],
+    });
+    expect(result.events).toHaveLength(0);
+    expect(result.evidence.some((m) => m.messageId === 'older-user-detail' && /pasandida phool raatrani/i.test(m.text))).toBe(true);
+    expect(result.evidence.some((m) => m.messageId === 'failed-turn-user-message')).toBe(false);
+  });
+});
+
+describe('weighted raw transcript search', () => {
+  test('the latest repeated fact wins ties, but an explicit older value still wins a specific query', async () => {
+    const s = new Session();
+    const messages: ChatMessage[] = [
+      {
+        id: 'older-color', playthroughId: s.pt.id, role: 'assistant', speaker: 'Poonam',
+        text: 'Poonam favorite color blue', sceneId: 's1', createdAt: at(1),
+      },
+      {
+        id: 'newer-color', playthroughId: s.pt.id, role: 'assistant', speaker: 'Poonam',
+        text: 'Poonam favorite color green', sceneId: 's1', createdAt: at(2),
+      },
+    ];
+    s.store._data.messages.push(...messages.map((message) => ({
+      id: message.id, playthroughId: message.playthroughId, role: message.role, speaker: message.speaker,
+      text: message.text, createdAt: message.createdAt,
+    })));
+    await indexStoryMemoryMessages(s.pt, messages, s.engine);
+
+    const latest = await s.ask("What is Poonam's favorite color?", ['poonam']);
+    expect(latest.evidence[0]?.messageId).toBe('newer-color');
+    const explicit = await s.ask("Was Poonam's favorite color blue?", ['poonam']);
+    expect(explicit.evidence[0]?.messageId).toBe('older-color');
+  });
+
+  test('rare query terms outrank messages matching only repeated common terms', async () => {
+    const store = createInMemoryStoryMemoryStore();
+    const commonMessages = Array.from({ length: 20 }, (_, i) => ({
+      id: `common-${i}`,
+      role: 'assistant',
+      speaker: null,
+      text: 'Poonam blue tea',
+    }));
+    await store.indexMessages('spec-story', 'pt-search', [
+      ...commonMessages,
+      { id: 'specific', role: 'assistant', speaker: null, text: 'Moonstone' },
+    ]);
+
+    const hits = await store.searchIndex('pt-search', tokenize('Poonam blue tea moonstone'), 64, 'message');
+    expect(hits[0]?.recordId).toBe('specific');
   });
 });
 

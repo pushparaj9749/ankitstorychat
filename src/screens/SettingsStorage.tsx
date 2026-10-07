@@ -153,6 +153,27 @@ export function SettingsStorage(_props: Props) {
               try {
                 const db = await getDb();
                 await db.execAsync('DELETE FROM messages; DELETE FROM memories; DELETE FROM playthroughs;');
+                for (const table of [
+                  'world_states',
+                  'story_events',
+                  'relationship_states',
+                  'character_knowledge',
+                  'memory_index',
+                  'memory_contradictions',
+                ]) {
+                  try {
+                    await db.execAsync(`DELETE FROM ${table};`);
+                  } catch {
+                    /* optional archive tables may be absent on an interrupted old migration */
+                  }
+                }
+                await db.execAsync(`
+                  DELETE FROM kv WHERE key LIKE 'memsum:%'
+                    OR key LIKE 'worldState:%'
+                    OR key LIKE 'worldStatePrev:%'
+                    OR key LIKE 'worldStateSchema:%'
+                    OR key LIKE 'storyMem:%';
+                `);
                 await load();
                 await reloadAll();
                 setNote('All chat messages deleted.');

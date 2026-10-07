@@ -19,7 +19,7 @@ import type {
 import { DEFAULT_SETTINGS } from '../types';
 
 const DB_NAME = 'kissa.db';
-const SCHEMA_VERSION = 7;
+const SCHEMA_VERSION = 8;
 
 let dbPromise: Promise<SQLite.SQLiteDatabase> | null = null;
 
@@ -275,6 +275,16 @@ async function migrate(db: SQLite.SQLiteDatabase): Promise<void> {
       `);
     } catch {
       /* tables already present */
+    }
+  }
+
+  // v7 -> v8: event sequence is distinct from story-turn sequence. Keeping
+  // both prevents multiple memories in one turn from distorting recency.
+  if (current < 8) {
+    try {
+      await db.execAsync('ALTER TABLE story_events ADD COLUMN turn_seq INTEGER NOT NULL DEFAULT 0');
+    } catch {
+      /* column already present on a partially migrated install */
     }
   }
 

@@ -60,6 +60,20 @@ const ALIAS_MAP: Record<string, string> = {
   khoj: 'discovery', talash: 'discovery',
   waada: 'promise', wada: 'promise', kasam: 'promise', vachan: 'promise',
   pyaar: 'love', mohabbat: 'love', ishq: 'love',
+  // Personal preference and common descriptive facts; these help Hinglish and English queries meet in the same index.
+  favorite: 'favorite', favourite: 'favorite', favorites: 'favorite', favourites: 'favorite',
+  like: 'favorite', likes: 'favorite', liked: 'favorite', prefer: 'favorite', prefers: 'favorite', preferred: 'favorite',
+  preference: 'favorite', preferences: 'favorite', pasand: 'favorite', pasandida: 'favorite', shauk: 'favorite', hobby: 'favorite',
+  rang: 'color', colour: 'color', color: 'color', neela: 'blue', neeli: 'blue', neele: 'blue', nila: 'blue',
+  hara: 'green', hari: 'green', peela: 'yellow', peeli: 'yellow', pila: 'yellow', pili: 'yellow',
+  laal: 'red', lal: 'red', kala: 'black', kali: 'black', safed: 'white', safaid: 'white',
+  gulabi: 'pink', narangi: 'orange', baingani: 'purple',
+  khana: 'food', khaana: 'food', food: 'food', chai: 'tea', chaay: 'tea', tea: 'tea',
+  पसंद: 'favorite', पसंदीदा: 'favorite', शौक: 'favorite',
+  रंग: 'color', नीला: 'blue', नीली: 'blue', नीले: 'blue', हरा: 'green', हरी: 'green',
+  पीला: 'yellow', पीली: 'yellow', लाल: 'red', काला: 'black', काली: 'black',
+  सफेद: 'white', सफ़ेद: 'white', गुलाबी: 'pink', नारंगी: 'orange', बैंगनी: 'purple',
+  खाना: 'food', भोजन: 'food', चाय: 'tea',
   nafrat: 'hate', gussa: 'anger',
   haveli: 'mansion', mahal: 'palace',
   zindagi: 'life', maut: 'death',
@@ -95,6 +109,10 @@ export function tokenize(text: string): string[] {
     }
   }
   return out;
+}
+
+export function numericTokens(text: string): string[] {
+  return [...new Set((text || '').match(/\d+/g) ?? [])].filter((value) => value.length <= 6);
 }
 
 export function tokenSet(text: string): Set<string> {
