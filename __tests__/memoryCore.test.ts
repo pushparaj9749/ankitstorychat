@@ -40,6 +40,7 @@ describe('tokenize', () => {
     expect(t).toContain('cold');
     expect(t).not.toContain('hai');
     expect(t).not.toContain('meri');
+    expect(tokenize('मेरा पसंदीदा रंग नीला है')).toEqual(expect.arrayContaining(['favorite', 'color', 'blue']));
   });
 
   test('generic verb soup scores below a real name match', () => {

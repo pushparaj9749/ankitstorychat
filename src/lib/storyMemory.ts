@@ -34,7 +34,7 @@ import type {
   StoryMemoryQueryResult,
 } from '../types';
 import { importanceLabel } from '../types';
-import { hashText, looksTooPrivate, sanitize, tokenize } from './memoryCore';
+import { hashText, looksTooPrivate, numericTokens, sanitize, tokenize } from './memoryCore';
 import { nowIso, uid } from './utils';
 import {
   chronological,
@@ -61,8 +61,49 @@ import {
 
 export const PLAYER_ID = 'player';
 /** Bump when the archive layout changes so old installs migrate once. */
-export const STORY_MEMORY_VERSION = 1;
+export const STORY_MEMORY_VERSION = 3;
 const MIGRATION_KEY = 'migrated';
+
+/** Return a verbatim excerpt around the strongest query-term cluster in a long raw message. */
+function rawMessageQueryScore(text: string, query: string): number {
+  const wanted = [...new Set([...tokenize(query), ...numericTokens(query), ...conceptTokens(query)])].slice(0, 64);
+  if (!wanted.length) return 0;
+  const present = new Set([...tokenize(text), ...numericTokens(text), ...conceptTokens(text)]);
+  const matched = wanted.filter((token) => present.has(token)).length;
+  return matched * 2 + matched / wanted.length;
+}
+
+function excerptForQuery(text: string, query: string, maxChars = 320): string {
+  if (text.length <= maxChars) return text;
+  const queryTokens = new Set([...new Set([...tokenize(query), ...numericTokens(query)])].slice(0, 64));
+  if (!queryTokens.size) return text.slice(0, maxChars);
+
+  const spans: { token: string; start: number; end: number }[] = [];
+  const wordPattern = /[\p{L}\p{M}\p{N}]+/gu;
+  for (const match of text.matchAll(wordPattern)) {
+    const token = tokenize(match[0])[0] ?? numericTokens(match[0])[0];
+    if (token) spans.push({ token, start: match.index!, end: match.index! + match[0].length });
+  }
+  const hits = spans.filter((span) => queryTokens.has(span.token));
+  if (!hits.length) return text.slice(0, maxChars);
+
+  const maxStart = text.length - maxChars;
+  let bestStart = 0;
+  let bestScore = -1;
+  for (const hit of hits) {
+    const start = Math.max(0, Math.min(maxStart, hit.start - Math.floor(maxChars / 3)));
+    const end = start + maxChars;
+    const matched = new Set(spans.filter((span) => span.start >= start && span.end <= end && queryTokens.has(span.token)).map((span) => span.token));
+    const score = matched.size;
+    if (score > bestScore) {
+      bestScore = score;
+      bestStart = start;
+    }
+  }
+
+  const excerpt = text.slice(bestStart, bestStart + maxChars).trim();
+  return `${bestStart > 0 ? '…' : ''}${excerpt}${bestStart + maxChars < text.length ? '…' : ''}`;
+}
 
 /* ------------------------------------------------------------------ */
 /* Engine construction                                                 */
@@ -101,7 +142,21 @@ export function createStoryMemoryEngine(store: StoryMemoryStore = createSqliteSt
       const baseSeq = await store.nextSeq(input.playthrough.id);
       const turnAt = input.at ?? nowIso();
       const messageIds = (input.messageIds ?? []).filter(Boolean);
+      const turnSeq = input.turnSeq ?? (input.playthrough.messageCount > 0 ? input.playthrough.messageCount : undefined);
       let knowledgeWritten = 0;
+
+      // Index the verbatim turn as well as extracted events: ordinary details
+      // that the event detector does not classify remain searchable later.
+      const storedTurnMessages = messageIds.length ? await store.rawMessages(messageIds).catch(() => []) : [];
+      const rawTurnMessages = storedTurnMessages.length
+        ? storedTurnMessages
+        : [
+            ...(messageIds[0] ? [{ id: messageIds[0], role: 'user', speaker: input.playerName ?? null, text: input.userText }] : []),
+            ...messageIds.slice(1).map((id) => ({ id, role: 'assistant', speaker: null, text: input.assistantText })),
+          ];
+      if (rawTurnMessages.length) {
+        await store.indexMessages(input.playthrough.storyId, input.playthrough.id, rawTurnMessages).catch(() => 0);
+      }
 
       // ---- 1. persist events (deterministic id ⇒ retries replace, never duplicate)
       const stored: StoryEventRecord[] = [];
@@ -113,6 +168,7 @@ export function createStoryMemoryEngine(store: StoryMemoryStore = createSqliteSt
           storyId: input.playthrough.storyId,
           playthroughId: input.playthrough.id,
           seq: baseSeq + i,
+          turnSeq,
           type: d.type,
           summary: d.summary,
           detail: d.detail ?? null,
@@ -223,6 +279,7 @@ export function createStoryMemoryEngine(store: StoryMemoryStore = createSqliteSt
             storyId: input.playthrough.storyId,
             playthroughId: input.playthrough.id,
             seq: baseSeq + 20 + i,
+            turnSeq,
             type,
             summary,
             detail: null,
@@ -281,13 +338,31 @@ export function createStoryMemoryEngine(store: StoryMemoryStore = createSqliteSt
       const structural = await loadArchive(store, query.playthroughId);
       // Index lane: the inverted index finds records anywhere in the archive, so
       // a fact from turn 3 is reachable at turn 3,000 without scanning history.
-      const indexTokens = [...new Set([...tokenize(query.query), ...conceptTokens(query.query)])];
-      const hits = indexTokens.length ? await store.searchIndex(query.playthroughId, indexTokens, 160) : [];
-      const eventIds = hits.filter((h) => h.recordType === 'event').map((h) => h.recordId);
-      const knowledgeIds = hits.filter((h) => h.recordType === 'knowledge').map((h) => h.recordId);
-      const [indexedEvents, indexedKnowledge] = await Promise.all([
+      const primaryQuery = query.primaryQuery?.trim() ? query.primaryQuery : query.query;
+      const indexTokens = [...new Set([
+        ...tokenize(primaryQuery),
+        ...numericTokens(primaryQuery),
+        ...conceptTokens(primaryQuery),
+        ...tokenize(query.query),
+        ...numericTokens(query.query),
+        ...conceptTokens(query.query),
+      ])];
+      const [eventHits, knowledgeHits, allMessageHits] = indexTokens.length
+        ? await Promise.all([
+            store.searchIndex(query.playthroughId, indexTokens, 160, 'event'),
+            store.searchIndex(query.playthroughId, indexTokens, 120, 'knowledge'),
+            store.searchIndex(query.playthroughId, indexTokens, 80, 'message'),
+          ])
+        : [[], [], []];
+      const excludedMessageIds = new Set(query.excludeMessageIds ?? []);
+      const messageHits = allMessageHits.filter((hit) => !excludedMessageIds.has(hit.recordId));
+      const eventIds = eventHits.map((h) => h.recordId);
+      const knowledgeIds = knowledgeHits.map((h) => h.recordId);
+      const messageIds = messageHits.map((h) => h.recordId);
+      const [indexedEvents, indexedKnowledge, indexedMessages] = await Promise.all([
         eventIds.length ? store.getEvents(eventIds) : Promise.resolve([]),
         knowledgeIds.length ? store.getKnowledge(knowledgeIds) : Promise.resolve([]),
+        messageIds.length ? store.rawMessages(messageIds) : Promise.resolve([]),
       ]);
       const eventMap = new Map<string, StoryEventRecord>();
       for (const e of [...structural.events, ...indexedEvents]) eventMap.set(e.id, e);
@@ -334,18 +409,42 @@ export function createStoryMemoryEngine(store: StoryMemoryStore = createSqliteSt
           )
         : ranked.knowledge;
 
+      const messageWeight = new Map(messageHits.map((hit) => [hit.recordId, hit.weight]));
+      const messageTimes = indexedMessages.map((message) => Date.parse(message.createdAt)).filter(Number.isFinite);
+      const oldestMessageTime = messageTimes.length ? Math.min(...messageTimes) : 0;
+      const messageTimeSpan = messageTimes.length ? Math.max(...messageTimes) - oldestMessageTime : 0;
+      const scoreMessage = (message: (typeof indexedMessages)[number]) => {
+        const timestamp = Date.parse(message.createdAt);
+        // Relevance remains dominant; a small chronology tie-breaker prefers
+        // the latest version when several turns repeat the same fact/topic.
+        const recency = messageTimeSpan > 0 && Number.isFinite(timestamp)
+          ? 0.35 * ((timestamp - oldestMessageTime) / messageTimeSpan)
+          : 0;
+        return (messageWeight.get(message.id) ?? 0) + rawMessageQueryScore(message.text, primaryQuery) * 3 + recency;
+      };
+      const directMessageIds = indexedMessages
+        .slice()
+        .sort((a, b) => scoreMessage(b) - scoreMessage(a))
+        .slice(0, 3)
+        .map((m) => m.id);
       const evidenceIds = [
-        ...new Set(ranked.events.flatMap((e) => (e.sourceMessageIds ?? []).slice(-2))),
-      ].slice(0, 6);
-      const evidence = evidenceIds.length
-        ? (await store.rawMessages(evidenceIds)).map((m) => ({
-            messageId: m.id,
-            role: m.role,
-            speaker: m.speaker,
-            text: m.text,
-            createdAt: m.createdAt,
-          }))
-        : [];
+        ...new Set([
+          ...directMessageIds,
+          ...ranked.events.flatMap((e) => (e.sourceMessageIds ?? []).slice(-2)),
+        ]),
+      ].slice(0, 8);
+      const rawById = new Map((await store.rawMessages(evidenceIds)).map((m) => [m.id, m]));
+      const evidence = evidenceIds
+        .map((id) => rawById.get(id))
+        .filter((m): m is NonNullable<typeof m> => !!m)
+        .map((m) => ({
+          messageId: m.id,
+          role: m.role,
+          speaker: m.speaker,
+          text: m.text,
+          excerpt: excerptForQuery(m.text, primaryQuery),
+          createdAt: m.createdAt,
+        }));
 
       return {
         events: ranked.events,
@@ -353,7 +452,8 @@ export function createStoryMemoryEngine(store: StoryMemoryStore = createSqliteSt
         knowledge,
         timeline: chronological(ranked.events),
         evidence,
-        hops: ranked.hops,
+        currentSeq: query.currentSeq,
+        hops: [...ranked.hops, ...(directMessageIds.length ? ['raw-message'] : [])],
         candidates: ranked.candidates,
       };
     },
@@ -368,12 +468,15 @@ export function createStoryMemoryEngine(store: StoryMemoryStore = createSqliteSt
       let folded = 0;
       const at = nowIso();
       const maxSeq = archive.events.reduce((n, e) => Math.max(n, e.seq), 0);
+      const eventsById = new Map(archive.events.map((e) => [e.id, e]));
       for (const [i, cluster] of clusters.entries()) {
+        const turnSeq = Math.max(0, ...cluster.eventIds.map((id) => eventsById.get(id)?.turnSeq ?? 0));
         const rollup: StoryEventRecord = {
           id: `roll_${hashText(`${playthroughId}|${cluster.key}|${cluster.firstSeq}-${cluster.lastSeq}`)}`,
           storyId,
           playthroughId,
           seq: maxSeq + 1 + i,
+          turnSeq: turnSeq || undefined,
           type: 'rollup',
           summary: cluster.summary,
           detail: null,
@@ -458,29 +561,44 @@ export function createStoryMemoryEngine(store: StoryMemoryStore = createSqliteSt
         }
       }
 
-      // 2) Replay the raw archive so pre-v2.5.1 stories gain events immediately.
+      // 2) Index the complete raw transcript. This includes turns older than
+      // the bounded UI migration page and facts that the event detector misses.
+      await store.indexRawMessages(playthrough.storyId, playthrough.id);
+
+      // 3) Replay the raw archive so pre-v2.5.1 stories gain events immediately.
       let events = 0;
-      const messages = [...(input.messages ?? [])].sort((a, b) => (a.createdAt < b.createdAt ? -1 : 1));
+      const messages = [...(input.messages ?? [])].sort((a, b) => a.createdAt.localeCompare(b.createdAt) || a.id.localeCompare(b.id));
       let seq = await store.nextSeq(playthrough.id);
+      let turnSeq = 0;
       let pendingUser: ChatMessage | null = null;
+      const messageTurnSeq = new Map<string, number>();
       for (const m of messages) {
         if (m.role === 'user') {
           pendingUser = m;
           continue;
         }
         if (m.role === 'narration') continue;
+        if (pendingUser) turnSeq++;
+        const eventTurnSeq = Math.max(1, turnSeq);
+        if (pendingUser) messageTurnSeq.set(pendingUser.id, eventTurnSeq);
+        messageTurnSeq.set(m.id, eventTurnSeq);
         const userText = pendingUser?.text ?? '';
         const detected = detectEvents(userText, m.text, ctx, { maxEvents: 4, minImportance: 3 });
         const ids = [pendingUser?.id, m.id].filter((x): x is string => !!x);
         for (const d of detected) {
           const id = `ev_${hashText(`${playthrough.id}|${d.type}|${d.summary.toLowerCase()}`)}`;
           const existing = await store.getEvent(id);
-          if (existing) continue;
+          if (existing) {
+            // v3 repairs earlier turn labels as well as filling missing values.
+            if (existing.turnSeq !== eventTurnSeq) await store.updateEvent(existing.id, { turnSeq: eventTurnSeq });
+            continue;
+          }
           const record: StoryEventRecord = {
             id,
             storyId: playthrough.storyId,
             playthroughId: playthrough.id,
             seq: seq++,
+            turnSeq: eventTurnSeq,
             type: d.type,
             summary: d.summary,
             detail: null,
@@ -509,7 +627,33 @@ export function createStoryMemoryEngine(store: StoryMemoryStore = createSqliteSt
         pendingUser = null;
       }
 
-      // 3) Numeric relationship map (legacy state) becomes the starting statuses.
+      // Backfill turn positions on rows created by the older archive version,
+      // including archived rollups whose source events were replayed above.
+      const archivedEvents = (await store.listEvents(playthrough.id, { includeArchived: true, limit: 10000 }))
+        .sort((a, b) => a.seq - b.seq);
+      const eventById = new Map(archivedEvents.map((event) => [event.id, event]));
+      const assistantTurnMarks = messages
+        .filter((message) => message.role === 'assistant')
+        .map((message) => ({ at: message.createdAt, turnSeq: messageTurnSeq.get(message.id) ?? 1 }));
+      for (const event of archivedEvents) {
+        const fromMessages = Math.max(0, ...(event.sourceMessageIds ?? []).map((id) => messageTurnSeq.get(id) ?? 0));
+        const fromSources = Math.max(0, ...(event.sourceEventIds ?? []).map((id) => eventById.get(id)?.turnSeq ?? 0));
+        let low = 0;
+        let high = assistantTurnMarks.length;
+        while (low < high) {
+          const mid = (low + high) >>> 1;
+          if (assistantTurnMarks[mid].at <= event.occurredAt) low = mid + 1;
+          else high = mid;
+        }
+        const inferredByTime = low > 0 ? assistantTurnMarks[low - 1].turnSeq : 0;
+        const inferredTurn = fromMessages || fromSources || inferredByTime;
+        if (inferredTurn > 0) {
+          if (event.turnSeq !== inferredTurn) await store.updateEvent(event.id, { turnSeq: inferredTurn });
+          eventById.set(event.id, { ...event, turnSeq: inferredTurn });
+        }
+      }
+
+      // 4) Numeric relationship map (legacy state) becomes the starting statuses.
       let relationships = 0;
       for (const [charId, value] of Object.entries(playthrough.state?.relationships ?? {})) {
         const ch = bundle.characters.characters.find((c) => c.id === charId);
@@ -541,8 +685,8 @@ export function createStoryMemoryEngine(store: StoryMemoryStore = createSqliteSt
         relationships: result.relationships,
         events: result.events,
         knowledge: result.knowledge,
-        evidence: result.evidence.map((e) => ({ speaker: e.speaker, role: e.role, text: e.text })),
-        currentSeq: opts.currentSeq,
+        evidence: result.evidence.map((e) => ({ speaker: e.speaker, role: e.role, text: e.text, excerpt: e.excerpt })),
+        currentSeq: result.currentSeq ?? opts.currentSeq,
         nameOf: opts.nameOf,
         charBudget: opts.charBudget,
       });
@@ -606,6 +750,8 @@ export interface WriteTurnInput {
   sceneId?: string | null;
   location?: string | null;
   storyDay?: number | null;
+  /** 1-based story turn number (distinct from the number of extracted events). */
+  turnSeq?: number;
   playerName?: string;
   source?: StoryEventRecord['source'];
   at?: string;
@@ -882,6 +1028,8 @@ export interface RecallForPromptInput {
   playthrough: Playthrough;
   bundle: StoryBundle;
   query: string;
+  /** Current user line, prioritized over surrounding context for archive search. */
+  primaryQuery?: string;
   /** Reader's nickname/display name for Player replacement. */
   playerName?: string;
   /** Characters present/known in the current scene (ids). */
@@ -889,6 +1037,7 @@ export interface RecallForPromptInput {
   location?: string | null;
   currentSeq?: number;
   perspective?: string | null;
+  excludeMessageIds?: string[];
   limit?: number;
   charBudget?: number;
   engine?: StoryMemoryEngine;
@@ -910,11 +1059,13 @@ export async function recallStoryMemoryForPrompt(input: RecallForPromptInput): P
     storyId: input.playthrough.storyId,
     playthroughId: input.playthrough.id,
     query: input.query,
+    primaryQuery: input.primaryQuery,
     characters: input.characters,
     relationshipPair: null,
     sceneId: input.playthrough.currentSceneId,
     limit: input.limit ?? 14,
     perspective: input.perspective ?? null,
+    excludeMessageIds: input.excludeMessageIds,
     currentSeq,
   });
   const nameOf = (id: string): string => {
@@ -935,13 +1086,83 @@ export async function rememberTurn(input: WriteTurnInput, engine?: StoryMemoryEn
   return e.writeTurn(input);
 }
 
-/** Backfill the archive for stories played before v2.5.1 (idempotent). */
+/** Index a raw row that is persisted without a completed assistant turn (for example, a provider failure). */
+export async function indexStoryMemoryMessages(
+  playthrough: Pick<Playthrough, 'id' | 'storyId'>,
+  messages: ChatMessage[],
+  engine?: StoryMemoryEngine,
+): Promise<number> {
+  const e = engine ?? getStoryMemoryEngine();
+  return e.store.indexMessages(playthrough.storyId, playthrough.id, messages);
+}
+
+/** Backfill and reindex an existing journey's local archive (idempotent). */
+export type StoryMemoryMigrationResult = { migrated: boolean; events: number; relationships: number; knowledge: number };
+
+const activeMigrations = new WeakMap<StoryMemoryEngine, Map<string, Promise<StoryMemoryMigrationResult>>>();
+const activeReadinessChecks = new WeakMap<StoryMemoryEngine, Map<string, Promise<StoryMemoryMigrationResult>>>();
+
+function tasksFor(
+  registry: WeakMap<StoryMemoryEngine, Map<string, Promise<StoryMemoryMigrationResult>>>,
+  engine: StoryMemoryEngine,
+): Map<string, Promise<StoryMemoryMigrationResult>> {
+  let tasks = registry.get(engine);
+  if (!tasks) {
+    tasks = new Map();
+    registry.set(engine, tasks);
+  }
+  return tasks;
+}
+
+function migrationTasksFor(engine: StoryMemoryEngine): Map<string, Promise<StoryMemoryMigrationResult>> {
+  return tasksFor(activeMigrations, engine);
+}
+
 export async function migrateStoryMemory(
   input: MigrateInput,
   engine?: StoryMemoryEngine,
 ): Promise<{ migrated: boolean; events: number; relationships: number; knowledge: number }> {
   const e = engine ?? getStoryMemoryEngine();
-  return e.migrate(input);
+  const tasks = migrationTasksFor(e);
+  const active = tasks.get(input.playthrough.id);
+  if (active) return active;
+
+  const task = e.migrate(input);
+  tasks.set(input.playthrough.id, task);
+  try {
+    return await task;
+  } finally {
+    if (tasks.get(input.playthrough.id) === task) tasks.delete(input.playthrough.id);
+  }
+}
+
+/** Ensure transcript backfill finishes before the first retrieval for an older journey. */
+export async function ensureStoryMemoryReady(
+  input: { playthrough: Playthrough; bundle: StoryBundle; playerName?: string },
+  engine?: StoryMemoryEngine,
+): Promise<StoryMemoryMigrationResult> {
+  const e = engine ?? getStoryMemoryEngine();
+  const playthroughId = input.playthrough.id;
+  const tasks = tasksFor(activeReadinessChecks, e);
+  const active = tasks.get(playthroughId) ?? migrationTasksFor(e).get(playthroughId);
+  if (active) return active;
+
+  const task = (async (): Promise<StoryMemoryMigrationResult> => {
+    const done = await e.store.getMeta(playthroughId, MIGRATION_KEY).catch(() => null);
+    if (done && Number(done) >= STORY_MEMORY_VERSION) {
+      return { migrated: false, events: 0, relationships: 0, knowledge: 0 };
+    }
+
+    const { listMessagesAsc } = await import('./db');
+    const messages = await listMessagesAsc(playthroughId);
+    return migrateStoryMemory({ ...input, messages }, e);
+  })();
+  tasks.set(playthroughId, task);
+  try {
+    return await task;
+  } finally {
+    if (tasks.get(playthroughId) === task) tasks.delete(playthroughId);
+  }
 }
 
 /** Fold very old events into durable rollups (raw rows are kept). */

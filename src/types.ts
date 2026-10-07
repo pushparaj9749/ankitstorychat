@@ -621,8 +621,10 @@ export interface StoryEventRecord {
   id: string;
   storyId: string;
   playthroughId: string;
-  /** Monotonic position inside the playthrough (timeline order). */
+  /** Monotonic position among stored events (stable timeline ordering). */
   seq: number;
+  /** Story turn number, used for meaningful recency decay (not event count). */
+  turnSeq?: number;
   type: StoryEventType;
   summary: string;
   detail?: string | null;
@@ -732,6 +734,8 @@ export interface StoryMemoryQuery {
   storyId: string;
   playthroughId: string;
   query: string;
+  /** Current user line, used first for token search and evidence excerpts. */
+  primaryQuery?: string;
   /** Character ids the current scene knows about (boosts their records). */
   characters?: string[];
   /** Explicit pair ("player::poonam") to focus on. */
@@ -743,6 +747,8 @@ export interface StoryMemoryQuery {
   limit?: number;
   /** Character whose perspective the retrieval must respect. */
   perspective?: string | null;
+  /** Raw messages already present in the live prompt (avoid echoing the current user line as memory evidence). */
+  excludeMessageIds?: string[];
   /** Story sequence/turn count at query time, enabling turn-based recency. */
   currentSeq?: number;
 }
@@ -753,8 +759,10 @@ export interface StoryMemoryQueryResult {
   knowledge: CharacterKnowledgeRecord[];
   /** Chronological (oldest → newest) view of the retrieved events. */
   timeline: StoryEventRecord[];
-  /** Verbatim raw-archive evidence pulled in by multi-hop retrieval. */
-  evidence: { messageId: string; role: string; speaker: string | null; text: string; createdAt: string }[];
+  /** Verbatim raw-archive evidence, with a query-focused excerpt for prompt rendering. */
+  evidence: { messageId: string; role: string; speaker: string | null; text: string; excerpt?: string; createdAt: string }[];
+  /** Current story turn used to label and rank turn-aware memories. */
+  currentSeq?: number;
   /** Explanation of which hops fired (diagnostics + tests). */
   hops: string[];
   candidates: number;

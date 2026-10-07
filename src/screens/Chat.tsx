@@ -27,8 +27,8 @@ import { completeEpisode, consolidateMemories, putMemory, recallForTurn, remembe
 import { ensureWorldState } from '../lib/worldState';
 import { runMemoryWritePipeline, recallWithWorldState } from '../lib/memoryEngine';
 import { listMemoryCandidates } from '../lib/db';
-import { countMessages, getPlaythrough, insertMessage, listMessages, listMessagesAsc, listRecentMessagesAsc, updatePlaythrough, updateStats } from '../lib/db';
-import { consolidateStoryMemory, migrateStoryMemory, recallStoryMemoryForPrompt, rememberTurn } from '../lib/storyMemory';
+import { countMessages, getPlaythrough, insertMessage, listMessages, listRecentMessagesAsc, updatePlaythrough, updateStats } from '../lib/db';
+import { consolidateStoryMemory, ensureStoryMemoryReady, indexStoryMemoryMessages, recallStoryMemoryForPrompt, rememberTurn } from '../lib/storyMemory';
 import { completePlaythrough } from '../lib/playthrough';
 import { interpolatePlayerName, makePlayerTextFn } from '../lib/playerName';
 import { RADIUS, SCALE, TOUCH, withAlpha } from '../theme';
@@ -97,16 +97,11 @@ export function Chat({ navigation, route }: Props) {
         setMessages(first);
         setHasMore(total > first.length);
         void ensureWorldState(pt, b).catch(() => undefined);
-        // v2.5.1: give older journeys their typed archive. Runs in the
-        // background, is idempotent, and only reads local rows.
-        void (async () => {
-          try {
-            const archive = await listMessagesAsc(pt.id);
-            await migrateStoryMemory({ playthrough: pt, bundle: b, messages: archive, playerName: profile.nickname });
-          } catch {
-            /* migration is best effort — chat must never be blocked by it */
-          }
-        })();
+        // Backfill older journeys' transcript and typed archive. This is
+        // idempotent, local-only, and shared with the first-retrieval barrier.
+        void ensureStoryMemoryReady({ playthrough: pt, bundle: b, playerName: profile.nickname }).catch(() => {
+          /* migration is best effort — chat must never be blocked by it */
+        });
       } catch (e) {
         if (!alive) return;
         if (e instanceof StoryContentError && e.code === 'network') setOffline(true);
@@ -184,13 +179,16 @@ export function Chat({ navigation, route }: Props) {
     const apiKey = await getApiKey(activeProvider.id);
     if (!apiKey) throw new Error('API key missing.');
 
+    // The screen starts migration in the background; share/wait for it here so
+    // the first answer cannot race an incomplete transcript index.
+    await ensureStoryMemoryReady({ playthrough: pt, bundle: b, playerName: profile.nickname }).catch(() => undefined);
     const worldState = await ensureWorldState(pt, b).catch(() => null);
     const recent = await listRecentMessagesAsc(pt.id, shortTermWindowOf(b) + HISTORY_HEADROOM);
     const history = recent.filter((m, i) => !(i === recent.length - 1 && m.role === 'user' && m.text === userText));
     // Raw archive row of the reader's own turn: the event record links to it.
     const userMessageId =
       recent.length && recent[recent.length - 1].role === 'user' ? recent[recent.length - 1].id : undefined;
-    const query = [...history.slice(-2).map((m) => m.text), userText].join('\n');
+    const query = [userText, ...history.slice(-2).map((m) => m.text)].join('\n');
 
     // Persist reader-authored preferences before retrieval. The current turn
     // must be visible to the narrator even on a first mention, and it must
@@ -231,10 +229,12 @@ export function Chat({ navigation, route }: Props) {
         playthrough: pt,
         bundle: b,
         query,
+        primaryQuery: userText,
         playerName: profile?.nickname,
         characters: [...new Set([...sceneCharacters, ...mentioned])],
         location: wsForPrompt?.currentLocation ?? null,
-        currentSeq: wsForPrompt?.episodeCount ?? pt.messageCount,
+        currentSeq: Math.max(wsForPrompt?.episodeCount ?? 0, pt.messageCount),
+        excludeMessageIds: userMessageId ? [userMessageId] : [],
       });
       storyMemoryBlock = recall.block;
     } catch {
@@ -282,6 +282,7 @@ export function Chat({ navigation, route }: Props) {
         sceneId: pt.currentSceneId,
         location: wsForPrompt?.currentLocation ?? null,
         storyDay: wsForPrompt?.storyTime?.day ?? null,
+        turnSeq: Math.max(wsForPrompt?.episodeCount ?? 0, pt.messageCount) + 1,
         playerName: profile.nickname,
       });
     } catch {
@@ -341,6 +342,8 @@ export function Chat({ navigation, route }: Props) {
     try {
       await aiTurn(playthrough, bundle, clean);
     } catch (e: any) {
+      // A failed response still leaves a real user-authored row in the archive.
+      await indexStoryMemoryMessages(playthrough, [userMsg]).catch(() => 0);
       const err: AIError = e && typeof e === 'object' && 'code' in e ? (e as AIError) : { code: 'provider_error', message: e instanceof Error ? e.message : 'AI error', retryable: true };
       setAiError(err);
     } finally {

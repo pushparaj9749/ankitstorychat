@@ -68,8 +68,8 @@ class Session {
       text: narrator, sceneId: 's1', createdAt: new Date(s1(2026, this.n * 2 + 1)).toISOString(),
     };
     this.store._data.messages.push(
-      { id: userMsg.id, role: 'user', speaker: userMsg.speaker, text: user, createdAt: userMsg.createdAt },
-      { id: botMsg.id, role: 'assistant', speaker: botMsg.speaker, text: narrator, createdAt: botMsg.createdAt },
+      { id: userMsg.id, playthroughId: this.pt.id, role: 'user', speaker: userMsg.speaker, text: user, createdAt: userMsg.createdAt },
+      { id: botMsg.id, playthroughId: this.pt.id, role: 'assistant', speaker: botMsg.speaker, text: narrator, createdAt: botMsg.createdAt },
     );
     await this.engine.writeTurn({
       playthrough: this.pt, bundle: this.bundle, playerName: 'Ankit',

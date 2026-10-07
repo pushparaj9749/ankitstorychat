@@ -6,6 +6,7 @@ import {
   scoreEvent,
   rankArchive,
   renderMemoryBlock,
+  timelineLabel,
   semanticOverlap,
   buildQueryProfileV2,
   type MemoryContextRef,
@@ -137,6 +138,17 @@ describe('Long-term Memory Enhancements', () => {
       const scoreMilestone = scoreEvent(oldMilestone, profile, { currentSeq: 20 });
       const scoreTrivia = scoreEvent(recentTrivia, profile, { currentSeq: 20 });
       expect(scoreMilestone).toBeGreaterThan(scoreTrivia);
+    });
+
+    test('story-turn recency uses turnSeq rather than the independent event sequence', () => {
+      const profile = buildQueryProfileV2('Poonam ne chai kab banayi?', ctx);
+      const oldEvent = { ...recentTrivia, seq: 5000, turnSeq: 2 };
+      const recentEvent = { ...recentTrivia, seq: 5015, turnSeq: 18 };
+
+      expect(scoreEvent(recentEvent, profile, { currentSeq: 20 })).toBeGreaterThan(
+        scoreEvent(oldEvent, profile, { currentSeq: 20 }),
+      );
+      expect(timelineLabel(oldEvent, 20)).toBe('earlier in the story');
     });
 
     test('permanent milestone receives [PERMANENT CANON] tag in rendered block', () => {

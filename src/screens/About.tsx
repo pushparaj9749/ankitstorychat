@@ -1,5 +1,5 @@
 /**
- * About Kissa — Version 2.4.2, links, credits.
+ * About Kissa — app version, links, and credits.
  */
 import React from 'react';
 import { Image, Linking, Pressable, ScrollView, StyleSheet, Text, View } from 'react-native';
@@ -19,7 +19,7 @@ const REPO = 'https://github.com/pushparaj9749/ankitstorychat';
 
 export function About({ navigation }: Props) {
   const { theme } = useApp();
-  const version = Constants.expoConfig?.version ?? '2.5.3';
+  const version = Constants.expoConfig?.version ?? '2.5.4';
 
   return (
     <Screen>

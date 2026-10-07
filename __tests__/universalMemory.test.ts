@@ -182,8 +182,8 @@ async function turn(h: Harness, userText: string, assistantText: string, opts: T
   const botMsg = rawMessage(h.pt.id, 'assistant', assistantText);
   // The raw archive rows exist in the messages table in production.
   h.store._data.messages.push(
-    { id: userMsg.id, role: userMsg.role, speaker: userMsg.speaker, text: userMsg.text, createdAt: userMsg.createdAt },
-    { id: botMsg.id, role: botMsg.role, speaker: botMsg.speaker, text: botMsg.text, createdAt: botMsg.createdAt },
+    { id: userMsg.id, playthroughId: h.pt.id, role: userMsg.role, speaker: userMsg.speaker, text: userMsg.text, createdAt: userMsg.createdAt },
+    { id: botMsg.id, playthroughId: h.pt.id, role: botMsg.role, speaker: botMsg.speaker, text: botMsg.text, createdAt: botMsg.createdAt },
   );
   return h.engine.writeTurn({
     playthrough: h.pt,
@@ -429,6 +429,33 @@ describe('semantic and long-distance retrieval', () => {
     expect(res.events.some((e) => /tasveer|photograph/i.test(e.summary))).toBe(true);
   });
 
+  test('a detail missed by event extraction is still retrievable from the raw transcript index', async () => {
+    const h = harness();
+    const longLeadIn = Array.from({ length: 180 }, (_, i) => `fillerword${i}`).join(' ');
+    await turn(h, 'Poonam ka pasandida rang neela hai.', `${longLeadIn} Poonam: "Mera pasandida rang neela hai."`);
+
+    // This detail is intentionally ordinary conversation, so it creates no
+    // typed story event. It is also late in a long message and is then followed
+    // by many turns, exercising both full-message indexing and long-distance recall.
+    for (let i = 0; i < 120; i++) {
+      await turn(h, `Chai break ${i}.`, 'Poonam: "Theek hai."');
+    }
+
+    const res = await h.engine.memorySearch({
+      storyId: h.bundle.meta.id,
+      playthroughId: h.pt.id,
+      query: 'Poonam ka favorite color blue kya tha?',
+      characters: ['poonam'],
+      limit: 8,
+    });
+    expect(res.events).toHaveLength(0);
+    expect(res.hops).toContain('raw-message');
+    expect(res.evidence.some((m) => /pasandida rang neela/i.test(m.text))).toBe(true);
+    expect(res.evidence.some((m) => /pasandida rang neela/i.test(m.excerpt ?? ''))).toBe(true);
+    const promptBlock = h.engine.buildContextBlock(res, { currentSeq: 0 });
+    expect(promptBlock).toContain('pasandida rang neela');
+  });
+
   test('an event hundreds of messages old is still retrieved, without enlarging context', async () => {
     const h = harness();
     // Message 1-2: the important promise.
@@ -637,9 +664,11 @@ describe('backward compatibility', () => {
       { id: 'lm2', playthroughId: pt.id, role: 'assistant', speaker: 'Poonam', text: 'Poonam: "Mujhe bhi achha laga."', sceneId: 's1', createdAt: '2026-01-01T10:00:05.000Z' },
       { id: 'lm3', playthroughId: pt.id, role: 'user', speaker: 'Ankit', text: 'Main wada karta hoon ki tumhe Rampur wapas launga.', sceneId: 's1', createdAt: '2026-01-01T10:01:00.000Z' },
       { id: 'lm4', playthroughId: pt.id, role: 'assistant', speaker: 'Poonam', text: '*Poonam ne aankhein nam karke haan kaha.*\nPoonam: "Wada yaad rakhna."', sceneId: 's1', createdAt: '2026-01-01T10:01:05.000Z' },
+      // An uncategorized detail from a legacy transcript must be recovered by backfill.
+      { id: 'lm5', playthroughId: pt.id, role: 'user', speaker: 'Ankit', text: 'Poonam ka lucky number 17 hai.', sceneId: 's1', createdAt: '2026-01-01T10:02:00.000Z' },
     ];
     // The legacy messages also exist in the raw archive store.
-    store._data.messages.push(...messages.map((m) => ({ id: m.id, role: m.role, speaker: m.speaker, text: m.text, createdAt: m.createdAt })));
+    store._data.messages.push(...messages.map((m) => ({ id: m.id, playthroughId: m.playthroughId, role: m.role, speaker: m.speaker, text: m.text, createdAt: m.createdAt })));
 
     const first = await engine.migrate({ playthrough: pt, bundle, messages, playerName: 'Ankit' });
     expect(first.migrated).toBe(true);
@@ -658,6 +687,47 @@ describe('backward compatibility', () => {
       storyId: pt.storyId, playthroughId: pt.id, query: 'Poonam se mulaqat aur wada', characters: ['poonam'],
     });
     expect(res.events.length).toBeGreaterThan(0);
+
+    const rawOnly = await engine.memorySearch({
+      storyId: pt.storyId,
+      playthroughId: pt.id,
+      query: 'Poonam ka lucky number 17 kya tha?',
+      characters: ['poonam'],
+    });
+    expect(rawOnly.evidence.some((m) => /lucky number 17/i.test(m.text))).toBe(true);
+  });
+
+  test('the v3 migration repairs turnSeq on typed events already written by v1', async () => {
+    const store = createInMemoryStoryMemoryStore();
+    const engine = createStoryMemoryEngine(store);
+    const pt = makePlaythrough('ptTurnSeqMigration');
+    const bundle = makeBundle();
+    const messages: ChatMessage[] = [
+      { id: 'opening-assistant-1', playthroughId: pt.id, role: 'assistant', speaker: 'Poonam', text: 'Subah ki roshni purani haveli par padi.', sceneId: 's1', createdAt: '2026-01-01T09:59:40.000Z' },
+      { id: 'opening-assistant-2', playthroughId: pt.id, role: 'assistant', speaker: 'Poonam', text: 'Door se ghanti ki awaaz aayi.', sceneId: 's1', createdAt: '2026-01-01T09:59:45.000Z' },
+      { id: 'turnseq-user', playthroughId: pt.id, role: 'user', speaker: 'Ankit', text: 'Main wada karta hoon ki tumhe Rampur wapas launga.', sceneId: 's1', createdAt: '2026-01-01T10:00:00.000Z' },
+      { id: 'turnseq-assistant', playthroughId: pt.id, role: 'assistant', speaker: 'Poonam', text: 'Poonam: "Wada yaad rakhna."', sceneId: 's1', createdAt: '2026-01-01T10:00:05.000Z' },
+    ];
+    store._data.messages.push(...messages.map((m) => ({
+      id: m.id, playthroughId: m.playthroughId, role: m.role, speaker: m.speaker, text: m.text, createdAt: m.createdAt,
+    })));
+
+    await engine.writeTurn({
+      playthrough: pt,
+      bundle,
+      userText: messages[2].text,
+      assistantText: messages[3].text,
+      messageIds: [messages[2].id, messages[3].id],
+      playerName: 'Ankit',
+    });
+    const legacy = store._data.events.find((event) => event.sourceMessageIds.includes('turnseq-assistant'));
+    expect(legacy).toBeDefined();
+    expect(legacy?.turnSeq).toBeUndefined();
+    await store.setMeta(pt.id, 'migrated', '2');
+
+    await engine.migrate({ playthrough: pt, bundle, messages, playerName: 'Ankit' });
+    const upgraded = store._data.events.find((event) => event.sourceMessageIds.includes('turnseq-assistant'));
+    expect(upgraded?.turnSeq).toBe(1);
   });
 });
 

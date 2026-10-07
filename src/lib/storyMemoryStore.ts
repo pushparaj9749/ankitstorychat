@@ -15,6 +15,8 @@
  * Every read is scoped by playthroughId (which is 1:1 with a story run) and
  * stamped with storyId, so memory can never leak between stories.
  */
+import { conceptTokens } from './storyMemoryCore';
+import { numericTokens, tokenize } from './memoryCore';
 import type {
   CharacterKnowledgeRecord,
   ChatMessage,
@@ -37,7 +39,14 @@ async function openDb(): Promise<DbHandle> {
   return mod.getDb();
 }
 
-export type IndexedRecordType = 'event' | 'knowledge' | 'relationship';
+export type IndexedRecordType = 'event' | 'knowledge' | 'relationship' | 'message';
+
+export interface MessageIndexInput {
+  id: string;
+  role: string;
+  speaker: string | null;
+  text: string;
+}
 
 export interface StoryMemoryStore {
   /* timeline */
@@ -81,10 +90,15 @@ export interface StoryMemoryStore {
     recordId: string,
     keywords: string[],
   ): Promise<void>;
+  /** Index raw chat rows so facts missed by event extraction are still searchable. */
+  indexMessages(storyId: string, playthroughId: string, messages: MessageIndexInput[]): Promise<number>;
+  /** Backfill the message index directly from SQLite (without loading the whole transcript into React memory). */
+  indexRawMessages(storyId: string, playthroughId: string): Promise<number>;
   searchIndex(
     playthroughId: string,
     tokens: string[],
     limit?: number,
+    recordType?: IndexedRecordType,
   ): Promise<{ recordType: IndexedRecordType; recordId: string; weight: number }[]>;
   /** Rebuild the inverted index from stored records (after a backup restore). */
   rebuildIndex(): Promise<number>;
@@ -148,6 +162,58 @@ function keywordRow(...parts: string[]): string[] {
   return [...out];
 }
 
+/**
+ * Keep literal tokens from across the whole message (not just its opening
+ * sentences), plus every concept alias, within a bounded local index.
+ */
+function messageKeywords(text: string): string[] {
+  const all = [...new Set(tokenize(text))];
+  const maxLiteral = 192;
+  const literal = all.length <= maxLiteral
+    ? all
+    : Array.from({ length: maxLiteral }, (_, i) => all[Math.round((i * (all.length - 1)) / (maxLiteral - 1))]);
+  return [...new Set([...literal, ...numericTokens(text), ...conceptTokens(text)])];
+}
+
+function tokenWeight(token: string): number {
+  return token.startsWith('c:') ? 2.2 : 1 + Math.min(1, Math.max(0, (token.length - 4) / 3));
+}
+
+function isIndexToken(token: string): boolean {
+  return !!token && (token.length >= 3 || /^\d{1,6}$/.test(token));
+}
+
+interface MessageIndexRow extends MessageIndexInput {
+  playthroughId: string;
+  storyId: string;
+}
+
+/** Bulk insert under SQLite's usual 999-bind-variable limit. */
+async function insertMessageIndexRows(d: DbHandle, rows: MessageIndexRow[]): Promise<void> {
+  const flat: { playthroughId: string; storyId: string; recordId: string; token: string; weight: number }[] = [];
+  for (const row of rows) {
+    for (const token of messageKeywords(`${row.speaker ?? ''} ${row.text}`)) {
+      flat.push({
+        playthroughId: row.playthroughId,
+        storyId: row.storyId,
+        recordId: row.id,
+        token,
+        weight: tokenWeight(token),
+      });
+    }
+  }
+  const batchSize = 120;
+  for (let i = 0; i < flat.length; i += batchSize) {
+    const batch = flat.slice(i, i + batchSize);
+    const values = batch.map(() => "(?, ?, 'message', ?, ?, ?)").join(', ');
+    const args = batch.flatMap((row) => [row.playthroughId, row.storyId, row.recordId, row.token, row.weight]);
+    await d.runAsync(
+      `INSERT OR REPLACE INTO memory_index (playthrough_id, story_id, record_type, record_id, token, weight) VALUES ${values}`,
+      ...args,
+    );
+  }
+}
+
 function fromJsonArray(raw: unknown): unknown[] {
   if (Array.isArray(raw)) return raw;
   if (typeof raw !== 'string' || !raw) return [];
@@ -180,14 +246,15 @@ export function createSqliteStoryMemoryStore(): StoryMemoryStore {
       const d = await db();
       await d.runAsync(
         `INSERT OR REPLACE INTO story_events (
-          id, playthrough_id, story_id, seq, type, summary, detail, importance, importance_label,
+          id, playthrough_id, story_id, seq, turn_seq, type, summary, detail, importance, importance_label,
           confidence, source, source_message_ids, source_event_ids, scene_id, location, participants,
           pair_keys, objects, story_day, occurred_at, created_at, status, superseded_by, keywords, archived
-        ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`,
+        ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`,
         e.id,
         e.playthroughId,
         e.storyId,
         e.seq,
+        e.turnSeq ?? 0,
         e.type,
         e.summary,
         e.detail ?? null,
@@ -249,7 +316,7 @@ export function createSqliteStoryMemoryStore(): StoryMemoryStore {
 
     async listEvents(playthroughId, opts = {}) {
       const d = await db();
-      const limit = Math.max(1, Math.min(2000, opts.limit ?? 400));
+      const limit = Math.max(1, Math.min(10000, opts.limit ?? 400));
       const clauses = ['playthrough_id = ?'];
       const args: (string | number)[] = [playthroughId];
       if (!opts.includeArchived) clauses.push('archived = 0');
@@ -410,7 +477,7 @@ export function createSqliteStoryMemoryStore(): StoryMemoryStore {
 
     async indexRecord(storyId, playthroughId, recordType, recordId, keywords) {
       const d = await db();
-      const uniq = [...new Set(keywords.filter((k) => k && k.length >= 3))].slice(0, 80);
+      const uniq = [...new Set(keywords.filter(isIndexToken))].slice(0, 80);
       if (!uniq.length) return;
       // Replace this record's rows so re-indexing never duplicates weights.
       await d.runAsync(
@@ -434,20 +501,78 @@ export function createSqliteStoryMemoryStore(): StoryMemoryStore {
       }
     },
 
-    async searchIndex(playthroughId, tokens, limit = 160) {
-      const uniq = [...new Set(tokens.filter((t) => t && t.length >= 3))].slice(0, 24);
+    async indexMessages(storyId, playthroughId, messages) {
+      const unique = [...new Map(messages.filter((m) => m.id && m.text).map((m) => [m.id, m])).values()];
+      if (!unique.length) return 0;
+      const d = await db();
+      for (let i = 0; i < unique.length; i += 400) {
+        const ids = unique.slice(i, i + 400).map((m) => m.id);
+        await d.runAsync(
+          `DELETE FROM memory_index WHERE playthrough_id = ? AND record_type = 'message' AND record_id IN (${ids.map(() => '?').join(', ')})`,
+          playthroughId,
+          ...ids,
+        );
+      }
+      await insertMessageIndexRows(
+        d,
+        unique.map((m) => ({ ...m, playthroughId, storyId })),
+      );
+      return unique.length;
+    },
+
+    async indexRawMessages(storyId, playthroughId) {
+      const d = await db();
+      await d.runAsync(
+        "DELETE FROM memory_index WHERE playthrough_id = ? AND record_type = 'message'",
+        playthroughId,
+      );
+      let offset = 0;
+      let total = 0;
+      const pageSize = 300;
+      while (true) {
+        const rows = await d.getAllAsync<{ id: string; role: string; speaker: string | null; text: string }>(
+          'SELECT id, role, speaker, text FROM messages WHERE playthrough_id = ? ORDER BY created_at ASC, id ASC LIMIT ? OFFSET ?',
+          playthroughId,
+          pageSize,
+          offset,
+        );
+        if (!rows.length) break;
+        await insertMessageIndexRows(
+          d,
+          rows.map((m) => ({ ...m, playthroughId, storyId })),
+        );
+        total += rows.length;
+        offset += rows.length;
+      }
+      return total;
+    },
+
+    async searchIndex(playthroughId, tokens, limit = 160, recordType) {
+      const uniq = [...new Set(tokens.filter(isIndexToken))].slice(0, 64);
       if (!uniq.length) return [];
       const d = await db();
-      const ph = uniq.map(() => '?').join(', ');
+      const valueRows = uniq.map(() => '(?)').join(', ');
+      const typeClause = recordType ? ' AND mi.record_type = ?' : '';
       const rows = await d.getAllAsync<{ record_type: string; record_id: string; w: number }>(
-        `SELECT record_type, record_id, SUM(weight) AS w
-           FROM memory_index
-          WHERE playthrough_id = ? AND token IN (${ph})
-          GROUP BY record_type, record_id
+        `WITH query_tokens(token) AS (VALUES ${valueRows}),
+         token_df AS (
+           SELECT mi.token, COUNT(DISTINCT mi.record_type || ':' || mi.record_id) AS df
+             FROM memory_index mi JOIN query_tokens q ON q.token = mi.token
+            WHERE mi.playthrough_id = ?${typeClause}
+            GROUP BY mi.token
+         )
+         SELECT mi.record_type, mi.record_id,
+                SUM(mi.weight * (1.0 + 4.0 / (token_df.df + 1))) AS w
+           FROM memory_index mi JOIN token_df ON token_df.token = mi.token
+          WHERE mi.playthrough_id = ?${typeClause}
+          GROUP BY mi.record_type, mi.record_id
           ORDER BY w DESC
           LIMIT ${Math.max(1, Math.min(600, limit))}`,
-        playthroughId,
         ...uniq,
+        playthroughId,
+        ...(recordType ? [recordType] : []),
+        playthroughId,
+        ...(recordType ? [recordType] : []),
       );
       return rows.map((r) => ({
         recordType: r.record_type as IndexedRecordType,
@@ -485,6 +610,19 @@ export function createSqliteStoryMemoryStore(): StoryMemoryStore {
       for (const r of rels) {
         await this.indexRecord(r.story_id, r.playthrough_id, 'relationship', r.pair_key, keywordRow(r.a_name, r.b_name, r.status));
         written++;
+      }
+      const messages = await d.getAllAsync<{ id: string; playthrough_id: string; story_id: string; role: string; speaker: string | null; text: string }>(
+        `SELECT m.id, m.playthrough_id, p.story_id, m.role, m.speaker, m.text
+           FROM messages m JOIN playthroughs p ON p.id = m.playthrough_id`,
+      );
+      const byPlaythrough = new Map<string, { storyId: string; messages: MessageIndexInput[] }>();
+      for (const m of messages) {
+        const group = byPlaythrough.get(m.playthrough_id) ?? { storyId: m.story_id, messages: [] };
+        group.messages.push({ id: m.id, role: m.role, speaker: m.speaker, text: m.text });
+        byPlaythrough.set(m.playthrough_id, group);
+      }
+      for (const [playthroughId, group] of byPlaythrough) {
+        written += await this.indexMessages(group.storyId, playthroughId, group.messages);
       }
       return written;
     },
@@ -529,24 +667,29 @@ export function createSqliteStoryMemoryStore(): StoryMemoryStore {
     },
 
     async rawMessages(ids) {
-      const uniq = [...new Set(ids.filter(Boolean))].slice(0, 24);
+      const uniq = [...new Set(ids.filter(Boolean))].slice(0, 600);
       if (!uniq.length) return [];
       const d = await db();
-      const ph = uniq.map(() => '?').join(', ');
-      const rows = await d.getAllAsync<{
-        id: string;
-        role: string;
-        speaker: string | null;
-        text: string;
-        created_at: string;
-      }>(`SELECT id, role, speaker, text, created_at FROM messages WHERE id IN (${ph})`, ...uniq);
-      return rows.map((r) => ({
-        id: r.id,
-        role: r.role as ChatMessage['role'],
-        speaker: r.speaker,
-        text: r.text,
-        createdAt: r.created_at,
-      }));
+      const out: Pick<ChatMessage, 'id' | 'role' | 'speaker' | 'text' | 'createdAt'>[] = [];
+      for (let i = 0; i < uniq.length; i += 400) {
+        const batch = uniq.slice(i, i + 400);
+        const ph = batch.map(() => '?').join(', ');
+        const rows = await d.getAllAsync<{
+          id: string;
+          role: string;
+          speaker: string | null;
+          text: string;
+          created_at: string;
+        }>(`SELECT id, role, speaker, text, created_at FROM messages WHERE id IN (${ph})`, ...batch);
+        out.push(...rows.map((r) => ({
+          id: r.id,
+          role: r.role as ChatMessage['role'],
+          speaker: r.speaker,
+          text: r.text,
+          createdAt: r.created_at,
+        })));
+      }
+      return out;
     },
 
     async getMeta(playthroughId, key) {
@@ -596,6 +739,7 @@ function rowToEvent(r: Record<string, unknown>): StoryEventRecord {
     storyId: String(r.story_id),
     playthroughId: String(r.playthrough_id),
     seq: Number(r.seq ?? 0),
+    turnSeq: Number(r.turn_seq ?? 0) > 0 ? Number(r.turn_seq) : undefined,
     type: (r.type as StoryEventType) ?? 'other',
     summary: String(r.summary ?? ''),
     detail: r.detail == null ? null : String(r.detail),
@@ -677,7 +821,7 @@ export interface InMemoryStoryMemoryStore extends StoryMemoryStore {
     knowledge: CharacterKnowledgeRecord[];
     index: { playthroughId: string; storyId: string; recordType: IndexedRecordType; recordId: string; token: string; weight: number }[];
     contradictions: MemoryContradiction[];
-    messages: Pick<ChatMessage, 'id' | 'role' | 'speaker' | 'text' | 'createdAt'>[];
+    messages: Pick<ChatMessage, 'id' | 'playthroughId' | 'role' | 'speaker' | 'text' | 'createdAt'>[];
     meta: Map<string, string>;
   };
 }
@@ -791,21 +935,58 @@ export function createInMemoryStoryMemoryStore(): InMemoryStoryMemoryStore {
           index.splice(i, 1);
         }
       }
-      for (const token of [...new Set(keywords.filter((k) => k && k.length >= 3))].slice(0, 80)) {
+      for (const token of [...new Set(keywords.filter(isIndexToken))].slice(0, 80)) {
         const weight = token.startsWith('c:') ? 2.2 : 1 + Math.min(1, Math.max(0, (token.length - 4) / 3));
         index.push({ playthroughId, storyId, recordType, recordId, token, weight });
       }
     },
 
-    async searchIndex(playthroughId, tokens, limit = 160) {
-      const wanted = new Set(tokens.filter((t) => t && t.length >= 3).slice(0, 24));
+    async indexMessages(storyId, playthroughId, raw) {
+      const unique = [...new Map(raw.filter((m) => m.id && m.text).map((m) => [m.id, m])).values()];
+      const ids = new Set(unique.map((m) => m.id));
+      for (let i = index.length - 1; i >= 0; i--) {
+        const row = index[i];
+        if (row.playthroughId === playthroughId && row.recordType === 'message' && ids.has(row.recordId)) {
+          index.splice(i, 1);
+        }
+      }
+      for (const message of unique) {
+        const tokens = messageKeywords(`${message.speaker ?? ''} ${message.text}`);
+        for (const token of tokens) {
+          index.push({ playthroughId, storyId, recordType: 'message', recordId: message.id, token, weight: tokenWeight(token) });
+        }
+      }
+      return unique.length;
+    },
+
+    async indexRawMessages(storyId, playthroughId) {
+      const raw = messages
+        .filter((m) => m.playthroughId === playthroughId)
+        .map(({ id, role, speaker, text }) => ({ id, role, speaker, text }));
+      for (let i = index.length - 1; i >= 0; i--) {
+        const row = index[i];
+        if (row.playthroughId === playthroughId && row.recordType === 'message') index.splice(i, 1);
+      }
+      return this.indexMessages(storyId, playthroughId, raw);
+    },
+
+    async searchIndex(playthroughId, tokens, limit = 160, recordType) {
+      const wanted = new Set([...new Set(tokens.filter(isIndexToken))].slice(0, 64));
       if (!wanted.size) return [];
+      const recordsByToken = new Map<string, Set<string>>();
+      for (const row of index) {
+        if (row.playthroughId !== playthroughId || !wanted.has(row.token) || (recordType && row.recordType !== recordType)) continue;
+        const docs = recordsByToken.get(row.token) ?? new Set<string>();
+        docs.add(`${row.recordType}|${row.recordId}`);
+        recordsByToken.set(row.token, docs);
+      }
       const byRecord = new Map<string, { recordType: IndexedRecordType; recordId: string; weight: number }>();
       for (const row of index) {
-        if (row.playthroughId !== playthroughId || !wanted.has(row.token)) continue;
+        if (row.playthroughId !== playthroughId || !wanted.has(row.token) || (recordType && row.recordType !== recordType)) continue;
         const key = `${row.recordType}|${row.recordId}`;
         const cur = byRecord.get(key) ?? { recordType: row.recordType, recordId: row.recordId, weight: 0 };
-        cur.weight += row.weight;
+        const documentFrequency = recordsByToken.get(row.token)?.size ?? 1;
+        cur.weight += row.weight * (1 + 4 / (documentFrequency + 1));
         byRecord.set(key, cur);
       }
       return [...byRecord.values()].sort((a, b) => b.weight - a.weight).slice(0, limit);
@@ -823,7 +1004,22 @@ export function createInMemoryStoryMemoryStore(): InMemoryStoryMemoryStore {
       for (const r of relationships) {
         await this.indexRecord(r.storyId, r.playthroughId, 'relationship', r.pairKey, keywordRow(r.a.name, r.b.name, r.status));
       }
-      return events.length + knowledge.length + relationships.length;
+      const messagesByPlaythrough = new Map<string, { storyId: string; messages: MessageIndexInput[] }>();
+      for (const message of messages) {
+        if (!message.playthroughId) continue;
+        const storyId =
+          events.find((e) => e.playthroughId === message.playthroughId)?.storyId ??
+          relationships.find((r) => r.playthroughId === message.playthroughId)?.storyId ??
+          knowledge.find((k) => k.playthroughId === message.playthroughId)?.storyId ?? '';
+        const group = messagesByPlaythrough.get(message.playthroughId) ?? { storyId, messages: [] };
+        group.messages.push({ id: message.id, role: message.role, speaker: message.speaker, text: message.text });
+        messagesByPlaythrough.set(message.playthroughId, group);
+      }
+      for (const [playthroughId, group] of messagesByPlaythrough) {
+        await this.indexMessages(group.storyId, playthroughId, group.messages);
+      }
+      const indexedMessages = [...messagesByPlaythrough.values()].reduce((n, group) => n + group.messages.length, 0);
+      return events.length + knowledge.length + relationships.length + indexedMessages;
     },
 
     async insertContradiction(c) {

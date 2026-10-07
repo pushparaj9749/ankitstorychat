@@ -25,7 +25,7 @@ import type {
   StoryEventType,
 } from '../types';
 import { MEMORY_IMPORTANCE_SCORE, importanceLabel } from '../types';
-import { hashText, looksTooPrivate, sanitize, tokenize } from './memoryCore';
+import { hashText, looksTooPrivate, numericTokens, sanitize, tokenize } from './memoryCore';
 
 /* ------------------------------------------------------------------ */
 /* 1. Concept lexicon — meaning-based matching, no external service    */
@@ -152,6 +152,7 @@ export function conceptTokens(text: string): string[] {
 /** Keyword row stored on a record: literal tokens + concept tokens. */
 export function keywordSet(text: string): string[] {
   const out = new Set<string>(tokenize(text).slice(0, 60));
+  for (const value of numericTokens(text)) out.add(value);
   for (const c of conceptTokens(text)) out.add(c);
   return [...out];
 }
@@ -938,8 +939,8 @@ export function scoreEvent(
 
   // Turn-based decay when currentSeq is available (preferred for turn-based story chat);
   // falls back to calendar wall-clock decay if sequence is unavailable.
-  if (opts.currentSeq !== undefined && opts.currentSeq > 0 && e.seq !== undefined && e.seq >= 0) {
-    const deltaTurns = Math.max(0, opts.currentSeq - e.seq);
+  if (opts.currentSeq !== undefined && opts.currentSeq > 0 && e.turnSeq !== undefined && e.turnSeq > 0) {
+    const deltaTurns = Math.max(0, opts.currentSeq - e.turnSeq);
     const turnHalfLife = opts.halfLifeTurns ?? (query.historyIntent ? 90 : 35);
     score += recencyWeight * Math.pow(0.5, deltaTurns / turnHalfLife);
   } else {
@@ -1099,7 +1100,9 @@ export function rankArchive(
     eventTypes: opts.eventTypes,
   });
 
-  let events = archive.events.filter((e) => !e.archived);
+  // Archived rows remain eligible when found via the inverted index. Folding
+  // is a prompt-size optimization, not permission to forget the source event.
+  let events = archive.events;
   if (opts.eventTypes?.length) events = events.filter((e) => opts.eventTypes!.includes(e.type));
   if (opts.importance?.length) {
     const wanted = new Set(opts.importance.map((l) => MEMORY_IMPORTANCE_SCORE[l]));
@@ -1184,8 +1187,8 @@ export function chronological<T extends { seq: number; occurredAt: string }>(rec
 }
 
 /** Decade-ish human label for "how long ago" inside the story. */
-export function timelineLabel(event: { seq: number }, currentSeq: number): string {
-  const delta = Math.max(0, currentSeq - event.seq);
+export function timelineLabel(event: { seq: number; turnSeq?: number }, currentSeq: number): string {
+  const delta = Math.max(0, currentSeq - (event.turnSeq ?? event.seq));
   if (delta === 0) return 'this turn';
   if (delta <= 3) return 'a few turns ago';
   if (delta <= 12) return 'earlier this chapter';
@@ -1300,7 +1303,7 @@ export interface RenderInput {
   events: StoryEventRecord[];
   knowledge: CharacterKnowledgeRecord[];
   contradictions?: { expected: string; proposed: string; reason: string }[];
-  evidence?: { speaker: string | null; role: string; text: string }[];
+  evidence?: { speaker: string | null; role: string; text: string; excerpt?: string }[];
   currentSeq: number;
   nameOf?: (id: string) => string;
   charBudget?: number;
@@ -1333,6 +1336,13 @@ export function renderMemoryBlock(input: RenderInput): string {
           r.sourceEventIds.length ? ` [source events: ${r.sourceEventIds.slice(-2).join(', ')}]` : ''
         }`,
       );
+    }
+  }
+
+  if (input.evidence?.length) {
+    push('RAW ARCHIVE MATCHES (verbatim source — use these when recalling details):');
+    for (const ev of input.evidence.slice(0, 3)) {
+      push(`- ${ev.speaker ?? (ev.role === 'user' ? 'Player' : 'Narrator')}: ${sanitize(ev.excerpt ?? ev.text, 320)}`);
     }
   }
 
@@ -1372,12 +1382,6 @@ export function renderMemoryBlock(input: RenderInput): string {
     }
   }
 
-  if (input.evidence?.length) {
-    push('RAW ARCHIVE EVIDENCE (verbatim source, highest authority):');
-    for (const ev of input.evidence.slice(0, 3)) {
-      push(`- ${ev.speaker ?? (ev.role === 'user' ? 'Player' : 'Narrator')}: ${sanitize(ev.text, 180)}`);
-    }
-  }
 
   return lines.join('\n');
 }

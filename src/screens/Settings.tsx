@@ -1,5 +1,5 @@
 /**
- * KISSA v2.5.2 — Settings / You
+ * KISSA Settings / You
  *
  * Layout pass: the flat list of twelve separate cards is now a profile header
  * plus grouped cards (rows inside one surface, hairline-separated). That keeps
@@ -27,7 +27,7 @@ export function Settings({ navigation }: Props) {
   const { theme, profile, activeProvider } = useApp();
   const { handleScroll } = useNavScroll();
   const nav = navigation as unknown as { navigate: (s: string, o?: object) => void };
-  const version = Constants.expoConfig?.version ?? '2.5.3';
+  const version = Constants.expoConfig?.version ?? '2.5.4';
 
   /* One row inside a grouped card. */
   function row(icon: IconName, title: string, sub: string, target: string, opts?: { badge?: string; params?: object; first?: boolean }) {
