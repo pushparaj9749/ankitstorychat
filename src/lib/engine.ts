@@ -805,6 +805,8 @@ export interface PromptInput {
    * Bounded by the engine — the full archive is never dumped into the prompt.
    */
   storyMemoryBlock?: string;
+  /** Internal controls for menu actions; never a reader-authored transcript line. */
+  turnInstruction?: string;
 }
 
 export function buildSystemPrompt(input: PromptInput, ageGroup: AgeGroup): string {
@@ -931,7 +933,11 @@ HOW TO RESPOND:
 Omit keys that didn't change. "scene" must be one of the story's scene ids. "endStory" only at a true ending. Keep memory facts short (under 120 chars), up to ${MAX_MEMORY_NOTES} per reply. Also use presentCharacters/activity/storyTime/importantObjects/threads when relevant. Nothing you write in "memory" or this block is shown to the reader. For high continuity, always emit location/activity/presentCharacters when they change.
 7. If the reader greets you out-of-story ("hi", "hello"), stay in character briefly and pull them back into the scene.`;
 
-  return interpolatePlayerName(prompt, profile.nickname, playerNameContext);
+  const systemPrompt = interpolatePlayerName(prompt, profile.nickname, playerNameContext);
+  const turnInstruction = input.turnInstruction?.trim();
+  return turnInstruction
+    ? `${systemPrompt}\n\nINTERNAL ACTION INSTRUCTION (not a reader-authored message):\n${turnInstruction}`
+    : systemPrompt;
 }
 
 export interface BuiltContext {
