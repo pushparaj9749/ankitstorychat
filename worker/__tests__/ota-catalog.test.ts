@@ -1,14 +1,14 @@
 /**
  * OTA catalog delivery through the REAL Worker.
  *
- * The two new stories are content-only additions: they must be discoverable
+ * The new stories are content-only additions: they must be discoverable
  * and playable by the already-installed v2.5.1 app, purely through the
  * existing remote pipeline (repo content → CI assets → Cloudflare Worker →
  * app). This suite therefore feeds the Worker the ACTUAL repository content
- * (manifest + both published packages + every registered image) and asserts
+ * (manifest + every published package + every registered image) and asserts
  * the exact URLs an installed app fetches:
  *
- *   GET /api/manifest                                  → both new stories listed
+ *   GET /api/manifest                                  → every new story listed
  *   GET /api/stories/<dir>                             → whole package
  *   GET /api/stories/<dir>/{story,characters,...}.json → per-file JSON
  *   GET /api/stories/<dir>/assets/cover.jpg            → image/jpeg
@@ -46,7 +46,11 @@ const manifest = readJson(path.join(REPO, 'content', 'manifest.json')) as {
   stories: { id: string; storyDir: string }[];
 };
 
-const NEW_STORY_IDS = ['tumhe-kabhi-pata-hi-nahi-chala', 'jo-usne-bataya-nahi'];
+const NEW_STORY_IDS = [
+  'tumhe-kabhi-pata-hi-nahi-chala',
+  'jo-usne-bataya-nahi',
+  'the-angel-next-door-spoils-me-rotten',
+];
 
 /** Build the assets binding from the real repo content (what CI deploys). */
 function realAssets(): { files: Map<string, Uint8Array>; assets: Env['ASSETS'] } {
@@ -59,7 +63,7 @@ function realAssets(): { files: Map<string, Uint8Array>; assets: Env['ASSETS'] }
       try {
         add(`content/stories/${entry.storyDir}/${file}.json`, path.join(dir, `${file}.json`));
       } catch {
-        /* the test only needs the two new packages plus the manifest */
+        /* the test only needs the new packages plus the manifest */
       }
     }
   }
@@ -105,7 +109,7 @@ function get(path: string): Promise<Response> {
 beforeEach(() => resetRateLimiterForTests());
 
 describe('OTA catalog: the new stories travel through the existing Worker', () => {
-  test('the deployed manifest lists both new stories with their remote covers', async () => {
+  test('the deployed manifest lists every new story with its remote cover', async () => {
     const res = await get('/api/manifest');
     expect(res.status).toBe(200);
     const body = (await res.json()) as {
@@ -122,7 +126,7 @@ describe('OTA catalog: the new stories travel through the existing Worker', () =
     }
   });
 
-  test('every JSON file of both new packages is served and byte-identical', async () => {
+  test('every JSON file of every new package is served and byte-identical', async () => {
     for (const id of NEW_STORY_IDS) {
       const pkg = await get(`/api/stories/${id}`);
       expect(pkg.status).toBe(200);

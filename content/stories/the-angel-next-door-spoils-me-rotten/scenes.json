@@ -1,0 +1,100 @@
+{
+  "storyId": "the-angel-next-door-spoils-me-rotten",
+  "version": 1,
+  "scenes": [
+    {
+      "id": "rainy_door_knock",
+      "title": "Baarish, Do Darwaze Aur Ek Container",
+      "narration": [
+        "[Bond: 6/100 | Ishq: 0/100]",
+        "*Baarish shaam se ruk-ruk kar ho rahi hai. {{playerName}}, aaj poora din tumne flat ke andar hi guzaara hai — laptop, adhoori neend, aur ek bhookh jise tumne khud se chhupa liya hai. Kitchen slab par pichhle hafte ka biscuit ka packet abhi bhi khula pada hai.*",
+        "*Fridge khola to bas aadha dahi ka dabba aur thandi paani ki bottle mili. Tumne khud hi hans diya, kyunki yahan dekhne layak aur kuch nahi hai.*",
+        "*Tabhi darwaza khatkhatata hai — teen dafa, thehri hui, ek hi dhun mein. Pados se aane wali khushboo darwaze ke neeche se andar sarak jaati hai: garam chawal, halka sa jeera, aur til ka tadka.*",
+        "*Tum darwaza kholte ho. Bahar Hina Tachibana khadi hai. Barish ki halki boondein uske long dark hair par lagi hain, aur woh garam khaane ka dabba dono haathon se sambhale hue hai. Dabbe ke kinare se steam halki si uthti hai, aur uske chehre par ek thehra hua expression hai — jaise usne ye faisla pehle hi kar liya ho.*",
+        "Hina: \"Tumne phir se dinner skip kiya hai, hai na?\"",
+        "*Woh tumhara thaka hua chehra padhti hai, phir tumhare kandhe ke peeche dekhti hai — sink mein pade bartan, khaali slab, band light. Uske hoth halke se dab jaate hain.*",
+        "Hina: \"Sach mein, tum apna khayal bilkul nahi rakh sakte.\"",
+        "*Woh dabba thoda aage badhaati hai, par andar kadam nahi rakhti. Woh tumhare ek lafz ka intezaar kar rahi hai — corridor ki tube light halke se bhakti hai, aur uske jooton ke paas paani ki ek chhoti lakeer ban rahi hai.*",
+        "*Phir, jaise apne hi aakhri jumle ko wapas lena chahti ho, woh nazrein neeche karti hai.*",
+        "Hina: \"Aur haan… iska matlab ye mat samajhna ki main tumhari care karti hoon. Bas tum mere next-door neighbour ho. Agar tum bhookhe rehkar beemar pad gaye, toh mujhe pareshani hogi.\"",
+        "*Uske gaalon par halki garam rangat aa jaati hai. Woh kandhe ke peeche, corridor ki barish wali khidki ki taraf dekh leti hai, jaise wahan kuch bahut zaroori likha ho.*",
+        "*Baarish bahar chalti rehti hai. Dabbe ki steam kam hoti jaati hai, par Hina wahin khadi hai — ek haath mein container, doosre se apni aastin, tumhare jawaab ka intezaar karti hui. Aaj ki shaam ka pehla faisla abhi bhi tumhara hai.*"
+      ],
+      "fallbackLines": [
+        "*Corridor mein barish ki awaaz goonjti rehti hai. Hina dabba thoda aage badhaati hai, jaise tumhare jawaab ka intezaar ho.*",
+        "Hina: \"Kitchen tak hi sahi, andar rakh doon? Ya tum khud decide karoge?\"",
+        "*Woh tumhe dekh rahi hai — koi shikayat nahi, sirf ek seedha sawaal. Agla lamha tumhare jawaab par rukta hai.*"
+      ],
+      "choices": [
+        {
+          "id": "invite_her_in",
+          "text": "\"Andar aa jao. Pehle tum bheeg jaaogi, phir lecture dogi.\"",
+          "shortLabel": "Andar aa jao",
+          "keywords": [
+            "andar aa jao",
+            "aajao",
+            "come in",
+            "andar aao"
+          ],
+          "next": null,
+          "effects": {
+            "memory": [
+              "The player invited Hina inside from the corridor on the rainy evening. Record exactly how he said it and everything she did afterwards (where she kept the container, what she cooked or laid out, what she said while working)."
+            ]
+          }
+        },
+        {
+          "id": "take_container",
+          "text": "\"Main le leta hoon — kitchen mein rakh dete hain.\"",
+          "shortLabel": "Khud le loon?",
+          "keywords": [
+            "main le leta hoon",
+            "ragh dete hain",
+            "container",
+            "main le loon"
+          ],
+          "next": null,
+          "effects": {
+            "memory": [
+              "The player took the food container himself instead of inviting her in directly. Record Hina's exact reaction and whether she stepped inside, stayed at the threshold or handed it over."
+            ]
+          }
+        },
+        {
+          "id": "ask_how_she_knew",
+          "text": "\"Tumhe kaise pata maine dinner skip kiya?\"",
+          "shortLabel": "Kaise pata?",
+          "keywords": [
+            "kaise pata",
+            "how do you know",
+            "dinner skip"
+          ],
+          "next": null,
+          "effects": {
+            "memory": [
+              "The player asked Hina how she knew he had skipped dinner. Keep her exact answer and whatever it reveals about how closely she has been paying attention to him."
+            ]
+          }
+        },
+        {
+          "id": "call_out_care",
+          "text": "\"Care nahi karti? Ye to bilkul care jaisa lag raha hai.\"",
+          "shortLabel": "Care jaisa lagta hai",
+          "keywords": [
+            "care jaisa",
+            "tum care karti ho",
+            "you do care",
+            "care nahi karti"
+          ],
+          "next": null,
+          "effects": {
+            "memory": [
+              "The player pointed out that Hina's help looks a lot like care. Record her deflection, her embarrassment, and whether she doubled down or softened."
+            ]
+          }
+        }
+      ]
+    }
+  ],
+  "endings": []
+}
