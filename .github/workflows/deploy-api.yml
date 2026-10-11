@@ -58,6 +58,11 @@ jobs:
           woh-jo-hamesha-mere-saath-thi
           bhaiya-ki-saali
 
+      - name: Validate the new neighbour-romance story and its 8 native-size images
+        run: >-
+          node scripts/verify-published-story.mjs --local-only
+          the-angel-next-door-spoils-me-rotten
+
       - name: Install (worker)
         working-directory: worker
         run: npm ci
@@ -154,6 +159,12 @@ jobs:
           mujhe-tumse-nafrat-hai
           woh-jo-hamesha-mere-saath-thi
           bhaiya-ki-saali
+
+      - name: Verify the new neighbour-romance story is published (byte-identical JSON + 8 images)
+        # Read-only: waits for propagation, then requires two consecutive
+        # complete passes on BOTH production hostnames — every JSON file and all
+        # eight media files byte-identical to this checkout.
+        run: node scripts/verify-published-story.mjs the-angel-next-door-spoils-me-rotten
 
       - name: Smoke test the deployed API
         run: |

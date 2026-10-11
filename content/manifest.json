@@ -1,7 +1,7 @@
 {
-  "contentVersion": 37,
+  "contentVersion": 38,
   "minAppVersion": "1.0.0",
-  "updatedAt": "2026-10-06T10:45:00Z",
+  "updatedAt": "2026-10-11T00:00:00Z",
   "stories": [
     {
       "id": "arranged-marriage-wala-love",
@@ -53,6 +53,54 @@
         "verified": true
       },
       "updatedAt": "2026-10-03T14:46:42Z"
+    },
+    {
+      "id": "the-angel-next-door-spoils-me-rotten",
+      "title": "The Angel Next Door Spoils Me Rotten",
+      "tagline": "Baarish wali raat, pados ka darwaza — aur ek neighbour jo tumhara khayal rakhne ka bahana dhoondh laati hai.",
+      "description": "Ek baarish wali shaam, akela flat aur ek aadmi jo apna khayal rakhna bhool chuka hai. {{playerName}} modern apartment mein akela rehta hai aur apni zindagi kisi hisaab se nahi chala raha. Agle darwaze par rehti hai Hina Tachibana — elegant, composed aur har taraf admired, par andar se caring, playful aur bahut observant. Woh darwaze par garam khaane ka dabba lekar khadi hai aur saaf keh deti hai ki ye care nahi, sirf padosi ki majboori hai. Dheere-dheere shared dinners, corridor ki chhoti baatein, mazaak, thoughtful gestures, misunderstandings aur bharose se do ajnabi padosi ek-doosre ke liye zaroori ban jaate hain. Koi arc, chapter ya tay confession nahi — {{playerName}} ke alfaaz, feelings aur faisle sirf player tay karta hai, aur kahani kabhi achanak khatam nahi hoti.",
+      "genres": [
+        "Romance",
+        "Slice of Life",
+        "Slow Burn",
+        "Neighbourhood Romance",
+        "Daily Life"
+      ],
+      "tags": [
+        "romance",
+        "slice-of-life",
+        "slow-burn",
+        "neighbourhood-romance",
+        "neighbour-romance",
+        "daily-life",
+        "cozy-romance",
+        "player-agency",
+        "dynamic-continuous",
+        "ongoing",
+        "hinglish"
+      ],
+      "characters": [
+        "Hina Tachibana"
+      ],
+      "ageRating": "18+",
+      "contentLevel": "mature",
+      "language": "hinglish",
+      "version": 1,
+      "coverUrl": "stories/the-angel-next-door-spoils-me-rotten/assets/cover.jpg",
+      "accentColor": "#C98F7A",
+      "userRole": "{{playerName}} — an adult man aged 18–20, controlled exclusively by the player. He lives alone in a modern apartment next door to Hina Tachibana, is handsome with a youthful, natural appearance, and is casually careless about meals, sleep and looking after himself. The player supplies his display name at runtime; never assign him another name, face, personality, thought, feeling, dialogue, action, consent, romantic response, promise or future. Only the player decides what he says, feels and does.",
+      "setting": "Present-day modern city apartment building: {{playerName}}'s flat (bedroom, kitchen, living room, small balcony and front door) and Hina Tachibana's neighbouring flat; the shared corridor, lift lobby and stairs, the building terrace, and the rainy neighbourhood street outside with its tea stall, convenience store, bus stop and lanes.",
+      "estimatedMinutes": 45,
+      "featured": false,
+      "isNew": true,
+      "popularity": 94,
+      "storyDir": "the-angel-next-door-spoils-me-rotten",
+      "creator": {
+        "name": "Ankit",
+        "avatar": null,
+        "verified": true
+      },
+      "updatedAt": "2026-10-11T00:00:00Z"
     },
     {
       "id": "uski-mohabbat-se-bachna-namumkin-tha",
