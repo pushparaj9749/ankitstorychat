@@ -130,8 +130,30 @@ worker tests → bundle build → `wrangler deploy` → published-story integrit
 verification (byte-identical JSON + images on both production hostnames, now
 including this story) → the full API smoke test.
 
-Production verification results are reported in the task completion message
-rather than claimed in advance here. A physical already-installed device is not
-available in this workspace, so discovery and playback are verified through the
-unchanged remote catalog architecture (`/api/manifest` + package URLs) and not
-presented as a device-observed test.
+## Production verification (actual results)
+
+The merge to `main` ran the existing *Deploy story API* workflow
+(`Merge pull request #60 from pushparaj9749/arena/8da6d08f-ankitstorychat`,
+run `38166529546`) — **success**, every step green:
+
+| Check | Result |
+|---|---|
+| Content validation (schema, scenes, endings, player names) | passed |
+| Local media validation of the existing ten stories (80 images) | passed |
+| Local media validation of this story (8 native-size images) | passed |
+| Worker tests + typecheck | passed |
+| Deploy bundle assembly | 55 stories |
+| `wrangler deploy` → Cloudflare Worker | success |
+| Published integrity, existing ten stories | `contentVersion 38`; 80 byte-identical cover/gallery images on both hostnames, twice |
+| Published integrity, **this story** | `contentVersion 38`; package JSON deep-equal and all **8** cover/gallery images byte-identical on `https://beyondredeye.site/api` **and** `https://www.beyondredeye.site/api`, two consecutive passes each |
+| API smoke test (Worker identity, `/api/manifest`, package, cover, gallery, CORS, traversal, submissions, root still on GitHub Pages) | **29/29 checks passed** |
+
+No Android APK workflow ran for this change and no release or tag was created:
+the newest APK run and release in the repository still predate this publication.
+
+A physical already-installed device is not available in this workspace, so
+discovery and playback are verified through the unchanged remote catalog
+architecture (`/api/manifest` + package URLs) and not presented as a
+device-observed test. Likewise, direct browser/`curl` calls from the
+publication workspace are blocked by sandbox egress rules, so the production
+results above come from the CI runner that has network access to the live API.
