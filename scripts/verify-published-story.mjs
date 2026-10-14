@@ -10,7 +10,28 @@ const ROOT = join(dirname(fileURLToPath(import.meta.url)), '..');
 const readJson = (path) => JSON.parse(readFileSync(path, 'utf8'));
 const sha = (bytes) => createHash('sha256').update(bytes).digest('hex');
 const files = ['story', 'characters', 'world', 'scenes', 'memory'];
+// Default native size for dynamic-continuous media. A story whose artwork was
+// generated at other native sizes opts in explicitly with
+// --native-size=WIDTHxHEIGHT[,WIDTHxHEIGHT...]: every media file must then be
+// exactly one of the listed sizes. Every invocation without the flag keeps
+// exactly this single-size check.
 const expectedDynamicMediaDimensions = { width: 1376, height: 768 };
+const defaultNativeSizes = [expectedDynamicMediaDimensions];
+
+function parseNativeSizes(arg) {
+  const usage = `invalid ${arg}: expected --native-size=WIDTHxHEIGHT[,WIDTHxHEIGHT...]`;
+  const value = /^--native-size=(.+)$/.exec(arg ?? '')?.[1];
+  assert(value, usage);
+  return value.split(',').map((part) => {
+    const match = /^(\d+)x(\d+)$/.exec(part);
+    assert(match, usage);
+    const size = { width: Number(match[1]), height: Number(match[2]) };
+    assert(size.width > 0 && size.height > 0, `invalid ${arg}: dimensions must be positive`);
+    return size;
+  });
+}
+
+const formatSizes = (sizes) => sizes.map(({ width, height }) => `${width}x${height}`).join(' or ');
 // A full catalog verification makes more requests than the Worker’s 120/min
 // per-IP limit. Pace every remote call below the limit so the verifier cannot
 // rate-limit itself while checking all ten packages and their media.
@@ -54,7 +75,7 @@ function entriesFor(ids = []) {
   });
 }
 
-function validateLocalEntry(entry) {
+function validateLocalEntry(entry, nativeSizes = defaultNativeSizes) {
   const dir = join(ROOT, 'content/stories', entry.storyDir);
   const expected = Object.fromEntries(files.map((file) => [file, readJson(join(dir, `${file}.json`))]));
   const media = expected.story.media;
@@ -71,8 +92,8 @@ function validateLocalEntry(entry) {
     const localBytes = readFileSync(join(dir, file));
     const dimensions = jpegDimensions(localBytes, `${entry.id}/${file}`);
     if (entry.tags?.includes('dynamic-continuous')) {
-      assert.equal(dimensions.width, expectedDynamicMediaDimensions.width, `${entry.id}/${file}: expected 1376-pixel native width`);
-      assert.equal(dimensions.height, expectedDynamicMediaDimensions.height, `${entry.id}/${file}: expected 768-pixel native height`);
+      const native = nativeSizes.some(({ width, height }) => dimensions.width === width && dimensions.height === height);
+      assert(native, `${entry.id}/${file}: expected native size ${formatSizes(nativeSizes)}, got ${dimensions.width}x${dimensions.height}`);
     }
     return { file, localBytes, dimensions };
   });
@@ -80,8 +101,8 @@ function validateLocalEntry(entry) {
 }
 
 /** Verify one manifest entry and every byte served for that story's media. */
-export async function verify(base, transport = fetch, entry = entriesFor()[0]) {
-  const { dir, expected, assets } = validateLocalEntry(entry);
+export async function verify(base, transport = fetch, entry = entriesFor()[0], nativeSizes = defaultNativeSizes) {
+  const { dir, expected, assets } = validateLocalEntry(entry, nativeSizes);
 
   async function get(path, type) {
     const url = `${base}/${path}`;
@@ -137,12 +158,16 @@ export async function verify(base, transport = fetch, entry = entriesFor()[0]) {
 async function main() {
   const args = process.argv.slice(2);
   const localOnly = args.includes('--local-only');
-  const ids = args.filter((arg) => arg !== '--local-only');
+  const sizeArg = args.find((arg) => arg.startsWith('--native-size'));
+  const nativeSizes = sizeArg ? parseNativeSizes(sizeArg) : defaultNativeSizes;
+  const unknown = args.filter((arg) => arg.startsWith('--') && arg !== '--local-only' && arg !== sizeArg);
+  assert.equal(unknown.length, 0, `unknown option(s): ${unknown.join(', ')}`);
+  const ids = args.filter((arg) => !arg.startsWith('--'));
   const entries = entriesFor(ids);
   if (localOnly) {
     let imageCount = 0;
     for (const entry of entries) {
-      const { assets } = validateLocalEntry(entry);
+      const { assets } = validateLocalEntry(entry, nativeSizes);
       imageCount += assets.length;
       console.log(JSON.stringify({ story: entry.id, images: assets.map(({ file, localBytes, dimensions }) => ({ file, bytes: localBytes.length, ...dimensions })) }));
     }
@@ -157,7 +182,7 @@ async function main() {
     for (let attempt = 1; attempt <= 18; attempt++) {
       try {
         const results = [];
-        for (const entry of entries) results.push(await verify(base, fetch, entry));
+        for (const entry of entries) results.push(await verify(base, fetch, entry, nativeSizes));
         consecutive++;
         for (const result of results) console.log(JSON.stringify(result));
         if (consecutive === 2) {

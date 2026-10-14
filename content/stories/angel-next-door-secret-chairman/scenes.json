@@ -1,0 +1,112 @@
+{
+  "storyId": "angel-next-door-secret-chairman",
+  "version": 1,
+  "scenes": [
+    {
+      "id": "floor_32_inspection",
+      "title": "Floor 32 — Chairperson Ka Inspection",
+      "narration": [
+        "*Wednesday, subah 7:40. Vardhan Group mein tumhari naukri ka teesra din. Andheri local ki bheed mein phanse hue, tumhare phone par Kalam app ki ek notification chamki thi.*",
+        "*Anahita. Nau mahine pehle raat ke do baje chai-vs-coffee ki ek comment-behes se jo baat shuru hui thi, woh ab har subah ek selfie aur har raat ek 'moon report' ban chuki hai. Aaj ki selfie: oversized cream hoodie, bikhre baal, haath mein chai ka mug, aur woh neend bhari muskaan jo tum aankhein band karke bhi pehchaan lo.*",
+        "Anahita Vardhan: \"📱 Good morning, Mr. Mystery ☀️ Day 3! Aaj woh naye joote phir kaatein toh unka naam batana — main khud ladne aa jaungi 😤🤍\"",
+        "Anahita Vardhan: \"📱 Aur haan — aaj lunch ki photo chahiye. Asli wali, jo sach mein khaaya. Warna naraz ho jaungi, phir manana padega 😌\"",
+        "*Uske messages hamesha aise hi aate hain — tum kuch bhi likho, jawab pal bhar mein. Usne kabhi tumhara chehra nahi dekha, kabhi tumhari awaaz nahi suni: na call, na video, na tumhari ek bhi photo. Sirf text. Phir bhi woh tumhe jitna jaanti hai, utna shayad koi nahi jaanta.*",
+        "*10:15. Floor 32 — Strategy & Business Analytics. Tumhari desk bay ki aakhri desk hai, frosted glass ki us deewar ke theek bagal mein jiske peeche Chairperson ka suite hai. Do din se uska darwaza band hi raha hai.*",
+        "Nitin Bhalla: \"Attention, team! Chairperson ma'am kal raat Singapore se lauti hain. Gyarah baje woh is floor ka inspection karengi — Q3 client dashboards, retention report, sab kuch. Desks saaf, screens par sirf kaam. Aur naye log — jab tak seedha sawaal na ho, chup.\"",
+        "*Agle pachchees minute floor par toofan sa aa jaata hai: printer garam, coffee mugs gayab, kisi drawer se teen mahine purana birthday balloon baahar nikalta hai. Bagal wali desk se tumhara batchmate Tanmay Joshi dheere se jhukta hai.*",
+        "Tanmay Joshi: \"Bhai, suna hai sirf 23 ki hain. 21 mein company sambhali aur board ke saare dinosaurs ko line pe la diya. Internet pe ek photo tak nahi milti. Aur log kehte hain — jab woh chup hoti hain, tab sabse zyada darr lagta hai.\"",
+        "*11:02. Lift ki halki si chime, aur floor ki saari awaazein ek saath ruk jaati hain. Marble par heels ki naapi-tuli awaaz — phir woh andar aati hai: charcoal suit, sleek low bun, kalai par patli rose-gold ghadi. Peeche Chief of Staff Meera Kulkarni, haath mein tablet, aur do assistants.*",
+        "*Ek hi nazar kaafi hai. Woh hazel-amber aankhein. Baayi aankh ke kone ke theek neeche woh chhota sa til. Collar ke paas jhalakta patla sa chaand wala pendant. Yeh wahi chehra hai jo aaj subah 7:40 par tumhare phone par muskura raha tha — Anahita. Bas is waqt us chehre par muskaan ka naam-o-nishaan nahi hai.*",
+        "*Woh tumhari desk ke itne kareeb se guzarti hai ki uske perfume ki halki si khushboo tum tak aati hai — par uski nazar ek pal ke liye bhi tum par nahi rukti. Uske liye tum bas ek aur naya chehra ho, ek aur employee ID.*",
+        "Anahita Vardhan: \"Mr. Bhalla. Inspection report.\"",
+        "*Bhalla file aage badhaata hai. Folder ke cover par saaf likha hai: Prepared for Ms. Anahita Vardhan, Chairperson. Woh khade-khade panne palatti hai, bina kisi jaldi ke, aur ek page par aakar ruk jaati hai.*",
+        "Anahita Vardhan: \"Dashboard mein client retention 91 percent hai. Client ki pichhli email mein 88. Do sach ek saath nahi ho sakte, Mr. Bhalla. Ek ghante mein corrected version — aur agli baar galti mujhe report se pehle pata chalni chahiye, report ke baad nahi.\"",
+        "*Bhalla ka chehra safed pad jaata hai. Woh bay ka ek chakkar lagaati hai — screens, wall dashboard, kisi ki desk par khuli client file — phir naye joiners ke saamne aakar rukti hai: tum, Tanmay aur do aur log. Uski awaaz dheemi hai, par poore floor tak pahunchti hai.*",
+        "Anahita Vardhan: \"Pehle hafte mein galti allowed hai. Galti chhupana nahi. Onboarding deck, page four — Vardhan Group ke teen non-negotiables. Koi bhi bata sakta hai?\"",
+        "*Teen second ki khamoshi. Uski nazar chaaron naye chehron par ek jaisi thandi, parakhti hui guzarti hai — tum par bhi utni hi der jitni baaki sab par. Tumhari jeb mein phone ka halka sa wazan hai, aur subah wali chat ab bhi sabse upar khuli hai.*"
+      ],
+      "fallbackLines": [
+        "*Floor par khamoshi itni gehri hai ki AC ki halki si hum bhi sunai deti hai. Chairperson ab bhi jawab ka intezaar kar rahi hai.*",
+        "Anahita Vardhan: \"Main sawaal do baar nahi poochti.\"",
+        "*Meera Kulkarni tablet par kuch note karti hai. Bhalla ke maathe par paseena chamak raha hai. Sab kuch ek pal ke liye ruka hua hai — tumhare agle kadam par.*"
+      ],
+      "choices": [
+        {
+          "id": "answer_her_question",
+          "text": "*Haath uthakar uske sawaal ka jawab dena — ek naye employee ki tarah, sabke saamne.*",
+          "shortLabel": "Jawab do",
+          "keywords": [
+            "jawab",
+            "answer",
+            "haath",
+            "non-negotiable",
+            "sach pehle",
+            "page four"
+          ],
+          "next": null,
+          "effects": {
+            "memory": [
+              "During the Floor 32 inspection the player chose to answer the Chairperson's question about the three non-negotiables in front of the team. Record exactly what he said, whether it was correct and how Anahita reacted as Chairperson. She still does not know who he is, but she has now heard his voice at work."
+            ]
+          }
+        },
+        {
+          "id": "stay_silent",
+          "text": "*Chup rehna, nazrein screen par — kisi aur ko jawab dene dena.*",
+          "shortLabel": "Chup raho",
+          "keywords": [
+            "chup",
+            "silent",
+            "kuch nahi",
+            "stay quiet",
+            "screen"
+          ],
+          "next": null,
+          "effects": {
+            "memory": [
+              "During the Floor 32 inspection the player chose to stay silent while the Chairperson questioned the new joiners. Record who answered instead and how Anahita responded; she paid him no special attention."
+            ]
+          }
+        },
+        {
+          "id": "text_her_secretly",
+          "text": "*Desk ke neeche chupke se phone nikaal kar Anahita ko text karna — aur dekhna ki woh kya karti hai.*",
+          "shortLabel": "Chupke se text",
+          "keywords": [
+            "text",
+            "message",
+            "phone",
+            "msg",
+            "chupke",
+            "kalam"
+          ],
+          "next": null,
+          "effects": {
+            "memory": [
+              "During the inspection, with Anahita standing on Floor 32, the player chose to text her secretly. Record his exact message, her immediate reply (she answers within seconds while her public face stays composed) and whether anyone noticed his phone."
+            ]
+          }
+        },
+        {
+          "id": "whisper_tanmay",
+          "text": "*Tanmay ki taraf jhuk kar dheere se Chairperson ke baare mein kuch poochna.*",
+          "shortLabel": "Tanmay se poocho",
+          "keywords": [
+            "tanmay",
+            "whisper",
+            "poocho",
+            "gossip",
+            "dheere"
+          ],
+          "next": null,
+          "effects": {
+            "memory": [
+              "During the inspection the player chose to whisper to Tanmay Joshi about the Chairperson. Record exactly what he asked or revealed; Tanmay knows only what the player tells him."
+            ]
+          }
+        }
+      ]
+    }
+  ],
+  "endings": []
+}

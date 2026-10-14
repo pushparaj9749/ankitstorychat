@@ -1,7 +1,7 @@
 {
-  "contentVersion": 38,
+  "contentVersion": 39,
   "minAppVersion": "1.0.0",
-  "updatedAt": "2026-10-11T00:00:00Z",
+  "updatedAt": "2026-10-14T00:00:00Z",
   "stories": [
     {
       "id": "arranged-marriage-wala-love",
@@ -53,6 +53,60 @@
         "verified": true
       },
       "updatedAt": "2026-10-03T14:46:42Z"
+    },
+    {
+      "id": "angel-next-door-secret-chairman",
+      "title": "The Angel Next Door Spoils Me Rotten",
+      "tagline": "Online woh tumhe pyaar se bigaadti hai. Office mein woh tumhari company ki Chairperson hai — aur tumhe pehchaanti tak nahi.",
+      "description": "Nau mahine se ek ladki tumhe har subah good-morning selfie bhejti hai, har raat chaand ki photo, aur tumhare har message ka jawaab pal bhar mein deti hai. Usne kabhi tumhara chehra nahi dekha, kabhi tumhari awaaz nahi suni — sirf text. Phir naukri ke teesre din Vardhan Group ke Floor 32 par Chairperson ka inspection hota hai, aur lift se bahar aati hai wahi ladki. Tum use ek nazar mein pehchaan lete ho. Woh tumhare paas se guzar jaati hai, report maangti hai, aur tumhe baaki naye employees jaisa hi dekhti hai. Online woh tumhe pyaar se bigaadti hai; office mein woh poori company ki maalik hai. Ek slow-burn, open-ended office romance — sach kab, kaise aur kiske zariye saamne aayega, yeh sirf tumhare faislon par tika hai.",
+      "genres": [
+        "Romance",
+        "Slow Burn",
+        "Office Drama",
+        "Secret Identity",
+        "Slice of Life",
+        "Interactive Romance"
+      ],
+      "tags": [
+        "romance",
+        "slow-burn",
+        "office-drama",
+        "office-romance",
+        "secret-identity",
+        "slice-of-life",
+        "interactive-romance",
+        "online-relationship",
+        "dramatic-irony",
+        "player-agency",
+        "dynamic-continuous",
+        "ongoing",
+        "hinglish"
+      ],
+      "characters": [
+        "Anahita Vardhan",
+        "Nitin Bhalla",
+        "Tanmay Joshi",
+        "Meera Kulkarni"
+      ],
+      "ageRating": "18+",
+      "contentLevel": "mature",
+      "language": "hinglish",
+      "version": 1,
+      "coverUrl": "stories/angel-next-door-secret-chairman/assets/cover.jpg",
+      "accentColor": "#B8925A",
+      "userRole": "{{playerName}} — an ordinary adult man aged 18–20, controlled exclusively by the player. Fresh out of college, he is a brand-new junior associate in Vardhan Group's Strategy & Business Analytics team on Floor 32, on only his third day at the company. For about nine months he has been in a text-only online relationship with Anahita: she has sent him many selfies, so he recognises her face instantly, but he has never sent her a photo of himself, never let her hear his voice and never been on a call with her. He knows how affectionate she is online — and, from today, how commanding she is in public. The player supplies his display name at runtime; never assign him another name, face, personality, thought, feeling, dialogue, action, confession or future. Only the player decides what he says, feels and does.",
+      "setting": "Present-day Mumbai. Vardhan Tower in Bandra Kurla Complex: the open-plan Strategy & Business Analytics bay on Floor 32 where {{playerName}} sits, the Chairperson's suite right next door behind a frosted-glass wall with its own private lift, the Floor 32 pantry and glass conference rooms, the cafeteria on Floor 3, the lobby and the BKC street outside. Beyond the office: {{playerName}}'s small rented 1BHK in Andheri East, the crowded Western Line local train, Anahita's sea-facing apartment in Worli, and the private text-only chat on the Kalam app that only the two of them share.",
+      "estimatedMinutes": 60,
+      "featured": false,
+      "isNew": true,
+      "popularity": 95,
+      "storyDir": "angel-next-door-secret-chairman",
+      "creator": {
+        "name": "Ankit",
+        "avatar": null,
+        "verified": true
+      },
+      "updatedAt": "2026-10-14T00:00:00Z"
     },
     {
       "id": "the-angel-next-door-spoils-me-rotten",

@@ -63,6 +63,14 @@ jobs:
           node scripts/verify-published-story.mjs --local-only
           the-angel-next-door-spoils-me-rotten
 
+      - name: Validate the new secret-chairperson story and its 8 native-size images
+        # Same strict checks (exactly one cover + seven gallery JPEGs, unique
+        # files, native size); every file must be one of this story's own
+        # native generator sizes (seven at 1408x768, one at 1376x768).
+        run: >-
+          node scripts/verify-published-story.mjs --local-only --native-size=1408x768,1376x768
+          angel-next-door-secret-chairman
+
       - name: Install (worker)
         working-directory: worker
         run: npm ci
@@ -165,6 +173,12 @@ jobs:
         # complete passes on BOTH production hostnames — every JSON file and all
         # eight media files byte-identical to this checkout.
         run: node scripts/verify-published-story.mjs the-angel-next-door-spoils-me-rotten
+
+      - name: Verify the new secret-chairperson story is published (byte-identical JSON + 8 images)
+        # Read-only: waits for propagation, then requires two consecutive
+        # complete passes on BOTH production hostnames — every JSON file, the
+        # manifest entry and all eight media files byte-identical to this checkout.
+        run: node scripts/verify-published-story.mjs --native-size=1408x768,1376x768 angel-next-door-secret-chairman
 
       - name: Smoke test the deployed API
         run: |
