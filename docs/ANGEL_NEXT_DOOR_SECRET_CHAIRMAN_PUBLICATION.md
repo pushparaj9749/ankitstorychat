@@ -209,8 +209,50 @@ Commit and push only the Arena working branch, open a PR to `main` and merge.
 The on-demand *Verify story on production API* workflow then confirms the
 manifest entry, the package and every media URL.
 
-## Production verification
+## Production verification (actual results)
 
-_Pending._ This section is replaced with the actual CI results (workflow runs
-and per-check outcomes) after the merge to `main` has deployed the story. No
-result is recorded here before it has actually been observed.
+PR #62 passed its checks ("Typecheck, tests & content validation" and "Story
+API worker (typecheck & tests)") and was merged to `main` as `bf75e11`. The
+merge ran the existing *Deploy story API* workflow (run `38576612297`), which
+finished with **success** and every step green. The CI run on `main`
+(`38576612138`) also succeeded.
+
+| Check | Result |
+|---|---|
+| Content validation (schema, scenes, endings, player names) | passed |
+| Local media validation, existing ten stories (80 images) | passed |
+| Local media validation, earlier neighbour story (8 images) | passed |
+| Local media validation, **this story** (8 native-size images) | passed |
+| Worker tests + typecheck | passed |
+| Deploy bundle assembly + `wrangler deploy` → Cloudflare Worker | success |
+| Published integrity, existing ten stories | `contentVersion 39`; all packages and 80 byte-identical images on both hostnames, twice |
+| Published integrity, earlier neighbour story | `contentVersion 39`; package and 8 byte-identical images on both hostnames, twice |
+| Published integrity, **this story** | `contentVersion 39`. Health and manifest are checked first. Then the manifest entry and all five JSON files must match deep-equal, and all **8** cover and gallery images must be byte-identical `image/jpeg`. This must hold on `https://beyondredeye.site/api` **and** `https://www.beyondredeye.site/api`, for two consecutive passes each. |
+| API smoke test | **29/29 checks passed** |
+
+Live URLs (base `https://beyondredeye.site/api`):
+- package: `/stories/angel-next-door-secret-chairman`;
+- cover: `/stories/angel-next-door-secret-chairman/assets/cover.jpg`;
+- gallery: `/stories/angel-next-door-secret-chairman/assets/gallery/image-01.jpg`
+  through `image-07.jpg`.
+
+No Android APK workflow ran for this change, and no release or tag was
+created: the newest APK run and release in the repository still predate this
+publication.
+
+Limitations:
+- **On-demand workflow not dispatched.** The *Verify story on production API*
+  workflow could not be dispatched from the publication session, because its
+  GitHub integration may not trigger workflows (HTTP 403). Its checks are a
+  subset of the post-deploy verification above. It can be run manually from
+  the Actions tab with:
+  - `story_dir=angel-next-door-secret-chairman`
+  - `gallery_count=7`
+  - `min_content_version=39`
+- **No device test.** No physical already-installed device is available in
+  this workspace. Discovery and playback are therefore verified through the
+  unchanged remote catalog architecture (`/api/manifest` and the package URLs),
+  not presented as a device-observed test.
+- **Results come from CI.** Direct calls from the publication workspace to the
+  live API are blocked by sandbox egress rules, so the production results
+  above come from the CI runner, which has network access to the live API.
