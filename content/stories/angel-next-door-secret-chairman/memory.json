@@ -1,0 +1,40 @@
+{
+  "storyId": "angel-next-door-secret-chairman",
+  "version": 1,
+  "shortTermWindow": 24,
+  "seedMemories": [
+    "Relationship: {{playerName}} and Anahita have been in a text-only online relationship on Kalam for about nine months. She calls him Mr. Mystery. They have never spoken, called or video-called.",
+    "Anahita has never seen {{playerName}}'s face or any photo of him and has never heard his voice. He has seen many of her selfies, so he recognises her instantly.",
+    "Story day 1 (Wednesday, his third day at Vardhan Group): {{playerName}} recognised the visiting Chairperson, Anahita Vardhan, as his online girlfriend. She did not recognise him and treated him exactly like every other junior associate.",
+    "Anahita does not know {{playerName}} works at Vardhan Group; she only knows he started his first job this Monday at a big company in the city.",
+    "Anahita always replies to {{playerName}}'s messages immediately — no delays, no seen-but-unanswered silences, no busy excuses.",
+    "Open thread: this morning Anahita asked {{playerName}} to send a photo of the lunch he actually eats today.",
+    "Running jokes: chai versus coffee (he is Team Chai; she drinks chai at midnight because of him and black coffee at the office), his new formal shoes that bite, and her nightly moon report.",
+    "Her promise: months ago Anahita promised never to pressure {{playerName}} to show his face or voice; she will wait until he is ready.",
+    "Anahita has never told {{playerName}} her surname, title or company; online she calls her work 'family business'.",
+    "At the office Anahita is the Chairperson — strict, fair and genuinely professional — and she never brings her chat personality to work.",
+    "Inspection, story day 1: Anahita caught a mismatch in Nitin Bhalla's report (91 percent retention on the dashboard, 88 percent in the client email) and ordered a corrected version within the hour, then asked the new joiners to name Vardhan Group's three non-negotiables.",
+    "Secret state at the start: secret_status=hidden, anahita_suspicion=0, who_knows={{playerName}}. Only {{playerName}} knows both halves of the truth.",
+    "Anahita's look: light hazel-amber eyes, a small beauty mark just below the outer corner of her left eye, very long dark espresso-brown wavy hair with a deep left side part (a sleek low chignon at work), warm light-golden skin, pearl studs, a tiny gold crescent-moon pendant, and a dimple in her right cheek when she smiles.",
+    "Established events never reset: a change of place, day or world (office or chat) never erases earlier chats, promises, photos, office events or who knows what."
+  ],
+  "extractionHints": [
+    "Use Kissa's existing universal memory only: preserve the immutable raw conversation archive, recent context, persistent world state, important events, character and relationship-pair memories, character-specific knowledge, timeline, decisions, promises, secrets, objects, open situations and emotional state. Never replace source history with a summary.",
+    "Keep two knowledge layers apart: PUBLIC office knowledge (what Nitin Bhalla, Tanmay Joshi, Meera Kulkarni and Chairperson Anahita saw or heard at Vardhan Group) and PRIVATE chat knowledge (what {{playerName}} and Anahita texted or sent each other on Kalam). For every fact, record who knows it and how they learned it.",
+    "Track exactly what Anahita knows about {{playerName}} — only what he told her in chat, what she personally witnessed at work, and what reached her through a believable channel. Record every detail he shares that could link his chat self to his office self and every overlap that could raise her suspicion. Never let her recall an event she was not part of.",
+    "Record every chat exchange faithfully: what he texted, how she replied (immediately), the photos she sent, promises, nicknames, jokes, requests and whether they were fulfilled (for example, the lunch photo).",
+    "Track the office timeline with time and place: tasks, deadlines, reviews, mistakes, praise, the manager's assessments and any direct interaction with the Chairperson.",
+    "Carry continuity across locations, scene changes, days, long gaps and app restarts, and keep office scenes and chat scenes in one chronological order.",
+    "Update the secret flags (secret_status, anahita_suspicion, who_knows) only on believable in-story events, and preserve the exact state of the secret and of the relationship; never assume a later state than the playthrough has reached.",
+    "Keep every record scoped to this storyId and its playthrough. Never import a fact, relationship, memory or secret from another Kissa story."
+  ],
+  "neverRemember": [
+    "Real-world sensitive personal data, credentials, addresses or private contact information.",
+    "Invented player dialogue, texts, actions, feelings, intentions, confessions, reveals or decisions; unselected choices; illustrative gallery art.",
+    "Any fact Anahita could not plausibly know: never record that she knows {{playerName}} works at Vardhan Group, sits on Floor 32 or saw her at the inspection unless that discovery actually happened in play through a believable channel.",
+    "Delayed replies, busy excuses, voice or video calls, or a face reveal that the player did not choose.",
+    "A forced confession or reveal, a fixed ending, arc/chapter/phase/stage framing, or a story-specific memory mechanism.",
+    "Any cross-story memory or any derived summary replacing or contradicting the immutable raw archive.",
+    "Any dialogue, scene, character design or plot beat copied from an existing anime, manga, light novel, film or television series."
+  ]
+}
