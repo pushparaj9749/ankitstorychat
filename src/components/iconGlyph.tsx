@@ -12,7 +12,8 @@
  * This module has NO app-state dependency (safe in isolated components such as
  * NaturalImage). The theme-aware `Icon` lives in ./icons.
  */
-import React from 'react';
+import React, { memo } from 'react';
+import { sameRenderProps } from '../lib/memoProps';
 import { View, type StyleProp, type ViewStyle } from 'react-native';
 import Svg, { Circle, Path } from 'react-native-svg';
 
@@ -287,7 +288,7 @@ export interface IconProps {
 }
 
 /** Provider-free icon — needs an explicit colour. Safe outside AppProvider. */
-export function IconGlyph({ name, size = ICON_SIZE.md, color, style, testID, strokeWidth }: IconProps) {
+function IconGlyphImpl({ name, size = ICON_SIZE.md, color, style, testID, strokeWidth }: IconProps) {
   const tint = color ?? '#B4ABC8';
   const resolved = resolveIcon(name) ?? resolveIcon('ellipse-outline')!;
   const { glyph, filled } = resolved;
@@ -323,3 +324,6 @@ export function IconGlyph({ name, size = ICON_SIZE.md, color, style, testID, str
     </View>
   );
 }
+
+/** Memoised: an SVG tree only re-renders when its own props change. */
+export const IconGlyph = memo(IconGlyphImpl, sameRenderProps);

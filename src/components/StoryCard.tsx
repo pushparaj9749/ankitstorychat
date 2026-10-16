@@ -9,13 +9,14 @@
  * a blurred ambient wash of the same art — so there are no empty bands above,
  * below or beside a cover any more.
  */
-import React from 'react';
+import React, { memo } from 'react';
 import { Pressable, StyleSheet, Text, View, type DimensionValue, type StyleProp, type ViewStyle } from 'react-native';
 import { LinearGradient } from 'expo-linear-gradient';
 import type { StoryMeta } from '../types';
 import { useApp } from '../state/AppContext';
 import { effectiveContentApiBaseUrl, getBundledCoverSource } from '../content/loader';
 import { makePlayerTextFn } from '../lib/playerName';
+import { sameRenderProps } from '../lib/memoProps';
 import { GRADIENTS, RADIUS, SCALE, SHADOWS, SPACING, TOUCH, genreColor, withAlpha } from '../theme';
 import { AgeBadge, GenreChip, ProgressBar } from './bits';
 import { CoverImage } from './CoverImage';
@@ -37,7 +38,7 @@ function useCover(meta: StoryMeta) {
  * The art stage: a fixed-height frame. The untouched artwork is contain-fitted
  * in the middle; ArtBackdrop fills the rest with the art's own blurred colours.
  */
-export function StoryArt({
+function StoryArtImpl({
   meta,
   height,
   radius = 0,
@@ -113,7 +114,7 @@ function GlassTag({ label, icon, color }: { label: string; icon?: React.ReactNod
 }
 
 /* --------------------------------------------------------------- Hero slide */
-export function HeroCard({
+function HeroCardImpl({
   meta,
   onPress,
   height = FRAME.hero,
@@ -193,7 +194,7 @@ export function HeroCard({
 }
 
 /* ------------------------------------------------------------- Poster card */
-export function GridCard({
+function GridCardImpl({
   meta,
   onPress,
   width = 150,
@@ -240,7 +241,7 @@ export function GridCard({
 }
 
 /* ---------------------------------------------------------- Top-10 rank card */
-export function RankCard({ meta, rank, onPress }: { meta: StoryMeta; rank: number; onPress: () => void }) {
+function RankCardImpl({ meta, rank, onPress }: { meta: StoryMeta; rank: number; onPress: () => void }) {
   const { theme } = useApp();
   return (
     <Pressable
@@ -277,7 +278,7 @@ export function RankCard({ meta, rank, onPress }: { meta: StoryMeta; rank: numbe
 }
 
 /* ------------------------------------------------------------ Continue card */
-export function ContinueCard({
+function ContinueCardImpl({
   meta,
   progress,
   subtitle,
@@ -349,7 +350,7 @@ export function ContinueCard({
 }
 
 /* --------------------------------------------------------------- Wide card */
-export function WideCard({ meta, onPress }: { meta: StoryMeta; onPress: () => void }) {
+function WideCardImpl({ meta, onPress }: { meta: StoryMeta; onPress: () => void }) {
   const { theme, profile } = useApp();
   const forPlayer = makePlayerTextFn(meta, profile?.nickname);
 
@@ -388,7 +389,7 @@ export function WideCard({ meta, onPress }: { meta: StoryMeta; onPress: () => vo
 
 /* --------------------------------------------------------------- Poster grid */
 /** Two-column poster wall — every slot filled, no ragged gaps. */
-export function PosterGrid({
+function PosterGridImpl({
   stories,
   onOpen,
   columns = 2,
@@ -420,6 +421,15 @@ export function PosterGrid({
 }
 
 /* FeaturedStory alias */
+/* Memoised: screens re-render often (carousel page, filters); cards only when their data changes. */
+export const StoryArt = memo(StoryArtImpl, sameRenderProps);
+export const HeroCard = memo(HeroCardImpl, sameRenderProps);
+export const GridCard = memo(GridCardImpl, sameRenderProps);
+export const RankCard = memo(RankCardImpl, sameRenderProps);
+export const ContinueCard = memo(ContinueCardImpl, sameRenderProps);
+export const WideCard = memo(WideCardImpl, sameRenderProps);
+export const PosterGrid = memo(PosterGridImpl, sameRenderProps);
+
 export const FeaturedStory = HeroCard;
 
 const styles = StyleSheet.create({

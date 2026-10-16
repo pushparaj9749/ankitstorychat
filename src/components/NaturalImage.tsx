@@ -187,6 +187,9 @@ export function NaturalImage({
           source={source}
           style={[styles.img, loaded ? styles.imgVisible : styles.imgHidden]}
           resizeMode="contain"
+          // Android: decode at the view's size instead of full resolution (all
+          // covers are JPEG) — far less memory/GC, so lists scroll smoothly.
+          resizeMethod="resize"
           onLoad={handleLoad}
           onError={handleError}
         />

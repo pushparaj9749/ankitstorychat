@@ -58,6 +58,18 @@ moves the tale forward — with memory, relationships, branching, and multiple e
 
 ## 🆕 Release notes
 
+### v2.6.1 — Smoothness pass (scroll & typing performance)
+
+Same look; much less work per frame.
+
+- **Cheap ambient art fill:** `ArtBackdrop` no longer runs a CPU `blurRadius` on a second full-size decode of every cover. It now draws a 16×24 micro bitmap, decoded at that size with `resizeMethod="resize"` (all covers are JPEG), and scales it up on the GPU. Upscaling a tiny bitmap is itself a soft blur. The backdrop is memoised.
+- **Covers decode at view size:** `NaturalImage` uses `resizeMethod="resize"`, so a 170 px card no longer holds a full-resolution bitmap. This means less memory and fewer GC pauses while scrolling.
+- **Virtualised Home rails:** the Top 10, For you, "More like…" and genre rails are horizontal `FlatList`s that mount only the cards near the viewport. Category grids render in pages of 12 as you scroll. Discover's grid renders in small batches and drops off-screen cells on Android.
+- **No needless re-renders:**
+  - Story cards and SVG icons are `React.memo` (`src/lib/memoProps.ts` ignores inline handlers), so a carousel swipe or filter tap no longer re-renders every card.
+  - Icons with an explicit colour no longer subscribe to app state.
+- **Chat typing:** `ChatBubble` is memoised and the list's `renderItem`/`keyExtractor` are stable, so a keystroke no longer re-parses and redraws every visible bubble.
+
 ### v2.6.0 — "Kissa Night" full UI/UX redesign + AMOLED chat
 
 - **AMOLED chat:** the Chat screen sits on a true-black (`#000000`) canvas. The header, "You are" banner, message stage and composer are pure black, so OLED pixels switch off and the bubbles carry all the colour.

@@ -51,6 +51,10 @@ type ChatTurnRequest = {
 };
 const PAGE = 40;
 
+/* Stable list callbacks: inline ones made the FlatList re-render every visible bubble on each keystroke. */
+const renderBubble = ({ item }: { item: ChatMessage }) => <ChatBubble message={item} />;
+const bubbleKey = (m: ChatMessage) => m.id;
+
 function ChatStoryFace({ source, letter, accent }: { source: CoverSource | null; letter: string; accent: string }) {
   const [failed, setFailed] = useState(false);
   const initial = (letter?.trim()?.[0] ?? '?').toUpperCase();
@@ -579,7 +583,7 @@ export function Chat({ navigation, route }: Props) {
         <FlatList
           ref={listRef}
           data={messages}
-          keyExtractor={(m) => m.id}
+          keyExtractor={bubbleKey}
           inverted
           keyboardShouldPersistTaps="handled"
           keyboardDismissMode="interactive"
@@ -612,7 +616,7 @@ export function Chat({ navigation, route }: Props) {
             </>
           }
           ListFooterComponent={loadingMore ? <Text style={[styles.more, { color: theme.textFaint }]}>Loading older…</Text> : null}
-          renderItem={({ item }) => <ChatBubble message={item} />}
+          renderItem={renderBubble}
         />
 
         <View style={[styles.inputBar, { borderColor: 'rgba(255,255,255,0.08)', backgroundColor: AMOLED }]}>

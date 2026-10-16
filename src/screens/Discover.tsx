@@ -4,7 +4,7 @@
  * (with a list view toggle). Every poster frame is filled — no empty bands.
  */
 import React, { useMemo, useState, useEffect } from 'react';
-import { FlatList, Pressable, ScrollView, StyleSheet, Text, TextInput, View } from 'react-native';
+import { FlatList, Platform, Pressable, ScrollView, StyleSheet, Text, TextInput, View } from 'react-native';
 import type { BottomTabScreenProps } from '@react-navigation/bottom-tabs';
 import type { MainTabParamList } from '../types';
 import { useApp } from '../state/AppContext';
@@ -131,6 +131,10 @@ export function Discover({ navigation, route }: Props) {
           data={results}
           keyExtractor={(s) => s.id}
           numColumns={view === 'grid' ? 2 : 1}
+          initialNumToRender={6}
+          maxToRenderPerBatch={6}
+          windowSize={7}
+          removeClippedSubviews={Platform.OS === 'android'}
           columnWrapperStyle={view === 'grid' ? styles.gridRow : undefined}
           contentContainerStyle={styles.list}
           renderItem={({ item }) =>

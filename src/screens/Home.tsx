@@ -14,9 +14,11 @@
  * Artwork is never cropped: every frame is filled by ArtBackdrop around the
  * contain-fitted cover (see StoryCard).
  */
-import React, { useCallback, useMemo, useState } from 'react';
+import React, { memo, useCallback, useEffect, useMemo, useState } from 'react';
 import {
+  FlatList,
   Image,
+  Platform,
   Pressable,
   ScrollView,
   StyleSheet,
@@ -47,12 +49,43 @@ const CONTENT_MAX = LAYOUT.contentMaxWidth + 120;
 const SLIDE_GAP = 12;
 const CONTINUE_W = 300;
 
+/* ------------------------------------------------------------------ rails */
+// Virtualised horizontal rails: only the cards near the viewport are mounted
+// (they used to be plain ScrollViews that mounted every card on the page).
+const storyKey = (s: StoryMeta) => s.id;
+const RAIL_PERF = {
+  initialNumToRender: 3,
+  maxToRenderPerBatch: 3,
+  windowSize: 5,
+  removeClippedSubviews: Platform.OS === 'android',
+  showsHorizontalScrollIndicator: false,
+  decelerationRate: 'fast' as const,
+};
+
+const Rail = memo(function Rail({ data, onOpen }: { data: StoryMeta[]; onOpen: (id: string) => void }) {
+  const renderItem = useCallback(({ item }: { item: StoryMeta }) => <GridCard meta={item} onPress={() => onOpen(item.id)} />, [onOpen]);
+  return <FlatList horizontal data={data} keyExtractor={storyKey} renderItem={renderItem} contentContainerStyle={styles.railList} {...RAIL_PERF} />;
+});
+
+const RankRail = memo(function RankRail({ data, onOpen }: { data: StoryMeta[]; onOpen: (id: string) => void }) {
+  const renderItem = useCallback(
+    ({ item, index }: { item: StoryMeta; index: number }) => <RankCard meta={item} rank={index + 1} onPress={() => onOpen(item.id)} />,
+    [onOpen],
+  );
+  return <FlatList horizontal data={data} keyExtractor={storyKey} renderItem={renderItem} contentContainerStyle={styles.rankList} {...RAIL_PERF} />;
+});
+
+/** Category grids render in pages as you scroll instead of all stories at once. */
+const GRID_PAGE = 12;
+
 export function Home({ navigation }: Props) {
   const { theme, profile, stories, recentPlaythroughs, favoriteIds } = useApp();
   const { handleScroll } = useNavScroll();
   const { width: windowW } = useWindowDimensions();
   const [selectedCategory, setSelectedCategory] = useState('For you');
   const [slide, setSlide] = useState(0);
+  const [gridLimit, setGridLimit] = useState(GRID_PAGE);
+  useEffect(() => setGridLimit(GRID_PAGE), [selectedCategory]);
 
   const contentW = Math.min(windowW, CONTENT_MAX);
   const slideW = contentW - SPACING.page * 2;
@@ -139,6 +172,18 @@ export function Home({ navigation }: Props) {
     [slideW, slide, slides.length],
   );
 
+  const onScroll = useCallback(
+    (e: NativeSyntheticEvent<NativeScrollEvent>) => {
+      handleScroll(e);
+      const { contentOffset, layoutMeasurement, contentSize } = e.nativeEvent;
+      if (contentOffset.y + layoutMeasurement.height > contentSize.height - 700) {
+        setGridLimit((n) => (n < filteredStories.length ? n + GRID_PAGE : n));
+      }
+    },
+    [handleScroll, filteredStories.length],
+  );
+  const gridStories = useMemo(() => filteredStories.slice(0, gridLimit), [filteredStories, gridLimit]);
+
   if (!stories.length) {
     return (
       <Screen>
@@ -150,17 +195,11 @@ export function Home({ navigation }: Props) {
   const forYou = selectedCategory === 'For you';
   const initial = profile?.nickname?.trim()?.[0]?.toUpperCase() ?? 'K';
 
-  const rail = (data: StoryMeta[]) => (
-    <ScrollView horizontal showsHorizontalScrollIndicator={false} contentContainerStyle={styles.railList} decelerationRate="fast">
-      {data.map((item) => (
-        <GridCard key={item.id} meta={item} onPress={() => openStory(item.id)} />
-      ))}
-    </ScrollView>
-  );
+  const rail = (data: StoryMeta[]) => <Rail data={data} onOpen={openStory} />;
 
   return (
     <Screen padded={false}>
-      <ScrollView onScroll={handleScroll} scrollEventThrottle={16} contentContainerStyle={styles.scroll} showsVerticalScrollIndicator={false}>
+      <ScrollView onScroll={onScroll} scrollEventThrottle={16} contentContainerStyle={styles.scroll} showsVerticalScrollIndicator={false}>
         <View style={styles.content}>
           {/* Brand bar */}
           <View style={styles.topBar}>
@@ -295,11 +334,7 @@ export function Home({ navigation }: Props) {
                   <View style={styles.sectionPad}>
                     <SectionHeader title="Top 10 on Kissa" kicker="This week" />
                   </View>
-                  <ScrollView horizontal showsHorizontalScrollIndicator={false} contentContainerStyle={styles.rankList} decelerationRate="fast">
-                    {topTen.map((s, i) => (
-                      <RankCard key={s.id} meta={s} rank={i + 1} onPress={() => openStory(s.id)} />
-                    ))}
-                  </ScrollView>
+                  <RankRail data={topTen} onOpen={openStory} />
                 </>
               ) : null}
 
@@ -376,7 +411,7 @@ export function Home({ navigation }: Props) {
                 }
               />
               {filteredStories.length > 0 ? (
-                <PosterGrid stories={filteredStories} onOpen={openStory} />
+                <PosterGrid stories={gridStories} onOpen={openStory} />
               ) : (
                 <EmptyState icon="search" title={`No ${selectedCategory} stories yet`} subtitle="New stories arrive automatically." />
               )}

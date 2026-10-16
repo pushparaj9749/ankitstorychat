@@ -14,8 +14,17 @@ import { IconGlyph, type IconProps } from './iconGlyph';
 export { ICON_SIZE, IconGlyph, resolveIcon } from './iconGlyph';
 export type { IconName, IconProps } from './iconGlyph';
 
-/** Theme-aware icon (defaults to the theme's dim text colour). */
-export function Icon(props: IconProps) {
+/** Only icons WITHOUT an explicit colour subscribe to app state (for the theme). */
+function ThemedIcon(props: IconProps) {
   const { theme } = useApp();
-  return <IconGlyph {...props} color={props.color ?? theme.textDim} />;
+  return <IconGlyph {...props} color={theme.textDim} />;
+}
+
+/**
+ * Theme-aware icon (defaults to the theme's dim text colour). Icons with an
+ * explicit `color` render the memoised glyph directly, so app-state updates
+ * (favourites, playthrough saves…) don't re-render every icon on screen.
+ */
+export function Icon(props: IconProps) {
+  return props.color != null ? <IconGlyph {...props} /> : <ThemedIcon {...props} />;
 }

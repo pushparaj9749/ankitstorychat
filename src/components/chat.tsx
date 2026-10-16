@@ -13,7 +13,7 @@
  * the difference is carried by colour, weight and an accent edge, so a reader
  * always knows who is talking without the screen turning into a chat log.
  */
-import React, { useEffect, useMemo, useRef } from 'react';
+import React, { memo, useEffect, useMemo, useRef } from 'react';
 import { Animated, Pressable, StyleSheet, Text, View } from 'react-native';
 import { LinearGradient } from 'expo-linear-gradient';
 import type { ChatMessage } from '../types';
@@ -78,7 +78,7 @@ function NarratorMark() {
   );
 }
 
-export function ChatBubble({ message }: { message: ChatMessage }) {
+function ChatBubbleImpl({ message }: { message: ChatMessage }) {
   const { theme, settings } = useApp();
   const scale = TEXT_SIZE_MULTIPLIER[settings.textSize];
   const bodySize = FONTS.body * scale;
@@ -174,6 +174,20 @@ export function ChatBubble({ message }: { message: ChatMessage }) {
     </View>
   );
 }
+
+/**
+ * Memoised: typing in the composer re-renders the Chat screen on every key;
+ * bubbles (text parsing + gradients) only re-render when their message changes.
+ */
+export const ChatBubble = memo(
+  ChatBubbleImpl,
+  (a, b) =>
+    a.message === b.message ||
+    (a.message.id === b.message.id &&
+      a.message.text === b.message.text &&
+      a.message.speaker === b.message.speaker &&
+      a.message.role === b.message.role),
+);
 
 export function TypingIndicator({ label = 'Story continues…' }: { label?: string }) {
   const { theme } = useApp();
