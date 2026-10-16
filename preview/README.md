@@ -45,3 +45,25 @@ also works when opened straight from disk.
   inset, i.e. a typical phone.
 * The page is a review artifact: it is regenerated whenever the UI changes, so
   it should be re-run (and re-committed) as part of UI work.
+
+## Real app in a browser (`npx expo start --web`)
+
+The static page above is a quick review artifact. To click through the real app, use the Expo web
+target:
+
+```bash
+# one-time, dev only (intentionally NOT in package.json)
+npm i --no-save react-dom@19.2.3 react-native-web@0.21.2 sql.js@1.13.0
+
+npx expo start --web --port 8081
+```
+
+On web, `metro.config.js` swaps `expo-sqlite` for `preview/web/expo-sqlite-web.js`, a small sql.js
+adapter persisted to `localStorage`. expo-sqlite's own web build needs `SharedArrayBuffer`, so it only
+runs on a cross-origin-isolated page. Expo's dev server doesn't isolate the HTML page, and an iframe
+preview can't be isolated at all, so the app hung on its splash screen. Android/iOS still resolve the
+real expo-sqlite; nothing in `preview/` ships in the app.
+
+Story covers and gallery images come from the story API, so they only load when it is reachable.
+Starting a chat still needs an AI provider and key, as on device. To reset the web profile, clear the
+site's localStorage (key `kissa-web-sqlite:kissa.db`).

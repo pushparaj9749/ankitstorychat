@@ -1,7 +1,7 @@
 /**
- * KISSA v2.4.2 — Screen Wrapper
- * Cinematic dark foundation, subtle vignette, safe-area aware.
- * No neon, no excessive glow — sophisticated stage for stories.
+ * KISSA v2.6 — Screen Wrapper
+ * Midnight-plum stage with a soft violet/magenta glow from the top,
+ * safe-area aware.
  */
 import React from 'react';
 import { StatusBar, StyleSheet, View } from 'react-native';
@@ -24,9 +24,10 @@ export function Screen({
       <StatusBar barStyle="light-content" backgroundColor={theme.bg} translucent={false} />
       <View pointerEvents="none" style={StyleSheet.absoluteFill}>
         <LinearGradient
-          colors={['rgba(233,67,94,0.06)', 'rgba(6,6,10,0.0)']}
-          start={{ x: 0.5, y: 0 }}
-          end={{ x: 0.5, y: 1 }}
+          colors={['rgba(168,85,247,0.16)', 'rgba(255,79,139,0.05)', 'rgba(11,8,20,0)']}
+          locations={[0, 0.45, 1]}
+          start={{ x: 0.1, y: 0 }}
+          end={{ x: 0.6, y: 1 }}
           style={styles.glowTop}
         />
         <LinearGradient
@@ -56,7 +57,7 @@ const styles = StyleSheet.create({
     top: 0,
     left: 0,
     right: 0,
-    height: 200,
+    height: 340,
   },
   vignetteBottom: {
     position: 'absolute',

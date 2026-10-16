@@ -26,6 +26,8 @@ import { useApp } from '../state/AppContext';
 import { Screen } from '../components/Screen';
 import { GradientButton } from '../components/GradientButton';
 import { CoverImage } from '../components/CoverImage';
+import { ArtBackdrop } from '../components/ArtBackdrop';
+import { GridCard } from '../components/StoryCard';
 import { NaturalImage } from '../components/NaturalImage';
 import { AgeBadge, GenreChip, SectionHeader } from '../components/bits';
 import { ErrorState, LoadingState, OfflineState } from '../components/states';
@@ -43,7 +45,7 @@ import { mediumBuzz } from '../lib/haptics';
 
 type Props = NativeStackScreenProps<RootStackParamList, 'StoryDetail'>;
 
-const HERO = { min: 320, max: 420 } as const;
+const HERO = 470;
 
 export function StoryDetail({ navigation, route }: Props) {
   const { storyId } = route.params;
@@ -192,25 +194,20 @@ export function StoryDetail({ navigation, route }: Props) {
     <Screen padded={false}>
       <ScrollView showsVerticalScrollIndicator={false} contentContainerStyle={styles.scroll}>
         {/* ------------------------------------------------ immersive hero */}
-        <View style={[styles.hero, { minHeight: HERO.min, backgroundColor: withAlpha(meta.accentColor, 0.12) }]}>
-          <LinearGradient
-            colors={[withAlpha(meta.accentColor, 0.3), withAlpha(meta.accentColor, 0.02)]}
-            start={{ x: 0.5, y: 0 }}
-            end={{ x: 0.5, y: 1 }}
-            style={StyleSheet.absoluteFill}
-            pointerEvents="none"
-          />
+        <View style={[styles.hero, { height: HERO, backgroundColor: withAlpha(meta.accentColor, 0.16) }]}>
+          <ArtBackdrop source={cover} accentColor={meta.accentColor} />
           <CoverImage
             source={cover}
             accentColor={meta.accentColor}
             fallbackLetter={meta.title}
             style={styles.heroArt}
-            maxHeight={HERO.max}
-            placeholderMinHeight={HERO.min}
+            maxHeight={HERO}
+            placeholderMinHeight={HERO * 0.7}
+            tint="transparent"
           />
           <LinearGradient
-            colors={['rgba(6,6,10,0.42)', 'transparent', 'rgba(6,6,10,0.35)', theme.bg]}
-            locations={[0, 0.24, 0.6, 0.98]}
+            colors={['rgba(11,8,20,0.55)', 'transparent', 'transparent', withAlpha(theme.bg, 0.9)]}
+            locations={[0, 0.22, 0.7, 1]}
             style={StyleSheet.absoluteFill}
             pointerEvents="none"
           />
@@ -223,7 +220,7 @@ export function StoryDetail({ navigation, route }: Props) {
               hitSlop={8}
               style={({ pressed }) => [styles.glassBtn, { borderColor: GLASS.stroke, backgroundColor: GLASS.bg, opacity: pressed ? 0.72 : 1 }]}
             >
-              <Icon name="chevron-back" size={ICON_SIZE.md} color="#F2F0EB" />
+              <Icon name="chevron-back" size={ICON_SIZE.md} color="#F7F3FF" />
             </Pressable>
             <View style={styles.heroNavRight}>
               <Pressable
@@ -231,28 +228,42 @@ export function StoryDetail({ navigation, route }: Props) {
                 accessibilityRole="button"
                 accessibilityLabel={isFav ? 'Remove favorite' : 'Add favorite'}
                 hitSlop={8}
-                style={({ pressed }) => [styles.glassBtn, { borderColor: GLASS.stroke, backgroundColor: GLASS.bg, opacity: pressed ? 0.72 : 1 }]}
+                style={({ pressed }) => [
+                  styles.glassBtn,
+                  {
+                    borderColor: isFav ? withAlpha(theme.primary, 0.6) : GLASS.stroke,
+                    backgroundColor: isFav ? withAlpha(theme.primary, 0.28) : GLASS.bg,
+                    opacity: pressed ? 0.72 : 1,
+                  },
+                ]}
               >
-                <Icon name={isFav ? 'heart' : 'heart-outline'} size={ICON_SIZE.md} color={isFav ? theme.accent : '#F2F0EB'} />
+                <Icon name={isFav ? 'heart' : 'heart-outline'} size={ICON_SIZE.md} color={isFav ? theme.accent : '#F7F3FF'} />
               </Pressable>
             </View>
           </View>
-
-          <View style={styles.heroFoot}>
-            <View style={styles.heroBadges}>
-              <AgeBadge ageRating={meta.ageRating} />
-              {ongoing ? (
-                <View style={[styles.ongoingPill, { borderColor: withAlpha(theme.primary, 0.4), backgroundColor: withAlpha(theme.primary, 0.16) }]}>
-                  <Text style={[styles.ongoingText, { color: theme.accent }]}>ENDLESS</Text>
-                </View>
-              ) : null}
-            </View>
-            <Text style={[styles.title, { color: theme.text }]}>{meta.title}</Text>
-            <Text style={[styles.tagline, { color: theme.textDim }]}>{forPlayer(meta.tagline)}</Text>
-          </View>
         </View>
 
-        <View style={styles.body}>
+        {/* ------------------------------------------------ overlapping sheet */}
+        <View style={[styles.sheet, { backgroundColor: theme.bg, borderColor: theme.borderSoft }]}>
+          <View style={[styles.grabber, { backgroundColor: withAlpha(theme.text, 0.18) }]} />
+          <View style={styles.heroBadges}>
+            <AgeBadge ageRating={meta.ageRating} />
+            {ongoing ? (
+              <View style={[styles.ongoingPill, { borderColor: withAlpha(theme.gold, 0.4), backgroundColor: withAlpha(theme.gold, 0.14) }]}>
+                <Icon name="sparkles" size={11} color={theme.gold} />
+                <Text style={[styles.ongoingText, { color: theme.gold }]}>ENDLESS</Text>
+              </View>
+            ) : null}
+            {meta.estimatedMinutes ? (
+              <View style={[styles.ongoingPill, { borderColor: theme.border, backgroundColor: withAlpha(theme.text, 0.05) }]}>
+                <Icon name="time-outline" size={11} color={theme.textDim} />
+                <Text style={[styles.ongoingText, { color: theme.textDim }]}>{meta.estimatedMinutes} MIN</Text>
+              </View>
+            ) : null}
+          </View>
+          <Text style={[styles.title, { color: theme.text }]}>{meta.title}</Text>
+          <Text style={[styles.tagline, { color: theme.textDim }]}>{forPlayer(meta.tagline)}</Text>
+
           <View style={styles.metaRow}>
             {meta.genres.slice(0, 3).map((g) => (
               <GenreChip key={g} genre={g} />
@@ -261,18 +272,24 @@ export function StoryDetail({ navigation, route }: Props) {
 
           {/* size at a glance */}
           <View style={styles.statRow}>
-            <View style={[styles.stat, { borderColor: theme.border, backgroundColor: withAlpha(theme.text, 0.04) }]}>
-              <Text style={[styles.statValue, { color: theme.text }]}>{sceneCount}</Text>
-              <Text style={[styles.statLabel, { color: theme.textFaint }]}>SCENES</Text>
-            </View>
-            <View style={[styles.stat, { borderColor: theme.border, backgroundColor: withAlpha(theme.text, 0.04) }]}>
-              <Text style={[styles.statValue, { color: theme.text }]}>{cast.length || '—'}</Text>
-              <Text style={[styles.statLabel, { color: theme.textFaint }]}>CAST</Text>
-            </View>
-            <View style={[styles.stat, { borderColor: theme.border, backgroundColor: withAlpha(theme.text, 0.04) }]}>
-              <Text style={[styles.statValue, { color: theme.text }]}>{endingCount > 0 ? endingCount : ongoing ? '∞' : '—'}</Text>
-              <Text style={[styles.statLabel, { color: theme.textFaint }]}>{endingCount > 0 ? 'ENDINGS' : 'FORMAT'}</Text>
-            </View>
+            {[
+              { icon: 'albums-outline' as const, value: String(sceneCount), label: 'SCENES', tint: theme.accent },
+              { icon: 'people-outline' as const, value: String(cast.length || '—'), label: 'CAST', tint: theme.violet },
+              {
+                icon: 'flag-outline' as const,
+                value: endingCount > 0 ? String(endingCount) : ongoing ? '∞' : '—',
+                label: endingCount > 0 ? 'ENDINGS' : 'FORMAT',
+                tint: theme.gold,
+              },
+            ].map((st) => (
+              <View key={st.label} style={[styles.stat, { borderColor: theme.border, backgroundColor: withAlpha(theme.surface2, 0.7) }]}>
+                <View style={[styles.statIcon, { backgroundColor: withAlpha(st.tint, 0.15) }]}>
+                  <Icon name={st.icon} size={15} color={st.tint} />
+                </View>
+                <Text style={[styles.statValue, { color: theme.text }]}>{st.value}</Text>
+                <Text style={[styles.statLabel, { color: theme.textFaint }]}>{st.label}</Text>
+              </View>
+            ))}
           </View>
 
           {/* about — collapsed by default so the decision stays above the fold */}
@@ -285,8 +302,13 @@ export function StoryDetail({ navigation, route }: Props) {
           </Pressable>
 
           {bundle.story.userRole ? (
-            <View style={[styles.roleCard, { backgroundColor: theme.surface, borderColor: theme.border }, SHADOWS.card]}>
-              <Text style={[styles.roleKicker, { color: theme.accent }]}>YOU ARE</Text>
+            <View style={[styles.roleCard, { backgroundColor: withAlpha(theme.violet, 0.1), borderColor: withAlpha(theme.violet, 0.3) }, SHADOWS.card]}>
+              <View style={styles.roleHead}>
+                <View style={[styles.roleIcon, { backgroundColor: withAlpha(theme.primary, 0.18) }]}>
+                  <Icon name="person" size={14} color={theme.accent} />
+                </View>
+                <Text style={[styles.roleKicker, { color: theme.accent }]}>YOU ARE</Text>
+              </View>
               <Text style={[styles.roleDesc, { color: theme.text }]}>{forPlayer(bundle.story.userRole)}</Text>
             </View>
           ) : null}
@@ -297,7 +319,7 @@ export function StoryDetail({ navigation, route }: Props) {
               <SectionHeader title="Cast" kicker={`${cast.length}`} />
               <ScrollView horizontal showsHorizontalScrollIndicator={false} contentContainerStyle={styles.castRow}>
                 <View style={[styles.castCard, { borderColor: theme.border, backgroundColor: withAlpha(theme.text, 0.04) }]}>
-                  <View style={[styles.castPortrait, { borderColor: withAlpha(theme.primary, 0.35), backgroundColor: withAlpha(meta.accentColor, 0.16) }]}>
+                  <View style={[styles.castPortrait, { borderColor: theme.primary, borderWidth: 2, backgroundColor: withAlpha(theme.primary, 0.16) }]}>
                     <Text style={[styles.castInitial, { color: theme.text }]}>
                       {(profile?.nickname?.trim()?.[0] ?? 'Y').toUpperCase()}
                     </Text>
@@ -314,6 +336,7 @@ export function StoryDetail({ navigation, route }: Props) {
                   return (
                     <View key={c.id} style={[styles.castCard, { borderColor: theme.border, backgroundColor: withAlpha(theme.text, 0.04) }]}>
                       <View style={[styles.castPortrait, { borderColor: theme.border, backgroundColor: withAlpha(meta.accentColor, 0.16) }]}>
+                        {uri ? <ArtBackdrop source={{ uri }} accentColor={meta.accentColor} blur={12} dim={0.2} /> : null}
                         {uri ? (
                           <NaturalImage source={{ uri }} style={styles.castPortraitImg} fallback={<Text style={[styles.castInitial, { color: theme.text }]}>{c.name[0]}</Text>} />
                         ) : (
@@ -335,11 +358,27 @@ export function StoryDetail({ navigation, route }: Props) {
 
           {gallery.length > 0 ? (
             <>
-              <SectionHeader title={`Media Library (${gallery.length})`} kicker="Artworks" />
+              <SectionHeader title={`Media Library (${gallery.length})`} />
+              {/* Even 2-column wall of fixed-height frames: each artwork is shown
+                  whole (contain) on its own blurred backdrop, so rows line up and
+                  no column ends early with an empty gap underneath. A lone last
+                  tile spans the full width. */}
               <View style={styles.mediaGrid}>
-                {gallery.map((item, index) => (
-                  <MediaTile key={item.id} item={item} index={index} storyDir={bundle.meta.storyDir} bundle={bundle} onPress={() => setLightboxIndex(index)} />
-                ))}
+                {gallery.map((item, index) => {
+                  const spanFull = index === gallery.length - 1 && gallery.length % 2 === 1;
+                  return (
+                    <View key={item.id} style={spanFull ? styles.mediaCellFull : styles.mediaCell}>
+                      <MediaTile
+                        item={item}
+                        index={index}
+                        storyDir={bundle.meta.storyDir}
+                        bundle={bundle}
+                        height={spanFull ? MEDIA_H + 40 : MEDIA_H}
+                        onPress={() => setLightboxIndex(index)}
+                      />
+                    </View>
+                  );
+                })}
               </View>
             </>
           ) : null}
@@ -347,7 +386,7 @@ export function StoryDetail({ navigation, route }: Props) {
           <CreatorBlock creator={bundle.creator} />
           <SimilarStoriesBlock storyId={storyId} navigation={navigation} />
 
-          <SectionHeader title="Refer Kissa" kicker="Share" />
+          <SectionHeader title="Refer Kissa" />
           <View style={[styles.referCard, { backgroundColor: withAlpha(theme.text, 0.04), borderColor: theme.border }]}>
             <Text style={[styles.referTitle, { color: theme.text }]}>Pass the story forward</Text>
             <Text style={[styles.referSub, { color: theme.textDim }]}>Invite friends to interactive stories. Local-first, private, no ads.</Text>
@@ -372,18 +411,6 @@ export function StoryDetail({ navigation, route }: Props) {
               }}
             />
           </View>
-          <Pressable
-            onPress={() => void toggleFavorite(storyId)}
-            accessibilityRole="button"
-            accessibilityLabel={isFav ? 'Remove favorite' : 'Add favorite'}
-            hitSlop={6}
-            style={({ pressed }) => [
-              styles.secondaryAction,
-              { borderColor: theme.border, backgroundColor: withAlpha(theme.surface2, 0.9), opacity: pressed ? 0.75 : 1 },
-            ]}
-          >
-            <Icon name={isFav ? 'heart' : 'heart-outline'} size={ICON_SIZE.md} color={isFav ? theme.accent : theme.textDim} />
-          </Pressable>
           {saves.length > 0 ? (
             <Pressable
               onPress={() => navigation.navigate('Saves', { storyId })}
@@ -435,16 +462,20 @@ const KIND_BADGE: Record<StoryMediaItem['kind'], string> = {
   other: 'ART',
 };
 
+const MEDIA_H = 176;
+
 function MediaTile({
   item,
   storyDir,
   bundle,
+  height,
   onPress,
 }: {
   item: StoryMediaItem;
   index: number;
   storyDir: string;
   bundle: StoryBundle;
+  height: number;
   onPress: () => void;
 }) {
   const { theme, settings } = useApp();
@@ -459,12 +490,15 @@ function MediaTile({
       accessibilityLabel={`View ${label}`}
       style={({ pressed }) => [
         styles.mediaTile,
-        { borderColor: theme.border, backgroundColor: withAlpha(theme.text, 0.04), opacity: pressed ? 0.9 : 1 },
+        { height, borderColor: theme.border, backgroundColor: withAlpha(theme.text, 0.04), opacity: pressed ? 0.9 : 1 },
       ]}
     >
+      <ArtBackdrop source={{ uri: url }} accentColor={bundle.meta.accentColor} />
       <NaturalImage
         source={{ uri: url }}
         style={styles.mediaImg}
+        maxHeight={height}
+        placeholderMinHeight={height * 0.6}
         fallback={
           <View style={styles.mediaFallback}>
             <Icon name="image-outline" size={ICON_SIZE.md} color={theme.textDim} />
@@ -473,9 +507,9 @@ function MediaTile({
         }
       />
       <View style={[styles.mediaBadge, { backgroundColor: GLASS.bg }]}>
-        <Text style={[styles.mediaBadgeText, { color: '#F2F0EB' }]}>{KIND_BADGE[item.kind]}</Text>
+        <Text style={[styles.mediaBadgeText, { color: '#F7F3FF' }]}>{KIND_BADGE[item.kind]}</Text>
       </View>
-      <LinearGradient colors={['transparent', 'rgba(6,6,10,0.86)']} style={styles.mediaLabelShade} pointerEvents="none" />
+      <LinearGradient colors={['transparent', 'rgba(11,8,20,0.86)']} style={styles.mediaLabelShade} pointerEvents="none" />
       <Text style={[styles.mediaLabel, { color: '#fff' }]} numberOfLines={1}>
         {label}
       </Text>
@@ -492,8 +526,8 @@ function LightboxImage({ url, accent }: { url: string; accent: string }) {
         placeholder={<ActivityIndicator size="small" color={accent} />}
         fallback={
           <View style={styles.lightboxFallback}>
-            <Icon name="image-outline" size={ICON_SIZE.lg} color="#A09CA8" />
-            <Text style={[styles.lightboxFallbackText, { color: '#A09CA8' }]}>Image unavailable.</Text>
+            <Icon name="image-outline" size={ICON_SIZE.lg} color="#B8AFCC" />
+            <Text style={[styles.lightboxFallbackText, { color: '#B8AFCC' }]}>Image unavailable.</Text>
           </View>
         }
       />
@@ -510,10 +544,10 @@ function CreatorBlock({ creator }: { creator: StoryCreator }) {
   };
   return (
     <>
-      <SectionHeader title="Story Creator" kicker="Author" />
+      <SectionHeader title="Story Creator" />
       <View style={[styles.creatorCard, { backgroundColor: withAlpha(theme.text, 0.04), borderColor: theme.border }]}>
         <LinearGradient
-          colors={['#FF8A9B', '#E9435E']}
+          colors={['#FF4F8B', '#A855F7']}
           start={{ x: 0, y: 0 }}
           end={{ x: 1, y: 1 }}
           style={styles.creatorAvatar}
@@ -539,33 +573,28 @@ function CreatorBlock({ creator }: { creator: StoryCreator }) {
   );
 }
 
+const SIMILAR_ART_H = 212;
+
 function SimilarStoriesBlock({ storyId, navigation }: { storyId: string; navigation: Props['navigation'] }) {
-  const { theme, stories } = useApp();
-  const others = useMemo(() => stories.filter((s) => s.id !== storyId).slice(0, 3), [stories, storyId]);
+  const { theme, stories, settings } = useApp();
+  const apiBase = effectiveContentApiBaseUrl(settings?.contentApiBaseUrl);
+  // Prefer stories that share a genre with this one; fill up with the rest.
+  const others = useMemo(() => {
+    const self = stories.find((s) => s.id === storyId);
+    const pool = stories.filter((s) => s.id !== storyId);
+    const peers = self ? pool.filter((s) => s.genres.some((g) => self.genres.includes(g))) : [];
+    const rest = pool.filter((s) => !peers.includes(s));
+    return [...peers, ...rest].slice(0, 8);
+  }, [stories, storyId]);
   if (others.length === 0) return null;
   return (
     <>
-      <SectionHeader title="Similar" kicker="More" />
-      <View style={styles.similarRow}>
+      <SectionHeader title="You may also like" kicker={others[0]?.genres[0]} />
+      <ScrollView horizontal showsHorizontalScrollIndicator={false} contentContainerStyle={styles.similarRow}>
         {others.map((s) => (
-          <Pressable
-            key={s.id}
-            style={({ pressed }) => [
-              styles.similarCard,
-              { backgroundColor: withAlpha(theme.text, 0.04), borderColor: theme.border, opacity: pressed ? 0.85 : 1 },
-            ]}
-            onPress={() => navigation.push('StoryDetail', { storyId: s.id })}
-          >
-            <View style={[styles.similarDot, { backgroundColor: s.accentColor }]} />
-            <Text style={[styles.similarTitle, { color: theme.text }]} numberOfLines={3}>
-              {s.title}
-            </Text>
-            <Text style={[styles.similarGenre, { color: theme.textFaint }]} numberOfLines={1}>
-              {(s.genres[0] ?? 'Story').toUpperCase()}
-            </Text>
-          </Pressable>
+          <GridCard key={s.id} meta={s} width={142} height={SIMILAR_ART_H} onPress={() => navigation.push('StoryDetail', { storyId: s.id })} />
         ))}
-      </View>
+      </ScrollView>
     </>
   );
 }
@@ -573,44 +602,57 @@ function SimilarStoriesBlock({ storyId, navigation }: { storyId: string; navigat
 const styles = StyleSheet.create({
   scroll: { paddingBottom: 16 },
   hero: { width: '100%', alignItems: 'center', justifyContent: 'center', overflow: 'hidden' },
+  sheet: {
+    marginTop: -34,
+    borderTopLeftRadius: 32,
+    borderTopRightRadius: 32,
+    borderTopWidth: 1,
+    paddingHorizontal: SPACING.page,
+    paddingTop: 10,
+  },
+  grabber: { width: 40, height: 4, borderRadius: 2, alignSelf: 'center', marginBottom: 16 },
   heroArt: { width: '100%' },
-  heroNav: { position: 'absolute', top: 12, left: 14, right: 14, flexDirection: 'row', alignItems: 'center' },
+  heroNav: { position: 'absolute', top: 14, left: 14, right: 14, flexDirection: 'row', alignItems: 'center' },
   heroNavRight: { marginLeft: 'auto', flexDirection: 'row', gap: 9 },
   glassBtn: {
-    width: TOUCH.sm,
-    height: TOUCH.sm,
-    borderRadius: RADIUS.sm,
+    width: TOUCH.min - 2,
+    height: TOUCH.min - 2,
+    borderRadius: (TOUCH.min - 2) / 2,
     borderWidth: 1,
     alignItems: 'center',
     justifyContent: 'center',
   },
   heroFoot: { position: 'absolute', left: SPACING.page, right: SPACING.page, bottom: 10 },
   heroBadges: { flexDirection: 'row', alignItems: 'center', gap: 8, marginBottom: 10 },
-  ongoingPill: { paddingHorizontal: 9, paddingVertical: 4, borderRadius: RADIUS.pill, borderWidth: 1 },
+  ongoingPill: { flexDirection: 'row', alignItems: 'center', gap: 5, paddingHorizontal: 9, paddingVertical: 4, borderRadius: RADIUS.pill, borderWidth: 1 },
   ongoingText: { fontSize: SCALE.micro, fontWeight: '900', letterSpacing: 1.1 },
-  title: { ...TYPE.displaySmall, lineHeight: 31 },
-  tagline: { fontSize: SCALE.small, fontWeight: '500', marginTop: 7, lineHeight: 19 },
-  body: { paddingHorizontal: SPACING.page },
+  title: { fontSize: 30, fontWeight: '900', letterSpacing: -0.9, lineHeight: 35 },
+  tagline: { fontSize: SCALE.body - 0.5, fontWeight: '500', marginTop: 8, lineHeight: 21 },
   metaRow: { flexDirection: 'row', flexWrap: 'wrap', gap: 8, marginTop: SPACING.lg },
   statRow: { flexDirection: 'row', gap: 10, marginTop: SPACING.lg },
-  stat: { flex: 1, borderWidth: 1, borderRadius: RADIUS.md, paddingVertical: 11, alignItems: 'center' },
-  statValue: { fontSize: 19, fontWeight: '800', letterSpacing: -0.4 },
+  stat: { flex: 1, borderWidth: 1, borderRadius: RADIUS.lg, paddingVertical: 12, paddingHorizontal: 12, gap: 3 },
+  statIcon: { width: 28, height: 28, borderRadius: 14, alignItems: 'center', justifyContent: 'center', marginBottom: 5 },
+  statValue: { fontSize: 21, fontWeight: '900', letterSpacing: -0.4 },
   statLabel: { fontSize: SCALE.micro, fontWeight: '800', letterSpacing: 1, marginTop: 3 },
   desc: { fontSize: 14.5, lineHeight: 22, marginTop: SPACING.lg },
   readMore: { flexDirection: 'row', alignItems: 'center', gap: 3, marginTop: 8, alignSelf: 'flex-start' },
   readMoreText: { fontSize: SCALE.small, fontWeight: '800' },
-  roleCard: { borderWidth: 1, borderRadius: RADIUS.lg, padding: 15, marginTop: SPACING.lg, gap: 6 },
+  roleCard: { borderWidth: 1, borderRadius: RADIUS.xl, padding: 16, marginTop: SPACING.lg, gap: 8 },
+  roleHead: { flexDirection: 'row', alignItems: 'center', gap: 8 },
+  roleIcon: { width: 26, height: 26, borderRadius: 13, alignItems: 'center', justifyContent: 'center' },
   roleKicker: { fontSize: SCALE.micro, letterSpacing: 1.3, fontWeight: '900' },
   roleDesc: { fontSize: 14, lineHeight: 21, fontWeight: '500' },
   castRow: { gap: 10, paddingRight: SPACING.page },
-  castCard: { width: 108, borderWidth: 1, borderRadius: RADIUS.lg, padding: 11, alignItems: 'center' },
-  castPortrait: { width: 60, height: 60, borderRadius: RADIUS.lg, borderWidth: 1, overflow: 'hidden', alignItems: 'center', justifyContent: 'center' },
-  castPortraitImg: { width: 60, height: 60 },
+  castCard: { width: 104, borderWidth: 1, borderRadius: RADIUS.xl, paddingVertical: 14, paddingHorizontal: 8, alignItems: 'center' },
+  castPortrait: { width: 64, height: 64, borderRadius: 32, borderWidth: 1, overflow: 'hidden', alignItems: 'center', justifyContent: 'center' },
+  castPortraitImg: { width: 64, height: 64 },
   castInitial: { fontSize: 20, fontWeight: '900' },
   castName: { fontSize: SCALE.small, fontWeight: '800', marginTop: 9 },
   castRole: { fontSize: SCALE.micro, fontWeight: '600', marginTop: 3, textAlign: 'center', lineHeight: 14 },
-  mediaGrid: { flexDirection: 'row', flexWrap: 'wrap', gap: 10, marginTop: 4 },
-  mediaTile: { width: '48%', borderRadius: RADIUS.md, borderWidth: 1, overflow: 'hidden' },
+  mediaGrid: { flexDirection: 'row', flexWrap: 'wrap', justifyContent: 'space-between', rowGap: 10, marginTop: 4 },
+  mediaCell: { width: '48.5%' },
+  mediaCellFull: { width: '100%' },
+  mediaTile: { width: '100%', borderRadius: RADIUS.lg, borderWidth: 1, overflow: 'hidden', alignItems: 'center', justifyContent: 'center' },
   mediaImg: { width: '100%' },
   mediaBadge: { position: 'absolute', top: 8, left: 8, borderRadius: RADIUS.xs, paddingHorizontal: 7, paddingVertical: 3 },
   mediaBadgeText: { fontSize: SCALE.micro, fontWeight: '800', letterSpacing: 0.6 },
@@ -621,7 +663,7 @@ const styles = StyleSheet.create({
   lightbox: { flex: 1, backgroundColor: 'rgba(0,0,0,0.96)', alignItems: 'center', justifyContent: 'center' },
   lightboxImageWrap: { flex: 1, width: '100%', alignItems: 'center', justifyContent: 'center', paddingHorizontal: 12 },
   lightboxImage: { width: '100%', maxHeight: '86%' },
-  lightboxLabel: { color: '#F2F0EB', fontSize: SCALE.caption, fontWeight: '700', marginTop: 12, letterSpacing: 0.2 },
+  lightboxLabel: { color: '#F7F3FF', fontSize: SCALE.caption, fontWeight: '700', marginTop: 12, letterSpacing: 0.2 },
   lightboxNav: {
     position: 'absolute',
     top: '46%',
@@ -653,17 +695,21 @@ const styles = StyleSheet.create({
   lightboxFallbackText: { fontSize: SCALE.caption, fontWeight: '600' },
   creatorCard: { flexDirection: 'row', alignItems: 'center', gap: 12, borderWidth: 1, borderRadius: RADIUS.lg, padding: 14, marginTop: 4 },
   creatorAvatar: { width: 46, height: 46, borderRadius: RADIUS.md, alignItems: 'center', justifyContent: 'center' },
-  creatorInitial: { fontSize: 17, fontWeight: '900', color: '#2A0A11' },
+  creatorInitial: { fontSize: 17, fontWeight: '900', color: '#FFFFFF' },
   creatorNameRow: { flexDirection: 'row', alignItems: 'center', gap: 7 },
   creatorName: { fontSize: 15, fontWeight: '800' },
   verifiedPill: { flexDirection: 'row', alignItems: 'center', gap: 4, paddingHorizontal: 6, paddingVertical: 2, borderRadius: RADIUS.xs, borderWidth: 1 },
   verifiedText: { fontSize: 9.5, fontWeight: '900', letterSpacing: 0.6, color: '#BBD2FF' },
   creatorSub: { fontSize: SCALE.caption, marginTop: 3 },
-  similarRow: { flexDirection: 'row', gap: 10, marginTop: 4 },
-  similarCard: { flex: 1, borderWidth: 1, borderRadius: RADIUS.md, padding: 12, minHeight: 96, justifyContent: 'flex-end', gap: 4 },
-  similarDot: { width: 8, height: 8, borderRadius: 4, marginBottom: 4 },
-  similarTitle: { fontSize: SCALE.small, fontWeight: '800', lineHeight: 17 },
-  similarGenre: { fontSize: 9.5, fontWeight: '800', marginTop: 3, letterSpacing: 0.6 },
+  similarRow: { gap: 12, paddingRight: SPACING.page, paddingBottom: 4 },
+  similarCard: { flex: 1, borderWidth: 1, borderRadius: RADIUS.md, overflow: 'hidden', minWidth: 0 },
+  similarArt: { height: SIMILAR_ART_H, alignItems: 'center', justifyContent: 'center', overflow: 'hidden' },
+  similarImg: { width: '100%' },
+  similarBody: { position: 'absolute', left: 9, right: 9, bottom: 9 },
+  similarGenreRow: { flexDirection: 'row', alignItems: 'center', gap: 5, marginTop: 5 },
+  similarDot: { width: 5, height: 5, borderRadius: 2.5 },
+  similarTitle: { fontSize: SCALE.small, fontWeight: '800', lineHeight: 16, color: '#fff' },
+  similarGenre: { fontSize: SCALE.micro, fontWeight: '800', letterSpacing: 0.5, color: 'rgba(240,232,255,0.7)', flexShrink: 1 },
   referCard: { borderWidth: 1, borderRadius: RADIUS.lg, padding: 16, marginTop: 4, borderStyle: 'dashed' },
   referTitle: { fontSize: 15, fontWeight: '800' },
   referSub: { fontSize: SCALE.small, marginTop: 5, lineHeight: 19 },
