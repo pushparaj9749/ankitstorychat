@@ -10,6 +10,9 @@
  * no empty bands next to a cover.
  */
 
+/** True black for OLED screens (pixels fully off). Used by the Chat stage. */
+export const AMOLED = '#000000';
+
 export const COLORS = {
   midnight: {
     bg: '#0B0814',

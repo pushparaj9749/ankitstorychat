@@ -58,8 +58,10 @@ moves the tale forward — with memory, relationships, branching, and multiple e
 
 ## 🆕 Release notes
 
-### Unreleased — "Kissa Night" full UI/UX redesign
+### v2.6.0 — "Kissa Night" full UI/UX redesign + AMOLED chat
 
+- **AMOLED chat:** the Chat screen sits on a true-black (`#000000`) canvas. The header, "You are" banner, message stage and composer are pure black, so OLED pixels switch off and the bubbles carry all the colour.
+- **Story action menu (from v2.5.5, now merged into the main line):** a 💡 button next to the composer opens *Choices dikhao*, *Regenerate*, *Scene badlo* and *Continue*. These send an internal instruction to the narrator and never create a fake reader message.
 - **New visual identity:** a midnight-violet palette (`#0B0814` base) with a pink→violet signature gradient, gold uppercase kickers, gradient section bars and glass surfaces. All tokens live in `src/theme.ts`.
 - **Custom SVG icon set:** the Ionicons glyphs are replaced by a hand-drawn duotone set built on `react-native-svg` (`src/components/iconGlyph.tsx`, with a theme-aware wrapper in `icons.tsx`).
 - **No more blank space around covers:** artwork is never cropped. Every frame is filled by `ArtBackdrop`, a blurred, tinted copy of the same art behind the contain-fit image. This removes the letterbox bands and dead areas below covers.
@@ -70,7 +72,7 @@ moves the tale forward — with memory, relationships, branching, and multiple e
   - Library: stat tiles, journey cards, and "Try next" picks so a short shelf never ends blank.
   - You: profile hero card.
   - Story detail: overlapping sheet, stat tiles, cast rings, an even 2-column media grid, similar-stories rail.
-  - Chat: art wallpaper, glass header, pill composer, round send button.
+  - Chat: AMOLED stage, story-face header, pill composer, round send and ideas buttons.
 
 ### UI polish pass
 

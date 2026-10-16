@@ -101,6 +101,30 @@ describe('shortTermWindowOf', () => {
     const ctx = buildContext({ bundle, profile, playthrough, memories: [], history, summary: '' }, '18+');
     expect(ctx.messages.length).toBe(shortTermWindowOf(bundle));
   });
+
+  test('internal action instruction is added to system context, not transcript history', () => {
+    const history = [{
+      id: 'reader-1',
+      playthroughId: 'pt1',
+      role: 'user' as const,
+      speaker: null,
+      text: 'I open the old letter.',
+      sceneId: null,
+      createdAt: new Date().toISOString(),
+    }];
+    const ctx = buildContext({
+      bundle,
+      profile,
+      playthrough,
+      memories: [],
+      history,
+      turnInstruction: 'Continue one beat without inventing a reader action.',
+    }, '18+');
+
+    expect(ctx.system).toContain('INTERNAL ACTION INSTRUCTION (not a reader-authored message)');
+    expect(ctx.system).toContain('Continue one beat without inventing a reader action.');
+    expect(ctx.messages).toEqual([{ role: 'user', content: 'I open the old letter.' }]);
+  });
 });
 
 describe('system prompt memory wiring', () => {
