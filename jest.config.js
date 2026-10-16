@@ -11,6 +11,7 @@ module.exports = {
     // Icons are visual-only; swap in a light stub so node-environment tests
     // never load the ESM icon-font package.
     '^@expo/vector-icons$': '<rootDir>/__mocks__/@expo/vector-icons.tsx',
+    '^react-native-svg$': '<rootDir>/__mocks__/react-native-svg.tsx',
     '\\.(jpg|jpeg|png|gif|webp|bmp|svg|ttf|otf|mp3|wav)$': '<rootDir>/jest.assets.js',
   },
 };

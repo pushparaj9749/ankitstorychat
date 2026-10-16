@@ -31,8 +31,9 @@ import { countMessages, getPlaythrough, insertMessage, listMessages, listRecentM
 import { consolidateStoryMemory, ensureStoryMemoryReady, indexStoryMemoryMessages, recallStoryMemoryForPrompt, rememberTurn } from '../lib/storyMemory';
 import { completePlaythrough } from '../lib/playthrough';
 import { interpolatePlayerName, makePlayerTextFn } from '../lib/playerName';
-import { RADIUS, SCALE, TOUCH, withAlpha } from '../theme';
+import { GRADIENTS, RADIUS, SCALE, TOUCH, withAlpha } from '../theme';
 import { Icon, ICON_SIZE } from '../components/icons';
+import { ArtBackdrop } from '../components/ArtBackdrop';
 import { nowIso, uid } from '../lib/utils';
 import { playReceive, playSend } from '../lib/sound';
 import { lightBuzz, successBuzz } from '../lib/haptics';
@@ -44,7 +45,8 @@ function ChatStoryFace({ source, letter, accent }: { source: CoverSource | null;
   const [failed, setFailed] = useState(false);
   const initial = (letter?.trim()?.[0] ?? '?').toUpperCase();
   return (
-    <View style={[styles.face, { backgroundColor: `${accent}18`, borderColor: 'rgba(242,240,235,0.12)' }]}>
+    <View style={[styles.face, { backgroundColor: `${accent}18`, borderColor: 'rgba(255,255,255,0.55)' }]}>
+      {source && !failed ? <ArtBackdrop source={source} accentColor={accent} blur={10} dim={0.15} /> : null}
       {source && !failed ? (
         <Image source={source} style={styles.faceImg} resizeMode="contain" onError={() => setFailed(true)} accessibilityIgnoresInvertColors />
       ) : (
@@ -391,7 +393,8 @@ export function Chat({ navigation, route }: Props) {
   return (
     <SafeAreaView style={[styles.safe, { backgroundColor: theme.bg }]} edges={['top', 'left', 'right', 'bottom']}>
       {/* ------------------------------------------------------ stage head */}
-      <View style={[styles.header, { borderColor: theme.borderSoft, backgroundColor: withAlpha(theme.bgSoft, 0.92) }]}>
+      <View style={[styles.header, { borderColor: theme.borderSoft, backgroundColor: theme.bgSoft }]}>
+        <ArtBackdrop source={faceSource} accentColor={bundle.meta.accentColor} blur={36} dim={0.72} />
         <Pressable
           onPress={() => navigation.goBack()}
           hitSlop={10}
@@ -399,7 +402,7 @@ export function Chat({ navigation, route }: Props) {
           accessibilityLabel="Go back"
           style={({ pressed }) => [
             styles.backBtn,
-            { borderColor: theme.border, backgroundColor: withAlpha(theme.surface2, 0.72), opacity: pressed ? 0.7 : 1 },
+            { borderColor: 'rgba(255,255,255,0.16)', backgroundColor: 'rgba(11,8,20,0.42)', opacity: pressed ? 0.7 : 1 },
           ]}
         >
           <Icon name="chevron-back" size={20} color={theme.text} />
@@ -411,7 +414,7 @@ export function Chat({ navigation, route }: Props) {
             <Text style={[styles.headerTitle, { color: theme.text }]} numberOfLines={1}>
               {bundle.meta.title}
             </Text>
-            <Text style={[styles.headerScene, { color: theme.accent }]} numberOfLines={1}>
+            <Text style={[styles.headerScene, { color: theme.gold }]} numberOfLines={1}>
               {scene?.title ?? playthrough.label}
             </Text>
           </View>
@@ -419,12 +422,13 @@ export function Chat({ navigation, route }: Props) {
 
         <View style={[styles.modeBtn, { backgroundColor: withAlpha(aiReady ? theme.success : theme.text, 0.08), borderColor: withAlpha(aiReady ? theme.success : theme.text, 0.18) }]}>
           <View style={[styles.modeDot, { backgroundColor: aiReady ? theme.success : theme.textFaint }]} />
-          <Text style={[styles.modeText, { color: aiReady ? '#9BEFD0' : theme.textDim }]}>{aiReady ? 'AI' : 'Offline'}</Text>
+          <Text style={[styles.modeText, { color: aiReady ? '#A7F3CF' : theme.textDim }]}>{aiReady ? 'AI' : 'Offline'}</Text>
         </View>
       </View>
 
       {bundle.story.userRole ? (
-        <View style={[styles.roleBanner, { backgroundColor: withAlpha(theme.primary, 0.07), borderColor: withAlpha(theme.primary, 0.16) }]}>
+        <View style={[styles.roleBanner, { backgroundColor: withAlpha(theme.violet, 0.1), borderColor: withAlpha(theme.violet, 0.2) }]}>
+          <Icon name="person" size={13} color={theme.accent} />
           <Text style={[styles.roleLabel, { color: theme.accent }]}>YOU ARE</Text>
           <Text style={[styles.roleText, { color: theme.textDim }]} numberOfLines={1}>
             {makePlayerTextFn(bundle.meta, profile?.nickname)(bundle.story.userRole)}
@@ -442,7 +446,8 @@ export function Chat({ navigation, route }: Props) {
       ) : null}
 
       <KeyboardAvoidingView behavior={Platform.OS === 'ios' ? 'padding' : undefined} style={styles.flex}>
-        {/* Scene atmosphere — the story's own accent, never a photo crop. */}
+        {/* Scene atmosphere — an out-of-focus wash of the story's own art + accent. */}
+        <ArtBackdrop source={faceSource} accentColor={bundle.meta.accentColor} blur={48} dim={0.86} />
         <LinearGradient
           colors={[withAlpha(bundle.meta.accentColor, 0.14), 'transparent', withAlpha(bundle.meta.accentColor, 0.05)]}
           start={{ x: 0.5, y: 0 }}
@@ -489,7 +494,7 @@ export function Chat({ navigation, route }: Props) {
           renderItem={({ item }) => <ChatBubble message={item} />}
         />
 
-        <View style={[styles.inputBar, { borderColor: theme.borderSoft, backgroundColor: withAlpha(theme.bgSoft, 0.94) }]}>
+        <View style={[styles.inputBar, { borderColor: theme.borderSoft, backgroundColor: withAlpha(theme.bgSoft, 0.9) }]}>
           {playthrough.messageCount > 8 ? (
             <View style={styles.memoryRow}>
               <Icon name="sparkles-outline" size={12} color={theme.textFaint} />
@@ -507,7 +512,7 @@ export function Chat({ navigation, route }: Props) {
               multiline
               maxLength={2000}
               editable={!sending}
-              style={[styles.input, { backgroundColor: theme.surface, borderColor: theme.border, color: theme.text }]}
+              style={[styles.input, { backgroundColor: withAlpha(theme.surface2, 0.9), borderColor: theme.border, color: theme.text }]}
             />
             <Pressable
               onPress={() => void send(input)}
@@ -519,13 +524,8 @@ export function Chat({ navigation, route }: Props) {
                 { opacity: sending || !input.trim() ? 0.4 : pressed ? 0.85 : 1, transform: [{ scale: pressed ? 0.96 : 1 }] },
               ]}
             >
-              <LinearGradient
-                colors={['#FF6B7E', '#E9435E']}
-                start={{ x: 0, y: 0 }}
-                end={{ x: 1, y: 1 }}
-                style={StyleSheet.absoluteFill}
-              />
-              <Icon name="arrow-up" size={ICON_SIZE.md} color="#fff" />
+              <LinearGradient colors={[...GRADIENTS.primary]} start={{ x: 0, y: 0 }} end={{ x: 1, y: 1 }} style={StyleSheet.absoluteFill} />
+              <Icon name="arrow-up" size={ICON_SIZE.md} color="#fff" strokeWidth={2.4} />
             </Pressable>
           </View>
         </View>
@@ -541,24 +541,25 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     paddingHorizontal: 14,
-    paddingVertical: 9,
+    paddingVertical: 12,
     borderBottomWidth: StyleSheet.hairlineWidth,
     gap: 10,
+    overflow: 'hidden',
   },
   backBtn: {
-    width: TOUCH.sm,
-    height: TOUCH.sm,
-    borderRadius: RADIUS.sm,
+    width: TOUCH.sm + 2,
+    height: TOUCH.sm + 2,
+    borderRadius: (TOUCH.sm + 2) / 2,
     borderWidth: 1,
     alignItems: 'center',
     justifyContent: 'center',
   },
   headerIdentity: { flex: 1, flexDirection: 'row', alignItems: 'center', gap: 10, minWidth: 0 },
-  face: { width: 38, height: 38, borderRadius: RADIUS.sm, overflow: 'hidden', borderWidth: 1, alignItems: 'center', justifyContent: 'center' },
-  faceImg: { width: 38, height: 38 },
+  face: { width: 42, height: 42, borderRadius: 21, overflow: 'hidden', borderWidth: 1.5, alignItems: 'center', justifyContent: 'center' },
+  faceImg: { width: 42, height: 42 },
   faceLetter: { fontSize: 15, fontWeight: '900' },
   headerBody: { flex: 1, minWidth: 0 },
-  headerTitle: { fontSize: 15, fontWeight: '800', letterSpacing: -0.2 },
+  headerTitle: { fontSize: 16, fontWeight: '900', letterSpacing: -0.3, color: '#fff' },
   headerScene: { fontSize: SCALE.caption, letterSpacing: 0.1, marginTop: 2, fontWeight: '700' },
   presence: { flexDirection: 'row', alignItems: 'center' },
   presenceSlot: { alignItems: 'center', justifyContent: 'center' },
@@ -577,7 +578,7 @@ const styles = StyleSheet.create({
   roleBanner: {
     flexDirection: 'row',
     alignItems: 'center',
-    gap: 9,
+    gap: 8,
     paddingHorizontal: 16,
     paddingVertical: 9,
     borderBottomWidth: StyleSheet.hairlineWidth,
@@ -598,15 +599,15 @@ const styles = StyleSheet.create({
   input: {
     flex: 1,
     borderWidth: 1,
-    borderRadius: RADIUS.lg,
-    paddingHorizontal: 15,
-    paddingVertical: 12,
+    borderRadius: 24,
+    paddingHorizontal: 18,
+    paddingVertical: 13,
     fontSize: 14.5,
     lineHeight: 20,
-    minHeight: 46,
+    minHeight: 48,
     maxHeight: 130,
   },
-  send: { width: 46, height: 46, borderRadius: RADIUS.lg, overflow: 'hidden', alignItems: 'center', justifyContent: 'center' },
+  send: { width: 48, height: 48, borderRadius: 24, overflow: 'hidden', alignItems: 'center', justifyContent: 'center' },
   errCard: { borderWidth: 1, borderRadius: RADIUS.lg, padding: 14, marginVertical: 10 },
   errTitle: { fontSize: 14.5, fontWeight: '800' },
   errSub: { fontSize: SCALE.small, marginTop: 6, lineHeight: 19 },

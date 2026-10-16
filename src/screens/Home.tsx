@@ -1,80 +1,119 @@
 /**
- * KISSA v2.5.2 — Home
- * One focal point, then everything else in support:
+ * KISSA v2.6 — Home ("Kissa Night")
  *
- *   brand bar → greeting + one clear question → search → categories
- *   → TONIGHT'S LEAD (hero artwork) → continue playing → for you
- *   → because you liked X → new arrivals
+ *   brand bar → greeting → search → category pills
+ *   → HERO CAROUSEL (swipeable featured posters + page dots)
+ *   → continue → Top 10 on Kissa (ranked posters) → for you
+ *   → more like X → genre rails → new arrivals (2-col poster wall)
+ *   → explore-all banner
  *
- * Layout rules of this pass:
- *  - every section is separated by real breathing room (SPACING tokens)
- *  - rails use fixed art frames so mixed cover ratios share one baseline
- *  - type comes from the canonical scale (no sub-11px labels)
- *  - content is capped at LAYOUT.contentMaxWidth and centred on tablets
- *  - copyright: artwork is never cropped (NaturalImage rules apply)
+ * Picking a category swaps the rails for a full 2-column poster wall of that
+ * category, so the page is always full of artwork — never a short list
+ * followed by empty screen.
+ *
+ * Artwork is never cropped: every frame is filled by ArtBackdrop around the
+ * contain-fitted cover (see StoryCard).
  */
-import React, { useMemo, useState, useCallback } from 'react';
-import { FlatList, Image, Pressable, ScrollView, StyleSheet, Text, View } from 'react-native';
+import React, { useCallback, useMemo, useState } from 'react';
+import {
+  Image,
+  Pressable,
+  ScrollView,
+  StyleSheet,
+  Text,
+  View,
+  useWindowDimensions,
+  type NativeScrollEvent,
+  type NativeSyntheticEvent,
+} from 'react-native';
+import { LinearGradient } from 'expo-linear-gradient';
 import type { BottomTabScreenProps } from '@react-navigation/bottom-tabs';
 import type { MainTabParamList, StoryMeta } from '../types';
 import { useApp } from '../state/AppContext';
 import { useNavScroll } from '../navigation/NavScrollContext';
 import { Screen } from '../components/Screen';
-import { ContinueCard, GridCard, HeroCard } from '../components/StoryCard';
+import { ContinueCard, GridCard, HeroCard, PosterGrid, RankCard } from '../components/StoryCard';
 import { IconButton, SectionHeader, SelectableChip } from '../components/bits';
 import { EmptyState } from '../components/states';
 import { Icon, ICON_SIZE } from '../components/icons';
 import { KISSA_LOGO } from '../components/brand';
-import { KISSA, LAYOUT, RADIUS, SCALE, SPACING, TOUCH, TYPE, withAlpha } from '../theme';
+import { GRADIENTS, KISSA, LAYOUT, RADIUS, SCALE, SHADOWS, SPACING, TOUCH, TYPE, withAlpha } from '../theme';
 import { greetingForHour, timeAgo } from '../lib/utils';
 
 type Props = BottomTabScreenProps<MainTabParamList, 'Home'>;
 
 const HOME_CATEGORIES = ['For you', 'New', 'Popular', 'Romance', 'Mystery', 'Drama', 'Fantasy', 'Horror', 'Sci-Fi'];
-
-const RAIL_ITEM = 156 + 13; // card width + gap — snapped rail scrolling
-const CONTINUE_W = 284; // wide enough that most titles fit on one line
+const CONTENT_MAX = LAYOUT.contentMaxWidth + 120;
+const SLIDE_GAP = 12;
+const CONTINUE_W = 300;
 
 export function Home({ navigation }: Props) {
   const { theme, profile, stories, recentPlaythroughs, favoriteIds } = useApp();
   const { handleScroll } = useNavScroll();
+  const { width: windowW } = useWindowDimensions();
   const [selectedCategory, setSelectedCategory] = useState('For you');
+  const [slide, setSlide] = useState(0);
+
+  const contentW = Math.min(windowW, CONTENT_MAX);
+  const slideW = contentW - SPACING.page * 2;
 
   const byId = useMemo(() => new Map(stories.map((s) => [s.id, s])), [stories]);
+  const popular = useMemo(() => [...stories].sort((a, b) => b.popularity - a.popularity), [stories]);
 
   const activeRecent = useMemo(
     () => recentPlaythroughs.filter((p) => p.status === 'active' && byId.has(p.storyId)).slice(0, 5),
     [recentPlaythroughs, byId],
   );
 
-  const featured = useMemo(() => stories.find((s) => s.featured) ?? stories[0], [stories]);
+  /** Carousel: tonight's lead first, then the most-played stories. */
+  const slides = useMemo(() => {
+    const lead = stories.find((s) => s.featured) ?? popular[0];
+    if (!lead) return [];
+    return [lead, ...popular.filter((s) => s.id !== lead.id)].slice(0, 5);
+  }, [stories, popular]);
+
+  const topTen = useMemo(() => popular.slice(0, 10), [popular]);
+  const recommended = useMemo(() => {
+    const shown = new Set(slides.map((s) => s.id));
+    const rest = popular.filter((s) => !shown.has(s.id));
+    return (rest.length >= 4 ? rest : popular).slice(0, 10);
+  }, [popular, slides]);
+
+  const newStories = useMemo(() => {
+    const flagged = stories.filter((s) => s.isNew);
+    const pool = flagged.length >= 2 ? flagged : [...stories].sort((a, b) => +new Date(b.updatedAt) - +new Date(a.updatedAt));
+    return pool.slice(0, 4);
+  }, [stories]);
 
   const filteredStories = useMemo(() => {
-    if (selectedCategory === 'For you') return [...stories].sort((a, b) => b.popularity - a.popularity);
-    if (selectedCategory === 'Popular') return [...stories].sort((a, b) => b.popularity - a.popularity);
+    if (selectedCategory === 'Popular') return popular;
     if (selectedCategory === 'New') return [...stories].sort((a, b) => +new Date(b.updatedAt) - +new Date(a.updatedAt));
     return stories.filter((s) => s.genres.includes(selectedCategory));
-  }, [stories, selectedCategory]);
+  }, [stories, popular, selectedCategory]);
 
-  const recommended = useMemo(() => [...stories].sort((a, b) => b.popularity - a.popularity).slice(0, 10), [stories]);
-  const newStories = useMemo(() => stories.filter((s) => s.isNew).slice(0, 4), [stories]);
-
-  /**
-   * "Because you liked X" — derived from what the reader actually did
-   * (favourites first, then the most recently opened journey). No invented data.
-   */
+  /** "Because you liked X" — from favourites, then the latest journey. No invented data. */
   const becauseOf = useMemo(() => {
     const favId = [...(favoriteIds ?? [])].find((id) => byId.has(id));
     const recentId = activeRecent[0]?.storyId;
     const seed = (favId && byId.get(favId)) || (recentId ? byId.get(recentId) : undefined);
     if (!seed) return null;
-    // Pick the first genre of the seed that actually has peers to recommend.
     for (const genre of seed.genres) {
       const peers = stories.filter((s) => s.id !== seed.id && s.genres.includes(genre)).slice(0, 8);
       if (peers.length >= 2) return { seed, genre, peers };
     }
     return null;
   }, [favoriteIds, activeRecent, byId, stories]);
+
+  /** Genre rails: the biggest genres in the catalogue, each with ≥3 stories. */
+  const genreRails = useMemo(() => {
+    const counts = new Map<string, StoryMeta[]>();
+    stories.forEach((s) => s.genres.forEach((g) => counts.set(g, [...(counts.get(g) ?? []), s])));
+    return [...counts.entries()]
+      .filter(([g, list]) => list.length >= 3 && g !== becauseOf?.genre)
+      .sort((a, b) => b[1].length - a[1].length)
+      .slice(0, 3)
+      .map(([genre, list]) => ({ genre, list: [...list].sort((a, b) => b.popularity - a.popularity).slice(0, 10) }));
+  }, [stories, becauseOf]);
 
   const greeting = greetingForHour(new Date().getHours(), profile?.nickname ?? '');
 
@@ -92,6 +131,14 @@ export function Home({ navigation }: Props) {
     [navigation],
   );
 
+  const onSlideScroll = useCallback(
+    (e: NativeSyntheticEvent<NativeScrollEvent>) => {
+      const i = Math.round(e.nativeEvent.contentOffset.x / (slideW + SLIDE_GAP));
+      if (i !== slide) setSlide(Math.max(0, Math.min(slides.length - 1, i)));
+    },
+    [slideW, slide, slides.length],
+  );
+
   if (!stories.length) {
     return (
       <Screen>
@@ -100,210 +147,243 @@ export function Home({ navigation }: Props) {
     );
   }
 
-  const railData = selectedCategory === 'For you' ? recommended : filteredStories;
+  const forYou = selectedCategory === 'For you';
+  const initial = profile?.nickname?.trim()?.[0]?.toUpperCase() ?? 'K';
+
+  const rail = (data: StoryMeta[]) => (
+    <ScrollView horizontal showsHorizontalScrollIndicator={false} contentContainerStyle={styles.railList} decelerationRate="fast">
+      {data.map((item) => (
+        <GridCard key={item.id} meta={item} onPress={() => openStory(item.id)} />
+      ))}
+    </ScrollView>
+  );
 
   return (
     <Screen padded={false}>
-      <ScrollView
-        onScroll={handleScroll}
-        scrollEventThrottle={16}
-        contentContainerStyle={styles.scroll}
-        showsVerticalScrollIndicator={false}
-      >
+      <ScrollView onScroll={handleScroll} scrollEventThrottle={16} contentContainerStyle={styles.scroll} showsVerticalScrollIndicator={false}>
         <View style={styles.content}>
           {/* Brand bar */}
-          <View style={styles.topHeader}>
-            <View style={styles.brandRow}>
-              <Image source={KISSA_LOGO} style={styles.brandLogo} resizeMode="contain" accessibilityLabel="Kissa" />
-              <View>
-                <Text style={[styles.brandText, { color: theme.text }]}>{KISSA.wordmark}</Text>
-                <Text style={[styles.brandTag, { color: theme.textFaint }]}>{KISSA.tagline}</Text>
-              </View>
-              <View style={styles.headerActions}>
-                <IconButton
-                  name="bookmark-outline"
-                  accessibilityLabel="Your library"
-                  onPress={() => navigation.navigate('Library')}
-                />
-                <Pressable
-                  onPress={() => navigation.navigate('Settings')}
-                  accessibilityRole="button"
-                  accessibilityLabel="Your profile"
-                  style={({ pressed }) => [
-                    styles.avatarBubble,
-                    { opacity: pressed ? 0.75 : 1, borderColor: withAlpha(theme.primary, 0.4) },
-                  ]}
-                >
-                  <Text style={styles.avatarLetter}>{profile?.nickname?.trim()?.[0]?.toUpperCase() ?? 'K'}</Text>
-                </Pressable>
-              </View>
+          <View style={styles.topBar}>
+            <Image source={KISSA_LOGO} style={styles.brandLogo} resizeMode="contain" accessibilityLabel="Kissa" />
+            <View>
+              <Text style={[styles.brandText, { color: theme.text }]}>{KISSA.wordmark}</Text>
+              <Text style={[styles.brandTag, { color: theme.textFaint }]}>{KISSA.tagline}</Text>
             </View>
-
-            {/* Greeting + one clear question */}
-            <View style={styles.greetingWrap}>
-              <Text style={[styles.greetingSub, { color: theme.accent }]}>{greeting.toUpperCase()}</Text>
-              <Text style={[styles.greetingQuestion, { color: theme.text }]}>
-                {activeRecent.length > 0 ? 'Continue your story,' : 'Which world today?'}
-              </Text>
-              <Text style={[styles.greetingHint, { color: theme.textDim }]}>
-                {activeRecent.length > 0
-                  ? `${activeRecent.length} ${activeRecent.length === 1 ? 'journey is' : 'journeys are'} waiting for you.`
-                  : 'Hinglish stories where you decide every turn.'}
-              </Text>
-            </View>
-
-            {/* Search */}
-            <View style={styles.searchRow}>
+            <View style={styles.headerActions}>
+              <IconButton name="bookmark-outline" accessibilityLabel="Your library" onPress={() => navigation.navigate('Library')} />
               <Pressable
-                onPress={() => navigation.navigate('Discover')}
-                accessibilityRole="search"
-                style={({ pressed }) => [
-                  styles.searchTrigger,
-                  {
-                    backgroundColor: withAlpha(theme.surface2, 0.72),
-                    borderColor: theme.border,
-                    opacity: pressed ? 0.85 : 1,
-                  },
-                ]}
+                onPress={() => navigation.navigate('Settings')}
+                accessibilityRole="button"
+                accessibilityLabel="Your profile"
+                style={({ pressed }) => [styles.avatarRing, { opacity: pressed ? 0.75 : 1 }]}
               >
-                <Icon name="search" size={ICON_SIZE.sm} color={theme.textFaint} />
-                <Text style={[styles.searchText, { color: theme.textFaint }]}>Story, character or mood</Text>
+                <LinearGradient colors={[...GRADIENTS.primary]} start={{ x: 0, y: 0 }} end={{ x: 1, y: 1 }} style={styles.avatarGrad}>
+                  <View style={[styles.avatarInner, { backgroundColor: theme.bg }]}>
+                    <Text style={[styles.avatarLetter, { color: theme.text }]}>{initial}</Text>
+                  </View>
+                </LinearGradient>
               </Pressable>
-              <IconButton
-                name="options-outline"
-                size={TOUCH.min}
-                accessibilityLabel="Browse by genre"
-                onPress={() => navigation.navigate('Discover')}
-                tint={withAlpha(theme.primary, 0.14)}
-                iconColor={theme.accent}
-              />
             </View>
           </View>
 
+          {/* Greeting */}
+          <View style={styles.greetingWrap}>
+            <Text style={[styles.greetingSub, { color: theme.gold }]}>{greeting.toUpperCase()}</Text>
+            <Text style={[styles.greetingQuestion, { color: theme.text }]}>
+              {activeRecent.length > 0 ? 'Continue your story,' : 'Which world today?'}
+            </Text>
+          </View>
+
+          {/* Search */}
+          <View style={styles.searchRow}>
+            <Pressable
+              onPress={() => navigation.navigate('Discover')}
+              accessibilityRole="search"
+              style={({ pressed }) => [
+                styles.searchTrigger,
+                { backgroundColor: withAlpha(theme.surface2, 0.8), borderColor: theme.border, opacity: pressed ? 0.85 : 1 },
+              ]}
+            >
+              <Icon name="search" size={ICON_SIZE.md} color={theme.textDim} />
+              <Text style={[styles.searchText, { color: theme.textFaint }]}>Story, character or mood</Text>
+              <View style={[styles.searchKbd, { backgroundColor: withAlpha(theme.primary, 0.16) }]}>
+                <Icon name="options-outline" size={ICON_SIZE.sm} color={theme.accent} />
+              </View>
+            </Pressable>
+          </View>
+
           {/* Categories */}
-          <ScrollView
-            horizontal
-            showsHorizontalScrollIndicator={false}
-            contentContainerStyle={styles.categoriesScroll}
-            style={styles.categoriesWrap}
-          >
+          <ScrollView horizontal showsHorizontalScrollIndicator={false} contentContainerStyle={styles.categoriesScroll} style={styles.categoriesWrap}>
             {HOME_CATEGORIES.map((cat) => (
               <SelectableChip key={cat} label={cat} selected={selectedCategory === cat} onPress={() => setSelectedCategory(cat)} />
             ))}
           </ScrollView>
 
-          {/* Tonight's lead — the one focal point of the screen */}
-          {featured && (selectedCategory === 'For you' || selectedCategory === 'Popular') ? (
-            <View style={[styles.sectionPad, styles.heroWrap]}>
-              <HeroCard meta={featured} onPress={() => openStory(featured.id)} />
-            </View>
-          ) : null}
-
-          {/* Continue — horizontal strip keeps the whole journey list reachable */}
-          {activeRecent.length > 0 && selectedCategory === 'For you' ? (
-            <View>
-              <View style={styles.sectionPad}>
-                <SectionHeader
-                  title="Continue"
-                  kicker={`${activeRecent.length} active`}
-                  action="Library"
-                  onAction={() => navigation.navigate('Library')}
-                />
-              </View>
-              <ScrollView
-                horizontal
-                showsHorizontalScrollIndicator={false}
-                contentContainerStyle={styles.stripScroll}
-                snapToInterval={CONTINUE_W + 12}
-                decelerationRate="fast"
-              >
-                {activeRecent.map((p) => {
-                  const meta = byId.get(p.storyId)!;
-                  return (
-                    <View key={p.id} style={styles.stripItem}>
-                      <ContinueCard
-                        meta={meta}
-                        progress={p.progress}
-                        subtitle={`${p.label} • ${timeAgo(p.updatedAt)}`}
-                        onPress={() => openChat(p.id)}
-                      />
-                    </View>
-                  );
-                })}
-              </ScrollView>
-            </View>
-          ) : null}
-
-          {/* For you rail */}
-          <View style={styles.sectionPad}>
-            <SectionHeader
-              title={selectedCategory === 'For you' ? 'For you' : selectedCategory}
-              kicker="Recommended"
-              action="See all"
-              onAction={() =>
-                navigation.navigate('Discover', selectedCategory !== 'For you' ? { genre: selectedCategory } : undefined)
-              }
-            />
-          </View>
-          <FlatList
-            horizontal
-            data={railData}
-            keyExtractor={(s) => s.id}
-            showsHorizontalScrollIndicator={false}
-            contentContainerStyle={styles.railList}
-            snapToInterval={RAIL_ITEM}
-            decelerationRate="fast"
-            initialNumToRender={4}
-            maxToRenderPerBatch={6}
-            windowSize={5}
-            removeClippedSubviews
-            renderItem={({ item }) => (
-              <View style={styles.railItem}>
-                <GridCard meta={item} onPress={() => openStory(item.id)} />
-              </View>
-            )}
-          />
-
-          {/* Because you liked X — memory made visible */}
-          {becauseOf && selectedCategory === 'For you' ? (
+          {forYou ? (
             <>
-              <View style={styles.sectionPad}>
-                <SectionHeader title={`More like ${becauseOf.seed.title}`} />
-              </View>
-              <FlatList
-                horizontal
-                data={becauseOf.peers}
-                keyExtractor={(s) => s.id}
-                showsHorizontalScrollIndicator={false}
-                contentContainerStyle={styles.railList}
-                snapToInterval={RAIL_ITEM}
-                decelerationRate="fast"
-                initialNumToRender={4}
-                maxToRenderPerBatch={6}
-                windowSize={5}
-                removeClippedSubviews
-                renderItem={({ item }) => (
-                  <View style={styles.railItem}>
-                    <GridCard meta={item} onPress={() => openStory(item.id)} />
-                  </View>
-                )}
-              />
-            </>
-          ) : null}
+              {/* Hero carousel */}
+              {slides.length > 0 ? (
+                <View style={styles.heroWrap}>
+                  <ScrollView
+                    horizontal
+                    showsHorizontalScrollIndicator={false}
+                    snapToInterval={slideW + SLIDE_GAP}
+                    decelerationRate="fast"
+                    disableIntervalMomentum
+                    onScroll={onSlideScroll}
+                    scrollEventThrottle={32}
+                    contentContainerStyle={styles.heroScroll}
+                  >
+                    {slides.map((s, i) => (
+                      <HeroCard
+                        key={s.id}
+                        meta={s}
+                        width={slideW}
+                        kicker={i === 0 ? "TONIGHT'S LEAD" : 'TRENDING NOW'}
+                        onPress={() => openStory(s.id)}
+                      />
+                    ))}
+                  </ScrollView>
+                  {slides.length > 1 ? (
+                    <View style={styles.dots}>
+                      {slides.map((s, i) =>
+                        i === slide ? (
+                          <LinearGradient
+                            key={s.id}
+                            colors={[...GRADIENTS.primary]}
+                            start={{ x: 0, y: 0 }}
+                            end={{ x: 1, y: 0 }}
+                            style={[styles.dot, styles.dotOn]}
+                          />
+                        ) : (
+                          <View key={s.id} style={[styles.dot, { backgroundColor: withAlpha(theme.text, 0.2) }]} />
+                        ),
+                      )}
+                    </View>
+                  ) : null}
+                </View>
+              ) : null}
 
-          {/* New arrivals */}
-          {newStories.length > 0 && selectedCategory === 'For you' ? (
-            <View style={styles.sectionPad}>
-              <SectionHeader title="New arrivals" kicker="Fresh" />
-              {newStories.slice(0, 3).map((s: StoryMeta) => (
-                <View key={s.id} style={styles.gap}>
-                  <ContinueCard meta={s} progress={null} subtitle={s.tagline} onPress={() => openStory(s.id)} />
+              {/* Continue */}
+              {activeRecent.length > 0 ? (
+                <View>
+                  <View style={styles.sectionPad}>
+                    <SectionHeader title="Continue" kicker={`${activeRecent.length} active`} action="Library" onAction={() => navigation.navigate('Library')} />
+                  </View>
+                  <ScrollView
+                    horizontal
+                    showsHorizontalScrollIndicator={false}
+                    contentContainerStyle={styles.stripScroll}
+                    snapToInterval={CONTINUE_W + 12}
+                    decelerationRate="fast"
+                  >
+                    {activeRecent.map((p) => {
+                      const meta = byId.get(p.storyId)!;
+                      return (
+                        <View key={p.id} style={{ width: activeRecent.length === 1 ? slideW : CONTINUE_W }}>
+                          <ContinueCard meta={meta} progress={p.progress} subtitle={`${p.label} • ${timeAgo(p.updatedAt)}`} onPress={() => openChat(p.id)} />
+                        </View>
+                      );
+                    })}
+                  </ScrollView>
+                </View>
+              ) : null}
+
+              {/* Top 10 */}
+              {topTen.length >= 3 ? (
+                <>
+                  <View style={styles.sectionPad}>
+                    <SectionHeader title="Top 10 on Kissa" kicker="This week" />
+                  </View>
+                  <ScrollView horizontal showsHorizontalScrollIndicator={false} contentContainerStyle={styles.rankList} decelerationRate="fast">
+                    {topTen.map((s, i) => (
+                      <RankCard key={s.id} meta={s} rank={i + 1} onPress={() => openStory(s.id)} />
+                    ))}
+                  </ScrollView>
+                </>
+              ) : null}
+
+              {/* For you */}
+              <View style={styles.sectionPad}>
+                <SectionHeader title="For you" kicker="Recommended" action="See all" onAction={() => navigation.navigate('Discover')} />
+              </View>
+              {rail(recommended)}
+
+              {/* Because you liked X */}
+              {becauseOf ? (
+                <>
+                  <View style={styles.sectionPad}>
+                    <SectionHeader title={`More like ${becauseOf.seed.title}`} kicker={becauseOf.genre} />
+                  </View>
+                  {rail(becauseOf.peers)}
+                </>
+              ) : null}
+
+              {/* Genre rails */}
+              {genreRails.map(({ genre, list }) => (
+                <View key={genre}>
+                  <View style={styles.sectionPad}>
+                    <SectionHeader
+                      title={genre}
+                      kicker={`${list.length} stories`}
+                      action="See all"
+                      onAction={() => navigation.navigate('Discover', { genre })}
+                    />
+                  </View>
+                  {rail(list)}
                 </View>
               ))}
-            </View>
-          ) : null}
 
-          <View style={{ height: SPACING.xxxl + 64 }} />
+              {/* New arrivals wall */}
+              {newStories.length > 0 ? (
+                <View style={styles.sectionPad}>
+                  <SectionHeader title="New arrivals" kicker="Fresh" />
+                  <PosterGrid stories={newStories} onOpen={openStory} />
+                </View>
+              ) : null}
+
+              {/* Explore all */}
+              <View style={styles.sectionPad}>
+                <Pressable
+                  onPress={() => navigation.navigate('Discover')}
+                  accessibilityRole="button"
+                  accessibilityLabel={`Explore all ${stories.length} stories`}
+                  style={({ pressed }) => [styles.exploreCard, SHADOWS.glowRose, { transform: [{ scale: pressed ? 0.985 : 1 }] }]}
+                >
+                  <LinearGradient colors={[...GRADIENTS.hero]} start={{ x: 0, y: 0 }} end={{ x: 1, y: 1 }} style={StyleSheet.absoluteFill} />
+                  <View style={styles.exploreIcon}>
+                    <Icon name="compass" size={ICON_SIZE.lg} color="#fff" />
+                  </View>
+                  <View style={{ flex: 1 }}>
+                    <Text style={styles.exploreTitle}>Explore all {stories.length} stories</Text>
+                    <Text style={styles.exploreSub}>Romance, mystery, drama aur bahut kuch.</Text>
+                  </View>
+                  <Icon name="chevron-forward" size={ICON_SIZE.md} color="#fff" />
+                </Pressable>
+              </View>
+            </>
+          ) : (
+            <View style={styles.sectionPad}>
+              <SectionHeader
+                title={selectedCategory}
+                kicker={`${filteredStories.length} ${filteredStories.length === 1 ? 'story' : 'stories'}`}
+                action="Explore"
+                onAction={() =>
+                  navigation.navigate(
+                    'Discover',
+                    selectedCategory === 'New' || selectedCategory === 'Popular' ? undefined : { genre: selectedCategory },
+                  )
+                }
+              />
+              {filteredStories.length > 0 ? (
+                <PosterGrid stories={filteredStories} onOpen={openStory} />
+              ) : (
+                <EmptyState icon="search" title={`No ${selectedCategory} stories yet`} subtitle="New stories arrive automatically." />
+              )}
+            </View>
+          )}
+
+          <View style={{ height: LAYOUT.navClearance }} />
         </View>
       </ScrollView>
     </Screen>
@@ -311,47 +391,61 @@ export function Home({ navigation }: Props) {
 }
 
 const styles = StyleSheet.create({
-  scroll: { paddingBottom: 16 },
-  content: { width: '100%', maxWidth: LAYOUT.contentMaxWidth + 120, alignSelf: 'center' },
-  topHeader: { paddingHorizontal: SPACING.page, paddingTop: 6 },
-  brandRow: { flexDirection: 'row', alignItems: 'center', gap: 10 },
-  brandLogo: { width: 32, height: 32, borderRadius: RADIUS.sm },
-  brandText: { fontSize: 14, fontWeight: '900', letterSpacing: 2.4 },
-  brandTag: { fontSize: SCALE.micro, fontWeight: '700', letterSpacing: 1.1, marginTop: 1 },
-  headerActions: { marginLeft: 'auto', flexDirection: 'row', alignItems: 'center', gap: 9 },
-  avatarBubble: {
-    width: TOUCH.sm,
-    height: TOUCH.sm,
-    borderRadius: 12,
-    borderWidth: 1,
-    alignItems: 'center',
-    justifyContent: 'center',
-    backgroundColor: 'rgba(255,251,245,0.06)',
-  },
-  avatarLetter: { fontSize: 14, fontWeight: '900', color: '#FFC2CC' },
-  greetingWrap: { marginTop: SPACING.xl, marginBottom: SPACING.lg },
-  greetingSub: { fontSize: SCALE.micro, fontWeight: '800', letterSpacing: 1.4 },
-  greetingQuestion: { ...TYPE.display, marginTop: 4 },
-  greetingHint: { fontSize: SCALE.small, fontWeight: '500', marginTop: 5, lineHeight: 18 },
-  searchRow: { flexDirection: 'row', gap: 9, alignItems: 'center' },
+  scroll: { paddingBottom: 8 },
+  content: { width: '100%', maxWidth: CONTENT_MAX, alignSelf: 'center' },
+  topBar: { flexDirection: 'row', alignItems: 'center', gap: 10, paddingHorizontal: SPACING.page, paddingTop: 8 },
+  brandLogo: { width: 36, height: 36, borderRadius: 11 },
+  brandText: { fontSize: 15, fontWeight: '900', letterSpacing: 3 },
+  brandTag: { fontSize: 10, fontWeight: '700', letterSpacing: 1.4, marginTop: 1 },
+  headerActions: { marginLeft: 'auto', flexDirection: 'row', alignItems: 'center', gap: 10 },
+  avatarRing: { width: TOUCH.sm + 2, height: TOUCH.sm + 2 },
+  avatarGrad: { flex: 1, borderRadius: (TOUCH.sm + 2) / 2, padding: 2 },
+  avatarInner: { flex: 1, borderRadius: TOUCH.sm / 2, alignItems: 'center', justifyContent: 'center' },
+  avatarLetter: { fontSize: 14, fontWeight: '900' },
+  greetingWrap: { paddingHorizontal: SPACING.page, marginTop: SPACING.xl },
+  greetingSub: { fontSize: SCALE.micro, fontWeight: '900', letterSpacing: 1.6 },
+  greetingQuestion: { ...TYPE.display, fontSize: 29, lineHeight: 35, letterSpacing: -0.8, marginTop: 6 },
+  searchRow: { paddingHorizontal: SPACING.page, marginTop: SPACING.lg },
   searchTrigger: {
-    flex: 1,
     flexDirection: 'row',
     alignItems: 'center',
-    gap: 10,
+    gap: 11,
     borderWidth: 1,
-    borderRadius: RADIUS.md,
-    paddingHorizontal: 14,
-    minHeight: TOUCH.min,
+    borderRadius: RADIUS.pill,
+    paddingLeft: 16,
+    paddingRight: 6,
+    minHeight: 50,
   },
-  searchText: { flex: 1, fontSize: SCALE.small, letterSpacing: 0.1 },
+  searchText: { flex: 1, fontSize: SCALE.body - 0.5, letterSpacing: 0.1 },
+  searchKbd: { width: 38, height: 38, borderRadius: 19, alignItems: 'center', justifyContent: 'center' },
   categoriesWrap: { marginTop: SPACING.lg },
   categoriesScroll: { paddingHorizontal: SPACING.page },
   sectionPad: { paddingHorizontal: SPACING.page },
   heroWrap: { marginTop: SPACING.xl },
-  gap: { marginBottom: 10 },
+  heroScroll: { paddingHorizontal: SPACING.page, gap: SLIDE_GAP },
+  dots: { flexDirection: 'row', justifyContent: 'center', alignItems: 'center', gap: 6, marginTop: 14 },
+  dot: { width: 6, height: 6, borderRadius: 3 },
+  dotOn: { width: 22 },
   stripScroll: { paddingHorizontal: SPACING.page, gap: 12 },
-  stripItem: { width: CONTINUE_W },
-  railList: { paddingHorizontal: SPACING.page, gap: 13, paddingBottom: 4 },
-  railItem: { marginRight: 0 },
+  railList: { paddingHorizontal: SPACING.page, gap: 12, paddingBottom: 6 },
+  rankList: { paddingHorizontal: SPACING.page + 6, gap: 18, paddingBottom: 6 },
+  exploreCard: {
+    marginTop: SPACING.xxl,
+    borderRadius: RADIUS.xl,
+    overflow: 'hidden',
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: 14,
+    padding: 18,
+  },
+  exploreIcon: {
+    width: 48,
+    height: 48,
+    borderRadius: 24,
+    backgroundColor: 'rgba(255,255,255,0.16)',
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  exploreTitle: { fontSize: 17, fontWeight: '900', color: '#fff', letterSpacing: -0.3 },
+  exploreSub: { fontSize: SCALE.caption, color: 'rgba(255,255,255,0.82)', marginTop: 3 },
 });

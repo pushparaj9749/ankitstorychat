@@ -69,8 +69,11 @@ export function StoryText({
 function NarratorMark() {
   const { theme } = useApp();
   return (
-    <View style={[styles.narratorMark, { backgroundColor: withAlpha(theme.primary, 0.1), borderColor: withAlpha(theme.primary, 0.24) }]}>
-      <Text style={[styles.narratorGlyph, { color: theme.accent }]}>✦</Text>
+    <View
+      style={[styles.narratorMark, { backgroundColor: withAlpha(theme.violet, 0.16), borderColor: withAlpha(theme.violet, 0.34) }]}
+      accessibilityLabel="Narrator"
+    >
+      <Icon name="sparkles" size={14} color={theme.gold} />
     </View>
   );
 }
@@ -105,7 +108,7 @@ export function ChatBubble({ message }: { message: ChatMessage }) {
             { backgroundColor: theme.surface, borderColor: theme.border },
           ]}
         >
-          <LinearGradient colors={['rgba(233,67,94,0.05)', 'transparent']} style={styles.bubbleGlow} pointerEvents="none" />
+          <LinearGradient colors={['rgba(255,79,139,0.05)', 'transparent']} style={styles.bubbleGlow} pointerEvents="none" />
           <View style={[styles.accentEdge, { backgroundColor: 'transparent' }]} pointerEvents="none" />
           <StoryText
             text={message.text}
@@ -155,10 +158,10 @@ export function ChatBubble({ message }: { message: ChatMessage }) {
         style={[
           styles.bubble,
           styles.bubbleDialogue,
-          { backgroundColor: theme.surface2, borderColor: withAlpha(theme.primary, 0.20) },
+          { backgroundColor: withAlpha(theme.surface2, 0.94), borderColor: withAlpha(theme.primary, 0.24) },
         ]}
       >
-        <LinearGradient colors={['rgba(255,107,126,0.10)', 'transparent']} style={styles.bubbleGlow} pointerEvents="none" />
+        <LinearGradient colors={['rgba(255,122,176,0.10)', 'transparent']} style={styles.bubbleGlow} pointerEvents="none" />
         <View style={[styles.accentEdge, { backgroundColor: theme.primary }]} pointerEvents="none" />
         {speaker ? (
           <View style={styles.speakerRow}>
@@ -243,7 +246,10 @@ export function ChoiceChips({
             },
           ]}
         >
-          <View style={[styles.chipMarker, { backgroundColor: withAlpha(theme.primary, 0.75) }]} />
+          <View style={styles.chipIndex}>
+            <LinearGradient colors={[...GRADIENTS.primary]} start={{ x: 0, y: 0 }} end={{ x: 1, y: 1 }} style={StyleSheet.absoluteFill} />
+            <Icon name="play" size={10} color="#fff" style={styles.chipIndexIcon} />
+          </View>
           <Text style={[styles.chipText, { color: theme.text }]}>{stripStoryMarkup(c.label)}</Text>
           <Icon name="chevron-forward" size={ICON_SIZE.sm} color={theme.textFaint} />
         </Pressable>
@@ -272,7 +278,6 @@ const styles = StyleSheet.create({
   sysPill: { paddingHorizontal: 12, paddingVertical: 6, borderRadius: RADIUS.pill, borderWidth: 1 },
   sysText: { fontWeight: '600', letterSpacing: 0.2 },
   narratorMark: { width: 30, height: 30, borderRadius: 15, borderWidth: 1, alignItems: 'center', justifyContent: 'center' },
-  narratorGlyph: { fontSize: 13, fontWeight: '700' },
   row: { flexDirection: 'row', marginVertical: 6, gap: 8, alignItems: 'flex-end', paddingHorizontal: 2 },
   rowRight: { justifyContent: 'flex-end', marginLeft: 48 },
   rowLeft: { justifyContent: 'flex-start', marginRight: 10 },
@@ -280,7 +285,7 @@ const styles = StyleSheet.create({
     maxWidth: '85%',
     paddingHorizontal: 15,
     paddingVertical: 12,
-    borderRadius: 20,
+    borderRadius: 22,
     overflow: 'hidden',
   },
   bubbleNarration: { borderBottomLeftRadius: 7 },
@@ -334,11 +339,12 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     gap: 11,
     borderWidth: 1,
-    borderRadius: RADIUS.md,
-    paddingHorizontal: 13,
-    paddingVertical: 13,
+    borderRadius: RADIUS.xl,
+    paddingHorizontal: 12,
+    paddingVertical: 12,
     minHeight: TOUCH.min,
   },
-  chipMarker: { width: 6, height: 6, borderRadius: 3 },
+  chipIndex: { width: 24, height: 24, borderRadius: 12, overflow: 'hidden', alignItems: 'center', justifyContent: 'center' },
+  chipIndexIcon: { marginLeft: 1 },
   chipText: { flex: 1, fontSize: 13.5, fontWeight: '600', letterSpacing: 0.05, lineHeight: 18 },
 });

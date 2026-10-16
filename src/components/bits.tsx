@@ -16,6 +16,7 @@ import { KISSA_LOGO } from './brand';
 import { useApp } from '../state/AppContext';
 import { useNavScroll } from '../navigation/NavScrollContext';
 import {
+  GRADIENTS,
   RADIUS,
   SCALE,
   SPACING,
@@ -42,7 +43,7 @@ export function AgeBadge({ ageRating }: { ageRating: string }) {
       ]}
     >
       <View style={[styles.ageDot, { backgroundColor: tint }]} />
-      <Text style={[styles.ageText, { color: mature ? '#FFC0C0' : '#9BEFD0' }]}>
+      <Text style={[styles.ageText, { color: mature ? '#FFC2CB' : '#A7F3CF' }]}>
         {ratingLabel({ ageRating: ageRating as '12-17' | '18+' })}
       </Text>
     </View>
@@ -79,18 +80,25 @@ export function SelectableChip({
       style={({ pressed }) => [
         styles.selectChip,
         {
-          backgroundColor: selected ? withAlpha(theme.primary, 0.16) : withAlpha(theme.surface2, 0.7),
-          borderColor: selected ? withAlpha(theme.primary, 0.46) : theme.border,
+          backgroundColor: selected ? 'transparent' : withAlpha(theme.surface2, 0.66),
+          borderColor: selected ? 'transparent' : theme.border,
           opacity: pressed ? 0.85 : 1,
-          transform: [{ scale: pressed ? 0.97 : 1 }],
+          transform: [{ scale: pressed ? 0.96 : 1 }],
         },
       ]}
     >
-      {selected ? <View style={[styles.selectDot, { backgroundColor: theme.accent }]} /> : null}
+      {selected ? (
+        <LinearGradient
+          colors={[...GRADIENTS.primary]}
+          start={{ x: 0, y: 0 }}
+          end={{ x: 1, y: 1 }}
+          style={[StyleSheet.absoluteFill, { borderRadius: RADIUS.pill }]}
+        />
+      ) : null}
       <Text
         style={[
           styles.selectChipText,
-          { color: selected ? theme.text : theme.textDim },
+          { color: selected ? '#FFFFFF' : theme.textDim },
           selected ? styles.selectChipTextActive : null,
         ]}
       >
@@ -119,11 +127,17 @@ export function SectionHeader({
     <View style={styles.section}>
       <View style={styles.sectionLeft}>
         <View style={styles.sectionTitleRow}>
+          <LinearGradient
+            colors={[...GRADIENTS.primary]}
+            start={{ x: 0, y: 0 }}
+            end={{ x: 0, y: 1 }}
+            style={styles.sectionBar}
+          />
           <Text style={[styles.sectionTitle, { color: theme.text }]} numberOfLines={1}>
             {title}
           </Text>
           {kicker ? (
-            <Text style={[styles.kicker, { color: theme.textFaint }]} numberOfLines={1}>
+            <Text style={[styles.kicker, { color: theme.gold }]} numberOfLines={1}>
               {kicker.toUpperCase()}
             </Text>
           ) : null}
@@ -134,7 +148,10 @@ export function SectionHeader({
           onPress={onAction}
           hitSlop={10}
           accessibilityRole="button"
-          style={({ pressed }) => [styles.sectionActionWrap, { opacity: pressed ? 0.6 : 1 }]}
+          style={({ pressed }) => [
+            styles.sectionActionWrap,
+            { opacity: pressed ? 0.6 : 1, backgroundColor: withAlpha(theme.primary, 0.12), borderColor: withAlpha(theme.primary, 0.28) },
+          ]}
         >
           <Text style={[styles.sectionAction, { color: theme.accent }]}>{action}</Text>
           <Icon name="chevron-forward" size={12} color={theme.accent} />
@@ -147,12 +164,12 @@ export function SectionHeader({
 export function ProgressBar({ value, color }: { value: number; color?: string }) {
   const { theme } = useApp();
   const pct = Math.round(Math.min(1, Math.max(0, value)) * 100);
-  const fill = color ?? theme.primary;
+  const colors: [string, string] = color ? [withAlpha(color, 0.85), color] : [GRADIENTS.primary[0], GRADIENTS.primary[1]];
   return (
     <View style={[styles.progressTrack, { backgroundColor: withAlpha(theme.text, 0.08) }]}>
       <View style={[styles.progressFillWrap, { width: `${pct}%` }]}>
         <LinearGradient
-          colors={[withAlpha(fill, 0.95), fill]}
+          colors={colors}
           start={{ x: 0, y: 0.5 }}
           end={{ x: 1, y: 0.5 }}
           style={styles.progressFill}
@@ -265,7 +282,7 @@ export function IconButton({
         {
           width: size,
           height: size,
-          borderRadius: size >= TOUCH.min ? 16 : 12,
+          borderRadius: size / 2,
           backgroundColor: tint ?? withAlpha(theme.surface2, 0.72),
           borderColor: theme.border,
           opacity: pressed ? 0.72 : 1,
@@ -308,8 +325,9 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     gap: 7,
-    paddingHorizontal: 15,
+    paddingHorizontal: 16,
     paddingVertical: 9,
+    overflow: 'hidden',
     borderRadius: RADIUS.pill,
     borderWidth: 1,
     marginRight: 8,
@@ -320,7 +338,7 @@ const styles = StyleSheet.create({
   selectChipTextActive: { fontWeight: '800' },
   section: {
     flexDirection: 'row',
-    alignItems: 'flex-end',
+    alignItems: 'center',
     justifyContent: 'space-between',
     marginTop: SPACING.xxl,
     marginBottom: SPACING.md,
@@ -328,13 +346,22 @@ const styles = StyleSheet.create({
     gap: 12,
   },
   sectionLeft: { flex: 1, minWidth: 0 },
-  sectionTitleRow: { flexDirection: 'row', alignItems: 'baseline', gap: 8 },
+  sectionTitleRow: { flexDirection: 'row', alignItems: 'center', gap: 9 },
+  sectionBar: { width: 4, height: 18, borderRadius: 2 },
   kicker: { fontSize: SCALE.micro, letterSpacing: 1.1, fontWeight: '700', flexShrink: 1 },
-  sectionTitle: { ...TYPE.heading, fontWeight: '800', flexShrink: 1 },
-  sectionActionWrap: { flexDirection: 'row', alignItems: 'center', gap: 2, paddingVertical: 4 },
-  sectionAction: { fontSize: SCALE.small, fontWeight: '800', letterSpacing: 0.1 },
-  progressTrack: { height: 5, borderRadius: RADIUS.pill, overflow: 'hidden', marginTop: 8 },
-  progressFillWrap: { height: 5, borderRadius: RADIUS.pill, overflow: 'hidden' },
+  sectionTitle: { fontSize: 19, lineHeight: 24, letterSpacing: -0.4, fontWeight: '900', flexShrink: 1 },
+  sectionActionWrap: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: 3,
+    paddingVertical: 5,
+    paddingHorizontal: 10,
+    borderRadius: RADIUS.pill,
+    borderWidth: 1,
+  },
+  sectionAction: { fontSize: SCALE.caption, fontWeight: '800', letterSpacing: 0.1 },
+  progressTrack: { height: 6, borderRadius: RADIUS.pill, overflow: 'hidden', marginTop: 8 },
+  progressFillWrap: { height: 6, borderRadius: RADIUS.pill, overflow: 'hidden' },
   progressFill: { flex: 1, borderRadius: RADIUS.pill },
   avatarWrap: {
     alignItems: 'center',

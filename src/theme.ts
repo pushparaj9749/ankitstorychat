@@ -1,81 +1,85 @@
 /**
- * KISSA v2.4.2 — CINEMATIC DESIGN SYSTEM
+ * KISSA v2.6 — "KISSA NIGHT" DESIGN SYSTEM
  *
- * 100% Original Kissa Visual Identity (v2.4.2)
- * -------------------------------------------------
- * Foundation: very dark near-black ink (#06060A), charcoal depth (#0E0E14)
- * Surfaces: deep charcoal #13131B, elevated #1C1C27, soft elevated #262636
- * Typography: warm pearl #F2F0EB primary, muted stone #A09CA8 secondary
- * Accent: Kissa Rose #E9435E (warm rose/coral) + Champagne highlight #F3D5A6
- *         Used sparingly: CTA, active nav, progress, selected category
- * Philosophy: artwork-first, stage-like, minimal chrome, editorial typography
- *             Natural image ratios preserved everywhere, no cropping
- *             Direction-aware auto-hiding header + bottom nav for max content
- *             Cinematic chat: narration faded italic, dialogue crisp, player distinct
+ * Built from the logo: midnight plum stage (#0B0814), a magenta → violet
+ * signature gradient (#FF4F8B → #A855F7) for anything you act on, and a warm
+ * gold (#FFC46B) for highlights (ranks, ratings, "new").
+ *
+ * Artwork-first: covers are never cropped. Frames around artwork are filled
+ * with a blurred ambient copy of the same art (see ArtBackdrop), so there are
+ * no empty bands next to a cover.
  */
 
 export const COLORS = {
   midnight: {
-    bg: '#06060A',
-    bgSoft: '#0E0E14',
-    bgElevated: '#17171F',
-    surface: '#14141D',
-    surface2: '#1E1E2B',
-    surface3: '#2A2A3A',
-    card: 'rgba(255, 251, 245, 0.045)',
-    cardHover: 'rgba(255, 251, 245, 0.075)',
-    border: 'rgba(242, 240, 235, 0.085)',
-    borderSoft: 'rgba(242, 240, 235, 0.05)',
-    borderGlow: 'rgba(233, 67, 94, 0.32)',
-    text: '#F2F0EB',
-    textDim: '#A09CA8',
-    textFaint: '#6F6B78',
-    textMuted: '#4A4752',
-    primary: '#E9435E',
-    primarySoft: 'rgba(233, 67, 94, 0.14)',
-    primaryMuted: 'rgba(233, 67, 94, 0.07)',
-    accent: '#FF6B7E',
-    accentSoft: 'rgba(255, 107, 126, 0.14)',
-    accentMuted: 'rgba(255, 107, 126, 0.07)',
-    accentAmber: '#F3D5A6',
-    accentAmberSoft: 'rgba(243, 213, 166, 0.14)',
-    champagne: '#F3D5A6',
-    champagneSoft: 'rgba(243, 213, 166, 0.12)',
-    success: '#4ADE80',
-    danger: '#F87171',
-    info: '#7AA5FF',
-    overlay: 'rgba(6, 6, 10, 0.86)',
-    scrim: 'rgba(0, 0, 0, 0.62)',
+    bg: '#0B0814',
+    bgSoft: '#120D20',
+    bgElevated: '#1A1430',
+    surface: '#151027',
+    surface2: '#1F1838',
+    surface3: '#2C2350',
+    card: 'rgba(250, 244, 255, 0.05)',
+    cardHover: 'rgba(250, 244, 255, 0.08)',
+    border: 'rgba(235, 222, 255, 0.09)',
+    borderSoft: 'rgba(235, 222, 255, 0.05)',
+    borderGlow: 'rgba(255, 79, 139, 0.36)',
+    text: '#F7F3FF',
+    textDim: '#B8AFCC',
+    textFaint: '#857B9E',
+    textMuted: '#564D70',
+    primary: '#FF4F8B',
+    primarySoft: 'rgba(255, 79, 139, 0.15)',
+    primaryMuted: 'rgba(255, 79, 139, 0.08)',
+    accent: '#FF7AB0',
+    accentSoft: 'rgba(255, 122, 176, 0.15)',
+    accentMuted: 'rgba(255, 122, 176, 0.08)',
+    violet: '#A855F7',
+    violetSoft: 'rgba(168, 85, 247, 0.16)',
+    gold: '#FFC46B',
+    goldSoft: 'rgba(255, 196, 107, 0.15)',
+    accentAmber: '#FFC46B',
+    accentAmberSoft: 'rgba(255, 196, 107, 0.15)',
+    champagne: '#FFD79A',
+    champagneSoft: 'rgba(255, 215, 154, 0.12)',
+    success: '#4ADE9B',
+    danger: '#FF6B7A',
+    info: '#8EA8FF',
+    overlay: 'rgba(11, 8, 20, 0.88)',
+    scrim: 'rgba(5, 3, 12, 0.64)',
   },
   amoled: {
     bg: '#000000',
-    bgSoft: '#08080C',
-    bgElevated: '#111118',
-    surface: '#101018',
-    surface2: '#1A1A26',
-    surface3: '#242438',
-    card: 'rgba(255, 251, 245, 0.04)',
-    cardHover: 'rgba(255, 251, 245, 0.065)',
-    border: 'rgba(242, 240, 235, 0.075)',
-    borderSoft: 'rgba(242, 240, 235, 0.04)',
-    borderGlow: 'rgba(233, 67, 94, 0.28)',
-    text: '#F2F0EB',
-    textDim: '#A09CA8',
-    textFaint: '#6A6674',
-    textMuted: '#44404E',
-    primary: '#E9435E',
-    primarySoft: 'rgba(233, 67, 94, 0.16)',
-    primaryMuted: 'rgba(233, 67, 94, 0.09)',
-    accent: '#FF6B7E',
-    accentSoft: 'rgba(255, 107, 126, 0.15)',
-    accentMuted: 'rgba(255, 107, 126, 0.08)',
-    accentAmber: '#F3D5A6',
-    accentAmberSoft: 'rgba(243, 213, 166, 0.14)',
-    champagne: '#F3D5A6',
-    champagneSoft: 'rgba(243, 213, 166, 0.12)',
-    success: '#4ADE80',
-    danger: '#F87171',
-    info: '#7AA5FF',
+    bgSoft: '#07050D',
+    bgElevated: '#100C1C',
+    surface: '#0E0A19',
+    surface2: '#181229',
+    surface3: '#241C3D',
+    card: 'rgba(250, 244, 255, 0.04)',
+    cardHover: 'rgba(250, 244, 255, 0.07)',
+    border: 'rgba(235, 222, 255, 0.08)',
+    borderSoft: 'rgba(235, 222, 255, 0.045)',
+    borderGlow: 'rgba(255, 79, 139, 0.32)',
+    text: '#F7F3FF',
+    textDim: '#B8AFCC',
+    textFaint: '#7F7598',
+    textMuted: '#4E4566',
+    primary: '#FF4F8B',
+    primarySoft: 'rgba(255, 79, 139, 0.16)',
+    primaryMuted: 'rgba(255, 79, 139, 0.09)',
+    accent: '#FF7AB0',
+    accentSoft: 'rgba(255, 122, 176, 0.15)',
+    accentMuted: 'rgba(255, 122, 176, 0.08)',
+    violet: '#A855F7',
+    violetSoft: 'rgba(168, 85, 247, 0.16)',
+    gold: '#FFC46B',
+    goldSoft: 'rgba(255, 196, 107, 0.15)',
+    accentAmber: '#FFC46B',
+    accentAmberSoft: 'rgba(255, 196, 107, 0.15)',
+    champagne: '#FFD79A',
+    champagneSoft: 'rgba(255, 215, 154, 0.12)',
+    success: '#4ADE9B',
+    danger: '#FF6B7A',
+    info: '#8EA8FF',
     overlay: 'rgba(0, 0, 0, 0.90)',
     scrim: 'rgba(0, 0, 0, 0.70)',
   },
@@ -84,20 +88,22 @@ export const COLORS = {
 export type ThemeName = keyof typeof COLORS;
 export type Theme = (typeof COLORS)[ThemeName];
 
-export const INK = '#0A0608';
+export const INK = '#07050D';
 
 export const GRADIENTS = {
-  hero: ['#FF6B7E', '#E9435E', '#7A1E2F'] as const,
-  primary: ['#FF6B7E', '#E9435E'] as const,
-  rose: ['#FF8A9B', '#E9435E'] as const,
-  gold: ['#F3D5A6', '#E9435E'] as const,
-  champagneRose: ['#FF8A9B', '#F3D5A6'] as const,
-  card: ['rgba(233, 67, 94, 0.12)', 'rgba(6, 6, 10, 0.0)'] as const,
-  surfaceGrad: ['rgba(23, 23, 31, 0.92)', 'rgba(12, 12, 18, 0.98)'] as const,
-  scrim: ['transparent', 'rgba(6, 6, 10, 0.96)'] as const,
-  scrimSoft: ['transparent', 'rgba(6, 6, 10, 0.44)'] as const,
-  shimmer: ['rgba(255, 251, 245, 0.06)', 'rgba(255, 251, 245, 0.02)', 'rgba(255, 251, 245, 0.06)'] as const,
-  heroShade: ['transparent', 'rgba(6,6,10,0.18)', 'rgba(6,6,10,0.78)', 'rgba(6,6,10,0.98)'] as const,
+  /** Signature Kissa gradient — magenta → violet, straight from the logo. */
+  primary: ['#FF4F8B', '#A855F7'] as const,
+  hero: ['#FF4F8B', '#A855F7', '#3B1670'] as const,
+  rose: ['#FF7AB0', '#FF4F8B'] as const,
+  violet: ['#C084FC', '#7C3AED'] as const,
+  gold: ['#FFD79A', '#FF8A5C'] as const,
+  champagneRose: ['#FF7AB0', '#FFD79A'] as const,
+  card: ['rgba(255, 79, 139, 0.12)', 'rgba(11, 8, 20, 0.0)'] as const,
+  surfaceGrad: ['rgba(31, 24, 56, 0.92)', 'rgba(18, 13, 32, 0.98)'] as const,
+  scrim: ['transparent', 'rgba(11, 8, 20, 0.96)'] as const,
+  scrimSoft: ['transparent', 'rgba(11, 8, 20, 0.44)'] as const,
+  shimmer: ['rgba(250, 244, 255, 0.06)', 'rgba(250, 244, 255, 0.02)', 'rgba(250, 244, 255, 0.06)'] as const,
+  heroShade: ['transparent', 'rgba(11,8,20,0.18)', 'rgba(11,8,20,0.78)', 'rgba(11,8,20,1)'] as const,
 };
 
 export const FONTS = {
@@ -207,7 +213,7 @@ export const GENRE_COLORS: Record<string, string> = {
 };
 
 export function genreColor(genre: string): string {
-  return GENRE_COLORS[genre] ?? '#E9435E';
+  return GENRE_COLORS[genre] ?? '#FF4F8B';
 }
 
 /* Typography — editorial, cinematic, consistent */
@@ -226,7 +232,7 @@ export const TYPE = {
   caption: { fontSize: 12, fontWeight: '600' as const, letterSpacing: 0.5, lineHeight: 15 },
   overline: { fontSize: 11, fontWeight: '800' as const, letterSpacing: 1.4, lineHeight: 14 },
   brand: { fontSize: 15, fontWeight: '900' as const, letterSpacing: 2.6, lineHeight: 18 },
-  heroTitle: { fontSize: 26, fontWeight: '800' as const, letterSpacing: -0.6, lineHeight: 31 },
+  heroTitle: { fontSize: 28, fontWeight: '800' as const, letterSpacing: -0.6, lineHeight: 31 },
   cardTitle: { fontSize: 17, fontWeight: '800' as const, letterSpacing: -0.3, lineHeight: 22 },
   chatNarration: { fontSize: 15, fontWeight: '500' as const, letterSpacing: 0.15, lineHeight: 23 },
   chatDialogue: { fontSize: 15.5, fontWeight: '600' as const, letterSpacing: 0.05, lineHeight: 23 },
@@ -255,14 +261,14 @@ export const SHADOWS = {
     elevation: 10,
   },
   glowAccent: {
-    shadowColor: '#E9435E',
+    shadowColor: '#FF4F8B',
     shadowOffset: { width: 0, height: 4 },
     shadowOpacity: 0.22,
     shadowRadius: 12,
     elevation: 4,
   },
   glowRose: {
-    shadowColor: '#FF6B7E',
+    shadowColor: '#A855F7',
     shadowOffset: { width: 0, height: 6 },
     shadowOpacity: 0.26,
     shadowRadius: 16,
@@ -278,10 +284,10 @@ export const SHADOWS = {
 } as const;
 
 export const GLASS = {
-  bg: 'rgba(12, 12, 18, 0.72)',
-  bgStrong: 'rgba(20, 20, 29, 0.86)',
-  stroke: 'rgba(242, 240, 235, 0.10)',
-  strokeSoft: 'rgba(242, 240, 235, 0.05)',
+  bg: 'rgba(18, 13, 32, 0.72)',
+  bgStrong: 'rgba(24, 18, 42, 0.90)',
+  stroke: 'rgba(235, 222, 255, 0.11)',
+  strokeSoft: 'rgba(235, 222, 255, 0.05)',
 } as const;
 
 export const MOTION = {
@@ -304,7 +310,7 @@ export const ELEVATION = {
 
 export function avatarColors(id: string): [string, string] {
   const pairs: [string, string][] = [
-    ['#FF6B7E', '#7A1E2F'],
+    ['#FF4F8B', '#7A1E52'],
     ['#7AA5FF', '#1E3A8A'],
     ['#5EE9B5', '#065F46'],
     ['#FF8ACF', '#9D174D'],
@@ -326,13 +332,16 @@ export const LAYOUT = {
   tabBarHeight: 64,
   composerMinHeight: 52,
   contentMaxWidth: 560,
+  /** Bottom padding so the floating nav never covers the last row. */
+  navClearance: 110,
 } as const;
 
 /* Kissa brand tokens */
 export const KISSA = {
   wordmark: 'KISSA',
   tagline: 'INTERACTIVE CINEMA',
-  accent: '#E9435E',
-  accentLight: '#FF6B7E',
-  champagne: '#F3D5A6',
+  accent: '#FF4F8B',
+  accentLight: '#FF7AB0',
+  violet: '#A855F7',
+  champagne: '#FFC46B',
 } as const;

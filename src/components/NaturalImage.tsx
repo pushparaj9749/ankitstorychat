@@ -28,7 +28,7 @@ import {
   type StyleProp,
   type ImageStyle,
 } from 'react-native';
-import { Ionicons } from '@expo/vector-icons';
+import { IconGlyph } from './iconGlyph';
 
 /** Default height of the loading/failure placeholder when no ratio is known yet. */
 export const NATURAL_IMAGE_PLACEHOLDER_MIN_HEIGHT = 120;
@@ -197,7 +197,7 @@ export function NaturalImage({
       {!showImage ? (
         fallback ?? (
           <View style={styles.defaultFallback} accessibilityLabel="Image unavailable">
-            <Ionicons name="image-outline" size={28} color="#6F6B78" />
+            <IconGlyph name="image-outline" size={28} color="#7D7494" />
           </View>
         )
       ) : null}

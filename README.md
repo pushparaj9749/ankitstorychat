@@ -58,7 +58,21 @@ moves the tale forward — with memory, relationships, branching, and multiple e
 
 ## 🆕 Release notes
 
-### Unreleased — UI polish pass
+### Unreleased — "Kissa Night" full UI/UX redesign
+
+- **New visual identity:** a midnight-violet palette (`#0B0814` base) with a pink→violet signature gradient, gold uppercase kickers, gradient section bars and glass surfaces. All tokens live in `src/theme.ts`.
+- **Custom SVG icon set:** the Ionicons glyphs are replaced by a hand-drawn duotone set built on `react-native-svg` (`src/components/iconGlyph.tsx`, with a theme-aware wrapper in `icons.tsx`).
+- **No more blank space around covers:** artwork is never cropped. Every frame is filled by `ArtBackdrop`, a blurred, tinted copy of the same art behind the contain-fit image. This removes the letterbox bands and dead areas below covers.
+- **New navigation:** a floating capsule bottom bar whose active tab grows into a gradient pill with its icon and label.
+- **Redesigned screens:**
+  - Home: hero carousel, Continue rail, gold-numbered Top 10, poster grid.
+  - Discover: grid/list toggle.
+  - Library: stat tiles, journey cards, and "Try next" picks so a short shelf never ends blank.
+  - You: profile hero card.
+  - Story detail: overlapping sheet, stat tiles, cast rings, an even 2-column media grid, similar-stories rail.
+  - Chat: art wallpaper, glass header, pill composer, round send button.
+
+### UI polish pass
 
 Presentation only — no behaviour, memory or content changes.
 
