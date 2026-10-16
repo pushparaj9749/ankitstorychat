@@ -76,7 +76,7 @@ Presentation only — no behaviour, memory or content changes.
   story title (cast avatars moved to the "You are" strip), and the scene name is no longer uppercased.
 - **Discover.** The genre chips scroll edge to edge, and the sort is a compact segmented control on the same row as the count.
 - **Section headers.** Kickers are plain caption text instead of grey pills. Meaningless ones ("More", "Share") are removed.
-- **`npm run web` boots** for UI review. `metro.config.js` adds expo-sqlite's `.wasm` asset and the cross-origin isolation headers it needs.
+- **The app runs in a browser** for UI review (`npx expo start --web`). On web only, `metro.config.js` swaps expo-sqlite for a sql.js adapter, because the real one needs `SharedArrayBuffer` and an isolated page. See `preview/README.md`.
 
 ### v2.5.4 — Deep Transcript Recall & Fact Recency
 
