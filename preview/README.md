@@ -45,3 +45,16 @@ also works when opened straight from disk.
   inset, i.e. a typical phone.
 * The page is a review artifact: it is regenerated whenever the UI changes, so
   it should be re-run (and re-committed) as part of UI work.
+
+## Real app in a browser (`npm run web`)
+
+The static page above is a quick review artifact. To click through the real app, use the Expo web
+target. `metro.config.js` makes expo-sqlite work on web: it serves the `.wasm` file and sends COOP/COEP headers.
+
+```bash
+npm i --no-save react-dom@19.2.3 react-native-web@0.21.2   # dev only, same as above
+npx expo start --web
+```
+
+Story covers and gallery images come from the story API, so they only load when it is reachable.
+Starting a chat still needs an AI provider and key, as on device.

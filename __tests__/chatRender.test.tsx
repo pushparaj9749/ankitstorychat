@@ -47,7 +47,7 @@ jest.mock('../src/state/AppContext', () => {
   return { useApp: () => ({ theme: COLORS.midnight, settings: { textSize: 'medium' } }) };
 });
 
-import { ChatBubble, ChoiceChips } from '../src/components/chat';
+import { ChatBubble, ChoiceChips, inferSpeaker } from '../src/components/chat';
 import type { ChatMessage } from '../src/types';
 import { COLORS, FADED_TEXT_OPACITY, withAlpha } from '../src/theme';
 
@@ -209,5 +209,25 @@ describe('choice chips', () => {
     );
     const label = texts(tree).map((t) => (t.children ?? []).join('')).join('');
     expect(label).toBe('Dheere se lifafa kholo');
+  });
+});
+
+describe('speaker inferred from `Name: "line"` dialogue', () => {
+  test('lifts a short capitalised name before a quote', () => {
+    expect(inferSpeaker('Driver Balwant: "Ruk-na, bhai."')).toEqual({ name: 'Driver Balwant', rest: '"Ruk-na, bhai."' });
+    expect(inferSpeaker('Aria: *muskurati hai* "Haan."')?.name).toBe('Aria');
+  });
+
+  test('leaves ordinary narration alone', () => {
+    expect(inferSpeaker('Cockpit ki ghadi 3:07 dikha rahi hai.')).toBeNull();
+    expect(inferSpeaker('Note: ye kahani fiction hai.')).toBeNull();
+    expect(inferSpeaker('"Chal na... chal."')).toBeNull();
+  });
+
+  test('the bubble shows the name as the label, not inline', () => {
+    const tree = render(<ChatBubble message={msg({ role: 'assistant', text: 'Meenu: "Chai piyoge?"' })} />);
+    const all = texts(tree).map((t) => (t.children ?? []).join(''));
+    expect(all).toContain('Meenu');
+    expect(all.join('|')).not.toContain('Meenu:');
   });
 });

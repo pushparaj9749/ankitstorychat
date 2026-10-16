@@ -58,6 +58,26 @@ moves the tale forward — with memory, relationships, branching, and multiple e
 
 ## 🆕 Release notes
 
+### Unreleased — UI polish pass
+
+Presentation only — no behaviour, memory or content changes.
+
+- **Primary buttons are Kissa Rose.** `GradientButton` was a flat white pill; it is now the rose
+  gradient used by the Home hero (white text, soft glow). When disabled it shows a quiet surface instead of a grey slab.
+  This affects Onboarding, Story Detail (`Chat Now`) and every form.
+- **Settings has a page gutter again.** Cards and section titles were flush against the screen edges.
+- **Story Detail.** The Media Library is a two-column masonry, so each tile keeps its artwork's height
+  (the wrapped row used to stretch short tiles and leave empty blocks). "You may also like" shows real covers and prefers
+  stories in the same genre. The duplicate favourite button in the bottom bar is gone (the hero already has one).
+- **Home.** The duplicate "Tonight's lead" heading above the hero is gone. New arrivals no longer show a `0%` progress bar;
+  they show genre + rating instead. Continue cards are wider. "More like X" replaces the cut-off "Because you liked X · GENRE".
+- **Chat.** The player's lines sit in a rose gradient bubble. `Name: "line"` dialogue now shows the name as the speaker
+  label and avatar, not inline. The narrator gets a quiet ✦ mark instead of a blue avatar on every line. The header keeps the full
+  story title (cast avatars moved to the "You are" strip), and the scene name is no longer uppercased.
+- **Discover.** The genre chips scroll edge to edge, and the sort is a compact segmented control on the same row as the count.
+- **Section headers.** Kickers are plain caption text instead of grey pills. Meaningless ones ("More", "Share") are removed.
+- **`npm run web` boots** for UI review. `metro.config.js` adds expo-sqlite's `.wasm` asset and the cross-origin isolation headers it needs.
+
 ### v2.5.4 — Deep Transcript Recall & Fact Recency
 
 A follow-up memory release focused on details that never became typed events:

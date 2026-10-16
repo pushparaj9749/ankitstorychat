@@ -33,6 +33,7 @@ type Props = BottomTabScreenProps<MainTabParamList, 'Home'>;
 const HOME_CATEGORIES = ['For you', 'New', 'Popular', 'Romance', 'Mystery', 'Drama', 'Fantasy', 'Horror', 'Sci-Fi'];
 
 const RAIL_ITEM = 156 + 13; // card width + gap — snapped rail scrolling
+const CONTINUE_W = 284; // wide enough that most titles fit on one line
 
 export function Home({ navigation }: Props) {
   const { theme, profile, stories, recentPlaythroughs, favoriteIds } = useApp();
@@ -193,8 +194,7 @@ export function Home({ navigation }: Props) {
 
           {/* Tonight's lead — the one focal point of the screen */}
           {featured && (selectedCategory === 'For you' || selectedCategory === 'Popular') ? (
-            <View style={styles.sectionPad}>
-              <SectionHeader title="Tonight's lead" kicker="Featured" action="Explore" onAction={() => navigation.navigate('Discover')} />
+            <View style={[styles.sectionPad, styles.heroWrap]}>
               <HeroCard meta={featured} onPress={() => openStory(featured.id)} />
             </View>
           ) : null}
@@ -214,7 +214,7 @@ export function Home({ navigation }: Props) {
                 horizontal
                 showsHorizontalScrollIndicator={false}
                 contentContainerStyle={styles.stripScroll}
-                snapToInterval={252 + 12}
+                snapToInterval={CONTINUE_W + 12}
                 decelerationRate="fast"
               >
                 {activeRecent.map((p) => {
@@ -268,7 +268,7 @@ export function Home({ navigation }: Props) {
           {becauseOf && selectedCategory === 'For you' ? (
             <>
               <View style={styles.sectionPad}>
-                <SectionHeader title={`Because you liked ${becauseOf.seed.title}`} kicker={becauseOf.genre} />
+                <SectionHeader title={`More like ${becauseOf.seed.title}`} />
               </View>
               <FlatList
                 horizontal
@@ -297,7 +297,7 @@ export function Home({ navigation }: Props) {
               <SectionHeader title="New arrivals" kicker="Fresh" />
               {newStories.slice(0, 3).map((s: StoryMeta) => (
                 <View key={s.id} style={styles.gap}>
-                  <ContinueCard meta={s} progress={0} subtitle={s.tagline} onPress={() => openStory(s.id)} />
+                  <ContinueCard meta={s} progress={null} subtitle={s.tagline} onPress={() => openStory(s.id)} />
                 </View>
               ))}
             </View>
@@ -348,9 +348,10 @@ const styles = StyleSheet.create({
   categoriesWrap: { marginTop: SPACING.lg },
   categoriesScroll: { paddingHorizontal: SPACING.page },
   sectionPad: { paddingHorizontal: SPACING.page },
+  heroWrap: { marginTop: SPACING.xl },
   gap: { marginBottom: 10 },
   stripScroll: { paddingHorizontal: SPACING.page, gap: 12 },
-  stripItem: { width: 252 },
+  stripItem: { width: CONTINUE_W },
   railList: { paddingHorizontal: SPACING.page, gap: 13, paddingBottom: 4 },
   railItem: { marginRight: 0 },
 });

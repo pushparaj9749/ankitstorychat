@@ -412,25 +412,14 @@ export function Chat({ navigation, route }: Props) {
               {bundle.meta.title}
             </Text>
             <Text style={[styles.headerScene, { color: theme.accent }]} numberOfLines={1}>
-              {(scene?.title ?? playthrough.label).toUpperCase()}
+              {scene?.title ?? playthrough.label}
             </Text>
           </View>
         </Pressable>
 
-        <View style={styles.headerRight}>
-          {cast.length > 0 ? (
-            <View style={styles.presence}>
-              {cast.slice(0, 3).map((c, i) => (
-                <View key={c.id} style={[styles.presenceSlot, i > 0 && styles.presenceOverlap]}>
-                  <Avatar id={c.id} name={c.name} size={22} />
-                </View>
-              ))}
-            </View>
-          ) : null}
-          <View style={[styles.modeBtn, { backgroundColor: withAlpha(aiReady ? theme.success : theme.text, 0.10), borderColor: withAlpha(aiReady ? theme.success : theme.text, 0.22) }]}>
-            <View style={[styles.modeDot, { backgroundColor: aiReady ? theme.success : theme.textFaint }]} />
-            <Text style={[styles.modeText, { color: aiReady ? '#9BEFD0' : theme.textFaint }]}>{aiReady ? 'AI' : 'OFFLINE'}</Text>
-          </View>
+        <View style={[styles.modeBtn, { backgroundColor: withAlpha(aiReady ? theme.success : theme.text, 0.08), borderColor: withAlpha(aiReady ? theme.success : theme.text, 0.18) }]}>
+          <View style={[styles.modeDot, { backgroundColor: aiReady ? theme.success : theme.textFaint }]} />
+          <Text style={[styles.modeText, { color: aiReady ? '#9BEFD0' : theme.textDim }]}>{aiReady ? 'AI' : 'Offline'}</Text>
         </View>
       </View>
 
@@ -440,6 +429,15 @@ export function Chat({ navigation, route }: Props) {
           <Text style={[styles.roleText, { color: theme.textDim }]} numberOfLines={1}>
             {makePlayerTextFn(bundle.meta, profile?.nickname)(bundle.story.userRole)}
           </Text>
+          {cast.length > 0 ? (
+            <View style={styles.presence} accessibilityLabel={`In this story: ${cast.map((c) => c.name).join(', ')}`}>
+              {cast.slice(0, 3).map((c, i) => (
+                <View key={c.id} style={[styles.presenceSlot, i > 0 && styles.presenceOverlap]}>
+                  <Avatar id={c.id} name={c.name} size={20} />
+                </View>
+              ))}
+            </View>
+          ) : null}
         </View>
       ) : null}
 
@@ -560,12 +558,11 @@ const styles = StyleSheet.create({
   faceImg: { width: 38, height: 38 },
   faceLetter: { fontSize: 15, fontWeight: '900' },
   headerBody: { flex: 1, minWidth: 0 },
-  headerTitle: { fontSize: 14.5, fontWeight: '800', letterSpacing: -0.2 },
-  headerScene: { fontSize: SCALE.micro, letterSpacing: 0.9, marginTop: 2, fontWeight: '800' },
-  headerRight: { flexDirection: 'row', alignItems: 'center', gap: 8 },
+  headerTitle: { fontSize: 15, fontWeight: '800', letterSpacing: -0.2 },
+  headerScene: { fontSize: SCALE.caption, letterSpacing: 0.1, marginTop: 2, fontWeight: '700' },
   presence: { flexDirection: 'row', alignItems: 'center' },
   presenceSlot: { alignItems: 'center', justifyContent: 'center' },
-  presenceOverlap: { marginLeft: -9 },
+  presenceOverlap: { marginLeft: -7 },
   modeBtn: {
     flexDirection: 'row',
     alignItems: 'center',
@@ -576,7 +573,7 @@ const styles = StyleSheet.create({
     paddingVertical: 5,
   },
   modeDot: { width: 5, height: 5, borderRadius: 2.5 },
-  modeText: { fontSize: 9.5, fontWeight: '900', letterSpacing: 0.7 },
+  modeText: { fontSize: SCALE.micro, fontWeight: '800', letterSpacing: 0.3 },
   roleBanner: {
     flexDirection: 'row',
     alignItems: 'center',

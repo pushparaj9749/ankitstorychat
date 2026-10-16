@@ -259,18 +259,20 @@ export function ContinueCard({
   onPress,
 }: {
   meta: StoryMeta;
-  progress: number;
+  /** Journey progress 0–1. `null` = not started (e.g. New arrivals): no bar, genre + rating instead. */
+  progress: number | null;
   subtitle?: string;
   onPress: () => void;
 }) {
   const { theme } = useApp();
-  const pct = Math.round(Math.min(1, Math.max(0, progress)) * 100);
+  const started = progress !== null && progress !== undefined;
+  const pct = started ? Math.round(Math.min(1, Math.max(0, progress)) * 100) : 0;
 
   return (
     <Pressable
       onPress={onPress}
       accessibilityRole="button"
-      accessibilityLabel={`Continue ${meta.title}`}
+      accessibilityLabel={started ? `Continue ${meta.title}` : meta.title}
       style={({ pressed }) => [
         styles.continueCard,
         { borderColor: theme.border, opacity: pressed ? 0.94 : 1, transform: [{ scale: pressed ? 0.99 : 1 }] },
@@ -290,12 +292,19 @@ export function ContinueCard({
             {subtitle}
           </Text>
         ) : null}
-        <View style={styles.continueProgressRow}>
-          <View style={styles.continueProgress}>
-            <ProgressBar value={progress} color={meta.accentColor} />
+        {started ? (
+          <View style={styles.continueProgressRow}>
+            <View style={styles.continueProgress}>
+              <ProgressBar value={progress} color={meta.accentColor} />
+            </View>
+            <Text style={[styles.continuePct, { color: theme.accent }]}>{pct}%</Text>
           </View>
-          <Text style={[styles.continuePct, { color: theme.accent }]}>{pct}%</Text>
-        </View>
+        ) : (
+          <View style={styles.continueTags}>
+            <GenreChip genre={meta.genres[0] ?? 'Story'} />
+            <AgeBadge ageRating={meta.ageRating} />
+          </View>
+        )}
       </View>
 
       <View style={[styles.continueArrow, { borderColor: theme.border, backgroundColor: withAlpha(theme.surface2, 0.9) }]}>
@@ -443,6 +452,7 @@ const styles = StyleSheet.create({
   continueProgressRow: { flexDirection: 'row', alignItems: 'center', gap: 8 },
   continueProgress: { flex: 1 },
   continuePct: { fontSize: SCALE.micro, fontWeight: '800', marginTop: 8 },
+  continueTags: { flexDirection: 'row', alignItems: 'center', gap: 6, marginTop: 8 },
   continueArrow: {
     width: TOUCH.sm,
     height: TOUCH.sm,

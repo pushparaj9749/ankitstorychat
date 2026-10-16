@@ -335,10 +335,19 @@ export function StoryDetail({ navigation, route }: Props) {
 
           {gallery.length > 0 ? (
             <>
-              <SectionHeader title={`Media Library (${gallery.length})`} kicker="Artworks" />
+              <SectionHeader title={`Media Library (${gallery.length})`} />
+              {/* Two independent columns (masonry): every tile keeps its artwork's
+                  own height. A wrapped row stretched short tiles to the tallest
+                  neighbour and left empty blocks under landscape art. */}
               <View style={styles.mediaGrid}>
-                {gallery.map((item, index) => (
-                  <MediaTile key={item.id} item={item} index={index} storyDir={bundle.meta.storyDir} bundle={bundle} onPress={() => setLightboxIndex(index)} />
+                {[0, 1].map((col) => (
+                  <View key={col} style={styles.mediaCol}>
+                    {gallery.map((item, index) =>
+                      index % 2 === col ? (
+                        <MediaTile key={item.id} item={item} index={index} storyDir={bundle.meta.storyDir} bundle={bundle} onPress={() => setLightboxIndex(index)} />
+                      ) : null,
+                    )}
+                  </View>
                 ))}
               </View>
             </>
@@ -347,7 +356,7 @@ export function StoryDetail({ navigation, route }: Props) {
           <CreatorBlock creator={bundle.creator} />
           <SimilarStoriesBlock storyId={storyId} navigation={navigation} />
 
-          <SectionHeader title="Refer Kissa" kicker="Share" />
+          <SectionHeader title="Refer Kissa" />
           <View style={[styles.referCard, { backgroundColor: withAlpha(theme.text, 0.04), borderColor: theme.border }]}>
             <Text style={[styles.referTitle, { color: theme.text }]}>Pass the story forward</Text>
             <Text style={[styles.referSub, { color: theme.textDim }]}>Invite friends to interactive stories. Local-first, private, no ads.</Text>
@@ -372,18 +381,6 @@ export function StoryDetail({ navigation, route }: Props) {
               }}
             />
           </View>
-          <Pressable
-            onPress={() => void toggleFavorite(storyId)}
-            accessibilityRole="button"
-            accessibilityLabel={isFav ? 'Remove favorite' : 'Add favorite'}
-            hitSlop={6}
-            style={({ pressed }) => [
-              styles.secondaryAction,
-              { borderColor: theme.border, backgroundColor: withAlpha(theme.surface2, 0.9), opacity: pressed ? 0.75 : 1 },
-            ]}
-          >
-            <Icon name={isFav ? 'heart' : 'heart-outline'} size={ICON_SIZE.md} color={isFav ? theme.accent : theme.textDim} />
-          </Pressable>
           {saves.length > 0 ? (
             <Pressable
               onPress={() => navigation.navigate('Saves', { storyId })}
@@ -510,7 +507,7 @@ function CreatorBlock({ creator }: { creator: StoryCreator }) {
   };
   return (
     <>
-      <SectionHeader title="Story Creator" kicker="Author" />
+      <SectionHeader title="Story Creator" />
       <View style={[styles.creatorCard, { backgroundColor: withAlpha(theme.text, 0.04), borderColor: theme.border }]}>
         <LinearGradient
           colors={['#FF8A9B', '#E9435E']}
@@ -539,30 +536,62 @@ function CreatorBlock({ creator }: { creator: StoryCreator }) {
   );
 }
 
+const SIMILAR_ART_H = 140;
+
 function SimilarStoriesBlock({ storyId, navigation }: { storyId: string; navigation: Props['navigation'] }) {
-  const { theme, stories } = useApp();
-  const others = useMemo(() => stories.filter((s) => s.id !== storyId).slice(0, 3), [stories, storyId]);
+  const { theme, stories, settings } = useApp();
+  const apiBase = effectiveContentApiBaseUrl(settings?.contentApiBaseUrl);
+  // Prefer stories that share a genre with this one; fill up with the rest.
+  const others = useMemo(() => {
+    const self = stories.find((s) => s.id === storyId);
+    const pool = stories.filter((s) => s.id !== storyId);
+    const peers = self ? pool.filter((s) => s.genres.some((g) => self.genres.includes(g))) : [];
+    const rest = pool.filter((s) => !peers.includes(s));
+    return [...peers, ...rest].slice(0, 3);
+  }, [stories, storyId]);
   if (others.length === 0) return null;
   return (
     <>
-      <SectionHeader title="Similar" kicker="More" />
+      <SectionHeader title="You may also like" />
       <View style={styles.similarRow}>
         {others.map((s) => (
           <Pressable
             key={s.id}
+            accessibilityRole="button"
+            accessibilityLabel={s.title}
             style={({ pressed }) => [
               styles.similarCard,
-              { backgroundColor: withAlpha(theme.text, 0.04), borderColor: theme.border, opacity: pressed ? 0.85 : 1 },
+              { backgroundColor: withAlpha(s.accentColor, 0.1), borderColor: theme.border, opacity: pressed ? 0.85 : 1 },
             ]}
             onPress={() => navigation.push('StoryDetail', { storyId: s.id })}
           >
-            <View style={[styles.similarDot, { backgroundColor: s.accentColor }]} />
-            <Text style={[styles.similarTitle, { color: theme.text }]} numberOfLines={3}>
-              {s.title}
-            </Text>
-            <Text style={[styles.similarGenre, { color: theme.textFaint }]} numberOfLines={1}>
-              {(s.genres[0] ?? 'Story').toUpperCase()}
-            </Text>
+            <View style={styles.similarArt}>
+              <CoverImage
+                source={getBundledCoverSource(s, apiBase)}
+                accentColor={s.accentColor}
+                fallbackLetter={s.title}
+                style={styles.similarImg}
+                maxHeight={SIMILAR_ART_H}
+                placeholderMinHeight={SIMILAR_ART_H}
+              />
+              <LinearGradient
+                colors={['transparent', 'rgba(6,6,10,0.55)', 'rgba(6,6,10,0.96)']}
+                locations={[0.35, 0.68, 1]}
+                style={StyleSheet.absoluteFill}
+                pointerEvents="none"
+              />
+              <View style={styles.similarBody}>
+                <Text style={styles.similarTitle} numberOfLines={2}>
+                  {s.title}
+                </Text>
+                <View style={styles.similarGenreRow}>
+                  <View style={[styles.similarDot, { backgroundColor: s.accentColor }]} />
+                  <Text style={styles.similarGenre} numberOfLines={1}>
+                    {(s.genres[0] ?? 'Story').toUpperCase()}
+                  </Text>
+                </View>
+              </View>
+            </View>
           </Pressable>
         ))}
       </View>
@@ -609,8 +638,9 @@ const styles = StyleSheet.create({
   castInitial: { fontSize: 20, fontWeight: '900' },
   castName: { fontSize: SCALE.small, fontWeight: '800', marginTop: 9 },
   castRole: { fontSize: SCALE.micro, fontWeight: '600', marginTop: 3, textAlign: 'center', lineHeight: 14 },
-  mediaGrid: { flexDirection: 'row', flexWrap: 'wrap', gap: 10, marginTop: 4 },
-  mediaTile: { width: '48%', borderRadius: RADIUS.md, borderWidth: 1, overflow: 'hidden' },
+  mediaGrid: { flexDirection: 'row', alignItems: 'flex-start', gap: 10, marginTop: 4 },
+  mediaCol: { flex: 1, gap: 10, minWidth: 0 },
+  mediaTile: { width: '100%', borderRadius: RADIUS.md, borderWidth: 1, overflow: 'hidden' },
   mediaImg: { width: '100%' },
   mediaBadge: { position: 'absolute', top: 8, left: 8, borderRadius: RADIUS.xs, paddingHorizontal: 7, paddingVertical: 3 },
   mediaBadgeText: { fontSize: SCALE.micro, fontWeight: '800', letterSpacing: 0.6 },
@@ -660,10 +690,14 @@ const styles = StyleSheet.create({
   verifiedText: { fontSize: 9.5, fontWeight: '900', letterSpacing: 0.6, color: '#BBD2FF' },
   creatorSub: { fontSize: SCALE.caption, marginTop: 3 },
   similarRow: { flexDirection: 'row', gap: 10, marginTop: 4 },
-  similarCard: { flex: 1, borderWidth: 1, borderRadius: RADIUS.md, padding: 12, minHeight: 96, justifyContent: 'flex-end', gap: 4 },
-  similarDot: { width: 8, height: 8, borderRadius: 4, marginBottom: 4 },
-  similarTitle: { fontSize: SCALE.small, fontWeight: '800', lineHeight: 17 },
-  similarGenre: { fontSize: 9.5, fontWeight: '800', marginTop: 3, letterSpacing: 0.6 },
+  similarCard: { flex: 1, borderWidth: 1, borderRadius: RADIUS.md, overflow: 'hidden', minWidth: 0 },
+  similarArt: { height: SIMILAR_ART_H, alignItems: 'center', justifyContent: 'center', overflow: 'hidden' },
+  similarImg: { width: '100%' },
+  similarBody: { position: 'absolute', left: 9, right: 9, bottom: 9 },
+  similarGenreRow: { flexDirection: 'row', alignItems: 'center', gap: 5, marginTop: 5 },
+  similarDot: { width: 5, height: 5, borderRadius: 2.5 },
+  similarTitle: { fontSize: SCALE.small, fontWeight: '800', lineHeight: 16, color: '#fff' },
+  similarGenre: { fontSize: SCALE.micro, fontWeight: '800', letterSpacing: 0.5, color: 'rgba(242,240,235,0.7)', flexShrink: 1 },
   referCard: { borderWidth: 1, borderRadius: RADIUS.lg, padding: 16, marginTop: 4, borderStyle: 'dashed' },
   referTitle: { fontSize: 15, fontWeight: '800' },
   referSub: { fontSize: SCALE.small, marginTop: 5, lineHeight: 19 },

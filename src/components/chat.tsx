@@ -18,10 +18,21 @@ import { Animated, Pressable, StyleSheet, Text, View } from 'react-native';
 import { LinearGradient } from 'expo-linear-gradient';
 import type { ChatMessage } from '../types';
 import { useApp } from '../state/AppContext';
-import { FADED_TEXT_OPACITY, RADIUS, SCALE, SHADOWS, SPACING, TOUCH, withAlpha, FONTS, TEXT_SIZE_MULTIPLIER } from '../theme';
+import { FADED_TEXT_OPACITY, GRADIENTS, RADIUS, SCALE, SHADOWS, SPACING, TOUCH, withAlpha, FONTS, TEXT_SIZE_MULTIPLIER } from '../theme';
 import { parseStoryMarkup, stripStoryMarkup } from '../lib/markup';
 import { Avatar } from './bits';
 import { Icon, ICON_SIZE } from './icons';
+
+/**
+ * `Driver Balwant: "Ruk-na."` → { name: 'Driver Balwant', rest: '"Ruk-na."' }.
+ * Only fires for a short capitalised name followed by a colon and an opening
+ * quote or *action*, so ordinary narration with a colon is left alone.
+ */
+export function inferSpeaker(text: string): { name: string; rest: string } | null {
+  const m = /^\s*([A-Z][A-Za-z.'-]*(?: [A-Z][A-Za-z.'-]*){0,2})\s*:\s*(?=["\u201C*])/.exec(text ?? '');
+  if (!m) return null;
+  return { name: m[1], rest: text.slice(m[0].length) };
+}
 
 function isSceneMarker(text: string): boolean {
   return (text ?? '').trimStart().startsWith('✦');
@@ -54,6 +65,16 @@ export function StoryText({
   );
 }
 
+/** The storyteller's mark — a quiet ✦ instead of a loud gradient avatar on every line. */
+function NarratorMark() {
+  const { theme } = useApp();
+  return (
+    <View style={[styles.narratorMark, { backgroundColor: withAlpha(theme.primary, 0.1), borderColor: withAlpha(theme.primary, 0.24) }]}>
+      <Text style={[styles.narratorGlyph, { color: theme.accent }]}>✦</Text>
+    </View>
+  );
+}
+
 export function ChatBubble({ message }: { message: ChatMessage }) {
   const { theme, settings } = useApp();
   const scale = TEXT_SIZE_MULTIPLIER[settings.textSize];
@@ -76,7 +97,7 @@ export function ChatBubble({ message }: { message: ChatMessage }) {
     // Narration — same layout shape as dialogue (see file header).
     return (
       <View style={[styles.row, styles.rowLeft]}>
-        <Avatar id={message.speaker ?? 'narrator'} name={message.speaker ?? '✦'} size={30} />
+        {message.speaker ? <Avatar id={message.speaker} name={message.speaker} size={30} /> : <NarratorMark />}
         <View
           style={[
             styles.bubble,
@@ -113,17 +134,23 @@ export function ChatBubble({ message }: { message: ChatMessage }) {
   if (isUser) {
     return (
       <View style={[styles.row, styles.rowRight]}>
-        <View style={[styles.bubble, styles.bubbleUser, { backgroundColor: theme.text }]}>
-          <StoryText text={message.text} color={theme.bg} fadedColor={withAlpha(theme.bg, 0.72)} fontSize={bodySize} lineHeight={22 * scale} />
+        <View style={[styles.bubble, styles.bubbleUser, { backgroundColor: theme.primary }]}>
+          <LinearGradient colors={GRADIENTS.primary} start={{ x: 0, y: 0 }} end={{ x: 1, y: 1 }} style={StyleSheet.absoluteFill} pointerEvents="none" />
+          <StoryText text={message.text} color="#fff" fadedColor="rgba(255,255,255,0.78)" fontSize={bodySize} lineHeight={22 * scale} />
         </View>
       </View>
     );
   }
 
   // Assistant / character — named, crisp dialogue with a rose edge.
+  // Story packs often write dialogue as `Name: "line"` without a speaker
+  // field; lift that name into the label/avatar instead of repeating it inline.
+  const inferred = message.speaker ? null : inferSpeaker(message.text);
+  const speaker = message.speaker ?? inferred?.name ?? null;
+  const text = inferred ? inferred.rest : message.text;
   return (
     <View style={[styles.row, styles.rowLeft]}>
-      <Avatar id={message.speaker ?? 'narrator'} name={message.speaker ?? '✦'} size={30} />
+      {speaker ? <Avatar id={speaker} name={speaker} size={30} /> : <NarratorMark />}
       <View
         style={[
           styles.bubble,
@@ -133,13 +160,13 @@ export function ChatBubble({ message }: { message: ChatMessage }) {
       >
         <LinearGradient colors={['rgba(255,107,126,0.10)', 'transparent']} style={styles.bubbleGlow} pointerEvents="none" />
         <View style={[styles.accentEdge, { backgroundColor: theme.primary }]} pointerEvents="none" />
-        {message.speaker ? (
+        {speaker ? (
           <View style={styles.speakerRow}>
-            <Text style={[styles.speaker, { color: theme.accent, fontSize: 11 * scale }]}>{message.speaker}</Text>
+            <Text style={[styles.speaker, { color: theme.accent, fontSize: 11 * scale }]}>{speaker}</Text>
             <View style={[styles.speakerDot, { backgroundColor: withAlpha(theme.accent, 0.5) }]} />
           </View>
         ) : null}
-        <StoryText text={message.text} color={'#fff'} fadedColor={withAlpha(theme.textDim, FADED_TEXT_OPACITY)} fontSize={bodySize} lineHeight={23 * scale} />
+        <StoryText text={text} color={'#fff'} fadedColor={withAlpha(theme.textDim, FADED_TEXT_OPACITY)} fontSize={bodySize} lineHeight={23 * scale} />
       </View>
     </View>
   );
@@ -244,6 +271,8 @@ const styles = StyleSheet.create({
   sysWrap: { alignItems: 'center', marginVertical: 8 },
   sysPill: { paddingHorizontal: 12, paddingVertical: 6, borderRadius: RADIUS.pill, borderWidth: 1 },
   sysText: { fontWeight: '600', letterSpacing: 0.2 },
+  narratorMark: { width: 30, height: 30, borderRadius: 15, borderWidth: 1, alignItems: 'center', justifyContent: 'center' },
+  narratorGlyph: { fontSize: 13, fontWeight: '700' },
   row: { flexDirection: 'row', marginVertical: 6, gap: 8, alignItems: 'flex-end', paddingHorizontal: 2 },
   rowRight: { justifyContent: 'flex-end', marginLeft: 48 },
   rowLeft: { justifyContent: 'flex-start', marginRight: 10 },

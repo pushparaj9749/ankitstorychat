@@ -1,12 +1,13 @@
 /**
  * KISSA v2.4.2 — Buttons
- * Primary: solid text on rose, minimal, editorial.
+ * Primary: Kissa Rose gradient pill (white text), quiet surface when disabled.
  * Ghost: subtle surface, border.
  */
 import React from 'react';
 import { ActivityIndicator, Pressable, StyleSheet, Text, View } from 'react-native';
 import { useApp } from '../state/AppContext';
-import { RADIUS, SPACING, withAlpha, INK } from '../theme';
+import { LinearGradient } from 'expo-linear-gradient';
+import { GRADIENTS, RADIUS, SHADOWS, SPACING, TOUCH, withAlpha } from '../theme';
 import { lightBuzz } from '../lib/haptics';
 
 export function GradientButton({
@@ -62,27 +63,40 @@ export function GradientButton({
     );
   }
 
+  // Primary — Kissa Rose gradient with a soft glow. Disabled is a quiet
+  // surface (not a grey slab), so the button still reads as "the next step".
+  const inactive = disabled && !loading;
+  const gradient = variant === 'gold' ? GRADIENTS.gold : GRADIENTS.primary;
   return (
     <Pressable
       onPress={handlePress}
       disabled={disabled || loading}
       accessibilityRole="button"
       accessibilityLabel={accessibilityLabel ?? title}
+      accessibilityState={{ disabled: !!(disabled || loading), busy: !!loading }}
       style={({ pressed }) => [
         styles.primaryWrap,
-        {
-          backgroundColor: theme.text,
-          opacity: disabled ? 0.45 : 1,
-          transform: [{ scale: pressed ? 0.98 : 1 }],
-        },
+        inactive
+          ? { backgroundColor: withAlpha(theme.surface2, 0.95), borderColor: theme.border }
+          : [{ borderColor: 'rgba(255,255,255,0.14)' }, SHADOWS.glowAccent],
+        { transform: [{ scale: pressed ? 0.98 : 1 }], opacity: pressed ? 0.94 : 1 },
       ]}
     >
+      {!inactive ? (
+        <LinearGradient
+          colors={gradient}
+          start={{ x: 0, y: 0 }}
+          end={{ x: 1, y: 1 }}
+          style={[StyleSheet.absoluteFill, styles.primaryFill]}
+          pointerEvents="none"
+        />
+      ) : null}
       {loading ? (
-        <ActivityIndicator color={theme.bg} size="small" />
+        <ActivityIndicator color="#fff" size="small" />
       ) : (
         <View style={styles.primaryInner}>
-          {icon ? <Text style={[styles.primaryIcon, { color: theme.bg }]}>{icon}</Text> : null}
-          <Text style={[styles.primaryText, { color: theme.bg }]}>{title}</Text>
+          {icon ? <Text style={[styles.primaryIcon, { color: inactive ? theme.textFaint : '#fff' }]}>{icon}</Text> : null}
+          <Text style={[styles.primaryText, { color: inactive ? theme.textFaint : '#fff' }]}>{title}</Text>
         </View>
       )}
     </Pressable>
@@ -99,14 +113,17 @@ export function Row({ children }: { children: React.ReactNode }) {
 const styles = StyleSheet.create({
   primaryWrap: {
     borderRadius: RADIUS.pill,
-    paddingVertical: 14,
+    borderWidth: 1,
+    minHeight: TOUCH.min + 6,
+    paddingVertical: 13,
     paddingHorizontal: SPACING.xl,
     alignItems: 'center',
     justifyContent: 'center',
   },
+  primaryFill: { borderRadius: RADIUS.pill },
   primaryInner: { flexDirection: 'row', alignItems: 'center', justifyContent: 'center', gap: 8 },
   primaryIcon: { fontSize: 14, fontWeight: '800' },
-  primaryText: { fontWeight: '800', fontSize: 14, letterSpacing: 0.4 },
+  primaryText: { fontWeight: '800', fontSize: 15, letterSpacing: 0.3 },
   ghost: {
     borderWidth: 1,
     borderRadius: RADIUS.pill,

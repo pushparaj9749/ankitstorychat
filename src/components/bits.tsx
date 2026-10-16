@@ -123,9 +123,9 @@ export function SectionHeader({
             {title}
           </Text>
           {kicker ? (
-            <View style={[styles.kickerPill, { backgroundColor: withAlpha(theme.text, 0.06) }]}>
-              <Text style={[styles.kicker, { color: theme.textFaint }]}>{kicker.toUpperCase()}</Text>
-            </View>
+            <Text style={[styles.kicker, { color: theme.textFaint }]} numberOfLines={1}>
+              {kicker.toUpperCase()}
+            </Text>
           ) : null}
         </View>
       </View>
@@ -324,13 +324,13 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
     marginTop: SPACING.xxl,
     marginBottom: SPACING.md,
+    minHeight: 24,
     gap: 12,
   },
   sectionLeft: { flex: 1, minWidth: 0 },
-  sectionTitleRow: { flexDirection: 'row', alignItems: 'center', gap: 8 },
-  kickerPill: { paddingHorizontal: 7, paddingVertical: 3, borderRadius: RADIUS.xs },
-  kicker: { fontSize: SCALE.micro, letterSpacing: 1.1, fontWeight: '800' },
-  sectionTitle: { ...TYPE.cardTitle },
+  sectionTitleRow: { flexDirection: 'row', alignItems: 'baseline', gap: 8 },
+  kicker: { fontSize: SCALE.micro, letterSpacing: 1.1, fontWeight: '700', flexShrink: 1 },
+  sectionTitle: { ...TYPE.heading, fontWeight: '800', flexShrink: 1 },
   sectionActionWrap: { flexDirection: 'row', alignItems: 'center', gap: 2, paddingVertical: 4 },
   sectionAction: { fontSize: SCALE.small, fontWeight: '800', letterSpacing: 0.1 },
   progressTrack: { height: 5, borderRadius: RADIUS.pill, overflow: 'hidden', marginTop: 8 },

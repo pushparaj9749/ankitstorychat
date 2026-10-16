@@ -79,17 +79,33 @@ export function Discover({ navigation, route }: Props) {
           ))}
         </ScrollView>
 
-        <View style={styles.sorts}>
-          {(['Recommended', 'Newest', 'Popular'] as Sort[]).map((s) => (
-            <SelectableChip key={s} label={s} selected={sort === s} onPress={() => setSort(s)} />
-          ))}
+        {/* count + sort share one row: a segmented control instead of a
+            second row of chips keeps the list higher on the screen */}
+        <View style={[styles.metaBar, { borderTopColor: withAlpha(theme.border, 0.6) }]}>
+          <Text style={[styles.count, { color: theme.textDim }]} numberOfLines={1}>
+            {results.length} {results.length === 1 ? 'story' : 'stories'}
+            {genre !== 'All' ? ` · ${genre}` : ''}
+            {query ? ` · “${query}”` : ''}
+          </Text>
+          <View style={[styles.segment, { backgroundColor: withAlpha(theme.surface2, 0.8), borderColor: theme.border }]}>
+            {(['Recommended', 'Newest', 'Popular'] as Sort[]).map((s) => {
+              const on = sort === s;
+              return (
+                <Pressable
+                  key={s}
+                  onPress={() => setSort(s)}
+                  accessibilityRole="button"
+                  accessibilityState={{ selected: on }}
+                  style={[styles.segmentItem, on && { backgroundColor: withAlpha(theme.primary, 0.2) }]}
+                >
+                  <Text style={[styles.segmentText, { color: on ? theme.text : theme.textFaint }, on && styles.segmentTextOn]}>
+                    {s === 'Recommended' ? 'For you' : s}
+                  </Text>
+                </Pressable>
+              );
+            })}
+          </View>
         </View>
-
-        <View style={[styles.divider, { backgroundColor: withAlpha(theme.border, 0.6) }]} />
-        <Text style={[styles.count, { color: theme.textDim }]}>
-          {results.length} {results.length === 1 ? 'story' : 'stories'}
-          {genre !== 'All' ? ` · ${genre}` : ''} {query ? `· “${query}”` : ''}
-        </Text>
       </View>
 
       {results.length === 0 ? (
@@ -131,11 +147,23 @@ const styles = StyleSheet.create({
   },
   input: { flex: 1, fontSize: 14.5, paddingVertical: 10 },
   clearBtn: { width: 26, height: 26, borderRadius: 13, alignItems: 'center', justifyContent: 'center' },
-  genres: { marginTop: 14, marginHorizontal: -4 },
-  genresContent: { paddingRight: SPACING.page },
-  sorts: { flexDirection: 'row', marginTop: 8 },
-  divider: { height: StyleSheet.hairlineWidth, marginTop: 16 },
-  count: { fontSize: SCALE.caption, fontWeight: '700', letterSpacing: 0.2, marginTop: 9 },
+  // Full-bleed chip rail: scrolls under the page gutter, first chip aligns with the title.
+  genres: { marginTop: 12, marginHorizontal: -SPACING.page },
+  genresContent: { paddingHorizontal: SPACING.page },
+  metaBar: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+    gap: 10,
+    marginTop: 12,
+    paddingTop: 12,
+    borderTopWidth: StyleSheet.hairlineWidth,
+  },
+  count: { flex: 1, fontSize: SCALE.caption, fontWeight: '700', letterSpacing: 0.2 },
+  segment: { flexDirection: 'row', borderWidth: 1, borderRadius: RADIUS.pill, padding: 3 },
+  segmentItem: { paddingHorizontal: 11, paddingVertical: 6, borderRadius: RADIUS.pill },
+  segmentText: { fontSize: SCALE.caption, fontWeight: '600' },
+  segmentTextOn: { fontWeight: '800' },
   list: { paddingHorizontal: SPACING.page, paddingTop: 12, gap: 12 },
   item: { marginBottom: 2 },
 });

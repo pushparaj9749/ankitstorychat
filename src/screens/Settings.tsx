@@ -199,7 +199,9 @@ export function Settings({ navigation }: Props) {
 
 const styles = StyleSheet.create({
   scroll: { paddingBottom: 16 },
-  page: { width: '100%', maxWidth: LAYOUT.contentMaxWidth + 120, alignSelf: 'center' },
+  // Screen is unpadded (so the scroll can run edge to edge); the page gutter
+  // lives here — without it every card touched the screen edge.
+  page: { width: '100%', maxWidth: LAYOUT.contentMaxWidth + 120, alignSelf: 'center', paddingHorizontal: SPACING.page },
   header: { paddingTop: 6, paddingBottom: 14 },
   kicker: { fontSize: SCALE.micro, letterSpacing: 1.4, fontWeight: '900', marginTop: 4 },
   hello: { ...TYPE.display, marginTop: 4, letterSpacing: -0.5 },
