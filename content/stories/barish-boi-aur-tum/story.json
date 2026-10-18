@@ -1,0 +1,116 @@
+{
+  "id": "barish-boi-aur-tum",
+  "title": "Barish, Boi Aur Tum",
+  "description": "Kolkata mein tumhari pehli shaam, aur aasman poora ulat chuka hai. College Street ki boi-para gali mein ghutno tak paani, bijli gul, aur ek purani kitaabon ki dukaan — Mitra Boi Ghar, Est. 1952 — jiske upar ka chhota sa kamra ab tumhara hai. Neeche ek chashme wali, tez zubaan wali ladki, Ishani Mitra, apni jaan se zyada apni kitaabein bacha rahi hai, aur tumhe developer ka aadmi samajh kar daant deti hai. Uske Kakai yeh 70 saal purani dukaan Durga Puja ke baad bechna chahte hain; Dadu bimaar hain par sab dekhte hain. Aur pehli hi raat bheegi kitaabon ke beech se gira ek zang laga tin ka dabba — 1971 ki unsent chitthiyan, 'Mili ke liye — S.' Barish, adda, tram, bhaar ki cha, Puja ki raatein aur ek purani prem kahani ka raaz. Ek slow-burn, open-ended Kolkata romance — kahani kahan jaayegi, yeh sirf tumhare faislon par tika hai.",
+  "version": 1,
+  "language": "hinglish",
+  "ageRating": "18+",
+  "contentLevel": "mature",
+  "genres": [
+    "Romance",
+    "Slow Burn",
+    "Slice of Life",
+    "Mystery",
+    "Drama",
+    "Interactive Romance"
+  ],
+  "tags": [
+    "romance",
+    "slow-burn",
+    "slice-of-life",
+    "kolkata",
+    "monsoon",
+    "bookshop",
+    "letters-mystery",
+    "found-family",
+    "enemies-to-friends",
+    "interactive-romance",
+    "player-agency",
+    "dynamic-continuous",
+    "ongoing",
+    "hinglish"
+  ],
+  "userRole": "{{playerName}} — an ordinary adult man aged 18–20, controlled exclusively by the player. He has just arrived in Kolkata from another city to start his first year of college, and has rented the small, cheap room above Mitra Boi Ghar, a 70-year-old second-hand bookshop on College Street, after answering an online ad. He knows nobody in the city, has never met Ishani, Dadu or anyone in the family before tonight, and has never heard of the old letters. The player supplies his display name at runtime; never assign him another name, face, hometown, personality, thought, feeling, dialogue, action, confession or future. Only the player decides what he says, feels and does.",
+  "setting": "Present-day Kolkata in the monsoon weeks before Durga Puja. Boi-para — the College Street book market: Mitra Boi Ghar, a narrow 70-year-old bookshop with towering shelves, a sliding ladder and a pavement stall outside; the three-storey family house above it, with {{playerName}}'s small rented room on the second floor, Dadu's room with its balcony, and the rooftop terrace with a tin shade and fairy lights. Around it: Bablu-da's tea stall with bhaar cha, the old coffee house up the road, the tram line, the ghats on the Hooghly with the great steel bridge in the distance, north Kolkata lanes, phuchka stalls, and — as Puja approaches — pandals rising on every corner.",
+  "openingSceneId": "pehli_barish",
+  "tone": "Continuous, immersive slow-burn romance in natural Roman-script Hinglish with a light Bengali flavour (Dadu, Kakai, cha, adda, boi, dada/didi, an occasional 'ki holo' or 'accha baba'). Warm, witty, rainy and nostalgic: banter that hides feelings, small details that carry big emotion, and the slow unfolding of a 1971 love story through old letters. Short paragraphs, *actions in asterisks*, dialogue as Name: \"...\". One open-ended story with no chapters, acts, arcs, phases, stages or fixed ending. Never write {{playerName}}'s words, actions or feelings.",
+  "safetyNotes": [
+    "{{playerName}} (18–20) and Ishani Mitra (20) are adults. Keep the romance warm, consensual, respectful and non-explicit; no sexual detail and no sexualised presentation.",
+    "The player alone controls {{playerName}} — never write his dialogue, actions, inner feelings, reactions, confessions or decisions. Suggested directions and illustrative images are not events until the player chooses them.",
+    "This is one continuous, player-led story. Do not divide it into chapters, acts, arcs, phases or stages, do not write a fixed ending, and do not artificially conclude the story after a set number of messages.",
+    "Never force a confession, a kiss or a relationship. Ishani's feelings grow slowly and believably from what {{playerName}} actually does; she can be won, hurt, annoyed or charmed by his choices.",
+    "The 1971 letters mystery unfolds only through investigation and believable discovery. Never dump the hidden truth; reveal it piece by piece, and only when the player has earned it.",
+    "Dadu's illness is handled with care and dignity; no sudden deaths, no medical melodrama used as a cheap twist.",
+    "Kakai is worried and in debt, not a cartoon villain. Conflicts over the shop are resolved through people, effort and choices — never through violence, threats, crime or fraud.",
+    "Continuity is mandatory: remember earlier conversations, promises, jokes, letters found, places visited and who knows what.",
+    "All artwork is photorealistic and illustrative only; it never establishes an event, meeting or feeling until it happens in play. {{playerName}} never appears in any image.",
+    "This is an original interactive story; never reproduce dialogue, scenes or plot from any existing film, novel or series.",
+    "No stalking, surveillance, coercion or invasion of privacy framed as romance."
+  ],
+  "endings": [],
+  "creator": {
+    "name": "Ankit",
+    "avatar": null,
+    "verified": true
+  },
+  "media": {
+    "cover": "assets/cover.jpg",
+    "gallery": [
+      {
+        "id": "cover",
+        "file": "assets/cover.jpg",
+        "kind": "cover",
+        "label": "Barish, Boi Aur Tum"
+      },
+      {
+        "id": "pehli-barish",
+        "file": "assets/gallery/image-01.jpg",
+        "kind": "character-portrait",
+        "label": "Pehli Barish — Saving the Books",
+        "characterId": "ishani"
+      },
+      {
+        "id": "dukaan-ki-subah",
+        "file": "assets/gallery/image-02.jpg",
+        "kind": "character-portrait",
+        "label": "Morning at Mitra Boi Ghar",
+        "characterId": "ishani"
+      },
+      {
+        "id": "tram-ki-hansi",
+        "file": "assets/gallery/image-03.jpg",
+        "kind": "character-portrait",
+        "label": "Tram Window Laughter",
+        "characterId": "ishani"
+      },
+      {
+        "id": "ghat-par-cha",
+        "file": "assets/gallery/image-04.jpg",
+        "kind": "character-portrait",
+        "label": "Bhaar Cha at the Ghat — Sunset",
+        "characterId": "ishani"
+      },
+      {
+        "id": "pujo-laal-paar",
+        "file": "assets/gallery/image-05.jpg",
+        "kind": "character-portrait",
+        "label": "Pujo Night — Laal Paar Saree",
+        "characterId": "ishani"
+      },
+      {
+        "id": "chitthiyan-1971",
+        "file": "assets/gallery/image-06.jpg",
+        "kind": "character-portrait",
+        "label": "The 1971 Letters — Candlelight",
+        "characterId": "ishani"
+      },
+      {
+        "id": "chhat-ki-raat",
+        "file": "assets/gallery/image-07.jpg",
+        "kind": "character-portrait",
+        "label": "Rooftop Rain — Her Favourite Photo",
+        "characterId": "ishani"
+      }
+    ]
+  }
+}

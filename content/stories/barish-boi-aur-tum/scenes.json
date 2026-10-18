@@ -1,0 +1,109 @@
+{
+  "storyId": "barish-boi-aur-tum",
+  "version": 1,
+  "scenes": [
+    {
+      "id": "pehli_barish",
+      "title": "Pehli Barish, Pehli Mulaqat",
+      "narration": [
+        "*Shaam ke 6:40. Kolkata ki pehli asli monsoon barish College Street par aise gir rahi hai jaise kisi ne poora aasman ulat diya ho. Trams ruk chuki hain, aur boi-para ki galiyon mein ghutno tak paani bhar raha hai.*",
+        "*Tumhare haath mein ek suitcase hai, kandhe par geela backpack, aur phone par ek purana online ad — Room above bookshop. Student only. Rent kam. Shart: kitabon se pyaar ho, aur raat 10 ke baad shor nahi. Pata: Mitra Boi Ghar, College Street.*",
+        "*Tabhi poori gali ki bijli ek jhatke mein chali jaati hai. Andhere mein sirf ek dukaan ke bahar laltain jal rahi hai — upar ek purana lakdi ka board: MITRA BOI GHAR, Est. 1952.*",
+        "*Board ke neeche ek ladki footpath ke stall se kitabon ke crate andar kheench rahi hai — poori bheegi hui, dupatta kamar mein khonsa hua, gol chashma naak par phisalta hua, aur baalon ke jude mein ek pencil phansi hui. Ek crate uske haath se phisalta hai, aur woh use pakadne ke liye seedha paani mein ghutne tek deti hai.*",
+        "Ishani Mitra: \"Na na na — tumhe nahi doobne doongi, Saratchandra! 1940 ka edition ho tum, mere saamne nahi marte!\"",
+        "*Phir uski nazar tum par padti hai — suitcase, geele joote, haath mein phone. Chashme ke peeche uski aankhein sikud jaati hain.*",
+        "Ishani Mitra: \"Agar tum Sen Developers wale ho, toh suno — yeh dukaan nahi bikegi. Na aaj, na Puja ke baad, na kabhi. Kakai ko bol dena agli baar khud aaye. Aur paani mein khade hokar ghoorna band karo — ya toh madad karo, ya raasta chhodo.\"",
+        "*Upar ki khidki se ek boodhi, kharaash bhari awaaz aati hai. Laltain ki roshni mein ek safed baalon wala chehra jhaankta hai — mota chashma, shawl, haath mein chhadi.*",
+        "Haren Mitra: \"Ishu! Woh developer nahi hai, pagli. Naya kirayedaar hai — maine bataya tha na? Bechare ko andar aane de, warna Kolkata ki pehli shaam mein hi bhaag jaayega.\"",
+        "*Ishani tumhe sar se pair tak dekhti hai, jaise kisi purani kitaab ka edition check kar rahi ho. Uske gaal par paani ki ek boond phisalti hai — ya shayad thodi si sharmindgi.*",
+        "Ishani Mitra: \"...Oh. Tum. Room wale. Theek hai — welcome to Kolkata. Ab aa hi gaye ho toh woh neela crate utha lo. Dhyaan se. Usmein Tagore hain.\"",
+        "*Usi pal sabse neeche wala crate palat jaata hai. Bheegi kitaabon ke beech se ek zang laga tin ka dabba girta hai aur khul jaata hai. Andar laal dhaage se bandhi peeli padi chitthiyon ka ek bundle hai. Sabse upar wali chitthi par fiki syahi mein likha hai — Mili ke liye. S. Shravan, 1971.*",
+        "*Ishani ki saans ek pal ke liye ruk jaati hai. Upar khidki par Dadu ki laltain halki si kaanpti hai — aur woh chupchaap andar chale jaate hain. Barish aur tez ho jaati hai.*",
+        "Ishani Mitra: \"Yeh dabba... yeh humari dukaan ka nahi hai. Kasam se, maine ise aaj tak kabhi nahi dekha. Aur Mili — Mili toh meri Thakuma ka naam tha.\""
+      ],
+      "fallbackLines": [
+        "*Barish tin ki chhat par lagataar dhol bajaa rahi hai. Laltain ki lau kaanpti hai, aur Ishani bheegi kitaabon aur tin ke dabbe ke beech khadi tumhari taraf dekh rahi hai — jaise pooch rahi ho, ab kya?*",
+        "Ishani Mitra: \"Accha baba, wahan khade-khade bheegte rahoge ya kuch karoge? Paani badh raha hai.\"",
+        "*Bablu-da ke band stall se radio ki halki si awaaz aati hai — Rabindrasangeet, barish ke shor mein aadha doobta hua. Upar Dadu ki khidki ab andheri hai.*"
+      ],
+      "choices": [
+        {
+          "id": "save_books_together",
+          "text": "*Suitcase ek taraf rakh kar Ishani ke saath bheegte hue kitaabon ke crate andar le jaana — pehle kitaabein, baaki sab baad mein.*",
+          "shortLabel": "Kitabein bachao",
+          "keywords": [
+            "help",
+            "books",
+            "crate",
+            "madad",
+            "kitaab",
+            "save"
+          ],
+          "next": null,
+          "effects": {
+            "memory": [
+              "On his first night {{playerName}} helped Ishani carry the soaked book crates into Mitra Boi Ghar during the flood."
+            ]
+          }
+        },
+        {
+          "id": "pick_up_letters",
+          "text": "*Paani mein gire tin ke dabbe ko jhatpat uthakar chitthiyon ko bheegne se bachana, aur Ishani ki taraf badhana.*",
+          "shortLabel": "Chitthiyan uthao",
+          "keywords": [
+            "letters",
+            "chitthi",
+            "box",
+            "dabba",
+            "tin",
+            "1971"
+          ],
+          "next": null,
+          "effects": {
+            "memory": [
+              "{{playerName}} rescued the tin box of 1971 letters from the flood water on his first night."
+            ]
+          }
+        },
+        {
+          "id": "introduce_with_joke",
+          "text": "*Muskura kar apna naam batana — aur developer wali galatfehmi par ek halka sa mazaak karna.*",
+          "shortLabel": "Naam batao",
+          "keywords": [
+            "name",
+            "joke",
+            "introduce",
+            "naam",
+            "mazaak",
+            "hello"
+          ],
+          "next": null,
+          "effects": {
+            "memory": [
+              "{{playerName}} introduced himself to Ishani with a joke about being mistaken for Sen Developers' agent."
+            ]
+          }
+        },
+        {
+          "id": "look_at_dadu_window",
+          "text": "*Upar andheri khidki ki taraf dekhna — Dadu chitthiyan dekh kar achanak andar kyun chale gaye?*",
+          "shortLabel": "Dadu ko dekho",
+          "keywords": [
+            "dadu",
+            "window",
+            "khidki",
+            "grandfather",
+            "upar"
+          ],
+          "next": null,
+          "effects": {
+            "memory": [
+              "{{playerName}} noticed Dadu withdraw from the window the moment the 1971 letters spilled out."
+            ]
+          }
+        }
+      ]
+    }
+  ],
+  "endings": []
+}

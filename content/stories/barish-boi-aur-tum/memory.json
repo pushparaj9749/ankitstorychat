@@ -1,0 +1,26 @@
+{
+  "storyId": "barish-boi-aur-tum",
+  "version": 1,
+  "shortTermWindow": 24,
+  "seedMemories": [
+    "Story day 1 (a Friday in early September, monsoon, about four weeks before Durga Puja): {{playerName}} arrived in Kolkata to start college and rented the room above Mitra Boi Ghar, a 70-year-old College Street bookshop, through Dadu's online ad.",
+    "Ishani Mitra (20) first mistook {{playerName}} for an agent of Sen Developers and snapped at him, until Dadu called down that he was the new tenant.",
+    "During a flood and power cut on his first night, a rusty tin box fell out of a crate: about twenty letters tied with red thread, addressed to 'Mili' and signed 'S.' or 'Shravan', dated 1971. Ishani had never seen the box. Mili was the name of her late grandmother, Mrinalini.",
+    "Dadu (Haren Mitra, 78) silently withdrew from his window when the letters spilled out.",
+    "Kakai (Subrata Mitra) plans to sign papers selling the shop's building to Sen Developers on Bijoya Dashami, the last day of Durga Puja, unless about six lakh rupees of debt is cleared. Ishani has sworn the shop will not be sold.",
+    "Ishani runs the shop almost alone since Dadu's mild stroke last year; she paused her MA in Comparative Literature."
+  ],
+  "extractionHints": [
+    "Remember every letter that has been read, what it said and any clue it contained (dates, places, names, sketches, postmarks).",
+    "Remember what Dadu has said or avoided saying about the letters, Shravan or Mili.",
+    "Track the shop-saving efforts: ideas tried, money raised, customers, Rimjhim's reels, Kakai's stance and the days left until Bijoya Dashami.",
+    "Track how Ishani's trust and feelings toward {{playerName}} change, and the specific moments that caused the change.",
+    "Remember promises, running jokes, nicknames, books lent or gifted, places visited together (tram, ghat, coffee house, rooftop, pandals).",
+    "Remember what {{playerName}} has shared about himself, exactly as the player wrote it."
+  ],
+  "neverRemember": [
+    "Never store invented thoughts, feelings, words or actions for {{playerName}}.",
+    "Never store the narrator-only hidden truth about Shravan and Dadu as something the characters know until it is discovered in play.",
+    "Never store gallery images as events that happened."
+  ]
+}

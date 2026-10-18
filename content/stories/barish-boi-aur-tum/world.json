@@ -1,0 +1,135 @@
+{
+  "storyId": "barish-boi-aur-tum",
+  "version": 1,
+  "premise": "{{playerName}}, 18–20, arrives in Kolkata on the stormiest evening of the monsoon to start college and rents the room above Mitra Boi Ghar, a 70-year-old bookshop on College Street. Its fierce young keeper, Ishani Mitra, is fighting to stop her uncle selling the shop after Durga Puja. On his first night a flood knocks loose a hidden tin box of unsent 1971 love letters addressed to 'Mili' and signed 'S'. Between rain, debts, Puja preparations and a fifty-year-old secret, a slow, open-ended romance begins — shaped only by the player's choices.",
+  "locations": [
+    {
+      "id": "mitra_boi_ghar",
+      "name": "Mitra Boi Ghar",
+      "description": "A narrow, deep bookshop founded in 1952: floor-to-ceiling wooden shelves, a sliding ladder, an old counter with a brass bell, a pavement stall outside under a tin awning, and a hurricane lantern for the frequent power cuts. Smells of paper, damp and cha."
+    },
+    {
+      "id": "player_room",
+      "name": "{{playerName}}'s Room",
+      "description": "A small second-floor room above the shop with a creaky ceiling fan, a narrow bed, a desk by a green-shuttered window overlooking the lane, and a shelf Ishani insists he fill with books."
+    },
+    {
+      "id": "dadu_room",
+      "name": "Dadu's Room and Balcony",
+      "description": "First floor: an old four-poster bed, a chessboard, a gramophone, a framed photograph of young Mili, and a balcony from which Dadu watches the whole lane."
+    },
+    {
+      "id": "rooftop",
+      "name": "The Rooftop Terrace",
+      "description": "Tulsi plants, terracotta pots, a tin shade strung with fairy lights and a view across north Kolkata's old rooftops. Ishani's private thinking place, especially in the rain."
+    },
+    {
+      "id": "bablu_stall",
+      "name": "Bablu-da's Tea Stall",
+      "description": "Next door to the shop: bhaar cha in clay cups, biscuits in glass jars, a radio playing Rabindrasangeet, and the lane's daily adda."
+    },
+    {
+      "id": "coffee_house",
+      "name": "The Old Coffee House",
+      "description": "A high-ceilinged, smoky, century-old coffee house up the road where writers, students and poets have argued for generations; waiters in turbans; old regulars who might remember a poet called Shravan."
+    },
+    {
+      "id": "tram",
+      "name": "The Kolkata Tram",
+      "description": "Slow, rattling old trams with wooden seats and open windows — Ishani's favourite way to think, and to go nowhere in particular."
+    },
+    {
+      "id": "ghat",
+      "name": "The Hooghly Ghat",
+      "description": "Old stone steps down to the river, the great steel cantilever bridge in the distance, boats, sunsets and bhaar cha. Where people in Kolkata go to say difficult things."
+    },
+    {
+      "id": "pandals",
+      "name": "Puja Pandals",
+      "description": "As Durga Puja approaches, bamboo frames rise on every corner and turn into glowing temples of light, dhak drums and crowds; the sale is to be signed on Bijoya Dashami, the final day."
+    },
+    {
+      "id": "sen_office",
+      "name": "Sen Developers' Office",
+      "description": "A glossy glass office on Park Street with brochures promising a 'heritage-themed' mall where boi-para now stands."
+    }
+  ],
+  "factions": [
+    {
+      "id": "mitra_family",
+      "name": "The Mitra Family",
+      "description": "Dadu, Ishani and Kakai — bound by love for the shop, divided over its future."
+    },
+    {
+      "id": "boi_para",
+      "name": "Boi-para Booksellers",
+      "description": "The neighbouring stall-owners and booksellers of College Street; gossipy, competitive, and united against developers."
+    },
+    {
+      "id": "sen_developers",
+      "name": "Sen Developers",
+      "description": "A real-estate firm buying up old College Street buildings; polite, persistent and powerful, but bound by law and public opinion."
+    }
+  ],
+  "lore": [
+    "Mitra Boi Ghar was founded in 1952 by Ishani's great-grandfather, Nirmal Mitra, and has never closed for a single Puja.",
+    "Mrinalini 'Mili' Mitra, Ishani's grandmother, was a schoolteacher who loved poetry; she died three years ago. Her photograph hangs in Dadu's room.",
+    "In 1971 young Bengali writers and journalists crossed the border to report on the Liberation War of Bangladesh; some never came back.",
+    "The letters in the tin box are dated monsoon to December 1971, written from Kolkata and later from the border, in elegant Bengali-English handwriting; there are about twenty of them, and the last one is unfinished.",
+    "HIDDEN TRUTH (narrator-only, reveal only through play): 'S' is Shravan Ghosh, Dadu's best friend, a poet who loved Mili and went to the war as a journalist; Dadu hid the letters and later married Mili. Shravan was reported missing in December 1971 — but he survived, settled in Shantiniketan as a retired teacher, and is alive today at 77 under the name S. Ghosh. Whether the player and Ishani ever find him is entirely up to play.",
+    "Bablu-da's late father ran the same tea stall in the 1970s and knew the coffee-house poets.",
+    "The shop owes roughly six lakh rupees in back taxes, repairs and Kakai's guaranteed loan. Kakai has agreed to sign the sale papers on Bijoya Dashami unless the debt can be cleared."
+  ],
+  "rules": [
+    "Only the player controls {{playerName}}. Never write his dialogue, actions, decisions, thoughts, feelings, reactions or confessions, and never decide how he feels about Ishani. Describe the world and the other characters, then stop where the player can act.",
+    "This is an endless, dynamic story: one continuous, open-ended slow burn with no chapters, acts, arcs, phases or stages and no fixed ending. Never announce a new part of the story and never wrap it up. Bijoya Dashami is a deadline inside the story, not the end of the story.",
+    "Time and place must always be clear and follow a believable chronology (rain, college days, shop hours, power cuts, Puja days). Emit location, storyTime, presentCharacters and activity in kissa-state whenever they change.",
+    "Ishani's affection is earned slowly. She starts embarrassed and guarded; she warms through genuine help, humour, respect for books and Dadu, and keeping promises. She is never instantly in love and never a pushover; she can be annoyed, hurt or proud, and she apologises when she is wrong.",
+    "The letters mystery advances only through concrete, believable clues: reading the letters, dates and postmarks, coffee-house regulars, Bablu-da's memories, old newspapers, Dadu's reactions, Mili's diaries. Never reveal the hidden truth in one dump; Dadu confesses only under strong evidence and emotional trust.",
+    "The shop's fate depends on what the characters actually do: book fairs, Rimjhim's reels, restoring rare books, talking to Kakai, finding a buyer for a rare edition, the community. No magic money; no crime.",
+    "Keep the Kolkata texture vivid but respectful: rain, trams, cha in bhaar, adda, phuchka, dhak drums, Bengali words used naturally. Do not stereotype or mock Bengali culture.",
+    "Write dialogue as Name: \"...\" on its own line and actions in *asterisks*. Keep paragraphs short. Use full names for speakers (Ishani Mitra, Haren Mitra, Subrata Mitra, Rimjhim Dutta, Bablu Das).",
+    "Images are illustrative. Never claim an event in a gallery image has happened until it happens in play."
+  ],
+  "importantObjects": [
+    {
+      "id": "tin_box",
+      "name": "The Rusty Tin Box",
+      "description": "A zang-laga tea tin with a faded floral lid, found in the flood. Inside: about twenty letters tied with red thread, addressed 'Mili ke liye' and signed 'S.' or 'Shravan', dated 1971. The last one is unfinished."
+    },
+    {
+      "id": "first_line_notebook",
+      "name": "Ishani's First-Lines Notebook",
+      "description": "A cloth-bound notebook where Ishani copies the first lines of every book she loves; she lets no one read it."
+    },
+    {
+      "id": "dadu_chessboard",
+      "name": "Dadu's Chessboard",
+      "description": "A worn sandalwood chess set. Dadu hides things under the board's felt lining."
+    },
+    {
+      "id": "mili_photo",
+      "name": "Mili's Photograph",
+      "description": "A black-and-white 1972 photo of young Mrinalini in Dadu's room — the same face, Ishani will notice, as in a small sketch tucked inside one of the letters."
+    },
+    {
+      "id": "sale_papers",
+      "name": "The Sale Papers",
+      "description": "Sen Developers' agreement to buy the building, to be signed on Bijoya Dashami."
+    },
+    {
+      "id": "hurricane_lantern",
+      "name": "The Hurricane Lantern",
+      "description": "The shop's old brass lantern, lit every power cut since 1952."
+    }
+  ],
+  "timeline": [
+    "1952: Nirmal Mitra opens Mitra Boi Ghar on College Street.",
+    "Monsoon–December 1971: 'S' writes letters to Mili that never reach her; he is reported missing in December.",
+    "1973: Haren Mitra marries Mrinalini (Mili).",
+    "Three years ago: Mili dies.",
+    "Last year: Dadu has a mild stroke; Ishani pauses her MA to run the shop.",
+    "Two months ago: Kakai agrees in principle to sell to Sen Developers; signing set for Bijoya Dashami.",
+    "Tonight (story day 1, a Friday in early September, about four weeks before Durga Puja): {{playerName}} arrives in a monsoon storm and power cut; the flood knocks the tin box of letters loose."
+  ]
+}
