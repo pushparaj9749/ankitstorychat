@@ -1,0 +1,123 @@
+{
+  "storyId": "meethi-dushmani",
+  "version": 1,
+  "premise": "{{playerName}}, 18–20, comes home to old Jaipur for the Diwali holidays and must run his family's sweet shop, Laxmi Mishthan Bhandar, because Papa is laid up. Directly across the lane is Agarwal Sweets — the rival family of a twelve-year feud — and Mishri Agarwal, his childhood rooftop best friend, now 20, whose arranged rishta with a London boy is to be fixed after Diwali. Between festive chaos, meddling dadis, a sweet competition on Dhanteras and a family secret twelve years old, a warm, open-ended romantic family drama begins — shaped only by the player's choices.",
+  "locations": [
+    {
+      "id": "mishri_gali",
+      "name": "Mishri Gali",
+      "description": "A narrow pink-sandstone bazaar lane in old Jaipur lined with sweet shops, marigold garlands, festive lights, cows, cycle-rickshaws and rooftop monkeys; the whole lane watches the two rival shops like a cricket match."
+    },
+    {
+      "id": "laxmi_mishthan",
+      "name": "Laxmi Mishthan Bhandar",
+      "description": "{{playerName}}'s family shop since 1978: glass counters of ghewar, kaju katli and besan laddoos, brass lamps, a framed photo of Dadaji Laxmi Chand garlanded on the wall, and a kitchen of iron kadhais behind."
+    },
+    {
+      "id": "agarwal_sweets",
+      "name": "Agarwal Sweets",
+      "description": "Directly opposite: brighter lights, louder music, a photo of Dadaji Narayan Agarwal, and Mishri's corner of the counter where she tests her fusion sweets."
+    },
+    {
+      "id": "joined_rooftops",
+      "name": "The Joined Rooftops",
+      "description": "The flat roofs of the two havelis meet, divided only by a knee-high old wall. Kites, marbles, chalk games and twelve years of silence; the best view of the pink city at sunset."
+    },
+    {
+      "id": "hanuman_temple",
+      "name": "The Little Hanuman Temple",
+      "description": "At the end of the lane: bells, marigolds, incense and old stone steps. Every Thursday evening two old women visit at the same time."
+    },
+    {
+      "id": "pink_city",
+      "name": "The Pink City Streets",
+      "description": "The honeycomb palace facade at golden hour, bangle and bandhej bazaars, kachori stalls and roasted-peanut carts."
+    },
+    {
+      "id": "hill_fort",
+      "name": "The Hill Fort at Sunset",
+      "description": "A fort high above the city where young people go to watch the sunset and say what they cannot say at home."
+    },
+    {
+      "id": "mahotsav_ground",
+      "name": "Mithai Mahotsav Ground",
+      "description": "A big festive ground where the city's sweet makers compete on Dhanteras before judges and crowds; the trophy has gone to Agarwal Sweets three years running."
+    }
+  ],
+  "factions": [
+    {
+      "id": "laxmi_family",
+      "name": "The Laxmi Mishthan Family",
+      "description": "Dadi Kamla Devi, Papa (laid up with a back injury), Maa and {{playerName}} — proud of the original recipes and of Dadaji's memory."
+    },
+    {
+      "id": "agarwal_family",
+      "name": "The Agarwal Family",
+      "description": "Dadi Sushila, Rajendra and his wife, Mishri and cousin Pinky — louder, richer and convinced they were wronged."
+    },
+    {
+      "id": "mohalla",
+      "name": "The Mohalla",
+      "description": "Neighbours, customers, rickshaw-wallas and aunties of Mishri Gali; the most efficient gossip network in Rajasthan."
+    }
+  ],
+  "lore": [
+    "In 1978 two best friends, Laxmi Chand and Narayan Agarwal, opened the joint shop Laxmi-Narayan Mishthan Bhandar; its legendary ghewar recipe lived in one handwritten notebook.",
+    "Twelve years ago, days before Diwali, the joint shop's godown caught fire. Each family blamed the other's son for negligence, and the recipe notebook disappeared in the chaos. The partnership broke; two rival shops opened facing each other. Both grandfathers died without reconciling.",
+    "As small children, {{playerName}} and Mishri played on the joined rooftops every evening; the night before the split he gave her his best blue glass marble, the 'neela raja'.",
+    "The city's Mithai Mahotsav is held on Dhanteras; Agarwal Sweets has won three years running.",
+    "Mishri's roka with Rishabh Malhotra of London is planned for the day after Diwali; his family arrives on Dhanteras.",
+    "HIDDEN TRUTH (narrator-only, reveal only through play): (1) the recipe notebook was torn in half during the fight; Dadi Kamla and Dadi Sushila each secretly keep one half, and they have met every Thursday evening at the Hanuman temple for twelve years, still like sisters, scheming to reunite the families; (2) an unopened fire-inspector's report in Sushila's almirah proves the fire was an electrical short-circuit — nobody's fault; (3) Rishabh is in love with a girl named Sana in London and agreed to this visit only under pressure."
+  ],
+  "rules": [
+    "Only the player controls {{playerName}}. Never write his dialogue, actions, decisions, thoughts, feelings, reactions or confessions, and never decide how he feels about Mishri. Describe the world and the other characters, then stop where the player can act.",
+    "This is an endless, dynamic story: one continuous, open-ended slow burn with no chapters, acts, arcs, phases or stages and no fixed ending. Never announce a new part of the story and never wrap it up. Dhanteras, Diwali and the roka are events inside the story, not the end of the story.",
+    "Time and place must always be clear and follow a believable festive chronology (shop hours, days left to Dhanteras and Diwali, Thursday evenings). Emit location, storyTime, presentCharacters and activity in kissa-state whenever they change.",
+    "Mishri is radiantly cute, warm and beautiful, and the narration should let that shine through specific details — her dimples, clinking bangles, mogra in her braid, the way she feeds everyone — without ever reducing her to her looks. She is clever, brave and has her own goals.",
+    "Mishri's affection is earned slowly. Old fondness is real, but twelve years and two families stand between them; she warms through honesty, kindness, respect for both families and courage. She is never instantly in love and never a pushover.",
+    "Family drama drives the story: the feud, the rishta, the Mithai Mahotsav, Papa's injury, meddling dadis, the mohalla's gossip. Elders are stubborn but loving; conflicts move through conversations, gestures, festivals and choices.",
+    "The past unfolds only through concrete, believable clues: the torn recipe pages, Thursday evenings, old photographs, the unopened envelope, the dadis' slips of tongue. Never reveal the hidden truth in one dump.",
+    "Keep the Jaipur texture vivid and respectful: pink sandstone, marigolds, mithai, kites, bangles, Rajasthani words used naturally. Do not stereotype or mock Marwari culture.",
+    "Write dialogue as Name: \"...\" on its own line and actions in *asterisks*. Keep paragraphs short. Use full names for speakers (Mishri Agarwal, Kamla Devi, Sushila Agarwal, Rajendra Agarwal, Rishabh Malhotra, Pinky Agarwal).",
+    "Images are illustrative. Never claim an event in a gallery image has happened until it happens in play."
+  ],
+  "importantObjects": [
+    {
+      "id": "neela_kancha",
+      "name": "The Blue Marble (Neela Raja)",
+      "description": "A small clear-blue glass marble {{playerName}} gave Mishri as a child the night before the families split. She keeps it in her jewellery box."
+    },
+    {
+      "id": "recipe_book",
+      "name": "The Torn Recipe Notebook",
+      "description": "The original Laxmi-Narayan ghewar recipe book, torn in half twelve years ago; each half is hidden somewhere in a different haveli."
+    },
+    {
+      "id": "ghewar_box",
+      "name": "The Stolen Ghewar Box",
+      "description": "Agarwal Sweets' box for Sharma aunty's order, emptied by a monkey on {{playerName}}'s counter on the first morning."
+    },
+    {
+      "id": "mogra_flower",
+      "name": "The Mogra Flower",
+      "description": "A white jasmine flower that fell from Mishri's braid onto {{playerName}}'s counter."
+    },
+    {
+      "id": "inspector_report",
+      "name": "The Unopened Envelope",
+      "description": "A brown government envelope in Sushila's steel almirah, unopened for twelve years."
+    },
+    {
+      "id": "mahotsav_trophy",
+      "name": "The Mithai Mahotsav Trophy",
+      "description": "A brass trophy shaped like a laddoo, held by Agarwal Sweets for three years."
+    }
+  ],
+  "timeline": [
+    "1978: Laxmi Chand and Narayan Agarwal open Laxmi-Narayan Mishthan Bhandar together.",
+    "Twelve years ago, days before Diwali: the godown fire; the recipe book disappears; the families split; {{playerName}} gives Mishri his blue marble the night before.",
+    "Five years ago and three years ago: the two grandfathers die, unreconciled.",
+    "This year: Mishri finishes her B.Com; her family fixes her match with Rishabh Malhotra of London.",
+    "Story day 1 (a Sunday morning about twelve days before Dhanteras): {{playerName}} runs the family counter for the first time; a monkey steals Mishri's ghewar box and drops it on his counter."
+  ]
+}
