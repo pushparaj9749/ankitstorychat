@@ -58,6 +58,17 @@ moves the tale forward — with memory, relationships, branching, and multiple e
 
 ## 🆕 Release notes
 
+### v2.6.2 — Smoothness pass 2 (app-wide re-renders, image decode, typing)
+
+- **No more whole-app re-renders:**
+  - The navigation theme was an inline object, so every app-state change (a saved message, a favourite, a journey refresh) made `NavigationContainer` re-render the entire tree. It is now memoised.
+  - Tabs and stack screens use `freezeOnBlur`, so hidden screens (Home behind Chat, inactive tabs) skip renders until they are visible again.
+  - The tab-bar renderer is stable.
+- **No full-resolution decode just to read a size:** on Android `Image.getSize` decodes the whole image. `NaturalImage` now skips it there and reads the true size from the load event.
+- **Instant re-mounts:** measured ratios are cached by uri, so cards recycled by the virtualised rails lay out immediately instead of flashing a placeholder and changing height mid-scroll.
+- **Stable cover sources:** `useCover` memoises its `{ uri }` object, so native image views stop seeing a "new" source on every render.
+- **Typing in Chat:** the composer is uncontrolled (text in a ref). A keystroke no longer re-renders the Chat screen; only the empty/non-empty flip does.
+
 ### v2.6.1 — Smoothness pass (scroll & typing performance)
 
 Same look; much less work per frame.

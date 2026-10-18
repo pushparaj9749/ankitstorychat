@@ -9,7 +9,7 @@
  * a blurred ambient wash of the same art — so there are no empty bands above,
  * below or beside a cover any more.
  */
-import React, { memo } from 'react';
+import React, { memo, useMemo } from 'react';
 import { Pressable, StyleSheet, Text, View, type DimensionValue, type StyleProp, type ViewStyle } from 'react-native';
 import { LinearGradient } from 'expo-linear-gradient';
 import type { StoryMeta } from '../types';
@@ -31,7 +31,10 @@ const ON_ART_DIM = 'rgba(247,243,255,0.78)';
 
 function useCover(meta: StoryMeta) {
   const { settings } = useApp();
-  return getBundledCoverSource(meta, effectiveContentApiBaseUrl(settings?.contentApiBaseUrl));
+  const base = effectiveContentApiBaseUrl(settings?.contentApiBaseUrl);
+  // Stable source object: a fresh `{ uri }` each render made native Image
+  // views treat the cover as a new source and re-request it.
+  return useMemo(() => getBundledCoverSource(meta, base), [meta, base]);
 }
 
 /**

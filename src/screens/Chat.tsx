@@ -9,7 +9,7 @@
  * - Bottom navigation hides, composer remains
  * - kissa-state leak fixed at parsing layer (engine.ts)
  */
-import React, { useEffect, useMemo, useRef, useState } from 'react';
+import React, { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import { FlatList, Image, KeyboardAvoidingView, Platform, Pressable, StyleSheet, Text, TextInput, View } from 'react-native';
 import { LinearGradient } from 'expo-linear-gradient';
 import { SafeAreaView } from 'react-native-safe-area-context';
@@ -83,7 +83,21 @@ export function Chat({ navigation, route }: Props) {
   const [reloadKey, setReloadKey] = useState(0);
   const [loadingMore, setLoadingMore] = useState(false);
   const [hasMore, setHasMore] = useState(false);
-  const [input, setInput] = useState('');
+  // Uncontrolled composer: the text lives in a ref, so a keystroke doesn't
+  // re-render this whole screen — only the empty/non-empty flip does.
+  const inputRef = useRef<TextInput>(null);
+  const textRef = useRef('');
+  const [hasText, setHasText] = useState(false);
+  const onChangeText = useCallback((t: string) => {
+    textRef.current = t;
+    const next = t.trim().length > 0;
+    setHasText((prev) => (prev === next ? prev : next));
+  }, []);
+  const clearInput = useCallback(() => {
+    textRef.current = '';
+    inputRef.current?.clear();
+    setHasText(false);
+  }, []);
   const [sending, setSending] = useState(false);
   const [actionsOpen, setActionsOpen] = useState(false);
   const [typingLabel, setTypingLabel] = useState('Continuing…');
@@ -407,7 +421,7 @@ export function Chat({ navigation, route }: Props) {
     setSending(true);
     setAiError(null);
     setActionsOpen(false);
-    setInput('');
+    clearInput();
 
     const userMsg: ChatMessage = {
       id: uid('m'),
@@ -698,8 +712,8 @@ export function Chat({ navigation, route }: Props) {
           ) : null}
           <View style={styles.inputRow}>
             <TextInput
-              value={input}
-              onChangeText={setInput}
+              ref={inputRef}
+              onChangeText={onChangeText}
               placeholder={playthrough.status === 'completed' ? 'Journey ended — start new?' : 'Write your next move…'}
               placeholderTextColor={theme.textFaint}
               multiline
@@ -725,13 +739,13 @@ export function Chat({ navigation, route }: Props) {
               <Icon name="bulb-outline" size={ICON_SIZE.md} color={actionsOpen ? theme.accent : theme.textDim} />
             </Pressable>
             <Pressable
-              onPress={() => void send(input)}
-              disabled={sending || !input.trim()}
+              onPress={() => void send(textRef.current)}
+              disabled={sending || !hasText}
               accessibilityRole="button"
               accessibilityLabel="Send"
               style={({ pressed }) => [
                 styles.send,
-                { opacity: sending || !input.trim() ? 0.4 : pressed ? 0.85 : 1, transform: [{ scale: pressed ? 0.96 : 1 }] },
+                { opacity: sending || !hasText ? 0.4 : pressed ? 0.85 : 1, transform: [{ scale: pressed ? 0.96 : 1 }] },
               ]}
             >
               <LinearGradient colors={[...GRADIENTS.primary]} start={{ x: 0, y: 0 }} end={{ x: 1, y: 1 }} style={StyleSheet.absoluteFill} />
