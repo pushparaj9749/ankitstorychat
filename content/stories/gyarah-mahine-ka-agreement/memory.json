@@ -1,0 +1,26 @@
+{
+  "storyId": "gyarah-mahine-ka-agreement",
+  "version": 1,
+  "shortTermWindow": 24,
+  "seedMemories": [
+    "Story day 1 (a rainy Friday in late October, 11:47 PM): {{playerName}} arrived in Bangalore for an internship and walked into Flat 302, Shetty Residency, Koramangala, expecting to live alone — and found Tanvi Rao (22) already there.",
+    "Tanvi first mistook {{playerName}} for an intruder and pointed a selfie stick at him.",
+    "Both had paid deposits to the NestMate broker 'Vicky bhaiya', who has vanished. The e-signed rent agreement names both as co-tenants for 11 months with a six-month lock-in; rent is split half-half and due by the 5th.",
+    "Shetty Uncle (Ramesh Shetty), the landlord downstairs, enforces strict rules: no parties, no pets, no couples, no noise after 10 PM. Tanvi told him they are not a couple and do not know each other.",
+    "Tanvi is the founder of the mental-wellness app Saans. Her ex-boyfriend and former co-founder Kunal Bhatia left with much of the code to join the rival ZenGrid and mocked her by text tonight. Demo Day is exactly three weeks away.",
+    "Something — a wet brown dog — is hidden on the balcony; Tanvi pulled the curtain shut when it appeared. A power cut hit the building as she started making the flat rules."
+  ],
+  "extractionHints": [
+    "Remember every rule added to, negotiated on or crossed off the fridge rule board, and who wrote it.",
+    "Track the broker-scam investigation: clues found, complaints filed, other victims contacted, and what Shetty Uncle knows.",
+    "Track Saans and Demo Day: days left, demo progress, investor contacts, Kunal's moves and what {{playerName}} has done to help or not.",
+    "Track how Tanvi's trust and feelings toward {{playerName}} change, and the specific moments that caused the change.",
+    "Remember texts exchanged, running jokes (the selfie stick, cold coffee, the water motor), nicknames, places visited together and promises made.",
+    "Remember what {{playerName}} has shared about himself, exactly as the player wrote it."
+  ],
+  "neverRemember": [
+    "Never store invented thoughts, feelings, words or actions for {{playerName}}.",
+    "Never store the narrator-only hidden truth about Pradeep and the scam as something the characters know until it is discovered in play.",
+    "Never store gallery images as events that happened."
+  ]
+}

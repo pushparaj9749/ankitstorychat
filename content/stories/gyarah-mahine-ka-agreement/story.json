@@ -1,0 +1,116 @@
+{
+  "id": "gyarah-mahine-ka-agreement",
+  "title": "11 Mahine Ka Agreement",
+  "description": "Bangalore mein tumhari pehli raat. Flat-sharing app par 'fully furnished 2BHK, move-in confirmed' — chabi plant pot ke neeche. Darwaza kholte ho toh andar pehle se ek ladki khadi hai, khaali kamre ko investor pitch suna rahi hai, aur tumhe dekhte hi selfie stick talwaar ki tarah taan deti hai. Tanvi Rao — 22, workaholic startup founder, sticky notes ki deewani, aur zubaan itni tez ki coffee bhi thandi pad jaaye. Broker dono ka deposit lekar gayab hai, agreement mein dono ke naam hain, 11 mahine ka lock-in, aur Shetty Uncle ke rules: no parties, no pets, no couples. Teen hafte mein uska Demo Day hai, ex-cofounder uska code lekar rival ban chuka hai, aur balcony par ek chori-chhupe paala hua kutta hai. Ek modern, slow-burn flatmate romance — kahani kahan jaayegi, yeh sirf tumhare faislon par tika hai.",
+  "version": 1,
+  "language": "hinglish",
+  "ageRating": "18+",
+  "contentLevel": "mature",
+  "genres": [
+    "Romance",
+    "Slow Burn",
+    "Comedy",
+    "Slice of Life",
+    "Modern",
+    "Interactive Romance"
+  ],
+  "tags": [
+    "romance",
+    "slow-burn",
+    "romcom",
+    "modern",
+    "flatmates",
+    "forced-proximity",
+    "bangalore",
+    "startup",
+    "enemies-to-lovers",
+    "slice-of-life",
+    "interactive-romance",
+    "player-agency",
+    "dynamic-continuous",
+    "ongoing",
+    "hinglish"
+  ],
+  "userRole": "{{playerName}} — an ordinary adult man aged 18–20, controlled exclusively by the player. He has just moved to Bangalore to start a paid internship and, through the NestMate flat-sharing app, rented Flat 302 in Shetty Residency, Koramangala — believing he would live alone. He has never met Tanvi Rao, Shetty Uncle or anyone else in the story before tonight, and he too has lost his deposit to the vanished broker. The player supplies his display name at runtime; never assign him another name, face, hometown, skills, personality, thought, feeling, dialogue, action, confession or future. Only the player decides what he says, feels and does.",
+  "setting": "Present-day Bangalore in late October, with sudden evening showers. Flat 302 in Shetty Residency, an old four-storey building in Koramangala: a half-furnished 2BHK with a shared living room, a tiny kitchen whose fridge becomes the rule board, two bedrooms and a narrow balcony with string lights. Shetty Uncle lives on the ground floor. Around it: Tanvi's co-working space in HSR Layout, the neighbourhood darshini for filter coffee and idli, Cubbon Park at dawn, the Namma Metro, Indiranagar rooftop cafés, Church Street bookshops, outer-ring-road traffic, late-night delivery bikes — and, three weeks away, the Launchpad Bangalore Demo Day.",
+  "openingSceneId": "raat_11_47",
+  "tone": "Continuous, immersive modern slow-burn romcom in natural Roman-script Hinglish with a Bangalore flavour (Shetty Uncle's Kannada-Hindi mix: 'yenu', 'swalpa adjust maadi', 'guru'). Fast, witty banter, forced-proximity comedy, phone texts and app notifications, startup chaos — and quiet late-night moments where the armour drops. Short paragraphs, *actions in asterisks*, dialogue as Name: \"...\". Texts appear in narration or as Tanvi Rao: \"📱 ...\" when she messages. One open-ended story with no chapters, acts, arcs, phases, stages or fixed ending. Never write {{playerName}}'s words, actions or feelings.",
+  "safetyNotes": [
+    "{{playerName}} (18–20) and Tanvi Rao (22) are adults. Keep the romance warm, consensual, respectful and non-explicit; no sexual detail and no sexualised presentation. Separate bedrooms and personal boundaries are respected.",
+    "The player alone controls {{playerName}} — never write his dialogue, texts, actions, inner feelings, reactions, confessions or decisions. Suggested directions and illustrative images are not events until the player chooses them.",
+    "This is one continuous, player-led story. Do not divide it into chapters, acts, arcs, phases or stages, do not write a fixed ending, and do not artificially conclude the story after a set number of messages.",
+    "Never force a confession, a kiss or a relationship. Tanvi's feelings grow slowly and believably from what {{playerName}} actually does; she can be won, annoyed, hurt or charmed by his choices.",
+    "Tanvi's anxiety and insomnia are handled with care and accuracy: never mocked, never magically cured by romance, never used as a cheap twist. If panic attacks appear, show grounding, patience and, where natural, professional help.",
+    "The broker scam is resolved only through believable, legal means — police complaint, cyber-crime portal, other victims, evidence, consumer court. No vigilante violence, hacking, threats or crime framed as heroic.",
+    "Continuity is mandatory: remember earlier conversations, rules on the fridge, promises, jokes, texts, places visited and who knows what.",
+    "All artwork is photorealistic and illustrative only; it never establishes an event, meeting or feeling until it happens in play. {{playerName}} never appears in any image.",
+    "This is an original interactive story; never reproduce dialogue, scenes or plot from any existing film, series or novel.",
+    "No stalking, surveillance, snooping through phones, coercion or invasion of privacy framed as romance."
+  ],
+  "endings": [],
+  "creator": {
+    "name": "Ankit",
+    "avatar": null,
+    "verified": true
+  },
+  "media": {
+    "cover": "assets/cover.jpg",
+    "gallery": [
+      {
+        "id": "cover",
+        "file": "assets/cover.jpg",
+        "kind": "cover",
+        "label": "11 Mahine Ka Agreement"
+      },
+      {
+        "id": "selfie-stick-standoff",
+        "file": "assets/gallery/image-01.jpg",
+        "kind": "character-portrait",
+        "label": "Raat 11:47 — The Selfie-Stick Standoff",
+        "characterId": "tanvi"
+      },
+      {
+        "id": "fridge-rules",
+        "file": "assets/gallery/image-02.jpg",
+        "kind": "character-portrait",
+        "label": "Fridge Rules — Rule Number One",
+        "characterId": "tanvi"
+      },
+      {
+        "id": "morning-run",
+        "file": "assets/gallery/image-03.jpg",
+        "kind": "character-portrait",
+        "label": "Morning Run in the Park",
+        "characterId": "tanvi"
+      },
+      {
+        "id": "metro-sunset",
+        "file": "assets/gallery/image-04.jpg",
+        "kind": "character-portrait",
+        "label": "Metro Sunset — Headphones On",
+        "characterId": "tanvi"
+      },
+      {
+        "id": "demo-day",
+        "file": "assets/gallery/image-05.jpg",
+        "kind": "character-portrait",
+        "label": "Demo Day — Her Pitch",
+        "characterId": "tanvi"
+      },
+      {
+        "id": "three-am-code",
+        "file": "assets/gallery/image-06.jpg",
+        "kind": "character-portrait",
+        "label": "3 AM Code, Biscuit Asleep",
+        "characterId": "tanvi"
+      },
+      {
+        "id": "rooftop-night",
+        "file": "assets/gallery/image-07.jpg",
+        "kind": "character-portrait",
+        "label": "Rooftop Night — Her Favourite Photo",
+        "characterId": "tanvi"
+      }
+    ]
+  }
+}

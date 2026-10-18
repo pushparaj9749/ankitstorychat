@@ -1,0 +1,111 @@
+{
+  "storyId": "gyarah-mahine-ka-agreement",
+  "version": 1,
+  "scenes": [
+    {
+      "id": "raat_11_47",
+      "title": "Raat 11:47, Flat 302",
+      "narration": [
+        "*Raat ke 11:47. Bangalore ki achanak wali barish abhi-abhi ruki hai, aur Koramangala ki geeli sadkein delivery bikes ki headlights se chamak rahi hain. Tumhare phone par NestMate app khula hai — Flat 302, Shetty Residency. Fully furnished 2BHK. Move-in confirmed. Broker Vicky bhaiya ne kaha tha chabi darwaze ke paas wale plant pot ke neeche milegi.*",
+        "*Chabi wahin hai. Par darwaza khulte hi andar ki lights jal rahi hain. Living room mein cardboard boxes, ek laptop ki neeli roshni, aur ek ladki — oversized grey t-shirt, track pants, copper highlights wale wavy baal kaan ke peeche — khaali kamre ke saamne khadi hokar poore josh mein bol rahi hai.*",
+        "Tanvi Rao: \"...aur isiliye, ma'am, Saans sirf ek app nahi hai. Yeh har us student ke liye hai jo raat ke teen baje chhat ko ghoorta hai aur sochta hai ki—\"",
+        "*Woh palat'ti hai. Tumhe dekhti hai. Ek second ki khamoshi. Phir woh table se selfie stick uthakar talwaar ki tarah tumhari taraf taan deti hai.*",
+        "Tanvi Rao: \"Wahin ruko! Main karate jaanti hoon. Kaafi saara. Aur Shetty Uncle ka number speed dial pe hai. Kaun ho tum, aur tumhare paas meri chabi kaise aayi?\"",
+        "*Tumhare haath mein chabi aur phone par wahi listing dekh kar uski nazar sikud jaati hai. Woh selfie stick neeche kiye bina apna phone nikaalti hai aur screen tumhari taraf ghuma deti hai.*",
+        "Tanvi Rao: \"Flat 302. Gyarah mahine ka agreement. Deposit maine pichhle hafte transfer kiya. Aur yahan — co-tenant — {{playerName}}. Maine socha tha yeh koi typo hai. Vicky ne kaha tha main akeli rahungi!\"",
+        "*Woh broker ko call karti hai. Switched off. Dobara. Switched off. NestMate par Vicky bhaiya ki profile ab sirf ek grey icon hai — User not found.*",
+        "*Seedhiyon par chappal ki chat-chat. Darwaze par moti mooch, lungi aur half-sweater mein Shetty Uncle khade hain, haath mein torch.*",
+        "Ramesh Shetty: \"Yenu galata? Raat ke baara baje shor? Agreement mein clearly likha hai — no parties, no pets, no couples. Tum dono... couple ho kya?\"",
+        "Tanvi Rao: \"Nahi! Bilkul nahi, Uncle. Hum ek dusre ko jaante bhi nahi.\"",
+        "Ramesh Shetty: \"Toh aur bhi accha. Agreement dono ke naam pe hai, chhe mahine lock-in. Vicky ka main zimmedar nahi. Rent har mahine paanch tareekh tak — aadha-aadha. Swalpa adjust maadi, aur shor mat karo. Good night.\"",
+        "*Darwaza band hota hai. Balcony ke kaanch ke peeche ek bheega bhoora kutta poonchh hilata hai — Tanvi jhatpat parda kheench deti hai, jaise koi raaz chhupa rahi ho.*",
+        "*Phir uska phone buzz karta hai. Lock screen par message chamakta hai — Kunal: suna flat ka paisa bhi gaya 😂 Demo Day pe milte hain. All the best, Tanvi. Woh phone ulta rakh deti hai. Ek pal ke liye uski aankhein bheeg jaati hain; phir woh gehri saans leti hai, jaise khud ko gin kar sambhaal rahi ho.*",
+        "Tanvi Rao: \"Theek hai. Options do hain. Ya toh tum kal subah tak koi aur flat dhoondh lo — jo Bangalore mein impossible hai — ya phir hum rules banate hain. Sticky notes pe. Fridge pe. Rule number one—\"",
+        "*Usi pal poori building ki bijli chali jaati hai. Andhere mein sirf uske laptop ki screen jal rahi hai — battery 4%. Balcony se ek dabi hui si bhaunk aati hai.*",
+        "Tanvi Rao: \"...Perfect. Bas yahi baaki tha. Tumhare paas power bank hai?\""
+      ],
+      "fallbackLines": [
+        "*Andhere mein laptop ki neeli roshni Tanvi ke chehre par padti hai. Woh selfie stick abhi bhi haath mein pakde hue hai, jaise use pata nahi ki tum par bharosa kare ya nahi.*",
+        "Tanvi Rao: \"Haan toh? Wahan khade-khade sochte rahoge ya kuch bologe? Battery mar rahi hai, aur meri patience bhi.\"",
+        "*Neeche se Shetty Uncle ke radio par purana Kannada gaana halka sa sunai deta hai. Balcony ke parde ke peeche kuch hilta hai.*"
+      ],
+      "choices": [
+        {
+          "id": "counter_rule",
+          "text": "*Uske haath se sticky note lekar apna khud ka ek counter-rule likhne ki pesh-kash karna.*",
+          "shortLabel": "Counter-rule likho",
+          "keywords": [
+            "rule",
+            "sticky",
+            "note",
+            "fridge",
+            "agreement",
+            "niyam"
+          ],
+          "next": null,
+          "effects": {
+            "memory": [
+              "On the first night, {{playerName}} answered Tanvi's rule-making with a counter-rule of his own."
+            ]
+          }
+        },
+        {
+          "id": "find_power",
+          "text": "*Phone ki torch jalakar uske laptop ke liye power bank ya charger dhoondhne mein madad karna.*",
+          "shortLabel": "Torch jalao",
+          "keywords": [
+            "torch",
+            "power",
+            "charger",
+            "laptop",
+            "battery",
+            "light"
+          ],
+          "next": null,
+          "effects": {
+            "memory": [
+              "During the first-night power cut, {{playerName}} helped Tanvi look for power for her dying laptop."
+            ]
+          }
+        },
+        {
+          "id": "ask_about_kunal",
+          "text": "*Dheere se poochna ki Kunal kaun hai, aur woh message itna kyun chubha.*",
+          "shortLabel": "Kunal kaun hai?",
+          "keywords": [
+            "kunal",
+            "message",
+            "text",
+            "ex",
+            "demo"
+          ],
+          "next": null,
+          "effects": {
+            "memory": [
+              "{{playerName}} noticed Kunal's mocking text upset Tanvi and asked her about it on the first night."
+            ]
+          }
+        },
+        {
+          "id": "check_balcony",
+          "text": "*Balcony ka parda hata kar dekhna ki peeche kya chhupa hai.*",
+          "shortLabel": "Balcony dekho",
+          "keywords": [
+            "balcony",
+            "dog",
+            "kutta",
+            "parda",
+            "curtain"
+          ],
+          "next": null,
+          "effects": {
+            "memory": [
+              "{{playerName}} discovered on the first night that Tanvi was hiding something on the balcony."
+            ]
+          }
+        }
+      ]
+    }
+  ],
+  "endings": []
+}
