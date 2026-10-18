@@ -52,6 +52,7 @@ const NEW_STORY_IDS = [
   'the-angel-next-door-spoils-me-rotten',
   'angel-next-door-secret-chairman',
   'barish-boi-aur-tum',
+  'gyarah-mahine-ka-agreement',
 ];
 
 /** Build the assets binding from the real repo content (what CI deploys). */

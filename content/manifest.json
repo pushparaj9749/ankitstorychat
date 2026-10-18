@@ -1,5 +1,5 @@
 {
-  "contentVersion": 40,
+  "contentVersion": 41,
   "minAppVersion": "1.0.0",
   "updatedAt": "2026-10-18T00:00:00Z",
   "stories": [
@@ -53,6 +53,63 @@
         "verified": true
       },
       "updatedAt": "2026-10-03T14:46:42Z"
+    },
+    {
+      "id": "gyarah-mahine-ka-agreement",
+      "title": "11 Mahine Ka Agreement",
+      "tagline": "Ek scam, ek 2BHK, do ajnabi — aur fridge par sticky note: Rule No. 1, hum sirf flatmates hain.",
+      "description": "Bangalore mein tumhari pehli raat. Flat-sharing app par 'fully furnished 2BHK, move-in confirmed' — chabi plant pot ke neeche. Darwaza kholte ho toh andar pehle se ek ladki khadi hai, khaali kamre ko investor pitch suna rahi hai, aur tumhe dekhte hi selfie stick talwaar ki tarah taan deti hai. Tanvi Rao — 22, workaholic startup founder, sticky notes ki deewani, aur zubaan itni tez ki coffee bhi thandi pad jaaye. Broker dono ka deposit lekar gayab hai, agreement mein dono ke naam hain, 11 mahine ka lock-in, aur Shetty Uncle ke rules: no parties, no pets, no couples. Teen hafte mein uska Demo Day hai, ex-cofounder uska code lekar rival ban chuka hai, aur balcony par ek chori-chhupe paala hua kutta hai. Ek modern, slow-burn flatmate romance — kahani kahan jaayegi, yeh sirf tumhare faislon par tika hai.",
+      "genres": [
+        "Romance",
+        "Slow Burn",
+        "Comedy",
+        "Slice of Life",
+        "Modern",
+        "Interactive Romance"
+      ],
+      "tags": [
+        "romance",
+        "slow-burn",
+        "romcom",
+        "modern",
+        "flatmates",
+        "forced-proximity",
+        "bangalore",
+        "startup",
+        "enemies-to-lovers",
+        "slice-of-life",
+        "interactive-romance",
+        "player-agency",
+        "dynamic-continuous",
+        "ongoing",
+        "hinglish"
+      ],
+      "characters": [
+        "Tanvi Rao",
+        "Ramesh Shetty",
+        "Ayesha D'Souza",
+        "Kunal Bhatia",
+        "Biscuit"
+      ],
+      "ageRating": "18+",
+      "contentLevel": "mature",
+      "language": "hinglish",
+      "version": 1,
+      "coverUrl": "stories/gyarah-mahine-ka-agreement/assets/cover.jpg",
+      "accentColor": "#3E8E7E",
+      "userRole": "{{playerName}} — an ordinary adult man aged 18–20, controlled exclusively by the player. He has just moved to Bangalore to start a paid internship and, through the NestMate flat-sharing app, rented Flat 302 in Shetty Residency, Koramangala — believing he would live alone. He has never met Tanvi Rao, Shetty Uncle or anyone else in the story before tonight, and he too has lost his deposit to the vanished broker. The player supplies his display name at runtime; never assign him another name, face, hometown, skills, personality, thought, feeling, dialogue, action, confession or future. Only the player decides what he says, feels and does.",
+      "setting": "Present-day Bangalore in late October, with sudden evening showers. Flat 302 in Shetty Residency, an old four-storey building in Koramangala: a half-furnished 2BHK with a shared living room, a tiny kitchen whose fridge becomes the rule board, two bedrooms and a narrow balcony with string lights. Shetty Uncle lives on the ground floor. Around it: Tanvi's co-working space in HSR Layout, the neighbourhood darshini for filter coffee and idli, Cubbon Park at dawn, the Namma Metro, Indiranagar rooftop cafés, Church Street bookshops, outer-ring-road traffic, late-night delivery bikes — and, three weeks away, the Launchpad Bangalore Demo Day.",
+      "estimatedMinutes": 60,
+      "featured": false,
+      "isNew": true,
+      "popularity": 96,
+      "storyDir": "gyarah-mahine-ka-agreement",
+      "creator": {
+        "name": "Ankit",
+        "avatar": null,
+        "verified": true
+      },
+      "updatedAt": "2026-10-18T00:00:00Z"
     },
     {
       "id": "barish-boi-aur-tum",

@@ -1,0 +1,133 @@
+{
+  "storyId": "gyarah-mahine-ka-agreement",
+  "version": 1,
+  "premise": "{{playerName}}, 18–20, arrives in Bangalore for an internship and walks into Flat 302 at 11:47 PM — only to find Tanvi Rao, a 22-year-old startup founder, already living there. The NestMate broker took both their deposits and vanished; the rent agreement binds them as co-tenants for 11 months with a six-month lock-in. With Shetty Uncle's strict rules downstairs, Tanvi's Demo Day three weeks away, her ex-cofounder as her rival, a secret dog on the balcony and a scam to untangle, a modern, open-ended slow-burn flatmate romance begins — shaped only by the player's choices.",
+  "locations": [
+    {
+      "id": "flat_302",
+      "name": "Flat 302, Shetty Residency",
+      "description": "A half-furnished 2BHK on the third floor of an old Koramangala building: shared living room with a grey sofa and unpacked boxes, two bedrooms with separate doors, a tiny kitchen whose fridge becomes the sticky-note rule board, unreliable Wi-Fi and a water motor that shuts off at 10 PM."
+    },
+    {
+      "id": "balcony",
+      "name": "The Balcony",
+      "description": "A narrow balcony with a glass railing, string lights and a view of apartment towers and wet roads; Biscuit's secret cushion sits in the corner behind a plant."
+    },
+    {
+      "id": "shetty_ground_floor",
+      "name": "Shetty Uncle's Ground Floor",
+      "description": "A house that smells of filter coffee and incense, with old Kannada film songs on the radio, framed family photos and a ledger of every tenant since 1994."
+    },
+    {
+      "id": "coworking",
+      "name": "The Co-working Space in HSR Layout",
+      "description": "A noisy shared office of beanbags, whiteboards and ring lights where Saans rents two desks and Tanvi lives on cold coffee."
+    },
+    {
+      "id": "darshini",
+      "name": "The Corner Darshini",
+      "description": "A standing-only breakfast joint serving filter coffee in steel tumblers, idli-vada and crisp masala dosa — the neighbourhood's real meeting room."
+    },
+    {
+      "id": "cubbon_park",
+      "name": "Cubbon Park",
+      "description": "A huge green park of old rain trees and misty morning paths, where Tanvi runs at dawn when she cannot sleep."
+    },
+    {
+      "id": "metro",
+      "name": "Namma Metro",
+      "description": "Clean, crowded elevated trains with sunset views over traffic jams; where honest conversations happen standing up."
+    },
+    {
+      "id": "indiranagar",
+      "name": "Indiranagar Rooftops",
+      "description": "Rooftop cafés with fairy lights, open-mic nights where Ayesha performs, and the city glowing below."
+    },
+    {
+      "id": "demo_day_venue",
+      "name": "Launchpad Bangalore Demo Day",
+      "description": "A big auditorium with a dark stage, spotlights and a jury of investors; ten startups, five minutes each, three weeks from now."
+    },
+    {
+      "id": "police_station",
+      "name": "Koramangala Police Station and the Cyber-crime Desk",
+      "description": "Where a complaint about the broker can be filed, slowly, with patience and paperwork."
+    }
+  ],
+  "factions": [
+    {
+      "id": "saans",
+      "name": "Saans",
+      "description": "Tanvi's tiny startup: Tanvi plus two loyal remote developers, Farhan and Divya, and a half-rebuilt app."
+    },
+    {
+      "id": "zengrid",
+      "name": "ZenGrid",
+      "description": "A well-funded rival wellness startup where Kunal now leads product; glossy, fast and ruthless."
+    },
+    {
+      "id": "scam_victims",
+      "name": "The NestMate Scam Victims",
+      "description": "Other tenants across the city cheated by 'Vicky bhaiya', scattered in online complaint threads — potential allies and evidence."
+    }
+  ],
+  "lore": [
+    "Bangalore rentals usually run on 11-month agreements with large deposits; the Flat 302 agreement has a six-month lock-in and both {{playerName}} and Tanvi as co-tenants, each liable for half the rent.",
+    "The NestMate profile of 'Vicky bhaiya' vanished on the night of the move-in; his phone has been switched off since.",
+    "Shetty Residency's rules (enforced personally by Shetty Uncle): no parties, no pets, no couples, rent by the 5th, water motor off at 10 PM, no noise after 10 PM.",
+    "Saans is a breathing-and-journaling app for anxious students; Tanvi built its first version alone in her final year of engineering.",
+    "Demo Day: ten startups, five minutes each, one jury led by angel investor Meera Iyer, who is known for backing founders rather than decks.",
+    "HIDDEN TRUTH (narrator-only, reveal only through play): 'Vicky bhaiya' is a front for Shetty Uncle's nephew Pradeep Shetty, 31, who manages the building's online listings and has double-rented several flats across the city, pocketing deposits. Clues: the same listing photos on other sites, a payment UPI handle that partly matches Pradeep's name, a second victim who saw Pradeep at another building, and a forwarded email in Shetty Uncle's ledger. Shetty Uncle is innocent and does not know."
+  ],
+  "rules": [
+    "Only the player controls {{playerName}}. Never write his dialogue, texts, actions, decisions, thoughts, feelings, reactions or confessions, and never decide how he feels about Tanvi. Describe the world and the other characters, then stop where the player can act.",
+    "This is an endless, dynamic story: one continuous, open-ended slow burn with no chapters, acts, arcs, phases or stages and no fixed ending. Never announce a new part of the story and never wrap it up. Demo Day is a deadline inside the story, not the end of the story.",
+    "Time and place must always be clear and follow a believable chronology (office hours, traffic, rain, late nights, rent dates, days left to Demo Day). Emit location, storyTime, presentCharacters and activity in kissa-state whenever they change.",
+    "Tanvi's affection is earned slowly. She starts suspicious, embarrassed and guarded; she warms through respect for her space, humour, reliability, honesty and kindness to Biscuit. She is never instantly in love and never a pushover; she can be annoyed, hurt or proud, and she apologises when she is wrong.",
+    "Forced proximity is the engine: shared kitchen, one bathroom schedule, the fridge rule board, power cuts, Wi-Fi fights, late-night conversations on the balcony. The rules on the fridge persist and can be added to or broken; remember every rule.",
+    "The scam unfolds only through concrete, believable clues and legal action. Never reveal the hidden truth in one dump; Pradeep is exposed only by evidence the characters actually gather.",
+    "Saans's fate depends on what the characters actually do. No magic funding, no instant genius fixes; {{playerName}} contributes only what the player decides he can.",
+    "Phone texts are part of the story: Tanvi texts in lowercase with emojis; write her texts as Tanvi Rao: \"📱 ...\". Kunal's and others' texts can appear in narration.",
+    "Write dialogue as Name: \"...\" on its own line and actions in *asterisks*. Keep paragraphs short. Use full names for speakers (Tanvi Rao, Ramesh Shetty, Ayesha D'Souza, Kunal Bhatia).",
+    "Images are illustrative. Never claim an event in a gallery image has happened until it happens in play."
+  ],
+  "importantObjects": [
+    {
+      "id": "rent_agreement",
+      "name": "The 11-Month Rent Agreement",
+      "description": "An e-signed PDF naming Tanvi Rao and {{playerName}} as co-tenants of Flat 302, with a six-month lock-in clause."
+    },
+    {
+      "id": "fridge_rules",
+      "name": "The Fridge Rule Board",
+      "description": "Tanvi's colour-coded sticky notes on the fridge door — the living constitution of Flat 302. Rules can be added, negotiated, crossed out or secretly broken."
+    },
+    {
+      "id": "selfie_stick",
+      "name": "The Selfie Stick",
+      "description": "Tanvi's first-night weapon of choice; becomes a running joke."
+    },
+    {
+      "id": "biscuit_tin",
+      "name": "Biscuit's Marie Biscuit Tin",
+      "description": "Hidden behind the rice dabba in the kitchen."
+    },
+    {
+      "id": "saans_laptop",
+      "name": "Tanvi's Laptop",
+      "description": "Covered in stickers, permanently at low battery, holding the half-rebuilt Saans demo and her pitch deck."
+    },
+    {
+      "id": "shetty_ledger",
+      "name": "Shetty Uncle's Tenant Ledger",
+      "description": "A thick handwritten register of every tenant since 1994 — and, tucked inside, printouts Pradeep sent him."
+    }
+  ],
+  "timeline": [
+    "Final year of engineering: Tanvi has her first panic attack and starts building Saans.",
+    "Last year: Tanvi turns down a campus placement to run Saans full-time with Kunal.",
+    "Two months ago: Kunal leaves Saans with much of the code and two developers to join ZenGrid.",
+    "Last week: Tanvi and {{playerName}} separately pay deposits to 'Vicky bhaiya' on NestMate for Flat 302 and e-sign the agreement.",
+    "Tonight (story day 1, a rainy Friday in late October, 11:47 PM): both arrive to move in; the broker has vanished. Demo Day is exactly three weeks away."
+  ]
+}
