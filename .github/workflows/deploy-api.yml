@@ -71,6 +71,13 @@ jobs:
           node scripts/verify-published-story.mjs --local-only --native-size=1408x768,1376x768
           angel-next-door-secret-chairman
 
+      - name: Validate the new Kolkata monsoon romance and its 8 native-size images
+        # Same strict checks: exactly one cover + seven gallery JPEGs, unique
+        # files, all at the generator's native 1376x768 (the verifier default).
+        run: >-
+          node scripts/verify-published-story.mjs --local-only
+          barish-boi-aur-tum
+
       - name: Install (worker)
         working-directory: worker
         run: npm ci
@@ -179,6 +186,12 @@ jobs:
         # complete passes on BOTH production hostnames — every JSON file, the
         # manifest entry and all eight media files byte-identical to this checkout.
         run: node scripts/verify-published-story.mjs --native-size=1408x768,1376x768 angel-next-door-secret-chairman
+
+      - name: Verify the new Kolkata monsoon romance is published (byte-identical JSON + 8 images)
+        # Read-only: waits for propagation, then requires two consecutive
+        # complete passes on BOTH production hostnames — every JSON file, the
+        # manifest entry and all eight media files byte-identical to this checkout.
+        run: node scripts/verify-published-story.mjs barish-boi-aur-tum
 
       - name: Smoke test the deployed API
         run: |

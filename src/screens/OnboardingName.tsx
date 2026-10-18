@@ -33,7 +33,7 @@ export function OnboardingName({ navigation }: Props) {
           <View style={styles.steps}>
             <View style={styles.stepBar}>
               <LinearGradient
-                colors={['#FF6B7E', '#E9435E']}
+                colors={['#FF4F8B', '#A855F7']}
                 start={{ x: 0, y: 0.5 }}
                 end={{ x: 1, y: 0.5 }}
                 style={StyleSheet.absoluteFill}

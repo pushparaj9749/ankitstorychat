@@ -17,6 +17,7 @@ export function CoverImage({
   fallbackLetter,
   maxHeight,
   placeholderMinHeight,
+  tint,
 }: {
   source: CoverSource | null;
   accentColor?: string;
@@ -29,6 +30,8 @@ export function CoverImage({
   maxHeight?: number | `${number}%`;
   /** Letter/skeleton placeholder height when no artwork is available. Chrome only. */
   placeholderMinHeight?: number;
+  /** Override the box tint (e.g. 'transparent' when an ArtBackdrop fills the frame). */
+  tint?: string;
 }) {
   const letter = (fallbackLetter ?? '?').slice(0, 1).toUpperCase();
   const accent = accentColor ?? '#8B5CF6';
@@ -39,7 +42,7 @@ export function CoverImage({
       style={style}
       maxHeight={maxHeight}
       placeholderMinHeight={placeholderMinHeight}
-      tint={`${accent}33`}
+      tint={tint ?? `${accent}33`}
       fallback={<Text style={[styles.fallback, { color: accent }]}>{letter}</Text>}
     />
   );

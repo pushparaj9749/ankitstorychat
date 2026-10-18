@@ -20,6 +20,7 @@
 import React, { useEffect, useRef, useState } from 'react';
 import {
   Image,
+  Platform,
   StyleSheet,
   View,
   type ImageErrorEvent,
@@ -28,7 +29,7 @@ import {
   type StyleProp,
   type ImageStyle,
 } from 'react-native';
-import { Ionicons } from '@expo/vector-icons';
+import { IconGlyph } from './iconGlyph';
 
 /** Default height of the loading/failure placeholder when no ratio is known yet. */
 export const NATURAL_IMAGE_PLACEHOLDER_MIN_HEIGHT = 120;
@@ -87,6 +88,26 @@ function bundledSizeOf(source: ImageSourcePropType | null): { width: number; hei
 }
 
 /**
+ * Ratios already measured this session, keyed by uri. Virtualised lists
+ * unmount and re-mount cards while scrolling; without this every re-mount
+ * re-measured the image and showed the placeholder box first, so the card
+ * changed height mid-scroll (layout jank).
+ */
+const RATIO_CACHE = new Map<string, number>();
+
+/**
+ * Android: `Image.getSize` performs a FULL-resolution decode (no resize) just
+ * to read the dimensions — for every cover, on top of the real render. The
+ * load event already carries the true dimensions, so Android uses that alone.
+ * (`Platform` is optional-chained: some test mocks stub react-native without it.)
+ */
+const MEASURE_WITH_GET_SIZE = (Platform as { OS?: string } | undefined)?.OS !== 'android';
+
+function rememberRatio(key: number | string | null, ratio: number) {
+  if (typeof key === 'string' && ratio > 0 && Number.isFinite(ratio)) RATIO_CACHE.set(key, ratio);
+}
+
+/**
  * Renders any image at its own original aspect ratio. See the file header:
  * every story cover, gallery tile, media preview and lightbox view must go
  * through this rule so nothing upstream can force a shape onto artwork.
@@ -107,7 +128,9 @@ export function NaturalImage({
   /** Aspect ratio derived from the actual image metadata (width / height). */
   const [ratio, setRatio] = useState<number | null>(() => {
     const size = bundledSizeOf(source);
-    return size ? size.width / size.height : null;
+    if (size) return size.width / size.height;
+    const k = sourceKeyOf(source);
+    return typeof k === 'string' ? RATIO_CACHE.get(k) ?? null : null;
   });
   const [failed, setFailed] = useState(false);
   const [loaded, setLoaded] = useState(false);
@@ -131,16 +154,20 @@ export function NaturalImage({
       return;
     }
 
-    setRatio(null);
+    const cached = typeof key === 'string' ? RATIO_CACHE.get(key) : undefined;
+    setRatio(cached ?? null);
     setFailed(false);
     setLoaded(false);
 
+    if (cached != null) return; // measured earlier this session
     if (key == null) return; // nothing to measure (null source → fallback)
+    if (!MEASURE_WITH_GET_SIZE) return; // Android: the load event measures it
     if (typeof Image.getSize !== 'function') return; // stubbed test Image
 
     Image.getSize(
       String(key),
       (width, height) => {
+        if (width > 0 && height > 0) rememberRatio(key, width / height);
         if (alive && width > 0 && height > 0) setRatio(width / height);
       },
       () => undefined, // onLoad below still recovers dimensions for this source
@@ -154,6 +181,7 @@ export function NaturalImage({
     // Universal fallback: the load event carries the true decoded dimensions.
     const dims = event.nativeEvent?.source;
     if (dims && dims.width > 0 && dims.height > 0) {
+      if (!RATIO_CACHE.has(String(key))) rememberRatio(key, dims.width / dims.height);
       setRatio((prev) => (prev == null ? dims.width / dims.height : prev));
     }
     setLoaded(true);
@@ -187,6 +215,9 @@ export function NaturalImage({
           source={source}
           style={[styles.img, loaded ? styles.imgVisible : styles.imgHidden]}
           resizeMode="contain"
+          // Android: decode at the view's size instead of full resolution (all
+          // covers are JPEG) — far less memory/GC, so lists scroll smoothly.
+          resizeMethod="resize"
           onLoad={handleLoad}
           onError={handleError}
         />
@@ -197,7 +228,7 @@ export function NaturalImage({
       {!showImage ? (
         fallback ?? (
           <View style={styles.defaultFallback} accessibilityLabel="Image unavailable">
-            <Ionicons name="image-outline" size={28} color="#6F6B78" />
+            <IconGlyph name="image-outline" size={28} color="#7D7494" />
           </View>
         )
       ) : null}

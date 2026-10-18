@@ -1,7 +1,7 @@
 {
-  "contentVersion": 39,
+  "contentVersion": 40,
   "minAppVersion": "1.0.0",
-  "updatedAt": "2026-10-14T00:00:00Z",
+  "updatedAt": "2026-10-18T00:00:00Z",
   "stories": [
     {
       "id": "arranged-marriage-wala-love",
@@ -53,6 +53,62 @@
         "verified": true
       },
       "updatedAt": "2026-10-03T14:46:42Z"
+    },
+    {
+      "id": "barish-boi-aur-tum",
+      "title": "Barish, Boi Aur Tum",
+      "tagline": "Pehli barish, bheegi kitaabein, 1971 ki unsent chitthiyan — aur ek ladki jo apni dukaan ke liye poori duniya se lad jaaye.",
+      "description": "Kolkata mein tumhari pehli shaam, aur aasman poora ulat chuka hai. College Street ki boi-para gali mein ghutno tak paani, bijli gul, aur ek purani kitaabon ki dukaan — Mitra Boi Ghar, Est. 1952 — jiske upar ka chhota sa kamra ab tumhara hai. Neeche ek chashme wali, tez zubaan wali ladki, Ishani Mitra, apni jaan se zyada apni kitaabein bacha rahi hai, aur tumhe developer ka aadmi samajh kar daant deti hai. Uske Kakai yeh 70 saal purani dukaan Durga Puja ke baad bechna chahte hain; Dadu bimaar hain par sab dekhte hain. Aur pehli hi raat bheegi kitaabon ke beech se gira ek zang laga tin ka dabba — 1971 ki unsent chitthiyan, 'Mili ke liye — S.' Barish, adda, tram, bhaar ki cha, Puja ki raatein aur ek purani prem kahani ka raaz. Ek slow-burn, open-ended Kolkata romance — kahani kahan jaayegi, yeh sirf tumhare faislon par tika hai.",
+      "genres": [
+        "Romance",
+        "Slow Burn",
+        "Slice of Life",
+        "Mystery",
+        "Drama",
+        "Interactive Romance"
+      ],
+      "tags": [
+        "romance",
+        "slow-burn",
+        "slice-of-life",
+        "kolkata",
+        "monsoon",
+        "bookshop",
+        "letters-mystery",
+        "found-family",
+        "enemies-to-friends",
+        "interactive-romance",
+        "player-agency",
+        "dynamic-continuous",
+        "ongoing",
+        "hinglish"
+      ],
+      "characters": [
+        "Ishani Mitra",
+        "Haren Mitra",
+        "Subrata Mitra",
+        "Rimjhim Dutta",
+        "Bablu Das"
+      ],
+      "ageRating": "18+",
+      "contentLevel": "mature",
+      "language": "hinglish",
+      "version": 1,
+      "coverUrl": "stories/barish-boi-aur-tum/assets/cover.jpg",
+      "accentColor": "#B4443A",
+      "userRole": "{{playerName}} — an ordinary adult man aged 18–20, controlled exclusively by the player. He has just arrived in Kolkata from another city to start his first year of college, and has rented the small, cheap room above Mitra Boi Ghar, a 70-year-old second-hand bookshop on College Street, after answering an online ad. He knows nobody in the city, has never met Ishani, Dadu or anyone in the family before tonight, and has never heard of the old letters. The player supplies his display name at runtime; never assign him another name, face, hometown, personality, thought, feeling, dialogue, action, confession or future. Only the player decides what he says, feels and does.",
+      "setting": "Present-day Kolkata in the monsoon weeks before Durga Puja. Boi-para — the College Street book market: Mitra Boi Ghar, a narrow 70-year-old bookshop with towering shelves, a sliding ladder and a pavement stall outside; the three-storey family house above it, with {{playerName}}'s small rented room on the second floor, Dadu's room with its balcony, and the rooftop terrace with a tin shade and fairy lights. Around it: Bablu-da's tea stall with bhaar cha, the old coffee house up the road, the tram line, the ghats on the Hooghly with the great steel bridge in the distance, north Kolkata lanes, phuchka stalls, and — as Puja approaches — pandals rising on every corner.",
+      "estimatedMinutes": 60,
+      "featured": false,
+      "isNew": true,
+      "popularity": 96,
+      "storyDir": "barish-boi-aur-tum",
+      "creator": {
+        "name": "Ankit",
+        "avatar": null,
+        "verified": true
+      },
+      "updatedAt": "2026-10-18T00:00:00Z"
     },
     {
       "id": "angel-next-door-secret-chairman",

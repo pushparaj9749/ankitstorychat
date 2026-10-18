@@ -58,6 +58,65 @@ moves the tale forward — with memory, relationships, branching, and multiple e
 
 ## 🆕 Release notes
 
+### v2.6.2 — Smoothness pass 2 (app-wide re-renders, image decode, typing)
+
+- **No more whole-app re-renders:**
+  - The navigation theme was an inline object, so every app-state change (a saved message, a favourite, a journey refresh) made `NavigationContainer` re-render the entire tree. It is now memoised.
+  - Tabs and stack screens use `freezeOnBlur`, so hidden screens (Home behind Chat, inactive tabs) skip renders until they are visible again.
+  - The tab-bar renderer is stable.
+- **No full-resolution decode just to read a size:** on Android `Image.getSize` decodes the whole image. `NaturalImage` now skips it there and reads the true size from the load event.
+- **Instant re-mounts:** measured ratios are cached by uri, so cards recycled by the virtualised rails lay out immediately instead of flashing a placeholder and changing height mid-scroll.
+- **Stable cover sources:** `useCover` memoises its `{ uri }` object, so native image views stop seeing a "new" source on every render.
+- **Typing in Chat:** the composer is uncontrolled (text in a ref). A keystroke no longer re-renders the Chat screen; only the empty/non-empty flip does.
+
+### v2.6.1 — Smoothness pass (scroll & typing performance)
+
+Same look; much less work per frame.
+
+- **Cheap ambient art fill:** `ArtBackdrop` no longer runs a CPU `blurRadius` on a second full-size decode of every cover. It now draws a 16×24 micro bitmap, decoded at that size with `resizeMethod="resize"` (all covers are JPEG), and scales it up on the GPU. Upscaling a tiny bitmap is itself a soft blur. The backdrop is memoised.
+- **Covers decode at view size:** `NaturalImage` uses `resizeMethod="resize"`, so a 170 px card no longer holds a full-resolution bitmap. This means less memory and fewer GC pauses while scrolling.
+- **Virtualised Home rails:** the Top 10, For you, "More like…" and genre rails are horizontal `FlatList`s that mount only the cards near the viewport. Category grids render in pages of 12 as you scroll. Discover's grid renders in small batches and drops off-screen cells on Android.
+- **No needless re-renders:**
+  - Story cards and SVG icons are `React.memo` (`src/lib/memoProps.ts` ignores inline handlers), so a carousel swipe or filter tap no longer re-renders every card.
+  - Icons with an explicit colour no longer subscribe to app state.
+- **Chat typing:** `ChatBubble` is memoised and the list's `renderItem`/`keyExtractor` are stable, so a keystroke no longer re-parses and redraws every visible bubble.
+
+### v2.6.0 — "Kissa Night" full UI/UX redesign + AMOLED chat
+
+- **AMOLED chat:** the Chat screen sits on a true-black (`#000000`) canvas. The header, "You are" banner, message stage and composer are pure black, so OLED pixels switch off and the bubbles carry all the colour.
+- **Story action menu (from v2.5.5, now merged into the main line):** a 💡 button next to the composer opens *Choices dikhao*, *Regenerate*, *Scene badlo* and *Continue*. These send an internal instruction to the narrator and never create a fake reader message.
+- **New visual identity:** a midnight-violet palette (`#0B0814` base) with a pink→violet signature gradient, gold uppercase kickers, gradient section bars and glass surfaces. All tokens live in `src/theme.ts`.
+- **Custom SVG icon set:** the Ionicons glyphs are replaced by a hand-drawn duotone set built on `react-native-svg` (`src/components/iconGlyph.tsx`, with a theme-aware wrapper in `icons.tsx`).
+- **No more blank space around covers:** artwork is never cropped. Every frame is filled by `ArtBackdrop`, a blurred, tinted copy of the same art behind the contain-fit image. This removes the letterbox bands and dead areas below covers.
+- **New navigation:** a floating capsule bottom bar whose active tab grows into a gradient pill with its icon and label.
+- **Redesigned screens:**
+  - Home: hero carousel, Continue rail, gold-numbered Top 10, poster grid.
+  - Discover: grid/list toggle.
+  - Library: stat tiles, journey cards, and "Try next" picks so a short shelf never ends blank.
+  - You: profile hero card.
+  - Story detail: overlapping sheet, stat tiles, cast rings, an even 2-column media grid, similar-stories rail.
+  - Chat: AMOLED stage, story-face header, pill composer, round send and ideas buttons.
+
+### UI polish pass
+
+Presentation only — no behaviour, memory or content changes.
+
+- **Primary buttons are Kissa Rose.** `GradientButton` was a flat white pill; it is now the rose
+  gradient used by the Home hero (white text, soft glow). When disabled it shows a quiet surface instead of a grey slab.
+  This affects Onboarding, Story Detail (`Chat Now`) and every form.
+- **Settings has a page gutter again.** Cards and section titles were flush against the screen edges.
+- **Story Detail.** The Media Library is a two-column masonry, so each tile keeps its artwork's height
+  (the wrapped row used to stretch short tiles and leave empty blocks). "You may also like" shows real covers and prefers
+  stories in the same genre. The duplicate favourite button in the bottom bar is gone (the hero already has one).
+- **Home.** The duplicate "Tonight's lead" heading above the hero is gone. New arrivals no longer show a `0%` progress bar;
+  they show genre + rating instead. Continue cards are wider. "More like X" replaces the cut-off "Because you liked X · GENRE".
+- **Chat.** The player's lines sit in a rose gradient bubble. `Name: "line"` dialogue now shows the name as the speaker
+  label and avatar, not inline. The narrator gets a quiet ✦ mark instead of a blue avatar on every line. The header keeps the full
+  story title (cast avatars moved to the "You are" strip), and the scene name is no longer uppercased.
+- **Discover.** The genre chips scroll edge to edge, and the sort is a compact segmented control on the same row as the count.
+- **Section headers.** Kickers are plain caption text instead of grey pills. Meaningless ones ("More", "Share") are removed.
+- **The app runs in a browser** for UI review (`npx expo start --web`). On web only, `metro.config.js` swaps expo-sqlite for a sql.js adapter, because the real one needs `SharedArrayBuffer` and an isolated page. See `preview/README.md`.
+
 ### v2.5.4 — Deep Transcript Recall & Fact Recency
 
 A follow-up memory release focused on details that never became typed events:

@@ -2,10 +2,10 @@
  * Root Navigation — Cinematic Tabs + Stack for Kissa v2.4.2.
  * Memory UI completely removed (internal engine only).
  */
-import React, { useEffect, useRef } from 'react';
-import { NavigationContainer } from '@react-navigation/native';
+import React, { useEffect, useMemo, useRef } from 'react';
+import { NavigationContainer, type Theme } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
-import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
+import { createBottomTabNavigator, type BottomTabBarProps } from '@react-navigation/bottom-tabs';
 import type { MainTabParamList, RootStackParamList } from '../types';
 import { useApp } from '../state/AppContext';
 import { checkForUpdates, effectiveContentApiBaseUrl } from '../content/loader';
@@ -41,6 +41,18 @@ import { AdminPanel } from '../screens/AdminPanel';
 const Stack = createNativeStackNavigator<RootStackParamList>();
 const Tab = createBottomTabNavigator<MainTabParamList>();
 
+/* Stable tab-bar renderer (an inline arrow re-created the bar's props every render). */
+const renderTabBar = (props: BottomTabBarProps) => <KissaBottomTabBar {...props} />;
+
+/*
+ * Performance: screens that are not on top (tabs behind Chat, inactive tabs)
+ * are FROZEN — they skip re-renders until they're visible again. Without this
+ * every app-state change (a saved message, a favourite, a journey refresh)
+ * re-rendered every mounted screen, including card-heavy Home, mid-chat.
+ */
+const TAB_OPTIONS = { headerShown: false, tabBarHideOnKeyboard: true, freezeOnBlur: true } as const;
+const STACK_OPTIONS = { headerShown: false, animation: 'slide_from_right', freezeOnBlur: true } as const;
+
 function MainTabs() {
   const { profile, settings } = useApp();
   const checked = useRef(false);
@@ -64,11 +76,8 @@ function MainTabs() {
 
   return (
     <Tab.Navigator
-      tabBar={(props) => <KissaBottomTabBar {...props} />}
-      screenOptions={{
-        headerShown: false,
-        tabBarHideOnKeyboard: true,
-      }}
+      tabBar={renderTabBar}
+      screenOptions={TAB_OPTIONS}
     >
       <Tab.Screen name="Home" component={Home} options={{ tabBarAccessibilityLabel: 'Home' }} />
       <Tab.Screen name="Discover" component={Discover} options={{ tabBarAccessibilityLabel: 'Explore shows' }} />
@@ -91,30 +100,34 @@ function BootEffects() {
 
 export function RootNavigator() {
   const { theme, profile } = useApp();
+  // Memoised: a new theme object on every app-state change made
+  // NavigationContainer re-render the ENTIRE navigation tree each time.
+  const navTheme = useMemo<Theme>(
+    () => ({
+      dark: true,
+      colors: {
+        primary: theme.primary,
+        background: theme.bg,
+        card: theme.bgSoft,
+        text: theme.text,
+        border: theme.border,
+        notification: theme.accent,
+      },
+      fonts: {
+        regular: { fontFamily: 'System', fontWeight: '400' },
+        medium: { fontFamily: 'System', fontWeight: '500' },
+        bold: { fontFamily: 'System', fontWeight: '700' },
+        heavy: { fontFamily: 'System', fontWeight: '900' },
+      },
+    }),
+    [theme],
+  );
 
   return (
     <NavScrollProvider>
-      <NavigationContainer
-        theme={{
-          dark: true,
-          colors: {
-            primary: theme.primary,
-            background: theme.bg,
-            card: theme.bgSoft,
-            text: theme.text,
-            border: theme.border,
-            notification: theme.accent,
-          },
-          fonts: {
-            regular: { fontFamily: 'System', fontWeight: '400' },
-            medium: { fontFamily: 'System', fontWeight: '500' },
-            bold: { fontFamily: 'System', fontWeight: '700' },
-            heavy: { fontFamily: 'System', fontWeight: '900' },
-          },
-        }}
-      >
+      <NavigationContainer theme={navTheme}>
         <BootEffects />
-        <Stack.Navigator screenOptions={{ headerShown: false, animation: 'slide_from_right' }}>
+        <Stack.Navigator screenOptions={STACK_OPTIONS}>
           {!profile ? (
             <>
               <Stack.Screen name="OnboardingName" component={OnboardingName} />

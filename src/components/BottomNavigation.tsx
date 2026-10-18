@@ -1,7 +1,7 @@
 /**
- * KISSA v2.5.2 — Bottom Navigation
- * Floating glass bar: the tab strip hovers above the content instead of
- * slicing the screen with a hard 64px band, so artwork keeps the whole stage.
+ * KISSA v2.6 — Bottom Navigation
+ * Floating glass capsule; the active tab expands into a magenta→violet pill
+ * with a filled (duotone) SVG icon + label, idle tabs show line icons.
  * Direction-aware auto-hide with hysteresis, no flicker (unchanged).
  */
 import React from 'react';
@@ -10,7 +10,8 @@ import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import type { BottomTabBarProps } from '@react-navigation/bottom-tabs';
 import { useApp } from '../state/AppContext';
 import { useNavScroll } from '../navigation/NavScrollContext';
-import { GLASS, RADIUS, SCALE, SHADOWS, TOUCH, withAlpha } from '../theme';
+import { LinearGradient } from 'expo-linear-gradient';
+import { GLASS, GRADIENTS, RADIUS, SCALE, SHADOWS, TOUCH } from '../theme';
 import { Icon, type IconName } from './icons';
 
 interface TabMeta {
@@ -74,36 +75,29 @@ export function KissaBottomTabBar({ state, descriptors, navigation }: BottomTabB
               accessibilityLabel={options.tabBarAccessibilityLabel ?? meta.label}
               onPress={onPress}
               onLongPress={onLongPress}
-              style={({ pressed }) => [styles.tabItem, { opacity: pressed ? 0.7 : 1 }]}
+              style={({ pressed }) => [styles.tabItem, isFocused && styles.tabItemActive, { opacity: pressed ? 0.7 : 1 }]}
             >
-              <View
-                style={[
-                  styles.iconBox,
-                  isFocused
-                    ? {
-                        backgroundColor: withAlpha(theme.primary, 0.18),
-                        borderColor: withAlpha(theme.primary, 0.42),
-                      }
-                    : { borderColor: 'transparent' },
-                ]}
-              >
-                <Icon
-                  name={isFocused ? meta.icon : (`${meta.icon}-outline` as IconName)}
-                  size={19}
-                  color={isFocused ? theme.accent : theme.textFaint}
-                />
-              </View>
-              <Text
-                style={[
-                  styles.label,
-                  {
-                    color: isFocused ? theme.text : theme.textFaint,
-                    fontWeight: isFocused ? '800' : '600',
-                  },
-                ]}
-              >
-                {meta.label}
-              </Text>
+              {isFocused ? (
+                <View style={[styles.activePill, SHADOWS.glowAccent]}>
+                  <LinearGradient
+                    colors={[...GRADIENTS.primary]}
+                    start={{ x: 0, y: 0 }}
+                    end={{ x: 1, y: 1 }}
+                    style={StyleSheet.absoluteFill}
+                  />
+                  <Icon name={meta.icon} size={19} color="#FFFFFF" />
+                  <Text style={styles.activeLabel} numberOfLines={1}>
+                    {meta.label}
+                  </Text>
+                </View>
+              ) : (
+                <View style={styles.idle}>
+                  <Icon name={`${meta.icon}-outline` as IconName} size={21} color={theme.textDim} />
+                  <Text style={[styles.label, { color: theme.textFaint }]} numberOfLines={1}>
+                    {meta.label}
+                  </Text>
+                </View>
+              )}
             </Pressable>
           );
         })}
@@ -118,36 +112,45 @@ const styles = StyleSheet.create({
     left: 0,
     right: 0,
     bottom: 0,
-    paddingHorizontal: 14,
+    paddingHorizontal: 16,
     paddingTop: 6,
     zIndex: 100,
+    alignItems: 'center',
   },
   bar: {
+    width: '100%',
+    maxWidth: 520,
     flexDirection: 'row',
     alignItems: 'center',
-    justifyContent: 'space-between',
-    height: 62,
-    borderRadius: RADIUS.xl,
+    height: 66,
+    borderRadius: RADIUS.pill,
     borderWidth: 1,
-    paddingHorizontal: 8,
+    paddingHorizontal: 7,
+    gap: 2,
   },
   tabItem: {
     flex: 1,
     minHeight: TOUCH.min,
     alignItems: 'center',
     justifyContent: 'center',
-    gap: 2,
   },
-  iconBox: {
-    width: 46,
-    height: 28,
-    borderRadius: RADIUS.sm,
-    borderWidth: 1,
+  tabItemActive: { flex: 1.55 },
+  activePill: {
+    height: 50,
+    alignSelf: 'stretch',
+    borderRadius: RADIUS.pill,
+    overflow: 'hidden',
+    flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'center',
+    gap: 7,
+    paddingHorizontal: 12,
   },
+  activeLabel: { fontSize: 13, fontWeight: '900', color: '#FFFFFF', letterSpacing: 0.1 },
+  idle: { alignItems: 'center', justifyContent: 'center', gap: 3 },
   label: {
-    fontSize: SCALE.micro,
+    fontSize: SCALE.micro - 1,
+    fontWeight: '700',
     letterSpacing: 0.3,
   },
 });

@@ -1,47 +1,30 @@
 /**
- * KISSA v2.4.2 — Icon System
- * One coherent icon family (Ionicons) across the entire app:
- * consistent stroke treatment, corner rounding, visual weight and sizing.
- * All icons render through this wrapper so size + color stay uniform and
- * theme-aware (clean on dark surfaces, no stray emoji or text glyphs).
+ * KISSA v2.6 — Icon (theme-aware wrapper over the custom SVG set).
+ *
+ * All glyphs are drawn in ./iconGlyph ("Kissa Line": 24×24, rounded strokes,
+ * `-outline` = line, plain name = duotone/solid). The public API (`Icon`,
+ * `IconName`, `ICON_SIZE`) is unchanged, so every call site keeps working;
+ * `IconName` is the exact set of drawn glyphs, so the type checker rejects any
+ * icon the set does not contain.
  */
 import React from 'react';
-import { Ionicons } from '@expo/vector-icons';
-import type { StyleProp, TextStyle } from 'react-native';
 import { useApp } from '../state/AppContext';
+import { IconGlyph, type IconProps } from './iconGlyph';
 
-export type IconName = React.ComponentProps<typeof Ionicons>['name'];
+export { ICON_SIZE, IconGlyph, resolveIcon } from './iconGlyph';
+export type { IconName, IconProps } from './iconGlyph';
 
-/** Canonical icon sizes — use these everywhere for consistent weight/alignment. */
-export const ICON_SIZE = {
-  xs: 14,
-  sm: 16,
-  md: 20,
-  lg: 24,
-  xl: 30,
-} as const;
-
-export function Icon({
-  name,
-  size = ICON_SIZE.md,
-  color,
-  style,
-  testID,
-}: {
-  name: IconName;
-  size?: number;
-  color?: string;
-  style?: StyleProp<TextStyle>;
-  testID?: string;
-}) {
+/** Only icons WITHOUT an explicit colour subscribe to app state (for the theme). */
+function ThemedIcon(props: IconProps) {
   const { theme } = useApp();
-  return (
-    <Ionicons
-      name={name}
-      size={size}
-      color={color ?? theme.textDim}
-      style={style}
-      testID={testID}
-    />
-  );
+  return <IconGlyph {...props} color={theme.textDim} />;
+}
+
+/**
+ * Theme-aware icon (defaults to the theme's dim text colour). Icons with an
+ * explicit `color` render the memoised glyph directly, so app-state updates
+ * (favourites, playthrough saves…) don't re-render every icon on screen.
+ */
+export function Icon(props: IconProps) {
+  return props.color != null ? <IconGlyph {...props} /> : <ThemedIcon {...props} />;
 }
