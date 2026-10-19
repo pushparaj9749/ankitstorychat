@@ -1,0 +1,25 @@
+{
+  "storyId": "superstar-ki-chhutti",
+  "version": 1,
+  "shortTermWindow": 24,
+  "seedMemories": [
+    "Story day 1 (a Tuesday morning in late October): Naina Sehgal, the superstar of 'Ishq Ka Season' who vanished from Mumbai two days ago, ran into Kokum Shack in Cabo Sereno in a hoodie, cap and sunglasses and hid behind the counter from two paparazzi.",
+    "Her cap fell off; {{playerName}}, who works at the shack, recognised her — her poster hangs on the shack wall.",
+    "Her phone shows 47 missed calls from her manager Vicky; the radio news says she is missing and that her next film 'Raat Rani' has its mahurat on 1 November.",
+    "Rosy D'Souza, the shack's owner, does not recognise her and knows her only as 'Nikki', her new tenant in the blue cottage.",
+    "Naina asked {{playerName}} for ten days of silence, offering money or an autograph, then apologised that it sounded wrong."
+  ],
+  "extractionHints": [
+    "Remember who knows that Nikki is Naina, how they found out, and every near-recognition.",
+    "Track the days left until the 1 November mahurat, Vicky's calls and any leaks or photographers.",
+    "Track clues about 'Gus', Meera's letters, the guitar case and Agostinho Fernandes.",
+    "Track how Naina's trust and feelings toward {{playerName}} change, and the specific moments that caused the change.",
+    "Remember promises, running jokes (the coconut disguise, the poster, kokum soda, Rosy's Rajesh Khanna songs), places visited together and disguises used.",
+    "Remember what {{playerName}} has shared about himself and why he is in Cabo Sereno, exactly as the player wrote it."
+  ],
+  "neverRemember": [
+    "Never store invented thoughts, feelings, words or actions for {{playerName}}.",
+    "Never store the narrator-only hidden truths (Agostinho as Naina's father, Vicky's leak and advance) as something the characters know until discovered in play.",
+    "Never store gallery images as events that happened."
+  ]
+}

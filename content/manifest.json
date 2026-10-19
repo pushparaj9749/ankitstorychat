@@ -1,5 +1,5 @@
 {
-  "contentVersion": 43,
+  "contentVersion": 44,
   "minAppVersion": "1.0.0",
   "updatedAt": "2026-10-19T00:00:00Z",
   "stories": [
@@ -53,6 +53,63 @@
         "verified": true
       },
       "updatedAt": "2026-10-03T14:46:42Z"
+    },
+    {
+      "id": "superstar-ki-chhutti",
+      "title": "Superstar Ki Chhutti",
+      "tagline": "Desh ki sabse badi superstar laapata hai — aur woh tumhare shack ke counter ke peeche chhupi hai.",
+      "description": "Desh ki sabse badi nayi superstar Naina Sehgal do din se laapata hai — news channels pagal hain, uska manager pagal hai, aur 1 November ko uski agli film ka mahurat hai. Aur woh? Woh South Goa ke ek chhote se, sote hue gaon Cabo Sereno mein hai — kaale hoodie, badi cap aur kaale chashme mein — aur paparazzi se bachne ke liye seedha tumhare beach shack ke counter ke peeche aa chhupi hai. Lambe chamakte wavy baal, gaal par chhota sa til, aur woh muskaan jo poore desh ke billboards par chhapi hai… aur shack ki deewar par usi ka poster laga hai. Woh sirf das din maangti hai — das din jab koi use Naina na bulaye, sirf 'Nikki'. Par kya woh sach mein sirf chhutti manane aayi hai? Ek glamorous, mazedaar, dil chhoo lene wala slow-burn romance — Goa ki ret, scooter rides, fish curry rice aur ek superstar ka chhupa hua dil. Kahani kahan jaayegi, yeh sirf tumhare faislon par tika hai.",
+      "genres": [
+        "Romance",
+        "Slow Burn",
+        "Comedy",
+        "Drama",
+        "Slice of Life",
+        "Interactive Romance"
+      ],
+      "tags": [
+        "romance",
+        "slow-burn",
+        "celebrity-romance",
+        "superstar",
+        "secret-identity",
+        "goa",
+        "beach",
+        "glamorous-heroine",
+        "comedy",
+        "wholesome",
+        "interactive-romance",
+        "player-agency",
+        "dynamic-continuous",
+        "ongoing",
+        "hinglish"
+      ],
+      "characters": [
+        "Naina Sehgal",
+        "Rosy D'Souza",
+        "Joel Pinto",
+        "Agostinho Fernandes",
+        "Vicky Arora"
+      ],
+      "ageRating": "18+",
+      "contentLevel": "mature",
+      "language": "hinglish",
+      "version": 1,
+      "coverUrl": "stories/superstar-ki-chhutti/assets/cover.jpg",
+      "accentColor": "#1FA5A0",
+      "userRole": "{{playerName}} — an ordinary adult man aged 18–20, controlled exclusively by the player. He is spending the quiet off-season in Cabo Sereno, a small fishing village in South Goa, working at Kokum Shack, Rosy D'Souza's little beach café, and living in the room above it — why he is there and what he wants from life are entirely the player's to decide. He has never met Naina Sehgal; he knows her only as the face on posters and screens. The player supplies his display name at runtime; never assign him another name, face, hometown, personality, thought, feeling, dialogue, action, confession or future. Only the player decides what he says, feels and does.",
+      "setting": "Present-day South Goa in late October, at the very end of the monsoon, when the beaches are empty and the shacks are just reopening. Cabo Sereno, a small fictional fishing village: Kokum Shack, a bamboo-and-palm-leaf beach café with fairy lights and blue wooden tables; Rosy D'Souza's blue cottage next door; a palm-lined road of old Portuguese-style houses with red tiled roofs; a whitewashed blue-trimmed chapel; Padaria Sereno, the village's tiny old bakery; wooden fishing boats on the sand; a hidden cove beyond the rocks; and, far away, the Mumbai film world of cameras, contracts and headlines that keeps trying to find her.",
+      "estimatedMinutes": 60,
+      "featured": false,
+      "isNew": true,
+      "popularity": 98,
+      "storyDir": "superstar-ki-chhutti",
+      "creator": {
+        "name": "Ankit",
+        "avatar": null,
+        "verified": true
+      },
+      "updatedAt": "2026-10-19T00:00:00Z"
     },
     {
       "id": "pehli-barf",

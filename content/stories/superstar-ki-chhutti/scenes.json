@@ -1,0 +1,109 @@
+{
+  "storyId": "superstar-ki-chhutti",
+  "version": 1,
+  "scenes": [
+    {
+      "id": "disguise_fail",
+      "title": "Disguise Fail",
+      "narration": [
+        "*Subah ke 7:40. Cabo Sereno ke khaali beach par raat ki aakhri baarish abhi-abhi ruki hai. Kokum Shack ke bamboo shutters aadhe khule hain, ret geeli hai, aur lehron ke alawa sirf ek awaaz hai — Rosy aunty ke purane radio par bajta koi Konkani gaana.*",
+        "*Shack ki deewar par Joel Pinto ka chipkaya hua ek bada sa film poster hai — Ishq Ka Season — jismein ek ladki baarish mein khilkhila kar hans rahi hai. Joel har subah use good morning bolta hai.*",
+        "*Tabhi geeli ret par bhaagte qadmon ki awaaz aati hai. Ek ladki shack mein ghusti hai — is umas mein bhi poore kaale hoodie mein, badi si kaali cap aur aankhon par bade kaale chashme — aur seedha counter ke peeche jhuk kar chhup jaati hai.*",
+        "Naina Sehgal: \"Shhh! Please. Sirf do minute. Main yahan nahi hoon. Main... main ek nariyal hoon.\"",
+        "*Bahar sadak par do motorcycles dheemi hoti hain. Gale mein bade-bade camera latkaye do aadmi idhar-udhar dekhte hain, ek doosre se kuch kehte hain, aur phir aage nikal jaate hain.*",
+        "*Ladki raahat ki lambi saans leti hai aur khadi hoti hai — aur usi pal uski cap counter ke kone mein atak kar gir jaati hai. Lambe, ghane, chamakte wavy baal kandhon se kamar tak bikhar jaate hain. Woh chashma sir par chadhati hai: badi-badi kajrari aankhein, baayein gaal par ek nanha sa til, aur woh muskaan jo is waqt poore desh ke billboards par chhapi hai.*",
+        "*Uski nazar deewar wale poster par jaati hai. Phir tum par. Phir wapas poster par. Woh aankhen band karke halki si karaahti hai.*",
+        "Naina Sehgal: \"Haan. Wahi. Pata hai. Autograph baad mein, selfie kabhi nahi. Pehle ye batao — yahan peeche se nikalne ka koi raasta hai?\"",
+        "*Counter par rakha uska phone thartharata hai — screen par chamakta hai: Vicky — 47 missed calls. Woh use ulta kar deti hai. Radio ka gaana beech mein kat jaata hai aur news aati hai: Superstar Naina Sehgal do din se laapata! 1 November ko unki agli film Raat Rani ka mahurat — kya film khatre mein hai?*",
+        "*Tabhi shack ke peeche se Rosy D'Souza machhli ki tokri uthaye andar aati hai, chashma naak par latka hua, aur ladki ko dekhte hi khil uthti hai.*",
+        "Rosy D'Souza: \"Arre, aa gayi Nikki baby? Neeli cottage ki chaabi counter ke neeche hai. Aur sun — yahan ka koi ladka pareshaan kare toh seedha mujhe bolna. Ye wala bhi.\"",
+        "Rosy D'Souza: \"Aur tu, baba — Nikki ko garam chai pila. Bechari Bombay se aayi hai, dekh kitni thaki lag rahi hai. Main fish curry chadha rahi hoon.\"",
+        "*Rosy aunty rasoi ki taraf chali jaati hai, apne Rajesh Khanna ke gaane gungunaati hui — use zara bhi andaaza nahi ki unki nayi kirayedaar kaun hai. Naina dheere se counter ke paas aati hai aur awaaz neechi kar leti hai.*",
+        "Naina Sehgal: \"Suno. Das din. Sirf das din mujhe koi Naina nahi bulayega. Yahan mera naam Nikki hai — Bombay ki ek bori hui receptionist. Tum chup rahoge na? Main paise de sakti hoon. Ya autograph. Ya — ugh, sorry. Ye galat lag raha hai na?\"",
+        "*Pehli baar uski awaaz ki filmy chamak utar jaati hai. Jo aankhein tumhe dekh rahi hain, woh kisi superstar ki nahi — ek thaki hui, ghabraayi hui bees saal ki ladki ki hain. Bahar sadak par phir se kisi motorcycle ki awaaz paas aati hai.*"
+      ],
+      "fallbackLines": [
+        "*Lehrein shack ke paas tak aakar laut jaati hain. Naina counter ke kinare par ungliyon se taal deti hai, bar-bar sadak ki taraf dekhti hui, jaise har awaaz ek camera ho.*",
+        "Naina Sehgal: \"Waise tumhare yahan kokum soda milta hai? Mera dietician ise dekh le toh behosh ho jaaye. Isliye — do dena.\"",
+        "*Rasoi se Rosy D'Souza ki fish curry ki khushboo aur radio par Rajesh Khanna ka gaana aa raha hai. Deewar par poster wali Naina hans rahi hai; counter ke paas khadi Naina nahi.*"
+      ],
+      "choices": [
+        {
+          "id": "keep_quiet",
+          "text": "*Naina ko yakeen dilana ki uska raaz shack ki deewaron se bahar nahi jaayega — bina kisi paise ya autograph ke.*",
+          "shortLabel": "Raaz rakho",
+          "keywords": [
+            "secret",
+            "raaz",
+            "promise",
+            "vaada",
+            "chup",
+            "nikki"
+          ],
+          "next": null,
+          "effects": {
+            "memory": [
+              "On the first morning, {{playerName}} recognised Naina Sehgal hiding in Kokum Shack; she asked him to keep her identity secret and call her Nikki."
+            ]
+          }
+        },
+        {
+          "id": "back_door",
+          "text": "*Naina ko shack ke peeche wale raaste se chupchaap neeli cottage tak le jaana.*",
+          "shortLabel": "Peeche ka raasta",
+          "keywords": [
+            "back",
+            "peeche",
+            "cottage",
+            "raasta",
+            "hide",
+            "chhupao"
+          ],
+          "next": null,
+          "effects": {
+            "memory": [
+              "On the first morning, {{playerName}} offered to sneak Naina out the back of Kokum Shack to the blue cottage."
+            ]
+          }
+        },
+        {
+          "id": "chai_first",
+          "text": "*Pehle Naina ko Rosy aunty ki garam chai aur taaza poi dena — baaki baatein baad mein.*",
+          "shortLabel": "Pehle chai",
+          "keywords": [
+            "chai",
+            "tea",
+            "poi",
+            "khana",
+            "baitho"
+          ],
+          "next": null,
+          "effects": {
+            "memory": [
+              "On the first morning, {{playerName}} served Naina chai and poi before talking about her secret."
+            ]
+          }
+        },
+        {
+          "id": "poster_tease",
+          "text": "*Deewar wale poster aur asli Naina ki taraf dekh kar halka sa mazaak karna.*",
+          "shortLabel": "Poster ka mazaak",
+          "keywords": [
+            "poster",
+            "mazaak",
+            "joke",
+            "tease",
+            "film"
+          ],
+          "next": null,
+          "effects": {
+            "memory": [
+              "On the first morning, {{playerName}} joked about the Ishq Ka Season poster on the shack wall while Naina stood beside it."
+            ]
+          }
+        }
+      ]
+    }
+  ],
+  "endings": []
+}

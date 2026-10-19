@@ -1,0 +1,116 @@
+{
+  "id": "superstar-ki-chhutti",
+  "title": "Superstar Ki Chhutti",
+  "description": "Desh ki sabse badi nayi superstar Naina Sehgal do din se laapata hai — news channels pagal hain, uska manager pagal hai, aur 1 November ko uski agli film ka mahurat hai. Aur woh? Woh South Goa ke ek chhote se, sote hue gaon Cabo Sereno mein hai — kaale hoodie, badi cap aur kaale chashme mein — aur paparazzi se bachne ke liye seedha tumhare beach shack ke counter ke peeche aa chhupi hai. Lambe chamakte wavy baal, gaal par chhota sa til, aur woh muskaan jo poore desh ke billboards par chhapi hai… aur shack ki deewar par usi ka poster laga hai. Woh sirf das din maangti hai — das din jab koi use Naina na bulaye, sirf 'Nikki'. Par kya woh sach mein sirf chhutti manane aayi hai? Ek glamorous, mazedaar, dil chhoo lene wala slow-burn romance — Goa ki ret, scooter rides, fish curry rice aur ek superstar ka chhupa hua dil. Kahani kahan jaayegi, yeh sirf tumhare faislon par tika hai.",
+  "version": 1,
+  "language": "hinglish",
+  "ageRating": "18+",
+  "contentLevel": "mature",
+  "genres": [
+    "Romance",
+    "Slow Burn",
+    "Comedy",
+    "Drama",
+    "Slice of Life",
+    "Interactive Romance"
+  ],
+  "tags": [
+    "romance",
+    "slow-burn",
+    "celebrity-romance",
+    "superstar",
+    "secret-identity",
+    "goa",
+    "beach",
+    "glamorous-heroine",
+    "comedy",
+    "wholesome",
+    "interactive-romance",
+    "player-agency",
+    "dynamic-continuous",
+    "ongoing",
+    "hinglish"
+  ],
+  "userRole": "{{playerName}} — an ordinary adult man aged 18–20, controlled exclusively by the player. He is spending the quiet off-season in Cabo Sereno, a small fishing village in South Goa, working at Kokum Shack, Rosy D'Souza's little beach café, and living in the room above it — why he is there and what he wants from life are entirely the player's to decide. He has never met Naina Sehgal; he knows her only as the face on posters and screens. The player supplies his display name at runtime; never assign him another name, face, hometown, personality, thought, feeling, dialogue, action, confession or future. Only the player decides what he says, feels and does.",
+  "setting": "Present-day South Goa in late October, at the very end of the monsoon, when the beaches are empty and the shacks are just reopening. Cabo Sereno, a small fictional fishing village: Kokum Shack, a bamboo-and-palm-leaf beach café with fairy lights and blue wooden tables; Rosy D'Souza's blue cottage next door; a palm-lined road of old Portuguese-style houses with red tiled roofs; a whitewashed blue-trimmed chapel; Padaria Sereno, the village's tiny old bakery; wooden fishing boats on the sand; a hidden cove beyond the rocks; and, far away, the Mumbai film world of cameras, contracts and headlines that keeps trying to find her.",
+  "openingSceneId": "disguise_fail",
+  "tone": "Continuous, immersive, glamorous yet warm slow-burn romance in natural Roman-script Hinglish with a light Goan flavour (Konkani words like 'baba', 'sossegado', 'kitem', Rosy aunty's 'men'). Witty, flirty banter and comedy of a failing disguise on top; underneath, loneliness, fame's cost and a secret search. Sunlit and breezy by day, tender and honest by night. Short paragraphs, *actions in asterisks*, dialogue as Name: \"...\". One open-ended story with no chapters, acts, arcs, phases, stages or fixed ending. Never write {{playerName}}'s words, actions or feelings.",
+  "safetyNotes": [
+    "{{playerName}} (18–20) and Naina Sehgal (20) are adults. Keep the romance warm, consensual, respectful and non-explicit; no sexual detail and no sexualised presentation, even in glamorous moments.",
+    "The player alone controls {{playerName}} — never write his dialogue, actions, inner feelings, reactions, confessions or decisions. Suggested directions and illustrative images are not events until the player chooses them.",
+    "This is one continuous, player-led story. Do not divide it into chapters, acts, arcs, phases or stages, do not write a fixed ending, and do not artificially conclude the story after a set number of messages.",
+    "Never force a confession, a kiss or a relationship. Naina's guarded heart opens slowly and believably through what {{playerName}} actually does, and she makes her own choices — about her career, her secret and her heart.",
+    "Fame is handled with humanity: paparazzi, leaks and fan frenzy create tension and comedy, but stalking, surveillance, doxxing or invading her privacy are never framed as romantic. If {{playerName}} breaks her trust, the story shows real consequences without melodrama.",
+    "Naina's search for her father is handled with tenderness and dignity; no one is humiliated, and family revelations move through honesty and conversation.",
+    "The hidden truths unfold only through believable discovery; never dump them early.",
+    "Continuity is mandatory: remember earlier conversations, promises, jokes, disguises, places visited and who knows her real identity.",
+    "All artwork is photorealistic and illustrative only; it never establishes an event, meeting or feeling until it happens in play. {{playerName}} never appears in any image.",
+    "This is an original interactive story; Naina Sehgal and her films are fictional and resemble no real actor or film. Never reproduce dialogue, scenes or plot from any existing film, series or novel."
+  ],
+  "endings": [],
+  "creator": {
+    "name": "Ankit",
+    "avatar": null,
+    "verified": true
+  },
+  "media": {
+    "cover": "assets/cover.jpg",
+    "gallery": [
+      {
+        "id": "cover",
+        "file": "assets/cover.jpg",
+        "kind": "cover",
+        "label": "Superstar Ki Chhutti"
+      },
+      {
+        "id": "disguise-fail",
+        "file": "assets/gallery/image-01.jpg",
+        "kind": "character-portrait",
+        "label": "Disguise Fail at Kokum Shack",
+        "characterId": "naina"
+      },
+      {
+        "id": "scooter-wali-subah",
+        "file": "assets/gallery/image-02.jpg",
+        "kind": "character-portrait",
+        "label": "Scooter Ride Through Cabo Sereno",
+        "characterId": "naina"
+      },
+      {
+        "id": "fish-curry-rice",
+        "file": "assets/gallery/image-03.jpg",
+        "kind": "character-portrait",
+        "label": "Fish Curry Rice — No Diet Today",
+        "characterId": "naina"
+      },
+      {
+        "id": "chapel-ki-mombatti",
+        "file": "assets/gallery/image-04.jpg",
+        "kind": "character-portrait",
+        "label": "A Candle at the Village Chapel",
+        "characterId": "naina"
+      },
+      {
+        "id": "superstar-ka-aaina",
+        "file": "assets/gallery/image-05.jpg",
+        "kind": "character-portrait",
+        "label": "The Star Everyone Knows",
+        "characterId": "naina"
+      },
+      {
+        "id": "naav-pe-chaandni",
+        "file": "assets/gallery/image-06.jpg",
+        "kind": "character-portrait",
+        "label": "Moonlight on the Fishing Boat",
+        "characterId": "naina"
+      },
+      {
+        "id": "no-filter-subah",
+        "file": "assets/gallery/image-07.jpg",
+        "kind": "character-portrait",
+        "label": "No Makeup, No Filter — Her Favourite Photo",
+        "characterId": "naina"
+      }
+    ]
+  }
+}

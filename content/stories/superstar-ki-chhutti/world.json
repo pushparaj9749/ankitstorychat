@@ -1,0 +1,118 @@
+{
+  "storyId": "superstar-ki-chhutti",
+  "version": 1,
+  "premise": "{{playerName}}, 18–20, is working the quiet off-season at Kokum Shack in the South Goa village of Cabo Sereno when Naina Sehgal — the year's biggest new superstar, missing for two days — runs in disguised in a hoodie, cap and sunglasses and hides behind his counter from paparazzi. Her disguise fails in seconds; her film poster is on the shack's wall. She begs for ten days as 'Nikki', with the mahurat of her next film fixed for 1 November. She says she just needs a break, but she has a secret reason for choosing this village. A glamorous, funny, tender, open-ended slow-burn romance begins — shaped only by the player's choices.",
+  "locations": [
+    {
+      "id": "kokum_shack",
+      "name": "Kokum Shack",
+      "description": "Rosy D'Souza's bamboo-and-palm-leaf beach café with blue wooden tables, fairy lights, jars of kokum and coconuts, a blank chalkboard menu — and Joel's huge 'Ishq Ka Season' poster on the wall."
+    },
+    {
+      "id": "blue_cottage",
+      "name": "The Blue Cottage",
+      "description": "Rosy's small rental cottage next to the shack, with a frangipani tree, a hammock and a window facing the sea — where 'Nikki' is staying."
+    },
+    {
+      "id": "village_road",
+      "name": "The Palm Road",
+      "description": "A narrow road of old Portuguese-style houses with red tiled roofs and painted walls, perfect for scooter rides after the rain."
+    },
+    {
+      "id": "chapel",
+      "name": "Capela de Sereno",
+      "description": "A small whitewashed chapel with blue trim and a frangipani tree; candles at dusk, and Agostinho's guitar on Sundays."
+    },
+    {
+      "id": "padaria",
+      "name": "Padaria Sereno",
+      "description": "The village's tiny old bakery with blue walls and baskets of fresh poi; open from 5 a.m., smelling of wood fire."
+    },
+    {
+      "id": "fishing_boats",
+      "name": "The Fishing Boats",
+      "description": "Weathered, colourful wooden boats pulled up on the sand — the best seats on the beach at night."
+    },
+    {
+      "id": "hidden_cove",
+      "name": "The Hidden Cove",
+      "description": "A tiny beach beyond the black rocks, reachable only at low tide; no phone signal, no people, no cameras."
+    },
+    {
+      "id": "mumbai",
+      "name": "Mumbai (offstage)",
+      "description": "The film world of studios, contracts, flashbulbs and headlines, present through phone calls, TV news and Instagram."
+    }
+  ],
+  "factions": [
+    {
+      "id": "cabo_sereno",
+      "name": "The Village of Cabo Sereno",
+      "description": "Fishermen, bakers, shack owners and gossiping aunties; protective of their own once someone belongs."
+    },
+    {
+      "id": "film_world",
+      "name": "The Film World",
+      "description": "Vicky Arora, producers, paparazzi and millions of fans — all wanting a piece of Naina."
+    }
+  ],
+  "lore": [
+    "'Ishq Ka Season', Naina Sehgal's debut film, became the year's biggest hit four months ago; she is now on billboards across India. Both the film and Naina are fictional.",
+    "Naina disappeared from Mumbai two days ago; the mahurat of her next film, 'Raat Rani', is fixed for 1 November, and TV channels are running the story every hour.",
+    "In Cabo Sereno, almost nobody watches new films — except Joel Pinto, her biggest fan.",
+    "The chapel feast, with music and a village dance contest, falls about ten days into the story.",
+    "Naina carries a bundle of her late mother Meera's old letters, addressed to 'Gus, Cabo Sereno'.",
+    "HIDDEN TRUTH (narrator-only, reveal only through play): 'Gus' is Agostinho Fernandes, the village baker, Naina's father, who never knew Meera was pregnant and keeps her photo in his guitar case. Separately, Vicky Arora tipped off the paparazzi himself and has taken an advance for 'Raat Rani' in Naina's name without her final consent."
+  ],
+  "rules": [
+    "Only the player controls {{playerName}}. Never write his dialogue, actions, decisions, thoughts, feelings, reactions or confessions, and never decide how he feels about Naina. Describe the world and the other characters, then stop where the player can act.",
+    "This is an endless, dynamic story: one continuous, open-ended slow burn with no chapters, acts, arcs, phases or stages and no fixed ending. Never announce a new part of the story and never wrap it up. The ten days, the chapel feast and the 1 November mahurat are events inside the story, not the end of the story.",
+    "Time and place must always be clear and follow a believable chronology (tides, meals, shack work, scooter rides, news cycles, days left until 1 November). Emit location, storyTime, presentCharacters and activity in kissa-state whenever they change.",
+    "Naina is glamorous and breathtakingly beautiful, and the narration should let that shine through specific details — sunlight in her long waves, the beauty mark on her cheek, her dazzling laugh, her failed disguises — without ever reducing her to her looks. She is witty, talented, guarded, kind and has her own mind.",
+    "Naina's affection is earned slowly. She starts guarded, testing whether {{playerName}} wants money, fame or a selfie; she warms through discretion, honesty, humour, treating her as a normal person and respecting her boundaries. She is never instantly in love and never a damsel.",
+    "Keep the secret-identity comedy alive: near-recognitions, Joel's fandom, Rosy's obliviousness, new terrible disguises, the poster on the wall, TV news in the shack.",
+    "The hidden truths surface only through concrete, believable clues: the letters, the guitar case, an old song Agostinho hums, Vicky's slips, the photographers' timing. Never reveal them in one dump.",
+    "Keep Goa's texture vivid and respectful: kokum and fish curry, poi and chai, chapels and red-tiled houses, fishing boats, sossegado pace, Konkani words used naturally. Do not stereotype Goans or turn the village into a party cliché.",
+    "Write dialogue as Name: \"...\" on its own line and actions in *asterisks*. Keep paragraphs short. Use full names for speakers (Naina Sehgal, Rosy D'Souza, Joel Pinto, Agostinho Fernandes, Vicky Arora).",
+    "Images are illustrative. Never claim an event in a gallery image has happened until it happens in play."
+  ],
+  "importantObjects": [
+    {
+      "id": "meera_letters",
+      "name": "Meera's Letters",
+      "description": "A bundle of old letters in Naina's bag, written by her late mother and addressed to 'Gus, Cabo Sereno'; never sent."
+    },
+    {
+      "id": "disguise_kit",
+      "name": "The Disguise Kit",
+      "description": "A black hoodie, a black cap and huge sunglasses — which fool absolutely no one."
+    },
+    {
+      "id": "film_poster",
+      "name": "The Poster on the Wall",
+      "description": "Joel's huge 'Ishq Ka Season' poster in Kokum Shack, showing Naina laughing in the rain."
+    },
+    {
+      "id": "naina_phone",
+      "name": "Naina's Phone",
+      "description": "Face-down, buzzing, full of missed calls from Vicky — the thread that could lead the world to her."
+    },
+    {
+      "id": "guitar_case",
+      "name": "Agostinho's Guitar Case",
+      "description": "A battered black case behind the bakery counter that Agostinho never opens in front of anyone."
+    },
+    {
+      "id": "mint_scooter",
+      "name": "The Mint-Green Scooter",
+      "description": "Rosy's old rental scooter, Naina's escape vehicle around the village."
+    }
+  ],
+  "timeline": [
+    "Twenty-one years ago: Meera Sehgal spends a season in Goa and falls in love with a hotel-band guitarist called Gus, then returns to Dehradun.",
+    "Last year: Meera dies; Naina finds her old letters but is too busy shooting to act on them.",
+    "Four months ago: 'Ishq Ka Season' releases and Naina becomes a superstar overnight.",
+    "Two days ago: Naina disappears from Mumbai and books the blue cottage in Cabo Sereno as 'Nikki'.",
+    "Story day 1 (a Tuesday morning in late October, about twelve days before the 1 November mahurat): Naina hides from paparazzi behind the counter of Kokum Shack, where {{playerName}} works."
+  ]
+}
