@@ -22,7 +22,8 @@ import { ErrorState, LoadingState, OfflineState } from '../components/states';
 import { effectiveContentApiBaseUrl, getBundle, getBundledCoverSource, mediaApiUrl, StoryContentError, type CoverSource } from '../content/loader';
 import { getApiKey } from '../lib/secureKeys';
 import { aiErrorMessage, chatCompletion } from '../lib/ai';
-import { applyEffects, buildContext, finalizeAssistantText, getScene, HISTORY_HEADROOM, parseAssistantResponse, progressEstimate, shortTermWindowOf } from '../lib/engine';
+import { applyEffects, buildContext, buildStateExtractionMessages, checkAssistantReply, getScene, HISTORY_HEADROOM, parseAssistantResponse, parseExtractedState, progressEstimate, REWRITE_INSTRUCTION, shortTermWindowOf, type ParsedAssistant, type ReplyCheck } from '../lib/engine';
+import { chapterDue, closeChapter, getChapters } from '../lib/chapters';
 import { completeEpisode, consolidateMemories, putMemory, recallForTurn, rememberMany, rememberPreferences, episodeLine } from '../lib/memory';
 import { ensureWorldState } from '../lib/worldState';
 import { runMemoryWritePipeline, recallWithWorldState } from '../lib/memoryEngine';
@@ -103,6 +104,11 @@ export function Chat({ navigation, route }: Props) {
   const [typingLabel, setTypingLabel] = useState('Continuing…');
   const [aiError, setAiError] = useState<AIError | null>(null);
   const retryRequestRef = useRef<ChatTurnRequest | null>(null);
+  /**
+   * v2.7.0: the record-keeper call runs AFTER the reply is on screen. The next
+   * turn waits for it, so memory is always complete before the story moves on.
+   */
+  const pendingStateRef = useRef<Promise<void> | null>(null);
   const listRef = useRef<FlatList<ChatMessage>>(null);
 
   const aiReady = !!playthrough && !!activeProvider && providersWithKeys.has(activeProvider.id);
@@ -211,14 +217,20 @@ export function Chat({ navigation, route }: Props) {
     return { pt: next, sceneChanged };
   }
 
-  async function aiTurn(pt: Playthrough, b: StoryBundle, request: ChatTurnRequest) {
+  async function aiTurn(ptIn: Playthrough, b: StoryBundle, request: ChatTurnRequest) {
     if (!profile || !activeProvider) throw new Error('AI not configured.');
     const apiKey = await getApiKey(activeProvider.id);
     if (!apiKey) throw new Error('API key missing.');
 
+    // The previous turn's record-keeper must finish first: this turn's prompt
+    // has to see the state it wrote. Then re-read the journey from disk.
+    if (pendingStateRef.current) await pendingStateRef.current.catch(() => undefined);
+    const pt = (await getPlaythrough(ptIn.id).catch(() => null)) ?? ptIn;
+
     const isAuthoredMessage = request.kind === 'message';
     const writesStoryState = isAuthoredMessage || request.kind === 'scene' || request.kind === 'continue';
     const primaryUserText = request.primaryUserText ?? (isAuthoredMessage ? request.prompt : '');
+    const castNames = b.characters.characters.map((c) => c.name);
 
     // The screen starts migration in the background; share/wait for it here so
     // the first answer cannot race an incomplete transcript index.
@@ -284,6 +296,7 @@ export function Chat({ navigation, route }: Props) {
       storyMemoryBlock = '';
     }
 
+    const chapters = await getChapters(pt.id).catch(() => []);
     const ctx = buildContext({
       bundle: b,
       profile,
@@ -291,98 +304,157 @@ export function Chat({ navigation, route }: Props) {
       memories: relevant,
       history,
       summary,
+      chapters,
       worldState: wsForPrompt,
       immediateContext,
       storyMemoryBlock,
       turnInstruction: request.instruction,
+      stateMode: 'separate',
     }, profile.ageGroup);
-    const raw = await chatCompletion(activeProvider, apiKey, [
-      { role: 'system', content: ctx.system },
-      ...ctx.messages,
-      { role: 'user', content: request.prompt },
-    ]);
+    const transcript = [...ctx.messages, { role: 'user' as const, content: request.prompt }];
 
-    const parsed = parseAssistantResponse(raw);
-    // displayText is already state-free; stripStateLeakage is the final net for
-    // malformed/multiple/unterminated kissa-state blocks (never rendered).
-    const displayText = finalizeAssistantText(parsed);
+    // ---- STORY REPLY + check before the reader sees it -------------------
+    const checkOpts = { castNames, readerName: profile.nickname, privateNotes: ctx.privateNotes };
+    const raw = await chatCompletion(activeProvider, apiKey, [{ role: 'system', content: ctx.system }, ...transcript]);
+    let parsed: ParsedAssistant = parseAssistantResponse(raw);
+    let check: ReplyCheck = checkAssistantReply(parsed, checkOpts);
+    if (check.needsRewrite) {
+      // One silent rewrite. If it is not better, the cleaned first draft stays.
+      try {
+        const raw2 = await chatCompletion(activeProvider, apiKey, [
+          { role: 'system', content: `${ctx.system}\n\n${REWRITE_INSTRUCTION}` },
+          ...transcript,
+        ]);
+        const parsed2 = parseAssistantResponse(raw2);
+        const check2 = checkAssistantReply(parsed2, checkOpts);
+        if (!check2.needsRewrite || check2.reasons.length < check.reasons.length) {
+          // Keep any state the first draft carried as a fallback for the record-keeper.
+          parsed = { ...parsed2, effects: parsed2.effects ?? parsed.effects, memoryNotes: parsed2.memoryNotes.length ? parsed2.memoryNotes : parsed.memoryNotes, worldStateRaw: parsed2.worldStateRaw ?? parsed.worldStateRaw, rawStateJson: parsed2.rawStateJson ?? parsed.rawStateJson };
+          check = check2;
+        }
+      } catch {
+        /* the cleaned first draft is still safe to show */
+      }
+    }
+    const displayText = check.text;
+    const speaker = check.speaker;
 
-    if (writesStoryState) {
+    const saved = await persistAssistantLines(pt, [{ role: 'assistant', speaker, text: displayText }], pt.currentSceneId);
+    setMessages((prev) => [...saved.slice().reverse(), ...prev]);
+    playReceive(settings.sound);
+    if (settings.haptics) successBuzz();
+
+    if (!writesStoryState) return;
+
+    // ---- SILENT RECORD-KEEPER (after the reply is visible) ---------------
+    const summarize = (prompt: string) => chatCompletion(activeProvider, apiKey, [{ role: 'user', content: prompt }], { timeoutMs: 30000 });
+    const userText = isAuthoredMessage ? request.prompt : '';
+    const task = (async () => {
+      let stateParsed: ParsedAssistant | null = null;
+      try {
+        const rawState = await chatCompletion(
+          activeProvider,
+          apiKey,
+          buildStateExtractionMessages({
+            bundle: b,
+            playthrough: pt,
+            worldState: wsForPrompt,
+            userText,
+            assistantText: displayText,
+            assistantSpeaker: speaker,
+            playerName: profile.nickname,
+          }),
+          { timeoutMs: 45000 },
+        );
+        stateParsed = parseExtractedState(rawState);
+      } catch {
+        stateParsed = null;
+      }
+      // Fallback: a state block the story model still emitted (already hidden).
+      const source = stateParsed ?? (parsed.effects || parsed.rawStateJson ? parsed : null);
+      const rawStateJson = (source?.worldStateRaw ?? source?.rawStateJson ?? null) as any;
+      const memoryNotes = source?.memoryNotes ?? [];
+
       try {
         await runMemoryWritePipeline({
           playthrough: pt,
           bundle: b,
-          userText: isAuthoredMessage ? request.prompt : '',
+          userText,
           assistantText: displayText,
-          parsedExtractionRaw: (parsed as any).worldStateRaw ?? (parsed as any).rawStateJson ?? null,
+          parsedExtractionRaw: rawStateJson,
           worldState: wsForPrompt,
           skipEpisode: true,
         });
       } catch {}
-    }
 
-    // Menu-only answers are not story canon changes. Their hidden state blocks
-    // are ignored; Continue and Scene badlo deliberately advance story state.
-    if (isAuthoredMessage) void completeEpisode(pt.id, request.prompt, displayText).catch(() => undefined);
-    if (writesStoryState && parsed.memoryNotes?.length) {
-      void rememberMany(pt.id, parsed.memoryNotes, 'story', 3).catch(() => undefined);
-    }
-
-    const saved = await persistAssistantLines(pt, [{ role: 'assistant', speaker: parsed.speaker, text: displayText }], pt.currentSceneId);
-    setMessages((prev) => [...saved.slice().reverse(), ...prev]);
-
-    // Typed archive events are created only for reader-authored turns. Action
-    // prompts never create a fabricated user row or user-linked memory event.
-    if (isAuthoredMessage) {
-      try {
-        await rememberTurn({
-          playthrough: pt,
-          bundle: b,
-          userText: request.prompt,
-          assistantText: displayText,
-          parsedState: (parsed as any).worldStateRaw ?? (parsed as any).rawStateJson ?? null,
-          messageIds: [userMessageId, ...saved.map((m) => m.id)].filter((x): x is string => !!x),
-          sceneId: pt.currentSceneId,
-          location: wsForPrompt?.currentLocation ?? null,
-          storyDay: wsForPrompt?.storyTime?.day ?? null,
-          turnSeq: Math.max(wsForPrompt?.episodeCount ?? 0, pt.messageCount) + 1,
-          playerName: profile.nickname,
-        });
-      } catch {
-        /* the archive is additive: a failure must never break the chat */
+      if (isAuthoredMessage) {
+        await completeEpisode(pt.id, request.prompt, displayText).catch(() => undefined);
+        // Typed archive events are created only for reader-authored turns.
+        try {
+          await rememberTurn({
+            playthrough: pt,
+            bundle: b,
+            userText: request.prompt,
+            assistantText: displayText,
+            parsedState: rawStateJson,
+            messageIds: [userMessageId, ...saved.map((m) => m.id)].filter((x): x is string => !!x),
+            sceneId: pt.currentSceneId,
+            location: wsForPrompt?.currentLocation ?? null,
+            storyDay: wsForPrompt?.storyTime?.day ?? null,
+            turnSeq: Math.max(wsForPrompt?.episodeCount ?? 0, pt.messageCount) + 1,
+            playerName: profile.nickname,
+          });
+        } catch {
+          /* the archive is additive: a failure must never break the chat */
+        }
       }
-    }
 
-    let updatedPt = pt;
-    let sceneChanged = false;
-    if (writesStoryState) {
-      const applied = await applyTurnEffects(pt, b, parsed.effects, parsed.memoryNotes);
-      updatedPt = applied.pt;
-      sceneChanged = applied.sceneChanged;
+      const applied = await applyTurnEffects(pt, b, source?.effects, memoryNotes);
+      const updatedPt = applied.pt;
       setPlaythrough(updatedPt);
-    }
 
-    const summarize = (prompt: string) => chatCompletion(activeProvider, apiKey, [{ role: 'user', content: prompt }], { timeoutMs: 30000 });
+      // STAGE 1 chapters: a finished scene (or a very long one) becomes a chapter.
+      const longScene = !applied.sceneChanged && (await chapterDue(pt.id, updatedPt.messageCount).catch(() => false));
+      if (applied.sceneChanged || longScene) {
+        const oldScene = getScene(b, pt.currentSceneId);
+        const prevChapters = await getChapters(pt.id).catch(() => []);
+        const since = prevChapters.length ? prevChapters[prevChapters.length - 1].createdAt : '';
+        const pool2 = await listRecentMessagesAsc(pt.id, 240).catch(() => [] as ChatMessage[]);
+        const chapterMessages = pool2.filter((m) => !since || m.createdAt > since);
+        const title = interpolatePlayerName(oldScene.title, profile.nickname, { protectedNames: castNames });
+        void closeChapter({
+          playthroughId: pt.id,
+          title: longScene ? `${title} (contd.)` : title,
+          sceneId: oldScene.id,
+          messageCount: updatedPt.messageCount,
+          messages: chapterMessages,
+          castNames,
+          readerName: profile.nickname,
+          summarize,
+        });
+      }
 
-    if (sceneChanged) {
-      const sc = getScene(b, updatedPt.currentSceneId);
-      const title = interpolatePlayerName(sc.title, profile.nickname, { protectedNames: b.characters.characters.map((c) => c.name) });
-      const extra = await persistAssistantLines(updatedPt, [{ role: 'narration', speaker: null, text: `✦ ${title}` }], updatedPt.currentSceneId);
-      setMessages((prev) => [...extra.slice().reverse(), ...prev]);
-      // L5 FIX: Less aggressive folding — keep ≥8 live, fold at most half
-      void consolidateMemories(pt.id, summarize).catch(() => undefined);
-      // v2.5.1: the typed archive folds old events into rollups on the same
-      // cadence. Raw events and raw messages are kept — never deleted.
-      void consolidateStoryMemory(pt.id, pt.storyId).catch(() => undefined);
-    }
+      if (applied.sceneChanged) {
+        const sc = getScene(b, updatedPt.currentSceneId);
+        const title = interpolatePlayerName(sc.title, profile.nickname, { protectedNames: castNames });
+        const extra = await persistAssistantLines(updatedPt, [{ role: 'narration', speaker: null, text: `✦ ${title}` }], updatedPt.currentSceneId);
+        setMessages((prev) => [...extra.slice().reverse(), ...prev]);
+      }
 
-    if (writesStoryState && updatedPt.messageCount % 8 === 0) {
-      void consolidateMemories(pt.id, summarize).catch(() => undefined);
-      void consolidateStoryMemory(pt.id, pt.storyId).catch(() => undefined);
-    }
-
-    playReceive(settings.sound);
-    if (settings.haptics) successBuzz();
+      // Gap-free STAGE 1: fold episodes as soon as they leave the 20-chat window.
+      if (applied.sceneChanged || updatedPt.messageCount % 4 === 0) {
+        void consolidateMemories(pt.id, summarize).catch(() => undefined);
+        // The typed archive folds old events into rollups on the same cadence.
+        // Raw events and raw messages are kept — never deleted.
+        void consolidateStoryMemory(pt.id, pt.storyId).catch(() => undefined);
+      }
+    })();
+    const tracked: Promise<void> = task
+      .catch(() => undefined)
+      .finally(() => {
+        if (pendingStateRef.current === tracked) pendingStateRef.current = null;
+      });
+    pendingStateRef.current = tracked;
   }
 
   function typingLabelFor(kind: ChatTurnKind): string {

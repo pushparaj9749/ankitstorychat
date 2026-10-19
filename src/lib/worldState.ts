@@ -65,6 +65,12 @@ export interface ImportantObjectState {
   discoveredAt: string;
   lastSeenAt: string;
   significance: string | null;
+  /**
+   * v2.7.0 change log: every time the holder changes, "old → new (turn N)" is
+   * appended (newest last, max 5). The narrator can never silently move an
+   * object back to someone who no longer has it.
+   */
+  holderLog?: string[];
 }
 
 export interface StoryThread {
@@ -589,8 +595,15 @@ export function applyWorldStateUpdate(current: WorldState, update: StateUpdate):
           description: patch.description,
         };
       } else {
-        Object.assign(next.importantObjects[id], patch);
+        const prevHolder = next.importantObjects[id].holder;
+        const { holderLog: _ignored, ...rest } = patch;
+        Object.assign(next.importantObjects[id], rest);
         next.importantObjects[id].lastSeenAt = now;
+        const newHolder = next.importantObjects[id].holder;
+        if (patch.holder !== undefined && newHolder && prevHolder && newHolder !== prevHolder) {
+          const log = [...(next.importantObjects[id].holderLog ?? []), `${prevHolder} → ${newHolder} (turn ${next.episodeCount + 1})`];
+          next.importantObjects[id].holderLog = log.slice(-5);
+        }
       }
     }
   }
@@ -733,7 +746,7 @@ export function renderWorldStateForPrompt(state: WorldState): string {
   }
   const objs = Object.values(state.importantObjects);
   if (objs.length) {
-    lines.push(`- Important objects: ${objs.slice(0, 5).map((o) => `${o.name}${o.holder ? ` (${o.holder})` : ''}`).join(', ')}`);
+    lines.push(`- Important objects: ${objs.slice(0, 6).map((o) => `${o.name}${o.holder ? ` (${o.holder})` : ''}${o.holderLog?.length ? ` [history: ${o.holderLog.slice(-2).join('; ')}]` : ''}`).join(', ')}`);
   }
   if (state.unresolvedThreads.length) {
     lines.push(`- Unresolved threads:`);

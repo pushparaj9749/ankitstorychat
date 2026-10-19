@@ -20,6 +20,7 @@ import type { ChatMessage } from '../types';
 import { useApp } from '../state/AppContext';
 import { FADED_TEXT_OPACITY, GRADIENTS, RADIUS, SCALE, SHADOWS, SPACING, TOUCH, withAlpha, FONTS, TEXT_SIZE_MULTIPLIER } from '../theme';
 import { parseStoryMarkup, stripStoryMarkup } from '../lib/markup';
+import { sanitizeStoredText } from '../lib/leakGuard';
 import { Avatar } from './bits';
 import { Icon, ICON_SIZE } from './icons';
 
@@ -78,8 +79,15 @@ function NarratorMark() {
   );
 }
 
-function ChatBubbleImpl({ message }: { message: ChatMessage }) {
+function ChatBubbleImpl({ message: stored }: { message: ChatMessage }) {
   const { theme, settings } = useApp();
+  // v2.7.0: messages saved by older versions may carry leaked notes — clean
+  // them on render (reader text is never touched).
+  const message = useMemo(() => {
+    if (stored.role === 'user' || stored.role === 'system' || isSceneMarker(stored.text)) return stored;
+    const clean = sanitizeStoredText(stored.text);
+    return clean && clean !== stored.text ? { ...stored, text: clean } : stored;
+  }, [stored]);
   const scale = TEXT_SIZE_MULTIPLIER[settings.textSize];
   const bodySize = FONTS.body * scale;
   const smallBody = 14.5 * scale;

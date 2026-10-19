@@ -266,8 +266,13 @@ export async function recallForTurn(
 
 /* ---------------- consolidation ---------------- */
 
-export const FOLD_AT_EPISODES = 40;
-export const KEEP_LIVE_EPISODES = 16;
+/**
+ * v2.7.0 gap-free memory: STAGE 2 carries the last 20 chats verbatim, so as soon
+ * as an episode leaves that window it is folded into the STAGE 1 digest. There
+ * is no "middle" that only keyword retrieval can reach.
+ */
+export const FOLD_AT_EPISODES = 24;
+export const KEEP_LIVE_EPISODES = 20;
 export const FOLD_BATCH = 30;
 /** At least this many live episodes must remain after folding. */
 export const MIN_LIVE_AFTER_FOLD = 8;
@@ -318,10 +323,11 @@ export async function consolidateMemories(
   if (summarize) {
     try {
       const raw = await summarize(
-        `You compress an interactive story's history into one terse digest.\n` +
+        `You compress an interactive story's history into one digest of the WHOLE story so far.\n` +
           `Merge the EXISTING DIGEST with the NEW LOG LINES. Max ${SUMMARY_MAX_CHARS} characters.\n` +
-          `Keep: who is who, promises made, betrayals, items, injuries, secrets revealed, ` +
-          `relationship shifts, unresolved threads, reader choices.\n` +
+          `Chronological order. Compress the oldest events hardest; keep the newest events in more detail.\n` +
+          `Keep: who is who, promises made, betrayals, items and who holds them, injuries, secrets revealed ` +
+          `(and who knows them), relationship shifts, unresolved threads, the reader's choices and what the reader told about themselves.\n` +
           `Never invent, never drop a named character, never quote dialogue at length.\n` +
           `Plain bullet lines, no markdown headers.\n\n` +
           `EXISTING DIGEST:\n${prev || '(none)'}\n\nNEW LOG LINES:\n${facts}\n\n` +

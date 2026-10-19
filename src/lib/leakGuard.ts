@@ -37,11 +37,11 @@ const LABELS = [
   'remembered', 'remember', 'to remember', 'facts', 'key facts', 'pakki yaadein', 'new memory', 'new memories',
   // relationships
   'relationship', 'relationships', 'relationship status', 'relationship state', 'relationship states',
-  'relationship update', 'rishte', 'rishta', 'bond', 'trust', 'affection', 'tension', 'romance meter',
+  'relationship update', 'rishte', 'rishta', 'trust', 'affection', 'tension', 'romance meter',
   // threads / plot bookkeeping
   'unresolved threads', 'open threads', 'active threads', 'plot threads', 'threads', 'threads resolved',
   'resolved threads', 'active events', 'completed events', 'events', 'promises', 'decisions', 'secrets',
-  'hidden truth', 'hidden truths', 'hidden secret', 'hidden secrets', 'secret', 'raaz', 'raz',
+  'hidden truth', 'hidden truths', 'hidden secret', 'hidden secrets', 'secret',
   // world / scene bookkeeping
   'world state', 'current world state', 'story state', 'story state so far', 'state', 'hidden state',
   'legacy state', 'game state', 'state update', 'current state', 'kissa state', 'kissa-state', 'kissastate',
@@ -54,7 +54,7 @@ const LABELS = [
   'story so far', 'summary', 'chapter summary', 'chapter summaries', 'long-term story archive',
   'story archive', 'archive', 'canon', 'continuity', 'continuity law', 'secrecy law', 'lore', 'world rules',
   'narrator notes', 'narrator note', 'private notes', 'private narrator notes', 'internal notes', 'notes',
-  'note', 'ooc', 'out of character', 'system', 'system note', 'instruction', 'instructions',
+  'note', 'ooc', 'out of character', 'system note', 'instruction', 'instructions',
   'stage 1', 'stage 2', 'stage 3', 'latest turn cues', 'reader journey', 'debug',
 ];
 const LABEL_SET = new Set(LABELS);

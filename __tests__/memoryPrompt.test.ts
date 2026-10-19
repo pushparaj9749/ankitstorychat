@@ -78,14 +78,16 @@ function system(memories: MemoryEntry[], summary = ''): string {
 }
 
 describe('shortTermWindowOf', () => {
-  test('honours the story pack value', () => {
-    expect(shortTermWindowOf(bundle)).toBe(bundle.memory.shortTermWindow);
+  test('v2.7.0: the last 20 chats (40 rows) always travel — packs may ask for more, never less', () => {
+    expect(shortTermWindowOf(bundle)).toBe(Math.max(40, bundle.memory.shortTermWindow));
+    expect(shortTermWindowOf({ ...bundle, memory: { ...bundle.memory, shortTermWindow: 14 } })).toBe(40);
+    expect(shortTermWindowOf({ ...bundle, memory: { ...bundle.memory, shortTermWindow: 46 } })).toBe(46);
   });
 
   test('clamps wild values into range', () => {
     expect(shortTermWindowOf({ ...bundle, memory: { ...bundle.memory, shortTermWindow: 900 } })).toBe(48);
-    expect(shortTermWindowOf({ ...bundle, memory: { ...bundle.memory, shortTermWindow: 1 } })).toBe(4);
-    expect(shortTermWindowOf({ ...bundle, memory: { ...bundle.memory, shortTermWindow: 0 } })).toBe(16);
+    expect(shortTermWindowOf({ ...bundle, memory: { ...bundle.memory, shortTermWindow: 1 } })).toBe(40);
+    expect(shortTermWindowOf({ ...bundle, memory: { ...bundle.memory, shortTermWindow: 0 } })).toBe(40);
   });
 
   test('context window is sliced to the same size (no silent 30-message cap)', () => {

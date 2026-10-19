@@ -19,7 +19,7 @@ export const MEMORY_CHAR_BUDGET = 4600;
 export const MEMORY_MAX_ITEMS = 32;
 export const MEMORY_MAX_CHARS = 500;
 export const EPISODE_MAX_CHARS = 260;
-export const SUMMARY_MAX_CHARS = 1800;
+export const SUMMARY_MAX_CHARS = 2800;
 
 /** English + Hinglish filler that must never drive relevance. */
 const STOPWORDS = new Set([
