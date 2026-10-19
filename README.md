@@ -386,13 +386,27 @@ Full architecture, guarantees and the v2.5.1 test/QA matrix: **docs/V2.5.1_MEMOR
 
 ## 📚 Story format
 
+> **Owner's story rules (always follow these, for every story and every feature):**
+> 1. **No predefined scene or arc.** A story is a premise + characters + world + ONE opening
+>    moment. There is no plot plan: no scene sequence, arcs, chapters-in-advance, milestones
+>    or endings. After the opening, the story grows only from the reader's moves.
+> 2. **No length and no percentages.** Stories never "finish"; the app never shows a duration,
+>    "N min", progress %, progress bars/rings or a bond/relationship %.
+> 3. **The reader never sees narrator rules.** `userRole` may contain author instructions for
+>    the AI; the app shows only the description (`readerRoleText`).
+>
+> These are enforced in code and guarded by tests (`__tests__/freeFormStory.test.ts`,
+> `__tests__/noLengthOrPercent.test.ts`). `scenes.json` is still required for compatibility,
+> but only its **opening scene** is used — and only as the starting moment. New stories need
+> just that one opening scene (no extra scenes, choices or endings).
+
 ```
 content/stories/<id>/
   story.json        # title, role, setting, tone, ageRating, openingSceneId, safetyNotes,
                     #                  creator{name,avatar,verified}, media{cover,gallery[]}
   characters.json   # personality, voice, goals, sampleLine, knowledge…
   world.json        # premise, locations, factions, lore, RULES, objects
-  scenes.json       # scenes: narration, choices{next,effects,requiresFlag}, endings
+  scenes.json       # ONLY the opening moment is used (free-form story — no arcs/endings)
   memory.json       # shortTermWindow, seedMemories, extractionHints, neverRemember (all enforced)
   assets/           # cover.jpg + gallery/image-NN.jpg (referenced by story.media)
 ```

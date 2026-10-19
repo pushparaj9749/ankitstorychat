@@ -112,3 +112,31 @@ export function makePlayerTextFn(
   const options = playerNameOptionsFor(source);
   return (text) => interpolatePlayerName(text, name, options);
 }
+
+/* ---------------------------------------------------------------- reader role */
+
+/**
+ * Author instructions to the narrator that live inside `story.userRole`
+ * ("controlled exclusively by the player", "never assign him a name…").
+ * The AI still receives the full text; the READER only sees the description.
+ */
+const ROLE_INSTRUCTION =
+  /\b(player|narrator|runtime|display name|never assign|never choose|controlled (?:exclusively|only)|illustrative|prescribed|is never assigned|are never assigned|is never)\b/i;
+
+/** Reader-facing version of `story.userRole`: who you are, without narrator rules. */
+export function readerRoleText(userRole: string): string {
+  const text = (userRole ?? '').replace(/\s+/g, ' ').trim();
+  if (!text) return '';
+  // "…man aged 18–19, controlled exclusively by the player." → "…man aged 18–19."
+  const cleaned = text.replace(/,?\s*controlled (?:exclusively |only )?by the player\b/gi, '');
+  // Split into sentences (keep "18–19", "Dr.", "No. 9" intact: split only on ". " + capital/{{ ).
+  const sentences = cleaned.split(/(?<=[.!?])\s+(?=[A-Z{"'(])/);
+  const kept = sentences.filter((s, i) => i === 0 ? true : !ROLE_INSTRUCTION.test(s));
+  // The first sentence can itself be an instruction tail-only case; strip a trailing rule clause.
+  if (kept.length && ROLE_INSTRUCTION.test(kept[0])) {
+    const head = kept[0].split(/[;:]\s+/)[0];
+    kept[0] = ROLE_INSTRUCTION.test(head) ? '' : head;
+  }
+  const out = kept.filter(Boolean).join(' ').replace(/\s+([.,;])/g, '$1').trim();
+  return out || text.split(/[.;]/)[0].trim();
+}

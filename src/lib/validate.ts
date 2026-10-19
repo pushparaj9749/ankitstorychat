@@ -339,8 +339,7 @@ export function validateScenesFile(storyId: string, s: unknown, openingSceneId: 
           }
         }
       });
-      if (!sc.isEnding && sc.choices.length === 0)
-        issues.push(issue(p, 'non-ending scene needs at least one choice'));
+      // Free-form stories: the opening moment needs no choices (no predefined paths).
     }
     if (sc.isEnding && sc.endingId && !endingIds.has(sc.endingId))
       issues.push(issue(`${p}.endingId`, `unknown ending "${sc.endingId}"`));
