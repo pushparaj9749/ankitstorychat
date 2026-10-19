@@ -58,6 +58,13 @@ moves the tale forward — with memory, relationships, branching, and multiple e
 
 ## 🆕 Release notes
 
+### v2.7.1 — Free-form stories, no length, no percentages
+
+- **No predefined scene or arc:** the narrator gets only the opening moment (first 8 chats) plus a story-flow law — no scene list, directions, arcs or endings. The record-keeper never offers scene/ending ids. "Scene badlo" became **Naya mod** (the AI invents a natural new turn). The Chat header shows the current place. Journeys never end; ones an older version marked completed simply continue.
+- **No length, no percentages:** removed "N min", Duration, progress rings/bars and bond % from both templates. Story Detail shows Characters · Genre · Rated. Yaadein describes relationships in words (Ajnabi → Bahut khaas).
+- **"You are" card** shows only who the reader is, never the author's narrator instructions (`readerRoleText`).
+- Owner story rules documented in README; guarded by `freeFormStory` and `noLengthOrPercent` tests.
+
 ### v2.7.0 — Two UI templates, Yaadein, strong memory, real Regenerate
 
 - **UI templates (Settings → Appearance → UI Template):**
