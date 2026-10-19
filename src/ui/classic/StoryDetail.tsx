@@ -255,12 +255,6 @@ export function StoryDetail({ navigation, route }: Props) {
                 <Text style={[styles.ongoingText, { color: theme.gold }]}>ENDLESS</Text>
               </View>
             ) : null}
-            {meta.estimatedMinutes ? (
-              <View style={[styles.ongoingPill, { borderColor: theme.border, backgroundColor: withAlpha(theme.text, 0.05) }]}>
-                <Icon name="time-outline" size={11} color={theme.textDim} />
-                <Text style={[styles.ongoingText, { color: theme.textDim }]}>{meta.estimatedMinutes} MIN</Text>
-              </View>
-            ) : null}
           </View>
           <Text style={[styles.title, { color: theme.text }]}>{meta.title}</Text>
           <Text style={[styles.tagline, { color: theme.textDim }]}>{forPlayer(meta.tagline)}</Text>

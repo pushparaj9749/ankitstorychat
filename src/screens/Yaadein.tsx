@@ -470,14 +470,8 @@ function FactsTab({ ws, prefs, playerName }: { ws: WorldState | null; prefs: Mem
           <Card key={id}>
             <View style={styles.factRow}>
               <Text style={[styles.factName, { color: theme.text }]}>{nameOf(id)}</Text>
-              <Text style={[styles.factValue, { color: theme.text }]}>{bond}%</Text>
+              <Text style={[styles.factValue, { color: theme.primary }]}>{bondWord(bond)}</Text>
             </View>
-            <View style={[styles.track, { backgroundColor: withAlpha(theme.text, 0.08) }]}>
-              <View style={[styles.fill, { width: `${bond}%`, backgroundColor: theme.primary }]} />
-            </View>
-            <Text style={[styles.factSub, { color: theme.textFaint }]}>
-              Bharosa {r.trust} · Lagaav {r.affection} · Tension {r.tension}
-            </Text>
             {r.summary ? <Text style={[styles.factSub, { color: theme.textDim }]}>{clean(r.summary)}</Text> : null}
           </Card>
         );
@@ -504,6 +498,15 @@ function FactsTab({ ws, prefs, playerName }: { ws: WorldState | null; prefs: Mem
       ) : null}
     </>
   );
+}
+
+/** Relationships are felt, not scored: a word instead of any number or percentage. */
+export function bondWord(bond: number): string {
+  if (bond >= 80) return 'Bahut khaas';
+  if (bond >= 60) return 'Gehra rishta';
+  if (bond >= 40) return 'Dosti';
+  if (bond >= 20) return 'Jaan-pehchaan';
+  return 'Ajnabi';
 }
 
 /** "player → mahi (turn 12)" → "Pehle Ankit ke paas tha · chat 12 mein badla" (ids become names, no arrow glyph). */

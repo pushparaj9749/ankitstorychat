@@ -762,15 +762,7 @@ export function Chat({ navigation, route }: Props) {
           <Text style={[styles.roleText, { color: theme.textDim }]} numberOfLines={1}>
             {makePlayerTextFn(bundle.meta, profile?.nickname)(bundle.story.userRole)}
           </Text>
-          {bond?.value != null ? (
-            <View style={styles.bond} accessibilityLabel={`Bond with ${bond.name}: ${bond.value}%`}>
-              <Icon name="heart" size={12} color={theme.primary} />
-              <View style={[styles.bondTrack, { backgroundColor: 'rgba(255,255,255,0.10)' }]}>
-                <View style={[styles.bondFill, { width: `${bond.value}%`, backgroundColor: theme.primary }]} />
-              </View>
-              <Text style={[styles.bondText, { color: theme.text }]}>{bond.value}%</Text>
-            </View>
-          ) : cast.length > 0 ? (
+          {cast.length > 0 ? (
             <View style={styles.presence} accessibilityLabel={`In this story: ${cast.map((c) => c.name).join(', ')}`}>
               {cast.slice(0, 3).map((c, i) => (
                 <View key={c.id} style={[styles.presenceSlot, i > 0 && styles.presenceOverlap]}>

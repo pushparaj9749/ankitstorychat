@@ -186,8 +186,6 @@ export function StoryDetail({ navigation, route }: Props) {
     return item ? mediaApiUrl(apiBase, bundle.meta.storyDir, item.file) : null;
   };
 
-  const sceneCount = bundle.scenes.scenes.length;
-  const endingCount = bundle.scenes.endings.length;
   const ongoing = meta.tags?.includes('ongoing') ?? false;
 
   return (
@@ -274,16 +272,12 @@ export function StoryDetail({ navigation, route }: Props) {
 
         {/* ------------------------------------------------ overlapping sheet */}
         <View style={[styles.sheet, { backgroundColor: theme.bg, borderColor: theme.borderSoft }]}>
-          {/* size at a glance */}
+          {/* at a glance — never a length, duration or count of endings */}
           <View style={[styles.statRow, { borderColor: theme.border, backgroundColor: theme.surface }]}>
             {[
-              { icon: 'time-outline' as const, value: meta.estimatedMinutes ? `${meta.estimatedMinutes} min` : '—', label: 'Duration' },
               { icon: 'people-outline' as const, value: String(cast.length || '—'), label: 'Characters' },
-              {
-                icon: 'albums-outline' as const,
-                value: endingCount > 0 ? `${endingCount} endings` : ongoing ? 'Endless' : `${sceneCount} scenes`,
-                label: endingCount > 0 ? 'Endings' : ongoing ? 'Format' : 'Scenes',
-              },
+              { icon: 'sparkles-outline' as const, value: meta.genres[0] ?? 'Story', label: 'Genre' },
+              { icon: 'shield-outline' as const, value: String(meta.ageRating), label: 'Rated' },
             ].map((st, i) => (
               <View key={st.label} style={[styles.stat, i > 0 && { borderLeftWidth: StyleSheet.hairlineWidth, borderLeftColor: theme.border }]}>
                 <Icon name={st.icon} size={16} color={theme.textDim} />
