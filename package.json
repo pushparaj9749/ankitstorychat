@@ -1,6 +1,6 @@
 {
   "name": "kissa-ai-story-chat",
-  "version": "2.6.2",
+  "version": "2.7.0",
   "main": "index.ts",
   "private": true,
   "dependencies": {

@@ -58,6 +58,18 @@ moves the tale forward — with memory, relationships, branching, and multiple e
 
 ## 🆕 Release notes
 
+### v2.7.0 — Two UI templates, Yaadein, strong memory, real Regenerate
+
+- **UI templates (Settings → Appearance → UI Template):**
+  - **Kissa Noir** (new default): AMOLED-black Chat, restrained colours, cinematic full-bleed Story Detail (big title, genre chips, Duration / Characters / Endings strip, cast row, "Start Story").
+  - **Kissa Night**: the previous v2.6 look, kept as-is for readers who prefer it.
+  - Only the look changes; journeys, memory and settings are shared. Bond meter and mood chip are in both.
+- **Yaadein** (Chat header ✦ button, or tap "N moments remembered"): Summary (editable digest), Recent facts (pin / unpin / edit / delete / add your own, restore folded facts), Key facts (place, time, who is present, objects and who holds them, bonds, open threads, your preferences) and Chapters. Spoiler-safe: author seed notes and characters' private knowledge are never shown.
+- **Strong 3-stage memory:** digest + chapter summaries, last 20 chats verbatim, and a key-facts ledger (object hand-over history, character knowledge) written by a separate record-keeper call that the next turn waits for.
+- **Leak fix:** hidden notes/state blocks can no longer appear in a reply; stored messages are cleaned on render and in history.
+- **Regenerate really rewinds:** each story turn takes a journey checkpoint; Regenerate restores facts, digest, chapters, world state, archive and playthrough state, drops the old reply and re-runs the turn.
+- **Opening animation** redesigned; deleting a journey now also clears its digest, chapters and rewind point.
+
 ### v2.6.2 — Smoothness pass 2 (app-wide re-renders, image decode, typing)
 
 - **No more whole-app re-renders:**
