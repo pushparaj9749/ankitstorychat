@@ -45,7 +45,7 @@ import { mediumBuzz } from '../lib/haptics';
 
 type Props = NativeStackScreenProps<RootStackParamList, 'StoryDetail'>;
 
-const HERO = 470;
+const HERO = 540;
 
 export function StoryDetail({ navigation, route }: Props) {
   const { storyId } = route.params;
@@ -206,11 +206,40 @@ export function StoryDetail({ navigation, route }: Props) {
             tint="transparent"
           />
           <LinearGradient
-            colors={['rgba(10,11,16,0.55)', 'transparent', 'transparent', withAlpha(theme.bg, 0.9)]}
-            locations={[0, 0.22, 0.7, 1]}
+            colors={['rgba(10,11,16,0.55)', 'transparent', withAlpha(theme.bg, 0.55), withAlpha(theme.bg, 0.97), theme.bg]}
+            locations={[0, 0.2, 0.52, 0.84, 1]}
             style={StyleSheet.absoluteFill}
             pointerEvents="none"
           />
+
+          {/* title block sits on the artwork (cinematic, full-bleed) */}
+          <View style={styles.heroFoot}>
+            <View style={styles.heroBadges}>
+              <AgeBadge ageRating={meta.ageRating} />
+              {meta.isNew ? (
+                <View style={[styles.newBadge, { backgroundColor: theme.primary }]}>
+                  <Text style={styles.newBadgeText}>NEW</Text>
+                </View>
+              ) : null}
+              {ongoing ? (
+                <View style={[styles.ongoingPill, { borderColor: 'rgba(255,255,255,0.16)', backgroundColor: 'rgba(10,11,16,0.45)' }]}>
+                  <Icon name="sparkles" size={11} color={theme.gold} />
+                  <Text style={[styles.ongoingText, { color: '#F4F5F8' }]}>ENDLESS</Text>
+                </View>
+              ) : null}
+            </View>
+            <Text style={[styles.title, { color: '#FFFFFF' }]}>{meta.title}</Text>
+            <Text style={[styles.tagline, { color: theme.textDim }]} numberOfLines={3}>
+              {forPlayer(meta.tagline)}
+            </Text>
+            <View style={styles.metaRow}>
+              {meta.genres.slice(0, 3).map((g) => (
+                <View key={g} style={[styles.genrePill, { borderColor: theme.border, backgroundColor: 'rgba(255,255,255,0.06)' }]}>
+                  <Text style={[styles.genrePillText, { color: theme.text }]}>{g}</Text>
+                </View>
+              ))}
+            </View>
+          </View>
 
           <View style={styles.heroNav}>
             <Pressable
@@ -245,48 +274,20 @@ export function StoryDetail({ navigation, route }: Props) {
 
         {/* ------------------------------------------------ overlapping sheet */}
         <View style={[styles.sheet, { backgroundColor: theme.bg, borderColor: theme.borderSoft }]}>
-          <View style={[styles.grabber, { backgroundColor: withAlpha(theme.text, 0.18) }]} />
-          <View style={styles.heroBadges}>
-            <AgeBadge ageRating={meta.ageRating} />
-            {ongoing ? (
-              <View style={[styles.ongoingPill, { borderColor: withAlpha(theme.gold, 0.4), backgroundColor: withAlpha(theme.gold, 0.14) }]}>
-                <Icon name="sparkles" size={11} color={theme.gold} />
-                <Text style={[styles.ongoingText, { color: theme.gold }]}>ENDLESS</Text>
-              </View>
-            ) : null}
-            {meta.estimatedMinutes ? (
-              <View style={[styles.ongoingPill, { borderColor: theme.border, backgroundColor: withAlpha(theme.text, 0.05) }]}>
-                <Icon name="time-outline" size={11} color={theme.textDim} />
-                <Text style={[styles.ongoingText, { color: theme.textDim }]}>{meta.estimatedMinutes} MIN</Text>
-              </View>
-            ) : null}
-          </View>
-          <Text style={[styles.title, { color: theme.text }]}>{meta.title}</Text>
-          <Text style={[styles.tagline, { color: theme.textDim }]}>{forPlayer(meta.tagline)}</Text>
-
-          <View style={styles.metaRow}>
-            {meta.genres.slice(0, 3).map((g) => (
-              <GenreChip key={g} genre={g} />
-            ))}
-          </View>
-
           {/* size at a glance */}
-          <View style={styles.statRow}>
+          <View style={[styles.statRow, { borderColor: theme.border, backgroundColor: theme.surface }]}>
             {[
-              { icon: 'albums-outline' as const, value: String(sceneCount), label: 'SCENES', tint: theme.accent },
-              { icon: 'people-outline' as const, value: String(cast.length || '—'), label: 'CAST', tint: theme.violet },
+              { icon: 'time-outline' as const, value: meta.estimatedMinutes ? `${meta.estimatedMinutes} min` : '—', label: 'Duration' },
+              { icon: 'people-outline' as const, value: String(cast.length || '—'), label: 'Characters' },
               {
-                icon: 'flag-outline' as const,
-                value: endingCount > 0 ? String(endingCount) : ongoing ? '∞' : '—',
-                label: endingCount > 0 ? 'ENDINGS' : 'FORMAT',
-                tint: theme.gold,
+                icon: 'albums-outline' as const,
+                value: endingCount > 0 ? `${endingCount} endings` : ongoing ? 'Endless' : `${sceneCount} scenes`,
+                label: endingCount > 0 ? 'Endings' : ongoing ? 'Format' : 'Scenes',
               },
-            ].map((st) => (
-              <View key={st.label} style={[styles.stat, { borderColor: theme.border, backgroundColor: withAlpha(theme.surface2, 0.7) }]}>
-                <View style={[styles.statIcon, { backgroundColor: withAlpha(st.tint, 0.15) }]}>
-                  <Icon name={st.icon} size={15} color={st.tint} />
-                </View>
-                <Text style={[styles.statValue, { color: theme.text }]}>{st.value}</Text>
+            ].map((st, i) => (
+              <View key={st.label} style={[styles.stat, i > 0 && { borderLeftWidth: StyleSheet.hairlineWidth, borderLeftColor: theme.border }]}>
+                <Icon name={st.icon} size={16} color={theme.textDim} />
+                <Text style={[styles.statValue, { color: theme.text }]} numberOfLines={1}>{st.value}</Text>
                 <Text style={[styles.statLabel, { color: theme.textFaint }]}>{st.label}</Text>
               </View>
             ))}
@@ -302,7 +303,7 @@ export function StoryDetail({ navigation, route }: Props) {
           </Pressable>
 
           {bundle.story.userRole ? (
-            <View style={[styles.roleCard, { backgroundColor: withAlpha(theme.violet, 0.1), borderColor: withAlpha(theme.violet, 0.3) }, SHADOWS.card]}>
+            <View style={[styles.roleCard, { backgroundColor: theme.surface, borderColor: theme.border }]}>
               <View style={styles.roleHead}>
                 <View style={[styles.roleIcon, { backgroundColor: withAlpha(theme.primary, 0.18) }]}>
                   <Icon name="person" size={14} color={theme.accent} />
@@ -316,10 +317,10 @@ export function StoryDetail({ navigation, route }: Props) {
           {/* cast — the people this story is about */}
           {cast.length > 0 ? (
             <>
-              <SectionHeader title="Cast" kicker={`${cast.length}`} />
+              <SectionHeader title="Cast" kicker={`${cast.length} in this story`} />
               <ScrollView horizontal showsHorizontalScrollIndicator={false} contentContainerStyle={styles.castRow}>
-                <View style={[styles.castCard, { borderColor: theme.border, backgroundColor: withAlpha(theme.text, 0.04) }]}>
-                  <View style={[styles.castPortrait, { borderColor: theme.primary, borderWidth: 2, backgroundColor: withAlpha(theme.primary, 0.16) }]}>
+                <View style={styles.castCard}>
+                  <View style={[styles.castPortrait, { borderColor: theme.primary, borderWidth: 2, backgroundColor: theme.primarySoft }]}>
                     <Text style={[styles.castInitial, { color: theme.text }]}>
                       {(profile?.nickname?.trim()?.[0] ?? 'Y').toUpperCase()}
                     </Text>
@@ -327,14 +328,14 @@ export function StoryDetail({ navigation, route }: Props) {
                   <Text style={[styles.castName, { color: theme.text }]} numberOfLines={1}>
                     {profile?.nickname?.trim() || 'You'}
                   </Text>
-                  <Text style={[styles.castRole, { color: theme.accent }]} numberOfLines={1}>
-                    YOU
+                  <Text style={[styles.castRole, { color: theme.primary }]} numberOfLines={1}>
+                    You
                   </Text>
                 </View>
                 {cast.map((c) => {
                   const uri = portraitOf(c.id);
                   return (
-                    <View key={c.id} style={[styles.castCard, { borderColor: theme.border, backgroundColor: withAlpha(theme.text, 0.04) }]}>
+                    <View key={c.id} style={styles.castCard}>
                       <View style={[styles.castPortrait, { borderColor: theme.border, backgroundColor: withAlpha(meta.accentColor, 0.16) }]}>
                         {uri ? <ArtBackdrop source={{ uri }} accentColor={meta.accentColor} blur={12} dim={0.2} /> : null}
                         {uri ? (
@@ -403,7 +404,7 @@ export function StoryDetail({ navigation, route }: Props) {
         <View style={styles.fixedBarInner}>
           <View style={{ flex: 1 }}>
             <GradientButton
-              title={activeSave ? 'Resume Journey' : 'Chat Now'}
+              title={activeSave ? 'Resume Journey' : 'Start Story'}
               loading={starting}
               onPress={() => {
                 if (activeSave) navigation.navigate('Chat', { playthroughId: activeSave.id });
@@ -603,12 +604,8 @@ const styles = StyleSheet.create({
   scroll: { paddingBottom: 16 },
   hero: { width: '100%', alignItems: 'center', justifyContent: 'center', overflow: 'hidden' },
   sheet: {
-    marginTop: -34,
-    borderTopLeftRadius: 32,
-    borderTopRightRadius: 32,
-    borderTopWidth: 1,
     paddingHorizontal: SPACING.page,
-    paddingTop: 10,
+    paddingTop: 4,
   },
   grabber: { width: 40, height: 4, borderRadius: 2, alignSelf: 'center', marginBottom: 16 },
   heroArt: { width: '100%' },
@@ -622,18 +619,22 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
   },
-  heroFoot: { position: 'absolute', left: SPACING.page, right: SPACING.page, bottom: 10 },
+  heroFoot: { position: 'absolute', left: SPACING.page, right: SPACING.page, bottom: 8 },
+  newBadge: { paddingHorizontal: 8, paddingVertical: 4, borderRadius: 6 },
+  newBadgeText: { fontSize: SCALE.micro, fontWeight: '800', letterSpacing: 1, color: '#fff' },
+  genrePill: { paddingHorizontal: 12, paddingVertical: 6, borderRadius: RADIUS.pill, borderWidth: 1 },
+  genrePillText: { fontSize: SCALE.caption, fontWeight: '600' },
   heroBadges: { flexDirection: 'row', alignItems: 'center', gap: 8, marginBottom: 10 },
   ongoingPill: { flexDirection: 'row', alignItems: 'center', gap: 5, paddingHorizontal: 9, paddingVertical: 4, borderRadius: RADIUS.pill, borderWidth: 1 },
   ongoingText: { fontSize: SCALE.micro, fontWeight: '800', letterSpacing: 1.1 },
-  title: { fontSize: 30, fontWeight: '800', letterSpacing: -0.9, lineHeight: 35 },
+  title: { fontSize: 34, fontWeight: '700', letterSpacing: -1.1, lineHeight: 39 },
   tagline: { fontSize: SCALE.body - 0.5, fontWeight: '500', marginTop: 8, lineHeight: 21 },
-  metaRow: { flexDirection: 'row', flexWrap: 'wrap', gap: 8, marginTop: SPACING.lg },
-  statRow: { flexDirection: 'row', gap: 10, marginTop: SPACING.lg },
-  stat: { flex: 1, borderWidth: 1, borderRadius: RADIUS.lg, paddingVertical: 12, paddingHorizontal: 12, gap: 3 },
+  metaRow: { flexDirection: 'row', flexWrap: 'wrap', gap: 8, marginTop: SPACING.md },
+  statRow: { flexDirection: 'row', marginTop: SPACING.md, borderWidth: 1, borderRadius: RADIUS.lg, paddingVertical: 12 },
+  stat: { flex: 1, alignItems: 'center', paddingHorizontal: 6, gap: 3 },
   statIcon: { width: 28, height: 28, borderRadius: 14, alignItems: 'center', justifyContent: 'center', marginBottom: 5 },
-  statValue: { fontSize: 21, fontWeight: '800', letterSpacing: -0.4 },
-  statLabel: { fontSize: SCALE.micro, fontWeight: '700', letterSpacing: 1, marginTop: 3 },
+  statValue: { fontSize: 15, fontWeight: '700', letterSpacing: -0.2, marginTop: 4 },
+  statLabel: { fontSize: SCALE.micro, fontWeight: '500', letterSpacing: 0.2 },
   desc: { fontSize: 14.5, lineHeight: 22, marginTop: SPACING.lg },
   readMore: { flexDirection: 'row', alignItems: 'center', gap: 3, marginTop: 8, alignSelf: 'flex-start' },
   readMoreText: { fontSize: SCALE.small, fontWeight: '700' },
@@ -643,12 +644,12 @@ const styles = StyleSheet.create({
   roleKicker: { fontSize: SCALE.micro, letterSpacing: 1.3, fontWeight: '800' },
   roleDesc: { fontSize: 14, lineHeight: 21, fontWeight: '500' },
   castRow: { gap: 10, paddingRight: SPACING.page },
-  castCard: { width: 104, borderWidth: 1, borderRadius: RADIUS.xl, paddingVertical: 14, paddingHorizontal: 8, alignItems: 'center' },
-  castPortrait: { width: 64, height: 64, borderRadius: 32, borderWidth: 1, overflow: 'hidden', alignItems: 'center', justifyContent: 'center' },
-  castPortraitImg: { width: 64, height: 64 },
+  castCard: { width: 84, paddingVertical: 4, alignItems: 'center' },
+  castPortrait: { width: 68, height: 68, borderRadius: 34, borderWidth: 1, overflow: 'hidden', alignItems: 'center', justifyContent: 'center' },
+  castPortraitImg: { width: 68, height: 68 },
   castInitial: { fontSize: 20, fontWeight: '800' },
   castName: { fontSize: SCALE.small, fontWeight: '700', marginTop: 9 },
-  castRole: { fontSize: SCALE.micro, fontWeight: '600', marginTop: 3, textAlign: 'center', lineHeight: 14 },
+  castRole: { fontSize: SCALE.micro, fontWeight: '500', marginTop: 2, textAlign: 'center', lineHeight: 14 },
   mediaGrid: { flexDirection: 'row', flexWrap: 'wrap', justifyContent: 'space-between', rowGap: 10, marginTop: 4 },
   mediaCell: { width: '48.5%' },
   mediaCellFull: { width: '100%' },
