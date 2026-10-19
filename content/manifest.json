@@ -1,5 +1,5 @@
 {
-  "contentVersion": 44,
+  "contentVersion": 45,
   "minAppVersion": "1.0.0",
   "updatedAt": "2026-10-19T00:00:00Z",
   "stories": [
@@ -53,6 +53,63 @@
         "verified": true
       },
       "updatedAt": "2026-10-03T14:46:42Z"
+    },
+    {
+      "id": "kuch-toh-bol-na",
+      "title": "Kuch Toh Bol Na",
+      "tagline": "Woh ek lafz nahi bol paata — aur woh use chhedna band nahi karti.",
+      "description": "Class ka sabse chup ladka — last bench, ek kaan mein earbud, aur attendance mein 'present' bhi mushkil se nikalta hai. Phir ek Somvaar subah Delhi se aayi Mahi Khurana dhadaam se class mein ghusti hai — oonchi bikhri ponytail, naak mein chamakti nose pin, aur aankhon mein poori shararat — aur seedha tumhare bagal mein baith kar bina poochhe tumhara earbud chura leti hai. Professor tum dono ko semester project ka partner bana deti hai: ek documentary, jismein narration tumhari awaaz mein hona hai. Aur Mahi ka naya ghar? Tumhare flat ke theek saamne, balcony se balcony. Woh chhedti hai, dare deti hai, 'Mr. Mute' bulaati hai, aur har baar ek hi baat kehti hai — kuch toh bol na. Par uski har shararat ke peeche bhi ek raaz hai. Ek naughty-shy, dil dhadkane wala slow-burn romance — chup rehna bhi ek jawaab hai, aur bolna bhi. Kahani kahan jaayegi, yeh sirf tumhare faislon par tika hai.",
+      "genres": [
+        "Romance",
+        "Slow Burn",
+        "Comedy",
+        "College",
+        "Slice of Life",
+        "Interactive Romance"
+      ],
+      "tags": [
+        "romance",
+        "slow-burn",
+        "college-romance",
+        "introvert-hero",
+        "teasing-heroine",
+        "naughty-heroine",
+        "neighbours",
+        "balcony-romance",
+        "pune",
+        "comedy",
+        "interactive-romance",
+        "player-agency",
+        "dynamic-continuous",
+        "ongoing",
+        "hinglish"
+      ],
+      "characters": [
+        "Mahi Khurana",
+        "Shakuntala Bhatia",
+        "Sameer Oberoi",
+        "Ira Deshpande",
+        "Medha Kulkarni"
+      ],
+      "ageRating": "18+",
+      "contentLevel": "mature",
+      "language": "hinglish",
+      "version": 1,
+      "coverUrl": "stories/kuch-toh-bol-na/assets/cover.jpg",
+      "accentColor": "#5B8DEF",
+      "userRole": "{{playerName}} — an adult Indian man aged 19–20, controlled exclusively by the player. He is a second-year student at Sahyadri College of Engineering in Pune and lives in Shanti Kunj Society, Kothrud. He starts the story as the quietest boy in class: an introvert who finds it hard to speak up, especially when flustered, and often goes silent, blushes or looks away. That is only where he begins — whether, when and how he finds his voice is entirely the player's choice. His look in the artwork is one fixed, approved design (see playerVisualDesign); the player supplies his display name at runtime. Never assign him another name, and never write his thoughts, feelings, dialogue, actions, confessions or future. Only the player decides what he says, feels and does.",
+      "setting": "Present-day Pune in late October, after the monsoon, with surprise showers still sweeping the city. Sahyadri College of Engineering (fictional): a stone heritage-style main building, wide campus steps, a noisy canteen and a quiet library; Shanti Kunj Society in Kothrud, where his balcony faces Mahi's across a narrow gap; tree-lined lanes that flood in a minute, a hill road up to Vetal Tekdi, vada pav and cutting chai stalls, and the college cultural fest, Sahyadri Utsav, with its dandiya night about two weeks away.",
+      "estimatedMinutes": 60,
+      "featured": false,
+      "isNew": true,
+      "popularity": 98,
+      "storyDir": "kuch-toh-bol-na",
+      "creator": {
+        "name": "Ankit",
+        "avatar": null,
+        "verified": true
+      },
+      "updatedAt": "2026-10-19T00:00:00Z"
     },
     {
       "id": "superstar-ki-chhutti",
