@@ -401,9 +401,12 @@ Full architecture, guarantees and the v2.5.1 test/QA matrix: **docs/V2.5.1_MEMOR
 >    "N min", progress %, progress bars/rings or a bond/relationship %.
 > 3. **The reader never sees narrator rules.** `userRole` may contain author instructions for
 >    the AI; the app shows only the description (`readerRoleText`).
+> 4. **New covers follow [`docs/COVER_GUIDE.md`](docs/COVER_GUIDE.md):** a cinematic story-moment
+>    still, **2:3 portrait**, with the story **title painted on the cover** (upper third).
+>    Existing covers are left as they are.
 >
 > These are enforced in code and guarded by tests (`__tests__/freeFormStory.test.ts`,
-> `__tests__/noLengthOrPercent.test.ts`). `scenes.json` is still required for compatibility,
+> `__tests__/noLengthOrPercent.test.ts`, `__tests__/coverGuide.test.ts`). `scenes.json` is still required for compatibility,
 > but only its **opening scene** is used — and only as the starting moment. New stories need
 > just that one opening scene (no extra scenes, choices or endings).
 
