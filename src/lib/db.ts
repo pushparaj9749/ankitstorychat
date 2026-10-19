@@ -543,7 +543,122 @@ export async function deletePlaythrough(id: string): Promise<void> {
   try {
     await db.runAsync('DELETE FROM kv WHERE key = ?', `memsum:${id}`);
     await db.runAsync('DELETE FROM kv WHERE key = ?', `memchap:${id}`);
+    await db.runAsync('DELETE FROM kv WHERE key = ?', `turnckpt:${id}`);
   } catch {}
+}
+
+/* ---------------- per-turn journey snapshot (Regenerate rollback) ---------------- */
+
+/**
+ * Everything a single story turn can write for one journey, as plain rows.
+ * Messages are NOT included (the transcript is handled explicitly) and the
+ * keyword index is tracked by record key only — it is rebuilt from records.
+ */
+export interface JourneySnapshot {
+  v: 1;
+  at: string;
+  rows: Record<string, Record<string, unknown>[]>;
+  kv: { key: string; value: string }[];
+  /** "record_type|record_id" of every non-message index record at snapshot time. */
+  indexKeys: string[];
+}
+
+const SNAPSHOT_TABLES: [table: string, column: string][] = [
+  ['playthroughs', 'id'],
+  ['memories', 'playthrough_id'],
+  ['world_states', 'playthrough_id'],
+  ['story_events', 'playthrough_id'],
+  ['relationship_states', 'playthrough_id'],
+  ['character_knowledge', 'playthrough_id'],
+  ['memory_contradictions', 'playthrough_id'],
+];
+
+const snapshotKvKeys = (id: string) => [
+  `memsum:${id}`,
+  `memchap:${id}`,
+  `worldState:${id}`,
+  `worldStatePrev:${id}`,
+  `worldStateSchema:${id}`,
+];
+
+export async function snapshotJourney(id: string): Promise<JourneySnapshot> {
+  const db = await getDb();
+  const rows: JourneySnapshot['rows'] = {};
+  for (const [table, column] of SNAPSHOT_TABLES) {
+    try {
+      rows[table] = await db.getAllAsync<Record<string, unknown>>(`SELECT * FROM ${table} WHERE ${column} = ?`, id);
+    } catch {
+      /* table absent on a partially migrated install */
+    }
+  }
+  const keys = snapshotKvKeys(id);
+  const kv = await db.getAllAsync<{ key: string; value: string }>(
+    `SELECT key, value FROM kv WHERE key IN (${keys.map(() => '?').join(', ')}) OR key LIKE ?`,
+    ...keys,
+    `storyMem:${id}:%`,
+  );
+  let indexKeys: string[] = [];
+  try {
+    const idx = await db.getAllAsync<{ record_type: string; record_id: string }>(
+      "SELECT DISTINCT record_type, record_id FROM memory_index WHERE playthrough_id = ? AND record_type != 'message'",
+      id,
+    );
+    indexKeys = idx.map((r) => `${r.record_type}|${r.record_id}`);
+  } catch {}
+  return { v: 1, at: new Date().toISOString(), rows, kv, indexKeys };
+}
+
+/**
+ * Put a journey back exactly as it was at `snap` time and drop the given
+ * transcript rows (the reply being regenerated). All-or-nothing.
+ */
+export async function restoreJourney(id: string, snap: JourneySnapshot, dropMessageIds: string[] = []): Promise<void> {
+  const db = await getDb();
+  const work = async () => {
+    for (const [table, column] of SNAPSHOT_TABLES) {
+      const saved = snap.rows[table];
+      if (!saved) continue;
+      await db.runAsync(`DELETE FROM ${table} WHERE ${column} = ?`, id);
+      for (const row of saved) {
+        const cols = Object.keys(row);
+        if (!cols.length) continue;
+        await db.runAsync(
+          `INSERT OR REPLACE INTO ${table} (${cols.join(', ')}) VALUES (${cols.map(() => '?').join(', ')})`,
+          ...cols.map((c) => row[c] as string | number | null),
+        );
+      }
+    }
+    const keys = snapshotKvKeys(id);
+    await db.runAsync(`DELETE FROM kv WHERE key IN (${keys.map(() => '?').join(', ')}) OR key LIKE ?`, ...keys, `storyMem:${id}:%`);
+    for (const { key, value } of snap.kv) {
+      await db.runAsync('INSERT OR REPLACE INTO kv (key, value) VALUES (?, ?)', key, value);
+    }
+    try {
+      const known = new Set(snap.indexKeys);
+      const now = await db.getAllAsync<{ record_type: string; record_id: string }>(
+        "SELECT DISTINCT record_type, record_id FROM memory_index WHERE playthrough_id = ? AND record_type != 'message'",
+        id,
+      );
+      for (const r of now) {
+        if (known.has(`${r.record_type}|${r.record_id}`)) continue;
+        await db.runAsync(
+          'DELETE FROM memory_index WHERE playthrough_id = ? AND record_type = ? AND record_id = ?',
+          id,
+          r.record_type,
+          r.record_id,
+        );
+      }
+      for (const mid of dropMessageIds) {
+        await db.runAsync("DELETE FROM memory_index WHERE playthrough_id = ? AND record_type = 'message' AND record_id = ?", id, mid);
+      }
+    } catch {}
+    for (const mid of dropMessageIds) {
+      await db.runAsync('DELETE FROM messages WHERE id = ? AND playthrough_id = ?', mid, id);
+    }
+  };
+  const tx = (db as unknown as { withTransactionAsync?: (fn: () => Promise<void>) => Promise<void> }).withTransactionAsync;
+  if (typeof tx === 'function') await tx.call(db, work);
+  else await work();
 }
 
 export async function deletePlaythroughsForStory(storyId: string): Promise<void> {

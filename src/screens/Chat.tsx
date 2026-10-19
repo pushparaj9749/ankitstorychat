@@ -29,6 +29,7 @@ import { completeEpisode, consolidateMemories, putMemory, recallForTurn, remembe
 import { ensureWorldState, getWorldState } from '../lib/worldState';
 import { runMemoryWritePipeline, recallWithWorldState } from '../lib/memoryEngine';
 import { listMemoryCandidates } from '../lib/db';
+import { attachReplyIds, checkpointCovers, getTurnCheckpoint, rollbackTurn, saveTurnCheckpoint } from '../lib/turnCheckpoint';
 import { countMessages, getPlaythrough, insertMessage, listMessages, listRecentMessagesAsc, updatePlaythrough, updateStats } from '../lib/db';
 import { consolidateStoryMemory, ensureStoryMemoryReady, indexStoryMemoryMessages, recallStoryMemoryForPrompt, rememberTurn } from '../lib/storyMemory';
 import { completePlaythrough } from '../lib/playthrough';
@@ -50,6 +51,8 @@ type ChatTurnRequest = {
   primaryUserText?: string;
   instruction?: string;
   userMessage?: ChatMessage;
+  /** Regenerate-after-rewind: one-off note appended to the instruction (never checkpointed). */
+  retakeNote?: string;
 };
 const PAGE = 40;
 
@@ -259,6 +262,15 @@ export function Chat({ navigation, route }: Props) {
     // the first answer cannot race an incomplete transcript index.
     await ensureStoryMemoryReady({ playthrough: pt, bundle: b, playerName: profile.nickname }).catch(() => undefined);
     const worldState = await ensureWorldState(pt, b).catch(() => null);
+    // Rewind point: Regenerate on this turn's reply restores everything below.
+    if (writesStoryState) {
+      await saveTurnCheckpoint(pt.id, {
+        kind: request.kind as 'message' | 'scene' | 'continue',
+        prompt: request.prompt,
+        primaryUserText: request.primaryUserText,
+        instruction: request.instruction,
+      }).catch(() => undefined);
+    }
     const recent = await listRecentMessagesAsc(pt.id, shortTermWindowOf(b) + HISTORY_HEADROOM);
     const history = isAuthoredMessage
       ? recent.filter((m, i) => !(i === recent.length - 1 && m.role === 'user' && m.text === request.prompt))
@@ -331,7 +343,7 @@ export function Chat({ navigation, route }: Props) {
       worldState: wsForPrompt,
       immediateContext,
       storyMemoryBlock,
-      turnInstruction: request.instruction,
+      turnInstruction: [request.instruction, request.retakeNote].filter(Boolean).join(' ') || undefined,
       stateMode: 'separate',
     }, profile.ageGroup);
     const transcript = [...ctx.messages, { role: 'user' as const, content: request.prompt }];
@@ -363,6 +375,7 @@ export function Chat({ navigation, route }: Props) {
     const speaker = check.speaker;
 
     const saved = await persistAssistantLines(pt, [{ role: 'assistant', speaker, text: displayText }], pt.currentSceneId);
+    if (writesStoryState) await attachReplyIds(pt.id, saved.map((m) => m.id)).catch(() => undefined);
     setMessages((prev) => [...saved.slice().reverse(), ...prev]);
     playReceive(settings.sound);
     if (settings.haptics) successBuzz();
@@ -541,11 +554,55 @@ export function Chat({ navigation, route }: Props) {
     await executeTurnRequest(request, playthrough, bundle);
   }
 
+  /**
+   * Real Regenerate: rewind the journey's memory to just before the last
+   * story turn, drop its reply, and run that same turn again. Returns false
+   * when the last reply has no rewind point (older reply / non-story action),
+   * in which case the caller falls back to a state-free alternate take.
+   */
+  async function regenerateWithRewind(pt: Playthrough, b: StoryBundle): Promise<boolean> {
+    const old = latestAssistantMessage;
+    let rewound = false;
+    setSending(true);
+    try {
+      if (pendingStateRef.current) await pendingStateRef.current.catch(() => undefined);
+      const ck = await getTurnCheckpoint(pt.id).catch(() => null);
+      if (!checkpointCovers(ck, old?.id)) return false;
+      await rollbackTurn(pt.id, ck);
+      rewound = true;
+      const drop = new Set(ck.replyIds);
+      setMessages((prev) => prev.filter((m) => !drop.has(m.id)));
+      const restored = (await getPlaythrough(pt.id).catch(() => null)) ?? pt;
+      setPlaythrough(restored);
+      lightBuzz();
+      playSend(settings.sound);
+      await executeTurnRequest(
+        {
+          ...ck.request,
+          retakeNote: [
+            'The reader asked for a fresh take on this turn. Write it differently from the discarded attempt below — new wording and a different natural beat — while staying fully continuity-safe.',
+            old ? `Discarded attempt (do not repeat it): ${JSON.stringify(old.text.slice(0, 500))}.` : '',
+          ].filter(Boolean).join(' '),
+        },
+        restored,
+        b,
+      );
+      return true;
+    } catch {
+      // Once rewound, never fall through to a second take on top of it.
+      return rewound;
+    } finally {
+      setSending(false);
+    }
+  }
+
   async function runChatAction(kind: ChatActionKind) {
     if (!playthrough || !bundle || sending || !aiReady) return;
     if (kind !== 'regenerate' && playthrough.status !== 'active') return;
     if (kind === 'regenerate' && !canRegenerate) return;
     if (kind === 'scene' && !hasAlternateScene) return;
+
+    if (kind === 'regenerate' && (await regenerateWithRewind(playthrough, bundle))) return;
 
     const previousUserText = latestUserMessage?.text ?? '';
     let prompt = '';

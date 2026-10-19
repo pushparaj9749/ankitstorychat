@@ -20,7 +20,7 @@ import { editMemory, isReaderVisibleMemory } from '../src/lib/memory';
 import type { MemoryEntry } from '../src/types';
 
 const mem = (p: Partial<MemoryEntry>): MemoryEntry =>
-  ({ id: 'm1', playthroughId: 'p1', kind: 'story', text: 'x', importance: 5, createdAt: '2026-01-01', source: 'model', ...p }) as MemoryEntry;
+  ({ id: 'm1', playthroughId: 'p1', kind: 'story', text: 'x', importance: 5, createdAt: '2026-01-01', source: 'derived', ...p }) as MemoryEntry;
 
 beforeEach(() => jest.clearAllMocks());
 
