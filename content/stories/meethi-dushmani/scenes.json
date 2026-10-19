@@ -1,0 +1,110 @@
+{
+  "storyId": "meethi-dushmani",
+  "version": 1,
+  "scenes": [
+    {
+      "id": "bandar_aur_ghewar",
+      "title": "Bandar, Ghewar Aur Barah Saal",
+      "narration": [
+        "*Subah ke 9:10. Jaipur ki purani Mishri Gali mein Dhanteras se bas barah din pehle ki raunak hai — gende ke haar, garam chashni ki khushboo, aur gulabi deewaron par latakti jhilmil lights. Gali ke do kinaron par aamne-saamne do mithai ki dukaanein hain: Laxmi Mishthan Bhandar, tumhare parivaar ki, 1978 se — aur uske theek saamne Agarwal Sweets.*",
+        "*Barah saal se dono dukaanon ke beech ek patli si gali hai aur ek moti si deewar — jo dikhti nahi, par poora mohalla jaanta hai. Papa ki kamar mein moch hai, isliye Delhi se Diwali ki chhuttiyon par aaye tumhe aaj pehli baar counter sambhalna pada hai.*",
+        "*Tabhi saamne ki dukaan se ek ladki nikalti hai — gulabi lehariya dupatta, lambi choti mein mogre ke phool, kalaiyon mein kaanch ki chudiyan khanakti hui, aur haathon mein taaze ghewar ka bada sa dabba. Woh kisi grahak ko muskura kar kuch kehti hai, aur dono gaalon mein itne gehre dimples padte hain ki poori gali ek pal ko aur meethi lagne lagti hai.*",
+        "*Usi pal chhat ki munder se ek bandar chhalaang lagata hai, uske haath se ghewar ka dabba chheenta hai, aur seedha tumhare counter par aakar baith jaata hai — dabba khol kar, poore maze se.*",
+        "Mishri Agarwal: \"Oye! Oye bandar ji! Woh Sharma aunty ka order hai! Unki bahu ki pehli Diwali hai — aapke haath jodti hoon, kam se kam dabba toh chhod do!\"",
+        "*Bandar ghewar ka ek tukda tumhari taraf phenkta hai, jaise rishwat de raha ho, aur chhalaang maar kar wapas chhat par gayab ho jaata hai. Ab Agarwal Sweets ka khaali dabba tumhare counter par pada hai, aur poori gali ki nazrein tum dono par tiki hain.*",
+        "*Mishri tumhare counter tak aa pahunchti hai. Ek pal woh tumhe ghoorti hai — badi-badi bhoori aankhein, lambi palkein, naak mein chhoti si sone ki keel — jaise kisi purane chehre ko pehchaanne ki koshish kar rahi ho. Phir uske hothon par ek shararti si muskaan khil jaati hai.*",
+        "Mishri Agarwal: \"Tum... tum wahi ho na? Chhat wale? Neele kanche wale? Hai Ram — tum toh bilkul bade ho gaye.\"",
+        "*Peeche se ek gunjti hui awaaz aati hai. Agarwal Sweets ke darwaze par Mishri ke Papa, Rajendra Agarwal, khade hain — safed kurta, moti mooch, aur maathe par tilak jitna hi gussa.*",
+        "Rajendra Agarwal: \"Mishri! Andar aao. Us dukaan ki seedhi par pair rakhne ki koi zarurat nahi hai. Aur dabba wahin chhod do — Laxmi walon ki chhuyi cheez hum nahi uthate.\"",
+        "*Mishri ki muskaan pal bhar ko phiki padti hai. Phir woh jhuk kar dabba uthati hai, aur itni dheemi awaaz mein kehti hai ki sirf tumhe sunai de —*",
+        "Mishri Agarwal: \"Barah saal ho gaye, aur yeh log abhi bhi ek recipe ke liye lad rahe hain. Waise... tumhare yahan ka ghewar humare wale se zyada meetha hai. Kisi ko mat batana.\"",
+        "*Tabhi dukaan ke andar se tumhari Dadi nikalti hain — Kamla Devi, safed sooti sari, mote chashme, haath mein mala. Unki nazar Mishri par padti hai, aur ek pal ke liye unki aankhon mein kuch bahut naram sa chamakta hai, jise woh turant chhupa leti hain.*",
+        "Kamla Devi: \"Arre, Agarwalon ki chhori. Kitni badi ho gayi... Suna hai teri sagai pakki ho rahi hai? London wala ladka, Dhanteras pe aa raha hai?\"",
+        "*Mishri ke haath mein dabba halka sa kaanp jaata hai. Woh ek pal tumhari taraf dekhti hai — is baar bina muskuraaye — aur phir palat kar apni dukaan ki taraf chal deti hai. Uski choti se ek mogre ka phool gir kar tumhare counter par aa tikta hai.*"
+      ],
+      "fallbackLines": [
+        "*Gali mein shor wapas laut aata hai — rickshaw ki ghanti, kadhai mein chhan-chhan, aur kahin door se bhajan. Saamne ki dukaan ke counter ke peeche se Mishri chupke se ek baar tumhari taraf dekhti hai, phir jhatpat nazrein pher leti hai.*",
+        "Kamla Devi: \"Wahan khade-khade kya soch raha hai, laadle? Grahak khade hain. Aur haan — saamne mat dekhna. Ya dekhna... Ram jaane.\"",
+        "*Counter par pada mogre ka phool abhi bhi khushboo de raha hai. Chhat ki munder par woh bandar baitha hai, jaise agle tamaashe ka intezaar kar raha ho.*"
+      ],
+      "choices": [
+        {
+          "id": "return_flower",
+          "text": "*Counter par gira mogre ka phool utha kar Mishri ko awaaz dena.*",
+          "shortLabel": "Phool lautao",
+          "keywords": [
+            "flower",
+            "phool",
+            "mogra",
+            "mishri",
+            "awaaz",
+            "call"
+          ],
+          "next": null,
+          "effects": {
+            "memory": [
+              "On the first morning, {{playerName}} picked up the mogra flower that fell from Mishri's braid and called out to her."
+            ]
+          }
+        },
+        {
+          "id": "answer_rajendra",
+          "text": "*Rajendra Agarwal ki baat ka jawaab dena — sharafat se, par seedha.*",
+          "shortLabel": "Jawab do",
+          "keywords": [
+            "rajendra",
+            "uncle",
+            "jawab",
+            "reply",
+            "papa"
+          ],
+          "next": null,
+          "effects": {
+            "memory": [
+              "On the first morning, {{playerName}} answered Rajendra Agarwal's insult in front of the whole lane."
+            ]
+          }
+        },
+        {
+          "id": "ask_dadi",
+          "text": "*Dadi se dheere se poochna ki barah saal pehle aakhir hua kya tha — aur unki aankhein Mishri ko dekh kar narm kyun ho gayi.*",
+          "shortLabel": "Dadi se poochho",
+          "keywords": [
+            "dadi",
+            "past",
+            "feud",
+            "dushmani",
+            "barah saal",
+            "kamla"
+          ],
+          "next": null,
+          "effects": {
+            "memory": [
+              "{{playerName}} asked Dadi Kamla about the feud and noticed her softness toward Mishri."
+            ]
+          }
+        },
+        {
+          "id": "send_ghewar",
+          "text": "*Apni dukaan se ek dabba taaza ghewar pack karke Sharma aunty ke order ke liye bhijwane ka intezaam karna.*",
+          "shortLabel": "Ghewar bhejo",
+          "keywords": [
+            "ghewar",
+            "order",
+            "sharma",
+            "box",
+            "dabba",
+            "help"
+          ],
+          "next": null,
+          "effects": {
+            "memory": [
+              "On the first morning, {{playerName}} quietly arranged a fresh box of ghewar to replace the order the monkey stole from Mishri."
+            ]
+          }
+        }
+      ]
+    }
+  ],
+  "endings": []
+}

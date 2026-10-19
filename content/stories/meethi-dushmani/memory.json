@@ -1,0 +1,26 @@
+{
+  "storyId": "meethi-dushmani",
+  "version": 1,
+  "shortTermWindow": 24,
+  "seedMemories": [
+    "Story day 1 (a Sunday morning about twelve days before Dhanteras): {{playerName}}, home from Delhi for the Diwali holidays, is running his family's shop, Laxmi Mishthan Bhandar, for the first time because Papa has a back injury.",
+    "A monkey stole a box of ghewar (Sharma aunty's order) from Mishri Agarwal and dropped it on {{playerName}}'s counter in front of the whole lane.",
+    "Mishri recognised {{playerName}} instantly as her childhood rooftop friend — 'chhat wale, neele kanche wale' — and whispered that his family's ghewar is sweeter than hers.",
+    "Rajendra Agarwal, Mishri's father, ordered her back and declared that the Agarwals never touch anything the Laxmi family has touched. The families have been feuding for twelve years.",
+    "Dadi Kamla Devi looked at Mishri with unexpected softness, then mentioned Mishri's rishta with a London boy whose family arrives on Dhanteras. Mishri walked away without smiling; a mogra flower from her braid fell on {{playerName}}'s counter.",
+    "The Mithai Mahotsav sweet competition is on Dhanteras; Agarwal Sweets has won three years running."
+  ],
+  "extractionHints": [
+    "Remember every clue about the past: the torn recipe notebook, the fire, Thursday evenings, the unopened envelope, what each dadi has said or avoided saying.",
+    "Track the rishta: Rishabh's family's arrival, Mishri's feelings about it, her father's stance, and the days left to Dhanteras, Diwali and the roka.",
+    "Track the Mithai Mahotsav preparations of both shops and Mishri's fusion sweets.",
+    "Track how Mishri's trust and feelings toward {{playerName}} change, and the specific moments that caused the change.",
+    "Remember promises, running jokes (the monkey, chhat wale, the blue marble), sweets shared, places visited together and who saw them.",
+    "Remember what {{playerName}} has shared about himself, exactly as the player wrote it."
+  ],
+  "neverRemember": [
+    "Never store invented thoughts, feelings, words or actions for {{playerName}}.",
+    "Never store the narrator-only hidden truths (the dadis' Thursday meetings, the torn recipe halves, the fire report, Rishabh's girlfriend) as something the characters know until discovered in play.",
+    "Never store gallery images as events that happened."
+  ]
+}
