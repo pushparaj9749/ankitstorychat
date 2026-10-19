@@ -457,7 +457,7 @@ function FactsTab({ ws, prefs, playerName }: { ws: WorldState | null; prefs: Mem
               <Text style={[styles.factName, { color: theme.text }]} numberOfLines={1}>{o.name}</Text>
               <Text style={[styles.factValue, { color: theme.primary }]} numberOfLines={1}>{nameOf(o.holder) !== '—' ? nameOf(o.holder) : o.location ?? '—'}</Text>
             </View>
-            {lastMove ? <Text style={[styles.factSub, { color: theme.textFaint }]}>{clean(lastMove)}</Text> : null}
+            {lastMove ? <Text style={[styles.factSub, { color: theme.textFaint }]}>{describeMove(lastMove, nameOf)}</Text> : null}
           </Card>
         );
       })}
@@ -504,6 +504,15 @@ function FactsTab({ ws, prefs, playerName }: { ws: WorldState | null; prefs: Mem
       ) : null}
     </>
   );
+}
+
+/** "player → mahi (turn 12)" → "Pehle Ankit ke paas tha · chat 12 mein badla" (ids become names, no arrow glyph). */
+export function describeMove(entry: string, nameOf: (id: string) => string): string {
+  const m = /^\s*(.+?)\s*(?:→|->)\s*(.+?)\s*(?:\(turn\s*(\d+)\))?\s*$/.exec(entry);
+  if (!m) return clean(entry);
+  const from = m[1] === 'none' || m[1] === 'null' ? null : nameOf(m[1]);
+  const turn = m[3] ? ` · chat ${m[3]}` : '';
+  return from ? `Pehle ${from} ke paas tha${turn}` : `Abhi mila${turn}`;
 }
 
 function FactLine({ label, value }: { label: string; value: string }) {
