@@ -92,6 +92,13 @@ jobs:
           node scripts/verify-published-story.mjs --local-only
           meethi-dushmani
 
+      - name: Validate the new Himachal snowed-in romance and its 8 native-size images
+        # Same strict checks: exactly one cover + seven gallery JPEGs, unique
+        # files, all at the generator's native 1376x768 (the verifier default).
+        run: >-
+          node scripts/verify-published-story.mjs --local-only
+          pehli-barf
+
       - name: Install (worker)
         working-directory: worker
         run: npm ci
@@ -218,6 +225,12 @@ jobs:
         # complete passes on BOTH production hostnames — every JSON file, the
         # manifest entry and all eight media files byte-identical to this checkout.
         run: node scripts/verify-published-story.mjs meethi-dushmani
+
+      - name: Verify the new Himachal snowed-in romance is published (byte-identical JSON + 8 images)
+        # Read-only: waits for propagation, then requires two consecutive
+        # complete passes on BOTH production hostnames — every JSON file, the
+        # manifest entry and all eight media files byte-identical to this checkout.
+        run: node scripts/verify-published-story.mjs pehli-barf
 
       - name: Smoke test the deployed API
         run: |

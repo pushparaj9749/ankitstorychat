@@ -1,5 +1,5 @@
 {
-  "contentVersion": 42,
+  "contentVersion": 43,
   "minAppVersion": "1.0.0",
   "updatedAt": "2026-10-19T00:00:00Z",
   "stories": [
@@ -53,6 +53,65 @@
         "verified": true
       },
       "updatedAt": "2026-10-03T14:46:42Z"
+    },
+    {
+      "id": "pehli-barf",
+      "title": "Pehli Barf",
+      "tagline": "Pehli barf, band sadak, angithi ki chai — aur ek sharmili pahadi ladki jiska sapna sirf tum jaante ho.",
+      "description": "Himachal ke ek chhote se pahadi gaon, Neelgaon, mein is saal ki pehli barf teen hafte pehle aa gayi hai — aur neeche landslide ne sadak band kar di hai. Tum sardiyon ke kuch hafte shehar se door bitane aaye ho, aur ab kam se kam do hafte Seb Bagicha Homestay mein phans gaye ho. Darwaza kholti hai Gauri Negi — gulabi pompom wali topi, thand se gulabi gaal, maathe par naazuk bangs, aur itni dheemi, sharmili awaaz ki barf girne ki awaaz bhi usse tez lage. Woh angithi par adrak wali chai banati hai, apne seb ke pedon se baatein karti hai, chhupke se pahadon ki watercolour paintings banati hai — aur uski sketchbook mein Delhi ke art college ka ek admission letter chhupa hai jiske baare mein uske fauji Papa ko kuch nahi pata. Ek naram, cozy, slow-burn pahadi romance — barf, chai, angithi aur ek ladki ka sapna. Kahani kahan jaayegi, yeh sirf tumhare faislon par tika hai.",
+      "genres": [
+        "Romance",
+        "Slow Burn",
+        "Slice of Life",
+        "Family Drama",
+        "Cozy",
+        "Interactive Romance"
+      ],
+      "tags": [
+        "romance",
+        "slow-burn",
+        "cozy",
+        "winter",
+        "snowed-in",
+        "himachal",
+        "mountains",
+        "soft-romance",
+        "shy-heroine",
+        "family-drama",
+        "wholesome",
+        "interactive-romance",
+        "player-agency",
+        "dynamic-continuous",
+        "ongoing",
+        "hinglish"
+      ],
+      "characters": [
+        "Gauri Negi",
+        "Prem Singh Negi",
+        "Sunita Negi",
+        "Kartik Thakur",
+        "Tashi Dolma",
+        "Bholu"
+      ],
+      "ageRating": "18+",
+      "contentLevel": "mature",
+      "language": "hinglish",
+      "version": 1,
+      "coverUrl": "stories/pehli-barf/assets/cover.jpg",
+      "accentColor": "#D98CA6",
+      "userRole": "{{playerName}} — an ordinary adult man aged 18–20, controlled exclusively by the player. He has come from the city to Neelgaon, a tiny village above Manali in Himachal Pradesh, for a cheap three-week winter stay at Seb Bagicha Homestay — why he needed to get away is entirely the player's to decide. On the evening he arrives, the season's first snow falls early and a landslide closes the only road for at least two weeks. He has never met Gauri or her family before tonight. The player supplies his display name at runtime; never assign him another name, face, hometown, personality, thought, feeling, dialogue, action, confession or future. Only the player decides what he says, feels and does.",
+      "setting": "Present-day Himachal Pradesh in late October, as an early winter sets in. Neelgaon, a small hamlet of wood-and-stone houses with slate roofs at about 2,700 metres above Manali: Seb Bagicha Homestay, the Negi family's old house with a smoky kitchen and its iron angithi, a creaky attic guest room and a wide window seat facing the peaks; the snow-dusted apple orchard with the ancient wishing tree, Dadi ka Seb; deodar forest paths, a half-frozen stream, the wooden village temple where the winter fair, Neelgaon Jatra, is held; and, beyond the landslide, Old Manali and Tashi's Kesar Café.",
+      "estimatedMinutes": 60,
+      "featured": false,
+      "isNew": true,
+      "popularity": 97,
+      "storyDir": "pehli-barf",
+      "creator": {
+        "name": "Ankit",
+        "avatar": null,
+        "verified": true
+      },
+      "updatedAt": "2026-10-19T00:00:00Z"
     },
     {
       "id": "meethi-dushmani",

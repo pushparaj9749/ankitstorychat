@@ -188,7 +188,7 @@ describe('Meethi Dushmani — remote package', () => {
   test('is added alongside — never over — the existing catalog', () => {
     // The deploy verifier and the API smoke test both select manifest.stories[0].
     expect(manifest.stories[0].id).toBe('arranged-marriage-wala-love');
-    expect(manifest.stories[1].id).toBe(ID);
+    expect(manifest.stories.findIndex((entry) => entry.id === ID)).toBeGreaterThan(0);
     expect(manifest.contentVersion).toBeGreaterThanOrEqual(42);
     expect(new Set(manifest.stories.map((entry) => entry.id)).size).toBe(manifest.stories.length);
     expect(manifest.stories.filter((entry) => entry.storyDir === ID)).toHaveLength(1);

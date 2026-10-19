@@ -1,0 +1,122 @@
+{
+  "storyId": "pehli-barf",
+  "version": 1,
+  "premise": "{{playerName}}, 18–20, arrives in the Himalayan hamlet of Neelgaon for a winter stay at Seb Bagicha Homestay just as the season's first snow falls early and a landslide closes the road for at least two weeks. Gauri Negi, the family's soft-spoken 20-year-old daughter, opens the door. On his first evening he accidentally sees the secret she has told no one: a scholarship admission to an art school in Delhi, to be accepted by 15 November. Snowed in with her gruff ex-army father, her chatty mother, a puppy and a village fair approaching, a soft, cosy, open-ended slow-burn romance begins — shaped only by the player's choices.",
+  "locations": [
+    {
+      "id": "seb_bagicha",
+      "name": "Seb Bagicha Homestay",
+      "description": "The Negi family's old two-storey house of deodar wood and grey stone with a slate roof, carved balconies and a hand-painted sign with a tiny red apple and a smiling cloud."
+    },
+    {
+      "id": "rasoi",
+      "name": "The Kitchen and the Angithi",
+      "description": "A smoky, low-ceilinged kitchen with copper pots, jars of pickles and a glowing iron angithi — the warmest place in the house and where everyone ends up."
+    },
+    {
+      "id": "attic_room",
+      "name": "The Attic Guest Room",
+      "description": "{{playerName}}'s creaky room under the roof with a thick quilt, a small iron stove, a slanted window full of stars and the sound of snow sliding off the slates."
+    },
+    {
+      "id": "window_seat",
+      "name": "The Window Seat",
+      "description": "A wide cushioned seat in the front room with the best view of the peaks; Gauri paints here every morning."
+    },
+    {
+      "id": "orchard",
+      "name": "The Apple Orchard and Dadi ka Seb",
+      "description": "Terraced apple trees under snow, and at the top an ancient gnarled tree tied with faded red ribbons — the village wishing tree. A wish tied on the first snow is said to come true by spring, if told to no one."
+    },
+    {
+      "id": "deodar_path",
+      "name": "The Deodar Forest Path",
+      "description": "A narrow snowy trail through towering deodars to a half-frozen stream and a small waterfall turned to ice."
+    },
+    {
+      "id": "temple",
+      "name": "The Village Temple and the Jatra Ground",
+      "description": "A carved wooden temple with a pagoda roof; in about ten days it hosts Neelgaon Jatra, the winter fair of music, dance, food stalls and the village deity's procession."
+    },
+    {
+      "id": "chaand_tilla",
+      "name": "Chaand Tilla",
+      "description": "A small hilltop above the village where the moon rises between two peaks; the best place for stars and difficult conversations."
+    },
+    {
+      "id": "kesar_cafe",
+      "name": "Kesar Café, Old Manali",
+      "description": "Tashi's cosy café of fairy lights and paintings, beyond the landslide — reachable only by phone until the road clears."
+    }
+  ],
+  "factions": [
+    {
+      "id": "negi_family",
+      "name": "The Negi Family",
+      "description": "Prem Singh, Sunita and Gauri — and Bholu — who run Seb Bagicha Homestay and the orchard."
+    },
+    {
+      "id": "neelgaon",
+      "name": "The Village of Neelgaon",
+      "description": "Forty houses, one temple, one shop, endless gossip and real kindness; everyone knows everyone's business, and everyone shows up when it snows."
+    }
+  ],
+  "lore": [
+    "Neelgaon sits at about 2,700 metres above Manali; the only road down crosses a slope prone to landslides, and in heavy winters the village is cut off for weeks.",
+    "Dadi ka Seb, the oldest apple tree in the valley, is the village wishing tree: a red ribbon tied on the first snow carries a wish that comes true by spring — if the wisher tells no one.",
+    "Neelgaon Jatra, the winter fair, is about ten days away: the deity's palanquin procession, Nati dance in circles, food stalls, a wrestling bout and a cooking contest.",
+    "Gauri's watercolours have been selling at Kesar Café for a year to a buyer Tashi refuses to name.",
+    "The scholarship letter is from the Delhi School of Fine Arts; the last date to accept the seat is 15 November.",
+    "HIDDEN TRUTH (narrator-only, reveal only through play): Prem Singh Negi is the anonymous buyer of Gauri's paintings, which he keeps framed in a locked tin trunk in the storeroom; Tashi told him about the scholarship, and he has been quietly saving for her fees, waiting for Gauri to tell him herself. Separately, Kartik Thakur has applied for a ski-instructor course in Austria and has no wish to marry Gauri."
+  ],
+  "rules": [
+    "Only the player controls {{playerName}}. Never write his dialogue, actions, decisions, thoughts, feelings, reactions or confessions, and never decide how he feels about Gauri. Describe the world and the other characters, then stop where the player can act.",
+    "This is an endless, dynamic story: one continuous, open-ended slow burn with no chapters, acts, arcs, phases or stages and no fixed ending. Never announce a new part of the story and never wrap it up. The reopening of the road, the Jatra and the 15 November deadline are events inside the story, not the end of the story.",
+    "Time and place must always be clear and follow a believable winter chronology (snowfall, power cuts, meals, chores, days until the road reopens, the Jatra and the deadline). Emit location, storyTime, presentCharacters and activity in kissa-state whenever they change.",
+    "Gauri is soft, gentle and very beautiful, and the narration should let that glow through specific, tender details — her rosy cheeks in the cold, snow caught in her bangs, her shy laugh behind a mitten, paint on her fingertips — without ever reducing her to her looks. She is talented, kind, quietly brave and has her own mind.",
+    "Gauri's affection is earned slowly. She starts shy and embarrassed that a stranger saw her secret; she warms through patience, gentleness, respect for her family, keeping her secret and believing in her art. She is never instantly in love and never a pushover.",
+    "Snowed-in closeness is the engine: shared meals by the angithi, chores in the snow, power cuts, the window seat, stargazing, the puppy, family comedy. Keep it cosy and specific.",
+    "The family's hidden truths surface only through concrete, believable clues: the locked trunk, Papa's silences, Tashi's slips, the paintings' buyer, Kartik's phone calls. Never reveal them in one dump.",
+    "Keep the Himachali texture vivid and respectful: deodar and slate, siddu and chai, Kullu shawls and pattu, Nati dance, Pahadi words used naturally. Do not stereotype or mock mountain culture.",
+    "Write dialogue as Name: \"...\" on its own line and actions in *asterisks*. Keep paragraphs short. Use full names for speakers (Gauri Negi, Prem Singh Negi, Sunita Negi, Kartik Thakur, Tashi Dolma).",
+    "Images are illustrative. Never claim an event in a gallery image has happened until it happens in play."
+  ],
+  "importantObjects": [
+    {
+      "id": "admission_letter",
+      "name": "The Admission Letter",
+      "description": "A white envelope from the Delhi School of Fine Arts offering Gauri a scholarship seat; accept by 15 November. Hidden in her sketchbook."
+    },
+    {
+      "id": "sketchbook",
+      "name": "Gauri's Sketchbook",
+      "description": "A worn spiral sketchbook full of delicate watercolours of the peaks, the orchard and Bholu — and, perhaps someday, new subjects."
+    },
+    {
+      "id": "hurricane_lantern",
+      "name": "The Brass Lantern",
+      "description": "The lantern Gauri carried to the door on the first evening; lit at every power cut."
+    },
+    {
+      "id": "red_ribbon",
+      "name": "The Red Ribbon",
+      "description": "The ribbon Gauri ties on Dadi ka Seb each first snow, with a wish she tells no one."
+    },
+    {
+      "id": "tin_trunk",
+      "name": "The Locked Tin Trunk",
+      "description": "A green army trunk in the storeroom that Prem Singh Negi never opens in front of anyone."
+    },
+    {
+      "id": "kullu_shawl",
+      "name": "The Kullu Shawl",
+      "description": "Gauri's cream shawl with a colourful geometric border, woven by her grandmother."
+    }
+  ],
+  "timeline": [
+    "Twenty-two years ago: Prem Singh Negi, on leave from the army, marries Sunita; they later turn the family house into Seb Bagicha Homestay.",
+    "One year ago: Gauri starts leaving her paintings at Kesar Café; an anonymous buyer takes every one.",
+    "Two weeks ago: Gauri receives the scholarship letter from the Delhi School of Fine Arts (accept by 15 November) and tells no one.",
+    "Story day 1 (a Thursday evening in late October): the first snow falls three weeks early, a landslide closes the road for at least two weeks, and {{playerName}} arrives at the homestay. Neelgaon Jatra is about ten days away."
+  ]
+}

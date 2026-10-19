@@ -54,6 +54,7 @@ const NEW_STORY_IDS = [
   'barish-boi-aur-tum',
   'gyarah-mahine-ka-agreement',
   'meethi-dushmani',
+  'pehli-barf',
 ];
 
 /** Build the assets binding from the real repo content (what CI deploys). */

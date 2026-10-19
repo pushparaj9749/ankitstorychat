@@ -1,0 +1,108 @@
+{
+  "storyId": "pehli-barf",
+  "version": 1,
+  "scenes": [
+    {
+      "id": "pehli_barf_ki_shaam",
+      "title": "Pehli Barf Ki Shaam",
+      "narration": [
+        "*Shaam ke 6:15. Neelgaon ki pagdandi par is saal ki pehli barf teen hafte pehle hi aa gayi hai — badi-badi, dheemi, rui jaisi. Neeche ki sadak par landslide hua hai; taxi wala tumhe aakhri mod par utaar kar wapas mud gaya. Ab bas tumhara bag hai, devdaar ke ped, aur upar pahadi par jalti ek peeli khidki.*",
+        "*Khidki ek purane lakdi-aur-pathar ke ghar ki hai. Darwaze ke upar haath se paint kiya ek chhota sa board latka hai — Seb Bagicha Homestay — jiske kone par kisi ne ek nanha laal seb aur ek muskurata hua baadal bana diya hai.*",
+        "*Darwaza achanak khulta hai. Ek ladki laltain uthaye khadi hai — gulabi pompom wali topi, kandhon par rang-birangi kinari wala Kullu shawl, aur maathe ki naazuk bangs par barf ke do-teen phahe atke hue. Thand se uske gaal aur naak ki nok gulabi hain. Tumhe dekh kar woh ek pal ko thithak jaati hai.*",
+        "Gauri Negi: \"Aap... aap Dilli wale guest? Papa ne kaha tha sadak band hai, toh aap kal... matlab, parson... matlab — aap aa gaye.\"",
+        "*Apni hi baat par sharma kar woh shawl ke kone mein muskaan chhupa leti hai. Tabhi uske pairon ke beech se ek safed, rui ke gole jaisa pilla nikalta hai aur seedha barf mein chhalaang laga deta hai.*",
+        "Gauri Negi: \"Bholu! Nahi nahi — Bholu, wapas aao! Sorry, woh pehli baar barf dekh raha hai. Use lagta hai aasman se malai gir rahi hai.\"",
+        "*Pilla barf mein lot-pot hota hai, tumhare jooton ko soonghta hai, aur phir unhi par baith jaata hai, jaise faisla kar chuka ho ki tum ab uske ho. Gauri ki hansi chhoot jaati hai — dheemi, sharmili, oon ke dastane ke peeche chhupi hui.*",
+        "*Andar se ek bhaari awaaz aati hai. Darwaze par ek lamba, sakht chehre wala aadmi aata hai — fauji moonchhein, kandhe par mota kambal, aur aankhein jo sab kuch dekh leti hain.*",
+        "Prem Singh Negi: \"Neeche landslide hua hai. Sadak kam se kam do hafte band. Toh aap yahin rahenge. Teen niyam — raat ko jungle ki taraf nahi. Angithi pe joote nahi. Aur meri beti ko faltu pareshaan nahi.\"",
+        "Sunita Negi: \"Arre bas bhi karo, fauji sahab! Bechara thand mein kaanp raha hai. Gauri, guest ko andar la, angithi ke paas bitha, aur chai bana — adrak wali, cheeni zyada.\"",
+        "*Rasoi mein angithi dhadhak rahi hai. Gauri pital ki ketli se steel ke gilaas mein chai daalti hai — par uske haath halke se kaanp rahe hain, aur do boondein chhalak jaati hain. Woh chupke se tumhari taraf dekhti hai, phir jaldi se nazrein jhuka leti hai.*",
+        "*Gilaas aage badhate waqt uski kohni se mez par rakhi ek sketchbook neeche gir jaati hai. Panne khul jaate hain — barf se dhake pahadon ki naazuk watercolour paintings — aur unke beech se ek safed lifafa phisal kar tumhare pairon ke paas aa girta hai. Upar chhapa hai: Delhi School of Fine Arts — Scholarship Admission Confirmed. Last date to accept: 15 November.*",
+        "*Gauri ka chehra ek pal mein phika pad jaata hai. Woh jhuk kar lifafa uthati hai, use seene se laga leti hai, aur itni dheemi awaaz mein kehti hai ki sirf tum sun pao —*",
+        "Gauri Negi: \"Please... Papa ko mat batana. Abhi nahi. Unhe... unhe kuch nahi pata.\""
+      ],
+      "fallbackLines": [
+        "*Angithi mein lakdi chatakti hai. Bahar barf chupchaap girti ja rahi hai, aur Gauri apni sketchbook ko dono haathon se pakde khadi hai, jaise use darr ho ki woh phir se gir jaayegi.*",
+        "Gauri Negi: \"Aapki... aapki chai thandi ho rahi hai. Main dobara garam kar doon? Matlab — agar aap chahein toh.\"",
+        "*Bholu tumhare pairon par sar rakh kar so gaya hai. Bagal ke kamre se Sunita Negi ki gungunahat aur Prem Singh Negi ke radio par purane fauji geeton ki halki awaaz aa rahi hai.*"
+      ],
+      "choices": [
+        {
+          "id": "keep_secret",
+          "text": "*Dheere se Gauri ko yakeen dilana ki uska raaz tumhare paas mehfooz hai.*",
+          "shortLabel": "Raaz rakho",
+          "keywords": [
+            "secret",
+            "raaz",
+            "letter",
+            "promise",
+            "vaada",
+            "papa"
+          ],
+          "next": null,
+          "effects": {
+            "memory": [
+              "On the first evening, {{playerName}} saw Gauri's admission letter and was asked to keep it secret from her Papa."
+            ]
+          }
+        },
+        {
+          "id": "ask_paintings",
+          "text": "*Gire hue panno ki taraf dekh kar uski paintings ke baare mein poochna.*",
+          "shortLabel": "Paintings dekho",
+          "keywords": [
+            "painting",
+            "sketchbook",
+            "art",
+            "watercolour",
+            "pahad"
+          ],
+          "next": null,
+          "effects": {
+            "memory": [
+              "{{playerName}} noticed Gauri's watercolour paintings on the first evening and asked about them."
+            ]
+          }
+        },
+        {
+          "id": "pick_up_bholu",
+          "text": "*Bholu ko god mein utha kar angithi ke paas le aana, taaki mahaul thoda halka ho.*",
+          "shortLabel": "Bholu ko uthao",
+          "keywords": [
+            "bholu",
+            "puppy",
+            "pilla",
+            "dog",
+            "angithi"
+          ],
+          "next": null,
+          "effects": {
+            "memory": [
+              "On the first evening, {{playerName}} picked up the puppy Bholu to ease the awkward moment."
+            ]
+          }
+        },
+        {
+          "id": "help_papa",
+          "text": "*Prem Singh Negi ke paas jaakar bahar se lakdiyan laane mein haath bantane ki pesh-kash karna.*",
+          "shortLabel": "Papa ki madad",
+          "keywords": [
+            "papa",
+            "firewood",
+            "lakdi",
+            "help",
+            "madad",
+            "prem"
+          ],
+          "next": null,
+          "effects": {
+            "memory": [
+              "On the first evening, {{playerName}} offered to help Prem Singh Negi bring in firewood."
+            ]
+          }
+        }
+      ]
+    }
+  ],
+  "endings": []
+}
