@@ -6,7 +6,7 @@
  *  - one canonical type scale (SCALE / TYPE) — no more 8.5px labels
  *  - every colour comes from the theme (no stray hex literals in screens)
  *  - touch targets follow TOUCH tokens
- * Components: AgeBadge, GenreChip, CategoryChip, SectionHeader, ProgressBar,
+ * Components: AgeBadge, GenreChip, CategoryChip, SectionHeader,
  * Avatar, Dot, KissaHeader
  */
 import React from 'react';
@@ -14,7 +14,7 @@ import { Animated, Image, Pressable, StyleSheet, Text, View } from 'react-native
 import { LinearGradient } from 'expo-linear-gradient';
 import { KISSA_LOGO } from './brand';
 import { useApp } from '../state/AppContext';
-import { SelectableChip as ClassicSelectableChip, SectionHeader as ClassicSectionHeader, ProgressBar as ClassicProgressBar } from '../ui/classic/bits';
+import { SelectableChip as ClassicSelectableChip, SectionHeader as ClassicSectionHeader } from '../ui/classic/bits';
 import { useNavScroll } from '../navigation/NavScrollContext';
 import {
   GRADIENTS,
@@ -146,25 +146,6 @@ export function SectionHeader({
           <Icon name="chevron-forward" size={12} color={theme.textDim} />
         </Pressable>
       ) : null}
-    </View>
-  );
-}
-
-export function ProgressBar({ value, color }: { value: number; color?: string }) {
-  const { theme, uiTemplate } = useApp();
-  if (uiTemplate === 'classic') return <ClassicProgressBar {...{ value, color }} />;
-  const pct = Math.round(Math.min(1, Math.max(0, value)) * 100);
-  const colors: [string, string] = color ? [withAlpha(color, 0.85), color] : [theme.primary, theme.primary];
-  return (
-    <View style={[styles.progressTrack, { backgroundColor: withAlpha(theme.text, 0.08) }]}>
-      <View style={[styles.progressFillWrap, { width: `${pct}%` }]}>
-        <LinearGradient
-          colors={colors}
-          start={{ x: 0, y: 0.5 }}
-          end={{ x: 1, y: 0.5 }}
-          style={styles.progressFill}
-        />
-      </View>
     </View>
   );
 }

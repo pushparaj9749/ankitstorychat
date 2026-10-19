@@ -365,7 +365,7 @@ export function toStateUpdate(extraction: RawExtraction, currentWorld: WorldStat
 
   if (extraction.location) update.currentLocation = extraction.location;
   if (extraction.activity) update.currentActivity = extraction.activity;
-  if (extraction.scene) update.currentScene = extraction.scene;
+  // Free-form stories: no authored scene is tracked (extraction.scene is ignored).
   if (extraction.presentCharacters) update.presentCharacters = extraction.presentCharacters;
   if (extraction.characterActions || extraction.characterMoods) {
     update.characterStatesPatch = {};

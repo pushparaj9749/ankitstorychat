@@ -102,6 +102,8 @@ const world = {
   timeline: [],
 };
 
+// Owner rule: NO predefined scenes, arcs or endings. Only the opening moment —
+// everything after it grows from the reader's moves (see README "Story format").
 const scenes = {
   storyId: id,
   version: 1,
@@ -111,28 +113,10 @@ const scenes = {
       title: 'Shuruaat',
       narration: ['TODO: opening narration line 1.', 'TODO: opening narration line 2.'],
       fallbackLines: ['TODO: fallback line for unmatched free text.'],
-      choices: [
-        {
-          id: 'c_left',
-          text: 'TODO: pehla choice',
-          shortLabel: 'Choice 1',
-          keywords: ['TODO', 'keywords'],
-          next: 'end_demo',
-          effects: { memory: ['TODO: what to remember'] },
-        },
-      ],
-    },
-    {
-      id: 'end_demo',
-      title: 'Demo Ending',
-      narration: ['TODO: ending narration.'],
-      fallbackLines: ['Kahani poori ho gayi.'],
       choices: [],
-      isEnding: true,
-      endingId: 'demo',
     },
   ],
-  endings: [{ id: 'demo', title: 'Demo', description: 'TODO', tone: 'happy' }],
+  endings: [],
 };
 
 const memory = {

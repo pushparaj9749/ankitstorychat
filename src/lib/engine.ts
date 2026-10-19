@@ -791,18 +791,25 @@ function stateDigest(state: StoryState): string {
   return parts.length ? parts.join('\n') : '(fresh story — nothing happened yet)';
 }
 
-function sceneDigest(scene: StoryScene): string {
-  const lines = [
-    `Current scene: ${scene.title} (id: ${scene.id})`,
-    `Scene setup: ${scene.narration.join(' ')}`,
-  ];
-  if (scene.choices?.length) {
-    lines.push(
-      `Available directions the story can go: ${scene.choices.map((c) => `"${c.text}"`).join(' | ')}`,
-    );
-  }
-  if (scene.isEnding) lines.push('This is an ENDING scene — wrap the story up warmly.');
-  return lines.join('\n');
+/**
+ * Product law (owner): a story has NO predefined scenes, arcs, chapters, plot
+ * points or endings — and no length. The author only provides the premise,
+ * characters, world and the OPENING moment; everything after that grows from
+ * the reader's moves. The opening is shown to the narrator only as where the
+ * story began, never as a script to follow.
+ */
+export const OPENING_ONLY_TURNS = 8;
+
+export const FREE_STORY_LAW = `STORY FLOW LAW (never break it):
+- There is NO script. No predefined scenes, arcs, chapters, plot points, milestones or endings exist, and the story has no length — it never "finishes".
+- Everything after the opening grows ONLY from the reader's moves, the characters' personalities and goals, the world and what has already happened.
+- Never steer toward a planned event, never rush or wrap the story up, never announce a chapter, arc, ending or "next part". Let it evolve naturally, one beat at a time, for as long as the reader wants.`;
+
+function openingDigest(bundle: StoryBundle, playthrough: Playthrough): string {
+  if (playthrough.messageCount >= OPENING_ONLY_TURNS) return '';
+  const opening = getScene(bundle, bundle.story.openingSceneId);
+  const setup = opening.narration.join(' ').trim();
+  return setup ? `HOW THE STORY BEGAN (the opening moment only — not a plan for what comes next): ${setup}` : '';
 }
 
 export interface PromptInput {
@@ -916,8 +923,8 @@ ${immediateBlock}${PRIVATE_NOTES_CLOSE}`;
 
 export function buildSystemPrompt(input: PromptInput, ageGroup: AgeGroup): string {
   const { bundle, profile, playthrough } = input;
-  const scene = getScene(bundle, playthrough.currentSceneId);
   const separate = input.stateMode === 'separate';
+  const opening = openingDigest(bundle, playthrough);
   // The reader's name must come from the profile, never from hardcoded story
   // text: {{playerName}} placeholders (and legacy hardcoded names) resolve to
   // profile.nickname, while CHARACTER names stay untouched.
@@ -964,8 +971,8 @@ ${charCards}
 WORLD RULES (NEVER break these):
 ${bundle.world.rules.map((r, i) => `${i + 1}. ${r}`).join('\n')}
 
-${sceneDigest(scene)}
-
+${FREE_STORY_LAW}
+${opening ? `\n${opening}\n` : ''}
 ${SECRECY_LAW}
 
 ${privateNotes}
@@ -993,7 +1000,7 @@ HOW TO RESPOND:
    - Action / narration / scene-setting goes on its own line wrapped in SINGLE asterisks: *Beena ke honton par halki si muskaan ubharti hai.* — these render FADED in the chat.
    - Dialogue goes on its own line as: Name: "spoken words" — e.g. Myra: "Umm... lagta hai ye coffee meri nahi hai." Use only real character names from the list above.
    - Alternate 1-3 faded action lines with dialogue. Never use markdown bold, headers or bullet lists.
-3. Respect the current scene and its available directions; do NOT teleport the plot or invent contradicting events. If the reader does something wild, react believably and steer back toward the scene.
+3. Follow the reader's lead. Keep continuity: never teleport without a believable bridge and never invent events that contradict what happened. If the reader does something wild, react believably inside the story world.
 4. NEVER speak as the reader. NEVER decide the reader's actions for them.
 5. When addressing the reader, use "${profile.nickname}" occasionally.
 ${separate ? `6. Write ONLY the visible story reply — narration and dialogue. Do NOT append any state, memory, JSON, notes, lists or bookkeeping: a separate silent record-keeper tracks the story state.` : `6. After your visible reply, append a hidden state block when something changed OR when a durable new fact happened. Format exactly:
@@ -1003,8 +1010,6 @@ ${separate ? `6. Write ONLY the visible story reply — narration and dialogue. 
   "flags": {"gateOpened": true},
   "inventoryAdd": ["item-id"],
   "location": "Place name",
-  "scene": "next-scene-id",
-  "endStory": "ending-id",
   "presentCharacters": ["maya","kabir"],
   "activity": "having chai in library",
   "playerAction": "sitting opposite Maya",
@@ -1015,8 +1020,8 @@ ${separate ? `6. Write ONLY the visible story reply — narration and dialogue. 
   "memory": ["short fact to remember"]
 }
 \`\`\`
-Omit keys that didn't change. "scene" must be one of the story's scene ids. "endStory" only at a true ending. Keep memory facts short (under 120 chars), up to ${MAX_MEMORY_NOTES} per reply. Also use presentCharacters/activity/storyTime/importantObjects/threads when relevant. Nothing you write in "memory" or this block is shown to the reader. For high continuity, always emit location/activity/presentCharacters when they change.`}
-7. If the reader greets you out-of-story ("hi", "hello"), stay in character briefly and pull them back into the scene.`;
+Omit keys that didn't change. Keep memory facts short (under 120 chars), up to ${MAX_MEMORY_NOTES} per reply. Also use presentCharacters/activity/storyTime/importantObjects/threads when relevant. Nothing you write in "memory" or this block is shown to the reader. For high continuity, always emit location/activity/presentCharacters when they change.`}
+7. If the reader greets you out-of-story ("hi", "hello"), stay in character briefly and pull them back into the story.`;
 
   const systemPrompt = interpolatePlayerName(prompt, profile.nickname, playerNameContext);
   const turnInstruction = input.turnInstruction?.trim();
@@ -1130,7 +1135,6 @@ export interface StateExtractionInput {
  */
 export function buildStateExtractionMessages(input: StateExtractionInput): { role: 'system' | 'user'; content: string }[] {
   const { bundle, playthrough } = input;
-  const scene = getScene(bundle, playthrough.currentSceneId);
   const worldBlock = input.worldState ? (() => {
     try {
       const { renderWorldStateForPrompt } = require('./worldState');
@@ -1140,8 +1144,6 @@ export function buildStateExtractionMessages(input: StateExtractionInput): { rol
     }
   })() : '';
   const ids = bundle.characters.characters.map((c) => `${c.id} = ${c.name}`).join(', ');
-  const scenes = bundle.scenes.scenes.map((sc) => `${sc.id}${sc.isEnding ? ' (ENDING)' : ''}: ${sc.title}`).join('\n');
-  const endings = bundle.scenes.scenes.filter((sc) => sc.endingId).map((sc) => sc.endingId).join(', ');
   const saveHints =
     bundle.memory.extractionHints?.length
       ? bundle.memory.extractionHints.join('; ')
@@ -1152,10 +1154,8 @@ export function buildStateExtractionMessages(input: StateExtractionInput): { rol
   const system = `You are the silent record-keeper of an interactive Hinglish story ("${bundle.story.title}"). You never write story text. You read the latest exchange and output ONLY one JSON object describing what CHANGED. No prose, no markdown, no code fence.
 
 CHARACTER IDS: ${ids}. The reader is "${input.playerName}" (use "player" as holder/id for the reader).
-CURRENT SCENE: ${scene.id} — ${scene.title}
-ALL SCENES (use an exact id for "scene" only when the story clearly moved there):
-${scenes}
-${endings ? `ENDING IDS ("endStory" only at a true ending): ${endings}\n` : ''}
+The story is free-form: there are no predefined scenes, arcs or endings, so never output "scene" or "endStory".
+
 STATE BEFORE THIS EXCHANGE:
 ${worldBlock || stateDigest(playthrough.state)}
 
@@ -1165,8 +1165,6 @@ SCHEMA (omit every key that did not change; {} when nothing changed):
   "flags": {"flagName": true},
   "inventoryAdd": ["item"], "inventoryRemove": ["item"],
   "location": "Place name",
-  "scene": "scene-id",
-  "endStory": "ending-id",
   "presentCharacters": ["characterId"],
   "activity": "what is happening now",
   "playerAction": "what the reader is doing",
@@ -1214,10 +1212,7 @@ export function parseExtractedState(raw: string): ParsedAssistant | null {
   return parsed;
 }
 
-export function progressEstimate(bundle: StoryBundle, playthrough: Playthrough): number {
-  const total = Math.max(1, bundle.scenes.scenes.length);
-  const visited = Object.keys(playthrough.state.visits ?? {}).length;
-  const byScenes = clamp(visited / total, 0, 1);
-  const byMsgs = clamp(playthrough.messageCount / 60, 0, 1);
-  return clamp(byScenes * 0.75 + byMsgs * 0.25, 0, 1);
+/** Stories have no length, so there is no progress to estimate. Kept for old callers. */
+export function progressEstimate(_bundle: StoryBundle, _playthrough: Playthrough): number {
+  return 0;
 }

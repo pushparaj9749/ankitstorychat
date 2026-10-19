@@ -165,7 +165,6 @@ const WORLD_SCHEMA_KEY = (id: string) => `worldStateSchema:${id}`;
 export function createInitialWorldState(playthrough: Playthrough, bundle: StoryBundle): WorldState {
   const now = nowIso();
   const initialLocation = playthrough.state.location || bundle.world.locations[0]?.name || null;
-  const sceneTitle = bundle.scenes.scenes.find((s) => s.id === playthrough.currentSceneId)?.title || playthrough.currentSceneId;
   return {
     version: 2,
     playthroughId: playthrough.id,
@@ -173,8 +172,9 @@ export function createInitialWorldState(playthrough: Playthrough, bundle: StoryB
     currentLocation: initialLocation,
     previousLocation: null,
     currentActivity: null,
-    currentScene: sceneTitle,
-    currentArc: bundle.scenes.scenes[0]?.title || null,
+    // Free-form stories: no authored scene or arc is ever "current".
+    currentScene: null,
+    currentArc: null,
     storyTime: {
       day: 1,
       timeOfDay: 'evening',
@@ -724,8 +724,6 @@ export function renderWorldStateForPrompt(state: WorldState): string {
   lines.push(`CURRENT WORLD STATE:`);
   lines.push(`- Location: ${state.currentLocation ?? 'unknown'}${state.previousLocation ? ` (previously: ${state.previousLocation})` : ''}`);
   if (state.currentActivity) lines.push(`- Activity: ${state.currentActivity}`);
-  if (state.currentScene) lines.push(`- Scene: ${state.currentScene}`);
-  if (state.currentArc) lines.push(`- Arc: ${state.currentArc}`);
   const time = state.storyTime;
   const timeStr = time.clockTime ? `${time.clockTime} (${time.timeOfDay}, Day ${time.day})` : `${time.timeOfDay}, Day ${time.day}`;
   lines.push(`- Story Time: ${timeStr} | elapsed ${time.elapsedMinutes} min`);

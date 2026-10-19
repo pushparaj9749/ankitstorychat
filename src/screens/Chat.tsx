@@ -23,7 +23,7 @@ import { ErrorState, LoadingState, OfflineState } from '../components/states';
 import { effectiveContentApiBaseUrl, getBundle, getBundledCoverSource, mediaApiUrl, StoryContentError, type CoverSource } from '../content/loader';
 import { getApiKey } from '../lib/secureKeys';
 import { aiErrorMessage, chatCompletion } from '../lib/ai';
-import { applyEffects, buildContext, buildStateExtractionMessages, checkAssistantReply, getScene, HISTORY_HEADROOM, parseAssistantResponse, parseExtractedState, progressEstimate, REWRITE_INSTRUCTION, shortTermWindowOf, type ParsedAssistant, type ReplyCheck } from '../lib/engine';
+import { applyEffects, buildContext, buildStateExtractionMessages, checkAssistantReply, HISTORY_HEADROOM, parseAssistantResponse, parseExtractedState, REWRITE_INSTRUCTION, shortTermWindowOf, type ParsedAssistant, type ReplyCheck } from '../lib/engine';
 import { chapterDue, closeChapter, getChapters } from '../lib/chapters';
 import { completeEpisode, consolidateMemories, putMemory, recallForTurn, rememberMany, rememberPreferences, episodeLine } from '../lib/memory';
 import { ensureWorldState, getWorldState } from '../lib/worldState';
@@ -32,8 +32,7 @@ import { listMemoryCandidates } from '../lib/db';
 import { attachReplyIds, checkpointCovers, getTurnCheckpoint, rollbackTurn, saveTurnCheckpoint } from '../lib/turnCheckpoint';
 import { countMessages, getPlaythrough, insertMessage, listMessages, listRecentMessagesAsc, updatePlaythrough, updateStats } from '../lib/db';
 import { consolidateStoryMemory, ensureStoryMemoryReady, indexStoryMemoryMessages, recallStoryMemoryForPrompt, rememberTurn } from '../lib/storyMemory';
-import { completePlaythrough } from '../lib/playthrough';
-import { interpolatePlayerName, makePlayerTextFn } from '../lib/playerName';
+import { interpolatePlayerName, makePlayerTextFn, readerRoleText } from '../lib/playerName';
 import { AMOLED, GRADIENTS, RADIUS, SCALE, TOUCH, withAlpha } from '../theme';
 import { Icon, ICON_SIZE } from '../components/icons';
 import { ArtBackdrop } from '../components/ArtBackdrop';
@@ -156,6 +155,13 @@ export function Chat({ navigation, route }: Props) {
         const total = await countMessages(pt.id);
         if (!alive) return;
         if (pt.mode !== 'ai') pt.mode = 'ai';
+        // Stories never end: a journey an older version marked "completed"
+        // simply continues from where it stopped.
+        if (pt.status === 'completed') {
+          pt.status = 'active';
+          pt.endingId = null;
+          void updatePlaythrough(pt).catch(() => undefined);
+        }
         setPlaythrough(pt);
         setBundle(b);
         setMessages(first);
@@ -179,12 +185,12 @@ export function Chat({ navigation, route }: Props) {
     };
   }, [playthroughId, profile, reloadKey, settings.contentApiBaseUrl]);
 
-  const scene = useMemo(() => (bundle && playthrough ? getScene(bundle, playthrough.currentSceneId) : null), [bundle, playthrough]);
+  // No predefined scenes: the header shows where the story is right now.
+  const placeLabel = playthrough?.state.location || bundle?.world.locations?.[0]?.name || playthrough?.label || '';
   const latestUserMessage = messages.find((message) => message.role === 'user');
   const latestAssistantMessage = messages.find((message) => message.role === 'assistant');
   const canRegenerate = !!latestUserMessage && !!latestAssistantMessage &&
     Date.parse(latestAssistantMessage.createdAt) >= Date.parse(latestUserMessage.createdAt);
-  const hasAlternateScene = !!bundle && bundle.scenes.scenes.some((candidate) => candidate.id !== playthrough?.currentSceneId);
 
   async function loadMore() {
     if (!playthrough || loadingMore || !hasMore) return;
@@ -221,26 +227,18 @@ export function Chat({ navigation, route }: Props) {
     return saved;
   }
 
-  async function applyTurnEffects(pt: Playthrough, b: StoryBundle, effects: ChoiceEffects | undefined, memoryNotes: string[]): Promise<{ pt: Playthrough; sceneChanged: boolean }> {
-    let state = applyEffects(pt.state, effects);
-    let newSceneId = effects?.scene ?? pt.currentSceneId;
-    if (!b.scenes.scenes.some((s) => s.id === newSceneId)) newSceneId = pt.currentSceneId;
-    const sceneChanged = newSceneId !== pt.currentSceneId;
-    if (sceneChanged) state = { ...state, visits: { ...state.visits, [newSceneId]: (state.visits[newSceneId] ?? 0) + 1 } };
-    let next: Playthrough = { ...pt, currentSceneId: newSceneId, state, messageCount: pt.messageCount + 1, updatedAt: nowIso() };
-    next = { ...next, progress: progressEstimate(b, next) };
-    const endId = effects?.endStory ?? null;
-    const sceneObj = getScene(b, newSceneId);
-    const ended = !!endId || !!sceneObj.isEnding;
-    if (ended) {
-      const ending = endId ?? sceneObj.endingId ?? null;
-      next = await completePlaythrough(next, ending);
-      await updateStats({ storiesCompleted: 1 });
-    } else {
-      await updatePlaythrough(next);
-    }
+  /**
+   * Free-form stories: no predefined scenes, arcs or endings. A turn can move
+   * the place, time, people and relationships, but never jumps to an authored
+   * scene and never "ends" the story — so scene/ending keys are ignored.
+   */
+  async function applyTurnEffects(pt: Playthrough, effects: ChoiceEffects | undefined, memoryNotes: string[]): Promise<{ pt: Playthrough }> {
+    const free = effects ? { ...effects, scene: undefined, endStory: undefined } : undefined;
+    const state = applyEffects(pt.state, free);
+    const next: Playthrough = { ...pt, state, messageCount: pt.messageCount + 1, updatedAt: nowIso() };
+    await updatePlaythrough(next);
     if (memoryNotes.length) await rememberMany(pt.id, memoryNotes, 'story', 3);
-    return { pt: next, sceneChanged };
+    return { pt: next };
   }
 
   async function aiTurn(ptIn: Playthrough, b: StoryBundle, request: ChatTurnRequest) {
@@ -445,23 +443,22 @@ export function Chat({ navigation, route }: Props) {
         }
       }
 
-      const applied = await applyTurnEffects(pt, b, source?.effects, memoryNotes);
+      const applied = await applyTurnEffects(pt, source?.effects, memoryNotes);
       const updatedPt = applied.pt;
       setPlaythrough(updatedPt);
 
-      // STAGE 1 chapters: a finished scene (or a very long one) becomes a chapter.
-      const longScene = !applied.sceneChanged && (await chapterDue(pt.id, updatedPt.messageCount).catch(() => false));
-      if (applied.sceneChanged || longScene) {
-        const oldScene = getScene(b, pt.currentSceneId);
+      // STAGE 1 chapters: memory recaps closed every CHAPTER_EVERY_TURNS turns.
+      // They summarise what HAPPENED — nothing is planned ahead.
+      if (await chapterDue(pt.id, updatedPt.messageCount).catch(() => false)) {
         const prevChapters = await getChapters(pt.id).catch(() => []);
         const since = prevChapters.length ? prevChapters[prevChapters.length - 1].createdAt : '';
         const pool2 = await listRecentMessagesAsc(pt.id, 240).catch(() => [] as ChatMessage[]);
         const chapterMessages = pool2.filter((m) => !since || m.createdAt > since);
-        const title = interpolatePlayerName(oldScene.title, profile.nickname, { protectedNames: castNames });
+        const place = updatedPt.state.location || wsForPrompt?.currentLocation || '';
         void closeChapter({
           playthroughId: pt.id,
-          title: longScene ? `${title} (contd.)` : title,
-          sceneId: oldScene.id,
+          title: place ? interpolatePlayerName(place, profile.nickname, { protectedNames: castNames }) : `Chapter ${prevChapters.length + 1}`,
+          sceneId: null,
           messageCount: updatedPt.messageCount,
           messages: chapterMessages,
           castNames,
@@ -470,15 +467,8 @@ export function Chat({ navigation, route }: Props) {
         });
       }
 
-      if (applied.sceneChanged) {
-        const sc = getScene(b, updatedPt.currentSceneId);
-        const title = interpolatePlayerName(sc.title, profile.nickname, { protectedNames: castNames });
-        const extra = await persistAssistantLines(updatedPt, [{ role: 'narration', speaker: null, text: `✦ ${title}` }], updatedPt.currentSceneId);
-        setMessages((prev) => [...extra.slice().reverse(), ...prev]);
-      }
-
       // Gap-free STAGE 1: fold episodes as soon as they leave the 20-chat window.
-      if (applied.sceneChanged || updatedPt.messageCount % 4 === 0) {
+      if (updatedPt.messageCount % 4 === 0) {
         void consolidateMemories(pt.id, summarize).catch(() => undefined);
         // The typed archive folds old events into rollups on the same cadence.
         // Raw events and raw messages are kept — never deleted.
@@ -496,7 +486,7 @@ export function Chat({ navigation, route }: Props) {
   function typingLabelFor(kind: ChatTurnKind): string {
     if (kind === 'choices') return 'Ideas soch raha hai…';
     if (kind === 'regenerate') return 'Ek naya take likh raha hai…';
-    if (kind === 'scene') return 'Naya scene set ho raha hai…';
+    if (kind === 'scene') return 'Kahani naya mod le rahi hai…';
     return 'Kahani aage badh rahi hai…';
   }
 
@@ -600,7 +590,6 @@ export function Chat({ navigation, route }: Props) {
     if (!playthrough || !bundle || sending || !aiReady) return;
     if (kind !== 'regenerate' && playthrough.status !== 'active') return;
     if (kind === 'regenerate' && !canRegenerate) return;
-    if (kind === 'scene' && !hasAlternateScene) return;
 
     if (kind === 'regenerate' && (await regenerateWithRewind(playthrough, bundle))) return;
 
@@ -623,13 +612,10 @@ export function Chat({ navigation, route }: Props) {
         'Write a distinct alternate rendering while preserving the same established events, outcomes, scene, and relationship facts. Do not add a new plot event, advance time, decide anything for the reader, or change story state. Stay immersive and do not mention regeneration.',
       ].join(' ');
     } else if (kind === 'scene') {
-      const otherScenes = bundle.scenes.scenes.filter((candidate) => candidate.id !== playthrough.currentSceneId);
-      const sceneTargets = otherScenes.map((candidate) => `${candidate.title} (id: ${candidate.id})`).join('; ');
-      prompt = 'Scene ko naturally badlo.';
+      prompt = 'Kahani mein naya mod lao.';
       instruction = [
-        'The reader tapped “Scene badlo”. Create a natural, continuity-safe transition to one suitable existing scene from the story bundle.',
-        `Available scene targets: ${sceneTargets}. Use the exact id in the hidden scene state field.`,
-        'Do not teleport without a believable bridge and never invent an action or dialogue for the reader. If none of these scenes fits the current events, let a character or the world create a plausible transition before changing location.',
+        'The reader tapped “Naya mod”. There are no predefined scenes — invent a fresh, natural turn that grows out of what has already happened: a new moment, place or development (a time skip, someone arriving, a call, a surprise).',
+        'Bridge it believably, keep every established fact, and never invent an action or spoken line for the reader. Do not wrap anything up — end with an organic opening for the reader’s own move.',
       ].join(' ');
     } else {
       prompt = 'Continue karo.';
@@ -722,7 +708,7 @@ export function Chat({ navigation, route }: Props) {
                 </View>
               ) : null}
               <Text style={[styles.headerScene, { color: classic ? theme.gold : theme.textFaint }]} numberOfLines={1}>
-                {scene?.title ?? playthrough.label}
+                {placeLabel}
               </Text>
             </View>
           </View>
@@ -760,17 +746,9 @@ export function Chat({ navigation, route }: Props) {
           <Icon name="person" size={13} color={classic ? theme.accent : theme.textFaint} />
           <Text style={[styles.roleLabel, { color: classic ? theme.accent : theme.textFaint }]}>YOU ARE</Text>
           <Text style={[styles.roleText, { color: theme.textDim }]} numberOfLines={1}>
-            {makePlayerTextFn(bundle.meta, profile?.nickname)(bundle.story.userRole)}
+            {makePlayerTextFn(bundle.meta, profile?.nickname)(readerRoleText(bundle.story.userRole))}
           </Text>
-          {bond?.value != null ? (
-            <View style={styles.bond} accessibilityLabel={`Bond with ${bond.name}: ${bond.value}%`}>
-              <Icon name="heart" size={12} color={theme.primary} />
-              <View style={[styles.bondTrack, { backgroundColor: 'rgba(255,255,255,0.10)' }]}>
-                <View style={[styles.bondFill, { width: `${bond.value}%`, backgroundColor: theme.primary }]} />
-              </View>
-              <Text style={[styles.bondText, { color: theme.text }]}>{bond.value}%</Text>
-            </View>
-          ) : cast.length > 0 ? (
+          {cast.length > 0 ? (
             <View style={styles.presence} accessibilityLabel={`In this story: ${cast.map((c) => c.name).join(', ')}`}>
               {cast.slice(0, 3).map((c, i) => (
                 <View key={c.id} style={[styles.presenceSlot, i > 0 && styles.presenceOverlap]}>
@@ -862,18 +840,15 @@ export function Chat({ navigation, route }: Props) {
                 {([
                   { kind: 'choices', label: 'Choices dikhao', hint: 'Agle move ke text ideas', icon: 'sparkles-outline' },
                   { kind: 'regenerate', label: 'Regenerate', hint: 'Last reply ka alternate', icon: 'refresh-outline' },
-                  { kind: 'scene', label: 'Scene badlo', hint: 'Naya scene, same story', icon: 'map-outline' },
+                  { kind: 'scene', label: 'Naya mod', hint: 'Kahani mein naya twist', icon: 'map-outline' },
                   { kind: 'continue', label: 'Continue', hint: 'Bina message ke aage', icon: 'play-forward-outline' },
                 ] as const).map((action) => {
                   const actionDisabled = sending || !aiReady ||
                     (action.kind !== 'regenerate' && playthrough.status !== 'active') ||
-                    (action.kind === 'regenerate' && !canRegenerate) ||
-                    (action.kind === 'scene' && !hasAlternateScene);
+                    (action.kind === 'regenerate' && !canRegenerate);
                   const hint = action.kind === 'regenerate' && !canRegenerate
                     ? 'Pehle AI reply aane do'
-                    : action.kind === 'scene' && !hasAlternateScene
-                      ? 'Abhi doosra scene nahi'
-                      : action.hint;
+                    : action.hint;
                   return (
                     <Pressable
                       key={action.kind}
@@ -910,7 +885,7 @@ export function Chat({ navigation, route }: Props) {
             <TextInput
               ref={inputRef}
               onChangeText={onChangeText}
-              placeholder={playthrough.status === 'completed' ? 'Journey ended — start new?' : 'Write your next move…'}
+              placeholder="Write your next move…"
               placeholderTextColor={theme.textFaint}
               multiline
               maxLength={2000}

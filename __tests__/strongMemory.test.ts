@@ -147,7 +147,7 @@ describe('v2.7.0 — 3-stage prompt with private notes', () => {
 });
 
 describe('v2.7.0 — silent record-keeper', () => {
-  test('extraction prompt lists scene ids, character ids and the exchange', () => {
+  test('extraction prompt lists character ids and the exchange — never scene ids (free-form stories)', () => {
     const msgs = buildStateExtractionMessages({
       bundle,
       playthrough,
@@ -157,7 +157,8 @@ describe('v2.7.0 — silent record-keeper', () => {
       playerName: 'Raj',
     });
     expect(msgs[0].role).toBe('system');
-    expect(msgs[0].content).toContain(bundle.scenes.scenes[0].id);
+    expect(msgs[0].content).not.toContain(bundle.scenes.scenes[0].id);
+    expect(msgs[0].content).not.toMatch(/"scene":|"endStory":/);
     expect(msgs[0].content).toContain(bundle.characters.characters[0].id);
     expect(msgs[0].content).toContain('ONLY one JSON object');
     expect(msgs[1].content).toContain('earbud');

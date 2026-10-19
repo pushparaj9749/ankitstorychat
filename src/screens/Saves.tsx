@@ -9,7 +9,7 @@ import type { NativeStackScreenProps } from '@react-navigation/native-stack';
 import type { Playthrough, RootStackParamList } from '../types';
 import { useApp } from '../state/AppContext';
 import { Screen } from '../components/Screen';
-import { ProgressBar, SectionHeader } from '../components/bits';
+import { SectionHeader } from '../components/bits';
 import { EmptyState, LoadingState } from '../components/states';
 import { Icon } from '../components/icons';
 import { deletePlaythrough, listPlaythroughsForStory } from '../lib/db';
@@ -136,8 +136,6 @@ export function Saves({ navigation, route }: Props) {
                 <Text style={[styles.meta, { color: theme.textDim }]}>
                   {p.messageCount} messages • Updated {timeAgo(p.updatedAt)}
                 </Text>
-
-                <ProgressBar value={p.progress} color={meta?.accentColor ?? theme.accent} />
 
                 <View style={styles.cardFooter}>
                   <Pressable

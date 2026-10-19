@@ -4,7 +4,7 @@
 
 Kissa is an original interactive-fiction app: you play the main character in cinematic
 Hinglish stories, chatting freely or picking choices while AI (or the offline storyteller)
-moves the tale forward — with memory, relationships, branching, and multiple endings.
+moves the tale forward — with memory and relationships, and no script: no predefined scenes, arcs or endings.
 
 > **Original work.** Kissa has its own branding, UI, stories, characters, art, and sounds.
 > It is not affiliated with, and copies nothing from, any other story-chat app.
@@ -14,7 +14,7 @@ moves the tale forward — with memory, relationships, branching, and multiple e
 ## ✨ Highlights
 
 - **100% local-first** — profile, chats, memories, saves, favorites, settings on-device (SQLite + SecureStore). No login, no cloud user DB.
-- **43 original Hinglish stories** (24 teen-safe, 19 mature) with scenes, choices, branching, endings — including 31 ongoing "endless" romance sagas delivered over the air.
+- **Original Hinglish stories** delivered over the air — each is a premise, characters, a world and one opening moment; after that the story is free-form and endless.
 - **New stories arrive without an app update** — new packs land in `content/manifest.json`
   (`contentVersion`), and existing installs pick them up automatically from the live story API
   (or straight from a story's page via its in-place **Download** button).
@@ -38,9 +38,9 @@ moves the tale forward — with memory, relationships, branching, and multiple e
   runtime to the locally stored nickname in narration, the pre-chat introduction,
   offline mode and AI prompts. Character names are never replaced (e.g. *Kabir* in
   *Chai, Dreams & Backbenchers* is a character, not the player).
-- **Endless stories** — stories tagged `ongoing` never get final endings; the
-  content validator rejects endings/`isEnding`/`endStory` for them. Legacy bundled
-  stories keep their classic ending mechanics.
+- **Endless, free-form stories** — no story has a predefined scene, arc or ending
+  (v2.7.1). The narrator only gets the opening moment; scene/ending data in older
+  packs is ignored at runtime.
 - **Universal memory engine (v2.5.1)** — a local story archive (raw messages, typed events,
   persistent relationship state per pair, character knowledge, contradictions, inverted index) with
   validated state transitions and meaning-based retrieval, on top of the sliding short-term window,
@@ -57,6 +57,13 @@ moves the tale forward — with memory, relationships, branching, and multiple e
 ---
 
 ## 🆕 Release notes
+
+### v2.7.1 — Free-form stories, no length, no percentages
+
+- **No predefined scene or arc:** the narrator gets only the opening moment (first 8 chats) plus a story-flow law — no scene list, directions, arcs or endings. The record-keeper never offers scene/ending ids. "Scene badlo" became **Naya mod** (the AI invents a natural new turn). The Chat header shows the current place. Journeys never end; ones an older version marked completed simply continue.
+- **No length, no percentages:** removed "N min", Duration, progress rings/bars and bond % from both templates. Story Detail shows Characters · Genre · Rated. Yaadein describes relationships in words (Ajnabi → Bahut khaas).
+- **"You are" card** shows only who the reader is, never the author's narrator instructions (`readerRoleText`).
+- Owner story rules documented in README; guarded by `freeFormStory` and `noLengthOrPercent` tests.
 
 ### v2.7.0 — Two UI templates, Yaadein, strong memory, real Regenerate
 
@@ -386,13 +393,27 @@ Full architecture, guarantees and the v2.5.1 test/QA matrix: **docs/V2.5.1_MEMOR
 
 ## 📚 Story format
 
+> **Owner's story rules (always follow these, for every story and every feature):**
+> 1. **No predefined scene or arc.** A story is a premise + characters + world + ONE opening
+>    moment. There is no plot plan: no scene sequence, arcs, chapters-in-advance, milestones
+>    or endings. After the opening, the story grows only from the reader's moves.
+> 2. **No length and no percentages.** Stories never "finish"; the app never shows a duration,
+>    "N min", progress %, progress bars/rings or a bond/relationship %.
+> 3. **The reader never sees narrator rules.** `userRole` may contain author instructions for
+>    the AI; the app shows only the description (`readerRoleText`).
+>
+> These are enforced in code and guarded by tests (`__tests__/freeFormStory.test.ts`,
+> `__tests__/noLengthOrPercent.test.ts`). `scenes.json` is still required for compatibility,
+> but only its **opening scene** is used — and only as the starting moment. New stories need
+> just that one opening scene (no extra scenes, choices or endings).
+
 ```
 content/stories/<id>/
   story.json        # title, role, setting, tone, ageRating, openingSceneId, safetyNotes,
                     #                  creator{name,avatar,verified}, media{cover,gallery[]}
   characters.json   # personality, voice, goals, sampleLine, knowledge…
   world.json        # premise, locations, factions, lore, RULES, objects
-  scenes.json       # scenes: narration, choices{next,effects,requiresFlag}, endings
+  scenes.json       # ONLY the opening moment is used (free-form story — no arcs/endings)
   memory.json       # shortTermWindow, seedMemories, extractionHints, neverRemember (all enforced)
   assets/           # cover.jpg + gallery/image-NN.jpg (referenced by story.media)
 ```

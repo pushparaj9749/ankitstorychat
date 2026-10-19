@@ -33,7 +33,7 @@ import { NaturalImage } from '../../components/NaturalImage';
 import { AgeBadge, GenreChip, SectionHeader } from '../../components/bits';
 import { ErrorState, LoadingState, OfflineState } from '../../components/states';
 import { getBundledCoverSource, getBundle, mediaApiUrl, effectiveContentApiBaseUrl, StoryContentError } from '../../content/loader';
-import { interpolatePlayerName, makePlayerTextFn } from '../../lib/playerName';
+import { interpolatePlayerName, makePlayerTextFn, readerRoleText } from '../../lib/playerName';
 import { AgeRestrictedError } from '../../lib/ageGate';
 import { listPlaythroughsForStory, updateStats, insertMessage } from '../../lib/db';
 import { createPlaythrough, playthroughLabel } from '../../lib/playthrough';
@@ -187,8 +187,6 @@ export function StoryDetail({ navigation, route }: Props) {
     return item ? mediaApiUrl(apiBase, bundle.meta.storyDir, item.file) : null;
   };
 
-  const sceneCount = bundle.scenes.scenes.length;
-  const endingCount = bundle.scenes.endings.length;
   const ongoing = meta.tags?.includes('ongoing') ?? false;
 
   return (
@@ -255,12 +253,6 @@ export function StoryDetail({ navigation, route }: Props) {
                 <Text style={[styles.ongoingText, { color: theme.gold }]}>ENDLESS</Text>
               </View>
             ) : null}
-            {meta.estimatedMinutes ? (
-              <View style={[styles.ongoingPill, { borderColor: theme.border, backgroundColor: withAlpha(theme.text, 0.05) }]}>
-                <Icon name="time-outline" size={11} color={theme.textDim} />
-                <Text style={[styles.ongoingText, { color: theme.textDim }]}>{meta.estimatedMinutes} MIN</Text>
-              </View>
-            ) : null}
           </View>
           <Text style={[styles.title, { color: theme.text }]}>{meta.title}</Text>
           <Text style={[styles.tagline, { color: theme.textDim }]}>{forPlayer(meta.tagline)}</Text>
@@ -271,17 +263,12 @@ export function StoryDetail({ navigation, route }: Props) {
             ))}
           </View>
 
-          {/* size at a glance */}
+          {/* at a glance — never scenes, endings, length or duration */}
           <View style={styles.statRow}>
             {[
-              { icon: 'albums-outline' as const, value: String(sceneCount), label: 'SCENES', tint: theme.accent },
               { icon: 'people-outline' as const, value: String(cast.length || '—'), label: 'CAST', tint: theme.violet },
-              {
-                icon: 'flag-outline' as const,
-                value: endingCount > 0 ? String(endingCount) : ongoing ? '∞' : '—',
-                label: endingCount > 0 ? 'ENDINGS' : 'FORMAT',
-                tint: theme.gold,
-              },
+              { icon: 'sparkles-outline' as const, value: meta.genres[0] ?? 'Story', label: 'GENRE', tint: theme.accent },
+              { icon: 'shield-outline' as const, value: String(meta.ageRating), label: 'RATED', tint: theme.gold },
             ].map((st) => (
               <View key={st.label} style={[styles.stat, { borderColor: theme.border, backgroundColor: withAlpha(theme.surface2, 0.7) }]}>
                 <View style={[styles.statIcon, { backgroundColor: withAlpha(st.tint, 0.15) }]}>
@@ -310,7 +297,7 @@ export function StoryDetail({ navigation, route }: Props) {
                 </View>
                 <Text style={[styles.roleKicker, { color: theme.accent }]}>YOU ARE</Text>
               </View>
-              <Text style={[styles.roleDesc, { color: theme.text }]}>{forPlayer(bundle.story.userRole)}</Text>
+              <Text style={[styles.roleDesc, { color: theme.text }]}>{forPlayer(readerRoleText(bundle.story.userRole))}</Text>
             </View>
           ) : null}
 
@@ -459,7 +446,7 @@ export function StoryDetail({ navigation, route }: Props) {
 const KIND_BADGE: Record<StoryMediaItem['kind'], string> = {
   cover: 'COVER',
   'character-portrait': 'PORTRAIT',
-  scene: 'SCENE',
+  scene: 'MOMENT',
   other: 'ART',
 };
 

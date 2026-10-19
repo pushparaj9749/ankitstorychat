@@ -19,7 +19,7 @@ import { effectiveContentApiBaseUrl, getBundledCoverSource } from '../../content
 import { makePlayerTextFn } from '../../lib/playerName';
 import { sameRenderProps } from '../../lib/memoProps';
 import { GRADIENTS, RADIUS, SCALE, SHADOWS, SPACING, TOUCH, genreColor, withAlpha } from './theme';
-import { AgeBadge, GenreChip, ProgressBar } from '../../components/bits';
+import { AgeBadge, GenreChip } from '../../components/bits';
 import { CoverImage } from '../../components/CoverImage';
 import { ArtBackdrop } from '../../components/ArtBackdrop';
 import { Icon, ICON_SIZE } from '../../components/icons';
@@ -135,7 +135,6 @@ function HeroCardImpl({
   const forPlayer = makePlayerTextFn(meta, profile?.nickname);
   const facts = [
     meta.genres[0] ?? 'Story',
-    meta.estimatedMinutes ? `${meta.estimatedMinutes} min` : null,
     meta.characters?.length ? `${meta.characters.length} ${meta.characters.length === 1 ? 'character' : 'characters'}` : null,
   ].filter(Boolean) as string[];
 
@@ -296,7 +295,6 @@ function ContinueCardImpl({
 }) {
   const { theme } = useApp();
   const started = progress !== null && progress !== undefined;
-  const pct = started ? Math.round(Math.min(1, Math.max(0, progress)) * 100) : 0;
 
   return (
     <Pressable
@@ -330,19 +328,10 @@ function ContinueCardImpl({
             {subtitle}
           </Text>
         ) : null}
-        {started ? (
-          <View style={styles.continueProgressRow}>
-            <View style={styles.continueProgress}>
-              <ProgressBar value={progress} />
-            </View>
-            <Text style={[styles.continuePct, { color: theme.text }]}>{pct}%</Text>
-          </View>
-        ) : (
-          <View style={styles.continueTags}>
-            <GenreChip genre={meta.genres[0] ?? 'Story'} />
-            <AgeBadge ageRating={meta.ageRating} />
-          </View>
-        )}
+        <View style={styles.continueTags}>
+          <GenreChip genre={meta.genres[0] ?? 'Story'} />
+          <AgeBadge ageRating={meta.ageRating} />
+        </View>
       </View>
 
       <View style={[styles.playDisc, SHADOWS.glowAccent]}>
@@ -380,12 +369,6 @@ function WideCardImpl({ meta, onPress }: { meta: StoryMeta; onPress: () => void 
         <Text style={[styles.wideDesc, { color: theme.textDim }]} numberOfLines={2}>
           {forPlayer(meta.tagline || meta.description)}
         </Text>
-        {meta.estimatedMinutes ? (
-          <View style={styles.wideMeta}>
-            <Icon name="time-outline" size={13} color={theme.textFaint} />
-            <Text style={[styles.wideMetaText, { color: theme.textFaint }]}>{meta.estimatedMinutes} min</Text>
-          </View>
-        ) : null}
       </View>
     </Pressable>
   );

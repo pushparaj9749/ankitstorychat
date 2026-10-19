@@ -19,7 +19,6 @@ import { makePlayerTextFn } from '../lib/playerName';
 import { sameRenderProps } from '../lib/memoProps';
 import { GRADIENTS, RADIUS, SCALE, SHADOWS, SPACING, TOUCH, genreColor, withAlpha } from '../theme';
 import { AgeBadge, GenreChip } from './bits';
-import { ProgressRing } from './ProgressRing';
 import { CoverImage } from './CoverImage';
 import { ArtBackdrop } from './ArtBackdrop';
 import { Icon, ICON_SIZE } from './icons';
@@ -135,7 +134,6 @@ function HeroCardImpl({
   const forPlayer = makePlayerTextFn(meta, profile?.nickname);
   const facts = [
     meta.genres[0] ?? 'Story',
-    meta.estimatedMinutes ? `${meta.estimatedMinutes} min` : null,
     meta.characters?.length ? `${meta.characters.length} ${meta.characters.length === 1 ? 'character' : 'characters'}` : null,
   ].filter(Boolean) as string[];
 
@@ -334,13 +332,9 @@ function ContinueCardImpl({
           </View>
         ) : null}
       </View>
-      {started ? (
-        <ProgressRing value={progress} size={50} stroke={4} color={theme.primary} textColor={theme.text} />
-      ) : (
-        <View style={[styles.playDisc, { backgroundColor: theme.surface3 }]}>
-          <Icon name="chevron-forward" size={16} color={theme.text} />
-        </View>
-      )}
+      <View style={[styles.playDisc, { backgroundColor: started ? theme.primarySoft : theme.surface3 }]}>
+        <Icon name="chevron-forward" size={16} color={started ? theme.primary : theme.text} />
+      </View>
     </Pressable>
   );
 }
@@ -371,12 +365,6 @@ function WideCardImpl({ meta, onPress }: { meta: StoryMeta; onPress: () => void 
         <Text style={[styles.wideDesc, { color: theme.textDim }]} numberOfLines={2}>
           {forPlayer(meta.tagline || meta.description)}
         </Text>
-        {meta.estimatedMinutes ? (
-          <View style={styles.wideMeta}>
-            <Icon name="time-outline" size={13} color={theme.textFaint} />
-            <Text style={[styles.wideMetaText, { color: theme.textFaint }]}>{meta.estimatedMinutes} min</Text>
-          </View>
-        ) : null}
       </View>
     </Pressable>
   );
