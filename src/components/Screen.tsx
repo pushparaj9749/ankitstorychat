@@ -24,8 +24,8 @@ export function Screen({
       <StatusBar barStyle="light-content" backgroundColor={theme.bg} translucent={false} />
       <View pointerEvents="none" style={StyleSheet.absoluteFill}>
         <LinearGradient
-          colors={['rgba(168,85,247,0.16)', 'rgba(255,79,139,0.05)', 'rgba(11,8,20,0)']}
-          locations={[0, 0.45, 1]}
+          colors={['rgba(255,255,255,0.035)', 'rgba(10,11,16,0)']}
+          locations={[0, 1]}
           start={{ x: 0.1, y: 0 }}
           end={{ x: 0.6, y: 1 }}
           style={styles.glowTop}

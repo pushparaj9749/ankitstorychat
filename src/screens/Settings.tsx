@@ -257,7 +257,7 @@ const styles = StyleSheet.create({
     marginTop: 18,
     paddingVertical: 12,
     borderRadius: RADIUS.lg,
-    backgroundColor: 'rgba(11,8,20,0.26)',
+    backgroundColor: 'rgba(10,11,16,0.26)',
   },
   profileStat: { flex: 1, alignItems: 'center' },
   profileStatValue: { fontSize: 20, fontWeight: '900', color: '#FFFFFF' },

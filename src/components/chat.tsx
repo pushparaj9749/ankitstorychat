@@ -116,7 +116,7 @@ function ChatBubbleImpl({ message: stored }: { message: ChatMessage }) {
             { backgroundColor: theme.surface, borderColor: theme.border },
           ]}
         >
-          <LinearGradient colors={['rgba(255,79,139,0.05)', 'transparent']} style={styles.bubbleGlow} pointerEvents="none" />
+          <LinearGradient colors={['rgba(240,86,126,0.05)', 'transparent']} style={styles.bubbleGlow} pointerEvents="none" />
           <View style={[styles.accentEdge, { backgroundColor: 'transparent' }]} pointerEvents="none" />
           <StoryText
             text={message.text}
@@ -169,7 +169,7 @@ function ChatBubbleImpl({ message: stored }: { message: ChatMessage }) {
           { backgroundColor: withAlpha(theme.surface2, 0.94), borderColor: withAlpha(theme.primary, 0.24) },
         ]}
       >
-        <LinearGradient colors={['rgba(255,122,176,0.10)', 'transparent']} style={styles.bubbleGlow} pointerEvents="none" />
+        <LinearGradient colors={['rgba(245,138,165,0.10)', 'transparent']} style={styles.bubbleGlow} pointerEvents="none" />
         <View style={[styles.accentEdge, { backgroundColor: theme.primary }]} pointerEvents="none" />
         {speaker ? (
           <View style={styles.speakerRow}>

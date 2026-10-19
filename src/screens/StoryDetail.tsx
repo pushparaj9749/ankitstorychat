@@ -206,7 +206,7 @@ export function StoryDetail({ navigation, route }: Props) {
             tint="transparent"
           />
           <LinearGradient
-            colors={['rgba(11,8,20,0.55)', 'transparent', 'transparent', withAlpha(theme.bg, 0.9)]}
+            colors={['rgba(10,11,16,0.55)', 'transparent', 'transparent', withAlpha(theme.bg, 0.9)]}
             locations={[0, 0.22, 0.7, 1]}
             style={StyleSheet.absoluteFill}
             pointerEvents="none"
@@ -220,7 +220,7 @@ export function StoryDetail({ navigation, route }: Props) {
               hitSlop={8}
               style={({ pressed }) => [styles.glassBtn, { borderColor: GLASS.stroke, backgroundColor: GLASS.bg, opacity: pressed ? 0.72 : 1 }]}
             >
-              <Icon name="chevron-back" size={ICON_SIZE.md} color="#F7F3FF" />
+              <Icon name="chevron-back" size={ICON_SIZE.md} color="#F4F5F8" />
             </Pressable>
             <View style={styles.heroNavRight}>
               <Pressable
@@ -237,7 +237,7 @@ export function StoryDetail({ navigation, route }: Props) {
                   },
                 ]}
               >
-                <Icon name={isFav ? 'heart' : 'heart-outline'} size={ICON_SIZE.md} color={isFav ? theme.accent : '#F7F3FF'} />
+                <Icon name={isFav ? 'heart' : 'heart-outline'} size={ICON_SIZE.md} color={isFav ? theme.accent : '#F4F5F8'} />
               </Pressable>
             </View>
           </View>
@@ -507,9 +507,9 @@ function MediaTile({
         }
       />
       <View style={[styles.mediaBadge, { backgroundColor: GLASS.bg }]}>
-        <Text style={[styles.mediaBadgeText, { color: '#F7F3FF' }]}>{KIND_BADGE[item.kind]}</Text>
+        <Text style={[styles.mediaBadgeText, { color: '#F4F5F8' }]}>{KIND_BADGE[item.kind]}</Text>
       </View>
-      <LinearGradient colors={['transparent', 'rgba(11,8,20,0.86)']} style={styles.mediaLabelShade} pointerEvents="none" />
+      <LinearGradient colors={['transparent', 'rgba(10,11,16,0.86)']} style={styles.mediaLabelShade} pointerEvents="none" />
       <Text style={[styles.mediaLabel, { color: '#fff' }]} numberOfLines={1}>
         {label}
       </Text>
@@ -526,8 +526,8 @@ function LightboxImage({ url, accent }: { url: string; accent: string }) {
         placeholder={<ActivityIndicator size="small" color={accent} />}
         fallback={
           <View style={styles.lightboxFallback}>
-            <Icon name="image-outline" size={ICON_SIZE.lg} color="#B8AFCC" />
-            <Text style={[styles.lightboxFallbackText, { color: '#B8AFCC' }]}>Image unavailable.</Text>
+            <Icon name="image-outline" size={ICON_SIZE.lg} color="#A8ACB9" />
+            <Text style={[styles.lightboxFallbackText, { color: '#A8ACB9' }]}>Image unavailable.</Text>
           </View>
         }
       />
@@ -547,7 +547,7 @@ function CreatorBlock({ creator }: { creator: StoryCreator }) {
       <SectionHeader title="Story Creator" />
       <View style={[styles.creatorCard, { backgroundColor: withAlpha(theme.text, 0.04), borderColor: theme.border }]}>
         <LinearGradient
-          colors={['#FF4F8B', '#A855F7']}
+          colors={['#F0567E', '#9A9CC4']}
           start={{ x: 0, y: 0 }}
           end={{ x: 1, y: 1 }}
           style={styles.creatorAvatar}
@@ -663,7 +663,7 @@ const styles = StyleSheet.create({
   lightbox: { flex: 1, backgroundColor: 'rgba(0,0,0,0.96)', alignItems: 'center', justifyContent: 'center' },
   lightboxImageWrap: { flex: 1, width: '100%', alignItems: 'center', justifyContent: 'center', paddingHorizontal: 12 },
   lightboxImage: { width: '100%', maxHeight: '86%' },
-  lightboxLabel: { color: '#F7F3FF', fontSize: SCALE.caption, fontWeight: '700', marginTop: 12, letterSpacing: 0.2 },
+  lightboxLabel: { color: '#F4F5F8', fontSize: SCALE.caption, fontWeight: '700', marginTop: 12, letterSpacing: 0.2 },
   lightboxNav: {
     position: 'absolute',
     top: '46%',
@@ -709,7 +709,7 @@ const styles = StyleSheet.create({
   similarGenreRow: { flexDirection: 'row', alignItems: 'center', gap: 5, marginTop: 5 },
   similarDot: { width: 5, height: 5, borderRadius: 2.5 },
   similarTitle: { fontSize: SCALE.small, fontWeight: '800', lineHeight: 16, color: '#fff' },
-  similarGenre: { fontSize: SCALE.micro, fontWeight: '800', letterSpacing: 0.5, color: 'rgba(240,232,255,0.7)', flexShrink: 1 },
+  similarGenre: { fontSize: SCALE.micro, fontWeight: '800', letterSpacing: 0.5, color: 'rgba(244,245,248,0.7)', flexShrink: 1 },
   referCard: { borderWidth: 1, borderRadius: RADIUS.lg, padding: 16, marginTop: 4, borderStyle: 'dashed' },
   referTitle: { fontSize: 15, fontWeight: '800' },
   referSub: { fontSize: SCALE.small, marginTop: 5, lineHeight: 19 },

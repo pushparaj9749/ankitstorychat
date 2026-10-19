@@ -1,5 +1,5 @@
 /**
- * KISSA v2.6 — Story cards ("Kissa Night").
+ * KISSA v2.7 — Story cards ("Kissa Noir").
  *
  * Every card is a poster: artwork fills the whole card, text sits on the art.
  *
@@ -18,7 +18,8 @@ import { effectiveContentApiBaseUrl, getBundledCoverSource } from '../content/lo
 import { makePlayerTextFn } from '../lib/playerName';
 import { sameRenderProps } from '../lib/memoProps';
 import { GRADIENTS, RADIUS, SCALE, SHADOWS, SPACING, TOUCH, genreColor, withAlpha } from '../theme';
-import { AgeBadge, GenreChip, ProgressBar } from './bits';
+import { AgeBadge, GenreChip } from './bits';
+import { ProgressRing } from './ProgressRing';
 import { CoverImage } from './CoverImage';
 import { ArtBackdrop } from './ArtBackdrop';
 import { Icon, ICON_SIZE } from './icons';
@@ -27,7 +28,7 @@ import { Icon, ICON_SIZE } from './icons';
 export const FRAME = { hero: 468, poster: 226, grid: 252, rank: 176, continue: 92, wide: 138 } as const;
 
 const ON_ART = '#FFFFFF';
-const ON_ART_DIM = 'rgba(247,243,255,0.78)';
+const ON_ART_DIM = 'rgba(244,245,248,0.78)';
 
 function useCover(meta: StoryMeta) {
   const { settings } = useApp();
@@ -93,7 +94,7 @@ function FavoriteButton({ storyId, size = TOUCH.sm }: { storyId: string; size?: 
           width: size,
           height: size,
           borderRadius: size / 2,
-          backgroundColor: isFav ? withAlpha(theme.primary, 0.28) : 'rgba(11,8,20,0.46)',
+          backgroundColor: isFav ? withAlpha(theme.primary, 0.28) : 'rgba(10,11,16,0.46)',
           borderColor: isFav ? withAlpha(theme.primary, 0.6) : 'rgba(255,255,255,0.18)',
           opacity: pressed ? 0.7 : 1,
           transform: [{ scale: pressed ? 0.92 : 1 }],
@@ -151,20 +152,26 @@ function HeroCardImpl({
     >
       <StoryArt meta={meta} height={height} radius={RADIUS.xxl}>
         <LinearGradient
-          colors={['rgba(11,8,20,0.55)', 'transparent']}
+          colors={['rgba(10,11,16,0.55)', 'transparent']}
           locations={[0, 1]}
           style={styles.heroTopShade}
           pointerEvents="none"
         />
         <LinearGradient
-          colors={['transparent', 'rgba(11,8,20,0.62)', 'rgba(11,8,20,0.97)']}
+          colors={['transparent', 'rgba(10,11,16,0.62)', 'rgba(10,11,16,0.97)']}
           locations={[0, 0.45, 1]}
           style={styles.heroBottomShade}
           pointerEvents="none"
         />
 
         <View style={styles.heroTop}>
-          <GlassTag label={kicker} icon={<Icon name="sparkles" size={13} color={theme.gold} />} />
+          {meta.isNew ? (
+            <View style={[styles.newBadge, { backgroundColor: theme.primary }]}>
+              <Text style={styles.newBadgeText}>NEW</Text>
+            </View>
+          ) : (
+            <GlassTag label={kicker} />
+          )}
           <GlassTag
             label={meta.ageRating}
             icon={<View style={[styles.genreDot, { backgroundColor: meta.ageRating === '18+' ? theme.danger : theme.success }]} />}
@@ -172,8 +179,8 @@ function HeroCardImpl({
         </View>
 
         <View style={styles.heroBody}>
-          <Text style={[styles.heroFacts, { color: theme.gold }]} numberOfLines={1}>
-            {facts.join('  ·  ').toUpperCase()}
+          <Text style={styles.heroFacts} numberOfLines={1}>
+            {facts.join('  ·  ')}
           </Text>
           <Text style={styles.heroTitle} numberOfLines={2}>
             {meta.title}
@@ -183,10 +190,9 @@ function HeroCardImpl({
           </Text>
 
           <View style={styles.heroActions}>
-            <View style={[styles.heroCta, SHADOWS.glowAccent]}>
-              <LinearGradient colors={[...GRADIENTS.primary]} start={{ x: 0, y: 0 }} end={{ x: 1, y: 1 }} style={StyleSheet.absoluteFill} />
+            <View style={[styles.heroCta, { backgroundColor: theme.primary }]}>
               <Icon name="play" size={ICON_SIZE.sm} color={ON_ART} />
-              <Text style={styles.heroCtaText}>Start chat</Text>
+              <Text style={styles.heroCtaText}>Start story</Text>
             </View>
             <FavoriteButton storyId={meta.id} size={50} />
           </View>
@@ -217,7 +223,7 @@ function GridCardImpl({
     >
       <StoryArt meta={meta} height={height} radius={RADIUS.lg + 2}>
         <LinearGradient
-          colors={['transparent', 'rgba(11,8,20,0.6)', 'rgba(11,8,20,0.96)']}
+          colors={['transparent', 'rgba(10,11,16,0.6)', 'rgba(10,11,16,0.96)']}
           locations={[0.4, 0.7, 1]}
           style={StyleSheet.absoluteFill}
           pointerEvents="none"
@@ -256,7 +262,7 @@ function RankCardImpl({ meta, rank, onPress }: { meta: StoryMeta; rank: number; 
       <Text
         style={[
           styles.rankNum,
-          { color: theme.gold, textShadowColor: 'rgba(0,0,0,0.55)' },
+          { color: 'rgba(244,245,248,0.92)', textShadowColor: 'rgba(0,0,0,0.6)' },
           rank >= 10 ? styles.rankNumWide : null,
         ]}
       >
@@ -265,7 +271,7 @@ function RankCardImpl({ meta, rank, onPress }: { meta: StoryMeta; rank: number; 
       <View style={[styles.rankPoster, SHADOWS.card]}>
         <StoryArt meta={meta} height={FRAME.rank} radius={RADIUS.lg}>
           <LinearGradient
-            colors={['transparent', 'rgba(11,8,20,0.92)']}
+            colors={['transparent', 'rgba(10,11,16,0.92)']}
             locations={[0.55, 1]}
             style={StyleSheet.absoluteFill}
             pointerEvents="none"
@@ -295,7 +301,6 @@ function ContinueCardImpl({
 }) {
   const { theme } = useApp();
   const started = progress !== null && progress !== undefined;
-  const pct = started ? Math.round(Math.min(1, Math.max(0, progress)) * 100) : 0;
 
   return (
     <Pressable
@@ -306,21 +311,14 @@ function ContinueCardImpl({
         styles.continueCard,
         {
           borderColor: theme.border,
-          backgroundColor: withAlpha(theme.surface2, 0.78),
+          backgroundColor: theme.surface,
           transform: [{ scale: pressed ? 0.985 : 1 }],
         },
       ]}
     >
-      <LinearGradient
-        colors={[withAlpha(meta.accentColor, 0.2), 'transparent']}
-        start={{ x: 0, y: 0.5 }}
-        end={{ x: 1, y: 0.5 }}
-        style={StyleSheet.absoluteFill}
-        pointerEvents="none"
-      />
       <StoryArt meta={meta} height={FRAME.continue} radius={RADIUS.md} style={styles.continueArt} />
-
       <View style={styles.continueBody}>
+        {started ? <Text style={[styles.continueKicker, { color: theme.primary }]}>CONTINUE</Text> : null}
         <Text style={[styles.continueTitle, { color: theme.text }]} numberOfLines={1}>
           {meta.title}
         </Text>
@@ -329,29 +327,23 @@ function ContinueCardImpl({
             {subtitle}
           </Text>
         ) : null}
-        {started ? (
-          <View style={styles.continueProgressRow}>
-            <View style={styles.continueProgress}>
-              <ProgressBar value={progress} />
-            </View>
-            <Text style={[styles.continuePct, { color: theme.text }]}>{pct}%</Text>
-          </View>
-        ) : (
+        {!started ? (
           <View style={styles.continueTags}>
             <GenreChip genre={meta.genres[0] ?? 'Story'} />
             <AgeBadge ageRating={meta.ageRating} />
           </View>
-        )}
+        ) : null}
       </View>
-
-      <View style={[styles.playDisc, SHADOWS.glowAccent]}>
-        <LinearGradient colors={[...GRADIENTS.primary]} start={{ x: 0, y: 0 }} end={{ x: 1, y: 1 }} style={StyleSheet.absoluteFill} />
-        <Icon name={started ? 'play' : 'chevron-forward'} size={started ? 15 : 16} color={ON_ART} />
-      </View>
+      {started ? (
+        <ProgressRing value={progress} size={50} stroke={4} color={theme.primary} textColor={theme.text} />
+      ) : (
+        <View style={[styles.playDisc, { backgroundColor: theme.surface3 }]}>
+          <Icon name="chevron-forward" size={16} color={theme.text} />
+        </View>
+      )}
     </Pressable>
   );
 }
-
 /* --------------------------------------------------------------- Wide card */
 function WideCardImpl({ meta, onPress }: { meta: StoryMeta; onPress: () => void }) {
   const { theme, profile } = useApp();
@@ -386,6 +378,47 @@ function WideCardImpl({ meta, onPress }: { meta: StoryMeta; onPress: () => void 
           </View>
         ) : null}
       </View>
+    </Pressable>
+  );
+}
+
+/* ------------------------------------------------------------ Story bubble */
+/**
+ * Instagram-style story bubble: the cover inside a circle (contain-fitted on
+ * its own blurred ambient art — never cropped), a thin ring (rose when
+ * `active`, hairline otherwise) and a short title underneath.
+ */
+const BUBBLE = 64;
+function StoryBubbleImpl({
+  meta,
+  active = false,
+  label,
+  onPress,
+}: {
+  meta: StoryMeta;
+  active?: boolean;
+  label?: string;
+  onPress: () => void;
+}) {
+  const { theme } = useApp();
+  return (
+    <Pressable
+      onPress={onPress}
+      accessibilityRole="button"
+      accessibilityLabel={meta.title}
+      style={({ pressed }) => [styles.bubble, { opacity: pressed ? 0.8 : 1, transform: [{ scale: pressed ? 0.95 : 1 }] }]}
+    >
+      <View
+        style={[
+          styles.bubbleRing,
+          { borderColor: active ? theme.primary : 'rgba(255,255,255,0.16)', borderWidth: active ? 2 : 1 },
+        ]}
+      >
+        <StoryArt meta={meta} height={BUBBLE} radius={BUBBLE / 2} style={styles.bubbleArt} />
+      </View>
+      <Text style={[styles.bubbleLabel, { color: active ? theme.text : theme.textDim }]} numberOfLines={1}>
+        {label ?? meta.title}
+      </Text>
     </Pressable>
   );
 }
@@ -432,6 +465,7 @@ export const RankCard = memo(RankCardImpl, sameRenderProps);
 export const ContinueCard = memo(ContinueCardImpl, sameRenderProps);
 export const WideCard = memo(WideCardImpl, sameRenderProps);
 export const PosterGrid = memo(PosterGridImpl, sameRenderProps);
+export const StoryBubble = memo(StoryBubbleImpl, sameRenderProps);
 
 export const FeaturedStory = HeroCard;
 
@@ -451,12 +485,14 @@ const styles = StyleSheet.create({
     paddingHorizontal: 9,
     paddingVertical: 5,
     borderRadius: RADIUS.pill,
-    backgroundColor: 'rgba(11,8,20,0.5)',
+    backgroundColor: 'rgba(10,11,16,0.5)',
     borderWidth: 1,
     borderColor: 'rgba(255,255,255,0.14)',
     alignSelf: 'flex-start',
   },
-  glassTagText: { fontSize: SCALE.micro, fontWeight: '800', letterSpacing: 0.7, color: ON_ART },
+  glassTagText: { fontSize: SCALE.micro, fontWeight: '700', letterSpacing: 0.6, color: ON_ART },
+  newBadge: { paddingHorizontal: 9, paddingVertical: 4, borderRadius: 6 },
+  newBadgeText: { fontSize: SCALE.micro, fontWeight: '800', letterSpacing: 1, color: ON_ART },
 
   heroCard: { borderRadius: RADIUS.xxl, overflow: 'hidden' },
   heroTopShade: { position: 'absolute', left: 0, right: 0, top: 0, height: 110 },
@@ -472,21 +508,21 @@ const styles = StyleSheet.create({
     gap: 8,
   },
   heroBody: { position: 'absolute', left: 18, right: 18, bottom: 18 },
-  heroFacts: { fontSize: SCALE.micro, fontWeight: '900', letterSpacing: 1.3 },
-  heroTitle: { fontSize: 30, fontWeight: '900', letterSpacing: -0.8, lineHeight: 34, color: ON_ART, marginTop: 8 },
+  heroFacts: { fontSize: SCALE.caption, fontWeight: '600', letterSpacing: 0.2, color: ON_ART_DIM },
+  heroTitle: { fontSize: 30, fontWeight: '700', letterSpacing: -0.9, lineHeight: 34, color: ON_ART, marginTop: 6 },
   heroTagline: { fontSize: SCALE.small, lineHeight: 19, color: ON_ART_DIM, marginTop: 7 },
   heroActions: { flexDirection: 'row', alignItems: 'center', gap: 10, marginTop: 16 },
   heroCta: {
     flex: 1,
     height: 50,
-    borderRadius: RADIUS.pill,
+    borderRadius: 14,
     overflow: 'hidden',
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'center',
     gap: 9,
   },
-  heroCtaText: { fontSize: 15, fontWeight: '900', letterSpacing: 0.2, color: ON_ART },
+  heroCtaText: { fontSize: 15, fontWeight: '700', letterSpacing: 0.1, color: ON_ART },
 
   poster: { borderRadius: RADIUS.lg + 2, overflow: 'hidden' },
   posterTop: {
@@ -499,10 +535,10 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
   },
   posterBody: { position: 'absolute', left: 11, right: 11, bottom: 11 },
-  posterTitle: { fontSize: 15, fontWeight: '900', letterSpacing: -0.3, lineHeight: 19, color: ON_ART },
+  posterTitle: { fontSize: 15, fontWeight: '700', letterSpacing: -0.3, lineHeight: 19, color: ON_ART },
   posterGenreRow: { flexDirection: 'row', alignItems: 'center', gap: 6, marginTop: 6 },
   genreDot: { width: 6, height: 6, borderRadius: 3 },
-  posterGenre: { fontSize: SCALE.micro, fontWeight: '700', letterSpacing: 0.3, color: ON_ART_DIM, flexShrink: 1 },
+  posterGenre: { fontSize: SCALE.micro, fontWeight: '500', letterSpacing: 0.2, color: ON_ART_DIM, flexShrink: 1 },
   posterStroke: {
     position: 'absolute',
     top: 0,
@@ -516,9 +552,9 @@ const styles = StyleSheet.create({
 
   rankCard: { flexDirection: 'row', alignItems: 'flex-end', height: FRAME.rank + 6 },
   rankNum: {
-    fontSize: 112,
-    lineHeight: 112,
-    fontWeight: '900',
+    fontSize: 104,
+    lineHeight: 108,
+    fontWeight: '800',
     letterSpacing: -6,
     marginRight: -26,
     marginBottom: -12,
@@ -534,7 +570,7 @@ const styles = StyleSheet.create({
     right: 9,
     bottom: 9,
     fontSize: SCALE.small,
-    fontWeight: '900',
+    fontWeight: '700',
     lineHeight: 16,
     color: ON_ART,
   },
@@ -551,11 +587,9 @@ const styles = StyleSheet.create({
   },
   continueArt: { width: 72 },
   continueBody: { flex: 1, minWidth: 0 },
-  continueTitle: { fontSize: 15.5, fontWeight: '900', letterSpacing: -0.25 },
-  continueSub: { fontSize: SCALE.caption, fontWeight: '600', marginTop: 4 },
-  continueProgressRow: { flexDirection: 'row', alignItems: 'center', gap: 9 },
-  continueProgress: { flex: 1 },
-  continuePct: { fontSize: SCALE.micro, fontWeight: '900', marginTop: 8 },
+  continueKicker: { fontSize: 10, fontWeight: '700', letterSpacing: 1.2, marginBottom: 3 },
+  continueTitle: { fontSize: 15.5, fontWeight: '700', letterSpacing: -0.25 },
+  continueSub: { fontSize: SCALE.caption, fontWeight: '500', marginTop: 4 },
   continueTags: { flexDirection: 'row', alignItems: 'center', gap: 6, marginTop: 9 },
   playDisc: {
     width: 40,
@@ -577,10 +611,15 @@ const styles = StyleSheet.create({
   wideArt: { width: 104 },
   wideBody: { flex: 1, paddingVertical: 4, paddingRight: 4, gap: 7, justifyContent: 'center' },
   wideTop: { flexDirection: 'row', gap: 6, alignItems: 'center', flexWrap: 'wrap' },
-  wideTitle: { fontSize: 16.5, fontWeight: '900', letterSpacing: -0.3, lineHeight: 21 },
+  wideTitle: { fontSize: 16.5, fontWeight: '700', letterSpacing: -0.3, lineHeight: 21 },
   wideDesc: { fontSize: SCALE.caption, lineHeight: 17 },
   wideMeta: { flexDirection: 'row', alignItems: 'center', gap: 5 },
   wideMetaText: { fontSize: SCALE.micro, fontWeight: '700' },
+
+  bubble: { width: 76, alignItems: 'center' },
+  bubbleRing: { width: BUBBLE + 8, height: BUBBLE + 8, borderRadius: (BUBBLE + 8) / 2, padding: 3 },
+  bubbleArt: { width: BUBBLE },
+  bubbleLabel: { fontSize: 11.5, fontWeight: '500', marginTop: 6, maxWidth: 74, textAlign: 'center' },
 
   grid: { gap: SPACING.md },
   gridRow: { flexDirection: 'row', gap: SPACING.md },

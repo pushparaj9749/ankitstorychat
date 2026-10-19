@@ -1,11 +1,10 @@
 /**
- * KISSA v2.6 — Home ("Kissa Night")
+ * KISSA v2.7 — Home ("Kissa Noir")
  *
- *   brand bar → greeting → search → category pills
- *   → HERO CAROUSEL (swipeable featured posters + page dots)
- *   → continue → Top 10 on Kissa (ranked posters) → for you
- *   → more like X → genre rails → new arrivals (2-col poster wall)
- *   → explore-all banner
+ *   "Hi <name> 👋" header (search + profile) → story bubbles (in-progress,
+ *   new, popular) → category chips → FEATURED carousel → continue (progress
+ *   ring) → Top 10 on Kissa → for you → more like X → genre rails
+ *   → more stories (2-col poster wall, paged) → explore-all card
  *
  * Picking a category swaps the rails for a full 2-column poster wall of that
  * category, so the page is always full of artwork — never a short list
@@ -17,7 +16,6 @@
 import React, { memo, useCallback, useEffect, useMemo, useState } from 'react';
 import {
   FlatList,
-  Image,
   Platform,
   Pressable,
   ScrollView,
@@ -28,19 +26,17 @@ import {
   type NativeScrollEvent,
   type NativeSyntheticEvent,
 } from 'react-native';
-import { LinearGradient } from 'expo-linear-gradient';
 import type { BottomTabScreenProps } from '@react-navigation/bottom-tabs';
 import type { MainTabParamList, StoryMeta } from '../types';
 import { useApp } from '../state/AppContext';
 import { useNavScroll } from '../navigation/NavScrollContext';
 import { Screen } from '../components/Screen';
-import { ContinueCard, GridCard, HeroCard, PosterGrid, RankCard } from '../components/StoryCard';
+import { ContinueCard, GridCard, HeroCard, PosterGrid, RankCard, StoryBubble } from '../components/StoryCard';
 import { IconButton, SectionHeader, SelectableChip } from '../components/bits';
 import { EmptyState } from '../components/states';
 import { Icon, ICON_SIZE } from '../components/icons';
-import { KISSA_LOGO } from '../components/brand';
-import { GRADIENTS, KISSA, LAYOUT, RADIUS, SCALE, SHADOWS, SPACING, TOUCH, TYPE, withAlpha } from '../theme';
-import { greetingForHour, timeAgo } from '../lib/utils';
+import { LAYOUT, RADIUS, SCALE, SPACING, TOUCH, withAlpha } from '../theme';
+import { timeAgo } from '../lib/utils';
 
 type Props = BottomTabScreenProps<MainTabParamList, 'Home'>;
 
@@ -112,12 +108,6 @@ export function Home({ navigation }: Props) {
     return (rest.length >= 4 ? rest : popular).slice(0, 10);
   }, [popular, slides]);
 
-  const newStories = useMemo(() => {
-    const flagged = stories.filter((s) => s.isNew);
-    const pool = flagged.length >= 2 ? flagged : [...stories].sort((a, b) => +new Date(b.updatedAt) - +new Date(a.updatedAt));
-    return pool.slice(0, 4);
-  }, [stories]);
-
   const filteredStories = useMemo(() => {
     if (selectedCategory === 'Popular') return popular;
     if (selectedCategory === 'New') return [...stories].sort((a, b) => +new Date(b.updatedAt) - +new Date(a.updatedAt));
@@ -148,7 +138,32 @@ export function Home({ navigation }: Props) {
       .map(([genre, list]) => ({ genre, list: [...list].sort((a, b) => b.popularity - a.popularity).slice(0, 10) }));
   }, [stories, becauseOf]);
 
-  const greeting = greetingForHour(new Date().getHours(), profile?.nickname ?? '');
+  const firstName = (profile?.nickname ?? '').trim().split(/\s+/)[0] ?? '';
+  const subline = useMemo(() => {
+    const h = new Date().getHours();
+    if (h >= 23 || h < 5) return 'Still awake? Ek kahani ho jaaye.';
+    if (h < 12) return 'Good morning. Aaj kaunsi kahani?';
+    if (h < 17) return 'Thoda break, thodi kahani?';
+    return 'Aaj shaam kaunsi kahani?';
+  }, []);
+
+  /** Story bubbles: journeys in progress first (rose ring), then new, then popular. */
+  const bubbles = useMemo(() => {
+    const seen = new Set<string>();
+    const out: { meta: StoryMeta; active: boolean }[] = [];
+    const push = (m: StoryMeta | undefined, active: boolean) => {
+      if (!m || seen.has(m.id)) return;
+      seen.add(m.id);
+      out.push({ meta: m, active });
+    };
+    activeRecent.forEach((p) => push(byId.get(p.storyId), true));
+    stories.filter((s) => s.isNew).forEach((s, i) => push(s, i < 2));
+    popular.forEach((s) => push(s, false));
+    return out.slice(0, 12);
+  }, [activeRecent, byId, stories, popular]);
+
+  /** "More stories" wall under the rails: everything, most-played first, paged. */
+  const moreStories = popular;
 
   const openStory = useCallback(
     (id: string) => {
@@ -172,17 +187,18 @@ export function Home({ navigation }: Props) {
     [slideW, slide, slides.length],
   );
 
+  const pagedSource = selectedCategory === 'For you' ? moreStories : filteredStories;
   const onScroll = useCallback(
     (e: NativeSyntheticEvent<NativeScrollEvent>) => {
       handleScroll(e);
       const { contentOffset, layoutMeasurement, contentSize } = e.nativeEvent;
       if (contentOffset.y + layoutMeasurement.height > contentSize.height - 700) {
-        setGridLimit((n) => (n < filteredStories.length ? n + GRID_PAGE : n));
+        setGridLimit((n) => (n < pagedSource.length ? n + GRID_PAGE : n));
       }
     },
-    [handleScroll, filteredStories.length],
+    [handleScroll, pagedSource.length],
   );
-  const gridStories = useMemo(() => filteredStories.slice(0, gridLimit), [filteredStories, gridLimit]);
+  const gridStories = useMemo(() => pagedSource.slice(0, gridLimit), [pagedSource, gridLimit]);
 
   if (!stories.length) {
     return (
@@ -193,7 +209,7 @@ export function Home({ navigation }: Props) {
   }
 
   const forYou = selectedCategory === 'For you';
-  const initial = profile?.nickname?.trim()?.[0]?.toUpperCase() ?? 'K';
+  const initial = firstName?.[0]?.toUpperCase() ?? 'K';
 
   const rail = (data: StoryMeta[]) => <Rail data={data} onOpen={openStory} />;
 
@@ -201,55 +217,46 @@ export function Home({ navigation }: Props) {
     <Screen padded={false}>
       <ScrollView onScroll={onScroll} scrollEventThrottle={16} contentContainerStyle={styles.scroll} showsVerticalScrollIndicator={false}>
         <View style={styles.content}>
-          {/* Brand bar */}
+          {/* Header */}
           <View style={styles.topBar}>
-            <Image source={KISSA_LOGO} style={styles.brandLogo} resizeMode="contain" accessibilityLabel="Kissa" />
-            <View>
-              <Text style={[styles.brandText, { color: theme.text }]}>{KISSA.wordmark}</Text>
-              <Text style={[styles.brandTag, { color: theme.textFaint }]}>{KISSA.tagline}</Text>
+            <View style={{ flex: 1, minWidth: 0 }}>
+              <Text style={[styles.hello, { color: theme.text }]} numberOfLines={1}>
+                {firstName ? `Hi ${firstName} 👋` : 'Hi 👋'}
+              </Text>
+              <Text style={[styles.subline, { color: theme.textFaint }]} numberOfLines={1}>
+                {subline}
+              </Text>
             </View>
             <View style={styles.headerActions}>
-              <IconButton name="bookmark-outline" accessibilityLabel="Your library" onPress={() => navigation.navigate('Library')} />
+              <IconButton name="search" accessibilityLabel="Search stories" onPress={() => navigation.navigate('Discover')} />
               <Pressable
                 onPress={() => navigation.navigate('Settings')}
                 accessibilityRole="button"
                 accessibilityLabel="Your profile"
-                style={({ pressed }) => [styles.avatarRing, { opacity: pressed ? 0.75 : 1 }]}
+                style={({ pressed }) => [
+                  styles.avatar,
+                  { backgroundColor: theme.surface3, borderColor: theme.border, opacity: pressed ? 0.75 : 1 },
+                ]}
               >
-                <LinearGradient colors={[...GRADIENTS.primary]} start={{ x: 0, y: 0 }} end={{ x: 1, y: 1 }} style={styles.avatarGrad}>
-                  <View style={[styles.avatarInner, { backgroundColor: theme.bg }]}>
-                    <Text style={[styles.avatarLetter, { color: theme.text }]}>{initial}</Text>
-                  </View>
-                </LinearGradient>
+                <Text style={[styles.avatarLetter, { color: theme.text }]}>{initial}</Text>
               </Pressable>
             </View>
           </View>
 
-          {/* Greeting */}
-          <View style={styles.greetingWrap}>
-            <Text style={[styles.greetingSub, { color: theme.gold }]}>{greeting.toUpperCase()}</Text>
-            <Text style={[styles.greetingQuestion, { color: theme.text }]}>
-              {activeRecent.length > 0 ? 'Continue your story,' : 'Which world today?'}
-            </Text>
-          </View>
-
-          {/* Search */}
-          <View style={styles.searchRow}>
-            <Pressable
-              onPress={() => navigation.navigate('Discover')}
-              accessibilityRole="search"
-              style={({ pressed }) => [
-                styles.searchTrigger,
-                { backgroundColor: withAlpha(theme.surface2, 0.8), borderColor: theme.border, opacity: pressed ? 0.85 : 1 },
-              ]}
-            >
-              <Icon name="search" size={ICON_SIZE.md} color={theme.textDim} />
-              <Text style={[styles.searchText, { color: theme.textFaint }]}>Story, character or mood</Text>
-              <View style={[styles.searchKbd, { backgroundColor: withAlpha(theme.primary, 0.16) }]}>
-                <Icon name="options-outline" size={ICON_SIZE.sm} color={theme.accent} />
-              </View>
-            </Pressable>
-          </View>
+          {/* Story bubbles */}
+          {bubbles.length > 0 ? (
+            <ScrollView horizontal showsHorizontalScrollIndicator={false} contentContainerStyle={styles.bubbles} style={styles.bubblesWrap}>
+              {bubbles.map(({ meta, active }) => (
+                <StoryBubble
+                  key={meta.id}
+                  meta={meta}
+                  active={active}
+                  label={(meta.characters?.[0] ?? meta.title).split(/\s+/)[0]}
+                  onPress={() => openStory(meta.id)}
+                />
+              ))}
+            </ScrollView>
+          ) : null}
 
           {/* Categories */}
           <ScrollView horizontal showsHorizontalScrollIndicator={false} contentContainerStyle={styles.categoriesScroll} style={styles.categoriesWrap}>
@@ -278,7 +285,7 @@ export function Home({ navigation }: Props) {
                         key={s.id}
                         meta={s}
                         width={slideW}
-                        kicker={i === 0 ? "TONIGHT'S LEAD" : 'TRENDING NOW'}
+                        kicker={i === 0 ? 'FEATURED' : 'TRENDING'}
                         onPress={() => openStory(s.id)}
                       />
                     ))}
@@ -287,13 +294,7 @@ export function Home({ navigation }: Props) {
                     <View style={styles.dots}>
                       {slides.map((s, i) =>
                         i === slide ? (
-                          <LinearGradient
-                            key={s.id}
-                            colors={[...GRADIENTS.primary]}
-                            start={{ x: 0, y: 0 }}
-                            end={{ x: 1, y: 0 }}
-                            style={[styles.dot, styles.dotOn]}
-                          />
+                          <View key={s.id} style={[styles.dot, styles.dotOn, { backgroundColor: theme.text }]} />
                         ) : (
                           <View key={s.id} style={[styles.dot, { backgroundColor: withAlpha(theme.text, 0.2) }]} />
                         ),
@@ -369,13 +370,11 @@ export function Home({ navigation }: Props) {
                 </View>
               ))}
 
-              {/* New arrivals wall */}
-              {newStories.length > 0 ? (
-                <View style={styles.sectionPad}>
-                  <SectionHeader title="New arrivals" kicker="Fresh" />
-                  <PosterGrid stories={newStories} onOpen={openStory} />
-                </View>
-              ) : null}
+              {/* More stories wall */}
+              <View style={styles.sectionPad}>
+                <SectionHeader title="More stories" kicker={`${stories.length} stories`} action="Explore" onAction={() => navigation.navigate('Discover')} />
+                <PosterGrid stories={gridStories} onOpen={openStory} />
+              </View>
 
               {/* Explore all */}
               <View style={styles.sectionPad}>
@@ -383,17 +382,19 @@ export function Home({ navigation }: Props) {
                   onPress={() => navigation.navigate('Discover')}
                   accessibilityRole="button"
                   accessibilityLabel={`Explore all ${stories.length} stories`}
-                  style={({ pressed }) => [styles.exploreCard, SHADOWS.glowRose, { transform: [{ scale: pressed ? 0.985 : 1 }] }]}
+                  style={({ pressed }) => [
+                    styles.exploreCard,
+                    { backgroundColor: theme.surface, borderColor: theme.border, transform: [{ scale: pressed ? 0.985 : 1 }] },
+                  ]}
                 >
-                  <LinearGradient colors={[...GRADIENTS.hero]} start={{ x: 0, y: 0 }} end={{ x: 1, y: 1 }} style={StyleSheet.absoluteFill} />
-                  <View style={styles.exploreIcon}>
-                    <Icon name="compass" size={ICON_SIZE.lg} color="#fff" />
+                  <View style={[styles.exploreIcon, { backgroundColor: theme.primarySoft }]}>
+                    <Icon name="compass" size={ICON_SIZE.lg} color={theme.primary} />
                   </View>
                   <View style={{ flex: 1 }}>
-                    <Text style={styles.exploreTitle}>Explore all {stories.length} stories</Text>
-                    <Text style={styles.exploreSub}>Romance, mystery, drama aur bahut kuch.</Text>
+                    <Text style={[styles.exploreTitle, { color: theme.text }]}>Explore all {stories.length} stories</Text>
+                    <Text style={[styles.exploreSub, { color: theme.textFaint }]}>Romance, mystery, drama aur bahut kuch.</Text>
                   </View>
-                  <Icon name="chevron-forward" size={ICON_SIZE.md} color="#fff" />
+                  <Icon name="chevron-forward" size={ICON_SIZE.md} color={theme.textDim} />
                 </Pressable>
               </View>
             </>
@@ -428,45 +429,36 @@ export function Home({ navigation }: Props) {
 const styles = StyleSheet.create({
   scroll: { paddingBottom: 8 },
   content: { width: '100%', maxWidth: CONTENT_MAX, alignSelf: 'center' },
-  topBar: { flexDirection: 'row', alignItems: 'center', gap: 10, paddingHorizontal: SPACING.page, paddingTop: 8 },
-  brandLogo: { width: 36, height: 36, borderRadius: 11 },
-  brandText: { fontSize: 15, fontWeight: '900', letterSpacing: 3 },
-  brandTag: { fontSize: 10, fontWeight: '700', letterSpacing: 1.4, marginTop: 1 },
-  headerActions: { marginLeft: 'auto', flexDirection: 'row', alignItems: 'center', gap: 10 },
-  avatarRing: { width: TOUCH.sm + 2, height: TOUCH.sm + 2 },
-  avatarGrad: { flex: 1, borderRadius: (TOUCH.sm + 2) / 2, padding: 2 },
-  avatarInner: { flex: 1, borderRadius: TOUCH.sm / 2, alignItems: 'center', justifyContent: 'center' },
-  avatarLetter: { fontSize: 14, fontWeight: '900' },
-  greetingWrap: { paddingHorizontal: SPACING.page, marginTop: SPACING.xl },
-  greetingSub: { fontSize: SCALE.micro, fontWeight: '900', letterSpacing: 1.6 },
-  greetingQuestion: { ...TYPE.display, fontSize: 29, lineHeight: 35, letterSpacing: -0.8, marginTop: 6 },
-  searchRow: { paddingHorizontal: SPACING.page, marginTop: SPACING.lg },
-  searchTrigger: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    gap: 11,
+  topBar: { flexDirection: 'row', alignItems: 'center', gap: 12, paddingHorizontal: SPACING.page, paddingTop: 10 },
+  hello: { fontSize: 26, lineHeight: 32, fontWeight: '700', letterSpacing: -0.6 },
+  subline: { fontSize: SCALE.small, marginTop: 2 },
+  headerActions: { flexDirection: 'row', alignItems: 'center', gap: 10 },
+  avatar: {
+    width: TOUCH.sm + 2,
+    height: TOUCH.sm + 2,
+    borderRadius: (TOUCH.sm + 2) / 2,
     borderWidth: 1,
-    borderRadius: RADIUS.pill,
-    paddingLeft: 16,
-    paddingRight: 6,
-    minHeight: 50,
+    alignItems: 'center',
+    justifyContent: 'center',
   },
-  searchText: { flex: 1, fontSize: SCALE.body - 0.5, letterSpacing: 0.1 },
-  searchKbd: { width: 38, height: 38, borderRadius: 19, alignItems: 'center', justifyContent: 'center' },
+  avatarLetter: { fontSize: 15, fontWeight: '700' },
+  bubblesWrap: { marginTop: SPACING.lg },
+  bubbles: { paddingHorizontal: SPACING.page - 4, gap: 6 },
   categoriesWrap: { marginTop: SPACING.lg },
   categoriesScroll: { paddingHorizontal: SPACING.page },
   sectionPad: { paddingHorizontal: SPACING.page },
-  heroWrap: { marginTop: SPACING.xl },
+  heroWrap: { marginTop: SPACING.lg },
   heroScroll: { paddingHorizontal: SPACING.page, gap: SLIDE_GAP },
   dots: { flexDirection: 'row', justifyContent: 'center', alignItems: 'center', gap: 6, marginTop: 14 },
   dot: { width: 6, height: 6, borderRadius: 3 },
-  dotOn: { width: 22 },
+  dotOn: { width: 18 },
   stripScroll: { paddingHorizontal: SPACING.page, gap: 12 },
   railList: { paddingHorizontal: SPACING.page, gap: 12, paddingBottom: 6 },
   rankList: { paddingHorizontal: SPACING.page + 6, gap: 18, paddingBottom: 6 },
   exploreCard: {
     marginTop: SPACING.xxl,
     borderRadius: RADIUS.xl,
+    borderWidth: 1,
     overflow: 'hidden',
     flexDirection: 'row',
     alignItems: 'center',
@@ -477,10 +469,9 @@ const styles = StyleSheet.create({
     width: 48,
     height: 48,
     borderRadius: 24,
-    backgroundColor: 'rgba(255,255,255,0.16)',
     alignItems: 'center',
     justifyContent: 'center',
   },
-  exploreTitle: { fontSize: 17, fontWeight: '900', color: '#fff', letterSpacing: -0.3 },
-  exploreSub: { fontSize: SCALE.caption, color: 'rgba(255,255,255,0.82)', marginTop: 3 },
+  exploreTitle: { fontSize: 16, fontWeight: '700', letterSpacing: -0.3 },
+  exploreSub: { fontSize: SCALE.caption, marginTop: 3 },
 });

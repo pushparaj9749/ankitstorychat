@@ -80,25 +80,17 @@ export function SelectableChip({
       style={({ pressed }) => [
         styles.selectChip,
         {
-          backgroundColor: selected ? 'transparent' : withAlpha(theme.surface2, 0.66),
-          borderColor: selected ? 'transparent' : theme.border,
+          backgroundColor: selected ? theme.text : withAlpha(theme.surface2, 0.9),
+          borderColor: selected ? theme.text : theme.border,
           opacity: pressed ? 0.85 : 1,
           transform: [{ scale: pressed ? 0.96 : 1 }],
         },
       ]}
     >
-      {selected ? (
-        <LinearGradient
-          colors={[...GRADIENTS.primary]}
-          start={{ x: 0, y: 0 }}
-          end={{ x: 1, y: 1 }}
-          style={[StyleSheet.absoluteFill, { borderRadius: RADIUS.pill }]}
-        />
-      ) : null}
       <Text
         style={[
           styles.selectChipText,
-          { color: selected ? '#FFFFFF' : theme.textDim },
+          { color: selected ? theme.bg : theme.textDim },
           selected ? styles.selectChipTextActive : null,
         ]}
       >
@@ -127,21 +119,15 @@ export function SectionHeader({
     <View style={styles.section}>
       <View style={styles.sectionLeft}>
         <View style={styles.sectionTitleRow}>
-          <LinearGradient
-            colors={[...GRADIENTS.primary]}
-            start={{ x: 0, y: 0 }}
-            end={{ x: 0, y: 1 }}
-            style={styles.sectionBar}
-          />
           <Text style={[styles.sectionTitle, { color: theme.text }]} numberOfLines={1}>
             {title}
           </Text>
-          {kicker ? (
-            <Text style={[styles.kicker, { color: theme.gold }]} numberOfLines={1}>
-              {kicker.toUpperCase()}
-            </Text>
-          ) : null}
         </View>
+        {kicker ? (
+          <Text style={[styles.kicker, { color: theme.textFaint }]} numberOfLines={1}>
+            {kicker}
+          </Text>
+        ) : null}
       </View>
       {action && onAction ? (
         <Pressable
@@ -150,11 +136,11 @@ export function SectionHeader({
           accessibilityRole="button"
           style={({ pressed }) => [
             styles.sectionActionWrap,
-            { opacity: pressed ? 0.6 : 1, backgroundColor: withAlpha(theme.primary, 0.12), borderColor: withAlpha(theme.primary, 0.28) },
+            { opacity: pressed ? 0.6 : 1 },
           ]}
         >
-          <Text style={[styles.sectionAction, { color: theme.accent }]}>{action}</Text>
-          <Icon name="chevron-forward" size={12} color={theme.accent} />
+          <Text style={[styles.sectionAction, { color: theme.textDim }]}>{action}</Text>
+          <Icon name="chevron-forward" size={12} color={theme.textDim} />
         </Pressable>
       ) : null}
     </View>
@@ -164,7 +150,7 @@ export function SectionHeader({
 export function ProgressBar({ value, color }: { value: number; color?: string }) {
   const { theme } = useApp();
   const pct = Math.round(Math.min(1, Math.max(0, value)) * 100);
-  const colors: [string, string] = color ? [withAlpha(color, 0.85), color] : [GRADIENTS.primary[0], GRADIENTS.primary[1]];
+  const colors: [string, string] = color ? [withAlpha(color, 0.85), color] : [theme.primary, theme.primary];
   return (
     <View style={[styles.progressTrack, { backgroundColor: withAlpha(theme.text, 0.08) }]}>
       <View style={[styles.progressFillWrap, { width: `${pct}%` }]}>
@@ -335,7 +321,7 @@ const styles = StyleSheet.create({
   },
   selectDot: { width: 5, height: 5, borderRadius: 2.5 },
   selectChipText: { fontSize: SCALE.small, fontWeight: '600', letterSpacing: 0.1 },
-  selectChipTextActive: { fontWeight: '800' },
+  selectChipTextActive: { fontWeight: '700' },
   section: {
     flexDirection: 'row',
     alignItems: 'center',
@@ -348,18 +334,18 @@ const styles = StyleSheet.create({
   sectionLeft: { flex: 1, minWidth: 0 },
   sectionTitleRow: { flexDirection: 'row', alignItems: 'center', gap: 9 },
   sectionBar: { width: 4, height: 18, borderRadius: 2 },
-  kicker: { fontSize: SCALE.micro, letterSpacing: 1.1, fontWeight: '700', flexShrink: 1 },
-  sectionTitle: { fontSize: 19, lineHeight: 24, letterSpacing: -0.4, fontWeight: '900', flexShrink: 1 },
+  kicker: { fontSize: SCALE.caption, letterSpacing: 0, fontWeight: '500', marginTop: 2 },
+  sectionTitle: { fontSize: 19, lineHeight: 24, letterSpacing: -0.4, fontWeight: '700', flexShrink: 1 },
   sectionActionWrap: {
     flexDirection: 'row',
     alignItems: 'center',
     gap: 3,
     paddingVertical: 5,
-    paddingHorizontal: 10,
+    paddingHorizontal: 2,
     borderRadius: RADIUS.pill,
-    borderWidth: 1,
+    borderWidth: 0,
   },
-  sectionAction: { fontSize: SCALE.caption, fontWeight: '800', letterSpacing: 0.1 },
+  sectionAction: { fontSize: SCALE.caption, fontWeight: '600', letterSpacing: 0.1 },
   progressTrack: { height: 6, borderRadius: RADIUS.pill, overflow: 'hidden', marginTop: 8 },
   progressFillWrap: { height: 6, borderRadius: RADIUS.pill, overflow: 'hidden' },
   progressFill: { flex: 1, borderRadius: RADIUS.pill },

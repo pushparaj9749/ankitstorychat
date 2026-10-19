@@ -84,7 +84,7 @@ export function OnboardingAge({ navigation, route }: Props) {
             <View style={[styles.stepBar, { backgroundColor: withAlpha(theme.primary, 0.35) }]} />
             <View style={styles.stepBar}>
               <LinearGradient
-                colors={['#FF4F8B', '#A855F7']}
+                colors={['#F0567E', '#9A9CC4']}
                 start={{ x: 0, y: 0.5 }}
                 end={{ x: 1, y: 0.5 }}
                 style={StyleSheet.absoluteFill}

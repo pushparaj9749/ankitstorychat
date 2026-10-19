@@ -1,9 +1,10 @@
 /**
- * KISSA v2.6 — "KISSA NIGHT" DESIGN SYSTEM
+ * KISSA v2.7 — "KISSA NOIR" DESIGN SYSTEM
  *
- * Built from the logo: midnight plum stage (#0B0814), a magenta → violet
- * signature gradient (#FF4F8B → #A855F7) for anything you act on, and a warm
- * gold (#FFC46B) for highlights (ranks, ratings, "new").
+ * Clean and professional, not rang-birangi: a neutral midnight base
+ * (#0A0B10, no purple cast), graphite surfaces separated by hairlines, ONE
+ * soft rose accent (#F0567E) for the things you act on, and a muted champagne
+ * (#E2BE7E) used sparingly for ratings/ranks. No neon, no glow, no rainbow.
  *
  * Artwork-first: covers are never cropped. Frames around artwork are filled
  * with a blurred ambient copy of the same art (see ArtBackdrop), so there are
@@ -13,76 +14,79 @@
 /** True black for OLED screens (pixels fully off). Used by the Chat stage. */
 export const AMOLED = '#000000';
 
+const ROSE = '#F0567E';
+const ROSE_LIGHT = '#F58AA5';
+
 export const COLORS = {
   midnight: {
-    bg: '#0B0814',
-    bgSoft: '#120D20',
-    bgElevated: '#1A1430',
-    surface: '#151027',
-    surface2: '#1F1838',
-    surface3: '#2C2350',
-    card: 'rgba(250, 244, 255, 0.05)',
-    cardHover: 'rgba(250, 244, 255, 0.08)',
-    border: 'rgba(235, 222, 255, 0.09)',
-    borderSoft: 'rgba(235, 222, 255, 0.05)',
-    borderGlow: 'rgba(255, 79, 139, 0.36)',
-    text: '#F7F3FF',
-    textDim: '#B8AFCC',
-    textFaint: '#857B9E',
-    textMuted: '#564D70',
-    primary: '#FF4F8B',
-    primarySoft: 'rgba(255, 79, 139, 0.15)',
-    primaryMuted: 'rgba(255, 79, 139, 0.08)',
-    accent: '#FF7AB0',
-    accentSoft: 'rgba(255, 122, 176, 0.15)',
-    accentMuted: 'rgba(255, 122, 176, 0.08)',
-    violet: '#A855F7',
-    violetSoft: 'rgba(168, 85, 247, 0.16)',
-    gold: '#FFC46B',
-    goldSoft: 'rgba(255, 196, 107, 0.15)',
-    accentAmber: '#FFC46B',
-    accentAmberSoft: 'rgba(255, 196, 107, 0.15)',
-    champagne: '#FFD79A',
-    champagneSoft: 'rgba(255, 215, 154, 0.12)',
-    success: '#4ADE9B',
-    danger: '#FF6B7A',
-    info: '#8EA8FF',
-    overlay: 'rgba(11, 8, 20, 0.88)',
-    scrim: 'rgba(5, 3, 12, 0.64)',
+    bg: '#0A0B10',
+    bgSoft: '#0E1016',
+    bgElevated: '#14161E',
+    surface: '#111319',
+    surface2: '#171A22',
+    surface3: '#21242E',
+    card: 'rgba(255, 255, 255, 0.035)',
+    cardHover: 'rgba(255, 255, 255, 0.06)',
+    border: 'rgba(255, 255, 255, 0.08)',
+    borderSoft: 'rgba(255, 255, 255, 0.05)',
+    borderGlow: 'rgba(240, 86, 126, 0.34)',
+    text: '#F4F5F8',
+    textDim: '#A8ACB9',
+    textFaint: '#747887',
+    textMuted: '#4A4E5B',
+    primary: ROSE,
+    primarySoft: 'rgba(240, 86, 126, 0.14)',
+    primaryMuted: 'rgba(240, 86, 126, 0.07)',
+    accent: ROSE_LIGHT,
+    accentSoft: 'rgba(245, 138, 165, 0.14)',
+    accentMuted: 'rgba(245, 138, 165, 0.07)',
+    violet: '#9A9CC4',
+    violetSoft: 'rgba(154, 156, 196, 0.14)',
+    gold: '#E2BE7E',
+    goldSoft: 'rgba(226, 190, 126, 0.13)',
+    accentAmber: '#E2BE7E',
+    accentAmberSoft: 'rgba(226, 190, 126, 0.13)',
+    champagne: '#EBD3A6',
+    champagneSoft: 'rgba(235, 211, 166, 0.10)',
+    success: '#5CC995',
+    danger: '#F0616F',
+    info: '#8FA6E0',
+    overlay: 'rgba(10, 11, 16, 0.90)',
+    scrim: 'rgba(5, 6, 9, 0.66)',
   },
   amoled: {
     bg: '#000000',
-    bgSoft: '#07050D',
-    bgElevated: '#100C1C',
-    surface: '#0E0A19',
-    surface2: '#181229',
-    surface3: '#241C3D',
-    card: 'rgba(250, 244, 255, 0.04)',
-    cardHover: 'rgba(250, 244, 255, 0.07)',
-    border: 'rgba(235, 222, 255, 0.08)',
-    borderSoft: 'rgba(235, 222, 255, 0.045)',
-    borderGlow: 'rgba(255, 79, 139, 0.32)',
-    text: '#F7F3FF',
-    textDim: '#B8AFCC',
-    textFaint: '#7F7598',
-    textMuted: '#4E4566',
-    primary: '#FF4F8B',
-    primarySoft: 'rgba(255, 79, 139, 0.16)',
-    primaryMuted: 'rgba(255, 79, 139, 0.09)',
-    accent: '#FF7AB0',
-    accentSoft: 'rgba(255, 122, 176, 0.15)',
-    accentMuted: 'rgba(255, 122, 176, 0.08)',
-    violet: '#A855F7',
-    violetSoft: 'rgba(168, 85, 247, 0.16)',
-    gold: '#FFC46B',
-    goldSoft: 'rgba(255, 196, 107, 0.15)',
-    accentAmber: '#FFC46B',
-    accentAmberSoft: 'rgba(255, 196, 107, 0.15)',
-    champagne: '#FFD79A',
-    champagneSoft: 'rgba(255, 215, 154, 0.12)',
-    success: '#4ADE9B',
-    danger: '#FF6B7A',
-    info: '#8EA8FF',
+    bgSoft: '#06070A',
+    bgElevated: '#0D0E13',
+    surface: '#0C0D12',
+    surface2: '#14161C',
+    surface3: '#1E2028',
+    card: 'rgba(255, 255, 255, 0.03)',
+    cardHover: 'rgba(255, 255, 255, 0.055)',
+    border: 'rgba(255, 255, 255, 0.075)',
+    borderSoft: 'rgba(255, 255, 255, 0.045)',
+    borderGlow: 'rgba(240, 86, 126, 0.30)',
+    text: '#F4F5F8',
+    textDim: '#A8ACB9',
+    textFaint: '#6F7381',
+    textMuted: '#454955',
+    primary: ROSE,
+    primarySoft: 'rgba(240, 86, 126, 0.15)',
+    primaryMuted: 'rgba(240, 86, 126, 0.08)',
+    accent: ROSE_LIGHT,
+    accentSoft: 'rgba(245, 138, 165, 0.14)',
+    accentMuted: 'rgba(245, 138, 165, 0.07)',
+    violet: '#9A9CC4',
+    violetSoft: 'rgba(154, 156, 196, 0.14)',
+    gold: '#E2BE7E',
+    goldSoft: 'rgba(226, 190, 126, 0.13)',
+    accentAmber: '#E2BE7E',
+    accentAmberSoft: 'rgba(226, 190, 126, 0.13)',
+    champagne: '#EBD3A6',
+    champagneSoft: 'rgba(235, 211, 166, 0.10)',
+    success: '#5CC995',
+    danger: '#F0616F',
+    info: '#8FA6E0',
     overlay: 'rgba(0, 0, 0, 0.90)',
     scrim: 'rgba(0, 0, 0, 0.70)',
   },
@@ -91,22 +95,22 @@ export const COLORS = {
 export type ThemeName = keyof typeof COLORS;
 export type Theme = (typeof COLORS)[ThemeName];
 
-export const INK = '#07050D';
+export const INK = '#06070A';
 
 export const GRADIENTS = {
-  /** Signature Kissa gradient — magenta → violet, straight from the logo. */
-  primary: ['#FF4F8B', '#A855F7'] as const,
-  hero: ['#FF4F8B', '#A855F7', '#3B1670'] as const,
-  rose: ['#FF7AB0', '#FF4F8B'] as const,
-  violet: ['#C084FC', '#7C3AED'] as const,
-  gold: ['#FFD79A', '#FF8A5C'] as const,
-  champagneRose: ['#FF7AB0', '#FFD79A'] as const,
-  card: ['rgba(255, 79, 139, 0.12)', 'rgba(11, 8, 20, 0.0)'] as const,
-  surfaceGrad: ['rgba(31, 24, 56, 0.92)', 'rgba(18, 13, 32, 0.98)'] as const,
-  scrim: ['transparent', 'rgba(11, 8, 20, 0.96)'] as const,
-  scrimSoft: ['transparent', 'rgba(11, 8, 20, 0.44)'] as const,
-  shimmer: ['rgba(250, 244, 255, 0.06)', 'rgba(250, 244, 255, 0.02)', 'rgba(250, 244, 255, 0.06)'] as const,
-  heroShade: ['transparent', 'rgba(11,8,20,0.18)', 'rgba(11,8,20,0.78)', 'rgba(11,8,20,1)'] as const,
+  /** The one action gradient — a barely-there rose sheen, not a rainbow. */
+  primary: ['#F2618A', '#E04A72'] as const,
+  hero: ['#2A1A22', '#14161E', '#0A0B10'] as const,
+  rose: ['#F58AA5', '#F0567E'] as const,
+  violet: ['#3A3D52', '#22242F'] as const,
+  gold: ['#EBD3A6', '#D9AE66'] as const,
+  champagneRose: ['#F58AA5', '#EBD3A6'] as const,
+  card: ['rgba(240, 86, 126, 0.08)', 'rgba(10, 11, 16, 0.0)'] as const,
+  surfaceGrad: ['rgba(26, 28, 36, 0.94)', 'rgba(16, 18, 24, 0.98)'] as const,
+  scrim: ['transparent', 'rgba(10, 11, 16, 0.96)'] as const,
+  scrimSoft: ['transparent', 'rgba(10, 11, 16, 0.44)'] as const,
+  shimmer: ['rgba(255, 255, 255, 0.05)', 'rgba(255, 255, 255, 0.02)', 'rgba(255, 255, 255, 0.05)'] as const,
+  heroShade: ['transparent', 'rgba(10,11,16,0.18)', 'rgba(10,11,16,0.78)', 'rgba(10,11,16,1)'] as const,
 };
 
 export const FONTS = {
@@ -196,34 +200,35 @@ export const RADIUS = {
   pill: 999,
 } as const;
 
+/** Genre dots: quiet, desaturated tones that sit together (no rainbow). */
 export const GENRE_COLORS: Record<string, string> = {
-  Fantasy: '#C4A6FF',
-  Mystery: '#7AA5FF',
-  Thriller: '#FF7A7A',
-  Adventure: '#5EE9B5',
-  'Sci-Fi': '#6EDCFF',
-  Drama: '#FF8A9B',
-  Comedy: '#FFD66E',
-  Horror: '#A99CFF',
-  Historical: '#FFB86E',
-  Mythology: '#FF8ACF',
-  Superhero: '#FF6B7E',
-  Anime: '#FF5A7A',
-  Magical: '#E9A6FF',
-  Action: '#FF9A5C',
-  Romance: '#FF7EB8',
-  Crime: '#A0A8B8',
+  Fantasy: '#A99BD6',
+  Mystery: '#8DA2CC',
+  Thriller: '#D98A8A',
+  Adventure: '#86BFA6',
+  'Sci-Fi': '#8DB8CC',
+  Drama: '#D9A0A8',
+  Comedy: '#D9C08A',
+  Horror: '#9B95B8',
+  Historical: '#CCA683',
+  Mythology: '#C99BB8',
+  Superhero: '#D08C94',
+  Anime: '#D9909E',
+  Magical: '#B9A3D1',
+  Action: '#CF9F82',
+  Romance: '#E59AAE',
+  Crime: '#9EA4B0',
 };
 
 export function genreColor(genre: string): string {
-  return GENRE_COLORS[genre] ?? '#FF4F8B';
+  return GENRE_COLORS[genre] ?? '#E59AAE';
 }
 
 /* Typography — editorial, cinematic, consistent */
 export const TYPE = {
-  displayXL: { fontSize: 36, fontWeight: '800' as const, letterSpacing: -0.9, lineHeight: 42 },
-  display: { fontSize: 30, fontWeight: '800' as const, letterSpacing: -0.6, lineHeight: 36 },
-  displaySmall: { fontSize: 26, fontWeight: '800' as const, letterSpacing: -0.5, lineHeight: 32 },
+  displayXL: { fontSize: 34, fontWeight: '700' as const, letterSpacing: -0.9, lineHeight: 40 },
+  display: { fontSize: 28, fontWeight: '700' as const, letterSpacing: -0.7, lineHeight: 34 },
+  displaySmall: { fontSize: 24, fontWeight: '700' as const, letterSpacing: -0.5, lineHeight: 30 },
   title: { fontSize: 22, fontWeight: '700' as const, letterSpacing: -0.35, lineHeight: 28 },
   heading: { fontSize: 18, fontWeight: '700' as const, letterSpacing: -0.25, lineHeight: 24 },
   subheading: { fontSize: 16, fontWeight: '700' as const, letterSpacing: -0.15, lineHeight: 22 },
@@ -235,8 +240,8 @@ export const TYPE = {
   caption: { fontSize: 12, fontWeight: '600' as const, letterSpacing: 0.5, lineHeight: 15 },
   overline: { fontSize: 11, fontWeight: '800' as const, letterSpacing: 1.4, lineHeight: 14 },
   brand: { fontSize: 15, fontWeight: '900' as const, letterSpacing: 2.6, lineHeight: 18 },
-  heroTitle: { fontSize: 28, fontWeight: '800' as const, letterSpacing: -0.6, lineHeight: 31 },
-  cardTitle: { fontSize: 17, fontWeight: '800' as const, letterSpacing: -0.3, lineHeight: 22 },
+  heroTitle: { fontSize: 28, fontWeight: '700' as const, letterSpacing: -0.7, lineHeight: 32 },
+  cardTitle: { fontSize: 16, fontWeight: '700' as const, letterSpacing: -0.25, lineHeight: 21 },
   chatNarration: { fontSize: 15, fontWeight: '500' as const, letterSpacing: 0.15, lineHeight: 23 },
   chatDialogue: { fontSize: 15.5, fontWeight: '600' as const, letterSpacing: 0.05, lineHeight: 23 },
 } as const;
@@ -264,16 +269,16 @@ export const SHADOWS = {
     elevation: 10,
   },
   glowAccent: {
-    shadowColor: '#FF4F8B',
+    shadowColor: '#F0567E',
     shadowOffset: { width: 0, height: 4 },
-    shadowOpacity: 0.22,
+    shadowOpacity: 0.16,
     shadowRadius: 12,
     elevation: 4,
   },
   glowRose: {
-    shadowColor: '#A855F7',
+    shadowColor: '#000',
     shadowOffset: { width: 0, height: 6 },
-    shadowOpacity: 0.26,
+    shadowOpacity: 0.30,
     shadowRadius: 16,
     elevation: 5,
   },
@@ -287,10 +292,10 @@ export const SHADOWS = {
 } as const;
 
 export const GLASS = {
-  bg: 'rgba(18, 13, 32, 0.72)',
-  bgStrong: 'rgba(24, 18, 42, 0.90)',
-  stroke: 'rgba(235, 222, 255, 0.11)',
-  strokeSoft: 'rgba(235, 222, 255, 0.05)',
+  bg: 'rgba(16, 18, 24, 0.74)',
+  bgStrong: 'rgba(20, 22, 30, 0.92)',
+  stroke: 'rgba(255, 255, 255, 0.10)',
+  strokeSoft: 'rgba(255, 255, 255, 0.05)',
 } as const;
 
 export const MOTION = {
@@ -313,14 +318,14 @@ export const ELEVATION = {
 
 export function avatarColors(id: string): [string, string] {
   const pairs: [string, string][] = [
-    ['#FF4F8B', '#7A1E52'],
-    ['#7AA5FF', '#1E3A8A'],
-    ['#5EE9B5', '#065F46'],
-    ['#FF8ACF', '#9D174D'],
-    ['#C4A6FF', '#5B21B6'],
-    ['#F3D5A6', '#9A3412'],
-    ['#6EDCFF', '#0C4A6E'],
-    ['#FF8A9B', '#9F1239'],
+    ['#E58AA2', '#4A2230'],
+    ['#93A5CF', '#232C45'],
+    ['#8CC2AA', '#1E3A30'],
+    ['#D7A3BC', '#40263A'],
+    ['#ABA2D3', '#2C2747'],
+    ['#DDBF93', '#45321E'],
+    ['#93BFCF', '#1F3540'],
+    ['#DE9AA2', '#47232A'],
   ];
   let h = 0;
   for (let i = 0; i < id.length; i++) h = (h * 31 + id.charCodeAt(i)) >>> 0;
@@ -343,8 +348,8 @@ export const LAYOUT = {
 export const KISSA = {
   wordmark: 'KISSA',
   tagline: 'INTERACTIVE CINEMA',
-  accent: '#FF4F8B',
-  accentLight: '#FF7AB0',
-  violet: '#A855F7',
-  champagne: '#FFC46B',
+  accent: '#F0567E',
+  accentLight: '#F58AA5',
+  violet: '#9A9CC4',
+  champagne: '#E2BE7E',
 } as const;
