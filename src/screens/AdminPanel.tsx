@@ -179,7 +179,7 @@ export function AdminPanel({ navigation }: Props) {
           </Pressable>
           <View style={{ flexDirection: 'row', alignItems: 'center', gap: 8, marginTop: 4 }}>
             <Icon name="lock-closed-outline" size={22} color={theme.text} />
-            <Text style={{ color: theme.text, fontSize: 24, fontWeight: '900' }}>Admin Access</Text>
+            <Text style={{ color: theme.text, fontSize: 24, fontWeight: '800' }}>Admin Access</Text>
           </View>
           <Text style={{ color: theme.textDim, marginTop: 8, lineHeight: 22 }}>
             Enter the admin token to review submissions. Users do not see this screen by default.
@@ -227,20 +227,20 @@ export function AdminPanel({ navigation }: Props) {
             <Text style={{ color: theme.text, fontSize: 17, fontWeight: '700' }}>Back</Text>
           </Pressable>
           <Pressable onPress={onLogout}>
-            <Text style={{ color: theme.danger, fontSize: SCALE.small, fontWeight: '800' }}>Log out</Text>
+            <Text style={{ color: theme.danger, fontSize: SCALE.small, fontWeight: '700' }}>Log out</Text>
           </Pressable>
         </View>
 
         <View style={{ flexDirection: 'row', alignItems: 'center', gap: 8 }}>
           <Icon name="shield-outline" size={24} color={theme.text} />
-          <Text style={{ color: theme.text, fontSize: 26, fontWeight: '900' }}>Admin Panel</Text>
+          <Text style={{ color: theme.text, fontSize: 26, fontWeight: '800' }}>Admin Panel</Text>
         </View>
         <Text style={{ color: theme.textDim, fontSize: SCALE.small, marginTop: 6 }}>
           Pending submissions — review before anything goes live.
         </Text>
 
         <View style={[styles.limitBox, { backgroundColor: theme.surface, borderColor: theme.border }]}>
-          <Text style={{ color: theme.text, fontSize: SCALE.small, fontWeight: '800' }}>
+          <Text style={{ color: theme.text, fontSize: SCALE.small, fontWeight: '700' }}>
             Global 24h limit: {remaining}/50 slots left
           </Text>
           <Text style={{ color: theme.textDim, fontSize: SCALE.micro, marginTop: 2 }}>
@@ -253,7 +253,7 @@ export function AdminPanel({ navigation }: Props) {
             onPress={() => setTab('ideas')}
             style={[styles.tab, { backgroundColor: tab === 'ideas' ? theme.primary : 'transparent', borderColor: theme.border }]}
           >
-            <Text style={{ color: tab === 'ideas' ? '#fff' : theme.textDim, fontWeight: '800' }}>
+            <Text style={{ color: tab === 'ideas' ? '#fff' : theme.textDim, fontWeight: '700' }}>
               Ideas ({ideas.length})
             </Text>
           </Pressable>
@@ -261,7 +261,7 @@ export function AdminPanel({ navigation }: Props) {
             onPress={() => setTab('stories')}
             style={[styles.tab, { backgroundColor: tab === 'stories' ? theme.primary : 'transparent', borderColor: theme.border }]}
           >
-            <Text style={{ color: tab === 'stories' ? '#fff' : theme.textDim, fontWeight: '800' }}>
+            <Text style={{ color: tab === 'stories' ? '#fff' : theme.textDim, fontWeight: '700' }}>
               Stories ({stories.length})
             </Text>
           </Pressable>
@@ -288,11 +288,11 @@ export function AdminPanel({ navigation }: Props) {
               <View style={{ flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center' }}>
                 <View style={{ flexDirection: 'row', alignItems: 'center', flex: 1, marginRight: 8, gap: 6 }}>
                   <Icon name={s.type === 'idea' ? 'bulb-outline' : 'book-outline'} size={16} color={theme.textDim} />
-                  <Text style={{ color: theme.text, fontWeight: '800', flex: 1 }} numberOfLines={1}>
+                  <Text style={{ color: theme.text, fontWeight: '700', flex: 1 }} numberOfLines={1}>
                     {s.title || '(untitled)'}
                   </Text>
                 </View>
-                <Text style={{ color: theme.accent, fontSize: SCALE.micro, fontWeight: '900' }}>
+                <Text style={{ color: theme.accent, fontSize: SCALE.micro, fontWeight: '800' }}>
                   PENDING
                 </Text>
               </View>
@@ -321,7 +321,7 @@ export function AdminPanel({ navigation }: Props) {
                 <>
                   <View style={{ flexDirection: 'row', alignItems: 'center', gap: 8, marginTop: 4 }}>
                     <Icon name={viewing.type === 'idea' ? 'bulb-outline' : 'book-outline'} size={22} color={theme.text} />
-                    <Text style={{ color: theme.text, fontSize: 24, fontWeight: '900' }} numberOfLines={2}>
+                    <Text style={{ color: theme.text, fontSize: 24, fontWeight: '800' }} numberOfLines={2}>
                       {viewing.title}
                     </Text>
                   </View>
@@ -557,7 +557,7 @@ function StoryContentPreview({ payload }: { payload: unknown }) {
       ) : null}
       {opening && Array.isArray(opening.narration) && opening.narration.length > 0 ? (
         <View style={{ marginTop: 10 }}>
-          <Text style={{ color: theme.accent, fontSize: SCALE.micro, fontWeight: '900' }}>
+          <Text style={{ color: theme.accent, fontSize: SCALE.micro, fontWeight: '800' }}>
             OPENING NARRATION
           </Text>
           <Text style={{ color: theme.text, fontSize: SCALE.small, lineHeight: 20, marginTop: 4 }} selectable>
@@ -588,19 +588,19 @@ function IdeaPreview({ sub }: { sub: StorySubmission }) {
   const p = sub.payload as { concept?: string; genre?: string; characters?: string; notes?: string };
   return (
     <View>
-      <Text style={{ color: theme.accent, fontSize: SCALE.micro, fontWeight: '900' }}>GENRE</Text>
+      <Text style={{ color: theme.accent, fontSize: SCALE.micro, fontWeight: '800' }}>GENRE</Text>
       <Text style={{ color: theme.text, fontSize: SCALE.body, marginBottom: 10 }}>{p.genre}</Text>
-      <Text style={{ color: theme.accent, fontSize: SCALE.micro, fontWeight: '900' }}>CONCEPT</Text>
+      <Text style={{ color: theme.accent, fontSize: SCALE.micro, fontWeight: '800' }}>CONCEPT</Text>
       <Text style={{ color: theme.text, fontSize: SCALE.small, lineHeight: 22, marginBottom: 10 }}>{p.concept}</Text>
       {p.characters ? (
         <>
-          <Text style={{ color: theme.accent, fontSize: SCALE.micro, fontWeight: '900' }}>CHARACTERS</Text>
+          <Text style={{ color: theme.accent, fontSize: SCALE.micro, fontWeight: '800' }}>CHARACTERS</Text>
           <Text style={{ color: theme.text, fontSize: SCALE.small, lineHeight: 22, marginBottom: 10 }}>{p.characters}</Text>
         </>
       ) : null}
       {p.notes ? (
         <>
-          <Text style={{ color: theme.accent, fontSize: SCALE.micro, fontWeight: '900' }}>NOTES</Text>
+          <Text style={{ color: theme.accent, fontSize: SCALE.micro, fontWeight: '800' }}>NOTES</Text>
           <Text style={{ color: theme.text, fontSize: SCALE.small, lineHeight: 22 }}>{p.notes}</Text>
         </>
       ) : null}
@@ -635,14 +635,14 @@ const styles = StyleSheet.create({
     padding: 6,
   },
   mediaTileBadge: { position: 'absolute', top: 6, left: 6, borderRadius: 999, paddingHorizontal: 7, paddingVertical: 2 },
-  mediaTileBadgeText: { fontSize: SCALE.micro, fontWeight: '900', letterSpacing: 0.5 },
+  mediaTileBadgeText: { fontSize: SCALE.micro, fontWeight: '800', letterSpacing: 0.5 },
   mediaTileLabel: {
     position: 'absolute',
     left: 8,
     right: 8,
     bottom: 6,
     fontSize: SCALE.micro,
-    fontWeight: '800',
+    fontWeight: '700',
     textShadowColor: 'rgba(0,0,0,0.9)',
     textShadowRadius: 4,
     textShadowOffset: { width: 0, height: 1 },

@@ -9,7 +9,34 @@ import type { RootStackParamList } from '../types';
 import { useApp } from '../state/AppContext';
 import { Screen } from '../components/Screen';
 import { SectionHeader } from '../components/bits';
-import { RADIUS, SCALE, SHADOWS, SPACING, TYPE, withAlpha } from '../theme';
+import { COLORS, GRADIENTS, RADIUS, SCALE, SHADOWS, SPACING, TYPE, withAlpha, type UiTemplate } from '../theme';
+import { COLORS as CLASSIC_COLORS, GRADIENTS as CLASSIC_GRADIENTS } from '../ui/classic/theme';
+import { LinearGradient } from 'expo-linear-gradient';
+import { Icon } from '../components/icons';
+
+/** The two whole-app looks, shown as mini previews. */
+const TEMPLATES: { id: UiTemplate; name: string; tag: string; desc: string; bg: string; surface: string; accent: string; grad: readonly [string, string, ...string[]] }[] = [
+  {
+    id: 'noir',
+    name: 'Kissa Noir',
+    tag: 'NAYA',
+    desc: 'Clean & professional — neutral dark, ek soft rose accent.',
+    bg: COLORS.midnight.bg,
+    surface: COLORS.midnight.surface2,
+    accent: COLORS.midnight.primary,
+    grad: GRADIENTS.primary,
+  },
+  {
+    id: 'classic',
+    name: 'Kissa Night',
+    tag: 'PURANA',
+    desc: 'Colourful night look — pink-violet gradients, gold accents.',
+    bg: CLASSIC_COLORS.midnight.bg,
+    surface: CLASSIC_COLORS.midnight.surface2,
+    accent: CLASSIC_COLORS.midnight.primary,
+    grad: CLASSIC_GRADIENTS.primary,
+  },
+];
 import { lightBuzz } from '../lib/haptics';
 
 type Props = NativeStackScreenProps<RootStackParamList, 'SettingsAppearance'>;
@@ -69,6 +96,55 @@ export function SettingsAppearance(_props: Props) {
       <View style={styles.header}>
         <Text style={[styles.kicker, { color: theme.accent }]}>DISPLAY & FEEL</Text>
         <Text style={[styles.title, { color: theme.text }]}>Appearance</Text>
+      </View>
+
+      <SectionHeader title="UI Template" kicker="Poore app ka look" />
+      <View style={styles.row}>
+        {TEMPLATES.map((t) => {
+          const selected = (settings.uiTemplate ?? 'noir') === t.id;
+          return (
+            <Pressable
+              key={t.id}
+              onPress={() => {
+                lightBuzz();
+                void updateSettings({ uiTemplate: t.id });
+              }}
+              accessibilityRole="radio"
+              accessibilityState={{ selected }}
+              accessibilityLabel={`${t.name} template`}
+              style={({ pressed }) => [
+                styles.tpl,
+                { borderColor: selected ? theme.primary : theme.border, opacity: pressed ? 0.85 : 1 },
+              ]}
+            >
+              {/* mini preview */}
+              <View style={[styles.tplPreview, { backgroundColor: t.bg }]}>
+                <View style={[styles.tplLine, { width: '58%', backgroundColor: 'rgba(255,255,255,0.85)' }]} />
+                <View style={[styles.tplLine, { width: '38%', backgroundColor: 'rgba(255,255,255,0.3)', marginTop: 5 }]} />
+                <View style={[styles.tplCard, { backgroundColor: t.surface }]}>
+                  <LinearGradient colors={[...t.grad] as [string, string, ...string[]]} start={{ x: 0, y: 0 }} end={{ x: 1, y: 1 }} style={styles.tplBtn} />
+                </View>
+                <View style={styles.tplDots}>
+                  <View style={[styles.tplDot, { backgroundColor: t.accent }]} />
+                  <View style={[styles.tplDot, { backgroundColor: t.surface }]} />
+                  <View style={[styles.tplDot, { backgroundColor: t.surface }]} />
+                </View>
+                {selected ? (
+                  <View style={[styles.tplCheck, { backgroundColor: theme.primary }]}>
+                    <Icon name="checkmark" size={12} color="#fff" />
+                  </View>
+                ) : null}
+              </View>
+              <View style={styles.tplBody}>
+                <View style={styles.tplTitleRow}>
+                  <Text style={[styles.tplName, { color: theme.text }]} numberOfLines={1}>{t.name}</Text>
+                  <Text style={[styles.tplTag, { color: selected ? theme.primary : theme.textFaint }]}>{t.tag}</Text>
+                </View>
+                <Text style={[styles.tplDesc, { color: theme.textDim }]} numberOfLines={3}>{t.desc}</Text>
+              </View>
+            </Pressable>
+          );
+        })}
       </View>
 
       <SectionHeader title="Visual Theme" kicker="Palette" />
@@ -133,6 +209,19 @@ const styles = StyleSheet.create({
   row: { flexDirection: 'row', gap: 10 },
   opt: { flex: 1, borderWidth: 1.5, borderRadius: RADIUS.md, paddingVertical: 12, alignItems: 'center' },
   optText: { fontWeight: '700', fontSize: SCALE.small },
+  tpl: { flex: 1, borderWidth: 1.5, borderRadius: RADIUS.lg, overflow: 'hidden' },
+  tplPreview: { height: 112, padding: 12 },
+  tplLine: { height: 6, borderRadius: 3 },
+  tplCard: { marginTop: 12, height: 40, borderRadius: 10, padding: 8, justifyContent: 'flex-end' },
+  tplBtn: { height: 12, width: '64%', borderRadius: 6 },
+  tplDots: { flexDirection: 'row', gap: 5, marginTop: 9 },
+  tplDot: { width: 7, height: 7, borderRadius: 3.5 },
+  tplCheck: { position: 'absolute', top: 8, right: 8, width: 20, height: 20, borderRadius: 10, alignItems: 'center', justifyContent: 'center' },
+  tplBody: { padding: 11 },
+  tplTitleRow: { flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between', gap: 6 },
+  tplName: { fontSize: SCALE.body, fontWeight: '700', flexShrink: 1 },
+  tplTag: { fontSize: 10, fontWeight: '700', letterSpacing: 1 },
+  tplDesc: { fontSize: SCALE.caption, lineHeight: 17, marginTop: 4 },
   previewBox: { borderWidth: 1, borderRadius: RADIUS.md, padding: 14, marginTop: 12 },
   preview: { fontStyle: 'italic', lineHeight: 22 },
   toggle: {

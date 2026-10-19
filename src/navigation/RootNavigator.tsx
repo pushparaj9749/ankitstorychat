@@ -12,17 +12,16 @@ import { checkForUpdates, effectiveContentApiBaseUrl } from '../content/loader';
 import { notifyContentUpdate } from '../lib/notifications';
 import { setAmbientPlaying } from '../lib/sound';
 import { NavScrollProvider } from './NavScrollContext';
-import { KissaBottomTabBar } from '../components/BottomNavigation';
 
 import { OnboardingName } from '../screens/OnboardingName';
 import { OnboardingAge } from '../screens/OnboardingAge';
-import { Home } from '../screens/Home';
 import { Discover } from '../screens/Discover';
 import { Library } from '../screens/Library';
 import { Settings } from '../screens/Settings';
-import { StoryDetail } from '../screens/StoryDetail';
 import { Saves } from '../screens/Saves';
+import { Yaadein } from '../screens/Yaadein';
 import { Chat } from '../screens/Chat';
+import { HomeRoute, StoryDetailRoute, TemplateTabBar } from '../ui/templates';
 import { AIAddons } from '../screens/AIAddons';
 import { ProviderEditor } from '../screens/ProviderEditor';
 import { SettingsProfile } from '../screens/SettingsProfile';
@@ -42,7 +41,7 @@ const Stack = createNativeStackNavigator<RootStackParamList>();
 const Tab = createBottomTabNavigator<MainTabParamList>();
 
 /* Stable tab-bar renderer (an inline arrow re-created the bar's props every render). */
-const renderTabBar = (props: BottomTabBarProps) => <KissaBottomTabBar {...props} />;
+const renderTabBar = (props: BottomTabBarProps) => <TemplateTabBar {...props} />;
 
 /*
  * Performance: screens that are not on top (tabs behind Chat, inactive tabs)
@@ -79,7 +78,7 @@ function MainTabs() {
       tabBar={renderTabBar}
       screenOptions={TAB_OPTIONS}
     >
-      <Tab.Screen name="Home" component={Home} options={{ tabBarAccessibilityLabel: 'Home' }} />
+      <Tab.Screen name="Home" component={HomeRoute} options={{ tabBarAccessibilityLabel: 'Home' }} />
       <Tab.Screen name="Discover" component={Discover} options={{ tabBarAccessibilityLabel: 'Explore shows' }} />
       <Tab.Screen name="Library" component={Library} options={{ tabBarAccessibilityLabel: 'Story Library' }} />
       <Tab.Screen name="Settings" component={Settings} options={{ tabBarAccessibilityLabel: 'Profile and Settings' }} />
@@ -117,7 +116,7 @@ export function RootNavigator() {
         regular: { fontFamily: 'System', fontWeight: '400' },
         medium: { fontFamily: 'System', fontWeight: '500' },
         bold: { fontFamily: 'System', fontWeight: '700' },
-        heavy: { fontFamily: 'System', fontWeight: '900' },
+        heavy: { fontFamily: 'System', fontWeight: '800' },
       },
     }),
     [theme],
@@ -136,8 +135,9 @@ export function RootNavigator() {
           ) : (
             <>
               <Stack.Screen name="Main" component={MainTabs} />
-              <Stack.Screen name="StoryDetail" component={StoryDetail} />
+              <Stack.Screen name="StoryDetail" component={StoryDetailRoute} />
               <Stack.Screen name="Saves" component={Saves} />
+              <Stack.Screen name="Yaadein" component={Yaadein} />
               <Stack.Screen name="Chat" component={Chat} options={{ animation: 'fade' }} />
               <Stack.Screen name="AIAddons" component={AIAddons} />
               <Stack.Screen name="ProviderEditor" component={ProviderEditor} />

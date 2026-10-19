@@ -18,8 +18,9 @@ import { Animated, Pressable, StyleSheet, Text, View } from 'react-native';
 import { LinearGradient } from 'expo-linear-gradient';
 import type { ChatMessage } from '../types';
 import { useApp } from '../state/AppContext';
-import { FADED_TEXT_OPACITY, GRADIENTS, RADIUS, SCALE, SHADOWS, SPACING, TOUCH, withAlpha, FONTS, TEXT_SIZE_MULTIPLIER } from '../theme';
+import { FADED_TEXT_OPACITY, GRADIENTS, RADIUS, SCALE, SPACING, TOUCH, withAlpha, FONTS, TEXT_SIZE_MULTIPLIER } from '../theme';
 import { parseStoryMarkup, stripStoryMarkup } from '../lib/markup';
+import { sanitizeStoredText } from '../lib/leakGuard';
 import { Avatar } from './bits';
 import { Icon, ICON_SIZE } from './icons';
 
@@ -70,16 +71,23 @@ function NarratorMark() {
   const { theme } = useApp();
   return (
     <View
-      style={[styles.narratorMark, { backgroundColor: withAlpha(theme.violet, 0.16), borderColor: withAlpha(theme.violet, 0.34) }]}
+      style={[styles.narratorMark, { backgroundColor: theme.surface2, borderColor: theme.border }]}
       accessibilityLabel="Narrator"
     >
-      <Icon name="sparkles" size={14} color={theme.gold} />
+      <Icon name="sparkles" size={13} color={theme.textDim} />
     </View>
   );
 }
 
-function ChatBubbleImpl({ message }: { message: ChatMessage }) {
+function ChatBubbleImpl({ message: stored }: { message: ChatMessage }) {
   const { theme, settings } = useApp();
+  // v2.7.0: messages saved by older versions may carry leaked notes — clean
+  // them on render (reader text is never touched).
+  const message = useMemo(() => {
+    if (stored.role === 'user' || stored.role === 'system' || isSceneMarker(stored.text)) return stored;
+    const clean = sanitizeStoredText(stored.text);
+    return clean && clean !== stored.text ? { ...stored, text: clean } : stored;
+  }, [stored]);
   const scale = TEXT_SIZE_MULTIPLIER[settings.textSize];
   const bodySize = FONTS.body * scale;
   const smallBody = 14.5 * scale;
@@ -88,11 +96,11 @@ function ChatBubbleImpl({ message }: { message: ChatMessage }) {
     if (isSceneMarker(message.text)) {
       return (
         <View style={styles.sceneWrap}>
-          <View style={[styles.sceneLine, { backgroundColor: withAlpha(theme.primary, 0.28) }]} />
-          <View style={[styles.scenePill, { backgroundColor: theme.surface2, borderColor: withAlpha(theme.primary, 0.22) }]}>
+          <View style={[styles.sceneLine, { backgroundColor: theme.border }]} />
+          <View style={[styles.scenePill, { backgroundColor: 'transparent', borderColor: theme.border }]}>
             <Text style={[styles.sceneText, { color: theme.textDim, fontSize: 11 * scale }]}>{message.text}</Text>
           </View>
-          <View style={[styles.sceneLine, { backgroundColor: withAlpha(theme.primary, 0.28) }]} />
+          <View style={[styles.sceneLine, { backgroundColor: theme.border }]} />
         </View>
       );
     }
@@ -108,7 +116,7 @@ function ChatBubbleImpl({ message }: { message: ChatMessage }) {
             { backgroundColor: theme.surface, borderColor: theme.border },
           ]}
         >
-          <LinearGradient colors={['rgba(255,79,139,0.05)', 'transparent']} style={styles.bubbleGlow} pointerEvents="none" />
+          <LinearGradient colors={['rgba(255,255,255,0.025)', 'transparent']} style={styles.bubbleGlow} pointerEvents="none" />
           <View style={[styles.accentEdge, { backgroundColor: 'transparent' }]} pointerEvents="none" />
           <StoryText
             text={message.text}
@@ -158,15 +166,14 @@ function ChatBubbleImpl({ message }: { message: ChatMessage }) {
         style={[
           styles.bubble,
           styles.bubbleDialogue,
-          { backgroundColor: withAlpha(theme.surface2, 0.94), borderColor: withAlpha(theme.primary, 0.24) },
+          { backgroundColor: theme.surface2, borderColor: theme.border },
         ]}
       >
-        <LinearGradient colors={['rgba(255,122,176,0.10)', 'transparent']} style={styles.bubbleGlow} pointerEvents="none" />
-        <View style={[styles.accentEdge, { backgroundColor: theme.primary }]} pointerEvents="none" />
+        <LinearGradient colors={['rgba(255,255,255,0.04)', 'transparent']} style={styles.bubbleGlow} pointerEvents="none" />
+        <View style={[styles.accentEdge, { backgroundColor: 'transparent' }]} pointerEvents="none" />
         {speaker ? (
           <View style={styles.speakerRow}>
-            <Text style={[styles.speaker, { color: theme.accent, fontSize: 11 * scale }]}>{speaker}</Text>
-            <View style={[styles.speakerDot, { backgroundColor: withAlpha(theme.accent, 0.5) }]} />
+            <Text style={[styles.speaker, { color: theme.accent, fontSize: 12 * scale }]}>{speaker}</Text>
           </View>
         ) : null}
         <StoryText text={text} color={'#fff'} fadedColor={withAlpha(theme.textDim, FADED_TEXT_OPACITY)} fontSize={bodySize} lineHeight={23 * scale} />
@@ -214,14 +221,14 @@ export function TypingIndicator({ label = 'Story continues…' }: { label?: stri
       <Animated.View
         style={[
           styles.typingBubble,
-          { backgroundColor: withAlpha(theme.surface2, 0.9), borderColor: withAlpha(theme.primary, 0.18) },
+          { backgroundColor: theme.surface2, borderColor: theme.border },
           dotAnim,
         ]}
       >
         <View style={styles.typingDots}>
-          <View style={[styles.dot, { backgroundColor: withAlpha(theme.accent, 0.45) }]} />
-          <View style={[styles.dot, { backgroundColor: withAlpha(theme.accent, 0.7) }]} />
-          <View style={[styles.dot, { backgroundColor: theme.accent }]} />
+          <View style={[styles.dot, { backgroundColor: withAlpha(theme.text, 0.35) }]} />
+          <View style={[styles.dot, { backgroundColor: withAlpha(theme.text, 0.6) }]} />
+          <View style={[styles.dot, { backgroundColor: theme.text }]} />
         </View>
         <Text style={[styles.typingText, { color: theme.textDim }]}>{label}</Text>
       </Animated.View>
@@ -253,16 +260,15 @@ export function ChoiceChips({
           style={({ pressed }) => [
             styles.chip,
             {
-              backgroundColor: withAlpha(theme.surface2, pressed ? 0.72 : 0.9),
-              borderColor: pressed ? withAlpha(theme.primary, 0.4) : theme.border,
+              backgroundColor: pressed ? theme.surface3 : theme.surface,
+              borderColor: pressed ? withAlpha(theme.primary, 0.45) : theme.border,
               opacity: disabled ? 0.45 : 1,
               transform: [{ scale: pressed ? 0.985 : 1 }],
             },
           ]}
         >
-          <View style={styles.chipIndex}>
-            <LinearGradient colors={[...GRADIENTS.primary]} start={{ x: 0, y: 0 }} end={{ x: 1, y: 1 }} style={StyleSheet.absoluteFill} />
-            <Icon name="play" size={10} color="#fff" style={styles.chipIndexIcon} />
+          <View style={[styles.chipIndex, { backgroundColor: theme.primarySoft }]}>
+            <Icon name="play" size={10} color={theme.primary} style={styles.chipIndexIcon} />
           </View>
           <Text style={[styles.chipText, { color: theme.text }]}>{stripStoryMarkup(c.label)}</Text>
           <Icon name="chevron-forward" size={ICON_SIZE.sm} color={theme.textFaint} />
@@ -287,7 +293,7 @@ const styles = StyleSheet.create({
     borderRadius: RADIUS.pill,
     borderWidth: 1,
   },
-  sceneText: { fontWeight: '800', letterSpacing: 0.9, textAlign: 'center' },
+  sceneText: { fontWeight: '600', letterSpacing: 0.6, textAlign: 'center' },
   sysWrap: { alignItems: 'center', marginVertical: 8 },
   sysPill: { paddingHorizontal: 12, paddingVertical: 6, borderRadius: RADIUS.pill, borderWidth: 1 },
   sysText: { fontWeight: '600', letterSpacing: 0.2 },
@@ -299,16 +305,15 @@ const styles = StyleSheet.create({
     maxWidth: '85%',
     paddingHorizontal: 15,
     paddingVertical: 12,
-    borderRadius: 22,
+    borderRadius: 20,
     overflow: 'hidden',
   },
-  bubbleNarration: { borderBottomLeftRadius: 7 },
-  bubbleDialogue: { borderBottomLeftRadius: 7, borderWidth: 1 },
+  bubbleNarration: { borderBottomLeftRadius: 6, borderWidth: 1 },
+  bubbleDialogue: { borderBottomLeftRadius: 6, borderWidth: 1 },
   bubbleUser: {
-    borderBottomRightRadius: 7,
+    borderBottomRightRadius: 6,
     paddingHorizontal: 16,
-    paddingVertical: 13,
-    ...SHADOWS.soft,
+    paddingVertical: 12,
   },
   bubbleGlow: {
     position: 'absolute',
@@ -330,7 +335,7 @@ const styles = StyleSheet.create({
     borderBottomRightRadius: 2,
   },
   speakerRow: { flexDirection: 'row', alignItems: 'center', gap: 6, marginBottom: 5 },
-  speaker: { fontWeight: '800', letterSpacing: 0.6, textTransform: 'uppercase' },
+  speaker: { fontWeight: '700', letterSpacing: 0.1 },
   speakerDot: { width: 4, height: 4, borderRadius: 2 },
   body: { lineHeight: 23 },
   faded: { fontStyle: 'italic', letterSpacing: 0.12 },
@@ -353,12 +358,12 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     gap: 11,
     borderWidth: 1,
-    borderRadius: RADIUS.xl,
+    borderRadius: 16,
     paddingHorizontal: 12,
     paddingVertical: 12,
     minHeight: TOUCH.min,
   },
   chipIndex: { width: 24, height: 24, borderRadius: 12, overflow: 'hidden', alignItems: 'center', justifyContent: 'center' },
   chipIndexIcon: { marginLeft: 1 },
-  chipText: { flex: 1, fontSize: 13.5, fontWeight: '600', letterSpacing: 0.05, lineHeight: 18 },
+  chipText: { flex: 1, fontSize: 14, fontWeight: '500', letterSpacing: 0.05, lineHeight: 19 },
 });

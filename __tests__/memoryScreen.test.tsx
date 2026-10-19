@@ -42,6 +42,24 @@ describe('memory UI removed', () => {
   });
 });
 
+describe('Yaadein (reader-safe memory screen)', () => {
+  const fs = require('fs');
+  test('route is registered and reachable from Chat', () => {
+    expect(fs.readFileSync('src/types.ts', 'utf8')).toContain('Yaadein: { playthroughId: string }');
+    expect(fs.readFileSync('src/navigation/RootNavigator.tsx', 'utf8')).toContain('name="Yaadein"');
+    expect(fs.readFileSync('src/screens/Chat.tsx', 'utf8')).toContain("navigate('Yaadein'");
+  });
+
+  test('never shows character knowledge, secrets or author seed notes', () => {
+    const src = fs.readFileSync('src/screens/Yaadein.tsx', 'utf8');
+    expect(src).not.toMatch(/characterKnowledge|\.secrets\b|knownSecrets/);
+    expect(src).toContain('isReaderVisibleMemory');
+    expect(src).toContain('Summary');
+    expect(src).toContain('Key facts');
+    expect(src).toContain('Chapters');
+  });
+});
+
 describe('god-level world state', () => {
   const bundle = {
     story: { openingSceneId: 's1' },

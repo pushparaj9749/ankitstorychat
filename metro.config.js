@@ -11,6 +11,8 @@ const { getDefaultConfig } = require('expo/metro-config');
 const config = getDefaultConfig(__dirname);
 
 const WEB_SQLITE_SHIM = path.resolve(__dirname, 'preview/web/expo-sqlite-web.js');
+// expo-secure-store has no web build; preview keeps provider keys in localStorage.
+const WEB_SECURE_STORE_SHIM = path.resolve(__dirname, 'preview/web/expo-secure-store-web.js');
 // sql.js' asm build has a Node-only branch that requires these built-ins.
 const NODE_ONLY_IN_SQLJS = new Set(['fs', 'path', 'crypto']);
 
@@ -18,6 +20,9 @@ config.resolver.resolveRequest = (context, moduleName, platform) => {
   if (platform === 'web') {
     if (moduleName === 'expo-sqlite') {
       return { type: 'sourceFile', filePath: WEB_SQLITE_SHIM };
+    }
+    if (moduleName === 'expo-secure-store') {
+      return { type: 'sourceFile', filePath: WEB_SECURE_STORE_SHIM };
     }
     if (NODE_ONLY_IN_SQLJS.has(moduleName) && /[\\/]sql\.js[\\/]/.test(context.originModulePath)) {
       return { type: 'empty' };

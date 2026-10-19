@@ -77,9 +77,9 @@ export function AIAddons({ navigation }: Props) {
         ]}
       >
         <Text style={[styles.infoText, { color: theme.textDim }]}>
-          <Text style={{ color: theme.accent, fontWeight: '800' }}>AI STORY CHAT:</Text>
+          <Text style={{ color: theme.accent, fontWeight: '700' }}>AI STORY CHAT:</Text>
           {' Kissa brings characters to life with an OpenAI-compatible LLM.\n\n'}
-          <Text style={{ color: theme.accentAmber, fontWeight: '800' }}>PRIVATE API KEY:</Text>
+          <Text style={{ color: theme.accentAmber, fontWeight: '700' }}>PRIVATE API KEY:</Text>
           {' Your key stays encrypted on your device and is never sent to our servers.'}
         </Text>
       </View>
@@ -178,13 +178,13 @@ const styles = StyleSheet.create({
   },
   body: { flex: 1, gap: 2 },
   nameRow: { flexDirection: 'row', alignItems: 'center', gap: 8 },
-  name: { fontSize: SCALE.body, fontWeight: '800' },
+  name: { fontSize: SCALE.body, fontWeight: '700' },
   activeBadge: {
     paddingHorizontal: 7,
     paddingVertical: 2,
     borderRadius: RADIUS.pill,
   },
-  activeBadgeText: { color: '#0E070B', fontSize: SCALE.micro, fontWeight: '900', letterSpacing: 0.5 },
+  activeBadgeText: { color: '#0E070B', fontSize: SCALE.micro, fontWeight: '800', letterSpacing: 0.5 },
   sub: { fontSize: SCALE.small, marginTop: 2 },
   subUrl: { fontSize: SCALE.micro, marginTop: 1 },
   actions: { gap: 8, alignItems: 'flex-end' },
@@ -193,7 +193,7 @@ const styles = StyleSheet.create({
     paddingVertical: 5,
     borderRadius: RADIUS.pill,
   },
-  useBtnText: { color: '#fff', fontSize: 11, fontWeight: '800' },
+  useBtnText: { color: '#fff', fontSize: 11, fontWeight: '700' },
   link: { paddingVertical: 2, paddingHorizontal: 4 },
   linkText: { fontWeight: '700', fontSize: SCALE.small },
 });

@@ -107,7 +107,7 @@ const styles = StyleSheet.create({
     marginBottom: 16,
   },
 
-  title: { fontSize: 26, fontWeight: '900', textAlign: 'center', letterSpacing: -0.4 },
+  title: { fontSize: 26, fontWeight: '800', textAlign: 'center', letterSpacing: -0.4 },
   sub: { fontSize: SCALE.body, textAlign: 'center', marginTop: 10, lineHeight: 22, paddingHorizontal: 16 },
   card: { borderWidth: 1, borderRadius: RADIUS.lg, padding: 18, marginTop: SPACING.xl },
   row: { flexDirection: 'row', justifyContent: 'space-between', gap: 12, paddingVertical: 8 },

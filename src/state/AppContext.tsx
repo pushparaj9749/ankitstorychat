@@ -32,8 +32,10 @@ import {
 import { listStories } from '../content/loader';
 import { hasApiKey } from '../lib/secureKeys';
 import { nowIso } from '../lib/utils';
-import { COLORS, Theme, ThemeName } from '../theme';
+import { COLORS, Theme, ThemeName, UiTemplate } from '../theme';
+import { COLORS as CLASSIC_COLORS } from '../ui/classic/theme';
 import { BootSplash } from '../components/BootSplash';
+import { StyleSheet, View } from 'react-native';
 
 interface AppState {
   ready: boolean;
@@ -42,6 +44,8 @@ interface AppState {
   settings: AppSettings;
   theme: Theme;
   themeName: ThemeName;
+  /** Whole-app look chosen in Settings → Appearance. */
+  uiTemplate: UiTemplate;
   providers: AIProvider[];
   /** Provider ids that have a key stored in SecureStore. */
   providersWithKeys: Set<string>;
@@ -64,6 +68,8 @@ const Ctx = createContext<AppState | null>(null);
 
 export function AppProvider({ children }: { children: React.ReactNode }) {
   const [ready, setReady] = useState(false);
+  const [splashDone, setSplashDone] = useState(false);
+  const onSplashDone = useCallback(() => setSplashDone(true), []);
   const [profile, setProfile] = useState<LocalProfile | null>(null);
   const [settings, setSettings] = useState<AppSettings | null>(null);
   const [providers, setProviders] = useState<AIProvider[]>([]);
@@ -166,14 +172,16 @@ export function AppProvider({ children }: { children: React.ReactNode }) {
 
   const value = useMemo<AppState>(() => {
     const themeName: ThemeName = settings?.theme ?? 'midnight';
+    const uiTemplate: UiTemplate = settings?.uiTemplate === 'classic' ? 'classic' : 'noir';
     const activeProvider =
       providers.find((p) => p.id === settings?.activeProviderId && p.enabled) ?? null;
     return {
       ready,
       profile,
       settings: settings as AppSettings,
-      theme: COLORS[themeName],
+      theme: uiTemplate === 'classic' ? CLASSIC_COLORS[themeName] : COLORS[themeName],
       themeName,
+      uiTemplate,
       providers,
       providersWithKeys,
       activeProvider,
@@ -208,10 +216,19 @@ export function AppProvider({ children }: { children: React.ReactNode }) {
     reloadAll,
   ]);
 
-  // Branded splash until the local database is ready.
-  if (!ready || !settings) return <BootSplash />;
-  return <Ctx.Provider value={value}>{children}</Ctx.Provider>;
+  // Opening animation: the app mounts BEHIND the splash as soon as the local
+  // database is ready, so when the splash fades away the first screen is
+  // already drawn (no blank frame, no jank).
+  const appReady = ready && !!settings;
+  return (
+    <View style={styles.root}>
+      {appReady ? <Ctx.Provider value={value}>{children}</Ctx.Provider> : null}
+      {!splashDone ? <BootSplash ready={appReady} onDone={onSplashDone} /> : null}
+    </View>
+  );
 }
+
+const styles = StyleSheet.create({ root: { flex: 1, backgroundColor: COLORS.midnight.bg } });
 
 export function useApp(): AppState {
   const v = useContext(Ctx);

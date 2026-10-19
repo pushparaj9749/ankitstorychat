@@ -34,7 +34,7 @@ export function CoverImage({
   tint?: string;
 }) {
   const letter = (fallbackLetter ?? '?').slice(0, 1).toUpperCase();
-  const accent = accentColor ?? '#8B5CF6';
+  const accent = accentColor ?? '#8A8CB8';
 
   return (
     <NaturalImage
@@ -49,5 +49,5 @@ export function CoverImage({
 }
 
 const styles = StyleSheet.create({
-  fallback: { fontSize: 52, fontWeight: '900' },
+  fallback: { fontSize: 52, fontWeight: '800' },
 });

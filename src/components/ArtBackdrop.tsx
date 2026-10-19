@@ -43,7 +43,7 @@ function ArtBackdropImpl({
   /** Strength of the dark scrim over the wash (keeps the real art in focus). */
   dim?: number;
 }) {
-  const accent = accentColor ?? '#A855F7';
+  const accent = accentColor ?? '#9A9CC4';
   // A radius of 1–2px on the 16×24 bitmap ≈ 40–80px at full size.
   const microBlur = Math.max(1, Math.min(2, Math.round(blur / 18)));
   return (
@@ -62,7 +62,7 @@ function ArtBackdropImpl({
           importantForAccessibility="no-hide-descendants"
         />
       ) : null}
-      <View style={[StyleSheet.absoluteFill, { backgroundColor: `rgba(11, 8, 20, ${dim})` }]} />
+      <View style={[StyleSheet.absoluteFill, { backgroundColor: `rgba(10,11,16, ${dim})` }]} />
     </View>
   );
 }

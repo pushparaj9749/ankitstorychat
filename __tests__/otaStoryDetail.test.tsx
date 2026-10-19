@@ -278,7 +278,7 @@ describe('StoryDetail (V2: streamed playback, offline gate)', () => {
 
     await render();
     const text = renderText();
-    expect(text).toContain('Chat Now');
+    expect(text).toContain('Start Story');
     expect(text).toContain('Ankit');
     expect(text).not.toContain("Couldn't open story");
   });
@@ -331,6 +331,6 @@ describe('StoryDetail (V2: streamed playback, offline gate)', () => {
     // The rest of the canonical layout is intact.
     expect(text).toContain('Story Creator');
     expect(text).toContain('Refer Kissa');
-    expect(text).toContain('Chat Now');
+    expect(text).toContain('Start Story');
   });
 });

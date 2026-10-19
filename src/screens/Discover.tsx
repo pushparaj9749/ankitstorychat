@@ -163,7 +163,7 @@ export function Discover({ navigation, route }: Props) {
 const styles = StyleSheet.create({
   container: { width: '100%', maxWidth: LAYOUT.contentMaxWidth + 120, alignSelf: 'center' },
   header: { paddingHorizontal: SPACING.page, paddingTop: 8, gap: 6 },
-  kicker: { fontSize: SCALE.micro, letterSpacing: 1.4, fontWeight: '900' as const, marginTop: 4 },
+  kicker: { fontSize: SCALE.micro, letterSpacing: 1.4, fontWeight: '800' as const, marginTop: 4 },
   title: { ...TYPE.display, letterSpacing: -0.8, marginTop: 2 },
   searchWrap: {
     flexDirection: 'row',
@@ -193,7 +193,7 @@ const styles = StyleSheet.create({
   segment: { flexDirection: 'row', borderWidth: 1, borderRadius: RADIUS.pill, padding: 3 },
   segmentItem: { paddingHorizontal: 11, paddingVertical: 6, borderRadius: RADIUS.pill },
   segmentText: { fontSize: SCALE.caption, fontWeight: '600' },
-  segmentTextOn: { fontWeight: '800' },
+  segmentTextOn: { fontWeight: '700' },
   list: { paddingHorizontal: SPACING.page, paddingTop: 14, gap: 12 },
   item: { marginBottom: 2 },
   gridRow: { gap: 12 },

@@ -16,17 +16,20 @@ import { SafeAreaView } from 'react-native-safe-area-context';
 import type { NativeStackScreenProps } from '@react-navigation/native-stack';
 import type { AIError, ChatMessage, ChoiceEffects, Playthrough, RootStackParamList, StoryBundle } from '../types';
 import { useApp } from '../state/AppContext';
-import { ChatBubble, TypingIndicator } from '../components/chat';
+import { useChatParts } from '../ui/templates';
+import { GRADIENTS as CLASSIC_GRADIENTS } from '../ui/classic/theme';
 import { Avatar } from '../components/bits';
 import { ErrorState, LoadingState, OfflineState } from '../components/states';
 import { effectiveContentApiBaseUrl, getBundle, getBundledCoverSource, mediaApiUrl, StoryContentError, type CoverSource } from '../content/loader';
 import { getApiKey } from '../lib/secureKeys';
 import { aiErrorMessage, chatCompletion } from '../lib/ai';
-import { applyEffects, buildContext, finalizeAssistantText, getScene, HISTORY_HEADROOM, parseAssistantResponse, progressEstimate, shortTermWindowOf } from '../lib/engine';
+import { applyEffects, buildContext, buildStateExtractionMessages, checkAssistantReply, getScene, HISTORY_HEADROOM, parseAssistantResponse, parseExtractedState, progressEstimate, REWRITE_INSTRUCTION, shortTermWindowOf, type ParsedAssistant, type ReplyCheck } from '../lib/engine';
+import { chapterDue, closeChapter, getChapters } from '../lib/chapters';
 import { completeEpisode, consolidateMemories, putMemory, recallForTurn, rememberMany, rememberPreferences, episodeLine } from '../lib/memory';
-import { ensureWorldState } from '../lib/worldState';
+import { ensureWorldState, getWorldState } from '../lib/worldState';
 import { runMemoryWritePipeline, recallWithWorldState } from '../lib/memoryEngine';
 import { listMemoryCandidates } from '../lib/db';
+import { attachReplyIds, checkpointCovers, getTurnCheckpoint, rollbackTurn, saveTurnCheckpoint } from '../lib/turnCheckpoint';
 import { countMessages, getPlaythrough, insertMessage, listMessages, listRecentMessagesAsc, updatePlaythrough, updateStats } from '../lib/db';
 import { consolidateStoryMemory, ensureStoryMemoryReady, indexStoryMemoryMessages, recallStoryMemoryForPrompt, rememberTurn } from '../lib/storyMemory';
 import { completePlaythrough } from '../lib/playthrough';
@@ -48,18 +51,19 @@ type ChatTurnRequest = {
   primaryUserText?: string;
   instruction?: string;
   userMessage?: ChatMessage;
+  /** Regenerate-after-rewind: one-off note appended to the instruction (never checkpointed). */
+  retakeNote?: string;
 };
 const PAGE = 40;
 
 /* Stable list callbacks: inline ones made the FlatList re-render every visible bubble on each keystroke. */
-const renderBubble = ({ item }: { item: ChatMessage }) => <ChatBubble message={item} />;
 const bubbleKey = (m: ChatMessage) => m.id;
 
-function ChatStoryFace({ source, letter, accent }: { source: CoverSource | null; letter: string; accent: string }) {
+function ChatStoryFace({ source, letter, accent, ring = '#F0567E' }: { source: CoverSource | null; letter: string; accent: string; ring?: string }) {
   const [failed, setFailed] = useState(false);
   const initial = (letter?.trim()?.[0] ?? '?').toUpperCase();
   return (
-    <View style={[styles.face, { backgroundColor: `${accent}18`, borderColor: 'rgba(255,255,255,0.55)' }]}>
+    <View style={[styles.face, { backgroundColor: `${accent}18`, borderColor: ring }]}>
       {source && !failed ? <ArtBackdrop source={source} accentColor={accent} blur={10} dim={0.15} /> : null}
       {source && !failed ? (
         <Image source={source} style={styles.faceImg} resizeMode="contain" onError={() => setFailed(true)} accessibilityIgnoresInvertColors />
@@ -72,7 +76,10 @@ function ChatStoryFace({ source, letter, accent }: { source: CoverSource | null;
 
 export function Chat({ navigation, route }: Props) {
   const { playthroughId } = route.params;
-  const { theme, profile, activeProvider, providersWithKeys, settings } = useApp();
+  const { theme, profile, activeProvider, providersWithKeys, settings, uiTemplate } = useApp();
+  const classic = uiTemplate === 'classic';
+  const { ChatBubble, TypingIndicator } = useChatParts();
+  const renderBubble = useCallback(({ item }: { item: ChatMessage }) => <ChatBubble message={item} />, [ChatBubble]);
 
   const [playthrough, setPlaythrough] = useState<Playthrough | null>(null);
   const [bundle, setBundle] = useState<StoryBundle | null>(null);
@@ -99,10 +106,35 @@ export function Chat({ navigation, route }: Props) {
     setHasText(false);
   }, []);
   const [sending, setSending] = useState(false);
+  /** Lead character's bond (0–100) + mood, read from the stage-3 ledger (worldState). */
+  const [bond, setBond] = useState<{ name: string; value: number | null; mood: string | null } | null>(null);
+  const messageCount = messages.length;
+  useEffect(() => {
+    const lead = bundle?.characters?.characters?.[0];
+    if (!playthrough?.id || !lead || sending) return;
+    let alive = true;
+    getWorldState(playthrough.id)
+      .then((ws) => {
+        if (!alive || !ws) return;
+        const rel = ws.relationships?.[lead.id];
+        const mood = ws.characterStates?.[lead.id]?.mood ?? null;
+        const value = rel ? Math.round(rel.affection * 0.6 + rel.trust * 0.4) : null;
+        setBond(value !== null || mood ? { name: lead.name.split(/\s+/)[0], value, mood } : null);
+      })
+      .catch(() => undefined);
+    return () => {
+      alive = false;
+    };
+  }, [playthrough?.id, bundle, sending, messageCount]);
   const [actionsOpen, setActionsOpen] = useState(false);
   const [typingLabel, setTypingLabel] = useState('Continuing…');
   const [aiError, setAiError] = useState<AIError | null>(null);
   const retryRequestRef = useRef<ChatTurnRequest | null>(null);
+  /**
+   * v2.7.0: the record-keeper call runs AFTER the reply is on screen. The next
+   * turn waits for it, so memory is always complete before the story moves on.
+   */
+  const pendingStateRef = useRef<Promise<void> | null>(null);
   const listRef = useRef<FlatList<ChatMessage>>(null);
 
   const aiReady = !!playthrough && !!activeProvider && providersWithKeys.has(activeProvider.id);
@@ -211,19 +243,34 @@ export function Chat({ navigation, route }: Props) {
     return { pt: next, sceneChanged };
   }
 
-  async function aiTurn(pt: Playthrough, b: StoryBundle, request: ChatTurnRequest) {
+  async function aiTurn(ptIn: Playthrough, b: StoryBundle, request: ChatTurnRequest) {
     if (!profile || !activeProvider) throw new Error('AI not configured.');
     const apiKey = await getApiKey(activeProvider.id);
     if (!apiKey) throw new Error('API key missing.');
 
+    // The previous turn's record-keeper must finish first: this turn's prompt
+    // has to see the state it wrote. Then re-read the journey from disk.
+    if (pendingStateRef.current) await pendingStateRef.current.catch(() => undefined);
+    const pt = (await getPlaythrough(ptIn.id).catch(() => null)) ?? ptIn;
+
     const isAuthoredMessage = request.kind === 'message';
     const writesStoryState = isAuthoredMessage || request.kind === 'scene' || request.kind === 'continue';
     const primaryUserText = request.primaryUserText ?? (isAuthoredMessage ? request.prompt : '');
+    const castNames = b.characters.characters.map((c) => c.name);
 
     // The screen starts migration in the background; share/wait for it here so
     // the first answer cannot race an incomplete transcript index.
     await ensureStoryMemoryReady({ playthrough: pt, bundle: b, playerName: profile.nickname }).catch(() => undefined);
     const worldState = await ensureWorldState(pt, b).catch(() => null);
+    // Rewind point: Regenerate on this turn's reply restores everything below.
+    if (writesStoryState) {
+      await saveTurnCheckpoint(pt.id, {
+        kind: request.kind as 'message' | 'scene' | 'continue',
+        prompt: request.prompt,
+        primaryUserText: request.primaryUserText,
+        instruction: request.instruction,
+      }).catch(() => undefined);
+    }
     const recent = await listRecentMessagesAsc(pt.id, shortTermWindowOf(b) + HISTORY_HEADROOM);
     const history = isAuthoredMessage
       ? recent.filter((m, i) => !(i === recent.length - 1 && m.role === 'user' && m.text === request.prompt))
@@ -284,6 +331,7 @@ export function Chat({ navigation, route }: Props) {
       storyMemoryBlock = '';
     }
 
+    const chapters = await getChapters(pt.id).catch(() => []);
     const ctx = buildContext({
       bundle: b,
       profile,
@@ -291,98 +339,158 @@ export function Chat({ navigation, route }: Props) {
       memories: relevant,
       history,
       summary,
+      chapters,
       worldState: wsForPrompt,
       immediateContext,
       storyMemoryBlock,
-      turnInstruction: request.instruction,
+      turnInstruction: [request.instruction, request.retakeNote].filter(Boolean).join(' ') || undefined,
+      stateMode: 'separate',
     }, profile.ageGroup);
-    const raw = await chatCompletion(activeProvider, apiKey, [
-      { role: 'system', content: ctx.system },
-      ...ctx.messages,
-      { role: 'user', content: request.prompt },
-    ]);
+    const transcript = [...ctx.messages, { role: 'user' as const, content: request.prompt }];
 
-    const parsed = parseAssistantResponse(raw);
-    // displayText is already state-free; stripStateLeakage is the final net for
-    // malformed/multiple/unterminated kissa-state blocks (never rendered).
-    const displayText = finalizeAssistantText(parsed);
+    // ---- STORY REPLY + check before the reader sees it -------------------
+    const checkOpts = { castNames, readerName: profile.nickname, privateNotes: ctx.privateNotes };
+    const raw = await chatCompletion(activeProvider, apiKey, [{ role: 'system', content: ctx.system }, ...transcript]);
+    let parsed: ParsedAssistant = parseAssistantResponse(raw);
+    let check: ReplyCheck = checkAssistantReply(parsed, checkOpts);
+    if (check.needsRewrite) {
+      // One silent rewrite. If it is not better, the cleaned first draft stays.
+      try {
+        const raw2 = await chatCompletion(activeProvider, apiKey, [
+          { role: 'system', content: `${ctx.system}\n\n${REWRITE_INSTRUCTION}` },
+          ...transcript,
+        ]);
+        const parsed2 = parseAssistantResponse(raw2);
+        const check2 = checkAssistantReply(parsed2, checkOpts);
+        if (!check2.needsRewrite || check2.reasons.length < check.reasons.length) {
+          // Keep any state the first draft carried as a fallback for the record-keeper.
+          parsed = { ...parsed2, effects: parsed2.effects ?? parsed.effects, memoryNotes: parsed2.memoryNotes.length ? parsed2.memoryNotes : parsed.memoryNotes, worldStateRaw: parsed2.worldStateRaw ?? parsed.worldStateRaw, rawStateJson: parsed2.rawStateJson ?? parsed.rawStateJson };
+          check = check2;
+        }
+      } catch {
+        /* the cleaned first draft is still safe to show */
+      }
+    }
+    const displayText = check.text;
+    const speaker = check.speaker;
 
-    if (writesStoryState) {
+    const saved = await persistAssistantLines(pt, [{ role: 'assistant', speaker, text: displayText }], pt.currentSceneId);
+    if (writesStoryState) await attachReplyIds(pt.id, saved.map((m) => m.id)).catch(() => undefined);
+    setMessages((prev) => [...saved.slice().reverse(), ...prev]);
+    playReceive(settings.sound);
+    if (settings.haptics) successBuzz();
+
+    if (!writesStoryState) return;
+
+    // ---- SILENT RECORD-KEEPER (after the reply is visible) ---------------
+    const summarize = (prompt: string) => chatCompletion(activeProvider, apiKey, [{ role: 'user', content: prompt }], { timeoutMs: 30000 });
+    const userText = isAuthoredMessage ? request.prompt : '';
+    const task = (async () => {
+      let stateParsed: ParsedAssistant | null = null;
+      try {
+        const rawState = await chatCompletion(
+          activeProvider,
+          apiKey,
+          buildStateExtractionMessages({
+            bundle: b,
+            playthrough: pt,
+            worldState: wsForPrompt,
+            userText,
+            assistantText: displayText,
+            assistantSpeaker: speaker,
+            playerName: profile.nickname,
+          }),
+          { timeoutMs: 45000 },
+        );
+        stateParsed = parseExtractedState(rawState);
+      } catch {
+        stateParsed = null;
+      }
+      // Fallback: a state block the story model still emitted (already hidden).
+      const source = stateParsed ?? (parsed.effects || parsed.rawStateJson ? parsed : null);
+      const rawStateJson = (source?.worldStateRaw ?? source?.rawStateJson ?? null) as any;
+      const memoryNotes = source?.memoryNotes ?? [];
+
       try {
         await runMemoryWritePipeline({
           playthrough: pt,
           bundle: b,
-          userText: isAuthoredMessage ? request.prompt : '',
+          userText,
           assistantText: displayText,
-          parsedExtractionRaw: (parsed as any).worldStateRaw ?? (parsed as any).rawStateJson ?? null,
+          parsedExtractionRaw: rawStateJson,
           worldState: wsForPrompt,
           skipEpisode: true,
         });
       } catch {}
-    }
 
-    // Menu-only answers are not story canon changes. Their hidden state blocks
-    // are ignored; Continue and Scene badlo deliberately advance story state.
-    if (isAuthoredMessage) void completeEpisode(pt.id, request.prompt, displayText).catch(() => undefined);
-    if (writesStoryState && parsed.memoryNotes?.length) {
-      void rememberMany(pt.id, parsed.memoryNotes, 'story', 3).catch(() => undefined);
-    }
-
-    const saved = await persistAssistantLines(pt, [{ role: 'assistant', speaker: parsed.speaker, text: displayText }], pt.currentSceneId);
-    setMessages((prev) => [...saved.slice().reverse(), ...prev]);
-
-    // Typed archive events are created only for reader-authored turns. Action
-    // prompts never create a fabricated user row or user-linked memory event.
-    if (isAuthoredMessage) {
-      try {
-        await rememberTurn({
-          playthrough: pt,
-          bundle: b,
-          userText: request.prompt,
-          assistantText: displayText,
-          parsedState: (parsed as any).worldStateRaw ?? (parsed as any).rawStateJson ?? null,
-          messageIds: [userMessageId, ...saved.map((m) => m.id)].filter((x): x is string => !!x),
-          sceneId: pt.currentSceneId,
-          location: wsForPrompt?.currentLocation ?? null,
-          storyDay: wsForPrompt?.storyTime?.day ?? null,
-          turnSeq: Math.max(wsForPrompt?.episodeCount ?? 0, pt.messageCount) + 1,
-          playerName: profile.nickname,
-        });
-      } catch {
-        /* the archive is additive: a failure must never break the chat */
+      if (isAuthoredMessage) {
+        await completeEpisode(pt.id, request.prompt, displayText).catch(() => undefined);
+        // Typed archive events are created only for reader-authored turns.
+        try {
+          await rememberTurn({
+            playthrough: pt,
+            bundle: b,
+            userText: request.prompt,
+            assistantText: displayText,
+            parsedState: rawStateJson,
+            messageIds: [userMessageId, ...saved.map((m) => m.id)].filter((x): x is string => !!x),
+            sceneId: pt.currentSceneId,
+            location: wsForPrompt?.currentLocation ?? null,
+            storyDay: wsForPrompt?.storyTime?.day ?? null,
+            turnSeq: Math.max(wsForPrompt?.episodeCount ?? 0, pt.messageCount) + 1,
+            playerName: profile.nickname,
+          });
+        } catch {
+          /* the archive is additive: a failure must never break the chat */
+        }
       }
-    }
 
-    let updatedPt = pt;
-    let sceneChanged = false;
-    if (writesStoryState) {
-      const applied = await applyTurnEffects(pt, b, parsed.effects, parsed.memoryNotes);
-      updatedPt = applied.pt;
-      sceneChanged = applied.sceneChanged;
+      const applied = await applyTurnEffects(pt, b, source?.effects, memoryNotes);
+      const updatedPt = applied.pt;
       setPlaythrough(updatedPt);
-    }
 
-    const summarize = (prompt: string) => chatCompletion(activeProvider, apiKey, [{ role: 'user', content: prompt }], { timeoutMs: 30000 });
+      // STAGE 1 chapters: a finished scene (or a very long one) becomes a chapter.
+      const longScene = !applied.sceneChanged && (await chapterDue(pt.id, updatedPt.messageCount).catch(() => false));
+      if (applied.sceneChanged || longScene) {
+        const oldScene = getScene(b, pt.currentSceneId);
+        const prevChapters = await getChapters(pt.id).catch(() => []);
+        const since = prevChapters.length ? prevChapters[prevChapters.length - 1].createdAt : '';
+        const pool2 = await listRecentMessagesAsc(pt.id, 240).catch(() => [] as ChatMessage[]);
+        const chapterMessages = pool2.filter((m) => !since || m.createdAt > since);
+        const title = interpolatePlayerName(oldScene.title, profile.nickname, { protectedNames: castNames });
+        void closeChapter({
+          playthroughId: pt.id,
+          title: longScene ? `${title} (contd.)` : title,
+          sceneId: oldScene.id,
+          messageCount: updatedPt.messageCount,
+          messages: chapterMessages,
+          castNames,
+          readerName: profile.nickname,
+          summarize,
+        });
+      }
 
-    if (sceneChanged) {
-      const sc = getScene(b, updatedPt.currentSceneId);
-      const title = interpolatePlayerName(sc.title, profile.nickname, { protectedNames: b.characters.characters.map((c) => c.name) });
-      const extra = await persistAssistantLines(updatedPt, [{ role: 'narration', speaker: null, text: `✦ ${title}` }], updatedPt.currentSceneId);
-      setMessages((prev) => [...extra.slice().reverse(), ...prev]);
-      // L5 FIX: Less aggressive folding — keep ≥8 live, fold at most half
-      void consolidateMemories(pt.id, summarize).catch(() => undefined);
-      // v2.5.1: the typed archive folds old events into rollups on the same
-      // cadence. Raw events and raw messages are kept — never deleted.
-      void consolidateStoryMemory(pt.id, pt.storyId).catch(() => undefined);
-    }
+      if (applied.sceneChanged) {
+        const sc = getScene(b, updatedPt.currentSceneId);
+        const title = interpolatePlayerName(sc.title, profile.nickname, { protectedNames: castNames });
+        const extra = await persistAssistantLines(updatedPt, [{ role: 'narration', speaker: null, text: `✦ ${title}` }], updatedPt.currentSceneId);
+        setMessages((prev) => [...extra.slice().reverse(), ...prev]);
+      }
 
-    if (writesStoryState && updatedPt.messageCount % 8 === 0) {
-      void consolidateMemories(pt.id, summarize).catch(() => undefined);
-      void consolidateStoryMemory(pt.id, pt.storyId).catch(() => undefined);
-    }
-
-    playReceive(settings.sound);
-    if (settings.haptics) successBuzz();
+      // Gap-free STAGE 1: fold episodes as soon as they leave the 20-chat window.
+      if (applied.sceneChanged || updatedPt.messageCount % 4 === 0) {
+        void consolidateMemories(pt.id, summarize).catch(() => undefined);
+        // The typed archive folds old events into rollups on the same cadence.
+        // Raw events and raw messages are kept — never deleted.
+        void consolidateStoryMemory(pt.id, pt.storyId).catch(() => undefined);
+      }
+    })();
+    const tracked: Promise<void> = task
+      .catch(() => undefined)
+      .finally(() => {
+        if (pendingStateRef.current === tracked) pendingStateRef.current = null;
+      });
+    pendingStateRef.current = tracked;
   }
 
   function typingLabelFor(kind: ChatTurnKind): string {
@@ -446,11 +554,55 @@ export function Chat({ navigation, route }: Props) {
     await executeTurnRequest(request, playthrough, bundle);
   }
 
+  /**
+   * Real Regenerate: rewind the journey's memory to just before the last
+   * story turn, drop its reply, and run that same turn again. Returns false
+   * when the last reply has no rewind point (older reply / non-story action),
+   * in which case the caller falls back to a state-free alternate take.
+   */
+  async function regenerateWithRewind(pt: Playthrough, b: StoryBundle): Promise<boolean> {
+    const old = latestAssistantMessage;
+    let rewound = false;
+    setSending(true);
+    try {
+      if (pendingStateRef.current) await pendingStateRef.current.catch(() => undefined);
+      const ck = await getTurnCheckpoint(pt.id).catch(() => null);
+      if (!checkpointCovers(ck, old?.id)) return false;
+      await rollbackTurn(pt.id, ck);
+      rewound = true;
+      const drop = new Set(ck.replyIds);
+      setMessages((prev) => prev.filter((m) => !drop.has(m.id)));
+      const restored = (await getPlaythrough(pt.id).catch(() => null)) ?? pt;
+      setPlaythrough(restored);
+      lightBuzz();
+      playSend(settings.sound);
+      await executeTurnRequest(
+        {
+          ...ck.request,
+          retakeNote: [
+            'The reader asked for a fresh take on this turn. Write it differently from the discarded attempt below — new wording and a different natural beat — while staying fully continuity-safe.',
+            old ? `Discarded attempt (do not repeat it): ${JSON.stringify(old.text.slice(0, 500))}.` : '',
+          ].filter(Boolean).join(' '),
+        },
+        restored,
+        b,
+      );
+      return true;
+    } catch {
+      // Once rewound, never fall through to a second take on top of it.
+      return rewound;
+    } finally {
+      setSending(false);
+    }
+  }
+
   async function runChatAction(kind: ChatActionKind) {
     if (!playthrough || !bundle || sending || !aiReady) return;
     if (kind !== 'regenerate' && playthrough.status !== 'active') return;
     if (kind === 'regenerate' && !canRegenerate) return;
     if (kind === 'scene' && !hasAlternateScene) return;
+
+    if (kind === 'regenerate' && (await regenerateWithRewind(playthrough, bundle))) return;
 
     const previousUserText = latestUserMessage?.text ?? '';
     let prompt = '';
@@ -556,31 +708,69 @@ export function Chat({ navigation, route }: Props) {
         </Pressable>
 
         <Pressable onPress={openStoryProfile} style={styles.headerIdentity} accessibilityRole="button" accessibilityLabel={bundle.meta.title}>
-          <ChatStoryFace source={faceSource} letter={bundle.meta.title} accent={bundle.meta.accentColor} />
+          <ChatStoryFace source={faceSource} letter={bundle.meta.title} accent={bundle.meta.accentColor} ring={classic ? 'rgba(255,255,255,0.55)' : theme.primary} />
           <View style={styles.headerBody}>
             <Text style={[styles.headerTitle, { color: theme.text }]} numberOfLines={1}>
               {bundle.meta.title}
             </Text>
-            <Text style={[styles.headerScene, { color: theme.gold }]} numberOfLines={1}>
-              {scene?.title ?? playthrough.label}
-            </Text>
+            <View style={styles.headerSubRow}>
+              {bond?.mood ? (
+                <View style={[styles.moodChip, { backgroundColor: theme.primarySoft }]}>
+                  <Text style={[styles.moodText, { color: theme.accent }]} numberOfLines={1}>
+                    {bond.mood.charAt(0).toUpperCase() + bond.mood.slice(1)}
+                  </Text>
+                </View>
+              ) : null}
+              <Text style={[styles.headerScene, { color: classic ? theme.gold : theme.textFaint }]} numberOfLines={1}>
+                {scene?.title ?? playthrough.label}
+              </Text>
+            </View>
           </View>
         </Pressable>
 
-        <View style={[styles.modeBtn, { backgroundColor: withAlpha(aiReady ? theme.success : theme.text, 0.08), borderColor: withAlpha(aiReady ? theme.success : theme.text, 0.18) }]}>
+        <Pressable
+          onPress={() => navigation.navigate('Yaadein', { playthroughId: playthrough.id })}
+          hitSlop={8}
+          accessibilityRole="button"
+          accessibilityLabel="Yaadein"
+          style={({ pressed }) => [
+            styles.backBtn,
+            styles.memBtn,
+            { borderColor: 'rgba(255,255,255,0.12)', backgroundColor: 'rgba(255,255,255,0.05)', opacity: pressed ? 0.7 : 1 },
+          ]}
+        >
+          <Icon name="sparkles-outline" size={17} color={theme.textDim} />
+        </Pressable>
+
+        <View
+          style={[
+            styles.modeBtn,
+            classic
+              ? { backgroundColor: withAlpha(aiReady ? theme.success : theme.text, 0.08), borderColor: withAlpha(aiReady ? theme.success : theme.text, 0.18) }
+              : { backgroundColor: 'rgba(255,255,255,0.05)', borderColor: 'rgba(255,255,255,0.10)' },
+          ]}
+        >
           <View style={[styles.modeDot, { backgroundColor: aiReady ? theme.success : theme.textFaint }]} />
-          <Text style={[styles.modeText, { color: aiReady ? '#A7F3CF' : theme.textDim }]}>{aiReady ? 'AI' : 'Offline'}</Text>
+          <Text style={[styles.modeText, { color: classic && aiReady ? '#A7F3CF' : theme.textDim }]}>{aiReady ? 'AI' : 'Offline'}</Text>
         </View>
       </View>
 
       {bundle.story.userRole ? (
         <View style={[styles.roleBanner, { backgroundColor: AMOLED, borderColor: 'rgba(255,255,255,0.08)' }]}>
-          <Icon name="person" size={13} color={theme.accent} />
-          <Text style={[styles.roleLabel, { color: theme.accent }]}>YOU ARE</Text>
+          <Icon name="person" size={13} color={classic ? theme.accent : theme.textFaint} />
+          <Text style={[styles.roleLabel, { color: classic ? theme.accent : theme.textFaint }]}>YOU ARE</Text>
           <Text style={[styles.roleText, { color: theme.textDim }]} numberOfLines={1}>
             {makePlayerTextFn(bundle.meta, profile?.nickname)(bundle.story.userRole)}
           </Text>
-          {cast.length > 0 ? (
+          {bond?.value != null ? (
+            <View style={styles.bond} accessibilityLabel={`Bond with ${bond.name}: ${bond.value}%`}>
+              <Icon name="heart" size={12} color={theme.primary} />
+              <View style={[styles.bondTrack, { backgroundColor: 'rgba(255,255,255,0.10)' }]}>
+                <View style={[styles.bondFill, { width: `${bond.value}%`, backgroundColor: theme.primary }]} />
+              </View>
+              <Text style={[styles.bondText, { color: theme.text }]}>{bond.value}%</Text>
+            </View>
+          ) : cast.length > 0 ? (
             <View style={styles.presence} accessibilityLabel={`In this story: ${cast.map((c) => c.name).join(', ')}`}>
               {cast.slice(0, 3).map((c, i) => (
                 <View key={c.id} style={[styles.presenceSlot, i > 0 && styles.presenceOverlap]}>
@@ -635,12 +825,18 @@ export function Chat({ navigation, route }: Props) {
 
         <View style={[styles.inputBar, { borderColor: 'rgba(255,255,255,0.08)', backgroundColor: AMOLED }]}>
           {playthrough.messageCount > 8 ? (
-            <View style={styles.memoryRow}>
+            <Pressable
+              onPress={() => navigation.navigate('Yaadein', { playthroughId: playthrough.id })}
+              accessibilityRole="button"
+              accessibilityLabel="Open Yaadein"
+              style={styles.memoryRow}
+            >
               <Icon name="sparkles-outline" size={12} color={theme.textFaint} />
               <Text style={[styles.memoryText, { color: theme.textFaint }]}>
                 {playthrough.messageCount} moments remembered in this journey
               </Text>
-            </View>
+              <Text style={[styles.memoryText, { color: theme.textDim, fontWeight: '600' }]}>· Yaadein dekho</Text>
+            </Pressable>
           ) : null}
           {actionsOpen ? (
             <View style={[styles.actionMenu, { backgroundColor: theme.surface2, borderColor: theme.border }]}>
@@ -745,10 +941,14 @@ export function Chat({ navigation, route }: Props) {
               accessibilityLabel="Send"
               style={({ pressed }) => [
                 styles.send,
-                { opacity: sending || !hasText ? 0.4 : pressed ? 0.85 : 1, transform: [{ scale: pressed ? 0.96 : 1 }] },
+                classic
+                  ? { opacity: sending || !hasText ? 0.4 : pressed ? 0.85 : 1, transform: [{ scale: pressed ? 0.96 : 1 }] }
+                  : { backgroundColor: hasText ? theme.primary : theme.surface3, opacity: sending ? 0.4 : pressed ? 0.85 : 1, transform: [{ scale: pressed ? 0.96 : 1 }] },
               ]}
             >
-              <LinearGradient colors={[...GRADIENTS.primary]} start={{ x: 0, y: 0 }} end={{ x: 1, y: 1 }} style={StyleSheet.absoluteFill} />
+              {classic ? (
+                <LinearGradient colors={[...CLASSIC_GRADIENTS.primary]} start={{ x: 0, y: 0 }} end={{ x: 1, y: 1 }} style={StyleSheet.absoluteFill} />
+              ) : null}
               <Icon name="arrow-up" size={ICON_SIZE.md} color="#fff" strokeWidth={2.4} />
             </Pressable>
           </View>
@@ -779,12 +979,19 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
   },
   headerIdentity: { flex: 1, flexDirection: 'row', alignItems: 'center', gap: 10, minWidth: 0 },
-  face: { width: 42, height: 42, borderRadius: 21, overflow: 'hidden', borderWidth: 1.5, alignItems: 'center', justifyContent: 'center' },
+  face: { width: 42, height: 42, borderRadius: 21, overflow: 'hidden', borderWidth: 2, alignItems: 'center', justifyContent: 'center' },
   faceImg: { width: 42, height: 42 },
-  faceLetter: { fontSize: 15, fontWeight: '900' },
+  faceLetter: { fontSize: 15, fontWeight: '800' },
   headerBody: { flex: 1, minWidth: 0 },
-  headerTitle: { fontSize: 16, fontWeight: '900', letterSpacing: -0.3, color: '#fff' },
-  headerScene: { fontSize: SCALE.caption, letterSpacing: 0.1, marginTop: 2, fontWeight: '700' },
+  headerTitle: { fontSize: 16, fontWeight: '700', letterSpacing: -0.3, color: '#fff' },
+  headerSubRow: { flexDirection: 'row', alignItems: 'center', gap: 6, marginTop: 3, minWidth: 0 },
+  headerScene: { fontSize: SCALE.caption, letterSpacing: 0.1, fontWeight: '500', flexShrink: 1 },
+  moodChip: { paddingHorizontal: 7, paddingVertical: 2, borderRadius: 6, maxWidth: 110 },
+  moodText: { fontSize: 11, fontWeight: '600' },
+  bond: { flexDirection: 'row', alignItems: 'center', gap: 6 },
+  bondTrack: { width: 52, height: 4, borderRadius: 2, overflow: 'hidden' },
+  bondFill: { height: 4, borderRadius: 2 },
+  bondText: { fontSize: 11, fontWeight: '700', minWidth: 28 },
   presence: { flexDirection: 'row', alignItems: 'center' },
   presenceSlot: { alignItems: 'center', justifyContent: 'center' },
   presenceOverlap: { marginLeft: -7 },
@@ -798,7 +1005,7 @@ const styles = StyleSheet.create({
     paddingVertical: 5,
   },
   modeDot: { width: 5, height: 5, borderRadius: 2.5 },
-  modeText: { fontSize: SCALE.micro, fontWeight: '800', letterSpacing: 0.3 },
+  modeText: { fontSize: SCALE.micro, fontWeight: '600', letterSpacing: 0.3 },
   roleBanner: {
     flexDirection: 'row',
     alignItems: 'center',
@@ -807,7 +1014,7 @@ const styles = StyleSheet.create({
     paddingVertical: 9,
     borderBottomWidth: StyleSheet.hairlineWidth,
   },
-  roleLabel: { fontSize: SCALE.micro, fontWeight: '900', letterSpacing: 1.2 },
+  roleLabel: { fontSize: SCALE.micro, fontWeight: '700', letterSpacing: 1.1 },
   roleText: { flex: 1, fontSize: SCALE.caption, fontWeight: '500' },
   list: { paddingHorizontal: 12, paddingVertical: 12, gap: 2 },
   more: { textAlign: 'center', fontSize: SCALE.micro, padding: 10 },
@@ -817,23 +1024,24 @@ const styles = StyleSheet.create({
     paddingBottom: 12,
     borderTopWidth: StyleSheet.hairlineWidth,
   },
+  memBtn: { width: 36, height: 36, borderRadius: 18, marginRight: 8 },
   memoryRow: { flexDirection: 'row', alignItems: 'center', gap: 6, marginBottom: 8, paddingHorizontal: 4 },
   memoryText: { fontSize: SCALE.micro, fontWeight: '600', fontStyle: 'italic' },
   actionMenu: { borderWidth: 1, borderRadius: RADIUS.lg, padding: 11, marginBottom: 10 },
   actionMenuHeader: { flexDirection: 'row', alignItems: 'center', gap: 9, marginBottom: 10 },
   actionMenuBadge: { width: 32, height: 32, borderRadius: 11, alignItems: 'center', justifyContent: 'center' },
   actionMenuHeading: { flex: 1, minWidth: 0 },
-  actionMenuTitle: { fontSize: 13.5, fontWeight: '800' },
+  actionMenuTitle: { fontSize: 13.5, fontWeight: '700' },
   actionMenuSubtitle: { fontSize: 10.5, marginTop: 2 },
   actionMenuClose: { width: 30, height: 30, alignItems: 'center', justifyContent: 'center', borderRadius: 10 },
   actionGrid: { flexDirection: 'row', flexWrap: 'wrap', justifyContent: 'space-between', rowGap: 8 },
   actionTile: { width: '48.5%', minHeight: 76, borderRadius: 13, borderWidth: 1, padding: 9, justifyContent: 'center' },
   actionTileIcon: { width: 25, height: 25, borderRadius: 9, alignItems: 'center', justifyContent: 'center', marginBottom: 5 },
-  actionTileTitle: { fontSize: 11.5, fontWeight: '800' },
+  actionTileTitle: { fontSize: 11.5, fontWeight: '700' },
   actionTileHint: { fontSize: 9.5, marginTop: 2 },
   setupHint: { borderTopWidth: StyleSheet.hairlineWidth, marginTop: 10, paddingTop: 9, flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between', gap: 10 },
   setupHintText: { fontSize: 10.5, flex: 1 },
-  setupHintLink: { fontSize: 11, fontWeight: '800' },
+  setupHintLink: { fontSize: 11, fontWeight: '700' },
   inputRow: { flexDirection: 'row', alignItems: 'flex-end', gap: 8 },
   input: {
     flex: 1,
@@ -849,9 +1057,9 @@ const styles = StyleSheet.create({
   ideasButton: { width: 48, height: 48, borderRadius: 24, borderWidth: 1, alignItems: 'center', justifyContent: 'center' },
   send: { width: 48, height: 48, borderRadius: 24, overflow: 'hidden', alignItems: 'center', justifyContent: 'center' },
   errCard: { borderWidth: 1, borderRadius: RADIUS.lg, padding: 14, marginVertical: 10 },
-  errTitle: { fontSize: 14.5, fontWeight: '800' },
+  errTitle: { fontSize: 14.5, fontWeight: '700' },
   errSub: { fontSize: SCALE.small, marginTop: 6, lineHeight: 19 },
   errBtns: { flexDirection: 'row', gap: 8, marginTop: 12 },
   errBtn: { paddingHorizontal: 15, paddingVertical: 9, borderRadius: RADIUS.pill },
-  errBtnText: { fontWeight: '800', fontSize: SCALE.small },
+  errBtnText: { fontWeight: '700', fontSize: SCALE.small },
 });

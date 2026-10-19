@@ -27,7 +27,7 @@ export function Settings({ navigation }: Props) {
   const { theme, profile, activeProvider, favoriteIds, recentPlaythroughs } = useApp();
   const { handleScroll } = useNavScroll();
   const nav = navigation as unknown as { navigate: (s: string, o?: object) => void };
-  const version = Constants.expoConfig?.version ?? '2.6.2';
+  const version = Constants.expoConfig?.version ?? '2.7.0';
 
   /* One row inside a grouped card. */
   function row(
@@ -221,7 +221,7 @@ const styles = StyleSheet.create({
   // lives here — without it every card touched the screen edge.
   page: { width: '100%', maxWidth: LAYOUT.contentMaxWidth + 120, alignSelf: 'center', paddingHorizontal: SPACING.page },
   header: { paddingTop: 6, paddingBottom: 14 },
-  kicker: { fontSize: SCALE.micro, letterSpacing: 1.4, fontWeight: '900', marginTop: 4 },
+  kicker: { fontSize: SCALE.micro, letterSpacing: 1.4, fontWeight: '800', marginTop: 4 },
   hello: { ...TYPE.display, marginTop: 4, letterSpacing: -0.5 },
 
   profileCard: { borderRadius: RADIUS.xxl, overflow: 'hidden', padding: 18 },
@@ -236,12 +236,12 @@ const styles = StyleSheet.create({
     borderWidth: 2,
     borderColor: 'rgba(255,255,255,0.7)',
   },
-  profileInitial: { fontSize: 25, fontWeight: '900', color: '#FFFFFF' },
+  profileInitial: { fontSize: 25, fontWeight: '800', color: '#FFFFFF' },
   profileBody: { flex: 1, minWidth: 0 },
-  profileName: { fontSize: 23, fontWeight: '900', letterSpacing: -0.5, color: '#FFFFFF' },
+  profileName: { fontSize: 23, fontWeight: '800', letterSpacing: -0.5, color: '#FFFFFF' },
   profileMeta: { flexDirection: 'row', alignItems: 'center', gap: 6, marginTop: 6 },
   metaPill: { paddingHorizontal: 8, paddingVertical: 3, borderRadius: RADIUS.pill, backgroundColor: 'rgba(0,0,0,0.22)' },
-  metaPillText: { fontSize: SCALE.micro, fontWeight: '900', letterSpacing: 0.4, color: '#FFFFFF' },
+  metaPillText: { fontSize: SCALE.micro, fontWeight: '800', letterSpacing: 0.4, color: '#FFFFFF' },
   profileHint: { fontSize: SCALE.caption, fontWeight: '600', color: 'rgba(255,255,255,0.82)', flexShrink: 1 },
   profileEdit: {
     width: TOUCH.sm,
@@ -257,19 +257,19 @@ const styles = StyleSheet.create({
     marginTop: 18,
     paddingVertical: 12,
     borderRadius: RADIUS.lg,
-    backgroundColor: 'rgba(11,8,20,0.26)',
+    backgroundColor: 'rgba(10,11,16,0.26)',
   },
   profileStat: { flex: 1, alignItems: 'center' },
-  profileStatValue: { fontSize: 20, fontWeight: '900', color: '#FFFFFF' },
-  profileStatLabel: { fontSize: 10, fontWeight: '800', letterSpacing: 1, color: 'rgba(255,255,255,0.75)', marginTop: 2 },
+  profileStatValue: { fontSize: 20, fontWeight: '800', color: '#FFFFFF' },
+  profileStatLabel: { fontSize: 10, fontWeight: '700', letterSpacing: 1, color: 'rgba(255,255,255,0.75)', marginTop: 2 },
   profileStatDivider: { width: 1, height: 26, backgroundColor: 'rgba(255,255,255,0.2)' },
 
   aiCard: { borderWidth: 1, borderRadius: RADIUS.xl, padding: 15, marginTop: 12 },
   aiTop: { flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between' },
   aiStatusRow: { flexDirection: 'row', alignItems: 'center', gap: 7 },
   aiDot: { width: 6, height: 6, borderRadius: 3 },
-  aiKicker: { fontSize: SCALE.micro, fontWeight: '900', letterSpacing: 1.2 },
-  aiTitle: { fontSize: 16.5, fontWeight: '800', letterSpacing: -0.25, marginTop: 9 },
+  aiKicker: { fontSize: SCALE.micro, fontWeight: '800', letterSpacing: 1.2 },
+  aiTitle: { fontSize: 16.5, fontWeight: '700', letterSpacing: -0.25, marginTop: 9 },
   aiSub: { fontSize: SCALE.small, lineHeight: 18, marginTop: 5 },
 
   group: { borderWidth: 1, borderRadius: RADIUS.xl, overflow: 'hidden' },
@@ -286,6 +286,6 @@ const styles = StyleSheet.create({
   rowTitle: { fontSize: 15, fontWeight: '700', letterSpacing: -0.15 },
   rowSub: { fontSize: SCALE.caption, fontWeight: '500' },
   badge: { borderRadius: RADIUS.pill, paddingHorizontal: 9, paddingVertical: 4, borderWidth: 1 },
-  badgeText: { fontSize: SCALE.micro, fontWeight: '900', letterSpacing: 0.5 },
+  badgeText: { fontSize: SCALE.micro, fontWeight: '800', letterSpacing: 0.5 },
   footer: { fontSize: SCALE.micro, textAlign: 'center', marginTop: SPACING.xxl, lineHeight: 16 },
 });

@@ -19,7 +19,7 @@ const REPO = 'https://github.com/pushparaj9749/ankitstorychat';
 
 export function About({ navigation }: Props) {
   const { theme } = useApp();
-  const version = Constants.expoConfig?.version ?? '2.6.2';
+  const version = Constants.expoConfig?.version ?? '2.7.0';
 
   return (
     <Screen>
@@ -78,7 +78,7 @@ const styles = StyleSheet.create({
   page: { width: '100%', maxWidth: LAYOUT.contentMaxWidth + 120, alignSelf: 'center' },
   wrap: { alignItems: 'center', paddingTop: SPACING.xl },
   logo: { width: 84, height: 84, borderRadius: 26 },
-  name: { fontSize: 32, fontWeight: '900', marginTop: 14, letterSpacing: -0.5 },
+  name: { fontSize: 32, fontWeight: '800', marginTop: 14, letterSpacing: -0.5 },
   ver: { fontSize: SCALE.small, marginTop: 4, fontWeight: '700' },
   desc: { fontSize: SCALE.small, textAlign: 'center', lineHeight: 22, marginTop: 12, paddingHorizontal: 10 },
   gap: { width: '100%', marginTop: 10 },
@@ -90,10 +90,10 @@ const styles = StyleSheet.create({
     marginTop: SPACING.xl,
     alignItems: 'center',
   },
-  devTitle: { fontSize: SCALE.title, fontWeight: '800', marginTop: 8 },
+  devTitle: { fontSize: SCALE.title, fontWeight: '700', marginTop: 8 },
   soon: {
     fontSize: SCALE.micro,
-    fontWeight: '800',
+    fontWeight: '700',
     marginTop: 8,
     paddingHorizontal: 12,
     paddingVertical: 4,
@@ -101,6 +101,6 @@ const styles = StyleSheet.create({
     overflow: 'hidden',
   },
   devDesc: { fontSize: SCALE.small, textAlign: 'center', lineHeight: 21, marginTop: 10 },
-  link: { fontWeight: '800', marginTop: 12, fontSize: SCALE.small },
+  link: { fontWeight: '700', marginTop: 12, fontSize: SCALE.small },
   credit: { fontSize: SCALE.micro, textAlign: 'center', marginTop: SPACING.xl, lineHeight: 18 },
 });

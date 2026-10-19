@@ -1,7 +1,9 @@
 /**
- * KISSA v2.6 — Bottom Navigation
- * Floating glass capsule; the active tab expands into a magenta→violet pill
- * with a filled (duotone) SVG icon + label, idle tabs show line icons.
+ * KISSA v2.7 — Bottom Navigation
+ * Floating graphite capsule: Home · Explore · [ + ] · Library · You.
+ * The active tab shows a filled SVG icon in bright text with a small rose
+ * indicator; idle tabs show quiet line icons. The centre "+" is the one
+ * accent-coloured control (create / submit a story).
  * Direction-aware auto-hide with hysteresis, no flicker (unchanged).
  */
 import React from 'react';
@@ -10,8 +12,7 @@ import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import type { BottomTabBarProps } from '@react-navigation/bottom-tabs';
 import { useApp } from '../state/AppContext';
 import { useNavScroll } from '../navigation/NavScrollContext';
-import { LinearGradient } from 'expo-linear-gradient';
-import { GLASS, GRADIENTS, RADIUS, SCALE, SHADOWS, TOUCH } from '../theme';
+import { GLASS, RADIUS, SCALE, SHADOWS, TOUCH } from '../theme';
 import { Icon, type IconName } from './icons';
 
 interface TabMeta {
@@ -67,7 +68,7 @@ export function KissaBottomTabBar({ state, descriptors, navigation }: BottomTabB
             });
           };
 
-          return (
+          const tab = (
             <Pressable
               key={route.key}
               accessibilityRole="tab"
@@ -75,30 +76,43 @@ export function KissaBottomTabBar({ state, descriptors, navigation }: BottomTabB
               accessibilityLabel={options.tabBarAccessibilityLabel ?? meta.label}
               onPress={onPress}
               onLongPress={onLongPress}
-              style={({ pressed }) => [styles.tabItem, isFocused && styles.tabItemActive, { opacity: pressed ? 0.7 : 1 }]}
+              style={({ pressed }) => [styles.tabItem, { opacity: pressed ? 0.7 : 1 }]}
             >
-              {isFocused ? (
-                <View style={[styles.activePill, SHADOWS.glowAccent]}>
-                  <LinearGradient
-                    colors={[...GRADIENTS.primary]}
-                    start={{ x: 0, y: 0 }}
-                    end={{ x: 1, y: 1 }}
-                    style={StyleSheet.absoluteFill}
-                  />
-                  <Icon name={meta.icon} size={19} color="#FFFFFF" />
-                  <Text style={styles.activeLabel} numberOfLines={1}>
-                    {meta.label}
-                  </Text>
-                </View>
-              ) : (
-                <View style={styles.idle}>
-                  <Icon name={`${meta.icon}-outline` as IconName} size={21} color={theme.textDim} />
-                  <Text style={[styles.label, { color: theme.textFaint }]} numberOfLines={1}>
-                    {meta.label}
-                  </Text>
-                </View>
-              )}
+              <View style={styles.idle}>
+                <Icon
+                  name={(isFocused ? meta.icon : `${meta.icon}-outline`) as IconName}
+                  size={22}
+                  color={isFocused ? theme.text : theme.textFaint}
+                />
+                <Text
+                  style={[styles.label, { color: isFocused ? theme.text : theme.textFaint }, isFocused && styles.labelActive]}
+                  numberOfLines={1}
+                >
+                  {meta.label}
+                </Text>
+                <View style={[styles.indicator, { backgroundColor: isFocused ? theme.primary : 'transparent' }]} />
+              </View>
             </Pressable>
+          );
+          if (index !== 1) return tab;
+          return (
+            <React.Fragment key={route.key}>
+              {tab}
+              <View style={styles.tabItem}>
+                <Pressable
+                  onPress={() => (navigation as any).navigate('SubmitStory')}
+                  accessibilityRole="button"
+                  accessibilityLabel="Create a story"
+                  hitSlop={6}
+                  style={({ pressed }) => [
+                    styles.create,
+                    { backgroundColor: theme.primary, transform: [{ scale: pressed ? 0.92 : 1 }] },
+                  ]}
+                >
+                  <Icon name="add" size={24} color="#FFFFFF" />
+                </Pressable>
+              </View>
+            </React.Fragment>
           );
         })}
       </View>
@@ -122,11 +136,10 @@ const styles = StyleSheet.create({
     maxWidth: 520,
     flexDirection: 'row',
     alignItems: 'center',
-    height: 66,
+    height: 64,
     borderRadius: RADIUS.pill,
     borderWidth: 1,
-    paddingHorizontal: 7,
-    gap: 2,
+    paddingHorizontal: 6,
   },
   tabItem: {
     flex: 1,
@@ -134,23 +147,19 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
   },
-  tabItemActive: { flex: 1.55 },
-  activePill: {
-    height: 50,
-    alignSelf: 'stretch',
-    borderRadius: RADIUS.pill,
-    overflow: 'hidden',
-    flexDirection: 'row',
+  idle: { alignItems: 'center', justifyContent: 'center', gap: 2, paddingTop: 4 },
+  label: {
+    fontSize: SCALE.micro - 0.5,
+    fontWeight: '500',
+    letterSpacing: 0.2,
+  },
+  labelActive: { fontWeight: '700' },
+  indicator: { width: 4, height: 4, borderRadius: 2, marginTop: 2 },
+  create: {
+    width: 46,
+    height: 46,
+    borderRadius: 23,
     alignItems: 'center',
     justifyContent: 'center',
-    gap: 7,
-    paddingHorizontal: 12,
-  },
-  activeLabel: { fontSize: 13, fontWeight: '900', color: '#FFFFFF', letterSpacing: 0.1 },
-  idle: { alignItems: 'center', justifyContent: 'center', gap: 3 },
-  label: {
-    fontSize: SCALE.micro - 1,
-    fontWeight: '700',
-    letterSpacing: 0.3,
   },
 });

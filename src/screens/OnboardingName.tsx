@@ -33,7 +33,7 @@ export function OnboardingName({ navigation }: Props) {
           <View style={styles.steps}>
             <View style={styles.stepBar}>
               <LinearGradient
-                colors={['#FF4F8B', '#A855F7']}
+                colors={['#F0567E', '#9A9CC4']}
                 start={{ x: 0, y: 0.5 }}
                 end={{ x: 1, y: 0.5 }}
                 style={StyleSheet.absoluteFill}
@@ -109,10 +109,10 @@ const styles = StyleSheet.create({
   steps: { flexDirection: 'row', alignItems: 'center', gap: 7 },
   stepBar: { flex: 1, height: 3, borderRadius: RADIUS.pill, overflow: 'hidden' },
   stepBarIdle: { opacity: 0.6 },
-  stepText: { fontSize: SCALE.micro, fontWeight: '900', letterSpacing: 1.2, marginLeft: 3 },
+  stepText: { fontSize: SCALE.micro, fontWeight: '800', letterSpacing: 1.2, marginLeft: 3 },
   brandBlock: { alignItems: 'flex-start', marginTop: SPACING.xxl },
   logo: { width: 78, height: 78, borderRadius: 24 },
-  wordmark: { fontSize: SCALE.micro, fontWeight: '800', letterSpacing: 1.4, marginTop: 12 },
+  wordmark: { fontSize: SCALE.micro, fontWeight: '700', letterSpacing: 1.4, marginTop: 12 },
   title: { ...TYPE.displayXL, marginTop: SPACING.xl },
   sub: { fontSize: SCALE.body, lineHeight: 23, marginTop: SPACING.md, marginBottom: SPACING.xxl },
   inputWrap: {

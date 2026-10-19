@@ -175,9 +175,9 @@ const styles = StyleSheet.create({
     gap: 8,
   },
   cardHeader: { flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between' },
-  label: { fontSize: 16, fontWeight: '800', letterSpacing: -0.2 },
+  label: { fontSize: 16, fontWeight: '700', letterSpacing: -0.2 },
   statusPill: { paddingHorizontal: 8, paddingVertical: 3, borderRadius: RADIUS.pill },
-  statusText: { fontSize: SCALE.micro, fontWeight: '900', letterSpacing: 0.4 },
+  statusText: { fontSize: SCALE.micro, fontWeight: '800', letterSpacing: 0.4 },
   meta: { fontSize: 12, letterSpacing: 0.1 },
   cardFooter: {
     flexDirection: 'row',
@@ -196,5 +196,5 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     gap: 4,
   },
-  resumeText: { color: '#fff', fontSize: 12, fontWeight: '800' },
+  resumeText: { color: '#fff', fontSize: 12, fontWeight: '700' },
 });

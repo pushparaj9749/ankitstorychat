@@ -380,6 +380,8 @@ export interface NotificationSettings {
 
 export interface AppSettings {
   theme: 'midnight' | 'amoled';
+  /** Whole-app look: 'noir' (v2.7 Kissa Noir, default) or 'classic' (pre-v2.7 Kissa Night). */
+  uiTemplate: 'noir' | 'classic';
   textSize: 'small' | 'medium' | 'large';
   animations: boolean;
   reducedMotion: boolean;
@@ -400,6 +402,7 @@ export interface AppSettings {
 
 export const DEFAULT_SETTINGS: AppSettings = {
   theme: 'midnight',
+  uiTemplate: 'noir',
   textSize: 'medium',
   animations: true,
   reducedMotion: false,
@@ -836,6 +839,8 @@ export type RootStackParamList = {
   StoryDetail: { storyId: string };
   Chat: { playthroughId: string };
   Saves: { storyId: string };
+  /** Journey memory viewer (summary, recent facts, key facts, chapters) — never shows story secrets. */
+  Yaadein: { playthroughId: string };
   AIAddons: undefined;
   ProviderEditor: { providerId?: string };
   SettingsProfile: undefined;

@@ -70,7 +70,7 @@ const styles = StyleSheet.create({
     padding: 16,
     marginTop: 12,
   },
-  heading: { fontSize: SCALE.body, fontWeight: '800', marginBottom: 8 },
+  heading: { fontSize: SCALE.body, fontWeight: '700', marginBottom: 8 },
   para: { fontSize: SCALE.small, lineHeight: 22, marginBottom: 8 },
   footer: { fontSize: SCALE.micro, marginTop: 24, fontStyle: 'italic', lineHeight: 18, textAlign: 'center' },
 });

@@ -22,6 +22,7 @@ import { teenSafetyGuidance } from './ageGate';
 import { isFullyFadedLine, matchSpeakerPrefix } from './markup';
 import { MAX_MEMORY_NOTES, renderMemoryLine } from './memoryCore';
 import { interpolatePlayerName } from './playerName';
+import { guardVisibleText, sanitizeStoredText, type GuardResult } from './leakGuard';
 import { clamp, norm, tokens } from './utils';
 import type { WorldState } from './worldState';
 
@@ -115,6 +116,8 @@ export interface ParsedAssistant {
   speaker: string | null;
   worldStateRaw?: unknown;
   rawStateJson?: Record<string, unknown>;
+  /** v2.7.0: non-JSON leak shapes the parser already removed (see leakGuard). */
+  leakReasons?: string[];
 }
 
 /**
@@ -494,6 +497,10 @@ export function stripStateLeakage(text: string): string {
     }
   }
 
+  // 4) v2.7.0: every NON-JSON shape (label lines, headings + lists, YAML-ish
+  // state, [STATE]/(OOC) tags, HIDDEN TRUTH, HTML comments) — see leakGuard.
+  out = guardVisibleText(out).text;
+
   return out.replace(/\n{3,}/g, '\n\n').trim();
 }
 
@@ -679,7 +686,11 @@ export function parseAssistantResponse(raw: string): ParsedAssistant {
     }
   }
 
-  // 3) Cleanup display text
+  // 3) Cleanup display text. Non-JSON leaks are removed BEFORE speaker
+  // detection, otherwise "Important objects: …" would become a "speaker".
+  const guarded = guardVisibleText(displayText);
+  displayText = guarded.text;
+  const leakReasons = guarded.reasons;
   displayText = displayText.replace(/\n{3,}/g, '\n\n').trim();
 
   // Also remove any stray leftover markers like "kissa-state" at end with empty JSON? Already handled.
@@ -711,6 +722,7 @@ export function parseAssistantResponse(raw: string): ParsedAssistant {
     speaker,
     worldStateRaw,
     rawStateJson,
+    leakReasons,
   };
 }
 
@@ -746,8 +758,13 @@ export function matchChoice(freeText: string, choices: SceneChoice[]): SceneChoi
 
 /* ---------------- prompt building ---------------- */
 
-/** Default sliding window; stories can override via memory.json.shortTermWindow. */
-export const DEFAULT_SHORT_TERM_WINDOW = 16;
+/**
+ * STAGE 2 — recent conversation, verbatim. v2.7.0: the last ~20 chats (one chat
+ * = the reader's message + the narrator's reply = 2 rows) always travel with the
+ * prompt. Story packs can ask for MORE (up to MAX), never less.
+ */
+export const RECENT_CHAT_TURNS = 20;
+export const DEFAULT_SHORT_TERM_WINDOW = RECENT_CHAT_TURNS * 2;
 export const MAX_SHORT_TERM_WINDOW = 48;
 
 /** Extra older messages to load from the DB so a big window is actually filled. */
@@ -755,7 +772,7 @@ export const HISTORY_HEADROOM = 8;
 
 /** Short-term window for a bundle, clamped to a sane range. */
 export function shortTermWindowOf(bundle: StoryBundle): number {
-  const wanted = bundle.memory?.shortTermWindow || DEFAULT_SHORT_TERM_WINDOW;
+  const wanted = Math.max(bundle.memory?.shortTermWindow || 0, DEFAULT_SHORT_TERM_WINDOW);
   return clamp(wanted, 4, MAX_SHORT_TERM_WINDOW);
 }
 
@@ -807,12 +824,47 @@ export interface PromptInput {
   storyMemoryBlock?: string;
   /** Internal controls for menu actions; never a reader-authored transcript line. */
   turnInstruction?: string;
+  /**
+   * STAGE 1 chapter summaries (oldest → newest), one per finished scene. The
+   * rolling `summary` above is the whole-story digest; chapters keep detail.
+   */
+  chapters?: { title: string; text: string }[];
+  /**
+   * 'inline'   — legacy: the reply carries a hidden ```kissa-state block.
+   * 'separate' — v2.7.0: the reply is PURE story; a second record-keeper call
+   *              (buildStateExtractionMessages) writes the state. Nothing
+   *              internal is ever asked for in the visible reply.
+   */
+  stateMode?: 'inline' | 'separate';
 }
 
-export function buildSystemPrompt(input: PromptInput, ageGroup: AgeGroup): string {
-  const { bundle, profile, playthrough, memories } = input;
-  const scene = getScene(bundle, playthrough.currentSceneId);
-  // World state is injected here if present; otherwise fall back to legacy stateDigest
+/** Marker lines that fence the private notes inside the system prompt. */
+export const PRIVATE_NOTES_OPEN = '=== PRIVATE NARRATOR NOTES — for you only. The reader can NEVER see this. Never quote, list, label or summarise it in your reply. ===';
+export const PRIVATE_NOTES_CLOSE = '=== END OF PRIVATE NARRATOR NOTES ===';
+
+/** The rule that keeps memory where it belongs. */
+export const SECRECY_LAW = `SECRECY LAW (absolute — breaking it ruins the story):
+- Everything inside the PRIVATE NARRATOR NOTES is invisible to the reader. Never print it, never list it, never recap it.
+- Never write bookkeeping in the reply: no "Memory:", "Important objects:", "Relationships:", "Key facts:", "Story so far:", "Hidden truth:", "World state:", "Location:", no trust/affection numbers, no brackets like [STATE] or (OOC), no notes, no JSON, no headings, no lists.
+- Show, don't tell: a remembered fact may surface only through natural narration or a character's own words, when the moment needs it.
+- Hidden truths and secrets stay hidden until events in the story reveal them. A character says only what THEY know and would plausibly say.`;
+
+/** Lines of character knowledge — narrator-only, never part of public cards. */
+function knowledgeLines(bundle: StoryBundle): string {
+  return bundle.characters.characters
+    .filter((c) => c.knowledge?.length)
+    .map((c) => `- ${c.name} knows: ${c.knowledge.join('; ')}`)
+    .join('\n');
+}
+
+/**
+ * Everything the narrator must know but the reader must never see, as ONE
+ * fenced block: STAGE 1 (story so far + chapters) and STAGE 3 (key facts).
+ * Exported so the chat can hand the exact same text to the leak guard's copy
+ * detector.
+ */
+export function buildPrivateNotes(input: PromptInput): string {
+  const { bundle, playthrough, memories } = input;
   const worldBlock = input.worldState ? (() => {
     try {
       const { renderWorldStateForPrompt } = require('./worldState');
@@ -821,6 +873,51 @@ export function buildSystemPrompt(input: PromptInput, ageGroup: AgeGroup): strin
       return '';
     }
   })() : '';
+
+  const memLines =
+    memories.length > 0
+      ? memories.map(renderMemoryLine).join('\n')
+      : bundle.memory.seedMemories.map((m) => `- ${m}`).join('\n');
+
+  const chapters = (input.chapters ?? []).filter((c) => c.text?.trim()).slice(-4);
+  const chapterBlock = chapters.length
+    ? `CHAPTERS SO FAR (oldest first):\n${chapters.map((c, i) => `${i + 1}. ${c.title}: ${c.text.trim()}`).join('\n')}\n\n`
+    : '';
+  const summaryBlock = input.summary?.trim()
+    ? `STORY SO FAR (compressed memory — already known, never restate it):\n${input.summary.trim()}\n\n`
+    : '';
+  const stage1 = chapterBlock || summaryBlock
+    ? `STAGE 1 — THE WHOLE STORY UNTIL NOW\n${summaryBlock}${chapterBlock}`
+    : `STAGE 1 — THE WHOLE STORY UNTIL NOW\n(the journey has just begun)\n\n`;
+
+  const immediateBlock = input.immediateContext?.trim()
+    ? `LATEST TURN CUES (verbatim history is also provided below; do not repeat these lines):\n${input.immediateContext.trim()}\n\n`
+    : '';
+  const storyMemoryBlock = input.storyMemoryBlock?.trim()
+    ? `LONG-TERM STORY ARCHIVE (local, source-tagged, retrieved for this turn — treat as established canon; a later turn never erases it):\n${input.storyMemoryBlock.trim()}\n\n`
+    : '';
+  const knows = knowledgeLines(bundle);
+  const lore = bundle.world.lore?.length ? bundle.world.lore.join(' | ') : '';
+
+  const stateBlock = worldBlock
+    ? `${worldBlock}\n\nLEGACY STATE (for compat):\n${stateDigest(playthrough.state)}`
+    : `STORY STATE SO FAR:\n${stateDigest(playthrough.state)}`;
+
+  return `${PRIVATE_NOTES_OPEN}
+
+${stage1}STAGE 3 — KEY FACTS (established canon; act on them silently, never announce them)
+${stateBlock}
+
+${knows ? `CHARACTER KNOWLEDGE (who knows what — a character may act only on their own line):\n${knows}\n\n` : ''}${lore ? `LORE (background canon; any hidden truth here is revealed only through story events, never stated):\n${lore}\n\n` : ''}${storyMemoryBlock}WHAT YOU REMEMBER ABOUT THIS READER'S JOURNEY (most relevant first — this is ALREADY known, so never repeat it back, just act on it):
+${memLines}
+
+${immediateBlock}${PRIVATE_NOTES_CLOSE}`;
+}
+
+export function buildSystemPrompt(input: PromptInput, ageGroup: AgeGroup): string {
+  const { bundle, profile, playthrough } = input;
+  const scene = getScene(bundle, playthrough.currentSceneId);
+  const separate = input.stateMode === 'separate';
   // The reader's name must come from the profile, never from hardcoded story
   // text: {{playerName}} placeholders (and legacy hardcoded names) resolve to
   // profile.nickname, while CHARACTER names stay untouched.
@@ -828,27 +925,16 @@ export function buildSystemPrompt(input: PromptInput, ageGroup: AgeGroup): strin
     protectedNames: bundle.characters.characters.map((c) => c.name),
   };
 
+  // Public character cards. What a character KNOWS lives in the private notes.
   const charCards = bundle.characters.characters
     .map(
       (c) =>
-        `- ${c.name} (${c.role}): ${c.personality} Speaks like: ${c.speakingStyle} Example: "${c.sampleLine}" Goals: ${c.goals.join('; ')}. Knows: ${c.knowledge.join('; ')}.`,
+        `- ${c.name} (${c.role}): ${c.personality} Speaks like: ${c.speakingStyle} Example: "${c.sampleLine}" Goals: ${c.goals.join('; ')}.`,
     )
     .join('\n');
 
-  const memLines =
-    memories.length > 0
-      ? memories.map(renderMemoryLine).join('\n')
-      : bundle.memory.seedMemories.map((m) => `- ${m}`).join('\n');
-
-  const summaryBlock = input.summary?.trim()
-    ? `STORY SO FAR (compressed memory — already known, never restate it):\n${input.summary.trim()}\n\n`
-    : '';
-  const immediateBlock = input.immediateContext?.trim()
-    ? `LATEST TURN CUES (verbatim history is also provided below; do not repeat these lines):\n${input.immediateContext.trim()}\n\n`
-    : '';
-  const storyMemoryBlock = input.storyMemoryBlock?.trim()
-    ? `LONG-TERM STORY ARCHIVE (local, source-tagged, retrieved for this turn — treat as established canon; a later turn never erases it):\n${input.storyMemoryBlock.trim()}\n\n`
-    : '';
+  const privateNotes = buildPrivateNotes(input);
+  const windowTurns = Math.round(shortTermWindowOf(bundle) / 2);
 
   const saveHints =
     bundle.memory.extractionHints?.length
@@ -877,23 +963,22 @@ ${charCards}
 
 WORLD RULES (NEVER break these):
 ${bundle.world.rules.map((r, i) => `${i + 1}. ${r}`).join('\n')}
-LORE: ${bundle.world.lore.join(' | ')}
 
 ${sceneDigest(scene)}
 
-${worldBlock ? worldBlock + '\n\nLEGACY STATE (for compat):\n' + stateDigest(playthrough.state) : `STORY STATE SO FAR:
-${stateDigest(playthrough.state)}`}
+${SECRECY_LAW}
 
-${summaryBlock}${immediateBlock}${storyMemoryBlock}WHAT YOU REMEMBER ABOUT THIS READER'S JOURNEY (most relevant first — this is ALREADY known, so never repeat it back, just act on it):
-${memLines}
+${privateNotes}
 
+STAGE 2 — THE RECENT CONVERSATION: the last ${windowTurns} chats follow as messages, verbatim. Continue from the final one.
+${separate ? '' : `
 MEMORY DISCIPLINE — what belongs in the hidden "memory" array:
 - Worth saving: ${saveHints}
 - Never save: ${neverHints}
 - Also save whatever the reader tells you about themselves (their name, likes, fears, promises, how they want to be treated) — those facts outlive this story.
 - Save a fact only if it will still matter 20 turns from now. Write each one as a short standalone sentence (max 120 chars) naming the people involved, e.g. "Aarav ne Myra ko chai ka glass lautane ka wada kiya."
 - If a previously remembered fact turns out to be wrong or changes, save the corrected version as a new memory.
-
+`}
 CONTINUITY LAW (never break it):
 - Scene, location or time changes NEVER erase memory. What happened before still happened.
 - The LONG-TERM STORY ARCHIVE and CURRENT RELATIONSHIP STATE above are established canon. Never contradict them, never reset a relationship (a married couple stays married unless the story explicitly shows a break).
@@ -911,7 +996,7 @@ HOW TO RESPOND:
 3. Respect the current scene and its available directions; do NOT teleport the plot or invent contradicting events. If the reader does something wild, react believably and steer back toward the scene.
 4. NEVER speak as the reader. NEVER decide the reader's actions for them.
 5. When addressing the reader, use "${profile.nickname}" occasionally.
-6. After your visible reply, append a hidden state block when something changed OR when a durable new fact happened. Format exactly:
+${separate ? `6. Write ONLY the visible story reply — narration and dialogue. Do NOT append any state, memory, JSON, notes, lists or bookkeeping: a separate silent record-keeper tracks the story state.` : `6. After your visible reply, append a hidden state block when something changed OR when a durable new fact happened. Format exactly:
 \`\`\`kissa-state
 {
   "relationships": {"characterId": +5},
@@ -930,7 +1015,7 @@ HOW TO RESPOND:
   "memory": ["short fact to remember"]
 }
 \`\`\`
-Omit keys that didn't change. "scene" must be one of the story's scene ids. "endStory" only at a true ending. Keep memory facts short (under 120 chars), up to ${MAX_MEMORY_NOTES} per reply. Also use presentCharacters/activity/storyTime/importantObjects/threads when relevant. Nothing you write in "memory" or this block is shown to the reader. For high continuity, always emit location/activity/presentCharacters when they change.
+Omit keys that didn't change. "scene" must be one of the story's scene ids. "endStory" only at a true ending. Keep memory facts short (under 120 chars), up to ${MAX_MEMORY_NOTES} per reply. Also use presentCharacters/activity/storyTime/importantObjects/threads when relevant. Nothing you write in "memory" or this block is shown to the reader. For high continuity, always emit location/activity/presentCharacters when they change.`}
 7. If the reader greets you out-of-story ("hi", "hello"), stay in character briefly and pull them back into the scene.`;
 
   const systemPrompt = interpolatePlayerName(prompt, profile.nickname, playerNameContext);
@@ -943,24 +1028,190 @@ Omit keys that didn't change. "scene" must be one of the story's scene ids. "end
 export interface BuiltContext {
   system: string;
   messages: { role: 'user' | 'assistant'; content: string }[];
+  /** The exact private notes inside `system` (for the leak guard's copy check). */
+  privateNotes: string;
 }
 
 export function buildContext(input: PromptInput, ageGroup: AgeGroup): BuiltContext {
   const windowSize = shortTermWindowOf(input.bundle);
   const history = input.history.slice(-windowSize);
+  const cast = input.bundle.characters.characters.map((c) => c.name);
   const messages: BuiltContext['messages'] = [];
   for (const m of history) {
     if (m.role === 'user') messages.push({ role: 'user', content: m.text });
     else if (m.role === 'assistant') {
+      // A leak saved by an older version must not be fed back to the model —
+      // it would learn to repeat it.
+      const clean = sanitizeStoredText(m.text, cast) || m.text.trim();
       messages.push({
         role: 'assistant',
-        content: m.speaker ? `${m.speaker}: ${m.text}` : m.text,
+        content: m.speaker ? `${m.speaker}: ${clean}` : clean,
       });
     } else if (m.role === 'narration') {
       messages.push({ role: 'assistant', content: `[Scene] ${m.text}` });
     }
   }
-  return { system: buildSystemPrompt(input, ageGroup), messages };
+  return { system: buildSystemPrompt(input, ageGroup), messages, privateNotes: buildPrivateNotes(input) };
+}
+
+/* ---------------- v2.7.0 reply check (before the reader sees it) ---------------- */
+
+export interface ReplyCheck {
+  text: string;
+  speaker: string | null;
+  /** Something was wrong: the chat should silently ask for one rewrite. */
+  needsRewrite: boolean;
+  reasons: string[];
+}
+
+/**
+ * Final gate between the model and the screen: strips every leak shape, removes
+ * lines written for the reader, and says whether a silent rewrite is warranted.
+ */
+export function checkAssistantReply(
+  parsed: ParsedAssistant,
+  opts: { castNames: string[]; readerName?: string; privateNotes?: string },
+): ReplyCheck {
+  const base = finalizeAssistantText(parsed, '');
+  const g: GuardResult = guardVisibleText(base, {
+    protectedNames: opts.castNames,
+    hiddenNotes: opts.privateNotes,
+    readerName: opts.readerName,
+  });
+  const reasons = [...(parsed.leakReasons ?? []).filter((r) => r !== 'spoke-for-reader'), ...g.reasons];
+  // A speaker prefix that is the reader themself is also "speaking for the
+  // reader": drop that first line along with the prefix.
+  let speaker = parsed.speaker;
+  let body = g.text;
+  const reader = opts.readerName?.trim().toLowerCase();
+  const readerAliases = ['you', 'tum', 'aap', 'reader', 'player', 'user', ...(reader ? [reader] : [])];
+  const castLower = opts.castNames.map((n) => n.toLowerCase());
+  if (speaker && readerAliases.includes(speaker.trim().toLowerCase()) && !castLower.includes(speaker.trim().toLowerCase())) {
+    speaker = null;
+    reasons.push('spoke-for-reader');
+    const lines = body.split('\n');
+    const first = lines.findIndex((l) => l.trim());
+    if (first >= 0) lines.splice(first, 1);
+    body = lines.join('\n').trim();
+    // The next dialogue line (if any) names the real speaker.
+    const next = body.split('\n').find((l) => l.trim());
+    const hit = next ? matchSpeakerPrefix(next.trim()) : null;
+    if (hit && castLower.includes(hit.name.toLowerCase())) {
+      speaker = hit.name;
+      body = body.replace(next!, hit.rest).trim();
+    }
+  }
+  const text = body.trim();
+  if (text.length < 2) reasons.push('empty');
+  const needsRewrite = reasons.some((r) => r === 'empty' || r === 'spoke-for-reader' || r === 'copied-note' || r.startsWith('label:') || r === 'tag-line' || r === 'state-marker' || r === 'html-comment');
+  return { text: text || '...', speaker, needsRewrite, reasons };
+}
+
+/** Nudge used for the single silent rewrite. */
+export const REWRITE_INSTRUCTION =
+  'Your previous draft broke the format: it showed private notes / bookkeeping or spoke for the reader. Rewrite the SAME story beat as pure narration and character dialogue only. No labels, lists, notes, JSON or state. Never write the reader\'s lines.';
+
+/* ---------------- v2.7.0 silent record-keeper (separate state call) ---------------- */
+
+export interface StateExtractionInput {
+  bundle: StoryBundle;
+  playthrough: Playthrough;
+  worldState?: WorldState | null;
+  userText: string;
+  assistantText: string;
+  assistantSpeaker?: string | null;
+  playerName: string;
+}
+
+/**
+ * Messages for the record-keeper call. It reads ONE finished exchange and
+ * returns ONLY the state JSON (same schema as the legacy kissa-state block), so
+ * the story reply itself never has to carry anything internal.
+ */
+export function buildStateExtractionMessages(input: StateExtractionInput): { role: 'system' | 'user'; content: string }[] {
+  const { bundle, playthrough } = input;
+  const scene = getScene(bundle, playthrough.currentSceneId);
+  const worldBlock = input.worldState ? (() => {
+    try {
+      const { renderWorldStateForPrompt } = require('./worldState');
+      return renderWorldStateForPrompt(input.worldState as WorldState);
+    } catch {
+      return '';
+    }
+  })() : '';
+  const ids = bundle.characters.characters.map((c) => `${c.id} = ${c.name}`).join(', ');
+  const scenes = bundle.scenes.scenes.map((sc) => `${sc.id}${sc.isEnding ? ' (ENDING)' : ''}: ${sc.title}`).join('\n');
+  const endings = bundle.scenes.scenes.filter((sc) => sc.endingId).map((sc) => sc.endingId).join(', ');
+  const saveHints =
+    bundle.memory.extractionHints?.length
+      ? bundle.memory.extractionHints.join('; ')
+      : 'anything that shifts a relationship, reveals a secret, changes the reader\'s standing, or is promised';
+  const neverHints =
+    bundle.memory.neverRemember?.length ? bundle.memory.neverRemember.join('; ') : 'real-world personal data';
+
+  const system = `You are the silent record-keeper of an interactive Hinglish story ("${bundle.story.title}"). You never write story text. You read the latest exchange and output ONLY one JSON object describing what CHANGED. No prose, no markdown, no code fence.
+
+CHARACTER IDS: ${ids}. The reader is "${input.playerName}" (use "player" as holder/id for the reader).
+CURRENT SCENE: ${scene.id} — ${scene.title}
+ALL SCENES (use an exact id for "scene" only when the story clearly moved there):
+${scenes}
+${endings ? `ENDING IDS ("endStory" only at a true ending): ${endings}\n` : ''}
+STATE BEFORE THIS EXCHANGE:
+${worldBlock || stateDigest(playthrough.state)}
+
+SCHEMA (omit every key that did not change; {} when nothing changed):
+{
+  "relationships": {"characterId": +5},
+  "flags": {"flagName": true},
+  "inventoryAdd": ["item"], "inventoryRemove": ["item"],
+  "location": "Place name",
+  "scene": "scene-id",
+  "endStory": "ending-id",
+  "presentCharacters": ["characterId"],
+  "activity": "what is happening now",
+  "playerAction": "what the reader is doing",
+  "storyTime": {"clockTime": "8:42 PM", "timeOfDay": "evening"},
+  "importantObjects": [{"name": "object", "holder": "characterId or player", "significance": "why it matters"}],
+  "threads": [{"title": "open question", "status": "unresolved", "involvedCharacters": ["Name"], "relatedLocation": "Place"}],
+  "threadsResolved": ["thread title"],
+  "memory": ["short standalone fact, max 120 chars"]
+}
+
+MEMORY RULES:
+- Worth saving: ${saveHints}
+- Never save: ${neverHints}
+- Save what the reader reveals about themselves (name, likes, fears, promises) — those facts outlive this story.
+- Save a fact only if it will still matter 20 turns from now; name the people involved; up to ${MAX_MEMORY_NOTES} facts.
+- Relationship deltas are small (-10..+10) and only when the exchange clearly earned them.
+- Never invent anything that did not happen in the exchange.`;
+
+  const reply = input.assistantSpeaker ? `${input.assistantSpeaker}: ${input.assistantText}` : input.assistantText;
+  const user = `LATEST EXCHANGE
+READER (${input.playerName}): ${input.userText?.trim() || '(no message — the reader asked the story to continue)'}
+NARRATOR: ${reply}
+
+Return the JSON object now.`;
+  return [
+    { role: 'system', content: system },
+    { role: 'user', content: user },
+  ];
+}
+
+/**
+ * Parse the record-keeper's answer with the same validation as kissa-state.
+ * Returns null when no JSON object is present at all.
+ */
+export function parseExtractedState(raw: string): ParsedAssistant | null {
+  const text = raw || '';
+  const fenced = text.match(/```[a-z_-]*\s*([\s\S]*?)```/i);
+  const body = fenced ? fenced[1] : text;
+  const start = body.indexOf('{');
+  if (start === -1) return null;
+  const extracted = extractBalancedJson(body, start);
+  const json = extracted ? extracted.jsonStr : body.slice(start);
+  const parsed = parseAssistantResponse('```kissa-state\n' + json + '\n```');
+  if (!parsed.rawStateJson && !parsed.effects && !parsed.memoryNotes.length) return null;
+  return parsed;
 }
 
 export function progressEstimate(bundle: StoryBundle, playthrough: Playthrough): number {
