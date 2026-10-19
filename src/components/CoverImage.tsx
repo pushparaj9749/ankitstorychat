@@ -49,5 +49,5 @@ export function CoverImage({
 }
 
 const styles = StyleSheet.create({
-  fallback: { fontSize: 52, fontWeight: '900' },
+  fallback: { fontSize: 52, fontWeight: '800' },
 });

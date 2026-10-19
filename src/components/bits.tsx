@@ -294,7 +294,7 @@ const styles = StyleSheet.create({
     alignSelf: 'flex-start',
   },
   ageDot: { width: 5, height: 5, borderRadius: 2.5 },
-  ageText: { fontSize: SCALE.micro, fontWeight: '800', letterSpacing: 0.5 },
+  ageText: { fontSize: SCALE.micro, fontWeight: '700', letterSpacing: 0.5 },
   chip: {
     flexDirection: 'row',
     alignItems: 'center',
@@ -357,7 +357,7 @@ const styles = StyleSheet.create({
     borderColor: 'rgba(255,255,255,0.08)',
   },
   avatar: { alignItems: 'center', justifyContent: 'center' },
-  avatarText: { color: '#fff', fontWeight: '800' },
+  avatarText: { color: '#fff', fontWeight: '700' },
   dot: { width: 6, height: 6, borderRadius: 3 },
   headerContainer: {
     position: 'absolute',
@@ -389,7 +389,7 @@ const styles = StyleSheet.create({
   },
   brandWordmark: {
     fontSize: 14,
-    fontWeight: '900',
+    fontWeight: '800',
     letterSpacing: 2.2,
   },
   brandTagline: {

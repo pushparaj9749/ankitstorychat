@@ -125,8 +125,8 @@ const styles = StyleSheet.create({
   page: { width: '100%', maxWidth: LAYOUT.contentMaxWidth, alignSelf: 'center' },
   steps: { flexDirection: 'row', alignItems: 'center', gap: 7 },
   stepBar: { flex: 1, height: 3, borderRadius: RADIUS.pill, overflow: 'hidden' },
-  stepText: { fontSize: SCALE.micro, fontWeight: '900', letterSpacing: 1.2, marginLeft: 3 },
-  brand: { fontSize: SCALE.micro, fontWeight: '800', letterSpacing: 1.4, marginTop: SPACING.xxl },
+  stepText: { fontSize: SCALE.micro, fontWeight: '800', letterSpacing: 1.2, marginLeft: 3 },
+  brand: { fontSize: SCALE.micro, fontWeight: '700', letterSpacing: 1.4, marginTop: SPACING.xxl },
   title: { ...TYPE.displayXL, marginTop: SPACING.md, marginBottom: SPACING.sm },
   sub: { fontSize: SCALE.body, lineHeight: 23, marginBottom: SPACING.xl },
   card: {
@@ -140,7 +140,7 @@ const styles = StyleSheet.create({
   },
   emojiBox: { width: 42, height: 42, borderRadius: RADIUS.sm, borderWidth: 1, alignItems: 'center', justifyContent: 'center' },
   cardBody: { flex: 1 },
-  cardTitle: { fontSize: SCALE.title, fontWeight: '800' },
+  cardTitle: { fontSize: SCALE.title, fontWeight: '700' },
   cardDesc: { fontSize: SCALE.small, marginTop: 3, lineHeight: 18 },
   radio: {
     width: 22,

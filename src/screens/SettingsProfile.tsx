@@ -118,7 +118,7 @@ const styles = StyleSheet.create({
   input: { borderWidth: 1, borderRadius: RADIUS.md, paddingHorizontal: 16, paddingVertical: 14, fontSize: 16 },
   ageRow: { flexDirection: 'row', gap: 10 },
   card: { flex: 1, borderWidth: 1.5, borderRadius: RADIUS.lg, padding: 14 },
-  cardTitle: { fontSize: SCALE.body, fontWeight: '800' },
+  cardTitle: { fontSize: SCALE.body, fontWeight: '700' },
   cardDesc: { fontSize: SCALE.micro, marginTop: 4, lineHeight: 16 },
   note: { fontSize: SCALE.micro, marginTop: SPACING.md, lineHeight: 18 },
   spacer: { flex: 1 },

@@ -25,7 +25,7 @@ import { aiErrorMessage, chatCompletion } from '../lib/ai';
 import { applyEffects, buildContext, buildStateExtractionMessages, checkAssistantReply, getScene, HISTORY_HEADROOM, parseAssistantResponse, parseExtractedState, progressEstimate, REWRITE_INSTRUCTION, shortTermWindowOf, type ParsedAssistant, type ReplyCheck } from '../lib/engine';
 import { chapterDue, closeChapter, getChapters } from '../lib/chapters';
 import { completeEpisode, consolidateMemories, putMemory, recallForTurn, rememberMany, rememberPreferences, episodeLine } from '../lib/memory';
-import { ensureWorldState } from '../lib/worldState';
+import { ensureWorldState, getWorldState } from '../lib/worldState';
 import { runMemoryWritePipeline, recallWithWorldState } from '../lib/memoryEngine';
 import { listMemoryCandidates } from '../lib/db';
 import { countMessages, getPlaythrough, insertMessage, listMessages, listRecentMessagesAsc, updatePlaythrough, updateStats } from '../lib/db';
@@ -60,7 +60,7 @@ function ChatStoryFace({ source, letter, accent }: { source: CoverSource | null;
   const [failed, setFailed] = useState(false);
   const initial = (letter?.trim()?.[0] ?? '?').toUpperCase();
   return (
-    <View style={[styles.face, { backgroundColor: `${accent}18`, borderColor: 'rgba(255,255,255,0.55)' }]}>
+    <View style={[styles.face, { backgroundColor: `${accent}18`, borderColor: '#F0567E' }]}>
       {source && !failed ? <ArtBackdrop source={source} accentColor={accent} blur={10} dim={0.15} /> : null}
       {source && !failed ? (
         <Image source={source} style={styles.faceImg} resizeMode="contain" onError={() => setFailed(true)} accessibilityIgnoresInvertColors />
@@ -100,6 +100,26 @@ export function Chat({ navigation, route }: Props) {
     setHasText(false);
   }, []);
   const [sending, setSending] = useState(false);
+  /** Lead character's bond (0–100) + mood, read from the stage-3 ledger (worldState). */
+  const [bond, setBond] = useState<{ name: string; value: number | null; mood: string | null } | null>(null);
+  const messageCount = messages.length;
+  useEffect(() => {
+    const lead = bundle?.characters?.characters?.[0];
+    if (!playthrough?.id || !lead || sending) return;
+    let alive = true;
+    getWorldState(playthrough.id)
+      .then((ws) => {
+        if (!alive || !ws) return;
+        const rel = ws.relationships?.[lead.id];
+        const mood = ws.characterStates?.[lead.id]?.mood ?? null;
+        const value = rel ? Math.round(rel.affection * 0.6 + rel.trust * 0.4) : null;
+        setBond(value !== null || mood ? { name: lead.name.split(/\s+/)[0], value, mood } : null);
+      })
+      .catch(() => undefined);
+    return () => {
+      alive = false;
+    };
+  }, [playthrough?.id, bundle, sending, messageCount]);
   const [actionsOpen, setActionsOpen] = useState(false);
   const [typingLabel, setTypingLabel] = useState('Continuing…');
   const [aiError, setAiError] = useState<AIError | null>(null);
@@ -633,26 +653,43 @@ export function Chat({ navigation, route }: Props) {
             <Text style={[styles.headerTitle, { color: theme.text }]} numberOfLines={1}>
               {bundle.meta.title}
             </Text>
-            <Text style={[styles.headerScene, { color: theme.gold }]} numberOfLines={1}>
-              {scene?.title ?? playthrough.label}
-            </Text>
+            <View style={styles.headerSubRow}>
+              {bond?.mood ? (
+                <View style={[styles.moodChip, { backgroundColor: theme.primarySoft }]}>
+                  <Text style={[styles.moodText, { color: theme.accent }]} numberOfLines={1}>
+                    {bond.mood.charAt(0).toUpperCase() + bond.mood.slice(1)}
+                  </Text>
+                </View>
+              ) : null}
+              <Text style={[styles.headerScene, { color: theme.textFaint }]} numberOfLines={1}>
+                {scene?.title ?? playthrough.label}
+              </Text>
+            </View>
           </View>
         </Pressable>
 
-        <View style={[styles.modeBtn, { backgroundColor: withAlpha(aiReady ? theme.success : theme.text, 0.08), borderColor: withAlpha(aiReady ? theme.success : theme.text, 0.18) }]}>
+        <View style={[styles.modeBtn, { backgroundColor: 'rgba(255,255,255,0.05)', borderColor: 'rgba(255,255,255,0.10)' }]}>
           <View style={[styles.modeDot, { backgroundColor: aiReady ? theme.success : theme.textFaint }]} />
-          <Text style={[styles.modeText, { color: aiReady ? '#A7F3CF' : theme.textDim }]}>{aiReady ? 'AI' : 'Offline'}</Text>
+          <Text style={[styles.modeText, { color: theme.textDim }]}>{aiReady ? 'AI' : 'Offline'}</Text>
         </View>
       </View>
 
       {bundle.story.userRole ? (
         <View style={[styles.roleBanner, { backgroundColor: AMOLED, borderColor: 'rgba(255,255,255,0.08)' }]}>
-          <Icon name="person" size={13} color={theme.accent} />
-          <Text style={[styles.roleLabel, { color: theme.accent }]}>YOU ARE</Text>
+          <Icon name="person" size={13} color={theme.textFaint} />
+          <Text style={[styles.roleLabel, { color: theme.textFaint }]}>YOU ARE</Text>
           <Text style={[styles.roleText, { color: theme.textDim }]} numberOfLines={1}>
             {makePlayerTextFn(bundle.meta, profile?.nickname)(bundle.story.userRole)}
           </Text>
-          {cast.length > 0 ? (
+          {bond?.value != null ? (
+            <View style={styles.bond} accessibilityLabel={`Bond with ${bond.name}: ${bond.value}%`}>
+              <Icon name="heart" size={12} color={theme.primary} />
+              <View style={[styles.bondTrack, { backgroundColor: 'rgba(255,255,255,0.10)' }]}>
+                <View style={[styles.bondFill, { width: `${bond.value}%`, backgroundColor: theme.primary }]} />
+              </View>
+              <Text style={[styles.bondText, { color: theme.text }]}>{bond.value}%</Text>
+            </View>
+          ) : cast.length > 0 ? (
             <View style={styles.presence} accessibilityLabel={`In this story: ${cast.map((c) => c.name).join(', ')}`}>
               {cast.slice(0, 3).map((c, i) => (
                 <View key={c.id} style={[styles.presenceSlot, i > 0 && styles.presenceOverlap]}>
@@ -817,10 +854,9 @@ export function Chat({ navigation, route }: Props) {
               accessibilityLabel="Send"
               style={({ pressed }) => [
                 styles.send,
-                { opacity: sending || !hasText ? 0.4 : pressed ? 0.85 : 1, transform: [{ scale: pressed ? 0.96 : 1 }] },
+                { backgroundColor: hasText ? theme.primary : theme.surface3, opacity: sending ? 0.4 : pressed ? 0.85 : 1, transform: [{ scale: pressed ? 0.96 : 1 }] },
               ]}
             >
-              <LinearGradient colors={[...GRADIENTS.primary]} start={{ x: 0, y: 0 }} end={{ x: 1, y: 1 }} style={StyleSheet.absoluteFill} />
               <Icon name="arrow-up" size={ICON_SIZE.md} color="#fff" strokeWidth={2.4} />
             </Pressable>
           </View>
@@ -851,12 +887,19 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
   },
   headerIdentity: { flex: 1, flexDirection: 'row', alignItems: 'center', gap: 10, minWidth: 0 },
-  face: { width: 42, height: 42, borderRadius: 21, overflow: 'hidden', borderWidth: 1.5, alignItems: 'center', justifyContent: 'center' },
+  face: { width: 42, height: 42, borderRadius: 21, overflow: 'hidden', borderWidth: 2, alignItems: 'center', justifyContent: 'center' },
   faceImg: { width: 42, height: 42 },
-  faceLetter: { fontSize: 15, fontWeight: '900' },
+  faceLetter: { fontSize: 15, fontWeight: '800' },
   headerBody: { flex: 1, minWidth: 0 },
-  headerTitle: { fontSize: 16, fontWeight: '900', letterSpacing: -0.3, color: '#fff' },
-  headerScene: { fontSize: SCALE.caption, letterSpacing: 0.1, marginTop: 2, fontWeight: '700' },
+  headerTitle: { fontSize: 16, fontWeight: '700', letterSpacing: -0.3, color: '#fff' },
+  headerSubRow: { flexDirection: 'row', alignItems: 'center', gap: 6, marginTop: 3, minWidth: 0 },
+  headerScene: { fontSize: SCALE.caption, letterSpacing: 0.1, fontWeight: '500', flexShrink: 1 },
+  moodChip: { paddingHorizontal: 7, paddingVertical: 2, borderRadius: 6, maxWidth: 110 },
+  moodText: { fontSize: 11, fontWeight: '600' },
+  bond: { flexDirection: 'row', alignItems: 'center', gap: 6 },
+  bondTrack: { width: 52, height: 4, borderRadius: 2, overflow: 'hidden' },
+  bondFill: { height: 4, borderRadius: 2 },
+  bondText: { fontSize: 11, fontWeight: '700', minWidth: 28 },
   presence: { flexDirection: 'row', alignItems: 'center' },
   presenceSlot: { alignItems: 'center', justifyContent: 'center' },
   presenceOverlap: { marginLeft: -7 },
@@ -870,7 +913,7 @@ const styles = StyleSheet.create({
     paddingVertical: 5,
   },
   modeDot: { width: 5, height: 5, borderRadius: 2.5 },
-  modeText: { fontSize: SCALE.micro, fontWeight: '800', letterSpacing: 0.3 },
+  modeText: { fontSize: SCALE.micro, fontWeight: '600', letterSpacing: 0.3 },
   roleBanner: {
     flexDirection: 'row',
     alignItems: 'center',
@@ -879,7 +922,7 @@ const styles = StyleSheet.create({
     paddingVertical: 9,
     borderBottomWidth: StyleSheet.hairlineWidth,
   },
-  roleLabel: { fontSize: SCALE.micro, fontWeight: '900', letterSpacing: 1.2 },
+  roleLabel: { fontSize: SCALE.micro, fontWeight: '700', letterSpacing: 1.1 },
   roleText: { flex: 1, fontSize: SCALE.caption, fontWeight: '500' },
   list: { paddingHorizontal: 12, paddingVertical: 12, gap: 2 },
   more: { textAlign: 'center', fontSize: SCALE.micro, padding: 10 },
@@ -895,17 +938,17 @@ const styles = StyleSheet.create({
   actionMenuHeader: { flexDirection: 'row', alignItems: 'center', gap: 9, marginBottom: 10 },
   actionMenuBadge: { width: 32, height: 32, borderRadius: 11, alignItems: 'center', justifyContent: 'center' },
   actionMenuHeading: { flex: 1, minWidth: 0 },
-  actionMenuTitle: { fontSize: 13.5, fontWeight: '800' },
+  actionMenuTitle: { fontSize: 13.5, fontWeight: '700' },
   actionMenuSubtitle: { fontSize: 10.5, marginTop: 2 },
   actionMenuClose: { width: 30, height: 30, alignItems: 'center', justifyContent: 'center', borderRadius: 10 },
   actionGrid: { flexDirection: 'row', flexWrap: 'wrap', justifyContent: 'space-between', rowGap: 8 },
   actionTile: { width: '48.5%', minHeight: 76, borderRadius: 13, borderWidth: 1, padding: 9, justifyContent: 'center' },
   actionTileIcon: { width: 25, height: 25, borderRadius: 9, alignItems: 'center', justifyContent: 'center', marginBottom: 5 },
-  actionTileTitle: { fontSize: 11.5, fontWeight: '800' },
+  actionTileTitle: { fontSize: 11.5, fontWeight: '700' },
   actionTileHint: { fontSize: 9.5, marginTop: 2 },
   setupHint: { borderTopWidth: StyleSheet.hairlineWidth, marginTop: 10, paddingTop: 9, flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between', gap: 10 },
   setupHintText: { fontSize: 10.5, flex: 1 },
-  setupHintLink: { fontSize: 11, fontWeight: '800' },
+  setupHintLink: { fontSize: 11, fontWeight: '700' },
   inputRow: { flexDirection: 'row', alignItems: 'flex-end', gap: 8 },
   input: {
     flex: 1,
@@ -921,9 +964,9 @@ const styles = StyleSheet.create({
   ideasButton: { width: 48, height: 48, borderRadius: 24, borderWidth: 1, alignItems: 'center', justifyContent: 'center' },
   send: { width: 48, height: 48, borderRadius: 24, overflow: 'hidden', alignItems: 'center', justifyContent: 'center' },
   errCard: { borderWidth: 1, borderRadius: RADIUS.lg, padding: 14, marginVertical: 10 },
-  errTitle: { fontSize: 14.5, fontWeight: '800' },
+  errTitle: { fontSize: 14.5, fontWeight: '700' },
   errSub: { fontSize: SCALE.small, marginTop: 6, lineHeight: 19 },
   errBtns: { flexDirection: 'row', gap: 8, marginTop: 12 },
   errBtn: { paddingHorizontal: 15, paddingVertical: 9, borderRadius: RADIUS.pill },
-  errBtnText: { fontWeight: '800', fontSize: SCALE.small },
+  errBtnText: { fontWeight: '700', fontSize: SCALE.small },
 });

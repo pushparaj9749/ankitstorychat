@@ -131,14 +131,14 @@ export function MySubmissions({ navigation }: Props) {
                   <View style={{ flexDirection: 'row', alignItems: 'center', flex: 1, marginRight: 8, gap: 6 }}>
                     <Icon name={s.type === 'idea' ? 'bulb-outline' : 'book-outline'} size={16} color={theme.textDim} />
                     <Text
-                      style={{ color: theme.text, fontWeight: '800', fontSize: 15, flex: 1 }}
+                      style={{ color: theme.text, fontWeight: '700', fontSize: 15, flex: 1 }}
                       numberOfLines={1}
                     >
                       {s.title || '(untitled)'}
                     </Text>
                   </View>
                   <View style={[styles.statusBadge, { backgroundColor: withAlpha(statusColor(s.knownStatus), 0.14) }]}>
-                    <Text style={{ color: statusColor(s.knownStatus), fontSize: SCALE.micro, fontWeight: '900' }}>
+                    <Text style={{ color: statusColor(s.knownStatus), fontSize: SCALE.micro, fontWeight: '800' }}>
                       {statusLabel(s.knownStatus)}
                     </Text>
                   </View>

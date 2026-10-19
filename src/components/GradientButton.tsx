@@ -122,8 +122,8 @@ const styles = StyleSheet.create({
   },
   primaryFill: { borderRadius: RADIUS.pill },
   primaryInner: { flexDirection: 'row', alignItems: 'center', justifyContent: 'center', gap: 8 },
-  primaryIcon: { fontSize: 14, fontWeight: '800' },
-  primaryText: { fontWeight: '800', fontSize: 15, letterSpacing: 0.3 },
+  primaryIcon: { fontSize: 14, fontWeight: '700' },
+  primaryText: { fontWeight: '700', fontSize: 15, letterSpacing: 0.3 },
   ghost: {
     borderWidth: 1,
     borderRadius: RADIUS.pill,

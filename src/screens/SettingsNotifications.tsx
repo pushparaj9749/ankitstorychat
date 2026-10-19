@@ -89,7 +89,7 @@ export function SettingsNotifications(_props: Props) {
       </View>
 
       <Text style={[styles.perm, { color: theme.textDim }]}>
-        System Status: <Text style={{ color: theme.accent, fontWeight: '800' }}>{perm}</Text>
+        System Status: <Text style={{ color: theme.accent, fontWeight: '700' }}>{perm}</Text>
         {'\n'}100% local reminders — no tracking, no ad notifications.
       </Text>
 

@@ -492,7 +492,7 @@ const styles = StyleSheet.create({
   },
   glassTagText: { fontSize: SCALE.micro, fontWeight: '700', letterSpacing: 0.6, color: ON_ART },
   newBadge: { paddingHorizontal: 9, paddingVertical: 4, borderRadius: 6 },
-  newBadgeText: { fontSize: SCALE.micro, fontWeight: '800', letterSpacing: 1, color: ON_ART },
+  newBadgeText: { fontSize: SCALE.micro, fontWeight: '700', letterSpacing: 1, color: ON_ART },
 
   heroCard: { borderRadius: RADIUS.xxl, overflow: 'hidden' },
   heroTopShade: { position: 'absolute', left: 0, right: 0, top: 0, height: 110 },
@@ -554,7 +554,7 @@ const styles = StyleSheet.create({
   rankNum: {
     fontSize: 104,
     lineHeight: 108,
-    fontWeight: '800',
+    fontWeight: '700',
     letterSpacing: -6,
     marginRight: -26,
     marginBottom: -12,

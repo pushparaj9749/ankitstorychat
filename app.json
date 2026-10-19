@@ -10,7 +10,7 @@
     "splash": {
       "image": "./assets/splash-icon.png",
       "resizeMode": "contain",
-      "backgroundColor": "#06060A"
+      "backgroundColor": "#0A0B10"
     },
     "assetBundlePatterns": [
       "**/*"
@@ -24,7 +24,7 @@
       "package": "com.kissa.storychat",
       "versionCode": 26,
       "adaptiveIcon": {
-        "backgroundColor": "#06060A",
+        "backgroundColor": "#0A0B10",
         "foregroundImage": "./assets/android-icon-foreground.png",
         "backgroundImage": "./assets/android-icon-background.png"
       },

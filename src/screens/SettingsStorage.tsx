@@ -347,7 +347,7 @@ const styles = StyleSheet.create({
   hint: { fontSize: SCALE.micro, marginTop: 8, lineHeight: 16 },
   note: { fontSize: SCALE.small, fontWeight: '700', marginTop: 10, textAlign: 'center' },
   box: { borderWidth: 1, borderRadius: RADIUS.md, padding: 12 },
-  boxTitle: { fontSize: SCALE.body, fontWeight: '800', marginBottom: 8 },
+  boxTitle: { fontSize: SCALE.body, fontWeight: '700', marginBottom: 8 },
   dlRow: { flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between', gap: 10, paddingVertical: 6 },
   dlName: { fontSize: SCALE.small, flex: 1 },
   gap: { marginTop: 10 },
