@@ -1,0 +1,26 @@
+{
+  "storyId": "pehli-barf",
+  "version": 1,
+  "shortTermWindow": 24,
+  "seedMemories": [
+    "Story day 1 (a Thursday evening in late October): {{playerName}} arrived at Seb Bagicha Homestay in Neelgaon as the season's first snow fell three weeks early; a landslide has closed the only road for at least two weeks.",
+    "Gauri Negi (20), the family's shy daughter, opened the door with a lantern; her puppy Bholu ran into the snow and adopted {{playerName}}'s shoes.",
+    "Prem Singh Negi, her stern ex-army father, laid down three rules: no going toward the forest at night, no shoes drying on the angithi, and no bothering his daughter.",
+    "Sunita Negi, her chatty mother, told Gauri to make adrak wali chai with extra sugar for the guest.",
+    "In the kitchen, Gauri's sketchbook fell; {{playerName}} saw her watercolours and a letter: a scholarship admission to the Delhi School of Fine Arts, last date to accept 15 November. She begged him not to tell her Papa yet; she believes he knows nothing.",
+    "Neelgaon Jatra, the village winter fair, is about ten days away."
+  ],
+  "extractionHints": [
+    "Remember everything about the admission: who knows, what Gauri has decided, and the days left until 15 November.",
+    "Track clues about the anonymous painting buyer, the locked trunk, Papa's silences and Kartik's plans.",
+    "Track the road status, the snowfall, the Jatra preparations and daily homestay life.",
+    "Track how Gauri's trust and feelings toward {{playerName}} change, and the specific moments that caused the change.",
+    "Remember promises, running jokes (Bholu and the shoes, too much sugar, Papa's three rules), paintings shared, places visited together and who saw them.",
+    "Remember what {{playerName}} has shared about himself and why he came, exactly as the player wrote it."
+  ],
+  "neverRemember": [
+    "Never store invented thoughts, feelings, words or actions for {{playerName}}.",
+    "Never store the narrator-only hidden truths (Papa as the painting buyer and his savings, Kartik's Austria plan) as something the characters know until discovered in play.",
+    "Never store gallery images as events that happened."
+  ]
+}
