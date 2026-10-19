@@ -19,6 +19,7 @@ import { Discover } from '../screens/Discover';
 import { Library } from '../screens/Library';
 import { Settings } from '../screens/Settings';
 import { Saves } from '../screens/Saves';
+import { Yaadein } from '../screens/Yaadein';
 import { Chat } from '../screens/Chat';
 import { HomeRoute, StoryDetailRoute, TemplateTabBar } from '../ui/templates';
 import { AIAddons } from '../screens/AIAddons';
@@ -136,6 +137,7 @@ export function RootNavigator() {
               <Stack.Screen name="Main" component={MainTabs} />
               <Stack.Screen name="StoryDetail" component={StoryDetailRoute} />
               <Stack.Screen name="Saves" component={Saves} />
+              <Stack.Screen name="Yaadein" component={Yaadein} />
               <Stack.Screen name="Chat" component={Chat} options={{ animation: 'fade' }} />
               <Stack.Screen name="AIAddons" component={AIAddons} />
               <Stack.Screen name="ProviderEditor" component={ProviderEditor} />

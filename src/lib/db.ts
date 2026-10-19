@@ -538,6 +538,12 @@ export async function deletePlaythrough(id: string): Promise<void> {
     await db.runAsync('DELETE FROM kv WHERE key = ?', `worldStatePrev:${id}`);
     await db.runAsync('DELETE FROM kv WHERE key = ?', `worldStateSchema:${id}`);
   } catch {}
+  // v2.7.0: the digest (stage 1) and chapter summaries live in KV too — a
+  // deleted journey must not leave its story summary behind.
+  try {
+    await db.runAsync('DELETE FROM kv WHERE key = ?', `memsum:${id}`);
+    await db.runAsync('DELETE FROM kv WHERE key = ?', `memchap:${id}`);
+  } catch {}
 }
 
 export async function deletePlaythroughsForStory(storyId: string): Promise<void> {
@@ -965,6 +971,23 @@ export async function listGlobalMemories(): Promise<MemoryEntry[]> {
 export async function pinMemory(id: string): Promise<void> {
   const db = await getDb();
   await db.runAsync("UPDATE memories SET importance = 9, archived = 0 WHERE id = ?", id);
+}
+
+/** Reader edit from the Yaadein screen: the corrected text replaces the old one and is trusted. */
+export async function updateMemoryText(id: string, text: string, hash: string): Promise<void> {
+  const db = await getDb();
+  await db.runAsync(
+    "UPDATE memories SET text = ?, hash = ?, source = 'manual', confidence = 'high' WHERE id = ?",
+    text,
+    hash,
+    id,
+  );
+}
+
+/** Lower a pinned fact back to normal priority. */
+export async function unpinMemory(id: string): Promise<void> {
+  const db = await getDb();
+  await db.runAsync('UPDATE memories SET importance = 6 WHERE id = ? AND importance >= 9', id);
 }
 
 /** Bring a folded (archived) fact back into live recall without touching the digest. */

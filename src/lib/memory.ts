@@ -30,6 +30,9 @@ import {
   listMemoryCandidates,
   listOldestMemories,
   reinforceMemories,
+  deleteMemory,
+  updateMemoryText,
+  unpinMemory,
 } from './db';
 import {
   buildDigestFallback,
@@ -240,7 +243,36 @@ export async function journeyMemoryView(playthroughId: string): Promise<JourneyM
   };
 }
 
-export { pinMemory, restoreMemory };
+export { pinMemory, restoreMemory, unpinMemory, deleteMemory };
+
+/* ---------------------------------------------------------------- Yaadein */
+
+/**
+ * Reader correction from the Yaadein screen. The corrected text becomes a
+ * trusted (manual, high-confidence) fact. If it now duplicates another fact of
+ * the same journey, the two are merged (the edited row is dropped).
+ */
+export async function editMemory(id: string, text: string): Promise<'saved' | 'merged' | 'skipped'> {
+  const clean = sanitize(text, MEMORY_MAX_CHARS);
+  if (clean.length < 4) return 'skipped';
+  try {
+    await updateMemoryText(id, clean, hashText(clean));
+    return 'saved';
+  } catch {
+    await deleteMemory(id);
+    return 'merged';
+  }
+}
+
+/** A fact the reader adds by hand: pinned (importance 9) and trusted. */
+export async function addReaderMemory(playthroughId: string, text: string): Promise<RememberStatus> {
+  return putMemory(playthroughId, 'story', text, 9, { source: 'manual', confidence: 'high' });
+}
+
+/** Facts the reader may see: never the author's seed notes (they can hold story secrets / spoilers). */
+export function isReaderVisibleMemory(m: MemoryEntry): boolean {
+  return m.source !== 'seed' && m.kind !== 'summary';
+}
 
 export async function setSummary(playthroughId: string, text: string): Promise<void> {
   const clean = sanitize(text, SUMMARY_MAX_CHARS);

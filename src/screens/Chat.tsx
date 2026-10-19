@@ -671,6 +671,20 @@ export function Chat({ navigation, route }: Props) {
           </View>
         </Pressable>
 
+        <Pressable
+          onPress={() => navigation.navigate('Yaadein', { playthroughId: playthrough.id })}
+          hitSlop={8}
+          accessibilityRole="button"
+          accessibilityLabel="Yaadein"
+          style={({ pressed }) => [
+            styles.backBtn,
+            styles.memBtn,
+            { borderColor: 'rgba(255,255,255,0.12)', backgroundColor: 'rgba(255,255,255,0.05)', opacity: pressed ? 0.7 : 1 },
+          ]}
+        >
+          <Icon name="sparkles-outline" size={17} color={theme.textDim} />
+        </Pressable>
+
         <View
           style={[
             styles.modeBtn,
@@ -754,12 +768,18 @@ export function Chat({ navigation, route }: Props) {
 
         <View style={[styles.inputBar, { borderColor: 'rgba(255,255,255,0.08)', backgroundColor: AMOLED }]}>
           {playthrough.messageCount > 8 ? (
-            <View style={styles.memoryRow}>
+            <Pressable
+              onPress={() => navigation.navigate('Yaadein', { playthroughId: playthrough.id })}
+              accessibilityRole="button"
+              accessibilityLabel="Open Yaadein"
+              style={styles.memoryRow}
+            >
               <Icon name="sparkles-outline" size={12} color={theme.textFaint} />
               <Text style={[styles.memoryText, { color: theme.textFaint }]}>
                 {playthrough.messageCount} moments remembered in this journey
               </Text>
-            </View>
+              <Text style={[styles.memoryText, { color: theme.textDim, fontWeight: '600' }]}>· Yaadein dekho</Text>
+            </Pressable>
           ) : null}
           {actionsOpen ? (
             <View style={[styles.actionMenu, { backgroundColor: theme.surface2, borderColor: theme.border }]}>
@@ -947,6 +967,7 @@ const styles = StyleSheet.create({
     paddingBottom: 12,
     borderTopWidth: StyleSheet.hairlineWidth,
   },
+  memBtn: { width: 36, height: 36, borderRadius: 18, marginRight: 8 },
   memoryRow: { flexDirection: 'row', alignItems: 'center', gap: 6, marginBottom: 8, paddingHorizontal: 4 },
   memoryText: { fontSize: SCALE.micro, fontWeight: '600', fontStyle: 'italic' },
   actionMenu: { borderWidth: 1, borderRadius: RADIUS.lg, padding: 11, marginBottom: 10 },
