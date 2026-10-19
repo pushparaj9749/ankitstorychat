@@ -22,6 +22,7 @@ import { teenSafetyGuidance } from './ageGate';
 import { isFullyFadedLine, matchSpeakerPrefix } from './markup';
 import { MAX_MEMORY_NOTES, renderMemoryLine } from './memoryCore';
 import { interpolatePlayerName } from './playerName';
+import { guardVisibleText, type GuardResult } from './leakGuard';
 import { clamp, norm, tokens } from './utils';
 import type { WorldState } from './worldState';
 
@@ -494,6 +495,10 @@ export function stripStateLeakage(text: string): string {
     }
   }
 
+  // 4) v2.7.0: every NON-JSON shape (label lines, headings + lists, YAML-ish
+  // state, [STATE]/(OOC) tags, HIDDEN TRUTH, HTML comments) — see leakGuard.
+  out = guardVisibleText(out).text;
+
   return out.replace(/\n{3,}/g, '\n\n').trim();
 }
 
@@ -679,7 +684,9 @@ export function parseAssistantResponse(raw: string): ParsedAssistant {
     }
   }
 
-  // 3) Cleanup display text
+  // 3) Cleanup display text. Non-JSON leaks are removed BEFORE speaker
+  // detection, otherwise "Important objects: …" would become a "speaker".
+  displayText = guardVisibleText(displayText).text;
   displayText = displayText.replace(/\n{3,}/g, '\n\n').trim();
 
   // Also remove any stray leftover markers like "kissa-state" at end with empty JSON? Already handled.
