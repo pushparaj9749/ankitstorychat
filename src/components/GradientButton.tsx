@@ -8,6 +8,7 @@ import { ActivityIndicator, Pressable, StyleSheet, Text, View } from 'react-nati
 import { useApp } from '../state/AppContext';
 import { LinearGradient } from 'expo-linear-gradient';
 import { GRADIENTS, RADIUS, SHADOWS, SPACING, TOUCH, withAlpha } from '../theme';
+import { GRADIENTS as CLASSIC_GRADIENTS } from '../ui/classic/theme';
 import { lightBuzz } from '../lib/haptics';
 
 export function GradientButton({
@@ -27,7 +28,8 @@ export function GradientButton({
   accessibilityLabel?: string;
   icon?: string;
 }) {
-  const { theme } = useApp();
+  const { theme, uiTemplate } = useApp();
+  const G = uiTemplate === 'classic' ? CLASSIC_GRADIENTS : GRADIENTS;
 
   const handlePress = () => {
     lightBuzz();
@@ -66,7 +68,7 @@ export function GradientButton({
   // Primary — Kissa Rose gradient with a soft glow. Disabled is a quiet
   // surface (not a grey slab), so the button still reads as "the next step".
   const inactive = disabled && !loading;
-  const gradient = variant === 'gold' ? GRADIENTS.gold : GRADIENTS.primary;
+  const gradient = variant === 'gold' ? G.gold : G.primary;
   return (
     <Pressable
       onPress={handlePress}

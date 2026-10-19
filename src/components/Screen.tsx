@@ -18,14 +18,15 @@ export function Screen({
   padded?: boolean;
   immersive?: boolean;
 }) {
-  const { theme } = useApp();
+  const { theme, uiTemplate } = useApp();
+  const classic = uiTemplate === 'classic';
   return (
     <View style={[styles.root, { backgroundColor: theme.bg }]}>
       <StatusBar barStyle="light-content" backgroundColor={theme.bg} translucent={false} />
       <View pointerEvents="none" style={StyleSheet.absoluteFill}>
         <LinearGradient
-          colors={['rgba(255,255,255,0.035)', 'rgba(10,11,16,0)']}
-          locations={[0, 1]}
+          colors={classic ? CLASSIC_GLOW : NOIR_GLOW}
+          locations={classic ? CLASSIC_GLOW_AT : NOIR_GLOW_AT}
           start={{ x: 0.1, y: 0 }}
           end={{ x: 0.6, y: 1 }}
           style={styles.glowTop}
@@ -46,6 +47,12 @@ export function Screen({
     </View>
   );
 }
+
+/* Top ambient wash per template: classic = violet→rose night glow, noir = a faint neutral sheen. */
+const CLASSIC_GLOW = ['rgba(168,85,247,0.16)', 'rgba(255,79,139,0.05)', 'rgba(11,8,20,0)'] as const;
+const CLASSIC_GLOW_AT = [0, 0.45, 1] as const;
+const NOIR_GLOW = ['rgba(255,255,255,0.035)', 'rgba(10,11,16,0)'] as const;
+const NOIR_GLOW_AT = [0, 1] as const;
 
 const styles = StyleSheet.create({
   root: { flex: 1 },

@@ -32,7 +32,8 @@ import {
 import { listStories } from '../content/loader';
 import { hasApiKey } from '../lib/secureKeys';
 import { nowIso } from '../lib/utils';
-import { COLORS, Theme, ThemeName } from '../theme';
+import { COLORS, Theme, ThemeName, UiTemplate } from '../theme';
+import { COLORS as CLASSIC_COLORS } from '../ui/classic/theme';
 import { BootSplash } from '../components/BootSplash';
 import { StyleSheet, View } from 'react-native';
 
@@ -43,6 +44,8 @@ interface AppState {
   settings: AppSettings;
   theme: Theme;
   themeName: ThemeName;
+  /** Whole-app look chosen in Settings → Appearance. */
+  uiTemplate: UiTemplate;
   providers: AIProvider[];
   /** Provider ids that have a key stored in SecureStore. */
   providersWithKeys: Set<string>;
@@ -169,14 +172,16 @@ export function AppProvider({ children }: { children: React.ReactNode }) {
 
   const value = useMemo<AppState>(() => {
     const themeName: ThemeName = settings?.theme ?? 'midnight';
+    const uiTemplate: UiTemplate = settings?.uiTemplate === 'classic' ? 'classic' : 'noir';
     const activeProvider =
       providers.find((p) => p.id === settings?.activeProviderId && p.enabled) ?? null;
     return {
       ready,
       profile,
       settings: settings as AppSettings,
-      theme: COLORS[themeName],
+      theme: uiTemplate === 'classic' ? CLASSIC_COLORS[themeName] : COLORS[themeName],
       themeName,
+      uiTemplate,
       providers,
       providersWithKeys,
       activeProvider,

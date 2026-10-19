@@ -16,7 +16,8 @@ import { SafeAreaView } from 'react-native-safe-area-context';
 import type { NativeStackScreenProps } from '@react-navigation/native-stack';
 import type { AIError, ChatMessage, ChoiceEffects, Playthrough, RootStackParamList, StoryBundle } from '../types';
 import { useApp } from '../state/AppContext';
-import { ChatBubble, TypingIndicator } from '../components/chat';
+import { useChatParts } from '../ui/templates';
+import { GRADIENTS as CLASSIC_GRADIENTS } from '../ui/classic/theme';
 import { Avatar } from '../components/bits';
 import { ErrorState, LoadingState, OfflineState } from '../components/states';
 import { effectiveContentApiBaseUrl, getBundle, getBundledCoverSource, mediaApiUrl, StoryContentError, type CoverSource } from '../content/loader';
@@ -53,14 +54,13 @@ type ChatTurnRequest = {
 const PAGE = 40;
 
 /* Stable list callbacks: inline ones made the FlatList re-render every visible bubble on each keystroke. */
-const renderBubble = ({ item }: { item: ChatMessage }) => <ChatBubble message={item} />;
 const bubbleKey = (m: ChatMessage) => m.id;
 
-function ChatStoryFace({ source, letter, accent }: { source: CoverSource | null; letter: string; accent: string }) {
+function ChatStoryFace({ source, letter, accent, ring = '#F0567E' }: { source: CoverSource | null; letter: string; accent: string; ring?: string }) {
   const [failed, setFailed] = useState(false);
   const initial = (letter?.trim()?.[0] ?? '?').toUpperCase();
   return (
-    <View style={[styles.face, { backgroundColor: `${accent}18`, borderColor: '#F0567E' }]}>
+    <View style={[styles.face, { backgroundColor: `${accent}18`, borderColor: ring }]}>
       {source && !failed ? <ArtBackdrop source={source} accentColor={accent} blur={10} dim={0.15} /> : null}
       {source && !failed ? (
         <Image source={source} style={styles.faceImg} resizeMode="contain" onError={() => setFailed(true)} accessibilityIgnoresInvertColors />
@@ -73,7 +73,10 @@ function ChatStoryFace({ source, letter, accent }: { source: CoverSource | null;
 
 export function Chat({ navigation, route }: Props) {
   const { playthroughId } = route.params;
-  const { theme, profile, activeProvider, providersWithKeys, settings } = useApp();
+  const { theme, profile, activeProvider, providersWithKeys, settings, uiTemplate } = useApp();
+  const classic = uiTemplate === 'classic';
+  const { ChatBubble, TypingIndicator } = useChatParts();
+  const renderBubble = useCallback(({ item }: { item: ChatMessage }) => <ChatBubble message={item} />, [ChatBubble]);
 
   const [playthrough, setPlaythrough] = useState<Playthrough | null>(null);
   const [bundle, setBundle] = useState<StoryBundle | null>(null);
@@ -648,7 +651,7 @@ export function Chat({ navigation, route }: Props) {
         </Pressable>
 
         <Pressable onPress={openStoryProfile} style={styles.headerIdentity} accessibilityRole="button" accessibilityLabel={bundle.meta.title}>
-          <ChatStoryFace source={faceSource} letter={bundle.meta.title} accent={bundle.meta.accentColor} />
+          <ChatStoryFace source={faceSource} letter={bundle.meta.title} accent={bundle.meta.accentColor} ring={classic ? 'rgba(255,255,255,0.55)' : theme.primary} />
           <View style={styles.headerBody}>
             <Text style={[styles.headerTitle, { color: theme.text }]} numberOfLines={1}>
               {bundle.meta.title}
@@ -661,23 +664,30 @@ export function Chat({ navigation, route }: Props) {
                   </Text>
                 </View>
               ) : null}
-              <Text style={[styles.headerScene, { color: theme.textFaint }]} numberOfLines={1}>
+              <Text style={[styles.headerScene, { color: classic ? theme.gold : theme.textFaint }]} numberOfLines={1}>
                 {scene?.title ?? playthrough.label}
               </Text>
             </View>
           </View>
         </Pressable>
 
-        <View style={[styles.modeBtn, { backgroundColor: 'rgba(255,255,255,0.05)', borderColor: 'rgba(255,255,255,0.10)' }]}>
+        <View
+          style={[
+            styles.modeBtn,
+            classic
+              ? { backgroundColor: withAlpha(aiReady ? theme.success : theme.text, 0.08), borderColor: withAlpha(aiReady ? theme.success : theme.text, 0.18) }
+              : { backgroundColor: 'rgba(255,255,255,0.05)', borderColor: 'rgba(255,255,255,0.10)' },
+          ]}
+        >
           <View style={[styles.modeDot, { backgroundColor: aiReady ? theme.success : theme.textFaint }]} />
-          <Text style={[styles.modeText, { color: theme.textDim }]}>{aiReady ? 'AI' : 'Offline'}</Text>
+          <Text style={[styles.modeText, { color: classic && aiReady ? '#A7F3CF' : theme.textDim }]}>{aiReady ? 'AI' : 'Offline'}</Text>
         </View>
       </View>
 
       {bundle.story.userRole ? (
         <View style={[styles.roleBanner, { backgroundColor: AMOLED, borderColor: 'rgba(255,255,255,0.08)' }]}>
-          <Icon name="person" size={13} color={theme.textFaint} />
-          <Text style={[styles.roleLabel, { color: theme.textFaint }]}>YOU ARE</Text>
+          <Icon name="person" size={13} color={classic ? theme.accent : theme.textFaint} />
+          <Text style={[styles.roleLabel, { color: classic ? theme.accent : theme.textFaint }]}>YOU ARE</Text>
           <Text style={[styles.roleText, { color: theme.textDim }]} numberOfLines={1}>
             {makePlayerTextFn(bundle.meta, profile?.nickname)(bundle.story.userRole)}
           </Text>
@@ -854,9 +864,14 @@ export function Chat({ navigation, route }: Props) {
               accessibilityLabel="Send"
               style={({ pressed }) => [
                 styles.send,
-                { backgroundColor: hasText ? theme.primary : theme.surface3, opacity: sending ? 0.4 : pressed ? 0.85 : 1, transform: [{ scale: pressed ? 0.96 : 1 }] },
+                classic
+                  ? { opacity: sending || !hasText ? 0.4 : pressed ? 0.85 : 1, transform: [{ scale: pressed ? 0.96 : 1 }] }
+                  : { backgroundColor: hasText ? theme.primary : theme.surface3, opacity: sending ? 0.4 : pressed ? 0.85 : 1, transform: [{ scale: pressed ? 0.96 : 1 }] },
               ]}
             >
+              {classic ? (
+                <LinearGradient colors={[...CLASSIC_GRADIENTS.primary]} start={{ x: 0, y: 0 }} end={{ x: 1, y: 1 }} style={StyleSheet.absoluteFill} />
+              ) : null}
               <Icon name="arrow-up" size={ICON_SIZE.md} color="#fff" strokeWidth={2.4} />
             </Pressable>
           </View>

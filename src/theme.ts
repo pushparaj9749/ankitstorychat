@@ -93,7 +93,10 @@ export const COLORS = {
 } as const;
 
 export type ThemeName = keyof typeof COLORS;
-export type Theme = (typeof COLORS)[ThemeName];
+export type Theme = { [K in keyof (typeof COLORS)['midnight']]: string };
+
+/** UI template: 'noir' = v2.7 "Kissa Noir" (default), 'classic' = pre-v2.7 "Kissa Night". */
+export type UiTemplate = 'noir' | 'classic';
 
 export const INK = '#06070A';
 

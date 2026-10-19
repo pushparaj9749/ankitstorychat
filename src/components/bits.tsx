@@ -14,6 +14,7 @@ import { Animated, Image, Pressable, StyleSheet, Text, View } from 'react-native
 import { LinearGradient } from 'expo-linear-gradient';
 import { KISSA_LOGO } from './brand';
 import { useApp } from '../state/AppContext';
+import { SelectableChip as ClassicSelectableChip, SectionHeader as ClassicSectionHeader, ProgressBar as ClassicProgressBar } from '../ui/classic/bits';
 import { useNavScroll } from '../navigation/NavScrollContext';
 import {
   GRADIENTS,
@@ -71,7 +72,8 @@ export function SelectableChip({
   selected: boolean;
   onPress: () => void;
 }) {
-  const { theme } = useApp();
+  const { theme, uiTemplate } = useApp();
+  if (uiTemplate === 'classic') return <ClassicSelectableChip {...{ label, selected, onPress }} />;
   return (
     <Pressable
       onPress={onPress}
@@ -114,7 +116,8 @@ export function SectionHeader({
   onAction?: () => void;
   kicker?: string;
 }) {
-  const { theme } = useApp();
+  const { theme, uiTemplate } = useApp();
+  if (uiTemplate === 'classic') return <ClassicSectionHeader {...{ title, action, onAction, kicker }} />;
   return (
     <View style={styles.section}>
       <View style={styles.sectionLeft}>
@@ -148,7 +151,8 @@ export function SectionHeader({
 }
 
 export function ProgressBar({ value, color }: { value: number; color?: string }) {
-  const { theme } = useApp();
+  const { theme, uiTemplate } = useApp();
+  if (uiTemplate === 'classic') return <ClassicProgressBar {...{ value, color }} />;
   const pct = Math.round(Math.min(1, Math.max(0, value)) * 100);
   const colors: [string, string] = color ? [withAlpha(color, 0.85), color] : [theme.primary, theme.primary];
   return (
