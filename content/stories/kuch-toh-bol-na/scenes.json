@@ -1,0 +1,110 @@
+{
+  "storyId": "kuch-toh-bol-na",
+  "version": 1,
+  "scenes": [
+    {
+      "id": "last_bench_wali_ladki",
+      "title": "Last Bench Wali Ladki",
+      "narration": [
+        "*Somvaar, subah ke 9:05. Sahyadri College ki second-year classroom mein pankhe ki ghur-ghur aur Professor Medha Kulkarni ke marker ki cheen-cheen ke alawa sab chup hai. Last bench par, khidki ke paas, tumhari hamesha wali jagah — ek kaan mein earbud, notebook khuli, aur bagal wali seat hamesha ki tarah khaali.*",
+        "*Darwaza dhadaam se khulta hai. Ek ladki andar aati hai — oversized denim jacket, oonchi bikhri ponytail, naak mein chamakti chhoti si nose pin, aur chehre par aisi muskaan jaise abhi-abhi koi shararat karke aayi ho.*",
+        "Medha Kulkarni: \"Miss Khurana. Delhi mein shayad classes 9:15 se shuru hoti hongi. Pune mein nahi. Baitho — peeche jagah khaali hai.\"",
+        "*Poori class mein sirf ek jagah khaali hai. Tumhare bagal mein.*",
+        "*Woh bag patakti hai, dhamm se baithti hai, aur bina poochhe tumhare kaan se earbud nikaal kar apne kaan mein laga leti hai. Ek pal sunti hai. Phir ek bhaun upar uthati hai.*",
+        "Mahi Khurana: \"Hmm. Arijit. Subah ke nau baje sad songs? Kaun dil tod gaya, partner?\"",
+        "*Woh jawaab ka intezaar karti hai. Phir thoda aur paas jhukti hai, aankhein sikod kar tumhe aise dekhti hai jaise koi mazedaar puzzle ho.*",
+        "Mahi Khurana: \"Hello? Awaaz hai? Ya battery low hai? Koi baat nahi — main ek-tarfa baatein karne mein champion hoon.\"",
+        "*Aage ki bench se Sameer Oberoi mud kar dekhta hai, muskurata hai, aur Mahi ki taraf do ungliyaan utha kar ek ajeeb sa ishara karta hai — jaise kuch yaad dila raha ho. Mahi use ek pal ghoorti hai, phir anjaan ban jaati hai.*",
+        "Medha Kulkarni: \"Semester project ke partners. Topic: Pune Ki Awaaz — das minute ki documentary, narration aapki apni awaaz mein. Last bench — aap dono partners. Presentation chaar hafte baad. Koi sawaal?\"",
+        "*Apni awaaz mein narration. Aadhi class mud kar tumhari taraf dekhti hai — sab jaante hain ki tumse attendance mein 'present' bhi mushkil se nikalta hai. Mahi ki aankhein shararat se chamak uthti hain.*",
+        "Mahi Khurana: \"Perfect. Main camera, tum awaaz. Matlab ab tumhe mujhse baat karni hi padegi, Mr. Mute.\"",
+        "*Woh apni pen se tumhari notebook ke kone par jaldi-jaldi kuch likhti hai, phir earbud wapas tumhare kaan mein laga deti hai. Uski ungliyaan ek pal ko tumhare kaan se chhoo jaati hain.*",
+        "*Notebook ke kone par likha hai: Shanti Kunj, B-wing, flat 402. Haan, tumhare saamne wala. Aaj raat 10 baje balcony. Kuch toh bol na. — M.*",
+        "*Bell bajti hai. Mahi uthti hai, ponytail jhatakti hai, aur darwaze tak jaate-jaate peeche mud kar tumhe dekh ke ek aankh maar deti hai.*"
+      ],
+      "fallbackLines": [
+        "*Mahi bench par pen se taal deti hai, kabhi tumhari notebook mein jhaankti hai, kabhi khidki ke bahar — aur har baar tumhare chehre par laut aati hai, jaise check kar rahi ho ki tum ab tak laal hue ya nahi.*",
+        "Mahi Khurana: \"Theek hai, naya rule. Haan ke liye ek baar blink, na ke liye do baar. Aur agar tum muskuraaye — toh main jeet gayi.\"",
+        "*Professor Kulkarni ka marker board par chalta rehta hai. Aage ki bench se Sameer Oberoi phir ek baar mud kar dekhta hai.*"
+      ],
+      "choices": [
+        {
+          "id": "write_back",
+          "text": "*Notebook ke usi kone par Mahi ke note ke neeche chupchaap kuch likh dena.*",
+          "shortLabel": "Likh ke jawaab",
+          "keywords": [
+            "write",
+            "likh",
+            "note",
+            "notebook",
+            "reply",
+            "jawaab"
+          ],
+          "next": null,
+          "effects": {
+            "memory": [
+              "On the first Monday, Mahi left {{playerName}} a note in his notebook with her flat number and a 10 p.m. balcony invitation, and he answered in writing."
+            ]
+          }
+        },
+        {
+          "id": "say_something",
+          "text": "*Himmat juta kar Mahi ko awaaz dena — chahe ek lafz hi sahi.*",
+          "shortLabel": "Kuch bol do",
+          "keywords": [
+            "speak",
+            "bolo",
+            "awaaz",
+            "talk",
+            "baat",
+            "mahi"
+          ],
+          "next": null,
+          "effects": {
+            "memory": [
+              "On the first Monday, {{playerName}} tried to speak to Mahi out loud after she teased him as Mr. Mute."
+            ]
+          }
+        },
+        {
+          "id": "change_song",
+          "text": "*Earbud wala sad gaana badal kar ek khush gaana laga dena — jawaab ke taur par.*",
+          "shortLabel": "Gaana badlo",
+          "keywords": [
+            "song",
+            "gaana",
+            "music",
+            "arijit",
+            "earbud"
+          ],
+          "next": null,
+          "effects": {
+            "memory": [
+              "On the first Monday, {{playerName}} answered Mahi's teasing about his sad songs by switching to a happy song instead of speaking."
+            ]
+          }
+        },
+        {
+          "id": "balcony_ten",
+          "text": "*Raat 10 baje balcony par jaane ka faisla karna — abhi bina kuch kahe.*",
+          "shortLabel": "Raat 10 baje",
+          "keywords": [
+            "balcony",
+            "night",
+            "raat",
+            "10",
+            "flat",
+            "402"
+          ],
+          "next": null,
+          "effects": {
+            "memory": [
+              "On the first Monday, {{playerName}} silently decided to go to the balcony at 10 p.m. after Mahi's note."
+            ]
+          }
+        }
+      ]
+    }
+  ],
+  "endings": []
+}

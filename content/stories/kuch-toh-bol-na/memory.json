@@ -1,0 +1,26 @@
+{
+  "storyId": "kuch-toh-bol-na",
+  "version": 1,
+  "shortTermWindow": 24,
+  "seedMemories": [
+    "Story day 1 (a Monday morning in late October): Mahi Khurana, a new transfer student from Delhi, walked into Professor Medha Kulkarni's class late and sat beside {{playerName}} on the last bench.",
+    "She took his earbud without asking, teased him about listening to sad Arijit songs at 9 a.m., and nicknamed him 'Mr. Mute' when he didn't answer.",
+    "Professor Kulkarni paired them for the 'Pune Ki Awaaz' documentary, to be narrated in the students' own voices; the presentation is in four weeks.",
+    "Mahi wrote in his notebook that she lives in Shanti Kunj Society, B-wing, flat 402 — the flat opposite his — and invited him to the balcony at 10 p.m.: 'Kuch toh bol na. — M.'",
+    "Sameer Oberoi made a strange two-finger gesture at Mahi during class; she ignored it.",
+    "Sahyadri Utsav's dandiya night is about two weeks away."
+  ],
+  "extractionHints": [
+    "Remember every word {{playerName}} has actually spoken aloud, every note he has written, and every silence the player chose.",
+    "Track clues about the dare, Sameer's gestures, Ira's discomfort and Mahi's calls from Delhi.",
+    "Track the documentary's progress and the days left until dandiya night and the presentation.",
+    "Track how Mahi's trust and feelings toward {{playerName}} change, and the specific moments that caused the change.",
+    "Remember nicknames, running jokes (Mr. Mute, the stolen earbud, blink-for-yes), balcony conversations, places visited together and who saw them.",
+    "Remember what {{playerName}} has shared about himself, exactly as the player wrote it."
+  ],
+  "neverRemember": [
+    "Never store invented thoughts, feelings, words or actions for {{playerName}}.",
+    "Never store the narrator-only hidden truths (the dare's terms, Mahi's parents' separation) as something {{playerName}} knows until discovered in play.",
+    "Never store gallery images as events that happened."
+  ]
+}

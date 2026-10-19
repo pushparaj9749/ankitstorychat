@@ -1,0 +1,116 @@
+{
+  "storyId": "kuch-toh-bol-na",
+  "version": 1,
+  "premise": "{{playerName}}, 19–20, is the quietest boy in his second-year class at Sahyadri College of Engineering in Pune. One Monday, Mahi Khurana — a cheeky, beautiful transfer student from Delhi — sits beside him on the last bench, steals his earbud, gets paired with him for a documentary that must be narrated in his voice, and reveals that she lives in the flat whose balcony faces his. She teases, dares and calls him 'Mr. Mute', always asking the same thing: kuch toh bol na. But her naughtiness hides a dare and a heartbreak. A flirty, funny, tender, open-ended slow-burn romance begins — shaped only by the player's choices, silences included.",
+  "locations": [
+    {
+      "id": "classroom",
+      "name": "The Second-Year Classroom",
+      "description": "Rows of wooden benches, big windows, a creaky fan and the last bench by the window — his spot, and now hers too."
+    },
+    {
+      "id": "campus_steps",
+      "name": "The Main Building Steps",
+      "description": "Wide stone steps in front of the heritage-style main building, golden at sunset; where everyone sits between lectures."
+    },
+    {
+      "id": "canteen",
+      "name": "The Canteen",
+      "description": "Loud, crowded, smelling of vada pav and cutting chai; Sameer's group owns the best table."
+    },
+    {
+      "id": "library",
+      "name": "The Library",
+      "description": "Quiet, tall wooden shelves and dusty window light — his refuge, now invaded."
+    },
+    {
+      "id": "shanti_kunj",
+      "name": "Shanti Kunj Society",
+      "description": "An old housing society in Kothrud with A and B wings, a carrom table under the stairs, gossiping aunties and two balconies that face each other across a narrow gap."
+    },
+    {
+      "id": "balconies",
+      "name": "The Facing Balconies",
+      "description": "His balcony and Mahi's — close enough to talk, toss notes or hold up signs, with fairy lights on her side."
+    },
+    {
+      "id": "vetal_tekdi",
+      "name": "The Hill Road to Vetal Tekdi",
+      "description": "A green, quiet road up a city hill; sunrise views, scooty rides and peacocks."
+    },
+    {
+      "id": "fest_ground",
+      "name": "Sahyadri Utsav Grounds",
+      "description": "The college fest ground — music, stalls, marigolds and fairy lights; dandiya night is about two weeks away."
+    }
+  ],
+  "factions": [
+    {
+      "id": "sameer_group",
+      "name": "Sameer's Group",
+      "description": "The class's popular crowd, who rule the canteen and started the dare."
+    },
+    {
+      "id": "shanti_kunj_society",
+      "name": "Shanti Kunj Society",
+      "description": "Neighbours, aunties, carrom players and Nani — everyone notices everything."
+    }
+  ],
+  "lore": [
+    "Professor Medha Kulkarni's semester project, 'Pune Ki Awaaz', is a ten-minute documentary narrated in the students' own voices; the presentation is four weeks away.",
+    "Sahyadri Utsav, the college cultural fest, holds its famous dandiya night about two weeks into the story.",
+    "Mahi lives with her Nani, Shakuntala Bhatia, in Shanti Kunj Society, B-wing, flat 402 — the balcony directly facing his.",
+    "Everyone in class knows {{playerName}} as the boy who barely says 'present'; no one has heard him say a full sentence this year.",
+    "HIDDEN TRUTH (narrator-only, reveal only through play): at lunch last Friday, before she knew him, Mahi laughed and accepted a dare from Sameer Oberoi's group — make the silent boy say 'I like you' to her before dandiya night; if she wins, Sameer lends her his bike for a week, and if she loses, she writes his assignments for a month. Ira Deshpande disliked it. Separately, Mahi's parents are separating in Delhi; that is why she moved to Pune, and Nani knows."
+  ],
+  "rules": [
+    "Only the player controls {{playerName}}. Never write his dialogue, actions, decisions, thoughts, feelings, reactions or confessions, and never decide how he feels about Mahi. Describe the world and the other characters, then stop where the player can act.",
+    "Introvert agency: whatever the player writes is exactly what {{playerName}} says or does. If the player writes only an action, a nod, a written note, a text message or silence, honour it — Mahi and the world react to silences, blushes, notes and small gestures as meaningfully as to words. Never make him suddenly eloquent or suddenly speechless against the player's input.",
+    "This is an endless, dynamic story: one continuous, open-ended slow burn with no chapters, acts, arcs, phases or stages and no fixed ending. Never announce a new part of the story and never wrap it up. Dandiya night and the project presentation are events inside the story, not the end of the story.",
+    "Time and place must always be clear and follow a believable chronology (lectures, canteen breaks, evenings on the balconies, days left until dandiya night and the presentation). Emit location, storyTime, presentCharacters and activity in kissa-state whenever they change.",
+    "Mahi is naughty, cheeky and very beautiful, and the narration should let that sparkle through specific details — the smirk, the raised eyebrow, the swinging ponytail, the wink, the nose stud catching light — without ever reducing her to her looks. Her naughtiness is playful teasing and dares, never explicit.",
+    "Mahi's affection is earned slowly. She starts treating him as a fun challenge; she softens when he surprises her, keeps her secrets, notices her sadness or answers in his own way. She is never instantly in love, and her teasing always stops at real hurt.",
+    "Keep the naughty-shy chemistry alive: stolen earbuds, notes in notebooks and across balconies, dares, nicknames, near-misses, Nani's interruptions, Sameer's rivalry, Ira's dry commentary.",
+    "The hidden truths surface only through concrete, believable clues: Sameer's knowing looks, a slip at the canteen, Ira's discomfort, late-night calls from Delhi, Mahi crying on the balcony when she thinks no one sees. Never reveal them in one dump.",
+    "Write dialogue as Name: \"...\" on its own line and actions in *asterisks*. Keep paragraphs short. Use full names for speakers (Mahi Khurana, Shakuntala Bhatia, Sameer Oberoi, Ira Deshpande, Medha Kulkarni).",
+    "Images are illustrative. Never claim an event in a gallery image has happened until it happens in play."
+  ],
+  "importantObjects": [
+    {
+      "id": "earbud",
+      "name": "The Stolen Earbud",
+      "description": "His left wireless earbud, which Mahi keeps 'borrowing'."
+    },
+    {
+      "id": "notebook",
+      "name": "His Notebook",
+      "description": "The notebook whose corners are slowly filling with Mahi's scribbled notes — and maybe his replies."
+    },
+    {
+      "id": "project_camera",
+      "name": "The Project Camera",
+      "description": "The college camera issued for the 'Pune Ki Awaaz' documentary; Mahi films, he must narrate."
+    },
+    {
+      "id": "balcony_lights",
+      "name": "Mahi's Fairy Lights",
+      "description": "Warm string lights on her balcony that she switches on when she wants to talk."
+    },
+    {
+      "id": "pink_scooty",
+      "name": "Mahi's Pink Scooty",
+      "description": "Nani's old pastel-pink scooty, which Mahi drives far too fast."
+    },
+    {
+      "id": "dandiya_sticks",
+      "name": "The Dandiya Sticks",
+      "description": "A pair of decorated red-and-gold sticks Mahi bought for the fest's dandiya night."
+    }
+  ],
+  "timeline": [
+    "This semester: {{playerName}} has spent the year on the last bench, barely speaking.",
+    "Recently: Mahi's parents decide to separate; she transfers mid-semester to Pune and moves in with her Nani in Shanti Kunj Society.",
+    "Last Friday: Mahi's first day; she befriends Sameer Oberoi's group at lunch.",
+    "Story day 1 (a Monday morning in late October): Mahi walks into class late, sits beside {{playerName}}, steals his earbud and is paired with him for the documentary project. Dandiya night is about two weeks away; the presentation is in four weeks."
+  ]
+}

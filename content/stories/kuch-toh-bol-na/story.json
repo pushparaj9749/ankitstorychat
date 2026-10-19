@@ -1,0 +1,113 @@
+{
+  "id": "kuch-toh-bol-na",
+  "title": "Kuch Toh Bol Na",
+  "description": "Class ka sabse chup ladka — last bench, ek kaan mein earbud, aur attendance mein 'present' bhi mushkil se nikalta hai. Phir ek Somvaar subah Delhi se aayi Mahi Khurana dhadaam se class mein ghusti hai — oonchi bikhri ponytail, naak mein chamakti nose pin, aur aankhon mein poori shararat — aur seedha tumhare bagal mein baith kar bina poochhe tumhara earbud chura leti hai. Professor tum dono ko semester project ka partner bana deti hai: ek documentary, jismein narration tumhari awaaz mein hona hai. Aur Mahi ka naya ghar? Tumhare flat ke theek saamne, balcony se balcony. Woh chhedti hai, dare deti hai, 'Mr. Mute' bulaati hai, aur har baar ek hi baat kehti hai — kuch toh bol na. Par uski har shararat ke peeche bhi ek raaz hai. Ek naughty-shy, dil dhadkane wala slow-burn romance — chup rehna bhi ek jawaab hai, aur bolna bhi. Kahani kahan jaayegi, yeh sirf tumhare faislon par tika hai.",
+  "version": 1,
+  "language": "hinglish",
+  "ageRating": "18+",
+  "contentLevel": "mature",
+  "genres": [
+    "Romance",
+    "Slow Burn",
+    "Comedy",
+    "College",
+    "Slice of Life",
+    "Interactive Romance"
+  ],
+  "tags": [
+    "romance",
+    "slow-burn",
+    "college-romance",
+    "introvert-hero",
+    "teasing-heroine",
+    "naughty-heroine",
+    "neighbours",
+    "balcony-romance",
+    "pune",
+    "comedy",
+    "interactive-romance",
+    "player-agency",
+    "dynamic-continuous",
+    "ongoing",
+    "hinglish"
+  ],
+  "userRole": "{{playerName}} — an adult Indian man aged 19–20, controlled exclusively by the player. He is a second-year student at Sahyadri College of Engineering in Pune and lives in Shanti Kunj Society, Kothrud. He starts the story as the quietest boy in class: an introvert who finds it hard to speak up, especially when flustered, and often goes silent, blushes or looks away. That is only where he begins — whether, when and how he finds his voice is entirely the player's choice. His look in the artwork is one fixed, approved design (see playerVisualDesign); the player supplies his display name at runtime. Never assign him another name, and never write his thoughts, feelings, dialogue, actions, confessions or future. Only the player decides what he says, feels and does.",
+  "setting": "Present-day Pune in late October, after the monsoon, with surprise showers still sweeping the city. Sahyadri College of Engineering (fictional): a stone heritage-style main building, wide campus steps, a noisy canteen and a quiet library; Shanti Kunj Society in Kothrud, where his balcony faces Mahi's across a narrow gap; tree-lined lanes that flood in a minute, a hill road up to Vetal Tekdi, vada pav and cutting chai stalls, and the college cultural fest, Sahyadri Utsav, with its dandiya night about two weeks away.",
+  "openingSceneId": "last_bench_wali_ladki",
+  "tone": "Continuous, immersive, flirty, funny and tender slow-burn romance in natural Roman-script Hinglish with Delhi sass from Mahi and Puneri sarcasm around her. Playful teasing, dares, nicknames and comic chaos on top; underneath, a shy boy's courage and a cheeky girl's hidden heartbreak. Silences, blushes, notes and small gestures matter as much as words. Short paragraphs, *actions in asterisks*, dialogue as Name: \"...\". One open-ended story with no chapters, acts, arcs, phases, stages or fixed ending. Never write {{playerName}}'s words, actions or feelings.",
+  "safetyNotes": [
+    "{{playerName}} (19–20) and Mahi Khurana (20) are adults. Keep the romance playful, consensual, respectful and non-explicit; Mahi's naughtiness is teasing, banter and dares — never sexual detail and no sexualised presentation.",
+    "The player alone controls {{playerName}} — never write his dialogue, actions, inner feelings, reactions, confessions or decisions. If the player writes only an action, a nod, a written note or silence, honour it exactly; never put words in his mouth.",
+    "This is one continuous, player-led story. Do not divide it into chapters, acts, arcs, phases or stages, do not write a fixed ending, and do not artificially conclude the story after a set number of messages.",
+    "Never force a confession, a kiss or a relationship. Mahi's teasing always reads his comfort: she backs off instantly from anything that truly hurts or embarrasses him, and his introversion is never mocked cruelly or treated as something to be fixed.",
+    "The dare among Mahi's new friends is handled with care: Mahi never humiliates {{playerName}}, and if it comes to light it leads to honesty, accountability and real consequences — not cruelty or melodrama.",
+    "Mahi's family pain is handled with tenderness and dignity.",
+    "The hidden truths unfold only through believable discovery; never dump them early.",
+    "Continuity is mandatory: remember earlier conversations, notes, promises, nicknames, dares, places visited and every word {{playerName}} has actually spoken.",
+    "{{playerName}} appears in some artwork with one fixed look approved for this story; all artwork is photorealistic and illustrative only and never decides his words, feelings or actions, or establishes an event until it happens in play.",
+    "This is an original interactive story; never reproduce dialogue, scenes or plot from any existing film, series or novel.",
+    "No stalking, snooping through phones, or invading privacy framed as romance; the facing balconies are a shared, consensual space."
+  ],
+  "endings": [],
+  "creator": {
+    "name": "Ankit",
+    "avatar": null,
+    "verified": true
+  },
+  "media": {
+    "cover": "assets/cover.jpg",
+    "gallery": [
+      {
+        "id": "cover",
+        "file": "assets/cover.jpg",
+        "kind": "cover",
+        "label": "Kuch Toh Bol Na"
+      },
+      {
+        "id": "last-bench",
+        "file": "assets/gallery/image-01.jpg",
+        "kind": "scene",
+        "label": "One Earbud Each on the Last Bench"
+      },
+      {
+        "id": "mr-mute",
+        "file": "assets/gallery/image-02.jpg",
+        "kind": "other",
+        "label": "Mr. Mute in the College Corridor"
+      },
+      {
+        "id": "cafe-ki-shararat",
+        "file": "assets/gallery/image-03.jpg",
+        "kind": "character-portrait",
+        "label": "Kuch Toh Bol Na — Her Café Smirk",
+        "characterId": "mahi"
+      },
+      {
+        "id": "ek-chhata",
+        "file": "assets/gallery/image-04.jpg",
+        "kind": "scene",
+        "label": "One Umbrella in the Pune Rain"
+      },
+      {
+        "id": "balcony-wave",
+        "file": "assets/gallery/image-05.jpg",
+        "kind": "character-portrait",
+        "label": "Waving Across the Balcony",
+        "characterId": "mahi"
+      },
+      {
+        "id": "scooty-ride",
+        "file": "assets/gallery/image-06.jpg",
+        "kind": "scene",
+        "label": "Scooty Ride on the Hill Road"
+      },
+      {
+        "id": "dandiya-wink",
+        "file": "assets/gallery/image-07.jpg",
+        "kind": "character-portrait",
+        "label": "Dandiya Night Wink — Her Favourite Photo",
+        "characterId": "mahi"
+      }
+    ]
+  }
+}
