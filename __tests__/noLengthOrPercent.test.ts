@@ -32,6 +32,12 @@ test('no percentage shown to the reader', () => {
   }
 });
 
+test('no scene / ending counts shown (stories are free-form and endless)', () => {
+  for (const { f, src } of all) {
+    expect({ f, hit: /label: '(SCENES|ENDINGS|Scenes|Endings)'|\$\{\w+\} (scenes|endings)`/.test(src) }).toEqual({ f, hit: false });
+  }
+});
+
 test('progress widgets are gone', () => {
   expect(fs.existsSync('src/components/ProgressRing.tsx')).toBe(false);
   for (const { f, src } of all) expect({ f, hit: /ProgressRing|ProgressBar/.test(src) }).toEqual({ f, hit: false });

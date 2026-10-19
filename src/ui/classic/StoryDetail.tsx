@@ -187,8 +187,6 @@ export function StoryDetail({ navigation, route }: Props) {
     return item ? mediaApiUrl(apiBase, bundle.meta.storyDir, item.file) : null;
   };
 
-  const sceneCount = bundle.scenes.scenes.length;
-  const endingCount = bundle.scenes.endings.length;
   const ongoing = meta.tags?.includes('ongoing') ?? false;
 
   return (
@@ -265,17 +263,12 @@ export function StoryDetail({ navigation, route }: Props) {
             ))}
           </View>
 
-          {/* size at a glance */}
+          {/* at a glance — never scenes, endings, length or duration */}
           <View style={styles.statRow}>
             {[
-              { icon: 'albums-outline' as const, value: String(sceneCount), label: 'SCENES', tint: theme.accent },
               { icon: 'people-outline' as const, value: String(cast.length || '—'), label: 'CAST', tint: theme.violet },
-              {
-                icon: 'flag-outline' as const,
-                value: endingCount > 0 ? String(endingCount) : ongoing ? '∞' : '—',
-                label: endingCount > 0 ? 'ENDINGS' : 'FORMAT',
-                tint: theme.gold,
-              },
+              { icon: 'sparkles-outline' as const, value: meta.genres[0] ?? 'Story', label: 'GENRE', tint: theme.accent },
+              { icon: 'shield-outline' as const, value: String(meta.ageRating), label: 'RATED', tint: theme.gold },
             ].map((st) => (
               <View key={st.label} style={[styles.stat, { borderColor: theme.border, backgroundColor: withAlpha(theme.surface2, 0.7) }]}>
                 <View style={[styles.statIcon, { backgroundColor: withAlpha(st.tint, 0.15) }]}>

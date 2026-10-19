@@ -565,7 +565,7 @@ export function SubmitStory({ navigation, route }: Props) {
               {label('Main Characters (optional)')}
               <TextInput style={fieldStyle()} placeholder="Names and personalities" placeholderTextColor={theme.textFaint} value={characters} onChangeText={setCharacters} />
               {label('Additional notes (optional)')}
-              <TextInput style={fieldStyle()} placeholder="Tones, endings, branch ideas…" placeholderTextColor={theme.textFaint} value={notes} onChangeText={setNotes} />
+              <TextInput style={fieldStyle()} placeholder="Tone, mood, characters ke ideas…" placeholderTextColor={theme.textFaint} value={notes} onChangeText={setNotes} />
               <View style={{ height: SPACING.xl }} />
               <GradientButton title={loading ? 'Submitting…' : 'Send Idea'} onPress={handleSubmitIdea} disabled={loading} loading={loading} />
             </>
