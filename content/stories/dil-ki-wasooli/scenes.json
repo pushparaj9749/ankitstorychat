@@ -1,0 +1,84 @@
+{
+  "storyId": "dil-ki-wasooli",
+  "version": 1,
+  "scenes": [
+    {
+      "id": "pehli_kist",
+      "title": "Pehli Kist",
+      "narration": [
+        "*Dilli, December ki subah, saadhe nau baje. Daryaganj ki gali mein dhundh itni ghani hai ki saamne wali dukaan bhi dhundhli dikhti hai. 'Kitaab Ghar' ke andar kerosene heater ki halki aanch, purani kitaabon ki khushboo, aur deewar pe papa ki tasveer.*",
+        "*Ek ghante pehle yahan ek kaali Thar aakar ruki thi. Gali ke saare shutter dhadaam se gire the. Aur andar aayi thi Kesar Dahiya — Dilli ki sabse khatarnak recovery agent — haath mein sealing notice, peeche ek pahaad jaisa bouncer, Bhoora.*",
+        "*Par tumne use dekh ke darr ke bhaagne ki jagah, kaanpte haathon se adrak wali chai ka cup aage badha diya tha. Aur jab usne poochha 'Paisa kab dega?', tumne nazrein jhuka ke Ghalib ka ek sher padh diya tha.*",
+        "*Ab woh tumhare counter pe baithi hai — kaala leather jacket, mustard kurti, kaanon mein bade sone ke jhumke, kamar tak lambe wavy baal — teesra cup chai ka haath mein, aur nazrein sirf tum par.*",
+        "*Sealing notice ke do tukde counter pe pade hain.*",
+        "Kesar Dahiya: \"Dekh re shayar sahab. Paanch saal mein maine teen sau dukaanein seal ki hain. Kisi ne mujhe chai nahi pilaayi. Kisi ne sher nahi sunaya.\" *Woh cup neeche rakhti hai aur counter pe aage jhuk jaati hai, itne paas ki tumhe uske jhumkon ki khanak sunaai deti hai.* \"Toh naya hisaab suno. Loan ab main dekhungi. Par kist roz bharni padegi.\"",
+        "*Woh tumhare haath se Ghalib ki kitaab le leti hai, beech mein apna visiting card rakh ke band kar deti hai.*",
+        "Kesar Dahiya: \"Roz shaam saat baje. Ek chai, ek sher, aur tum — mere saath. Pehli kist aaj. India Gate.\" *Phir muskura ke aankh maarti hai.* \"Aur haan, mana kiya toh... byaaj lagega. Ek jhappi per minute.\"",
+        "Bhoora: *(darwaze pe khade-khade, bheegi aankhon se)* \"Jija ji... chai. Badiya thi.\"",
+        "*Tabhi bahar ek laal SUV ka hooter cheekhta hai. Seth Girdhari Lal ka bhatija Lallu do gundon ke saath utarta hai aur dukaan ke saamne khada ho kar chillaata hai — 'Oye kitaabi! Chacha ji ne bola hai, dukaan aaj khaali karni hai!' Kesar ki muskaan ek pal mein gaayab ho jaati hai. Woh dheere se aviators aankhon pe chadhaati hai.*",
+        "Kesar Dahiya: *(tumhari taraf dekhe bina, dheemi aawaz mein)* \"Tu bas ek baat bata, mera hero... main sambhaalun, ya tu khud baat karega?\""
+      ],
+      "fallbackLines": [
+        "*Kesar tumhara jawab sun ke ek pal ke liye tumhe dekhti rehti hai, phir muskura deti hai — woh muskaan jo shayad hi kisi defaulter ne kabhi dekhi ho.*",
+        "Kesar Dahiya: \"Tu na, re shayar sahab... bada khatarnak hai. Seedha dil pe wasooli karta hai.\""
+      ],
+      "choices": [
+        {
+          "id": "let_kesar_handle",
+          "text": "*Dheere se, sharmaate hue, uska haath pakad lena — 'Aap sambhaal lo... par kisi ko maarna mat.'*",
+          "shortLabel": "Aap sambhaal lo",
+          "keywords": [
+            "sambhaal",
+            "aap",
+            "haath",
+            "maarna mat",
+            "kesar"
+          ],
+          "next": null,
+          "effects": {
+            "memory": [
+              "On the morning of the first installment, {{playerName}} held Kesar's hand and asked her to handle Lallu — without hurting anyone."
+            ]
+          }
+        },
+        {
+          "id": "face_lallu",
+          "text": "*Kaanpte ghutno ke saath, par seedha khade ho kar khud darwaze tak jaana — 'Main baat karta hoon.'*",
+          "shortLabel": "Main baat karunga",
+          "keywords": [
+            "main",
+            "baat",
+            "khud",
+            "darwaza",
+            "lallu"
+          ],
+          "next": null,
+          "effects": {
+            "memory": [
+              "On the morning of the first installment, {{playerName}} gathered his courage and went to face Lallu himself."
+            ]
+          }
+        },
+        {
+          "id": "accept_date",
+          "text": "*Sab bhool ke, laal chehre se bas itna kehna — 'Saat baje... India Gate. Main aaunga.'*",
+          "shortLabel": "Saat baje aaunga",
+          "keywords": [
+            "saat",
+            "india gate",
+            "date",
+            "kist",
+            "aaunga"
+          ],
+          "next": null,
+          "effects": {
+            "memory": [
+              "On the morning of the first installment, a blushing {{playerName}} agreed to meet Kesar at India Gate at seven for the first 'installment'."
+            ]
+          }
+        }
+      ]
+    }
+  ],
+  "endings": []
+}
