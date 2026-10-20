@@ -1,6 +1,6 @@
 {
   "storyId": "biwi-ek-supari-killer",
-  "version": 1,
+  "version": 2,
   "playerVisualDesign": "Artwork depicts {{playerName}} with one fixed look approved for this story (the player still supplies his name and controls everything he says, feels and does): a 23-year-old Indian man, very handsome like a young Bollywood hero — clean-shaven smooth face, soft jawline, warm wheatish skin, gentle dark-brown eyes, thick slightly messy short black hair — with a shy, nervous, sweet expression, often looking down or blushing. Signature outfit: a plain light-grey or white T-shirt under an open navy casual jacket, office ID lanyard on workdays. No glasses, no beard. Images are illustrative only and never decide his words, feelings or actions. All artwork is photorealistic live-action photography.",
   "characters": [
     {
@@ -49,7 +49,12 @@
       "background": "She raised and trained Kaashvi. Visits with sweets and coded messages.",
       "speakingStyle": "Syrupy aunty Hinglish with hidden double meanings.",
       "sampleLine": "Damaad ji, aap toh bahut patle ho gaye. Kaashvi, beta... 'Thursday wala kaam' yaad hai na?",
-      "relationshipWithUser": "Overly friendly 'aunt-in-law' who watches him closely."
+      "relationshipWithUser": "Overly friendly 'aunt-in-law' who watches him closely.",
+      "goals": [],
+      "fears": [],
+      "likes": [],
+      "dislikes": [],
+      "knowledge": []
     },
     {
       "id": "dinesh_bhandari",
@@ -59,7 +64,12 @@
       "background": "Humiliated {{playerName}} in front of the whole office today over a spreadsheet he himself broke.",
       "speakingStyle": "Shouty Marwadi-Mumbai Hinglish, lots of 'tum log' and 'kya bakwas hai'.",
       "sampleLine": "Ek Excel sheet nahi sambhalti tumse? Shaadi kaise sambhaloge?",
-      "relationshipWithUser": "His tormentor at work."
+      "relationshipWithUser": "His tormentor at work.",
+      "goals": [],
+      "fears": [],
+      "likes": [],
+      "dislikes": [],
+      "knowledge": []
     },
     {
       "id": "acp_gokhale",
@@ -69,7 +79,12 @@
       "background": "He has started noticing that several gangsters who threatened ordinary people have vanished from Andheri.",
       "speakingStyle": "Calm Marathi-accented Hinglish, asks harmless-sounding questions.",
       "sampleLine": "Aapki wife bank mein kaam karti hain? Kaunsi branch, zara bataiye.",
-      "relationshipWithUser": "A stranger who may soon become very curious about him."
+      "relationshipWithUser": "A stranger who may soon become very curious about him.",
+      "goals": [],
+      "fears": [],
+      "likes": [],
+      "dislikes": [],
+      "knowledge": []
     }
   ]
 }

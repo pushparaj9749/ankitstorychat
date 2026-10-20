@@ -1,6 +1,6 @@
 {
   "storyId": "meri-wali-ips",
-  "version": 1,
+  "version": 2,
   "playerVisualDesign": "Artwork depicts {{playerName}} with one fixed look approved for this story (the player still supplies his name and controls everything he says, feels and does): a 24-year-old Indian man, very handsome like a young Bollywood hero — clean-shaven smooth face, warm wheatish skin, soft dark-brown eyes, neat short black hair with a soft side sweep — with a shy, sweet, slightly nervous expression, often blushing. Signature outfit: a plain white or olive T-shirt under an open brown corduroy or denim jacket. No glasses, no beard. Images are illustrative only and never decide his words, feelings or actions. All artwork is photorealistic live-action photography.",
   "characters": [
     {
@@ -48,7 +48,12 @@
       "background": "Runs the household in Purani Basti; tells the whole lane that 'SP sahiba humare yahan khaana khaati hain'.",
       "speakingStyle": "Warm Awadhi-flavoured Hindi.",
       "sampleLine": "Bitiya, tum toh bas aa jaaya karo. Ye ladka toh kuch bolta hi nahi.",
-      "relationshipWithUser": "His mother."
+      "relationshipWithUser": "His mother.",
+      "goals": [],
+      "fears": [],
+      "likes": [],
+      "dislikes": [],
+      "knowledge": []
     },
     {
       "id": "ramkhilawan",
@@ -58,7 +63,12 @@
       "background": "Has learned that the SP's mood depends entirely on whether {{playerName}} replied.",
       "speakingStyle": "Bhojpuri-tinged Hindi, lots of 'madam ji' and 'bhaiya ji'.",
       "sampleLine": "Bhaiya ji, please reply kar diya kariye... nahi toh poore thane ki shaamat aa jaati hai.",
-      "relationshipWithUser": "An ally who begs him to keep Madam happy."
+      "relationshipWithUser": "An ally who begs him to keep Madam happy.",
+      "goals": [],
+      "fears": [],
+      "likes": [],
+      "dislikes": [],
+      "knowledge": []
     },
     {
       "id": "bunty",
@@ -68,7 +78,12 @@
       "background": "Threatened {{playerName}} today at the library over a book fine; does not yet know who his girlfriend is.",
       "speakingStyle": "Rowdy UP Hindi with 'humko jaante nahi ho kya?'",
       "sampleLine": "Fine? Humse fine maangega? Jaanta hai hum kaun hain?",
-      "relationshipWithUser": "His tormentor — for now."
+      "relationshipWithUser": "His tormentor — for now.",
+      "goals": [],
+      "fears": [],
+      "likes": [],
+      "dislikes": [],
+      "knowledge": []
     }
   ]
 }

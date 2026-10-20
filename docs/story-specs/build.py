@@ -36,8 +36,14 @@ COMMON_HINTS = [
 ]
 
 
+LIST_FIELDS = ['goals', 'fears', 'likes', 'dislikes', 'knowledge']
+
+
 def build(spec):
     sid = spec['id']
+    # Bump a spec's "version" whenever a published package changes: devices
+    # re-download a story only when its per-story version goes up.
+    ver = spec.get('version', 1)
     d = os.path.join(REPO, 'content', 'stories', sid)
     os.makedirs(os.path.join(d, 'assets', 'gallery'), exist_ok=True)
     gallery = [{"id": "cover", "file": "assets/cover.jpg", "kind": "cover", "label": spec['title']}]
@@ -47,24 +53,26 @@ def build(spec):
             item['characterId'] = g['characterId']
         gallery.append(item)
     story = {
-        "id": sid, "title": spec['title'], "description": spec['description'], "version": 1,
+        "id": sid, "title": spec['title'], "description": spec['description'], "version": ver,
         "language": "hinglish", "ageRating": "18+", "contentLevel": "mature",
         "genres": spec['genres'], "tags": spec['tags'] + ["player-agency", "dynamic-continuous", "ongoing", "hinglish"],
         "userRole": spec['userRole'], "setting": spec['setting'], "openingSceneId": spec['opening']['id'],
         "tone": spec['tone'], "safetyNotes": COMMON_SAFETY + spec.get('safety', []), "endings": [],
         "creator": CREATOR, "media": {"cover": "assets/cover.jpg", "gallery": gallery},
     }
-    chars = {"storyId": sid, "version": 1, "playerVisualDesign": spec['playerVisual'], "characters": spec['characters']}
-    world = {"storyId": sid, "version": 1, "premise": spec['premise'], "locations": spec['locations'],
+    # Every character needs these lists (the app reads them as arrays).
+    characters = [{**c, **{k: [] for k in LIST_FIELDS if k not in c}} for c in spec['characters']]
+    chars = {"storyId": sid, "version": ver, "playerVisualDesign": spec['playerVisual'], "characters": characters}
+    world = {"storyId": sid, "version": ver, "premise": spec['premise'], "locations": spec['locations'],
              "factions": spec.get('factions', []), "lore": spec['lore'],
              "rules": COMMON_WORLD_RULES + spec.get('rules', []),
              "importantObjects": spec.get('objects', []), "timeline": spec.get('timeline', [])}
-    scenes = {"storyId": sid, "version": 1, "scenes": [{
+    scenes = {"storyId": sid, "version": ver, "scenes": [{
         "id": spec['opening']['id'], "title": spec['opening']['title'],
         "narration": spec['opening']['narration'], "fallbackLines": spec['opening']['fallback'],
         "choices": [{"id": c[0], "text": c[1], "shortLabel": c[2], "keywords": c[3], "next": None,
                      "effects": {"memory": [c[4]]}} for c in spec['opening']['choices']]}], "endings": []}
-    memory = {"storyId": sid, "version": 1, "shortTermWindow": 24, "seedMemories": spec['seed'],
+    memory = {"storyId": sid, "version": ver, "shortTermWindow": 24, "seedMemories": spec['seed'],
               "extractionHints": COMMON_HINTS + spec.get('hints', []), "neverRemember": COMMON_NEVER}
     for name, obj in [('story', story), ('characters', chars), ('world', world), ('scenes', scenes), ('memory', memory)]:
         with open(os.path.join(d, f'{name}.json'), 'w', encoding='utf-8') as f:
@@ -73,7 +81,7 @@ def build(spec):
     entry = {
         "id": sid, "title": spec['title'], "tagline": spec['tagline'], "description": spec['description'],
         "genres": spec['genres'], "tags": story['tags'], "characters": [c['name'] for c in spec['characters']],
-        "ageRating": "18+", "contentLevel": "mature", "language": "hinglish", "version": 1,
+        "ageRating": "18+", "contentLevel": "mature", "language": "hinglish", "version": ver,
         "coverUrl": f"stories/{sid}/assets/cover.jpg", "accentColor": spec['accent'],
         "userRole": spec['userRole'], "setting": spec['setting'], "estimatedMinutes": 60, "featured": False, "isNew": True,
         "popularity": spec.get('popularity', 97), "storyDir": sid, "creator": CREATOR,

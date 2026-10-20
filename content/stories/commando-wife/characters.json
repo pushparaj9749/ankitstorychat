@@ -1,6 +1,6 @@
 {
   "storyId": "commando-wife",
-  "version": 1,
+  "version": 2,
   "playerVisualDesign": "Artwork depicts {{playerName}} with one fixed look approved for this story (the player still supplies his name and controls everything he says, feels and does): a 25-year-old Indian man, very handsome like a young Bollywood hero — clean-shaven smooth face, fair-wheatish skin, warm gentle brown eyes, soft tousled short black hair — with a shy, sweet, slightly nervous expression, often blushing; a faint paint smudge on his fingers. Signature outfit: a plain cream or white T-shirt under an open olive-green or grey casual jacket. No glasses, no beard. Images are illustrative only and never decide his words, feelings or actions. All artwork is photorealistic live-action photography.",
   "characters": [
     {
@@ -50,7 +50,12 @@
       "background": "Arranged the marriage with Aditi's mother; keeps asking 'khushkhabri kab?'.",
       "speakingStyle": "Sweet Garhwali-Hindi with lots of blessings and nosy questions.",
       "sampleLine": "Bahu, tum aa gayi toh ghar mein jaan aa gayi. Ye toh bas painting mein khoya rehta hai.",
-      "relationshipWithUser": "His mother."
+      "relationshipWithUser": "His mother.",
+      "goals": [],
+      "fears": [],
+      "likes": [],
+      "dislikes": [],
+      "knowledge": []
     },
     {
       "id": "subedar_thapa",
@@ -60,7 +65,12 @@
       "background": "Drops by with army rum cake and unit gossip; has seen Major Rana in the worst places on earth.",
       "speakingStyle": "Gorkhali-accented Hindi, 'sahab' and 'Madam'.",
       "sampleLine": "Sahab, Madam ko maine goli ke saamne muskurate dekha hai. Par aapke saamne woh sharmati hain. Ye pehli baar dekha.",
-      "relationshipWithUser": "Her trusted soldier who has decided to protect him too."
+      "relationshipWithUser": "Her trusted soldier who has decided to protect him too.",
+      "goals": [],
+      "fears": [],
+      "likes": [],
+      "dislikes": [],
+      "knowledge": []
     },
     {
       "id": "monty_negi",
@@ -70,7 +80,12 @@
       "background": "Has been threatening {{playerName}} to sell the cottage's garden plot to his father.",
       "speakingStyle": "Rowdy Dehradun Hindi with 'oye artist'.",
       "sampleLine": "Oye artist! Painting-shainting chhod, plot ke kaagaz sign kar de, warna...",
-      "relationshipWithUser": "His tormentor — he has never met the Major."
+      "relationshipWithUser": "His tormentor — he has never met the Major.",
+      "goals": [],
+      "fears": [],
+      "likes": [],
+      "dislikes": [],
+      "knowledge": []
     }
   ]
 }

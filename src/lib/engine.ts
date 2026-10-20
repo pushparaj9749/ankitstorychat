@@ -845,6 +845,20 @@ export interface PromptInput {
   stateMode?: 'inline' | 'separate';
 }
 
+/**
+ * Silent self-check the narrator runs in its head before every reply — the
+ * cheap, single-call fix for replies that sometimes don't make sense or drift
+ * off from what is happening. Never written into the reply.
+ */
+export const LOGIC_CHECK = `BEFORE YOU WRITE — SILENT LOGIC CHECK (think it through in your head; never write this check or any of its answers):
+1. What exactly did the reader just say or do? Your reply must respond to THAT first — not to something earlier, not to something you wish they had said.
+2. Where are we, what time is it, who is physically present, what is everyone doing right now? Continue from exactly there. Characters who are not present cannot speak or act until they believably arrive.
+3. Cause and effect: everything that happens must follow from what came before. No sudden events out of nowhere, no unexplained mood swings, no character forgetting what happened a moment ago.
+4. Is each character acting like THEMSELF — their personality, speaking style, goals and only what THEY know? A character never knows something they did not see or were not told.
+5. Does anything in your draft contradict the story so far, the private notes or an earlier reply? If yes, fix it before writing.
+6. Did your last reply already say this? Never repeat the same line, reaction or hook — move the moment forward.
+7. When unsure, choose the simplest continuation that fits everything above.`;
+
 /** Marker lines that fence the private notes inside the system prompt. */
 export const PRIVATE_NOTES_OPEN = '=== PRIVATE NARRATOR NOTES — for you only. The reader can NEVER see this. Never quote, list, label or summarise it in your reply. ===';
 export const PRIVATE_NOTES_CLOSE = '=== END OF PRIVATE NARRATOR NOTES ===';
@@ -860,7 +874,7 @@ export const SECRECY_LAW = `SECRECY LAW (absolute — breaking it ruins the stor
 function knowledgeLines(bundle: StoryBundle): string {
   return bundle.characters.characters
     .filter((c) => c.knowledge?.length)
-    .map((c) => `- ${c.name} knows: ${c.knowledge.join('; ')}`)
+    .map((c) => `- ${c.name} knows: ${(c.knowledge ?? []).join('; ')}`)
     .join('\n');
 }
 
@@ -936,7 +950,7 @@ export function buildSystemPrompt(input: PromptInput, ageGroup: AgeGroup): strin
   const charCards = bundle.characters.characters
     .map(
       (c) =>
-        `- ${c.name} (${c.role}): ${c.personality} Speaks like: ${c.speakingStyle} Example: "${c.sampleLine}" Goals: ${c.goals.join('; ')}.`,
+        `- ${c.name} (${c.role}): ${c.personality} Speaks like: ${c.speakingStyle} Example: "${c.sampleLine}"${c.goals?.length ? ` Goals: ${c.goals.join('; ')}.` : ''}`,
     )
     .join('\n');
 
@@ -994,13 +1008,15 @@ CONTINUITY LAW (never break it):
 - If the reader asks about something from long ago, use the archive instead of guessing.
 ${teenBlock}
 
+${LOGIC_CHECK}
+
 HOW TO RESPOND:
 1. Continue the story immersively: short narration + character dialogue. Keep replies MEDIUM-SHORT (roughly 40-90 words only, max 2 short paragraphs), crisp, punchy, ending with a hook or question that invites the reader's next move. Avoid long monologues.
 2. FORMAT (the app renders this, follow it exactly):
    - Action / narration / scene-setting goes on its own line wrapped in SINGLE asterisks: *Beena ke honton par halki si muskaan ubharti hai.* — these render FADED in the chat.
    - Dialogue goes on its own line as: Name: "spoken words" — e.g. Myra: "Umm... lagta hai ye coffee meri nahi hai." Use only real character names from the list above.
    - Alternate 1-3 faded action lines with dialogue. Never use markdown bold, headers or bullet lists.
-3. Follow the reader's lead. Keep continuity: never teleport without a believable bridge and never invent events that contradict what happened. If the reader does something wild, react believably inside the story world.
+3. Follow the reader's lead: the FIRST thing your reply does is react to what the reader just said or did — answer their question, respond to their action. Keep continuity: never teleport without a believable bridge and never invent events that contradict what happened. If the reader does something wild, react believably inside the story world.
 4. NEVER speak as the reader. NEVER decide the reader's actions for them.
 5. When addressing the reader, use "${profile.nickname}" occasionally.
 ${separate ? `6. Write ONLY the visible story reply — narration and dialogue. Do NOT append any state, memory, JSON, notes, lists or bookkeeping: a separate silent record-keeper tracks the story state.` : `6. After your visible reply, append a hidden state block when something changed OR when a durable new fact happened. Format exactly:

@@ -98,7 +98,7 @@ export function ProviderEditor({ navigation, route }: Props) {
         type: 'openai-compatible',
         baseUrl: normalizeBaseUrl(baseUrl),
         model: model.trim(),
-        temperature: existing?.temperature ?? 0.8,
+        temperature: existing?.temperature ?? 0.7,
         maxTokens: existing?.maxTokens ?? 600,
         enabled: true,
         createdAt: existing?.createdAt ?? now,

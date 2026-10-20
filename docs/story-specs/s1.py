@@ -1,4 +1,5 @@
 SPEC = {
+    "version": 2,
     "id": "biwi-ek-supari-killer",
     "title": "Biwi Ek Supari Killer",
     "tagline": "Ghar pe 'jaanu, khana kha lo' — bahar poori Mumbai uske naam se kaanpti hai.",

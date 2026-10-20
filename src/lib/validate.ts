@@ -253,6 +253,8 @@ export function validateStoryFile(storyId: string, s: unknown): ValidationResult
 
 /* ---------------- characters.json ---------------- */
 
+export const CHARACTER_LIST_FIELDS = ['goals', 'fears', 'likes', 'dislikes', 'knowledge'] as const;
+
 export function validateCharactersFile(storyId: string, c: unknown): ValidationResult {
   const issues: ValidationIssue[] = [];
   if (!c || typeof c !== 'object') return { ok: false, issues: [issue('$', 'characters must be an object')] };
@@ -271,6 +273,15 @@ export function validateCharactersFile(storyId: string, c: unknown): ValidationR
     for (const k of ['name', 'role', 'personality', 'background', 'speakingStyle', 'sampleLine'] as const) {
       if (!isNonEmptyString(((ch as unknown) as Record<string, unknown>)[k] as string))
         issues.push(issue(`${p}.${k}`, 'missing or empty'));
+    }
+    // The narrator and the memory engine read these as lists. They are optional
+    // (the engine tolerates a missing one), but when present they must be lists
+    // of strings. Catalog stories are additionally required to carry all of
+    // them by __tests__/everyStoryPrompt.test.ts.
+    for (const k of CHARACTER_LIST_FIELDS) {
+      const v = ((ch as unknown) as Record<string, unknown>)[k];
+      if (v !== undefined && (!Array.isArray(v) || v.some((x) => typeof x !== 'string')))
+        issues.push(issue(`${p}.${k}`, 'must be a list of strings'));
     }
     // A character NAME must be literal — {{playerName}} in a name would break
     // speaker parsing and could rename a character to the reader.

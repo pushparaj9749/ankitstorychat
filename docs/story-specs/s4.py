@@ -1,4 +1,5 @@
 SPEC = {
+    "version": 2,
     "id": "commando-wife",
     "title": "Commando Wife",
     "tagline": "Seema pe dushman kaanpte hain — ghar pe woh tumhari god mein sar rakh ke soti hai.",
