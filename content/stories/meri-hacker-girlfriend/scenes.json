@@ -1,0 +1,83 @@
+{
+  "storyId": "meri-hacker-girlfriend",
+  "version": 1,
+  "scenes": [
+    {
+      "id": "level_two",
+      "title": "Level Two",
+      "narration": [
+        "*Shaam ke saat baje. Indiranagar ke Pixel & Brew café mein fairy lights, purani arcade machines ki beep-beep, aur bahar halki baarish. Tum corner table pe baithe ho, teesri baar apna phone check karte hue. Phantom ka aakhri message: 'Kaali hoodie. Dragon wali smile. 7:00.'*",
+        "*Aaj dopahar Prakash sir ne investors ke saamne tumhara poora bug-fix apne naam se present kar diya. Tum chup rahe. Hamesha ki tarah.*",
+        "*Darwaze ki ghanti bajti hai. Ek ladki andar aati hai — kaali oversized hoodie, kamar tak lambe wavy kaale baal jinmein halki baingani dhaariyaan chamakti hain, naak mein chhota sa silver stud, aur gale mein ek patli chain pe latakti chhoti si USB pendant. Uski aankhein seedhe tum par aakar ruk jaati hain.*",
+        "*Woh muskurati hai — wahi shararati, aadhi muskaan jo tumne chaar mahine se sirf emojis mein dekhi thi.*",
+        "Inaaya: \"Hi, player one. Tum photo se zyada cute ho. Aur haan — haan, main hi Phantom hoon. Uncle nahi hoon. Raghav ko bata dena.\"",
+        "*Woh tumhare saamne nahi, seedha tumhare bagal mein baithti hai, tumhara cold coffee utha ke ek sip leti hai, aur tumhara haath apne haath mein le leti hai jaise ye roz ka kaam ho.*",
+        "Inaaya: \"Waise... aaj office mein kisi ne tumhara kaam churaya na? Prakash Hegde. Mid-level manager. Password: 'Prakash@123'. Seriously.\" *Woh hasti hai.* \"Relax. Kuch nahi karungi... bas thoda sa.\"",
+        "*Achanak café ki saari TV screens ek saath jhapakti hain — aur har screen pe ek bada pixelated dil aa jaata hai, neeche likha: 'LEVEL TWO UNLOCKED'. Poora café ooh-aah karta hai. Inaaya tumhari taraf dekh ke halka sa sharma jaati hai — pehli baar.*",
+        "Inaaya: \"Zyada ho gaya kya? Main thodi nervous thi...\"",
+        "*Tabhi uski nazar khidki ke bahar padti hai. Sadak ke us paar ek kaali van khadi hai, engine chalu, sheeshe kaale. Inaaya ki ungliyaan tumhare haath pe ek pal ke liye kas jaati hain, par muskaan nahi jaati.*",
+        "Inaaya: *(dheemi aawaz mein, phir bhi muskurate hue)* \"Suno, player one... tumhe dosa pasand hai na? Kyunki hum abhi, bilkul abhi, peeche ke darwaze se dosa khaane chal rahe hain.\""
+      ],
+      "fallbackLines": [
+        "*Inaaya tumhara haath nahi chhodti. Doosre haath se phone pe tezi se kuch type karti hai, aur café ki lights ek pal ke liye dheemi ho jaati hain.*",
+        "Inaaya: \"Tension mat lo. Tum mere player one ho — tumhe kuch nahi hoga. Promise.\""
+      ],
+      "choices": [
+        {
+          "id": "go_with_her",
+          "text": "*Bina sawaal kiye uska haath pakad ke peeche ke darwaze ki taraf chal dena.*",
+          "shortLabel": "Saath chalo",
+          "keywords": [
+            "chalo",
+            "saath",
+            "darwaza",
+            "dosa",
+            "haath"
+          ],
+          "next": null,
+          "effects": {
+            "memory": [
+              "On their first meeting {{playerName}} left the café with Inaaya through the back door without asking questions."
+            ]
+          }
+        },
+        {
+          "id": "ask_about_van",
+          "text": "*Ghabra ke poochna — 'Woh van kaun hai? Kya ho raha hai?'*",
+          "shortLabel": "Van ka sawaal",
+          "keywords": [
+            "van",
+            "kaun",
+            "kya ho raha",
+            "danger"
+          ],
+          "next": null,
+          "effects": {
+            "memory": [
+              "On their first meeting {{playerName}} asked Inaaya who was in the black van."
+            ]
+          }
+        },
+        {
+          "id": "compliment_her",
+          "text": "*Sharmaate hue kehna ki woh chat se bhi zyada khoobsurat hai — aur dil wala surprise bahut pyaara tha.*",
+          "shortLabel": "Tareef karo",
+          "keywords": [
+            "khoobsurat",
+            "pyaara",
+            "dil",
+            "cute",
+            "beautiful"
+          ],
+          "next": null,
+          "effects": {
+            "memory": [
+              "On their first meeting {{playerName}} told Inaaya she was even more beautiful than he imagined and that he loved the heart surprise."
+            ]
+          }
+        }
+      ]
+    }
+  ],
+  "endings": []
+}

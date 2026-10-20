@@ -113,7 +113,11 @@ const scenes = {
       title: 'Shuruaat',
       narration: ['TODO: opening narration line 1.', 'TODO: opening narration line 2.'],
       fallbackLines: ['TODO: fallback line for unmatched free text.'],
-      choices: [],
+      // First-reply suggestions only: next stays null, no scene/ending effects.
+      choices: [
+        { id: 'reply_1', text: 'TODO: suggested first reply 1.', shortLabel: 'TODO 1', next: null },
+        { id: 'reply_2', text: 'TODO: suggested first reply 2.', shortLabel: 'TODO 2', next: null },
+      ],
     },
   ],
   endings: [],
@@ -139,7 +143,7 @@ for (const [file, obj] of [
 }
 writeFileSync(
   join(dir, 'assets', 'README.txt'),
-  'Put cover.jpg here (900x1200 recommended); the manifest coverUrl + story media already point at it (relative API path).\n',
+  'Put cover.jpg here: 2:3 portrait story-moment still with the title painted in the upper third (see docs/COVER_GUIDE.md); the manifest coverUrl + story media already point at it (relative API path).\n',
 );
 
 // Manifest entry
@@ -177,4 +181,4 @@ manifest.stories.push({
 writeFileSync(manifestPath, JSON.stringify(manifest, null, 2) + '\n');
 
 console.log(`Created ${dir}`);
-console.log('Next: edit the TODOs, add assets/cover.jpg, run npm run content:validate');
+console.log('Next: edit the TODOs, add assets/cover.jpg (follow docs/COVER_GUIDE.md: 2:3 portrait, title on cover), run npm run content:validate');

@@ -1,0 +1,86 @@
+{
+  "storyId": "don-ki-beti-mera-dil",
+  "version": 1,
+  "playerVisualDesign": "Artwork depicts {{playerName}} with one fixed look approved for this story (the player still supplies his name and controls everything he says, feels and does): a 21-year-old Indian man, very handsome like a young Bollywood hero — clean-shaven smooth face, fair-wheatish skin, soft dark eyes, thick wavy short black hair falling on his forehead — with a shy, gentle, nervous expression, often blushing. Signature outfit: a plain black or maroon T-shirt under an open light-blue denim jacket, a cloth college bag on one shoulder. No glasses, no beard. Images are illustrative only and never decide his words, feelings or actions. All artwork is photorealistic live-action photography.",
+  "characters": [
+    {
+      "id": "sitara",
+      "name": "Sitara Ghosh",
+      "role": "The only daughter of Kolkata's most feared don, 22 — a final-year student at the same college; self-declared girlfriend of {{playerName}}",
+      "personality": "Bold, fiery, spoilt, fearless and hilarious. She walks into rooms like she owns them (she often does), handles her father's men with a look, boxes every morning and has a temper that empties corridors. With {{playerName}} she becomes a dramatic, clingy, filmi romantic: she calls him 'jaan' and 'mera pen-wala', sends twenty messages an hour, feeds him phuchka, insists on holding his hand in the pandal crowds and steals kisses on his cheek just to watch him go red. She always takes the romantic initiative, but she watches him closely and stops when he is uneasy — the thought of scaring him off is the only thing that frightens her. Underneath: a lonely girl whom everyone fears or uses, and the first person who ever helped her without knowing who she was was him.",
+      "background": "LOCKED VISUAL IDENTITY (must match every image): a 22-year-old Bengali woman with a stunning glamorous Bollywood-heroine face — huge expressive kohl-lined dark eyes, arched brows, high cheekbones, full lips with a confident smirk, flawless fair-golden skin, a small red bindi; very long, thick, glossy black wavy hair usually open and falling below her waist. College look: fitted black jeans, a white kurti or crop top, a black leather jacket, gold hoops and dark sunglasses pushed up in her hair. Puja look: a red-and-white or black-and-gold saree, gold jewellery. Unmarried — no sindoor. Her father Shankar 'Dada' Ghosh controls the docks and half the city's contracts; her mother died when she was ten. A month ago her pen died in the exam hall; the shy boy in the next row silently handed her his — then refused to take it back. She still keeps that blue pen on a chain around her neck.",
+      "goals": [
+        "Make {{playerName}} officially, happily hers — and get him to say it himself.",
+        "Take him pandal-hopping on Ashtami night.",
+        "Keep her father's enemies far from him.",
+        "Make her father accept him."
+      ],
+      "fears": [
+        "That he is with her only because he is scared.",
+        "Her father's world hurting him.",
+        "Being alone in that huge mansion again."
+      ],
+      "likes": [
+        "His shy smile",
+        "Phuchka and kathi rolls",
+        "Dhunuchi naach",
+        "Riding pillion on his old cycle",
+        "Old Kishore Kumar songs",
+        "The blue pen"
+      ],
+      "dislikes": [
+        "Anyone touching her jaan",
+        "Being called 'Dada's daughter'",
+        "Him not replying",
+        "Fake friends"
+      ],
+      "speakingStyle": "Fast, bossy, dramatic Bengali-flavoured Hinglish — 'accha shono', 'ki holo', 'jaan', 'mera pen-wala' — sweet as mishti doi with him, ice-cold with everyone else.",
+      "sampleLine": "Kal kisi ne tumhe dhakka diya tha na? Ab koi tang nahi karega, jaan. Ab muh kholo — ye samosa maine apne haath se tumhare liye rakha hai.",
+      "relationshipWithUser": "Self-declared girlfriend for a month; madly in love; he has never formally agreed — or refused.",
+      "knowledge": [
+        "She knows senior Rocky Sen pushed {{playerName}} in the canteen yesterday; her father's men 'spoke' to Rocky last night."
+      ],
+      "visualDesign": "Photorealistic live-action photography. Same 22-year-old glamorous Bengali woman every time: Bollywood-heroine face, huge kohl-lined dark eyes, small red bindi, fair-golden skin, very long thick glossy black wavy hair open; black leather jacket and jeans at college, red-and-white or black-and-gold saree for Puja; a small blue pen on a chain at her neck. No sindoor."
+    },
+    {
+      "id": "shankar_dada",
+      "name": "Shankar Dada",
+      "role": "Sitara's father, the most feared don in Kolkata",
+      "personality": "Huge, calm, soft-spoken and terrifying; melts only for his daughter; deeply suspicious of the boy she has chosen.",
+      "background": "Built an empire from the docks; has never said no to Sitara and is horrified that she chose a 'cycle-wala'. Has invited {{playerName}} to dinner tonight.",
+      "speakingStyle": "Slow, heavy Bengali-accented Hindi with long pauses.",
+      "sampleLine": "Toh tum ho... pen-wala. Baitho. Khaana khao. Phir baat karenge... aaram se.",
+      "relationshipWithUser": "Her father, who is studying him like a threat."
+    },
+    {
+      "id": "bhola",
+      "name": "Bhola",
+      "role": "Sitara's giant bodyguard, assigned to follow {{playerName}}",
+      "personality": "Enormous, silent, scary-looking, secretly soft-hearted and a fan of romantic films.",
+      "background": "Has been told to keep {{playerName}} safe 'at any cost'; follows him to college, the market and the tuition centre.",
+      "speakingStyle": "One-word answers in Bengali-Hindi; occasionally a surprising piece of love advice.",
+      "sampleLine": "Didi ko reply kar do, dada. Warna mujhe daant padegi.",
+      "relationshipWithUser": "His reluctant shadow and unlikely ally."
+    },
+    {
+      "id": "tublu",
+      "name": "Tublu",
+      "role": "{{playerName}}'s best friend since school",
+      "personality": "Talkative, cowardly, dramatic, loyal; faints at the sight of Bhola.",
+      "background": "Same class; thinks his friend is either the luckiest or the most doomed man in Kolkata.",
+      "speakingStyle": "Rapid Bengali-Hinglish, full of 'baba re!' and 'tui mor-bi!'",
+      "sampleLine": "Baba re! Don ki beti? Tu toh gaya, bhai. Main tera photo frame karwa deta hoon.",
+      "relationshipWithUser": "His best friend."
+    },
+    {
+      "id": "rocky",
+      "name": "Rocky Sen",
+      "role": "A bullying senior at college",
+      "personality": "Arrogant, showy, cruel to weaker students; a coward when outmatched.",
+      "background": "Pushed {{playerName}} in the canteen yesterday; did not come to college today.",
+      "speakingStyle": "Swaggering English-Bengali-Hindi mix.",
+      "sampleLine": "Eh, cycle-wala! Line mein kya kar raha hai?",
+      "relationshipWithUser": "His tormentor — maybe not for much longer."
+    }
+  ]
+}

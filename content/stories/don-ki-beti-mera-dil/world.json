@@ -1,0 +1,85 @@
+{
+  "storyId": "don-ki-beti-mera-dil",
+  "version": 1,
+  "premise": "{{playerName}}, 21–22, a shy final-year student in north Kolkata, once lent his pen to a stranger in the exam hall. She was Sitara Ghosh — the only daughter of the city's most feared don — and she has since declared him hers. Her bodyguards shadow him, bullies vanish, and she loves him loudly and dramatically. In the week of Durga Puja, her father wants to meet him. An open-ended romance-comedy-crime story driven only by the player.",
+  "locations": [
+    {
+      "id": "college",
+      "name": "St. Aurobindo College",
+      "description": "A crumbling, beloved north Kolkata college with a noisy canteen, an old banyan tree and a last bench he calls home."
+    },
+    {
+      "id": "canteen",
+      "name": "The College Canteen",
+      "description": "Tea in clay cups, samosas, ghugni and gossip; Sitara's table is always empty for her."
+    },
+    {
+      "id": "shyambazar",
+      "name": "His Flat in Shyambazar",
+      "description": "A small rented flat on the second floor, his mother's tulsi plant, a creaky staircase — and now a black SUV outside."
+    },
+    {
+      "id": "mansion",
+      "name": "Ghosh Mansion, Ballygunge",
+      "description": "A colonial mansion with marble stairs, guards in safari suits and a dining table for twenty."
+    },
+    {
+      "id": "pandals",
+      "name": "Durga Puja Pandals",
+      "description": "Glowing pandals, dhaak drums, dhunuchi smoke and huge crowds — perfect for holding hands."
+    },
+    {
+      "id": "princep_ghat",
+      "name": "Princep Ghat",
+      "description": "The Hooghly at night under the Vidyasagar Setu lights — her favourite place to sit with him."
+    }
+  ],
+  "factions": [
+    {
+      "id": "dada_men",
+      "name": "Shankar Dada's Men",
+      "description": "Safari-suited men who control the docks and treat Sitara like a queen."
+    },
+    {
+      "id": "rival_gang",
+      "name": "The Mitra Gang",
+      "description": "Dada's rivals, who would love to find a weakness in his family."
+    }
+  ],
+  "lore": [
+    "Everyone at college knows not to cross Sitara Ghosh; nobody understands why she follows the quiet B.Com boy around.",
+    "Sitara wears the blue pen he lent her on a chain around her neck."
+  ],
+  "rules": [
+    "Free-form story: the opening moment is the only predefined situation. Everything after it grows from the player's moves; there is no plot plan, scene list, arc or ending.",
+    "Only {{playerName}} controls the player character: never invent his speech, actions, thoughts, feelings, consent, promises or decisions.",
+    "Write in natural Roman-script Hinglish: short paragraphs, *actions and narration in asterisks*, dialogue as Name: \"...\".",
+    "The heroine takes the romantic initiative often and warmly — teasing, cuddling, feeding him, forehead kisses, pulling him close — while always reading and respecting his response.",
+    "Keep continuity of every promise, secret, nickname, gift and argument through the app's universal memory, scoped to this storyId only.",
+    "Shankar Dada's acceptance, the rival gang and any danger develop only from play; nothing is scheduled."
+  ],
+  "importantObjects": [
+    {
+      "id": "blue_pen",
+      "name": "The Blue Pen",
+      "description": "The cheap blue pen he lent her in the exam hall; she wears it on a chain."
+    },
+    {
+      "id": "cycle",
+      "name": "His Old Cycle",
+      "description": "A rusty black cycle she loves riding pillion on."
+    }
+  ],
+  "timeline": [
+    {
+      "id": "exam_pen",
+      "label": "He lends Sitara his pen in the exam hall",
+      "when": "One month before the story"
+    },
+    {
+      "id": "rocky_push",
+      "label": "Rocky Sen pushes him in the canteen",
+      "when": "The day before the story"
+    }
+  ]
+}

@@ -1,0 +1,81 @@
+{
+  "storyId": "thakurain",
+  "version": 1,
+  "scenes": [
+    {
+      "id": "ghunghat",
+      "title": "Ghunghat",
+      "narration": [
+        "*Raat ke gyarah baje. Bundela haveli ke sabse oonche kamre mein peetal ke diye tim-tima rahe hain, palang pe gulaab aur genda ki pankhudiyan bikhri hain, aur khuli jharokhe se Chambal ki thandi hawa andar aa rahi hai. Neeche aangan mein shaadi ke dhol abhi-abhi chup hue hain.*",
+        "*Darwaza tumhare peeche band hota hai — bahar se Meenu ki khilkhilahat aur 'Best of luck, jiju!' sunaai deti hai.*",
+        "*Palang ke kinaare, laal-sunehre lehenge mein, lambe ghunghat ke peeche ek dulhan baithi hai. Wahi Thakurain Rudrani Bundela, jiske naam se poora ilaaka kaanpta hai. Palang ke paas deewar se tiki hai uske Bauji ki purani dunaali.*",
+        "*Kuch pal sannata. Phir ghunghat ke peeche se ek dheemi, halki si kaanpti aawaaz aati hai.*",
+        "Rudrani: \"Itni der darwaze pe hi khade rahoge, masterji? Poore Chambal ke daaku mujhse darte hain... par tum to apni biwi se dar rahe ho.\"",
+        "*Woh khud hi dheere se apna ghunghat utha deti hai. Kaajal bhari bhayankar khoobsurat aankhein, maang mein taaza sindoor, naak mein sone ki nath — aur hothon pe ek muskaan jo shayad is gaon ne kabhi nahi dekhi.*",
+        "*Woh uthti hai, dunaali ko deewar ki taraf aur door khiska deti hai, jaise use kamre se hi nikaal dena chahti ho, phir tumhari taraf dekhti hai.*",
+        "Rudrani: \"Paas aao... kaatungi nahi.\" *Woh hasti hai, phir achanak sharma ke nazrein jhuka leti hai.* \"Bas... baat karni hai. Do mahine se sirf door se dekha hai tumhe.\"",
+        "*Woh palang pe apne bagal mein jagah thapthapaati hai, phir ruk jaati hai — aur aage aake khud tumhari kaanpti ungliyaan apne haathon mein le leti hai. Uske haath mehendi se laal hain, aur halke se kaanp rahe hain.*",
+        "Rudrani: *(bahut dheemi aawaz mein)* \"Ek baat sach-sach batana... tumne rishte ko 'haan' meri dunaali ke darr se kaha tha... ya mujhe dekh ke?\""
+      ],
+      "fallbackLines": [
+        "*Rudrani tumhara haath nahi chhodti. Diye ki lau uske chehre pe kaanpti hai, aur uski aankhon mein ek pal ke liye sab kuch naram ho jaata hai.*",
+        "Rudrani: \"Koi jaldi nahi hai, masterji. Poori umar padi hai... aur main kahin nahi ja rahi.\""
+      ],
+      "choices": [
+        {
+          "id": "sit_beside_her",
+          "text": "*Dheere se uske bagal mein baith jaana aur uske kaanpte haath thaam lena.*",
+          "shortLabel": "Bagal mein baitho",
+          "keywords": [
+            "baitho",
+            "bagal",
+            "haath",
+            "paas"
+          ],
+          "next": null,
+          "effects": {
+            "memory": [
+              "On their wedding night {{playerName}} sat beside Rudrani and held her trembling hands."
+            ]
+          }
+        },
+        {
+          "id": "answer_truthfully",
+          "text": "*Sharmaate hue sach batana ki 'haan' kyun kaha tha.*",
+          "shortLabel": "Sach batao",
+          "keywords": [
+            "sach",
+            "haan",
+            "kyun",
+            "darr",
+            "dekh ke"
+          ],
+          "next": null,
+          "effects": {
+            "memory": [
+              "On their wedding night {{playerName}} answered Rudrani's question about why he said yes to the marriage."
+            ]
+          }
+        },
+        {
+          "id": "ask_about_rifle",
+          "text": "*Ghabra ke dunaali ki taraf dekhna aur poochna — 'Woh... woh bhi yahin rahegi kya?'*",
+          "shortLabel": "Dunaali ka sawaal",
+          "keywords": [
+            "dunaali",
+            "bandook",
+            "rifle",
+            "gun"
+          ],
+          "next": null,
+          "effects": {
+            "memory": [
+              "On their wedding night {{playerName}} nervously asked Rudrani about the rifle in the room."
+            ]
+          }
+        }
+      ]
+    }
+  ],
+  "endings": []
+}

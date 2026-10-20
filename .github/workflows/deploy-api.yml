@@ -113,6 +113,19 @@ jobs:
           node scripts/verify-published-story.mjs --local-only
           kuch-toh-bol-na
 
+      - name: Validate the dangerous-heroine series (portrait cover + 7 native gallery images each)
+        # Covers follow docs/COVER_GUIDE.md (2:3 portrait); gallery stays 1376x768.
+        run: >-
+          node scripts/verify-published-story.mjs --local-only
+          --native-size=1376x768,848x1264
+          biwi-ek-supari-killer
+          meri-wali-ips
+          don-ki-beti-mera-dil
+          commando-wife
+          meri-hacker-girlfriend
+          thakurain
+          chudail-nahi-biwi-hai
+
       - name: Install (worker)
         working-directory: worker
         run: npm ci
@@ -257,6 +270,18 @@ jobs:
         # complete passes on BOTH production hostnames — every JSON file, the
         # manifest entry and all eight media files byte-identical to this checkout.
         run: node scripts/verify-published-story.mjs kuch-toh-bol-na
+
+      - name: Verify the dangerous-heroine series is published (byte-identical JSON + 8 images each)
+        run: >-
+          node scripts/verify-published-story.mjs
+          --native-size=1376x768,848x1264
+          biwi-ek-supari-killer
+          meri-wali-ips
+          don-ki-beti-mera-dil
+          commando-wife
+          meri-hacker-girlfriend
+          thakurain
+          chudail-nahi-biwi-hai
 
       - name: Smoke test the deployed API
         run: |

@@ -1,0 +1,84 @@
+{
+  "storyId": "meri-wali-ips",
+  "version": 1,
+  "scenes": [
+    {
+      "id": "chhe_ghante_se_reply_nahi",
+      "title": "Chhe Ghante Se Reply Nahi",
+      "narration": [
+        "*Raat ke das baje. Purani Basti ki gali mein kutton ke bhaunkne ke alawa sab shaant hai. Aaj dopahar library mein Bunty Chaudhary ne fine maangne par tumhara collar pakad liya tha — 'Agli baar dikhna mat.' Tab se tumhara phone switch off pada hai, charger library mein hi chhoot gaya.*",
+        "*Achanak gali mein neeli-laal batti chamakti hai. Ek police jeep tumhare ghar ke theek saamne rukti hai. Padosiyon ki khidkiyaan ek-ek karke khulti hain.*",
+        "Constable Ramkhilawan: *(jeep se utar kar, haath jodte hue, dheere se)* \"Bhaiya ji... phone kyun band hai? Madam ji ne poore thane ko hila diya hai.\"",
+        "*Jeep ka darwaza khulta hai. Khaki vardi, kandhe pe chamakte sitare, aankhon pe kaala chashma — SP Durga Shekhawat utarti hai. Gali mein khade do ladke bina bole ghar ke andar bhaag jaate hain.*",
+        "*Woh tumhari taraf badhti hai, chashma utaarti hai — aur sherni ki chaal ek pal mein pighal jaati hai. Honth latak jaate hain, aankhein bhar aati hain.*",
+        "Durga Shekhawat: \"Chhe ghante. Chhe ghante se reply nahi! Pata hai maine kitni baar socha poora area seal karwa doon? Hum naraaz hain. Bahut zyada.\"",
+        "*Phir bhi naraazgi do second bhi nahi tikti. Woh tumhari jacket ka collar pakad kar tumhe apni taraf kheench leti hai aur maathe se maatha tika deti hai.*",
+        "Durga Shekhawat: \"Suno na... tum theek ho? Tumhari aawaz sune bina din kaise kategi, babu?\"",
+        "*Tabhi uski nazar tumhari kameez ke collar par padti hai — ek button toota hua, kapda masla hua. Uski aankhein ek pal mein thandi ho jaati hain. Ramkhilawan ek kadam peeche hat jaata hai.*",
+        "Durga Shekhawat: *(bahut shaant aawaz mein)* \"Ye collar kisne pakda?\"",
+        "*Upar wali khidki se Amma ki aawaz aati hai: 'Arre bitiya aa gayi? Khaana garam karti hoon!' Durga bina nazar hataaye muskura kar jawaab deti hai — 'Aayi Amma!' — aur tumhare jawaab ka intezaar karti hai, ek haath ab bhi tumhari jacket pe.*"
+      ],
+      "fallbackLines": [
+        "*Durga tumhari jacket ka button ungli se ghumaati rehti hai, jaise jawaab wahin se nikal aayega. Ramkhilawan aasmaan ki taraf dekh kar seeti bajaane ka natak karta hai.*",
+        "Durga Shekhawat: \"Hum wait kar rahe hain, babu. Aur hum SP hain — hum bahut der tak wait kar sakte hain.\" *Phir woh khud hi has padti hai.*"
+      ],
+      "choices": [
+        {
+          "id": "tell_truth_bunty",
+          "text": "*Sach bata dena ki library mein Bunty Chaudhary ne collar pakda tha.*",
+          "shortLabel": "Sach batao",
+          "keywords": [
+            "bunty",
+            "chaudhary",
+            "sach",
+            "library",
+            "collar"
+          ],
+          "next": null,
+          "effects": {
+            "memory": [
+              "On the first night {{playerName}} told Durga that Bunty Chaudhary grabbed his collar at the library."
+            ]
+          }
+        },
+        {
+          "id": "hide_it",
+          "text": "*Baat taal dena — 'Kuch nahi, button khud toot gaya' — aur use gale laga lena.*",
+          "shortLabel": "Baat taal do",
+          "keywords": [
+            "kuch nahi",
+            "button",
+            "gale",
+            "hug",
+            "taal"
+          ],
+          "next": null,
+          "effects": {
+            "memory": [
+              "On the first night {{playerName}} hid what happened and hugged Durga instead."
+            ]
+          }
+        },
+        {
+          "id": "sorry_phone",
+          "text": "*Pehle phone band hone ke liye sorry bolna aur uska haath pakad lena.*",
+          "shortLabel": "Sorry bolo",
+          "keywords": [
+            "sorry",
+            "phone",
+            "charger",
+            "maafi",
+            "haath"
+          ],
+          "next": null,
+          "effects": {
+            "memory": [
+              "On the first night {{playerName}} apologised to Durga for his phone being switched off."
+            ]
+          }
+        }
+      ]
+    }
+  ],
+  "endings": []
+}
