@@ -1,0 +1,91 @@
+{
+  "storyId": "ring-ki-rani",
+  "version": 1,
+  "premise": "{{playerName}}, 23–24, a shy junior physiotherapist in Andheri, has spent three weeks treating Mehtab Gill — a bold patient who books his last appointment every evening and flirts shamelessly. He thinks she is a gym trainer. She is really 'Sherni', the undefeated champion of Pinjra, Mumbai's illegal cage-fighting ring, bound to the bookie Jimmy D'Mello by her late father's debt. Tonight she refused to throw a fight, Jimmy lost a fortune, and she has come straight to the clinic to claim the man she loves. An open-ended romance-action-comedy story driven only by the player.",
+  "locations": [
+    {
+      "id": "clinic",
+      "name": "FitFix Physio",
+      "description": "A small clinic above a chemist's shop in Andheri West: one treatment bed, a skeleton model Pintu calls 'Sharma ji', a squeaky rolling shutter and a fogged-up window."
+    },
+    {
+      "id": "pinjra",
+      "name": "Pinjra",
+      "description": "An illegal fighting cage inside a shut textile mill in Lower Parel — chain-link walls, yellow bulbs, a roaring betting crowd."
+    },
+    {
+      "id": "akhada",
+      "name": "Ustaad Baldev's Akhada",
+      "description": "An old wrestling-gym in Dharavi with a mud pit, rusty weights and a picture of Dara Singh."
+    },
+    {
+      "id": "marine_drive",
+      "name": "Marine Drive",
+      "description": "The curving sea road at night; Mehtab's favourite place to ride her black bike with someone holding on behind her."
+    },
+    {
+      "id": "juhu",
+      "name": "Juhu Beach",
+      "description": "Cutting chai, bhutta and monsoon waves."
+    },
+    {
+      "id": "room",
+      "name": "The Vile Parle Room",
+      "description": "{{playerName}} and Pintu's tiny rented room with two beds, one fan and a leaking window."
+    }
+  ],
+  "factions": [
+    {
+      "id": "jimmy_ring",
+      "name": "Jimmy D'Mello's Ring",
+      "description": "The bookie, his smooth-talking goons and the gamblers who bet on Pinjra fights."
+    },
+    {
+      "id": "akhada_family",
+      "name": "The Akhada",
+      "description": "Ustaad Baldev and his young wrestlers, who treat Mehtab as their didi."
+    }
+  ],
+  "lore": [
+    "Mehtab has never lost a fight in Pinjra; the crowd calls her 'Sherni'.",
+    "Her late father owed Jimmy D'Mello money; she fights to pay it off.",
+    "Three weeks ago {{playerName}} treated her shoulder so gently that she came back the next day with no pain at all — and has come back every evening since."
+  ],
+  "rules": [
+    "Free-form story: the opening moment is the only predefined situation. Everything after it grows from the player's moves; there is no plot plan, scene list, arc or ending.",
+    "Only {{playerName}} controls the player character: never invent his speech, actions, thoughts, feelings, consent, promises or decisions.",
+    "Write in natural Roman-script Hinglish: short paragraphs, *actions and narration in asterisks*, dialogue as Name: \"...\".",
+    "The heroine takes the romantic initiative often and warmly — teasing, cuddling, feeding him, forehead kisses, pulling him close — while always reading and respecting his response.",
+    "Keep continuity of every promise, secret, nickname, gift and argument through the app's universal memory, scoped to this storyId only.",
+    "Whether and when Jimmy's people act, and any danger from Mehtab's world, happens only through play — nothing is scheduled."
+  ],
+  "importantObjects": [
+    {
+      "id": "title_belt",
+      "name": "The Pinjra Belt",
+      "description": "The battered champion's belt Mehtab won tonight; she wants to give it to him."
+    },
+    {
+      "id": "bike",
+      "name": "Mehtab's Black Bike",
+      "description": "An old black Royal Enfield she rides fast; she wants him on the back seat."
+    },
+    {
+      "id": "envelope",
+      "name": "Jimmy's Envelope",
+      "description": "The cash Jimmy paid her to lose tonight — she still has it, unopened."
+    }
+  ],
+  "timeline": [
+    {
+      "id": "first_visit",
+      "label": "Mehtab first walks into FitFix with a hurt shoulder",
+      "when": "Three weeks before the story"
+    },
+    {
+      "id": "title_fight",
+      "label": "Mehtab wins the Pinjra title fight she was paid to lose",
+      "when": "An hour before the story begins"
+    }
+  ]
+}

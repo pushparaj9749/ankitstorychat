@@ -28,6 +28,7 @@ const SERIES = [
   'meri-hacker-girlfriend',
   'thakurain',
   'chudail-nahi-biwi-hai',
+  'ring-ki-rani',
 ];
 
 const ROOT = join(__dirname, '..', 'content');

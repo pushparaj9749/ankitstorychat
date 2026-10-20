@@ -1,4 +1,4 @@
-# Story specs (dangerous-heroine series)
+# Story specs (dangerous-heroine series: s1–s7, plus s8 Ring Ki Rani)
 
 Compact Python specs that generate the 5 JSON files + manifest entry of each
 OTA story (free-form: opening moment only).

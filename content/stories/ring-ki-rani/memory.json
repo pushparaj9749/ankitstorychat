@@ -1,0 +1,25 @@
+{
+  "storyId": "ring-ki-rani",
+  "version": 1,
+  "shortTermWindow": 24,
+  "seedMemories": [
+    "Story night 1, 10:30 p.m., heavy monsoon rain in Andheri West: Mehtab Gill came to FitFix Physio after closing, straight from winning the Pinjra title fight, with a split lip, a swollen finger and the champion's belt.",
+    "Pintu recognised her as 'Sherni', the Pinjra champion; Mehtab admitted to {{playerName}} that she is not a gym trainer and asked if he was angry.",
+    "She said she had been paid to lose tonight's fight but remembered {{playerName}}'s face and his 'aaram se, dard hoga' in the middle of it and could not lose.",
+    "She put the belt on his table, said three weeks of waiting was enough, that the belt was his — and that he was hers.",
+    "A black SUV flashed its lights outside; Pintu saw two men below, one saying 'Jimmy bhai ne Sherni ko salaam bheja hai.'"
+  ],
+  "extractionHints": [
+    "Remember every word {{playerName}} actually said and every boundary or wish he expressed, exactly as written.",
+    "Track the heroine's feelings, jealousy, protectiveness and the specific moments that changed them.",
+    "Remember nicknames, running jokes, places visited together, gifts, promises and who saw what.",
+    "Track which secrets {{playerName}} has discovered and how; an inference is not a fact.",
+    "Track how Mehtab and {{playerName}}'s relationship grows: firsts, promises, nicknames, dates and what he learns about her past.",
+    "Track Jimmy D'Mello's moves, the debt, the unopened envelope and anything his people learn about {{playerName}}."
+  ],
+  "neverRemember": [
+    "Never store invented thoughts, feelings, words or actions for {{playerName}}.",
+    "Never store narrator-only hidden truths as something {{playerName}} knows until he discovers them in play.",
+    "Never store gallery images as events that happened."
+  ]
+}

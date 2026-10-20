@@ -1,5 +1,5 @@
 {
-  "contentVersion": 47,
+  "contentVersion": 48,
   "minAppVersion": "1.0.0",
   "updatedAt": "2026-10-20T00:00:00Z",
   "stories": [
@@ -53,6 +53,62 @@
         "verified": true
       },
       "updatedAt": "2026-10-03T14:46:42Z"
+    },
+    {
+      "id": "ring-ki-rani",
+      "title": "Ring Ki Rani",
+      "tagline": "Pinjre mein haddiyan todti hai — tumhare clinic mein aake sirf ek cheez maangti hai: tum.",
+      "description": "Tum Andheri ke ek chhote se physiotherapy clinic mein junior physio ho — itne sharmile ki kisi ladki se aankh milao toh kaan laal ho jaate hain. Teen hafte se ek patient roz shaam ko aakhri appointment leti hai: Mehtab Gill. Kandhe ki chot ka bahaana, aur nazar sirf tum par. Tumhe laga woh koi gym trainer hai. Asal mein woh Mumbai ke underground cage-fighting circuit 'Pinjra' ki undefeated champion hai — 'Sherni' — jiske ek punch se bade-bade gunde zameen pakad lete hain. Aaj raat usne ek fight jeeti hai jo use haarni thi, ek khatarnak bookie ka paisa doob gaya hai, aur woh seedha tumhare clinic aayi hai — phati hothon ke saath, aur ek hi zid ke saath: 'Ab aur intezaar nahi. Tum mere ho.' Romance, comedy aur action — kahani kahan jaayegi, sirf tumhare faislon par.",
+      "genres": [
+        "Romance",
+        "Action",
+        "Comedy",
+        "Drama"
+      ],
+      "tags": [
+        "romance",
+        "dangerous-girlfriend",
+        "fighter-heroine",
+        "mma",
+        "underground-fights",
+        "shy-hero",
+        "protective-heroine",
+        "possessive-romantic",
+        "mumbai",
+        "action",
+        "comedy",
+        "player-agency",
+        "dynamic-continuous",
+        "ongoing",
+        "hinglish"
+      ],
+      "characters": [
+        "Mehtab Gill",
+        "Ustaad Baldev Singh",
+        "Jimmy D'Mello",
+        "Pintu Pandey",
+        "Dr. Neelam Suri",
+        "Tara Shetty"
+      ],
+      "ageRating": "18+",
+      "contentLevel": "mature",
+      "language": "hinglish",
+      "version": 1,
+      "coverUrl": "stories/ring-ki-rani/assets/cover.jpg",
+      "accentColor": "#9E2F2F",
+      "userRole": "{{playerName}} — an adult Indian man aged 23–24, controlled exclusively by the player. He is a junior physiotherapist at FitFix Physio, a small sports-injury clinic in Andheri West, Mumbai, and shares a tiny rented room in Vile Parle with his friend Pintu, who is also the clinic's receptionist. For three weeks the patient Mehtab Gill has booked the last appointment of every evening; he believes she is a gym trainer. He starts the story shy, soft-spoken, gentle, scared of fights and easily flustered by her. That is only where he begins — how he responds to her, her secret world and her love is entirely the player's choice. The player supplies his display name at runtime; never assign him another name, and never write his thoughts, feelings, dialogue, actions or decisions.",
+      "setting": "Present-day Mumbai in the monsoon: FitFix Physio, a small clinic above a chemist's shop in Andheri West with one treatment bed, a squeaky rolling shutter and a fogged-up window; 'Pinjra', an illegal cage-fighting ring hidden inside a shut textile mill in Lower Parel; Ustaad Baldev's old akhada-gym in Dharavi; Marine Drive at night, cutting chai at Juhu, crowded locals and rain on everything; and, in the background, the bookies and gangs who bet on Pinjra fights.",
+      "estimatedMinutes": 60,
+      "featured": false,
+      "isNew": true,
+      "popularity": 98,
+      "storyDir": "ring-ki-rani",
+      "creator": {
+        "name": "Ankit",
+        "avatar": null,
+        "verified": true
+      },
+      "updatedAt": "2026-10-20T00:00:00Z"
     },
     {
       "id": "chudail-nahi-biwi-hai",
