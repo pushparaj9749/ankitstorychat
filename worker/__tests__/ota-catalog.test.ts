@@ -63,6 +63,7 @@ const NEW_STORY_IDS = [
   'commando-wife',
   'meri-hacker-girlfriend',
   'thakurain',
+  'chudail-nahi-biwi-hai',
 ];
 
 /** Build the assets binding from the real repo content (what CI deploys). */

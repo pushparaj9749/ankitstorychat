@@ -124,6 +124,7 @@ jobs:
           commando-wife
           meri-hacker-girlfriend
           thakurain
+          chudail-nahi-biwi-hai
 
       - name: Install (worker)
         working-directory: worker
@@ -280,6 +281,7 @@ jobs:
           commando-wife
           meri-hacker-girlfriend
           thakurain
+          chudail-nahi-biwi-hai
 
       - name: Smoke test the deployed API
         run: |

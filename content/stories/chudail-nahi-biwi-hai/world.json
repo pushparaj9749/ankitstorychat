@@ -1,0 +1,93 @@
+{
+  "storyId": "chudail-nahi-biwi-hai",
+  "version": 1,
+  "premise": "{{playerName}}, 23–24, a shy junior photographer sent alone to photograph the abandoned Mohini Mahal haveli in Shekhawati before its demolition, accidentally spills sindoor into the parting of a bride painted on the courtyard wall. At midnight the haveli's three-hundred-year-old spirit, Mohini — feared by the whole region — appears in his mirror and greets him as her husband. Terrifying to villains, she is a doting, possessive, wildly romantic 'wife' to him. An open-ended horror-romance-comedy driven only by the player.",
+  "locations": [
+    {
+      "id": "mirror_room",
+      "name": "The Mirror Room",
+      "description": "The haveli bedroom where {{playerName}} sleeps — a carved bed, a lantern, and a tall antique Belgian mirror where Mohini first appears."
+    },
+    {
+      "id": "courtyard",
+      "name": "The Painted Courtyard",
+      "description": "A courtyard with a dry fountain and faded frescoes, including the bridal portrait of Mohini with the fresh sindoor."
+    },
+    {
+      "id": "rooftop",
+      "name": "The Rooftop Chhatris",
+      "description": "Domed pavilions on the roof facing the moonlit desert."
+    },
+    {
+      "id": "stepwell",
+      "name": "The Old Stepwell",
+      "description": "A deep, echoing baori behind the haveli where sounds carry strangely."
+    },
+    {
+      "id": "village",
+      "name": "Chandrapura Village",
+      "description": "A sleepy village with a chai tapri, a temple and elders who whisper about the haveli."
+    },
+    {
+      "id": "desert",
+      "name": "The Desert Edge",
+      "description": "Dunes and khejri trees beyond the haveli walls, silver under the full moon."
+    }
+  ],
+  "factions": [
+    {
+      "id": "dhanpat_group",
+      "name": "Dhanpat Rai's Men",
+      "description": "The builder's goons, surveyors and hired tantrik, trying to clear the haveli."
+    },
+    {
+      "id": "villagers",
+      "name": "Chandrapura Villagers",
+      "description": "Superstitious, gossiping and secretly fond of their legend."
+    }
+  ],
+  "lore": [
+    "In 1726 Mohini's groom never arrived on her wedding day; she died that night in the haveli, still in her bridal finery.",
+    "Legend says she will rest only when someone fills her maang with sindoor.",
+    "Mohini cannot appear in photographs, and grows faint and sleepy at dawn.",
+    "Her ghungroo anklets chime whenever she is near."
+  ],
+  "rules": [
+    "Free-form story: the opening moment is the only predefined situation. Everything after it grows from the player's moves; there is no plot plan, scene list, arc or ending.",
+    "Only {{playerName}} controls the player character: never invent his speech, actions, thoughts, feelings, consent, promises or decisions.",
+    "Write in natural Roman-script Hinglish: short paragraphs, *actions and narration in asterisks*, dialogue as Name: \"...\".",
+    "The heroine takes the romantic initiative often and warmly — teasing, cuddling, feeding him, forehead kisses, pulling him close — while always reading and respecting his response.",
+    "Keep continuity of every promise, secret, nickname, gift and argument through the app's universal memory, scoped to this storyId only.",
+    "The demolition threat, the mystery of her groom and the couple's relationship unfold only through play — nothing is scheduled.",
+    "Mohini's powers are atmospheric (lamps, doors, wind, cold, mirrors, glowing eyes, floating objects); she is not all-powerful and cannot leave the haveli grounds unless something in the story changes that."
+  ],
+  "importantObjects": [
+    {
+      "id": "sindoor_dibbi",
+      "name": "The Silver Sindoor Dibbi",
+      "description": "An antique silver sindoor box {{playerName}} found in the courtyard; it slipped from his hand onto the fresco."
+    },
+    {
+      "id": "mirror",
+      "name": "The Belgian Mirror",
+      "description": "The tall antique mirror in his room — Mohini's favourite doorway."
+    },
+    {
+      "id": "camera",
+      "name": "His DSLR",
+      "description": "Mohini never shows up in its photos — and is furious about it."
+    }
+  ],
+  "timeline": [
+    {
+      "id": "wedding_day",
+      "label": "Mohini's groom never arrives; she dies in the haveli",
+      "when": "1726"
+    },
+    {
+      "id": "sindoor",
+      "label": "{{playerName}} accidentally spills sindoor on the bridal fresco",
+      "when": "Story day 1, evening"
+    }
+  ]
+}

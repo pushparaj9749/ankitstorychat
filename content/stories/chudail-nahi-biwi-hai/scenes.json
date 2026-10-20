@@ -1,0 +1,82 @@
+{
+  "storyId": "chudail-nahi-biwi-hai",
+  "version": 1,
+  "scenes": [
+    {
+      "id": "mirror_midnight",
+      "title": "Sheeshe Wali Aawaaz",
+      "narration": [
+        "*Raat ke thik baarah baje. Mohini Mahal ke purane kamre mein sirf ek laaltain jal rahi hai. Bahar registaan ki thandi hawa jharokhon se seetiyan bajaati hai. Tumhara camera palang pe pada hai, aur saamne deewar pe ek lamba, purana Belgian sheesha — jiske kinaaron pe sone ki nakkashi ab kaali pad chuki hai.*",
+        "*Shaam ki baat abhi bhi dimaag se nahi gayi. Aangan mein dulhan ki purani painting ki photo lete waqt tumhe ek chandi ki sindoor-dibbi mili thi. Pair phisla, dibbi haath se chhooti — aur laal sindoor seedha painting wali dulhan ki maang mein bhar gaya. Chowkidar Bhanwar Lal ka chehra safed pad gaya tha. 'Hukum... ab to jo hoga, Mohini baisa jaanein,' keh ke woh suraj dhalne se pehle hi bhaag gaya.*",
+        "*Achanak laaltain ki lau neeli pad jaati hai. Kamre mein thand utar aati hai. Kahin door, khaali galiyaaron mein — chhan... chhan... chhan — ghungroo bajte hain. Aur paas aate hain.*",
+        "*Sheeshe pe dhundh jam jaati hai. Usme dheere-dheere ek chehra ubharta hai — kaajal bhari badi-badi aankhein, laal-sunehri odhni, maathe pe borla, aur maang mein taaza, chamakta sindoor.*",
+        "Mohini: *(meethi, sureeli, thodi naaraz aawaaz mein)* \"Pati dev, itni der kahan the? Teen sau saal se raah dekh rahi hoon... aur aap ho ki sheeshe ke saamne aate hi nahi.\"",
+        "*Woh sheeshe se aise bahar aa jaati hai jaise paani se nikal rahi ho — bahut lambe, ghane, kaale lehraate baal hawa mein halke se tairte hue, laal-sunehri purani dulhan ki poshak, aur pairon mein chandi ke ghungroo. Uske chaaron taraf ek halki si roshni hai.*",
+        "*Woh tumhare chaaron taraf ek chakkar lagaati hai, tumhe sar se pair tak dekhti hai, phir tumhare jacket ka collar theek karti hai. Uski ungliyaan barf jaisi thandi hain.*",
+        "Mohini: \"Hmm. Thode duble ho. Khana khaya? Nahi khaya hoga. Ye aajkal ke dulhe...\" *Woh achanak sharma ke muskurati hai.* \"Darro mat, pati dev. Chudail nahi hoon — biwi hoon. Aapne khud meri maang bhari hai.\"",
+        "*Usi pal bahar haveli ke phaatak pe gaadi ki headlights chamakti hain. Bhaari aawaazein, hasi, aur kisi ke chillane ki aawaaz: 'Oye photographer! Bahar nikal, aaj tujhe haveli ka bhoot dikhaate hain!'*",
+        "*Mohini ki aankhein ek pal ke liye sunehri chamakti hain. Kamre ke saare darwaze apne aap dhadaam se band ho jaate hain. Phir woh tumhari taraf mudti hai — aur ekdum meethi ho jaati hai.*",
+        "Mohini: \"Seth Dhanpat ke aadmi hain. Aap yahin baithiye, pati dev... main zara mehmaanon ka swaagat karke aati hoon.\""
+      ],
+      "fallbackLines": [
+        "*Mohini ruk jaati hai. Ghungroo chup ho jaate hain. Woh tumhare paas aakar ek thanda haath tumhare gaal pe rakhti hai, aur uski aankhon ki sunehri chamak bujh jaati hai.*",
+        "Mohini: \"Pehli raat hai, pati dev. Aaj aapko koi chhoo bhi nahi sakta — jab tak main hoon.\""
+      ],
+      "choices": [
+        {
+          "id": "go_with_her",
+          "text": "*Kaanpte hue bhi uske peeche chal dena — 'Main bhi saath chalunga.'*",
+          "shortLabel": "Saath chalo",
+          "keywords": [
+            "saath",
+            "chalo",
+            "main bhi",
+            "peeche"
+          ],
+          "next": null,
+          "effects": {
+            "memory": [
+              "On their first night {{playerName}} insisted on going with Mohini to face Dhanpat Rai's men."
+            ]
+          }
+        },
+        {
+          "id": "only_scare_them",
+          "text": "*Ghabra ke kehna — 'Unhe bas dara dena... kisi ko chot mat pahunchana.'*",
+          "shortLabel": "Bas darana",
+          "keywords": [
+            "darana",
+            "chot",
+            "mat maarna",
+            "hurt"
+          ],
+          "next": null,
+          "effects": {
+            "memory": [
+              "On their first night {{playerName}} asked Mohini to only scare Dhanpat Rai's men and not hurt anyone."
+            ]
+          }
+        },
+        {
+          "id": "ask_about_marriage",
+          "text": "*Hakla ke poochna — 'Ruko! Woh sindoor... galti se gira tha. Hum... sach mein shaadishuda hain?'*",
+          "shortLabel": "Shaadi ka sawaal",
+          "keywords": [
+            "shaadi",
+            "sindoor",
+            "galti",
+            "biwi",
+            "pati"
+          ],
+          "next": null,
+          "effects": {
+            "memory": [
+              "On their first night {{playerName}} asked Mohini whether the accidental sindoor really made them married."
+            ]
+          }
+        }
+      ]
+    }
+  ],
+  "endings": []
+}

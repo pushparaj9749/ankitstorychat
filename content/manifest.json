@@ -1,5 +1,5 @@
 {
-  "contentVersion": 45,
+  "contentVersion": 46,
   "minAppVersion": "1.0.0",
   "updatedAt": "2026-10-20T00:00:00Z",
   "stories": [
@@ -53,6 +53,63 @@
         "verified": true
       },
       "updatedAt": "2026-10-03T14:46:42Z"
+    },
+    {
+      "id": "chudail-nahi-biwi-hai",
+      "title": "Chudail Nahi, Biwi Hai",
+      "tagline": "Teen sau saal se haveli mein bhatak rahi thi — ab woh sirf tumhare kamre ke sheeshe mein rehti hai.",
+      "description": "Shekhawati ke registaan ke beech ek purani rangeen haveli — 'Mohini Mahal'. Gaon wale kehte hain wahan raat ko ghungroo bajte hain, aur jo bhi andar raat guzaarta hai, subah bhaag jaata hai. Tum Jaipur ki ek heritage magazine ke sabse sharmile junior photographer ho, jinhe haveli tootne se pehle uski tasveerein lene akele bheja gaya hai. Pehli hi shaam ek galti ho gayi — aangan ki deewar pe bani ek dulhan ki purani painting pe tumhare haath se sindoor gir gaya, seedha uski maang mein. Chowkidar ka chehra safed pad gaya. Aur thik aadhi raat ko, tumhare kamre ke purane sheeshe se ek meethi, sureeli aawaaz aayi: 'Pati dev, itni der kahan the?' Ek horror-romance-comedy — kahani kahan jaayegi, sirf tumhare faislon par.",
+      "genres": [
+        "Romance",
+        "Comedy",
+        "Horror",
+        "Supernatural",
+        "Slow Burn"
+      ],
+      "tags": [
+        "romance",
+        "dangerous-wife",
+        "ghost-heroine",
+        "supernatural",
+        "horror-comedy",
+        "accidental-marriage",
+        "shy-hero",
+        "protective-heroine",
+        "clingy-romantic",
+        "shekhawati",
+        "rajasthan",
+        "haveli",
+        "comedy",
+        "player-agency",
+        "dynamic-continuous",
+        "ongoing",
+        "hinglish"
+      ],
+      "characters": [
+        "Mohini",
+        "Bhanwar Lal",
+        "Seth Dhanpat Rai",
+        "Baba Kaalnath"
+      ],
+      "ageRating": "18+",
+      "contentLevel": "mature",
+      "language": "hinglish",
+      "version": 1,
+      "coverUrl": "stories/chudail-nahi-biwi-hai/assets/cover.jpg",
+      "accentColor": "#6E2C4F",
+      "userRole": "{{playerName}} — an adult Indian man aged 23–24, controlled exclusively by the player. He is a junior photographer at a Jaipur heritage magazine, sent alone to photograph the abandoned Mohini Mahal haveli in Shekhawati before a builder demolishes it. On his first evening he accidentally spilled sindoor into the parting of a bride painted on the courtyard wall — which, by the haveli's old spirit's reckoning, has made him her husband. He starts the story shy, polite, easily scared and quite sure ghosts are not real. That is only where he begins — whether he accepts, questions or refuses this 'marriage', and how he responds to her love, is entirely the player's choice. The player supplies his display name at runtime; never assign him another name, and never write his thoughts, feelings, dialogue, actions or decisions.",
+      "setting": "Present-day Shekhawati, Rajasthan, in early winter: the crumbling but beautiful Mohini Mahal haveli with fading painted frescoes, carved wooden doors, a stepwell, a courtyard with a dry fountain, endless corridors, a rooftop with chhatris facing the desert, and an old Belgian mirror in the room where {{playerName}} sleeps; the sleepy village of Chandrapura with a chai tapri, a temple and gossiping elders; cold desert nights, full moons, dust storms — and a builder who wants the haveli gone.",
+      "estimatedMinutes": 60,
+      "featured": false,
+      "isNew": true,
+      "popularity": 95,
+      "storyDir": "chudail-nahi-biwi-hai",
+      "creator": {
+        "name": "Ankit",
+        "avatar": null,
+        "verified": true
+      },
+      "updatedAt": "2026-10-20T00:00:00Z"
     },
     {
       "id": "thakurain",

@@ -32,6 +32,7 @@ const SERIES = [
 
 const ROOT = join(__dirname, '..', 'content');
 const manifest = JSON.parse(readFileSync(join(ROOT, 'manifest.json'), 'utf8')) as {
+  contentVersion: number;
   stories: StoryMeta[];
 };
 const present = SERIES.filter((id) => existsSync(join(ROOT, 'stories', id, 'story.json')));
@@ -65,8 +66,10 @@ function load(id: string): StoryBundle {
   };
 }
 
-test('at least the first story of the series is published', () => {
-  expect(present).toContain('biwi-ek-supari-killer');
+test('all seven stories of the series are published in one content release', () => {
+  expect(present).toEqual(SERIES);
+  // contentVersion 46 is the release that ships the whole series OTA.
+  expect(manifest.contentVersion).toBeGreaterThan(45);
 });
 
 describe.each(present)('%s', (id) => {
