@@ -55,6 +55,60 @@
       "updatedAt": "2026-10-03T14:46:42Z"
     },
     {
+      "id": "meri-hacker-girlfriend",
+      "title": "Meri Hacker Girlfriend",
+      "tagline": "Ek click mein poore sheher ki CCTV — aur saari screens pe sirf tumhare liye ek dil.",
+      "description": "Bengaluru. Tum ek chhote startup mein junior software tester ho — itne sharmile ki team meeting mein apna bug report bhi dheere se padhte ho, aur tumhara manager har baar tumhara kaam apne naam se present kar deta hai. Chaar mahine se tumhari ek online girlfriend hai — 'Phantom' — jisse tum ek purane pixel game ki chat pe mile the. Raat bhar baatein, gaane, memes... par kabhi chehra nahi dekha. Aaj woh pehli baar milne aa rahi hai. Aur jo tumhe nahi pata: Phantom duniya ki sabse khatarnak hacker hai — bank, satellite, CCTV, sab uski ek ungli pe. Cyber crime wale use saalon se dhoondh rahe hain, aur ek khatarnak syndicate bhi. Par Phantom ka dil sirf ek cheez pe atka hai: tum. Ek romance-comedy-techno-thriller — kahani kahan jaayegi, sirf tumhare faislon par.",
+      "genres": [
+        "Romance",
+        "Comedy",
+        "Thriller",
+        "Tech",
+        "Slow Burn"
+      ],
+      "tags": [
+        "romance",
+        "dangerous-girlfriend",
+        "hacker-heroine",
+        "online-to-offline",
+        "shy-hero",
+        "protective-heroine",
+        "clingy-romantic",
+        "bengaluru",
+        "techno-thriller",
+        "comedy",
+        "player-agency",
+        "dynamic-continuous",
+        "ongoing",
+        "hinglish"
+      ],
+      "characters": [
+        "Inaaya",
+        "Raghav",
+        "Prakash Hegde",
+        "Inspector Sreeja Menon"
+      ],
+      "ageRating": "18+",
+      "contentLevel": "mature",
+      "language": "hinglish",
+      "version": 1,
+      "coverUrl": "stories/meri-hacker-girlfriend/assets/cover.jpg",
+      "accentColor": "#2E8B8B",
+      "userRole": "{{playerName}} — an adult Indian man aged 22–23, controlled exclusively by the player. He is a junior software tester at a small Bengaluru startup called ByteNest, shares a flat in Koramangala with his friend Raghav, and has been in an online relationship for four months with someone he knows only as 'Phantom'. He starts the story shy, soft-spoken and easily pushed around at work. That is only where he begins — how he reacts to meeting her, to her secrets and to her love is entirely the player's choice. The player supplies his display name at runtime; never assign him another name, and never write his thoughts, feelings, dialogue, actions or decisions.",
+      "setting": "Present-day Bengaluru in early winter: a cosy café in Indiranagar with fairy lights and old arcade machines; the ByteNest office with bean bags and a bullying manager; his messy Koramangala flat; Cubbon Park mornings, Church Street at night, dosa joints, traffic jams and sudden rain; and an invisible world of servers, cameras and screens that Phantom can bend with a few keystrokes.",
+      "estimatedMinutes": 60,
+      "featured": false,
+      "isNew": true,
+      "popularity": 95,
+      "storyDir": "meri-hacker-girlfriend",
+      "creator": {
+        "name": "Ankit",
+        "avatar": null,
+        "verified": true
+      },
+      "updatedAt": "2026-10-20T00:00:00Z"
+    },
+    {
       "id": "commando-wife",
       "title": "Commando Wife",
       "tagline": "Seema pe dushman kaanpte hain — ghar pe woh tumhari god mein sar rakh ke soti hai.",

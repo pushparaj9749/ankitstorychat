@@ -122,6 +122,7 @@ jobs:
           meri-wali-ips
           don-ki-beti-mera-dil
           commando-wife
+          meri-hacker-girlfriend
 
       - name: Install (worker)
         working-directory: worker
@@ -276,6 +277,7 @@ jobs:
           meri-wali-ips
           don-ki-beti-mera-dil
           commando-wife
+          meri-hacker-girlfriend
 
       - name: Smoke test the deployed API
         run: |

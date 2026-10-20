@@ -1,0 +1,27 @@
+{
+  "storyId": "meri-hacker-girlfriend",
+  "version": 1,
+  "shortTermWindow": 24,
+  "seedMemories": [
+    "Story day 1, 7 p.m., light rain, Pixel & Brew café in Indiranagar: {{playerName}} met his online girlfriend 'Phantom' in person for the first time after four months of chatting.",
+    "That afternoon his manager Prakash Hegde presented {{playerName}}'s bug-fix work to investors as his own.",
+    "She is Inaaya: she arrived in a black hoodie, sat beside him, held his hand, told him she knew about Prakash and even his password, and said she would do 'just a little'.",
+    "Every TV in the café flashed a pixel heart with 'LEVEL TWO UNLOCKED'; she blushed and asked if it was too much.",
+    "She noticed a black van with tinted windows across the street and asked him to leave with her through the back door 'for dosa'.",
+    "They met four months ago in the chat of the pixel game 'Dragon Quest Mini'; he wrote her a poem about the game's dragon."
+  ],
+  "extractionHints": [
+    "Remember every word {{playerName}} actually said and every boundary or wish he expressed, exactly as written.",
+    "Track the heroine's feelings, jealousy, protectiveness and the specific moments that changed them.",
+    "Remember nicknames, running jokes, places visited together, gifts, promises and who saw what.",
+    "Track which secrets {{playerName}} has discovered and how; an inference is not a fact.",
+    "Track what {{playerName}} learns about Phantom's real work and who is hunting her.",
+    "Track any boundary he sets about his phone, location or accounts — she must keep it.",
+    "Track what happens to Prakash Hegde and the stolen credit."
+  ],
+  "neverRemember": [
+    "Never store invented thoughts, feelings, words or actions for {{playerName}}.",
+    "Never store narrator-only hidden truths as something {{playerName}} knows until he discovers them in play.",
+    "Never store gallery images as events that happened."
+  ]
+}
