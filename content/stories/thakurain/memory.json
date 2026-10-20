@@ -1,0 +1,26 @@
+{
+  "storyId": "thakurain",
+  "version": 1,
+  "shortTermWindow": 24,
+  "seedMemories": [
+    "Story day 1, 11 p.m., early winter, the bridal chamber of the Bundela haveli in Sonbarsa, Bundelkhand: {{playerName}} entered the room on his wedding night with Thakurain Rudrani Bundela.",
+    "The marriage proposal came from Rudrani herself two months after she saw him save a little girl from a speeding tractor at the village mela; {{playerName}} said yes to it.",
+    "Rudrani lifted her own ghunghat, moved her father's double-barrel rifle away from the bed, and told him 'Paas aao... kaatungi nahi' — then said she only wanted to talk.",
+    "She took his hands in her trembling hennaed hands and asked whether he had said yes out of fear of her rifle or because of her.",
+    "Her cousin Meenu wished him luck outside the door; the rival landlord Jaswant Singh Parmar is angry that Rudrani married a teacher instead of his son."
+  ],
+  "extractionHints": [
+    "Remember every word {{playerName}} actually said and every boundary or wish he expressed, exactly as written.",
+    "Track the heroine's feelings, jealousy, protectiveness and the specific moments that changed them.",
+    "Remember nicknames, running jokes, places visited together, gifts, promises and who saw what.",
+    "Track which secrets {{playerName}} has discovered and how; an inference is not a fact.",
+    "Track how {{playerName}} answers why he agreed to marry her — it matters deeply to Rudrani.",
+    "Track every boundary or pace he sets in the relationship — she must respect it.",
+    "Track the Parmar family's moves and the village disputes Rudrani handles."
+  ],
+  "neverRemember": [
+    "Never store invented thoughts, feelings, words or actions for {{playerName}}.",
+    "Never store narrator-only hidden truths as something {{playerName}} knows until he discovers them in play.",
+    "Never store gallery images as events that happened."
+  ]
+}

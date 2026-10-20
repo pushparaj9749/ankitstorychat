@@ -55,6 +55,62 @@
       "updatedAt": "2026-10-03T14:46:42Z"
     },
     {
+      "id": "thakurain",
+      "title": "Thakurain",
+      "tagline": "Poora Chambal uske naam se kaanpta hai — aur woh tumhare saamne ghunghat mein sharmaati hai.",
+      "description": "Bundelkhand ke Sonbarsa gaon mein ek naam chalta hai — Thakurain Rudrani Bundela. Baap ke jaane ke baad poori riyasat woh khud chalati hai: kandhe pe dunaali, jeep ki steering haath mein, aur aankhon mein aisi aag ki daaku bhi raasta badal lete hain. Tum gaon ke sarkari school mein aaye naye teacher ho — Bhopal ke ek sharmile, shaant ladke, jo ladai-jhagde se door bhaagte ho. Ek mele mein Rudrani ne tumhe ek baar dekha... aur us din tay kar liya ki shaadi karegi to sirf tumse. Rishta aaya, tumne kaanpte hue 'haan' kaha — aur aaj tumhari shaadi ho gayi. Ab raat hai, haveli ka kamra hai, aur ghunghat mein baithi hai woh Thakurain jisse poora ilaaka darta hai. Ek romance-comedy-drama — kahani kahan jaayegi, sirf tumhare faislon par.",
+      "genres": [
+        "Romance",
+        "Comedy",
+        "Drama",
+        "Married Life",
+        "Rural"
+      ],
+      "tags": [
+        "romance",
+        "married-life",
+        "dangerous-wife",
+        "thakurain",
+        "newlyweds",
+        "shy-hero",
+        "protective-heroine",
+        "clingy-romantic",
+        "bundelkhand",
+        "village",
+        "comedy",
+        "drama",
+        "player-agency",
+        "dynamic-continuous",
+        "ongoing",
+        "hinglish"
+      ],
+      "characters": [
+        "Rudrani Bundela",
+        "Meenu",
+        "Munshi Ganga Prasad",
+        "Jaswant Singh Parmar"
+      ],
+      "ageRating": "18+",
+      "contentLevel": "mature",
+      "language": "hinglish",
+      "version": 1,
+      "coverUrl": "stories/thakurain/assets/cover.jpg",
+      "accentColor": "#8B5A2B",
+      "userRole": "{{playerName}} — an adult Indian man aged 24–25, controlled exclusively by the player. He is a newly posted teacher at the government school in Sonbarsa village, Bundelkhand, originally from a simple middle-class family in Bhopal. He agreed to the marriage proposal from Thakurain Rudrani Bundela himself, and their wedding took place today. He starts the story shy, gentle, soft-spoken and nervous around her fierce reputation. That is only where he begins — how he responds to his new wife, her world and her love is entirely the player's choice. The player supplies his display name at runtime; never assign him another name, and never write his thoughts, feelings, dialogue, actions or decisions.",
+      "setting": "Present-day Bundelkhand at the edge of the Chambal ravines, early winter: Sonbarsa village with mustard fields, a dusty chaupal, a banyan tree and a government school; the old sandstone Bundela haveli with carved jharokhas, brass lamps, a courtyard tulsi and a rooftop facing the ravines; an open green jeep, horses in the stable, a weekly haat, temple bells at dawn — and old feuds over land and water that still simmer.",
+      "estimatedMinutes": 60,
+      "featured": false,
+      "isNew": true,
+      "popularity": 96,
+      "storyDir": "thakurain",
+      "creator": {
+        "name": "Ankit",
+        "avatar": null,
+        "verified": true
+      },
+      "updatedAt": "2026-10-20T00:00:00Z"
+    },
+    {
       "id": "meri-hacker-girlfriend",
       "title": "Meri Hacker Girlfriend",
       "tagline": "Ek click mein poore sheher ki CCTV — aur saari screens pe sirf tumhare liye ek dil.",

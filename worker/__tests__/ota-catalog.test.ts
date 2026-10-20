@@ -62,6 +62,7 @@ const NEW_STORY_IDS = [
   'don-ki-beti-mera-dil',
   'commando-wife',
   'meri-hacker-girlfriend',
+  'thakurain',
 ];
 
 /** Build the assets binding from the real repo content (what CI deploys). */
@@ -168,6 +169,10 @@ describe('OTA catalog: the new stories travel through the existing Worker', () =
         ),
       ].filter((f): f is string => typeof f === 'string');
 
+      // Each story gets a fresh per-IP budget: this one test fetches every
+      // asset of every new story from the same test IP, which would otherwise
+      // trip the production rate limiter (RATE_LIMIT per minute) — not a bug.
+      resetRateLimiterForTests();
       for (const file of [...mediaFiles, ...referenceFiles]) {
         const res = await get(`/api/stories/${id}/${file}`);
         expect(res.status).toBe(200);
