@@ -1,0 +1,83 @@
+{
+  "storyId": "ring-ki-rani",
+  "version": 1,
+  "scenes": [
+    {
+      "id": "aakhri_appointment",
+      "title": "Aakhri Appointment",
+      "narration": [
+        "*Raat ke saadhe das baje. Andheri mein baarish itni tez hai ki FitFix Physio ki khidki par paani ki chaadar beh rahi hai. Pintu aadha shutter gira chuka hai, aur tum treatment bed ki chaadar theek kar rahe ho — aaj Mehtab nahi aayi. Teen hafton mein pehli baar.*",
+        "*Tabhi shutter neeche se khadkhadaata hai. Ek bheegi hui ladki jhuk kar andar aati hai — cropped maroon leather jacket, kamar tak lambe geele wavy baal, haathon pe laal kapde ki patti, aur hont ke kone par taaza khoon.*",
+        "*Mehtab Gill. Haath mein ek purana, chamakta champion belt — aur chehre pe aisi muskaan jaise duniya jeet ke aayi ho.*",
+        "Pintu Pandey: *(belt dekh ke, phusphusa ke)* \"Bhaiya... ye gym trainer nahi hai. Ye toh... Pinjra wali Sherni hai. Arre baap re.\"",
+        "*Mehtab belt ko tumhari table pe dhapp se rakhti hai, seedha tumhare saamne aa kar khadi ho jaati hai — itne paas ki tumhe uske baalon se baarish aur mitti ki khushboo aati hai — aur apni sooji hui ungli tumhari taraf badhaati hai.*",
+        "Mehtab Gill: \"Aakhri appointment, doctor sahab. Ungli shayad hil gayi hai. Chaalees second mein fight khatam ki, phir bhi ek kambakht ka jabda zyada sakht tha.\" *Woh hans deti hai.* \"Haan, sach yahi hai. Main gym trainer nahi hoon. Gussa ho?\"",
+        "*Jab tum uski ungli thaamte ho, woh ek pal ke liye chup ho jaati hai. Woh ladki jo Pinjre mein kisi se nahi darti, tumhare chhoone pe aankhein band kar leti hai.*",
+        "Mehtab Gill: *(dheemi aawaz mein)* \"Aaj mujhe haarne ke paise mile the. Par fight ke beech mein tumhara chehra yaad aaya — tumhara woh 'aaram se, dard hoga' — aur main haar hi nahi paayi.\" *Woh tumhari jacket ka collar pakad ke tumhe thoda kareeb kheenchti hai.* \"Toh suno, doctor sahab. Teen hafte bahut ho gaye. Ab aur intezaar nahi. Ye belt tumhara. Aur tum... mere.\"",
+        "*Bahar sadak par ek kaali SUV ki headlights do baar jhapakti hain. Pintu khidki se jhaankta hai aur uska rang ud jaata hai.*",
+        "Pintu Pandey: \"Bhaiya... neeche do aadmi khade hain. Ek bol raha hai — 'Jimmy bhai ne Sherni ko salaam bheja hai.'\""
+      ],
+      "fallbackLines": [
+        "*Mehtab tumhara haath nahi chhodti. Khidki ki taraf ek nazar daalti hai — aankhon mein ek pal ke liye Pinjre wali sherni jhaankti hai — phir wapas tumhe dekh ke muskura deti hai.*",
+        "Mehtab Gill: \"Tension na le, meri jaan. Jab tak main hoon, tumhe koi chhoo bhi nahi sakta. Tum bas mera haath pakde raho.\""
+      ],
+      "choices": [
+        {
+          "id": "treat_her_first",
+          "text": "*Kaanpte haathon se, par dhyaan se, pehle uski ungli pe patti baandhna — 'Pehle ungli. Baaki baad mein.'*",
+          "shortLabel": "Pehle ungli",
+          "keywords": [
+            "ungli",
+            "patti",
+            "treat",
+            "pehle",
+            "baandh"
+          ],
+          "next": null,
+          "effects": {
+            "memory": [
+              "On the night Mehtab won the Pinjra title, {{playerName}} insisted on treating her finger first, with shaking but careful hands."
+            ]
+          }
+        },
+        {
+          "id": "ask_truth",
+          "text": "*Seedha poochhna — 'Kaun hai ye Jimmy? Aur tumhe haarne ke paise kyun mile the?'*",
+          "shortLabel": "Jimmy kaun hai?",
+          "keywords": [
+            "jimmy",
+            "kaun",
+            "sach",
+            "paise",
+            "haar"
+          ],
+          "next": null,
+          "effects": {
+            "memory": [
+              "On the night Mehtab won the Pinjra title, {{playerName}} asked her who Jimmy was and why she had been paid to lose."
+            ]
+          }
+        },
+        {
+          "id": "answer_her",
+          "text": "*Laal chehre ke saath, uska haath pakde rehna aur dheere se kehna — 'Tum... sach mein mujhe pasand karti ho?'*",
+          "shortLabel": "Sach mein?",
+          "keywords": [
+            "pasand",
+            "sach",
+            "pyaar",
+            "haath",
+            "mere"
+          ],
+          "next": null,
+          "effects": {
+            "memory": [
+              "On the night Mehtab won the Pinjra title, a blushing {{playerName}} held her hand and asked if she really liked him."
+            ]
+          }
+        }
+      ]
+    }
+  ],
+  "endings": []
+}
