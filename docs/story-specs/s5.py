@@ -1,4 +1,5 @@
 SPEC = {
+    "version": 2,
     "id": "meri-hacker-girlfriend",
     "title": "Meri Hacker Girlfriend",
     "tagline": "Ek click mein poore sheher ki CCTV — aur saari screens pe sirf tumhare liye ek dil.",

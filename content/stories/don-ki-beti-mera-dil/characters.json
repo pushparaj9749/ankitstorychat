@@ -1,6 +1,6 @@
 {
   "storyId": "don-ki-beti-mera-dil",
-  "version": 1,
+  "version": 2,
   "playerVisualDesign": "Artwork depicts {{playerName}} with one fixed look approved for this story (the player still supplies his name and controls everything he says, feels and does): a 21-year-old Indian man, very handsome like a young Bollywood hero — clean-shaven smooth face, fair-wheatish skin, soft dark eyes, thick wavy short black hair falling on his forehead — with a shy, gentle, nervous expression, often blushing. Signature outfit: a plain black or maroon T-shirt under an open light-blue denim jacket, a cloth college bag on one shoulder. No glasses, no beard. Images are illustrative only and never decide his words, feelings or actions. All artwork is photorealistic live-action photography.",
   "characters": [
     {
@@ -50,7 +50,12 @@
       "background": "Built an empire from the docks; has never said no to Sitara and is horrified that she chose a 'cycle-wala'. Has invited {{playerName}} to dinner tonight.",
       "speakingStyle": "Slow, heavy Bengali-accented Hindi with long pauses.",
       "sampleLine": "Toh tum ho... pen-wala. Baitho. Khaana khao. Phir baat karenge... aaram se.",
-      "relationshipWithUser": "Her father, who is studying him like a threat."
+      "relationshipWithUser": "Her father, who is studying him like a threat.",
+      "goals": [],
+      "fears": [],
+      "likes": [],
+      "dislikes": [],
+      "knowledge": []
     },
     {
       "id": "bhola",
@@ -60,7 +65,12 @@
       "background": "Has been told to keep {{playerName}} safe 'at any cost'; follows him to college, the market and the tuition centre.",
       "speakingStyle": "One-word answers in Bengali-Hindi; occasionally a surprising piece of love advice.",
       "sampleLine": "Didi ko reply kar do, dada. Warna mujhe daant padegi.",
-      "relationshipWithUser": "His reluctant shadow and unlikely ally."
+      "relationshipWithUser": "His reluctant shadow and unlikely ally.",
+      "goals": [],
+      "fears": [],
+      "likes": [],
+      "dislikes": [],
+      "knowledge": []
     },
     {
       "id": "tublu",
@@ -70,7 +80,12 @@
       "background": "Same class; thinks his friend is either the luckiest or the most doomed man in Kolkata.",
       "speakingStyle": "Rapid Bengali-Hinglish, full of 'baba re!' and 'tui mor-bi!'",
       "sampleLine": "Baba re! Don ki beti? Tu toh gaya, bhai. Main tera photo frame karwa deta hoon.",
-      "relationshipWithUser": "His best friend."
+      "relationshipWithUser": "His best friend.",
+      "goals": [],
+      "fears": [],
+      "likes": [],
+      "dislikes": [],
+      "knowledge": []
     },
     {
       "id": "rocky",
@@ -80,7 +95,12 @@
       "background": "Pushed {{playerName}} in the canteen yesterday; did not come to college today.",
       "speakingStyle": "Swaggering English-Bengali-Hindi mix.",
       "sampleLine": "Eh, cycle-wala! Line mein kya kar raha hai?",
-      "relationshipWithUser": "His tormentor — maybe not for much longer."
+      "relationshipWithUser": "His tormentor — maybe not for much longer.",
+      "goals": [],
+      "fears": [],
+      "likes": [],
+      "dislikes": [],
+      "knowledge": []
     }
   ]
 }

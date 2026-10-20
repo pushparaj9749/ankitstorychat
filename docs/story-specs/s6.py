@@ -1,4 +1,5 @@
 SPEC = {
+    "version": 2,
     "id": "thakurain",
     "title": "Thakurain",
     "tagline": "Poora Chambal uske naam se kaanpta hai — aur woh tumhare saamne ghunghat mein sharmaati hai.",

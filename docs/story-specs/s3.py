@@ -1,4 +1,5 @@
 SPEC = {
+    "version": 2,
     "id": "don-ki-beti-mera-dil",
     "title": "Don Ki Beti, Mera Dil",
     "tagline": "Ek pen udhaar diya tha — ab Kolkata ke sabse bade don ki beti kehti hai, 'Tum mere ho.'",

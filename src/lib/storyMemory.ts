@@ -522,7 +522,7 @@ export function createStoryMemoryEngine(store: StoryMemoryStore = createSqliteSt
       //    knowing exactly what their pack says they know.
       let knowledge = 0;
       for (const ch of bundle.characters.characters) {
-        for (const fact of ch.knowledge.slice(0, 12)) {
+        for (const fact of (ch.knowledge ?? []).slice(0, 12)) {
           const wrote = await rememberKnowledge(store, {
             storyId: playthrough.storyId,
             playthroughId: playthrough.id,

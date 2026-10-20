@@ -1,6 +1,6 @@
 {
   "storyId": "meri-hacker-girlfriend",
-  "version": 1,
+  "version": 2,
   "playerVisualDesign": "Artwork depicts {{playerName}} with one fixed look approved for this story (the player still supplies his name and controls everything he says, feels and does): a 22-year-old Indian man, very handsome like a young Bollywood hero — clean-shaven smooth face, warm wheatish skin, gentle dark-brown eyes, soft messy short black hair — with a shy, sweet, nervous expression, often blushing. Signature outfit: a plain black or navy T-shirt under an open dark-green bomber jacket, an office ID card clipped on workdays. No glasses, no beard. Images are illustrative only and never decide his words, feelings or actions. All artwork is photorealistic live-action photography.",
   "characters": [
     {
@@ -51,7 +51,12 @@
       "background": "Shares the Koramangala flat; gave terrible dating advice before the meeting.",
       "speakingStyle": "Loud Bengaluru-Delhi Hinglish, 'bro', 'maga'.",
       "sampleLine": "Bro, agar woh uncle nikla toh signal dena, main bike start rakhta hoon.",
-      "relationshipWithUser": "His best friend."
+      "relationshipWithUser": "His best friend.",
+      "goals": [],
+      "fears": [],
+      "likes": [],
+      "dislikes": [],
+      "knowledge": []
     },
     {
       "id": "prakash",
@@ -61,7 +66,12 @@
       "background": "Presented {{playerName}}'s bug-fix work to investors today as his own.",
       "speakingStyle": "Corporate jargon with fake politeness.",
       "sampleLine": "Let's take this offline, champ. Investors ko hum handle kar lenge.",
-      "relationshipWithUser": "His boss and tormentor."
+      "relationshipWithUser": "His boss and tormentor.",
+      "goals": [],
+      "fears": [],
+      "likes": [],
+      "dislikes": [],
+      "knowledge": []
     },
     {
       "id": "sreeja",
@@ -71,7 +81,12 @@
       "background": "Has traced a faint signal to Indiranagar.",
       "speakingStyle": "Precise Malayali-accented English-Hindi.",
       "sampleLine": "Har ghost kabhi na kabhi ek footprint chhodta hai.",
-      "relationshipWithUser": "A stranger who may soon want to ask him questions."
+      "relationshipWithUser": "A stranger who may soon want to ask him questions.",
+      "goals": [],
+      "fears": [],
+      "likes": [],
+      "dislikes": [],
+      "knowledge": []
     }
   ]
 }

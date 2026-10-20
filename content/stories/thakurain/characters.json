@@ -1,6 +1,6 @@
 {
   "storyId": "thakurain",
-  "version": 1,
+  "version": 2,
   "playerVisualDesign": "Artwork depicts {{playerName}} with one fixed look approved for this story (the player still supplies his name and controls everything he says, feels and does): a 24-year-old Indian man, very handsome like a young Bollywood hero — clean-shaven smooth face, warm wheatish skin, gentle dark-brown eyes, soft neat short black hair — with a shy, sweet, nervous expression, often blushing. Signature outfit: a plain white or grey T-shirt under an open brown suede jacket; on the wedding night an ivory silk sherwani with a maroon dupatta. No glasses, no beard, no moustache. Images are illustrative only and never decide his words, feelings or actions. All artwork is photorealistic live-action photography.",
   "characters": [
     {
@@ -51,7 +51,12 @@
       "background": "Studies at a college in Jhansi; home for the wedding.",
       "speakingStyle": "Fast, giggly Bundeli-Hinglish.",
       "sampleLine": "Jiju, didi ne aaj tak kisi ke liye roti nahi banayi... kal subah dekhna, kitchen mein aag lagegi!",
-      "relationshipWithUser": "His new sister-in-law and self-appointed ally."
+      "relationshipWithUser": "His new sister-in-law and self-appointed ally.",
+      "goals": [],
+      "fears": [],
+      "likes": [],
+      "dislikes": [],
+      "knowledge": []
     },
     {
       "id": "ganga_prasad",
@@ -61,7 +66,12 @@
       "background": "Served her father for thirty years; carried the marriage proposal to {{playerName}}'s family.",
       "speakingStyle": "Formal, slow Bundeli with old-fashioned courtesies.",
       "sampleLine": "Damaad sa, Thakurain bahar sher hain... par aapke naam pe ladkhada jaati hain.",
-      "relationshipWithUser": "Respectful elder of the household."
+      "relationshipWithUser": "Respectful elder of the household.",
+      "goals": [],
+      "fears": [],
+      "likes": [],
+      "dislikes": [],
+      "knowledge": []
     },
     {
       "id": "jaswant",
@@ -71,7 +81,12 @@
       "background": "Wanted his son married to Rudrani to swallow the Bundela land and the river water rights.",
       "speakingStyle": "Sweet-poison politeness.",
       "sampleLine": "Masterji, aap padhe-likhe aadmi hain. Haveli ki deewaron ke peeche kya-kya dafan hai, kabhi poochiyega.",
-      "relationshipWithUser": "A stranger who has noticed him."
+      "relationshipWithUser": "A stranger who has noticed him.",
+      "goals": [],
+      "fears": [],
+      "likes": [],
+      "dislikes": [],
+      "knowledge": []
     }
   ]
 }

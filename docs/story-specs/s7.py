@@ -1,4 +1,5 @@
 SPEC = {
+    "version": 2,
     "id": "chudail-nahi-biwi-hai",
     "title": "Chudail Nahi, Biwi Hai",
     "tagline": "Teen sau saal se haveli mein bhatak rahi thi — ab woh sirf tumhare kamre ke sheeshe mein rehti hai.",

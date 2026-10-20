@@ -1,6 +1,6 @@
 {
   "storyId": "chudail-nahi-biwi-hai",
-  "version": 1,
+  "version": 2,
   "playerVisualDesign": "Artwork depicts {{playerName}} with one fixed look approved for this story (the player still supplies his name and controls everything he says, feels and does): a 23-year-old Indian man, very handsome like a young Bollywood hero — clean-shaven smooth face, warm wheatish skin, gentle dark-brown eyes, soft messy short black hair — with a shy, sweet, nervous expression, often blushing or startled. Signature outfit: a plain grey or white T-shirt under an open black denim jacket, a DSLR camera strap around his neck. No glasses, no beard, no moustache. Images are illustrative only and never decide his words, feelings or actions. All artwork is photorealistic live-action photography.",
   "characters": [
     {
@@ -52,7 +52,12 @@
       "background": "Knows every legend of Mohini baisa; turned pale when he saw the sindoor on the fresco.",
       "speakingStyle": "Marwari-flavoured Hindi, lots of 'Ram Ram' and 'hukum'.",
       "sampleLine": "Hukum, aapne Mohini baisa ki maang bhar di... ab to Bhagwan hi maalik hai. Main subah aaunga — agar aap rahe to.",
-      "relationshipWithUser": "A worried well-wisher."
+      "relationshipWithUser": "A worried well-wisher.",
+      "goals": [],
+      "fears": [],
+      "likes": [],
+      "dislikes": [],
+      "knowledge": []
     },
     {
       "id": "dhanpat_rai",
@@ -62,7 +67,12 @@
       "background": "Has sent goons and a fake tantrik to clear the haveli before demolition.",
       "speakingStyle": "Smooth businessman Hindi with veiled threats.",
       "sampleLine": "Photographer babu, tasveerein jaldi khatam karo. Is haveli ka time khatam ho chuka hai.",
-      "relationshipWithUser": "A threat to the haveli — and an annoyance to him."
+      "relationshipWithUser": "A threat to the haveli — and an annoyance to him.",
+      "goals": [],
+      "fears": [],
+      "likes": [],
+      "dislikes": [],
+      "knowledge": []
     },
     {
       "id": "kaalnath",
@@ -72,7 +82,12 @@
       "background": "Claims he can 'bind' any spirit; has never actually met one.",
       "speakingStyle": "Booming fake-Sanskrit drama that collapses into squeaks.",
       "sampleLine": "Alakh Niranjan! Is haveli ki chudail ko main ek nimbu mein band kar doonga!",
-      "relationshipWithUser": "A comic menace."
+      "relationshipWithUser": "A comic menace.",
+      "goals": [],
+      "fears": [],
+      "likes": [],
+      "dislikes": [],
+      "knowledge": []
     }
   ]
 }

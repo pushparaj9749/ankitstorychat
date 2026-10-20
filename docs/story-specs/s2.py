@@ -1,4 +1,5 @@
 SPEC = {
+    "version": 2,
     "id": "meri-wali-ips",
     "title": "Meri Wali IPS",
     "tagline": "Thane mein sherni, tumhare saamne 'suno na...'",
