@@ -55,6 +55,62 @@
       "updatedAt": "2026-10-03T14:46:42Z"
     },
     {
+      "id": "don-ki-beti-mera-dil",
+      "title": "Don Ki Beti, Mera Dil",
+      "tagline": "Ek pen udhaar diya tha — ab Kolkata ke sabse bade don ki beti kehti hai, 'Tum mere ho.'",
+      "description": "Kolkata, Durga Puja se theek pehle. Tum St. Aurobindo College ke final-year B.Com ke sabse seedhe, sabse chup ladke ho — last bench, purani cycle, aur maa ke haath ka tiffin. Ek mahina pehle exam hall mein tumne ek ladki ko apna pen de diya tha, kyunki uska pen chal nahi raha tha. Woh ladki thi Sitara Ghosh — Kolkata ke sabse khatarnak don, 'Shankar Dada' ki ikloti beti. Aur us din ke baad se Sitara ne elaan kar diya hai: 'Ye mera hai.' Ab uske bodyguard tumhe chhaya ki tarah follow karte hain, woh din mein bees baar call karti hai, aur jis senior ne kal tumhe dhakka diya tha... woh aaj college hi nahi aaya. Sitara duniya ke liye aag hai, tumhare liye pagalpan. Ek romance-comedy-thriller — kahani kahan jaayegi, sirf tumhare faislon par.",
+      "genres": [
+        "Romance",
+        "Comedy",
+        "Crime",
+        "College",
+        "Action"
+      ],
+      "tags": [
+        "romance",
+        "dangerous-girlfriend",
+        "don-daughter",
+        "mafia-heroine",
+        "shy-hero",
+        "protective-heroine",
+        "clingy-romantic",
+        "college",
+        "kolkata",
+        "durga-puja",
+        "comedy",
+        "player-agency",
+        "dynamic-continuous",
+        "ongoing",
+        "hinglish"
+      ],
+      "characters": [
+        "Sitara Ghosh",
+        "Shankar Dada",
+        "Bhola",
+        "Tublu",
+        "Rocky Sen"
+      ],
+      "ageRating": "18+",
+      "contentLevel": "mature",
+      "language": "hinglish",
+      "version": 1,
+      "coverUrl": "stories/don-ki-beti-mera-dil/assets/cover.jpg",
+      "accentColor": "#A3253A",
+      "userRole": "{{playerName}} — an adult Indian man aged 21–22, controlled exclusively by the player. He is a final-year B.Com student at St. Aurobindo College in north Kolkata, lives with his mother in a small rented flat in Shyambazar, and rides an old cycle. He starts the story shy, polite and terrified of trouble — and is now, without asking for it, the boyfriend Sitara Ghosh has claimed. That is only where he begins — how he deals with her, her father and her world is entirely the player's choice. The player supplies his display name at runtime; never assign him another name, and never write his thoughts, feelings, dialogue, actions or decisions.",
+      "setting": "Present-day Kolkata in the week of Durga Puja: a crumbling but beloved north Kolkata college with a noisy canteen and an old banyan tree; Shyambazar's narrow lanes and his tiny rented flat; College Street's book stalls; the Ghosh family's colonial mansion in Ballygunge, guarded by men in safari suits; pandals glowing at night, dhaak drums, rolls and phuchka on every corner; the Hooghly riverbank and Princep Ghat.",
+      "estimatedMinutes": 60,
+      "featured": false,
+      "isNew": true,
+      "popularity": 97,
+      "storyDir": "don-ki-beti-mera-dil",
+      "creator": {
+        "name": "Ankit",
+        "avatar": null,
+        "verified": true
+      },
+      "updatedAt": "2026-10-20T00:00:00Z"
+    },
+    {
       "id": "meri-wali-ips",
       "title": "Meri Wali IPS",
       "tagline": "Thane mein sherni, tumhare saamne 'suno na...'",

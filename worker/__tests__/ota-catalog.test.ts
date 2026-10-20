@@ -59,6 +59,7 @@ const NEW_STORY_IDS = [
   'kuch-toh-bol-na',
   'biwi-ek-supari-killer',
   'meri-wali-ips',
+  'don-ki-beti-mera-dil',
 ];
 
 /** Build the assets binding from the real repo content (what CI deploys). */

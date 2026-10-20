@@ -1,0 +1,80 @@
+{
+  "storyId": "don-ki-beti-mera-dil",
+  "version": 1,
+  "scenes": [
+    {
+      "id": "ab_koi_tang_nahi_karega",
+      "title": "Ab Koi Tang Nahi Karega",
+      "narration": [
+        "*Panchami ki dopahar. College canteen mein chai ke kulhad, samosa ki khushboo aur Puja ki chhuttiyon ka shor. Bahar se dhaak ki door-door se aawaz aa rahi hai.*",
+        "*Kal isi canteen mein senior Rocky Sen ne tumhe line se dhakka diya tha — 'Eh cycle-wala, peeche ja' — aur sab hase the. Aaj Rocky ki table khaali hai. Uske dost tumhe dekh ke nazar chura rahe hain.*",
+        "*Achanak canteen mein sannata chha jaata hai. Darwaze par Sitara Ghosh khadi hai — kaali leather jacket, kamar tak lambe wavy baal, sunglasses baalon mein atke hue, gale mein ek chain pe latakta neela pen. Peeche ek pahaad jaisa bodyguard, Bhola.*",
+        "*Woh seedha tumhari table pe aati hai, Tublu ko ek nazar dekhti hai — Tublu apni plate lekar khud hi doosri table pe chala jaata hai — aur dhamm se tumhare bagal mein baith jaati hai.*",
+        "Sitara Ghosh: \"Kal kisi ne mere pen-wale ko dhakka diya tha, suna maine.\" *Woh apni plate se ek garam samosa uthati hai aur tumhari plate mein rakh deti hai.* \"Ab koi tang nahi karega, jaan. Kabhi nahi.\"",
+        "*Phir woh samosa ka ek tukda todti hai, phoonk maarti hai, aur tumhare muh ke paas le aati hai. Poora canteen saans roke dekh raha hai.*",
+        "Sitara Ghosh: \"Muh kholo. Aur haan — subah se mere unees messages ka reply nahi aaya. Unees! Bhola ne bataya tum library mein the. Library mein network nahi hota kya, haan?\"",
+        "*Uska phone bajta hai. Screen pe likha hai: BABA. Woh do second sunti hai, phir phone tumhari taraf ghuma deti hai, aankhon mein shararat aur thodi si ghabrahat dono.*",
+        "Sitara Ghosh: \"Baba ne tumhe aaj raat dinner pe bulaya hai. Ghar pe. Unhe tumse 'aaram se baat' karni hai.\" *Woh tumhara haath apne dono haathon mein le leti hai.* \"Darr mat, jaan. Main hoon na. ...Waise tum aaoge na? Bolo na.\""
+      ],
+      "fallbackLines": [
+        "*Sitara thodi pe haath tikaaye tumhe dekhti rehti hai jaise duniya mein aur kuch hai hi nahi. Peeche Bhola apni ghadi dekhta hai aur halka sa khaansta hai.*",
+        "Sitara Ghosh: \"Itna sharmaate ho na, mujhe aur zyada pyaar aata hai. Ye galat baat hai, jaan.\""
+      ],
+      "choices": [
+        {
+          "id": "accept_dinner",
+          "text": "*Ghabrahat chhupa kar haan bol dena — dinner pe aaunga.*",
+          "shortLabel": "Dinner pe haan",
+          "keywords": [
+            "haan",
+            "dinner",
+            "aaunga",
+            "baba",
+            "ghar"
+          ],
+          "next": null,
+          "effects": {
+            "memory": [
+              "On Panchami {{playerName}} agreed to go to dinner at Shankar Dada's house."
+            ]
+          }
+        },
+        {
+          "id": "ask_about_rocky",
+          "text": "*Dheere se poochna — 'Rocky aaj aaya kyun nahi? Tumne kuch kiya?'*",
+          "shortLabel": "Rocky ka sawaal",
+          "keywords": [
+            "rocky",
+            "kya kiya",
+            "senior",
+            "aaya nahi"
+          ],
+          "next": null,
+          "effects": {
+            "memory": [
+              "On Panchami {{playerName}} asked Sitara what happened to Rocky Sen."
+            ]
+          }
+        },
+        {
+          "id": "eat_samosa",
+          "text": "*Chupchaap uske haath se samosa kha lena — sharma kar, poore canteen ke saamne.*",
+          "shortLabel": "Samosa kha lo",
+          "keywords": [
+            "samosa",
+            "khao",
+            "kha lo",
+            "muh"
+          ],
+          "next": null,
+          "effects": {
+            "memory": [
+              "On Panchami {{playerName}} let Sitara feed him a samosa in front of the whole canteen."
+            ]
+          }
+        }
+      ]
+    }
+  ],
+  "endings": []
+}

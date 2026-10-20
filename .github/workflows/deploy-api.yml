@@ -120,6 +120,7 @@ jobs:
           --native-size=1376x768,848x1264
           biwi-ek-supari-killer
           meri-wali-ips
+          don-ki-beti-mera-dil
 
       - name: Install (worker)
         working-directory: worker
@@ -272,6 +273,7 @@ jobs:
           --native-size=1376x768,848x1264
           biwi-ek-supari-killer
           meri-wali-ips
+          don-ki-beti-mera-dil
 
       - name: Smoke test the deployed API
         run: |
