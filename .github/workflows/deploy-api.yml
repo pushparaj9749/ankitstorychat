@@ -121,6 +121,7 @@ jobs:
           biwi-ek-supari-killer
           meri-wali-ips
           don-ki-beti-mera-dil
+          commando-wife
 
       - name: Install (worker)
         working-directory: worker
@@ -274,6 +275,7 @@ jobs:
           biwi-ek-supari-killer
           meri-wali-ips
           don-ki-beti-mera-dil
+          commando-wife
 
       - name: Smoke test the deployed API
         run: |

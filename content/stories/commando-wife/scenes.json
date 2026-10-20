@@ -1,0 +1,81 @@
+{
+  "storyId": "commando-wife",
+  "version": 1,
+  "scenes": [
+    {
+      "id": "chhe_mahine_ka_udhaar",
+      "title": "Chhe Mahine Ka Udhaar",
+      "narration": [
+        "*Subah ke saat baje. Dehradun railway station pe dhundh itni ghani hai ki platform ki batti bhi peeli dikhti hai. Tum haath mein genda ke phoolon ka chhota sa guldasta pakde khade ho — teen baar sochte hue ki ye bachkana toh nahi lagega.*",
+        "*Shatabdi dheere se rukti hai. Ek dibbe se fauji duffel bag kandhe pe daale ek ladki utarti hai — combat fatigues, sar pe maroon beret, kamar tak lambe wavy baal ek tight joode mein. Poore platform ke jawaan apne aap seedhe khade ho jaate hain.*",
+        "*Major Aditi Rana. Tumhari biwi. Jinke saath tumne bas teen din bitaye the.*",
+        "*Uski nazar bheed mein ghoomti hai — tez, sharp, jaise dushman dhoondh rahi ho — aur phir tum par aakar ruk jaati hai. Ek pal mein woh fauladi chehra pighal jaata hai.*",
+        "*Duffel bag zameen par girta hai. Woh daud ke aati hai aur seedha tumhare gale lag jaati hai — itni zor se ki tumhare haath ka guldasta pichak jaata hai.*",
+        "Major Aditi Rana: \"Chhe mahine. Chhe mahine, jawan! Pata hai har raat tumhari painting wali photo dekh ke soti thi?\" *Woh tumhare kandhe mein muh chhupa leti hai, phir ek kadam peeche hat ke tumhe sar se paon tak dekhti hai.* \"Patle ho gaye ho. Khaana nahi khaate the na mere bina?\"",
+        "*Woh beret utaarti hai, joda khol deti hai — lambe wavy baal kandhon pe bikhar jaate hain — aur pichke hue genda phool tumhare haath se le kar apne baalon mein laga leti hai.*",
+        "Major Aditi Rana: \"Theek hai, suno. Major sahiba ka order: agle tees din tum mujhse do foot se zyada door nahi jaoge. School se chhutti lo. Phone silent. Aur roz raat... ek painting. Meri.\" *Phir woh muskura kar dheere se kehti hai,* \"Aur pehle — chhe mahine ki jhappi ka udhaar baaki hai. Byaaj ke saath.\"",
+        "*Tabhi platform ke kone se ek aawaz aati hai — 'Oye artist!' Monty Negi apne do doston ke saath khada haath hila raha hai, muh mein paan. Aditi ki aankhein ek pal ke liye sikud jaati hain.*",
+        "Major Aditi Rana: *(tumhari baanh pakde, bina muskaan khoye, dheemi aawaz mein)* \"Ye kaun hai, jaan? Aur tumhe 'oye' kyun bula raha hai?\""
+      ],
+      "fallbackLines": [
+        "*Aditi tumhari baanh nahi chhodti. Ek haath se duffel bag uthati hai jaise woh khaali ho, aur doosre se tumhari ungliyon mein ungliyaan phansa leti hai.*",
+        "Major Aditi Rana: \"Itna kyun sharma rahe ho? Biwi hoon tumhari. Ab tees din tak har din sharmaana padega, aadat daal lo.\""
+      ],
+      "choices": [
+        {
+          "id": "hug_back",
+          "text": "*Sab bhool ke, sharmaate hue, use kas ke gale laga lena — udhaar chukaane ke liye.*",
+          "shortLabel": "Jhappi do",
+          "keywords": [
+            "hug",
+            "jhappi",
+            "gale",
+            "udhaar"
+          ],
+          "next": null,
+          "effects": {
+            "memory": [
+              "On her first morning home {{playerName}} hugged Aditi back at the railway station."
+            ]
+          }
+        },
+        {
+          "id": "tell_about_monty",
+          "text": "*Dheere se bata dena ki Monty Negi plot ke liye kuch hafton se dhamka raha hai.*",
+          "shortLabel": "Monty ka sach",
+          "keywords": [
+            "monty",
+            "negi",
+            "plot",
+            "dhamka",
+            "sach"
+          ],
+          "next": null,
+          "effects": {
+            "memory": [
+              "On her first morning home {{playerName}} told Aditi that Monty Negi had been threatening him over the plot."
+            ]
+          }
+        },
+        {
+          "id": "avoid_trouble",
+          "text": "*Uska haath pakad ke kehna — 'Chhodo, koi nahi. Chalo ghar chalte hain.'*",
+          "shortLabel": "Ghar chalo",
+          "keywords": [
+            "chhodo",
+            "ghar",
+            "chalo",
+            "koi nahi"
+          ],
+          "next": null,
+          "effects": {
+            "memory": [
+              "On her first morning home {{playerName}} tried to avoid trouble with Monty Negi and asked Aditi to go home."
+            ]
+          }
+        }
+      ]
+    }
+  ],
+  "endings": []
+}
