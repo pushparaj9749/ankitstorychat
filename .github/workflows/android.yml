@@ -105,7 +105,8 @@ on:
 jobs:
   build:
     name: Build APK
-    runs-on: ubuntu-latest
+    # Pinned: ubuntu-latest started moving to Ubuntu 26 on 2026-10-19.
+    runs-on: ubuntu-24.04
     steps:
       - name: Checkout
         uses: actions/checkout@v4
@@ -163,9 +164,21 @@ jobs:
       - name: Build release APK (JS bundle embedded)
         run: |
           cd android
-          ./gradlew assembleRelease --no-daemon --stacktrace
+          set -o pipefail
+          ./gradlew assembleRelease --no-daemon --stacktrace 2>&1 | tee "$RUNNER_TEMP/gradle.log"
         env:
           ORG_GRADLE_PROJECT_androidNdkVersion: 27.0.12077973
+
+      # Surface the real Gradle error as annotations (readable from the checks
+      # API even when the raw log download is unavailable).
+      - name: Report Gradle failure
+        if: failure()
+        run: |
+          log="$RUNNER_TEMP/gradle.log"
+          [ -f "$log" ] || exit 0
+          grep -n -A 25 -m 3 -E "What went wrong|error:|ERROR|Error:" "$log" | head -n 80 | while IFS= read -r line; do
+            echo "::error title=Gradle::${line//%/%25}"
+          done
 
       # Regression guard for the "Unable to load script" crash: fail the build
       # instead of shipping an APK that needs Metro.
