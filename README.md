@@ -58,6 +58,13 @@ moves the tale forward — with memory and relationships, and no script: no pred
 
 ## 🆕 Release notes
 
+### v2.8.0 — New opening animation: "the story opens"
+
+- Dust motes drift up in the dark, a rose line of light draws across the middle, and the logo lifts out of it like a page turning up, with a light glint and one soft ripple.
+- K·I·S·S·A settle in one by one with a champagne wave through the letters; the tagline rises word by word: **TUMHARI KAHANI · TUMHARE FAISLE**.
+- When the app is ready the screen splits open (top half up, bottom half down) onto the first screen, which is already drawn behind it.
+- Native-driver animations only (smooth while the app loads); calm short fade with "reduce motion"; tap to skip once the app is ready. Tests: `__tests__/bootSplash.test.tsx`.
+
 ### v2.7.1 — Free-form stories, no length, no percentages
 
 - **No predefined scene or arc:** the narrator gets only the opening moment (first 8 chats) plus a story-flow law — no scene list, directions, arcs or endings. The record-keeper never offers scene/ending ids. "Scene badlo" became **Naya mod** (the AI invents a natural new turn). The Chat header shows the current place. Journeys never end; ones an older version marked completed simply continue.
