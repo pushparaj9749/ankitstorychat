@@ -1,7 +1,7 @@
 {
   "contentVersion": 45,
   "minAppVersion": "1.0.0",
-  "updatedAt": "2026-10-19T00:00:00Z",
+  "updatedAt": "2026-10-20T00:00:00Z",
   "stories": [
     {
       "id": "arranged-marriage-wala-love",
@@ -53,6 +53,61 @@
         "verified": true
       },
       "updatedAt": "2026-10-03T14:46:42Z"
+    },
+    {
+      "id": "biwi-ek-supari-killer",
+      "title": "Biwi Ek Supari Killer",
+      "tagline": "Ghar pe 'jaanu, khana kha lo' — bahar poori Mumbai uske naam se kaanpti hai.",
+      "description": "Arranged marriage ko bas ek mahina hua hai. Tum Andheri ki ek chhoti CA firm mein sabse seedhe, sabse darpok junior accountant ho — boss daantta hai, colleagues kaam thopte hain, aur tum bas 'ji sir' bolte ho. Ghar par tumhari biwi Kaashvi hai: lambe wavy baal, masoom muskaan, ek bank mein clerk — aisa tumhe lagta hai. Woh tumhe apne haath se khana khilaati hai, raat ko tumhari baanh pakad ke soti hai, aur din mein das baar 'miss you' bhejti hai. Par Mumbai ka underworld jis 'Chhaya' ke naam se kaanpta hai, woh contract killer koi aur nahi — tumhari Kaashvi hai. Duniya ke liye maut, tumhare liye pagalpan ki had tak pyaar. Aur jis din tumhe koi chhoo bhi le... uske agle din woh tumhe 'sir' bolta hai. Ek dark-comedy romance thriller — kahani kahan jaayegi, sirf tumhare faislon par.",
+      "genres": [
+        "Romance",
+        "Dark Comedy",
+        "Thriller",
+        "Married Life",
+        "Action"
+      ],
+      "tags": [
+        "romance",
+        "married-life",
+        "arranged-marriage",
+        "dangerous-wife",
+        "assassin-heroine",
+        "shy-hero",
+        "protective-heroine",
+        "clingy-romantic",
+        "mumbai",
+        "dark-comedy",
+        "thriller",
+        "player-agency",
+        "dynamic-continuous",
+        "ongoing",
+        "hinglish"
+      ],
+      "characters": [
+        "Kaashvi",
+        "Lalita Mausi",
+        "Dinesh Bhandari",
+        "ACP Shirish Gokhale"
+      ],
+      "ageRating": "18+",
+      "contentLevel": "mature",
+      "language": "hinglish",
+      "version": 1,
+      "coverUrl": "stories/biwi-ek-supari-killer/assets/cover.jpg",
+      "accentColor": "#C2414B",
+      "userRole": "{{playerName}} — an adult Indian man aged 23–24, controlled exclusively by the player. He is a junior accountant at Bhandari & Associates, a small CA firm in Andheri East, Mumbai, married one month ago by arrangement to Kaashvi. He starts the story timid, soft-spoken and easily bullied, and believes his wife is a bank clerk. That is only where he begins — whether he grows braver, discovers her secret, or how he responds to her love is entirely the player's choice. The player supplies his display name at runtime; never assign him another name, and never write his thoughts, feelings, dialogue, actions or decisions.",
+      "setting": "Present-day Mumbai during the monsoon's last week: a cosy rented 1BHK on the seventh floor of Gulmohar Heights in Andheri East with a tiny balcony and a creaky fan; the cramped Bhandari & Associates office; local trains, vada pav stalls, Juhu beach at night; and, hidden beneath it all, the underworld that whispers about a killer called Chhaya.",
+      "estimatedMinutes": 60,
+      "featured": false,
+      "isNew": true,
+      "popularity": 99,
+      "storyDir": "biwi-ek-supari-killer",
+      "creator": {
+        "name": "Ankit",
+        "avatar": null,
+        "verified": true
+      },
+      "updatedAt": "2026-10-20T00:00:00Z"
     },
     {
       "id": "kuch-toh-bol-na",

@@ -1,0 +1,82 @@
+{
+  "storyId": "biwi-ek-supari-killer",
+  "version": 1,
+  "scenes": [
+    {
+      "id": "jaanu_khana_kha_lo",
+      "title": "Jaanu, Khana Kha Lo",
+      "narration": [
+        "*Raat ke saadhe nau. Bahar baarish khidki par tap-tap kar rahi hai. Gulmohar Heights ke flat 704 mein fairy lights jal rahi hain aur kitchen se aaloo paratha ki khushboo aa rahi hai.*",
+        "*Aaj office mein Bhandari sir ne sabke saamne tumhe 'nikamma' kaha tha — us Excel sheet ke liye jo unhone khud kharab ki thi. Tum chup rahe. Hamesha ki tarah.*",
+        "*Darwaza khulte hi Kaashvi daud kar aati hai — lambe geele wavy baal khule, peach cotton saree, maathe pe chhoti si bindi — aur bina kuch kahe tumhe zor se gale laga leti hai.*",
+        "Kaashvi: \"Saat minute late. Saat! Main kab se balcony mein khadi thi, pati dev. Ab saza milegi — aaj khana main apne haath se khilaungi, aur tum mana nahi karoge.\"",
+        "*Woh tumhe sofe par bitha deti hai, khud bagal mein chipak kar baithti hai aur paratha ka pehla nivala tumhare muh ke paas le aati hai. Phir uski nazar tumhare chehre par tik jaati hai. Muskaan thodi dheemi ho jaati hai.*",
+        "Kaashvi: \"Hmm. Aankhein udaas. Kandhe jhuke hue. Kisi ne kuch kaha aaj?\"",
+        "*Tumhe pata bhi nahi chalta kab tumhara office ka din uske saamne khul jaata hai. Bhandari ka naam sunte hi uska haath ek pal ke liye ruk jaata hai. Uski aankhon mein kuch aisa chamakta hai jo tumne pehle kabhi nahi dekha — thanda, bilkul shaant.*",
+        "Kaashvi: \"Dinesh Bhandari. Andheri East. Woh sweet shop ke upar wala office na?\" *Phir woh khilkhila kar has deti hai aur tumhare baal bigaad deti hai.* \"Arre darr kyun gaye? Main toh bas yaad rakh rahi hoon. Ab muh kholo, jaanu.\"",
+        "*Tabhi kitchen counter par rakha uska doosra, saada kaala phone ek baar vibrate hota hai. Screen par sirf likha hai: MAUSI — 'Thursday. Sewri.' Kaashvi bina dekhe phone ulta kar deti hai, aur tumhari baanh apni baanhon mein lapet kar sar tumhare kandhe par rakh deti hai.*",
+        "Kaashvi: \"Aaj raat koi kaam ki baat nahi. Aaj sirf tum, main, baarish... aur woh promise jo tumne kal kiya tha — ki aaj mujhe 'I love you' khud bologe. Yaad hai na?\" *Woh aankhein band karke intezaar karti hai, honthon par shararati muskaan.*"
+      ],
+      "fallbackLines": [
+        "*Kaashvi tumhare kandhe par sar rakhe gungunaati rehti hai — 'Pal pal dil ke paas' — aur beech-beech mein aankh khol kar check karti hai ki tum ab tak laal hue ya nahi.*",
+        "Kaashvi: \"Itna sharmaate kyun ho? Biwi hoon tumhari, koi gunda nahi.\" *Woh ek pal rukti hai, phir apni hi baat par zor se has padti hai.*"
+      ],
+      "choices": [
+        {
+          "id": "say_i_love_you",
+          "text": "*Himmat karke, dheere se, uski aankhon mein dekh kar promise poora karna.*",
+          "shortLabel": "Promise poora karo",
+          "keywords": [
+            "i love you",
+            "promise",
+            "pyaar",
+            "bolo"
+          ],
+          "next": null,
+          "effects": {
+            "memory": [
+              "On the first night {{playerName}} tried to keep his promise to say 'I love you' to Kaashvi."
+            ]
+          }
+        },
+        {
+          "id": "ask_about_phone",
+          "text": "*Counter par pade us kaale phone ki taraf dekh kar poochna — 'Ye Mausi ka message kaisa tha?'*",
+          "shortLabel": "Phone ka sawaal",
+          "keywords": [
+            "phone",
+            "mausi",
+            "sewri",
+            "thursday",
+            "message"
+          ],
+          "next": null,
+          "effects": {
+            "memory": [
+              "On the first night {{playerName}} asked Kaashvi about the message from Mausi on her second phone."
+            ]
+          }
+        },
+        {
+          "id": "stop_her_bhandari",
+          "text": "*Uska haath pakad kar kehna ki Bhandari sir ki baat chhodo, tum kuch mat karna.*",
+          "shortLabel": "Bhandari ko chhodo",
+          "keywords": [
+            "bhandari",
+            "boss",
+            "chhodo",
+            "mat karna",
+            "office"
+          ],
+          "next": null,
+          "effects": {
+            "memory": [
+              "On the first night {{playerName}} asked Kaashvi not to do anything about his boss Bhandari."
+            ]
+          }
+        }
+      ]
+    }
+  ],
+  "endings": []
+}

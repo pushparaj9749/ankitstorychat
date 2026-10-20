@@ -113,7 +113,11 @@ const scenes = {
       title: 'Shuruaat',
       narration: ['TODO: opening narration line 1.', 'TODO: opening narration line 2.'],
       fallbackLines: ['TODO: fallback line for unmatched free text.'],
-      choices: [],
+      // First-reply suggestions only: next stays null, no scene/ending effects.
+      choices: [
+        { id: 'reply_1', text: 'TODO: suggested first reply 1.', shortLabel: 'TODO 1', next: null },
+        { id: 'reply_2', text: 'TODO: suggested first reply 2.', shortLabel: 'TODO 2', next: null },
+      ],
     },
   ],
   endings: [],

@@ -408,7 +408,8 @@ Full architecture, guarantees and the v2.5.1 test/QA matrix: **docs/V2.5.1_MEMOR
 > These are enforced in code and guarded by tests (`__tests__/freeFormStory.test.ts`,
 > `__tests__/noLengthOrPercent.test.ts`, `__tests__/coverGuide.test.ts`). `scenes.json` is still required for compatibility,
 > but only its **opening scene** is used — and only as the starting moment. New stories need
-> just that one opening scene (no extra scenes, choices or endings).
+> just that one opening scene: no extra scenes and no endings. Its 2–4 `choices` are only
+> first-reply suggestions (`next: null`, no scene/ending effects).
 
 ```
 content/stories/<id>/
