@@ -29,6 +29,7 @@ const SERIES = [
   'thakurain',
   'chudail-nahi-biwi-hai',
   'ring-ki-rani',
+  'dil-ki-wasooli',
 ];
 
 const ROOT = join(__dirname, '..', 'content');

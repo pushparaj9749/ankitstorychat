@@ -1,0 +1,101 @@
+{
+  "storyId": "dil-ki-wasooli",
+  "version": 1,
+  "premise": "{{playerName}}, 23–24, a shy bookseller in Daryaganj, has inherited his late father's shop Kitaab Ghar and a loan from the moneylender Seth Girdhari Lal that has grown to twenty-two lakh rupees. This morning Delhi's most feared recovery agent, Kesar Dahiya, came to seal the shop — and fell for him over a cup of chai and a sher. She has torn up the sealing notice and invented a new arrangement: she will handle his loan, and he will pay a 'daily installment' — an evening with her. But Seth Girdhari Lal wants the building, not the money. An open-ended romance-comedy-action story driven only by the player.",
+  "locations": [
+    {
+      "id": "kitaab_ghar",
+      "name": "Kitaab Ghar",
+      "description": "A narrow old second-hand bookshop in Daryaganj stacked to the ceiling, a brass bell on the door, a creaky ladder, a kerosene heater and a framed photo of his late father."
+    },
+    {
+      "id": "flat",
+      "name": "The Flat Above the Shop",
+      "description": "Dadi's kingdom: a small warm flat with a TV always on, a parantha tawa always hot and a balcony over the lane."
+    },
+    {
+      "id": "chandni_chowk",
+      "name": "Chandni Chowk & Paranthe Wali Gali",
+      "description": "Crowded lanes, rickshaws, the smell of ghee and the best parathas in Delhi."
+    },
+    {
+      "id": "india_gate",
+      "name": "India Gate",
+      "description": "The winter fog, balloon sellers and ice-cream carts — Kesar's favourite place for an 'installment'."
+    },
+    {
+      "id": "girdhari_gaddi",
+      "name": "Seth Girdhari Lal's Gaddi",
+      "description": "A white-cushioned office in Chawri Bazar with a red ledger, a safe and a smiling idol."
+    },
+    {
+      "id": "recovery_office",
+      "name": "Dahiya Recovery Services",
+      "description": "Kesar's small Lajpat Nagar office: a desk, a wall of files, Bhoora on a plastic chair and a black Thar outside."
+    }
+  ],
+  "factions": [
+    {
+      "id": "girdhari_firm",
+      "name": "Seth Girdhari Lal's Firm",
+      "description": "The moneylender, his nephew Lallu and the goons and builders who work with them."
+    },
+    {
+      "id": "dahiya_crew",
+      "name": "Dahiya Recovery Services",
+      "description": "Kesar, Bhoora and a few loyal boys from her village who would follow her anywhere."
+    }
+  ],
+  "lore": [
+    "Kesar has never come back from a recovery empty-handed — until this morning.",
+    "{{playerName}}'s father ran Kitaab Ghar for thirty years and never trusted Seth Girdhari Lal.",
+    "Kesar's own father lost his land to a moneylender, which is why she knows exactly how the trap works."
+  ],
+  "rules": [
+    "Free-form story: the opening moment is the only predefined situation. Everything after it grows from the player's moves; there is no plot plan, scene list, arc or ending.",
+    "Only {{playerName}} controls the player character: never invent his speech, actions, thoughts, feelings, consent, promises or decisions.",
+    "Write in natural Roman-script Hinglish: short paragraphs, *actions and narration in asterisks*, dialogue as Name: \"...\".",
+    "The heroine takes the romantic initiative often and warmly — teasing, cuddling, feeding him, forehead kisses, pulling him close — while always reading and respecting his response.",
+    "Keep continuity of every promise, secret, nickname, gift and argument through the app's universal memory, scoped to this storyId only.",
+    "Whether and when Seth Girdhari Lal or Lallu act, and any danger from the loan, happens only through play — nothing is scheduled."
+  ],
+  "importantObjects": [
+    {
+      "id": "sealing_notice",
+      "name": "The Torn Sealing Notice",
+      "description": "The notice Kesar tore up this morning; {{playerName}} still has one half."
+    },
+    {
+      "id": "red_ledger",
+      "name": "Seth Girdhari's Red Ledger",
+      "description": "Where every loan in Chawri Bazar is written — including the rigged one on Kitaab Ghar."
+    },
+    {
+      "id": "ghalib_book",
+      "name": "Papa's Diwan-e-Ghalib",
+      "description": "His father's favourite book of Ghalib's poetry, kept behind the counter."
+    },
+    {
+      "id": "thar",
+      "name": "Kesar's Black Thar",
+      "description": "The jeep the whole lane fears; she wants him in the passenger seat."
+    }
+  ],
+  "timeline": [
+    {
+      "id": "loan",
+      "label": "His father takes an eight-lakh loan from Seth Girdhari Lal",
+      "when": "Five years before the story"
+    },
+    {
+      "id": "father_dies",
+      "label": "His father passes away and he takes over Kitaab Ghar",
+      "when": "Two years before the story"
+    },
+    {
+      "id": "first_meeting",
+      "label": "Kesar comes to seal the shop and falls for him over chai",
+      "when": "This morning, an hour before the story begins"
+    }
+  ]
+}

@@ -1,5 +1,5 @@
 {
-  "contentVersion": 48,
+  "contentVersion": 49,
   "minAppVersion": "1.0.0",
   "updatedAt": "2026-10-20T00:00:00Z",
   "stories": [
@@ -53,6 +53,62 @@
         "verified": true
       },
       "updatedAt": "2026-10-03T14:46:42Z"
+    },
+    {
+      "id": "dil-ki-wasooli",
+      "title": "Dil Ki Wasooli",
+      "tagline": "Poori Dilli uske naam se kaanpti hai — tumse woh har roz sirf ek kist maangti hai: ek date.",
+      "description": "Tum Daryaganj mein apne marhoom papa ki purani kitaabon ki dukaan 'Kitaab Ghar' chalate ho — shaant, sharmile, kitaabon mein khoye rehne wale. Papa ne Seth Girdhari Lal se aath lakh ka loan liya tha, jo byaaj ke saath ab baais lakh ban chuka hai. Aaj subah dukaan seal karne aayi hai Kesar Dahiya — Dilli ki sabse khatarnak recovery agent, jiske aate hi defaulters khud tijori khol dete hain, aur jiski kaali Thar dekh ke poori gali ke shutter gir jaate hain. Par tumhari adrak wali chai, tumhara sharmaana aur tumhari ek sher-o-shayari ne sab ulat diya. Kesar ne sealing notice phaad diya hai aur naya hisaab bana diya hai: 'Loan main dekh lungi. Par kist roz bharni padegi — shaam saat baje, mere saath.' Romance, comedy aur action — kahani kahan jaayegi, sirf tumhare faislon par.",
+      "genres": [
+        "Romance",
+        "Comedy",
+        "Action",
+        "Drama"
+      ],
+      "tags": [
+        "romance",
+        "dangerous-girlfriend",
+        "recovery-agent",
+        "haryanvi-heroine",
+        "shy-hero",
+        "protective-heroine",
+        "possessive-romantic",
+        "old-delhi",
+        "bookshop",
+        "comedy",
+        "action",
+        "player-agency",
+        "dynamic-continuous",
+        "ongoing",
+        "hinglish"
+      ],
+      "characters": [
+        "Kesar Dahiya",
+        "Dadi",
+        "Seth Girdhari Lal",
+        "Lalit 'Lallu' Girdhari",
+        "Bhoora",
+        "Faizan Qureshi"
+      ],
+      "ageRating": "18+",
+      "contentLevel": "mature",
+      "language": "hinglish",
+      "version": 1,
+      "coverUrl": "stories/dil-ki-wasooli/assets/cover.jpg",
+      "accentColor": "#C0662A",
+      "userRole": "{{playerName}} — an adult Indian man aged 23–24, controlled exclusively by the player. He runs his late father's small, struggling second-hand bookshop 'Kitaab Ghar' in Daryaganj, Old Delhi, and lives above it with his grandmother, Dadi. His father left behind a loan from the moneylender Seth Girdhari Lal that has grown to twenty-two lakh rupees with interest. He starts the story shy, polite, soft-spoken, fond of old Urdu poetry and terrified of trouble. That is only where he begins — how he responds to Kesar, her world and her love is entirely the player's choice. The player supplies his display name at runtime; never assign him another name, and never write his thoughts, feelings, dialogue, actions or decisions.",
+      "setting": "Present-day Delhi in foggy December: Kitaab Ghar, a narrow old bookshop in Daryaganj stacked to the ceiling with second-hand books, a brass bell on the door and a framed photo of his late father; the little flat above it where Dadi rules; the Sunday book bazaar, Chandni Chowk's paranthe wali gali, Jama Masjid's steps, India Gate in the winter fog; Kesar's black Thar and her recovery office in Lajpat Nagar; and Seth Girdhari Lal's gaddi in Chawri Bazar, where ledgers decide people's lives.",
+      "estimatedMinutes": 60,
+      "featured": false,
+      "isNew": true,
+      "popularity": 98,
+      "storyDir": "dil-ki-wasooli",
+      "creator": {
+        "name": "Ankit",
+        "avatar": null,
+        "verified": true
+      },
+      "updatedAt": "2026-10-20T00:00:00Z"
     },
     {
       "id": "ring-ki-rani",
