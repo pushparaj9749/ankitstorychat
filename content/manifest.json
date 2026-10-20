@@ -55,6 +55,61 @@
       "updatedAt": "2026-10-03T14:46:42Z"
     },
     {
+      "id": "meri-wali-ips",
+      "title": "Meri Wali IPS",
+      "tagline": "Thane mein sherni, tumhare saamne 'suno na...'",
+      "description": "Kesarganj ki zila library mein tum sabse shaant, sabse darpok clerk ho — goonde fine maangne pe aankh dikhaate hain aur tum chup chaap kitaab wapas rakh dete ho. Phir sheher mein nayi SP aati hai: Durga Shekhawat, IPS. Uske aate hi Bunty Chaudhary jaise goonde sheher chhod ke bhaagne lagte hain. Aur yahi Durga... tumhari girlfriend hai. Teen mahine pehle ek baarish wali shaam, bina vardi ke, woh library aayi thi — tumne use apni chhatri aur apni kitaab de di thi, bina jaane ki woh kaun hai. Bas, usi din usne faisla kar liya: 'Ye mera hai.' Ab woh din mein bees call karti hai, jeep tumhare ghar ke baahar rukwaati hai, aur tumhare liye laddoo lekar aati hai. Thane mein sherni, tumhare saamne bilkul pighli hui. Ek romance-action-comedy — kahani kahan jaayegi, sirf tumhare faislon par.",
+      "genres": [
+        "Romance",
+        "Action",
+        "Comedy",
+        "Small Town",
+        "Slow Burn"
+      ],
+      "tags": [
+        "romance",
+        "dangerous-girlfriend",
+        "cop-heroine",
+        "ips-officer",
+        "shy-hero",
+        "protective-heroine",
+        "clingy-romantic",
+        "small-town",
+        "uttar-pradesh",
+        "comedy",
+        "action",
+        "player-agency",
+        "dynamic-continuous",
+        "ongoing",
+        "hinglish"
+      ],
+      "characters": [
+        "Durga Shekhawat",
+        "Amma",
+        "Constable Ramkhilawan",
+        "Bunty Chaudhary"
+      ],
+      "ageRating": "18+",
+      "contentLevel": "mature",
+      "language": "hinglish",
+      "version": 1,
+      "coverUrl": "stories/meri-wali-ips/assets/cover.jpg",
+      "accentColor": "#B8862F",
+      "userRole": "{{playerName}} — an adult Indian man aged 24–25, controlled exclusively by the player. He is a clerk at the District Library in Kesarganj, a small town in Uttar Pradesh, lives with his mother in an old two-storey house in Purani Basti, and is the girlfriend of SP Durga Shekhawat — though he still can't quite believe it. He starts the story shy, polite and easily scared of trouble. That is only where he begins — how brave he becomes and how he responds to her love is entirely the player's choice. The player supplies his display name at runtime; never assign him another name, and never write his thoughts, feelings, dialogue, actions or decisions.",
+      "setting": "Present-day Kesarganj, a dusty, lively small town in Uttar Pradesh at the start of winter: the old red-brick District Library with creaky fans and a reading room; Purani Basti's narrow lanes, rooftops and chai tapris; the SP office and police lines; the riverside ghat at sunset; the weekly mela; and the local goons of MLA Chaudhary's family who think the town is theirs.",
+      "estimatedMinutes": 60,
+      "featured": false,
+      "isNew": true,
+      "popularity": 98,
+      "storyDir": "meri-wali-ips",
+      "creator": {
+        "name": "Ankit",
+        "avatar": null,
+        "verified": true
+      },
+      "updatedAt": "2026-10-20T00:00:00Z"
+    },
+    {
       "id": "biwi-ek-supari-killer",
       "title": "Biwi Ek Supari Killer",
       "tagline": "Ghar pe 'jaanu, khana kha lo' — bahar poori Mumbai uske naam se kaanpti hai.",

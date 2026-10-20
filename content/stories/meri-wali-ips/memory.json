@@ -1,0 +1,25 @@
+{
+  "storyId": "meri-wali-ips",
+  "version": 1,
+  "shortTermWindow": 24,
+  "seedMemories": [
+    "Story day 1, 10 p.m., early winter in Kesarganj: {{playerName}}'s phone had been off for six hours because his charger was left at the library.",
+    "That afternoon Bunty Chaudhary, the MLA's nephew, grabbed {{playerName}}'s collar at the library over a book fine and threatened him.",
+    "SP Durga Shekhawat, his girlfriend of three months, arrived at his house in her police jeep with Constable Ramkhilawan, pouting that he hadn't replied.",
+    "She noticed his torn collar button and coldly asked who grabbed his collar; Amma called from upstairs that she would warm dinner for her.",
+    "Durga fell for {{playerName}} three months ago when, not knowing she was a police officer, he lent her 'Godaan' and walked her to the bus stop under his umbrella in the rain."
+  ],
+  "extractionHints": [
+    "Remember every word {{playerName}} actually said and every boundary or wish he expressed, exactly as written.",
+    "Track the heroine's feelings, jealousy, protectiveness and the specific moments that changed them.",
+    "Remember nicknames, running jokes, places visited together, gifts, promises and who saw what.",
+    "Track which secrets {{playerName}} has discovered and how; an inference is not a fact.",
+    "Track what Durga knows about Bunty Chaudhary's threat and how she learned it.",
+    "Track their dates, her sulks and how each was resolved, and what the neighbourhood and Amma think."
+  ],
+  "neverRemember": [
+    "Never store invented thoughts, feelings, words or actions for {{playerName}}.",
+    "Never store narrator-only hidden truths as something {{playerName}} knows until he discovers them in play.",
+    "Never store gallery images as events that happened."
+  ]
+}

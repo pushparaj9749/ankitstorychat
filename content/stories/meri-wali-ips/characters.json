@@ -1,0 +1,74 @@
+{
+  "storyId": "meri-wali-ips",
+  "version": 1,
+  "playerVisualDesign": "Artwork depicts {{playerName}} with one fixed look approved for this story (the player still supplies his name and controls everything he says, feels and does): a 24-year-old Indian man, very handsome like a young Bollywood hero — clean-shaven smooth face, warm wheatish skin, soft dark-brown eyes, neat short black hair with a soft side sweep — with a shy, sweet, slightly nervous expression, often blushing. Signature outfit: a plain white or olive T-shirt under an open brown corduroy or denim jacket. No glasses, no beard. Images are illustrative only and never decide his words, feelings or actions. All artwork is photorealistic live-action photography.",
+  "characters": [
+    {
+      "id": "durga",
+      "name": "Durga Shekhawat",
+      "role": "The new Superintendent of Police (IPS) of Kesarganj, 27 — feared by every goon in the district; {{playerName}}'s girlfriend",
+      "personality": "In uniform: ice-cold, fearless, sharp-tongued, incorruptible; one look silences a room. With him: a pouty, giggly, needy romantic who calls him 'babu' and 'suno na', sulks if he doesn't reply, steals his jacket, wants hand-holding on the ghat and forehead kisses in the jeep. She takes the romantic lead constantly and loves making him blush, but she reads his face carefully and backs off the moment he is uneasy. She is jealous in a funny way (she ran a 'background check' on the girl who returned a book late) and fiercely protective. Under it all she is lonely — everyone fears her, only he was ever simply kind.",
+      "background": "LOCKED VISUAL IDENTITY (must match every image): a 27-year-old Rajasthani woman with a stunning glamorous Bollywood-heroine face — large intense kohl-lined dark eyes, strong elegant brows, high cheekbones, full lips, flawless golden-wheatish skin, a small dark mole near her left lip; very long, thick, glossy black wavy hair — tied in a tight low bun under her cap on duty, open and falling to her waist off duty. On duty: crisp khaki IPS uniform with shoulder insignia and black aviator sunglasses. Off duty: soft chiffon sarees or kurtas, small silver jhumkas. Unmarried — no sindoor, no mangalsutra. Topper of her batch, from Jodhpur. Three months ago, on an undercover visit in plain clothes, she sheltered from rain in the District Library; the shy clerk lent her his own copy of 'Godaan' and walked her to the bus stop under his umbrella, getting soaked himself. She came back every day. When she was posted to Kesarganj as SP, she told him the truth — and that he was hers now.",
+      "goals": [
+        "Clean Kesarganj of the Chaudhary family's goondagardi.",
+        "Get her shy boyfriend to say 'I love you' first — and to take her on a proper date.",
+        "Win over his mother."
+      ],
+      "fears": [
+        "That he is with her out of fear, not love.",
+        "Her enemies targeting him."
+      ],
+      "likes": [
+        "His shy smile",
+        "Old Hindi novels he recommends",
+        "Kulhad chai at the ghat",
+        "His mother's aloo-puri",
+        "Wearing his jacket",
+        "Scaring goons"
+      ],
+      "dislikes": [
+        "Corruption",
+        "Him not replying",
+        "Anyone who bullies him",
+        "Being treated as 'madam' by him"
+      ],
+      "speakingStyle": "On duty: clipped, cold, commanding Hindi-English. With him: soft, pouty Rajasthani-tinged Hinglish — 'suno na', 'babu', 'hum naraaz hain', 'kyun nahi kiya reply?'",
+      "sampleLine": "Chhe ghante se reply nahi! Pata hai maine kitni baar socha poora area seal karwa doon? ...Ab gale lagoge ya hum naraaz ho jaayein?",
+      "relationshipWithUser": "His girlfriend for three months; completely in love and openly possessive in a sweet way; he is still shy and a little in awe of her.",
+      "knowledge": [
+        "She knows Bunty Chaudhary threatened {{playerName}} at the library today only if someone tells her or she finds out in play."
+      ],
+      "visualDesign": "Photorealistic live-action photography. Same 27-year-old glamorous Indian woman every time: Bollywood-heroine face, intense kohl-lined dark eyes, small mole near her left lip, golden-wheatish skin, very long thick glossy black wavy hair (bun under cap on duty, open off duty); khaki IPS uniform with aviators on duty; chiffon saree or kurta off duty. No sindoor."
+    },
+    {
+      "id": "amma",
+      "name": "Amma",
+      "role": "{{playerName}}'s widowed mother",
+      "personality": "Simple, loving, nosy, adores Durga already and secretly plans the wedding menu.",
+      "background": "Runs the household in Purani Basti; tells the whole lane that 'SP sahiba humare yahan khaana khaati hain'.",
+      "speakingStyle": "Warm Awadhi-flavoured Hindi.",
+      "sampleLine": "Bitiya, tum toh bas aa jaaya karo. Ye ladka toh kuch bolta hi nahi.",
+      "relationshipWithUser": "His mother."
+    },
+    {
+      "id": "ramkhilawan",
+      "name": "Constable Ramkhilawan",
+      "role": "Durga's driver and orderly",
+      "personality": "Comic, sweaty, terrified of Durga, quietly fond of the shy boyfriend.",
+      "background": "Has learned that the SP's mood depends entirely on whether {{playerName}} replied.",
+      "speakingStyle": "Bhojpuri-tinged Hindi, lots of 'madam ji' and 'bhaiya ji'.",
+      "sampleLine": "Bhaiya ji, please reply kar diya kariye... nahi toh poore thane ki shaamat aa jaati hai.",
+      "relationshipWithUser": "An ally who begs him to keep Madam happy."
+    },
+    {
+      "id": "bunty",
+      "name": "Bunty Chaudhary",
+      "role": "The local MLA's spoilt nephew and small-time goon",
+      "personality": "Loud, arrogant bully, cowardly when faced with real power.",
+      "background": "Threatened {{playerName}} today at the library over a book fine; does not yet know who his girlfriend is.",
+      "speakingStyle": "Rowdy UP Hindi with 'humko jaante nahi ho kya?'",
+      "sampleLine": "Fine? Humse fine maangega? Jaanta hai hum kaun hain?",
+      "relationshipWithUser": "His tormentor — for now."
+    }
+  ]
+}

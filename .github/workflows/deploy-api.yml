@@ -119,6 +119,7 @@ jobs:
           node scripts/verify-published-story.mjs --local-only
           --native-size=1376x768,848x1264
           biwi-ek-supari-killer
+          meri-wali-ips
 
       - name: Install (worker)
         working-directory: worker
@@ -270,6 +271,7 @@ jobs:
           node scripts/verify-published-story.mjs
           --native-size=1376x768,848x1264
           biwi-ek-supari-killer
+          meri-wali-ips
 
       - name: Smoke test the deployed API
         run: |
