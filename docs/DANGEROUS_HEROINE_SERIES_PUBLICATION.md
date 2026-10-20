@@ -127,6 +127,28 @@ Live URLs (base `https://beyondredeye.site/api`), for each `<id>` above:
 - cover: `/stories/<id>/assets/cover.jpg`;
 - gallery: `/stories/<id>/assets/gallery/image-01.jpg` through `image-07.jpg`.
 
+## Production verification (actual results)
+
+PR #72 passed both CI checks ("Typecheck, tests & content validation" and
+"Story API worker (typecheck & tests)") and was merged to `main` as `b3fee3d`.
+
+- **Deploy.** The merge ran the existing *Deploy story API* workflow (run
+  `39374309977`), which finished with **success** and every step green.
+- **CI.** The CI run on `main` for `b3fee3d` also succeeded.
+- **No APK.** The Android APK workflow did **not** run, and no tag or release
+  was created.
+
+| Check | Result |
+|---|---|
+| Content validation | passed |
+| Local media validation, all earlier stories | passed |
+| Local media validation, **dangerous-heroine series** (7 stories, 56 native-size images) | passed |
+| Worker tests + typecheck | passed |
+| Deploy bundle assembly + `wrangler deploy` | success |
+| Published integrity, all earlier stories | passed |
+| Published integrity, **dangerous-heroine series** | passed. Manifest entries, all five JSON files and all 8 images per story are byte-identical on both production hostnames, twice. |
+| API smoke test | passed |
+
 ## Limitations
 
 - **No device test.** No physical device with the app already installed is
