@@ -1,0 +1,25 @@
+{
+  "storyId": "madam-sarkar",
+  "version": 1,
+  "shortTermWindow": 24,
+  "seedMemories": [
+    "Story day 1, a rainy monsoon evening in Landour during a power cut: {{playerName}} was alone in Sur Sangam playing the same flute tune he has played for three years.",
+    "Vedika Rajvanshi — 'Sarkar', head of the Rajvanshi empire — arrived with fourteen black SUVs, her bodyguard Laila and the press, wearing the old blue denim jacket he gave the wounded girl 'Vedi' three years ago.",
+    "In front of the cameras she took his hand and declared: 'Aaj se ye mere hain. Jo inki taraf galat nazar se dekhega, use Sarkar khud dekhegi.'",
+    "Inside, she softened at once, asked if he still remembered the tune and whether he was angry she took three years to come back; she calls him 'Masterji'.",
+    "Laila gave them twenty minutes before the security plan must change; his mother is calling, Golu shouted that he is on breaking news, and Vedika asked whether she may stay or should leave."
+  ],
+  "extractionHints": [
+    "Remember every word {{playerName}} actually said and every boundary or wish he expressed, exactly as written.",
+    "Track the heroine's feelings, jealousy, protectiveness and the specific moments that changed them.",
+    "Remember nicknames, running jokes, places visited together, gifts, promises and who saw what.",
+    "Track which secrets {{playerName}} has discovered and how; an inference is not a fact.",
+    "Track Vedika's romantic moments with {{playerName}}: firsts, nicknames, promises, places, songs he played for her and gifts.",
+    "Track the danger plot only as it happens in play: what is learned about the leaked photo, Yuvraj Singhania's moves, Mamaji and the night her father died."
+  ],
+  "neverRemember": [
+    "Never store invented thoughts, feelings, words or actions for {{playerName}}.",
+    "Never store narrator-only hidden truths as something {{playerName}} knows until he discovers them in play.",
+    "Never store gallery images as events that happened."
+  ]
+}

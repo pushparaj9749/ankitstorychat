@@ -1,5 +1,5 @@
 {
-  "contentVersion": 49,
+  "contentVersion": 50,
   "minAppVersion": "1.0.0",
   "updatedAt": "2026-10-20T00:00:00Z",
   "stories": [
@@ -53,6 +53,61 @@
         "verified": true
       },
       "updatedAt": "2026-10-03T14:46:42Z"
+    },
+    {
+      "id": "madam-sarkar",
+      "title": "Madam Sarkar",
+      "tagline": "Poora desh uske aage jhukta hai... aur woh sirf tumhare aage.",
+      "description": "Tum Landour ki pahadiyon mein bachchon ko music sikhate ho — shaant, sharmile, seedhe-saade. Teen saal pehle ek toofani raat ek zakhmi ladki tumhare darwaze par aayi thi. Naam bas 'Vedi' bataya. Tumne use ek raat chhupaya, uski patti ki, aur apni purani denim jacket de di. Subah woh gayab thi. Tum use bhool gaye. Woh tumhe kabhi nahi bhooli. Aaj woh lauti hai — Vedika Rajvanshi ban kar. 'Sarkar'. Rajvanshi khandaan ki maalik, jiske ishaare par ports, paisa aur kursiyan chalti hain, jiske darwaze ke bahar mantri intezaar karte hain, aur jiske dushman raaton-raat shehar chhod dete hain. Chaudah kaali gaadiyon, news cameras aur tumhari wahi jacket ke saath woh tumhari music class mein aayi hai — aur sabke saamne kehti hai: 'Aaj se ye mere hain.' Duniya ke liye woh barf hai. Tumhare liye pighli hui. Kahani kahan jaayegi, sirf tumhare faislon par.",
+      "genres": [
+        "Romance",
+        "Drama",
+        "Thriller",
+        "Family Power"
+      ],
+      "tags": [
+        "romance",
+        "dangerous-girlfriend",
+        "power-heroine",
+        "empire",
+        "shy-hero",
+        "protective-heroine",
+        "possessive-romantic",
+        "second-chance",
+        "mussoorie",
+        "thriller",
+        "player-agency",
+        "dynamic-continuous",
+        "ongoing",
+        "hinglish"
+      ],
+      "characters": [
+        "Vedika Rajvanshi",
+        "Laila",
+        "Bhanupratap Chauhan",
+        "Yuvraj Singhania",
+        "Sudha",
+        "Golu Bisht"
+      ],
+      "ageRating": "18+",
+      "contentLevel": "mature",
+      "language": "hinglish",
+      "version": 1,
+      "coverUrl": "stories/madam-sarkar/assets/cover.jpg",
+      "accentColor": "#9B2D3C",
+      "userRole": "{{playerName}} — an adult Indian man aged 24–25, controlled exclusively by the player. He runs 'Sur Sangam', a small music class above a bakery in Landour, Mussoorie, teaching flute and guitar to local children, and lives nearby with his mother. Three years ago, on a stormy night, he sheltered a wounded young woman who called herself only 'Vedi', bandaged her arm and gave her his old denim jacket; by morning she was gone. He starts the story shy, gentle, soft-spoken and wary of trouble. That is only where he begins — how he responds to Vedika, her world and her love is entirely the player's choice. The player supplies his display name at runtime; never assign him another name, and never write his thoughts, feelings, dialogue, actions or decisions.",
+      "setting": "Present-day Uttarakhand and Delhi in the monsoon: Sur Sangam, a small wooden music room above an old bakery in Landour with rain on the tin roof; his mother's little house on the hillside; Mall Road and the misty Char Dukan corner; a roadside chai tapri on the Dehradun highway; Rajvanshi Kothi, Vedika's guarded estate in Dehradun; and Rajvanshi Tower in Delhi, where ministers, tycoons and rivals wait for 'Sarkar' to decide.",
+      "estimatedMinutes": 60,
+      "featured": false,
+      "isNew": true,
+      "popularity": 99,
+      "storyDir": "madam-sarkar",
+      "creator": {
+        "name": "Ankit",
+        "avatar": null,
+        "verified": true
+      },
+      "updatedAt": "2026-10-20T00:00:00Z"
     },
     {
       "id": "dil-ki-wasooli",
