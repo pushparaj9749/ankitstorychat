@@ -38,3 +38,4 @@ kissa-backup*.json
 # misc
 .DS_Store
 coverage/
+__pycache__/
