@@ -326,6 +326,8 @@ export function validateScenesFile(storyId: string, s: unknown, openingSceneId: 
     if (!isNonEmptyString(sc.title)) issues.push(issue(`${p}.title`, 'missing title'));
     if (!Array.isArray(sc.narration) || sc.narration.length === 0)
       issues.push(issue(`${p}.narration`, 'needs at least one narration line'));
+    // fallbackLines is unused by the app now, but older installed versions
+    // still require it — keep publishing it so their validation passes.
     if (!Array.isArray(sc.fallbackLines) || sc.fallbackLines.length === 0)
       issues.push(issue(`${p}.fallbackLines`, 'needs at least one fallback line'));
     if (!Array.isArray(sc.choices)) issues.push(issue(`${p}.choices`, 'must be an array'));

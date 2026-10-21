@@ -15,7 +15,7 @@ import { join } from 'node:path';
 import type { Playthrough, StoryBundle, StoryMeta } from '../src/types';
 import { KISSA_OWNER_CREATOR, createInitialState } from '../src/types';
 import { buildSystemPrompt } from '../src/lib/engine';
-import { offlineOpening } from '../src/lib/offlineEngine';
+import { renderOpening } from './helpers/opening';
 import { validateBundle, validateMedia } from '../src/lib/validate';
 import { mediaApiUrl, storyFileApiUrl, storyPackageApiUrl } from '../src/content/api';
 import { getBundledCoverSource } from '../src/content/loader';
@@ -52,7 +52,6 @@ jest.mock('../src/lib/files', () => ({
 jest.mock('../src/lib/db', () => ({
   getDownloadRecord: jest.fn(async () => null),
   listDownloads: jest.fn(async () => []),
-  recordDownload: jest.fn(async () => undefined),
   removeDownloadRecord: jest.fn(async () => undefined),
 }));
 
@@ -249,7 +248,7 @@ describe('The Angel Next Door Spoils Me Rotten — remote package', () => {
   });
 
   test('renders the opening through the existing app engine with the reader name', () => {
-    const rendered = offlineOpening(bundle, 'Aarav Reader').lines.map((l) => l.text).join('\n');
+    const rendered = renderOpening(bundle, 'Aarav Reader').lines.map((l) => l.text).join('\n');
     expect(rendered).toContain('Aarav Reader');
     expect(rendered).not.toContain('{{playerName}}');
     expect(rendered).toContain('Tumne phir se dinner skip kiya hai, hai na?');

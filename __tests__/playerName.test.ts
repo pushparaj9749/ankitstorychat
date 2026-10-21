@@ -18,7 +18,8 @@ import {
   PLAYER_NAME_PLACEHOLDER,
 } from '../src/lib/playerName';
 import { buildSystemPrompt } from '../src/lib/engine';
-import { offlineOpening, offlineStep, toOfflineLines } from '../src/lib/offlineEngine';
+import { renderOpening } from './helpers/opening';
+import { openingMessages } from '../src/lib/opening';
 
 const ROOT = join(__dirname, '..');
 
@@ -102,7 +103,7 @@ describe('character names are preserved', () => {
   });
 
   test('chai-dreams keeps its CHARACTER Kabir (player is someone else)', () => {
-    const lines = offlineOpening(kabirCharacterStory, 'Rahul');
+    const lines = renderOpening(kabirCharacterStory, 'Rahul');
     const allText = lines.lines.map((l) => l.text).join('\n');
     // Kabir is a real character in this story — must survive interpolation.
     expect(allText).toContain('Kabir');
@@ -111,7 +112,7 @@ describe('character names are preserved', () => {
 
   test('hawa-band-dhaba (legacy player Kabir) now uses the placeholder', () => {
     const b = loadBundle('hawa-band-dhaba');
-    const lines = offlineOpening(b, 'Meera');
+    const lines = renderOpening(b, 'Meera');
     const allText = lines.lines.map((l) => l.text).join('\n');
     expect(allText).not.toContain('{{');
     expect(allText).not.toContain('Kabir');
@@ -148,36 +149,11 @@ describe('the whole content pack is player-name clean', () => {
 
 describe('user "Rahul" sees Rahul everywhere the player is referenced', () => {
   test('opening narration (pre-chat cinematic introduction)', () => {
-    const { lines } = offlineOpening(ankitStory, 'Rahul');
+    const { lines } = renderOpening(ankitStory, 'Rahul');
     const text = lines.map((l) => l.text).join('\n');
     expect(text).not.toContain(PLAYER_NAME_PLACEHOLDER);
     expect(text).not.toContain('Ankit');
     expect(text).toContain('Rahul');
-  });
-
-  test('offline scripted narration on every choice path', () => {
-    const pt = {
-      id: 'pt',
-      storyId: ankitStory.story.id,
-      label: 'Journey 1',
-      mode: 'offline' as const,
-      providerId: null,
-      status: 'active' as const,
-      currentSceneId: ankitStory.story.openingSceneId,
-      state: { relationships: {}, inventory: [], location: '', flags: {}, choices: {}, visits: {} },
-      messageCount: 0,
-      progress: 0,
-      endingId: null,
-      createdAt: new Date().toISOString(),
-      updatedAt: new Date().toISOString(),
-    } as unknown as Playthrough;
-    const scene = ankitStory.scenes.scenes[0];
-    for (const choice of scene.choices ?? []) {
-      const { step } = offlineStep(ankitStory, pt, choice.text, 'Rahul');
-      const text = step.lines.map((l) => l.text).join('\n');
-      expect(text).not.toContain('{{');
-      expect(text).not.toContain('Ankit');
-    }
   });
 
   test('AI prompt/context uses the reader name, not Ankit', () => {
@@ -222,7 +198,7 @@ describe('user "Rahul" sees Rahul everywhere the player is referenced', () => {
 
 describe('user "Aman" never sees Ankit as the player name', () => {
   test('narration and AI prompt drop Ankit entirely', () => {
-    const { lines } = offlineOpening(ankitStory, 'Aman');
+    const { lines } = renderOpening(ankitStory, 'Aman');
     const text = lines.map((l) => l.text).join('\n');
     expect(text).not.toContain('Ankit');
     expect(text).toContain('Aman');
@@ -256,18 +232,31 @@ describe('user "Aman" never sees Ankit as the player name', () => {
   });
 });
 
-describe('toOfflineLines (raw line interpolation)', () => {
-  test('placeholder text becomes the player before speaker parsing', () => {
-    const lines = toOfflineLines(
-      ankitStory,
-      ['Aria: "{{playerName}}, tum yahan kaise?"', '*{{playerName}} madhosh ho jaata hai.*'],
-      'Rahul',
+describe('opening messages (what a new journey saves)', () => {
+  function withOpening(lines: string[]): StoryBundle {
+    const scenes = ankitStory.scenes.scenes.map((sc) =>
+      sc.id === ankitStory.story.openingSceneId ? { ...sc, narration: lines } : sc,
     );
-    expect(lines[0]).toEqual({
-      role: 'assistant',
-      speaker: 'Aria',
-      text: '"Rahul, tum yahan kaise?"',
-    });
+    return { ...ankitStory, scenes: { ...ankitStory.scenes, scenes } };
+  }
+
+  test('placeholder text becomes the player before speaker parsing', () => {
+    const b = withOpening(['Aria: "{{playerName}}, tum yahan kaise?"', '*{{playerName}} madhosh ho jaata hai.*']);
+    const { lines } = renderOpening(b, 'Rahul');
+    expect(lines[0]).toEqual({ role: 'assistant', speaker: 'Aria', text: '"Rahul, tum yahan kaise?"' });
     expect(lines[1]).toEqual({ role: 'narration', speaker: null, text: 'Rahul madhosh ho jaata hai.' });
+  });
+
+  test('first line is saved as narration, the rest as story messages, all on the opening scene', () => {
+    const msgs = openingMessages(withOpening(['*Raat.*', 'Aria: "Hi {{playerName}}"']), 'Rahul');
+    expect(msgs).toEqual([
+      { role: 'narration', speaker: null, text: '*Raat.*', sceneId: ankitStory.story.openingSceneId },
+      { role: 'assistant', speaker: null, text: 'Aria: "Hi Rahul"', sceneId: ankitStory.story.openingSceneId },
+    ]);
+  });
+
+  test('no name set → the default name, never a raw placeholder', () => {
+    const msgs = openingMessages(withOpening(['Aria: "Hi {{playerName}}"']), '');
+    expect(msgs[0].text).not.toContain('{{');
   });
 });

@@ -4,7 +4,7 @@ import { join } from 'node:path';
 import type { Playthrough, StoryBundle, StoryMeta } from '../src/types';
 import { createInitialState } from '../src/types';
 import { applyEffects, buildSystemPrompt } from '../src/lib/engine';
-import { offlineOpening, offlineStep } from '../src/lib/offlineEngine';
+import { renderOpening } from './helpers/opening';
 import { validateBundle, validateMedia } from '../src/lib/validate';
 
 const id = 'khuni-ghadi-ka-raaz';
@@ -108,7 +108,7 @@ describe('Khuni Ghadi Ka Raaz content publication', () => {
     expect(fullNarration).toContain('Maaya: "Ya tum mujhe bewakoof bana rahe ho?"');
     expect(fullNarration).not.toContain('Ankit');
 
-    const { lines } = offlineOpening(bundle, 'Rohan');
+    const { lines } = renderOpening(bundle, 'Rohan');
     const rendered = lines.map((l) => l.text).join('\n');
     expect(rendered).toContain('"Bahut achha game khela tumne, Rohan."');
     expect(rendered).not.toContain('{{playerName}}');
@@ -152,12 +152,9 @@ describe('Khuni Ghadi Ka Raaz content publication', () => {
     expect(prompt).not.toContain('{{playerName}}');
   });
 
-  test('choice effects and offline fallback remain non-terminal and preserve state', () => {
+  test('choice effects set the right flag', () => {
     const choice = bundle.scenes.scenes[0].choices.find((c) => c.id === 'explain_missing_watch')!;
     const next = applyEffects(playthrough.state, choice.effects);
     expect(next.flags.claimedWatchMissing).toBe(true);
-    const result = offlineStep(bundle, playthrough, 'Main pehle apna camera log check karwana chahta hoon', 'Vikram');
-    expect(result.step.ended).toBe(false);
-    expect(result.step.endingId).toBeNull();
   });
 });

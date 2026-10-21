@@ -83,15 +83,3 @@ export async function notifyContentUpdate(count: number): Promise<void> {
     trigger: null,
   });
 }
-
-/** One-shot local notice: a download finished. */
-export async function notifyDownloadDone(title: string): Promise<void> {
-  await Notifications.scheduleNotificationAsync({
-    content: {
-      title: 'Download complete',
-      body: `"${title}" ab offline available hai.`,
-      data: { kind: 'download-done' },
-    },
-    trigger: null,
-  });
-}

@@ -4,9 +4,9 @@
  * V2 change: the story *packages* (story/scenes/world/characters/memory JSON)
  * are NO LONGER compiled into the APK. Only the content manifest (so the app
  * can list every story) and the cover art ship with the binary. All playable
- * story content is streamed from the story API at play time (see loader.ts),
- * which is what removes offline story playback while keeping the catalog and
- * OTA content updates working without a new APK.
+ * story content is streamed from the story API at play time (see loader.ts) —
+ * there is no offline story play — while the catalog and OTA content updates
+ * keep working without a new APK.
  *
  * The private story-source repository is still only read by the deployment
  * pipeline (GitHub Actions) — clients never contact GitHub.

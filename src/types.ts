@@ -300,7 +300,7 @@ export interface ChoiceEffects {
 export interface SceneChoice {
   id: string;
   text: string;
-  /** Keywords used by the offline engine + smart-reply matching. */
+  /** Keywords used for smart-reply matching. */
   keywords: string[];
   next: string | null;
   /** If set, this choice is only offered when the flag expression holds. */
@@ -313,9 +313,12 @@ export interface SceneChoice {
 export interface StoryScene {
   id: string;
   title: string;
-  /** Opening narration shown when the scene starts (offline mode + AI seed). */
+  /** Opening narration: the first chat messages of a journey + the AI's opening context. */
   narration: string[];
-  /** Lines the offline narrator uses when free text matches no choice. */
+  /**
+   * Legacy field, not used by this app version. Story packages keep it only
+   * because older installed app versions still require it when validating.
+   */
   fallbackLines: string[];
   choices: SceneChoice[];
   /** True for terminal scenes. */
@@ -389,7 +392,7 @@ export interface AppSettings {
   music: boolean;
   haptics: boolean;
   notifications: NotificationSettings;
-  /** Active AI provider id, or null for Offline Story Mode. */
+  /** Active AI provider id, or null when no AI is set up (stories can't start). */
   activeProviderId: string | null;
   /**
    * Story API base override (e.g. a self-hosted worker). Empty string means
@@ -511,8 +514,8 @@ export interface Playthrough {
   progress: number;
   messageCount: number;
   endingId: string | null;
-  /** 'ai' when a provider generated replies, 'offline' for scripted mode. */
-  mode: 'ai' | 'offline';
+  /** Always 'ai': every reply is written by the reader's own AI provider. */
+  mode: 'ai';
   providerId: string | null;
   createdAt: string;
   updatedAt: string;

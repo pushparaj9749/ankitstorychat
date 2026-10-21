@@ -15,7 +15,7 @@ import { join } from 'node:path';
 import type { Playthrough, StoryBundle, StoryMeta } from '../src/types';
 import { KISSA_OWNER_CREATOR, createInitialState } from '../src/types';
 import { buildSystemPrompt } from '../src/lib/engine';
-import { offlineOpening } from '../src/lib/offlineEngine';
+import { renderOpening } from './helpers/opening';
 import { validateBundle, validateMedia } from '../src/lib/validate';
 import {
   createStoryMemoryEngine,
@@ -255,7 +255,7 @@ describe('Jo Usne Bataya Nahi — remote package', () => {
       expect(choice.effects?.relationships).toBeUndefined();
       if (choice.shortLabel) expect(choice.shortLabel.length).toBeLessThanOrEqual(20);
     }
-    const rendered = offlineOpening(bundle, 'Aarav Reader').lines.map((l) => l.text).join('\n');
+    const rendered = renderOpening(bundle, 'Aarav Reader').lines.map((l) => l.text).join('\n');
     expect(rendered).toContain('Aarav Reader');
     expect(rendered).not.toContain('{{playerName}}');
   });

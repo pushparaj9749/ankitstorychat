@@ -22,7 +22,7 @@ import { formatBytes } from '../lib/utils';
 type Props = NativeStackScreenProps<RootStackParamList, 'SettingsStorage'>;
 
 export function SettingsStorage(_props: Props) {
-  const { theme, stories, reloadAll } = useApp();
+  const { theme, reloadAll } = useApp();
   const [usage, setUsage] = useState<StorageUsage | null>(null);
   const [busy, setBusy] = useState<string | null>(null);
   const [note, setNote] = useState<string | null>(null);
@@ -115,8 +115,8 @@ export function SettingsStorage(_props: Props) {
 
   async function onDeleteDownloads() {
     Alert.alert(
-      'Delete Downloaded Stories?',
-      'Downloaded offline packages will be deleted. Your chat messages and profile remain safe.',
+      'Delete old story files?',
+      'Story files saved by an older Kissa version will be deleted to free space. Stories always load online now, so nothing stops working. Your chats and profile stay safe.',
       [
         { text: 'Cancel', style: 'cancel' },
         {
@@ -128,7 +128,7 @@ export function SettingsStorage(_props: Props) {
               try {
                 for (const id of downloads) await removeDownloadedStory(id);
                 await load();
-                setNote('Downloaded stories removed.');
+                setNote('Old story files removed.');
               } finally {
                 setBusy(null);
               }
@@ -223,7 +223,6 @@ export function SettingsStorage(_props: Props) {
     );
   }
 
-  const downloadedMetas = stories.filter((s) => downloads.has(s.id));
 
   return (
     <Screen>
@@ -243,14 +242,10 @@ export function SettingsStorage(_props: Props) {
           <Text style={[styles.usageTotal, { color: theme.text }]}>
             {formatBytes(usage.contentBytes)}
           </Text>
-          <Text style={[styles.usageSub, { color: theme.textDim }]}>Downloaded story packages & cache</Text>
+          <Text style={[styles.usageSub, { color: theme.textDim }]}>Story cache & old story files</Text>
 
           <View style={[styles.divider, { backgroundColor: theme.border }]} />
 
-          <View style={styles.usageRow}>
-            <Text style={[styles.usageLabel, { color: theme.textDim }]}>Downloaded Stories</Text>
-            <Text style={[styles.usageVal, { color: theme.text }]}>{usage.downloadedStories}</Text>
-          </View>
           <View style={styles.usageRow}>
             <Text style={[styles.usageLabel, { color: theme.textDim }]}>Journeys / Playthroughs</Text>
             <Text style={[styles.usageVal, { color: theme.text }]}>{usage.dbPlaythroughs}</Text>
@@ -282,36 +277,16 @@ export function SettingsStorage(_props: Props) {
         <View style={styles.gap}>
           <GradientButton title="Clear Image Cache" variant="ghost" loading={busy === 'cache'} onPress={onClearCache} />
         </View>
-        {downloadedMetas.length > 0 ? (
-          <View style={[styles.box, { backgroundColor: theme.surface, borderColor: theme.border, marginTop: 12 }]}>
-            <Text style={[styles.boxTitle, { color: theme.text }]}>Downloaded Stories</Text>
-            {downloadedMetas.map((s) => (
-              <View key={s.id} style={styles.dlRow}>
-                <Text style={[styles.dlName, { color: theme.textDim }]} numberOfLines={1}>
-                  {s.title}
-                </Text>
-                <GradientButton
-                  title="Remove"
-                  variant="ghost"
-                  onPress={() =>
-                    void (async () => {
-                      await removeDownloadedStory(s.id);
-                      await load();
-                    })()
-                  }
-                />
-              </View>
-            ))}
+        {downloads.size > 0 ? (
+          <View style={styles.gap}>
+            <GradientButton
+              title={`Delete Old Story Files (${downloads.size})`}
+              variant="ghost"
+              loading={busy === 'dls'}
+              onPress={onDeleteDownloads}
+            />
           </View>
         ) : null}
-        <View style={styles.gap}>
-          <GradientButton
-            title={`Delete Downloaded Packages (${usage.downloadedStories})`}
-            variant="ghost"
-            loading={busy === 'dls'}
-            onPress={onDeleteDownloads}
-          />
-        </View>
         <View style={styles.gap}>
           <GradientButton title="Delete Chat Messages" variant="ghost" loading={busy === 'chats'} onPress={onDeleteChats} />
         </View>
@@ -346,9 +321,5 @@ const styles = StyleSheet.create({
   usageVal: { fontSize: SCALE.small, fontWeight: '700' },
   hint: { fontSize: SCALE.micro, marginTop: 8, lineHeight: 16 },
   note: { fontSize: SCALE.small, fontWeight: '700', marginTop: 10, textAlign: 'center' },
-  box: { borderWidth: 1, borderRadius: RADIUS.md, padding: 12 },
-  boxTitle: { fontSize: SCALE.body, fontWeight: '700', marginBottom: 8 },
-  dlRow: { flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between', gap: 10, paddingVertical: 6 },
-  dlName: { fontSize: SCALE.small, flex: 1 },
   gap: { marginTop: 10 },
 });

@@ -56,7 +56,7 @@ export function aiErrorMessage(e: AIError): string {
     case 'empty_response':
       return 'AI returned an empty reply. Retry?';
     case 'disabled':
-      return 'No AI provider is active. Using Offline Story Mode.';
+      return 'No AI provider is active. Add your own API key in AI Add-ons to play.';
     case 'provider_error':
     default:
       return e.message || 'AI provider error. Retry or check Settings.';

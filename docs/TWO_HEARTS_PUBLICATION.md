@@ -7,7 +7,7 @@
 - Existing five-file package, one opening conversation seed, no terminal effects or predefined future route graph. Choices store factual flags and memories, not affection scores.
 - The Play Guide is in the remotely delivered description and narrator tone; no new UI field or screen is introduced.
 - Existing narrator receives world rules; existing memory receives extraction hints for promises, boundaries, who knows what, decisions and emotional continuity.
-- Dynamic endless continuation requires the existing AI mode. The existing offline engine remains a scripted fallback, not generative; it is not redesigned here.
+- Dynamic endless continuation requires the existing AI mode. (The old scripted offline engine was removed in v2.9.1; there is no offline mode.)
 
 ## Media
 

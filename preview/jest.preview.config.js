@@ -42,7 +42,7 @@ module.exports = {
     '^expo-linear-gradient$': STUB,
     '^expo-constants$': STUB,
     '^@expo/vector-icons$': STUB,
-    '^(.*)/lib/(haptics|sound|secureKeys|ai|engine|memory|memoryEngine|memoryCore|worldState|storyMemory|storyMemoryCore|storyMemoryStore|db|playthrough|backup|notifications|storage|files|filesSafe|imagePicker|offlineEngine|validate)$': STUB,
+    '^(.*)/lib/(haptics|sound|secureKeys|ai|engine|memory|memoryEngine|memoryCore|worldState|storyMemory|storyMemoryCore|storyMemoryStore|db|playthrough|backup|notifications|storage|files|filesSafe|imagePicker|validate)$': STUB,
     '^(.*)/content/loader$': STUB,
     '^(.*)/state/AppContext$': STUB,
     '\\.(jpg|jpeg|png|gif|webp|svg|ttf|otf|mp3|wav)$': '<rootDir>/jest.assets.js',

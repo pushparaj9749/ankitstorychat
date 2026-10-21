@@ -18,7 +18,7 @@ import { join } from 'node:path';
 import type { Playthrough, StoryBundle, StoryMeta } from '../src/types';
 import { KISSA_OWNER_CREATOR, createInitialState } from '../src/types';
 import { buildSystemPrompt } from '../src/lib/engine';
-import { offlineOpening } from '../src/lib/offlineEngine';
+import { renderOpening } from './helpers/opening';
 import { validateBundle, validateMedia } from '../src/lib/validate';
 import {
   createStoryMemoryEngine,
@@ -197,7 +197,7 @@ describe('Uski Mohabbat Se Bachna Namumkin Tha — remote package', () => {
       expect(choice.effects?.memory?.length).toBeGreaterThan(0);
       if (choice.shortLabel) expect(choice.shortLabel.length).toBeLessThanOrEqual(20);
     }
-    const rendered = offlineOpening(bundle, 'Test Reader').lines.map((l) => l.text).join('\n');
+    const rendered = renderOpening(bundle, 'Test Reader').lines.map((l) => l.text).join('\n');
     expect(rendered).toContain('Test Reader');
     expect(rendered).not.toContain('{{playerName}}');
   });

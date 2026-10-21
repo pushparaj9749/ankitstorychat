@@ -1,6 +1,6 @@
 /**
  * Story text markup — dependency-free so it can be unit-tested in Node
- * and reused by the chat UI, the offline storyteller and notifications.
+ * and reused by the chat UI, the reply parser and notifications.
  *
  * Kissa's story format (what writers put in scenes.json / what the AI is asked for):
  *
@@ -86,7 +86,7 @@ export function hasFadedMarkup(input: string): boolean {
 
 /**
  * Is the WHOLE line a single *action* span (optionally surrounded by whitespace)?
- * Used to decide whether an offline line is pure narration or dialogue.
+ * Used to decide whether a story line is pure narration or dialogue.
  */
 export function isFullyFadedLine(input: string): boolean {
   const spans = parseStoryMarkup((input ?? '').trim());

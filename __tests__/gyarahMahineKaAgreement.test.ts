@@ -18,7 +18,7 @@ import { join } from 'node:path';
 import type { Playthrough, StoryBundle, StoryMeta } from '../src/types';
 import { KISSA_OWNER_CREATOR, createInitialState } from '../src/types';
 import { buildSystemPrompt } from '../src/lib/engine';
-import { offlineOpening } from '../src/lib/offlineEngine';
+import { renderOpening } from './helpers/opening';
 import { validateBundle, validateMedia } from '../src/lib/validate';
 import { mediaApiUrl, storyFileApiUrl, storyPackageApiUrl } from '../src/content/api';
 import { getBundledCoverSource } from '../src/content/loader';
@@ -57,7 +57,6 @@ jest.mock('../src/lib/files', () => ({
 jest.mock('../src/lib/db', () => ({
   getDownloadRecord: jest.fn(async () => null),
   listDownloads: jest.fn(async () => []),
-  recordDownload: jest.fn(async () => undefined),
   removeDownloadRecord: jest.fn(async () => undefined),
 }));
 
@@ -283,7 +282,7 @@ describe('11 Mahine Ka Agreement — remote package', () => {
   });
 
   test('renders the opening through the existing app engine with the reader name', () => {
-    const { lines } = offlineOpening(bundle, 'Reader');
+    const { lines } = renderOpening(bundle, 'Reader');
     const rendered = lines.map((l) => l.text).join('\n');
     expect(rendered).not.toContain('{{playerName}}');
     expect(rendered).toContain('co-tenant — Reader');

@@ -91,7 +91,6 @@ jest.mock('../src/lib/files', () => ({
 jest.mock('../src/lib/db', () => ({
   getDownloadRecord: jest.fn(async () => null),
   listDownloads: jest.fn(async () => []),
-  recordDownload: jest.fn(async () => undefined),
   removeDownloadRecord: jest.fn(async () => undefined),
 }));
 
@@ -100,15 +99,13 @@ import {
   checkForUpdates,
   contentApiUrl,
   DEFAULT_CONTENT_API_BASE_URL,
-  downloadStory,
   getBundle,
-  isStoryOnDevice,
   listStories,
   manifestApiUrl,
   storyFileApiUrl,
   StoryContentError,
 } from '../src/content/loader';
-import { getDownloadRecord, recordDownload } from '../src/lib/db';
+import { getDownloadRecord } from '../src/lib/db';
 import { writeText } from '../src/lib/files';
 
 const bundledIds = new Set(bundledStoryIds());
@@ -139,7 +136,7 @@ beforeEach(() => {
 describe('OTA story availability', () => {
   test('V2: the APK embeds no story packages — the whole catalog streams', () => {
     // Every story must now come from the story API; nothing ships in the
-    // binary for offline playback.
+    // binary (there is no offline story play).
     expect(bundledIds.size).toBe(0);
     expect(otaOnly.length).toBe(manifest.stories.length);
   });
@@ -151,12 +148,6 @@ describe('OTA story availability', () => {
     expect(res.hasUpdate).toBe(true);
     for (const id of otaOnly) {
       expect(offered).toContain(id);
-    }
-  });
-
-  test('an API-only story is not reported as being on the device', async () => {
-    for (const id of otaOnly) {
-      await expect(isStoryOnDevice(id)).resolves.toBe(false);
     }
   });
 
@@ -263,83 +254,27 @@ describe('story API URL construction', () => {
   });
 });
 
-describe('downloading a story package from the API', () => {
-  test('downloads the five files from the API, validates and installs them', async () => {
-    const meta = manifest.stories.find((s) => s.id === 'midnight-local') as unknown as StoryMeta;
-    Object.assign(fetchBody, packageFixture('midnight-local'));
-
-    await downloadStory(meta, API_BASE, '18+', () => undefined);
-
-    const files = ['story.json', 'characters.json', 'world.json', 'scenes.json', 'memory.json'];
-    // JSON package files plus a best-effort cover fetch (midnight-local now
-    // publishes coverUrl for OTA Media Library, same as every other story).
-    expect(fetchCalls).toEqual([
-      ...files.map((f) => `${API_BASE}/stories/midnight-local/${f}`),
-      `${API_BASE}/stories/midnight-local/assets/cover.jpg`,
-    ]);
-    // Installed into the local cache…
-    for (const f of files) {
-      expect(writeText).toHaveBeenCalledWith(
-        `kissa-content/stories/midnight-local/${f}`,
-        expect.any(String),
-      );
-      expect(mockFileStore.has(`kissa-content/stories/midnight-local/${f}`)).toBe(true);
+describe('no offline story play', () => {
+  test('leftover story files from an older version never enable offline playback', async () => {
+    // An older app version may have left a full package on disk…
+    const pkg = packageFixture('goddess-who-chose-me');
+    for (const [f, v] of Object.entries(pkg)) {
+      await writeText(`kissa-content/stories/goddess-who-chose-me/${f}`, JSON.stringify(v));
     }
-    // …and recorded so it is never re-offered.
-    expect(recordDownload).toHaveBeenCalledWith('midnight-local', meta.version, expect.any(String));
-  });
+    (getDownloadRecord as jest.Mock).mockResolvedValue({ storyId: 'goddess-who-chose-me', version: 1, downloadedAt: 'x' });
 
-  test('a malformed package is rejected and nothing is installed', async () => {
-    const meta = manifest.stories.find((s) => s.id === 'midnight-local') as unknown as StoryMeta;
-    const bad = packageFixture('midnight-local');
-    (bad['story.json'] as { id: string }).id = 'not-midnight-local'; // fails validation
-    Object.assign(fetchBody, bad);
-
-    await expect(downloadStory(meta, API_BASE, '18+', () => undefined)).rejects.toThrow(
-      StoryContentError,
-    );
-    expect(writeText).not.toHaveBeenCalled();
-    expect(recordDownload).not.toHaveBeenCalled();
-  });
-
-  test('progress is reported per file', async () => {
-    const meta = manifest.stories.find((s) => s.id === 'midnight-local') as unknown as StoryMeta;
-    Object.assign(fetchBody, packageFixture('midnight-local'));
-    const seen: string[] = [];
-    await downloadStory(meta, API_BASE, '18+', (file) => seen.push(file));
-    expect(seen).toEqual([
-      'story.json',
-      'characters.json',
-      'world.json',
-      'scenes.json',
-      'memory.json',
-      'done',
-    ]);
-  });
-
-  test('relative manifest cover URLs are fetched from the API (not GitHub)', async () => {
-    const meta = manifest.stories.find(
-      (s) => s.id === 'goddess-who-chose-me',
-    ) as unknown as StoryMeta;
-    expect(meta.coverUrl).toMatch(/^stories\//); // relative API path
-    Object.assign(fetchBody, packageFixture('goddess-who-chose-me'));
-    await downloadStory(meta, API_BASE, '18+', () => undefined);
-    expect(fetchCalls).toContain(`${API_BASE}/stories/goddess-who-chose-me/assets/cover.jpg`);
-  });
-
-  test('V2: a downloaded copy never enables OFFLINE playback (no fallback)', async () => {
-    const meta = manifest.stories.find(
-      (s) => s.id === 'goddess-who-chose-me',
-    ) as unknown as StoryMeta;
-    Object.assign(fetchBody, packageFixture('goddess-who-chose-me'));
-    await downloadStory(meta, API_BASE, '18+', () => undefined);
-    await expect(isStoryOnDevice('goddess-who-chose-me')).resolves.toBe(true);
-
-    // Even with a local copy present, playback still requires the network.
+    // …but playback still streams from the API and needs the network.
     fetchBody.__networkDown = true;
     fetchCalls = [];
     const err = (await getBundle('goddess-who-chose-me', '18+').catch((e: unknown) => e)) as StoryContentError;
+    expect(err).toBeInstanceOf(StoryContentError);
     expect(err.code).toBe('network');
+  });
+
+  test('the loader no longer offers a story downloader', async () => {
+    const loader = await import('../src/content/loader');
+    expect('downloadStory' in loader).toBe(false);
+    expect('isStoryOnDevice' in loader).toBe(false);
   });
 });
 
