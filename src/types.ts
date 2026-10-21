@@ -398,6 +398,14 @@ export interface AppSettings {
   contentApiBaseUrl: string;
   installedContentVersion: number;
   lastContentCheckAt: string | null;
+  /** App Lock (fingerprint / PIN) — everything stays on this device. */
+  appLockEnabled: boolean;
+  /** Offer fingerprint / face unlock on the lock screen (PIN always works). */
+  appLockBiometric: boolean;
+  /** When the lock comes back after leaving the app. */
+  appLockDelay: 'immediate' | '1m' | '5m';
+  /** Show the "new version available" banner (reads the public GitHub release only). */
+  updateBanner: boolean;
 }
 
 export const DEFAULT_SETTINGS: AppSettings = {
@@ -419,6 +427,10 @@ export const DEFAULT_SETTINGS: AppSettings = {
   contentApiBaseUrl: '',
   installedContentVersion: 0,
   lastContentCheckAt: null,
+  appLockEnabled: false,
+  appLockBiometric: true,
+  appLockDelay: 'immediate',
+  updateBanner: true,
 };
 
 /* ------------------------------------------------------------------ */
@@ -846,6 +858,7 @@ export type RootStackParamList = {
   SettingsProfile: undefined;
   SettingsAppearance: undefined;
   SettingsAudio: undefined;
+  SettingsSecurity: undefined;
   SettingsNotifications: undefined;
   SettingsStorage: undefined;
   Terms: undefined;

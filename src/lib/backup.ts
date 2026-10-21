@@ -30,6 +30,7 @@ import {
 import { createSqliteStoryMemoryStore } from './storyMemoryStore';
 import { cachePath, docPath, readText, writeText } from './files';
 import { nowIso } from './utils';
+import { withAppLockPaused } from './lockPause';
 
 export async function buildExport(): Promise<DataExport> {
   const [profile, settings, providers, playthroughs, messages, memories, favorites, stats, digests, storyMemoryArchive] =
@@ -72,20 +73,22 @@ export async function exportAndShare(): Promise<{ fileUri: string; shared: boole
   await writeText(uri, JSON.stringify(data));
   const available = await Sharing.isAvailableAsync();
   if (available) {
-    await Sharing.shareAsync(uri, {
-      mimeType: 'application/json',
-      dialogTitle: 'Save your Kissa backup',
-    });
+    await withAppLockPaused(() =>
+      Sharing.shareAsync(uri, {
+        mimeType: 'application/json',
+        dialogTitle: 'Save your Kissa backup',
+      }),
+    );
     return { fileUri: uri, shared: true };
   }
   return { fileUri: uri, shared: false };
 }
 
 export async function pickBackupFile(): Promise<string | null> {
-  const res = await DocumentPicker.getDocumentAsync({
+  const res = await withAppLockPaused(() => DocumentPicker.getDocumentAsync({
     type: ['application/json', '*/*'],
     copyToCacheDirectory: true,
-  });
+  }));
   if (res.canceled || !res.assets?.[0]?.uri) return null;
   return res.assets[0].uri;
 }

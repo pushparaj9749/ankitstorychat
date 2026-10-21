@@ -34,6 +34,7 @@ import { Screen } from '../components/Screen';
 import { ContinueCard, GridCard, HeroCard, PosterGrid, RankCard, StoryBubble } from '../components/StoryCard';
 import { IconButton, SectionHeader, SelectableChip } from '../components/bits';
 import { EmptyState } from '../components/states';
+import { UpdateBanner } from '../components/UpdateBanner';
 import { Icon, ICON_SIZE } from '../components/icons';
 import { LAYOUT, RADIUS, SCALE, SPACING, TOUCH, withAlpha } from '../theme';
 import { timeAgo } from '../lib/utils';
@@ -242,6 +243,8 @@ export function Home({ navigation }: Props) {
               </Pressable>
             </View>
           </View>
+
+          <UpdateBanner />
 
           {/* Story bubbles */}
           {bubbles.length > 0 ? (

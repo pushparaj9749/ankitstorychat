@@ -80,10 +80,21 @@ describe('the app never talks to GitHub for content', () => {
   });
 
   test('no GitHub API content URLs in app source', () => {
+    // The ONLY allowed GitHub API call is the anonymous app-update check
+    // (latest release version), and only from lib/updateCheck.ts.
+    const RELEASE_CHECK = 'https://api.github.com/repos/pushparaj9749/ankitstorychat/releases/latest';
     for (const f of CLIENT) {
       if (f.path.startsWith('website/')) continue;
-      expect(f.text).not.toMatch(/api\.github\.com\/repos/);
+      const text = f.path.replace(/\\/g, '/').endsWith('src/lib/updateCheck.ts') ? f.text.split(RELEASE_CHECK).join('') : f.text;
+      expect(text).not.toMatch(/api\.github\.com\/repos/);
     }
+  });
+
+  test('the update check reads only the public latest-release endpoint', () => {
+    const src = readFileSync(join(ROOT, 'src', 'lib', 'updateCheck.ts'), 'utf8');
+    expect(src.match(/api\.github\.com[^'"`\s]*/g)).toEqual(['api.github.com/repos/pushparaj9749/ankitstorychat/releases/latest']);
+    expect(src).not.toMatch(/method:\s*'(POST|PUT|PATCH|DELETE)'/);
+    expect(src).not.toMatch(/Authorization/i);
   });
 
   test('the single content API base is the Cloudflare Worker', () => {

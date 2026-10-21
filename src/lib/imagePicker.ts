@@ -8,6 +8,7 @@
  */
 import * as DocumentPicker from 'expo-document-picker';
 import { getInfoAsync, readAsStringAsync } from 'expo-file-system/legacy';
+import { withAppLockPaused } from './lockPause';
 
 /** Mirror of the Worker limits (see worker/src/media.ts). */
 export const MAX_IMAGE_BYTES = 3 * 1024 * 1024; // 3 MB
@@ -42,10 +43,12 @@ export class ImagePickError extends Error {
 export async function pickImage(): Promise<PickedImage> {
   let res: DocumentPicker.DocumentPickerResult;
   try {
-    res = await DocumentPicker.getDocumentAsync({
-      type: 'image/*',
-      copyToCacheDirectory: true,
-    });
+    res = await withAppLockPaused(() =>
+      DocumentPicker.getDocumentAsync({
+        type: 'image/*',
+        copyToCacheDirectory: true,
+      }),
+    );
   } catch {
     throw new ImagePickError('Could not open the photo picker.', 'pick');
   }

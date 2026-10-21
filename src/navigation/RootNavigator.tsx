@@ -27,6 +27,7 @@ import { ProviderEditor } from '../screens/ProviderEditor';
 import { SettingsProfile } from '../screens/SettingsProfile';
 import { SettingsAppearance } from '../screens/SettingsAppearance';
 import { SettingsAudio } from '../screens/SettingsAudio';
+import { SettingsSecurity } from '../screens/SettingsSecurity';
 import { SettingsNotifications } from '../screens/SettingsNotifications';
 import { SettingsStorage } from '../screens/SettingsStorage';
 import { Terms } from '../screens/Terms';
@@ -144,6 +145,7 @@ export function RootNavigator() {
               <Stack.Screen name="SettingsProfile" component={SettingsProfile} />
               <Stack.Screen name="SettingsAppearance" component={SettingsAppearance} />
               <Stack.Screen name="SettingsAudio" component={SettingsAudio} />
+              <Stack.Screen name="SettingsSecurity" component={SettingsSecurity} />
               <Stack.Screen name="SettingsNotifications" component={SettingsNotifications} />
               <Stack.Screen name="SettingsStorage" component={SettingsStorage} />
               <Stack.Screen name="Terms" component={Terms} />

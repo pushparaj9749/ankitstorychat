@@ -7,6 +7,7 @@ import { SafeAreaProvider } from 'react-native-safe-area-context';
 import { AppProvider } from './src/state/AppContext';
 import { RootNavigator } from './src/navigation/RootNavigator';
 import { initNotificationHandler } from './src/lib/notifications';
+import { AppLockGate } from './src/components/AppLockGate';
 
 export default function App() {
   useEffect(() => {
@@ -16,7 +17,9 @@ export default function App() {
   return (
     <SafeAreaProvider>
       <AppProvider>
-        <RootNavigator />
+        <AppLockGate>
+          <RootNavigator />
+        </AppLockGate>
       </AppProvider>
     </SafeAreaProvider>
   );

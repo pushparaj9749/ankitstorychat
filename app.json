@@ -2,7 +2,7 @@
   "expo": {
     "name": "Kissa",
     "slug": "kissa-ai-story-chat",
-    "version": "2.8.0",
+    "version": "2.9.0",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
     "scheme": "kissa",
@@ -18,11 +18,11 @@
     "ios": {
       "supportsTablet": true,
       "bundleIdentifier": "com.kissa.storychat",
-      "buildNumber": "26"
+      "buildNumber": "27"
     },
     "android": {
       "package": "com.kissa.storychat",
-      "versionCode": 30,
+      "versionCode": 31,
       "adaptiveIcon": {
         "backgroundColor": "#0A0B10",
         "foregroundImage": "./assets/android-icon-foreground.png",
@@ -41,6 +41,12 @@
         {
           "icon": "./assets/icon.png",
           "color": "#E9435E"
+        }
+      ],
+      [
+        "expo-local-authentication",
+        {
+          "faceIDPermission": "Allow Kissa to use Face ID to unlock the app."
         }
       ]
     ],

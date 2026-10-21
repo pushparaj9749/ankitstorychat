@@ -52,6 +52,8 @@ export const PRIVACY_SECTIONS: LegalSection[] = [
     heading: '5. Notifications',
     body: [
       'Reminders and update alerts are LOCAL notifications scheduled on your device. No push server, no push tokens, no registration with any service.',
+      'App update check: to show the "new version available" banner, Kissa reads the public "latest release" page of its GitHub repository (version number and download link only), at most every few hours. It is an anonymous read — no account, ID, story or chat data is sent. You can switch the banner off in About Kissa.',
+      'App Lock: your PIN is never stored — only a salted hash, kept in the phone\'s secure storage (Android Keystore / iOS Keychain). Fingerprint / face checks are done by the phone itself; Kissa never receives your biometric data.',
     ],
   },
   {
