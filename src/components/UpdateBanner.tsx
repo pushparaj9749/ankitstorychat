@@ -8,7 +8,7 @@ import { Animated, Linking, Platform, Pressable, StyleSheet, Text, View } from '
 import { useApp } from '../state/AppContext';
 import { IconGlyph } from './iconGlyph';
 import { checkForUpdate, dismissUpdate, isUpdateDismissed, type ReleaseInfo } from '../lib/updateCheck';
-import { RADIUS, SCALE, withAlpha } from '../theme';
+import { RADIUS, SCALE, SPACING, withAlpha } from '../theme';
 
 /** Wait a moment after launch so the check never competes with the first paint. */
 const START_DELAY_MS = 2500;
@@ -64,7 +64,7 @@ export function UpdateBanner() {
           Naya version aaya hai · v{info.latest.version}
         </Text>
         <Text style={[styles.sub, { color: theme.textDim }]} numberOfLines={2}>
-          Tum v{info.current} chala rahe ho. Naye features aur fixes ke liye update kar lo — chats safe rahengi.
+          Tum v{info.current} par ho. Update kar lo — saari chats safe rahengi.
         </Text>
         <View style={styles.actions}>
           <Pressable
@@ -85,7 +85,15 @@ export function UpdateBanner() {
 }
 
 const styles = StyleSheet.create({
-  card: { flexDirection: 'row', borderWidth: 1, borderRadius: RADIUS.lg, padding: 14, marginTop: 4, marginBottom: 14, gap: 12 },
+  card: {
+    flexDirection: 'row',
+    borderWidth: 1,
+    borderRadius: RADIUS.lg,
+    padding: 14,
+    marginTop: SPACING.md,
+    marginHorizontal: SPACING.page,
+    gap: 12,
+  },
   iconWrap: { width: 38, height: 38, borderRadius: 12, alignItems: 'center', justifyContent: 'center' },
   body: { flex: 1, minWidth: 0 },
   title: { fontSize: SCALE.body, fontWeight: '700' },

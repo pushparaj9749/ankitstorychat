@@ -58,6 +58,14 @@ moves the tale forward — with memory and relationships, and no script: no pred
 
 ## 🆕 Release notes
 
+### v2.9.0 — App Lock + "Naya version aaya hai"
+
+- **App Lock (Settings → Privacy & Data → App Lock):** 4-digit PIN, plus fingerprint / face unlock if the phone has it. Locks on launch and when you come back (Turant / 1 min / 5 min). The recent-apps preview is covered, so story text never shows there. Returning from the backup share sheet or a photo picker doesn't lock.
+- **Everything stays on the phone:** the PIN is never stored, only a salted SHA-256 hash in secure storage (Keystore / Keychain). The phone does the fingerprint check itself. Wrong PINs: 5 tries, then a 30 s wait that doubles each time (max 15 min), and it survives restarts.
+- **PIN bhool gaye?** Reset it with the phone's own screen lock. If the phone has no screen lock, the only way out is clearing the app data (the app explains this).
+- **"Naya version aaya hai" banner on Home:** when a newer APK is on GitHub Releases, a card shows **Download** and **Baad mein** (hides it for that version). It does one anonymous read of the public latest-release info, at most every 6 h, and sends no data. About Kissa has an **Update check karo** button and a switch to turn the banner off.
+- New native module (`expo-local-authentication`), so this needs the new APK. Tests: `appLock`, `appLockGate`, `updateCheck`.
+
 ### v2.8.0 — New opening animation: "the story opens"
 
 - Dust motes drift up in the dark, a rose line of light draws across the middle, and the logo lifts out of it like a page turning up, with a light glint and one soft ripple.

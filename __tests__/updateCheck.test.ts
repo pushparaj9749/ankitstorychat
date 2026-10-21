@@ -123,6 +123,18 @@ describe('checkForUpdate', () => {
     expect(await checkForUpdate({ fetchImpl: offline, now: 1 })).toMatchObject({ available: false, latest: null });
   });
 
+  it('a failed check is not cached — the next launch tries again', async () => {
+    const offline = jest.fn(async () => {
+      throw new Error('Network request failed');
+    }) as unknown as typeof fetch;
+    await checkForUpdate({ fetchImpl: offline, now: 1 });
+    expect(kv.has('update.latest')).toBe(false);
+    const f = okFetch(release('v2.10.0'));
+    const s = await checkForUpdate({ fetchImpl: f as unknown as typeof fetch, now: 2 });
+    expect(f).toHaveBeenCalledTimes(1);
+    expect(s.available).toBe(true);
+  });
+
   it('treats a rate-limited response as "no news"', async () => {
     const f = jest.fn(async () => ({ ok: false, status: 403, json: async () => ({}) })) as unknown as typeof fetch;
     expect(await checkForUpdate({ fetchImpl: f, now: 1 })).toMatchObject({ available: false });

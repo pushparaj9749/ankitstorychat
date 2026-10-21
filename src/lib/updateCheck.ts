@@ -93,7 +93,8 @@ export function currentAppVersion(): string {
   return Constants.expoConfig?.version ?? '0.0.0';
 }
 
-async function fetchLatest(fetchImpl: typeof fetch = fetch): Promise<ReleaseInfo | null> {
+/** `ok: false` = GitHub unreachable / rate-limited (don't cache that). */
+async function fetchLatest(fetchImpl: typeof fetch = fetch): Promise<{ ok: boolean; info: ReleaseInfo | null }> {
   const ctrl = typeof AbortController !== 'undefined' ? new AbortController() : null;
   const timer = setTimeout(() => ctrl?.abort(), TIMEOUT_MS);
   try {
@@ -102,10 +103,10 @@ async function fetchLatest(fetchImpl: typeof fetch = fetch): Promise<ReleaseInfo
       headers: { Accept: 'application/vnd.github+json' },
       signal: ctrl?.signal,
     });
-    if (!res.ok) return null;
-    return parseRelease(await res.json());
+    if (!res.ok) return { ok: false, info: null };
+    return { ok: true, info: parseRelease(await res.json()) };
   } catch {
-    return null; // offline / timeout / rate limit
+    return { ok: false, info: null }; // offline / timeout
   } finally {
     clearTimeout(timer);
   }
@@ -125,9 +126,14 @@ export async function checkForUpdate(opts: { force?: boolean; fetchImpl?: typeof
     if (!opts.force && cached && now - cached.at < CACHE_MS) {
       latest = cached.info;
     } else {
-      latest = await fetchLatest(opts.fetchImpl);
-      if (latest || !cached) await kvSet(CACHE_KEY, JSON.stringify({ at: now, info: latest }));
-      else latest = cached.info; // keep the last good answer when GitHub is unreachable
+      const r = await fetchLatest(opts.fetchImpl);
+      if (r.ok) {
+        latest = r.info;
+        await kvSet(CACHE_KEY, JSON.stringify({ at: now, info: latest }));
+      } else {
+        // GitHub unreachable: keep the last good answer, and try again next time.
+        latest = cached?.info ?? null;
+      }
     }
   } catch {
     latest = null;
