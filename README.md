@@ -56,6 +56,12 @@ moves the tale forward — with memory and relationships, and no script: no pred
 
 ## 🆕 Release notes
 
+### v2.9.2 — Smooth opening animation
+
+- The opening animation no longer stutters or freezes. It used to be ~25 small animations chained on the JS thread, and the app mounted behind it at the same moment, so steps started late. Now the whole intro runs as **one native animation on one clock** (and the exit as one more), so a busy JS thread can't stall it.
+- The app now mounts behind the splash only **after** the intro has played, and the screen opens only once the first screen is drawn. The local database still loads during the intro.
+- It looks the same as before. "Reduce motion" still gives a short calm fade, and a tap during the intro skips to its end.
+
 ### v2.9.1 — Offline story mode removed everywhere
 
 - The old scripted **Offline Story Mode** is gone for good. Removed: `src/lib/offlineEngine.ts`, the unused story downloader (`downloadStory`), the unused "download complete" notification, and the `'offline'` journey mode (old journeys and backups load as AI).
