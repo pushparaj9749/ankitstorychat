@@ -4,7 +4,7 @@ import { join } from 'node:path';
 import type { Playthrough, StoryBundle, StoryMeta } from '../src/types';
 import { createInitialState } from '../src/types';
 import { buildSystemPrompt } from '../src/lib/engine';
-import { offlineOpening } from '../src/lib/offlineEngine';
+import { renderOpening } from './helpers/opening';
 import { validateBundle, validateMedia } from '../src/lib/validate';
 
 const id = 'zara-mumbai-mafia-queen';
@@ -128,7 +128,7 @@ describe('Zara: Mumbai\'s Mafia Queen publication', () => {
       expect(choice.effects?.memory?.length).toBeGreaterThan(0);
     }
 
-    const rendered = offlineOpening(bundle, 'Mira').lines.map((line) => line.text).join('\n');
+    const rendered = renderOpening(bundle, 'Mira').lines.map((line) => line.text).join('\n');
     expect(rendered).toContain('Mira');
     expect(rendered).not.toContain('{{playerName}}');
     expect(rendered).not.toContain('Ankit');

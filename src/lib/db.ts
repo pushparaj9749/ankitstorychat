@@ -430,7 +430,7 @@ function rowToPlaythrough(r: PlaythroughRow): Playthrough {
     progress: r.progress,
     messageCount: r.message_count,
     endingId: r.ending_id,
-    mode: 'ai' as Playthrough['mode'],
+    mode: 'ai', // older versions stored 'offline'; every journey is AI now
     providerId: r.provider_id,
     createdAt: r.created_at,
     updatedAt: r.updated_at,
@@ -1145,17 +1145,7 @@ export async function listFavorites(): Promise<Favorite[]> {
   return rows.map((r) => ({ storyId: r.story_id, createdAt: r.created_at }));
 }
 
-/* ---------------- downloads ---------------- */
-
-export async function recordDownload(storyId: string, version: number, downloadedAt: string): Promise<void> {
-  const db = await getDb();
-  await db.runAsync(
-    'INSERT OR REPLACE INTO downloads (story_id, version, downloaded_at) VALUES (?, ?, ?)',
-    storyId,
-    version,
-    downloadedAt,
-  );
-}
+/* ---------------- downloads (leftover files from older app versions) ---------------- */
 
 export async function removeDownloadRecord(storyId: string): Promise<void> {
   const db = await getDb();

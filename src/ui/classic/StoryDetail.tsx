@@ -36,6 +36,7 @@ import { getBundledCoverSource, getBundle, mediaApiUrl, effectiveContentApiBaseU
 import { interpolatePlayerName, makePlayerTextFn, readerRoleText } from '../../lib/playerName';
 import { AgeRestrictedError } from '../../lib/ageGate';
 import { listPlaythroughsForStory, updateStats, insertMessage } from '../../lib/db';
+import { openingMessages } from '../../lib/opening';
 import { createPlaythrough, playthroughLabel } from '../../lib/playthrough';
 import { seedMemoriesIfEmpty } from '../../lib/memory';
 import { ensureWorldState } from '../../lib/worldState';
@@ -113,21 +114,16 @@ export function StoryDetail({ navigation, route }: Props) {
     try {
       const existing = await listPlaythroughsForStory(storyId);
       const pt = await createPlaythrough(bundle, playthroughLabel(existing.length), 'ai', activeProvider!.id);
-      const openingScene = bundle.scenes.scenes.find((s) => s.id === bundle.story.openingSceneId) ?? bundle.scenes.scenes[0];
       const pn = profile.nickname;
       const pnOptions = { protectedNames: bundle.characters.characters.map((c) => c.name) };
-      let i = 0;
-      for (const rawLine of openingScene.narration) {
+      const opening = openingMessages(bundle, pn);
+      for (let i = 0; i < opening.length; i++) {
         await insertMessage({
           id: uid('m'),
           playthroughId: pt.id,
-          role: i === 0 ? 'narration' : 'assistant',
-          speaker: null,
-          text: interpolatePlayerName(rawLine, pn, pnOptions),
-          sceneId: openingScene.id,
+          ...opening[i],
           createdAt: new Date(Date.now() + i).toISOString(),
         });
-        i++;
       }
       await seedMemoriesIfEmpty(pt, bundle.memory.seedMemories.map((m) => interpolatePlayerName(m, pn, pnOptions)));
       void ensureWorldState(pt, bundle).catch(() => undefined);

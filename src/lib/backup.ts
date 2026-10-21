@@ -176,7 +176,7 @@ export async function importBackup(d: DataExport): Promise<void> {
       p.progress,
       p.messageCount,
       p.endingId,
-      p.mode,
+      'ai', // older backups may say 'offline' — that mode no longer exists
       p.providerId,
       p.createdAt,
       p.updatedAt,

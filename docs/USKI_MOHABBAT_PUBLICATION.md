@@ -29,9 +29,8 @@
   existing universal memory receives seed memories plus extraction hints for
   affection, obsession behaviours, clues, the pattern, promises, confrontations
   and decisions — all isolated to this storyId.
-- Dynamic endless continuation requires the existing AI mode. The existing
-  offline engine remains a scripted fallback, not generative; it is not
-  redesigned here.
+- Dynamic endless continuation requires the AI mode. (The old scripted
+  offline engine was removed in v2.9.1; there is no offline mode.)
 
 ## Media
 

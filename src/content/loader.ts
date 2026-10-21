@@ -1,6 +1,7 @@
 /**
  * Story content system.
- * - Bundled stories ship with the app (offline-first).
+ * - The story catalog (manifest) and cover art ship with the app; story
+ *   packages are always streamed from the story API when a story is opened.
  * - The Kissa story API (https://beyondredeye.site/api, a Cloudflare Worker)
  *   is the content source for NEW / UPDATED stories. The app fetches the
  *   manifest, compares versions, and downloads story packages as JSON — no
@@ -40,7 +41,6 @@ import {
   STORIES_DIR,
   CONTENT_DIR,
   docPath,
-  exists,
   readJson,
   remove,
   writeText,
@@ -48,7 +48,6 @@ import {
 import {
   getDownloadRecord,
   listDownloads,
-  recordDownload,
   removeDownloadRecord,
 } from '../lib/db';
 
@@ -110,7 +109,7 @@ async function fetchJsonWithTimeout(url: string, timeoutMs = FETCH_TIMEOUT_MS): 
   } catch (e) {
     if (e instanceof StoryContentError) throw e;
     if ((e as Error).name === 'AbortError') throw new StoryContentError('Content request timed out.');
-    throw new StoryContentError('No internet connection. Showing downloaded stories.', 'network');
+    throw new StoryContentError('No internet connection.', 'network');
   } finally {
     clearTimeout(t);
   }
@@ -171,61 +170,6 @@ function storyFilesDir(storyId: string): string {
   return `${STORIES_DIR}${storyId}/`;
 }
 
-export async function isDownloaded(storyId: string): Promise<boolean> {
-  return exists(docPath(`${storyFilesDir(storyId)}story.json`));
-}
-
-/**
- * True when this device can open the story right now — either its files ship
- * inside the APK or they have been downloaded.
- *
- * NOTE: the manifest cannot answer this. It is compiled into the APK and lists
- * EVERY story (including GitHub-only ones that ship without files), so asking
- * the manifest made OTA stories look already installed.
- */
-export async function isStoryOnDevice(storyId: string): Promise<boolean> {
-  if (getBundledStory(storyId)) return true;
-  return isDownloaded(storyId);
-}
-
-async function loadDownloadedFiles(storyId: string): Promise<{
-  story: StoryFile;
-  characters: CharactersFile;
-  world: WorldFile;
-  scenes: ScenesFile;
-  memory: MemoryFile;
-} | null> {
-  const dir = storyFilesDir(storyId);
-  const [story, characters, world, scenes, memory] = await Promise.all([
-    readJson<StoryFile>(docPath(`${dir}story.json`)),
-    readJson<CharactersFile>(docPath(`${dir}characters.json`)),
-    readJson<WorldFile>(docPath(`${dir}world.json`)),
-    readJson<ScenesFile>(docPath(`${dir}scenes.json`)),
-    readJson<MemoryFile>(docPath(`${dir}memory.json`)),
-  ]);
-  if (!story || !characters || !world || !scenes || !memory) return null;
-  return { story, characters, world, scenes, memory };
-}
-
-/**
- * Load a full validated story bundle. Throws StoryContentError or
- * AgeRestrictedError (from assertCanOpen). Never returns malformed content.
- */
-/**
- * Load a full validated story bundle.
- *
- * V2: story content ALWAYS streams from the story API at play time. Bundled
- * and previously-downloaded copies are deliberately NOT consulted, which is
- * what removes offline story playback. While the network is unavailable
- * `fetchJsonWithTimeout` throws a `StoryContentError` with code `'network'`
- * and the calling screen renders the offline state with a Retry action.
- *
- * Throws `StoryContentError` (network / invalid / notfound) or
- * `AgeRestrictedError` (from assertCanOpen). Never returns malformed content.
- *
- * @param apiBaseUrl optional story API base; defaults to the app's configured
- *        base (production https://beyondredeye.site/api).
- */
 /** Resolve the effective creator for a story package. */
 export function resolveCreator(meta: StoryMeta, story?: Partial<StoryFile>): StoryCreator {
   // Prefer meta.creator (manifest-level), then story.creator (package-level),
@@ -241,6 +185,18 @@ export function resolveCreator(meta: StoryMeta, story?: Partial<StoryFile>): Sto
   };
 }
 
+/**
+ * Load a full validated story bundle — always streamed from the story API
+ * (there is no offline story play). Without network `fetchJsonWithTimeout`
+ * throws a `StoryContentError` with code `'network'` and the screen shows the
+ * "Internet connection required" state with Retry.
+ *
+ * Throws `StoryContentError` (network / invalid / notfound) or
+ * `AgeRestrictedError` (from assertCanOpen). Never returns malformed content.
+ *
+ * @param apiBaseUrl optional story API base; defaults to the app's configured
+ *        base (production https://beyondredeye.site/api).
+ */
 export async function getBundle(
   storyId: string,
   ageGroup: AgeGroup,
@@ -359,92 +315,13 @@ export async function checkForUpdates(
   };
 }
 
-/**
- * Download (or re-download) a story package from the story API.
- * @param apiBaseUrl story API base (e.g. https://beyondredeye.site/api).
- */
-export async function downloadStory(
-  meta: StoryMeta,
-  apiBaseUrl: string,
-  ageGroup: AgeGroup,
-  onProgress?: (file: string, done: number, total: number) => void,
-): Promise<void> {
-  // Age gate enforced at the download layer too — restricted stories can
-  // never be fetched, whatever the UI shows.
-  assertCanOpen(meta, ageGroup);
-  const base = effectiveContentApiBaseUrl(apiBaseUrl);
-  const files = ['story.json', 'characters.json', 'world.json', 'scenes.json', 'memory.json'] as const;
-
-  const fetched: Record<string, unknown> = {};
-  const isCommunity = meta.storyDir.startsWith('community/') || (meta as { community?: boolean }).community === true;
-  if (isCommunity) {
-    onProgress?.('bundle', 0, 1);
-    const pkg = (await fetchJsonWithTimeout(storyPackageApiUrl(base, meta.storyDir))) as {
-      story?: unknown; characters?: unknown; world?: unknown; scenes?: unknown; memory?: unknown;
-    };
-    fetched['story.json'] = pkg.story;
-    fetched['characters.json'] = pkg.characters ?? { characters: [] };
-    fetched['world.json'] = pkg.world ?? { premise: '' };
-    fetched['scenes.json'] = pkg.scenes ?? { scenes: [], endings: [] };
-    fetched['memory.json'] = pkg.memory ?? { seedMemories: [] };
-    onProgress?.('done', 1, 1);
-  } else {
-    let done = 0;
-    for (const f of files) {
-      onProgress?.(f, done, files.length);
-      fetched[f] = await fetchJsonWithTimeout(storyFileApiUrl(base, meta.storyDir, f));
-      done++;
-    }
-    onProgress?.('done', files.length, files.length);
-  }
-
-  const result = validateBundle({
-    meta,
-    story: fetched['story.json'],
-    characters: fetched['characters.json'],
-    world: fetched['world.json'],
-    scenes: fetched['scenes.json'],
-    memory: fetched['memory.json'],
-  });
-  if (!result.ok) {
-    throw new StoryContentError(
-      `Downloaded story is invalid (${result.issues[0]?.path}). The download was discarded.`,
-    );
-  }
-
-  const targetDir = storyFilesDir(meta.id);
-  for (const f of files) {
-    await writeText(docPath(`${targetDir}${f}`), JSON.stringify(fetched[f]));
-  }
-  // Best-effort cover download for remote-only stories (relative coverUrl
-  // paths resolve against the API base; legacy absolute URLs pass through).
-  if (meta.coverUrl) {
-    try {
-      const res = await fetch(coverApiUrl(base, meta.coverUrl));
-      if (res.ok) {
-        const buf = await res.arrayBuffer();
-        const bytes = new Uint8Array(buf);
-        let binary = '';
-        const CHUNK = 0x8000;
-        for (let i = 0; i < bytes.length; i += CHUNK) {
-          binary += String.fromCharCode(...bytes.subarray(i, i + CHUNK));
-        }
-        // Store as base64 alongside JSON for offline covers.
-        await writeText(docPath(`${targetDir}cover.b64`), btoa(binary));
-      }
-    } catch {
-      // Cover is optional — story works without it.
-    }
-  }
-  await recordDownload(meta.id, meta.version, new Date().toISOString());
-}
-
+/** Delete leftover package files an older app version downloaded. */
 export async function removeDownloadedStory(storyId: string): Promise<void> {
   await remove(docPath(storyFilesDir(storyId)));
   await removeDownloadRecord(storyId);
 }
 
-/** True when a downloaded copy exists (used for "Downloaded" badges). */
+/** Story ids with leftover package files from older app versions (Storage cleanup). */
 export async function downloadedStoryIds(): Promise<Set<string>> {
   const list = await listDownloads();
   return new Set(list.map((d) => d.storyId));

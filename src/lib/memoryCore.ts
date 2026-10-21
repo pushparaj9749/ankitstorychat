@@ -237,8 +237,7 @@ export function scoreMemory(
   nowMs = Date.now(),
 ): number {
   // Expiring memories are useful until their deadline, never after it. Keeping
-  // this in the pure scorer means every caller (including future offline mode)
-  // gets the same safety behaviour.
+  // this in the pure scorer means every caller gets the same safety behaviour.
   if (m.expiresAt && Number.isFinite(Date.parse(m.expiresAt)) && Date.parse(m.expiresAt) <= nowMs) return -Infinity;
 
   let score = m.importance * WEIGHTS.importance;
@@ -445,7 +444,7 @@ export function preferenceSupersededTexts(newNote: string, existingPrefs: { text
 /* ---------------- local (no-AI) fact extraction ---------------- */
 
 /**
- * Cheap offline extraction: what the reader just told us about themselves.
+ * Cheap local (no-AI) extraction: what the reader just told us about themselves.
  * Runs on every send, before the AI is called, so nothing is lost if the
  * provider fails mid-turn. Patterns run against the ORIGINAL text so names
  * keep their capitalisation.

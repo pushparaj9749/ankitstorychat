@@ -154,7 +154,6 @@ export function Chat({ navigation, route }: Props) {
         const first = await listMessages(pt.id, PAGE);
         const total = await countMessages(pt.id);
         if (!alive) return;
-        if (pt.mode !== 'ai') pt.mode = 'ai';
         // Stories never end: a journey an older version marked "completed"
         // simply continues from where it stopped.
         if (pt.status === 'completed') {
@@ -737,7 +736,7 @@ export function Chat({ navigation, route }: Props) {
           ]}
         >
           <View style={[styles.modeDot, { backgroundColor: aiReady ? theme.success : theme.textFaint }]} />
-          <Text style={[styles.modeText, { color: classic && aiReady ? '#A7F3CF' : theme.textDim }]}>{aiReady ? 'AI' : 'Offline'}</Text>
+          <Text style={[styles.modeText, { color: classic && aiReady ? '#A7F3CF' : theme.textDim }]}>{aiReady ? 'AI' : 'No AI'}</Text>
         </View>
       </View>
 

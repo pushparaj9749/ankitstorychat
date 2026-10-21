@@ -3,7 +3,7 @@
 **Local-first AI interactive story chat.** No backend. No accounts. No coins. No message limits.
 
 Kissa is an original interactive-fiction app: you play the main character in cinematic
-Hinglish stories, chatting freely or picking choices while AI (or the offline storyteller)
+Hinglish stories, chatting freely or picking choices while your own AI provider
 moves the tale forward — with memory and relationships, and no script: no predefined scenes, arcs or endings.
 
 > **Original work.** Kissa has its own branding, UI, stories, characters, art, and sounds.
@@ -16,17 +16,15 @@ moves the tale forward — with memory and relationships, and no script: no pred
 - **100% local-first** — profile, chats, memories, saves, favorites, settings on-device (SQLite + SecureStore). No login, no cloud user DB.
 - **Original Hinglish stories** delivered over the air — each is a premise, characters, a world and one opening moment; after that the story is free-form and endless.
 - **New stories arrive without an app update** — new packs land in `content/manifest.json`
-  (`contentVersion`), and existing installs pick them up automatically from the live story API
-  (or straight from a story's page via its in-place **Download** button).
+  (`contentVersion`), and existing installs pick them up automatically from the live story API.
 - **BYO AI** — configure your own OpenAI-compatible provider (OpenAI, OpenRouter, Groq, Together, custom). Key stays in device keystore.
 - **APP LIMIT = NONE** — the app never caps chat. Provider quotas are your provider's.
-- **Offline Story Mode** — fully playable scripted stories with zero network and zero key.
-- **Age-safe catalog** — 12–17 users get a restricted catalog enforced in app logic (home, search, recommendations, downloads, direct opens).
+- **No offline mode** — every reply comes from your own AI provider, and story content is always streamed from the story API, so playing needs internet + your key. (The old scripted Offline Story Mode and its story downloader were removed in v2.9.1.)
+- **Age-safe catalog** — 12–17 users get a restricted catalog enforced in app logic (home, search, recommendations, direct opens).
 - **Story API content system** — new stories arrive as JSON packages from
   `https://beyondredeye.site/api` (Cloudflare Worker), no app rebuild and no GitHub
   access from the app. The app auto-discovers newer packs on launch (Settings
-  "New story alerts"), and each story page shows an in-place **Download** button
-  for packs not yet on the device.
+  "New story alerts"); opening a story always loads its package fresh from the API.
 - **Story submissions + Media Gallery** — readers can **💡 Suggest an Idea** or **📖
   Submit a Complete Story** (form or JSON) from Settings, with a polished cover/gallery
   uploader. Every submission is **admin-reviewed and never auto-published**, gated by a
@@ -35,8 +33,8 @@ moves the tale forward — with memory and relationships, and no script: no pred
   it as a responsive, lazy-loading gallery with a full-screen lightbox. All 43 shipped
   stories are credited to **Ankit (verified)** with their real artwork in the gallery.
 - **Player-name interpolation** — story text uses `{{playerName}}`, resolved at
-  runtime to the locally stored nickname in narration, the pre-chat introduction,
-  offline mode and AI prompts. Character names are never replaced (e.g. *Kabir* in
+  runtime to the locally stored nickname in narration, the pre-chat introduction
+  and AI prompts. Character names are never replaced (e.g. *Kabir* in
   *Chai, Dreams & Backbenchers* is a character, not the player).
 - **Endless, free-form stories** — no story has a predefined scene, arc or ending
   (v2.7.1). The narrator only gets the opening moment; scene/ending data in older
@@ -57,6 +55,14 @@ moves the tale forward — with memory and relationships, and no script: no pred
 ---
 
 ## 🆕 Release notes
+
+### v2.9.1 — Offline story mode removed everywhere
+
+- The old scripted **Offline Story Mode** is gone for good. Removed: `src/lib/offlineEngine.ts`, the unused story downloader (`downloadStory`), the unused "download complete" notification, and the `'offline'` journey mode (old journeys and backups load as AI).
+- All "Offline" wording is gone from the app, legal texts, README and website. The Chat pill now shows **AI** or **No AI**; the Settings AI card, Terms and Privacy no longer promise play without a key.
+- Storage: the "Downloaded Stories" list is gone. If an older version left story files behind, a single **Delete Old Story Files** button frees the space.
+- The opening messages of a new journey now come from one shared function, `src/lib/opening.ts` (same behaviour, used by both UI templates). Story tests check it instead of the old offline engine.
+- A guard test, `noOfflineMode`, keeps offline mode from coming back. The `fallbackLines` field stays in story packages only because older installed app versions still validate it.
 
 ### v2.9.0 — App Lock + "Naya version aaya hai"
 
@@ -263,11 +269,8 @@ dependency.
 │  AI layer (OpenAI-compat)    │  user key from SecureStore,
 │  src/lib/ai.ts               │  typed errors, retry/test
 ├──────────────────────────────┤
-│  Offline storyteller         │  scripted scenes walk, keyword
-│  src/lib/offlineEngine.ts    │  matching, fallbacks, endings
-├──────────────────────────────┤
-│  Content system              │  bundled JSON + story API manifest,
-│  src/content/loader.ts       │  version compare, download cache
+│  Content system              │  bundled catalog + story API,
+│  src/content/loader.ts       │  streamed packages, validation
 ├──────────────────────────────┤
 │  Local data                  │  SQLite (chats/state/memory/saves),
 │  src/lib/db.ts               │  SecureStore (API keys), files (cache)
@@ -288,9 +291,9 @@ dependency.
 |---|---|
 | Profile, settings, stats, KV | SQLite `kv` |
 | Playthroughs, messages, memories | SQLite tables (`memories`: hash/hits/archived, schema v4) |
-| Favorites, downloads, provider *metadata* | SQLite tables |
+| Favorites, provider *metadata* | SQLite tables |
 | API keys | SecureStore (Keystore/Keychain) |
-| Downloaded story JSON | `documentDirectory/kissa-content/` |
+| Manifest cache (+ leftover story files from older versions, removable in Storage) | `documentDirectory/kissa-content/` |
 | Export files (temp) | cache dir, shared via OS sheet |
 
 ### Story delivery: private repo → CI → story API → app (NO user database)
@@ -309,8 +312,8 @@ GitHub Actions (deploy-api.yml)  ←— push to main (this private repo)
 - `content/stories/<id>/` — story packages (`story|characters|world|scenes|memory.json` + `assets/`).
 - The Worker serves the manifest + packages + covers from its deployed static
   assets (built by `scripts/build-worker-assets.mjs`). The app fetches the
-  manifest, compares versions, downloads newer packages, validates them,
-  caches them — new stories still arrive **without an app update**.
+  manifest, compares versions, and streams + validates a story's package each
+  time it is opened — new stories still arrive **without an app update**.
 - **No GitHub credentials ever reach the app, the website or the Worker
   bundle.** The repo is only read by CI (encrypted secrets, server-side).
 - **Private user data is NEVER sent to the API or written to GitHub.** The
@@ -401,8 +404,8 @@ Full architecture, guarantees and the v2.5.1 test/QA matrix: **docs/V2.5.1_MEMOR
 
 - Provider abstraction is OpenAI-compatible (`POST {baseUrl}/chat/completions`), so many providers work unchanged. Presets included.
 - Keys are read from SecureStore **at call time** and never logged or persisted elsewhere.
-- Errors are typed (`invalid_key`, `rate_limit`, `timeout`, …) with **Retry / Settings / Go Offline** UI. The app never crashes on provider failure.
-- Per-chat mode toggle: 🤖 AI ↔ 📖 Offline.
+- Errors are typed (`invalid_key`, `rate_limit`, `timeout`, …) with **Retry / Settings** UI. The app never crashes on provider failure.
+- No AI set up → starting a story asks you to add a provider (there is no scripted fallback).
 
 ---
 
@@ -466,7 +469,7 @@ Beena: "Achchha. Zubaan mein dum toh hai tumhare."                              
 - `*asterisked*` text is **action / scene-setting**: the chat UI renders it **faded + italic**
   (`FADED_TEXT_OPACITY` in `src/theme.ts`), the markers are never shown.
 - `Name: "dialogue"` becomes a bubble with the character's name as its speaker label
-  (offline mode matches the prefix against that story's real character list, so
+  (the chat matches the prefix against that story's real character list, so
   `Problem: sab kuch bigad gaya` never invents a character called *Problem*).
 - Opening narration is rendered in the **same bubble** as the dialogue below it, so the top of
   a new story reads exactly like the rest of the conversation. `✦ Scene Title` stays a chapter
@@ -487,7 +490,7 @@ npm run content:validate
 block pointing at `assets/cover.jpg`, so new stories validate out of the box.
 Then commit `content/` → the shipped `contentVersion` in `manifest.json` auto-increments
 → users pick the pack up automatically from the live story API. The app validates every
-download and discards malformed packages.
+package it loads and rejects malformed ones.
 
 ---
 
@@ -597,7 +600,7 @@ settings page.
   stories (MC + Poonam, MC + Bhabhi) and `kissa-state` stripping.
 - `npm run content:validate` — validates manifest + **every** story package (fields, ratings, scene graph, reachability, choice targets, cross-file consistency).
 - `npm run typecheck` — strict TS.
-- Manual QA checklist (first launch → onboarding → teen filter → story → chat → choices → branching → memory → saves/replay → favorites → search → AI config + bad key + offline → updates → notifications → export/import → terms/privacy → APK → site) — see CI + this README; all flows implemented and wired.
+- Manual QA checklist (first launch → onboarding → teen filter → story → chat → choices → branching → memory → saves/replay → favorites → search → AI config + bad key + no internet → updates → notifications → export/import → terms/privacy → APK → site) — see CI + this README; all flows implemented and wired.
 
 ---
 
@@ -607,8 +610,8 @@ settings page.
 |---|---|
 | `API key rejected` | Re-paste key in AI Add-ons → Test. Keys are never exported in backups. |
 | `Model not found` | Check model name/base URL (404 = wrong model or endpoint). |
-| `Rate limited` | Provider quota — wait/retry, or switch to Offline Mode (free forever). |
-| Stories won't update | Needs internet to fetch manifest; downloaded stories still work offline. |
+| `Rate limited` | Provider quota — wait and retry, or switch provider / model. |
+| Stories won't load / update | Needs internet — the manifest and every story package come from the story API. |
 | `expo-notifications` in Expo Go | Local notifications work on device; permission must be granted. |
 | Gradle build fails locally | Use CI (Java 17 + SDK + NDK preconfigured). Locally: `npx expo prebuild`, then open `android/` in Android Studio. |
 

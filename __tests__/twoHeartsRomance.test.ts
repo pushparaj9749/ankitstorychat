@@ -4,7 +4,6 @@ import { join } from 'node:path';
 import type { Playthrough, StoryBundle, StoryMeta } from '../src/types';
 import { createInitialState } from '../src/types';
 import { applyEffects, buildSystemPrompt } from '../src/lib/engine';
-import { offlineStep } from '../src/lib/offlineEngine';
 import { validateBundle, validateMedia } from '../src/lib/validate';
 
 const id = 'two-hearts-one-honest-choice';
@@ -121,11 +120,4 @@ describe('Two Hearts content publication', () => {
     expect(previous.flags.requestedTime).toBeUndefined();
   });
 
-  test('offline fallback remains non-terminal and does not fabricate an action from unexpected text', () => {
-    const result = offlineStep(bundle, playthrough, 'I want to discuss something completely unexpected', 'Dev');
-    expect(result.step.ended).toBe(false);
-    expect(result.step.endingId).toBeNull();
-    expect(result.step.matchedChoiceId).toBeNull();
-    expect(result.state).toEqual(playthrough.state);
-  });
 });

@@ -38,7 +38,6 @@ export const PRIVACY_SECTIONS: LegalSection[] = [
     heading: '3. Third-party AI providers',
     body: [
       'If you add your own provider (OpenAI-compatible or custom), that provider\'s privacy policy governs what happens to your requests on their side. Common examples log, retain, or train on data differently — read your provider\'s policy.',
-      'Tip: use Offline Story Mode (no key needed) if you want zero network requests during story play.',
     ],
   },
   {

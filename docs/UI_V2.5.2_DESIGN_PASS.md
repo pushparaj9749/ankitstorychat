@@ -59,7 +59,7 @@ that is no longer 10px.
   character dialogue is named with a **rose reading edge**, the player speaks in
   a rose-gradient bubble.
 * Scene header with scene title in the accent, **present-characters avatars**,
-  AI/offline status pill with a state dot.
+  AI status pill with a state dot.
 * Accent atmosphere behind the transcript (no photo, no crop — cheap on GPU).
 * **Choices are full-width cards** with a rose marker and chevron (were pills
   that truncated at two lines).

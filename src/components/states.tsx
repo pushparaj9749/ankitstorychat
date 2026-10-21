@@ -1,5 +1,5 @@
 /**
- * KISSA v2.4.2 — Empty, Error, Loading, Offline States
+ * KISSA v2.4.2 — Empty, Error, Loading, No-internet States
  * Minimal, editorial, calm. No excessive emoji, no neon.
  */
 import React from 'react';

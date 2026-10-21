@@ -279,8 +279,6 @@ export const effectiveContentApiBaseUrl = () => '';
 export const mediaApiUrl = (_base: string, dir: string, file: string) => `covers/${dir}__${file.replace(/\//g, '_')}`;
 export const getBundledCoverSource = (meta: any): CoverSource => ({ uri: `covers/${meta?.id}.jpg` });
 export const listDeviceStories = async () => [];
-export const isStoryOnDevice = async () => true;
-export const downloadStory = async () => undefined;
 export const checkForUpdates = async () => ({ hasUpdate: false, newStories: [], updatedStories: [] });
 export const getBundle = async () => PREVIEW_BUNDLE;
 export const getScene = (bundle: any, sceneId: string) =>

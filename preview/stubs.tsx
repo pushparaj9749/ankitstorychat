@@ -71,8 +71,6 @@ export const getBundledCoverSource = (meta: any): CoverSource => ({ uri: `/__cov
 export const getBundle = async () => {
   throw new Error('preview stub');
 };
-export const isStoryOnDevice = async () => true;
-export const downloadStory = async () => undefined;
 export class StoryContentError extends Error {
   code: string;
   constructor(message: string, code = 'missing') {
