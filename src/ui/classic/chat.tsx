@@ -23,6 +23,7 @@ import { FADED_TEXT_OPACITY, GRADIENTS, RADIUS, SCALE, SHADOWS, SPACING, TOUCH, 
 import { parseStoryMarkup, stripStoryMarkup } from '../../lib/markup';
 import { sanitizeStoredText } from '../../lib/leakGuard';
 import { Avatar } from '../../components/bits';
+import { avatarKey, splitStoryBeats } from '../../components/chat';
 import { Icon, ICON_SIZE } from '../../components/icons';
 
 /**
@@ -93,6 +94,52 @@ function ChatBubbleImpl({ message: stored }: { message: ChatMessage }) {
   const bodySize = FONTS.body * scale;
   const smallBody = 14.5 * scale;
 
+  const narrationBubble = (text: string, speaker: string | null, key?: string) => (
+      <View key={key} style={[styles.row, styles.rowLeft]}>
+        {speaker ? <Avatar id={avatarKey(speaker)} name={speaker} size={30} /> : <NarratorMark />}
+        <View
+          style={[
+            styles.bubble,
+            styles.bubbleNarration,
+            { backgroundColor: theme.surface, borderColor: theme.border },
+          ]}
+        >
+          <LinearGradient colors={['rgba(255,79,139,0.05)', 'transparent']} style={styles.bubbleGlow} pointerEvents="none" />
+          <View style={[styles.accentEdge, { backgroundColor: 'transparent' }]} pointerEvents="none" />
+          <StoryText
+            text={text}
+            color={theme.textDim}
+            fadedColor={withAlpha(theme.textDim, FADED_TEXT_OPACITY)}
+            fontSize={smallBody}
+            lineHeight={22 * scale}
+            faded
+          />
+        </View>
+      </View>
+  );
+  const dialogueBubble = (text: string, speaker: string | null, key?: string) => (
+    <View key={key} style={[styles.row, styles.rowLeft]}>
+      {speaker ? <Avatar id={avatarKey(speaker)} name={speaker} size={30} /> : <NarratorMark />}
+      <View
+        style={[
+          styles.bubble,
+          styles.bubbleDialogue,
+          { backgroundColor: withAlpha(theme.surface2, 0.94), borderColor: withAlpha(theme.primary, 0.24) },
+        ]}
+      >
+        <LinearGradient colors={['rgba(255,122,176,0.10)', 'transparent']} style={styles.bubbleGlow} pointerEvents="none" />
+        <View style={[styles.accentEdge, { backgroundColor: theme.primary }]} pointerEvents="none" />
+        {speaker ? (
+          <View style={styles.speakerRow}>
+            <Text style={[styles.speaker, { color: theme.accent, fontSize: 11 * scale }]}>{speaker}</Text>
+            <View style={[styles.speakerDot, { backgroundColor: withAlpha(theme.accent, 0.5) }]} />
+          </View>
+        ) : null}
+        <StoryText text={text} color={'#fff'} fadedColor={withAlpha(theme.textDim, FADED_TEXT_OPACITY)} fontSize={bodySize} lineHeight={23 * scale} />
+      </View>
+    </View>
+  );
+
   if (message.role === 'narration') {
     if (isSceneMarker(message.text)) {
       return (
@@ -107,29 +154,7 @@ function ChatBubbleImpl({ message: stored }: { message: ChatMessage }) {
     }
 
     // Narration — same layout shape as dialogue (see file header).
-    return (
-      <View style={[styles.row, styles.rowLeft]}>
-        {message.speaker ? <Avatar id={message.speaker} name={message.speaker} size={30} /> : <NarratorMark />}
-        <View
-          style={[
-            styles.bubble,
-            styles.bubbleNarration,
-            { backgroundColor: theme.surface, borderColor: theme.border },
-          ]}
-        >
-          <LinearGradient colors={['rgba(255,79,139,0.05)', 'transparent']} style={styles.bubbleGlow} pointerEvents="none" />
-          <View style={[styles.accentEdge, { backgroundColor: 'transparent' }]} pointerEvents="none" />
-          <StoryText
-            text={message.text}
-            color={theme.textDim}
-            fadedColor={withAlpha(theme.textDim, FADED_TEXT_OPACITY)}
-            fontSize={smallBody}
-            lineHeight={22 * scale}
-            faded
-          />
-        </View>
-      </View>
-    );
+    return narrationBubble(message.text, message.speaker ?? null);
   }
 
   if (message.role === 'system') {
@@ -159,29 +184,19 @@ function ChatBubbleImpl({ message: stored }: { message: ChatMessage }) {
   // field; lift that name into the label/avatar instead of repeating it inline.
   const inferred = message.speaker ? null : inferSpeaker(message.text);
   const speaker = message.speaker ?? inferred?.name ?? null;
-  const text = inferred ? inferred.rest : message.text;
-  return (
-    <View style={[styles.row, styles.rowLeft]}>
-      {speaker ? <Avatar id={speaker} name={speaker} size={30} /> : <NarratorMark />}
-      <View
-        style={[
-          styles.bubble,
-          styles.bubbleDialogue,
-          { backgroundColor: withAlpha(theme.surface2, 0.94), borderColor: withAlpha(theme.primary, 0.24) },
-        ]}
-      >
-        <LinearGradient colors={['rgba(255,122,176,0.10)', 'transparent']} style={styles.bubbleGlow} pointerEvents="none" />
-        <View style={[styles.accentEdge, { backgroundColor: theme.primary }]} pointerEvents="none" />
-        {speaker ? (
-          <View style={styles.speakerRow}>
-            <Text style={[styles.speaker, { color: theme.accent, fontSize: 11 * scale }]}>{speaker}</Text>
-            <View style={[styles.speakerDot, { backgroundColor: withAlpha(theme.accent, 0.5) }]} />
-          </View>
-        ) : null}
-        <StoryText text={text} color={'#fff'} fadedColor={withAlpha(theme.textDim, FADED_TEXT_OPACITY)} fontSize={bodySize} lineHeight={23 * scale} />
+  // Several beats in one reply → one bubble per beat (see splitStoryBeats).
+  const beats = message.role === 'assistant' ? splitStoryBeats(message.text, message.speaker ?? null) : null;
+  if (beats && beats.length > 1) {
+    return (
+      <View>
+        {beats.map((bt, i) =>
+          bt.kind === 'narration' ? narrationBubble(bt.text, null, `b${i}`) : dialogueBubble(bt.text, bt.speaker, `b${i}`),
+        )}
       </View>
-    </View>
-  );
+    );
+  }
+  const text = inferred ? inferred.rest : message.text;
+  return dialogueBubble(text, speaker);
 }
 
 /**

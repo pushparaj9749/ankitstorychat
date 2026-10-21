@@ -110,7 +110,9 @@ export function AppProvider({ children }: { children: React.ReactNode }) {
   }, []);
 
   const refreshRecent = useCallback(async () => {
-    setRecentPlaythroughs(await listRecentPlaythroughs(12));
+    // All journeys (local SQLite, cheap): Library lists them and the counts
+    // on You / Library must be the real totals, not the first twelve.
+    setRecentPlaythroughs(await listRecentPlaythroughs(1000));
   }, []);
 
   const reloadAll = useCallback(async () => {

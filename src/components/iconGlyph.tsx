@@ -277,6 +277,9 @@ const GLYPHS = {
   download: {
     lines: ['M12 3.8v11', 'M7.5 10.6 12 15l4.5-4.4', 'M4.5 16.5v1.8a1.7 1.7 0 0 0 1.7 1.7h11.6a1.7 1.7 0 0 0 1.7-1.7v-1.8'],
   },
+  share: {
+    lines: ['M12 14.5V3.8', 'M7.8 7.8 12 3.6l4.2 4.2', 'M8.5 10.5H6.7A1.7 1.7 0 0 0 5 12.2v6.6a1.7 1.7 0 0 0 1.7 1.7h10.6a1.7 1.7 0 0 0 1.7-1.7v-6.6a1.7 1.7 0 0 0-1.7-1.7h-1.8'],
+  },
 } satisfies Record<string, Glyph>;
 
 type GlyphKey = keyof typeof GLYPHS;

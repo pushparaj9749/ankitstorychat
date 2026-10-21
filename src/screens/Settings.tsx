@@ -134,8 +134,8 @@ export function Settings({ navigation }: Props) {
             </View>
             <View style={styles.profileStatDivider} />
             <View style={styles.profileStat}>
-              <Text style={styles.profileStatValue}>{recentPlaythroughs?.filter((p) => p.status === 'completed').length ?? 0}</Text>
-              <Text style={styles.profileStatLabel}>FINISHED</Text>
+              <Text style={styles.profileStatValue}>{new Set((recentPlaythroughs ?? []).map((p) => p.storyId)).size}</Text>
+              <Text style={styles.profileStatLabel}>STORIES</Text>
             </View>
           </View>
         </Pressable>

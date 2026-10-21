@@ -10,7 +10,8 @@ import Constants from 'expo-constants';
 import { kvGet, kvSet } from './db';
 
 export const RELEASES_API = 'https://api.github.com/repos/pushparaj9749/ankitstorychat/releases/latest';
-export const RELEASES_PAGE = 'https://github.com/pushparaj9749/ankitstorychat/releases/latest';
+import { RELEASES_PAGE } from './links';
+export { RELEASES_PAGE };
 
 const CACHE_KEY = 'update.latest';
 const DISMISS_KEY = 'update.dismissed';

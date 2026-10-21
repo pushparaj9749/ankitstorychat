@@ -25,6 +25,7 @@ jest.mock('react-native', () => {
     StatusBar: el('StatusBar'),
     Modal: (p: any) => R.createElement('Modal', p, p.children),
     Alert: { alert: jest.fn() },
+    Share: { share: jest.fn(() => Promise.resolve()) },
   };
 });
 
@@ -309,8 +310,8 @@ describe('StoryDetail (V2: streamed playback, offline gate)', () => {
     // Character portraits are labelled with the character name.
     expect(text).toContain('Aria');
 
-    // Canonical section order: About (title) → Media Library → Story Creator → Refer Kissa.
-    const order = [STORY.title, 'Media Library (2)', 'Story Creator', 'Refer Kissa'];
+    // Canonical section order: About (title) → Media Library → Story Creator → Share karo.
+    const order = [STORY.title, 'Media Library (2)', 'Story Creator', 'Share karo'];
     let last = -1;
     for (const marker of order) {
       const idx = text.indexOf(marker);
@@ -330,7 +331,7 @@ describe('StoryDetail (V2: streamed playback, offline gate)', () => {
     expect(text).not.toContain('Media Library');
     // The rest of the canonical layout is intact.
     expect(text).toContain('Story Creator');
-    expect(text).toContain('Refer Kissa');
+    expect(text).toContain('Share karo');
     expect(text).toContain('Start Story');
   });
 });
