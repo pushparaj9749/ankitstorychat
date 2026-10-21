@@ -17,7 +17,7 @@
  *  - cast portraits come from the story's own character references
  */
 import React, { useEffect, useMemo, useState } from 'react';
-import { ActivityIndicator, Alert, Modal, Pressable, ScrollView, StyleSheet, Text, View } from 'react-native';
+import { ActivityIndicator, Alert, Modal, Pressable, ScrollView, Share, StyleSheet, Text, View } from 'react-native';
 import { LinearGradient } from 'expo-linear-gradient';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import type { NativeStackScreenProps } from '@react-navigation/native-stack';
@@ -41,6 +41,7 @@ import { createPlaythrough, playthroughLabel } from '../../lib/playthrough';
 import { seedMemoriesIfEmpty } from '../../lib/memory';
 import { ensureWorldState } from '../../lib/worldState';
 import { GLASS, RADIUS, SCALE, SHADOWS, SPACING, TOUCH, TYPE, withAlpha } from './theme';
+import { shareStoryMessage } from '../../lib/share';
 import { Icon, ICON_SIZE } from '../../components/icons';
 import { uid } from '../../lib/utils';
 import { mediumBuzz } from '../../lib/haptics';
@@ -331,7 +332,7 @@ export function StoryDetail({ navigation, route }: Props) {
                         {c.name}
                       </Text>
                       <Text style={[styles.castRole, { color: theme.textFaint }]} numberOfLines={2}>
-                        {c.role ?? 'Character'}
+                        {forPlayer(c.role ?? 'Character')}
                       </Text>
                     </View>
                   );
@@ -370,11 +371,31 @@ export function StoryDetail({ navigation, route }: Props) {
           <CreatorBlock creator={bundle.creator} />
           <SimilarStoriesBlock storyId={storyId} navigation={navigation} />
 
-          <SectionHeader title="Refer Kissa" />
-          <View style={[styles.referCard, { backgroundColor: withAlpha(theme.text, 0.04), borderColor: theme.border }]}>
-            <Text style={[styles.referTitle, { color: theme.text }]}>Pass the story forward</Text>
-            <Text style={[styles.referSub, { color: theme.textDim }]}>Invite friends to interactive stories. Local-first, private, no ads.</Text>
-          </View>
+          <SectionHeader title="Share karo" />
+          <Pressable
+            onPress={() => {
+              void Share.share({ message: shareStoryMessage(meta.title, forPlayer(meta.tagline)) }).catch(() => undefined);
+            }}
+            accessibilityRole="button"
+            accessibilityLabel={`Share ${meta.title}`}
+            testID="story-share"
+            style={({ pressed }) => [
+              styles.referCard,
+              { backgroundColor: withAlpha(theme.text, pressed ? 0.08 : 0.04), borderColor: theme.border },
+            ]}
+          >
+            <View style={styles.referRow}>
+              <View style={{ flex: 1 }}>
+                <Text style={[styles.referTitle, { color: theme.text }]}>Dosto ko bhejo</Text>
+                <Text style={[styles.referSub, { color: theme.textDim }]}>
+                  WhatsApp ya kahin bhi share karo. Koi account nahi, koi ads nahi.
+                </Text>
+              </View>
+              <View style={[styles.referIcon, { backgroundColor: withAlpha(theme.accent, 0.14) }]}>
+                <Icon name="share" size={ICON_SIZE.md} color={theme.accent} />
+              </View>
+            </View>
+          </Pressable>
 
           <View style={{ height: 132 }} />
         </View>
@@ -694,7 +715,9 @@ const styles = StyleSheet.create({
   similarDot: { width: 5, height: 5, borderRadius: 2.5 },
   similarTitle: { fontSize: SCALE.small, fontWeight: '800', lineHeight: 16, color: '#fff' },
   similarGenre: { fontSize: SCALE.micro, fontWeight: '800', letterSpacing: 0.5, color: 'rgba(240,232,255,0.7)', flexShrink: 1 },
-  referCard: { borderWidth: 1, borderRadius: RADIUS.lg, padding: 16, marginTop: 4, borderStyle: 'dashed' },
+  referCard: { borderWidth: 1, borderRadius: RADIUS.lg, padding: 16, marginTop: 4 },
+  referRow: { flexDirection: 'row', alignItems: 'center', gap: 12 },
+  referIcon: { width: 40, height: 40, borderRadius: 20, alignItems: 'center', justifyContent: 'center' },
   referTitle: { fontSize: 15, fontWeight: '800' },
   referSub: { fontSize: SCALE.small, marginTop: 5, lineHeight: 19 },
   fixedBar: {

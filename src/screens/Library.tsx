@@ -19,7 +19,7 @@ import { LAYOUT, RADIUS, SCALE, SPACING, TYPE, withAlpha } from '../theme';
 import { timeAgo } from '../lib/utils';
 
 type Props = BottomTabScreenProps<MainTabParamList, 'Library'>;
-type FilterTab = 'All' | 'Active' | 'Completed' | 'Saved';
+type FilterTab = 'All' | 'Journeys' | 'Saved';
 
 export function Library({ navigation }: Props) {
   const { theme, stories, favoriteIds, recentPlaythroughs } = useApp();
@@ -28,7 +28,8 @@ export function Library({ navigation }: Props) {
 
   const byId = useMemo(() => new Map(stories.map((s) => [s.id, s])), [stories]);
   const favStories = useMemo(() => stories.filter((s) => favoriteIds.has(s.id)), [stories, favoriteIds]);
-  const completedCount = useMemo(() => recentPlaythroughs.filter((p) => p.status === 'completed').length, [recentPlaythroughs]);
+  /** Stories never end, so instead of "completed": how many different stories you've played. */
+  const storiesPlayed = useMemo(() => new Set(recentPlaythroughs.map((p) => p.storyId)).size, [recentPlaythroughs]);
   const popular = useMemo(() => [...stories].sort((a, b) => b.popularity - a.popularity).slice(0, 4), [stories]);
   /** Stories not on the shelf yet — keeps a short shelf from ending in blank screen. */
   const picks = useMemo(() => {
@@ -40,10 +41,7 @@ export function Library({ navigation }: Props) {
   }, [stories, favoriteIds, recentPlaythroughs]);
 
   const filteredPlaythroughs = useMemo(() => {
-    const list = recentPlaythroughs.filter((p) => byId.has(p.storyId));
-    if (filter === 'Active') return list.filter((p) => p.status === 'active');
-    if (filter === 'Completed') return list.filter((p) => p.status === 'completed');
-    return list;
+    return recentPlaythroughs.filter((p) => byId.has(p.storyId));
   }, [recentPlaythroughs, byId, filter]);
 
   const openStory = (id: string) => (navigation as any).navigate('StoryDetail', { storyId: id });
@@ -68,7 +66,7 @@ export function Library({ navigation }: Props) {
           <View style={styles.statRow}>
             {stat('bookmark', favStories.length, 'Saved', theme.accent)}
             {stat('chatbubble', recentPlaythroughs.length, 'Journeys', theme.violet)}
-            {stat('checkmark-circle', completedCount, 'Completed', theme.gold)}
+            {stat('book', storiesPlayed, 'Stories', theme.gold)}
           </View>
         </View>
 
@@ -102,14 +100,14 @@ export function Library({ navigation }: Props) {
         ) : (
           <>
             <ScrollView horizontal showsHorizontalScrollIndicator={false} contentContainerStyle={styles.filterRow}>
-              {(['All', 'Active', 'Completed', 'Saved'] as FilterTab[]).map((tab) => (
+              {(['All', 'Journeys', 'Saved'] as FilterTab[]).map((tab) => (
                 <SelectableChip key={tab} label={tab} selected={filter === tab} onPress={() => setFilter(tab)} />
               ))}
             </ScrollView>
 
             {filter !== 'Saved' && filteredPlaythroughs.length > 0 ? (
               <View style={styles.pad}>
-                <SectionHeader title={filter === 'Completed' ? 'Completed' : 'Journeys'} kicker={`${filteredPlaythroughs.length}`} />
+                <SectionHeader title="Journeys" kicker={`${filteredPlaythroughs.length}`} />
                 {filteredPlaythroughs.map((p) => {
                   const meta = byId.get(p.storyId);
                   if (!meta) return null;
@@ -118,7 +116,7 @@ export function Library({ navigation }: Props) {
                       <ContinueCard
                         meta={meta}
                         progress={p.progress}
-                        subtitle={`${p.label} · ${p.status === 'completed' ? 'Completed' : timeAgo(p.updatedAt)}`}
+                        subtitle={`${p.label} · ${timeAgo(p.updatedAt)}`}
                         onPress={() => (navigation as any).navigate('Chat', { playthroughId: p.id })}
                       />
                     </View>
@@ -128,7 +126,7 @@ export function Library({ navigation }: Props) {
             ) : filter !== 'Saved' ? (
               <View style={styles.emptyWrap}>
                 <Icon name="chatbubble-outline" size={22} color={theme.textFaint} />
-                <Text style={[styles.emptyText, { color: theme.textFaint }]}>No {filter.toLowerCase()} journeys yet.</Text>
+                <Text style={[styles.emptyText, { color: theme.textFaint }]}>No journeys yet.</Text>
               </View>
             ) : null}
 

@@ -136,7 +136,7 @@ export function Home({ navigation }: Props) {
       .filter(([g, list]) => list.length >= 3 && g !== becauseOf?.genre)
       .sort((a, b) => b[1].length - a[1].length)
       .slice(0, 3)
-      .map(([genre, list]) => ({ genre, list: [...list].sort((a, b) => b.popularity - a.popularity).slice(0, 10) }));
+      .map(([genre, list]) => ({ genre, total: list.length, list: [...list].sort((a, b) => b.popularity - a.popularity).slice(0, 10) }));
   }, [stories, becauseOf]);
 
   const firstName = (profile?.nickname ?? '').trim().split(/\s+/)[0] ?? '';
@@ -359,12 +359,12 @@ export function Home({ navigation }: Props) {
               ) : null}
 
               {/* Genre rails */}
-              {genreRails.map(({ genre, list }) => (
+              {genreRails.map(({ genre, total, list }) => (
                 <View key={genre}>
                   <View style={styles.sectionPad}>
                     <SectionHeader
                       title={genre}
-                      kicker={`${list.length} stories`}
+                      kicker={`${total} stories`}
                       action="See all"
                       onAction={() => navigation.navigate('Discover', { genre })}
                     />

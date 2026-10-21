@@ -56,6 +56,14 @@ moves the tale forward — with memory and relationships, and no script: no pred
 
 ## 🆕 Release notes
 
+### v2.9.3 — Chat and screen polish
+
+- **Chat replies read like the opening.** When one AI reply mixes narration and several speakers, each beat now gets its own bubble with the right name. Before, everything sat under the first speaker's name with raw "Laila:" prefixes inside. This is display only, so old chats look right too. A character keeps one avatar colour ("Vedika" = "Vedika Rajvanshi").
+- **First-move suggestions.** Every story's opening has 2–4 authored first moves, but they were never shown. They now appear as tappable chips above the composer until your first message. After that the story is fully free-form.
+- **Story page:** cast roles showed a raw `{{playerName}}` (64 stories). Now your name is shown. The dead "Refer Kissa" card is a real **Share** button (OS share sheet, nothing goes to our server).
+- **No "completed" anywhere:** stories never end, so Library's *Completed* tab/stat and You's *FINISHED* (always 0) are replaced by **Stories** played. Journey counts and the Library list are now real totals (they stopped at twelve).
+- Home genre rows showed "10 stories" for every genre. They now show the real count.
+
 ### v2.9.2 — Smooth opening animation
 
 - The opening animation no longer stutters or freezes. It used to be ~25 small animations chained on the JS thread, and the app mounted behind it at the same moment, so steps started late. Now the whole intro runs as **one native animation on one clock** (and the exit as one more), so a busy JS thread can't stall it.

@@ -10,7 +10,7 @@
  * - kissa-state leak fixed at parsing layer (engine.ts)
  */
 import React, { useCallback, useEffect, useMemo, useRef, useState } from 'react';
-import { FlatList, Image, KeyboardAvoidingView, Platform, Pressable, StyleSheet, Text, TextInput, View } from 'react-native';
+import { FlatList, Image, KeyboardAvoidingView, Platform, Pressable, ScrollView, StyleSheet, Text, TextInput, View } from 'react-native';
 import { LinearGradient } from 'expo-linear-gradient';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import type { NativeStackScreenProps } from '@react-navigation/native-stack';
@@ -190,6 +190,26 @@ export function Chat({ navigation, route }: Props) {
   const latestAssistantMessage = messages.find((message) => message.role === 'assistant');
   const canRegenerate = !!latestUserMessage && !!latestAssistantMessage &&
     Date.parse(latestAssistantMessage.createdAt) >= Date.parse(latestUserMessage.createdAt);
+
+  /**
+   * First-move starters: the opening scene's 2–4 authored suggestions, shown
+   * as tappable chips ONLY until the reader's first message. After that the
+   * story is fully free-form. (They were authored for every story but never
+   * shown, so a new reader faced an empty box.)
+   */
+  const starters = useMemo(() => {
+    if (!bundle || latestUserMessage || hasMore) return [];
+    const scene = bundle.scenes.scenes.find((sc) => sc.id === bundle.story.openingSceneId) ?? bundle.scenes.scenes[0];
+    const opts = { protectedNames: bundle.characters.characters.map((c) => c.name) };
+    return (scene?.choices ?? [])
+      .filter((c) => (c.text ?? '').trim() && (c.shortLabel ?? '').trim())
+      .slice(0, 4)
+      .map((c) => ({
+        id: c.id,
+        label: interpolatePlayerName(c.shortLabel!.trim(), profile?.nickname, opts),
+        text: interpolatePlayerName(c.text.trim(), profile?.nickname, opts),
+      }));
+  }, [bundle, latestUserMessage, hasMore, profile?.nickname]);
 
   async function loadMore() {
     if (!playthrough || loadingMore || !hasMore) return;
@@ -880,6 +900,27 @@ export function Chat({ navigation, route }: Props) {
               ) : null}
             </View>
           ) : null}
+          {starters.length > 0 && aiReady && !sending && !actionsOpen ? (
+            <View style={styles.starterWrap} testID="chat-starters">
+              <Text style={[styles.starterLabel, { color: theme.textFaint }]}>Pehla move chuno — ya apna likho</Text>
+              <ScrollView horizontal showsHorizontalScrollIndicator={false} contentContainerStyle={styles.starterRow} keyboardShouldPersistTaps="handled">
+                {starters.map((st) => (
+                  <Pressable
+                    key={st.id}
+                    onPress={() => void send(st.text)}
+                    accessibilityRole="button"
+                    accessibilityLabel={st.label}
+                    style={({ pressed }) => [
+                      styles.starterChip,
+                      { backgroundColor: withAlpha(theme.accent, pressed ? 0.2 : 0.1), borderColor: withAlpha(theme.accent, 0.38) },
+                    ]}
+                  >
+                    <Text style={[styles.starterText, { color: theme.text }]} numberOfLines={1}>{st.label}</Text>
+                  </Pressable>
+                ))}
+              </ScrollView>
+            </View>
+          ) : null}
           <View style={styles.inputRow}>
             <TextInput
               ref={inputRef}
@@ -992,6 +1033,11 @@ const styles = StyleSheet.create({
   roleText: { flex: 1, fontSize: SCALE.caption, fontWeight: '500' },
   list: { paddingHorizontal: 12, paddingVertical: 12, gap: 2 },
   more: { textAlign: 'center', fontSize: SCALE.micro, padding: 10 },
+  starterWrap: { marginBottom: 9 },
+  starterLabel: { fontSize: SCALE.micro, fontWeight: '600', letterSpacing: 0.3, marginBottom: 7, marginLeft: 2 },
+  starterRow: { gap: 8, paddingRight: 8 },
+  starterChip: { borderWidth: 1, borderRadius: RADIUS.pill, paddingHorizontal: 14, paddingVertical: 8, maxWidth: 240 },
+  starterText: { fontSize: 13.5, fontWeight: '600' },
   inputBar: {
     paddingHorizontal: 12,
     paddingTop: 9,

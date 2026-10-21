@@ -73,7 +73,7 @@ export function Saves({ navigation, route }: Props) {
           {meta?.title ?? 'Saved Journeys'}
         </Text>
         <Text style={[styles.sub, { color: theme.textDim }]}>
-          Every branch, choice, and ending is saved locally on your device.
+          Har journey aur har faisla sirf tumhare phone par save hai.
         </Text>
       </View>
 
