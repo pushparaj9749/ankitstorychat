@@ -24,7 +24,7 @@ type Props = BottomTabScreenProps<MainTabParamList, 'Settings'>;
 type Target = { screen: string; params?: object };
 
 export function Settings({ navigation }: Props) {
-  const { theme, profile, activeProvider, favoriteIds, recentPlaythroughs } = useApp();
+  const { theme, settings, profile, activeProvider, favoriteIds, recentPlaythroughs } = useApp();
   const { handleScroll } = useNavScroll();
   const nav = navigation as unknown as { navigate: (s: string, o?: object) => void };
   const version = Constants.expoConfig?.version ?? '2.8.0';
@@ -193,8 +193,17 @@ export function Settings({ navigation }: Props) {
           </>,
         )}
 
-        <SectionHeader title="Data" kicker="Local" />
-        {group(row('server-outline', 'Storage & Backup', 'Export, import, clear cache', 'SettingsStorage', { first: true, tint: theme.info }))}
+        <SectionHeader title="Privacy & Data" kicker="Local" />
+        {group(
+          <>
+            {row('lock-closed-outline', 'App Lock', settings.appLockEnabled ? 'PIN / fingerprint lock is on' : 'Fingerprint or PIN to open Kissa', 'SettingsSecurity', {
+              first: true,
+              tint: theme.success,
+              badge: settings.appLockEnabled ? 'ON' : undefined,
+            })}
+            {row('server-outline', 'Storage & Backup', 'Export, import, clear cache', 'SettingsStorage', { tint: theme.info })}
+          </>,
+        )}
 
         <SectionHeader title="About" kicker="Kissa" />
         {group(

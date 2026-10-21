@@ -42,6 +42,12 @@
           "icon": "./assets/icon.png",
           "color": "#E9435E"
         }
+      ],
+      [
+        "expo-local-authentication",
+        {
+          "faceIDPermission": "Allow Kissa to use Face ID to unlock the app."
+        }
       ]
     ],
     "extra": {
