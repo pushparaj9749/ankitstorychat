@@ -1,0 +1,84 @@
+{
+  "storyId": "madam-sarkar",
+  "version": 1,
+  "scenes": [
+    {
+      "id": "sarkar_ki_wapsi",
+      "title": "Sarkar Ki Wapsi",
+      "narration": [
+        "*Landour, saawan ki shaam. Tin ki chhat par barish aise baj rahi hai jaise koi bahut purana raag. Bijli gayi hui hai. 'Sur Sangam' mein aakhri bachcha abhi-abhi chhatri lekar gaya hai, aur tum mombatti ki roshni mein akele baithe bansuri par wahi dhun bajaa rahe ho jo pata nahi kyun, teen saal se tumhare honthon se nahi utri.*",
+        "*Tabhi neeche gali mein headlights ki ek lambi kataar chamakti hai. Ek, do, paanch... chaudah kaali gaadiyan. Golu ki bakery ka shutter aadha gir jaata hai. Pahadi gali mein pehli baar itni khamoshi hai ki barish ki boondein bhi dheere girti lagti hain.*",
+        "*Seedhiyon par heels ki aawaaz. Darwaza khulta hai. Pehle andar aati hai ek kaale suit wali aurat, kaan mein earpiece, aankhon se kamra naapti hui. Aur uske peeche... woh.*",
+        "*Kaali silk saree, kamar tak lambe geele wavy baal, naak mein chhota sa heera, aur aankhein jinke aage desh ke mantri nazrein jhuka lete hain. Par uske kandhon par ek purani, ghisi hui neeli denim jacket hai — mardon wali, uske naap se badi. Tumhari jacket.*",
+        "*Bahar seedhiyon ke neeche news cameras ki flash lagatar chamak rahi hai. Woh tumhare paas aati hai, tumhara haath apne haath mein leti hai, aur darwaze ki taraf mud kar, bina aawaaz uthaaye, kehti hai —*",
+        "Vedika Rajvanshi: \"Aaj se ye mere hain. Jo inki taraf galat nazar se dekhega... use Sarkar khud dekhegi.\"",
+        "*Darwaza band hota hai. Flash ruk jaati hai. Aur us ek pal mein, jo chehra abhi tak patthar tha, woh pighal jaata hai. Woh tumhari bansuri ko halke se chhooti hai, phir tumhari aankhon mein dekhti hai.*",
+        "Vedika Rajvanshi: \"Wahi dhun... tumne ab tak yaad rakhi?\" *Ek halki si, kaanpti muskaan.* \"Itne saal lag gaye wapas aane mein, Masterji. Gussa ho?\"",
+        "Laila: *(darwaze se, bina mude)* \"Sarkar. Bees minute. Phir yahan ka security plan badalna padega.\"",
+        "*Tumhari jeb mein phone baj uthta hai — screen par 'Maa'. Neeche se Golu ki cheekh aati hai — 'Bhaaai! Tu TV pe hai! Breaking news mein!' Vedika phone ki taraf dekhti hai, phir tumhari taraf, aur tumhari ungliyon ko thoda aur kas ke pakad leti hai.*",
+        "Vedika Rajvanshi: *(dheere se, sirf tumse)* \"Sab samjha doongi... sab. Bas pehle ek baat bata do — mujhe yahin rukne doge, ya chali jaaun?\""
+      ],
+      "fallbackLines": [
+        "*Vedika tumhara jawab sun ke ek pal ke liye bilkul chup ho jaati hai — jaise teen saal ka intezaar ek saans mein utar gaya ho.*",
+        "Vedika Rajvanshi: \"Duniya mujhe Sarkar kehti hai, Masterji. Par tumhare saamne... main ab bhi wahi bheegi hui Vedi hoon.\""
+      ],
+      "choices": [
+        {
+          "id": "recognize_vedi",
+          "text": "*Uski aankhon mein dekhte hue, dheere se — 'Vedi...? Tum... theek ho? Ye jacket... tumne ab tak rakhi hai?'*",
+          "shortLabel": "Vedi... tum?",
+          "keywords": [
+            "vedi",
+            "jacket",
+            "theek",
+            "yaad",
+            "pehchaan"
+          ],
+          "next": null,
+          "effects": {
+            "memory": [
+              "When Vedika returned to Sur Sangam, {{playerName}} recognised her as Vedi and asked about the jacket she had kept."
+            ]
+          }
+        },
+        {
+          "id": "demand_truth",
+          "text": "*Haath chhudaaye bina, par ghabraahat mein — 'Ye sab kya hai? Gaadiyan, cameras... pehle sach batao, tum kaun ho?'*",
+          "shortLabel": "Pehle sach batao",
+          "keywords": [
+            "sach",
+            "kaun",
+            "cameras",
+            "gaadiyan",
+            "kya hai"
+          ],
+          "next": null,
+          "effects": {
+            "memory": [
+              "When Vedika returned to Sur Sangam, {{playerName}} asked her to first tell him the truth about who she is."
+            ]
+          }
+        },
+        {
+          "id": "offer_chai",
+          "text": "*Sharmaate hue nazrein jhuka kar — 'Ruk jao... baarish hai. Chai banaun? Adrak wali.'*",
+          "shortLabel": "Chai banaun?",
+          "keywords": [
+            "chai",
+            "ruk",
+            "adrak",
+            "baith",
+            "baarish"
+          ],
+          "next": null,
+          "effects": {
+            "memory": [
+              "When Vedika returned to Sur Sangam, {{playerName}} asked her to stay and offered to make her adrak chai, like that night."
+            ]
+          }
+        }
+      ]
+    }
+  ],
+  "endings": []
+}
