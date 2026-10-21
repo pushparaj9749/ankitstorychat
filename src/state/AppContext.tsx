@@ -34,7 +34,7 @@ import { hasApiKey } from '../lib/secureKeys';
 import { nowIso } from '../lib/utils';
 import { COLORS, Theme, ThemeName, UiTemplate } from '../theme';
 import { COLORS as CLASSIC_COLORS } from '../ui/classic/theme';
-import { BootSplash } from '../components/BootSplash';
+import { BootSplash, SPLASH_INTRO_MS } from '../components/BootSplash';
 import { StyleSheet, View } from 'react-native';
 
 interface AppState {
@@ -70,6 +70,9 @@ export function AppProvider({ children }: { children: React.ReactNode }) {
   const [ready, setReady] = useState(false);
   const [splashDone, setSplashDone] = useState(false);
   const onSplashDone = useCallback(() => setSplashDone(true), []);
+  const [introDone, setIntroDone] = useState(false);
+  const onIntroDone = useCallback(() => setIntroDone(true), []);
+  const [appDrawn, setAppDrawn] = useState(false);
   const [profile, setProfile] = useState<LocalProfile | null>(null);
   const [settings, setSettings] = useState<AppSettings | null>(null);
   const [providers, setProviders] = useState<AIProvider[]>([]);
@@ -216,14 +219,38 @@ export function AppProvider({ children }: { children: React.ReactNode }) {
     reloadAll,
   ]);
 
-  // Opening animation: the app mounts BEHIND the splash as soon as the local
-  // database is ready, so when the splash fades away the first screen is
-  // already drawn (no blank frame, no jank).
+  // Opening animation, smooth on slow phones too:
+  //  1. the intro plays alone — mounting the whole app (catalog, covers,
+  //     navigation) during it fought the animation for the UI/JS thread and
+  //     made it stutter ("atak raha he");
+  //  2. once it has played, the app mounts BEHIND the finished (still) splash;
+  //  3. two frames later the first screen is drawn and the splash opens onto
+  //     it — no blank frame, no jank. The local database loads in parallel
+  //     with the intro, so this costs only the mount itself.
   const appReady = ready && !!settings;
+  const mountApp = appReady && (introDone || splashDone);
+
+  // Safety net: never hold the app back if the intro callback is lost.
+  useEffect(() => {
+    const t = setTimeout(() => setIntroDone(true), SPLASH_INTRO_MS + 1500);
+    return () => clearTimeout(t);
+  }, []);
+
+  useEffect(() => {
+    if (!mountApp || appDrawn) return;
+    const raf: (cb: () => void) => unknown =
+      typeof requestAnimationFrame === 'function' ? requestAnimationFrame : (cb) => setTimeout(cb, 16);
+    let alive = true;
+    raf(() => raf(() => alive && setAppDrawn(true)));
+    return () => {
+      alive = false;
+    };
+  }, [mountApp, appDrawn]);
+
   return (
     <View style={styles.root}>
-      {appReady ? <Ctx.Provider value={value}>{children}</Ctx.Provider> : null}
-      {!splashDone ? <BootSplash ready={appReady} onDone={onSplashDone} /> : null}
+      {mountApp ? <Ctx.Provider value={value}>{children}</Ctx.Provider> : null}
+      {!splashDone ? <BootSplash ready={appDrawn} onIntroDone={onIntroDone} onDone={onSplashDone} /> : null}
     </View>
   );
 }

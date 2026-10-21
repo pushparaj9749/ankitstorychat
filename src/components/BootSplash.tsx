@@ -13,9 +13,10 @@
  *      screen is already drawn) the content lifts away and the screen splits
  *      open — top half up, bottom half down — with a rose edge of light.
  *
- * Restrained palette (one rose accent + champagne, no rainbow). Every
- * animation uses the native driver, so it stays smooth on the UI thread while
- * the JS thread mounts the first screen. With "reduce motion" on, it is a
+ * Restrained palette (one rose accent + champagne, no rainbow). The whole
+ * intro is ONE native animation on one clock (see "one-clock choreography"),
+ * and the app only mounts behind it once the intro has played, so nothing
+ * competes with it for the UI or JS thread. With "reduce motion" on, it is a
  * short, calm fade. Tapping skips the intro once the app is ready.
  */
 import React, { useEffect, useMemo, useRef, useState } from 'react';
@@ -52,26 +53,134 @@ const MOTES = [
   { x: 0.94, y: 0.56, s: 2, d: 6300, o: 0.35 },
 ];
 
-export function BootSplash({ ready = false, onDone }: { ready?: boolean; onDone?: () => void }) {
+// ---- one-clock choreography ------------------------------------------------
+//
+// WHY: the old intro was ~25 separate animations glued together with
+// Animated.sequence / delay / stagger. With the native driver each step runs
+// on the UI thread, but the hand-off from one step to the next is a JS
+// callback. The app mounts behind the splash at exactly that moment, the JS
+// thread is busy, and the next step starts late → the logo / letters
+// "atak jaate the". Now the whole intro is ONE native timing on ONE clock
+// (milliseconds) and every element is a pure interpolation of that clock, so
+// once it has started nothing on the JS thread can stall it. Same for the exit.
+// Native interpolation does not support easing functions, so each curve is
+// pre-sampled into a fine piecewise-linear table (visually identical).
+
+type Curve = (x: number) => number;
+const outQuad: Curve = (x) => 1 - (1 - x) * (1 - x);
+const outCubic: Curve = (x) => 1 - (1 - x) ** 3;
+const inQuad: Curve = (x) => x * x;
+const inOutQuad: Curve = (x) => (x < 0.5 ? 2 * x * x : 1 - (-2 * x + 2) ** 2 / 2);
+const inOutCubic: Curve = (x) => (x < 0.5 ? 4 * x * x * x : 1 - (-2 * x + 2) ** 3 / 2);
+
+/** Same curve as Animated.spring({ friction: 7, tension: 46 }) (≈5% overshoot). */
+const SPRING_MS = 700;
+const spring: Curve = (x) => {
+  if (x >= 1) return 1;
+  const k = (46 - 30) * 3.62 + 194; // origami tension → stiffness
+  const c = (7 - 8) * 3 + 25; // origami friction → damping
+  const w = Math.sqrt(k);
+  const z = c / (2 * w);
+  const wd = w * Math.sqrt(1 - z * z);
+  const t = (x * SPRING_MS) / 1000;
+  return 1 - Math.exp(-z * w * t) * (Math.cos(wd * t) + ((z * w) / wd) * Math.sin(wd * t));
+};
+
+/** Piecewise-linear map, like an interpolate() output table. */
+const pw = (input: number[], output: number[]) => (p: number) => {
+  if (p <= input[0]) return output[0];
+  for (let i = 1; i < input.length; i++) {
+    if (p <= input[i]) {
+      const f = (p - input[i - 1]) / (input[i] - input[i - 1] || 1);
+      return output[i - 1] + (output[i] - output[i - 1]) * f;
+    }
+  }
+  return output[output.length - 1];
+};
+
+/**
+ * A segment of the clock: from `start` for `dur` ms, eased by `curve`, then
+ * mapped by `map`. Clamped outside the window. Exported for tests.
+ */
+export function segment(
+  clock: Animated.Value,
+  start: number,
+  dur: number,
+  curve: Curve,
+  map: (p: number) => number = (p) => p,
+  steps = 12,
+  unit = '',
+) {
+  const inputRange: number[] = [];
+  const outputRange: (number | string)[] = [];
+  for (let i = 0; i <= steps; i++) {
+    const f = i / steps;
+    inputRange.push(start + dur * f);
+    const v = Math.round(map(curve(f)) * 10000) / 10000;
+    outputRange.push(unit ? `${v}${unit}` : v);
+  }
+  return clock.interpolate({ inputRange, outputRange: outputRange as number[], extrapolate: 'clamp' });
+}
+
+export function BootSplash({
+  ready = false,
+  onDone,
+  onIntroDone,
+}: {
+  ready?: boolean;
+  onDone?: () => void;
+  /** Fired once the intro has played; the app is mounted behind it then. */
+  onIntroDone?: () => void;
+}) {
   const { width: W, height: H } = useWindowDimensions();
 
-  const line = useRef(new Animated.Value(0)).current; // hairline draw + bloom
-  const logo = useRef(new Animated.Value(0)).current; // page-lift
-  const glint = useRef(new Animated.Value(0)).current; // light sweep over logo
-  const ripple = useRef(new Animated.Value(0)).current;
-  const letters = useRef(WORD.map(() => new Animated.Value(0))).current;
-  const wave = useRef(new Animated.Value(0)).current; // champagne wave through letters
-  const words = useRef(TAGLINE.map(() => new Animated.Value(0))).current;
+  const clock = useRef(new Animated.Value(0)).current; // intro, in ms
+  const exitClock = useRef(new Animated.Value(0)).current; // exit, in ms
+  const calmIn = useRef(new Animated.Value(1)).current; // reduce-motion fade-in
   const motes = useRef(MOTES.map(() => new Animated.Value(0))).current;
-  const dust = useRef(new Animated.Value(0)).current; // dust layer fade-in
-  const lift = useRef(new Animated.Value(0)).current; // content lifts away
-  const open = useRef(new Animated.Value(0)).current; // screen splits open
 
   const [introDone, setIntroDone] = useState(false);
   const [reduceMotion, setReduceMotion] = useState<boolean | null>(null);
   const [exiting, setExiting] = useState(false);
   const exitStarted = useRef(false);
+  const introRef = useRef<Animated.CompositeAnimation | null>(null);
+  const driftRef = useRef<Animated.CompositeAnimation | null>(null);
+  const introDoneRef = useRef(false);
+  const onIntroDoneRef = useRef(onIntroDone);
+  onIntroDoneRef.current = onIntroDone;
 
+  const finishIntro = useRef(() => {
+    if (introDoneRef.current) return;
+    introDoneRef.current = true;
+    setIntroDone(true);
+  }).current;
+
+  // ---- intro: starts on the very first frame, one native animation ----------
+  useEffect(() => {
+    const native = { useNativeDriver: true } as const;
+    const drift = Animated.parallel(
+      motes.map((v, i) =>
+        Animated.loop(Animated.timing(v, { toValue: 1, duration: MOTES[i].d, easing: Easing.linear, ...native })),
+      ),
+    );
+    const intro = Animated.timing(clock, {
+      toValue: SPLASH_INTRO_MS,
+      duration: SPLASH_INTRO_MS,
+      easing: Easing.linear,
+      ...native,
+    });
+    driftRef.current = drift;
+    introRef.current = intro;
+    drift.start();
+    intro.start(({ finished }) => finished && finishIntro());
+    return () => {
+      intro.stop();
+      drift.stop();
+    };
+  }, [clock, motes, finishIntro]);
+
+  // "Reduce motion": swap to a short, calm fade (checked in parallel so the
+  // intro never waits for it).
   useEffect(() => {
     let alive = true;
     AccessibilityInfo.isReduceMotionEnabled()
@@ -81,91 +190,33 @@ export function BootSplash({ ready = false, onDone }: { ready?: boolean; onDone?
       alive = false;
     };
   }, []);
-
-  // ---- intro ----------------------------------------------------------------
   useEffect(() => {
-    if (reduceMotion === null) return;
-    const native = { useNativeDriver: true } as const;
+    if (!reduceMotion || introDoneRef.current) return;
+    introRef.current?.stop();
+    driftRef.current?.stop();
+    clock.setValue(SPLASH_INTRO_MS);
+    calmIn.setValue(0);
+    const calm = Animated.timing(calmIn, { toValue: 1, duration: 260, useNativeDriver: true });
+    calm.start(({ finished }) => finished && finishIntro());
+    return () => calm.stop();
+  }, [reduceMotion, clock, calmIn, finishIntro]);
 
-    if (reduceMotion) {
-      // Calm version: everything simply fades in together.
-      const all = [line, logo, ripple, glint, wave, dust, ...letters, ...words];
-      const calm = Animated.parallel(all.map((v) => Animated.timing(v, { toValue: 1, duration: 260, ...native })));
-      calm.start(() => setIntroDone(true));
-      return () => calm.stop();
-    }
+  useEffect(() => {
+    if (introDone) onIntroDoneRef.current?.();
+  }, [introDone]);
 
-    const drift = Animated.parallel(
-      motes.map((v, i) =>
-        Animated.loop(
-          Animated.timing(v, { toValue: 1, duration: MOTES[i].d, easing: Easing.linear, ...native }),
-        ),
-      ),
-    );
-    drift.start();
-
-    const intro = Animated.parallel([
-      Animated.timing(dust, { toValue: 1, duration: 700, easing: Easing.out(Easing.quad), ...native }),
-      Animated.timing(line, { toValue: 1, duration: 760, easing: Easing.out(Easing.cubic), ...native }),
-      Animated.sequence([
-        Animated.delay(300),
-        Animated.spring(logo, { toValue: 1, friction: 7, tension: 46, ...native }),
-      ]),
-      Animated.sequence([
-        Animated.delay(620),
-        Animated.timing(ripple, { toValue: 1, duration: 1100, easing: Easing.out(Easing.cubic), ...native }),
-      ]),
-      Animated.sequence([
-        Animated.delay(760),
-        Animated.timing(glint, { toValue: 1, duration: 720, easing: Easing.inOut(Easing.cubic), ...native }),
-      ]),
-      Animated.sequence([
-        Animated.delay(700),
-        Animated.stagger(
-          75,
-          letters.map((v) =>
-            Animated.timing(v, { toValue: 1, duration: 460, easing: Easing.out(Easing.cubic), ...native }),
-          ),
-        ),
-      ]),
-      Animated.sequence([
-        Animated.delay(1180),
-        Animated.timing(wave, { toValue: 1, duration: 620, easing: Easing.inOut(Easing.quad), ...native }),
-      ]),
-      Animated.sequence([
-        Animated.delay(1150),
-        Animated.stagger(
-          70,
-          words.map((v) =>
-            Animated.timing(v, { toValue: 1, duration: 380, easing: Easing.out(Easing.quad), ...native }),
-          ),
-        ),
-      ]),
-    ]);
-    intro.start(() => setIntroDone(true));
-    return () => {
-      intro.stop();
-      drift.stop();
-    };
-  }, [reduceMotion, line, logo, ripple, glint, wave, dust, letters, words, motes]);
-
-  // ---- exit: lift the content, split the screen open -----------------------
+  // ---- exit: lift the content, split the screen open (one animation) -------
   const startExit = useRef<() => void>(() => undefined);
   startExit.current = () => {
     if (exitStarted.current) return;
     exitStarted.current = true;
     setExiting(true);
-    const native = { useNativeDriver: true } as const;
-    const out = reduceMotion
-      ? Animated.timing(open, { toValue: 1, duration: 260, ...native })
-      : Animated.parallel([
-          Animated.timing(lift, { toValue: 1, duration: 300, easing: Easing.in(Easing.quad), ...native }),
-          Animated.sequence([
-            Animated.delay(120),
-            Animated.timing(open, { toValue: 1, duration: SPLASH_EXIT_MS - 120, easing: Easing.inOut(Easing.cubic), ...native }),
-          ]),
-        ]);
-    out.start(({ finished }) => finished && onDone?.());
+    Animated.timing(exitClock, {
+      toValue: SPLASH_EXIT_MS,
+      duration: reduceMotion ? 260 : SPLASH_EXIT_MS,
+      easing: Easing.linear,
+      useNativeDriver: true,
+    }).start(({ finished }) => finished && onDone?.());
   };
 
   useEffect(() => {
@@ -173,24 +224,76 @@ export function BootSplash({ ready = false, onDone }: { ready?: boolean; onDone?
   }, [ready, introDone]);
 
   const skip = () => {
-    if (ready) startExit.current();
+    if (!introDoneRef.current) {
+      // Tap during the intro: jump to its last frame.
+      introRef.current?.stop();
+      clock.setValue(SPLASH_INTRO_MS);
+      calmIn.setValue(1);
+      finishIntro();
+    } else if (ready) startExit.current();
   };
 
-  // ---- interpolations -------------------------------------------------------
-  const contentOut = useMemo(
-    () => ({
-      opacity: lift.interpolate({ inputRange: [0, 1], outputRange: [1, 0] }),
-      transform: [
-        { translateY: lift.interpolate({ inputRange: [0, 1], outputRange: [0, -14] }) },
-        { scale: lift.interpolate({ inputRange: [0, 1], outputRange: [1, 1.05] }) },
-      ],
-    }),
-    [lift],
-  );
-
+  // ---- interpolations (all derived from the two clocks) --------------------
   const half = H / 2;
-  const calmFade = reduceMotion ? { opacity: open.interpolate({ inputRange: [0, 1], outputRange: [1, 0] }) } : null;
-  const edge = { opacity: open.interpolate({ inputRange: [0, 0.08, 0.7, 1], outputRange: [0, 1, 0.6, 0] }) };
+  const a = useMemo(() => {
+    const seg = (start: number, dur: number, curve: Curve, map?: (p: number) => number, steps?: number, unit?: string) =>
+      segment(clock, start, dur, curve, map, steps, unit);
+    const out = (start: number, dur: number, curve: Curve, map?: (p: number) => number, steps?: number) =>
+      segment(exitClock, start, dur, curve, map, steps);
+    const calmFadeOpacity = out(0, SPLASH_EXIT_MS, (x) => x, (p) => 1 - p, 1);
+    return {
+      dust: seg(0, 700, outQuad),
+      bloom: {
+        opacity: seg(0, 760, outCubic, pw([0, 0.5, 1], [0, 0.9, 0.55]), 16),
+        scaleY: seg(0, 760, outCubic, (p) => 0.2 + 0.8 * p),
+      },
+      hairline: {
+        opacity: seg(0, 760, outCubic, pw([0, 0.3, 1], [0, 1, 0.35]), 16),
+        scaleX: seg(0, 760, outCubic),
+      },
+      logo: {
+        opacity: seg(300, SPRING_MS, spring, pw([0, 0.35, 1], [0, 1, 1]), 24),
+        translateY: seg(300, SPRING_MS, spring, (p) => 26 * (1 - p), 24),
+        rotateX: seg(300, SPRING_MS, spring, (p) => 72 * (1 - p), 24, 'deg'),
+        scale: seg(300, SPRING_MS, spring, (p) => 0.78 + 0.22 * p, 24),
+      },
+      ripple: {
+        opacity: seg(620, 1100, outCubic, pw([0, 0.12, 1], [0, 0.5, 0]), 20),
+        scale: seg(620, 1100, outCubic, (p) => 0.6 + 1.25 * p),
+      },
+      glint: seg(760, 720, inOutCubic, (p) => -LOGO + p * LOGO * 2.2),
+      letters: WORD.map((_, i) => {
+        const at = 700 + 75 * i;
+        // The champagne crest passes each letter in turn (always inside 0..1,
+        // so no letter is gold before or after the wave).
+        const peak = 0.18 + (0.64 * i) / (WORD.length - 1);
+        return {
+          opacity: seg(at, 460, outCubic),
+          translateY: seg(at, 460, outCubic, (p) => -10 * (1 - p)),
+          scale: seg(at, 460, outCubic, (p) => 1.35 - 0.35 * p),
+          gold: seg(1180, 620, inOutQuad, pw([peak - 0.18, peak, peak + 0.18], [0, 1, 0]), 24),
+        };
+      }),
+      words: TAGLINE.map((_, i) => ({
+        opacity: seg(1150 + 70 * i, 380, outQuad),
+        translateY: seg(1150 + 70 * i, 380, outQuad, (p) => 8 * (1 - p)),
+      })),
+      contentOut: {
+        opacity: out(0, 300, inQuad, (p) => 1 - p),
+        transform: [
+          { translateY: out(0, 300, inQuad, (p) => -14 * p) },
+          { scale: out(0, 300, inQuad, (p) => 1 + 0.05 * p) },
+        ],
+      },
+      calmFade: { opacity: calmFadeOpacity },
+      calmContent: { opacity: Animated.multiply(calmIn, calmFadeOpacity) },
+      topPanel: { transform: [{ translateY: out(120, SPLASH_EXIT_MS - 120, inOutCubic, (p) => -(half + 2) * p) }] },
+      bottomPanel: { transform: [{ translateY: out(120, SPLASH_EXIT_MS - 120, inOutCubic, (p) => (half + 2) * p) }] },
+      edge: { opacity: out(120, SPLASH_EXIT_MS - 120, inOutCubic, pw([0, 0.08, 0.7, 1], [0, 1, 0.6, 0]), 20) },
+    };
+  }, [clock, exitClock, calmIn, half]);
+
+  const calmFade = reduceMotion ? a.calmFade : null;
 
   return (
     <View
@@ -200,29 +303,23 @@ export function BootSplash({ ready = false, onDone }: { ready?: boolean; onDone?
       accessibilityLabel="Kissa"
     >
       {/* The two halves of the "book" — they part to reveal the app. */}
-      <Animated.View
-        style={[
-          styles.panel,
-          { top: 0, height: half + 1 },
-          calmFade ?? { transform: [{ translateY: open.interpolate({ inputRange: [0, 1], outputRange: [0, -half - 2] }) }] },
-        ]}
-      >
-        <Animated.View style={[styles.edge, styles.edgeBottom, edge]} />
+      <Animated.View style={[styles.panel, { top: 0, height: half + 1 }, calmFade ?? a.topPanel]}>
+        <Animated.View style={[styles.edge, styles.edgeBottom, a.edge]} />
       </Animated.View>
-      <Animated.View
-        style={[
-          styles.panel,
-          { top: half, height: half + 1 },
-          calmFade ?? { transform: [{ translateY: open.interpolate({ inputRange: [0, 1], outputRange: [0, half + 2] }) }] },
-        ]}
-      >
-        <Animated.View style={[styles.edge, styles.edgeTop, edge]} />
+      <Animated.View style={[styles.panel, { top: half, height: half + 1 }, calmFade ?? a.bottomPanel]}>
+        <Animated.View style={[styles.edge, styles.edgeTop, a.edge]} />
       </Animated.View>
 
-      {/* Everything that lifts away before the split. */}
-      <Animated.View style={[StyleSheet.absoluteFill, styles.center, calmFade ?? contentOut]} pointerEvents="none">
+      {/* Everything that lifts away before the split. Rasterised while it
+          fades out so Android composites one texture, not every child. */}
+      <Animated.View
+        style={[StyleSheet.absoluteFill, styles.center, reduceMotion ? a.calmContent : a.contentOut]}
+        pointerEvents="none"
+        renderToHardwareTextureAndroid={exiting}
+        shouldRasterizeIOS={exiting}
+      >
         {/* dust motes */}
-        <Animated.View style={[StyleSheet.absoluteFill, { opacity: dust }]}>
+        <Animated.View style={[StyleSheet.absoluteFill, { opacity: a.dust }]}>
           {MOTES.map((m, i) => {
             const travel = H * 0.22;
             return (
@@ -252,12 +349,7 @@ export function BootSplash({ ready = false, onDone }: { ready?: boolean; onDone?
           <Animated.View
             style={[
               styles.bloom,
-              {
-                width: W,
-                left: (RING - W) / 2,
-                opacity: line.interpolate({ inputRange: [0, 0.5, 1], outputRange: [0, 0.9, 0.55] }),
-                transform: [{ scaleY: line.interpolate({ inputRange: [0, 1], outputRange: [0.2, 1] }) }],
-              },
+              { width: W, left: (RING - W) / 2, opacity: a.bloom.opacity, transform: [{ scaleY: a.bloom.scaleY }] },
             ]}
           >
             <LinearGradient
@@ -271,8 +363,8 @@ export function BootSplash({ ready = false, onDone }: { ready?: boolean; onDone?
               {
                 width: W * 0.72,
                 left: (RING - W * 0.72) / 2,
-                opacity: line.interpolate({ inputRange: [0, 0.3, 1], outputRange: [0, 1, 0.35] }),
-                transform: [{ scaleX: line }],
+                opacity: a.hairline.opacity,
+                transform: [{ scaleX: a.hairline.scaleX }],
               },
             ]}
           >
@@ -284,39 +376,21 @@ export function BootSplash({ ready = false, onDone }: { ready?: boolean; onDone?
             />
           </Animated.View>
 
-          <Animated.View
-            style={[
-              styles.ring,
-              {
-                opacity: ripple.interpolate({ inputRange: [0, 0.12, 1], outputRange: [0, 0.5, 0] }),
-                transform: [{ scale: ripple.interpolate({ inputRange: [0, 1], outputRange: [0.6, 1.85] }) }],
-              },
-            ]}
-          />
+          <Animated.View style={[styles.ring, { opacity: a.ripple.opacity, transform: [{ scale: a.ripple.scale }] }]} />
           <Animated.View
             style={{
-              opacity: logo.interpolate({ inputRange: [0, 0.35, 1], outputRange: [0, 1, 1] }),
+              opacity: a.logo.opacity,
               transform: [
                 { perspective: 700 },
-                { translateY: logo.interpolate({ inputRange: [0, 1], outputRange: [26, 0] }) },
-                { rotateX: logo.interpolate({ inputRange: [0, 1], outputRange: ['72deg', '0deg'] }) },
-                { scale: logo.interpolate({ inputRange: [0, 1], outputRange: [0.78, 1] }) },
+                { translateY: a.logo.translateY },
+                { rotateX: a.logo.rotateX },
+                { scale: a.logo.scale },
               ],
             }}
           >
             <View style={styles.logoClip}>
-              <Image source={KISSA_LOGO} style={styles.logo} resizeMode="contain" />
-              <Animated.View
-                style={[
-                  styles.glint,
-                  {
-                    transform: [
-                      { translateX: glint.interpolate({ inputRange: [0, 1], outputRange: [-LOGO, LOGO * 1.2] }) },
-                      { rotate: '18deg' },
-                    ],
-                  },
-                ]}
-              >
+              <Image source={KISSA_LOGO} style={styles.logo} resizeMode="contain" fadeDuration={0} />
+              <Animated.View style={[styles.glint, { transform: [{ translateX: a.glint }, { rotate: '18deg' }] }]}>
                 <LinearGradient
                   start={{ x: 0, y: 0.5 }}
                   end={{ x: 1, y: 0.5 }}
@@ -329,63 +403,37 @@ export function BootSplash({ ready = false, onDone }: { ready?: boolean; onDone?
         </View>
 
         <View style={[styles.textBlock, { top: half + RING / 2 - 8 }]}>
-        {/* wordmark with a champagne wave */}
-        <View style={styles.word}>
-          {WORD.map((ch, i) => {
-            const v = letters[i];
-            // The champagne crest passes each letter in turn (always inside 0..1,
-            // so no letter is gold before or after the wave).
-            const peak = 0.18 + (0.64 * i) / (WORD.length - 1);
-            return (
-              <Animated.View
-                key={i}
-                style={{
-                  opacity: v,
-                  transform: [
-                    { translateY: v.interpolate({ inputRange: [0, 1], outputRange: [-10, 0] }) },
-                    { scale: v.interpolate({ inputRange: [0, 1], outputRange: [1.35, 1] }) },
-                  ],
-                }}
-              >
-                <Animated.Text style={styles.letter}>{ch}</Animated.Text>
-                <Animated.Text
-                  style={[
-                    styles.letter,
-                    styles.letterGold,
-                    {
-                      opacity: wave.interpolate({
-                        inputRange: [peak - 0.18, peak, peak + 0.18],
-                        outputRange: [0, 1, 0],
-                        extrapolate: 'clamp',
-                      }),
-                    },
-                  ]}
+          {/* wordmark with a champagne wave */}
+          <View style={styles.word}>
+            {WORD.map((ch, i) => {
+              const l = a.letters[i];
+              return (
+                <Animated.View
+                  key={i}
+                  style={{ opacity: l.opacity, transform: [{ translateY: l.translateY }, { scale: l.scale }] }}
                 >
-                  {ch}
-                </Animated.Text>
-              </Animated.View>
-            );
-          })}
-        </View>
+                  <Animated.Text style={styles.letter}>{ch}</Animated.Text>
+                  <Animated.Text style={[styles.letter, styles.letterGold, { opacity: l.gold }]}>{ch}</Animated.Text>
+                </Animated.View>
+              );
+            })}
+          </View>
 
-        {/* tagline, word by word */}
-        <View style={styles.tagRow}>
-          {TAGLINE.map((w, i) => (
-            <Animated.Text
-              key={i}
-              style={[
-                styles.tag,
-                w === '·' && styles.tagDot,
-                {
-                  opacity: words[i],
-                  transform: [{ translateY: words[i].interpolate({ inputRange: [0, 1], outputRange: [8, 0] }) }],
-                },
-              ]}
-            >
-              {w}
-            </Animated.Text>
-          ))}
-        </View>
+          {/* tagline, word by word */}
+          <View style={styles.tagRow}>
+            {TAGLINE.map((w, i) => (
+              <Animated.Text
+                key={i}
+                style={[
+                  styles.tag,
+                  w === '·' && styles.tagDot,
+                  { opacity: a.words[i].opacity, transform: [{ translateY: a.words[i].translateY }] },
+                ]}
+              >
+                {w}
+              </Animated.Text>
+            ))}
+          </View>
         </View>
       </Animated.View>
     </View>
