@@ -27,7 +27,7 @@ export function Settings({ navigation }: Props) {
   const { theme, settings, profile, activeProvider, favoriteIds, recentPlaythroughs } = useApp();
   const { handleScroll } = useNavScroll();
   const nav = navigation as unknown as { navigate: (s: string, o?: object) => void };
-  const version = Constants.expoConfig?.version ?? '2.9.5';
+  const version = Constants.expoConfig?.version ?? '2.10.0';
 
   /* One row inside a grouped card. */
   function row(
@@ -50,7 +50,14 @@ export function Settings({ navigation }: Props) {
           pressed && { backgroundColor: withAlpha(theme.text, 0.04) },
         ]}
       >
-        <View style={[styles.mark, { backgroundColor: withAlpha(tint, 0.14), borderColor: withAlpha(tint, 0.26) }]}>
+        <View style={[styles.mark, { borderColor: withAlpha(tint, 0.3) }]}>
+          <LinearGradient
+            colors={[withAlpha(tint, 0.3), withAlpha(tint, 0.06)]}
+            start={{ x: 0, y: 0 }}
+            end={{ x: 1, y: 1 }}
+            style={StyleSheet.absoluteFill}
+          />
+          <View style={[styles.markGlint, { backgroundColor: withAlpha('#FFFFFF', 0.22) }]} />
           <Icon name={icon} size={18} color={tint} />
         </View>
         <View style={styles.rowBody}>
@@ -290,7 +297,8 @@ const styles = StyleSheet.create({
     gap: 12,
     minHeight: TOUCH.min + 8,
   },
-  mark: { width: 38, height: 38, borderRadius: 19, borderWidth: 1, alignItems: 'center', justifyContent: 'center' },
+  mark: { width: 38, height: 38, borderRadius: 12, borderWidth: 1, alignItems: 'center', justifyContent: 'center', overflow: 'hidden' },
+  markGlint: { position: 'absolute', top: 0, left: 8, right: 8, height: 1 },
   rowBody: { flex: 1, minWidth: 0, gap: 3 },
   rowTitle: { fontSize: 15, fontWeight: '700', letterSpacing: -0.15 },
   rowSub: { fontSize: SCALE.caption, fontWeight: '500' },

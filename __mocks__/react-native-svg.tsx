@@ -17,3 +17,7 @@ export const Defs = el('Defs');
 export const LinearGradient = el('LinearGradient');
 export const RadialGradient = el('RadialGradient');
 export const Stop = el('Stop');
+export const Ellipse = el('Ellipse');
+export const Line = el('Line');
+export const Polygon = el('Polygon');
+export const Text = el('SvgText');

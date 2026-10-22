@@ -15,6 +15,7 @@ import { ContinueCard, PosterGrid } from '../components/StoryCard';
 import { SectionHeader, SelectableChip } from '../components/bits';
 import { GradientButton } from '../components/GradientButton';
 import { Icon, type IconName } from '../components/icons';
+import { Illustration } from '../components/illustrations';
 import { LAYOUT, RADIUS, SCALE, SPACING, TYPE, withAlpha } from '../theme';
 import { timeAgo } from '../lib/utils';
 
@@ -22,7 +23,7 @@ type Props = BottomTabScreenProps<MainTabParamList, 'Library'>;
 type FilterTab = 'All' | 'Journeys' | 'Saved';
 
 export function Library({ navigation }: Props) {
-  const { theme, stories, favoriteIds, recentPlaythroughs } = useApp();
+  const { theme, uiTemplate, stories, favoriteIds, recentPlaythroughs } = useApp();
   const { handleScroll } = useNavScroll();
   const [filter, setFilter] = useState<FilterTab>('All');
 
@@ -79,9 +80,17 @@ export function Library({ navigation }: Props) {
                 end={{ x: 1, y: 1 }}
                 style={StyleSheet.absoluteFill}
               />
-              <View style={[styles.emptyIcon, { backgroundColor: withAlpha(theme.primary, 0.18) }]}>
-                <Icon name="library" size={26} color={theme.accent} />
-              </View>
+              {uiTemplate === 'classic' ? (
+                <View style={[styles.emptyIcon, { backgroundColor: withAlpha(theme.primary, 0.18) }]}>
+                  <Icon name="library" size={26} color={theme.accent} />
+                </View>
+              ) : (
+                <Illustration
+                  name="shelf"
+                  width={188}
+                  colors={{ accent: theme.primary, gold: theme.gold, surface: theme.surface, surface2: theme.surface3, line: withAlpha(theme.text, 0.16) }}
+                />
+              )}
               <Text style={[styles.emptyTitle, { color: theme.text }]}>Your shelf is waiting</Text>
               <Text style={[styles.emptySub, { color: theme.textDim }]}>
                 Tap the heart on any story to save it, or start a journey — it lives here.

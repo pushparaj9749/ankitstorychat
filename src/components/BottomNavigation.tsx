@@ -1,18 +1,19 @@
 /**
- * KISSA v2.7 — Bottom Navigation
+ * KISSA v2.10 — Bottom Navigation
  * Floating graphite capsule: Home · Explore · [ + ] · Library · You.
- * The active tab shows a filled SVG icon in bright text with a small rose
- * indicator; idle tabs show quiet line icons. The centre "+" is the one
- * accent-coloured control (create / submit a story).
+ * A soft rose-glass pill slides (spring, native driver) behind the active
+ * tab, which shows a filled SVG icon; idle tabs show quiet line icons. The
+ * centre "+" is a gradient orb with a glass sheen and a hairline halo ring.
  * Direction-aware auto-hide with hysteresis, no flicker (unchanged).
  */
-import React from 'react';
-import { Animated, Pressable, StyleSheet, Text, View } from 'react-native';
+import React, { useEffect, useRef, useState } from 'react';
+import { Animated, Pressable, StyleSheet, Text, View, type LayoutChangeEvent } from 'react-native';
+import { LinearGradient } from 'expo-linear-gradient';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import type { BottomTabBarProps } from '@react-navigation/bottom-tabs';
 import { useApp } from '../state/AppContext';
 import { useNavScroll } from '../navigation/NavScrollContext';
-import { GLASS, RADIUS, SCALE, SHADOWS, TOUCH } from '../theme';
+import { GLASS, GRADIENTS, RADIUS, SCALE, SHADOWS, TOUCH, withAlpha } from '../theme';
 import { Icon, type IconName } from './icons';
 
 interface TabMeta {
@@ -32,6 +33,24 @@ export function KissaBottomTabBar({ state, descriptors, navigation }: BottomTabB
   const insets = useSafeAreaInsets();
   const { tabBarTranslateY, tabBarOpacity } = useNavScroll();
 
+  /* Sliding highlight. Five equal slots: tabs 0,1 · create · tabs 2,3. */
+  const [innerWidth, setInnerWidth] = useState(0);
+  const slotWidth = innerWidth / 5;
+  const activeSlot = state.index >= 2 ? state.index + 1 : state.index;
+  const pillX = useRef(new Animated.Value(0)).current;
+  const placed = useRef(false);
+  useEffect(() => {
+    if (!slotWidth) return;
+    const to = activeSlot * slotWidth;
+    if (!placed.current) {
+      placed.current = true;
+      pillX.setValue(to);
+      return;
+    }
+    Animated.spring(pillX, { toValue: to, useNativeDriver: true, damping: 18, stiffness: 210, mass: 0.8 }).start();
+  }, [activeSlot, slotWidth, pillX]);
+  const onBarLayout = (e: LayoutChangeEvent) => setInnerWidth(Math.max(0, e.nativeEvent.layout.width - BAR_PAD * 2 - 2));
+
   return (
     <Animated.View
       pointerEvents="box-none"
@@ -44,7 +63,24 @@ export function KissaBottomTabBar({ state, descriptors, navigation }: BottomTabB
         },
       ]}
     >
-      <View style={[styles.bar, { backgroundColor: GLASS.bgStrong, borderColor: GLASS.stroke }, SHADOWS.floating]}>
+      <View onLayout={onBarLayout} style={[styles.bar, { backgroundColor: GLASS.bgStrong, borderColor: GLASS.stroke }, SHADOWS.floating]}>
+        {slotWidth > 0 ? (
+          <Animated.View
+            pointerEvents="none"
+            testID="tab-pill"
+            style={[
+              styles.pill,
+              {
+                width: slotWidth - 8,
+                backgroundColor: withAlpha(theme.primary, 0.13),
+                borderColor: withAlpha(theme.primary, 0.3),
+                transform: [{ translateX: pillX }],
+              },
+            ]}
+          >
+            <View style={[styles.pillGlint, { backgroundColor: withAlpha(theme.accent, 0.55) }]} />
+          </Animated.View>
+        ) : null}
         {state.routes.map((route, index) => {
           const isFocused = state.index === index;
           const { options } = descriptors[route.key];
@@ -82,7 +118,7 @@ export function KissaBottomTabBar({ state, descriptors, navigation }: BottomTabB
                 <Icon
                   name={(isFocused ? meta.icon : `${meta.icon}-outline`) as IconName}
                   size={22}
-                  color={isFocused ? theme.text : theme.textFaint}
+                  color={isFocused ? theme.accent : theme.textFaint}
                 />
                 <Text
                   style={[styles.label, { color: isFocused ? theme.text : theme.textFaint }, isFocused && styles.labelActive]}
@@ -90,7 +126,6 @@ export function KissaBottomTabBar({ state, descriptors, navigation }: BottomTabB
                 >
                   {meta.label}
                 </Text>
-                <View style={[styles.indicator, { backgroundColor: isFocused ? theme.primary : 'transparent' }]} />
               </View>
             </Pressable>
           );
@@ -105,11 +140,20 @@ export function KissaBottomTabBar({ state, descriptors, navigation }: BottomTabB
                   accessibilityLabel="Create a story"
                   hitSlop={6}
                   style={({ pressed }) => [
-                    styles.create,
-                    { backgroundColor: theme.primary, transform: [{ scale: pressed ? 0.92 : 1 }] },
+                    styles.createRing,
+                    { borderColor: withAlpha(theme.primary, 0.32), transform: [{ scale: pressed ? 0.92 : 1 }] },
                   ]}
                 >
-                  <Icon name="add" size={24} color="#FFFFFF" />
+                  <View style={[styles.create, SHADOWS.glowRose]}>
+                    <LinearGradient colors={[...GRADIENTS.rose]} start={{ x: 0.2, y: 0 }} end={{ x: 0.8, y: 1 }} style={StyleSheet.absoluteFill} />
+                    <LinearGradient
+                      colors={['rgba(255,255,255,0.32)', 'rgba(255,255,255,0)']}
+                      start={{ x: 0.5, y: 0 }}
+                      end={{ x: 0.5, y: 0.6 }}
+                      style={styles.createSheen}
+                    />
+                    <Icon name="add" size={24} color="#FFFFFF" />
+                  </View>
                 </Pressable>
               </View>
             </React.Fragment>
@@ -119,6 +163,8 @@ export function KissaBottomTabBar({ state, descriptors, navigation }: BottomTabB
     </Animated.View>
   );
 }
+
+const BAR_PAD = 6;
 
 const styles = StyleSheet.create({
   container: {
@@ -139,27 +185,46 @@ const styles = StyleSheet.create({
     height: 64,
     borderRadius: RADIUS.pill,
     borderWidth: 1,
-    paddingHorizontal: 6,
+    paddingHorizontal: BAR_PAD,
   },
+  pill: {
+    position: 'absolute',
+    left: BAR_PAD + 4,
+    top: 6,
+    bottom: 6,
+    borderRadius: 22,
+    borderWidth: 1,
+    alignItems: 'center',
+  },
+  pillGlint: { width: 18, height: 2, borderRadius: 1, marginTop: -1 },
   tabItem: {
     flex: 1,
     minHeight: TOUCH.min,
     alignItems: 'center',
     justifyContent: 'center',
   },
-  idle: { alignItems: 'center', justifyContent: 'center', gap: 2, paddingTop: 4 },
+  idle: { alignItems: 'center', justifyContent: 'center', gap: 3 },
   label: {
     fontSize: SCALE.micro - 0.5,
     fontWeight: '500',
     letterSpacing: 0.2,
   },
   labelActive: { fontWeight: '700' },
-  indicator: { width: 4, height: 4, borderRadius: 2, marginTop: 2 },
-  create: {
-    width: 46,
-    height: 46,
-    borderRadius: 23,
+  createRing: {
+    width: 54,
+    height: 54,
+    borderRadius: 27,
+    borderWidth: 1,
     alignItems: 'center',
     justifyContent: 'center',
   },
+  create: {
+    width: 44,
+    height: 44,
+    borderRadius: 22,
+    alignItems: 'center',
+    justifyContent: 'center',
+    overflow: 'hidden',
+  },
+  createSheen: { position: 'absolute', left: 0, right: 0, top: 0, height: 24 },
 });
