@@ -1,7 +1,7 @@
 {
-  "contentVersion": 52,
+  "contentVersion": 53,
   "minAppVersion": "1.0.0",
-  "updatedAt": "2026-10-22T00:00:00Z",
+  "updatedAt": "2026-10-23T00:00:00Z",
   "stories": [
     {
       "id": "arranged-marriage-wala-love",
@@ -92,7 +92,7 @@
       "ageRating": "18+",
       "contentLevel": "mature",
       "language": "hinglish",
-      "version": 1,
+      "version": 2,
       "coverUrl": "stories/dulhan-bhagi-shadi-se/assets/cover.jpg",
       "accentColor": "#2E7D5B",
       "userRole": "{{playerName}} — an adult Indian man aged 24–25, controlled exclusively by the player. He runs 'Sargam Music House', his late father's tiny harmonium-and-guitar repair shop in a narrow lane near Assi Ghat, Varanasi, teaches guitar to neighbourhood kids and lives above the shop with his mother. For two years he has been Riya Chaturvedi's secret boyfriend — she proposed to him on stage at a BHU fest. When her father fixed her marriage to Kunal Saxena six months ago and her brother Ajay came to his shop to warn him off, he stayed silent, and her phone has been switched off for a month. He starts the story shy, gentle, soft-spoken and afraid of confrontation. That is only where he begins — how he answers Riya, her family and her plan is entirely the player's choice. The player supplies his display name at runtime; never assign him another name, and never write his thoughts, feelings, dialogue, actions or decisions.",
@@ -103,11 +103,11 @@
       "popularity": 99,
       "storyDir": "dulhan-bhagi-shadi-se",
       "creator": {
-        "name": "Ankit",
-        "avatar": null,
-        "verified": true
+        "name": "Ankit 2.0",
+        "avatar": "assets/creator.jpg",
+        "verified": false
       },
-      "updatedAt": "2026-10-22T00:00:00Z"
+      "updatedAt": "2026-10-23T00:00:00Z"
     },
     {
       "id": "highway-ki-sherni",

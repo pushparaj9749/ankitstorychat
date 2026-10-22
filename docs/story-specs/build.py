@@ -44,6 +44,9 @@ def build(spec):
     # Bump a spec's "version" whenever a published package changes: devices
     # re-download a story only when its per-story version goes up.
     ver = spec.get('version', 1)
+    # Stories built from an accepted user idea credit that user as creator
+    # (optionally with a story-local avatar: "assets/creator.jpg").
+    creator = spec.get('creator', CREATOR)
     d = os.path.join(REPO, 'content', 'stories', sid)
     os.makedirs(os.path.join(d, 'assets', 'gallery'), exist_ok=True)
     gallery = [{"id": "cover", "file": "assets/cover.jpg", "kind": "cover", "label": spec['title']}]
@@ -58,7 +61,7 @@ def build(spec):
         "genres": spec['genres'], "tags": spec['tags'] + ["player-agency", "dynamic-continuous", "ongoing", "hinglish"],
         "userRole": spec['userRole'], "setting": spec['setting'], "openingSceneId": spec['opening']['id'],
         "tone": spec['tone'], "safetyNotes": COMMON_SAFETY + spec.get('safety', []), "endings": [],
-        "creator": CREATOR, "media": {"cover": "assets/cover.jpg", "gallery": gallery},
+        "creator": creator, "media": {"cover": "assets/cover.jpg", "gallery": gallery},
     }
     # Every character needs these lists (the app reads them as arrays).
     characters = [{**c, **{k: [] for k in LIST_FIELDS if k not in c}} for c in spec['characters']]
@@ -84,7 +87,7 @@ def build(spec):
         "ageRating": "18+", "contentLevel": "mature", "language": "hinglish", "version": ver,
         "coverUrl": f"stories/{sid}/assets/cover.jpg", "accentColor": spec['accent'],
         "userRole": spec['userRole'], "setting": spec['setting'], "estimatedMinutes": 60, "featured": False, "isNew": True,
-        "popularity": spec.get('popularity', 97), "storyDir": sid, "creator": CREATOR,
+        "popularity": spec.get('popularity', 97), "storyDir": sid, "creator": creator,
         "updatedAt": spec.get('updatedAt', "2026-10-20T00:00:00Z"),
     }
     mp = os.path.join(REPO, 'content', 'manifest.json')

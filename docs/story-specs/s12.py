@@ -4,7 +4,10 @@ SPEC = {
     "tagline": "Do din baad uski shaadi hai... aaj raat woh mehendi waale haathon se tumhara haath pakad ke boli — 'Bhaag chalo.'",
     "accent": "#2E7D5B",
     "popularity": 99,
-    "updatedAt": "2026-10-22T00:00:00Z",
+    # v2: credit the user whose accepted idea this story is built from.
+    "version": 2,
+    "updatedAt": "2026-10-23T00:00:00Z",
+    "creator": {"name": "Ankit 2.0", "avatar": "assets/creator.jpg", "verified": False},
     "description": "Banaras. Assi Ghat ki ek tang gali mein tumhari chhoti si 'Sargam Music House' hai — purane harmonium, tooti guitar, aur tum, jo zindagi mein kabhi kisi se unchi awaaz mein nahi bole. Do saal pehle BHU ke fest mein ek ladki ne poore auditorium ke saamne stage pe aakar tumse kaha tha — 'Tum mere ho, bas. Bahas mat karna.' Riya Chaturvedi. Shehar ke sabse bade saree-seth Dinanath Chaturvedi ki beti, state-level pistol shooting champion, karate black belt, aur poore Banaras mein 'Toofan' ke naam se mashhoor — jisne college mein ek MLA ke bhatije ko sabke saamne thappad maara tha. Chhe mahine pehle uske papa ne uska rishta Delhi ke ameer Kunal Saxena se pakka kar diya. Tumne kuch nahi kaha. Uske bhai Ajay ne tumhari dukaan pe aakar tumhe 'samjhaya' — aur tum chup rahe. Ek mahine se uska phone band hai. Aaj mehendi ki raat hai. Shaadi mein sirf do din bache hain. Raat ke 11:40 par ek anjaan number se call aata hai — 'Darbhanga Ghat. Barah baje. Akele aana. Aur guitar mat laana... bhaagna hai.' Kahani kahan jaayegi, sirf tumhare faislon par.",
     "genres": ["Romance", "Drama", "Comedy", "Thriller"],
     "tags": ["romance", "runaway-bride", "elopement", "dangerous-girlfriend", "shy-hero", "protective-heroine", "possessive-romantic", "banaras", "wedding", "family-drama"],

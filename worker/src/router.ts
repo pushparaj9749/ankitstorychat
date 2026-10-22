@@ -21,7 +21,8 @@
  *                                           world.json | scenes.json |
  *                                           memory.json | assets/cover.* |
  *                                           assets/gallery/image-NN.* |
- *                                           assets/references/<canonical-id>.jpg)
+ *                                           assets/references/<canonical-id>.jpg |
+ *                                           assets/creator.*)
  *   GET  /api/covers/:name.jpg             (APK cover art, website fallback)
  *   POST /api/submit/idea                  (public — submit a story idea)
  *   POST /api/submit/story                 (public — submit a complete story)
@@ -102,8 +103,10 @@ const STORY_ASSET_RE =
   /^assets\/(cover\.(?:jpg|jpeg|png|webp)|gallery\/image-\d{2}\.(?:jpg|jpeg|png|webp))$/;
 /** Canonical visual references are story-local but not Media Library gallery entries. */
 const STORY_REFERENCE_RE = /^assets\/references\/[a-z0-9][a-z0-9-]{0,63}\.jpg$/;
+/** Story-creator avatar set by the Kissa team at publish time (v2.10.2). */
+const STORY_CREATOR_AVATAR_RE = /^assets\/creator\.(?:jpg|jpeg|png|webp)$/;
 function isStoryAssetFile(file: string): boolean {
-  return STORY_ASSET_RE.test(file) || STORY_REFERENCE_RE.test(file);
+  return STORY_ASSET_RE.test(file) || STORY_REFERENCE_RE.test(file) || STORY_CREATOR_AVATAR_RE.test(file);
 }
 
 /** APK cover art names (/api/covers/<name>). */
