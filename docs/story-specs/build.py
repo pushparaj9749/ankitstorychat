@@ -85,13 +85,13 @@ def build(spec):
         "coverUrl": f"stories/{sid}/assets/cover.jpg", "accentColor": spec['accent'],
         "userRole": spec['userRole'], "setting": spec['setting'], "estimatedMinutes": 60, "featured": False, "isNew": True,
         "popularity": spec.get('popularity', 97), "storyDir": sid, "creator": CREATOR,
-        "updatedAt": "2026-10-20T00:00:00Z",
+        "updatedAt": spec.get('updatedAt', "2026-10-20T00:00:00Z"),
     }
     mp = os.path.join(REPO, 'content', 'manifest.json')
     m = json.load(open(mp, encoding='utf-8'))
     m['stories'] = [s for s in m['stories'] if s['id'] != sid]
     m['stories'].insert(1, entry)
-    m['updatedAt'] = "2026-10-20T00:00:00Z"
+    m['updatedAt'] = spec.get('updatedAt', "2026-10-20T00:00:00Z")
     with open(mp, 'w', encoding='utf-8') as f:
         json.dump(m, f, ensure_ascii=False, indent=2)
         f.write('\n')
