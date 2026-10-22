@@ -30,6 +30,7 @@ import { CoverImage } from '../../components/CoverImage';
 import { ArtBackdrop } from '../../components/ArtBackdrop';
 import { GridCard } from './StoryCard';
 import { NaturalImage } from '../../components/NaturalImage';
+import { CreatorAvatar } from '../../components/CreatorAvatar';
 import { AgeBadge, GenreChip, SectionHeader } from '../../components/bits';
 import { ErrorState, LoadingState, OfflineState } from '../../components/states';
 import { getBundledCoverSource, getBundle, mediaApiUrl, effectiveContentApiBaseUrl, StoryContentError } from '../../content/loader';
@@ -368,7 +369,7 @@ export function StoryDetail({ navigation, route }: Props) {
             </>
           ) : null}
 
-          <CreatorBlock creator={bundle.creator} />
+          <CreatorBlock creator={bundle.creator} storyDir={bundle.meta.storyDir} />
           <SimilarStoriesBlock storyId={storyId} navigation={navigation} />
 
           <SectionHeader title="Share karo" />
@@ -540,8 +541,9 @@ function LightboxImage({ url, accent }: { url: string; accent: string }) {
   );
 }
 
-function CreatorBlock({ creator }: { creator: StoryCreator }) {
-  const { theme } = useApp();
+function CreatorBlock({ creator, storyDir }: { creator: StoryCreator; storyDir: string }) {
+  const { theme, settings } = useApp();
+  const apiBase = effectiveContentApiBaseUrl(settings?.contentApiBaseUrl);
   const display: StoryCreator = {
     name: (creator?.name && creator.name.trim()) || KISSA_OWNER_CREATOR.name,
     avatar: creator?.avatar ?? null,
@@ -551,14 +553,7 @@ function CreatorBlock({ creator }: { creator: StoryCreator }) {
     <>
       <SectionHeader title="Story Creator" />
       <View style={[styles.creatorCard, { backgroundColor: withAlpha(theme.text, 0.04), borderColor: theme.border }]}>
-        <LinearGradient
-          colors={['#FF4F8B', '#A855F7']}
-          start={{ x: 0, y: 0 }}
-          end={{ x: 1, y: 1 }}
-          style={styles.creatorAvatar}
-        >
-          <Text style={styles.creatorInitial}>{display.name[0]?.toUpperCase() ?? '?'}</Text>
-        </LinearGradient>
+        <CreatorAvatar creator={display} storyDir={storyDir} apiBase={apiBase} colors={['#FF4F8B', '#A855F7']} ringColor={withAlpha(theme.text, 0.14)} />
         <View style={{ flex: 1 }}>
           <View style={styles.creatorNameRow}>
             <Text style={[styles.creatorName, { color: theme.text }]}>{display.name}</Text>
@@ -699,8 +694,6 @@ const styles = StyleSheet.create({
   lightboxFallback: { alignItems: 'center', justifyContent: 'center', gap: 8 },
   lightboxFallbackText: { fontSize: SCALE.caption, fontWeight: '600' },
   creatorCard: { flexDirection: 'row', alignItems: 'center', gap: 12, borderWidth: 1, borderRadius: RADIUS.lg, padding: 14, marginTop: 4 },
-  creatorAvatar: { width: 46, height: 46, borderRadius: RADIUS.md, alignItems: 'center', justifyContent: 'center' },
-  creatorInitial: { fontSize: 17, fontWeight: '900', color: '#FFFFFF' },
   creatorNameRow: { flexDirection: 'row', alignItems: 'center', gap: 7 },
   creatorName: { fontSize: 15, fontWeight: '800' },
   verifiedPill: { flexDirection: 'row', alignItems: 'center', gap: 4, paddingHorizontal: 6, paddingVertical: 2, borderRadius: RADIUS.xs, borderWidth: 1 },

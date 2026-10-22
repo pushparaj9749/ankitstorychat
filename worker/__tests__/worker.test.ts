@@ -30,6 +30,7 @@ const STORIES = {
   'content/stories/goddess-who-chose-me/memory.json': JSON.stringify({ storyId: 'goddess-who-chose-me' }),
   'content/stories/goddess-who-chose-me/assets/cover.jpg': 'JPEGBYTES',
   'content/stories/goddess-who-chose-me/assets/references/mc.jpg': 'REFERENCEBYTES',
+  'content/stories/goddess-who-chose-me/assets/creator.jpg': 'AVATARBYTES',
   'covers/cafe-queen-myra.jpg': 'JPEGBYTES2',
 };
 
@@ -160,6 +161,16 @@ describe('GET endpoints', () => {
     expect(res.status).toBe(200);
     expect(res.headers.get('Content-Type')).toBe('image/jpeg');
     expect(await res.text()).toBe('REFERENCEBYTES');
+  });
+
+  test('story-creator avatar (assets/creator.jpg) is served; other names are not', async () => {
+    const res = await get('/api/stories/goddess-who-chose-me/assets/creator.jpg');
+    expect(res.status).toBe(200);
+    expect(res.headers.get('Content-Type')).toBe('image/jpeg');
+    expect(await res.text()).toBe('AVATARBYTES');
+    expect(parseApiRoute('/api/stories/x/assets/creator.gif')).toEqual({ kind: 'not-found' });
+    expect(parseApiRoute('/api/stories/x/assets/creator-2.jpg')).toEqual({ kind: 'not-found' });
+    expect(parseApiRoute('/api/stories/x/assets/avatars/creator.jpg')).toEqual({ kind: 'not-found' });
   });
 
   test('whole story package is served in one JSON response', async () => {

@@ -56,6 +56,11 @@ moves the tale forward — with memory and relationships, and no script: no pred
 
 ## 🆕 Release notes
 
+### v2.10.2 — Story Creator avatars
+
+- **Anime avatars on the Story Creator card** (both templates). Owner stories (Ankit, verified) show Ankit's avatar bundled in the APK (`assets/creators/ankit.jpg`) — works offline, no package changes.
+- **Stories built from a user's accepted idea credit that user.** `docs/story-specs/build.py` accepts a per-spec `creator`; "Dulhan Bhagi Shadi Se" is now credited to **Ankit 2.0** (story version 2, contentVersion 53) with a story-local avatar `assets/creator.jpg`, served by the story API (new allowlisted file shape). Only that exact relative path is accepted — never arbitrary URLs, never for community stories; on load failure the card falls back to the name's first letter.
+
 ### v2.10.1 — New stories show up on the first launch, submission status sync
 
 - **New OTA stories appear right away.** The app fetched the new manifest on launch but only cached it, so a new story showed up on the *second* launch. `src/content/sync.ts` now reports when the catalog changed and the story list is refreshed immediately; the catalog is also re-checked when the app returns to the foreground (at most every 2 minutes). New-story notifications count only stories that are actually new since the last check.

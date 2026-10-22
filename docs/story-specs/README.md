@@ -9,3 +9,17 @@ python3 docs/story-specs/build.py s1 s2   # run from repo root or anywhere
 
 `covers/` holds covers generated ahead of their story's gallery; they move to
 `content/stories/<id>/assets/cover.jpg` when the story is built.
+
+## Creator credit (stories from user ideas)
+
+By default every story is credited to the Kissa owner (`Ankit`, verified; avatar bundled in the app).
+When a story is built from a user's **accepted idea**, credit that user in the SPEC:
+
+```python
+"creator": {"name": "<their creator name>", "avatar": "assets/creator.jpg", "verified": False},
+```
+
+`avatar` is optional; when set, put a square (512×512) JPEG at `content/stories/<id>/assets/creator.jpg`.
+No other avatar path or URL is accepted by the app or the story API. If the story is already published,
+bump its `version` too so devices pick up the change.
+
