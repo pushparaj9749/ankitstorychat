@@ -162,8 +162,10 @@ describe('*action* markup inside a dialogue bubble', () => {
     />,
   );
 
-  test('speaker label is shown', () => {
-    expect(texts(tree).map((t) => (t.children ?? []).join(''))).toContain('Myra');
+  test('speaker name is inline in the one bubble (no label above)', () => {
+    const all = texts(tree).map((t) => (t.children ?? []).join(''));
+    expect(all).toContain('Myra: ');
+    expect(all).not.toContain('Myra');
   });
 
   test('only the asterisked part is faded, the spoken part stays bright', () => {
@@ -224,10 +226,10 @@ describe('speaker inferred from `Name: "line"` dialogue', () => {
     expect(inferSpeaker('"Chal na... chal."')).toBeNull();
   });
 
-  test('the bubble shows the name as the label, not inline', () => {
+  test('the name stays inline, with no label above the bubble', () => {
     const tree = render(<ChatBubble message={msg({ role: 'assistant', text: 'Meenu: "Chai piyoge?"' })} />);
     const all = texts(tree).map((t) => (t.children ?? []).join(''));
-    expect(all).toContain('Meenu');
-    expect(all.join('|')).not.toContain('Meenu:');
+    expect(all.join('|')).toContain('Meenu: "Chai piyoge?"');
+    expect(all).not.toContain('Meenu');
   });
 });
