@@ -56,6 +56,11 @@ moves the tale forward — with memory and relationships, and no script: no pred
 
 ## 🆕 Release notes
 
+### v2.9.4 — Chat bubbles back to one per reply
+
+- **One bubble per AI reply.** The per-speaker split from v2.9.3 is reverted. A whole reply sits in one bubble again, and speakers' names stay inline inside it ("Laila: …").
+- **No name label above the bubble and no circle beside it.** The speaker name above bubbles, the left avatar circle and the ✦ on the typing indicator are gone in both chat templates.
+
 ### v2.9.3 — Chat and screen polish
 
 - **Chat replies read like the opening.** When one AI reply mixes narration and several speakers, each beat now gets its own bubble with the right name. Before, everything sat under the first speaker's name with raw "Laila:" prefixes inside. This is display only, so old chats look right too. A character keeps one avatar colour ("Vedika" = "Vedika Rajvanshi").

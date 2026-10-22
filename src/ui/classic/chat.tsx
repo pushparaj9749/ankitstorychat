@@ -22,8 +22,7 @@ import { useApp } from '../../state/AppContext';
 import { FADED_TEXT_OPACITY, GRADIENTS, RADIUS, SCALE, SHADOWS, SPACING, TOUCH, withAlpha, FONTS, TEXT_SIZE_MULTIPLIER } from './theme';
 import { parseStoryMarkup, stripStoryMarkup } from '../../lib/markup';
 import { sanitizeStoredText } from '../../lib/leakGuard';
-import { Avatar } from '../../components/bits';
-import { avatarKey, splitStoryBeats } from '../../components/chat';
+import { withInlineSpeaker } from '../../components/chat';
 import { Icon, ICON_SIZE } from '../../components/icons';
 
 /**
@@ -68,19 +67,6 @@ export function StoryText({
   );
 }
 
-/** The storyteller's mark — a quiet ✦ instead of a loud gradient avatar on every line. */
-function NarratorMark() {
-  const { theme } = useApp();
-  return (
-    <View
-      style={[styles.narratorMark, { backgroundColor: withAlpha(theme.violet, 0.16), borderColor: withAlpha(theme.violet, 0.34) }]}
-      accessibilityLabel="Narrator"
-    >
-      <Icon name="sparkles" size={14} color={theme.gold} />
-    </View>
-  );
-}
-
 function ChatBubbleImpl({ message: stored }: { message: ChatMessage }) {
   const { theme, settings } = useApp();
   // v2.7.0: messages saved by older versions may carry leaked notes — clean
@@ -94,9 +80,8 @@ function ChatBubbleImpl({ message: stored }: { message: ChatMessage }) {
   const bodySize = FONTS.body * scale;
   const smallBody = 14.5 * scale;
 
-  const narrationBubble = (text: string, speaker: string | null, key?: string) => (
-      <View key={key} style={[styles.row, styles.rowLeft]}>
-        {speaker ? <Avatar id={avatarKey(speaker)} name={speaker} size={30} /> : <NarratorMark />}
+  const narrationBubble = (text: string) => (
+      <View style={[styles.row, styles.rowLeft]}>
         <View
           style={[
             styles.bubble,
@@ -117,9 +102,8 @@ function ChatBubbleImpl({ message: stored }: { message: ChatMessage }) {
         </View>
       </View>
   );
-  const dialogueBubble = (text: string, speaker: string | null, key?: string) => (
-    <View key={key} style={[styles.row, styles.rowLeft]}>
-      {speaker ? <Avatar id={avatarKey(speaker)} name={speaker} size={30} /> : <NarratorMark />}
+  const dialogueBubble = (text: string) => (
+    <View style={[styles.row, styles.rowLeft]}>
       <View
         style={[
           styles.bubble,
@@ -129,12 +113,6 @@ function ChatBubbleImpl({ message: stored }: { message: ChatMessage }) {
       >
         <LinearGradient colors={['rgba(255,122,176,0.10)', 'transparent']} style={styles.bubbleGlow} pointerEvents="none" />
         <View style={[styles.accentEdge, { backgroundColor: theme.primary }]} pointerEvents="none" />
-        {speaker ? (
-          <View style={styles.speakerRow}>
-            <Text style={[styles.speaker, { color: theme.accent, fontSize: 11 * scale }]}>{speaker}</Text>
-            <View style={[styles.speakerDot, { backgroundColor: withAlpha(theme.accent, 0.5) }]} />
-          </View>
-        ) : null}
         <StoryText text={text} color={'#fff'} fadedColor={withAlpha(theme.textDim, FADED_TEXT_OPACITY)} fontSize={bodySize} lineHeight={23 * scale} />
       </View>
     </View>
@@ -154,7 +132,7 @@ function ChatBubbleImpl({ message: stored }: { message: ChatMessage }) {
     }
 
     // Narration — same layout shape as dialogue (see file header).
-    return narrationBubble(message.text, message.speaker ?? null);
+    return narrationBubble(message.text);
   }
 
   if (message.role === 'system') {
@@ -179,24 +157,9 @@ function ChatBubbleImpl({ message: stored }: { message: ChatMessage }) {
     );
   }
 
-  // Assistant / character — named, crisp dialogue with a rose edge.
-  // Story packs often write dialogue as `Name: "line"` without a speaker
-  // field; lift that name into the label/avatar instead of repeating it inline.
-  const inferred = message.speaker ? null : inferSpeaker(message.text);
-  const speaker = message.speaker ?? inferred?.name ?? null;
-  // Several beats in one reply → one bubble per beat (see splitStoryBeats).
-  const beats = message.role === 'assistant' ? splitStoryBeats(message.text, message.speaker ?? null) : null;
-  if (beats && beats.length > 1) {
-    return (
-      <View>
-        {beats.map((bt, i) =>
-          bt.kind === 'narration' ? narrationBubble(bt.text, null, `b${i}`) : dialogueBubble(bt.text, bt.speaker, `b${i}`),
-        )}
-      </View>
-    );
-  }
-  const text = inferred ? inferred.rest : message.text;
-  return dialogueBubble(text, speaker);
+  // Assistant / character — the whole reply in ONE bubble, no name label
+  // above it and no circle beside it; speakers' names stay inline.
+  return dialogueBubble(withInlineSpeaker(message.text, message.speaker ?? null));
 }
 
 /**
@@ -234,7 +197,6 @@ export function TypingIndicator({ label = 'Story continues…' }: { label?: stri
 
   return (
     <View style={styles.typingRow}>
-      <Avatar id="narrator" name="✦" size={26} />
       <Animated.View
         style={[
           styles.typingBubble,
@@ -315,7 +277,6 @@ const styles = StyleSheet.create({
   sysWrap: { alignItems: 'center', marginVertical: 8 },
   sysPill: { paddingHorizontal: 12, paddingVertical: 6, borderRadius: RADIUS.pill, borderWidth: 1 },
   sysText: { fontWeight: '600', letterSpacing: 0.2 },
-  narratorMark: { width: 30, height: 30, borderRadius: 15, borderWidth: 1, alignItems: 'center', justifyContent: 'center' },
   row: { flexDirection: 'row', marginVertical: 6, gap: 8, alignItems: 'flex-end', paddingHorizontal: 2 },
   rowRight: { justifyContent: 'flex-end', marginLeft: 48 },
   rowLeft: { justifyContent: 'flex-start', marginRight: 10 },

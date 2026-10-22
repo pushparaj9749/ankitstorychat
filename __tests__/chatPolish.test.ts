@@ -1,6 +1,6 @@
 /**
  * Chat & shelf polish:
- *  - one AI reply with narration + several speakers renders as separate beats
+ *  - one AI reply = one bubble, speakers' names inline, no label/circle
  *  - the opening's authored first-move suggestions are shown until the first message
  *  - no "completed / finished" anywhere in Library / You (stories never end)
  *  - cast roles on Story Detail are run through the player-name filter
@@ -11,60 +11,33 @@ import fs from 'fs';
 jest.mock('react-native', () => ({ StyleSheet: { create: (s: unknown) => s }, Animated: {}, Pressable: 'Pressable', Text: 'Text', View: 'View' }));
 jest.mock('expo-linear-gradient', () => ({ LinearGradient: 'LinearGradient' }));
 jest.mock('../src/state/AppContext', () => ({ useApp: () => ({}) }));
-jest.mock('../src/components/bits', () => ({ Avatar: 'Avatar' }));
 jest.mock('../src/components/icons', () => ({ Icon: 'Icon', ICON_SIZE: {} }));
 jest.mock('../src/lib/leakGuard', () => ({ sanitizeStoredText: (t: string) => t }));
 
-import { avatarKey, splitStoryBeats } from '../src/components/chat';
+import { withInlineSpeaker } from '../src/components/chat';
 import { shareStoryMessage } from '../src/lib/share';
 
 const read = (p: string) => fs.readFileSync(p, 'utf8');
 
-describe('splitStoryBeats', () => {
-  test('narration and each speaker get their own beat', () => {
-    const beats = splitStoryBeats(
-      '*Vedika muskurati hai.*\nVedika: "Chai?"\n*Laila ghadi dekhti hai.*\nLaila: "Bees minute, Sarkar."',
+describe('one bubble per reply, names inline (user choice)', () => {
+  test('the speaker the engine lifted out goes back on its line', () => {
+    expect(withInlineSpeaker('*Woh paas aati hai.*\n"Teen saal, Rahul."\n*Laila ghadi dekhti hai.*\nLaila: "Bees minute."', 'Vedika')).toBe(
+      '*Woh paas aati hai.*\nVedika: "Teen saal, Rahul."\n*Laila ghadi dekhti hai.*\nLaila: "Bees minute."',
     );
-    expect(beats).toEqual([
-      { kind: 'narration', speaker: null, text: '*Vedika muskurati hai.*' },
-      { kind: 'dialogue', speaker: 'Vedika', text: '"Chai?"' },
-      { kind: 'narration', speaker: null, text: '*Laila ghadi dekhti hai.*' },
-      { kind: 'dialogue', speaker: 'Laila', text: '"Bees minute, Sarkar."' },
-    ]);
   });
 
-  test('the speaker the engine lifted out goes back on the first line', () => {
-    const beats = splitStoryBeats('*Woh paas aati hai.*\n"Teen saal, Rahul."\nVedika: "Andar bulaoge?"', 'Vedika');
-    expect(beats.map((b) => [b.kind, b.speaker])).toEqual([
-      ['narration', null],
-      ['dialogue', 'Vedika'],
-      ['dialogue', 'Vedika'],
-    ]);
+  test('no speaker, or name already there → text untouched', () => {
+    expect(withInlineSpeaker('Vedika Rajvanshi: "Haan."', null)).toBe('Vedika Rajvanshi: "Haan."');
+    expect(withInlineSpeaker('Vedika: "Haan."', 'Vedika')).toBe('Vedika: "Haan."');
   });
 
-  test('consecutive narration merges; plain text after narration is never faded', () => {
-    const beats = splitStoryBeats('*Baarish.*\n*Bijli gayi.*\n"Koi hai?"');
-    expect(beats).toEqual([
-      { kind: 'narration', speaker: null, text: '*Baarish.*\n*Bijli gayi.*' },
-      { kind: 'dialogue', speaker: null, text: '"Koi hai?"' },
-    ]);
+  test('both templates: no name label above, no circle beside, never split', () => {
+    for (const p of ['src/components/chat.tsx', 'src/ui/classic/chat.tsx']) {
+      const s = read(p);
+      expect(s).toMatch(/return dialogueBubble\(withInlineSpeaker\(message\.text, message\.speaker \?\? null\)\);/);
+      expect(s).not.toMatch(/<Avatar|NarratorMark|styles\.speakerRow\}|splitStoryBeats/);
+    }
   });
-
-  test('a single-line reply stays one bubble', () => {
-    expect(splitStoryBeats('Vedika: "Haan."')).toHaveLength(1);
-    expect(splitStoryBeats('"Haan." *Woh hansti hai.*')).toHaveLength(1);
-  });
-
-  test('avatars use one colour key per character', () => {
-    expect(avatarKey('Vedika Rajvanshi')).toBe(avatarKey('Vedika'));
-    expect(avatarKey('  Laila ')).toBe('laila');
-  });
-});
-
-test('both chat templates render replies beat by beat', () => {
-  for (const p of ['src/components/chat.tsx', 'src/ui/classic/chat.tsx']) {
-    expect(read(p)).toMatch(/splitStoryBeats\(message\.text, message\.speaker \?\? null\)/);
-  }
 });
 
 test('Chat shows the opening suggestions only before the first message', () => {
