@@ -40,6 +40,7 @@ import { IconButton, SectionHeader, SelectableChip } from '../../components/bits
 import { EmptyState } from '../../components/states';
 import { Icon, ICON_SIZE } from '../../components/icons';
 import { KISSA_LOGO } from '../../components/brand';
+import { UpdateBanner } from '../../components/UpdateBanner';
 import { GRADIENTS, KISSA, LAYOUT, RADIUS, SCALE, SHADOWS, SPACING, TOUCH, TYPE, withAlpha } from './theme';
 import { greetingForHour, timeAgo } from '../../lib/utils';
 
@@ -233,6 +234,8 @@ export function Home({ navigation }: Props) {
               {activeRecent.length > 0 ? 'Continue your story,' : 'Which world today?'}
             </Text>
           </View>
+
+          <UpdateBanner />
 
           {/* Search */}
           <View style={styles.searchRow}>

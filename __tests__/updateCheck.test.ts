@@ -15,6 +15,7 @@ import {
   compareVersions,
   dismissUpdate,
   isUpdateDismissed,
+  onUpdateStatus,
   parseRelease,
   parseVersion,
 } from '../src/lib/updateCheck';
@@ -102,14 +103,30 @@ describe('checkForUpdate', () => {
     expect(Object.keys((init?.headers ?? {}) as object)).toEqual(['Accept']);
   });
 
-  it('caches for 6 hours, then checks again', async () => {
+  it('re-asks GitHub after 15 minutes, not 6 hours (banner shows by itself)', async () => {
     const f = okFetch(release('v2.10.0'));
     const impl = f as unknown as typeof fetch;
     await checkForUpdate({ fetchImpl: impl, now: 0 });
-    await checkForUpdate({ fetchImpl: impl, now: 5 * 3600_000 });
+    await checkForUpdate({ fetchImpl: impl, now: 14 * 60_000 });
     expect(f).toHaveBeenCalledTimes(1);
-    await checkForUpdate({ fetchImpl: impl, now: 6 * 3600_000 + 1 });
+    await checkForUpdate({ fetchImpl: impl, now: 15 * 60_000 + 1 });
     expect(f).toHaveBeenCalledTimes(2);
+  });
+
+  it('a release published after an "up to date" answer is picked up within 15 minutes', async () => {
+    const old = await checkForUpdate({ fetchImpl: okFetch(release('v2.9.0')) as unknown as typeof fetch, now: 0 });
+    expect(old.available).toBe(false);
+    const fresh = await checkForUpdate({ fetchImpl: okFetch(release('v2.9.1')) as unknown as typeof fetch, now: 16 * 60_000 });
+    expect(fresh).toMatchObject({ available: true, latest: { version: '2.9.1' } });
+  });
+
+  it('broadcasts every result (auto or manual) to listeners', async () => {
+    const seen: string[] = [];
+    const off = onUpdateStatus((s) => seen.push(`${s.latest?.version}:${s.available}`));
+    await checkForUpdate({ fetchImpl: okFetch(release('v2.10.0')) as unknown as typeof fetch, now: 0, force: true });
+    off();
+    await checkForUpdate({ fetchImpl: okFetch(release('v2.11.0')) as unknown as typeof fetch, now: 1, force: true });
+    expect(seen).toEqual(['2.10.0:true']);
   });
 
   it('never throws offline and keeps the last good answer', async () => {
@@ -146,5 +163,23 @@ describe('dismiss ("Baad mein")', () => {
     await dismissUpdate('2.10.0');
     expect(await isUpdateDismissed('2.10.0')).toBe(true);
     expect(await isUpdateDismissed('2.11.0')).toBe(false);
+  });
+});
+
+describe('banner shows by itself (v2.9.5)', () => {
+  const fs = require('fs') as typeof import('fs');
+  const read = (p: string) => fs.readFileSync(p, 'utf8');
+
+  it('re-checks on foreground and listens for manual checks', () => {
+    const b = read('src/components/UpdateBanner.tsx');
+    expect(b).toMatch(/AppState\.addEventListener\('change'/);
+    expect(b).toMatch(/onUpdateStatus\(/);
+    expect(b).toMatch(/setInterval\(/);
+    expect(read('src/lib/updateCheck.ts')).not.toMatch(/6 \* 60 \* 60 \* 1000/);
+  });
+
+  it('is on Home in both templates', () => {
+    expect(read('src/screens/Home.tsx')).toMatch(/<UpdateBanner \/>/);
+    expect(read('src/ui/classic/Home.tsx')).toMatch(/<UpdateBanner \/>/);
   });
 });

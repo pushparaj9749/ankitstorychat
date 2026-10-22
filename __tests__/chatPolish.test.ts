@@ -1,6 +1,6 @@
 /**
  * Chat & shelf polish:
- *  - one AI reply = one bubble, speakers' names inline, no label/circle
+ *  - chat bubbles stay in the v2.9.2 style (user choice)
  *  - the opening's authored first-move suggestions are shown until the first message
  *  - no "completed / finished" anywhere in Library / You (stories never end)
  *  - cast roles on Story Detail are run through the player-name filter
@@ -8,36 +8,17 @@
  */
 import fs from 'fs';
 
-jest.mock('react-native', () => ({ StyleSheet: { create: (s: unknown) => s }, Animated: {}, Pressable: 'Pressable', Text: 'Text', View: 'View' }));
-jest.mock('expo-linear-gradient', () => ({ LinearGradient: 'LinearGradient' }));
-jest.mock('../src/state/AppContext', () => ({ useApp: () => ({}) }));
-jest.mock('../src/components/icons', () => ({ Icon: 'Icon', ICON_SIZE: {} }));
-jest.mock('../src/lib/leakGuard', () => ({ sanitizeStoredText: (t: string) => t }));
-
-import { withInlineSpeaker } from '../src/components/chat';
 import { shareStoryMessage } from '../src/lib/share';
 
 const read = (p: string) => fs.readFileSync(p, 'utf8');
 
-describe('one bubble per reply, names inline (user choice)', () => {
-  test('the speaker the engine lifted out goes back on its line', () => {
-    expect(withInlineSpeaker('*Woh paas aati hai.*\n"Teen saal, Rahul."\n*Laila ghadi dekhti hai.*\nLaila: "Bees minute."', 'Vedika')).toBe(
-      '*Woh paas aati hai.*\nVedika: "Teen saal, Rahul."\n*Laila ghadi dekhti hai.*\nLaila: "Bees minute."',
-    );
-  });
-
-  test('no speaker, or name already there → text untouched', () => {
-    expect(withInlineSpeaker('Vedika Rajvanshi: "Haan."', null)).toBe('Vedika Rajvanshi: "Haan."');
-    expect(withInlineSpeaker('Vedika: "Haan."', 'Vedika')).toBe('Vedika: "Haan."');
-  });
-
-  test('both templates: no name label above, no circle beside, never split', () => {
-    for (const p of ['src/components/chat.tsx', 'src/ui/classic/chat.tsx']) {
-      const s = read(p);
-      expect(s).toMatch(/return dialogueBubble\(withInlineSpeaker\(message\.text, message\.speaker \?\? null\)\);/);
-      expect(s).not.toMatch(/<Avatar|NarratorMark|styles\.speakerRow\}|splitStoryBeats/);
-    }
-  });
+test('chat bubbles are back to the v2.9.2 style (name label + circle, one bubble)', () => {
+  for (const p of ['src/components/chat.tsx', 'src/ui/classic/chat.tsx']) {
+    const s = read(p);
+    expect(s).toMatch(/<Avatar id=\{speaker\}/);
+    expect(s).toMatch(/styles\.speakerRow/);
+    expect(s).not.toMatch(/splitStoryBeats|withInlineSpeaker/);
+  }
 });
 
 test('Chat shows the opening suggestions only before the first message', () => {
