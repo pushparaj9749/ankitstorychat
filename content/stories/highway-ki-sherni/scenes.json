@@ -1,0 +1,84 @@
+{
+  "storyId": "highway-ki-sherni",
+  "version": 1,
+  "scenes": [
+    {
+      "id": "aandhi_wali_raat",
+      "title": "Aandhi Wali Raat",
+      "narration": [
+        "*Raat ke do baje. NH-48 par aandhi chal rahi hai — ret ke jhonke tin ki chhat se takra rahe hain, aur 'Ustaad Motors' ka akela bulb hawa mein jhool raha hai. Purane radio par Kishore Kumar dheere-dheere ga rahe hain. Tillu tyre ke dher par so gaya hai, aur tum ek truck ka pankchar jod rahe ho.*",
+        "*Shelf par ek chhota sa tin ka dabba rakha hai. Usme baarah ek jaisi chhoti keelein hain — har mangalvaar ek. Aaj mangalvaar nahi hai.*",
+        "*Tabhi highway se ek bike ki dahaad aati hai — itni gehri ki zameen kaanp jaaye. Ek matte-black bike chingaariyan udaati hui garage ke andar ghusti hai aur tyre ke dher se do kadam pehle ruk jaati hai. Chain toot ke latak rahi hai. Peeche, highway par teen gaadiyon ki headlights tez hoti ja rahi hain.*",
+        "*Sawaar utarti hai. Kaali leather jacket, fingerless gloves, boots. Woh ek jhatke mein shutter aadha neeche kheench deti hai, phir helmet utaarti hai — aur kamar tak lambe, ghane, lehraate baal khul ke bikhar jaate hain.*",
+        "*Bulb ki peeli roshni mein woh chehra dikhta hai. Kajal waali aankhein, naak mein chhoti si chaandi ki nath... wahi chehra jo teen mahine se har mangalvaar dupatte mein lipta, sharmaate hue tumse kehta tha — 'Bhaiya... matlab, suniye... phir se pankchar ho gaya.'*",
+        "Tillu: *(neend se uchhalte hue, phone ka wallpaper aur us chehre ko baari-baari dekhta hai)* \"U-Ustaad... ye toh... ye toh SHERNI hai! Kaali Aandhi wali!\"",
+        "*Bahar teen gaadiyaan dheemi hoti hain. Headlights aadhe shutter ke neeche se andar tak aati hain... phir aage badh jaati hain. Woh tab tak saans roke khadi rehti hai, phir tumhari taraf mudti hai. Highway ki sabse khatarnak aankhein ek pal mein bilkul naram ho jaati hain.*",
+        "Naina Shekhawat: \"Aaj mangalvaar nahi hai na, Ustaad?\" *Ek chhoti si, sharmaayi hui muskaan.* \"Sorry... aaj keel nahi laayi. Seedha poori bike tod ke le aayi.\"",
+        "*Woh tin ke dabbe ki taraf dekhti hai. Uski nazar ek pal ke liye wahin ruk jaati hai. Phir woh tumhare thoda kareeb aati hai — itna ki uski jacket se aandhi aur petrol ki khushboo aati hai.*",
+        "*Tabhi uske phone par Jassi ki awaaz chilla uthti hai — 'Sherni! Shera ke bande wapas mud rahe hain! Kahan hai tu?' Andar se Dadi ki aawaz aati hai — 'Kaun hai re itni raat ko?' Naina phone ko dekhti hai, phir tumhe, aur dheere se tumhari ungliyan pakad leti hai.*",
+        "Naina Shekhawat: *(sirf tumse, dheere se)* \"Sab sach bata doongi... sab. Bas pehle ek baat bolo — main yahin ruk jaaun, ya chali jaaun?\""
+      ],
+      "fallbackLines": [
+        "*Naina tumhara jawab sun ke ek pal ke liye bilkul chup ho jaati hai — jaise teen mahine ka darr ek saans mein utar gaya ho.*",
+        "Naina Shekhawat: \"Highway mujhe Sherni kehta hai, Ustaad. Par tumhare garage mein... main ab bhi wahi mangalvaar wali Naina hoon.\""
+      ],
+      "choices": [
+        {
+          "id": "recognize_naina",
+          "text": "*Uski aankhon mein dekhte hue, dheere se — 'Naina...? Tum... tum theek ho? Matlab woh har mangalvaar ki keel... tum khud...?'*",
+          "shortLabel": "Naina... tum?",
+          "keywords": [
+            "naina",
+            "keel",
+            "mangalvaar",
+            "theek",
+            "pankchar"
+          ],
+          "next": null,
+          "effects": {
+            "memory": [
+              "When Sherni crashed into Ustaad Motors, {{playerName}} recognised her as Naina and asked about the Tuesday nails."
+            ]
+          }
+        },
+        {
+          "id": "hide_her",
+          "text": "*Ghabraahat mein, par jaldi se — 'Andar aao. Bike tarpaulin ke neeche chhupa dete hain. Pehle tum safe ho jao.'*",
+          "shortLabel": "Pehle chhup jao",
+          "keywords": [
+            "chhup",
+            "andar",
+            "safe",
+            "tarpaulin",
+            "bike"
+          ],
+          "next": null,
+          "effects": {
+            "memory": [
+              "When Sherni crashed into Ustaad Motors, {{playerName}} told her to hide inside first and offered to hide her bike."
+            ]
+          }
+        },
+        {
+          "id": "offer_chai",
+          "text": "*Sharmaate hue nazrein jhuka kar — 'Ruk jao... aandhi hai. Chai banaun? Waise hi, adrak wali.'*",
+          "shortLabel": "Chai banaun?",
+          "keywords": [
+            "chai",
+            "ruk",
+            "adrak",
+            "baith",
+            "aandhi"
+          ],
+          "next": null,
+          "effects": {
+            "memory": [
+              "When Sherni crashed into Ustaad Motors, {{playerName}} asked her to stay and offered to make her adrak chai, like every Tuesday."
+            ]
+          }
+        }
+      ]
+    }
+  ],
+  "endings": []
+}

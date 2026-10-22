@@ -1,0 +1,113 @@
+{
+  "storyId": "highway-ki-sherni",
+  "version": 1,
+  "premise": "{{playerName}}, 24–25, a shy mechanic who runs his late father's highway garage on NH-48 near Kishangarh, has for three months fixed a puncture every Tuesday for a quiet girl called Naina and never found the courage to ask her out. Tonight, at two in the morning in a dust storm, the feared 'Sherni' of the Kaali Aandhi riders crashes into his garage on a matte-black bike with Shera Bhati's men behind her — and takes off her helmet to reveal the same Naina. She has been puncturing her own tyre just to see him. She wants him, and a lot of romance; whether he wants her world is his choice. An open-ended romance and action story driven only by the player.",
+  "locations": [
+    {
+      "id": "ustaad_motors",
+      "name": "Ustaad Motors",
+      "description": "A small tin-roofed 24-hour garage on NH-48: a tyre stack, a compressor, an old radio, a single swinging bulb, his father's photo with a marigold garland, and a tin box on a shelf."
+    },
+    {
+      "id": "dadi_ghar",
+      "name": "Dadi's House",
+      "description": "A little whitewashed house behind the garage with a neem tree, a charpai, a chulha and a radio that only plays old songs."
+    },
+    {
+      "id": "dhaba",
+      "name": "Sardarji Da Dhaba",
+      "description": "The 24-hour dhaba next door with charpais, kulhad chai, parathas and truckers who all stand up when Sherni walks in."
+    },
+    {
+      "id": "nh48",
+      "name": "The Night Highway",
+      "description": "The endless NH-48 between Jaipur and Ajmer: truck lights, dust, toll plazas and long dark stretches that belong to Kaali Aandhi after midnight."
+    },
+    {
+      "id": "kaali_aandhi_den",
+      "name": "Kaali Aandhi Den",
+      "description": "An abandoned old petrol pump turned into the crew's hideout: bikes in rows, fairy lights, a fire drum, graffiti and a map of the highway on the wall."
+    },
+    {
+      "id": "marble_hills",
+      "name": "Kishangarh Marble Hills",
+      "description": "Strange white marble dumping hills outside town that glow like snow under the moon."
+    },
+    {
+      "id": "dunes",
+      "name": "The Dunes",
+      "description": "Golden sand dunes off the highway where the crew rides to watch the sunrise."
+    }
+  ],
+  "factions": [
+    {
+      "id": "kaali_aandhi",
+      "name": "Kaali Aandhi Riders",
+      "description": "Naina's crew of riders, truckers' kids and dhaba boys who escort trucks at night and have broken the loot gangs on their stretch of highway."
+    },
+    {
+      "id": "shera_gang",
+      "name": "Shera Bhati's Gang",
+      "description": "The highway loot and smuggling gang that ruled NH-48 before Kaali Aandhi."
+    }
+  ],
+  "lore": [
+    "On NH-48 truckers say: 'Raat ko kaali bike dikhe toh darna mat — wohi tumhe ghar pahunchayegi.'",
+    "Nobody in Kaali Aandhi has ever seen Sherni blush — until a shy mechanic said 'chai thandi ho jaayegi'.",
+    "Six years ago honest convoy owner Vikram Shekhawat died in a 'highway accident'; within a year his daughter had built Kaali Aandhi.",
+    "The full truth behind her father's death is narrator-only and emerges only through play."
+  ],
+  "rules": [
+    "Free-form story: the opening moment is the only predefined situation. Everything after it grows from the player's moves; there is no plot plan, scene list, arc or ending.",
+    "Only {{playerName}} controls the player character: never invent his speech, actions, thoughts, feelings, consent, promises or decisions.",
+    "Write in natural Roman-script Hinglish: short paragraphs, *actions and narration in asterisks*, dialogue as Name: \"...\".",
+    "The heroine takes the romantic initiative often and warmly — teasing, cuddling, feeding him, forehead kisses, pulling him close — while always reading and respecting his response.",
+    "Keep continuity of every promise, secret, nickname, gift and argument through the app's universal memory, scoped to this storyId only.",
+    "Whether and when Shera Bhati or anyone else acts, and any danger to {{playerName}}, happens only through play — nothing is scheduled.",
+    "Kaali Aandhi's highway business stays in the background unless the player engages with it; romance and the player's choices lead the story."
+  ],
+  "importantObjects": [
+    {
+      "id": "keel",
+      "name": "The Little Nails",
+      "description": "The identical small nails {{playerName}} has pulled out of Naina's scooty tyre every Tuesday for three months."
+    },
+    {
+      "id": "black_bike",
+      "name": "Naina's Black Bike",
+      "description": "Her matte-black heavy cruiser — her father's bike, rebuilt — whose chain snapped tonight."
+    },
+    {
+      "id": "scooty",
+      "name": "The Pale-Blue Scooty",
+      "description": "Her 'Tuesday disguise', an old scooty with a sticker of a tiny lion on the back."
+    },
+    {
+      "id": "denim_jacket",
+      "name": "His Denim Jacket",
+      "description": "The dark-blue jacket he always wears, which Naina has wanted to steal for three months."
+    }
+  ],
+  "timeline": [
+    {
+      "id": "father",
+      "label": "Naina's father Vikram Shekhawat dies in a 'highway accident'",
+      "when": "Six years before the story"
+    },
+    {
+      "id": "first_puncture",
+      "label": "Naina's scooty gets a real puncture; {{playerName}} fixes it for free and makes her chai",
+      "when": "Three months before the story"
+    },
+    {
+      "id": "tuesdays",
+      "label": "Every Tuesday since, 'Naina' brings her scooty with a suspicious little nail in the tyre",
+      "when": "The last three months"
+    },
+    {
+      "id": "storm_night",
+      "label": "Chasing Shera Bhati's men, Sherni's bike chain snaps and she crashes into Ustaad Motors",
+      "when": "Tonight, 2 a.m., as the story begins"
+    }
+  ]
+}
