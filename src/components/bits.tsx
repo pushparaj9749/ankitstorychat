@@ -89,6 +89,7 @@ export function SelectableChip({
         },
       ]}
     >
+      {selected ? <View style={[styles.selectDot, { backgroundColor: theme.primary }]} /> : null}
       <Text
         style={[
           styles.selectChipText,
@@ -118,19 +119,32 @@ export function SectionHeader({
 }) {
   const { theme, uiTemplate } = useApp();
   if (uiTemplate === 'classic') return <ClassicSectionHeader {...{ title, action, onAction, kicker }} />;
+  /* v2.10: editorial hierarchy. A word kicker becomes a champagne overline
+     with a short rose rule above the title; a numeric kicker becomes a count
+     badge beside it. "See all" is a quiet glass pill with a chevron disc. */
+  const count = kicker && /^\d+$/.test(kicker.trim()) ? kicker.trim() : null;
+  const overline = kicker && !count ? kicker : null;
   return (
     <View style={styles.section}>
       <View style={styles.sectionLeft}>
+        {overline ? (
+          <View style={styles.overlineRow}>
+            <View style={[styles.overlineRule, { backgroundColor: theme.primary }]} />
+            <Text style={[styles.overline, { color: theme.gold }]} numberOfLines={1}>
+              {overline.toUpperCase()}
+            </Text>
+          </View>
+        ) : null}
         <View style={styles.sectionTitleRow}>
           <Text style={[styles.sectionTitle, { color: theme.text }]} numberOfLines={1}>
             {title}
           </Text>
+          {count ? (
+            <View style={[styles.countBadge, { backgroundColor: withAlpha(theme.text, 0.08), borderColor: withAlpha(theme.text, 0.1) }]}>
+              <Text style={[styles.countText, { color: theme.textDim }]}>{count}</Text>
+            </View>
+          ) : null}
         </View>
-        {kicker ? (
-          <Text style={[styles.kicker, { color: theme.textFaint }]} numberOfLines={1}>
-            {kicker}
-          </Text>
-        ) : null}
       </View>
       {action && onAction ? (
         <Pressable
@@ -138,12 +152,18 @@ export function SectionHeader({
           hitSlop={10}
           accessibilityRole="button"
           style={({ pressed }) => [
-            styles.sectionActionWrap,
-            { opacity: pressed ? 0.6 : 1 },
+            styles.seeAll,
+            {
+              backgroundColor: withAlpha(theme.surface2, pressed ? 1 : 0.85),
+              borderColor: withAlpha(theme.text, 0.1),
+              transform: [{ scale: pressed ? 0.95 : 1 }],
+            },
           ]}
         >
-          <Text style={[styles.sectionAction, { color: theme.textDim }]}>{action}</Text>
-          <Icon name="chevron-forward" size={12} color={theme.textDim} />
+          <Text style={[styles.sectionAction, { color: theme.text }]}>{action}</Text>
+          <View style={[styles.seeAllDisc, { backgroundColor: withAlpha(theme.primary, 0.18) }]}>
+            <Icon name="chevron-forward" size={10} color={theme.accent} />
+          </View>
         </Pressable>
       ) : null}
     </View>
@@ -309,7 +329,7 @@ const styles = StyleSheet.create({
   selectChipTextActive: { fontWeight: '700' },
   section: {
     flexDirection: 'row',
-    alignItems: 'center',
+    alignItems: 'flex-end',
     justifyContent: 'space-between',
     marginTop: SPACING.xxl,
     marginBottom: SPACING.md,
@@ -319,6 +339,13 @@ const styles = StyleSheet.create({
   sectionLeft: { flex: 1, minWidth: 0 },
   sectionTitleRow: { flexDirection: 'row', alignItems: 'center', gap: 9 },
   sectionBar: { width: 4, height: 18, borderRadius: 2 },
+  overlineRow: { flexDirection: 'row', alignItems: 'center', gap: 7, marginBottom: 4 },
+  overlineRule: { width: 14, height: 2, borderRadius: 1 },
+  overline: { fontSize: 10.5, fontWeight: '800', letterSpacing: 1.6 },
+  countBadge: { minWidth: 24, height: 22, paddingHorizontal: 7, borderRadius: 11, borderWidth: 1, alignItems: 'center', justifyContent: 'center' },
+  countText: { fontSize: 11.5, fontWeight: '700' },
+  seeAll: { flexDirection: 'row', alignItems: 'center', gap: 6, paddingLeft: 12, paddingRight: 5, height: 30, borderRadius: 15, borderWidth: 1 },
+  seeAllDisc: { width: 20, height: 20, borderRadius: 10, alignItems: 'center', justifyContent: 'center' },
   kicker: { fontSize: SCALE.caption, letterSpacing: 0, fontWeight: '500', marginTop: 2 },
   sectionTitle: { fontSize: 19, lineHeight: 24, letterSpacing: -0.4, fontWeight: '700', flexShrink: 1 },
   sectionActionWrap: {

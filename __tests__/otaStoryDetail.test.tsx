@@ -26,6 +26,16 @@ jest.mock('react-native', () => {
     Modal: (p: any) => R.createElement('Modal', p, p.children),
     Alert: { alert: jest.fn() },
     Share: { share: jest.fn(() => Promise.resolve()) },
+    // v2.10 GradientButton springs on press.
+    Animated: {
+      Value: class {
+        constructor(public v: number) {}
+        setValue(v: number) { this.v = v; }
+      },
+      View: el('AnimatedView'),
+      spring: () => ({ start: () => {} }),
+      parallel: () => ({ start: () => {} }),
+    },
   };
 });
 

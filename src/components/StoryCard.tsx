@@ -1,5 +1,5 @@
 /**
- * KISSA v2.7 — Story cards ("Kissa Noir").
+ * KISSA v2.10 — Story cards ("Kissa Noir").
  *
  * Every card is a poster: artwork fills the whole card, text sits on the art.
  *
@@ -22,6 +22,7 @@ import { AgeBadge, GenreChip } from './bits';
 import { CoverImage } from './CoverImage';
 import { ArtBackdrop } from './ArtBackdrop';
 import { Icon, ICON_SIZE } from './icons';
+import Svg, { Defs, LinearGradient as SvgGradient, Stop, Text as SvgText } from 'react-native-svg';
 
 /* Fixed art frames — heights, never ratios (artwork keeps its own shape). */
 export const FRAME = { hero: 468, poster: 226, grid: 252, rank: 176, continue: 92, wide: 138 } as const;
@@ -188,8 +189,18 @@ function HeroCardImpl({
           </Text>
 
           <View style={styles.heroActions}>
-            <View style={[styles.heroCta, { backgroundColor: theme.primary }]}>
-              <Icon name="play" size={ICON_SIZE.sm} color={ON_ART} />
+            <View style={[styles.heroCta, SHADOWS.glowAccent]}>
+              <LinearGradient colors={[...GRADIENTS.primary]} start={{ x: 0, y: 0 }} end={{ x: 1, y: 1 }} style={StyleSheet.absoluteFill} />
+              <LinearGradient
+                colors={['rgba(255,255,255,0.24)', 'rgba(255,255,255,0)']}
+                start={{ x: 0.5, y: 0 }}
+                end={{ x: 0.5, y: 1 }}
+                style={styles.heroCtaSheen}
+                pointerEvents="none"
+              />
+              <View style={styles.heroCtaDisc}>
+                <Icon name="play" size={13} color={theme.primary} />
+              </View>
               <Text style={styles.heroCtaText}>Start story</Text>
             </View>
             <FavoriteButton storyId={meta.id} size={50} />
@@ -248,6 +259,45 @@ function GridCardImpl({
 }
 
 /* ---------------------------------------------------------- Top-10 rank card */
+/* v2.10: an outlined SVG numeral — a hairline gradient stroke (champagne for
+   the top three, silver after) over a barely-there glass fill — instead of a
+   solid grey number. The poster overlaps its right edge. */
+const RankNumeral = memo(function RankNumeral({ rank, gold }: { rank: number; gold: string }) {
+  const wide = rank >= 10;
+  const w = wide ? 112 : 74;
+  const top = rank <= 3 ? gold : 'rgba(244,245,248,0.9)';
+  const id = `rk${rank}`;
+  return (
+    <View style={[styles.rankNumWrap, { width: w }]} pointerEvents="none">
+      <Svg width={w} height={132} viewBox={`0 0 ${w} 132`}>
+        <Defs>
+          <SvgGradient id={`${id}s`} x1="0" y1="0" x2="0" y2="1">
+            <Stop offset="0" stopColor={top} stopOpacity={1} />
+            <Stop offset="1" stopColor={top} stopOpacity={0.22} />
+          </SvgGradient>
+          <SvgGradient id={`${id}f`} x1="0" y1="0" x2="0" y2="1">
+            <Stop offset="0" stopColor={top} stopOpacity={0.16} />
+            <Stop offset="1" stopColor="#0A0B10" stopOpacity={0} />
+          </SvgGradient>
+        </Defs>
+        <SvgText
+          x={w - 2}
+          y={124}
+          textAnchor="end"
+          fontSize={wide ? 116 : 128}
+          fontWeight="900"
+          letterSpacing={wide ? -10 : 0}
+          fill={`url(#${id}f)`}
+          stroke={`url(#${id}s)`}
+          strokeWidth={2.4}
+        >
+          {String(rank)}
+        </SvgText>
+      </Svg>
+    </View>
+  );
+});
+
 function RankCardImpl({ meta, rank, onPress }: { meta: StoryMeta; rank: number; onPress: () => void }) {
   const { theme } = useApp();
   return (
@@ -257,15 +307,7 @@ function RankCardImpl({ meta, rank, onPress }: { meta: StoryMeta; rank: number; 
       accessibilityLabel={`Number ${rank}: ${meta.title}`}
       style={({ pressed }) => [styles.rankCard, { transform: [{ scale: pressed ? 0.975 : 1 }] }]}
     >
-      <Text
-        style={[
-          styles.rankNum,
-          { color: 'rgba(244,245,248,0.92)', textShadowColor: 'rgba(0,0,0,0.6)' },
-          rank >= 10 ? styles.rankNumWide : null,
-        ]}
-      >
-        {rank}
-      </Text>
+      <RankNumeral rank={rank} gold={theme.gold} />
       <View style={[styles.rankPoster, SHADOWS.card]}>
         <StoryArt meta={meta} height={FRAME.rank} radius={RADIUS.lg}>
           <LinearGradient
@@ -511,6 +553,8 @@ const styles = StyleSheet.create({
     gap: 9,
   },
   heroCtaText: { fontSize: 15, fontWeight: '700', letterSpacing: 0.1, color: ON_ART },
+  heroCtaSheen: { position: 'absolute', left: 0, right: 0, top: 0, height: 25 },
+  heroCtaDisc: { width: 24, height: 24, borderRadius: 12, backgroundColor: ON_ART, alignItems: 'center', justifyContent: 'center', paddingLeft: 2 },
 
   poster: { borderRadius: RADIUS.lg + 2, overflow: 'hidden' },
   posterTop: {
@@ -539,18 +583,7 @@ const styles = StyleSheet.create({
   },
 
   rankCard: { flexDirection: 'row', alignItems: 'flex-end', height: FRAME.rank + 6 },
-  rankNum: {
-    fontSize: 104,
-    lineHeight: 108,
-    fontWeight: '700',
-    letterSpacing: -6,
-    marginRight: -26,
-    marginBottom: -12,
-    textShadowOffset: { width: 4, height: 0 },
-    textShadowRadius: 12,
-    zIndex: 0,
-  },
-  rankNumWide: { letterSpacing: -12, fontSize: 100 },
+  rankNumWrap: { height: 132, marginRight: -14, marginBottom: -10, zIndex: 0 },
   rankPoster: { width: 120, borderRadius: RADIUS.lg, overflow: 'hidden', zIndex: 1 },
   rankTitle: {
     position: 'absolute',

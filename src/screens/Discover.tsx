@@ -1,5 +1,5 @@
 /**
- * KISSA v2.6 — Discover / Search
+ * KISSA v2.10 — Discover / Search
  * Search pill, gradient genre pills, sort segment and a 2-column poster wall
  * (with a list view toggle). Every poster frame is filled — no empty bands.
  */
@@ -13,6 +13,7 @@ import { Screen } from '../components/Screen';
 import { GridCard, WideCard, FRAME } from '../components/StoryCard';
 import { SelectableChip } from '../components/bits';
 import { EmptyState } from '../components/states';
+import { Segmented } from '../components/Segmented';
 import { Icon, ICON_SIZE } from '../components/icons';
 import { LAYOUT, RADIUS, SCALE, SPACING, TOUCH, TYPE, withAlpha } from '../theme';
 import { searchStories } from '../lib/search';
@@ -20,6 +21,7 @@ import { searchStories } from '../lib/search';
 type Props = BottomTabScreenProps<MainTabParamList, 'Discover'>;
 type Sort = 'Recommended' | 'Newest' | 'Popular';
 type ViewMode = 'grid' | 'list';
+const SORTS = ['Recommended', 'Newest', 'Popular'] as const satisfies readonly Sort[];
 
 export function Discover({ navigation, route }: Props) {
   const { theme, stories } = useApp();
@@ -90,24 +92,12 @@ export function Discover({ navigation, route }: Props) {
             {genre !== 'All' ? ` · ${genre}` : ''}
             {query ? ` · “${query}”` : ''}
           </Text>
-          <View style={[styles.segment, { backgroundColor: withAlpha(theme.surface2, 0.8), borderColor: theme.border }]}>
-            {(['Recommended', 'Newest', 'Popular'] as Sort[]).map((s) => {
-              const on = sort === s;
-              return (
-                <Pressable
-                  key={s}
-                  onPress={() => setSort(s)}
-                  accessibilityRole="button"
-                  accessibilityState={{ selected: on }}
-                  style={[styles.segmentItem, on && { backgroundColor: withAlpha(theme.primary, 0.24) }]}
-                >
-                  <Text style={[styles.segmentText, { color: on ? theme.text : theme.textFaint }, on && styles.segmentTextOn]}>
-                    {s === 'Recommended' ? 'For you' : s}
-                  </Text>
-                </Pressable>
-              );
-            })}
-          </View>
+          <Segmented
+            options={SORTS}
+            value={sort}
+            onChange={setSort}
+            labelFor={(s) => (s === 'Recommended' ? 'For you' : s)}
+          />
           <Pressable
             onPress={() => setView((v) => (v === 'grid' ? 'list' : 'grid'))}
             accessibilityRole="button"
@@ -190,10 +180,6 @@ const styles = StyleSheet.create({
     borderTopWidth: StyleSheet.hairlineWidth,
   },
   count: { flex: 1, fontSize: SCALE.caption, fontWeight: '700', letterSpacing: 0.2 },
-  segment: { flexDirection: 'row', borderWidth: 1, borderRadius: RADIUS.pill, padding: 3 },
-  segmentItem: { paddingHorizontal: 11, paddingVertical: 6, borderRadius: RADIUS.pill },
-  segmentText: { fontSize: SCALE.caption, fontWeight: '600' },
-  segmentTextOn: { fontWeight: '700' },
   list: { paddingHorizontal: SPACING.page, paddingTop: 14, gap: 12 },
   item: { marginBottom: 2 },
   gridRow: { gap: 12 },

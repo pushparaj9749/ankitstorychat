@@ -1,6 +1,10 @@
 /**
- * KISSA v2.4.2 — Empty, Error, Loading, No-internet States
+ * KISSA — Empty, Error, Loading, No-internet States
  * Minimal, editorial, calm. No excessive emoji, no neon.
+ *
+ * v2.10 (Noir template): each state leads with a small hand-drawn SVG scene
+ * (see ./illustrations) instead of a lone icon in a box. The Classic template
+ * keeps the icon tile.
  */
 import React from 'react';
 import { ActivityIndicator, StyleSheet, Text, View } from 'react-native';
@@ -8,15 +12,48 @@ import { useApp } from '../state/AppContext';
 import { RADIUS, SPACING, TYPE, withAlpha } from '../theme';
 import { GradientButton } from './GradientButton';
 import { Icon, ICON_SIZE, type IconName } from './icons';
+import { Illustration, illustrationForIcon, type IllustrationName } from './illustrations';
+
+/** Noir: the SVG scene. Classic: the original icon tile. */
+function StateArt({ art, icon, danger }: { art: IllustrationName; icon: IconName; danger?: boolean }) {
+  const { theme, uiTemplate } = useApp();
+  if (uiTemplate === 'classic') {
+    const tint = danger ? theme.danger : null;
+    return (
+      <View
+        style={[
+          styles.iconCircle,
+          tint
+            ? { backgroundColor: withAlpha(tint, 0.08), borderColor: withAlpha(tint, 0.18) }
+            : { backgroundColor: theme.surface, borderColor: theme.border },
+        ]}
+      >
+        <Icon name={icon} size={ICON_SIZE.lg} color={tint ?? theme.textDim} />
+      </View>
+    );
+  }
+  return (
+    <View style={styles.art} testID={`state-art-${art}`}>
+      <Illustration
+        name={art}
+        width={176}
+        colors={{ accent: theme.primary, gold: theme.gold, surface: theme.surface, surface2: theme.surface3, line: withAlpha(theme.text, 0.16) }}
+      />
+    </View>
+  );
+}
 
 export function EmptyState({
   icon,
+  art,
   title,
   subtitle,
   action,
   onAction,
 }: {
   icon: IconName;
+  /** Noir illustration; defaults to one matching the icon. */
+  art?: IllustrationName;
   title: string;
   subtitle?: string;
   action?: string;
@@ -25,9 +62,7 @@ export function EmptyState({
   const { theme } = useApp();
   return (
     <View style={styles.wrap}>
-      <View style={[styles.iconCircle, { backgroundColor: theme.surface, borderColor: theme.border }]}>
-        <Icon name={icon} size={ICON_SIZE.lg} color={theme.textDim} />
-      </View>
+      <StateArt art={art ?? illustrationForIcon(icon)} icon={icon} />
       <Text style={[styles.title, { color: theme.text }]}>{title}</Text>
       {subtitle ? <Text style={[styles.sub, { color: theme.textDim }]}>{subtitle}</Text> : null}
       {action && onAction ? (
@@ -57,9 +92,7 @@ export function ErrorState({
   const { theme } = useApp();
   return (
     <View style={styles.wrap}>
-      <View style={[styles.iconCircle, { backgroundColor: withAlpha(theme.danger, 0.08), borderColor: withAlpha(theme.danger, 0.18) }]}>
-        <Icon name="alert-circle-outline" size={ICON_SIZE.lg} color={theme.danger} />
-      </View>
+      <StateArt art="error" icon="alert-circle-outline" danger />
       <Text style={[styles.title, { color: theme.text }]}>{title}</Text>
       {subtitle ? <Text style={[styles.sub, { color: theme.textDim }]}>{subtitle}</Text> : null}
       <View style={styles.btnRow}>
@@ -98,9 +131,7 @@ export function OfflineState({
   const { theme } = useApp();
   return (
     <View style={styles.wrap}>
-      <View style={[styles.iconCircle, { backgroundColor: theme.surface, borderColor: theme.border }]}>
-        <Icon name="cloud-offline-outline" size={ICON_SIZE.lg} color={theme.textDim} />
-      </View>
+      <StateArt art="offline" icon="cloud-offline-outline" />
       <Text style={[styles.title, { color: theme.text }]}>Internet connection required</Text>
       <Text style={[styles.sub, { color: theme.textDim }]}>{subtitle ?? 'Connect to the internet to continue.'}</Text>
       <View style={styles.btnRow}>
@@ -131,6 +162,7 @@ export function LoadingSkeleton({ lines = 3 }: { lines?: number }) {
 }
 
 const styles = StyleSheet.create({
+  art: { marginBottom: 2 },
   wrap: { flex: 1, alignItems: 'center', justifyContent: 'center', padding: SPACING.xl, gap: 10 },
   iconCircle: {
     width: 56,

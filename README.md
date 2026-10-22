@@ -56,6 +56,18 @@ moves the tale forward — with memory and relationships, and no script: no pred
 
 ## 🆕 Release notes
 
+### v2.10.0 — UI elements redesigned (Kissa Noir)
+
+- **Tab bar:** a rose-glass pill slides (spring, native driver) behind the active tab; the centre "+" is a gradient orb with a glass sheen and a halo ring.
+- **Buttons:** springy press, a soft glass sheen on primary pills, optional SVG icons.
+- **Section headings:** champagne overline with a short rose rule; numeric kickers become a count badge; "See all" is a glass pill with a chevron disc.
+- **Top 10:** outlined SVG numerals (champagne for the top three) instead of grey filled numbers.
+- **Hero "Start story":** gradient CTA with a white play disc.
+- **Empty / error / offline states and the Library empty shelf:** hand-drawn SVG illustrations (`src/components/illustrations.tsx`).
+- **Explore sort:** segmented control with a sliding indicator (`src/components/Segmented.tsx`); selected chips get a rose dot.
+- **Settings:** gradient squircle icon tiles.
+- Restrained palette unchanged. Chat bubbles and the chat screen are untouched; the Classic template keeps its own look.
+
 ### v2.9.5 — Chat bubbles like v2.9.2, update banner shows by itself
 
 - **Chat bubbles are back to the v2.9.2 look.** The bubble changes from v2.9.3 and v2.9.4 are undone: the speaker's name sits above the bubble and the round avatar is beside it again. Everything else from v2.9.3 stays (first-move chips, Share card, cast fix, real counts).
