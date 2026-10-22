@@ -1,0 +1,85 @@
+{
+  "storyId": "dulhan-bhagi-shadi-se",
+  "version": 1,
+  "scenes": [
+    {
+      "id": "mehendi_wali_raat",
+      "title": "Mehendi Wali Raat",
+      "narration": [
+        "*Raat ke barah baje. Darbhanga Ghat ki seedhiyon par diye tim-tima rahe hain, aur Ganga ke upar halka kohra tair raha hai. Upar Chaturvedi Haveli roshni mein nahaayi hui hai — dhol, gaane, hansi. Wahan mehendi chal rahi hai. Riya ki mehendi.*",
+        "*Tum seedhiyon par akele khade ho, jacket ki jeb mein haath, dil itni zor se dhadak raha hai ki Ganga ki lehron se zyada awaaz uski hai. Neeche paani ke kinare Gappu apni naav ki rassi pakde baitha hai, aur tumhe dekh ke aankh maarta hai.*",
+        "*Tabhi peeche se chudiyon ki khanak. Tum mudte ho — aur woh wahan hai.*",
+        "*Hare aur sunehre lehenge mein, dupatta kandhe se phisla hua, kamar tak lambe khule baal hawa mein udte hue. Dono haathon mein gehri, taaza mehendi. Peeth par ek chhota sa bag. Ek mahine baad... Riya.*",
+        "Riya Chaturvedi: \"Balcony se utri hoon, Music Waale. Chutki ki saadiyan baandh ke. Lehenga pehen ke.\" *Ek bebaak muskaan.* \"Aur tum ab bhi wahi muh latkaaye khade ho, jaise main bhoot hoon.\"",
+        "*Woh do kadam mein tumhare saamne aa jaati hai, tumhari jacket ke collar pakad ke tumhe apni taraf kheench leti hai. Mehendi ki khushboo, chandan aur kohre ki thandak.*",
+        "*Phir woh apni ungli se ek chamakti hui heere ki angoothi utaarti hai. Ek pal usse dekhti hai... aur bina palak jhapkaaye Ganga mein phenk deti hai. Chhap.*",
+        "Gappu: *(naav se, aankhen phaad ke)* \"Arre bhabhi! Woh toh lakhon ki thi!\"",
+        "Riya Chaturvedi: \"Kunal Saxena ki thi. Ganga maiya sambhaal lengi.\" *Woh wapas tumhari taraf mudti hai, aawaz achanak naram ho jaati hai.* \"Do din baad meri shaadi hai. Main nahi karungi. Na aaj, na kabhi. Maine sab plan kar liya hai — paise, kapde, Gappu ki naav. Bas ek cheez baaki hai.\"",
+        "*Upar haveli ki seedhiyon par achanak teen-chaar torch ki roshniyaan hilti hain. Riya ke haath mein Chutki ka phone kaanpta hai — screen par likha hai: 'DIDI!!! Ajay bhaiya ko pata chal gaya 😱 woh ghaat ki taraf aa rahe hain!!!'*",
+        "*Riya phone ko dekhti hai, phir torch ko, phir tumhe. Uski aankhon mein na darr hai, na aansu — bas ek sawaal. Woh apna mehendi wala haath tumhari taraf badhaati hai.*",
+        "Riya Chaturvedi: *(dheere, sirf tumse)* \"Do saal pehle stage pe maine bola tha tum mere ho. Aaj tumhari baari hai. Mera haath pakdo aur bolo... bhaag chalein?\""
+      ],
+      "fallbackLines": [
+        "*Riya tumhara jawab sun ke ek pal ke liye chup ho jaati hai — phir uske hothon par wahi purani, khatarnak muskaan laut aati hai.*",
+        "Riya Chaturvedi: \"Ek mahine se is pal ka intezaar kar rahi thi, Music Waale. Ab chaahe poora Banaras peeche pad jaaye... main tumhara haath nahi chhodne waali.\""
+      ],
+      "choices": [
+        {
+          "id": "take_her_hand",
+          "text": "*Kaanpte haath se uska mehendi wala haath pakad ke — 'Haan... chalo. Abhi. Gappu, naav kholo!'*",
+          "shortLabel": "Haan, bhaag chalo",
+          "keywords": [
+            "haan",
+            "chalo",
+            "bhaag",
+            "naav",
+            "haath"
+          ],
+          "next": null,
+          "effects": {
+            "memory": [
+              "On the mehendi night at Darbhanga Ghat, {{playerName}} took Riya's hand and agreed to run away with her on Gappu's boat."
+            ]
+          }
+        },
+        {
+          "id": "talk_first",
+          "text": "*Ghabraake, dheere se — 'Riya... ruko. Aise bhaagenge toh tumhare papa... ek baar unse baat karte hain na?'*",
+          "shortLabel": "Pehle baat karein?",
+          "keywords": [
+            "baat",
+            "papa",
+            "ruko",
+            "ghar",
+            "samjhaana"
+          ],
+          "next": null,
+          "effects": {
+            "memory": [
+              "On the mehendi night at Darbhanga Ghat, {{playerName}} hesitated and asked Riya whether they could talk to her father first instead of running."
+            ]
+          }
+        },
+        {
+          "id": "find_name",
+          "text": "*Sharmaate hue uske haath dekh ke — 'Pehle ye batao... mehendi mein mera naam kahan chhupaaya hai?'*",
+          "shortLabel": "Mera naam kahan hai?",
+          "keywords": [
+            "naam",
+            "mehendi",
+            "dhoondh",
+            "haath",
+            "chhupaaya"
+          ],
+          "next": null,
+          "effects": {
+            "memory": [
+              "On the mehendi night at Darbhanga Ghat, {{playerName}} shyly asked Riya where she had hidden his name in her mehendi."
+            ]
+          }
+        }
+      ]
+    }
+  ],
+  "endings": []
+}

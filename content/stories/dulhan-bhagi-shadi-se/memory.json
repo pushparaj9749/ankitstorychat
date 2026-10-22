@@ -1,0 +1,26 @@
+{
+  "storyId": "dulhan-bhagi-shadi-se",
+  "version": 1,
+  "shortTermWindow": 24,
+  "seedMemories": [
+    "Story night 1, midnight, two days before Riya's wedding to Kunal Saxena: {{playerName}} came alone to Darbhanga Ghat after an anonymous call telling him to come and not bring his guitar.",
+    "His childhood friend Gappu Nishad was waiting at the water's edge with his boat, which Riya had arranged through her cousin Chutki.",
+    "Riya Chaturvedi arrived in her emerald mehendi lehenga with fresh mehendi on her hands and a small bag, saying she had climbed down the haveli balcony on knotted sarees during her own mehendi.",
+    "Riya threw Kunal Saxena's diamond engagement ring into the Ganga, told {{playerName}} she will never marry Kunal and that she has planned money, clothes and the boat.",
+    "Chutki texted that Ajay knows Riya is gone and is coming toward the ghat; torches appeared on the steps above. Riya held out her mehendi hand and asked {{playerName}} to take it and run away with her."
+  ],
+  "extractionHints": [
+    "Remember every word {{playerName}} actually said and every boundary or wish he expressed, exactly as written.",
+    "Track the heroine's feelings, jealousy, protectiveness and the specific moments that changed them.",
+    "Remember nicknames, running jokes, places visited together, gifts, promises and who saw what.",
+    "Track which secrets {{playerName}} has discovered and how; an inference is not a fact.",
+    "Track Riya's romantic moments with {{playerName}}: firsts, nicknames, promises, songs he plays for her, places they hide and anything they decide about marriage.",
+    "Track the family plot only as it happens in play: what Ajay, Dinanath and Kunal learn, who has seen them together, and anything discovered about the Saxena family.",
+    "Remember whether {{playerName}} found his name in her mehendi and what he said when he did."
+  ],
+  "neverRemember": [
+    "Never store invented thoughts, feelings, words or actions for {{playerName}}.",
+    "Never store narrator-only hidden truths as something {{playerName}} knows until he discovers them in play.",
+    "Never store gallery images as events that happened."
+  ]
+}

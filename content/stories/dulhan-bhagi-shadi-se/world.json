@@ -1,0 +1,123 @@
+{
+  "storyId": "dulhan-bhagi-shadi-se",
+  "version": 1,
+  "premise": "{{playerName}}, 24–25, a shy guitar-repair shopkeeper near Assi Ghat in Varanasi, has secretly dated fearless Riya Chaturvedi — 'Toofan', a shooting champion and the daughter of the city's biggest saree merchant — for two years, ever since she proposed to him on stage. Six months ago her father fixed her marriage to rich Kunal Saxena, her brother warned {{playerName}} away, and he stayed silent. Tonight, two days before the wedding, Riya escapes her own mehendi, throws the engagement ring into the Ganga at Darbhanga Ghat and asks him to run away with her, while her brother's torches come down the steps. She wants him, and a lot of romance; whether he runs, stays or fights for her is his choice. An open-ended romance and family-drama story driven only by the player.",
+  "locations": [
+    {
+      "id": "darbhanga_ghat",
+      "name": "Darbhanga Ghat",
+      "description": "Grand old stone steps below a palace-like haveli, diyas on the steps at midnight, boats tied at the water and fog rolling over the Ganga."
+    },
+    {
+      "id": "chaturvedi_haveli",
+      "name": "Chaturvedi Haveli",
+      "description": "The riverfront family mansion lit with fairy lights and marigolds for the mehendi, with carved balconies, a courtyard full of guests and dhol."
+    },
+    {
+      "id": "sargam_music_house",
+      "name": "Sargam Music House",
+      "description": "{{playerName}}'s tiny shop in an Assi lane: harmoniums, guitars and tablas on the walls, a back room with a cot, and his father's old harmonium in the corner."
+    },
+    {
+      "id": "gappu_ki_naav",
+      "name": "Gappu's Boat",
+      "description": "A painted wooden rowing boat with a lantern, a blanket and a radio, waiting at the water's edge."
+    },
+    {
+      "id": "assi_lanes",
+      "name": "Assi Lanes",
+      "description": "Narrow winding lanes with chai stalls, sleeping cows, temple bells, hidden courtyards and a hundred places to hide."
+    },
+    {
+      "id": "heritage_hotel",
+      "name": "The Riverside Heritage Hotel",
+      "description": "The five-star palace hotel where the Saxena family is staying, all marble, chandeliers and wedding decor."
+    },
+    {
+      "id": "bhu",
+      "name": "BHU Campus",
+      "description": "The university where Riya proposed to {{playerName}} on stage at a fest two years ago."
+    },
+    {
+      "id": "cantt_station",
+      "name": "Varanasi Cantt Station",
+      "description": "The busy railway station with night trains to everywhere."
+    }
+  ],
+  "factions": [
+    {
+      "id": "chaturvedi_family",
+      "name": "The Chaturvedi Family",
+      "description": "Dinanath, Ajay and their loyal shop workers, who want the wedding to happen and the scandal to stay hidden."
+    },
+    {
+      "id": "saxena_family",
+      "name": "The Saxena Family",
+      "description": "The rich Delhi groom's family, staying at the heritage hotel."
+    }
+  ],
+  "lore": [
+    "In the lanes of Assi they say: 'Chaturvedi ki beti se bahas mat karna — Toofan hai, uda le jaayegi.'",
+    "Two years ago, at a BHU fest, a girl took the mic after a shy boy's guitar song and told the whole auditorium he was hers; the video still circulates among students.",
+    "Riya's state-level shooting medals hang in the haveli's drawing room; her brother has never beaten her at the range.",
+    "Whatever the Saxena family is hiding is narrator-only and emerges only through play."
+  ],
+  "rules": [
+    "Free-form story: the opening moment is the only predefined situation. Everything after it grows from the player's moves; there is no plot plan, scene list, arc or ending.",
+    "Only {{playerName}} controls the player character: never invent his speech, actions, thoughts, feelings, consent, promises or decisions.",
+    "Write in natural Roman-script Hinglish: short paragraphs, *actions and narration in asterisks*, dialogue as Name: \"...\".",
+    "The heroine takes the romantic initiative often and warmly — teasing, cuddling, feeding him, forehead kisses, pulling him close — while always reading and respecting his response.",
+    "Keep continuity of every promise, secret, nickname, gift and argument through the app's universal memory, scoped to this storyId only.",
+    "Whether and when Ajay, Dinanath, Kunal or anyone else finds them, and any danger to {{playerName}}, happens only through play — nothing is scheduled.",
+    "The wedding date is a pressure in the background, never a countdown shown with numbers; romance and the player's choices lead the story."
+  ],
+  "importantObjects": [
+    {
+      "id": "mehendi",
+      "name": "The Mehendi",
+      "description": "Riya's bridal mehendi, with {{playerName}}'s name hidden somewhere in the design."
+    },
+    {
+      "id": "engagement_ring",
+      "name": "Kunal's Diamond Ring",
+      "description": "The engagement ring Riya threw into the Ganga at the start of the night."
+    },
+    {
+      "id": "escape_bag",
+      "name": "Riya's Escape Bag",
+      "description": "A small bag with her savings, documents, a change of clothes, her first shooting medal and a guitar pick he once gave her."
+    },
+    {
+      "id": "bomber_jacket",
+      "name": "His Bomber Jacket",
+      "description": "The olive-green jacket Riya always steals."
+    },
+    {
+      "id": "chutki_phone",
+      "name": "Chutki's Phone",
+      "description": "The borrowed phone buzzing with Chutki's frantic updates."
+    }
+  ],
+  "timeline": [
+    {
+      "id": "fest",
+      "label": "Riya proposes to {{playerName}} on stage at a BHU fest",
+      "when": "Two years before the story"
+    },
+    {
+      "id": "rishta",
+      "label": "Dinanath fixes Riya's marriage to Kunal Saxena; Ajay warns {{playerName}} away at his shop",
+      "when": "Six months before the story"
+    },
+    {
+      "id": "phone_off",
+      "label": "Riya's phone is taken and she is watched at home",
+      "when": "The last month"
+    },
+    {
+      "id": "mehendi_night",
+      "label": "During her mehendi, Riya climbs down the haveli balcony and calls {{playerName}} to Darbhanga Ghat",
+      "when": "Tonight, midnight, two days before the wedding, as the story begins"
+    }
+  ]
+}

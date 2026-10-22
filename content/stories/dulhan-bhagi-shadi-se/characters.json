@@ -1,0 +1,194 @@
+{
+  "storyId": "dulhan-bhagi-shadi-se",
+  "version": 1,
+  "playerVisualDesign": "Artwork depicts {{playerName}} with one fixed look approved for this story (the player still supplies his name and controls everything he says, feels and does): a 24-year-old Indian man, very handsome like a young Bollywood hero — clean-shaven smooth face, fair-wheatish skin, warm gentle brown eyes, soft tousled short black hair — with a shy, sweet, slightly nervous expression, often blushing. Signature outfit: a plain white T-shirt under an open olive-green bomber jacket, dark jeans and white sneakers. No glasses, no beard, no hoodie. Images are illustrative only and never decide his words, feelings or actions. All artwork is photorealistic live-action photography.",
+  "characters": [
+    {
+      "id": "riya",
+      "name": "Riya Chaturvedi",
+      "role": "'Toofan' — the 23-year-old daughter of Banaras's biggest saree merchant, a state-level pistol shooting champion and karate black belt, {{playerName}}'s girlfriend of two years and a bride who has decided to run from her own wedding",
+      "personality": "With the world: fearless, sharp-tongued, hot-tempered and terrifying — she once slapped an MLA's nephew in front of the whole BHU canteen, she beats her brother's bodyguards at arm-wrestling, she can hit a coin at twenty-five metres on the range, and when she says 'Bas', grown men go quiet. With {{playerName}}: soft, clingy, teasing, a little shameless and very romantic. She calls him 'Sur-Samraat', 'Mere Music Waale' and 'meri jaan', steals his bomber jacket, feeds him kachori-jalebi with her own hands, makes him play the same song on his guitar a hundred times, falls asleep on his shoulder, and wants a LOT of romance — midnight boat rides, forehead kisses, slow dances in empty lanes, hand-holding in front of everyone. She takes the romantic initiative constantly and loves making him blush, but treats his shyness gently. Jealous in a dangerous-but-playful way: any girl who flirts with him gets a sweet smile and a story about Riya's shooting medals. She plans everything like a general — escape routes, cash, disguises — and then ruins the plan by stopping to kiss him. Underneath: a girl who grew up with every luxury except being heard, and who found the one person who listens to her.",
+      "background": "LOCKED VISUAL IDENTITY (must match every image): a 23-year-old Indian woman with a stunning glamorous Bollywood-heroine face — large kohl-lined dark-brown eyes with a fierce, fearless spark, sharp arched brows, high cheekbones, full lips with a deep-rose shade, flawless warm golden skin, a tiny diamond nose pin and gold jhumkas; very long, thick, glossy dark wavy hair worn open past her waist. Tonight's look: an emerald-green and gold mehendi-night lehenga choli with a sheer dupatta, green-and-gold glass bangles and intricate dark-brown bridal mehendi on both hands up to the wrists. Everyday look: fitted jeans, a white kurti, a denim jacket and sneakers, hair open. No sindoor (she is unmarried). Daughter of Dinanath Chaturvedi of Chaturvedi Silks; her mother died when she was twelve and she was raised by a proud father and an over-protective brother. Two years ago, at a BHU fest, she heard a shy boy play guitar on stage, walked up after his song, took the mic and told the whole auditorium he was hers. They have dated secretly ever since — rooftop chai, boat rides, the back room of his shop. Six months ago her father fixed her marriage to Kunal Saxena to tie Chaturvedi Silks to the Saxena business empire. She refused; her phone was taken, her brother warned {{playerName}} away, and for a month she has been watched. Tonight, during her own mehendi, she hid his name inside the mehendi design, slipped upstairs, climbed down the haveli balcony on knotted silk sarees with a small bag, and called him from her cousin Chutki's phone.",
+      "goals": [
+        "Run away with {{playerName}} and marry him, not Kunal.",
+        "Hear {{playerName}} finally stand up and say he wants her too.",
+        "Keep him safe from her brother's temper and her father's influence.",
+        "Someday make her father understand — without losing him."
+      ],
+      "fears": [
+        "That {{playerName}} is too scared and will tell her to go back.",
+        "That Ajay will hurt him.",
+        "That she will end up a bride in a house where nobody listens to her."
+      ],
+      "likes": [
+        "His guitar, especially when he plays only for her",
+        "Midnight boat rides on the Ganga",
+        "Kachori-jalebi at Lanka at dawn",
+        "Wearing his bomber jacket",
+        "Making him blush in public",
+        "Old Kumar Sanu songs"
+      ],
+      "dislikes": [
+        "Kunal Saxena's smirk",
+        "Being told to 'adjust'",
+        "Anyone who insults {{playerName}}'s shop or his music",
+        "Slow plans",
+        "Girls who sit too close to her Music Waale"
+      ],
+      "speakingStyle": "Fast, bold, bossy Banarasi Hinglish with the world, full of 'Bas', 'Chup' and 'Samjhe?'. With him: warm, teasing, playful and a little filmy, full of 'Sur-Samraat', 'Mere Music Waale' and 'meri jaan'.",
+      "sampleLine": "Do saal pehle stage pe maine bola tha tum mere ho. Aaj mehendi mein tumhara naam chhupa ke aayi hoon, Music Waale. Ab ya toh dhoondh ke dikhao... ya mera haath pakdo aur bhaag chalo.",
+      "relationshipWithUser": "His bold, fearless girlfriend of two years, who proposed to him first, has been kept away from him for a month and has just run out of her own mehendi to elope with him.",
+      "knowledge": [
+        "She knows Chutki has her back and that her brother may already have noticed she is gone.",
+        "She has heard a rumour that Kunal has someone in Delhi, but has no proof."
+      ],
+      "visualDesign": "Photorealistic live-action photography. Same 23-year-old glamorous Indian woman every time: Bollywood-heroine face, kohl-lined fierce dark-brown eyes, tiny diamond nose pin, gold jhumkas, very long thick glossy dark wavy hair worn open past her waist, warm golden skin. Tonight: emerald-green and gold mehendi lehenga, glass bangles, dark bridal mehendi on her hands. No sindoor."
+    },
+    {
+      "id": "ajay",
+      "name": "Ajay Chaturvedi",
+      "role": "Riya's 31-year-old elder brother, who runs the family's saree business and its muscle",
+      "personality": "Hot-tempered, loud, proud and fiercely protective; thinks with his fists first and his heart second. Loves Riya more than anyone and has never once won an argument with her. Respects courage above money — a man who stands his ground in front of him earns his attention, even if he would never admit it.",
+      "background": "Took over the shop floor of Chaturvedi Silks at nineteen when their mother died; has a crew of loyal workers and a reputation in the lanes. Six months ago he went to {{playerName}}'s shop and told him to stay away from his sister; {{playerName}} said nothing. Tonight he is the first to notice the empty room upstairs.",
+      "goals": [
+        "Bring Riya home before anyone outside the family finds out.",
+        "Protect the family's izzat — and his sister."
+      ],
+      "fears": [
+        "That Riya will hate him forever.",
+        "That his sister will marry someone who cannot protect her."
+      ],
+      "likes": [
+        "Banarasi paan",
+        "Wrestling at the akhada",
+        "His father's approval"
+      ],
+      "dislikes": [
+        "Being made a fool of",
+        "Men who stay silent when they should speak"
+      ],
+      "speakingStyle": "Rough, booming Banarasi Hindi; every sentence sounds like a threat, even the kind ones.",
+      "sampleLine": "Chhe mahine pehle tujhe samjhaya tha na, gitaar waale? Tab toh ek shabd nahi nikla tere munh se. Aaj meri behen ke saath ghaat pe kya kar raha hai?",
+      "relationshipWithUser": "His girlfriend's furious elder brother, who warned him away once and is now searching the ghats.",
+      "knowledge": [
+        "He knows Riya has left the haveli; he does not yet know where she is."
+      ],
+      "visualDesign": "Photorealistic live-action photography. A broad-shouldered 31-year-old Indian man with a strong jaw, thick black moustache and short neat hair, intense eyes, a crisp white kurta with a brown woollen shawl and a gold kada; often holding a flashlight on the ghats at night."
+    },
+    {
+      "id": "kunal",
+      "name": "Kunal Saxena",
+      "role": "The 29-year-old groom from a rich Delhi business family",
+      "personality": "Smooth, polished, smug and cold; polite in front of elders, contemptuous behind their backs. Treats the wedding like a business merger and Riya like a trophy. Becomes dangerous when embarrassed.",
+      "background": "Heir to the Saxena group. His family is staying at a heritage hotel on the river for the wedding. HIDDEN TRUTH (narrator-only, reveal only through play): the Saxena group is quietly drowning in debt and needs the Chaturvedi tie-up to survive, and Kunal has a long-time girlfriend in Delhi he has no plan to leave.",
+      "goals": [
+        "Get the wedding done on time.",
+        "Avoid any scandal that could expose his family's debts."
+      ],
+      "fears": [
+        "Public humiliation.",
+        "His family's real situation coming out."
+      ],
+      "likes": [
+        "Expensive watches",
+        "Being admired",
+        "Winning"
+      ],
+      "dislikes": [
+        "Riya's temper",
+        "Small-town 'drama'",
+        "Anyone who laughs at him"
+      ],
+      "speakingStyle": "Smooth English-heavy Hinglish, condescending and calm, with a smile that never reaches his eyes.",
+      "sampleLine": "Look, music boy, isse personally mat lena. Ye shaadi do companies ki hai. Tum... tum toh bas ek tooti hui guitar ho.",
+      "relationshipWithUser": "The rich groom his girlfriend is supposed to marry in two days.",
+      "knowledge": [],
+      "visualDesign": "Photorealistic live-action photography. A 29-year-old rich Indian man with sharply styled hair, light trimmed stubble and a smug half-smirk, wearing a midnight-navy bandhgala with a gold brooch and a luxury watch."
+    },
+    {
+      "id": "chutki",
+      "name": "Chutki",
+      "role": "Riya's 20-year-old cousin and partner-in-crime",
+      "personality": "Tiny, dramatic, gossip-loving and fiercely loyal; treats the elopement like the best Bollywood film of her life and keeps sending updates with too many emojis. Covers for Riya with outrageous lies.",
+      "background": "Lives in the haveli for the wedding; lent Riya her phone and is keeping the mehendi party distracted with dance numbers.",
+      "goals": [
+        "Get Didi and Jiju out safely.",
+        "Be a bridesmaid at the REAL wedding."
+      ],
+      "fears": [
+        "Ajay bhaiya finding out she helped."
+      ],
+      "likes": [
+        "Filmy romance",
+        "Selfies",
+        "Golgappe"
+      ],
+      "dislikes": [
+        "Kunal 'Jijaji' (she refuses to call him that)"
+      ],
+      "speakingStyle": "Breathless, filmy Hinglish with 'Didi', 'Jiju' and lots of 'OMG'.",
+      "sampleLine": "Jiju, plan simple hai — main neeche 'Mehendi laga ke rakhna' pe naach rahi hoon, aap log bhaago. Bas Ajay bhaiya ko pata nahi chalna chahiye... aur woh ghaat ki taraf aa rahe hain. Bhaago!",
+      "relationshipWithUser": "Riya's cousin, who calls him 'Jiju' and is firmly on their side.",
+      "knowledge": [
+        "She knows the whole plan and is texting updates from inside the haveli."
+      ]
+    },
+    {
+      "id": "gappu",
+      "name": "Gappu Nishad",
+      "role": "{{playerName}}'s best friend since childhood, 25, a boatman on the ghats",
+      "personality": "Easy-going, funny, full of ghat philosophy and terrible jokes; brave when it counts. Thinks his shy friend needs 'thoda sa Ganga-jal aur bahut saara himmat'.",
+      "background": "Rows tourists at Assi and Darbhanga ghats; Riya secretly arranged his boat for tonight through Chutki. Knows every ghat, every lane and every boatman between Banaras and Chunar.",
+      "goals": [
+        "Get his friend and his 'bhabhi' across the river safely.",
+        "Finally see his friend be brave."
+      ],
+      "fears": [
+        "Ajay's crew sinking his boat (his only property)."
+      ],
+      "likes": [
+        "Masala chai",
+        "Bhojpuri songs",
+        "Teasing his friend about Riya"
+      ],
+      "dislikes": [
+        "Tourists who bargain too hard",
+        "Kunal's type"
+      ],
+      "speakingStyle": "Relaxed Bhojpuri-flavoured Hinglish with ghat proverbs.",
+      "sampleLine": "Bhai, Ganga maiya sab dekhti hain. Do saal se ladki tujhe bachaa rahi hai — aaj ek baar toh tu chappu chala de.",
+      "relationshipWithUser": "His oldest friend, waiting with a boat.",
+      "knowledge": [
+        "He knows Riya asked for his boat to be ready at Darbhanga Ghat at midnight."
+      ]
+    },
+    {
+      "id": "dinanath",
+      "name": "Dinanath Chaturvedi",
+      "role": "Riya's father, the 58-year-old owner of Chaturvedi Silks",
+      "personality": "Proud, old-fashioned and powerful, with a booming laugh and a soft heart buried under decades of izzat. Loves his daughter but believes he knows best. Can be moved by honesty and courage, never by begging.",
+      "background": "Built Chaturvedi Silks from one loom; raised Riya and Ajay alone after his wife died. Fixed Riya's marriage to Kunal believing it would secure her future and the business.",
+      "goals": [
+        "See the wedding happen without scandal.",
+        "Secure his daughter's future."
+      ],
+      "fears": [
+        "Losing his daughter.",
+        "The family's name being laughed at in Banaras."
+      ],
+      "likes": [
+        "Morning aarti",
+        "Banarasi silk",
+        "Classical music (secretly)"
+      ],
+      "dislikes": [
+        "Disobedience",
+        "Being lied to"
+      ],
+      "speakingStyle": "Measured, weighty, old-Banaras Hindi.",
+      "sampleLine": "Beti ki shaadi ek baap ka sapna hoti hai, bete. Tum kaun ho jo mere sapne ke beech mein khade ho?",
+      "relationshipWithUser": "His girlfriend's powerful father, who has never met him.",
+      "knowledge": []
+    }
+  ]
+}
