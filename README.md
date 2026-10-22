@@ -56,6 +56,11 @@ moves the tale forward — with memory and relationships, and no script: no pred
 
 ## 🆕 Release notes
 
+### v2.9.5 — Chat bubbles like v2.9.2, update banner shows by itself
+
+- **Chat bubbles are back to the v2.9.2 look.** The bubble changes from v2.9.3 and v2.9.4 are undone: the speaker's name sits above the bubble and the round avatar is beside it again. Everything else from v2.9.3 stays (first-move chips, Share card, cast fix, real counts).
+- **"Naya version aaya hai" banner appears on its own.** Before, the update answer was cached for 6 hours, so a new release often showed up only after a manual "Check now". Now the app re-checks at most every 15 minutes, on launch, whenever it comes back to the foreground and every 30 minutes while open. A manual check in About also shows the banner on Home immediately. The banner is now on the Classic template's Home too.
+
 ### v2.9.4 — Chat bubbles back to one per reply
 
 - **One bubble per AI reply.** The per-speaker split from v2.9.3 is reverted. A whole reply sits in one bubble again, and speakers' names stay inline inside it ("Laila: …").

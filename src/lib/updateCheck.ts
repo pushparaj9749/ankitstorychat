@@ -4,7 +4,14 @@
  * Privacy: this only READS the public "latest release" page of the Kissa
  * GitHub repository (version number + APK link). Nothing about the user, the
  * phone or the stories is sent — it's a plain anonymous GET, the same as
- * opening the releases page in a browser. Result is cached for 6 hours.
+ * opening the releases page in a browser.
+ *
+ * v2.9.5: the banner shows up ON ITS OWN. The answer used to be cached for
+ * 6 hours, so a release published inside that window never surfaced until
+ * the user pressed "Check now". Now a fresh check runs at most every 15
+ * minutes (well inside GitHub's 60/hour anonymous limit), on launch and
+ * whenever the app comes back to the foreground, and every result — auto or
+ * manual — is broadcast to the Home banner straight away.
  */
 import Constants from 'expo-constants';
 import { kvGet, kvSet } from './db';
@@ -15,7 +22,8 @@ export { RELEASES_PAGE };
 
 const CACHE_KEY = 'update.latest';
 const DISMISS_KEY = 'update.dismissed';
-const CACHE_MS = 6 * 60 * 60 * 1000;
+/** Re-ask GitHub at most this often; between checks the last answer is reused. */
+export const RECHECK_MS = 15 * 60 * 1000;
 const TIMEOUT_MS = 8000;
 
 export interface ReleaseInfo {
@@ -113,8 +121,19 @@ async function fetchLatest(fetchImpl: typeof fetch = fetch): Promise<{ ok: boole
   }
 }
 
+type Listener = (s: UpdateStatus) => void;
+const listeners = new Set<Listener>();
+
+/** Hear every update-check result (used by the Home banner). Returns unsubscribe. */
+export function onUpdateStatus(fn: Listener): () => void {
+  listeners.add(fn);
+  return () => {
+    listeners.delete(fn);
+  };
+}
+
 /**
- * Is a newer Kissa APK out? Uses the 6-hour cache unless `force`.
+ * Is a newer Kissa APK out? Reuses the last answer for 15 minutes unless `force`.
  * Never throws — offline / rate-limited simply means "no news".
  */
 export async function checkForUpdate(opts: { force?: boolean; fetchImpl?: typeof fetch; now?: number } = {}): Promise<UpdateStatus> {
@@ -124,7 +143,7 @@ export async function checkForUpdate(opts: { force?: boolean; fetchImpl?: typeof
   try {
     const raw = await kvGet(CACHE_KEY);
     const cached = raw ? (JSON.parse(raw) as { at: number; info: ReleaseInfo | null }) : null;
-    if (!opts.force && cached && now - cached.at < CACHE_MS) {
+    if (!opts.force && cached && now - cached.at < RECHECK_MS) {
       latest = cached.info;
     } else {
       const r = await fetchLatest(opts.fetchImpl);
@@ -139,7 +158,15 @@ export async function checkForUpdate(opts: { force?: boolean; fetchImpl?: typeof
   } catch {
     latest = null;
   }
-  return { current, latest, available: !!latest && compareVersions(latest.version, current) > 0 };
+  const status = { current, latest, available: !!latest && compareVersions(latest.version, current) > 0 };
+  listeners.forEach((fn) => {
+    try {
+      fn(status);
+    } catch {
+      /* a listener must never break the check */
+    }
+  });
+  return status;
 }
 
 /** "Baad mein" — hide the banner for this version only. */
