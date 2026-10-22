@@ -86,6 +86,25 @@ export interface StoryThread {
   lastMentionedAt: string;
 }
 
+/**
+ * v2.10.3 promise ledger: who gave their word to whom. Characters keep their
+ * promises and know when they broke one (see engine PROMISE_LAW).
+ */
+export interface PromiseRecord {
+  id: string;
+  /** character id or "player" */
+  by: string;
+  /** character id or "player" */
+  to: string;
+  text: string;
+  status: 'active' | 'kept' | 'broken';
+  madeAtTurn: number;
+  updatedAtTurn: number;
+}
+
+export const MAX_ACTIVE_PROMISES = 12;
+const MAX_CLOSED_PROMISES = 8;
+
 export interface LocationMemoryEntry {
   id: string;
   name: string;
@@ -141,6 +160,8 @@ export interface WorldState {
   unresolvedThreads: StoryThread[];
   resolvedThreads: StoryThread[];
   locationMemory: Record<string, LocationMemoryEntry>;
+  /** v2.10.3 — optional so older saved states stay valid. */
+  promises?: PromiseRecord[];
   // Meta
   episodeCount: number;
   lastTurnAt: string;
@@ -409,6 +430,8 @@ export interface StateUpdate {
   threadsResolve?: string[]; // thread ids
   locationPatch?: Record<string, Partial<LocationMemoryEntry>>;
   storyTimePatch?: Partial<StoryTime>;
+  promisesAdd?: { by: string; to: string; text: string }[];
+  promisesUpdate?: { text: string; status: 'kept' | 'broken' }[];
   confidence: Confidence;
   evidence?: string; // textual evidence of transition (e.g. "player walked to library")
 }
@@ -627,6 +650,11 @@ export function applyWorldStateUpdate(current: WorldState, update: StateUpdate):
     }
   }
 
+  // Promises (v2.10.3)
+  if (update.promisesAdd?.length || update.promisesUpdate?.length) {
+    next.promises = applyPromiseChanges(next.promises ?? [], update.promisesAdd ?? [], update.promisesUpdate ?? [], next.episodeCount + 1);
+  }
+
   // Threads
   if (update.threadsAdd) {
     for (const t of update.threadsAdd) {
@@ -711,6 +739,93 @@ export function applyWorldStateUpdate(current: WorldState, update: StateUpdate):
   return next;
 }
 
+function promiseTokens(text: string): string[] {
+  return (text || '')
+    .toLowerCase()
+    .replace(/[^\p{L}\p{N}]+/gu, ' ')
+    .split(' ')
+    .filter((t) => t.length >= 3);
+}
+
+/** Similarity of two promise wordings (0..1, token overlap vs the shorter one). */
+export function promiseSimilarity(a: string, b: string): number {
+  const ta = new Set(promiseTokens(a));
+  const tb = new Set(promiseTokens(b));
+  if (!ta.size || !tb.size) return 0;
+  let hit = 0;
+  for (const t of ta) if (tb.has(t)) hit++;
+  return hit / Math.min(ta.size, tb.size);
+}
+
+/** Pure ledger update: add new promises (deduped), close kept/broken ones, cap. */
+export function applyPromiseChanges(
+  current: PromiseRecord[],
+  add: { by: string; to: string; text: string }[],
+  updates: { text: string; status: 'kept' | 'broken' }[],
+  turn: number,
+): PromiseRecord[] {
+  let list = current.map((p) => ({ ...p }));
+  for (const a of add) {
+    const text = (a.text || '').trim().slice(0, 160);
+    if (text.length < 4) continue;
+    const dup = list.find((p) => p.status === 'active' && p.by === a.by && promiseSimilarity(p.text, text) >= 0.6);
+    if (dup) {
+      dup.updatedAtTurn = turn;
+      continue;
+    }
+    list.push({
+      id: `promise-${turn}-${list.length}`,
+      by: a.by || 'unknown',
+      to: a.to || 'player',
+      text,
+      status: 'active',
+      madeAtTurn: turn,
+      updatedAtTurn: turn,
+    });
+  }
+  for (const u of updates) {
+    let best: PromiseRecord | null = null;
+    let bestScore = 0;
+    for (const p of list) {
+      if (p.status !== 'active') continue;
+      const sc = promiseSimilarity(p.text, u.text);
+      if (sc > bestScore) {
+        best = p;
+        bestScore = sc;
+      }
+    }
+    if (best && bestScore >= 0.5) {
+      best.status = u.status;
+      best.updatedAtTurn = turn;
+    }
+  }
+  const active = list.filter((p) => p.status === 'active').slice(-MAX_ACTIVE_PROMISES);
+  const closed = list.filter((p) => p.status !== 'active').sort((x, y) => x.updatedAtTurn - y.updatedAtTurn).slice(-MAX_CLOSED_PROMISES);
+  return [...active, ...closed];
+}
+
+/**
+ * Relationship as words, never raw numbers. Brand-new relationship records
+ * start from generic defaults (affection 20 …) that say nothing about the
+ * real bond — printing them made a two-year girlfriend look indifferent. So
+ * only CHANGES since the start and clear signals are rendered; the bond
+ * itself comes from the character sheet (engine "RELATIONSHIP WITH THE READER").
+ */
+export function describeRelationship(r: RelationshipDetail): string {
+  const parts: string[] = [];
+  const dt = r.trust - 50;
+  if (dt >= 15) parts.push('trusts the reader much more than at the start');
+  else if (dt >= 5) parts.push('trusts the reader a bit more than at the start');
+  else if (dt <= -15) parts.push('trust in the reader has dropped a lot');
+  else if (dt <= -5) parts.push('trust in the reader has dropped a little');
+  if (r.affection >= 70) parts.push('very affectionate right now');
+  else if (r.affection >= 45 && r.affection !== 20) parts.push('affection has grown');
+  if (r.tension >= 60) parts.push('real tension right now');
+  else if (r.tension >= 35) parts.push('some tension right now');
+  if (r.conflict >= 50) parts.push('an open conflict is unresolved');
+  return parts.join('; ');
+}
+
 function clamp(n: number, min: number, max: number): number {
   return Math.max(min, Math.min(max, n));
 }
@@ -734,12 +849,29 @@ export function renderWorldStateForPrompt(state: WorldState): string {
     if (cs?.activity) lines.push(`  - ${cs.name} is ${cs.activity}${cs.mood ? ` (${cs.mood})` : ''}`);
   }
   if (state.playerState.action) lines.push(`- Player is ${state.playerState.action}${state.playerState.mood ? `, feeling ${state.playerState.mood}` : ''}`);
-  const relEntries = Object.entries(state.relationships);
-  if (relEntries.length) {
-    lines.push(`- Relationships:`);
-    for (const [id, r] of relEntries.slice(0, 4)) {
-      const name = state.characterStates[id]?.name ?? id;
-      lines.push(`  * ${name}: trust ${r.trust}, affection ${r.affection}, tension ${r.tension}${r.summary ? ` — ${r.summary}` : ''}`);
+  const relLines: string[] = [];
+  for (const [id, r] of Object.entries(state.relationships).slice(0, 6)) {
+    const name = state.characterStates[id]?.name ?? id;
+    const words = describeRelationship(r);
+    const text = [words, r.summary?.trim()].filter(Boolean).join(' — ');
+    if (text) relLines.push(`  * ${name}: ${text}`);
+  }
+  if (relLines.length) {
+    lines.push(`- How bonds have moved during the story:`);
+    lines.push(...relLines);
+  }
+  const promises = state.promises ?? [];
+  if (promises.length) {
+    const who = (id: string) => (id === 'player' ? 'the reader' : state.characterStates[id]?.name ?? id);
+    lines.push(`- Promises on record (each character remembers their own):`);
+    for (const p of promises.filter((x) => x.status === 'active').slice(-8)) {
+      lines.push(`  * OPEN — ${who(p.by)} promised ${who(p.to)}: "${p.text}" (must be kept)`);
+    }
+    for (const p of promises.filter((x) => x.status === 'broken').slice(-4)) {
+      lines.push(`  * BROKEN — ${who(p.by)} broke the promise to ${who(p.to)}: "${p.text}" (${who(p.by)} knows it)`);
+    }
+    for (const p of promises.filter((x) => x.status === 'kept').slice(-2)) {
+      lines.push(`  * KEPT — ${who(p.by)} kept the promise to ${who(p.to)}: "${p.text}"`);
     }
   }
   const objs = Object.values(state.importantObjects);

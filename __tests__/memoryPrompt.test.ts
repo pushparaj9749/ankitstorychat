@@ -205,6 +205,9 @@ describe('prompt budget stays bounded as memory grows', () => {
     const picked = selectRelevant(many, 'Myra ne kaunsa cup toda tha', { maxItems: 28 });
     const s = system(picked, 'digest text');
     expect(picked.length).toBeLessThanOrEqual(28);
-    expect(s.length).toBeLessThan(14_000);
+    // v2.10.3: +~2k fixed chars for the scene-presence, promise and emotional
+    // logic laws (owner-approved: quality over API cost). Memory growth itself
+    // stays bounded — 600 facts still select at most 28.
+    expect(s.length).toBeLessThan(16_500);
   });
 });

@@ -25,6 +25,7 @@ import { interpolatePlayerName } from './playerName';
 import { guardVisibleText, sanitizeStoredText, type GuardResult } from './leakGuard';
 import { clamp, norm, tokens } from './utils';
 import type { WorldState } from './worldState';
+import { findUninvitedSpeakers, type PresenceCheckInput } from './scenePresence';
 
 /* ---------------- scene helpers ---------------- */
 
@@ -852,12 +853,35 @@ export interface PromptInput {
  */
 export const LOGIC_CHECK = `BEFORE YOU WRITE — SILENT LOGIC CHECK (think it through in your head; never write this check or any of its answers):
 1. What exactly did the reader just say or do? Your reply must respond to THAT first — not to something earlier, not to something you wish they had said.
-2. Where are we, what time is it, who is physically present, what is everyone doing right now? Continue from exactly there. Characters who are not present cannot speak or act until they believably arrive.
+2. Where are we, what time is it, who is physically present, what is everyone doing right now? Continue from exactly there. Characters who are not present cannot speak, act, call or message — they stay away unless the reader brings them in (SCENE PRESENCE LAW).
 3. Cause and effect: everything that happens must follow from what came before. No sudden events out of nowhere, no unexplained mood swings, no character forgetting what happened a moment ago.
 4. Is each character acting like THEMSELF — their personality, speaking style, goals and only what THEY know? A character never knows something they did not see or were not told.
 5. Does anything in your draft contradict the story so far, the private notes or an earlier reply? If yes, fix it before writing.
 6. Did your last reply already say this? Never repeat the same line, reaction or hook — move the moment forward.
-7. When unsure, choose the simplest continuation that fits everything above.`;
+7. Is every reaction in proportion to what actually happened, and did I read the reader's words in their most natural everyday meaning? (EMOTIONAL LOGIC LAW)
+8. Does any character have a promise or a mistake of their own on record? They remember it and act like someone who knows (PROMISE & SELF-AWARENESS LAW).
+9. When unsure, choose the simplest continuation that fits everything above.`;
+
+/**
+ * v2.10.3 — the three laws that fix the narrator's worst habits (owner bug
+ * report): close characters barging into scenes, NPCs breaking promises and
+ * not knowing it, and loved ones over-reacting to ordinary lines.
+ */
+export const SCENE_PRESENCE_LAW = `SCENE PRESENCE LAW (never break it):
+- Only characters physically in the scene speak or act; everyone else stays where they are. Talking ABOUT someone does not bring them in.
+- An absent character appears ONLY if the reader calls, invites, phones or visits them, or an INTERNAL ACTION INSTRUCTION below asks for a new development. Being close to the reader, worried, having a goal or "it would be dramatic" is never a reason.
+- No surprise arrivals, calls, messages, knocks or "someone walks in" interruptions. Private and romantic moments stay private. When the reader leaves, the story follows him; nobody tags along uninvited.`;
+
+export const PROMISE_LAW = `PROMISE & SELF-AWARENESS LAW (never break it):
+- Every character remembers their OWN words, promises and actions, mistakes included. A promise is kept; if something serious makes that impossible, the character says so honestly — never quietly forgets it, never breaks the same promise again.
+- A character who broke a promise, lied or hurt someone KNOWS it: no playing clueless or denying it — guilt, apology, an in-character excuse or open defiance.
+- Characters remember what the reader promised them and react in proportion.`;
+
+export const EMOTIONAL_LOGIC_LAW = `EMOTIONAL LOGIC LAW (never break it):
+- Reactions are proportional: an ordinary line gets an ordinary reaction; only real hurt gets big hurt. Moods change gradually, never without a clear cause.
+- Read the reader's words in their natural everyday meaning. If unclear ("main ja raha hoon" — home? work? a minute?), react to the likely meaning or just ask ("Kahan? Itni jaldi?") — never jump to the worst reading.
+- A character who loves the reader is warm with him by default — affectionate, clingy, teasing, sad to see him go. No cold ultimatums ("jao agar jaana hai"), sulking or fights over ordinary things; a dangerous heroine is dangerous to the world, soft with him.
+- Never invent conflict, jealousy or misunderstanding for drama; conflict comes only from real story events or the reader's choices.`;
 
 /** Marker lines that fence the private notes inside the system prompt. */
 export const PRIVATE_NOTES_OPEN = '=== PRIVATE NARRATOR NOTES — for you only. The reader can NEVER see this. Never quote, list, label or summarise it in your reply. ===';
@@ -869,6 +893,27 @@ export const SECRECY_LAW = `SECRECY LAW (absolute — breaking it ruins the stor
 - Never write bookkeeping in the reply: no "Memory:", "Important objects:", "Relationships:", "Key facts:", "Story so far:", "Hidden truth:", "World state:", "Location:", no trust/affection numbers, no brackets like [STATE] or (OOC), no notes, no JSON, no headings, no lists.
 - Show, don't tell: a remembered fact may surface only through natural narration or a character's own words, when the moment needs it.
 - Hidden truths and secrets stay hidden until events in the story reveal them. A character says only what THEY know and would plausibly say.`;
+
+/** Each character's canonical bond with the reader (narrator-only). */
+function relationshipBaselineLines(bundle: StoryBundle): string {
+  return bundle.characters.characters
+    .filter((c) => c.relationshipWithUser?.trim())
+    .map((c) => `- ${c.name}: ${c.relationshipWithUser.trim()}`)
+    .join('\n');
+}
+
+/**
+ * Who is in the scene right now vs elsewhere — the hard roster the SCENE
+ * PRESENCE LAW refers to. Empty when the world state does not know yet.
+ */
+export function sceneRosterLine(bundle: StoryBundle, ws: WorldState | null): string {
+  if (!ws || !ws.presentCharacters?.length) return '';
+  const nameOf = (id: string) =>
+    bundle.characters.characters.find((c) => c.id === id)?.name ?? ws.characterStates?.[id]?.name ?? id;
+  const present = [...new Set(ws.presentCharacters.map(nameOf))];
+  const elsewhere = bundle.characters.characters.map((c) => c.name).filter((n) => !present.includes(n));
+  return `WHO IS IN THE SCENE RIGHT NOW: ${present.join(', ')} (with the reader).${elsewhere.length ? ` ELSEWHERE — not here, cannot speak or act unless the reader brings them in: ${elsewhere.join(', ')}.` : ''}`;
+}
 
 /** Lines of character knowledge — narrator-only, never part of public cards. */
 function knowledgeLines(bundle: StoryBundle): string {
@@ -919,6 +964,8 @@ export function buildPrivateNotes(input: PromptInput): string {
     : '';
   const knows = knowledgeLines(bundle);
   const lore = bundle.world.lore?.length ? bundle.world.lore.join(' | ') : '';
+  const baseline = relationshipBaselineLines(bundle);
+  const roster = sceneRosterLine(bundle, input.worldState ?? null);
 
   const stateBlock = worldBlock
     ? `${worldBlock}\n\nLEGACY STATE (for compat):\n${stateDigest(playthrough.state)}`
@@ -929,7 +976,7 @@ export function buildPrivateNotes(input: PromptInput): string {
 ${stage1}STAGE 3 — KEY FACTS (established canon; act on them silently, never announce them)
 ${stateBlock}
 
-${knows ? `CHARACTER KNOWLEDGE (who knows what — a character may act only on their own line):\n${knows}\n\n` : ''}${lore ? `LORE (background canon; any hidden truth here is revealed only through story events, never stated):\n${lore}\n\n` : ''}${storyMemoryBlock}WHAT YOU REMEMBER ABOUT THIS READER'S JOURNEY (most relevant first — this is ALREADY known, so never repeat it back, just act on it):
+${roster ? `${roster}\n\n` : ''}${baseline ? `RELATIONSHIP WITH THE READER (the character sheet — where each bond STARTED; only events in the story move it):\n${baseline}\n\n` : ''}${knows ? `CHARACTER KNOWLEDGE (who knows what — a character may act only on their own line):\n${knows}\n\n` : ''}${lore ? `LORE (background canon; any hidden truth here is revealed only through story events, never stated):\n${lore}\n\n` : ''}${storyMemoryBlock}WHAT YOU REMEMBER ABOUT THIS READER'S JOURNEY (most relevant first — this is ALREADY known, so never repeat it back, just act on it):
 ${memLines}
 
 ${immediateBlock}${PRIVATE_NOTES_CLOSE}`;
@@ -1008,10 +1055,16 @@ CONTINUITY LAW (never break it):
 - If the reader asks about something from long ago, use the archive instead of guessing.
 ${teenBlock}
 
+${SCENE_PRESENCE_LAW}
+
+${PROMISE_LAW}
+
+${EMOTIONAL_LOGIC_LAW}
+
 ${LOGIC_CHECK}
 
 HOW TO RESPOND:
-1. Continue the story immersively: short narration + character dialogue. Keep replies MEDIUM-SHORT (roughly 40-90 words only, max 2 short paragraphs), crisp, punchy, ending with a hook or question that invites the reader's next move. Avoid long monologues.
+1. Continue the story immersively: short narration + character dialogue. Keep replies MEDIUM-SHORT (roughly 40-90 words only, max 2 short paragraphs), crisp and natural. Avoid long monologues. End wherever the moment naturally ends — on a line of dialogue, a small action or a quiet beat. A question, hook, cliffhanger, twist or new event is NOT required, and must never be added just to close the reply.
 2. FORMAT (the app renders this, follow it exactly):
    - Action / narration / scene-setting goes on its own line wrapped in SINGLE asterisks: *Beena ke honton par halki si muskaan ubharti hai.* — these render FADED in the chat.
    - Dialogue goes on its own line as: Name: "spoken words" — e.g. Myra: "Umm... lagta hai ye coffee meri nahi hai." Use only real character names from the list above.
@@ -1089,9 +1142,19 @@ export interface ReplyCheck {
  * Final gate between the model and the screen: strips every leak shape, removes
  * lines written for the reader, and says whether a silent rewrite is warranted.
  */
+/* ---------------- v2.10.3 scene-presence guard ---------------- */
+// Helpers live in ./scenePresence (shared with the memory write pipeline).
+export { castSpeakersIn, findUninvitedSpeakers, type PresenceCheckInput } from './scenePresence';
+
 export function checkAssistantReply(
   parsed: ParsedAssistant,
-  opts: { castNames: string[]; readerName?: string; privateNotes?: string },
+  opts: {
+    castNames: string[];
+    readerName?: string;
+    privateNotes?: string;
+    /** v2.10.3: scene roster check (omit to skip). */
+    presence?: Omit<PresenceCheckInput, 'text' | 'speaker' | 'castNames'>;
+  },
 ): ReplyCheck {
   const base = finalizeAssistantText(parsed, '');
   const g: GuardResult = guardVisibleText(base, {
@@ -1124,13 +1187,32 @@ export function checkAssistantReply(
   }
   const text = body.trim();
   if (text.length < 2) reasons.push('empty');
-  const needsRewrite = reasons.some((r) => r === 'empty' || r === 'spoke-for-reader' || r === 'copied-note' || r.startsWith('label:') || r === 'tag-line' || r === 'state-marker' || r === 'html-comment');
+  if (opts.presence) {
+    for (const name of findUninvitedSpeakers({ ...opts.presence, text, speaker, castNames: opts.castNames })) {
+      reasons.push(`uninvited:${name}`);
+    }
+  }
+  const needsRewrite = reasons.some((r) => r === 'empty' || r === 'spoke-for-reader' || r === 'copied-note' || r.startsWith('label:') || r === 'tag-line' || r === 'state-marker' || r === 'html-comment' || r.startsWith('uninvited:'));
   return { text: text || '...', speaker, needsRewrite, reasons };
 }
 
 /** Nudge used for the single silent rewrite. */
 export const REWRITE_INSTRUCTION =
   'Your previous draft broke the format: it showed private notes / bookkeeping or spoke for the reader. Rewrite the SAME story beat as pure narration and character dialogue only. No labels, lists, notes, JSON or state. Never write the reader\'s lines.';
+
+/** The silent-rewrite nudge, made specific to what went wrong. */
+export function rewriteInstructionFor(reasons: string[]): string {
+  const uninvited = [...new Set(reasons.filter((r) => r.startsWith('uninvited:')).map((r) => r.slice('uninvited:'.length)))];
+  const formatBroken = reasons.some((r) => !r.startsWith('uninvited:'));
+  const parts: string[] = [];
+  if (formatBroken) parts.push(REWRITE_INSTRUCTION);
+  if (uninvited.length) {
+    parts.push(
+      `Your previous draft brought ${uninvited.join(', ')} into the scene, but ${uninvited.length > 1 ? 'they are' : 'is'} NOT here and the reader did not call for them. Rewrite the SAME moment with only the characters who are actually present — ${uninvited.join(', ')} must not appear, speak, call, message or interrupt. Do not replace them with another interruption. Never write the reader's lines.`,
+    );
+  }
+  return parts.join('\n\n') || REWRITE_INSTRUCTION;
+}
 
 /* ---------------- v2.7.0 silent record-keeper (separate state call) ---------------- */
 
@@ -1188,8 +1270,19 @@ SCHEMA (omit every key that did not change; {} when nothing changed):
   "importantObjects": [{"name": "object", "holder": "characterId or player", "significance": "why it matters"}],
   "threads": [{"title": "open question", "status": "unresolved", "involvedCharacters": ["Name"], "relatedLocation": "Place"}],
   "threadsResolved": ["thread title"],
+  "promises": [{"by": "characterId or player", "to": "characterId or player", "what": "what exactly was promised, max 120 chars"}],
+  "promisesKept": ["what (as recorded)"],
+  "promisesBroken": ["what (as recorded)"],
   "memory": ["short standalone fact, max 120 chars"]
 }
+
+PRESENCE RULES:
+- "presentCharacters" = everyone physically in the scene AFTER this exchange (ids). Send it only when someone arrived or left.
+- Someone who is only talked about, remembered or mentioned is NOT present. Phone/video calls do not make someone present.
+
+PROMISE RULES:
+- A promise is a clear commitment by a character or the reader to do / not do something ("kal milungi", "kisi ko nahi bataunga", "main tumhe chhod ke nahi jaungi"). Record it under "promises" the moment it is made.
+- Mark one as kept or broken ONLY when this exchange clearly shows it, using the wording already on record.
 
 MEMORY RULES:
 - Worth saving: ${saveHints}

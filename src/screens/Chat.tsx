@@ -23,7 +23,7 @@ import { ErrorState, LoadingState, OfflineState } from '../components/states';
 import { effectiveContentApiBaseUrl, getBundle, getBundledCoverSource, mediaApiUrl, StoryContentError, type CoverSource } from '../content/loader';
 import { getApiKey } from '../lib/secureKeys';
 import { aiErrorMessage, chatCompletion } from '../lib/ai';
-import { applyEffects, buildContext, buildStateExtractionMessages, checkAssistantReply, HISTORY_HEADROOM, parseAssistantResponse, parseExtractedState, REWRITE_INSTRUCTION, shortTermWindowOf, type ParsedAssistant, type ReplyCheck } from '../lib/engine';
+import { applyEffects, buildContext, buildStateExtractionMessages, castSpeakersIn, checkAssistantReply, HISTORY_HEADROOM, parseAssistantResponse, parseExtractedState, rewriteInstructionFor, shortTermWindowOf, type ParsedAssistant, type ReplyCheck } from '../lib/engine';
 import { chapterDue, closeChapter, getChapters } from '../lib/chapters';
 import { completeEpisode, consolidateMemories, putMemory, recallForTurn, rememberMany, rememberPreferences, episodeLine } from '../lib/memory';
 import { ensureWorldState, getWorldState } from '../lib/worldState';
@@ -366,7 +366,25 @@ export function Chat({ navigation, route }: Props) {
     const transcript = [...ctx.messages, { role: 'user' as const, content: request.prompt }];
 
     // ---- STORY REPLY + check before the reader sees it -------------------
-    const checkOpts = { castNames, readerName: profile.nickname, privateNotes: ctx.privateNotes };
+    // v2.10.3 scene-presence guard: a cast member who is not in the scene,
+    // was not called by the reader and has not been part of the recent
+    // conversation must not barge in. "Naya mod" may bring someone in on
+    // purpose, and "Choices" is not story text — both skip the check.
+    const presentNames = (wsForPrompt?.presentCharacters ?? []).map(
+      (id) => b.characters.characters.find((c) => c.id === id)?.name ?? wsForPrompt?.characterStates?.[id]?.name ?? id,
+    );
+    const recentAssistant = history.filter((m) => m.role === 'assistant').slice(-6);
+    const recentSpeakers = [...new Set(recentAssistant.flatMap((m) => castSpeakersIn(m.text, m.speaker ?? null, castNames)))];
+    const recentReaderText = history.filter((m) => m.role === 'user').slice(-2).map((m) => m.text);
+    const checkPresence = request.kind !== 'scene' && request.kind !== 'choices';
+    const checkOpts = {
+      castNames,
+      readerName: profile.nickname,
+      privateNotes: ctx.privateNotes,
+      presence: checkPresence
+        ? { presentNames, recentSpeakers, readerText: [...recentReaderText, isAuthoredMessage ? request.prompt : ''].join(' ') }
+        : undefined,
+    };
     const raw = await chatCompletion(activeProvider, apiKey, [{ role: 'system', content: ctx.system }, ...transcript]);
     let parsed: ParsedAssistant = parseAssistantResponse(raw);
     let check: ReplyCheck = checkAssistantReply(parsed, checkOpts);
@@ -374,7 +392,7 @@ export function Chat({ navigation, route }: Props) {
       // One silent rewrite. If it is not better, the cleaned first draft stays.
       try {
         const raw2 = await chatCompletion(activeProvider, apiKey, [
-          { role: 'system', content: `${ctx.system}\n\n${REWRITE_INSTRUCTION}` },
+          { role: 'system', content: `${ctx.system}\n\n${rewriteInstructionFor(check.reasons)}` },
           ...transcript,
         ]);
         const parsed2 = parseAssistantResponse(raw2);
@@ -433,10 +451,13 @@ export function Chat({ navigation, route }: Props) {
           playthrough: pt,
           bundle: b,
           userText,
-          assistantText: displayText,
+          // The first speaker was split off for the bubble; the pipeline needs
+          // it to know who actually spoke (= who is in the scene).
+          assistantText: speaker ? `${speaker}: ${displayText}` : displayText,
           parsedExtractionRaw: rawStateJson,
           worldState: wsForPrompt,
           skipEpisode: true,
+          playerName: profile.nickname,
         });
       } catch {}
 
@@ -634,13 +655,13 @@ export function Chat({ navigation, route }: Props) {
       prompt = 'Kahani mein naya mod lao.';
       instruction = [
         'The reader tapped “Naya mod”. There are no predefined scenes — invent a fresh, natural turn that grows out of what has already happened: a new moment, place or development (a time skip, someone arriving, a call, a surprise).',
-        'Bridge it believably, keep every established fact, and never invent an action or spoken line for the reader. Do not wrap anything up — end with an organic opening for the reader’s own move.',
+        'Bridge it believably, keep every established fact, keep every character in character (no invented fights or mood swings), and never invent an action or spoken line for the reader. Do not wrap anything up; leave room for the reader’s own move.',
       ].join(' ');
     } else {
       prompt = 'Continue karo.';
       instruction = [
         'The reader tapped “Continue” without typing a message. Advance the current story by one short, natural beat.',
-        'Let the narrator, setting, or other characters move the moment forward, but never invent an action or spoken line for the reader. Respect all established continuity and end with an organic opening for the reader’s own free-text move.',
+        'Let the narrator, the setting or the characters ALREADY IN THE SCENE move the moment forward — nobody new arrives, calls or interrupts. Never invent an action or spoken line for the reader, and never invent a conflict. Respect all established continuity and leave room for the reader’s own free-text move.',
       ].join(' ');
     }
 

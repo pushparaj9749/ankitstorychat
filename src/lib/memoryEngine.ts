@@ -17,6 +17,7 @@ import type { MemoryEntry } from '../types';
 import { hashText, sanitize, looksTooPrivate, MEMORY_MAX_CHARS, episodeLine } from './memoryCore';
 import { insertMemory, kvGet, kvSet, reinforceMemories, restoreMemory } from './db';
 import { nowIso, uid } from './utils';
+import { inferPresence, normalizeCharacterRefs, normalizePromiseParty } from './scenePresence';
 import {
   getWorldState,
   ensureWorldState,
@@ -131,6 +132,10 @@ export interface RawExtraction {
   threadsResolved?: string[];
   facts?: string[]; // semantic facts
   episodicFacts?: string[]; // alternative
+  /** v2.10.3 promise ledger */
+  promises?: { by: string; to: string; what: string }[];
+  promisesKept?: string[];
+  promisesBroken?: string[];
   importance?: number;
   confidence?: Confidence;
 }
@@ -246,6 +251,28 @@ export function validateExtraction(raw: unknown): RawExtraction | null {
       out.facts = [...(out.facts ?? []), ...arr].slice(0, 8);
     }
   }
+  if (Array.isArray(o.promises)) {
+    const arr: NonNullable<RawExtraction['promises']> = [];
+    for (const rp of o.promises.slice(0, 4)) {
+      if (!rp || typeof rp !== 'object') continue;
+      const r = rp as Record<string, unknown>;
+      const what = typeof r.what === 'string' ? r.what : typeof r.text === 'string' ? r.text : '';
+      if (what.trim().length < 4 || what.trim().length > 200) continue;
+      arr.push({
+        by: typeof r.by === 'string' ? sanitize(r.by.trim(), 40) : 'unknown',
+        to: typeof r.to === 'string' ? sanitize(r.to.trim(), 40) : 'player',
+        what: sanitize(what.trim(), 160),
+      });
+    }
+    if (arr.length) out.promises = arr;
+  }
+  for (const key of ['promisesKept', 'promisesBroken'] as const) {
+    const v = o[key];
+    if (Array.isArray(v)) {
+      const arr = v.filter((x): x is string => typeof x === 'string' && x.trim().length >= 4).map((x) => sanitize(x.trim(), 160)).slice(0, 4);
+      if (arr.length) out[key] = arr;
+    }
+  }
   // Some providers emit one string instead of the documented `memory` array.
   // Accept both forms here so a slightly malformed response still contributes
   // durable facts; engine.ts remains responsible for hiding the block.
@@ -268,7 +295,7 @@ export function validateExtraction(raw: unknown): RawExtraction | null {
   }
 
   // If nothing meaningful, return null to skip update
-  const hasSomething = !!(out.location || out.activity || out.presentCharacters || out.playerAction || out.facts || out.threads || out.importantObjects || out.relationships || out.activeEvents || out.completedEvents);
+  const hasSomething = !!(out.location || out.activity || out.presentCharacters || out.playerAction || out.facts || out.threads || out.importantObjects || out.relationships || out.activeEvents || out.completedEvents || out.promises || out.promisesKept || out.promisesBroken);
   if (!hasSomething) return null;
   return out;
 }
@@ -292,19 +319,15 @@ export function heuristicExtraction(userText: string, assistantText: string, bun
     }
   }
 
-  // Character arrival/departure heuristics
-  const present: string[] = [];
-  for (const ch of bundle.characters.characters) {
-    const lower = ch.name.toLowerCase();
-    if (combined.includes(lower)) {
-      // If mentioned, assume present unless says left/went away
-      if (!/\b(chala gaya|chali gayi|left|went away|nikal gaya)\b/.test(combined)) {
-        present.push(ch.id);
-      }
-    }
-  }
-  if (present.length && present.length !== currentWorld.presentCharacters.length) {
-    out.presentCharacters = present;
+  // Character arrival/departure — v2.10.3: EVIDENCE ONLY. A character joins
+  // the scene by speaking in the reply or by an arrival phrase next to their
+  // name, and leaves on a departure phrase. Merely being MENTIONED ("Ajay
+  // bhaiya ko pata chala to…") no longer drags them into the scene — that
+  // was what made close characters barge into every scene.
+  const inferred = inferPresence(bundle.characters.characters, currentWorld.presentCharacters ?? [], assistantText);
+  const present: string[] = inferred ?? [...(currentWorld.presentCharacters ?? [])];
+  if (inferred) {
+    out.presentCharacters = inferred;
     has = true;
   }
 
@@ -409,6 +432,15 @@ export function toStateUpdate(extraction: RawExtraction, currentWorld: WorldStat
     }));
   }
   if (extraction.threadsResolved) update.threadsResolve = extraction.threadsResolved;
+  if (extraction.promises?.length) {
+    update.promisesAdd = extraction.promises.map((p) => ({ by: p.by, to: p.to, text: p.what }));
+  }
+  if (extraction.promisesKept?.length || extraction.promisesBroken?.length) {
+    update.promisesUpdate = [
+      ...(extraction.promisesKept ?? []).map((text) => ({ text, status: 'kept' as const })),
+      ...(extraction.promisesBroken ?? []).map((text) => ({ text, status: 'broken' as const })),
+    ];
+  }
   if (extraction.storyTime) {
     const patch: Record<string, unknown> = {};
     if (extraction.storyTime.clockTime) patch.clockTime = extraction.storyTime.clockTime;
@@ -448,6 +480,8 @@ export interface WritePipelineInput {
   worldState?: WorldState | null;
   /** Chat writes a user-only episode before the provider call; upgrade it in place. */
   skipEpisode?: boolean;
+  /** The reader's display name (never treated as a cast member). */
+  playerName?: string;
 }
 
 export interface WritePipelineResult {
@@ -494,6 +528,25 @@ export async function runMemoryWritePipeline(input: WritePipelineInput): Promise
   let threadsUpdated = 0;
 
   if (rawExtraction) {
+    // v2.10.3: the record-keeper may name characters instead of ids; map both
+    // onto real ids (and drop the reader) so the scene roster stays correct.
+    // Whoever SPOKE in the reply is in the scene, whatever the list says.
+    const cast = bundle.characters.characters;
+    if (rawExtraction.presentCharacters) {
+      const ids = normalizeCharacterRefs(rawExtraction.presentCharacters, cast, input.playerName);
+      const spoke = inferPresence(cast, ids, assistantText) ?? ids;
+      rawExtraction = { ...rawExtraction, presentCharacters: spoke.length ? spoke : undefined };
+    }
+    if (rawExtraction.promises) {
+      rawExtraction = {
+        ...rawExtraction,
+        promises: rawExtraction.promises.map((p) => ({
+          ...p,
+          by: normalizePromiseParty(p.by, cast, input.playerName),
+          to: normalizePromiseParty(p.to, cast, input.playerName),
+        })),
+      };
+    }
     const evidence = `${userText} ${assistantText}`.slice(0, 400);
     const update = toStateUpdate(rawExtraction, ws, evidence);
     // Validate contradiction before applying
