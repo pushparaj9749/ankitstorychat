@@ -1,6 +1,10 @@
 /**
- * "My Submissions" Screen — Track local submissions until 24h review expiry.
- * Kissa v2.4.2.
+ * "My Submissions" Screen — the submissions sent from this device.
+ *
+ * v2.10.1: statuses are synced from the server (GET /api/submit/status, status
+ * words only) on open and on pull-to-refresh, so an accepted idea shows
+ * "Accepted" instead of staying "Pending" forever. Pending items are no longer
+ * silently dropped after 24h.
  */
 import React, { useCallback, useEffect, useState } from 'react';
 import { Pressable, RefreshControl, ScrollView, StyleSheet, Text, View } from 'react-native';
@@ -12,8 +16,9 @@ import { GradientButton } from '../components/GradientButton';
 import { SectionHeader } from '../components/bits';
 import { Icon } from '../components/icons';
 import { RADIUS, SCALE, SHADOWS, SPACING, TYPE, withAlpha } from '../theme';
-import { formatRemaining } from '../content/submissions';
+import { fetchSubmissionStatuses, formatRemaining } from '../content/submissions';
 import { kvGet, kvSet } from '../lib/db';
+import { applyServerStatuses, idsToCheck, pruneSubmissions } from '../lib/submissionStatus';
 
 type Props = NativeStackScreenProps<RootStackParamList, 'MySubmissions'>;
 
@@ -29,9 +34,10 @@ interface LocalSub {
 const LOCAL_KEY = 'my_submissions_v1';
 
 export function MySubmissions({ navigation }: Props) {
-  const { theme } = useApp();
+  const { theme, settings } = useApp();
   const [subs, setSubs] = useState<LocalSub[]>([]);
   const [refreshing, setRefreshing] = useState(false);
+  const apiBase = settings?.contentApiBaseUrl;
 
   const load = useCallback(async () => {
     const raw = await kvGet(LOCAL_KEY);
@@ -39,19 +45,31 @@ export function MySubmissions({ navigation }: Props) {
       setSubs([]);
       return;
     }
+    let list: LocalSub[];
     try {
-      const parsed = JSON.parse(raw) as LocalSub[];
-      const now = Date.now();
-      const kept = parsed.filter((s) => {
-        if (s.knownStatus === 'pending' && now - new Date(s.submittedAt).getTime() > 24 * 3600 * 1000) return false;
-        return true;
-      });
-      setSubs(kept.sort((a, b) => b.submittedAt.localeCompare(a.submittedAt)));
-      if (kept.length !== parsed.length) await kvSet(LOCAL_KEY, JSON.stringify(kept));
+      list = JSON.parse(raw) as LocalSub[];
     } catch {
       setSubs([]);
+      return;
     }
-  }, []);
+    const sortNewest = (l: LocalSub[]) => [...l].sort((a, b) => b.submittedAt.localeCompare(a.submittedAt));
+    const pruned = pruneSubmissions(list);
+    setSubs(sortNewest(pruned));
+    let next = pruned;
+    // Ask the server what happened to anything still pending.
+    const ids = idsToCheck(pruned);
+    if (ids.length > 0) {
+      try {
+        const statuses = await fetchSubmissionStatuses(ids, apiBase);
+        const res = applyServerStatuses(pruned, statuses);
+        next = res.list;
+        if (res.changed) setSubs(sortNewest(next));
+      } catch {
+        // Offline / server busy: keep what we know; pull to refresh retries.
+      }
+    }
+    if (next !== list) await kvSet(LOCAL_KEY, JSON.stringify(next));
+  }, [apiBase]);
 
   useEffect(() => {
     void load();
@@ -66,11 +84,13 @@ export function MySubmissions({ navigation }: Props) {
   function statusColor(s: LocalSub['knownStatus']) {
     if (s === 'accepted') return theme.success;
     if (s === 'rejected') return theme.danger;
+    if (s === 'expired') return theme.textFaint;
     return theme.accent;
   }
   function statusLabel(s: LocalSub['knownStatus']) {
     if (s === 'accepted') return 'Accepted';
     if (s === 'rejected') return 'Rejected';
+    if (s === 'expired') return 'Expired';
     return 'Pending';
   }
 
@@ -91,7 +111,7 @@ export function MySubmissions({ navigation }: Props) {
         </View>
 
         <Text style={[styles.sub, { color: theme.textDim }]}>
-          Tracking the submissions you sent from this device. Pending items are reviewed within 24 hours.
+          Tracking the submissions you sent from this device. Pending items are reviewed within 24 hours — pull down to refresh their status.
         </Text>
 
         <View style={{ height: SPACING.md }} />
@@ -146,9 +166,17 @@ export function MySubmissions({ navigation }: Props) {
                 <Text style={{ color: theme.textDim, fontSize: SCALE.small, marginTop: 6 }}>
                   by {s.creatorName} • {new Date(s.submittedAt).toLocaleDateString()}
                 </Text>
-                {s.knownStatus === 'pending' ? (
+                {s.knownStatus === 'pending' && remaining > 0 ? (
                   <Text style={{ color: theme.textFaint, fontSize: SCALE.micro, marginTop: 4 }}>
                     Expires in {formatRemaining(remaining)}
+                  </Text>
+                ) : s.knownStatus === 'accepted' ? (
+                  <Text style={{ color: theme.textFaint, fontSize: SCALE.micro, marginTop: 4 }}>
+                    {s.type === 'idea' ? 'Accepted by the Kissa team — thank you!' : 'Accepted and published — thank you!'}
+                  </Text>
+                ) : s.knownStatus === 'expired' ? (
+                  <Text style={{ color: theme.textFaint, fontSize: SCALE.micro, marginTop: 4 }}>
+                    Not reviewed within 24 hours.
                   </Text>
                 ) : null}
               </View>

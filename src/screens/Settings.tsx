@@ -27,7 +27,7 @@ export function Settings({ navigation }: Props) {
   const { theme, settings, profile, activeProvider, favoriteIds, recentPlaythroughs } = useApp();
   const { handleScroll } = useNavScroll();
   const nav = navigation as unknown as { navigate: (s: string, o?: object) => void };
-  const version = Constants.expoConfig?.version ?? '2.10.0';
+  const version = Constants.expoConfig?.version ?? '2.10.1';
 
   /* One row inside a grouped card. */
   function row(

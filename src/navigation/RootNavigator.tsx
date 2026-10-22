@@ -8,7 +8,9 @@ import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { createBottomTabNavigator, type BottomTabBarProps } from '@react-navigation/bottom-tabs';
 import type { MainTabParamList, RootStackParamList } from '../types';
 import { useApp } from '../state/AppContext';
-import { checkForUpdates, effectiveContentApiBaseUrl } from '../content/loader';
+import { AppState } from 'react-native';
+import { effectiveContentApiBaseUrl } from '../content/loader';
+import { syncCatalog } from '../content/sync';
 import { notifyContentUpdate } from '../lib/notifications';
 import { setAmbientPlaying } from '../lib/sound';
 import { NavScrollProvider } from './NavScrollContext';
@@ -53,26 +55,51 @@ const renderTabBar = (props: BottomTabBarProps) => <TemplateTabBar {...props} />
 const TAB_OPTIONS = { headerShown: false, tabBarHideOnKeyboard: true, freezeOnBlur: true } as const;
 const STACK_OPTIONS = { headerShown: false, animation: 'slide_from_right', freezeOnBlur: true } as const;
 
+/** Re-check the catalog when the app comes back to the foreground, at most this often. */
+const RESUME_SYNC_MS = 2 * 60 * 1000;
+
 function MainTabs() {
-  const { profile, settings } = useApp();
-  const checked = useRef(false);
+  const { profile, settings, refreshStories } = useApp();
+  // Latest values without re-arming the effect on every settings change.
+  const latest = useRef({ profile, settings, refreshStories });
+  latest.current = { profile, settings, refreshStories };
+  const hasProfile = !!profile;
 
   useEffect(() => {
-    if (checked.current || !profile) return;
-    checked.current = true;
-    const t = setTimeout(() => {
-      void (async () => {
-        try {
-          const base = effectiveContentApiBaseUrl(settings.contentApiBaseUrl);
-          const res = await checkForUpdates(base, profile.ageGroup);
-          if (res.hasUpdate && settings.notifications.enabled && settings.notifications.contentUpdates) {
-            await notifyContentUpdate(res.newStories.length + res.updatedStories.length);
-          }
-        } catch {}
-      })();
-    }, 4000);
-    return () => clearTimeout(t);
-  }, [profile, settings]);
+    if (!hasProfile) return;
+    let busy = false;
+    let lastSync = 0;
+    let alive = true;
+    const sync = async () => {
+      const { profile: p, settings: s } = latest.current;
+      if (busy || !p) return;
+      busy = true;
+      lastSync = Date.now();
+      try {
+        const res = await syncCatalog(effectiveContentApiBaseUrl(s.contentApiBaseUrl), p.ageGroup);
+        // v2.10.1: show new stories RIGHT AWAY (they used to appear only on
+        // the next launch, because nothing re-read the fresh manifest).
+        if (res.changed && alive) await latest.current.refreshStories();
+        if (res.freshCount > 0 && s.notifications.enabled && s.notifications.contentUpdates) {
+          await notifyContentUpdate(res.freshCount);
+        }
+      } catch {
+        // Offline / busy: the next launch or resume retries.
+      } finally {
+        busy = false;
+      }
+    };
+    // Short delay so the first check never competes with the opening animation.
+    const t = setTimeout(() => void sync(), 2500);
+    const sub = AppState.addEventListener('change', (state) => {
+      if (state === 'active' && Date.now() - lastSync > RESUME_SYNC_MS) void sync();
+    });
+    return () => {
+      alive = false;
+      clearTimeout(t);
+      sub.remove();
+    };
+  }, [hasProfile]);
 
   return (
     <Tab.Navigator
