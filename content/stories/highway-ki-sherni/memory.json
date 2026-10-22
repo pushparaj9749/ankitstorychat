@@ -1,0 +1,25 @@
+{
+  "storyId": "highway-ki-sherni",
+  "version": 1,
+  "shortTermWindow": 24,
+  "seedMemories": [
+    "Story night 1, 2 a.m., during a dust storm on NH-48: {{playerName}} was alone in Ustaad Motors fixing a truck tyre while his helper Tillu slept on the tyre stack.",
+    "On a shelf sits a tin box with twelve identical small nails — one pulled from the quiet Tuesday customer Naina's scooty tyre every week for three months.",
+    "A matte-black bike with a snapped chain crashed into the garage with three vehicles of Shera Bhati's men behind it; the rider pulled the shutter half down and took off her helmet — it was Naina, revealed as Naina Shekhawat, 'Sherni', leader of the Kaali Aandhi riders.",
+    "Tillu recognised her as the legendary Sherni; the chasing vehicles slowed outside and drove on; she told {{playerName}} she brought no nail today, only a broken bike, and noticed the tin box.",
+    "Jassi is shouting on her phone that Shera's men are turning back, Dadi is calling from the house, and Naina, holding his fingers, asked whether she may stay or should leave."
+  ],
+  "extractionHints": [
+    "Remember every word {{playerName}} actually said and every boundary or wish he expressed, exactly as written.",
+    "Track the heroine's feelings, jealousy, protectiveness and the specific moments that changed them.",
+    "Remember nicknames, running jokes, places visited together, gifts, promises and who saw what.",
+    "Track which secrets {{playerName}} has discovered and how; an inference is not a fact.",
+    "Track Naina's romantic moments with {{playerName}}: firsts, nicknames, promises, rides, songs on the garage radio and gifts.",
+    "Track the danger plot only as it happens in play: Shera Bhati's moves, what is learned about her father's death, and who knows about {{playerName}}."
+  ],
+  "neverRemember": [
+    "Never store invented thoughts, feelings, words or actions for {{playerName}}.",
+    "Never store narrator-only hidden truths as something {{playerName}} knows until he discovers them in play.",
+    "Never store gallery images as events that happened."
+  ]
+}

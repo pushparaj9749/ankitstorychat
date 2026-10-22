@@ -1,5 +1,5 @@
 {
-  "contentVersion": 50,
+  "contentVersion": 51,
   "minAppVersion": "1.0.0",
   "updatedAt": "2026-10-20T00:00:00Z",
   "stories": [
@@ -53,6 +53,60 @@
         "verified": true
       },
       "updatedAt": "2026-10-03T14:46:42Z"
+    },
+    {
+      "id": "highway-ki-sherni",
+      "title": "Highway Ki Sherni",
+      "tagline": "Har mangalvaar puncture leke aati thi... aaj raat poora highway uske peeche hai.",
+      "description": "Kishangarh ke paas NH-48 par tumhara chhota sa 'Ustaad Motors' garage hai — papa ki nishaani, raat-din khula, aur tum usse bhi zyada sharmile. Teen mahine se har mangalvaar ek seedhi-saadi dupatte wali ladki apni purani scooty ka puncture banwane aati hai. Naam bas 'Naina' bataya. Woh chupchaap chai peeti hai, tumhe kaam karte dekhti hai, aur tumhari har baat pe halka sa hans deti hai. Har hafte naya puncture — aur har baar tyre mein wahi ek chhoti si keel. Aaj mangalvaar nahi hai. Raat ke do baje hain, highway par aandhi chal rahi hai, aur ek matte-black bike garage ke andar ghus aati hai — peeche teen gaadiyon ki headlights. Leather jacket, kamar tak lambe baal, aankhon mein aag. Helmet utarta hai... aur saamne wahi Naina. Naina Shekhawat — 'Sherni'. 'Kaali Aandhi' riders ki leader, jiske naam se Jaipur se Ajmer tak loot gang aur smugglers raat ko highway par nikalna band kar dete hain. Duniya ke liye woh aandhi hai. Tumhare liye... woh ladki jo tumse milne ke liye apna tyre khud pankchar karti thi. Kahani kahan jaayegi, sirf tumhare faislon par.",
+      "genres": [
+        "Romance",
+        "Action",
+        "Thriller",
+        "Comedy"
+      ],
+      "tags": [
+        "romance",
+        "dangerous-girlfriend",
+        "biker-queen",
+        "highway",
+        "shy-hero",
+        "protective-heroine",
+        "possessive-romantic",
+        "secret-identity",
+        "rajasthan",
+        "action",
+        "player-agency",
+        "dynamic-continuous",
+        "ongoing",
+        "hinglish"
+      ],
+      "characters": [
+        "Naina Shekhawat",
+        "Jasleen 'Jassi' Kaur",
+        "Shera Bhati",
+        "Dadi Kamla",
+        "Tillu"
+      ],
+      "ageRating": "18+",
+      "contentLevel": "mature",
+      "language": "hinglish",
+      "version": 1,
+      "coverUrl": "stories/highway-ki-sherni/assets/cover.jpg",
+      "accentColor": "#B4532A",
+      "userRole": "{{playerName}} — an adult Indian man aged 24–25, controlled exclusively by the player. He runs 'Ustaad Motors', his late father's small 24-hour tyre and bike repair garage on NH-48 near Kishangarh, Rajasthan, with his teenage-adult helper Tillu, and lives behind the garage with his grandmother. For three months a quiet girl called 'Naina' has come every Tuesday with a puncture in her old scooty; they share chai and he has never found the courage to ask for her number. He starts the story shy, gentle, soft-spoken and wary of trouble. That is only where he begins — how he responds to Naina, her world and her love is entirely the player's choice. The player supplies his display name at runtime; never assign him another name, and never write his thoughts, feelings, dialogue, actions or decisions.",
+      "setting": "Present-day Rajasthan in early winter: Ustaad Motors, a small tin-roofed garage on the NH-48 highway near Kishangarh with a tyre stack, an old radio and a single bulb; the little house behind it where Dadi lives; Sardarji's 24-hour dhaba next door with charpais and kulhad chai; the endless night highway between Jaipur and Ajmer full of trucks; the Kaali Aandhi den, an old abandoned petrol pump turned into a biker hideout; the white marble hills of Kishangarh; and the desert dunes where the crew rides at dawn.",
+      "estimatedMinutes": 60,
+      "featured": false,
+      "isNew": true,
+      "popularity": 99,
+      "storyDir": "highway-ki-sherni",
+      "creator": {
+        "name": "Ankit",
+        "avatar": null,
+        "verified": true
+      },
+      "updatedAt": "2026-10-20T00:00:00Z"
     },
     {
       "id": "madam-sarkar",
