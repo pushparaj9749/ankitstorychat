@@ -56,6 +56,16 @@ moves the tale forward — with memory and relationships, and no script: no pred
 
 ## 🆕 Release notes
 
+### v2.10.3 — Story logic: no gate-crashers, kept promises, proportional emotions
+
+Owner bug report: close characters were forced into scenes, NPCs broke promises again and again without knowing it, and a loving girlfriend answered "main ja raha hoon" with "chale jao agar jana hai". Root causes and fixes:
+
+- **Replies no longer have to end on a hook.** The rule "end with a hook or question" pushed the narrator to invent interruptions (someone arrives, a phone rings). A reply now ends wherever the moment ends; a hook/twist/new event is explicitly *not* required.
+- **A mention is not an arrival.** The memory pipeline marked any character whose *name* appeared as "present" — so "Ajay bhaiya ko pata chala to…" put Ajay in the scene for the next turn. Presence now changes only on evidence (`src/lib/scenePresence.ts`): the character speaks, an arrival phrase, or the record-keeper's roster (names mapped to ids, the reader dropped).
+- **Scene roster + presence guard.** The prompt names who is in the scene and who is elsewhere. A reply in which an absent cast member speaks (or phones) without being called by the reader is silently rewritten once with a specific nudge ("Naya mod" may still bring someone in on purpose).
+- **Promise ledger.** The record-keeper records `promises` (by / to / what) and marks them `promisesKept` / `promisesBroken`; the narrator sees open and broken promises, and that the breaker knows. New PROMISE & SELF-AWARENESS LAW: characters keep their word, never play clueless about their own mistakes.
+- **Emotional logic.** New EMOTIONAL LOGIC LAW: proportional reactions, natural reading of the reader's words (ask instead of assuming the worst), loving characters warm by default, no invented conflict. Relationships are no longer printed as raw default numbers ("affection 20" for a two-year girlfriend); the narrator gets each bond from the character sheet plus only the real changes, in words.
+
 ### v2.10.2 — Story Creator avatars
 
 - **Anime avatars on the Story Creator card** (both templates). Owner stories (Ankit, verified) show Ankit's avatar bundled in the APK (`assets/creators/ankit.jpg`) — works offline, no package changes.
