@@ -27,6 +27,8 @@
  *   POST /api/submit/story                 (public — submit a complete story)
  *   POST /api/submit/media                 (public — upload cover/gallery image)
  *   GET  /api/submit/limit                 (public — check remaining slots)
+ *   GET  /api/submit/status?ids=a,b        (public — status words only for
+ *                                           the submitter's own ids)
  *   GET  /api/admin/pending                (admin — Bearer token required)
  *   GET  /api/admin/media/:mediaId         (admin — preview uploaded image)
  *   POST /api/admin/idea/:id/accept        (admin)
@@ -52,6 +54,8 @@ import {
   getCommunityMediaFile,
   getLimitStatus,
   getPendingMedia,
+  getSubmissionStatuses,
+  MAX_STATUS_IDS,
   getAcceptedStoryPackage,
   isAdmin,
   kvFor,
@@ -204,6 +208,7 @@ export type ApiRoute =
   | { kind: 'submit-idea' }
   | { kind: 'submit-story' }
   | { kind: 'submit-limit' }
+  | { kind: 'submit-status' }
   | { kind: 'submit-media' }
   | { kind: 'admin-pending' }
   | { kind: 'admin-media'; id: string }
@@ -269,6 +274,7 @@ export function parseApiRoute(pathname: string): ApiRoute {
     if (second === 'idea' && segments.length === 3) return { kind: 'submit-idea' };
     if (second === 'story' && segments.length === 3) return { kind: 'submit-story' };
     if (second === 'limit' && segments.length === 3) return { kind: 'submit-limit' };
+    if (second === 'status' && segments.length === 3) return { kind: 'submit-status' };
     // Public image upload (cover / gallery) — base64 JSON, validated server-side.
     if (second === 'media' && segments.length === 3) return { kind: 'submit-media' };
     return { kind: 'not-found' };
@@ -585,6 +591,15 @@ async function handleApi(request: Request, env: Env, url: URL): Promise<Response
     case 'submit-limit': {
       const lim = await getLimitStatus(kvFor(env));
       return withCors(json({ ok: true, ...lim }, 200, { 'Cache-Control': 'no-store' }), cors);
+    }
+    case 'submit-status': {
+      const raw = (url.searchParams.get('ids') ?? '').split(',').map((x) => x.trim()).filter(Boolean);
+      const ids = [...new Set(raw)];
+      if (ids.length === 0 || ids.length > MAX_STATUS_IDS || !ids.every((id) => SUBMISSION_ID_RE.test(id) && id.length <= 80)) {
+        return withCors(errorJson(400, 'invalid_ids', `Pass 1–${MAX_STATUS_IDS} submission ids.`, { 'Cache-Control': 'no-store' }), cors);
+      }
+      const statuses = await getSubmissionStatuses(env, ids);
+      return withCors(json({ ok: true, statuses }, 200, { 'Cache-Control': 'no-store' }), cors);
     }
     case 'submit-media': {
       let body: unknown;

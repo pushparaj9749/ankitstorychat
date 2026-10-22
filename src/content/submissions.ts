@@ -163,6 +163,30 @@ export async function getLimitStatus(apiBase?: string): Promise<{
   );
 }
 
+export type SubmissionStatusWord = 'pending' | 'accepted' | 'rejected' | 'expired';
+
+/**
+ * Status of this device's own submissions (GET /api/submit/status?ids=…).
+ * The server answers with status words only — no titles, names or content.
+ */
+export async function fetchSubmissionStatuses(
+  ids: string[],
+  apiBase?: string,
+): Promise<Record<string, SubmissionStatusWord>> {
+  const clean = [...new Set(ids.filter((id) => /^(idea|story)_[a-z0-9_]+$/.test(id)))].slice(0, 50);
+  if (clean.length === 0) return {};
+  const res = await request<{ ok: boolean; statuses?: Record<string, string> }>(
+    `submit/status?ids=${clean.map(encodeURIComponent).join(',')}`,
+    {},
+    { apiBase },
+  );
+  const out: Record<string, SubmissionStatusWord> = {};
+  for (const [id, st] of Object.entries(res.statuses ?? {})) {
+    if (st === 'pending' || st === 'accepted' || st === 'rejected' || st === 'expired') out[id] = st;
+  }
+  return out;
+}
+
 export async function submitIdea(input: IdeaInput, apiBase?: string): Promise<SubmitResponse> {
   const body: Record<string, unknown> = {
     creatorName: input.creatorName.trim(),

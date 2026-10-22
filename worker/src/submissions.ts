@@ -4,6 +4,9 @@
  * Storage model (Cloudflare KV):
  *   kissa_submissions:<id>        -> JSON submission (pending only, 24h TTL)
  *   kissa_submissions:accepted:<id> -> accepted story bundle (permanent, no TTL)
+ *   rej:<id>                      -> '1' rejection marker (30-day TTL, no user
+ *                                    data) so the submitter's app can show
+ *                                    Rejected instead of Expired.
  *   kissa_submissions:index       -> JSON set of pending submission ids
  *   kissa_submissions:counter:<windowKey> -> integer count for the 50/24h window
  *   kissa_submissions:window      -> { start, count }
@@ -36,12 +39,17 @@ import {
 import type { ImageMime, MediaKind } from './media';
 
 export const SUBMISSION_TTL_SECONDS = 24 * 60 * 60; // 24h
+/** How long a rejection marker answers status checks. */
+export const REJECTED_MARKER_TTL_SECONDS = 30 * 24 * 60 * 60; // 30 days
+/** Max ids per public status request. */
+export const MAX_STATUS_IDS = 50;
 export const GLOBAL_DAILY_LIMIT = 50;
 export const WINDOW_MS = 24 * 60 * 60 * 1000; // 24h window (UTC midnight aligned)
 
 export const KV = {
   PREFIX: 'sub:',
   ACCEPTED_PREFIX: 'acc:',
+  REJECTED_PREFIX: 'rej:',
   IDEA_INDEX: 'idx:ideas',
   STORY_INDEX: 'idx:stories',
   ACCEPTED_STORY_INDEX: 'idx:acc_stories', // -> JSON string[] of accepted story submission ids
@@ -273,6 +281,9 @@ function subKey(id: string): string {
 }
 function accKey(id: string): string {
   return KV.ACCEPTED_PREFIX + id;
+}
+function rejKey(id: string): string {
+  return KV.REJECTED_PREFIX + id;
 }
 function indexKey(type: SubmissionType): string {
   return type === 'idea' ? KV.IDEA_INDEX : KV.STORY_INDEX;
@@ -885,9 +896,40 @@ export async function rejectSubmission(env: Env, id: string): Promise<Response> 
   const sub = await readSubmission(kvFor(env), id);
   if (!sub) return err(404, 'not_found');
   await deleteSubmission(kvFor(env), id, sub.type);
+  // Status marker only (no content) so the submitter's app can show "Rejected".
+  await kvFor(env)?.put(rejKey(id), '1', { expirationTtl: REJECTED_MARKER_TTL_SECONDS });
   // Rejected stories never ship — their uploads must not linger in storage.
   await cleanupMediaForSubmission(kvFor(env), sub);
   return json({ ok: true });
+}
+
+export type PublicSubmissionStatus = 'pending' | 'accepted' | 'rejected' | 'expired';
+
+/**
+ * Public status lookup for the submitter's "My Submissions" screen. Returns
+ * ONLY a status word per id — never titles, names or content. Ids are random
+ * and unguessable; unknown ids simply read as "expired".
+ */
+export async function getSubmissionStatuses(
+  env: Env,
+  ids: string[],
+): Promise<Record<string, PublicSubmissionStatus>> {
+  const kv = kvFor(env);
+  const out: Record<string, PublicSubmissionStatus> = {};
+  const now = Date.now();
+  for (const id of ids) {
+    if (kv && (await kv.get(accKey(id))) !== null) {
+      out[id] = 'accepted';
+      continue;
+    }
+    if (kv && (await kv.get(rejKey(id))) !== null) {
+      out[id] = 'rejected';
+      continue;
+    }
+    const sub = await readSubmission(kv, id);
+    out[id] = sub && sub.status === 'pending' && new Date(sub.expiresAt).getTime() > now ? 'pending' : 'expired';
+  }
+  return out;
 }
 
 export async function acceptIdea(env: Env, id: string): Promise<Response> {

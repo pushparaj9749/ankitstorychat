@@ -423,3 +423,65 @@ describe('end-to-end publish flow', () => {
     expect(acc.status).toBe(400);
   });
 });
+
+describe('public submission status (My Submissions sync)', () => {
+  function statusOf(ids: string[]): Promise<Response> {
+    return get(`/api/submit/status?ids=${ids.map(encodeURIComponent).join(',')}`);
+  }
+
+  test('pending → accepted for ideas, with status words only', async () => {
+    makeEnv('secret');
+    const created = await post('/api/submit/idea', { creatorName: 'Ankit', title: 'Dulhan', concept: 'Bhaag chalo', genre: 'Romance' });
+    const { id } = (await created.json()) as { id: string };
+
+    const before = await statusOf([id]);
+    expect(before.status).toBe(200);
+    const b = (await before.json()) as { statuses: Record<string, string> };
+    expect(b.statuses).toEqual({ [id]: 'pending' });
+    // Never leaks content.
+    expect(JSON.stringify(b)).not.toMatch(/Dulhan|Ankit|Bhaag/);
+
+    expect((await adminPost(`/api/admin/idea/${id}/accept`, {})).status).toBe(200);
+    const after = (await (await statusOf([id])).json()) as { statuses: Record<string, string> };
+    expect(after.statuses[id]).toBe('accepted');
+  });
+
+  test('rejected ideas read as rejected, unknown ids as expired', async () => {
+    makeEnv('secret');
+    const created = await post('/api/submit/idea', { creatorName: 'N', title: 'TT', concept: 'CC', genre: 'G' });
+    const { id } = (await created.json()) as { id: string };
+    expect((await adminPost(`/api/admin/idea/${id}/reject`, {})).status).toBe(200);
+    const res = (await (await statusOf([id, 'idea_zzz_unknown'])).json()) as { statuses: Record<string, string> };
+    expect(res.statuses[id]).toBe('rejected');
+    expect(res.statuses.idea_zzz_unknown).toBe('expired');
+  });
+
+  test('accepted stories read as accepted', async () => {
+    makeEnv('secret');
+    const submitted = await post(
+      '/api/submit/story',
+      await storyPayload({
+        creatorName: 'Mira',
+        story: { id: 'mira-status', title: 'Mira Status' },
+        scenes: { scenes: [{ id: 's1', title: 'Start', narration: ['Hello'], choices: [] }], endings: [] },
+      }),
+    );
+    const { id } = (await submitted.json()) as { id: string };
+    expect((await adminPost(`/api/admin/story/${id}/accept`, {})).status).toBe(200);
+    const res = (await (await statusOf([id])).json()) as { statuses: Record<string, string> };
+    expect(res.statuses[id]).toBe('accepted');
+  });
+
+  test('rejects malformed or too many ids', async () => {
+    expect((await get('/api/submit/status')).status).toBe(400);
+    expect((await statusOf(['../etc'])).status).not.toBe(200);
+    expect((await statusOf(['idea_<script>'])).status).toBe(400);
+    const many = Array.from({ length: 51 }, (_, i) => `idea_x_${i}`);
+    expect((await statusOf(many)).status).toBe(400);
+  });
+
+  test('status route is GET-only', async () => {
+    const res = await post('/api/submit/status?ids=idea_a_b', {});
+    expect(res.status).toBe(405);
+  });
+});

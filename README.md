@@ -56,6 +56,11 @@ moves the tale forward — with memory and relationships, and no script: no pred
 
 ## 🆕 Release notes
 
+### v2.10.1 — New stories show up on the first launch, submission status sync
+
+- **New OTA stories appear right away.** The app fetched the new manifest on launch but only cached it, so a new story showed up on the *second* launch. `src/content/sync.ts` now reports when the catalog changed and the story list is refreshed immediately; the catalog is also re-checked when the app returns to the foreground (at most every 2 minutes). New-story notifications count only stories that are actually new since the last check.
+- **My Submissions shows the real status.** New public endpoint `GET /api/submit/status?ids=…` (status words only — no titles, names or content). The screen syncs on open and on pull-to-refresh: Pending → Accepted / Rejected / Expired. Pending items are no longer silently dropped after 24 hours. Rejections leave a 30-day content-free marker so they read as "Rejected".
+
 ### v2.10.0 — UI elements redesigned (Kissa Noir)
 
 - **Tab bar:** a rose-glass pill slides (spring, native driver) behind the active tab; the centre "+" is a gradient orb with a glass sheen and a halo ring.
