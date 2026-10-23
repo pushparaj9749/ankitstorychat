@@ -114,7 +114,7 @@ describe('v2.7.0 — 3-stage prompt with private notes', () => {
     expect(notes).toContain('Pehli Mulaqat');
     expect(notes).toContain('STAGE 3');
     expect(sys).toContain('STAGE 2');
-    expect(sys).toContain('last 20 chats');
+    expect(sys).toContain('last 30 chats');
   });
 
   test('character knowledge and lore are narrator-only (not in public cards)', () => {

@@ -136,6 +136,8 @@ export interface RawExtraction {
   promises?: { by: string; to: string; what: string }[];
   promisesKept?: string[];
   promisesBroken?: string[];
+  /** v2.11.0 character hearts */
+  hearts?: Record<string, { feeling?: string; wants?: string; moment?: string }>;
   importance?: number;
   confidence?: Confidence;
 }
@@ -273,6 +275,17 @@ export function validateExtraction(raw: unknown): RawExtraction | null {
       if (arr.length) out[key] = arr;
     }
   }
+  if (o.hearts && typeof o.hearts === 'object' && !Array.isArray(o.hearts)) {
+    const hearts: NonNullable<RawExtraction['hearts']> = {};
+    for (const [k, v] of Object.entries(o.hearts as Record<string, unknown>).slice(0, 6)) {
+      if (!k.trim() || !v || typeof v !== 'object') continue;
+      const r = v as Record<string, unknown>;
+      const pick = (x: unknown, max: number) => (typeof x === 'string' && x.trim().length >= 3 && !looksTooPrivate(x) ? sanitize(x.trim(), max) : undefined);
+      const h = { feeling: pick(r.feeling, 140), wants: pick(r.wants, 140), moment: pick(r.moment, 160) };
+      if (h.feeling || h.wants || h.moment) hearts[sanitize(k.trim(), 40)] = h;
+    }
+    if (Object.keys(hearts).length) out.hearts = hearts;
+  }
   // Some providers emit one string instead of the documented `memory` array.
   // Accept both forms here so a slightly malformed response still contributes
   // durable facts; engine.ts remains responsible for hiding the block.
@@ -295,7 +308,7 @@ export function validateExtraction(raw: unknown): RawExtraction | null {
   }
 
   // If nothing meaningful, return null to skip update
-  const hasSomething = !!(out.location || out.activity || out.presentCharacters || out.playerAction || out.facts || out.threads || out.importantObjects || out.relationships || out.activeEvents || out.completedEvents || out.promises || out.promisesKept || out.promisesBroken);
+  const hasSomething = !!(out.location || out.activity || out.presentCharacters || out.playerAction || out.facts || out.threads || out.importantObjects || out.relationships || out.activeEvents || out.completedEvents || out.promises || out.promisesKept || out.promisesBroken || out.hearts);
   if (!hasSomething) return null;
   return out;
 }
@@ -441,6 +454,7 @@ export function toStateUpdate(extraction: RawExtraction, currentWorld: WorldStat
       ...(extraction.promisesBroken ?? []).map((text) => ({ text, status: 'broken' as const })),
     ];
   }
+  if (extraction.hearts && Object.keys(extraction.hearts).length) update.heartsPatch = extraction.hearts;
   if (extraction.storyTime) {
     const patch: Record<string, unknown> = {};
     if (extraction.storyTime.clockTime) patch.clockTime = extraction.storyTime.clockTime;
@@ -667,8 +681,8 @@ export async function recallWithWorldState(
   opts: { charBudget?: number; maxItems?: number } = {},
 ): Promise<MemoryReadResult> {
   const ws = await getWorldState(playthrough.id);
-  const charBudget = opts.charBudget ?? 3800;
-  const maxItems = opts.maxItems ?? 28;
+  const charBudget = opts.charBudget ?? 4600;
+  const maxItems = opts.maxItems ?? 34;
 
   // Build immediate context: last 4 turns
   const immediate = recentHistory.slice(-6).map((m) => `${m.role === 'user' ? 'Player' : m.speaker ?? 'Narrator'}: ${m.text.slice(0, 120)}`).join('\n');

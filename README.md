@@ -56,6 +56,36 @@ moves the tale forward — with memory and relationships, and no script: no pred
 
 ## 🆕 Release notes
 
+### v2.11.0 — Extreme memory: the record-keeper fills the archive, character hearts, the saga
+
+Owner request: make the memory system as powerful as possible. It is still 100% on-device, using the reader's own API key and no server. No extra call before the reply: everything below rides on the existing silent record-keeper call, which runs after the reply is visible, plus the existing chapter summariser.
+
+- **The record-keeper now fills the long-term archive.** Until now, typed archive events (`story_events`) came only from a regex/lexicon detector, and that detector misses most natural Hinglish. The record-keeper now also returns:
+  - `events`: type, who, and importance 1-4;
+  - `relationshipStatus` changes;
+  - `characterKnowledge`: who learned what, and how (witnessed / told / discovered / inferred);
+  - `decisions` and `secrets`;
+  - `hearts` (see below).
+
+  These events are stored with participants, pair keys and high confidence, deduped against what the detector already caught, and become searchable by meaning like everything else in the archive. v2.10.3 promise objects `{by, to, what}` now reach the archive too, with their participants; before, they were silently dropped.
+- **Character hearts.** For each character the world state keeps:
+  - what they privately *feel* about the reader right now;
+  - what they *want*;
+  - up to 6 *unforgettable moments* with the reader. The first moment is never dropped.
+
+  The narrator sees the present characters' hearts as private notes, to show through behaviour and never to announce. So yesterday's hurt or joy carries into today's scene.
+- **The saga ("the book so far").** Chapters are no longer thrown away after 16. Once more than 4 are closed, the oldest one is folded the moment it would leave the prompt (by the AI, or deterministically when it is unavailable) into one bounded, chronological saga. The saga keeps first meetings, turning points, promises, secrets and unresolved things. The folded chapters move to an on-device archive. A 1000-turn journey now keeps its beginning, its middle and its latest chapters.
+- **Deeper recall on "yaad hai…?" turns.** Questions like "yaad hai…", "pehli baar…", "kya kaha tha…", "remember…" or "waada kiya tha" now get:
+  - a larger archive slice (26 items / 7.5k chars instead of 18 / 5k);
+  - more long-term facts;
+  - the matching old chapters from the saga archive;
+  - a rule to answer from the record. If a detail isn't recorded, the character stays vague instead of inventing one.
+- **Bigger windows.**
+  - The last **30 chats** travel verbatim (was 20); the maximum window is 72 rows.
+  - The default long-term fact budget went from 3.8k to 4.6k chars.
+  - The archive slice on normal turns went from 14 / 4.2k to 18 / 5k.
+  - The record-keeper and the summariser get the full 800-token output cap, so the richer JSON and the saga are never cut off.
+
 ### v2.10.3 — Story logic: no gate-crashers, kept promises, proportional emotions
 
 Owner bug report: close characters were forced into scenes, NPCs broke promises again and again without knowing it, and a loving girlfriend answered "main ja raha hoon" with "chale jao agar jana hai". Root causes and fixes:

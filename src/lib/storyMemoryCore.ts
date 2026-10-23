@@ -1396,7 +1396,17 @@ export interface ProposedStateChanges {
   decisions: string[];
   secrets: string[];
   knowledge: { characterId: string; fact: string; source: CharacterKnowledgeRecord['source'] }[];
+  /** v2.11.0: typed events classified by the record-keeper (LLM quality). */
+  events: { type: StoryEventType; summary: string; participants: string[]; importance: 1 | 2 | 3 | 4 }[];
+  /** v2.11.0: participants of the promises above (same order), when known. */
+  promiseParticipants: string[][];
 }
+
+/** Event types the record-keeper may use (same vocabulary as the archive). */
+export const RECORD_KEEPER_EVENT_TYPES: StoryEventType[] = [
+  'meeting', 'conversation', 'promise', 'decision', 'secret', 'discovery', 'conflict', 'resolution',
+  'emotional', 'relationship_change', 'marriage', 'engagement', 'object', 'task', 'other',
+];
 
 /**
  * Read structured state the narrator volunteered (kissa-state block) into the
@@ -1406,7 +1416,7 @@ export function parseProposedState(
   raw: unknown,
   ctx: MemoryContextRef,
 ): ProposedStateChanges {
-  const out: ProposedStateChanges = { relationships: [], promises: [], decisions: [], secrets: [], knowledge: [] };
+  const out: ProposedStateChanges = { relationships: [], promises: [], decisions: [], secrets: [], knowledge: [], events: [], promiseParticipants: [] };
   if (!raw || typeof raw !== 'object') return out;
   const o = raw as Record<string, unknown>;
 
@@ -1461,7 +1471,52 @@ export function parseProposedState(
   const stringList = (v: unknown): string[] =>
     Array.isArray(v) ? v.filter((x): x is string => typeof x === 'string' && x.trim().length > 4 && x.length < 200).map((s) => sanitize(s, 200)) : [];
 
-  out.promises = [...stringList(o.promises), ...stringList(o.threads)];
+  // Resolve a character reference (id, full name or first name; "player" / the
+  // reader's name → the player id). Unknown references are dropped.
+  const resolveRef = (ref: unknown): string | null => {
+    if (typeof ref !== 'string' || !ref.trim()) return null;
+    const k = ref.trim().toLowerCase();
+    if (k === 'player' || k === 'reader' || k === 'user' || k === ctx.playerId || k === (ctx.playerName ?? '').toLowerCase()) return ctx.playerId;
+    const hit =
+      ctx.characters.find((c) => c.id === k || c.name.toLowerCase() === k) ??
+      ctx.characters.find((c) => c.name.toLowerCase().split(' ')[0] === k.split(' ')[0] && k.length >= 3);
+    return hit?.id ?? null;
+  };
+  const nameOfRef = (id: string): string => (id === ctx.playerId ? (ctx.playerName || 'Player') : ctx.characters.find((c) => c.id === id)?.name ?? id);
+
+  // v2.10.3 promise objects {by, to, what} — archive them as readable events.
+  const promiseObjects: string[] = [];
+  if (Array.isArray(o.promises)) {
+    for (const item of (o.promises as unknown[]).slice(0, 4)) {
+      if (!item || typeof item !== 'object') continue;
+      const rec = item as Record<string, unknown>;
+      const what = typeof rec.what === 'string' ? rec.what : typeof rec.text === 'string' ? rec.text : '';
+      if (what.trim().length < 4) continue;
+      const by = resolveRef(rec.by);
+      const to = resolveRef(rec.to);
+      const who = [by, to].filter((x): x is string => !!x);
+      promiseObjects.push(sanitize(`${by ? nameOfRef(by) : 'Someone'} → ${to ? nameOfRef(to) : 'someone'}: ${what.trim()}`, 200));
+      out.promiseParticipants.push([...new Set(who)]);
+    }
+  }
+  out.promises = [...promiseObjects, ...stringList(o.promises), ...stringList(o.threads)];
+  while (out.promiseParticipants.length < out.promises.length) out.promiseParticipants.push([]);
+
+  if (Array.isArray(o.events)) {
+    for (const item of (o.events as unknown[]).slice(0, 5)) {
+      if (!item || typeof item !== 'object') continue;
+      const rec = item as Record<string, unknown>;
+      const summary = typeof rec.summary === 'string' ? sanitize(rec.summary.trim(), 240) : '';
+      if (summary.length < 8 || looksTooPrivate(summary)) continue;
+      const rawType = typeof rec.type === 'string' ? rec.type.trim().toLowerCase().replace(/[\s-]+/g, '_') : 'other';
+      const type = (RECORD_KEEPER_EVENT_TYPES as string[]).includes(rawType) ? (rawType as StoryEventType) : 'other';
+      const whoRaw = Array.isArray(rec.who) ? rec.who : Array.isArray(rec.participants) ? rec.participants : [];
+      const participants = [...new Set((whoRaw as unknown[]).map(resolveRef).filter((x): x is string => !!x))].slice(0, 6);
+      const imp = typeof rec.importance === 'number' && Number.isFinite(rec.importance) ? Math.round(rec.importance) : 2;
+      const importance = Math.max(1, Math.min(4, imp)) as 1 | 2 | 3 | 4;
+      out.events.push({ type, summary, participants, importance });
+    }
+  }
   out.decisions = stringList(o.decisions);
   out.secrets = stringList(o.secrets);
 
@@ -1473,7 +1528,10 @@ export function parseProposedState(
       const fact = typeof rec.fact === 'string' ? sanitize(rec.fact, 200) : '';
       if (!characterId || !fact) continue;
       const known = ctx.characters.find((c) => c.id === characterId || c.name.toLowerCase() === characterId);
-      out.knowledge.push({ characterId: known?.id ?? characterId, fact, source: 'witnessed' });
+      const rawSource = typeof rec.source === 'string' ? rec.source.trim().toLowerCase() : '';
+      const source: CharacterKnowledgeRecord['source'] =
+        rawSource === 'told' || rawSource === 'discovered' || rawSource === 'inferred' ? rawSource : 'witnessed';
+      out.knowledge.push({ characterId: known?.id ?? characterId, fact, source });
     }
   }
   return out;

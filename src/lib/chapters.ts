@@ -7,11 +7,18 @@
  * chapter are summarised into one short chapter entry. The prompt shows the
  * newest few chapters next to the digest.
  *
+ * v2.11.0 SAGA ("the book so far"): chapters are never thrown away any more.
+ * Once more than PROMPT_CHAPTERS are closed, the older ones are folded into a
+ * saga — one bounded whole-journey story told in order — and moved to an
+ * archive that recall can still search ("yaad hai jab…"). So a 1000-turn
+ * journey keeps its beginning, its middle and its latest chapters.
+ *
  * Storage is one local kv row per journey. Raw messages are never deleted, so
  * a chapter can always be rebuilt.
  */
 import { kvDelete, kvGet, kvSet } from './db';
 import { sanitizeStoredText } from './leakGuard';
+import { keywordSet } from './storyMemoryCore';
 import type { ChatMessage } from '../types';
 
 export interface Chapter {
@@ -23,15 +30,39 @@ export interface Chapter {
   createdAt: string;
 }
 
+/** v2.11.0 — the whole journey before the recent chapters, told in order. */
+export interface Saga {
+  text: string;
+  /** atTurn of the newest chapter folded into the saga. */
+  coversThroughAtTurn: number;
+  /** How many chapters the saga covers. */
+  chapterCount: number;
+  updatedAt: string;
+}
+
 interface ChapterStore {
+  /** Recent chapters (shown in full in the prompt). */
   chapters: Chapter[];
   /** messageCount at which the last chapter closed (start of the current one). */
   lastClosedAt: number;
+  saga?: Saga | null;
+  /** Folded chapters, oldest first — kept for deep recall, never prompted whole. */
+  archive?: Chapter[];
 }
 
 export const CHAPTER_EVERY_TURNS = 24;
+/** Safety cap for the recent list (folding normally keeps it at PROMPT_CHAPTERS). */
 export const MAX_CHAPTERS = 16;
 export const CHAPTER_MAX_CHARS = 520;
+/** Chapters shown in full next to the saga. */
+export const PROMPT_CHAPTERS = 4;
+/**
+ * Fold as soon as a chapter would fall out of the prompt's recent window, so
+ * every closed chapter is always either shown in full or inside the saga.
+ */
+export const SAGA_FOLD_AT = PROMPT_CHAPTERS + 1;
+export const SAGA_MAX_CHARS = 1400;
+export const MAX_ARCHIVED_CHAPTERS = 200;
 
 const KEY = (playthroughId: string) => `memchap:${playthroughId}`;
 
@@ -41,7 +72,13 @@ async function load(playthroughId: string): Promise<ChapterStore> {
     if (!raw) return { chapters: [], lastClosedAt: 0 };
     const parsed = JSON.parse(raw) as ChapterStore;
     if (!Array.isArray(parsed.chapters)) return { chapters: [], lastClosedAt: 0 };
-    return { chapters: parsed.chapters, lastClosedAt: Number(parsed.lastClosedAt) || 0 };
+    const saga = parsed.saga && typeof parsed.saga.text === 'string' && parsed.saga.text.trim() ? parsed.saga : null;
+    return {
+      chapters: parsed.chapters,
+      lastClosedAt: Number(parsed.lastClosedAt) || 0,
+      saga,
+      archive: Array.isArray(parsed.archive) ? parsed.archive : [],
+    };
   } catch {
     return { chapters: [], lastClosedAt: 0 };
   }
@@ -49,6 +86,92 @@ async function load(playthroughId: string): Promise<ChapterStore> {
 
 export async function getChapters(playthroughId: string): Promise<Chapter[]> {
   return (await load(playthroughId)).chapters;
+}
+
+export interface ChapterBook {
+  /** Recent chapters, oldest first. */
+  chapters: Chapter[];
+  saga: Saga | null;
+  /** Total chapters ever closed in this journey. */
+  total: number;
+}
+
+/** Saga + recent chapters for the prompt. */
+export async function getChapterBook(playthroughId: string): Promise<ChapterBook> {
+  const store = await load(playthroughId);
+  return { chapters: store.chapters, saga: store.saga ?? null, total: (store.archive?.length ?? 0) + store.chapters.length };
+}
+
+/**
+ * Deep recall: the archived (folded) chapters that best match a query, oldest
+ * first. Concept-aware keyword overlap, so "pehli date" finds a chapter that
+ * says "first date". Returns [] when nothing matches meaningfully.
+ */
+export function searchChapters(chapters: Chapter[], query: string, max = 2): Chapter[] {
+  const q = new Set(keywordSet(query));
+  if (!q.size || !chapters.length) return [];
+  const scored = chapters
+    .map((c, idx) => {
+      const kw = keywordSet(`${c.title} ${c.text}`);
+      let hits = 0;
+      for (const k of kw) if (q.has(k)) hits++;
+      return { c, idx, hits };
+    })
+    .filter((x) => x.hits >= 2)
+    .sort((a, b) => b.hits - a.hits || a.idx - b.idx)
+    .slice(0, max)
+    .sort((a, b) => a.idx - b.idx);
+  return scored.map((x) => x.c);
+}
+
+export async function searchChapterArchive(playthroughId: string, query: string, max = 2): Promise<Chapter[]> {
+  const store = await load(playthroughId);
+  return searchChapters(store.archive ?? [], query, max);
+}
+
+/** Deterministic saga when no summariser is available: keeps beginning + latest. */
+export function fallbackSagaText(previous: string, folded: Chapter[]): string {
+  const add = folded.map((c) => `${c.title}: ${c.text.split(/(?<=[.!?\u0964])\s+/)[0] ?? c.text}`.trim()).join(' / ');
+  const joined = [previous.trim(), add].filter(Boolean).join(' / ').replace(/\s+/g, ' ');
+  if (joined.length <= SAGA_MAX_CHARS) return joined;
+  const head = joined.slice(0, Math.floor(SAGA_MAX_CHARS * 0.4));
+  const tail = joined.slice(joined.length - Math.floor(SAGA_MAX_CHARS * 0.6) + 5);
+  return `${head} … ${tail}`.slice(0, SAGA_MAX_CHARS);
+}
+
+async function foldIntoSaga(
+  previous: Saga | null | undefined,
+  folded: Chapter[],
+  input: Pick<CloseChapterInput, 'summarize' | 'castNames' | 'readerName'>,
+): Promise<Saga> {
+  const prevText = previous?.text ?? '';
+  const cast = input.castNames ?? [];
+  let text = '';
+  if (input.summarize) {
+    try {
+      const raw = await input.summarize(
+        `You keep "the book so far" of an interactive Hinglish story — a long-term memory of the whole journey, told in order. ` +
+          `Rewrite it so it ALSO covers the new chapters below. Max ${SAGA_MAX_CHARS} characters, plain sentences, chronological. ` +
+          `Never drop: how ${input.readerName || 'the reader'} met each person, relationship turning points (first confession, first kiss, fights, breakups, marriage), ` +
+          `promises made/kept/broken, secrets revealed and who knows them, important objects and who holds them, and anything still unresolved. ` +
+          `Compress small talk. Roman-script Hinglish or English. No headings, no lists, no quotes.\n\n` +
+          `BOOK SO FAR:\n${prevText || '(empty — this is the beginning)'}\n\nNEW CHAPTERS (oldest first):\n` +
+          folded.map((c, i) => `${i + 1}. ${c.title}: ${c.text}`).join('\n') +
+          `\n\nUpdated book so far:`,
+      );
+      text = sanitizeStoredText((raw || '').replace(/^\s*(updated\s+)?book so far\s*:\s*/i, ''), cast).replace(/\s+/g, ' ').trim();
+    } catch {
+      text = '';
+    }
+  }
+  // A summary shorter than what it replaces by a lot is a failed fold.
+  if (text.length < 40 || (prevText.length > 400 && text.length < prevText.length * 0.4)) text = fallbackSagaText(prevText, folded);
+  return {
+    text: text.slice(0, SAGA_MAX_CHARS),
+    coversThroughAtTurn: folded[folded.length - 1]?.atTurn ?? previous?.coversThroughAtTurn ?? 0,
+    chapterCount: (previous?.chapterCount ?? 0) + folded.length,
+    updatedAt: new Date().toISOString(),
+  };
 }
 
 export async function clearChapters(playthroughId: string): Promise<void> {
@@ -128,8 +251,18 @@ export async function closeChapter(input: CloseChapterInput): Promise<Chapter | 
       sceneId: input.sceneId,
       createdAt: new Date().toISOString(),
     };
-    const chapters = [...store.chapters, chapter].slice(-MAX_CHAPTERS);
-    await kvSet(KEY(input.playthroughId), JSON.stringify({ chapters, lastClosedAt: input.messageCount }));
+    let chapters = [...store.chapters, chapter];
+    let saga = store.saga ?? null;
+    let archive = store.archive ?? [];
+    if (chapters.length >= SAGA_FOLD_AT) {
+      // Fold the oldest chapters into the saga BEFORE they leave the prompt.
+      const folded = chapters.slice(0, chapters.length - PROMPT_CHAPTERS);
+      saga = await foldIntoSaga(saga, folded, input);
+      archive = [...archive, ...folded].slice(-MAX_ARCHIVED_CHAPTERS);
+      chapters = chapters.slice(-PROMPT_CHAPTERS);
+    }
+    chapters = chapters.slice(-MAX_CHAPTERS);
+    await kvSet(KEY(input.playthroughId), JSON.stringify({ chapters, lastClosedAt: input.messageCount, saga, archive }));
     return chapter;
   } catch {
     return null;

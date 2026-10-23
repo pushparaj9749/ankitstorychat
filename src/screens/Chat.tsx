@@ -22,9 +22,9 @@ import { Avatar } from '../components/bits';
 import { ErrorState, LoadingState, OfflineState } from '../components/states';
 import { effectiveContentApiBaseUrl, getBundle, getBundledCoverSource, mediaApiUrl, StoryContentError, type CoverSource } from '../content/loader';
 import { getApiKey } from '../lib/secureKeys';
-import { aiErrorMessage, chatCompletion } from '../lib/ai';
-import { applyEffects, buildContext, buildStateExtractionMessages, castSpeakersIn, checkAssistantReply, HISTORY_HEADROOM, parseAssistantResponse, parseExtractedState, rewriteInstructionFor, shortTermWindowOf, type ParsedAssistant, type ReplyCheck } from '../lib/engine';
-import { chapterDue, closeChapter, getChapters } from '../lib/chapters';
+import { MAX_VISIBLE_TOKENS, aiErrorMessage, chatCompletion } from '../lib/ai';
+import { applyEffects, buildContext, buildStateExtractionMessages, castSpeakersIn, checkAssistantReply, HISTORY_HEADROOM, isRecallQuery, parseAssistantResponse, parseExtractedState, rewriteInstructionFor, shortTermWindowOf, type ParsedAssistant, type ReplyCheck } from '../lib/engine';
+import { chapterDue, closeChapter, getChapterBook, getChapters, searchChapterArchive } from '../lib/chapters';
 import { completeEpisode, consolidateMemories, putMemory, recallForTurn, rememberMany, rememberPreferences, episodeLine } from '../lib/memory';
 import { ensureWorldState, getWorldState } from '../lib/worldState';
 import { runMemoryWritePipeline, recallWithWorldState } from '../lib/memoryEngine';
@@ -305,6 +305,9 @@ export function Chat({ navigation, route }: Props) {
       await putMemory(pt.id, 'episode', episodeLine(request.prompt, ''), 1, { source: 'episode', confidence: 'high' }).catch(() => 'skipped');
     }
 
+    // v2.11.0: "yaad hai…?" turns search deeper (more facts, more archive,
+    // matching old chapters from the saga archive).
+    const recallIntent = isAuthoredMessage && isRecallQuery(request.prompt);
     const pool = await listMemoryCandidates([pt.id, '*']).catch(() => [] as any[]);
     const summaryRaw = await recallForTurn(pt.id, query).then((r) => r.summary).catch(() => '');
     let relevant: any[] = [];
@@ -312,7 +315,7 @@ export function Chat({ navigation, route }: Props) {
     let immediateContext = '';
     let wsForPrompt = worldState;
     try {
-      const read = await recallWithWorldState(pt, b, query, history, pool, summaryRaw);
+      const read = await recallWithWorldState(pt, b, query, history, pool, summaryRaw, recallIntent ? { charBudget: 6200, maxItems: 44 } : {});
       relevant = read.memories;
       summary = read.summary;
       immediateContext = read.immediateContext;
@@ -342,13 +345,16 @@ export function Chat({ navigation, route }: Props) {
         location: wsForPrompt?.currentLocation ?? null,
         currentSeq: Math.max(wsForPrompt?.episodeCount ?? 0, pt.messageCount),
         excludeMessageIds: userMessageId ? [userMessageId] : [],
+        limit: recallIntent ? 26 : 18,
+        charBudget: recallIntent ? 7500 : 5000,
       });
       storyMemoryBlock = recall.block;
     } catch {
       storyMemoryBlock = '';
     }
 
-    const chapters = await getChapters(pt.id).catch(() => []);
+    const book = await getChapterBook(pt.id).catch(() => ({ chapters: [], saga: null, total: 0 }));
+    const recalledChapters = recallIntent ? await searchChapterArchive(pt.id, request.prompt, 2).catch(() => []) : [];
     const ctx = buildContext({
       bundle: b,
       profile,
@@ -356,7 +362,10 @@ export function Chat({ navigation, route }: Props) {
       memories: relevant,
       history,
       summary,
-      chapters,
+      chapters: book.chapters,
+      saga: book.saga?.text,
+      recalledChapters,
+      recallIntent,
       worldState: wsForPrompt,
       immediateContext,
       storyMemoryBlock,
@@ -418,13 +427,15 @@ export function Chat({ navigation, route }: Props) {
     if (!writesStoryState) return;
 
     // ---- SILENT RECORD-KEEPER (after the reply is visible) ---------------
-    const summarize = (prompt: string) => chatCompletion(activeProvider, apiKey, [{ role: 'user', content: prompt }], { timeoutMs: 30000 });
+    const summarize = (prompt: string) => chatCompletion({ ...activeProvider, maxTokens: MAX_VISIBLE_TOKENS }, apiKey, [{ role: 'user', content: prompt }], { timeoutMs: 30000 });
     const userText = isAuthoredMessage ? request.prompt : '';
     const task = (async () => {
       let stateParsed: ParsedAssistant | null = null;
       try {
         const rawState = await chatCompletion(
-          activeProvider,
+          // The archive JSON (events, hearts, knowledge…) needs more room than
+          // a short story reply: give the record-keeper the full visible cap.
+          { ...activeProvider, maxTokens: MAX_VISIBLE_TOKENS },
           apiKey,
           buildStateExtractionMessages({
             bundle: b,
@@ -491,13 +502,14 @@ export function Chat({ navigation, route }: Props) {
       // They summarise what HAPPENED — nothing is planned ahead.
       if (await chapterDue(pt.id, updatedPt.messageCount).catch(() => false)) {
         const prevChapters = await getChapters(pt.id).catch(() => []);
+        const chapterNo = (await getChapterBook(pt.id).catch(() => ({ total: prevChapters.length }))).total + 1;
         const since = prevChapters.length ? prevChapters[prevChapters.length - 1].createdAt : '';
         const pool2 = await listRecentMessagesAsc(pt.id, 240).catch(() => [] as ChatMessage[]);
         const chapterMessages = pool2.filter((m) => !since || m.createdAt > since);
         const place = updatedPt.state.location || wsForPrompt?.currentLocation || '';
         void closeChapter({
           playthroughId: pt.id,
-          title: place ? interpolatePlayerName(place, profile.nickname, { protectedNames: castNames }) : `Chapter ${prevChapters.length + 1}`,
+          title: place ? interpolatePlayerName(place, profile.nickname, { protectedNames: castNames }) : `Chapter ${chapterNo}`,
           sceneId: null,
           messageCount: updatedPt.messageCount,
           messages: chapterMessages,
@@ -507,7 +519,7 @@ export function Chat({ navigation, route }: Props) {
         });
       }
 
-      // Gap-free STAGE 1: fold episodes as soon as they leave the 20-chat window.
+      // Gap-free STAGE 1: fold episodes before they leave the verbatim chat window (overlap, never a gap).
       if (updatedPt.messageCount % 4 === 0) {
         void consolidateMemories(pt.id, summarize).catch(() => undefined);
         // The typed archive folds old events into rollups on the same cadence.
