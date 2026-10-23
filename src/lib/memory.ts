@@ -299,9 +299,9 @@ export async function recallForTurn(
 /* ---------------- consolidation ---------------- */
 
 /**
- * v2.7.0 gap-free memory: STAGE 2 carries the last 20 chats verbatim, so as soon
- * as an episode leaves that window it is folded into the STAGE 1 digest. There
- * is no "middle" that only keyword retrieval can reach.
+ * v2.7.0 gap-free memory: STAGE 2 carries the last 30 chats verbatim (v2.11.0),
+ * and an episode is folded into the STAGE 1 digest before it leaves that window.
+ * There is no "middle" that only keyword retrieval can reach.
  */
 export const FOLD_AT_EPISODES = 24;
 export const KEEP_LIVE_EPISODES = 20;

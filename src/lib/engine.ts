@@ -26,6 +26,7 @@ import { guardVisibleText, sanitizeStoredText, type GuardResult } from './leakGu
 import { clamp, norm, tokens } from './utils';
 import type { WorldState } from './worldState';
 import { findUninvitedSpeakers, type PresenceCheckInput } from './scenePresence';
+import { RECORD_KEEPER_EVENT_TYPES, RELATIONSHIP_END_STATES, RELATIONSHIP_LADDER } from './storyMemoryCore';
 
 /* ---------------- scene helpers ---------------- */
 
@@ -760,13 +761,16 @@ export function matchChoice(freeText: string, choices: SceneChoice[]): SceneChoi
 /* ---------------- prompt building ---------------- */
 
 /**
- * STAGE 2 — recent conversation, verbatim. v2.7.0: the last ~20 chats (one chat
+ * STAGE 2 — recent conversation, verbatim. v2.11.0: the last ~30 chats (one chat
  * = the reader's message + the narrator's reply = 2 rows) always travel with the
- * prompt. Story packs can ask for MORE (up to MAX), never less.
+ * prompt (was 20). Story packs can ask for MORE (up to MAX), never less.
  */
-export const RECENT_CHAT_TURNS = 20;
+export const RECENT_CHAT_TURNS = 30;
 export const DEFAULT_SHORT_TERM_WINDOW = RECENT_CHAT_TURNS * 2;
-export const MAX_SHORT_TERM_WINDOW = 48;
+export const MAX_SHORT_TERM_WINDOW = 72;
+
+/** Recent chapters shown in full (older ones live in the saga — chapters.PROMPT_CHAPTERS must match). */
+export const PROMPT_CHAPTERS_SHOWN = 4;
 
 /** Extra older messages to load from the DB so a big window is actually filled. */
 export const HISTORY_HEADROOM = 8;
@@ -837,6 +841,12 @@ export interface PromptInput {
    * rolling `summary` above is the whole-story digest; chapters keep detail.
    */
   chapters?: { title: string; text: string }[];
+  /** v2.11.0 — "the book so far": the whole journey before the recent chapters. */
+  saga?: string;
+  /** v2.11.0 — archived chapters matching a "yaad hai…?" question (oldest first). */
+  recalledChapters?: { title: string; text: string }[];
+  /** v2.11.0 — the reader is asking the story to remember something. */
+  recallIntent?: boolean;
   /**
    * 'inline'   — legacy: the reply carries a hidden ```kissa-state block.
    * 'separate' — v2.7.0: the reply is PURE story; a second record-keeper call
@@ -924,6 +934,17 @@ function knowledgeLines(bundle: StoryBundle): string {
 }
 
 /**
+ * v2.11.0 — the reader asks the story to remember ("yaad hai…", "pehli baar
+ * kab…", "kya hua tha", "remember when"). Such turns get a deeper recall.
+ */
+const RECALL_INTENT_RE =
+  /\b(?:yaad|yad|yaadein|remember|remembered|recall|bhool|bhul|bhoole|bhooli|bhule|bhuli|forgot|forget|pehle|pahle|pichli|pichhli|last time|first time|pehli baar|pahli baar|pehli mulaqat|kab\s+(?:mile|mili|hua|hui|kaha|boli|bola)|kya\s+hua\s+tha|kya\s+kaha\s+tha|kaha\s+tha|boli\s+thi|bola\s+tha|kiya\s+tha|di\s+thi|diya\s+tha|waada\s+(?:kiya|tha)|promise\s+kiya)\b/i;
+
+export function isRecallQuery(text: string): boolean {
+  return RECALL_INTENT_RE.test(text || '');
+}
+
+/**
  * Everything the narrator must know but the reader must never see, as ONE
  * fenced block: STAGE 1 (story so far + chapters) and STAGE 3 (key facts).
  * Exported so the chat can hand the exact same text to the leak guard's copy
@@ -945,15 +966,22 @@ export function buildPrivateNotes(input: PromptInput): string {
       ? memories.map(renderMemoryLine).join('\n')
       : bundle.memory.seedMemories.map((m) => `- ${m}`).join('\n');
 
-  const chapters = (input.chapters ?? []).filter((c) => c.text?.trim()).slice(-4);
+  const chapters = (input.chapters ?? []).filter((c) => c.text?.trim()).slice(-PROMPT_CHAPTERS_SHOWN);
   const chapterBlock = chapters.length
     ? `CHAPTERS SO FAR (oldest first):\n${chapters.map((c, i) => `${i + 1}. ${c.title}: ${c.text.trim()}`).join('\n')}\n\n`
+    : '';
+  const sagaBlock = input.saga?.trim()
+    ? `THE BOOK SO FAR (the whole journey before the recent chapters, in order — canon, never restate it):\n${input.saga.trim()}\n\n`
+    : '';
+  const recalled = (input.recalledChapters ?? []).filter((c) => c.text?.trim()).slice(0, 3);
+  const recalledBlock = recalled.length
+    ? `OLD CHAPTERS THIS TURN IS ABOUT (pulled from the archive):\n${recalled.map((c) => `- ${c.title}: ${c.text.trim()}`).join('\n')}\n\n`
     : '';
   const summaryBlock = input.summary?.trim()
     ? `STORY SO FAR (compressed memory — already known, never restate it):\n${input.summary.trim()}\n\n`
     : '';
-  const stage1 = chapterBlock || summaryBlock
-    ? `STAGE 1 — THE WHOLE STORY UNTIL NOW\n${summaryBlock}${chapterBlock}`
+  const stage1 = chapterBlock || summaryBlock || sagaBlock || recalledBlock
+    ? `STAGE 1 — THE WHOLE STORY UNTIL NOW\n${sagaBlock}${summaryBlock}${recalledBlock}${chapterBlock}`
     : `STAGE 1 — THE WHOLE STORY UNTIL NOW\n(the journey has just begun)\n\n`;
 
   const immediateBlock = input.immediateContext?.trim()
@@ -971,9 +999,13 @@ export function buildPrivateNotes(input: PromptInput): string {
     ? `${worldBlock}\n\nLEGACY STATE (for compat):\n${stateDigest(playthrough.state)}`
     : `STORY STATE SO FAR:\n${stateDigest(playthrough.state)}`;
 
+  const recallRule = input.recallIntent
+    ? `RECALL TURN: the reader is asking about something from the past. Answer from the memory above — the exact place, words, people and details on record. A character remembers what they lived through; if a detail is not on record, they stay vague instead of inventing one.\n\n`
+    : '';
+
   return `${PRIVATE_NOTES_OPEN}
 
-${stage1}STAGE 3 — KEY FACTS (established canon; act on them silently, never announce them)
+${stage1}${recallRule}STAGE 3 — KEY FACTS (established canon; act on them silently, never announce them)
 ${stateBlock}
 
 ${roster ? `${roster}\n\n` : ''}${baseline ? `RELATIONSHIP WITH THE READER (the character sheet — where each bond STARTED; only events in the story move it):\n${baseline}\n\n` : ''}${knows ? `CHARACTER KNOWLEDGE (who knows what — a character may act only on their own line):\n${knows}\n\n` : ''}${lore ? `LORE (background canon; any hidden truth here is revealed only through story events, never stated):\n${lore}\n\n` : ''}${storyMemoryBlock}WHAT YOU REMEMBER ABOUT THIS READER'S JOURNEY (most relevant first — this is ALREADY known, so never repeat it back, just act on it):
@@ -1273,6 +1305,12 @@ SCHEMA (omit every key that did not change; {} when nothing changed):
   "promises": [{"by": "characterId or player", "to": "characterId or player", "what": "what exactly was promised, max 120 chars"}],
   "promisesKept": ["what (as recorded)"],
   "promisesBroken": ["what (as recorded)"],
+  "events": [{"type": "one of: ${RECORD_KEEPER_EVENT_TYPES.join(' | ')}", "summary": "who did what, with names, max 160 chars", "who": ["characterId or player"], "importance": 1}],
+  "relationshipStatus": {"characterId": "${RELATIONSHIP_LADDER.join(' | ')} | ${RELATIONSHIP_END_STATES.join(' | ')}"},
+  "characterKnowledge": [{"characterId": "id", "fact": "what this character now KNOWS, max 140 chars", "source": "witnessed | told | discovered | inferred"}],
+  "decisions": ["a firm decision someone took, with names"],
+  "secrets": ["a secret revealed or now being kept, with names and who knows it"],
+  "hearts": {"characterId": {"feeling": "how they feel about the reader right now", "wants": "what they want from the reader / next", "moment": "an unforgettable moment with the reader from THIS exchange"}},
   "memory": ["short standalone fact, max 120 chars"]
 }
 
@@ -1283,6 +1321,12 @@ PRESENCE RULES:
 PROMISE RULES:
 - A promise is a clear commitment by a character or the reader to do / not do something ("kal milungi", "kisi ko nahi bataunga", "main tumhe chhod ke nahi jaungi"). Record it under "promises" the moment it is made.
 - Mark one as kept or broken ONLY when this exchange clearly shows it, using the wording already on record.
+
+ARCHIVE RULES (this is the story's long-term memory — be precise):
+- "events": 0-3 things that HAPPENED in this exchange and will matter later (a first kiss, a fight, a confession, a gift, a lie caught, a meeting, a task given). Skip small talk. importance: 1 minor, 2 notable, 3 major, 4 life-changing.
+- "relationshipStatus": ONLY when the reader's relationship with someone clearly changed in this exchange (proposal accepted → engaged, breakup → broken_up). Never guess; the cast sheet already holds the starting bond.
+- "characterKnowledge": when a character LEARNS something they did not know before (saw it, was told, found out). Characters only know what they witnessed or were told.
+- "hearts": for the 1-3 characters most involved — their private feeling and want towards the reader after this exchange (short, specific, in plain words), plus "moment" ONLY when this exchange created a moment they will never forget. Omit unchanged hearts.
 
 MEMORY RULES:
 - Worth saving: ${saveHints}

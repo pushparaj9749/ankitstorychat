@@ -102,6 +102,22 @@ export interface PromiseRecord {
   updatedAtTurn: number;
 }
 
+/**
+ * v2.11.0 character hearts: what each character privately FEELS about the
+ * reader right now, what they WANT, and the moments with the reader they will
+ * never forget. Written by the record-keeper, rendered for the narrator so a
+ * character carries yesterday's hurt / joy into today's scene.
+ */
+export interface CharacterHeart {
+  feeling: string | null;
+  wants: string | null;
+  /** Unforgettable shared moments, oldest first (capped). */
+  moments: string[];
+  updatedAtTurn: number;
+}
+
+export const MAX_HEART_MOMENTS = 6;
+
 export const MAX_ACTIVE_PROMISES = 12;
 const MAX_CLOSED_PROMISES = 8;
 
@@ -162,6 +178,8 @@ export interface WorldState {
   locationMemory: Record<string, LocationMemoryEntry>;
   /** v2.10.3 — optional so older saved states stay valid. */
   promises?: PromiseRecord[];
+  /** v2.11.0 — optional so older saved states stay valid. */
+  hearts?: Record<string, CharacterHeart>;
   // Meta
   episodeCount: number;
   lastTurnAt: string;
@@ -432,6 +450,7 @@ export interface StateUpdate {
   storyTimePatch?: Partial<StoryTime>;
   promisesAdd?: { by: string; to: string; text: string }[];
   promisesUpdate?: { text: string; status: 'kept' | 'broken' }[];
+  heartsPatch?: Record<string, { feeling?: string; wants?: string; moment?: string }>;
   confidence: Confidence;
   evidence?: string; // textual evidence of transition (e.g. "player walked to library")
 }
@@ -655,6 +674,11 @@ export function applyWorldStateUpdate(current: WorldState, update: StateUpdate):
     next.promises = applyPromiseChanges(next.promises ?? [], update.promisesAdd ?? [], update.promisesUpdate ?? [], next.episodeCount + 1);
   }
 
+  // Hearts (v2.11.0)
+  if (update.heartsPatch && Object.keys(update.heartsPatch).length) {
+    next.hearts = applyHeartChanges(next.hearts ?? {}, update.heartsPatch, next.episodeCount + 1, next.characterStates);
+  }
+
   // Threads
   if (update.threadsAdd) {
     for (const t of update.threadsAdd) {
@@ -805,6 +829,70 @@ export function applyPromiseChanges(
 }
 
 /**
+ * Pure hearts update. Keys may be ids or names (resolved through the known
+ * characters); "player" is never a heart owner. Moments are deduped and
+ * capped so the oldest unforgettable ones survive as long as possible: when
+ * full, the middle (least formative) moment is dropped, never the first.
+ */
+export function applyHeartChanges(
+  hearts: Record<string, CharacterHeart>,
+  patch: Record<string, { feeling?: string; wants?: string; moment?: string }>,
+  turn: number,
+  characterStates?: Record<string, { name?: string }>,
+): Record<string, CharacterHeart> {
+  const next: Record<string, CharacterHeart> = {};
+  for (const [k, v] of Object.entries(hearts)) next[k] = { ...v, moments: [...(v.moments ?? [])] };
+  const resolve = (key: string): string => {
+    const k = key.trim().toLowerCase();
+    if (!characterStates) return k;
+    if (characterStates[k]) return k;
+    const hit = Object.entries(characterStates).find(([, cs]) => {
+      const n = (cs?.name ?? '').toLowerCase();
+      return n === k || (k.length >= 3 && n.split(' ')[0] === k.split(' ')[0]);
+    });
+    return hit ? hit[0] : k;
+  };
+  for (const [rawKey, p] of Object.entries(patch)) {
+    const id = resolve(rawKey);
+    if (!id || id === 'player') continue;
+    const cur: CharacterHeart = next[id] ?? { feeling: null, wants: null, moments: [], updatedAtTurn: turn };
+    if (p.feeling && p.feeling.trim()) cur.feeling = p.feeling.trim().slice(0, 140);
+    if (p.wants && p.wants.trim()) cur.wants = p.wants.trim().slice(0, 140);
+    if (p.moment && p.moment.trim().length >= 6) {
+      const m = p.moment.trim().slice(0, 160);
+      if (!cur.moments.some((x) => promiseSimilarity(x, m) >= 0.7)) {
+        cur.moments.push(m);
+        while (cur.moments.length > MAX_HEART_MOMENTS) cur.moments.splice(Math.floor(MAX_HEART_MOMENTS / 2), 1);
+      }
+    }
+    cur.updatedAtTurn = turn;
+    next[id] = cur;
+  }
+  return next;
+}
+
+/** Hearts block for the narrator: present characters first, then recent ones. */
+export function renderHearts(state: WorldState, max = 4): string[] {
+  const hearts = state.hearts ?? {};
+  const ids = Object.keys(hearts);
+  if (!ids.length) return [];
+  const present = state.presentCharacters.filter((id) => hearts[id]);
+  const others = ids.filter((id) => !present.includes(id)).sort((a, b) => hearts[b].updatedAtTurn - hearts[a].updatedAtTurn);
+  const pick = [...present, ...others].slice(0, max);
+  const lines: string[] = [`- Inside their hearts (private — show it through behaviour, never announce it):`];
+  for (const id of pick) {
+    const h = hearts[id];
+    const name = state.characterStates[id]?.name ?? id;
+    const bits: string[] = [];
+    if (h.feeling) bits.push(`feels: ${h.feeling}`);
+    if (h.wants) bits.push(`wants: ${h.wants}`);
+    if (h.moments.length) bits.push(`never forgets: ${h.moments.slice(-4).map((m) => `"${m}"`).join('; ')}`);
+    if (bits.length) lines.push(`  * ${name}${present.includes(id) ? '' : ' (not here)'} — ${bits.join(' | ')}`);
+  }
+  return lines.length > 1 ? lines : [];
+}
+
+/**
  * Relationship as words, never raw numbers. Brand-new relationship records
  * start from generic defaults (affection 20 …) that say nothing about the
  * real bond — printing them made a two-year girlfriend look indifferent. So
@@ -874,6 +962,7 @@ export function renderWorldStateForPrompt(state: WorldState): string {
       lines.push(`  * KEPT — ${who(p.by)} kept the promise to ${who(p.to)}: "${p.text}"`);
     }
   }
+  lines.push(...renderHearts(state));
   const objs = Object.values(state.importantObjects);
   if (objs.length) {
     lines.push(`- Important objects: ${objs.slice(0, 6).map((o) => `${o.name}${o.holder ? ` (${o.holder})` : ''}${o.holderLog?.length ? ` [history: ${o.holderLog.slice(-2).join('; ')}]` : ''}`).join(', ')}`);

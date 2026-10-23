@@ -43,6 +43,8 @@ import {
   knowledgeInvalidatedBy,
   detectRelationshipSignals,
   keywordSet,
+  pairKeysFor,
+  trigramSimilarity,
   pairKeyOf,
   parseProposedState,
   planConsolidation,
@@ -268,7 +270,7 @@ export function createStoryMemoryEngine(store: StoryMemoryStore = createSqliteSt
         ['secret', proposed.secrets],
       ] as [StoryEventType, string[]][]) {
         let i = 0;
-        for (const text of list.slice(0, 3)) {
+        for (const [listIdx, text] of list.slice(0, 4).entries()) {
           const summary = sanitize(text, 240);
           if (summary.length < 8 || looksTooPrivate(summary)) continue;
           // Already captured by the deterministic detector? Then don't duplicate.
@@ -290,8 +292,8 @@ export function createStoryMemoryEngine(store: StoryMemoryStore = createSqliteSt
             sourceMessageIds: messageIds.slice(0, 6),
             sceneId: input.sceneId ?? input.playthrough.currentSceneId,
             location: input.location ?? null,
-            participants: [],
-            pairKeys: [],
+            participants: type === 'promise' ? proposed.promiseParticipants[listIdx] ?? [] : [],
+            pairKeys: type === 'promise' ? pairKeysFor(proposed.promiseParticipants[listIdx] ?? [], ctx.playerId) : [],
             objectNames: [],
             storyDay: input.storyDay ?? null,
             occurredAt: turnAt,
@@ -299,6 +301,55 @@ export function createStoryMemoryEngine(store: StoryMemoryStore = createSqliteSt
             status: 'active',
             supersededBy: null,
             keywords: keywordSet(summary),
+            archived: false,
+          };
+          await store.insertEvent(record);
+          await store.indexRecord(record.storyId, record.playthroughId, 'event', record.id, record.keywords);
+          stored.push(record);
+          i++;
+        }
+      }
+
+      // ---- 4b. v2.11.0 typed events classified by the record-keeper (LLM).
+      // The regex detector misses most natural Hinglish; these carry the
+      // model's own reading of what happened, with participants + importance.
+      {
+        let i = 0;
+        for (const ev of proposed.events) {
+          const a = ev.summary.toLowerCase();
+          const duplicate = stored.some((e) => {
+            const b = e.summary.toLowerCase();
+            const n = Math.min(40, a.length, b.length);
+            if (n >= 20 && (a.includes(b.slice(0, n)) || b.includes(a.slice(0, n)))) return true;
+            return e.type === ev.type && trigramSimilarity(a, b) >= 0.75;
+          });
+          if (duplicate) continue;
+          const id = `ev_${hashText(`${input.playthrough.id}|${ev.type}|${ev.summary.toLowerCase()}`)}`;
+          const record: StoryEventRecord = {
+            id,
+            storyId: input.playthrough.storyId,
+            playthroughId: input.playthrough.id,
+            seq: baseSeq + 40 + i,
+            turnSeq,
+            type: ev.type,
+            summary: ev.summary,
+            detail: null,
+            importance: ev.importance,
+            importanceLabel: importanceLabel(ev.importance),
+            confidence: 'high',
+            source: 'narrator',
+            sourceMessageIds: messageIds.slice(0, 6),
+            sceneId: input.sceneId ?? input.playthrough.currentSceneId,
+            location: input.location ?? null,
+            participants: ev.participants,
+            pairKeys: pairKeysFor(ev.participants, ctx.playerId),
+            objectNames: [],
+            storyDay: input.storyDay ?? null,
+            occurredAt: turnAt,
+            createdAt: turnAt,
+            status: 'active',
+            supersededBy: null,
+            keywords: keywordSet(`${ev.summary} ${ev.type} ${pairKeysFor(ev.participants, ctx.playerId).join(' ')}`),
             archived: false,
           };
           await store.insertEvent(record);
