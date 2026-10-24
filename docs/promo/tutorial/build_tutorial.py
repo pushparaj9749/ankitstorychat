@@ -978,71 +978,25 @@ def build_audio(path_wav):
             x[-f:] *= np.linspace(1, 0, f)
         s = int(at * SR)
         vo[s:s + len(x)] += x[:max(0, n - s)]
-    # music bed: slow pads Am F C G
-    tt = np.arange(n) / SR
-    mus = np.zeros(n, np.float32)
-    chords = [[57, 60, 64], [53, 57, 60], [48, 55, 60], [55, 59, 62]]
-    seg = 6.0
-    for k in range(int(TOTAL / seg) + 2):
-        ch = chords[k % 4]
-        s0 = int(k * seg * SR)
-        L = int((seg + 2.0) * SR)
-        e = min(n, s0 + L)
-        if s0 >= n:
-            break
-        lt = np.arange(e - s0) / SR
-        env = np.clip(lt / 1.6, 0, 1) * np.clip((seg + 2.0 - lt) / 2.0, 0, 1)
-        sig = np.zeros(e - s0, np.float32)
-        for m in ch:
-            f0 = 440 * 2 ** ((m - 69) / 12)
-            sig += np.sin(2 * np.pi * f0 * lt) + 0.35 * np.sin(2 * np.pi * f0 * 2.003 * lt) + 0.5 * np.sin(2 * np.pi * f0 / 2 * lt)
-        mus[s0:e] += sig * env / 6
-        # soft pluck arpeggio
-        for j, m in enumerate(ch + [ch[1] + 12]):
-            ps = s0 + int(j * 1.5 * SR)
-            pe = min(n, ps + int(1.4 * SR))
-            if ps >= n:
-                continue
-            pl = np.arange(pe - ps) / SR
-            f0 = 440 * 2 ** ((m + 12 - 69) / 12)
-            mus[ps:pe] += 0.10 * np.sin(2 * np.pi * f0 * pl) * np.exp(-pl * 3.2)
-    # ducking: louder on cards / title / end
-    gain = np.full(n, 0.075, np.float32)
-    for it in TL:
-        if it['kind'] in ('title', 'card'):
-            s, e = int(it['start'] * SR), int((it['start'] + it['dur']) * SR)
-            gain[s:e] = 0.16
-    k = int(0.4 * SR)
-    gain = np.convolve(gain, np.ones(k) / k, mode='same')
-    mus *= gain
-    # whoosh on cards, tick on taps
-    rng = np.random.default_rng(5)
-    for c in CARDS_AT:
-        L = int(0.7 * SR)
-        s = int((c - 0.25) * SR)
-        if s < 0 or s + L > n:
-            continue
-        nz = rng.normal(0, 1, L).astype(np.float32)
-        nz = np.convolve(nz, np.ones(18) / 18, mode='same')
-        env = np.sin(np.linspace(0, np.pi, L)) ** 2
-        mus[s:s + L] += nz * env * 0.06
+    sys.path.insert(0, HERE)
+    from music import make_music
+    quiet = [(it['start'], it['start'] + it['dur']) for it in TL if it['kind'] in ('title', 'card')]
+    end_start = next(it['start'] for it in TL if it['kind'] == 'beat' and CHAPTERS[it['ch']]['beats'][it['bi']]['end'])
+    quiet.append((end_start + 9.0, TOTAL + 1))
+    mus = make_music(TOTAL, SR, vo, quiet, CARDS_AT, end_start)[:n]
+    # tap ticks
     for tp in TAPS:
         s = int(tp * SR)
         L = int(0.05 * SR)
         if s + L > n:
             continue
         lt = np.arange(L) / SR
-        mus[s:s + L] += 0.12 * np.sin(2 * np.pi * 1800 * lt) * np.exp(-lt * 90)
-    # fade out end
-    fo = int(1.5 * SR)
-    end = int(TOTAL * SR)
-    mus[end - fo:end] *= np.linspace(1, 0, fo)
-    mus[end:] = 0
-    mix = vo * 0.95 + mus
+        mus[s:s + L] += (0.10 * np.sin(2 * np.pi * 1800 * lt) * np.exp(-lt * 90))[:, None]
+    mix = vo[:, None] * 0.95 + mus
     mix = np.tanh(mix * 1.1) / np.tanh(1.1)
     pcm = (np.clip(mix, -1, 1) * 32767).astype(np.int16)
     with wave.open(path_wav, 'wb') as w:
-        w.setnchannels(1)
+        w.setnchannels(2)
         w.setsampwidth(2)
         w.setframerate(SR)
         w.writeframes(pcm.tobytes())
@@ -1071,6 +1025,12 @@ def main():
         return
     wav = '/tmp/tut_audio.wav'
     build_audio(wav)
+    if os.environ.get('AUDIO_ONLY'):
+        src = os.environ['AUDIO_ONLY']
+        subprocess.run([FF, '-y', '-v', 'error', '-i', src, '-i', wav, '-map', '0:v', '-map', '1:a', '-c:v', 'copy',
+                        '-c:a', 'aac', '-b:a', '192k', '-shortest', '-movflags', '+faststart', OUT], check=True)
+        print('remuxed', OUT, os.path.getsize(OUT) / 1e6, 'MB')
+        return
     nframes = int(TOTAL * FPS)
     cmd = [FF, '-y', '-v', 'error', '-f', 'rawvideo', '-pix_fmt', 'rgb24', '-s', f'{W}x{H}', '-r', str(FPS), '-i', '-',
            '-i', wav, '-c:v', 'libx264', '-preset', 'medium', '-crf', os.environ.get('CRF', '23'), '-maxrate', '3M', '-bufsize', '6M',
