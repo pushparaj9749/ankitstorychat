@@ -42,21 +42,32 @@ describe('memory UI removed', () => {
   });
 });
 
-describe('Yaadein (reader-safe memory screen)', () => {
+describe('Yaadein removed — readers never see the story memory (v2.11.1)', () => {
   const fs = require('fs');
-  test('route is registered and reachable from Chat', () => {
-    expect(fs.readFileSync('src/types.ts', 'utf8')).toContain('Yaadein: { playthroughId: string }');
-    expect(fs.readFileSync('src/navigation/RootNavigator.tsx', 'utf8')).toContain('name="Yaadein"');
-    expect(fs.readFileSync('src/screens/Chat.tsx', 'utf8')).toContain("navigate('Yaadein'");
+  const path = require('path');
+  test('screen file, route and param type are gone', () => {
+    expect(fs.existsSync('src/screens/Yaadein.tsx')).toBe(false);
+    const nav = fs.readFileSync('src/navigation/RootNavigator.tsx', 'utf8');
+    expect(nav).not.toContain("screens/Yaadein");
+    expect(nav).not.toContain('name="Yaadein"');
+    expect(fs.readFileSync('src/types.ts', 'utf8')).not.toMatch(/Yaadein\s*:/);
   });
 
-  test('never shows character knowledge, secrets or author seed notes', () => {
-    const src = fs.readFileSync('src/screens/Yaadein.tsx', 'utf8');
-    expect(src).not.toMatch(/characterKnowledge|\.secrets\b|knownSecrets/);
-    expect(src).toContain('isReaderVisibleMemory');
-    expect(src).toContain('Summary');
-    expect(src).toContain('Key facts');
-    expect(src).toContain('Chapters');
+  test('no screen or component links to a memory viewer', () => {
+    const files: string[] = [];
+    const walk = (d: string) => {
+      for (const f of fs.readdirSync(d)) {
+        const full = path.join(d, f);
+        if (fs.statSync(full).isDirectory()) walk(full);
+        else if (/\.tsx?$/.test(f)) files.push(full);
+      }
+    };
+    ['src/screens', 'src/components', 'src/ui', 'src/navigation'].forEach((d) => fs.existsSync(d) && walk(d));
+    for (const f of files) {
+      const src = fs.readFileSync(f, 'utf8');
+      expect([f, /navigate\(\s*['"](Yaadein|Memory)['"]/.test(src)]).toEqual([f, false]);
+      expect([f, /Yaadein dekho|moments remembered/i.test(src)]).toEqual([f, false]);
+    }
   });
 });
 

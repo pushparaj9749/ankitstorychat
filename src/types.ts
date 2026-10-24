@@ -855,7 +855,6 @@ export type RootStackParamList = {
   Chat: { playthroughId: string };
   Saves: { storyId: string };
   /** Journey memory viewer (summary, recent facts, key facts, chapters) — never shows story secrets. */
-  Yaadein: { playthroughId: string };
   AIAddons: undefined;
   ProviderEditor: { providerId?: string };
   SettingsProfile: undefined;

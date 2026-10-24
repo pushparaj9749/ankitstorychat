@@ -56,6 +56,17 @@ moves the tale forward — with memory and relationships, and no script: no pred
 
 ## 🆕 Release notes
 
+### v2.11.1 — Memory is private to the story (Yaadein screen removed)
+
+Owner request: readers should not see the story's memory, because showing it serves no purpose.
+
+- **Removed the Yaadein screen** (`src/screens/Yaadein.tsx`), its `Yaadein` route, and its param type.
+- **Removed both entry points in Chat:**
+  - the ✨ button in the header;
+  - the "N moments remembered in this journey · Yaadein dekho" line above the composer.
+- **The memory system itself is untouched.** Summary, facts, world state, chapters, the saga, and character hearts are still built and recalled on-device exactly as before. Pins and edits a reader made earlier keep working; there is simply no screen to view or change memory any more.
+- **Guard test** (`__tests__/memoryScreen.test.tsx`): the screen, route and type must stay gone, and no screen, component or navigator may link to a memory viewer.
+
 ### v2.11.0 — Extreme memory: the record-keeper fills the archive, character hearts, the saga
 
 Owner request: make the memory system as powerful as possible. It is still 100% on-device, using the reader's own API key and no server. No extra call before the reply: everything below rides on the existing silent record-keeper call, which runs after the reply is visible, plus the existing chapter summariser.
