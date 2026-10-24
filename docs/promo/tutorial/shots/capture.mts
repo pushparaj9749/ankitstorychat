@@ -12,10 +12,32 @@ const OUT = process.env.OUT ?? path.join(REPO, 'docs/promo/tutorial/shots/raw');
 fs.mkdirSync(OUT, { recursive: true });
 const only = process.argv[2]?.split(',');
 const log: string[] = [];
+const RECTS: Record<string, { t: string; r: number[] }[]> = {};
+const DPR = 2.5;
 
 let page: Page;
 async function snap(name: string) {
   await page.screenshot({ path: path.join(OUT, `${name}.png`) });
+  RECTS[name] = await page.evaluate((dpr: number) => {
+    const out: { t: string; r: number[] }[] = [];
+    const ok = (el: Element) => {
+      const r = el.getBoundingClientRect();
+      if (r.width < 2 || r.height < 2 || r.bottom < 0 || r.top > innerHeight) return null;
+      const h = document.elementFromPoint(Math.min(Math.max(r.left + r.width / 2, 1), innerWidth - 1), Math.min(Math.max(r.top + r.height / 2, 1), innerHeight - 1));
+      if (!h || !(el.contains(h) || h.contains(el))) return null;
+      return [r.left, r.top, r.width, r.height].map((v) => Math.round(v * dpr));
+    };
+    document.querySelectorAll('[aria-label]').forEach((el) => { const r = ok(el); if (r) out.push({ t: '@' + el.getAttribute('aria-label'), r }); });
+    document.querySelectorAll('input,textarea').forEach((el) => { const r = ok(el); if (r) out.push({ t: '#' + (el.getAttribute('placeholder') || ''), r }); });
+    const w = document.createTreeWalker(document.body, NodeFilter.SHOW_TEXT);
+    let n: Node | null;
+    while ((n = w.nextNode())) {
+      const tx = n.textContent?.trim(); const el = n.parentElement;
+      if (!tx || !el) continue;
+      const r = ok(el); if (r) out.push({ t: tx, r });
+    }
+    return out;
+  }, DPR);
   const t = await texts(page);
   log.push(`## ${name}\n${t}\n`);
   console.log('shot', name, '::', t.slice(0, 160));
@@ -126,6 +148,7 @@ const sections: Record<string, () => Promise<void>> = {
     await sleep(800);
   },
   async library() {
+    await go(page, '/');
     await t('Story Library', false, 1800);
     await snap('40_library');
     await scroll(700);
@@ -136,12 +159,9 @@ const sections: Record<string, () => Promise<void>> = {
     await t('Biwi Ek Supari Killer', true, 2000);
     await t(/^Saves/, false, 1800);
     await snap('42_saves');
-    await back();
-    await t('Add favorite', false, 1000);
-    await snap('43_detail_fav');
-    await back();
   },
   async create() {
+    await go(page, '/');
     await t('Create a story', false, 1800);
     await snap('50_create');
   },
@@ -164,6 +184,7 @@ const sections: Record<string, () => Promise<void>> = {
     await snap('59_my_submissions_pending');
   },
   async submit() {
+    await go(page, '/');
     await t('Profile and Settings');
     await scrollTop();
     await t('Suggest an Idea', false, 1800);
@@ -199,6 +220,7 @@ const sections: Record<string, () => Promise<void>> = {
     await snap('63_reminders');
   },
   async settings() {
+    await go(page, '/');
     await t('Profile and Settings');
     await scrollTop();
     await t('Theme & Typography', false, 1500);
@@ -240,6 +262,9 @@ for (const [k, fn] of Object.entries(sections)) {
   try { await fn(); } catch (e) { console.log('section failed', k, e); }
 }
 fs.appendFileSync(path.join(OUT, '_texts.md'), log.join('\n'));
+const rf = path.join(OUT, '_rects.json');
+const prev = fs.existsSync(rf) ? JSON.parse(fs.readFileSync(rf, 'utf8')) : {};
+fs.writeFileSync(rf, JSON.stringify({ ...prev, ...RECTS }));
 console.log('AI LOG', ai.log);
 await L.browser.close();
 srv.close();
