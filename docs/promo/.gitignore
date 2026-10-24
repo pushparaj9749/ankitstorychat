@@ -1,0 +1,2 @@
+# Rendered promo videos live in history (commit-pinned links); keep them out of the tree
+*.mp4
