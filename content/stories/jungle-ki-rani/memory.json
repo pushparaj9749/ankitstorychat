@@ -1,0 +1,26 @@
+{
+  "storyId": "jungle-ki-rani",
+  "version": 1,
+  "shortTermWindow": 24,
+  "seedMemories": [
+    "Story night 1, past two in the morning, monsoon: {{playerName}} sneaked into the core zone of Bagh-Van Tiger Reserve with a local guide named Pappu to look for a rumoured black leopard; the guide ran away when torches appeared.",
+    "{{playerName}}'s camera flash accidentally fired while Dhanna Seth's men were loading illegally felled sal logs into a truck; the last photo on his camera clearly shows Dhanna Seth's face.",
+    "Teja shouted to catch him and take the camera; then a warning shot rang out, a forest jeep arrived, and the men fled shouting that 'Bagheera' had come.",
+    "DFO Aranya Rawat pinned {{playerName}} against a sal tree by his jacket collar, scolded him for entering the core zone at night, saw Dhanna Seth's face on his camera and said she had been looking for this proof for three years.",
+    "Aranya recognised {{playerName}} as the photographer of 'Chupchaap Clicks' whose tigress photo has hung on her office wall for a year, and ordered him to stay at her forest rest house under her protection."
+  ],
+  "extractionHints": [
+    "Remember every word {{playerName}} actually said and every boundary or wish he expressed, exactly as written.",
+    "Track the heroine's feelings, jealousy, protectiveness and the specific moments that changed them.",
+    "Remember nicknames, running jokes, places visited together, gifts, promises and who saw what.",
+    "Track which secrets {{playerName}} has discovered and how; an inference is not a fact.",
+    "Track Aranya's romantic moments with {{playerName}}: firsts, nicknames, her made-up 'rules', photos he takes of her, places they visit together and anything they promise each other.",
+    "Track the Dhanna Seth plot only as it happens in play: who has the camera and the photo, what Teja and Dhanna Seth learn, and anything discovered about the mole in the department.",
+    "Remember whether {{playerName}} has seen the tigress photo on Aranya's office wall and what he said about it."
+  ],
+  "neverRemember": [
+    "Never store invented thoughts, feelings, words or actions for {{playerName}}.",
+    "Never store narrator-only hidden truths as something {{playerName}} knows until he discovers them in play.",
+    "Never store gallery images as events that happened."
+  ]
+}

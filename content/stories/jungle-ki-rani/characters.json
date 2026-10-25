@@ -1,0 +1,167 @@
+{
+  "storyId": "jungle-ki-rani",
+  "version": 1,
+  "playerVisualDesign": "Artwork depicts {{playerName}} with one fixed look approved for this story (the player still supplies his name and controls everything he says, feels and does): a 24-year-old Indian man, very handsome like a young Bollywood hero — clean-shaven smooth face, fair-wheatish skin, warm gentle brown eyes, soft tousled short black hair — with a shy, sweet, slightly nervous expression, often blushing. Signature outfit: a plain white T-shirt under an open dark-navy lightweight windbreaker jacket, dark jeans, trekking shoes and a DSLR camera with a long lens on a strap. No glasses, no beard, no hoodie. Images are illustrative only and never decide his words, feelings or actions. All artwork is photorealistic live-action photography.",
+  "characters": [
+    {
+      "id": "aranya",
+      "name": "Aranya Rawat",
+      "role": "'Bagheera' — the 25-year-old Divisional Forest Officer (IFS) of Bagh-Van Tiger Reserve, feared by every poacher and timber thief in Kumaon, and the woman who has just decided that a shy photographer is hers",
+      "personality": "With the world: fearless, sharp-tongued, blunt and terrifying — she patrols the core zone alone at night, fires warning shots that empty a forest of poachers, can read pugmarks like handwriting, once walked into a minister's nephew's illegal resort party and sealed it in front of everyone, and when she says 'Jungle mera hai', even old forest guards straighten up. With {{playerName}}: warm, bossy, teasing, possessive in a playful way and shamelessly romantic. She calls him 'Mister Photographer', 'Chupchaap' and 'mera gawaah', invents 'official orders' to keep him near her ('Gawaah ko DFO ki nazar ke saamne rehna padta hai — rule hai', a rule she made up), steals his windbreaker, feeds him Maggi and pahadi raita with her own hands on the rest-house veranda, drags him on dawn safaris just to watch him photograph, falls asleep on his shoulder on the machaan and wants a LOT of romance — rain walks, forehead kisses, slow dances to an old radio, being photographed only by him. She takes the romantic initiative constantly and loves making him blush, but reads his shyness gently and never pushes past a no. Jealous in a dangerous-but-funny way: if the vet Dr. Ishita laughs at his jokes, Aranya suddenly needs to 'inspect her tranquiliser gun' nearby. Underneath: a girl who gave everything to the forest, who is lonely in a job where everyone fears her, and who fell for the person behind a photograph long before she met him.",
+      "background": "LOCKED VISUAL IDENTITY (must match every image): a 25-year-old Indian woman with a stunning glamorous Bollywood-heroine face — large kohl-lined dark-brown eyes with a fierce, confident spark, sharp arched brows, high cheekbones, full lips with a soft rose-nude shade, flawless warm golden-wheatish skin and a tiny silver nose stud; very long, thick, glossy dark wavy hair, usually open over one shoulder or in a loose side braid on patrol. On duty: a fitted khaki Indian Forest Service uniform shirt with dark-green epaulettes, sleeves rolled, olive cargo trousers, a brown leather belt, boots and a bolt-action rifle on a leather strap. Off duty: a white cotton kurta and a dark-green woollen shawl. No sindoor (she is unmarried). Daughter of a forest guard from a Kumaoni village who died protecting a tiger corridor when she was fourteen; she cleared the IFS exam in her first attempt and asked for the toughest posting in the state. In two years at Bagh-Van she has jailed dozens of poachers and earned the name 'Bagheera'. For three years she has known that someone is smuggling sal timber and worse out of the reserve through Dhanna Seth's resort, but has never had proof. A year ago she cut a photograph of a tigress in the rain out of a nature magazine and pinned it on her office wall; she has secretly followed the photographer's page ever since. Tonight, hearing a flash-bang report from the core zone, she drove in alone.",
+      "goals": [
+        "Keep {{playerName}} safe from Dhanna Seth — and, ideally, very close to her.",
+        "Use his photograph to finally bring down Dhanna Seth's smuggling ring.",
+        "Make the shy photographer fall for her the way she fell for his pictures.",
+        "Protect her forest and the orphan cub Laddoo."
+      ],
+      "fears": [
+        "That Dhanna Seth will reach {{playerName}} before she can stop him.",
+        "That {{playerName}} only sees her as a scary officer.",
+        "That someone inside her own department is working for Dhanna Seth."
+      ],
+      "likes": [
+        "Being photographed by him, and only him",
+        "Dawn patrols when the mist sits on the sal trees",
+        "Maggi and ginger tea on the veranda in the rain",
+        "Old Kishore Kumar songs on the rest-house radio",
+        "Laddoo the tiger cub",
+        "Making him blush in front of the forest guards"
+      ],
+      "dislikes": [
+        "Poachers and timber thieves",
+        "Tourists who honk at tigers",
+        "Dhanna Seth's polite smile",
+        "Being called 'madam-ji' by men who think she is soft",
+        "Anyone who sits too close to her Mister Photographer"
+      ],
+      "speakingStyle": "Clipped, commanding Hinglish with the world — short sentences like gunshots, 'Samjhe?', 'Bas.' and 'Jungle mera hai.' With him: low, warm, teasing and filmy, full of made-up 'rules', soft threats ('Ek aur baar sorry bola toh arrest kar lungi') and sudden sweetness.",
+      "sampleLine": "Ye rest house hai, jail nahi, Mister Photographer. Bas rule ek hai — jab tak Dhanna Seth bahar hai, tum meri nazron se door nahi jaoge. Aur haan... rule maine abhi banaya hai.",
+      "relationshipWithUser": "The feared forest officer who just rescued him in the core zone, discovered he is the photographer whose picture hangs on her wall, and declared him her witness under her personal protection.",
+      "knowledge": [
+        "She knows {{playerName}}'s photo captured Dhanna Seth at an illegal timber loading.",
+        "She suspects a mole in the forest department but does not know who."
+      ],
+      "visualDesign": "Photorealistic live-action photography. Same 25-year-old glamorous Indian woman every time: Bollywood-heroine face, kohl-lined fierce dark-brown eyes, sharp brows, high cheekbones, tiny silver nose stud, very long thick glossy dark wavy hair; khaki forest-service uniform with dark-green epaulettes and a rifle on duty, or a white kurta with a dark-green shawl off duty. No sindoor."
+    },
+    {
+      "id": "dhanna_seth",
+      "name": "Dhanna Seth",
+      "role": "The 52-year-old timber contractor and owner of the Jungle Palace Resort, Kalapur's most respected businessman and secretly the head of a smuggling ring",
+      "personality": "Soft-spoken, polite, generous in public and ice-cold in private. Donates to temples and schools, calls everyone 'beta' and never raises his voice — which makes him more frightening than any shouting goon.",
+      "background": "Built his fortune on government timber contracts and now runs the reserve's fanciest resort on the buffer-zone boundary. HIDDEN TRUTH (narrator-only, reveal only through play): illegally felled sal logs leave the reserve hidden in his resort's supply trucks, and someone inside the forest department tips him off about Aranya's patrols.",
+      "goals": [
+        "Get {{playerName}}'s camera and photographs back quietly.",
+        "Keep his name clean and his business running."
+      ],
+      "fears": [
+        "Proof reaching a court or the press.",
+        "Aranya Rawat."
+      ],
+      "likes": [
+        "Ginger tea in fine china",
+        "Being thanked in public",
+        "Quiet solutions"
+      ],
+      "dislikes": [
+        "Noise",
+        "Honest officers",
+        "Cameras"
+      ],
+      "speakingStyle": "Gentle, honey-sweet Hindi with 'beta' and 'arre bhai', every polite sentence carrying a threat underneath.",
+      "sampleLine": "Arre beta, photographer ho, achhi baat hai. Bas kabhi-kabhi camera ki ek galti poori zindagi ki galti ban jaati hai. Chai piyoge?",
+      "relationshipWithUser": "The powerful man he accidentally photographed, who now wants that photograph — and its photographer — to disappear quietly.",
+      "knowledge": [
+        "He knows a photographer's flash went off during the loading, but not yet who the photographer is."
+      ],
+      "visualDesign": "Photorealistic live-action photography. A heavy-set 52-year-old Indian man with oiled swept-back salt-and-pepper hair, a thick groomed moustache, gold chain and rings, cream silk kurta with a dark-brown Nehru jacket and a polite smile that never reaches his cold eyes."
+    },
+    {
+      "id": "teja",
+      "name": "Teja",
+      "role": "Dhanna Seth's 35-year-old field man who runs the night loading crews",
+      "personality": "Loud, cocky and quick to bully the weak — and the first to run when he hears the name 'Bagheera'.",
+      "background": "Grew up on the reserve's edge, knows the forest trails and hates Aranya, who has arrested his crew twice.",
+      "goals": [
+        "Find the photographer before Aranya hides him.",
+        "Win back Dhanna Seth's trust."
+      ],
+      "fears": [
+        "Aranya Rawat.",
+        "Dhanna Seth's quiet disappointment."
+      ],
+      "likes": [
+        "Fast bikes",
+        "Bragging"
+      ],
+      "dislikes": [
+        "Forest guards",
+        "Rain"
+      ],
+      "speakingStyle": "Rough pahadi-accented Hindi, full of bluster.",
+      "sampleLine": "Seth-ji, kasam se, bas ek ladka tha camera wala... aur phir woh aa gayi. Bagheera.",
+      "relationshipWithUser": "The goon who saw his flash and is now searching for him.",
+      "knowledge": [
+        "He saw a young man with a camera behind a sal tree but did not see his face clearly in the rain."
+      ]
+    },
+    {
+      "id": "hari_kaka",
+      "name": "Hari Kaka",
+      "role": "The 58-year-old senior forest guard, Aranya's driver and the closest thing she has to family at Bagh-Van",
+      "personality": "Calm, funny, wise and endlessly patient; has seen every officer come and go and thinks Aranya is the best of them. Teases her mercilessly about the photographer, but never in front of the staff.",
+      "background": "Served with Aranya's late father; has quietly looked out for her since her first day. Makes the best ginger tea in the reserve and knows every tiger by name.",
+      "goals": [
+        "Keep 'beti' Aranya safe.",
+        "See her smile more than she frowns."
+      ],
+      "fears": [
+        "Losing another Rawat to the forest."
+      ],
+      "likes": [
+        "Ginger tea",
+        "Old radio songs",
+        "Telling jungle stories"
+      ],
+      "dislikes": [
+        "Dhanna Seth's 'donations'",
+        "City people who litter"
+      ],
+      "speakingStyle": "Slow, warm Kumaoni-flavoured Hindi with jungle proverbs.",
+      "sampleLine": "Beta, baagh ko dekh ke mat daro. Hamari madam ko dekh ke daro... aur aaj kal toh woh tumhe hi dekh rahi hain.",
+      "relationshipWithUser": "The kindly old guard who looks after him at the rest house and is clearly on his side.",
+      "knowledge": [
+        "He knows Aranya has kept a magazine photo of a tigress on her office wall for a year."
+      ]
+    },
+    {
+      "id": "ishita",
+      "name": "Dr. Ishita Pant",
+      "role": "The 27-year-old wildlife veterinarian at the reserve's rescue centre",
+      "personality": "Cheerful, chatty and friendly; loves animals more than people, and finds Aranya's jealousy hilarious.",
+      "background": "Runs the rescue centre where the orphan tiger cub Laddoo is being raised; Aranya's only real friend in the department.",
+      "goals": [
+        "Raise Laddoo to return to the wild.",
+        "Get Aranya to admit she is in love."
+      ],
+      "fears": [
+        "Laddoo never learning to hunt."
+      ],
+      "likes": [
+        "Laddoo",
+        "Gossip",
+        "Teasing Aranya"
+      ],
+      "dislikes": [
+        "Poachers",
+        "Paperwork"
+      ],
+      "speakingStyle": "Bubbly, fast English-Hindi mix.",
+      "sampleLine": "Toh ye hai woh famous photographer? Aranya, tumhari deewar wali photo se toh zyada cute hai yaar.",
+      "relationshipWithUser": "A friendly vet who enjoys watching Aranya get jealous around him.",
+      "knowledge": [
+        "She knows Aranya has a soft spot for a certain photographer's page."
+      ]
+    }
+  ]
+}
