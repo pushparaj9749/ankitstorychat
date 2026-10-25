@@ -1,0 +1,90 @@
+{
+  "storyId": "jungle-ki-rani",
+  "version": 1,
+  "scenes": [
+    {
+      "id": "core_zone_ki_raat",
+      "title": "Core Zone Ki Raat",
+      "narration": [
+        "*Raat ke dhaai baje. Bagh-Van Tiger Reserve ka core zone. Monsoon ki baarish saal ke pedon par aise baras rahi hai jaise aasmaan phat gaya ho, aur har taraf geeli mitti aur patton ki khushboo hai.*",
+        "*Tum ek mote saal ke ped ke peeche dubke khade ho, saans roke. Tumhara guide Pappu shaam ko 'kaala tendua dikhaata hoon, sir' bol ke laaya tha — aur torch ki pehli roshni dekhte hi bhaag gaya.*",
+        "*Saamne, pedon ke beech, ek truck mein kate hue saal ke latthe lade ja rahe hain. Aur unke beech khada hai ek bhaari-bharkam aadmi — safed kurta, sone ki chain — jise poora ilaaka Dhanna Seth ke naam se jaanta hai.*",
+        "*Tumhari ungli kaanpti hai... aur camera ka flash chal jaata hai. Chhak.*",
+        "Teja: \"Koi hai wahan! Pakdo usse — camera chheeno!\"",
+        "*Torch ki roshniyaan tumhari taraf ghoom jaati hain. Keechad mein bhaagte kadmon ki awaaz. Tumhari peeth ped se lagi hai, aage koi raasta nahi.*",
+        "*Tabhi — DHAAYN! Hawa mein ek goli goonjti hai, aur jungle ki saari chidiyaan ek saath ud jaati hain. Peeche se do tez headlights andhere ko cheerti hain — ek olive-green jeep keechad udaati hui ruk jaati hai.*",
+        "Teja: *(chillaate hue)* \"Bhaago! BAGHEERA aa gayi!\"",
+        "*Torch waale aise bhaagte hain jaise jungle mein aag lag gayi ho. Truck ka engine garajta hai aur andhere mein gaayab. Aur jeep se utarti hai woh — khaki uniform baarish mein bheegi hui, kandhe par rifle, kamar tak lambe geele baal, aur aankhon mein aisi aag jo baarish bhi na bujha sake.*",
+        "*Woh seedha tumhari taraf aati hai, aur ek jhatke mein tumhari jacket ka collar pakad ke tumhe ped se laga deti hai. Uska chehra tumhare chehre se bas ek balisht door.*",
+        "Aranya Rawat: \"Core zone. Raat ko. Akele. Monsoon mein.\" *Har shabd jaise goli.* \"Jaante ho yahan baagh ghoomte hain? Aur unse bhi bure — Dhanna Seth ke aadmi?\"",
+        "*Phir uski nazar tumhare camera par padti hai. Woh use utha ke screen dekhti hai — aakhri photo mein Dhanna Seth ka chehra, saaf, flash mein chamakta hua. Uski bhaunhein tan jaati hain.*",
+        "Aranya Rawat: \"Tumne Dhanna Seth ko camera mein pakad liya hai. Teen saal se main yahi saboot dhoondh rahi hoon... aur ab woh tumhe dhoondhega.\"",
+        "*Tabhi camera strap par likha naam uski nazar mein aata hai. Woh ruk jaati hai. Ek pal ke liye uski pakad dheeli padti hai, aur us khatarnak chehre par kuch aur utar aata hai — hairaani... aur ek dheemi, shararati muskaan.*",
+        "Aranya Rawat: \"Ruko... tum ho woh? Chupchaap Clicks? Woh baaghin wali photo — nadi kinare, baarish mein — woh ek saal se mere office ki deewar par lagi hai.\" *Uski aankhen tumhare chehre par tik jaati hain.* \"Maine socha tha photographer koi budha, chashme wala uncle hoga. Tum toh...\"",
+        "*Woh baat adhoori chhod deti hai. Collar ab bhi uski mutthi mein hai, par ab woh tumhe dhakel nahi rahi — dheere se apni taraf kheench rahi hai.*",
+        "Aranya Rawat: *(dheemi, bhaari awaaz mein)* \"Suno, Mister Photographer. Ab tum gawaah ho, aur Dhanna Seth gawaahon ko pasand nahi karta. Toh aaj se tum mere rest house mein rahoge. Meri nazron ke saamne. Din-raat.\" *Ek bebaak muskaan.* \"Ye order hai. Aur mere jungle mein mera order koi nahi todta.\""
+      ],
+      "fallbackLines": [
+        "*Aranya tumhara jawab sun ke ek pal chup rehti hai — phir baarish mein bheegi uski muskaan aur gehri ho jaati hai.*",
+        "Aranya Rawat: \"Jungle mein sab mujhse darte hain, Mister Photographer. Tum bhi daro... bas thoda sa. Baaki — chalo, jeep mein baitho. Tumhara khayal ab meri zimmedaari hai.\""
+      ],
+      "choices": [
+        {
+          "id": "accept_order",
+          "text": "*Sharmaate hue, nazrein jhuka ke — 'Ji... madam. Jaisa aap kahein.'*",
+          "shortLabel": "Ji, madam",
+          "keywords": [
+            "ji",
+            "haan",
+            "theek",
+            "chalo",
+            "rest house"
+          ],
+          "next": null,
+          "effects": {
+            "memory": [
+              "On the monsoon night in the core zone, {{playerName}} shyly accepted DFO Aranya Rawat's order to stay at her forest rest house under her protection."
+            ]
+          }
+        },
+        {
+          "id": "protest",
+          "text": "*Ghabraake, dheere se — 'Main... main khud sambhal lunga. Aapko meri wajah se takleef hogi...'*",
+          "shortLabel": "Main sambhal lunga",
+          "keywords": [
+            "nahi",
+            "khud",
+            "sambhal",
+            "takleef",
+            "ghar"
+          ],
+          "next": null,
+          "effects": {
+            "memory": [
+              "On the monsoon night in the core zone, {{playerName}} politely protested that he could look after himself and did not want to trouble Aranya."
+            ]
+          }
+        },
+        {
+          "id": "photo_wall",
+          "text": "*Laal hote hue — 'Aapne... meri photo apne office ki deewar pe lagaayi hai?'*",
+          "shortLabel": "Photo deewar pe?",
+          "keywords": [
+            "photo",
+            "deewar",
+            "office",
+            "baaghin",
+            "lagaayi"
+          ],
+          "next": null,
+          "effects": {
+            "memory": [
+              "On the monsoon night in the core zone, {{playerName}} blushingly asked Aranya whether she really kept his tigress photo on her office wall."
+            ]
+          }
+        }
+      ]
+    }
+  ],
+  "endings": []
+}

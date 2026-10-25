@@ -1,7 +1,7 @@
 {
-  "contentVersion": 53,
+  "contentVersion": 54,
   "minAppVersion": "1.0.0",
-  "updatedAt": "2026-10-23T00:00:00Z",
+  "updatedAt": "2026-10-25T00:00:00Z",
   "stories": [
     {
       "id": "arranged-marriage-wala-love",
@@ -53,6 +53,60 @@
         "verified": true
       },
       "updatedAt": "2026-10-03T14:46:42Z"
+    },
+    {
+      "id": "jungle-ki-rani",
+      "title": "Jungle Ki Rani",
+      "tagline": "Poachers use 'Bagheera' bulaate hain aur uska naam sunte hi bhaag jaate hain... aur woh tumhara collar pakad ke boli — 'Aaj se tum meri nazron ke saamne rahoge.'",
+      "description": "Kumaon ki pahadiyon ke neeche, Bagh-Van Tiger Reserve. Tum ek sharmile wildlife photographer ho — Dehradun ka ek ladka jiska chhota sa photo page 'Chupchaap Clicks' kuch hazaar log follow karte hain, aur jo zindagi mein kabhi kisi se unchi awaaz mein nahi bola. Ek kaale tendue ki afwaah tumhe monsoon ki raat core zone tak le aayi. Guide bhaag gaya, aur tumhare camera ka flash galti se us pal chal gaya jab timber-mafia Dhanna Seth ke aadmi kate hue saal ke latthe truck mein bhar rahe the. Torch tumhari taraf ghoomti hain — aur tabhi hawa mein ek goli goonjti hai. 'BAGHEERA aa gayi!' DFO Aranya Rawat, IFS — Bagh-Van ki woh forest officer jiske naam se poachers, lakdi-chor aur shikari kaanpte hain. Rifle ke saath akeli raat ki gasht karti hai, aur jungle ka har raasta, har baagh aur har gunahgaar use jaanta hai. Par jab woh tumhara collar pakad ke tumhe ped se lagaati hai, use pata chalta hai ki tum wahi photographer ho jiski kheenchi ek baaghin ki photo ek saal se uske office ki deewar par lagi hai. Ab tum Dhanna Seth ke khilaaf gawaah ho, aur madam ka order saaf hai — 'Aaj se tum mere rest house mein rahoge.' Duniya ke liye Bagheera, tumhare liye ek beparwah, romantic aur bahut zyaada pyaar maangne waali ladki. Kahani kahan jaayegi, sirf tumhare faislon par.",
+      "genres": [
+        "Romance",
+        "Thriller",
+        "Adventure",
+        "Comedy"
+      ],
+      "tags": [
+        "romance",
+        "dangerous-girlfriend",
+        "shy-hero",
+        "protective-heroine",
+        "forest-officer",
+        "jungle",
+        "tiger-reserve",
+        "monsoon",
+        "forced-proximity",
+        "uttarakhand",
+        "player-agency",
+        "dynamic-continuous",
+        "ongoing",
+        "hinglish"
+      ],
+      "characters": [
+        "Aranya Rawat",
+        "Dhanna Seth",
+        "Teja",
+        "Hari Kaka",
+        "Dr. Ishita Pant"
+      ],
+      "ageRating": "18+",
+      "contentLevel": "mature",
+      "language": "hinglish",
+      "version": 1,
+      "coverUrl": "stories/jungle-ki-rani/assets/cover.jpg",
+      "accentColor": "#3D6B45",
+      "userRole": "{{playerName}} — an adult Indian man aged 24, controlled exclusively by the player. He is a shy freelance wildlife photographer from Dehradun who runs a small photo page called 'Chupchaap Clicks' and sells pictures to nature magazines. A year ago one of his photos — a tigress in the rain by a river — was printed in a magazine. Chasing a rumour of a black leopard, he paid a local guide to sneak him into the core zone of Bagh-Van Tiger Reserve on a monsoon night; the guide ran away, and his camera flash accidentally fired while timber-mafia boss Dhanna Seth's men were loading illegally felled sal logs, capturing Dhanna Seth's face. He starts the story soft-spoken, gentle, polite and easily flustered — that is only where he begins; everything he says, feels and does is the player's choice. The player supplies his display name at runtime; never assign him another name, and never write his thoughts, feelings, dialogue, actions or decisions.",
+      "setting": "Present-day monsoon in the fictional Bagh-Van Tiger Reserve in the Kumaon foothills of Uttarakhand: the dense sal forest of the core zone with rain-swollen streams, elephant grass and leech-filled trails; the old colonial-era Kanakvan Forest Rest House with its wooden veranda, tin-and-tile roof, lanterns and creaky cane chairs; a forest-department wildlife rescue centre with an orphan tiger cub; wooden watchtowers (machaans) above the canopy; the Neelnadi river and its rope bridge; the little market town of Kalapur at the reserve's edge with chai stalls and a forest office; and Dhanna Seth's luxurious Jungle Palace Resort on the buffer-zone boundary, behind which sal logs quietly disappear.",
+      "estimatedMinutes": 60,
+      "featured": false,
+      "isNew": true,
+      "popularity": 99,
+      "storyDir": "jungle-ki-rani",
+      "creator": {
+        "name": "Ankit",
+        "avatar": null,
+        "verified": true
+      },
+      "updatedAt": "2026-10-25T00:00:00Z"
     },
     {
       "id": "dulhan-bhagi-shadi-se",

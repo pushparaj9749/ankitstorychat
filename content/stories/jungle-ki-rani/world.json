@@ -1,0 +1,115 @@
+{
+  "storyId": "jungle-ki-rani",
+  "version": 1,
+  "premise": "{{playerName}}, 24, a shy wildlife photographer from Dehradun, sneaks into the core zone of Bagh-Van Tiger Reserve on a monsoon night chasing a black leopard rumour, and accidentally photographs timber-mafia boss Dhanna Seth during an illegal loading. Rescued by the feared forest officer Aranya Rawat — 'Bagheera' — he turns out to be the photographer whose tigress picture has hung on her office wall for a year. She declares him her witness and moves him into her forest rest house 'for protection'. She wants him, and a lot of romance; how he answers her, and what happens with Dhanna Seth, is his choice. An open-ended romance and jungle-thriller story driven only by the player.",
+  "locations": [
+    {
+      "id": "core_zone",
+      "name": "The Core Zone",
+      "description": "Dense sal forest closed to visitors, with elephant grass, rain-swollen streams, pugmarks in the mud and illegal logging tracks hidden among the trees."
+    },
+    {
+      "id": "kanakvan_rest_house",
+      "name": "Kanakvan Forest Rest House",
+      "description": "An old colonial-era bungalow deep in the forest with a wooden veranda, cane chairs, lanterns, a crackling radio and a tiled roof that drums in the rain; Aranya's quarters and now {{playerName}}'s 'protective custody'."
+    },
+    {
+      "id": "rescue_centre",
+      "name": "Wildlife Rescue Centre",
+      "description": "Grassy enclosures and a small clinic where Dr. Ishita raises the orphan tiger cub Laddoo."
+    },
+    {
+      "id": "machaan",
+      "name": "The Machaan",
+      "description": "A tall wooden watchtower above the canopy where fireflies glow on monsoon nights and the whole forest can be heard breathing."
+    },
+    {
+      "id": "neelnadi",
+      "name": "Neelnadi River",
+      "description": "A wide river with a swaying rope bridge, rocky banks and tigers coming down to drink at dusk."
+    },
+    {
+      "id": "kalapur",
+      "name": "Kalapur",
+      "description": "The small market town at the reserve's gate with chai stalls, a bus stand, the forest office and gossip that travels faster than jeeps."
+    },
+    {
+      "id": "jungle_palace",
+      "name": "Jungle Palace Resort",
+      "description": "Dhanna Seth's luxury resort on the buffer-zone boundary, all lanterns, carved wood and a back yard full of 'firewood'."
+    }
+  ],
+  "factions": [
+    {
+      "id": "forest_department",
+      "name": "Bagh-Van Forest Department",
+      "description": "Aranya, Hari Kaka, Dr. Ishita and the guards who protect the reserve — and, somewhere among them, a person who talks to Dhanna Seth."
+    },
+    {
+      "id": "dhanna_ring",
+      "name": "Dhanna Seth's Network",
+      "description": "Teja's loading crews, truck drivers and friendly faces in Kalapur who move timber out of the forest."
+    }
+  ],
+  "lore": [
+    "Poachers around Bagh-Van whisper: 'Raat ko jungle mein do cheezon se bachna — baagh se, aur Bagheera se. Baagh kabhi-kabhi chhod deta hai.'",
+    "Aranya's father, a forest guard, died protecting a tiger corridor; the guards still salute his photo in the Kalapur forest office.",
+    "A magazine photograph of a tigress in the rain by a river has hung on the DFO's office wall for a year; the staff know better than to ask about it.",
+    "Laddoo, an orphan tiger cub, was found alone near the Neelnadi after the monsoon floods and is being raised at the rescue centre.",
+    "Whether the black leopard of Bagh-Van really exists is never confirmed in advance; it emerges only through play.",
+    "Whoever inside the department is helping Dhanna Seth is narrator-only and is revealed only through play."
+  ],
+  "rules": [
+    "Free-form story: the opening moment is the only predefined situation. Everything after it grows from the player's moves; there is no plot plan, scene list, arc or ending.",
+    "Only {{playerName}} controls the player character: never invent his speech, actions, thoughts, feelings, consent, promises or decisions.",
+    "Write in natural Roman-script Hinglish: short paragraphs, *actions and narration in asterisks*, dialogue as Name: \"...\".",
+    "The heroine takes the romantic initiative often and warmly — teasing, cuddling, feeding him, forehead kisses, pulling him close — while always reading and respecting his response.",
+    "Keep continuity of every promise, secret, nickname, gift and argument through the app's universal memory, scoped to this storyId only.",
+    "Whether and when Dhanna Seth, Teja or anyone else finds {{playerName}}, and any danger to him, happens only through play — nothing is scheduled.",
+    "Wild animals behave like real wild animals: majestic and dangerous from a distance, never cartoonish, and never harmed for drama."
+  ],
+  "importantObjects": [
+    {
+      "id": "camera",
+      "name": "{{playerName}}'s Camera",
+      "description": "His DSLR, whose last photograph shows Dhanna Seth's face at an illegal timber loading."
+    },
+    {
+      "id": "tigress_photo",
+      "name": "The Tigress Photograph",
+      "description": "His magazine photo of a tigress in the rain, pinned on Aranya's office wall for a year."
+    },
+    {
+      "id": "rifle",
+      "name": "Aranya's Rifle",
+      "description": "Her service rifle, which she uses for warning shots and never points at anyone she loves."
+    },
+    {
+      "id": "windbreaker",
+      "name": "His Windbreaker",
+      "description": "The dark-navy jacket Aranya keeps stealing."
+    },
+    {
+      "id": "radio",
+      "name": "The Rest-House Radio",
+      "description": "An old radio on the veranda that only plays old Hindi songs."
+    }
+  ],
+  "timeline": [
+    {
+      "id": "magazine",
+      "label": "{{playerName}}'s tigress photo is printed in a magazine; Aranya pins it on her office wall",
+      "when": "A year before the story"
+    },
+    {
+      "id": "suspicion",
+      "label": "Aranya begins suspecting a timber-smuggling ring run through Dhanna Seth's resort",
+      "when": "Three years before the story"
+    },
+    {
+      "id": "monsoon_night",
+      "label": "{{playerName}} photographs Dhanna Seth in the core zone; Aranya rescues him and declares him her witness",
+      "when": "Tonight, past two in the morning, as the story begins"
+    }
+  ]
+}
