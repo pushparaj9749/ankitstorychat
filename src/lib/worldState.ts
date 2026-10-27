@@ -16,6 +16,7 @@
 import { getDb, kvDelete, kvGet, kvSet } from './db';
 import { nowIso } from './utils';
 import type { Playthrough, StoryBundle } from '../types';
+import { inferTimeOfDay } from './storyClock';
 
 // ------------------------------------------------------------------
 // Types
@@ -203,6 +204,11 @@ const WORLD_SCHEMA_KEY = (id: string) => `worldStateSchema:${id}`;
 
 export function createInitialWorldState(playthrough: Playthrough, bundle: StoryBundle): WorldState {
   const now = nowIso();
+  // v2.12: the story's own opening says what time it is ("Raat ke gyarah
+  // baje…"); null when it does not — never a made-up "evening".
+  const openingText = (bundle.scenes?.scenes ?? [])
+    .find((s) => s.id === bundle.story.openingSceneId)
+    ?.narration?.join(' ');
   const initialLocation = playthrough.state.location || bundle.world.locations[0]?.name || null;
   return {
     version: 2,
@@ -216,7 +222,7 @@ export function createInitialWorldState(playthrough: Playthrough, bundle: StoryB
     currentArc: null,
     storyTime: {
       day: 1,
-      timeOfDay: 'evening',
+      timeOfDay: inferTimeOfDay(openingText),
       clockTime: null,
       elapsedMinutes: 0,
       lastUpdated: now,
@@ -928,7 +934,8 @@ export function renderWorldStateForPrompt(state: WorldState): string {
   lines.push(`- Location: ${state.currentLocation ?? 'unknown'}${state.previousLocation ? ` (previously: ${state.previousLocation})` : ''}`);
   if (state.currentActivity) lines.push(`- Activity: ${state.currentActivity}`);
   const time = state.storyTime;
-  const timeStr = time.clockTime ? `${time.clockTime} (${time.timeOfDay}, Day ${time.day})` : `${time.timeOfDay}, Day ${time.day}`;
+  const tod = time.timeOfDay ?? 'time of day as the story set it';
+  const timeStr = time.clockTime ? `${time.clockTime} (${tod}, Day ${time.day})` : `${tod}, Day ${time.day}`;
   lines.push(`- Story Time: ${timeStr} | elapsed ${time.elapsedMinutes} min`);
   if (state.presentCharacters.length) lines.push(`- Present: ${state.presentCharacters.map((id) => state.characterStates[id]?.name ?? id).join(', ')}`);
   if (state.absentCharacters.length) lines.push(`- Absent: ${state.absentCharacters.slice(0, 4).map((id) => state.characterStates[id]?.name ?? id).join(', ')}`);

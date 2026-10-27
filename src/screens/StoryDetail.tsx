@@ -16,6 +16,7 @@
  *  - cast portraits come from the story's own character references
  */
 import React, { useEffect, useMemo, useState } from 'react';
+import { GALLERY_FIRST, nextGalleryCount } from '../lib/galleryReveal';
 import { ActivityIndicator, Alert, Modal, Pressable, ScrollView, Share, StyleSheet, Text, View } from 'react-native';
 import { LinearGradient } from 'expo-linear-gradient';
 import { SafeAreaView } from 'react-native-safe-area-context';
@@ -62,6 +63,7 @@ export function StoryDetail({ navigation, route }: Props) {
   const [offline, setOffline] = useState(false);
   const [reloadKey, setReloadKey] = useState(0);
   const [lightboxIndex, setLightboxIndex] = useState<number | null>(null);
+  const [mediaShown, setMediaShown] = useState(GALLERY_FIRST);
   const [descOpen, setDescOpen] = useState(false);
 
   const meta = stories.find((s) => s.id === storyId);
@@ -357,8 +359,8 @@ export function StoryDetail({ navigation, route }: Props) {
                   no column ends early with an empty gap underneath. A lone last
                   tile spans the full width. */}
               <View style={styles.mediaGrid}>
-                {gallery.map((item, index) => {
-                  const spanFull = index === gallery.length - 1 && gallery.length % 2 === 1;
+                {gallery.slice(0, mediaShown).map((item, index, shown) => {
+                  const spanFull = index === shown.length - 1 && shown.length % 2 === 1;
                   return (
                     <View key={item.id} style={spanFull ? styles.mediaCellFull : styles.mediaCell}>
                       <MediaTile
@@ -373,6 +375,23 @@ export function StoryDetail({ navigation, route }: Props) {
                   );
                 })}
               </View>
+              {gallery.length > mediaShown ? (
+                <Pressable
+                  onPress={() => setMediaShown((n) => nextGalleryCount(n, gallery.length))}
+                  accessibilityRole="button"
+                  accessibilityLabel="Aur images dekho"
+                  testID="media-more"
+                  style={({ pressed }) => [
+                    styles.mediaMore,
+                    { borderColor: theme.border, backgroundColor: withAlpha(theme.text, pressed ? 0.08 : 0.04) },
+                  ]}
+                >
+                  <Icon name="image-outline" size={ICON_SIZE.sm} color={theme.accent} />
+                  <Text style={[styles.mediaMoreText, { color: theme.text }]}>
+                    {`Aur images dekho (${gallery.length - mediaShown} aur)`}
+                  </Text>
+                </Pressable>
+              ) : null}
             </>
           ) : null}
 
@@ -656,6 +675,17 @@ const styles = StyleSheet.create({
   castInitial: { fontSize: 20, fontWeight: '800' },
   castName: { fontSize: SCALE.small, fontWeight: '700', marginTop: 9 },
   castRole: { fontSize: SCALE.micro, fontWeight: '500', marginTop: 2, textAlign: 'center', lineHeight: 14 },
+  mediaMore: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'center',
+    gap: 8,
+    borderWidth: 1,
+    borderRadius: RADIUS.pill,
+    paddingVertical: 12,
+    marginTop: 12,
+  },
+  mediaMoreText: { fontSize: 14, fontWeight: '700' },
   mediaGrid: { flexDirection: 'row', flexWrap: 'wrap', justifyContent: 'space-between', rowGap: 10, marginTop: 4 },
   mediaCell: { width: '48.5%' },
   mediaCellFull: { width: '100%' },

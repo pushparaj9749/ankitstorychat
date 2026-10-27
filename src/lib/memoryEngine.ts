@@ -29,6 +29,7 @@ import {
 } from './worldState';
 import type { StoryBundle, Playthrough, ChatMessage } from '../types';
 import { selectRelevant, buildQuery, overlapScore } from './memoryCore';
+import { clampStoryTimePatch, readerAskedForTimeSkip } from './storyClock';
 
 // ------------------------------------------------------------------
 // Confidence helpers
@@ -395,7 +396,13 @@ export function heuristicExtraction(userText: string, assistantText: string, bun
 }
 
 // Convert RawExtraction to StateUpdate
-export function toStateUpdate(extraction: RawExtraction, currentWorld: WorldState, evidence: string | null): StateUpdate {
+export function toStateUpdate(
+  extraction: RawExtraction,
+  currentWorld: WorldState,
+  evidence: string | null,
+  /** v2.12: true when the reader slept / asked for a later time / tapped "Naya mod". */
+  allowTimeSkip = false,
+): StateUpdate {
   const confidence = extraction.confidence ?? 'medium';
   const update: StateUpdate = { confidence, evidence: evidence ?? undefined };
 
@@ -455,6 +462,9 @@ export function toStateUpdate(extraction: RawExtraction, currentWorld: WorldStat
     ];
   }
   if (extraction.hearts && Object.keys(extraction.hearts).length) update.heartsPatch = extraction.hearts;
+  // v2.12 story clock: without a reader-chosen skip, time moves at most one
+  // step (evening → night → late-night) and never into the next morning/day.
+  extraction = { ...extraction, storyTime: clampStoryTimePatch(currentWorld.storyTime, extraction.storyTime, allowTimeSkip) };
   if (extraction.storyTime) {
     const patch: Record<string, unknown> = {};
     if (extraction.storyTime.clockTime) patch.clockTime = extraction.storyTime.clockTime;
@@ -489,6 +499,8 @@ export interface WritePipelineInput {
   playthrough: Playthrough;
   bundle: StoryBundle;
   userText: string;
+  /** v2.12: the reader chose to let time pass (sleep, "subah", skip, "Naya mod"). Default: detected from userText. */
+  allowTimeSkip?: boolean;
   assistantText: string;
   parsedExtractionRaw?: unknown; // from kissa-state block
   worldState?: WorldState | null;
@@ -562,7 +574,8 @@ export async function runMemoryWritePipeline(input: WritePipelineInput): Promise
       };
     }
     const evidence = `${userText} ${assistantText}`.slice(0, 400);
-    const update = toStateUpdate(rawExtraction, ws, evidence);
+    const allowTimeSkip = input.allowTimeSkip ?? readerAskedForTimeSkip(userText);
+    const update = toStateUpdate(rawExtraction, ws, evidence, allowTimeSkip);
     // Validate contradiction before applying
     const next = applyWorldStateUpdate(ws, update);
     if (next !== ws) {

@@ -52,6 +52,13 @@ export function manifestApiUrl(base: string): string {
 export function storyFileApiUrl(base: string, storyDir: string, file: string): string {
   return contentApiUrl(base, `stories/${storyDir}/${file}`);
 }
+/**
+ * v2.12: ask for the WHOLE gallery (up to 50 images). Without this flag the
+ * story API serves only the first 8 — what apps before v2.12 can validate.
+ */
+export function withFullGallery(url: string): string {
+  return `${url}${url.includes('?') ? '&' : '?'}gallery=full`;
+}
 /** GET <base>/stories/<storyDir> (whole bundle in one JSON response) */
 export function storyPackageApiUrl(base: string, storyDir: string): string {
   return contentApiUrl(base, `stories/${storyDir}`);

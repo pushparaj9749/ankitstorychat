@@ -41,7 +41,7 @@ global.fetch = jest.fn(async (input: unknown) => {
     return { ok: true, status: 200, text: async () => raw } as unknown as Response;
   }
   // Per-file story downloads.
-  const m = url.match(/\/stories\/([a-z0-9-]+)\/([a-z.]+)$/);
+  const m = url.match(/\/stories\/([a-z0-9-]+)\/([a-z.]+)(?:\?gallery=full)?$/);
   if (m && fetchBody[m[2]] !== undefined) {
     return {
       ok: true,
@@ -195,7 +195,9 @@ describe('opening a story (V2: always streamed from the API)', () => {
     expect(bundle.source).toBe('remote');
     expect(bundle.story.id).toBe(otaOnly[0]);
     for (const f of ['story.json', 'characters.json', 'world.json', 'scenes.json', 'memory.json']) {
-      expect(fetchCalls).toContain(`${API_BASE}/stories/${otaOnly[0]}/${f}`);
+      // v2.12: story.json asks for the full (up-to-50) gallery.
+      const q = f === 'story.json' ? '?gallery=full' : '';
+      expect(fetchCalls).toContain(`${API_BASE}/stories/${otaOnly[0]}/${f}${q}`);
     }
   });
 

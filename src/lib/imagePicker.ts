@@ -12,7 +12,7 @@ import { withAppLockPaused } from './lockPause';
 
 /** Mirror of the Worker limits (see worker/src/media.ts). */
 export const MAX_IMAGE_BYTES = 3 * 1024 * 1024; // 3 MB
-export const MAX_GALLERY_IMAGES = 8; // per story, cover included
+export const MAX_GALLERY_IMAGES = 8; // per SUBMITTED story, cover included (published stories: up to 50)
 export const MAX_TOTAL_GALLERY_BYTES = 12 * 1024 * 1024; // 12 MB total for the 8 gallery slots
 
 /** A picked image ready for upload (local URI for previews, base64 for POST). */

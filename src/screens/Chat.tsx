@@ -23,6 +23,7 @@ import { ErrorState, LoadingState, OfflineState } from '../components/states';
 import { effectiveContentApiBaseUrl, getBundle, getBundledCoverSource, mediaApiUrl, StoryContentError, type CoverSource } from '../content/loader';
 import { getApiKey } from '../lib/secureKeys';
 import { MAX_VISIBLE_TOKENS, aiErrorMessage, chatCompletion } from '../lib/ai';
+import { readerAskedForTimeSkip } from '../lib/storyClock';
 import { applyEffects, buildContext, buildStateExtractionMessages, castSpeakersIn, checkAssistantReply, HISTORY_HEADROOM, isRecallQuery, parseAssistantResponse, parseExtractedState, rewriteInstructionFor, shortTermWindowOf, type ParsedAssistant, type ReplyCheck } from '../lib/engine';
 import { chapterDue, closeChapter, getChapterBook, getChapters, searchChapterArchive } from '../lib/chapters';
 import { completeEpisode, consolidateMemories, putMemory, recallForTurn, rememberMany, rememberPreferences, episodeLine } from '../lib/memory';
@@ -393,6 +394,11 @@ export function Chat({ navigation, route }: Props) {
       presence: checkPresence
         ? { presentNames, recentSpeakers, readerText: [...recentReaderText, isAuthoredMessage ? request.prompt : ''].join(' ') }
         : undefined,
+      // v2.12 story clock: no jump to morning / the next day unless the reader
+      // chose it. "Naya mod" may skip time on purpose; "Choices" is not story text.
+      clock: checkPresence
+        ? { timeOfDay: wsForPrompt?.storyTime?.timeOfDay ?? null, readerText: [...recentReaderText, isAuthoredMessage ? request.prompt : ''].join(' ') }
+        : undefined,
     };
     const raw = await chatCompletion(activeProvider, apiKey, [{ role: 'system', content: ctx.system }, ...transcript]);
     let parsed: ParsedAssistant = parseAssistantResponse(raw);
@@ -466,6 +472,7 @@ export function Chat({ navigation, route }: Props) {
           // it to know who actually spoke (= who is in the scene).
           assistantText: speaker ? `${speaker}: ${displayText}` : displayText,
           parsedExtractionRaw: rawStateJson,
+          allowTimeSkip: request.kind === 'scene' || readerAskedForTimeSkip(userText),
           worldState: wsForPrompt,
           skipEpisode: true,
           playerName: profile.nickname,
@@ -673,7 +680,7 @@ export function Chat({ navigation, route }: Props) {
       prompt = 'Continue karo.';
       instruction = [
         'The reader tapped “Continue” without typing a message. Advance the current story by one short, natural beat.',
-        'Let the narrator, the setting or the characters ALREADY IN THE SCENE move the moment forward — nobody new arrives, calls or interrupts. Never invent an action or spoken line for the reader, and never invent a conflict. Respect all established continuity and leave room for the reader’s own free-text move.',
+        'Let the narrator, the setting or the characters ALREADY IN THE SCENE move the moment forward — nobody new arrives, calls or interrupts, and time does not skip ahead (the same night stays night). Never invent an action or spoken line for the reader, and never invent a conflict. Respect all established continuity and leave room for the reader’s own free-text move.',
       ].join(' ');
     }
 

@@ -186,7 +186,7 @@ export type StoryMediaKind = 'cover' | 'character-portrait' | 'scene' | 'other';
  *
  * Two legal shapes exist:
  *   - published content:  `assets/cover.jpg|png|webp`,
- *                         `assets/gallery/image-01.jpg|png|webp` … `image-08`
+ *                         `assets/gallery/image-01.jpg|png|webp` … `image-49`
  *   - pending submissions: `media/<mediaId>` — a server-generated id returned
  *     by the upload endpoint; the Worker rewrites these to published shapes
  *     when an admin accepts & publishes the story.
@@ -214,7 +214,7 @@ export interface StoryMediaItem {
 export interface StoryMedia {
   /** Safe reference to the cover image (required for published stories). */
   cover: string;
-  /** Ordered gallery (cover first). Max 8 entries. */
+  /** Ordered gallery (cover first). Max 50 entries (8 for user submissions). */
   gallery: StoryMediaItem[];
 }
 

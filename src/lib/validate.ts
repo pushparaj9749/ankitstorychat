@@ -21,8 +21,14 @@ export const MAX_JSON_PAYLOAD = 500_000; // 500KB per submission
 
 /* ---------------- story media (Media Library) ---------------- */
 
-/** Max gallery entries per story (cover included). Mirrors the Worker. */
-export const MAX_GALLERY_IMAGES = 8;
+/**
+ * Max gallery entries per published story (cover included). v2.12 raised it
+ * from 8 to 50; the Worker serves apps older than v2.12 only the first 8
+ * (they rejected longer galleries) unless the request asks `?gallery=full`.
+ */
+export const MAX_GALLERY_IMAGES = 50;
+/** User-submitted stories stay at 8 images (Worker upload limit, KV storage). */
+export const MAX_SUBMISSION_GALLERY_IMAGES = 8;
 /** Max length of a media display label. */
 export const MAX_MEDIA_LABEL = 80;
 
@@ -600,6 +606,9 @@ export function validateStorySubmission(body: unknown): ValidationResult & {
     issues.push(issue('story.media', 'required — a complete story must include a cover image'));
   } else {
     const gm = media as { cover?: unknown; gallery?: unknown };
+    if (Array.isArray(gm.gallery) && gm.gallery.length > MAX_SUBMISSION_GALLERY_IMAGES) {
+      issues.push(issue('story.media.gallery', `too many images (max ${MAX_SUBMISSION_GALLERY_IMAGES})`));
+    }
     const files: string[] = [];
     if (Array.isArray(gm.gallery)) {
       for (const g of gm.gallery as Record<string, unknown>[]) {

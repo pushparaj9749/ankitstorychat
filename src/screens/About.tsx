@@ -11,6 +11,7 @@ import type { RootStackParamList } from '../types';
 import { useApp } from '../state/AppContext';
 import { Screen } from '../components/Screen';
 import { GradientButton } from '../components/GradientButton';
+import { DonateCard } from '../components/DonateCard';
 import { RELEASES_PAGE, checkForUpdate, type UpdateStatus } from '../lib/updateCheck';
 import { LAYOUT, RADIUS, SCALE, SHADOWS, SPACING, TYPE, withAlpha } from '../theme';
 
@@ -20,7 +21,7 @@ const REPO = 'https://github.com/pushparaj9749/ankitstorychat';
 
 export function About({ navigation }: Props) {
   const { theme, settings, updateSettings } = useApp();
-  const version = Constants.expoConfig?.version ?? '2.11.0';
+  const version = Constants.expoConfig?.version ?? '2.12.0';
   const [checking, setChecking] = useState(false);
   const [result, setResult] = useState<UpdateStatus | 'error' | null>(null);
 
@@ -111,28 +112,7 @@ export function About({ navigation }: Props) {
           <GradientButton title="Privacy Policy" variant="ghost" onPress={() => navigation.navigate('Privacy')} />
         </View>
 
-        <View
-          style={[
-            styles.dev,
-            {
-              backgroundColor: withAlpha(theme.surface, 0.9),
-              borderColor: theme.border,
-            },
-            SHADOWS.card,
-          ]}
-        >
-          <Icon name="heart" size={ICON_SIZE.xl} color={theme.accent} />
-          <Text style={[styles.devTitle, { color: theme.text }]}>Help the Developer</Text>
-          <Text style={[styles.soon, { backgroundColor: theme.primarySoft, color: theme.accent }]}>
-            Coming Soon
-          </Text>
-          <Text style={[styles.devDesc, { color: theme.textDim }]}>
-            Voluntary donations are on the way. Until then — immerse yourself in stories, share with fellow storytellers, and star the repo on GitHub!
-          </Text>
-          <Pressable onPress={() => void Linking.openURL(REPO)} accessibilityRole="button">
-            <Text style={[styles.link, { color: theme.accent }]}>Star on GitHub</Text>
-          </Pressable>
-        </View>
+        <DonateCard repoUrl={REPO} />
 
         <Text style={[styles.credit, { color: theme.textFaint }]}>
           Original stories, artwork & sounds crafted for Kissa. Made with love in India.
@@ -169,25 +149,6 @@ const styles = StyleSheet.create({
   updToggle: { flexDirection: 'row', alignItems: 'center', borderTopWidth: StyleSheet.hairlineWidth, marginTop: 14, paddingTop: 12 },
   updToggleLabel: { fontSize: SCALE.small, fontWeight: '700' },
   updToggleSub: { fontSize: SCALE.micro, marginTop: 2, lineHeight: 16 },
-  dev: {
-    width: '100%',
-    borderWidth: 1,
-    borderRadius: RADIUS.lg,
-    padding: SPACING.lg,
-    marginTop: SPACING.xl,
-    alignItems: 'center',
-  },
-  devTitle: { fontSize: SCALE.title, fontWeight: '700', marginTop: 8 },
-  soon: {
-    fontSize: SCALE.micro,
-    fontWeight: '700',
-    marginTop: 8,
-    paddingHorizontal: 12,
-    paddingVertical: 4,
-    borderRadius: RADIUS.pill,
-    overflow: 'hidden',
-  },
-  devDesc: { fontSize: SCALE.small, textAlign: 'center', lineHeight: 21, marginTop: 10 },
   link: { fontWeight: '700', marginTop: 12, fontSize: SCALE.small },
   credit: { fontSize: SCALE.micro, textAlign: 'center', marginTop: SPACING.xl, lineHeight: 18 },
 });

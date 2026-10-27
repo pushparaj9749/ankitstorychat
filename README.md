@@ -56,6 +56,48 @@ moves the tale forward — with memory and relationships, and no script: no pred
 
 ## 🆕 Release notes
 
+### v2.12.0 — Voluntary UPI donations ("Help the Developer")
+
+Owner request: replace the About screen's "Help the Developer — Coming Soon" card with a real, purely voluntary donation option.
+
+- **Donate via UPI** opens the reader's own UPI app (GPay / PhonePe / Paytm / BHIM …) through a standard `upi://pay` link, with payee **Kissa (Ankit)** pre-filled. The reader picks the amount. If the phone has no UPI app, the UPI ID is offered through the share sheet instead.
+- **QR code** of the same link, so the reader can scan it from another phone. It is drawn with `react-native-svg` using the pure-JS core encoder from `qrcode`, so there is no native module.
+- **The UPI ID** is shown as selectable text with a share button.
+- **No server, no tracking, nothing unlocked.** Kissa never sees payment data, and donating changes nothing in the app. The Privacy Policy has a new §9 that says this.
+- **Config:** `DONATE_UPI_ID` in `src/lib/donate.ts` is `ankitkingtrader@axl`, the ID inside the owner's own PhonePe QR. If it is ever emptied, the card goes back to "Coming Soon".
+- **Owner's QR:** `assets/donate/upi-qr.png` is cropped from the owner's PhonePe QR. The card shows it while it matches `DONATE_UPI_ID`, and otherwise draws its own QR. A test decodes the image (jsQR) and checks that its `pa` is exactly the configured ID.
+- **Guard test** (`__tests__/donate.test.tsx`) covers:
+  - the link format and the UPI ID validation;
+  - the QR code;
+  - both card states;
+  - no network calls;
+  - no feature reads the donation module.
+
+### v2.12.0 — Story clock: a night stays a night
+
+Owner bug report: during a night-time chat, it became morning after 4–6 messages.
+
+**Cause.** The narrator would jump ahead on its own ("agli subah…", "subah ho gayi"). The record-keeper then wrote that jump into the world state, so later replies started in the morning too. On top of that, every story began at a hardcoded "evening".
+
+**Fix** (`src/lib/storyClock.ts`):
+- **Real start time.** The initial time of day comes from the story's own opening narration ("Raat ke gyarah baje…"). Quoted plans such as "'Subah 4 baje'" are ignored. When the opening does not say, the time is left open.
+- **TIME LAW in every prompt**, with the current story time. One exchange is a few minutes, and a night stays night. Time skips only when the reader chooses one: he sleeps, says "subah milte hain", asks to skip, or taps "Naya mod". "Continue" never skips time.
+- **Silent rewrite.** A reply that jumps to morning, sunrise, the next day or "hours later" without the reader asking is rewritten once, like the scene-presence guard.
+- **Record-keeper clamp.** Without a reader-chosen skip, time moves at most one step (evening → night → late-night). It never moves into the next morning, and no `dayDelta` is accepted.
+- **Tests:** `__tests__/storyClock.test.ts`.
+
+### v2.12.0 — Story galleries up to 50 images
+
+Owner request: long stories such as Hero's Party, with 24 heroines, need far more than 8 images.
+
+- **Published stories may now carry up to 50 media items** (cover included): `MAX_GALLERY_IMAGES` in `src/lib/validate.ts`.
+- **User submissions stay at 8 images** (`MAX_SUBMISSION_GALLERY_IMAGES`, the Worker upload limit, free KV storage).
+- **Older apps keep working.** Apps before v2.12 reject a gallery longer than 8 items. The story API therefore serves the first 8 items (cover kept) unless the request carries `?gallery=full`.
+  - The v2.12 app always sends `?gallery=full` (`withFullGallery` in `src/content/api.ts`).
+  - Stories with 8 or fewer images are served byte for byte unchanged.
+  - `scripts/verify-published-story.mjs` checks the `?gallery=full` responses.
+- **Smooth Story Detail.** The Media Library shows the first 8 tiles, then an **Aur images dekho** button reveals 12 more per tap (`src/lib/galleryReveal.ts`), so dozens of large images are never decoded at once. The lightbox still pages through every image.
+
 ### v2.11.1 — Memory is private to the story (Yaadein screen removed)
 
 Owner request: readers should not see the story's memory, because showing it serves no purpose.
