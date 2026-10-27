@@ -10,6 +10,7 @@ import {
   validateMedia,
   validateStorySubmission,
   MAX_GALLERY_IMAGES,
+  MAX_SUBMISSION_GALLERY_IMAGES,
 } from '../src/lib/validate';
 
 jest.mock('expo-constants', () => ({
@@ -17,7 +18,8 @@ jest.mock('expo-constants', () => ({
   default: { expoConfig: { extra: {} } },
 }));
 
-import { mediaApiUrl } from '../src/content/api';
+import { mediaApiUrl, storyFileApiUrl, withFullGallery } from '../src/content/api';
+import { GALLERY_FIRST, nextGalleryCount } from '../src/lib/galleryReveal';
 
 describe('isSafeMediaRef', () => {
   test('accepts published asset shapes', () => {
@@ -257,5 +259,55 @@ describe('mediaApiUrl', () => {
     expect(mediaApiUrl('https://example.test/api/', 'my-story', 'assets/gallery/image-01.png')).toBe(
       'https://example.test/api/stories/my-story/assets/gallery/image-01.png',
     );
+  });
+});
+
+describe('v2.12 gallery limit (50 for published stories, 8 for submissions)', () => {
+  function publishedMedia(n: number) {
+    const gallery = Array.from({ length: n }, (_, i) =>
+      i === 0
+        ? { id: 'cover', file: 'assets/cover.jpg', kind: 'cover' }
+        : { id: `img-${i}`, file: `assets/gallery/image-${String(i).padStart(2, '0')}.jpg`, kind: 'scene' },
+    );
+    return { cover: 'assets/cover.jpg', gallery };
+  }
+
+  test('limits', () => {
+    expect(MAX_GALLERY_IMAGES).toBe(50);
+    expect(MAX_SUBMISSION_GALLERY_IMAGES).toBe(8);
+  });
+
+  test('a published story may carry 50 images, not 51', () => {
+    expect(validateMedia(publishedMedia(50))).toEqual([]);
+    expect(validateMedia(publishedMedia(51)).some((i) => i.message.includes('too many'))).toBe(true);
+  });
+
+  test('a user submission is still capped at 8 images', () => {
+    const gallery = Array.from({ length: 9 }, (_, i) => ({
+      id: i === 0 ? 'cover' : `img-${i}`,
+      file: `media/media_${String(i).padStart(6, '0')}_abc12345`,
+      kind: i === 0 ? 'cover' : 'other',
+    }));
+    const res = validateStorySubmission(storyBody({ media: { cover: gallery[0].file, gallery } }));
+    expect(res.ok).toBe(false);
+    expect(res.issues.some((i) => i.path === 'story.media.gallery' && i.message.includes('max 8'))).toBe(true);
+  });
+
+  test('the app asks the story API for the full gallery', () => {
+    const url = storyFileApiUrl('https://api.example.test/v1', 'heros-party', 'story.json');
+    expect(withFullGallery(url)).toBe(`${url}?gallery=full`);
+    expect(withFullGallery('https://x.test/a?b=1')).toBe('https://x.test/a?b=1&gallery=full');
+  });
+
+  test('the loader fetches story.json with ?gallery=full', () => {
+    const src = require('fs').readFileSync(require('path').join(__dirname, '../src/content/loader.ts'), 'utf8');
+    expect(src).toMatch(/f === 'story\.json' \? withFullGallery\(url\) : url/);
+  });
+
+  test('Story Detail reveals the gallery 8 first, then 12 per tap', () => {
+    expect(GALLERY_FIRST).toBe(8);
+    expect(nextGalleryCount(8, 50)).toBe(20);
+    expect(nextGalleryCount(44, 50)).toBe(50);
+    expect(nextGalleryCount(8, 10)).toBe(10);
   });
 });

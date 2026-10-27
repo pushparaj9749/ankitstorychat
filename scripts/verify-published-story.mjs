@@ -84,9 +84,10 @@ function validateLocalEntry(entry, nativeSizes = defaultNativeSizes) {
   assert.equal(new Set(refs).size, refs.length, `${entry.id}: duplicate media references`);
   assert(refs.includes(media.cover), `${entry.id}: cover not registered in gallery`);
   if (entry.tags?.includes('dynamic-continuous')) {
-    assert.equal(refs.length, 8, `${entry.id}: expected one cover plus seven gallery images`);
+    // v2.12: one cover plus 7–49 gallery images (8–50 media items in total).
+    assert(refs.length >= 8 && refs.length <= 50, `${entry.id}: expected one cover plus 7–49 gallery images, got ${refs.length} items`);
     assert.equal(media.gallery.filter((item) => item.kind === 'cover' && item.file === media.cover).length, 1, `${entry.id}: expected exactly one cover metadata item`);
-    assert.equal(refs.filter((file) => file !== media.cover).length, 7, `${entry.id}: expected exactly seven gallery assets`);
+    assert.equal(refs.filter((file) => file !== media.cover).length, refs.length - 1, `${entry.id}: expected exactly one cover in the gallery`);
   }
   const assets = refs.map((file) => {
     const localBytes = readFileSync(join(dir, file));
@@ -119,10 +120,11 @@ export async function verify(base, transport = fetch, entry = entriesFor()[0], n
   assert.equal(remote.contentVersion, manifest.contentVersion, 'manifest version not propagated');
   assert.equal(remote.minAppVersion, manifest.minAppVersion);
   assert.deepEqual(remote.stories.find((story) => story.id === entry.id), entry, 'remote listing differs');
-  const pkg = await (await get(`stories/${entry.storyDir}`, 'application/json')).json();
+  // v2.12: `?gallery=full` = what the app asks for (without it old apps get the first 8 images).
+  const pkg = await (await get(`stories/${entry.storyDir}?gallery=full`, 'application/json')).json();
   for (const file of files) {
     assert.deepEqual(pkg[file], expected[file], `package ${file} differs`);
-    const body = await (await get(`stories/${entry.storyDir}/${file}.json`, 'application/json')).json();
+    const body = await (await get(`stories/${entry.storyDir}/${file}.json${file === 'story' ? '?gallery=full' : ''}`, 'application/json')).json();
     assert.deepEqual(body, expected[file], `${file}.json differs`);
   }
   const hashes = [];

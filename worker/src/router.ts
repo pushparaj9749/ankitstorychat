@@ -394,11 +394,69 @@ function guessContentType(file: string): string {
   return 'image/jpeg';
 }
 
+/* ---------------- legacy gallery compatibility (v2.12) ---------------- */
+
+/**
+ * Apps before v2.12 reject a story whose gallery has more than 8 entries
+ * ("Story data is invalid"). v2.12+ allows up to 50 and asks for the whole
+ * gallery with `?gallery=full`. Requests without it get the first 8 entries
+ * (cover kept), so a long gallery never breaks an old install. Stories with
+ * 8 or fewer images are served byte-for-byte unchanged.
+ */
+export const LEGACY_GALLERY_MAX = 8;
+
+export function wantsFullGallery(url: URL): boolean {
+  return url.searchParams.get('gallery') === 'full';
+}
+
+type GalleryItem = { kind?: unknown; file?: unknown };
+
+/** Story JSON trimmed for an old app, or null when no trim is needed. */
+export function trimGalleryForLegacy(story: unknown): Record<string, unknown> | null {
+  if (!story || typeof story !== 'object') return null;
+  const s = story as Record<string, unknown>;
+  const media = s.media as { cover?: unknown; gallery?: unknown } | undefined;
+  if (!media || typeof media !== 'object' || !Array.isArray(media.gallery)) return null;
+  const gallery = media.gallery as GalleryItem[];
+  if (gallery.length <= LEGACY_GALLERY_MAX) return null;
+  let keep = gallery.slice(0, LEGACY_GALLERY_MAX);
+  const cover = gallery.find((g) => g && (g.kind === 'cover' || g.file === media.cover));
+  if (cover && !keep.includes(cover)) keep = [cover, ...keep.slice(0, LEGACY_GALLERY_MAX - 1)];
+  return { ...s, media: { ...media, gallery: keep } };
+}
+
+/** story.json for a bundled story: full for v2.12+, trimmed gallery otherwise. */
+async function serveStoryJson(
+  env: Env,
+  key: string,
+  method: string,
+  full: boolean,
+): Promise<Response> {
+  if (full || method === 'HEAD') return serveAsset(env, key, JSON_TYPE, CACHE_STORY, {}, method);
+  const res = await env.ASSETS.fetch(new Request(`${ASSETS_ORIGIN}/${key}`));
+  if (!res.ok) return errorJson(404, 'not_found');
+  const text = await res.text();
+  const headers: Record<string, string> = {
+    'Content-Type': JSON_TYPE,
+    'Cache-Control': CACHE_STORY,
+    'X-Content-Type-Options': 'nosniff',
+    'Referrer-Policy': 'no-referrer',
+  };
+  let trimmed: Record<string, unknown> | null = null;
+  try {
+    trimmed = trimGalleryForLegacy(JSON.parse(text));
+  } catch {
+    trimmed = null;
+  }
+  return new Response(trimmed ? JSON.stringify(trimmed, null, 2) + '\n' : text, { status: 200, headers });
+}
+
 /** Whole story package as one JSON response. */
 async function serveStoryPackage(
   env: Env,
   storyDir: string,
   cors: Record<string, string>,
+  full = true,
 ): Promise<Response> {
   const files = ['story.json', 'characters.json', 'world.json', 'scenes.json', 'memory.json'];
   const results = await Promise.all(
@@ -408,6 +466,10 @@ async function serveStoryPackage(
   try {
     const pkg: Record<string, unknown> = {};
     await Promise.all(results.map(async (r, i) => (pkg[files[i].replace('.json', '')] = await r.json())));
+    if (!full) {
+      const trimmed = trimGalleryForLegacy(pkg.story);
+      if (trimmed) pkg.story = trimmed;
+    }
     return json(pkg, 200, {
       'Cache-Control': CACHE_STORY,
       'X-Content-Type-Options': 'nosniff',
@@ -542,7 +604,7 @@ async function handleApi(request: Request, env: Env, url: URL): Promise<Response
         if (!pkg) return withCors(errorJson(404, 'not_found'), cors);
         return withCors(json(pkg, 200, { 'Cache-Control': CACHE_STORY, 'X-Content-Type-Options': 'nosniff' }), cors);
       }
-      const r = await serveStoryPackage(env, route.storyDir, {});
+      const r = await serveStoryPackage(env, route.storyDir, {}, wantsFullGallery(url));
       return withCors(r, cors);
     }
     case 'story-file': {
@@ -582,6 +644,9 @@ async function handleApi(request: Request, env: Env, url: URL): Promise<Response
         );
       }
       const key = `content/stories/${route.storyDir}/${route.file}`;
+      if (route.file === 'story.json') {
+        return withCors(await serveStoryJson(env, key, method, wantsFullGallery(url)), cors);
+      }
       const cache = route.file.startsWith('assets/') ? CACHE_COVER : CACHE_STORY;
       const r = await serveAsset(env, key, guessContentType(route.file), cache, {}, method);
       return withCors(r, cors);

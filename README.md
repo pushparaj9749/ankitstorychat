@@ -64,13 +64,25 @@ Owner request: replace the About screen's "Help the Developer — Coming Soon" c
 - **QR code** of the same link, so the reader can scan it from another phone. It is drawn with `react-native-svg` using the pure-JS core encoder from `qrcode`, so there is no native module.
 - **The UPI ID** is shown as selectable text with a share button.
 - **No server, no tracking, nothing unlocked.** Kissa never sees payment data, and donating changes nothing in the app. The Privacy Policy has a new §9 that says this.
-- **Config:** `DONATE_UPI_ID` in `src/lib/donate.ts`. While it is empty, the card stays "Coming Soon".
+- **Config:** `DONATE_UPI_ID` in `src/lib/donate.ts` is set to `Ankitkingtrader@ybl`. If it is ever emptied, the card goes back to "Coming Soon".
 - **Guard test** (`__tests__/donate.test.tsx`) covers:
   - the link format and the UPI ID validation;
   - the QR code;
   - both card states;
   - no network calls;
   - no feature reads the donation module.
+
+### v2.12.0 — Story galleries up to 50 images
+
+Owner request: long stories such as Hero's Party, with 24 heroines, need far more than 8 images.
+
+- **Published stories may now carry up to 50 media items** (cover included): `MAX_GALLERY_IMAGES` in `src/lib/validate.ts`.
+- **User submissions stay at 8 images** (`MAX_SUBMISSION_GALLERY_IMAGES`, the Worker upload limit, free KV storage).
+- **Older apps keep working.** Apps before v2.12 reject a gallery longer than 8 items. The story API therefore serves the first 8 items (cover kept) unless the request carries `?gallery=full`.
+  - The v2.12 app always sends `?gallery=full` (`withFullGallery` in `src/content/api.ts`).
+  - Stories with 8 or fewer images are served byte for byte unchanged.
+  - `scripts/verify-published-story.mjs` checks the `?gallery=full` responses.
+- **Smooth Story Detail.** The Media Library shows the first 8 tiles, then an **Aur images dekho** button reveals 12 more per tap (`src/lib/galleryReveal.ts`), so dozens of large images are never decoded at once. The lightbox still pages through every image.
 
 ### v2.11.1 — Memory is private to the story (Yaadein screen removed)
 

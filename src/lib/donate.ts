@@ -13,7 +13,7 @@
  */
 
 /** The owner's public UPI ID (e.g. "name@okaxis"). Empty = donations off. */
-export const DONATE_UPI_ID = '';
+export const DONATE_UPI_ID: string = 'Ankitkingtrader@ybl';
 
 /** Name shown as the payee inside the UPI app. */
 export const DONATE_PAYEE_NAME = 'Kissa (Ankit)';

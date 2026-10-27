@@ -345,3 +345,41 @@ describe('StoryDetail (V2: streamed playback, offline gate)', () => {
     expect(text).toContain('Start Story');
   });
 });
+
+describe('StoryDetail Media Library (v2.12: up to 50 images, revealed in steps)', () => {
+  function bundleWithGallery(n: number) {
+    const b = validBundle();
+    const gallery = Array.from({ length: n }, (_, i) =>
+      i === 0
+        ? { id: 'cover', file: 'assets/cover.jpg', kind: 'cover', label: 'Cover' }
+        : { id: `img-${i}`, file: `assets/gallery/image-${String(i).padStart(2, '0')}.jpg`, kind: 'scene', label: `Scene ${i}` },
+    );
+    return { ...b, story: { ...b.story, media: { cover: 'assets/cover.jpg', gallery } } };
+  }
+  const tiles = () =>
+    tree.root.findAll((n) => typeof n.type === 'function' && !!n.props.item && typeof n.props.index === 'number' && !!n.props.storyDir);
+
+  test('a long gallery shows the first 8 tiles, then reveals 12 more per tap', async () => {
+    getBundle.mockResolvedValue(bundleWithGallery(30));
+    await render();
+    expect(tiles()).toHaveLength(8);
+    expect(renderText()).toContain('Media Library (30)');
+    expect(renderText()).toContain('22 aur');
+
+    const more = () => tree.root.findAll((n) => n.props.testID === 'media-more' && typeof n.props.onPress === 'function')[0];
+    await renderer.act(async () => more().props.onPress());
+    expect(tiles()).toHaveLength(20);
+    expect(renderText()).toContain('10 aur');
+
+    await renderer.act(async () => more().props.onPress());
+    expect(tiles()).toHaveLength(30);
+    expect(more()).toBeUndefined();
+  });
+
+  test('8 or fewer images: all shown, no "Aur images dekho" button', async () => {
+    getBundle.mockResolvedValue(bundleWithGallery(8));
+    await render();
+    expect(tiles()).toHaveLength(8);
+    expect(tree.root.findAll((n) => n.props.testID === 'media-more')).toHaveLength(0);
+  });
+});

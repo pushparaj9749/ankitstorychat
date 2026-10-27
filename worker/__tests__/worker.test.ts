@@ -21,6 +21,7 @@ const STORIES = {
     stories: [
       { id: 'goddess-who-chose-me', storyDir: 'goddess-who-chose-me' },
       { id: 'cafe-queen-myra', storyDir: 'cafe-queen-myra' },
+      { id: 'long-gallery', storyDir: 'long-gallery' },
     ],
   }),
   'content/stories/goddess-who-chose-me/story.json': JSON.stringify({ id: 'goddess-who-chose-me' }),
@@ -32,6 +33,25 @@ const STORIES = {
   'content/stories/goddess-who-chose-me/assets/references/mc.jpg': 'REFERENCEBYTES',
   'content/stories/goddess-who-chose-me/assets/creator.jpg': 'AVATARBYTES',
   'covers/cafe-queen-myra.jpg': 'JPEGBYTES2',
+  'content/stories/long-gallery/story.json': JSON.stringify(
+    {
+      id: 'long-gallery',
+      media: {
+        cover: 'assets/cover.jpg',
+        gallery: Array.from({ length: 10 }, (_, i) =>
+          i === 0
+            ? { id: 'cover', file: 'assets/cover.jpg', kind: 'cover' }
+            : { id: `img-${i}`, file: `assets/gallery/image-${String(i).padStart(2, '0')}.jpg`, kind: 'scene' },
+        ),
+      },
+    },
+    null,
+    2,
+  ),
+  'content/stories/long-gallery/characters.json': JSON.stringify({ storyId: 'long-gallery' }),
+  'content/stories/long-gallery/world.json': JSON.stringify({ storyId: 'long-gallery' }),
+  'content/stories/long-gallery/scenes.json': JSON.stringify({ storyId: 'long-gallery' }),
+  'content/stories/long-gallery/memory.json': JSON.stringify({ storyId: 'long-gallery' }),
 };
 
 function makeEnv(files: Record<string, string> = STORIES): Env {
@@ -200,6 +220,37 @@ describe('GET endpoints', () => {
       const res = await get(p);
       expect(res.status).toBe(404);
     }
+  });
+});
+
+describe('long galleries (v2.12): old apps get the first 8, ?gallery=full gets all', () => {
+  type S = { media: { cover: string; gallery: { file: string; kind: string }[] } };
+  test('story.json without the flag is trimmed to 8 entries, cover kept', async () => {
+    const res = await get('/api/stories/long-gallery/story.json');
+    expect(res.status).toBe(200);
+    expect(res.headers.get('Content-Type')).toContain('application/json');
+    expect(res.headers.get('Cache-Control')).toContain('public');
+    const body = (await res.json()) as S;
+    expect(body.media.gallery).toHaveLength(8);
+    expect(body.media.gallery[0]).toMatchObject({ kind: 'cover', file: 'assets/cover.jpg' });
+  });
+
+  test('story.json with ?gallery=full is the original file, byte for byte', async () => {
+    const res = await get('/api/stories/long-gallery/story.json?gallery=full');
+    expect(await res.text()).toBe(STORIES['content/stories/long-gallery/story.json']);
+  });
+
+  test('package route trims too, unless ?gallery=full', async () => {
+    const legacy = (await (await get('/api/stories/long-gallery')).json()) as { story: S; world: unknown };
+    expect(legacy.story.media.gallery).toHaveLength(8);
+    expect(legacy.world).toEqual({ storyId: 'long-gallery' });
+    const full = (await (await get('/api/stories/long-gallery?gallery=full')).json()) as { story: S };
+    expect(full.story.media.gallery).toHaveLength(10);
+  });
+
+  test('stories with 8 or fewer images are served unchanged', async () => {
+    const res = await get('/api/stories/goddess-who-chose-me/story.json');
+    expect(await res.text()).toBe(STORIES['content/stories/goddess-who-chose-me/story.json']);
   });
 });
 

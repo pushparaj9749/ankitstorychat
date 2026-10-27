@@ -36,6 +36,7 @@ import {
   manifestApiUrl,
   storyFileApiUrl,
   storyPackageApiUrl,
+  withFullGallery,
 } from './api';
 import {
   STORIES_DIR,
@@ -229,7 +230,8 @@ export async function getBundle(
     const files = ['story.json', 'characters.json', 'world.json', 'scenes.json', 'memory.json'] as const;
     const fetched: Record<string, unknown> = {};
     for (const f of files) {
-      fetched[f] = await fetchJsonWithTimeout(storyFileApiUrl(base, meta.storyDir, f));
+      const url = storyFileApiUrl(base, meta.storyDir, f);
+      fetched[f] = await fetchJsonWithTimeout(f === 'story.json' ? withFullGallery(url) : url);
     }
     story = fetched['story.json'] as StoryFile;
     characters = fetched['characters.json'] as CharactersFile;
