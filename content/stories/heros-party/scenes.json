@@ -1,0 +1,86 @@
+{
+  "storyId": "heros-party",
+  "version": 1,
+  "scenes": [
+    {
+      "id": "devi_ka_darbar",
+      "title": "Devi Ka Darbar",
+      "narration": [
+        "*Lucknow, ek baarish wali shaam. Office se lautte hue tumne dekha — ek chhoti si bachchi apni gend uthaane sadak ke beech bhaagi, aur saamne se ek truck pagal ki tarah aa raha tha.*",
+        "*Socha nahi, bas daud pade. Bachchi ko dhakka diya, woh footpath par surakshit gir gayi... aur phir headlights ki safed roshni, ek tez horn, aur sab kuch khamosh.*",
+        "*Jab aankh khuli, toh na sadak thi, na baarish. Chaaron taraf sunehre baadal, hawa mein tairti safed sangmarmar ki seedhiyan, aur itne bade gulaabi kamal ki ek-ek patti tumse badi. Kapde wahi hain — safed T-shirt, navy jacket — par pairon ke neeche zameen nahi, baadal hain.*",
+        "*Saamne ek tairte hue sangmarmar ke singhasan par baithi hai ek ladki... nahi, ladki nahi — devi. Sir ke peeche ek patla sunehra prabhamandal, kamar tak lehraate kaale baal jinmein sone ki chamak hai, aur safed-sunehri saari jo hawa ke bina bhi lehra rahi hai.*",
+        "Devi Lavanya: \"Aakhirkaar! Kitni der laga di aane mein, mere hero.\" *Woh singhasan se jhukti hai aur ek ungli se tumhari thodi upar uthaati hai.* \"Hmm... upar se dekhne se zyada cute ho. Aur sharmaate bhi ho? Uff.\"",
+        "*Tumhare gaal garam ho jaate hain. Devi ki muskaan aur shararati ho jaati hai.*",
+        "Devi Lavanya: \"Main Lavanya hoon — kismat aur prem ki devi. Tumne ek bachchi ki jaan bachaayi aur apni de di. Aisi aatma main barbaad nahi hone deti.\" *Uski aankhen chamakti hain.* \"Isliye tumhe nayi zindagi mil rahi hai. Mayavarsh mein — jahan guild hain, academy hai, jaadu hai... aur ek Shaitan Raja, Andhakasur, jo jaag chuka hai.\"",
+        "Devi Lavanya: \"Tumhara kaam? Andhakasur ko harana.\" *Tumhari ghabraayi shakal dekh ke woh khilkhila ke hasti hai.* \"Arre, akele nahi! Pichhle hero akele lade the aur haar gaye. Is baar niyam alag hai — tumhe apni party banani hogi.\"",
+        "Devi Lavanya: \"Mayavarsh ki sabse takatwar ladkiyan — talwar wali, aag wali, chhaaya wali, sab — duniya bhar mein bikhri hain. Ek-ek karke dhoondhna, ek-ek karke apna banana. Ek saath koi nahi milegi... aur kahan milegi, ye main bhi nahi bataungi.\" *Woh aankh maarti hai.*",
+        "*Woh tumhari kalaai pakadti hai aur tumhari hatheli ko apne hothon se halka sa chhooti hai. Wahan ek halki gulaabi-sunehri roshni chamak uthti hai — ek nanha sa kamal ka nishaan.*",
+        "Devi Lavanya: \"Ye mera aashirwaad hai — Prem-Bandhan. Jo ladki dil se tumhari party mein aayegi, uski kalaai par bhi yahi nishaan khilega, aur tum dono saath mein takatwar banoge.\" *Phir awaaz dheemi, thodi jalan bhari.* \"Bas yaad rakhna... woh sab bold hongi, bahut flirt karengi. Par pehli main hoon. Bhoolna mat.\"",
+        "*Pairon ke neeche ke baadal chhatne lagte hain. Bahut neeche ek nayi duniya dikhti hai — patthar ke shehar, jangal, barfile pahad, chamakta samundar, aur door uttar mein kaale baadalon ka ek ghera.*",
+        "Devi Lavanya: *(tumhare kaan ke paas jhuk ke)* \"Toh bolo, mere sharmile hero... taiyaar ho?\""
+      ],
+      "fallbackLines": [
+        "*Lavanya tumhara jawab sun ke ek pal tumhe dekhti rehti hai, phir uski muskaan aur gehri ho jaati hai.*",
+        "Devi Lavanya: \"Jo bhi ho, ab tum mere hero ho. Neeche Mayavarsh tumhara intezaar kar raha hai... aur main upar se dekhti rahungi. Har pal.\""
+      ],
+      "choices": [
+        {
+          "id": "ready",
+          "text": "*Dil zor se dhadak raha hai, par tum dheere se sir hilaate ho — 'Ji... main taiyaar hoon.'*",
+          "shortLabel": "Main taiyaar hoon",
+          "keywords": [
+            "haan",
+            "taiyaar",
+            "ready",
+            "chalo",
+            "theek"
+          ],
+          "next": null,
+          "effects": {
+            "memory": [
+              "In Swarg-lok, {{playerName}} shyly told Devi Lavanya that he was ready to go to Mayavarsh as the Hero."
+            ]
+          }
+        },
+        {
+          "id": "why_me",
+          "text": "*Ghabraake — 'Main hi kyun? Main toh ladna bhi nahi jaanta... aur ladkiyon se baat karna bhi nahi.'*",
+          "shortLabel": "Main hi kyun?",
+          "keywords": [
+            "kyun",
+            "main hi",
+            "ladna",
+            "nahi jaanta",
+            "darr"
+          ],
+          "next": null,
+          "effects": {
+            "memory": [
+              "In Swarg-lok, {{playerName}} nervously asked Devi Lavanya why she chose him when he could not fight or even talk to girls."
+            ]
+          }
+        },
+        {
+          "id": "join_me",
+          "text": "*Laal hote hue — 'Aap... aap meri party mein nahi aa sakti?'*",
+          "shortLabel": "Aap bhi chalogi?",
+          "keywords": [
+            "aap",
+            "party",
+            "saath",
+            "chalogi",
+            "devi"
+          ],
+          "next": null,
+          "effects": {
+            "memory": [
+              "In Swarg-lok, {{playerName}} blushingly asked Devi Lavanya whether she could join his party herself."
+            ]
+          }
+        }
+      ]
+    }
+  ],
+  "endings": []
+}

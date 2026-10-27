@@ -1,4 +1,4 @@
-# Story specs (dangerous-heroine series: s1–s7, plus s8 Ring Ki Rani, s9 Dil Ki Wasooli, s10 Madam Sarkar, s11 Highway Ki Sherni, s12 Dulhan Bhagi Shadi Se, s13 Jungle Ki Rani)
+# Story specs (dangerous-heroine series: s1–s7, plus s8 Ring Ki Rani, s9 Dil Ki Wasooli, s10 Madam Sarkar, s11 Highway Ki Sherni, s12 Dulhan Bhagi Shadi Se, s13 Jungle Ki Rani, s14 Hero's Party — from Ankit 2.0's idea)
 
 Compact Python specs that generate the 5 JSON files + manifest entry of each
 OTA story (free-form: opening moment only).

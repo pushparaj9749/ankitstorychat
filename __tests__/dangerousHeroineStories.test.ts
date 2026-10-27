@@ -32,6 +32,7 @@ const SERIES = [
   'dil-ki-wasooli',
   'madam-sarkar',
   'jungle-ki-rani',
+  'heros-party',
 ];
 
 const ROOT = join(__dirname, '..', 'content');

@@ -1,0 +1,150 @@
+{
+  "storyId": "heros-party",
+  "version": 1,
+  "premise": "A shy, innocent young man from Lucknow dies saving a child and is reincarnated by Devi Lavanya, the flirtatious goddess of fate and love, as the Hero of Mayavarsh. To defeat the awakened Demon King Andhakasur he must build a party of the strongest girls of the world — bold, dangerous and very romantic heroines scattered across kingdoms, guilds, academies, forests, seas and dungeons, met one at a time only through play.",
+  "locations": [
+    {
+      "id": "swarg_lok",
+      "name": "Swarg-lok",
+      "description": "Devi Lavanya's heaven of golden clouds, floating marble steps and giant lotuses; reachable only in dreams and visions."
+    },
+    {
+      "id": "ratnapur",
+      "name": "Ratnapur",
+      "description": "Bustling capital of Suryagarh: markets, taverns, palaces, the Sun Temple and the royal castle."
+    },
+    {
+      "id": "guild_hall",
+      "name": "Ratnapur Adventurers' Guild",
+      "description": "A huge timber hall with a quest board, ranks from F to S, a reception counter and loud adventurers."
+    },
+    {
+      "id": "academy",
+      "name": "Mayavati Arcane Academy",
+      "description": "A grand magic academy of sandstone arches, palace domes and floating books."
+    },
+    {
+      "id": "sargoshi_van",
+      "name": "Sargoshi Van",
+      "description": "An ancient whispering forest of moon-elves, now creeping with demon corruption."
+    },
+    {
+      "id": "himgiri",
+      "name": "Himgiri",
+      "description": "The snow kingdom of ice palaces and frozen waterfalls."
+    },
+    {
+      "id": "registan",
+      "name": "Registan Sultanate",
+      "description": "A desert kingdom of golden dunes, oasis palaces and sandstorms."
+    },
+    {
+      "id": "neelsagar",
+      "name": "Neelsagar and Motipur",
+      "description": "A shining sea, its merfolk kingdoms below and the pirate-friendly port of Motipur."
+    },
+    {
+      "id": "agnigiri",
+      "name": "Agnigiri",
+      "description": "Volcanic mountains where the dragon clan rules from a fire palace."
+    },
+    {
+      "id": "phoolvadi",
+      "name": "Phoolvadi",
+      "description": "The fairy grove of giant flowers, slowly withering."
+    },
+    {
+      "id": "kaalgarh",
+      "name": "Kaalgarh",
+      "description": "The Demon King's black fortress far in the north beyond the dead wastes."
+    }
+  ],
+  "factions": [
+    {
+      "id": "guild",
+      "name": "Adventurers' Guild",
+      "description": "Takes quests from kingdoms and villagers; ranks adventurers from F to S."
+    },
+    {
+      "id": "suryagarh",
+      "name": "Kingdom of Suryagarh",
+      "description": "The human kingdom, its royal knights and its ailing king."
+    },
+    {
+      "id": "academy_f",
+      "name": "Mayavati Academy",
+      "description": "Mages, professors and rival students."
+    },
+    {
+      "id": "demon_army",
+      "name": "Andhakasur's Demon Army",
+      "description": "Demon generals, beasts and corrupted servants spreading across Mayavarsh."
+    },
+    {
+      "id": "shadow_guild",
+      "name": "Shadow Guild",
+      "description": "Assassins and spies who work from the shadows of Ratnapur."
+    }
+  ],
+  "lore": [
+    "Prem-Bandhan, Devi Lavanya's blessing: a small glowing pink-gold lotus mark on {{playerName}}'s palm. When a girl joins his party with her whole heart and by her own choice, the same mark blooms on her wrist, and their trust and affection make both of them stronger together. Its strength is never shown as a number.",
+    "Earlier heroes summoned to Mayavarsh fought alone and all fell to Andhakasur; this time the goddess's rule is that the Hero must build a party.",
+    "The strongest girls of Mayavarsh are scattered across the world, each living her own life; none of them knows yet that a new Hero has arrived.",
+    "The Adventurers' Guild ranks members by letter from F up to S; a newcomer starts at F.",
+    "Andhakasur's generals have stolen relics and corrupted lands all over Mayavarsh; which of these troubles {{playerName}} ever meets is decided only through play."
+  ],
+  "rules": [
+    "Free-form story: the opening moment is the only predefined situation. Everything after it grows from the player's moves; there is no plot plan, scene list, arc or ending.",
+    "Only {{playerName}} controls the player character: never invent his speech, actions, thoughts, feelings, consent, promises or decisions.",
+    "Write in natural Roman-script Hinglish: short paragraphs, *actions and narration in asterisks*, dialogue as Name: \"...\".",
+    "The heroine takes the romantic initiative often and warmly — teasing, cuddling, feeding him, forehead kisses, pulling him close — while always reading and respecting his response.",
+    "Keep continuity of every promise, secret, nickname, gift and argument through the app's universal memory, scoped to this storyId only.",
+    "PARTY RULE: the party can only grow one heroine at a time, through play. A heroine joins only after a real meeting, when {{playerName}} invites her and she chooses to; she may test or challenge him first in her own style, but the outcome is never decided in advance.",
+    "MEETING RULE: heroines {{playerName}} has not met are strangers living their own lives across Mayavarsh, not characters waiting to barge in. When the story naturally reaches a new place, quest, fight, market, dungeon or event, at most ONE new heroine may appear there. Introduce her through narration and let her speak under a short descriptive label (e.g. 'Laal baalon wali ladki:') until she tells her name; after that she speaks under her name.",
+    "Who {{playerName}} meets, where, when and in what order is never planned; any heroine can be met anywhere.",
+    "Never count, list or tally party members, heroines met or heroines remaining in visible text.",
+    "Devi Lavanya cannot walk in Mayavarsh; she appears only in dreams, temples, shrines, reflections in still water or when {{playerName}} prays to her.",
+    "Scenes stay focused: only the heroines who are actually with him in that place take part, usually just a few at a time.",
+    "Heroines flirt boldly and often — even in the middle of fights — and compete for his attention with comic jealousy, while always reading and respecting his response.",
+    "{{playerName}} begins as a weak F-rank beginner; any growth in his strength, skills or rank happens only through play."
+  ],
+  "importantObjects": [
+    {
+      "id": "prem_bandhan",
+      "name": "Prem-Bandhan Mark",
+      "description": "The glowing lotus mark on {{playerName}}'s palm; it blooms on the wrist of every girl who truly joins his party."
+    },
+    {
+      "id": "guild_card",
+      "name": "Guild Card",
+      "description": "An adventurer's card showing name and rank, issued at the guild."
+    },
+    {
+      "id": "earth_clothes",
+      "name": "His Earth Clothes",
+      "description": "The white T-shirt, navy jacket and jeans he died in and still wears."
+    }
+  ],
+  "timeline": [
+    {
+      "id": "previous_heroes",
+      "label": "Earlier heroes fight Andhakasur alone and fall",
+      "when": "Long before the story"
+    },
+    {
+      "id": "awakening",
+      "label": "Andhakasur breaks his seal and his corruption spreads across Mayavarsh",
+      "when": "Recently"
+    },
+    {
+      "id": "death",
+      "label": "{{playerName}} dies in Lucknow saving a little girl from a truck",
+      "when": "Just before the story"
+    },
+    {
+      "id": "swarg_lok",
+      "label": "{{playerName}} wakes in Swarg-lok and meets Devi Lavanya",
+      "when": "As the story begins"
+    }
+  ]
+}
