@@ -3,7 +3,7 @@
  * and on the website. Honest local-first disclosure.
  */
 
-export const PRIVACY_UPDATED = '27 October 2026';
+export const PRIVACY_UPDATED = '11 September 2026';
 
 export interface LegalSection {
   heading: string;
@@ -76,14 +76,7 @@ export const PRIVACY_SECTIONS: LegalSection[] = [
     ],
   },
   {
-    heading: '9. Voluntary donations (UPI)',
-    body: [
-      'About → Help the Developer can open YOUR UPI app (or show a QR) with the developer\'s UPI ID filled in. The payment happens entirely inside your UPI app between you and the payee — Kissa never sees, receives, or stores any payment details, and no Kissa server is contacted.',
-      'Donating is 100% optional. It unlocks nothing and changes nothing in the app.',
-    ],
-  },
-  {
-    heading: '10. Changes',
+    heading: '9. Changes',
     body: [
       'If this policy changes materially, the "updated" date below changes and the new text ships in-app and on the website.',
     ],
