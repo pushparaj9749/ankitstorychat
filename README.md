@@ -56,6 +56,22 @@ moves the tale forward — with memory and relationships, and no script: no pred
 
 ## 🆕 Release notes
 
+### v2.12.0 — Voluntary UPI donations ("Help the Developer")
+
+Owner request: replace the About screen's "Help the Developer — Coming Soon" card with a real, purely voluntary donation option.
+
+- **Donate via UPI** opens the reader's own UPI app (GPay / PhonePe / Paytm / BHIM …) through a standard `upi://pay` link, with payee **Kissa (Ankit)** pre-filled. The reader picks the amount. If the phone has no UPI app, the UPI ID is offered through the share sheet instead.
+- **QR code** of the same link, so the reader can scan it from another phone. It is drawn with `react-native-svg` using the pure-JS core encoder from `qrcode`, so there is no native module.
+- **The UPI ID** is shown as selectable text with a share button.
+- **No server, no tracking, nothing unlocked.** Kissa never sees payment data, and donating changes nothing in the app. The Privacy Policy has a new §9 that says this.
+- **Config:** `DONATE_UPI_ID` in `src/lib/donate.ts`. While it is empty, the card stays "Coming Soon".
+- **Guard test** (`__tests__/donate.test.tsx`) covers:
+  - the link format and the UPI ID validation;
+  - the QR code;
+  - both card states;
+  - no network calls;
+  - no feature reads the donation module.
+
 ### v2.11.1 — Memory is private to the story (Yaadein screen removed)
 
 Owner request: readers should not see the story's memory, because showing it serves no purpose.
