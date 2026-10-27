@@ -1,7 +1,7 @@
 {
-  "contentVersion": 54,
+  "contentVersion": 55,
   "minAppVersion": "1.0.0",
-  "updatedAt": "2026-10-25T00:00:00Z",
+  "updatedAt": "2026-10-27T00:00:00Z",
   "stories": [
     {
       "id": "arranged-marriage-wala-love",
@@ -53,6 +53,83 @@
         "verified": true
       },
       "updatedAt": "2026-10-03T14:46:42Z"
+    },
+    {
+      "id": "heros-party",
+      "title": "Hero's Party",
+      "tagline": "Truck se mara, devi ne uthaaya... aur bola — 'Shaitan Raja ko maarna hai? Pehle duniya ki sabse takatwar ladkiyon ki party banao.'",
+      "description": "Lucknow ka ek sharmila, seedha-saadha ladka — jisne kabhi kisi ladki se theek se baat bhi nahi ki — ek baarish wali shaam ek bachchi ko truck se bachaate hue apni jaan de deta hai. Aankh khulti hai sunehre baadalon ke beech, jahan kismat aur prem ki devi Lavanya — itni khoobsurat ki saans ruk jaaye — uski thodi utha ke kehti hai, 'Photo se zyada cute ho.' Ab wo Mayavarsh ka Hero hai: ek jaadui duniya jahan Adventurers' Guild hai, Mayavati Arcane Academy hai, ajgar hain, pariyan hain, aur uttar mein jaag chuka hai Shaitan Raja Andhakasur. Use harane ke liye chahiye ek party — aur Devi ka niyam hai ki party mein hongi Mayavarsh ki sabse takatwar ladkiyan. Aag wali mage, talwar wali knight, chhaaya wali assassin, ajgar rajkumari, pishachini countess, aasmaani luteron ki captain... duniya bhar mein bikhri chaubees bold, khatarnak aur bahut romantic ladkiyan, jo ladaai ke beech bhi flirt karna nahi chhodti. Koi ek saath nahi milegi — kisi mission mein, kisi gali mein, kisi dungeon mein, ek-ek karke. Kaun kab milegi, kaun party mein aayegi, aur hero kaise badlega — sab tumhare faislon par.",
+      "genres": [
+        "Romance",
+        "Fantasy",
+        "Adventure",
+        "Comedy"
+      ],
+      "tags": [
+        "romance",
+        "fantasy",
+        "isekai",
+        "reincarnation",
+        "multi-heroine",
+        "shy-hero",
+        "bold-heroines",
+        "goddess",
+        "guild",
+        "magic-academy",
+        "demon-king",
+        "party-building",
+        "player-agency",
+        "dynamic-continuous",
+        "ongoing",
+        "hinglish"
+      ],
+      "characters": [
+        "Devi Lavanya",
+        "Tara Agnivanshi",
+        "Veera Khadgini",
+        "Neelambari Himkanya",
+        "Chandrika Vanshree",
+        "Kalindi Shyamchhaya",
+        "Saanvi Prakashini",
+        "Bhairavi Rudrashakti",
+        "Nagina Sarpkanya",
+        "Tamasi Raatrani",
+        "Mehrunissa",
+        "Damini Vajra",
+        "Vasudha Lohkarni",
+        "Laila Swarnapankh",
+        "Chakori",
+        "Gulnaar",
+        "Meghna Jalrani",
+        "Zoya Siyahraat",
+        "Rajkumari Suryaprabha",
+        "Shehnaz",
+        "Rubina",
+        "Professor Ahilya Granthmati",
+        "Mayavini",
+        "Captain Rehana Toofani",
+        "Avni Trikaldarshi",
+        "Andhakasur"
+      ],
+      "ageRating": "18+",
+      "contentLevel": "mature",
+      "language": "hinglish",
+      "version": 1,
+      "coverUrl": "stories/heros-party/assets/cover.jpg",
+      "accentColor": "#C9A44C",
+      "userRole": "{{playerName}} — an adult Indian man aged 23, controlled exclusively by the player. On Earth he was a shy, kind-hearted junior software tester in Lucknow who lived alone, had never had a girlfriend and went red whenever a girl even said hello. One rainy evening he pushed a little girl out of the way of a speeding truck and died. Devi Lavanya, goddess of fate and love, has reincarnated him in the magic world of Mayavarsh with his own face, body and clothes as the Hero meant to defeat the Demon King Andhakasur, and blessed him with the Prem-Bandhan. He starts innocent, polite, weak (a complete beginner with no fighting skill or magic training) and easily flustered — that is only where he begins; everything he says, feels and does is the player's choice. The player supplies his display name at runtime; never assign him another name, and never write his thoughts, feelings, dialogue, actions or decisions.",
+      "setting": "Mayavarsh, a magical fantasy world blending Indian palaces and European castles: the floating golden heaven of Swarg-lok where Devi Lavanya lives; the human kingdom of Suryagarh and its bustling capital Ratnapur with its Adventurers' Guild hall, quest board, markets, taverns and the Sun Temple; Mayavati Arcane Academy with its sandstone arches and floating books; the moonlit Sargoshi Van forest of the elves; the snow kingdom of Himgiri; the Registan desert sultanate; Neelsagar sea and its port of Motipur; the volcanic dragon mountains of Agnigiri; the fairy grove of Phoolvadi; ancient dungeons and ruins everywhere; and, far in the north beyond the dead wastes, Kaalgarh — the black fortress of the Demon King Andhakasur.",
+      "estimatedMinutes": 60,
+      "featured": false,
+      "isNew": true,
+      "popularity": 99,
+      "storyDir": "heros-party",
+      "creator": {
+        "name": "Ankit 2.0",
+        "avatar": "assets/creator.jpg",
+        "verified": false
+      },
+      "updatedAt": "2026-10-27T00:00:00Z"
     },
     {
       "id": "jungle-ki-rani",

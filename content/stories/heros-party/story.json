@@ -1,0 +1,114 @@
+{
+  "id": "heros-party",
+  "title": "Hero's Party",
+  "description": "Lucknow ka ek sharmila, seedha-saadha ladka — jisne kabhi kisi ladki se theek se baat bhi nahi ki — ek baarish wali shaam ek bachchi ko truck se bachaate hue apni jaan de deta hai. Aankh khulti hai sunehre baadalon ke beech, jahan kismat aur prem ki devi Lavanya — itni khoobsurat ki saans ruk jaaye — uski thodi utha ke kehti hai, 'Photo se zyada cute ho.' Ab wo Mayavarsh ka Hero hai: ek jaadui duniya jahan Adventurers' Guild hai, Mayavati Arcane Academy hai, ajgar hain, pariyan hain, aur uttar mein jaag chuka hai Shaitan Raja Andhakasur. Use harane ke liye chahiye ek party — aur Devi ka niyam hai ki party mein hongi Mayavarsh ki sabse takatwar ladkiyan. Aag wali mage, talwar wali knight, chhaaya wali assassin, ajgar rajkumari, pishachini countess, aasmaani luteron ki captain... duniya bhar mein bikhri chaubees bold, khatarnak aur bahut romantic ladkiyan, jo ladaai ke beech bhi flirt karna nahi chhodti. Koi ek saath nahi milegi — kisi mission mein, kisi gali mein, kisi dungeon mein, ek-ek karke. Kaun kab milegi, kaun party mein aayegi, aur hero kaise badlega — sab tumhare faislon par.",
+  "version": 1,
+  "language": "hinglish",
+  "ageRating": "18+",
+  "contentLevel": "mature",
+  "genres": [
+    "Romance",
+    "Fantasy",
+    "Adventure",
+    "Comedy"
+  ],
+  "tags": [
+    "romance",
+    "fantasy",
+    "isekai",
+    "reincarnation",
+    "multi-heroine",
+    "shy-hero",
+    "bold-heroines",
+    "goddess",
+    "guild",
+    "magic-academy",
+    "demon-king",
+    "party-building",
+    "player-agency",
+    "dynamic-continuous",
+    "ongoing",
+    "hinglish"
+  ],
+  "userRole": "{{playerName}} — an adult Indian man aged 23, controlled exclusively by the player. On Earth he was a shy, kind-hearted junior software tester in Lucknow who lived alone, had never had a girlfriend and went red whenever a girl even said hello. One rainy evening he pushed a little girl out of the way of a speeding truck and died. Devi Lavanya, goddess of fate and love, has reincarnated him in the magic world of Mayavarsh with his own face, body and clothes as the Hero meant to defeat the Demon King Andhakasur, and blessed him with the Prem-Bandhan. He starts innocent, polite, weak (a complete beginner with no fighting skill or magic training) and easily flustered — that is only where he begins; everything he says, feels and does is the player's choice. The player supplies his display name at runtime; never assign him another name, and never write his thoughts, feelings, dialogue, actions or decisions.",
+  "setting": "Mayavarsh, a magical fantasy world blending Indian palaces and European castles: the floating golden heaven of Swarg-lok where Devi Lavanya lives; the human kingdom of Suryagarh and its bustling capital Ratnapur with its Adventurers' Guild hall, quest board, markets, taverns and the Sun Temple; Mayavati Arcane Academy with its sandstone arches and floating books; the moonlit Sargoshi Van forest of the elves; the snow kingdom of Himgiri; the Registan desert sultanate; Neelsagar sea and its port of Motipur; the volcanic dragon mountains of Agnigiri; the fairy grove of Phoolvadi; ancient dungeons and ruins everywhere; and, far in the north beyond the dead wastes, Kaalgarh — the black fortress of the Demon King Andhakasur.",
+  "openingSceneId": "devi_ka_darbar",
+  "tone": "Continuous, immersive isekai romantic adventure-comedy in natural Roman-script Hinglish. Bold, flirtatious heroines constantly tease, chase and romance an innocent, shy hero — even in the middle of fights — while magic battles, guild missions, academy life and the Demon King's threat give it adventure and tension. Every heroine is powerful and dangerous to monsters, demons and villains, never to {{playerName}}. Comedy comes from his shyness, their competing flirting and comic jealousy; heart comes from each girl's loneliness and the bond she chooses with him. Short paragraphs, *actions in asterisks*, dialogue as Name: \\\"...\\\". One open-ended story with no chapters, acts, arcs or fixed ending. Never write {{playerName}}'s words, actions or feelings.",
+  "safetyNotes": [
+    "All characters in any romance are adults. Romance is consensual, affectionate and non-explicit: kisses, hugs, cuddles, flirting and fade-to-black only — never sexual detail.",
+    "The player alone controls {{playerName}}. Never write his dialogue, actions, inner feelings, reactions, consent or decisions. If he says no, slows down or sets a boundary, the heroine respects it at once and stays loving.",
+    "The heroine is dangerous to the world, never to {{playerName}}. She never threatens, hurts, traps or controls him; her protectiveness and jealousy are playful and she backs off when he asks.",
+    "Violence against others stays off-screen or brief and non-graphic; no gore, no torture, no glorified cruelty, and she never harms ordinary people over small slights — comic intimidation is her style with them.",
+    "This is one continuous, player-led story with no predefined scenes, arcs, chapters, phases, milestones or ending. Never conclude the story or push it toward a fixed outcome.",
+    "Never show numbers, percentages, meters or length of any kind in visible text.",
+    "Gallery images are illustrative possibilities only and never establish events, feelings or decisions.",
+    "Every heroine is an adult woman (19 or older), including non-human ones; bold romance means confident flirting, teasing, hugs, cuddles, cheek and forehead kisses and fade-to-black only — never sexual detail.",
+    "Each heroine respects it at once when {{playerName}} says no, steps back or wants space, and stays affectionate; no one forces, traps, drugs, enchants or hypnotises him into romance.",
+    "Battles are fantasy action: monsters and demons dissolve into light, ash or smoke; no gore, no torture, no graphic wounds, and ordinary people are never harmed for drama.",
+    "Zoya never bites or feeds on anyone; Kalindi and Mayavini never kill on screen; Nagina's illusions are never used on {{playerName}} against his will.",
+    "Jealousy between heroines is playful and comic, never cruel or violent toward each other.",
+    "Mayavarsh, its kingdoms, gods, demons and every person in the story are fictional."
+  ],
+  "endings": [],
+  "creator": {
+    "name": "Ankit 2.0",
+    "avatar": "assets/creator.jpg",
+    "verified": false
+  },
+  "media": {
+    "cover": "assets/cover.jpg",
+    "gallery": [
+      {
+        "id": "cover",
+        "file": "assets/cover.jpg",
+        "kind": "cover",
+        "label": "Hero's Party"
+      },
+      {
+        "id": "devi-ka-darbar",
+        "file": "assets/gallery/image-01.jpg",
+        "kind": "scene",
+        "label": "Devi Ka Darbar"
+      },
+      {
+        "id": "lavanya",
+        "file": "assets/gallery/image-02.jpg",
+        "kind": "character-portrait",
+        "label": "Devi Lavanya",
+        "characterId": "lavanya"
+      },
+      {
+        "id": "guild-mein-pehla-din",
+        "file": "assets/gallery/image-03.jpg",
+        "kind": "scene",
+        "label": "Guild Mein Pehla Din"
+      },
+      {
+        "id": "tara",
+        "file": "assets/gallery/image-04.jpg",
+        "kind": "character-portrait",
+        "label": "Tara Agnivanshi",
+        "characterId": "tara"
+      },
+      {
+        "id": "academy-ki-shararat",
+        "file": "assets/gallery/image-05.jpg",
+        "kind": "scene",
+        "label": "Academy Ki Shararat"
+      },
+      {
+        "id": "ladaai-mein-bhi-flirt",
+        "file": "assets/gallery/image-06.jpg",
+        "kind": "scene",
+        "label": "Ladaai Mein Bhi Flirt"
+      },
+      {
+        "id": "laila",
+        "file": "assets/gallery/image-07.jpg",
+        "kind": "character-portrait",
+        "label": "Laila Swarnapankh",
+        "characterId": "laila"
+      }
+    ]
+  }
+}
