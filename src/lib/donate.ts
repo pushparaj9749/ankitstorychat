@@ -12,8 +12,23 @@
  *  - While DONATE_UPI_ID is empty the card stays "Coming Soon".
  */
 
-/** The owner's public UPI ID (e.g. "name@okaxis"). Empty = donations off. */
-export const DONATE_UPI_ID: string = 'Ankitkingtrader@ybl';
+/**
+ * The owner's public UPI ID (e.g. "name@okaxis"). Empty = donations off.
+ * Taken from the owner's own PhonePe QR (assets/donate/upi-qr.png decodes to
+ * pa=ankitkingtrader@axl), so the button, the QR and the shown ID always
+ * point at the same account.
+ */
+export const DONATE_UPI_ID: string = 'ankitkingtrader@axl';
+
+/**
+ * UPI ID encoded in the owner's PhonePe QR image. The card shows that image
+ * only while it matches DONATE_UPI_ID; otherwise it draws its own QR.
+ */
+export const DONATE_QR_IMAGE_UPI_ID = 'ankitkingtrader@axl';
+
+export function ownerQrMatches(id: string): boolean {
+  return id.trim().toLowerCase() === DONATE_QR_IMAGE_UPI_ID;
+}
 
 /** Name shown as the payee inside the UPI app. */
 export const DONATE_PAYEE_NAME = 'Kissa (Ankit)';

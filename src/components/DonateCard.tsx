@@ -7,17 +7,19 @@
  * nothing unlocked — see src/lib/donate.ts.
  */
 import React, { useMemo } from 'react';
-import { Linking, Pressable, Share, StyleSheet, Text, View } from 'react-native';
+import { Image, Linking, Pressable, Share, StyleSheet, Text, View } from 'react-native';
 import Svg, { Path, Rect } from 'react-native-svg';
 import { useApp } from '../state/AppContext';
 import { GradientButton } from './GradientButton';
 import { Icon, ICON_SIZE } from './icons';
-import { DONATE_PAYEE_NAME, DONATE_UPI_ID, isValidUpiId, upiPayUrl } from '../lib/donate';
+import { DONATE_PAYEE_NAME, DONATE_UPI_ID, isValidUpiId, ownerQrMatches, upiPayUrl } from '../lib/donate';
 import { qrMatrix, qrPath } from '../lib/qr';
 import { RADIUS, SCALE, SHADOWS, SPACING, withAlpha } from '../theme';
 
 const QR_QUIET = 4;
 const QR_PX = 200;
+/** The owner's own PhonePe QR (decodes to upi://pay?pa=ankitkingtrader@axl…). */
+const OWNER_QR = require('../../assets/donate/upi-qr.png');
 
 export function UpiQr({ value, size = QR_PX }: { value: string; size?: number }) {
   const { path, box } = useMemo(() => {
@@ -100,9 +102,21 @@ export function DonateCard({ upiId = DONATE_UPI_ID, repoUrl }: { upiId?: string;
       </View>
 
       <View style={[styles.qrBox, SHADOWS.card]}>
-        <UpiQr value={url} />
+        {ownerQrMatches(id) ? (
+          <Image
+            source={OWNER_QR}
+            style={{ width: QR_PX, height: QR_PX }}
+            resizeMode="contain"
+            accessibilityLabel="UPI QR code"
+            testID="owner-upi-qr"
+          />
+        ) : (
+          <UpiQr value={url} />
+        )}
       </View>
-      <Text style={[styles.qrHint, { color: theme.textFaint }]}>Doosre phone se scan karke bhi bhej sakte ho</Text>
+      <Text style={[styles.qrHint, { color: theme.textFaint }]}>
+        Doosre phone se scan karke bhi bhej sakte ho. Pay karte waqt UPI app mein bank account ka verified naam dikhega.
+      </Text>
 
       <View style={[styles.idRow, { borderColor: theme.border, backgroundColor: withAlpha(theme.bg, 0.5) }]}>
         <Text selectable style={[styles.idText, { color: theme.text }]} numberOfLines={1}>

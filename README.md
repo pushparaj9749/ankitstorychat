@@ -64,13 +64,27 @@ Owner request: replace the About screen's "Help the Developer — Coming Soon" c
 - **QR code** of the same link, so the reader can scan it from another phone. It is drawn with `react-native-svg` using the pure-JS core encoder from `qrcode`, so there is no native module.
 - **The UPI ID** is shown as selectable text with a share button.
 - **No server, no tracking, nothing unlocked.** Kissa never sees payment data, and donating changes nothing in the app. The Privacy Policy has a new §9 that says this.
-- **Config:** `DONATE_UPI_ID` in `src/lib/donate.ts` is set to `Ankitkingtrader@ybl`. If it is ever emptied, the card goes back to "Coming Soon".
+- **Config:** `DONATE_UPI_ID` in `src/lib/donate.ts` is `ankitkingtrader@axl`, the ID inside the owner's own PhonePe QR. If it is ever emptied, the card goes back to "Coming Soon".
+- **Owner's QR:** `assets/donate/upi-qr.png` is cropped from the owner's PhonePe QR. The card shows it while it matches `DONATE_UPI_ID`, and otherwise draws its own QR. A test decodes the image (jsQR) and checks that its `pa` is exactly the configured ID.
 - **Guard test** (`__tests__/donate.test.tsx`) covers:
   - the link format and the UPI ID validation;
   - the QR code;
   - both card states;
   - no network calls;
   - no feature reads the donation module.
+
+### v2.12.0 — Story clock: a night stays a night
+
+Owner bug report: during a night-time chat, it became morning after 4–6 messages.
+
+**Cause.** The narrator would jump ahead on its own ("agli subah…", "subah ho gayi"). The record-keeper then wrote that jump into the world state, so later replies started in the morning too. On top of that, every story began at a hardcoded "evening".
+
+**Fix** (`src/lib/storyClock.ts`):
+- **Real start time.** The initial time of day comes from the story's own opening narration ("Raat ke gyarah baje…"). Quoted plans such as "'Subah 4 baje'" are ignored. When the opening does not say, the time is left open.
+- **TIME LAW in every prompt**, with the current story time. One exchange is a few minutes, and a night stays night. Time skips only when the reader chooses one: he sleeps, says "subah milte hain", asks to skip, or taps "Naya mod". "Continue" never skips time.
+- **Silent rewrite.** A reply that jumps to morning, sunrise, the next day or "hours later" without the reader asking is rewritten once, like the scene-presence guard.
+- **Record-keeper clamp.** Without a reader-chosen skip, time moves at most one step (evening → night → late-night). It never moves into the next morning, and no `dayDelta` is accepted.
+- **Tests:** `__tests__/storyClock.test.ts`.
 
 ### v2.12.0 — Story galleries up to 50 images
 

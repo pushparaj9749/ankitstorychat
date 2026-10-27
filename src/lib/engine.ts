@@ -24,8 +24,9 @@ import { MAX_MEMORY_NOTES, renderMemoryLine } from './memoryCore';
 import { interpolatePlayerName } from './playerName';
 import { guardVisibleText, sanitizeStoredText, type GuardResult } from './leakGuard';
 import { clamp, norm, tokens } from './utils';
-import type { WorldState } from './worldState';
+import type { TimeOfDay, WorldState } from './worldState';
 import { findUninvitedSpeakers, type PresenceCheckInput } from './scenePresence';
+import { findTimeJump, readerAskedForTimeSkip, RECORD_KEEPER_TIME_RULES, timeLawFor } from './storyClock';
 import { RECORD_KEEPER_EVENT_TYPES, RELATIONSHIP_END_STATES, RELATIONSHIP_LADDER } from './storyMemoryCore';
 
 /* ---------------- scene helpers ---------------- */
@@ -1089,6 +1090,8 @@ ${teenBlock}
 
 ${SCENE_PRESENCE_LAW}
 
+${timeLawFor(input.worldState?.storyTime)}
+
 ${PROMISE_LAW}
 
 ${EMOTIONAL_LOGIC_LAW}
@@ -1186,6 +1189,8 @@ export function checkAssistantReply(
     privateNotes?: string;
     /** v2.10.3: scene roster check (omit to skip). */
     presence?: Omit<PresenceCheckInput, 'text' | 'speaker' | 'castNames'>;
+    /** v2.12: story-clock check — no jump to morning / next day unless the reader asked (omit to skip). */
+    clock?: { timeOfDay: TimeOfDay; readerText: string };
   },
 ): ReplyCheck {
   const base = finalizeAssistantText(parsed, '');
@@ -1224,7 +1229,11 @@ export function checkAssistantReply(
       reasons.push(`uninvited:${name}`);
     }
   }
-  const needsRewrite = reasons.some((r) => r === 'empty' || r === 'spoke-for-reader' || r === 'copied-note' || r.startsWith('label:') || r === 'tag-line' || r === 'state-marker' || r === 'html-comment' || r.startsWith('uninvited:'));
+  if (opts.clock && !readerAskedForTimeSkip(opts.clock.readerText)) {
+    const jump = findTimeJump(text, opts.clock.timeOfDay);
+    if (jump) reasons.push(`time-jump:${jump}`);
+  }
+  const needsRewrite = reasons.some((r) => r === 'empty' || r === 'spoke-for-reader' || r === 'copied-note' || r.startsWith('label:') || r === 'tag-line' || r === 'state-marker' || r === 'html-comment' || r.startsWith('uninvited:') || r.startsWith('time-jump:'));
   return { text: text || '...', speaker, needsRewrite, reasons };
 }
 
@@ -1235,12 +1244,18 @@ export const REWRITE_INSTRUCTION =
 /** The silent-rewrite nudge, made specific to what went wrong. */
 export function rewriteInstructionFor(reasons: string[]): string {
   const uninvited = [...new Set(reasons.filter((r) => r.startsWith('uninvited:')).map((r) => r.slice('uninvited:'.length)))];
-  const formatBroken = reasons.some((r) => !r.startsWith('uninvited:'));
+  const jumps = [...new Set(reasons.filter((r) => r.startsWith('time-jump:')).map((r) => r.slice('time-jump:'.length)))];
+  const formatBroken = reasons.some((r) => !r.startsWith('uninvited:') && !r.startsWith('time-jump:'));
   const parts: string[] = [];
   if (formatBroken) parts.push(REWRITE_INSTRUCTION);
   if (uninvited.length) {
     parts.push(
       `Your previous draft brought ${uninvited.join(', ')} into the scene, but ${uninvited.length > 1 ? 'they are' : 'is'} NOT here and the reader did not call for them. Rewrite the SAME moment with only the characters who are actually present — ${uninvited.join(', ')} must not appear, speak, call, message or interrupt. Do not replace them with another interruption. Never write the reader's lines.`,
+    );
+  }
+  if (jumps.length) {
+    parts.push(
+      `Your previous draft jumped ahead in story time ("${jumps[0]}"), but the reader did not sleep or ask to skip time. Rewrite the SAME moment so it continues right now, at the same time of day — the night stays night. No morning, sunrise, next day or "hours later". Never write the reader's lines.`,
     );
   }
   return parts.join('\n\n') || REWRITE_INSTRUCTION;
@@ -1317,6 +1332,8 @@ SCHEMA (omit every key that did not change; {} when nothing changed):
 PRESENCE RULES:
 - "presentCharacters" = everyone physically in the scene AFTER this exchange (ids). Send it only when someone arrived or left.
 - Someone who is only talked about, remembered or mentioned is NOT present. Phone/video calls do not make someone present.
+
+${RECORD_KEEPER_TIME_RULES}
 
 PROMISE RULES:
 - A promise is a clear commitment by a character or the reader to do / not do something ("kal milungi", "kisi ko nahi bataunga", "main tumhe chhod ke nahi jaungi"). Record it under "promises" the moment it is made.

@@ -23,6 +23,7 @@ jest.mock('react-native', () => {
     View: el('View'),
     Text: el('Text'),
     Pressable: el('Pressable'),
+    Image: el('Image'),
     ActivityIndicator: el('ActivityIndicator'),
     Linking: { openURL: (u: string) => openURL(u) },
     Share: { share: (o: unknown) => share(o) },
@@ -53,6 +54,7 @@ jest.mock('../src/state/AppContext', () => {
 
 import {
   DONATE_PAYEE_NAME,
+  DONATE_QR_IMAGE_UPI_ID,
   DONATE_UPI_ID,
   donationsEnabled,
   isValidUpiId,
@@ -167,6 +169,37 @@ describe('DonateCard', () => {
       btn.props.onPress();
     });
     expect(share).toHaveBeenCalledWith({ message: 'Kissa (Ankit) UPI ID: ankit.kissa@okaxis' });
+  });
+});
+
+describe("owner's own PhonePe QR", () => {
+  it('the shipped QR image decodes to exactly the configured UPI ID', () => {
+    const { PNG } = require('pngjs');
+    const jsQR = require('jsqr');
+    const png = PNG.sync.read(fs.readFileSync(path.join(ROOT, 'assets/donate/upi-qr.png')));
+    const qr = jsQR(new Uint8ClampedArray(png.data), png.width, png.height);
+    expect(qr).toBeTruthy();
+    const payload: string = qr.data;
+    expect(payload.startsWith('upi://pay?')).toBe(true);
+    const pa = new URLSearchParams(payload.slice('upi://pay?'.length)).get('pa');
+    expect(pa).toBe(DONATE_QR_IMAGE_UPI_ID);
+    expect(DONATE_UPI_ID).toBe(DONATE_QR_IMAGE_UPI_ID);
+  });
+
+  it('the card shows the owner QR image for the owner ID, a drawn QR for any other ID', () => {
+    let owner!: renderer.ReactTestRenderer;
+    act(() => {
+      owner = renderer.create(<DonateCard repoUrl="https://github.com/x/y" />);
+    });
+    expect(owner.root.findAll((n) => (n.type as unknown) === 'Image' && n.props.testID === 'owner-upi-qr')).toHaveLength(1);
+    expect(owner.root.findAll((n) => (n.type as unknown) === 'Svg' && n.props.accessibilityLabel === 'UPI QR code')).toHaveLength(0);
+    expect(textOf(owner)).toContain('ankitkingtrader@axl');
+
+    let other!: renderer.ReactTestRenderer;
+    act(() => {
+      other = renderer.create(<DonateCard upiId="ankit.kissa@okaxis" repoUrl="https://github.com/x/y" />);
+    });
+    expect(other.root.findAll((n) => (n.type as unknown) === 'Image' && n.props.testID === 'owner-upi-qr')).toHaveLength(0);
   });
 });
 
