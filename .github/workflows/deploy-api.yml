@@ -287,6 +287,12 @@ jobs:
           ring-ki-rani
           dil-ki-wasooli
 
+      - name: Verify the new Sharmili Shooter story is published (byte-identical JSON + cover + 8 images)
+        run: >-
+          node scripts/verify-published-story.mjs
+          --native-size=1376x768,848x1264
+          sharmili-shooter
+
       - name: Smoke test the deployed API
         run: |
           # End-to-end verification of the live API, on BOTH hostnames.
@@ -300,6 +306,10 @@ jobs:
           # returns 200 for the root, so we additionally require that the
           # response identifies the Worker and carries no GitHub Pages header.
           set -uo pipefail
+          # Keep a copy of the output so the final error names the failed
+          # checks (the job log is not always reachable from where it's read).
+          : > /tmp/smoke.log
+          exec > >(tee -a /tmp/smoke.log) 2>&1
           base="https://beyondredeye.site/api"
           www_base="https://www.beyondredeye.site/api"
           fails=0
@@ -404,6 +414,9 @@ jobs:
 
           echo "--- API smoke test: $pass passed, $fails failed ---"
           if [ "$fails" -ne 0 ]; then
+            sleep 1
+            failed=$(grep -E '^(❌|⚠️)' /tmp/smoke.log | tr '\n' ' ' | cut -c1-900) || true
+            echo "::error title=API smoke test — failed checks::$failed"
             echo "::error title=API smoke test::$fails check(s) failed. The Worker was deployed, but https://beyondredeye.site/api/* is not being served by it. Check the zone DNS records are Proxied and that the route beyondredeye.site/api/* is attached to kissa-content-api (Workers & Pages → kissa-content-api → Settings → Domains & Routes). See docs/DEPLOYMENT.md."
             exit 1
           fi
