@@ -1,7 +1,7 @@
 {
-  "contentVersion": 56,
+  "contentVersion": 57,
   "minAppVersion": "1.0.0",
-  "updatedAt": "2026-10-27T00:00:00Z",
+  "updatedAt": "2026-10-29T00:00:00Z",
   "stories": [
     {
       "id": "arranged-marriage-wala-love",
@@ -114,7 +114,7 @@
       "ageRating": "18+",
       "contentLevel": "mature",
       "language": "hinglish",
-      "version": 2,
+      "version": 3,
       "coverUrl": "stories/heros-party/assets/cover.jpg",
       "accentColor": "#C9A44C",
       "userRole": "{{playerName}} — an adult Indian man aged 23, controlled exclusively by the player. On Earth he was a shy, kind-hearted junior software tester in Lucknow who lived alone, had never had a girlfriend and went red whenever a girl even said hello. One rainy evening he pushed a little girl out of the way of a speeding truck and died. Devi Lavanya, goddess of fate and love, has reincarnated him in the magic world of Mayavarsh with his own face, body and clothes as the Hero meant to defeat the Demon King Andhakasur, and blessed him with the Prem-Bandhan. He starts innocent, polite, weak (a complete beginner with no fighting skill or magic training) and easily flustered — that is only where he begins; everything he says, feels and does is the player's choice. The player supplies his display name at runtime; never assign him another name, and never write his thoughts, feelings, dialogue, actions or decisions.",

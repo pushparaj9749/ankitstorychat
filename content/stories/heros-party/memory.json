@@ -1,6 +1,6 @@
 {
   "storyId": "heros-party",
-  "version": 2,
+  "version": 3,
   "shortTermWindow": 24,
   "seedMemories": [
     "On a rainy evening in Lucknow, {{playerName}} pushed a little girl out of the way of a speeding truck and died; the girl was safe.",

@@ -2,7 +2,7 @@
   "id": "heros-party",
   "title": "Hero's Party",
   "description": "Lucknow ka ek sharmila, seedha-saadha ladka — jisne kabhi kisi ladki se theek se baat bhi nahi ki — ek baarish wali shaam ek bachchi ko truck se bachaate hue apni jaan de deta hai. Aankh khulti hai sunehre baadalon ke beech, jahan kismat aur prem ki devi Lavanya — itni khoobsurat ki saans ruk jaaye — uski thodi utha ke kehti hai, 'Photo se zyada cute ho.' Ab wo Mayavarsh ka Hero hai: ek jaadui duniya jahan Adventurers' Guild hai, Mayavati Arcane Academy hai, ajgar hain, pariyan hain, aur uttar mein jaag chuka hai Shaitan Raja Andhakasur. Use harane ke liye chahiye ek party — aur Devi ka niyam hai ki party mein hongi Mayavarsh ki sabse takatwar ladkiyan. Aag wali mage, talwar wali knight, chhaaya wali assassin, ajgar rajkumari, pishachini countess, aasmaani luteron ki captain... duniya bhar mein bikhri chaubees bold, khatarnak aur bahut romantic ladkiyan, jo ladaai ke beech bhi flirt karna nahi chhodti. Koi ek saath nahi milegi — kisi mission mein, kisi gali mein, kisi dungeon mein, ek-ek karke. Kaun kab milegi, kaun party mein aayegi, aur hero kaise badlega — sab tumhare faislon par.",
-  "version": 2,
+  "version": 3,
   "language": "hinglish",
   "ageRating": "18+",
   "contentLevel": "mature",
@@ -178,6 +178,76 @@
         "kind": "scene",
         "label": "Captain Rehana Ka Jahaaz",
         "characterId": "rehana"
+      },
+      {
+        "id": "veera-ki-training",
+        "file": "assets/gallery/image-18.jpg",
+        "kind": "scene",
+        "label": "Veera Ki Training",
+        "characterId": "veera"
+      },
+      {
+        "id": "neelambari",
+        "file": "assets/gallery/image-19.jpg",
+        "kind": "character-portrait",
+        "label": "Neelambari Himkanya",
+        "characterId": "neelambari"
+      },
+      {
+        "id": "tamasi-ki-rooh-wali-raat",
+        "file": "assets/gallery/image-20.jpg",
+        "kind": "scene",
+        "label": "Tamasi Ki Rooh Wali Raat",
+        "characterId": "tamasi"
+      },
+      {
+        "id": "damini",
+        "file": "assets/gallery/image-21.jpg",
+        "kind": "character-portrait",
+        "label": "Damini Vajra",
+        "characterId": "damini"
+      },
+      {
+        "id": "vasudha-ka-tohfa",
+        "file": "assets/gallery/image-22.jpg",
+        "kind": "scene",
+        "label": "Vasudha Ka Tohfa",
+        "characterId": "vasudha"
+      },
+      {
+        "id": "gulnaar",
+        "file": "assets/gallery/image-23.jpg",
+        "kind": "character-portrait",
+        "label": "Gulnaar",
+        "characterId": "gulnaar"
+      },
+      {
+        "id": "suryaprabha",
+        "file": "assets/gallery/image-24.jpg",
+        "kind": "character-portrait",
+        "label": "Rajkumari Suryaprabha",
+        "characterId": "suryaprabha"
+      },
+      {
+        "id": "shehnaz-ka-naach",
+        "file": "assets/gallery/image-25.jpg",
+        "kind": "scene",
+        "label": "Shehnaz Ka Naach",
+        "characterId": "shehnaz"
+      },
+      {
+        "id": "rubina",
+        "file": "assets/gallery/image-26.jpg",
+        "kind": "character-portrait",
+        "label": "Rubina",
+        "characterId": "rubina"
+      },
+      {
+        "id": "professor-ki-class",
+        "file": "assets/gallery/image-27.jpg",
+        "kind": "scene",
+        "label": "Professor Ki Class",
+        "characterId": "ahilya"
       }
     ]
   }

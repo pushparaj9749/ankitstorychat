@@ -152,6 +152,15 @@ describe("Hero's Party gallery batches", () => {
       expect(linked).toContain(id);
     }
     for (const id of linked) expect(cast).toContain(id);
+  });
+
+  test('batch 3 (images 18-27) is published with its own heroines', () => {
+    expect(story.version).toBeGreaterThanOrEqual(3);
+    expect(story.media.gallery.length).toBeGreaterThanOrEqual(28);
+    const linked = story.media.gallery.map((g) => g.characterId).filter(Boolean);
+    for (const id of ['veera', 'neelambari', 'tamasi', 'damini', 'vasudha', 'gulnaar', 'suryaprabha', 'shehnaz', 'rubina', 'ahilya']) {
+      expect(linked).toContain(id);
+    }
     expect(new Set(story.media.gallery.map((g) => g.id)).size).toBe(story.media.gallery.length);
   });
 });
