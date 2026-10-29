@@ -301,7 +301,7 @@ HEROINES = [
 SPEC = {
     "id": "heros-party",
     "title": "Hero's Party",
-    "version": 1,
+    "version": 2,
     "creator": {"name": "Ankit 2.0", "avatar": "assets/creator.jpg", "verified": False},
     "tagline": "Truck se mara, devi ne uthaaya... aur bola — 'Shaitan Raja ko maarna hai? Pehle duniya ki sabse takatwar ladkiyon ki party banao.'",
     "accent": "#C9A44C",
@@ -457,5 +457,16 @@ SPEC = {
         {"id": "academy-ki-shararat", "kind": "scene", "label": "Academy Ki Shararat"},
         {"id": "ladaai-mein-bhi-flirt", "kind": "scene", "label": "Ladaai Mein Bhi Flirt"},
         {"id": "laila", "kind": "character-portrait", "label": "Laila Swarnapankh", "characterId": "laila"},
+        # Batch 2 (v2 of the package): images 08-17.
+        {"id": "chandrika-ka-nishana", "kind": "scene", "label": "Chandrika Ka Nishana", "characterId": "chandrika"},
+        {"id": "chhaya-ki-dastak", "kind": "scene", "label": "Chhaya Ki Dastak", "characterId": "kalindi"},
+        {"id": "saanvi-ki-roshni", "kind": "scene", "label": "Saanvi Ki Roshni", "characterId": "saanvi"},
+        {"id": "bhairavi", "kind": "character-portrait", "label": "Bhairavi Rudrashakti", "characterId": "bhairavi"},
+        {"id": "nagina", "kind": "character-portrait", "label": "Nagina Sarpkanya", "characterId": "nagina"},
+        {"id": "zoya", "kind": "character-portrait", "label": "Zoya Siyahraat", "characterId": "zoya"},
+        {"id": "chakori-ki-chori", "kind": "scene", "label": "Chakori Ki Chori", "characterId": "chakori"},
+        {"id": "meghna", "kind": "character-portrait", "label": "Meghna Jalrani", "characterId": "meghna"},
+        {"id": "mehrunissa", "kind": "character-portrait", "label": "Mehrunissa", "characterId": "mehrunissa"},
+        {"id": "rehana-ka-jahaaz", "kind": "scene", "label": "Captain Rehana Ka Jahaaz", "characterId": "rehana"},
     ],
 }

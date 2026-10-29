@@ -2,7 +2,7 @@
   "id": "heros-party",
   "title": "Hero's Party",
   "description": "Lucknow ka ek sharmila, seedha-saadha ladka — jisne kabhi kisi ladki se theek se baat bhi nahi ki — ek baarish wali shaam ek bachchi ko truck se bachaate hue apni jaan de deta hai. Aankh khulti hai sunehre baadalon ke beech, jahan kismat aur prem ki devi Lavanya — itni khoobsurat ki saans ruk jaaye — uski thodi utha ke kehti hai, 'Photo se zyada cute ho.' Ab wo Mayavarsh ka Hero hai: ek jaadui duniya jahan Adventurers' Guild hai, Mayavati Arcane Academy hai, ajgar hain, pariyan hain, aur uttar mein jaag chuka hai Shaitan Raja Andhakasur. Use harane ke liye chahiye ek party — aur Devi ka niyam hai ki party mein hongi Mayavarsh ki sabse takatwar ladkiyan. Aag wali mage, talwar wali knight, chhaaya wali assassin, ajgar rajkumari, pishachini countess, aasmaani luteron ki captain... duniya bhar mein bikhri chaubees bold, khatarnak aur bahut romantic ladkiyan, jo ladaai ke beech bhi flirt karna nahi chhodti. Koi ek saath nahi milegi — kisi mission mein, kisi gali mein, kisi dungeon mein, ek-ek karke. Kaun kab milegi, kaun party mein aayegi, aur hero kaise badlega — sab tumhare faislon par.",
-  "version": 1,
+  "version": 2,
   "language": "hinglish",
   "ageRating": "18+",
   "contentLevel": "mature",
@@ -108,6 +108,76 @@
         "kind": "character-portrait",
         "label": "Laila Swarnapankh",
         "characterId": "laila"
+      },
+      {
+        "id": "chandrika-ka-nishana",
+        "file": "assets/gallery/image-08.jpg",
+        "kind": "scene",
+        "label": "Chandrika Ka Nishana",
+        "characterId": "chandrika"
+      },
+      {
+        "id": "chhaya-ki-dastak",
+        "file": "assets/gallery/image-09.jpg",
+        "kind": "scene",
+        "label": "Chhaya Ki Dastak",
+        "characterId": "kalindi"
+      },
+      {
+        "id": "saanvi-ki-roshni",
+        "file": "assets/gallery/image-10.jpg",
+        "kind": "scene",
+        "label": "Saanvi Ki Roshni",
+        "characterId": "saanvi"
+      },
+      {
+        "id": "bhairavi",
+        "file": "assets/gallery/image-11.jpg",
+        "kind": "character-portrait",
+        "label": "Bhairavi Rudrashakti",
+        "characterId": "bhairavi"
+      },
+      {
+        "id": "nagina",
+        "file": "assets/gallery/image-12.jpg",
+        "kind": "character-portrait",
+        "label": "Nagina Sarpkanya",
+        "characterId": "nagina"
+      },
+      {
+        "id": "zoya",
+        "file": "assets/gallery/image-13.jpg",
+        "kind": "character-portrait",
+        "label": "Zoya Siyahraat",
+        "characterId": "zoya"
+      },
+      {
+        "id": "chakori-ki-chori",
+        "file": "assets/gallery/image-14.jpg",
+        "kind": "scene",
+        "label": "Chakori Ki Chori",
+        "characterId": "chakori"
+      },
+      {
+        "id": "meghna",
+        "file": "assets/gallery/image-15.jpg",
+        "kind": "character-portrait",
+        "label": "Meghna Jalrani",
+        "characterId": "meghna"
+      },
+      {
+        "id": "mehrunissa",
+        "file": "assets/gallery/image-16.jpg",
+        "kind": "character-portrait",
+        "label": "Mehrunissa",
+        "characterId": "mehrunissa"
+      },
+      {
+        "id": "rehana-ka-jahaaz",
+        "file": "assets/gallery/image-17.jpg",
+        "kind": "scene",
+        "label": "Captain Rehana Ka Jahaaz",
+        "characterId": "rehana"
       }
     ]
   }
