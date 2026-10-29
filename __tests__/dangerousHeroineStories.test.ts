@@ -121,15 +121,37 @@ describe.each(present)('%s', (id) => {
     expect(shown).not.toMatch(/controlled exclusively|never assign/i);
   });
 
-  test('ships a 2:3 portrait cover and seven 1376x768 gallery images', () => {
+  test('ships a 2:3 portrait cover and 7-49 numbered 1376x768 gallery images', () => {
     const cover = jpegSize(readFileSync(join(dir, 'assets', 'cover.jpg')));
     expect(cover.h).toBeGreaterThanOrEqual(cover.w * 1.3);
     const media = (b.story as unknown as { media: { gallery: { file: string }[] } }).media;
-    expect(media.gallery).toHaveLength(8);
-    for (const n of ['01', '02', '03', '04', '05', '06', '07']) {
-      const f = `assets/gallery/image-${n}.jpg`;
-      expect(media.gallery.map((g) => g.file)).toContain(f);
+    // v2.12: up to 50 media items (cover + 49). At least the original seven.
+    expect(media.gallery.length).toBeGreaterThanOrEqual(8);
+    expect(media.gallery.length).toBeLessThanOrEqual(50);
+    expect(media.gallery[0].file).toBe('assets/cover.jpg');
+    media.gallery.slice(1).forEach((g, i) => {
+      const f = `assets/gallery/image-${String(i + 1).padStart(2, '0')}.jpg`;
+      expect(g.file).toBe(f);
       expect(jpegSize(readFileSync(join(dir, f)))).toEqual({ w: 1376, h: 768 });
+    });
+  });
+});
+
+describe("Hero's Party gallery batches", () => {
+  const dir = join(ROOT, 'stories', 'heros-party');
+  const story = JSON.parse(readFileSync(join(dir, 'story.json'), 'utf8')) as {
+    version: number;
+    media: { gallery: { id: string; kind: string; characterId?: string }[] };
+  };
+  const cast = (JSON.parse(readFileSync(join(dir, 'characters.json'), 'utf8')) as { characters: { id: string }[] }).characters.map((c) => c.id);
+
+  test('batch 2 (images 08-17) is published with its own heroines', () => {
+    expect(story.version).toBeGreaterThanOrEqual(2);
+    const linked = story.media.gallery.map((g) => g.characterId).filter(Boolean);
+    for (const id of ['chandrika', 'kalindi', 'saanvi', 'bhairavi', 'nagina', 'zoya', 'chakori', 'meghna', 'mehrunissa', 'rehana']) {
+      expect(linked).toContain(id);
     }
+    for (const id of linked) expect(cast).toContain(id);
+    expect(new Set(story.media.gallery.map((g) => g.id)).size).toBe(story.media.gallery.length);
   });
 });
