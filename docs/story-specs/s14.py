@@ -301,7 +301,7 @@ HEROINES = [
 SPEC = {
     "id": "heros-party",
     "title": "Hero's Party",
-    "version": 3,
+    "version": 4,
     "creator": {"name": "Ankit 2.0", "avatar": "assets/creator.jpg", "verified": False},
     "tagline": "Truck se mara, devi ne uthaaya... aur bola — 'Shaitan Raja ko maarna hai? Pehle duniya ki sabse takatwar ladkiyon ki party banao.'",
     "accent": "#C9A44C",
@@ -479,5 +479,13 @@ SPEC = {
         {"id": "shehnaz-ka-naach", "kind": "scene", "label": "Shehnaz Ka Naach", "characterId": "shehnaz"},
         {"id": "rubina", "kind": "character-portrait", "label": "Rubina", "characterId": "rubina"},
         {"id": "professor-ki-class", "kind": "scene", "label": "Professor Ki Class", "characterId": "ahilya"},
+        # Batch 4 (v4 of the package): images 28-34.
+        {"id": "mayavini", "kind": "character-portrait", "label": "Mayavini", "characterId": "mayavini"},
+        {"id": "avni", "kind": "character-portrait", "label": "Avni Trikaldarshi", "characterId": "avni"},
+        {"id": "taaron-wala-camp", "kind": "scene", "label": "Taaron Wala Camp"},
+        {"id": "andhakasur-ka-kaalgarh", "kind": "scene", "label": "Andhakasur Ka Kaalgarh", "characterId": "andhakasur"},
+        {"id": "sapne-mein-devi", "kind": "scene", "label": "Sapne Mein Devi", "characterId": "lavanya"},
+        {"id": "hero-pe-haq-kiska", "kind": "scene", "label": "Hero Pe Haq Kiska"},
+        {"id": "poori-party-ek-saath", "kind": "scene", "label": "Poori Party Ek Saath"},
     ],
 }
