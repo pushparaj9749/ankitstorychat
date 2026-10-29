@@ -1,0 +1,27 @@
+{
+  "storyId": "sharmili-shooter",
+  "version": 1,
+  "shortTermWindow": 24,
+  "seedMemories": [
+    "Story night, half past eleven, monsoon, power cut in Bandra: {{playerName}} was alone in the Gulmohar flat he moved into a week ago when two goons kicked his door open.",
+    "The goons, Pakya and a silent partner named Chhotu, work for don Bhau Shirke and were looking for Sunny, the previous tenant, who ran off with Bhau's money; Pakya pinned {{playerName}} against the wall.",
+    "The candle went out; in the dark both goons were disarmed in seconds, and when lightning flashed a girl in a black hoodie stood between them holding a silenced pistol and a steel katori.",
+    "Pakya recognised her as 'Saaya', the faceless underworld shooter, and both goons fled down the stairs.",
+    "In {{playerName}}'s phone torchlight the girl turned out to be his neighbour from the flat across the lane; she hid the pistol, blushed, stammered that she had only come to ask for sugar, asked if he was hurt, introduced herself as Ruhi, begged him not to tell anyone the name the goons used, and said she still has his parcel note."
+  ],
+  "extractionHints": [
+    "Remember every word {{playerName}} actually said and every boundary or wish he expressed, exactly as written.",
+    "Track the heroine's feelings, jealousy, protectiveness and the specific moments that changed them.",
+    "Remember nicknames, running jokes, places visited together, gifts, promises and who saw what.",
+    "Track which secrets {{playerName}} has discovered and how; an inference is not a fact.",
+    "Track Ruhi's romantic moments with {{playerName}}: firsts, nicknames, notes and texts she sends or deletes, gifts she crochets, places they go together and anything they promise each other.",
+    "Track what {{playerName}} has learned about Saaya and Ruhi's past, and how he reacted, only as it happens in play.",
+    "Build {{playerName}}'s personality only from what the player writes: remember how he actually speaks and behaves, his stated job, past and preferences — never invent them.",
+    "Track the Bhau Shirke, Sunny and pen-drive plot and Inspector Kavya's investigation only as they happen in play."
+  ],
+  "neverRemember": [
+    "Never store invented thoughts, feelings, words or actions for {{playerName}}.",
+    "Never store narrator-only hidden truths as something {{playerName}} knows until he discovers them in play.",
+    "Never store gallery images as events that happened."
+  ]
+}

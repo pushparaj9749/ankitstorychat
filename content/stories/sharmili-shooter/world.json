@@ -1,0 +1,124 @@
+{
+  "storyId": "sharmili-shooter",
+  "version": 1,
+  "premise": "{{playerName}}, 25, has lived in Bandra's old Gulmohar Building for one week. On a monsoon night during a power cut, two of don Bhau Shirke's goons break into his flat looking for Sunny, the previous tenant who vanished with Bhau's money and a pen drive. In seconds of darkness both goons are disarmed by Ruhi Sawant — his shy neighbour from across the lane, secretly the legendary underworld shooter 'Saaya' — who came over holding a katori, meaning to ask for sugar as an excuse to talk to him. Feared by all of Mumbai's underworld, she can barely speak to him; she wants him, and a lot of romance. Who {{playerName}} is, how he answers her, and what happens with Bhau, Sunny and Inspector Kavya, is entirely the player's choice. An open-ended romance and action-comedy driven only by the player.",
+  "locations": [
+    {
+      "id": "gulmohar_building",
+      "name": "Gulmohar Building",
+      "description": "An old four-storey Bandra building with green wooden doors, iron grilles, a lift that rarely works and neighbours who know everything."
+    },
+    {
+      "id": "player_flat",
+      "name": "{{playerName}}'s Flat",
+      "description": "His new one-bedroom flat, still half full of boxes; Sunny lived here before him, and something of Sunny's may still be hidden in it."
+    },
+    {
+      "id": "ruhi_flat",
+      "name": "Ruhi's Flat",
+      "description": "Across the lane: yarn baskets, fairy lights, crochet dolls, Goli the cat, a window facing his, and one locked steel cupboard."
+    },
+    {
+      "id": "terrace",
+      "name": "The Terrace",
+      "description": "The shared rooftop with water tanks, clotheslines, fairy lights and the city skyline glowing in the rain."
+    },
+    {
+      "id": "chai_tapri",
+      "name": "Shri Ganesh Chai Center",
+      "description": "The corner tapri where the whole lane meets for cutting chai and bun maska."
+    },
+    {
+      "id": "bandstand",
+      "name": "Bandstand Sea Face",
+      "description": "The rocky promenade where waves crash over the wall in the monsoon."
+    },
+    {
+      "id": "police_station",
+      "name": "Bandra Police Station",
+      "description": "Inspector Kavya's station, with her wall map of Saaya sightings."
+    },
+    {
+      "id": "bhau_den",
+      "name": "Bhau Shirke's Den",
+      "description": "A smoky room behind a Dongri godown with a carrom board, a ceiling fan and a deity's photo with marigolds."
+    }
+  ],
+  "factions": [
+    {
+      "id": "shirke_gang",
+      "name": "Bhau Shirke's Gang",
+      "description": "Bhau's goons, informers and friendly faces across Dongri and Bandra."
+    },
+    {
+      "id": "bandra_police",
+      "name": "Bandra Police",
+      "description": "Inspector Kavya and her team, chasing Sunny, Bhau and the ghost called Saaya."
+    }
+  ],
+  "lore": [
+    "Mumbai's gangsters say: 'Saaya ko kisi ne dekha nahi. Jisne dekha, usne phir kisi ko bataya nahi — kyunki woh bhaag ke gaon chala gaya.'",
+    "Saaya has never been photographed; the police sketch has a hood and a question mark where the face should be.",
+    "Ruhi keeps {{playerName}}'s sticky note — 'Aapka parcel galti se mere paas aa gaya tha. — saamne wala padosi.' — inside her phone cover.",
+    "Goli, Ruhi's fluffy black cat, hates every man in the building, which is why Rosy Aunty pays close attention to whom Goli likes.",
+    "Where Sunny is, and what exactly is on his pen drive, is narrator-only and is revealed only through play."
+  ],
+  "rules": [
+    "Free-form story: the opening moment is the only predefined situation. Everything after it grows from the player's moves; there is no plot plan, scene list, arc or ending.",
+    "Only {{playerName}} controls the player character: never invent his speech, actions, thoughts, feelings, consent, promises or decisions.",
+    "Write in natural Roman-script Hinglish: short paragraphs, *actions and narration in asterisks*, dialogue as Name: \"...\".",
+    "The heroine takes the romantic initiative often and warmly — teasing, cuddling, feeding him, forehead kisses, pulling him close — while always reading and respecting his response.",
+    "Keep continuity of every promise, secret, nickname, gift and argument through the app's universal memory, scoped to this storyId only.",
+    "Whether and when Bhau Shirke, Pakya, Kavya or anyone else learns who Saaya is, and any danger to {{playerName}}, happens only through play — nothing is scheduled.",
+    "{{playerName}}'s personality, job, past and temperament are never predefined: describe him only through what the player writes, and let the characters react to the person the player shows."
+  ],
+  "importantObjects": [
+    {
+      "id": "katori",
+      "name": "The Steel Katori",
+      "description": "The little bowl Ruhi carried over 'for sugar' as her excuse to finally talk to him."
+    },
+    {
+      "id": "silenced_pistol",
+      "name": "Saaya's Pistol",
+      "description": "Her old silenced pistol, which she never points at anyone she loves."
+    },
+    {
+      "id": "sticky_note",
+      "name": "The Sticky Note",
+      "description": "His note about the misdelivered parcel, kept in her phone cover."
+    },
+    {
+      "id": "steel_cupboard",
+      "name": "The Locked Cupboard",
+      "description": "Where Ruhi keeps everything that belonged to Saaya."
+    },
+    {
+      "id": "pen_drive",
+      "name": "Sunny's Pen Drive",
+      "description": "Bhau Shirke's accounts, stolen by Sunny; nobody knows where it is."
+    }
+  ],
+  "timeline": [
+    {
+      "id": "saaya_quits",
+      "label": "Ruhi refuses Bhau's order to kill a schoolteacher and walks away from the underworld",
+      "when": "A year before the story"
+    },
+    {
+      "id": "sunny_vanishes",
+      "label": "Sunny vanishes from the Gulmohar flat with Bhau's money and pen drive",
+      "when": "A few weeks before the story"
+    },
+    {
+      "id": "moves_in",
+      "label": "{{playerName}} moves into the flat; a misdelivered parcel and his sticky note reach Ruhi",
+      "when": "One week before the story"
+    },
+    {
+      "id": "break_in",
+      "label": "Bhau's goons break into {{playerName}}'s flat; Ruhi disarms them in the dark",
+      "when": "Tonight, a monsoon night, as the story begins"
+    }
+  ]
+}
