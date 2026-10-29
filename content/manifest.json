@@ -1,5 +1,5 @@
 {
-  "contentVersion": 58,
+  "contentVersion": 59,
   "minAppVersion": "1.0.0",
   "updatedAt": "2026-10-29T00:00:00Z",
   "stories": [
@@ -53,6 +53,60 @@
         "verified": true
       },
       "updatedAt": "2026-10-03T14:46:42Z"
+    },
+    {
+      "id": "sharmili-shooter",
+      "title": "Sharmili Shooter",
+      "tagline": "Poora Mumbai underworld 'Saaya' ke naam se kaanpta hai... aur woh tumhare saamne ek line bhi bina hakalaaye nahi bol paati.",
+      "description": "Bandra, Mumbai. Monsoon ki raat, poori Gulmohar Building mein light gayi hui hai. Tumhe is purani building mein shift hue bas ek hafta hua hai, aur aaj raat do gunde tumhara darwaza tod ke andar aa jaate hain. Woh Sunny ko dhoondh rahe hain, is flat ka pichhla kirayedaar jo Bhau Shirke ka paisa le ke gaayab ho gaya. Andhere mein kuch second ki khaamoshi hoti hai. Bijli chamakti hai, aur dono gunde zameen par pade karah rahe hote hain. Unke beech khadi hai ek ladki: kaala hoodie, ek haath mein silencer wali pistol, doosre mein steel ki katori. Gunde 'SAAYA!' chillaate hue bhaag jaate hain. Saaya, Mumbai underworld ki woh shooter jiska chehra aaj tak kisi ne nahi dekha, aur jiske naam se bade-bade don raat ko darwaza do baar check karte hain. Par jaise hi tumhari phone torch uske chehre par padti hai, wahi khatarnak ladki laal ho jaati hai. Woh hakla ke bolti hai, 'M-main... bas chini maangne aayi thi.' Ye Ruhi Sawant hai, tumhare saamne wale flat ki padosan, jo ek hafte se apni khidki ke parde ke peeche se tumhe dekh rahi hai. Duniya ke liye maut ka doosra naam, tumhare saamne ek sharmili ladki jo nazrein nahi mila paati, par jise bahut saara pyaar chahiye. Tum kaun ho, kaise ho, aur kahani kahan jaayegi, ye sab sirf tum tay karoge.",
+      "genres": [
+        "Romance",
+        "Thriller",
+        "Comedy",
+        "Action"
+      ],
+      "tags": [
+        "romance",
+        "dangerous-girlfriend",
+        "shy-heroine",
+        "open-hero",
+        "protective-heroine",
+        "assassin",
+        "neighbour",
+        "mumbai",
+        "monsoon",
+        "underworld",
+        "player-agency",
+        "dynamic-continuous",
+        "ongoing",
+        "hinglish"
+      ],
+      "characters": [
+        "Ruhi Sawant",
+        "Bhau Shirke",
+        "Pakya",
+        "Inspector Kavya Deshmukh",
+        "Rosy D'Souza"
+      ],
+      "ageRating": "18+",
+      "contentLevel": "mature",
+      "language": "hinglish",
+      "version": 1,
+      "coverUrl": "stories/sharmili-shooter/assets/cover.jpg",
+      "accentColor": "#4A5A8C",
+      "userRole": "{{playerName}} — an adult Indian man aged 25 who moved into a flat in the old Gulmohar Building in Bandra, Mumbai, one week ago. Who he is — his nature, temperament, job, past and feelings — is entirely up to you. Nothing about his personality is predefined: the narrator never assigns him a temperament, never describes how he usually behaves, and learns who he is only from the player's own words and choices. The player supplies his display name at runtime; never assign him another name, and never write his thoughts, feelings, dialogue, actions or decisions.",
+      "setting": "Present-day monsoon in Bandra, Mumbai: the old four-storey Gulmohar Building with green wooden doors, wrought-iron corridor grilles, a creaky lift that rarely works, a shared terrace with water tanks and clotheslines, and windows facing each other across a narrow rain-soaked lane; Ruhi's flat opposite {{playerName}}'s, full of yarn baskets, fairy lights, a fluffy black cat and one locked steel cupboard; Shri Ganesh Chai Center, the street-side tapri at the corner; Bandstand and the sea face in the rain; the Bandra police station where Inspector Kavya Deshmukh keeps a wall map of Saaya sightings; and Bhau Shirke's smoky den behind a godown in Dongri.",
+      "estimatedMinutes": 60,
+      "featured": false,
+      "isNew": true,
+      "popularity": 99,
+      "storyDir": "sharmili-shooter",
+      "creator": {
+        "name": "Ankit",
+        "avatar": null,
+        "verified": true
+      },
+      "updatedAt": "2026-10-29T00:00:00Z"
     },
     {
       "id": "heros-party",

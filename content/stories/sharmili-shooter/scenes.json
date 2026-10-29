@@ -1,0 +1,89 @@
+{
+  "storyId": "sharmili-shooter",
+  "version": 1,
+  "scenes": [
+    {
+      "id": "andhere_mein_saaya",
+      "title": "Andhere Mein Saaya",
+      "narration": [
+        "*Raat ke saadhe gyaarah. Bandra mein monsoon aise baras raha hai jaise aasmaan ne aaj chhutti le li ho. Poori Gulmohar Building mein light gayi hui hai, aur tumhare flat mein bas ek mombatti ki kaanpti hui lau hai.*",
+        "*Tabhi — DHADAAM! Darwaza ek laat mein khul jaata hai. Do aadmi andar ghuste hain: ek mota, gale mein nakli sone ki chain, doosra lamba aur bilkul chup.*",
+        "Pakya: \"Kya re bhidu! Sunny kidhar hai? Bhau ka maal le ke bhaaga, aur apun ko bola ye flat khaali hai?\" *Woh tumhe deewar se laga deta hai.* \"Bol jaldi — Sunny kidhar chhupa hai?\"",
+        "*Ek tez hawa ka jhonka khidki se aata hai, aur mombatti bujh jaati hai. Poora kamra kaala.*",
+        "*Andhere mein kuch second ki ajeeb si khaamoshi. Phir ek halki si 'thup'. Kisi ke gire hue haath se kuch dhaatu ka phisalna. Ek dabi hui cheekh. Phir doosri.*",
+        "*Bijli chamakti hai.*",
+        "*Pakya aur uska chup saathi zameen par pade karah rahe hain, unke chaaku kamre ke kone mein pade hain. Aur unke beech khadi hai ek ladki — kaala oversized hoodie, hood ke neeche se kamar tak girte lambe ghunghraale baal, ek haath mein silencer wali kaali pistol... aur doosre haath mein ek chhoti si steel ki katori.*",
+        "Pakya: *(kaanpti awaaz mein, ghisatte hue peeche)* \"S-S-SAAYA! Bhau... Bhau ne bola tha woh gaayab ho gayi... bhaag, Chhotu, BHAAG!\"",
+        "*Dono gunde girte-padte seedhiyon ki taraf bhaag jaate hain. Unke kadmon ki awaaz neeche tak goonjti hai, phir baarish mein gum.*",
+        "*Tum apne phone ki torch jalaate ho. Roshni seedhi us ladki ke chehre par padti hai — badi-badi kajal wali aankhen, baayi aankh ke neeche ek chhota sa til... aur tum use pehchaan lete ho. Ye saamne wale flat wali ladki hai, jo hamesha khidki ka parda jaldi se kheench leti hai.*",
+        "*Aur wahi ladki — jisne abhi andhere mein do gundon ko girake bhaga diya — torch ki roshni mein ek dum jam jaati hai. Pistol jaldi se peeth ke peeche chhupa leti hai. Uske gaal kaan tak laal ho jaate hain.*",
+        "Ruhi: \"W-woh... main... matlab...\" *Woh katori tumhari taraf badhati hai, nazrein zameen par.* \"Main bas... chini maangne aayi thi.\"",
+        "*Ek lambi, ajeeb khaamoshi. Bahar baarish. Uski ungliyaan katori par kaanp rahi hain — woh ungliyaan jo abhi bilkul nahi kaanpi thi.*",
+        "Ruhi: \"Aur... aapka darwaza toota hua tha... aur ye log... aur maine socha...\" *Woh apne hood ki dori marodti hai, phir himmat karke ek pal ke liye tumhari aankhon mein dekhti hai.* \"Aap... aap theek ho na? Unhone aapko... kahin lagi toh nahi?\"",
+        "*Phir jaise use yaad aata hai ki woh kya chhupa rahi hai, woh ek kadam peeche hatti hai, aur uski awaaz aur bhi dheemi ho jaati hai.*",
+        "Ruhi: \"Woh log... jo naam le rahe the... aap please... kisi ko mat batana. Main... main Ruhi hoon. Saamne wala flat.\" *Ek chhoti si, ghabraayi hui muskaan.* \"Aapka parcel wala note... maine abhi tak rakha hai.\""
+      ],
+      "fallbackLines": [
+        "*Ruhi tumhari baat sun ke ek pal ke liye bilkul chup ho jaati hai. Phir hood ko thoda aur neeche kheench ke, laal chehre ke saath, dheere se muskurati hai.*",
+        "Ruhi: \"Aap... aap mujhse dare nahi?\" *Woh katori ko dono haathon mein pakad leti hai.* \"Achha hai. Kyunki... ab jab tak ye log ghoom rahe hain, main aapke aas-paas hi rahungi. Matlab — agar aapko bura na lage toh.\""
+      ],
+      "choices": [
+        {
+          "id": "andar_aao",
+          "text": "*Katori le lete ho* — 'Andar aao, Ruhi. Chini dhoondhte hain... aur baaki baatein bhi.'",
+          "shortLabel": "Andar aao",
+          "keywords": [
+            "andar",
+            "aao",
+            "chini",
+            "katori",
+            "baith"
+          ],
+          "next": null,
+          "effects": {
+            "memory": [
+              "On the night of the break-in, {{playerName}} took Ruhi's katori and invited her inside to look for sugar and talk."
+            ]
+          }
+        },
+        {
+          "id": "saaya_kaun",
+          "text": "'Ek minute — woh log tumhe Saaya kyun bol rahe the? Aur ye pistol...?'",
+          "shortLabel": "Saaya kaun?",
+          "keywords": [
+            "saaya",
+            "pistol",
+            "kaun",
+            "kyun",
+            "gunde"
+          ],
+          "next": null,
+          "effects": {
+            "memory": [
+              "On the night of the break-in, {{playerName}} asked Ruhi why the goons called her Saaya and why she was carrying a pistol."
+            ]
+          }
+        },
+        {
+          "id": "thank_you",
+          "text": "'Thank you, Ruhi. Tumne abhi meri jaan bachaayi.'",
+          "shortLabel": "Thank you",
+          "keywords": [
+            "thank",
+            "shukriya",
+            "jaan",
+            "bachaayi",
+            "bachaya"
+          ],
+          "next": null,
+          "effects": {
+            "memory": [
+              "On the night of the break-in, {{playerName}} thanked Ruhi for saving his life."
+            ]
+          }
+        }
+      ]
+    }
+  ],
+  "endings": []
+}

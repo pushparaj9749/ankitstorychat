@@ -33,6 +33,7 @@ const SERIES = [
   'madam-sarkar',
   'jungle-ki-rani',
   'heros-party',
+  'sharmili-shooter',
 ];
 
 const ROOT = join(__dirname, '..', 'content');
@@ -169,5 +170,41 @@ describe("Hero's Party gallery batches", () => {
     const linked = new Set(story.media.gallery.map((g) => g.characterId).filter(Boolean));
     for (const id of cast) expect([id, linked.has(id)]).toEqual([id, true]);
     expect(new Set(story.media.gallery.map((g) => g.id)).size).toBe(story.media.gallery.length);
+  });
+});
+
+describe('Sharmili Shooter: dangerous + shy heroine, open hero', () => {
+  const id = 'sharmili-shooter';
+  const b = load(id);
+  const chars = b.characters as unknown as {
+    playerVisualDesign: string;
+    characters: { id: string; personality: string }[];
+  };
+  const HERO_TRAIT = /\b(shy|timid|nervous|soft-spoken|flustered|blush\w*|brave|bold|confident|gentle|weak)\b/i;
+
+  test('the hero has no predefined personality anywhere', () => {
+    expect(b.story.userRole).not.toMatch(HERO_TRAIT);
+    expect(b.story.userRole).toMatch(/Nothing about his personality is predefined/);
+    expect(readerRoleText(b.story.userRole)).toMatch(/entirely up to you/);
+    expect(chars.playerVisualDesign).not.toMatch(HERO_TRAIT);
+    expect(b.meta.tags).not.toContain('shy-hero');
+    expect(b.meta.tags).toContain('open-hero');
+    // The Hinglish blurb never tells the reader what kind of man he is.
+    expect(b.story.description).not.toMatch(/tum (ek )?(sharmile|seedhe|darpok|kamzor|bahadur)/i);
+    expect(b.story.description).toMatch(/Tum kaun ho, kaise ho/);
+  });
+
+  test('the heroine is both dangerous and shy', () => {
+    const ruhi = chars.characters.find((c) => c.id === 'ruhi')!;
+    expect(ruhi.personality).toMatch(/shy/);
+    expect(ruhi.personality).toMatch(/Saaya/);
+    expect(b.meta.tags).toEqual(expect.arrayContaining(['dangerous-girlfriend', 'shy-heroine']));
+  });
+
+  test('ships a cover and eight gallery images, each portrait linked to the cast', () => {
+    const gallery = (b.story as unknown as { media: { gallery: { characterId?: string }[] } }).media.gallery;
+    expect(gallery).toHaveLength(9);
+    const cast = new Set(chars.characters.map((c) => c.id));
+    for (const g of gallery) if (g.characterId) expect(cast.has(g.characterId)).toBe(true);
   });
 });
