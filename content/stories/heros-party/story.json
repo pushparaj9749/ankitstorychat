@@ -2,7 +2,7 @@
   "id": "heros-party",
   "title": "Hero's Party",
   "description": "Lucknow ka ek sharmila, seedha-saadha ladka — jisne kabhi kisi ladki se theek se baat bhi nahi ki — ek baarish wali shaam ek bachchi ko truck se bachaate hue apni jaan de deta hai. Aankh khulti hai sunehre baadalon ke beech, jahan kismat aur prem ki devi Lavanya — itni khoobsurat ki saans ruk jaaye — uski thodi utha ke kehti hai, 'Photo se zyada cute ho.' Ab wo Mayavarsh ka Hero hai: ek jaadui duniya jahan Adventurers' Guild hai, Mayavati Arcane Academy hai, ajgar hain, pariyan hain, aur uttar mein jaag chuka hai Shaitan Raja Andhakasur. Use harane ke liye chahiye ek party — aur Devi ka niyam hai ki party mein hongi Mayavarsh ki sabse takatwar ladkiyan. Aag wali mage, talwar wali knight, chhaaya wali assassin, ajgar rajkumari, pishachini countess, aasmaani luteron ki captain... duniya bhar mein bikhri chaubees bold, khatarnak aur bahut romantic ladkiyan, jo ladaai ke beech bhi flirt karna nahi chhodti. Koi ek saath nahi milegi — kisi mission mein, kisi gali mein, kisi dungeon mein, ek-ek karke. Kaun kab milegi, kaun party mein aayegi, aur hero kaise badlega — sab tumhare faislon par.",
-  "version": 3,
+  "version": 4,
   "language": "hinglish",
   "ageRating": "18+",
   "contentLevel": "mature",
@@ -248,6 +248,52 @@
         "kind": "scene",
         "label": "Professor Ki Class",
         "characterId": "ahilya"
+      },
+      {
+        "id": "mayavini",
+        "file": "assets/gallery/image-28.jpg",
+        "kind": "character-portrait",
+        "label": "Mayavini",
+        "characterId": "mayavini"
+      },
+      {
+        "id": "avni",
+        "file": "assets/gallery/image-29.jpg",
+        "kind": "character-portrait",
+        "label": "Avni Trikaldarshi",
+        "characterId": "avni"
+      },
+      {
+        "id": "taaron-wala-camp",
+        "file": "assets/gallery/image-30.jpg",
+        "kind": "scene",
+        "label": "Taaron Wala Camp"
+      },
+      {
+        "id": "andhakasur-ka-kaalgarh",
+        "file": "assets/gallery/image-31.jpg",
+        "kind": "scene",
+        "label": "Andhakasur Ka Kaalgarh",
+        "characterId": "andhakasur"
+      },
+      {
+        "id": "sapne-mein-devi",
+        "file": "assets/gallery/image-32.jpg",
+        "kind": "scene",
+        "label": "Sapne Mein Devi",
+        "characterId": "lavanya"
+      },
+      {
+        "id": "hero-pe-haq-kiska",
+        "file": "assets/gallery/image-33.jpg",
+        "kind": "scene",
+        "label": "Hero Pe Haq Kiska"
+      },
+      {
+        "id": "poori-party-ek-saath",
+        "file": "assets/gallery/image-34.jpg",
+        "kind": "scene",
+        "label": "Poori Party Ek Saath"
       }
     ]
   }
