@@ -82,6 +82,24 @@ export class MemKV {
   async delete(key: string): Promise<void> {
     this.store.delete(key);
   }
+  /** Minimal KV list(): prefix filter, sorted names, cursor = next offset. */
+  async list(opts?: { prefix?: string; cursor?: string; limit?: number }): Promise<{
+    keys: { name: string }[];
+    list_complete: boolean;
+    cursor?: string;
+  }> {
+    const prefix = opts?.prefix ?? '';
+    const limit = Math.max(1, Math.min(1000, opts?.limit ?? 1000));
+    const now = Date.now();
+    const names = [...this.store.entries()]
+      .filter(([k, e]) => k.startsWith(prefix) && (e.expiresAt === null || now <= e.expiresAt))
+      .map(([k]) => k)
+      .sort();
+    const start = opts?.cursor ? Number(opts.cursor) || 0 : 0;
+    const page = names.slice(start, start + limit);
+    const done = start + limit >= names.length;
+    return { keys: page.map((name) => ({ name })), list_complete: done, ...(done ? {} : { cursor: String(start + limit) }) };
+  }
 }
 
 export const memKv = new MemKV();

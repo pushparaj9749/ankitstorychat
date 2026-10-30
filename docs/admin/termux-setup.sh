@@ -3,7 +3,7 @@
 #   kp                  → pending ideas/stories dekho
 #   kacc idea|story ID  → accept
 #   krej idea|story ID  → reject
-#   kd                  → total APK downloads (saare versions) — token nahi chahiye
+#   kd                  → website visitors + download clicks, aur total APK downloads — token nahi chahiye
 #
 # Usage (Termux):
 #   curl -sLo ~/ks.sh <raw url of this file> && bash ~/ks.sh 'YOUR_ADMIN_TOKEN'
@@ -70,10 +70,27 @@ EOF
 done
 
 # ---------- kd (downloads) ----------
-# Public GitHub numbers: every Kissa APK download of every version. No token.
+# 1) Website analytics from the Kissa API (anonymous daily counts).
+# 2) Public GitHub numbers: every Kissa APK download of every version. No token.
 {
   echo "#!$SHELL_BIN"
   cat <<'EOF'
+STATS="$(curl -s -m 20 "${KISSA_STATS:-https://beyondredeye.site/api/stats?days=7}")"
+if echo "$STATS" | jq -e '.ok == true' >/dev/null 2>&1; then
+  echo "$STATS" | jq -r '
+    def c(n; cap): "\(n)\(if cap then "+" else "" end)";
+    def line(name; t): "   \(name)\tvisitors \(c(t.visitors; t.capped))\tnaye \(c(t.newVisitors; t.capped))\tdownload \(c(t.downloads; t.capped))";
+    "🌐 Website (India time)",
+    line("Aaj     "; .today),
+    line("7 din   "; .last7),
+    line("30 din  "; .last30),
+    line("Shuru se"; .allTime),
+    (if .since then "   (ginti shuru: \(.since))" else "   (abhi tak koi visitor nahi gina gaya)" end),
+    ""'
+else
+  echo "⚠️  Website ki ginti abhi nahi mili (baad mein dobara chalao)."
+  echo ""
+fi
 URL="https://api.github.com/repos/pushparaj9749/ankitstorychat/releases?per_page=100&page="
 ALL="[]"
 for page in 1 2 3 4 5; do
@@ -110,7 +127,7 @@ if [ -n "$1" ]; then
 fi
 
 echo "✅ Commands ready: kp, kacc, krej, kd"
-echo "   (kd = total downloads, token nahi chahiye)"
+echo "   (kd = website visitors + downloads, token nahi chahiye)"
 if [ -s ~/.kissa_token ]; then
   echo "✅ Token saved ($(wc -c < ~/.kissa_token | tr -d ' ') characters)"
   echo

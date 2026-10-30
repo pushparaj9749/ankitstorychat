@@ -1,14 +1,18 @@
 /**
- * Owner's download counter: website/downloads.html (+ downloads.js) and the
- * Termux `kd` command. Both add up public GitHub APK download counts of every
- * release — no backend, no token, no user data.
+ * Owner's analytics: website/downloads.html (+ downloads.js) and the Termux
+ * `kd` command. Both show anonymous website counts (visitors / Download
+ * clicks from GET /api/stats) and add up public GitHub APK download counts of
+ * every release — no token, no user data.
  */
 import { readFileSync } from 'node:fs';
 import { join } from 'node:path';
 
 // eslint-disable-next-line @typescript-eslint/no-var-requires
-const { summarize } = require('../website/downloads.js') as {
+const { summarize, statsUrl, fmtCount, totalsHtml } = require('../website/downloads.js') as {
   summarize: (r: unknown[]) => { total: number; versions: { tag: string; date: string; downloads: number }[] };
+  statsUrl: (host: string) => string;
+  fmtCount: (n: number, capped?: boolean) => string;
+  totalsHtml: (t: unknown) => string;
 };
 const ROOT = join(__dirname, '..');
 const read = (p: string) => readFileSync(join(ROOT, p), 'utf8');
@@ -47,6 +51,40 @@ describe('summarize()', () => {
   });
 });
 
+describe('website analytics helpers', () => {
+  test('stats API is same-origin on beyondredeye.site, absolute elsewhere', () => {
+    expect(statsUrl('beyondredeye.site')).toBe('/api/stats?days=14');
+    expect(statsUrl('www.beyondredeye.site')).toBe('/api/stats?days=14');
+    expect(statsUrl('pushparaj9749.github.io')).toBe('https://beyondredeye.site/api/stats?days=14');
+    expect(statsUrl('evilbeyondredeye.site')).toBe('https://beyondredeye.site/api/stats?days=14');
+  });
+  test('numbers only — Indian grouping, "+" when the day hit the limit, no percentages', () => {
+    expect(fmtCount(123456)).toBe('1,23,456');
+    expect(fmtCount(250, true)).toBe('250+');
+    expect(fmtCount(undefined as unknown as number)).toBe('0');
+    const html = totalsHtml({ visitors: 12, newVisitors: 5, downloads: 3, capped: false });
+    expect(html).toContain('<b>12</b>');
+    expect(html).toContain('<b>5</b>');
+    expect(html).toContain('<b>3</b>');
+    expect(html).not.toContain('%');
+  });
+});
+
+describe('site beacon (website/app.js)', () => {
+  const app = read('website/app.js');
+  test('sends only an event name, once per browser per day', () => {
+    expect(app).toContain("oncePerDay('kissa_v', 'visit', true)");
+    expect(app).toContain("oncePerDay('kissa_d', 'download', false)");
+    expect(app).toContain("'/api/stats/hit'");
+    expect(app).toMatch(/credentials: 'omit'/);
+    expect(app).not.toMatch(/document\.cookie|userAgent|Authorization/);
+  });
+  test('is wired to every Download button and skipped on localhost', () => {
+    for (const id of ['heroDownload', 'navDownload', 'bottomDownload']) expect(read('website/index.html')).toContain(`id="${id}"`);
+    expect(app).toMatch(/localhost\|127/);
+  });
+});
+
 describe('downloads page', () => {
   const html = read('website/downloads.html');
   const js = read('website/downloads.js');
@@ -57,7 +95,7 @@ describe('downloads page', () => {
   });
 
   test('has every element the script fills in', () => {
-    for (const id of ['total', 'latest', 'status', 'count', 'refresh', 'rows', 'updated']) {
+    for (const id of ['total', 'latest', 'status', 'count', 'refresh', 'rows', 'updated', 'anToday', 'an7', 'an30', 'anAll', 'anRows', 'anStatus']) {
       expect(js).toContain(`el('${id}')`);
       expect(html).toContain(`id="${id}"`);
     }
@@ -84,5 +122,12 @@ describe('Termux kd command', () => {
     expect(kd).not.toMatch(/kissa_token|Authorization/);
     expect(kd).toContain('api.github.com/repos/pushparaj9749/ankitstorychat/releases');
     expect(kd).toContain('test("\\\\.apk$"; "i")');
+  });
+
+  test('kd also prints website visitors and downloads from the public stats API', () => {
+    const kd = sh.slice(sh.indexOf('# ---------- kd'), sh.indexOf('> "$BIN/kd"'));
+    expect(kd).toContain('https://beyondredeye.site/api/stats?days=7');
+    expect(kd).toContain('.allTime');
+    expect(kd).not.toContain('%');
   });
 });

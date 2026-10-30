@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <!-- Owner-only page: not linked anywhere on the site, kept out of search engines. -->
   <meta name="robots" content="noindex, nofollow" />
-  <title>Kissa · Downloads</title>
+  <title>Kissa · Analytics</title>
   <link rel="icon" href="favicon.png" />
   <link rel="stylesheet" href="styles.css" />
   <style>
@@ -26,15 +26,38 @@
     th { color: var(--faint); font-size: 12px; text-transform: uppercase; letter-spacing: 0.05em; }
     td.num, th.num { text-align: right; font-weight: 800; }
     .dl-note { color: var(--faint); font-size: 12px; margin-top: 18px; line-height: 1.5; }
+    .an-title { font-size: 17px; font-weight: 900; margin: 30px 0 10px; }
+    .an-title:first-of-type { margin-top: 0; }
+    .an-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+    .an-card { background: var(--surface); border: 1px solid var(--border); border-radius: 16px; padding: 14px; }
+    .an-card h3 { color: var(--dim); font-size: 12px; letter-spacing: 0.05em; text-transform: uppercase; margin-bottom: 8px; }
+    .an-line { display: flex; justify-content: space-between; align-items: baseline; gap: 8px; font-size: 13px; color: var(--dim); }
+    .an-line b { font-size: 22px; font-weight: 900; color: var(--text, #fff); }
+    .an-line.dl b { color: var(--accent); }
+    #anStatus { color: var(--accent); font-size: 13px; min-height: 18px; margin-top: 8px; }
   </style>
 </head>
 <body>
   <main class="dl-wrap">
     <div class="dl-head">
       <img src="icon.png" alt="" />
-      <h1>Kissa · Downloads</h1>
+      <h1>Kissa · Analytics</h1>
     </div>
 
+    <h2 class="an-title">Website: kitne log aaye, kitno ne download dabaya</h2>
+    <div class="an-grid" id="anGrid">
+      <div class="an-card"><h3>Aaj</h3><div id="anToday">…</div></div>
+      <div class="an-card"><h3>Pichhle 7 din</h3><div id="an7">…</div></div>
+      <div class="an-card"><h3>Pichhle 30 din</h3><div id="an30">…</div></div>
+      <div class="an-card"><h3>Shuru se</h3><div id="anAll">…</div></div>
+    </div>
+    <div id="anStatus"></div>
+    <table>
+      <thead><tr><th>Din</th><th class="num">Visitors</th><th class="num">Naye</th><th class="num">Download</th></tr></thead>
+      <tbody id="anRows"></tbody>
+    </table>
+
+    <h2 class="an-title">GitHub: APK downloads (saare versions)</h2>
     <section class="dl-card">
       <div class="dl-label">Total downloads (saare versions)</div>
       <div class="dl-total" id="total">…</div>
@@ -54,7 +77,13 @@
 
     <p class="dl-note">
       <span id="updated"></span><br />
-      Ginti GitHub se aati hai: website ka Download button, app ke andar update, ya releases page, har APK download gina jaata hai.
+      <b>Website wali ginti:</b> ek browser din mein ek baar "visitor" gina jaata hai (pehli baar aaya to "naya" bhi), aur
+      Download button dabane wala din mein ek baar "download" gina jaata hai. Koi naam, IP ya ID save nahi hoti, sirf
+      din-wise ginti. Ginti isi feature ke live hone ke din se shuru hui hai, bots nahi gine jaate, aur tum khud site
+      kholo to tum bhi gine jaoge. Kisi din bahut zyada traffic aaye to server ki free limit bachane ke liye ginti ruk
+      jaati hai; us din ke aage "+" dikhega (matlab asli number isse zyada hai).<br /><br />
+      <b>GitHub wali ginti:</b>
+      website ka Download button, app ke andar update, ya releases page, har APK download gina jaata hai.
       Ek hi insaan do baar download kare to do gine jaate hain, aur tumhare apne test downloads bhi isme shaamil hain.
     </p>
   </main>

@@ -398,6 +398,13 @@ jobs:
           check "POST idea without body -> 400" "400" "$(code -X POST -H 'Content-Type: application/json' -d '{}' "$base/submit/idea")"
           check "admin/pending without token -> 401" "401" "$(code "$base/admin/pending")"
 
+          # 5b) Site analytics: the public stats GET answers with JSON, and the
+          #     beacon refuses requests that do not come from the site (this
+          #     check never writes a count).
+          case "$(body "$base/stats?days=1")" in *allTime*) echo "✅ GET /api/stats returns JSON"; pass=$((pass+1));;
+            *) echo "❌ GET /api/stats unexpected body"; fails=$((fails+1));; esac
+          check "stats beacon without Origin -> 403" "403" "$(code -X POST -H 'Content-Type: text/plain' -d '{"e":"visit"}' "$base/stats/hit")"
+
           # 6) Root website untouched: it must STILL be served by GitHub Pages.
           #    This guards the inverse regression — a Worker route widened to
           #    beyondredeye.site/* would start serving the Worker's asset copy
