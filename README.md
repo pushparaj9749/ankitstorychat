@@ -726,6 +726,16 @@ The workflow self-enables Pages if a `PAGES_ADMIN_TOKEN` secret (PAT with repo
 scope or Pages write) is configured; otherwise it fails fast with a link to the
 settings page.
 
+### Download counter (owner only)
+
+- **`website/downloads.html`** (live at `https://beyondredeye.site/downloads.html`):
+  - Shows the total APK downloads across **every release and version**, plus a per-version table.
+  - Not linked from the site, and marked `noindex`.
+- **Termux `kd`:** prints the same numbers. It is installed by `docs/admin/termux-setup.sh` next to `kp`, `kacc` and `krej`, and needs no token.
+- **Data source:** both add up the public GitHub `download_count` of every `.apk` release asset. There is no backend, token or user data.
+- **What counts:** every APK download counts, whether from the site button, an in-app update or the releases page. GitHub cannot tell people apart, so repeat and test downloads are included.
+- **Tests:** `__tests__/downloadStats.test.ts`.
+
 ---
 
 ## 🧪 Testing
