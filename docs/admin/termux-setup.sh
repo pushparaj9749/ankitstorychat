@@ -1,8 +1,9 @@
 #!/usr/bin/env bash
-# Kissa admin tools for Termux — installs three commands:
+# Kissa admin tools for Termux — installs four commands:
 #   kp                  → pending ideas/stories dekho
 #   kacc idea|story ID  → accept
 #   krej idea|story ID  → reject
+#   kd                  → total APK downloads (saare versions) — token nahi chahiye
 #
 # Usage (Termux):
 #   curl -sLo ~/ks.sh <raw url of this file> && bash ~/ks.sh 'YOUR_ADMIN_TOKEN'
@@ -68,7 +69,39 @@ EOF
   } > "$BIN/$name"
 done
 
-chmod +x "$BIN/kp" "$BIN/kacc" "$BIN/krej"
+# ---------- kd (downloads) ----------
+# Public GitHub numbers: every Kissa APK download of every version. No token.
+{
+  echo "#!$SHELL_BIN"
+  cat <<'EOF'
+URL="https://api.github.com/repos/pushparaj9749/ankitstorychat/releases?per_page=100&page="
+ALL="[]"
+for page in 1 2 3 4 5; do
+  RES="$(curl -s -m 20 -H 'Accept: application/vnd.github+json' "$URL$page")"
+  if [ -z "$RES" ]; then echo "❌ GitHub se jawab nahi aaya (internet check karo)."; exit 1; fi
+  if ! echo "$RES" | jq -e 'type == "array"' >/dev/null 2>&1; then
+    echo "❌ GitHub: $(echo "$RES" | jq -r '.message // "ajeeb jawab"' 2>/dev/null)"
+    echo "   (Limit: ek ghante mein 60 baar. Thodi der baad dobara chalao.)"
+    exit 1
+  fi
+  ALL="$(jq -s '.[0] + .[1]' <(echo "$ALL") <(echo "$RES"))"
+  [ "$(echo "$RES" | jq 'length')" -lt 100 ] && break
+done
+echo "$ALL" | jq -r '
+  [ .[] | select(.draft | not)
+        | { tag: .tag_name, date: (.published_at // .created_at // ""),
+            apks: [ .assets[] | select(.name | test("\\.apk$"; "i")) ] }
+        | select(.apks | length > 0)
+        | { tag, date, n: ([ .apks[].download_count ] | add) } ]
+  | sort_by(.date) | reverse
+  | "📥 Kissa total downloads: \(map(.n) | add // 0)   (\(length) versions)",
+    "",
+    (.[:10][] | "   \(.tag)\t\(.date[:10])\t\(.n)"),
+    (if length > 10 then "   … baaki \(length - 10) purane versions bhi total mein jude hain" else empty end)'
+EOF
+} > "$BIN/kd"
+
+chmod +x "$BIN/kp" "$BIN/kacc" "$BIN/krej" "$BIN/kd"
 
 # ---------- token ----------
 if [ -n "$1" ]; then
@@ -76,7 +109,8 @@ if [ -n "$1" ]; then
   chmod 600 ~/.kissa_token
 fi
 
-echo "✅ Commands ready: kp, kacc, krej"
+echo "✅ Commands ready: kp, kacc, krej, kd"
+echo "   (kd = total downloads, token nahi chahiye)"
 if [ -s ~/.kissa_token ]; then
   echo "✅ Token saved ($(wc -c < ~/.kissa_token | tr -d ' ') characters)"
   echo
