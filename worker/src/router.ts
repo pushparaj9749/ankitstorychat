@@ -30,6 +30,9 @@
  *   GET  /api/submit/limit                 (public — check remaining slots)
  *   GET  /api/submit/status?ids=a,b        (public — status words only for
  *                                           the submitter's own ids)
+ *   POST /api/stats/hit                    (site beacon — {"e":"visit"|"download"};
+ *                                           anonymous daily counts, no ids/IPs)
+ *   GET  /api/stats?days=30                (public — daily visitor/download counts)
  *   GET  /api/admin/pending                (admin — Bearer token required)
  *   GET  /api/admin/media/:mediaId         (admin — preview uploaded image)
  *   POST /api/admin/idea/:id/accept        (admin)
@@ -68,6 +71,7 @@ import {
   uploadMedia,
 } from './submissions';
 import { MEDIA_ID_RE } from './media';
+import { getStats, looksLikeBot, parseHit, recordHit } from './stats';
 import type { Env } from './submissions';
 export type { Env } from './submissions';
 
@@ -219,6 +223,8 @@ export type ApiRoute =
   | { kind: 'admin-idea-reject'; id: string }
   | { kind: 'admin-story-accept'; id: string }
   | { kind: 'admin-story-reject'; id: string }
+  | { kind: 'stats' }
+  | { kind: 'stats-hit' }
   | { kind: 'not-found' };
 
 /**
@@ -246,6 +252,8 @@ export function parseApiRoute(pathname: string): ApiRoute {
 
   if (first === 'health' && !second && segments.length === 2) return { kind: 'health' };
   if (first === 'manifest' && !second && segments.length === 2) return { kind: 'manifest' };
+  if (first === 'stats' && !second && segments.length === 2) return { kind: 'stats' };
+  if (first === 'stats' && second === 'hit' && segments.length === 3) return { kind: 'stats-hit' };
 
   if (first === 'covers') {
     const name = segments[2];
@@ -485,6 +493,7 @@ async function serveStoryPackage(
 
 /** Routes that accept POST (submissions + admin actions). */
 const POST_ROUTES = new Set([
+  'stats-hit',
   'submit-idea',
   'submit-story',
   'submit-media',
@@ -493,6 +502,9 @@ const POST_ROUTES = new Set([
   'admin-story-accept',
   'admin-story-reject',
 ]);
+
+/** Analytics beacons are tiny ({"e":"visit","n":true}). */
+const STATS_HIT_MAX = 200;
 
 /** Base64 image uploads are larger than JSON submissions (3 MB image ≈ 4 MB). */
 const MEDIA_UPLOAD_MAX = 5_500_000;
@@ -654,6 +666,35 @@ async function handleApi(request: Request, env: Env, url: URL): Promise<Response
     case 'cover': {
       const r = await serveAsset(env, `covers/${route.name}`, guessContentType(route.name), CACHE_COVER, {}, method);
       return withCors(r, cors);
+    }
+
+    case 'stats-hit': {
+      // Anonymous visit / download-click counter. Only real browsers on our
+      // own site count: an allowed Origin is required and bots are skipped.
+      // Always 204 — the beacon must never surface errors to visitors.
+      const done = () => withCors(new Response(null, { status: 204, headers: { 'Cache-Control': 'no-store' } }), cors);
+      if (!origin) return withCors(errorJson(403, 'origin_required'), cors);
+      let body: unknown;
+      try {
+        body = await readJsonBody(request, STATS_HIT_MAX);
+      } catch {
+        return withCors(errorJson(400, 'invalid_body'), cors);
+      }
+      const hit = parseHit(body);
+      if (!hit) return withCors(errorJson(400, 'invalid_body'), cors);
+      if (looksLikeBot(request.headers.get('User-Agent'))) return done();
+      const colo = (request as Request & { cf?: { colo?: unknown } }).cf?.colo;
+      await recordHit(env, hit, colo);
+      return done();
+    }
+    case 'stats': {
+      const days = Number(url.searchParams.get('days') ?? '30');
+      try {
+        const summary = await getStats(env, Number.isFinite(days) ? days : 30);
+        return withCors(json(summary, 200, { 'Cache-Control': 'public, max-age=60' }), cors);
+      } catch {
+        return withCors(errorJson(503, 'stats_unavailable', 'Stats are unavailable right now.', { 'Cache-Control': 'no-store' }), cors);
+      }
     }
 
     case 'submit-limit': {

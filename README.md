@@ -422,7 +422,7 @@ dependency.
 - User data **never leaves the device** except in two user-initiated cases:
   1. Downloading **public** story files from the Kissa story API (`https://beyondredeye.site/api`, plain file fetch, no personal data).
   2. Chat requests to **your own configured AI provider** (required for it to reply).
-- There is no Kissa server, no analytics SDK, no push service, no tracking.
+- The app has no analytics SDK, no push service and no tracking. (The website only keeps anonymous daily *counts* of visits and Download clicks. No IDs, cookies or IPs are stored; see "Site analytics" below.)
 
 ### Local storage map
 
@@ -726,15 +726,30 @@ The workflow self-enables Pages if a `PAGES_ADMIN_TOKEN` secret (PAT with repo
 scope or Pages write) is configured; otherwise it fails fast with a link to the
 settings page.
 
-### Download counter (owner only)
+### Site analytics + download counter (owner only)
 
-- **`website/downloads.html`** (live at `https://beyondredeye.site/downloads.html`):
-  - Shows the total APK downloads across **every release and version**, plus a per-version table.
-  - Not linked from the site, and marked `noindex`.
-- **Termux `kd`:** prints the same numbers. It is installed by `docs/admin/termux-setup.sh` next to `kp`, `kacc` and `krej`, and needs no token.
-- **Data source:** both add up the public GitHub `download_count` of every `.apk` release asset. There is no backend, token or user data.
-- **What counts:** every APK download counts, whether from the site button, an in-app update or the releases page. GitHub cannot tell people apart, so repeat and test downloads are included.
-- **Tests:** `__tests__/downloadStats.test.ts`.
+- **`website/downloads.html`** (live at `https://beyondredeye.site/downloads.html`, "Kissa · Analytics"):
+  - **Website:** visitors, new visitors and Download-button clicks for today, the last 7 days, the last 30 days and since counting began, plus a 14-day daily table.
+  - **GitHub:** total APK downloads across **every release and version**, plus a per-version table.
+  - Numbers only. The page is not linked from the site and is marked `noindex`.
+- **How website counting works:**
+  - `website/app.js` sends `{"e":"visit"}` once per browser per day (India date), with `"n":true` on that browser's first-ever visit.
+  - It sends `{"e":"download"}` once per day when a Download button is tapped.
+  - The day marker lives only in the visitor's own `localStorage`. No ID, cookie, IP or user agent is sent or stored.
+  - The Worker (`worker/src/stats.ts`) handles `POST /api/stats/hit`:
+    - It needs an allowed site Origin and skips bots.
+    - It adds 1 to `stats:d:<day>:<location>` in KV. Using one counter per Cloudflare location avoids losing hits to cross-location sync delay.
+    - Days older than 2 days are merged into `stats:m:<day>`. Keys expire after 400 days.
+  - `GET /api/stats?days=N` returns the daily rows and totals.
+  - Each location shard stops at 250 hits a day so the shared free-KV write budget is never used up for story submissions. A capped day shows `+`.
+- **Termux `kd`:**
+  - Prints the website numbers and the GitHub totals.
+  - It is installed by `docs/admin/termux-setup.sh` next to `kp`, `kacc` and `krej`, and needs no token.
+- **What the numbers mean:**
+  - Website counting starts on the day this feature went live.
+  - The owner's own visits count too.
+  - GitHub counts every APK download (site button, in-app update, releases page), including repeat and test downloads. So the two download numbers differ.
+- **Tests:** `__tests__/downloadStats.test.ts` and `worker/__tests__/stats.test.ts`.
 
 ---
 

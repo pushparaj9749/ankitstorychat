@@ -1,5 +1,9 @@
-/* Kissa — owner's download counter (website/downloads.html).
+/* Kissa — owner's analytics page (website/downloads.html).
  *
+ * Part 1 — website analytics from the Kissa API (GET /api/stats): anonymous
+ * daily counts of visitors, new visitors and Download-button clicks.
+ *
+ * Part 2 — GitHub APK downloads:
  * Adds up the GitHub download count of every Kissa APK ever released
  * (every version, every release). Public GitHub numbers only: no backend,
  * no token, no user data. GitHub counts each APK download (website button,
@@ -32,8 +36,27 @@
     return { total: total, versions: versions };
   }
 
+  /** Where the stats API lives for a given page host. */
+  function statsUrl(hostname) {
+    var base = /(^|\.)beyondredeye\.site$/.test(hostname || '') ? '' : 'https://beyondredeye.site';
+    return base + '/api/stats?days=14';
+  }
+
+  /** Number with Indian grouping; "+" when the day hit the counting limit. */
+  function fmtCount(n, capped) {
+    return (Number(n) || 0).toLocaleString('en-IN') + (capped ? '+' : '');
+  }
+
+  /** A totals block → HTML lines (numbers only). */
+  function totalsHtml(t) {
+    t = t || {};
+    return '<div class="an-line"><span>Visitors</span><b>' + fmtCount(t.visitors, t.capped) + '</b></div>' +
+      '<div class="an-line"><span>Naye visitors</span><b>' + fmtCount(t.newVisitors, t.capped) + '</b></div>' +
+      '<div class="an-line dl"><span>Download</span><b>' + fmtCount(t.downloads, t.capped) + '</b></div>';
+  }
+
   if (typeof module !== 'undefined' && module.exports) {
-    module.exports = { summarize: summarize };
+    module.exports = { summarize: summarize, statsUrl: statsUrl, fmtCount: fmtCount, totalsHtml: totalsHtml };
     return;
   }
 
@@ -68,7 +91,36 @@
     el('updated').textContent = 'Abhi update hua: ' + new Date().toLocaleString('en-IN');
   }
 
+  function fmtDay(day) {
+    var d = new Date(day + 'T00:00:00Z');
+    return d.toLocaleDateString('en-IN', { day: 'numeric', month: 'short', timeZone: 'UTC' });
+  }
+
+  function renderStats(s) {
+    el('anToday').innerHTML = totalsHtml(s.today);
+    el('an7').innerHTML = totalsHtml(s.last7);
+    el('an30').innerHTML = totalsHtml(s.last30);
+    el('anAll').innerHTML = totalsHtml(s.allTime);
+    el('anRows').innerHTML = (s.days || []).map(function (r) {
+      return '<tr><td>' + fmtDay(r.date) + '</td><td class="num">' + fmtCount(r.visitors, r.capped) +
+        '</td><td class="num">' + fmtCount(r.newVisitors, r.capped) + '</td><td class="num">' +
+        fmtCount(r.downloads, r.capped) + '</td></tr>';
+    }).join('');
+    el('anStatus').textContent = s.since ? 'Ginti shuru: ' + fmtDay(s.since) : 'Abhi tak koi visitor nahi gina gaya.';
+  }
+
+  function loadStats() {
+    el('anStatus').textContent = 'Gin raha hoon...';
+    return fetch(statsUrl(location.hostname), { cache: 'no-store' }).then(function (r) {
+      if (!r.ok) throw new Error('http ' + r.status);
+      return r.json();
+    }).then(renderStats).catch(function () {
+      el('anStatus').textContent = 'Website ki ginti abhi nahi mili. Thodi der baad Refresh karo.';
+    });
+  }
+
   function load() {
+    loadStats();
     el('status').textContent = 'Gin raha hoon...';
     el('refresh').disabled = true;
     fetchAll(1, []).then(function (all) {

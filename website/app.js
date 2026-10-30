@@ -1,5 +1,6 @@
-/* Kissa website: latest-APK button + live story list from the Kissa story API.
- * No backend, no user data — public story content only. */
+/* Kissa website: latest-APK button + live story list from the Kissa story API,
+ * plus an anonymous visit / download-click counter for the owner.
+ * No user data — the counter sends no id, cookie or personal info. */
 (function () {
   'use strict';
   var OWNER = 'pushparaj9749';
@@ -111,4 +112,43 @@
     .catch(function () {
       grid.innerHTML = '<p class="loading">Stories could not be loaded (no internet?). New stories arrive over-the-air from the live story API — no app update needed.</p>';
     });
+
+  // 3) Anonymous site analytics (owner's downloads.html page). Each browser
+  //    reports at most one "visit" and one "download" per day (India date);
+  //    the day marker stays in this browser's own localStorage. Nothing that
+  //    identifies a person is sent — just {"e":"visit"} or {"e":"download"}.
+  var host = location.hostname || '';
+  var STATS_ON = location.protocol.indexOf('http') === 0 && !/^(localhost|127\.0\.0\.1|\[::1\])$/.test(host);
+  var STATS_URL = /(^|\.)beyondredeye\.site$/.test(host) ? '/api/stats/hit' : 'https://beyondredeye.site/api/stats/hit';
+
+  function istDay() {
+    return new Date(Date.now() + 330 * 60000).toISOString().slice(0, 10);
+  }
+  function sendStat(event, isNew) {
+    var body = JSON.stringify(isNew ? { e: event, n: true } : { e: event });
+    try {
+      if (navigator.sendBeacon && navigator.sendBeacon(STATS_URL, new Blob([body], { type: 'text/plain' }))) return;
+    } catch (e) { /* fall through */ }
+    try {
+      fetch(STATS_URL, { method: 'POST', body: body, keepalive: true, mode: 'cors', credentials: 'omit', headers: { 'Content-Type': 'text/plain' } }).catch(function () {});
+    } catch (e) { /* ignore */ }
+  }
+  /** Report `event` once per browser per day; returns false when storage is unavailable. */
+  function oncePerDay(key, event, markNew) {
+    try {
+      var today = istDay();
+      var last = localStorage.getItem(key);
+      if (last === today) return;
+      localStorage.setItem(key, today);
+      sendStat(event, markNew && !last);
+    } catch (e) { /* storage blocked: skip rather than over-count */ }
+  }
+
+  if (STATS_ON) {
+    oncePerDay('kissa_v', 'visit', true);
+    ['heroDownload', 'navDownload', 'bottomDownload'].forEach(function (id) {
+      var btn = document.getElementById(id);
+      if (btn) btn.addEventListener('click', function () { oncePerDay('kissa_d', 'download', false); });
+    });
+  }
 })();
