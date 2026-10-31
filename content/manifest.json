@@ -1,7 +1,7 @@
 {
-  "contentVersion": 60,
+  "contentVersion": 61,
   "minAppVersion": "1.0.0",
-  "updatedAt": "2026-10-31T00:00:00Z",
+  "updatedAt": "2026-11-01T00:00:00Z",
   "stories": [
     {
       "id": "arranged-marriage-wala-love",
@@ -53,6 +53,60 @@
         "verified": true
       },
       "updatedAt": "2026-10-03T14:46:42Z"
+    },
+    {
+      "id": "goa-ki-chingari",
+      "title": "Goa Ki Chingari",
+      "tagline": "Raat ko woh aag se naachti hai, aur usi raat crooks ke heere gaayab ho jaate hain... aaj usne apna naya 'boyfriend' chun liya hai: tum.",
+      "description": "Vagator, North Goa. Cliff ke upar casino king Ranjit Salgaonkar ki sabse bhadkili party chal rahi hai: DJ, aatishbaazi, samundar ki hawa, aur sheeshe ke box mein chamakta 'Neela Taara', ek nayaab neela heera. Stage par Selina Pereira aag se naach rahi hai. Haathon mein jalte hue chakra, hawa mein aag ki lapten, aur nazrein seedhi tumhare upar. Phir achanak poori party ki light chali jaati hai. Kuch second baad light wapas aati hai, aur sheeshe ka box khaali hai. Ranjit ka bodyguard Bosco darwaze band karwa deta hai: 'Koi bahar nahi jaayega!' Goa mein sab ek naam se waaqif hain: Chingari. Woh chor jo sirf crooks ko lootti hai, kabhi pakdi nahi gayi, aur har chori ke baad ek jali hui maachis ki teeli chhod jaati hai. Aur us bheed mein, jahan Bosco ke aadmi har akeli ladki ki talaashi le rahe hain, wahi aag wali ladki seedha tumhari baahon mein aa jaati hai, tumhare kaan mein phusphusaati hai: 'Do minute ke liye mera boyfriend ban jaao, jaan.' Uski aankhon mein shararat hai, saanson mein aag, aur peeche Bosco aa raha hai. Tum kaun ho, kaise ho, aur kahani kahan jaayegi, ye sab sirf tum tay karoge.",
+      "genres": [
+        "Romance",
+        "Action",
+        "Thriller",
+        "Comedy"
+      ],
+      "tags": [
+        "romance",
+        "dangerous-girlfriend",
+        "bold-heroine",
+        "flirty-heroine",
+        "open-hero",
+        "thief",
+        "heist",
+        "fire-dancer",
+        "goa",
+        "beach",
+        "player-agency",
+        "dynamic-continuous",
+        "ongoing",
+        "hinglish"
+      ],
+      "characters": [
+        "Selina Pereira",
+        "Ranjit Salgaonkar",
+        "Bosco",
+        "Pinky Naik",
+        "Avó Rosa Pereira"
+      ],
+      "ageRating": "18+",
+      "contentLevel": "mature",
+      "language": "hinglish",
+      "version": 1,
+      "coverUrl": "stories/goa-ki-chingari/assets/cover.jpg",
+      "accentColor": "#D9381E",
+      "userRole": "{{playerName}} — an adult Indian man aged 25 who is in North Goa and, tonight, is a guest at casino king Ranjit Salgaonkar's cliff-top party in Vagator. Who he is — his nature, temperament, job, past, why he is in Goa and how he came to be at this party — is entirely up to you. Nothing about his personality is predefined: the narrator never assigns him a temperament, never describes how he usually behaves, and learns who he is only from the player's own words and choices. The player supplies his display name at runtime; never assign him another name, and never write his thoughts, feelings, dialogue, actions or decisions.",
+      "setting": "Present-day North Goa in peak season: Ranjit Salgaonkar's cliff-top villa at Vagator with an infinity pool, fire torches, a DJ deck and the Arabian Sea crashing below; the 'Royal Neptune', his floating casino on the Mandovi river in Panjim; the narrow, colourful Portuguese lanes of Fontainhas where Selina lives above her grandmother's bakery; Anjuna flea market, the red cliffs and hidden coves, Chapora fort at sunset, beach shacks with fairy lights and bonfires, night markets, coconut groves, a little white chapel in Siolim, and winding coastal roads perfect for a scooter chase.",
+      "estimatedMinutes": 60,
+      "featured": false,
+      "isNew": true,
+      "popularity": 99,
+      "storyDir": "goa-ki-chingari",
+      "creator": {
+        "name": "Ankit",
+        "avatar": null,
+        "verified": true
+      },
+      "updatedAt": "2026-11-01T00:00:00Z"
     },
     {
       "id": "do-deewaniyan",

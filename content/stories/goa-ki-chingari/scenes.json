@@ -1,0 +1,90 @@
+{
+  "storyId": "goa-ki-chingari",
+  "version": 1,
+  "scenes": [
+    {
+      "id": "aag_ka_naach",
+      "title": "Aag Ka Naach",
+      "narration": [
+        "*Vagator, North Goa. Raat ke saadhe gyaarah. Laal chattaanon ke upar Ranjit Salgaonkar ka sheeshe ka villa jagmaga raha hai. Neeche samundar garaj raha hai, upar aasmaan mein aatishbaazi phat rahi hai, aur DJ ka bass seene mein dhadak raha hai.*",
+        "*Pool ke beech ek sheeshe ka box rakha hai. Andar ek neela heera, 'Neela Taara', aise chamak raha hai jaise kisi ne aasmaan ka sabse chamakta taara tod ke rakh diya ho.*",
+        "*Aur stage par woh naach rahi hai.*",
+        "*Haathon mein do jalte hue chakra. Aag ki lapten uske charon taraf ghoomti hain, laal-narangi skirt hawa mein udti hai, aur lambe ghunghraale baal har ghoomar ke saath aag ki roshni mein sunehre chamakte hain. Poori party saans roke dekh rahi hai.*",
+        "*Par uski nazrein bheed mein sirf ek jagah ruk jaati hain: tum par. Ek ghoomar. Phir doosri. Har baar woh tumhe dekhti hai, aur aakhri ghoomar ke saath tumhe ek aankh maar deti hai.*",
+        "*Tabhi poore villa ki light chali jaati hai. Music band. Ek pal ka andhera, bas samundar ki awaaz aur logon ki ghabraayi hui cheekhen.*",
+        "*Kuch second baad generator ghurraata hai, light wapas aati hai... aur sheeshe ka box khaali hai. Uske upar bas ek cheez padi hai: ek jali hui maachis ki teeli.*",
+        "Ranjit: *(muskaan jamaaye, awaaz barf jaisi)* \"My friends... koi ghabraaye nahi. Bas, is party se koi bahar nahi jaayega. Bosco!\"",
+        "Bosco: *(ek pahaad jaisa aadmi, gate band karwate hue)* \"Chingari yahin hai! Har akeli ladki ki talaashi lo. EK-EK KI!\"",
+        "*Bheed mein khalbali mach jaati hai. Aur usi bheed mein se, jalte hue chakra bujha kar, wahi aag wali ladki seedhi tumhari taraf aati hai. Paas aakar woh bina kuch pooche tumhari baahon mein sama jaati hai, aur tumhara haath apni kamar par rakh leti hai, jaise tum dono saalon se saath ho.*",
+        "Selina: *(tumhare kaan mein, garam saanson ke saath)* \"Hi, jaan. Main Selina. Sirf do minute ke liye mera boyfriend ban jaao, please.\" *Ek sharaarti muskaan.* \"Acting achhi lagi... toh contract lamba kar denge.\"",
+        "*Uske baalon se dhuen aur nariyal ki khushboo aa rahi hai. Uski kalaai ke andar ek chhota sa tattoo hai, aag mein jalta ek jugnu.*",
+        "*Tabhi Bosco ki bhaari aawaaz bilkul paas se aati hai.*",
+        "Bosco: \"Ae fire-wali! Light gayi tab tu kidhar thi?\" *Uski nazar tum par aati hai, upar se neeche tak.* \"Aur ye kaun hai? Tera boyfriend?\"",
+        "Selina: *(tumhare gaal par ek halki si kiss dete hue, Bosco ko dekh ke)* \"Haan, Bosco bhai. Mera boyfriend. Jalan ho rahi hai?\"",
+        "Bosco: *(aankhen sikod ke, seedha tumse)* \"Main isse nahi, tujhse pooch raha hoon, re. Bol. Ye teri girlfriend hai?\"",
+        "*Selina ki ungliyaan tumhare haath mein halki si kas jaati hain. Uski aankhon mein shararat bhi hai, aur ek chhupi hui guzaarish bhi. Poori party ki nazrein ab tum par hain.*"
+      ],
+      "fallbackLines": [
+        "*Selina tumhari baat sun ke ek pal ke liye tumhe dekhti hai, phir uske hothon par wahi aag jaisi muskaan aa jaati hai.*",
+        "Selina: \"Tum interesting ho, jaan.\" *Woh tumhare collar ko theek karti hai, Bosco ki taraf peeth karke.* \"Fikar mat karo. Jo bhi ho, aaj raat tumhe kuch nahi hoga. Ye promise hai, Chingari ka nahi... Selina ka.\""
+      ],
+      "choices": [
+        {
+          "id": "haan_girlfriend",
+          "text": "*Selina ko apne paas kheench lete ho* — 'Haan. Meri girlfriend hai. Koi problem?'",
+          "shortLabel": "Haan, girlfriend hai",
+          "keywords": [
+            "haan",
+            "girlfriend",
+            "meri",
+            "problem",
+            "saath"
+          ],
+          "next": null,
+          "effects": {
+            "memory": [
+              "On the night of the Vagator party, when Bosco asked, {{playerName}} told him Selina was his girlfriend."
+            ]
+          }
+        },
+        {
+          "id": "sach_bol_do",
+          "text": "'Nahi. Maine ise aaj pehli baar dekha hai.'",
+          "shortLabel": "Sach bol do",
+          "keywords": [
+            "nahi",
+            "pehli",
+            "baar",
+            "jaanta",
+            "sach"
+          ],
+          "next": null,
+          "effects": {
+            "memory": [
+              "On the night of the Vagator party, when Bosco asked, {{playerName}} said he had never met Selina before tonight."
+            ]
+          }
+        },
+        {
+          "id": "selina_se_poocho",
+          "text": "*Selina ke kaan mein* — 'Pehle ye batao... heera tumne churaya hai?'",
+          "shortLabel": "Heera tumne liya?",
+          "keywords": [
+            "heera",
+            "chori",
+            "churaya",
+            "chingari",
+            "kaun"
+          ],
+          "next": null,
+          "effects": {
+            "memory": [
+              "On the night of the Vagator party, {{playerName}} quietly asked Selina whether she had stolen the diamond."
+            ]
+          }
+        }
+      ]
+    }
+  ],
+  "endings": []
+}
