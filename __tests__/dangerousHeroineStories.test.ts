@@ -34,6 +34,7 @@ const SERIES = [
   'jungle-ki-rani',
   'heros-party',
   'sharmili-shooter',
+  'do-deewaniyan',
 ];
 
 const ROOT = join(__dirname, '..', 'content');
@@ -206,5 +207,54 @@ describe('Sharmili Shooter: dangerous + shy heroine, open hero', () => {
     expect(gallery).toHaveLength(9);
     const cast = new Set(chars.characters.map((c) => c.id));
     for (const g of gallery) if (g.characterId) expect(cast.has(g.characterId)).toBe(true);
+  });
+});
+
+describe('Do Deewaniyan: love triangle, two bold possessive girlfriends, open hero', () => {
+  const id = 'do-deewaniyan';
+  const b = load(id);
+  const chars = b.characters as unknown as {
+    playerVisualDesign: string;
+    characters: { id: string; personality: string; knowledge: string[] }[];
+  };
+  const world = b.world as unknown as { rules: string[]; lore: string[] };
+  const HERO_TRAIT = /\b(shy|timid|nervous|soft-spoken|flustered|blush\w*|brave|bold|confident|gentle|weak|playboy|cheater|flirt\w*)\b/i;
+
+  test('the hero has no predefined personality or reasons', () => {
+    expect(b.story.userRole).toMatch(/Nothing about his personality is predefined/);
+    expect(b.story.userRole).toMatch(/why the two relationships began and what he truly feels/);
+    expect(b.story.userRole).not.toMatch(HERO_TRAIT);
+    expect(chars.playerVisualDesign).not.toMatch(HERO_TRAIT);
+    expect(b.meta.tags).toContain('open-hero');
+    expect(b.story.description).toMatch(/Tum kaun ho, kaise ho/);
+  });
+
+  test('two bold, possessive girlfriends who do not know about each other', () => {
+    const tanya = chars.characters.find((c) => c.id === 'tanya')!;
+    const mahira = chars.characters.find((c) => c.id === 'mahira')!;
+    for (const h of [tanya, mahira]) {
+      expect(h.personality).toMatch(/Bold in love/);
+      expect(h.personality).toMatch(/Possessive/);
+      expect(h.personality).toMatch(/a LOT of romance/);
+    }
+    expect(tanya.knowledge.join(' ')).toMatch(/does not know Mahira exists/);
+    expect(mahira.knowledge.join(' ')).toMatch(/does not know Tanya exists/);
+    expect(b.meta.tags).toEqual(expect.arrayContaining(['love-triangle', 'two-girlfriends', 'possessive-heroine', 'bold-heroine']));
+  });
+
+  test('the discovery is never scheduled, and possessiveness never turns on him', () => {
+    expect(world.rules.join(' ')).toMatch(/never as a scheduled twist/);
+    const safety = (b.story.safetyNotes as unknown as string[]).join(' ');
+    expect(safety).toMatch(/never violence or threats against \{\{playerName\}\}/);
+    expect(safety).toMatch(/never check his phone by force/);
+  });
+
+  test('ships a cover and eight gallery images, both heroines linked to the cast', () => {
+    const gallery = (b.story as unknown as { media: { gallery: { characterId?: string }[] } }).media.gallery;
+    expect(gallery).toHaveLength(9);
+    const linked = gallery.map((g) => g.characterId).filter(Boolean);
+    expect(linked).toEqual(expect.arrayContaining(['tanya', 'mahira']));
+    const cast = new Set(chars.characters.map((c) => c.id));
+    for (const c of linked) expect(cast.has(c as string)).toBe(true);
   });
 });

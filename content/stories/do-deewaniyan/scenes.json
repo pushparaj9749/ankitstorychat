@@ -1,0 +1,88 @@
+{
+  "storyId": "do-deewaniyan",
+  "version": 1,
+  "scenes": [
+    {
+      "id": "birthday_ki_raat",
+      "title": "Birthday Ki Raat",
+      "narration": [
+        "*Hauz Khas Village, Delhi. Sardiyon ki pehli thandi raat. Tumhari chhat wali barsati mein fairy lights jal rahi hain, aur deewar ki ghadi baarah bajne se bas do minute door hai. Kal tumhara birthday hai... matlab, bas thodi der mein.*",
+        "*Bunty abhi-abhi apni laal diary hila ke neeche gaya hai.*",
+        "Bunty: \"Bhai, sab set hai. Tanya kal, Mahira parso. Do din, do party, zero tension. Main genius hoon.\" *Seedhiyon se uski awaaz aati hai.* \"Aur haan, phone silent mat karna!\"",
+        "*Tabhi darwaze par zor ki dastak. DHAK DHAK DHAK. Itni zor se sirf ek hi insaan khatkhatati hai.*",
+        "*Darwaza khulte hi saamne Tanya Sandhu khadi hai — laal satin bomber jacket, oonchi ponytail, gaal thand se gulabi, aur haathon mein ek thoda tedha sa chocolate cake jis par laal icing se likha hai: 'Mera Banda'.*",
+        "Tanya: \"Oye birthday boy! Kal ka plan cancel. Baarah bajne mein do minute hain, aur sabse pehle wish main karungi. Samjhe?\" *Woh bina pooche andar aa jaati hai, cake mez par rakhti hai, aur tumhe collar se kheench ke ek lambi, garam kiss deti hai.*",
+        "Tanya: *(tumhari aankhon mein dekhte hue, aawaz dheemi)* \"Kisi aur ne pehle wish kiya na... toh uska jabda bhi todungi aur tumhara phone bhi. Main pehli hoon na? Bolo.\"",
+        "*Tabhi mez par pada tumhara phone jagmaga uthta hai. Screen par naam chamakta hai: 'Bunty Office'.*",
+        "*Message: \"Surprise, darling. Neeche hoon. Upar aa rahi hoon. Main second number pe kabhi nahi aati. — M\"*",
+        "*Tanya ki nazar phone par jaati hai. Uski bhauhen sikud jaati hain.*",
+        "Tanya: \"Bunty Office? Bunty abhi toh neeche gaya... aur raat ke baarah baje office ka message?\" *Woh phone ki taraf haath badhati hai, phir ruk ke tumhe dekhti hai.* \"Kaun hai ye?\"",
+        "*Aur tabhi — neeche lohe ki seedhiyon par ek awaaz shuru hoti hai. Tak. Tak. Tak. Mehnge heels ki dheemi, shaahi, bilkul be-fikar chaal. Har kadam ke saath awaaz aur kareeb.*",
+        "*Neeche gali mein ek kaali lambi gaadi ki headlights bujhti hain. Uske paas khada ek bhaari-bharkam aadmi, Bhim Singh, upar tumhari barsati ki taraf dekh raha hai.*",
+        "Tanya: *(kaan khade karke, darwaze ki taraf mudte hue)* \"Koi upar aa raha hai?\" *Uski awaaz bilkul shaant ho jaati hai — wahi shaanti jo uske boxing ring mein punch se pehle hoti hai.* \"Itni raat ko heels pehen ke... tumhare ghar? Kaun aa raha hai?\"",
+        "*Deewar ki ghadi ki suiyaan baarah ke bilkul paas. Seedhiyon par heels ki tak-tak, ab bas ek mod door. Aur tumhare saamne Tanya, jawab ka intezaar karti hui.*"
+      ],
+      "fallbackLines": [
+        "*Tanya ki nazrein tumhare chehre par tiki rehti hain, jaise ring mein opponent ki agli chaal padh rahi ho. Seedhiyon par heels ki tak-tak ek pal ke liye ruk jaati hai.*",
+        "Tanya: \"Theek hai...\" *Woh dheere se muskurati hai, par aankhen nahi muskurati.* \"Par yaad rakhna, mujhe jhooth se nafrat hai. Ab bolo, darwaza main kholun... ya tum?\""
+      ],
+      "choices": [
+        {
+          "id": "balcony_mein_chhupao",
+          "text": "*Tanya ka haath pakad ke* — 'Tanya, jaldi balcony mein! Landlord aunty hai, tumhe dekh liya toh mujhe ghar se nikaal degi!'",
+          "shortLabel": "Balcony mein chhupao",
+          "keywords": [
+            "balcony",
+            "chhupao",
+            "chhup",
+            "landlord",
+            "aunty"
+          ],
+          "next": null,
+          "effects": {
+            "memory": [
+              "On his birthday night, with Mahira coming up the stairs, {{playerName}} tried to hide Tanya on the balcony, claiming the landlady was coming."
+            ]
+          }
+        },
+        {
+          "id": "seedhi_pe_roko",
+          "text": "'Ek minute, neeche koi delivery wala hai, main abhi aaya.' *Darwaza bhed ke seedhiyon ki taraf bhaagte ho.*",
+          "shortLabel": "Seedhi pe roko",
+          "keywords": [
+            "seedhi",
+            "roko",
+            "neeche",
+            "delivery",
+            "bhaago"
+          ],
+          "next": null,
+          "effects": {
+            "memory": [
+              "On his birthday night, {{playerName}} told Tanya a delivery had come and ran down the stairs to stop whoever was coming up."
+            ]
+          }
+        },
+        {
+          "id": "sach_bata_do",
+          "text": "*Gehri saans lete ho* — 'Tanya... ek baat batani hai. Jo upar aa rahi hai, woh...'",
+          "shortLabel": "Sach bata do",
+          "keywords": [
+            "sach",
+            "batao",
+            "batani",
+            "truth",
+            "kaun"
+          ],
+          "next": null,
+          "effects": {
+            "memory": [
+              "On his birthday night, {{playerName}} began to tell Tanya the truth about who was coming up the stairs."
+            ]
+          }
+        }
+      ]
+    }
+  ],
+  "endings": []
+}

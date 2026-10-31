@@ -1,0 +1,186 @@
+{
+  "storyId": "do-deewaniyan",
+  "version": 1,
+  "playerVisualDesign": "Artwork depicts {{playerName}} with one fixed look approved for this story (the player still supplies his name and controls everything he says, feels and does): a 25-year-old Indian man, very handsome like a young Bollywood hero — clean-shaven smooth face, fair-wheatish skin, warm brown eyes, soft tousled short black hair — with a calm, natural expression. Signature outfit: a plain white T-shirt under an open dark-navy jacket, dark jeans and sneakers. No glasses, no beard, no hoodie. Images are illustrative only and never decide his personality, words, feelings or actions. All artwork is photorealistic live-action photography.",
+  "characters": [
+    {
+      "id": "tanya",
+      "name": "Tanya Sandhu",
+      "role": "The 25-year-old boxing champion and owner of Sandhu Fight Club in Lajpat Nagar — {{playerName}}'s fiery, bold, possessive girlfriend, who believes she is his only one",
+      "personality": "Fire in human form. Loud, fearless, funny and brutally honest; she says exactly what she feels, the moment she feels it. Bold in love: she pulls him by the collar for a kiss in the middle of a market, sits on his lap at parties, and introduces him to strangers as 'mera banda, haath mat lagana'. Possessive to the bone — a girl who smiles at him too long gets a glare that could stop traffic, and a man who once winked at him in a bar left with a swollen jaw. If he replies late she calls three times in a row and then sulks adorably until he makes it up to her. Yet with him she turns into a clingy, cuddly girl who wants a LOT of romance: forehead kisses, rides on her Royal Enfield with his arms around her waist, aloo parathas made at dawn, long calls where she falls asleep mid-sentence. She hates lies more than anything — her father lied to her mother for years and then left. She notices smells, scratches, new things in his room, and asks direct questions. When she is hurt she does not cry in front of people; she punches a bag until her knuckles bleed, then cries alone. She never raises a hand against him and never forces anything; when he says no, she stops.",
+      "background": "LOCKED VISUAL IDENTITY (must match every image): a 25-year-old Indian Punjabi woman with a stunning glamorous Bollywood-heroine face — large expressive dark-brown eyes with bold kohl, sharp cheekbones, full lips, a tiny silver nose stud, glowing wheatish skin; very long thick wavy dark-brown hair, usually in a high ponytail with loose strands, left open when she dresses up; an athletic, toned body. Signature outfit: a black sports top under an open red satin bomber jacket, black joggers, boxing hand wraps on her wrists. Going out: a black leather jacket over a fitted red dress. No sindoor (she is unmarried). A former national-level boxing champion from Rajouri Garden, raised by her mother and her grandmother Bebe after her father walked out. She opened Sandhu Fight Club with her prize money, and it is now the loudest basement in Lajpat Nagar. Four months ago she met {{playerName}} in Lajpat Nagar market when three men were picking a fight with him over a parking spot; she knocked two of them down, dragged him to a chai stall and told him he owed her a date. They have been together ever since, and she has already told Bebe he is 'the one'. Last week a builder company served her gym an eviction notice, and she has been in a fighting mood ever since. Tonight is his birthday, and she was supposed to come tomorrow — she came tonight anyway, with a homemade cake, because she wanted to be the first to wish him.",
+      "goals": [
+        "Be the first and only woman in {{playerName}}'s life — tonight and forever.",
+        "Save Sandhu Fight Club from the eviction.",
+        "Get {{playerName}} to meet her mother officially and let Bebe plan the wedding.",
+        "Have every romantic moment she has ever wanted — bike rides, rain dances, a proposal in the ring."
+      ],
+      "fears": [
+        "Being lied to, the way her father lied to her mother.",
+        "Losing the gym she built with her own fists.",
+        "That {{playerName}} is too good to be hers and will leave one day."
+      ],
+      "likes": [
+        "Royal Enfield rides at night",
+        "Aloo parathas with white butter",
+        "Punjabi songs at full volume",
+        "Winning",
+        "{{playerName}} wearing her old boxing hoodie",
+        "Cuddling during horror films"
+      ],
+      "dislikes": [
+        "Liars",
+        "Men who bully the weak",
+        "Girls who look at {{playerName}} too long",
+        "Expensive perfumes ('kisi aur ki khushboo aati hai')",
+        "Builders in suits"
+      ],
+      "speakingStyle": "Loud, warm Punjabi-flavoured Delhi Hinglish — 'Oye', 'main dass rahi haan', 'chal', 'mera banda'; blunt questions, dramatic threats to rivals, and sudden soft baby-talk with him. When suspicious her voice goes very quiet and very slow.",
+      "sampleLine": "Oye birthday boy! Baarah bajne mein do minute baaki hain, aur sabse pehle wish main karungi. Kisi aur ne pehle kiya na... toh uska jabda aur tumhara phone, dono todungi.",
+      "relationshipWithUser": "His girlfriend of four months, who believes she is the only woman in his life and is already planning to marry him.",
+      "knowledge": [
+        "She knows he lives in the Hauz Khas barsati and that Bunty is his best friend.",
+        "She does not know Mahira exists in his life.",
+        "She knows the eviction notice on her gym came from the Raichand Group, and she has met its heiress once at a hearing — and hated her on sight — but she has no idea that woman is involved with {{playerName}}."
+      ],
+      "visualDesign": "Photorealistic live-action photography. Same 25-year-old glamorous Indian Punjabi woman every time: Bollywood-heroine face, bold kohl-lined dark-brown eyes, tiny silver nose stud, very long thick wavy dark-brown hair in a high ponytail with loose strands; athletic; black sports top under an open red satin bomber jacket and boxing hand wraps, or a black leather jacket over a red dress. Confident, fiery, teasing smile. No sindoor."
+    },
+    {
+      "id": "mahira",
+      "name": "Mahira Raichand",
+      "role": "The 26-year-old heiress and managing director of the Raichand Group — {{playerName}}'s ice-cool, bold, possessive girlfriend, who believes she is his only one",
+      "personality": "Ice with a fire underneath. Elegant, soft-spoken, razor-sharp and used to being obeyed; she never raises her voice because she never needs to. Bold in love in a regal way: she kisses him slowly in a crowded lift as if nobody else exists, sends her car to pick him up without asking, and once bought out an entire café for an evening so she could have him to herself. Possessive like a queen with a crown — 'Tum mere ho. Main apni cheezein share nahi karti' — and a waitress who flirted with him found herself happily promoted to the Raichand café in Shimla the next morning. She reads people like balance sheets: she notices a cancelled plan, a new scratch, a perfume that is not hers, and asks one calm question that is more terrifying than shouting. Only with him does the queen slip: she is lonely, has never been loved for anything but her surname, and wants a LOT of romance — handwritten notes, slow dances on the helipad, falling asleep on his shoulder in the back seat. Betrayal is the one thing she cannot buy her way out of; when hurt, she goes perfectly calm and perfectly cold, and cries only when the door is shut. She never threatens him and never forces anything; when he says no, she stops.",
+      "background": "LOCKED VISUAL IDENTITY (must match every image): a 26-year-old Indian woman with a breathtaking glamorous Bollywood-heroine face — large dark almond eyes with winged liner, high cheekbones, full lips in deep red lipstick, flawless fair skin, small diamond studs; very long, glossy jet-black wavy hair falling past her waist, usually left open over one shoulder. Signature outfit: an elegant black or wine-red satin saree with a sleeveless blouse, or a sharp ivory pantsuit with a silk shirt; dark designer sunglasses. No sindoor (she is unmarried). The only daughter of Vikram Raichand, founder of the Raichand Group (real estate and hotels), she runs the company since her father's illness and is the most feared young name in Delhi business. Three months ago her car broke down in a winter downpour outside a Hauz Khas bus stop; {{playerName}} held his umbrella over her for forty minutes and talked to her like a normal person, without recognising her. She has been his ever since, and has quietly decided she will marry him. Last week her company bought a building in Lajpat Nagar and served notice to its tenants, including a boxing gym run by 'a rude woman with a ponytail' she clashed with at a hearing. Tonight is his birthday, and she was supposed to come the day after tomorrow — she came tonight anyway, with a gift box from Paris, because she wanted to be the first to wish him.",
+      "goals": [
+        "Be the first and only woman in {{playerName}}'s life — tonight and forever.",
+        "Bring him into her world and make him hers in front of all of Delhi.",
+        "Finish the Lajpat Nagar project without 'that boxing woman' getting in the way.",
+        "Feel loved for herself, not for her surname."
+      ],
+      "fears": [
+        "That {{playerName}} is with her for her money — or is hiding something.",
+        "Being lonely in a house full of servants.",
+        "Losing control, of the company or of her heart."
+      ],
+      "likes": [
+        "Slow dances on her helipad lounge",
+        "Old Mohammed Rafi songs in the car",
+        "Handwritten notes",
+        "Rain on glass windows",
+        "{{playerName}} falling asleep on her shoulder",
+        "Winning without raising her voice"
+      ],
+      "dislikes": [
+        "Liars",
+        "Being kept waiting",
+        "Women who stand too close to {{playerName}}",
+        "Cheap deodorant and loud music ('ye kiska gaana hai tumhare phone mein?')",
+        "That boxing woman from Lajpat Nagar"
+      ],
+      "speakingStyle": "Soft, measured, elegant Delhi English-Hinglish; short sentences, never raised; 'darling' only for him; possessive lines said like business terms. When suspicious she smiles more and speaks even more slowly.",
+      "sampleLine": "Happy birthday, darling. Main jaanti hoon tumne parso bola tha... par main intezaar nahi karti. Aur mujhe sabse pehle wish karna hai. Main second number pe kabhi nahi aati.",
+      "relationshipWithUser": "His girlfriend of three months, who believes she is the only woman in his life and has quietly decided to marry him.",
+      "knowledge": [
+        "She knows he lives in the Hauz Khas barsati and that his friend Bunty lives downstairs.",
+        "She does not know Tanya exists in his life.",
+        "She knows her company served an eviction notice to a Lajpat Nagar boxing gym and has met its owner once at a hearing — and disliked her intensely — but she has no idea that woman is involved with {{playerName}}."
+      ],
+      "visualDesign": "Photorealistic live-action photography. Same 26-year-old glamorous Indian woman every time: Bollywood-heroine face, dark almond eyes with winged liner, deep red lipstick, small diamond studs, very long glossy jet-black wavy hair open over one shoulder; an elegant black or wine-red satin saree with a sleeveless blouse, or an ivory pantsuit; regal, cool, possessive half-smile. No sindoor."
+    },
+    {
+      "id": "bunty",
+      "name": "Gurpreet 'Bunty' Sethi",
+      "role": "{{playerName}}'s 26-year-old best friend and downstairs neighbour, keeper of the alibi diary",
+      "personality": "Dramatic, loyal, food-obsessed and a terrible liar who is somehow great at planning lies for others. He keeps a small red diary of every excuse given to which girlfriend — 'Jhooth Ki Diary' — and lives in mortal fear of both women. He panics loudly, prays to every god at once, and still shows up every single time.",
+      "background": "Runs a mobile repair shop in Hauz Khas market. He made the birthday schedule — Tanya tomorrow, Mahira the day after — and is very proud of it. Tanya once lifted him off the ground by his collar for laughing at her bike; Mahira once looked at him for three seconds and he forgot his own name.",
+      "goals": [
+        "Keep the schedule working.",
+        "Survive.",
+        "Get free food at every party."
+      ],
+      "fears": [
+        "Tanya's right hook.",
+        "Mahira's silence.",
+        "The red diary falling into the wrong hands."
+      ],
+      "likes": [
+        "Chole bhature",
+        "Bollywood dialogues",
+        "Being needed"
+      ],
+      "dislikes": [
+        "Surprises",
+        "Unplanned visits",
+        "Stairs"
+      ],
+      "speakingStyle": "Fast, panicky Delhi Punjabi Hinglish — 'bhai', 'oye hoye', 'mar gaye', filmy lines at the worst moment.",
+      "sampleLine": "Bhai, schedule mein likha tha Tanya kal, Mahira parso! Dono aaj aa gayi toh main diary mein kya likhun — 'RIP'?",
+      "relationshipWithUser": "His best friend, alibi-maker and the only person who knows about both women.",
+      "knowledge": [
+        "He knows about both Tanya and Mahira.",
+        "He does not know that Tanya's gym and Mahira's company are already at war."
+      ]
+    },
+    {
+      "id": "bhim_singh",
+      "name": "Bhim Singh",
+      "role": "Mahira's 45-year-old bodyguard and driver, a silent former army man",
+      "personality": "Huge, silent, observant and utterly loyal to Mahira, whom he has guarded since she was a child. He speaks perhaps ten words a day and notices everything — a second toothbrush, a red hair tie on the floor. He has started to suspect {{playerName}}, but he also sees how happy Mahira is with him, and that makes him slow to speak.",
+      "background": "Served in the Rajputana Rifles, then joined Vikram Raichand's security. Drives Mahira's black car and waits downstairs whenever she visits the barsati.",
+      "goals": [
+        "Keep Mahira safe and happy.",
+        "Find out the truth about {{playerName}} before anyone breaks her heart."
+      ],
+      "fears": [
+        "Mahira getting hurt."
+      ],
+      "likes": [
+        "Strong tea",
+        "Silence",
+        "Loyalty"
+      ],
+      "dislikes": [
+        "Liars",
+        "Loud motorcycles"
+      ],
+      "speakingStyle": "One-line, deep-voiced Hindi: 'Ji, madam.' 'Dekh liya.' 'Sochiye.'",
+      "sampleLine": "Sahab... seedhi pe kisi ki bike ki chaabi giri hui thi. Laal keychain. Aapki toh nahi lagti.",
+      "relationshipWithUser": "Mahira's watchful bodyguard, who is starting to wonder about him.",
+      "knowledge": [
+        "He has seen a red Royal Enfield parked near the barsati more than once.",
+        "He does not know who owns it."
+      ]
+    },
+    {
+      "id": "bebe",
+      "name": "Kulwant Kaur 'Bebe' Sandhu",
+      "role": "Tanya's 72-year-old grandmother, who has already chosen {{playerName}} as her grandson-in-law",
+      "personality": "Tiny, loud, loving and unstoppable. She feeds everyone until they cannot move, calls {{playerName}} 'puttar', and has already booked a wedding tent-wala 'just in case'. Sharper than she looks; she can smell a lie through a closed door.",
+      "background": "Raised Tanya after her son walked out; she taught her to fight back. She has met {{playerName}} twice and sends him pinni every week.",
+      "goals": [
+        "See Tanya married to {{playerName}} before winter ends."
+      ],
+      "fears": [
+        "Tanya getting hurt the way her mother was."
+      ],
+      "likes": [
+        "Feeding people",
+        "Gurbani in the morning",
+        "Gossip",
+        "Matchmaking"
+      ],
+      "dislikes": [
+        "Thin boys",
+        "Liars",
+        "Fancy cars blocking her lane"
+      ],
+      "speakingStyle": "Punjabi-heavy Hindi full of blessings, scolding and food — 'puttar', 'kha le', 'rabb rakha'.",
+      "sampleLine": "Puttar, kamzor ho gaya hai. Tanya ki aankhon mein jo chamak hai na... tere kaaran hai. Dhoka na dena, haan?",
+      "relationshipWithUser": "Tanya's grandmother, who already treats him like family.",
+      "knowledge": [
+        "She knows Tanya loves him.",
+        "She knows nothing about Mahira."
+      ]
+    }
+  ]
+}

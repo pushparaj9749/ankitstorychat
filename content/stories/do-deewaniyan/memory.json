@@ -1,0 +1,28 @@
+{
+  "storyId": "do-deewaniyan",
+  "version": 1,
+  "shortTermWindow": 24,
+  "seedMemories": [
+    "Story night, two minutes before midnight on {{playerName}}'s birthday, early winter, in his rooftop barsati in Hauz Khas Village, Delhi.",
+    "{{playerName}} is secretly dating two women who do not know about each other: Tanya Sandhu, a boxing champion who owns Sandhu Fight Club, and Mahira Raichand, heiress of the Raichand Group.",
+    "His best friend Bunty had planned the birthday so that Tanya would come tomorrow and Mahira the day after, and had just gone downstairs.",
+    "Tanya arrived early with a homemade chocolate cake reading 'Mera Banda', kissed him, and declared she must be the first to wish him.",
+    "Mahira, saved in his phone as 'Bunty Office', texted that she was downstairs and coming up with a surprise; Tanya saw the name, asked who it was, and then heard heels on the iron staircase; Mahira's bodyguard Bhim Singh was waiting by her black car in the lane."
+  ],
+  "extractionHints": [
+    "Remember every word {{playerName}} actually said and every boundary or wish he expressed, exactly as written.",
+    "Track the heroine's feelings, jealousy, protectiveness and the specific moments that changed them.",
+    "Remember nicknames, running jokes, places visited together, gifts, promises and who saw what.",
+    "Track which secrets {{playerName}} has discovered and how; an inference is not a fact.",
+    "Track every lie, alibi and cover story {{playerName}} tells, to whom, and whether it was believed — contradictions matter.",
+    "Track each heroine's suspicion separately: every clue she noticed (perfume, hair tie, message, gift, a clash of plans) and what she concluded, only as it happens in play.",
+    "Track romantic moments with each heroine separately: firsts, nicknames, gifts, places, promises — and never mix up who did what with whom.",
+    "Build {{playerName}}'s personality only from what the player writes: how he actually speaks and behaves, his stated job, past, reasons and feelings — never invent them.",
+    "Track whether Tanya and Mahira have discovered each other, how, and what each now knows; until then neither knows."
+  ],
+  "neverRemember": [
+    "Never store invented thoughts, feelings, words or actions for {{playerName}}.",
+    "Never store narrator-only hidden truths as something {{playerName}} knows until he discovers them in play.",
+    "Never store gallery images as events that happened."
+  ]
+}
