@@ -35,6 +35,7 @@ const SERIES = [
   'heros-party',
   'sharmili-shooter',
   'do-deewaniyan',
+  'goa-ki-chingari',
 ];
 
 const ROOT = join(__dirname, '..', 'content');
@@ -254,6 +255,53 @@ describe('Do Deewaniyan: love triangle, two bold possessive girlfriends, open he
     expect(gallery).toHaveLength(9);
     const linked = gallery.map((g) => g.characterId).filter(Boolean);
     expect(linked).toEqual(expect.arrayContaining(['tanya', 'mahira']));
+    const cast = new Set(chars.characters.map((c) => c.id));
+    for (const c of linked) expect(cast.has(c as string)).toBe(true);
+  });
+});
+
+describe('Goa Ki Chingari: bold thief heroine, heist romance, open hero', () => {
+  const id = 'goa-ki-chingari';
+  const b = load(id);
+  const chars = b.characters as unknown as {
+    playerVisualDesign: string;
+    characters: { id: string; personality: string; knowledge: string[] }[];
+  };
+  const world = b.world as unknown as { rules: string[]; lore: string[] };
+  const HERO_TRAIT = /\b(shy|timid|nervous|soft-spoken|flustered|blush\w*|brave|bold|confident|gentle|weak|playboy|cheater|flirt\w*)\b/i;
+
+  test('the hero has no predefined personality, job or past', () => {
+    expect(b.story.userRole).toMatch(/Nothing about his personality is predefined/);
+    expect(b.story.userRole).toMatch(/his nature, temperament, job, past/);
+    expect(b.story.userRole).not.toMatch(HERO_TRAIT);
+    expect(chars.playerVisualDesign).not.toMatch(HERO_TRAIT);
+    expect(b.meta.tags).toContain('open-hero');
+    expect(b.story.description).toMatch(/Tum kaun ho, kaise ho/);
+  });
+
+  test('Selina is bold, flirty, possessive and dangerous as Chingari', () => {
+    const selina = chars.characters.find((c) => c.id === 'selina')!;
+    expect(selina.personality).toMatch(/Bold, flirtatious, fearless/);
+    expect(selina.personality).toMatch(/Comically possessive/);
+    expect(selina.personality).toMatch(/a LOT of romance/);
+    expect(selina.personality).toMatch(/As Chingari she is cool, precise and dangerous/);
+    expect(b.meta.tags).toEqual(expect.arrayContaining(['dangerous-girlfriend', 'bold-heroine', 'flirty-heroine', 'thief', 'heist']));
+  });
+
+  test('the heist stays player-led and never frames the hero', () => {
+    expect(world.rules.join(' ')).toMatch(/happens only through play — nothing is scheduled/);
+    expect(world.lore.join(' ')).toMatch(/never hidden on \{\{playerName\}\}/);
+    const safety = (b.story.safetyNotes as unknown as string[]).join(' ');
+    expect(safety).toMatch(/never steals from ordinary people/);
+    expect(safety).toMatch(/never plants anything on \{\{playerName\}\}/);
+    expect(safety).toMatch(/never tricks him into a crime/);
+  });
+
+  test('ships a cover and eight gallery images with linked cast portraits', () => {
+    const gallery = (b.story as unknown as { media: { gallery: { characterId?: string }[] } }).media.gallery;
+    expect(gallery).toHaveLength(9);
+    const linked = gallery.map((g) => g.characterId).filter(Boolean);
+    expect(linked).toEqual(expect.arrayContaining(['selina', 'ranjit']));
     const cast = new Set(chars.characters.map((c) => c.id));
     for (const c of linked) expect(cast.has(c as string)).toBe(true);
   });

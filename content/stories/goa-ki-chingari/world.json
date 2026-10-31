@@ -1,0 +1,113 @@
+{
+  "storyId": "goa-ki-chingari",
+  "version": 1,
+  "premise": "{{playerName}}, 25, is a guest at casino king Ranjit Salgaonkar's cliff-top party in Vagator, North Goa, where Ranjit unveils the Neela Taara, a rare blue diamond. Fire-dancer Selina Pereira performs with flames and keeps looking at him. The lights go out; when they return, the diamond is gone. Ranjit's bodyguard Bosco locks the party down and searches every woman who is alone — and Selina, secretly 'Chingari', the never-caught thief who robs only crooks, slips into {{playerName}}'s arms and asks him to be her boyfriend for two minutes. Bold, flirty, dangerous and wildly romantic, she wants him — and a lot of romance. Who {{playerName}} is, whether he plays along, and where the night, the diamond and their romance go, is entirely the player's choice. An open-ended sizzling romance and heist action-comedy driven only by the player.",
+  "locations": [
+    {
+      "id": "vagator_villa",
+      "name": "Ranjit's Cliff Villa, Vagator",
+      "description": "A glass-and-stone villa on the red cliffs with an infinity pool, fire torches, a DJ deck and the sea crashing below."
+    },
+    {
+      "id": "royal_neptune",
+      "name": "The Royal Neptune",
+      "description": "Ranjit's glittering floating casino on the Mandovi river in Panjim, with a private vault on the lowest deck."
+    },
+    {
+      "id": "fontainhas",
+      "name": "Fontainhas",
+      "description": "Panjim's colourful old Portuguese quarter of narrow lanes, balconies and bougainvillea, where Selina lives above Rosa's bakery."
+    },
+    {
+      "id": "rosas_bakery",
+      "name": "Rosa's Bakery",
+      "description": "A tiny blue bakery smelling of bebinca and poi bread, with Selina's rooftop room above it full of fairy lights and fire-dance gear."
+    },
+    {
+      "id": "beach_shack",
+      "name": "Laali's Shack, Anjuna",
+      "description": "A beach shack with fairy lights, bonfires and fish curry rice, where Selina dances on weekends."
+    },
+    {
+      "id": "chapora_fort",
+      "name": "Chapora Fort",
+      "description": "Old fort ruins on a hill above the sea, perfect for sunsets and hiding."
+    },
+    {
+      "id": "siolim_chapel",
+      "name": "The Little White Chapel, Siolim",
+      "description": "A small village chapel that lost its blue diamond years ago."
+    },
+    {
+      "id": "coastal_roads",
+      "name": "Coastal Roads",
+      "description": "Winding roads through coconut groves and paddy fields — the scene of many scooter chases."
+    }
+  ],
+  "factions": [
+    {
+      "id": "salgaonkar_empire",
+      "name": "Salgaonkar Empire",
+      "description": "Ranjit's casinos, villas and bodyguards across Goa."
+    },
+    {
+      "id": "chingari_crew",
+      "name": "Chingari's Crew",
+      "description": "Selina and Pinky — a thief, a gadget genius and a red scooter."
+    }
+  ],
+  "lore": [
+    "Goa's crooks say: 'Jab tijori ke paas jali hui maachis ki teeli mile, samajh lo Chingari aa ke chali gayi.'",
+    "Chingari has never been photographed; police sketches show only long wavy hair and a smile.",
+    "Selina's tattoo — a tiny firefly with a flame — is the only mark she never hides, because nobody thinks a fire-dancer's tattoo means anything.",
+    "Where exactly the Neela Taara is hidden tonight, and how Selina plans to return it, is narrator-only and is revealed only through play; it is never hidden on {{playerName}}."
+  ],
+  "rules": [
+    "Free-form story: the opening moment is the only predefined situation. Everything after it grows from the player's moves; there is no plot plan, scene list, arc or ending.",
+    "Only {{playerName}} controls the player character: never invent his speech, actions, thoughts, feelings, consent, promises or decisions.",
+    "Write in natural Roman-script Hinglish: short paragraphs, *actions and narration in asterisks*, dialogue as Name: \"...\".",
+    "The heroine takes the romantic initiative often and warmly — teasing, cuddling, feeding him, forehead kisses, pulling him close — while always reading and respecting his response.",
+    "Keep continuity of every promise, secret, nickname, gift and argument through the app's universal memory, scoped to this storyId only.",
+    "Whether and when Ranjit, Bosco, the police or Avó Rosa learn that Selina is Chingari, and any danger to {{playerName}}, happens only through play — nothing is scheduled.",
+    "{{playerName}}'s personality, job, past and temperament are never predefined: describe him only through what the player writes, and let the characters react to the person the player shows."
+  ],
+  "importantObjects": [
+    {
+      "id": "neela_taara",
+      "name": "The Neela Taara",
+      "description": "A rare blue diamond, once the pride of the Siolim chapel, stolen tonight from Ranjit's glass case."
+    },
+    {
+      "id": "matchstick",
+      "name": "Burnt Matchstick",
+      "description": "Chingari's calling card, left wherever she strikes."
+    },
+    {
+      "id": "fire_chakras",
+      "name": "Fire Chakras",
+      "description": "Selina's flaming fire-dance rings."
+    },
+    {
+      "id": "laali",
+      "name": "Laali",
+      "description": "Selina's battered red scooter, faster than it looks."
+    }
+  ],
+  "timeline": [
+    {
+      "id": "loan_shark",
+      "label": "Selina, aged nineteen, robs the loan shark who ruined her father and returns every family's papers — Chingari is born",
+      "when": "Five years before the story"
+    },
+    {
+      "id": "taara_stolen",
+      "label": "The Neela Taara is stolen from the Siolim chapel and later sold to Ranjit",
+      "when": "Many years before the story"
+    },
+    {
+      "id": "party_night",
+      "label": "Ranjit unveils the Neela Taara at his Vagator party; a blackout; the diamond vanishes; Selina picks {{playerName}}",
+      "when": "Tonight, as the story begins"
+    }
+  ]
+}

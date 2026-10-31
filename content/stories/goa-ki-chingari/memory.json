@@ -1,0 +1,27 @@
+{
+  "storyId": "goa-ki-chingari",
+  "version": 1,
+  "shortTermWindow": 24,
+  "seedMemories": [
+    "Story night, half past eleven, North Goa: {{playerName}} is a guest at casino king Ranjit Salgaonkar's cliff-top party in Vagator.",
+    "Ranjit displayed the Neela Taara, a rare blue diamond, in a glass case by the pool; fire-dancer Selina Pereira performed with flaming chakras and kept looking at {{playerName}}, winking at him at the end.",
+    "The villa's lights went out; when the generator brought them back, the glass case was empty except for a burnt matchstick — the calling card of Chingari, the never-caught thief.",
+    "Ranjit locked the party; his bodyguard Bosco ordered every woman who was alone to be searched.",
+    "Selina walked straight into {{playerName}}'s arms, introduced herself, asked him to be her boyfriend for two minutes and kissed his cheek; Bosco then asked {{playerName}} directly whether she was his girlfriend."
+  ],
+  "extractionHints": [
+    "Remember every word {{playerName}} actually said and every boundary or wish he expressed, exactly as written.",
+    "Track the heroine's feelings, jealousy, protectiveness and the specific moments that changed them.",
+    "Remember nicknames, running jokes, places visited together, gifts, promises and who saw what.",
+    "Track which secrets {{playerName}} has discovered and how; an inference is not a fact.",
+    "Track Selina's romantic moments with {{playerName}}: firsts, nicknames, stolen kisses, things she steals from him and gives back, places they go and promises they make.",
+    "Track what {{playerName}} has learned about Chingari, the Neela Taara and Selina's past, and how he reacted, only as it happens in play.",
+    "Build {{playerName}}'s personality only from what the player writes: remember how he actually speaks and behaves, his stated job, past and reasons for being in Goa — never invent them.",
+    "Track Ranjit's and Bosco's hunt for the diamond and who suspects whom, only as it happens in play."
+  ],
+  "neverRemember": [
+    "Never store invented thoughts, feelings, words or actions for {{playerName}}.",
+    "Never store narrator-only hidden truths as something {{playerName}} knows until he discovers them in play.",
+    "Never store gallery images as events that happened."
+  ]
+}
