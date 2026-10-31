@@ -36,6 +36,7 @@ const SERIES = [
   'sharmili-shooter',
   'do-deewaniyan',
   'goa-ki-chingari',
+  'khamoshi-ka-junoon',
 ];
 
 const ROOT = join(__dirname, '..', 'content');
@@ -304,5 +305,63 @@ describe('Goa Ki Chingari: bold thief heroine, heist romance, open hero', () => 
     expect(linked).toEqual(expect.arrayContaining(['selina', 'ranjit']));
     const cast = new Set(chars.characters.map((c) => c.id));
     for (const c of linked) expect(cast.has(c as string)).toBe(true);
+  });
+});
+
+describe('Khamoshi Ka Junoon: cute mast heroine, shy but clear, open hero', () => {
+  const id = 'khamoshi-ka-junoon';
+  const b = load(id);
+  const chars = b.characters as unknown as {
+    playerVisualDesign: string;
+    characters: { id: string; personality: string }[];
+  };
+  const world = b.world as unknown as { rules: string[] };
+  const HERO_TRAIT = /\b(shy|timid|nervous|soft-spoken|flustered|blush\w*|brave|bold|confident|gentle|weak|playboy|cheater|flirt\w*)\b/i;
+
+  test('the hero has no predefined personality, job or past', () => {
+    expect(b.story.userRole).toMatch(/Nothing about his personality is predefined/);
+    expect(b.story.userRole).toMatch(/his nature, temperament, job, past and feelings/);
+    expect(b.story.userRole).not.toMatch(HERO_TRAIT);
+    expect(chars.playerVisualDesign).not.toMatch(HERO_TRAIT);
+    expect(b.meta.tags).toContain('open-hero');
+    expect(b.story.description).toMatch(/Tum kaun ho, kaise ho/);
+  });
+
+  test('Meher is cute, mast, dangerous and shy without being unclear or helpless', () => {
+    const meher = chars.characters.find((c) => c.id === 'meher')!;
+    expect(meher.personality).toMatch(/cute, mast/);
+    expect(meher.personality).toMatch(/playfully shy, not helpless/);
+    expect(meher.personality).toMatch(/says exactly what is on her mind/);
+    expect(meher.personality).toMatch(/a LOT of romance/);
+    expect(meher.personality).toMatch(/As Khamosh she is calm, patient and dangerous/);
+    expect(b.meta.tags).toEqual(expect.arrayContaining(['dangerous-girlfriend', 'shy-heroine', 'cute-heroine', 'playful-heroine']));
+  });
+
+  test('opening has light context and a medium natural invitation, not a background dump', () => {
+    const opening = b.scenes.scenes[0];
+    const text = opening.narration.join('\n');
+    expect(opening.narration).toHaveLength(6);
+    expect(text.length).toBeGreaterThan(700);
+    expect(text.length).toBeLessThan(1800);
+    expect(opening.narration[0]).toMatch(/jaan-pehchaan abhi nayi/);
+    expect(text).toMatch(/jhijhak rahi hoon/);
+    expect(text).toMatch(/Mujhe tumhare saath thodi der aur rehna hai/);
+    expect(text).toMatch(/tum chaho toh mera haath bhi pakad sakte ho/);
+    expect(text).not.toMatch(/\bKhamosh\b|Rathore|whistleblower/);
+    expect(text).not.toMatch(/lamba introduction|player decide/i);
+  });
+
+  test('danger and hidden identity are never scheduled after the opening', () => {
+    expect(world.rules.join(' ')).toMatch(/Do not automatically introduce Rathore/);
+    expect(world.rules.join(' ')).toMatch(/hidden identity remains in the background/);
+    expect(b.scenes.scenes).toHaveLength(1);
+    expect(b.scenes.endings).toEqual([]);
+  });
+
+  test('ships a cover and eight Meher gallery images', () => {
+    const gallery = (b.story as unknown as { media: { gallery: { characterId?: string }[] } }).media.gallery;
+    expect(gallery).toHaveLength(9);
+    const linked = gallery.map((g) => g.characterId).filter(Boolean);
+    expect(new Set(linked)).toEqual(new Set(['meher']));
   });
 });
