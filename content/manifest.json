@@ -1,7 +1,7 @@
 {
-  "contentVersion": 59,
+  "contentVersion": 60,
   "minAppVersion": "1.0.0",
-  "updatedAt": "2026-10-29T00:00:00Z",
+  "updatedAt": "2026-10-31T00:00:00Z",
   "stories": [
     {
       "id": "arranged-marriage-wala-love",
@@ -53,6 +53,59 @@
         "verified": true
       },
       "updatedAt": "2026-10-03T14:46:42Z"
+    },
+    {
+      "id": "do-deewaniyan",
+      "title": "Do Deewaniyan",
+      "tagline": "Ek boxing ring ki sherni, ek arabpati ki beti... dono tumhari girlfriend, aur dono ko lagta hai tum sirf unke ho.",
+      "description": "Hauz Khas, Delhi. Aaj tumhara birthday hai, aur tumhari zindagi ek raaz par tiki hai: tumhari do girlfriends hain, aur dono ko ek doosre ke baare mein kuch nahi pata. Pehli hai Tanya Sandhu, Lajpat Nagar ke Sandhu Fight Club ki maalkin aur boxing champion, jo Royal Enfield chalaati hai aur jisne ek baar sirf isliye ek ladke ka jabda hila diya tha kyunki usne tumhe aankh maari thi. Doosri hai Mahira Raichand, Raichand Group ki arabpati waaris, barf jaisi thandi aur khoobsurat, jo ek phone call se poori building khareed leti hai aur kehti hai, 'Main apni cheezein share nahi karti.' Dono bold hain, dono possessive hain, aur dono tumhe pagalon ki tarah chaahti hain. Tumhare dost Bunty ne bade dhyaan se plan banaya tha: Tanya ke saath kal, Mahira ke saath parso. Par raat ke baarah bajne se do minute pehle darwaze par Tanya khadi hai, haath mein cake liye. Aur tumhara phone baj raha hai: 'Surprise. Neeche hoon. Upar aa rahi hoon. — M.' Seedhiyon par heels ki tak-tak shuru ho chuki hai. Ye raaz kitne din chalega, kaun pehle sach jaanegi, aur tum dono ko kaise sambhaaloge, ye sab tumhare haath mein hai. Tum kaun ho, kaise ho, aur kahani kahan jaayegi, ye sab sirf tum tay karoge.",
+      "genres": [
+        "Romance",
+        "Comedy",
+        "Drama"
+      ],
+      "tags": [
+        "romance",
+        "love-triangle",
+        "two-girlfriends",
+        "dangerous-girlfriend",
+        "possessive-heroine",
+        "bold-heroine",
+        "open-hero",
+        "secret",
+        "comedy",
+        "delhi",
+        "player-agency",
+        "dynamic-continuous",
+        "ongoing",
+        "hinglish"
+      ],
+      "characters": [
+        "Tanya Sandhu",
+        "Mahira Raichand",
+        "Gurpreet 'Bunty' Sethi",
+        "Bhim Singh",
+        "Kulwant Kaur 'Bebe' Sandhu"
+      ],
+      "ageRating": "18+",
+      "contentLevel": "mature",
+      "language": "hinglish",
+      "version": 1,
+      "coverUrl": "stories/do-deewaniyan/assets/cover.jpg",
+      "accentColor": "#7A3E9D",
+      "userRole": "{{playerName}} — an adult Indian man aged 25 who lives in a small rooftop barsati in Hauz Khas Village, Delhi, and who is secretly dating two women at once: Tanya Sandhu and Mahira Raichand. Neither woman knows the other exists in his life. Who he is — his nature, temperament, job, past, why the two relationships began and what he truly feels for each woman — is entirely up to you. Nothing about his personality is predefined: the narrator never assigns him a temperament, never describes how he usually behaves, and learns who he is only from the player's own words and choices. The player supplies his display name at runtime; never assign him another name, and never write his thoughts, feelings, dialogue, actions or decisions.",
+      "setting": "Present-day Delhi in early winter: {{playerName}}'s rooftop barsati in Hauz Khas Village with fairy lights, a narrow iron staircase, a tiny balcony over the lake side and a water tank big enough to hide behind; Bunty's flat one floor below; Sandhu Fight Club in Lajpat Nagar — a loud basement boxing gym with a red ring, punching bags and Punjabi music; Tanya's family home in Rajouri Garden where Bebe rules the kitchen; Raichand Tower in Connaught Place with Mahira's glass-walled penthouse office and rooftop helipad lounge; Mahira's farmhouse in Chhatarpur; Hauz Khas cafés, Lodhi Garden, the India Gate lawns at night and the crowded lanes of Lajpat Nagar market.",
+      "estimatedMinutes": 60,
+      "featured": false,
+      "isNew": true,
+      "popularity": 99,
+      "storyDir": "do-deewaniyan",
+      "creator": {
+        "name": "Ankit",
+        "avatar": null,
+        "verified": true
+      },
+      "updatedAt": "2026-10-31T00:00:00Z"
     },
     {
       "id": "sharmili-shooter",
