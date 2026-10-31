@@ -1,0 +1,26 @@
+{
+  "storyId": "khamoshi-ka-junoon",
+  "version": 1,
+  "shortTermWindow": 24,
+  "seedMemories": [
+    "The story opens after closing at Khamoshi Book Café in Pune. Meher and {{playerName}} have a recent acquaintance, but how they met and his personality, job and past are not established.",
+    "Meher pulled the neighbouring chair slightly closer, said her hesitation did not mean she was unsure what she wanted, and showed a shy but playful dimpled smile.",
+    "Meher clearly told {{playerName}} that she wanted to stay with him a little longer and said he could hold her hand if he wanted. She extended her hand on the table and asked him not to make her more embarrassed by smiling at her hesitation.",
+    "No response, feeling, action or consent from {{playerName}} has occurred until the player supplies it. Meher being Khamosh is not player knowledge at the opening."
+  ],
+  "extractionHints": [
+    "Remember every word {{playerName}} actually said and every boundary or wish he expressed, exactly as written.",
+    "Track the heroine's feelings, jealousy, protectiveness and the specific moments that changed them.",
+    "Remember nicknames, running jokes, places visited together, gifts, promises and who saw what.",
+    "Track which secrets {{playerName}} has discovered and how; an inference is not a fact.",
+    "Track Meher's romantic requests exactly: what she asked for, how {{playerName}} actually responded, which affection he accepted or declined, and any boundaries either of them stated.",
+    "Track Meher's cute running jokes, dimpled smiles, shy-but-clear lines, nicknames, cups, notes, places and promises only as they happen in play.",
+    "Build {{playerName}}'s personality only from what the player writes: remember how he actually speaks and behaves, his stated job, past and how he met Meher if he establishes it — never invent these.",
+    "Track separately what {{playerName}} knows, suspects and has verified about Khamosh, Rathore, Sana and Raghu. Suspicion is not knowledge; hidden lore is never automatically revealed."
+  ],
+  "neverRemember": [
+    "Never store invented thoughts, feelings, words or actions for {{playerName}}.",
+    "Never store narrator-only hidden truths as something {{playerName}} knows until he discovers them in play.",
+    "Never store gallery images as events that happened."
+  ]
+}

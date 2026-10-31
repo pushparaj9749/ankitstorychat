@@ -1,0 +1,80 @@
+{
+  "storyId": "khamoshi-ka-junoon",
+  "version": 1,
+  "scenes": [
+    {
+      "id": "thodi_der_aur",
+      "title": "Thodi Der Aur",
+      "narration": [
+        "*Pune ki ek purani lane mein Khamoshi Book Café. Meher se tumhari jaan-pehchaan abhi nayi hai; woh aam taur par kam bolti hai, lekin tumhare saath hansi-mazaak mein khul rahi hai. Aaj café band hone ke baad tum dono coffee ke saath baithe ho.*",
+        "*Meher apna cup dono haathon mein pakde hue hai. Usne do baar tumhari taraf dekha, aur dono baar apni muskaan chhupane ke liye nazar cup par gira di. Phir usne bagal wali kursi halki si apni taraf kheenchi.*",
+        "Meher: *(ek chhoti si saans lekar, lekin awaaz saaf)* \"Achha suno... main jhijhak rahi hoon, iska matlab ye nahi ki mujhe pata nahi kya chahiye.\"",
+        "*Is baar woh nazrein nahi hataati. Gaal laal hain, par dimple wali mast muskaan bhi wahin hai.*",
+        "Meher: \"Mujhe tumhare saath thodi der aur rehna hai. Aur... tum chaho toh mera haath bhi pakad sakte ho.\" *Woh apna haath table par tumhari taraf badhati hai, phir halki si hansi ke saath* \"Bas ab aise mat muskurao, keh toh diya maine!\"",
+        "*Uska haath ab bhi table par tumhari taraf badha hua hai. Chehre par sharm hai, muskaan mein masti, aur is baar usne apni baat adhoori nahi chhodi.*"
+      ],
+      "fallbackLines": [
+        "*Meher tumhare jawab ko dhyaan se sunti hai, bina tumhari taraf se koi mann-ghadant meaning jode. Uske baad woh apni coffee ka chhota sa sip leti hai aur sharm ke saath muskurati hai.*",
+        "Meher: \"Main tumhari baat samajhne ki koshish kar rahi hoon. Aur ek cheez ab main clear hi rakhungi — main sharma sakti hoon, par apni baat se nahi.\""
+      ],
+      "choices": [
+        {
+          "id": "rukna_chahta",
+          "text": "\"Main bhi tumhare saath thodi der aur rehna chahta hoon.\"",
+          "shortLabel": "Thodi der aur",
+          "keywords": [
+            "rukna",
+            "rehna",
+            "saath",
+            "thodi",
+            "der",
+            "chahta"
+          ],
+          "next": null,
+          "effects": {
+            "memory": [
+              "At Khamoshi Book Café, {{playerName}} told Meher that he also wanted to stay with her a little longer."
+            ]
+          }
+        },
+        {
+          "id": "haath_poochna",
+          "text": "\"Meher... kya main tumhara haath pakad sakta hoon?\"",
+          "shortLabel": "Haath pakad sakta?",
+          "keywords": [
+            "haath",
+            "pakad",
+            "sakta",
+            "meher",
+            "kya"
+          ],
+          "next": null,
+          "effects": {
+            "memory": [
+              "At Khamoshi Book Café, {{playerName}} asked Meher whether he could hold her hand."
+            ]
+          }
+        },
+        {
+          "id": "aur_batao",
+          "text": "\"Achha, ab jhijhak chhodo... aur batao, tumhe aur kya chahiye?\"",
+          "shortLabel": "Aur kya chahiye?",
+          "keywords": [
+            "aur",
+            "batao",
+            "kya",
+            "chahiye",
+            "jhijhak"
+          ],
+          "next": null,
+          "effects": {
+            "memory": [
+              "At Khamoshi Book Café, {{playerName}} playfully asked Meher to tell him what else she wanted."
+            ]
+          }
+        }
+      ]
+    }
+  ],
+  "endings": []
+}

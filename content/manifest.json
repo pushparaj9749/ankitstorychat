@@ -1,7 +1,7 @@
 {
-  "contentVersion": 61,
+  "contentVersion": 62,
   "minAppVersion": "1.0.0",
-  "updatedAt": "2026-11-01T00:00:00Z",
+  "updatedAt": "2026-10-31T18:00:00Z",
   "stories": [
     {
       "id": "arranged-marriage-wala-love",
@@ -53,6 +53,59 @@
         "verified": true
       },
       "updatedAt": "2026-10-03T14:46:42Z"
+    },
+    {
+      "id": "khamoshi-ka-junoon",
+      "title": "Khamoshi Ka Junoon",
+      "tagline": "Woh sharmaati hai, phir bhi jhijhak kar saaf keh deti hai ki use kya chahiye — aur sheher ke powerful log uske raaz ko dhoondh rahe hain.",
+      "description": "Pune ke Khamoshi Book Café mein nayi jaan-pehchaan, halki masti aur Meher ka cute, honest romance. Woh sharmaati hai, par apni feelings chhupati nahi; jhijhak kar bhi saaf keh deti hai ki use kya chahiye. Uske kuch raaz background mein hain, jo sirf tumhari choices ke through khulenge. Tum kaun ho, kaise ho aur yeh rishta kahan jaayega — sirf tum tay karoge.",
+      "genres": [
+        "Romance",
+        "Mystery",
+        "Comedy",
+        "Thriller"
+      ],
+      "tags": [
+        "romance",
+        "dangerous-girlfriend",
+        "shy-heroine",
+        "cute-heroine",
+        "playful-heroine",
+        "open-hero",
+        "protective-heroine",
+        "whistleblower",
+        "book-cafe",
+        "pune",
+        "player-agency",
+        "dynamic-continuous",
+        "ongoing",
+        "hinglish"
+      ],
+      "characters": [
+        "Meher Malhotra",
+        "Sana Qureshi",
+        "Vikram Rathore",
+        "Raghu Kulkarni"
+      ],
+      "ageRating": "18+",
+      "contentLevel": "mature",
+      "language": "hinglish",
+      "version": 1,
+      "coverUrl": "stories/khamoshi-ka-junoon/assets/cover.jpg",
+      "accentColor": "#B66F7E",
+      "userRole": "{{playerName}} — an adult Indian man aged 25 who is with Meher at Khamoshi Book Café after closing. They have a recent acquaintance; how they met, why he is there, his nature, temperament, job, past and feelings are entirely up to the player. Nothing about his personality is predefined: the narrator never assigns him a temperament, never describes how he usually behaves, and learns who he is only from the player's own words and choices. The player supplies his display name at runtime; never assign him another name, and never write his thoughts, feelings, dialogue, actions or decisions.",
+      "setting": "Present-day Pune during the monsoon: Khamoshi Book Café, a warm independent café inside an old bungalow, with wooden tables, bookshelves, hanging plants and a rain-speckled front window; Meher's small private room above it; the plant-filled rooftop terrace; the old residential lane outside; Fergusson College Road's busy bookshops and food stalls; a quiet riverside promenade; and the fictional Rangmanch Printing Press, an old press whose back room sometimes holds documents connected to Meher's secret work.",
+      "estimatedMinutes": 60,
+      "featured": false,
+      "isNew": true,
+      "popularity": 99,
+      "storyDir": "khamoshi-ka-junoon",
+      "creator": {
+        "name": "Ankit",
+        "avatar": null,
+        "verified": true
+      },
+      "updatedAt": "2026-10-31T18:00:00Z"
     },
     {
       "id": "goa-ki-chingari",
