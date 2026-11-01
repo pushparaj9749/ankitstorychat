@@ -13,8 +13,8 @@
     {
       "file": "01_Nick_Height_Joke.mp4",
       "duration_seconds": 18.4,
-      "size_bytes": 6961198,
-      "sha256": "c91d7e7adf3414a2b192cc28792a210532518675d5f3eb8079ffb3734166c07d",
+      "size_bytes": 6951128,
+      "sha256": "4924110576ab3df0af5f1ee41b3707e95da8142f7bed8b37ba4159a92289e4c2",
       "format": "1080x1920, 30fps, H.264/AAC, +faststart",
       "hook": "Why are so many women single?",
       "youtube_title": "Nick\u2019s Cowboy-Boots Height Joke",
@@ -36,8 +36,8 @@
     {
       "file": "02_Shahriq_Chemistry_Character.mp4",
       "duration_seconds": 53.3,
-      "size_bytes": 19423285,
-      "sha256": "b0bf09342e9e3c3010b97f8fc21e38230b9b34f3b98e852f2722ebc6779f3eb0",
+      "size_bytes": 19423450,
+      "sha256": "448302134acbdae36d9b7cbd3435af1706ec353edcdfe2055c4b1dff2a620a78",
       "format": "1080x1920, 30fps, H.264/AAC, +faststart",
       "hook": "Chemistry over character?",
       "youtube_title": "Chemistry Over Character?",
@@ -59,8 +59,8 @@
     {
       "file": "03_Christian_Texting_Pursuit.mp4",
       "duration_seconds": 36.9,
-      "size_bytes": 8277904,
-      "sha256": "09fc7605a3727af7fd567b09ce410daa1024f2c4be1c2a79c8a76e36d5575c63",
+      "size_bytes": 8237433,
+      "sha256": "1553f3e4e745bcb3117c8626cd364a252bf836d6362dc72e2e07fd8a4a18c22c",
       "format": "1080x1920, 30fps, H.264/AAC, +faststart",
       "hook": "Has texting made men passive?",
       "youtube_title": "Has Texting Made Men Passive?",
@@ -81,9 +81,9 @@
     },
     {
       "file": "04_Noah_Interest_Future.mp4",
-      "duration_seconds": 40.2,
-      "size_bytes": 11461796,
-      "sha256": "48c07812305be9759c71d544ca1ea96ca35635dacf5c29ee8b51718c47c45d5b",
+      "duration_seconds": 39.833,
+      "size_bytes": 11317631,
+      "sha256": "ad56c9140e4ed9de77be13ef6bbc6e13de3b7e8e56fff22ebe6576a02c08b7a5",
       "format": "1080x1920, 30fps, H.264/AAC, +faststart",
       "hook": "How to tell he sees a future",
       "youtube_title": "How to Tell He Sees a Future",
@@ -92,7 +92,7 @@
         {
           "guest": "Noah_Sofio",
           "start": 3966.62,
-          "duration": 40.2,
+          "duration": 39.8,
           "asset_id": "3fd45c3e-d68f-4a9c-bcae-5c1636f95d38",
           "episode": "Noah Sofio Full Episode.mov"
         }
@@ -105,8 +105,8 @@
     {
       "file": "05_Red_Green_Flags_Supercut.mp4",
       "duration_seconds": 55.9,
-      "size_bytes": 21203584,
-      "sha256": "50635cfc12d9da1e2f5bcde8d8e05a8dc42f16b69f257460726a01fd8757a26f",
+      "size_bytes": 21300205,
+      "sha256": "d1f5deb99c2bb939db61a20e5f99da9aabf52d9805bffc3dd0f22c0df7e6a051",
       "format": "1080x1920, 30fps, H.264/AAC, +faststart",
       "hook": "Red flags, green flags & friends",
       "youtube_title": "Red Flag vs. Green Flag | Nick & Shahriq",
@@ -135,8 +135,8 @@
     {
       "file": "06_Christian_What_Men_Want.mp4",
       "duration_seconds": 20.9,
-      "size_bytes": 5464477,
-      "sha256": "4bdac6ffc2f336de143911a7c607adcb8059c7edadac81301df93b274349b9a8",
+      "size_bytes": 5456764,
+      "sha256": "fb9ac59d67afb9d180cd8f87fcbe00fe80128df21518f824abf8caf49b032f85",
       "format": "1080x1920, 30fps, H.264/AAC, +faststart",
       "hook": "What men actually want",
       "youtube_title": "Christian: Husband, Kids, and Steak",
@@ -158,8 +158,8 @@
     {
       "file": "07_Shahriq_Trust_Mission_Joy.mp4",
       "duration_seconds": 39.9,
-      "size_bytes": 13508188,
-      "sha256": "67595653e3b33c8c7589e91ab9684c15f2c6aa43504ea5ecb3ae6c1cf3474317",
+      "size_bytes": 13699238,
+      "sha256": "92887714852249adb0127a3433e0a3feac61185df327e84333d23e4303aa226e",
       "format": "1080x1920, 30fps, H.264/AAC, +faststart",
       "hook": "His ideal relationship in 3 words",
       "youtube_title": "Trust, Mission, Joy",
