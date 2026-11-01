@@ -85,6 +85,9 @@ jobs:
           destination="docs/clips/lhm-transcripts"
           mkdir -p "$destination"
           cp -a work/lhm/transcripts/. "$destination/"
+          if [ -f docs/clips/lhm-transcribe-error.log ]; then
+            git rm docs/clips/lhm-transcribe-error.log
+          fi
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
           git add "$destination"
@@ -92,6 +95,56 @@ jobs:
             git commit -m "Update LHM episode transcripts [skip ci]"
             git push origin "HEAD:${GITHUB_REF_NAME}"
           fi
+
+      - name: Build seven LHM clips
+        if: steps.mode.outputs.mode == 'build'
+        shell: bash
+        run: |
+          set -o pipefail
+          python scripts/lhm-clips/lhm_build.py 2>&1 | tee work/lhm/build.log
+
+      - name: Publish build diagnostics on failure
+        if: failure() && steps.mode.outputs.mode == 'build'
+        shell: bash
+        run: |
+          cp work/lhm/build.log docs/clips/lhm-build-error.log
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add docs/clips/lhm-build-error.log
+          if ! git diff --cached --quiet; then
+            git commit -m "Relay LHM build diagnostics [skip ci]"
+            git push origin "HEAD:${GITHUB_REF_NAME}"
+          fi
+
+      - name: Publish final LHM review
+        if: steps.mode.outputs.mode == 'build'
+        shell: bash
+        run: |
+          destination="docs/clips/lhm-review"
+          mkdir -p "$destination"
+          cp -a work/lhm/review/. "$destination/"
+          if [ -d docs/clips/lhm-inventory ]; then
+            git rm -r docs/clips/lhm-inventory
+          fi
+          if [ -f docs/clips/lhm-build-error.log ]; then
+            git rm docs/clips/lhm-build-error.log
+          fi
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add "$destination"
+          if ! git diff --cached --quiet; then
+            git commit -m "Update LHM final review [skip ci]"
+            git push origin "HEAD:${GITHUB_REF_NAME}"
+          fi
+
+      - name: Upload seven-clip LHM package
+        if: steps.mode.outputs.mode == 'build'
+        uses: actions/upload-artifact@v4
+        with:
+          name: Let-Him-Mansplain-7-Clip-Pack
+          path: work/lhm/final/Let_Him_Mansplain_7_Clip_Pack.zip
+          if-no-files-found: error
+          retention-days: 14
 
       - name: Publish inventory for review
         if: steps.mode.outputs.mode == 'inventory'
