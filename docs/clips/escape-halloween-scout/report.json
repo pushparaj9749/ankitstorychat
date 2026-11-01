@@ -1,0 +1,407 @@
+[
+  {
+    "id": "excision-04",
+    "artist": "Excision",
+    "stage": "Sewer District",
+    "filename": "EXCISION (4).mp4",
+    "url": "https://www.dropbox.com/scl/fo/f0bnd1ifxe3n60hztbd8a/ALMm-lxLPea1Dy1bs6-Fdpc/Day%201%20%28Friday%20Oct%2030%29/Excision%20-%20Sewer%20District/EXCISION%20%284%29.mp4?rlkey=4ujg0um19yc7thrmmfday4r6t&dl=1",
+    "duration": 26.539,
+    "width": 1080,
+    "height": 1920,
+    "fps": "24000/1001",
+    "codec": "h264",
+    "size_bytes": 52592656,
+    "audio_peaks": [
+      {
+        "time": 1.7,
+        "rms_db": -8.18,
+        "above_median_db": 3.63
+      },
+      {
+        "time": 4.3,
+        "rms_db": -11.5,
+        "above_median_db": 0.31
+      },
+      {
+        "time": 5.8,
+        "rms_db": -8.85,
+        "above_median_db": 2.95
+      },
+      {
+        "time": 7.6,
+        "rms_db": -11.74,
+        "above_median_db": 0.06
+      },
+      {
+        "time": 9.2,
+        "rms_db": -8.64,
+        "above_median_db": 3.17
+      },
+      {
+        "time": 15.1,
+        "rms_db": -11.1,
+        "above_median_db": 0.71
+      },
+      {
+        "time": 16.9,
+        "rms_db": -9.78,
+        "above_median_db": 2.03
+      },
+      {
+        "time": 18.8,
+        "rms_db": -8.23,
+        "above_median_db": 3.58
+      },
+      {
+        "time": 20.3,
+        "rms_db": -11.53,
+        "above_median_db": 0.28
+      },
+      {
+        "time": 22.0,
+        "rms_db": -8.31,
+        "above_median_db": 3.5
+      },
+      {
+        "time": 23.5,
+        "rms_db": -9.47,
+        "above_median_db": 2.34
+      },
+      {
+        "time": 25.8,
+        "rms_db": -10.12,
+        "above_median_db": 1.68
+      }
+    ]
+  },
+  {
+    "id": "excision-05",
+    "artist": "Excision",
+    "stage": "Sewer District",
+    "filename": "EXCISION (5).mp4",
+    "url": "https://www.dropbox.com/scl/fo/f0bnd1ifxe3n60hztbd8a/AHJONfcosKKWDIc5QiFKg7w/Day%201%20%28Friday%20Oct%2030%29/Excision%20-%20Sewer%20District/EXCISION%20%285%29.mp4?rlkey=4ujg0um19yc7thrmmfday4r6t&dl=1",
+    "duration": 20.523,
+    "width": 1080,
+    "height": 1920,
+    "fps": "24000/1001",
+    "codec": "h264",
+    "size_bytes": 40946187,
+    "audio_peaks": [
+      {
+        "time": 0.3,
+        "rms_db": -6.85,
+        "above_median_db": 4.0
+      },
+      {
+        "time": 1.9,
+        "rms_db": -6.9,
+        "above_median_db": 3.95
+      },
+      {
+        "time": 3.5,
+        "rms_db": -6.77,
+        "above_median_db": 4.08
+      },
+      {
+        "time": 5.1,
+        "rms_db": -7.01,
+        "above_median_db": 3.84
+      },
+      {
+        "time": 6.7,
+        "rms_db": -6.49,
+        "above_median_db": 4.35
+      },
+      {
+        "time": 8.3,
+        "rms_db": -7.05,
+        "above_median_db": 3.8
+      },
+      {
+        "time": 9.9,
+        "rms_db": -6.78,
+        "above_median_db": 4.07
+      },
+      {
+        "time": 11.4,
+        "rms_db": -9.17,
+        "above_median_db": 1.67
+      },
+      {
+        "time": 13.4,
+        "rms_db": -10.0,
+        "above_median_db": 0.85
+      },
+      {
+        "time": 15.4,
+        "rms_db": -10.32,
+        "above_median_db": 0.53
+      },
+      {
+        "time": 17.0,
+        "rms_db": -11.19,
+        "above_median_db": -0.35
+      },
+      {
+        "time": 19.7,
+        "rms_db": -8.17,
+        "above_median_db": 2.68
+      }
+    ]
+  },
+  {
+    "id": "excision-07",
+    "artist": "Excision",
+    "stage": "Sewer District",
+    "filename": "EXCISION (7).mp4",
+    "url": "https://www.dropbox.com/scl/fo/f0bnd1ifxe3n60hztbd8a/AIZahR0aZ1SWaylqX766IMw/Day%201%20%28Friday%20Oct%2030%29/Excision%20-%20Sewer%20District/EXCISION%20%287%29.mp4?rlkey=4ujg0um19yc7thrmmfday4r6t&dl=1",
+    "duration": 46.059,
+    "width": 1080,
+    "height": 1920,
+    "fps": "24000/1001",
+    "codec": "h264",
+    "size_bytes": 90208563,
+    "audio_peaks": [
+      {
+        "time": 9.5,
+        "rms_db": -9.17,
+        "above_median_db": 3.54
+      },
+      {
+        "time": 11.0,
+        "rms_db": -9.33,
+        "above_median_db": 3.38
+      },
+      {
+        "time": 12.6,
+        "rms_db": -8.92,
+        "above_median_db": 3.79
+      },
+      {
+        "time": 14.3,
+        "rms_db": -8.96,
+        "above_median_db": 3.75
+      },
+      {
+        "time": 15.9,
+        "rms_db": -9.41,
+        "above_median_db": 3.3
+      },
+      {
+        "time": 20.7,
+        "rms_db": -8.76,
+        "above_median_db": 3.95
+      },
+      {
+        "time": 22.2,
+        "rms_db": -9.67,
+        "above_median_db": 3.04
+      },
+      {
+        "time": 23.8,
+        "rms_db": -8.31,
+        "above_median_db": 4.4
+      },
+      {
+        "time": 27.1,
+        "rms_db": -9.01,
+        "above_median_db": 3.7
+      },
+      {
+        "time": 37.7,
+        "rms_db": -4.32,
+        "above_median_db": 8.39
+      },
+      {
+        "time": 40.2,
+        "rms_db": -4.93,
+        "above_median_db": 7.78
+      },
+      {
+        "time": 42.3,
+        "rms_db": -9.3,
+        "above_median_db": 3.41
+      }
+    ]
+  },
+  {
+    "id": "nervo-iphone-03",
+    "artist": "NERVO",
+    "stage": "Main Stage",
+    "filename": "Nervo - iPhone (3).mov",
+    "url": "https://www.dropbox.com/scl/fo/f0bnd1ifxe3n60hztbd8a/AFtWGGIb_AN-TbJh_W6HNFg/Day%201%20%28Friday%20Oct%2030%29/NERVO%20-%20Main%20Stage/Nervo%20-%20iPhone%20%283%29.mov?rlkey=4ujg0um19yc7thrmmfday4r6t&dl=1",
+    "duration": 30.667,
+    "width": 1920,
+    "height": 1080,
+    "fps": "60/1",
+    "codec": "hevc",
+    "size_bytes": 48841197,
+    "audio_peaks": [
+      {
+        "time": 0.4,
+        "rms_db": -4.36,
+        "above_median_db": 6.46
+      },
+      {
+        "time": 2.4,
+        "rms_db": -4.74,
+        "above_median_db": 6.09
+      },
+      {
+        "time": 4.7,
+        "rms_db": -3.47,
+        "above_median_db": 7.35
+      },
+      {
+        "time": 7.1,
+        "rms_db": -4.72,
+        "above_median_db": 6.1
+      },
+      {
+        "time": 9.1,
+        "rms_db": -4.85,
+        "above_median_db": 5.97
+      },
+      {
+        "time": 10.8,
+        "rms_db": -4.99,
+        "above_median_db": 5.84
+      },
+      {
+        "time": 12.3,
+        "rms_db": -10.66,
+        "above_median_db": 0.16
+      },
+      {
+        "time": 14.3,
+        "rms_db": -7.12,
+        "above_median_db": 3.7
+      },
+      {
+        "time": 24.2,
+        "rms_db": -13.51,
+        "above_median_db": -2.69
+      },
+      {
+        "time": 25.9,
+        "rms_db": -12.4,
+        "above_median_db": -1.57
+      },
+      {
+        "time": 27.4,
+        "rms_db": -4.91,
+        "above_median_db": 5.92
+      },
+      {
+        "time": 30.1,
+        "rms_db": -6.48,
+        "above_median_db": 4.34
+      }
+    ]
+  },
+  {
+    "id": "nervo-iphone-04",
+    "artist": "NERVO",
+    "stage": "Main Stage",
+    "filename": "Nervo - iPhone (4).mov",
+    "url": "https://www.dropbox.com/scl/fo/f0bnd1ifxe3n60hztbd8a/AHyxOexpIwXIZLZHr8-zmwg/Day%201%20%28Friday%20Oct%2030%29/NERVO%20-%20Main%20Stage/Nervo%20-%20iPhone%20%284%29.mov?rlkey=4ujg0um19yc7thrmmfday4r6t&dl=1",
+    "duration": 5.885,
+    "width": 1920,
+    "height": 1080,
+    "fps": "60/1",
+    "codec": "hevc",
+    "size_bytes": 14622798,
+    "audio_peaks": [
+      {
+        "time": 0.8,
+        "rms_db": -16.27,
+        "above_median_db": -0.86
+      },
+      {
+        "time": 2.6,
+        "rms_db": -14.14,
+        "above_median_db": 1.28
+      },
+      {
+        "time": 4.6,
+        "rms_db": -12.29,
+        "above_median_db": 3.12
+      }
+    ]
+  },
+  {
+    "id": "aoki-iphone-06",
+    "artist": "Steve Aoki",
+    "stage": "Main Stage",
+    "filename": "Steve Aoki - iPhone-6.mov",
+    "url": "https://www.dropbox.com/scl/fo/f0bnd1ifxe3n60hztbd8a/AChED3o_UdNRsXDvkNsU3vI/Day%201%20%28Friday%20Oct%2030%29/Steve%20Aoki%20-%20Main%20Stage/Steve%20Aoki%20-%20iPhone-6.mov?rlkey=4ujg0um19yc7thrmmfday4r6t&dl=1",
+    "duration": 35.437,
+    "width": 1920,
+    "height": 1080,
+    "fps": "60/1",
+    "codec": "hevc",
+    "size_bytes": 65366061,
+    "audio_peaks": [
+      {
+        "time": 10.4,
+        "rms_db": -5.64,
+        "above_median_db": 0.78
+      },
+      {
+        "time": 12.1,
+        "rms_db": -5.4,
+        "above_median_db": 1.03
+      },
+      {
+        "time": 13.7,
+        "rms_db": -5.38,
+        "above_median_db": 1.04
+      },
+      {
+        "time": 15.4,
+        "rms_db": -5.29,
+        "above_median_db": 1.13
+      },
+      {
+        "time": 17.5,
+        "rms_db": -5.12,
+        "above_median_db": 1.3
+      },
+      {
+        "time": 19.1,
+        "rms_db": -4.76,
+        "above_median_db": 1.67
+      },
+      {
+        "time": 21.6,
+        "rms_db": -5.52,
+        "above_median_db": 0.91
+      },
+      {
+        "time": 24.9,
+        "rms_db": -5.46,
+        "above_median_db": 0.97
+      },
+      {
+        "time": 26.8,
+        "rms_db": -5.12,
+        "above_median_db": 1.3
+      },
+      {
+        "time": 29.7,
+        "rms_db": -5.45,
+        "above_median_db": 0.97
+      },
+      {
+        "time": 31.3,
+        "rms_db": -5.12,
+        "above_median_db": 1.3
+      },
+      {
+        "time": 34.8,
+        "rms_db": -4.97,
+        "above_median_db": 1.46
+      }
+    ]
+  }
+]
