@@ -19,6 +19,17 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
+      - name: Resolve mode
+        id: mode
+        shell: bash
+        run: |
+          mode="$(cat scripts/lhm-clips/mode.txt)"
+          if [ "$mode" != "inventory" ] && [ "$mode" != "transcribe" ] && [ "$mode" != "build" ]; then
+            echo "Invalid mode: $mode" >&2
+            exit 1
+          fi
+          echo "mode=$mode" >> "$GITHUB_OUTPUT"
+
       - name: Setup Python
         uses: actions/setup-python@v5
         with:
@@ -29,9 +40,10 @@ jobs:
         run: |
           sudo apt-get update
           sudo apt-get install -y ffmpeg
-          python -m pip install yt-dlp
+          python -m pip install yt-dlp faster-whisper av==15.1.0 pillow
 
       - name: Inventory episodes and subtitles
+        if: steps.mode.outputs.mode == 'inventory'
         shell: bash
         run: |
           set -o pipefail
@@ -46,7 +58,43 @@ jobs:
           cp scripts/lhm-clips/lhm_frameio.mjs work/lhm-browser/lhm_frameio.mjs
           node work/lhm-browser/lhm_frameio.mjs
 
+      - name: Transcribe episode proxies
+        if: steps.mode.outputs.mode == 'transcribe'
+        shell: bash
+        run: |
+          set -o pipefail
+          python scripts/lhm-clips/lhm_transcribe.py 2>&1 | tee work/lhm/transcribe.log
+
+      - name: Publish transcription diagnostics on failure
+        if: failure() && steps.mode.outputs.mode == 'transcribe'
+        shell: bash
+        run: |
+          cp work/lhm/transcribe.log docs/clips/lhm-transcribe-error.log
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add docs/clips/lhm-transcribe-error.log
+          if ! git diff --cached --quiet; then
+            git commit -m "Relay LHM transcription diagnostics [skip ci]"
+            git push origin "HEAD:${GITHUB_REF_NAME}"
+          fi
+
+      - name: Publish transcripts for review
+        if: steps.mode.outputs.mode == 'transcribe'
+        shell: bash
+        run: |
+          destination="docs/clips/lhm-transcripts"
+          mkdir -p "$destination"
+          cp -a work/lhm/transcripts/. "$destination/"
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add "$destination"
+          if ! git diff --cached --quiet; then
+            git commit -m "Update LHM episode transcripts [skip ci]"
+            git push origin "HEAD:${GITHUB_REF_NAME}"
+          fi
+
       - name: Publish inventory for review
+        if: steps.mode.outputs.mode == 'inventory'
         shell: bash
         run: |
           destination="docs/clips/lhm-inventory"
