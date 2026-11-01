@@ -7,122 +7,32 @@ on:
   workflow_dispatch:
 
 permissions:
-  contents: read
+  contents: write
+  actions: read
 
 jobs:
-  transcribe:
+  publish-analysis:
     runs-on: ubuntu-latest
-    timeout-minutes: 90
+    timeout-minutes: 10
     steps:
-      - name: Install media and transcription tools
-        run: |
-          sudo apt-get update
-          sudo apt-get install -y ffmpeg
-          python -m pip install --upgrade pip
-          python -m pip install gdown faster-whisper 'av==15.1.0' pillow yt-dlp
-
-      - name: Download the supplied Episode 1 source
-        run: |
-          mkdir -p work
-          set +e
-          python - >work/download.log 2>&1 <<'PY'
-          import gdown
-          path = gdown.download(id='1_BAuSAmX1qYwz9hLSiIyON0lzi7KTLUx', output='work/episode-1.mp4', quiet=False)
-          if not path:
-              raise SystemExit('Drive download returned no file')
-          PY
-          status=$?
-          set -e
-          if [ "$status" -ne 0 ]; then
-            message=$(tail -n 5 work/download.log | tr '\n' ' ' | cut -c1-800)
-            echo "::warning::Drive download failed; using the identical official YouTube source. $message"
-            yt-dlp --no-playlist -f 'bv*[height<=1080]+ba/b[height<=1080]/b' --merge-output-format mp4 -o work/episode-1.mp4 'https://www.youtube.com/watch?v=7uwAsDZVfQg'
-          fi
-          test -s work/episode-1.mp4
-          ffprobe -v error -show_entries format=duration,size:stream=codec_name,width,height,r_frame_rate -of json work/episode-1.mp4 > work/source-info.json
-          cat work/source-info.json
-
-      - name: Transcribe with word timings
-        run: |
-          set +e
-          python - >work/transcribe.log 2>&1 <<'PY'
-          import json
-          from faster_whisper import WhisperModel
-
-          model = WhisperModel('base', device='cpu', compute_type='int8', cpu_threads=4)
-          segments_iter, info = model.transcribe(
-              'work/episode-1.mp4',
-              language='en',
-              beam_size=1,
-              best_of=1,
-              vad_filter=True,
-              word_timestamps=True,
-              condition_on_previous_text=False,
-          )
-          segments = []
-          with open('work/transcript.txt', 'w', encoding='utf-8') as plain:
-              for segment in segments_iter:
-                  item = {
-                      'start': round(segment.start, 3),
-                      'end': round(segment.end, 3),
-                      'text': segment.text.strip(),
-                      'words': [
-                          {
-                              'start': round(w.start, 3),
-                              'end': round(w.end, 3),
-                              'word': w.word,
-                          }
-                          for w in (segment.words or [])
-                          if w.start is not None and w.end is not None
-                      ],
-                  }
-                  segments.append(item)
-                  line = f"[{segment.start:8.2f} --> {segment.end:8.2f}] {segment.text.strip()}"
-                  print(line, flush=True)
-                  plain.write(line + '\n')
-          with open('work/transcript.json', 'w', encoding='utf-8') as handle:
-              json.dump({'language': info.language, 'duration': info.duration, 'segments': segments}, handle, indent=2)
-          print(f'TRANSCRIBED_SEGMENTS={len(segments)}')
-          PY
-          status=$?
-          set -e
-          if [ "$status" -ne 0 ]; then
-            message=$(tail -n 14 work/transcribe.log | tr '\n' ' ' | cut -c1-1400)
-            echo "::error::Transcription failed. $message"
-            exit "$status"
-          fi
-          cat work/transcribe.log
-
-      - name: Create source overview frames
-        run: |
-          python - <<'PY'
-          import json, os, subprocess
-          from PIL import Image, ImageDraw
-          info = json.load(open('work/source-info.json'))
-          duration = float(info['format']['duration'])
-          times = [duration * p for p in (0.03, 0.15, 0.30, 0.50, 0.70, 0.90)]
-          frames = []
-          for index, seconds in enumerate(times):
-              path = f'work/overview-{index + 1}.jpg'
-              subprocess.run(['ffmpeg', '-y', '-loglevel', 'error', '-ss', str(seconds), '-i', 'work/episode-1.mp4', '-frames:v', '1', '-vf', 'scale=640:-2', path], check=True)
-              frames.append((seconds, Image.open(path).convert('RGB')))
-          sheet = Image.new('RGB', (1280, 3 * 400), '#111827')
-          draw = ImageDraw.Draw(sheet)
-          for index, (seconds, image) in enumerate(frames):
-              x = (index % 2) * 640
-              y = (index // 2) * 400
-              sheet.paste(image, (x, y + 30))
-              draw.text((x + 12, y + 8), f'{seconds / 60:.1f} min', fill='white')
-          sheet.save('work/source-overview.jpg', quality=90)
-          PY
-
-      - name: Upload transcript and visual overview
-        uses: actions/upload-artifact@v4
+      - name: Checkout work branch
+        uses: actions/checkout@v4
         with:
-          name: podcast-transcript-${{ github.run_id }}
-          path: |
-            work/transcript.json
-            work/transcript.txt
-            work/source-info.json
-            work/source-overview.jpg
-          retention-days: 7
+          ref: arena/fcbfa6df-ankitstorychat
+          fetch-depth: 0
+
+      - name: Download completed transcript analysis
+        uses: actions/download-artifact@v4
+        with:
+          name: podcast-transcript-41271165158
+          path: .clipping-work
+          run-id: 41271165158
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Transfer analysis to the work branch
+        run: |
+          git config user.name 'arena-clipping-bot'
+          git config user.email 'actions@users.noreply.github.com'
+          git add .clipping-work
+          git commit -m 'chore: transfer podcast clipping analysis [skip ci]'
+          git push origin HEAD:arena/fcbfa6df-ankitstorychat
