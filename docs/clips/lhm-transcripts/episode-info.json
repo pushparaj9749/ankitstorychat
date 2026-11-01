@@ -1,0 +1,30 @@
+[
+  {
+    "slug": "Noah_Sofio",
+    "episode": "Noah Sofio Full Episode.mov",
+    "asset_id": "3fd45c3e-d68f-4a9c-bcae-5c1636f95d38",
+    "duration": 4223.402688,
+    "segments": 1223
+  },
+  {
+    "slug": "Christian_Hodges",
+    "episode": "Christian Hodges Full Episode.mov",
+    "asset_id": "e5eedc8b-069f-4958-a92b-af521ef33977",
+    "duration": 3576.874688,
+    "segments": 1224
+  },
+  {
+    "slug": "Nick_Madincea",
+    "episode": "Nick Madincea Full Episode.mov",
+    "asset_id": "a7e530d5-055c-468a-8cd3-0c25e7f86906",
+    "duration": 3088.021313,
+    "segments": 1019
+  },
+  {
+    "slug": "Shahriq_Khan",
+    "episode": "Shahriq Khan Full Episode.mov",
+    "asset_id": "9d23d666-9025-46dd-8af6-63f1cbfd6e2a",
+    "duration": 3438.485313,
+    "segments": 1424
+  }
+]
