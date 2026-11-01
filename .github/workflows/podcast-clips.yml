@@ -25,7 +25,12 @@ jobs:
         run: |
           mkdir -p work
           set +e
-          python -m gdown --fuzzy 'https://drive.google.com/file/d/1_BAuSAmX1qYwz9hLSiIyON0lzi7KTLUx/view?usp=sharing' -O work/episode-1.mp4 >work/download.log 2>&1
+          python - >work/download.log 2>&1 <<'PY'
+          import gdown
+          path = gdown.download(id='1_BAuSAmX1qYwz9hLSiIyON0lzi7KTLUx', output='work/episode-1.mp4', quiet=False)
+          if not path:
+              raise SystemExit('Drive download returned no file')
+          PY
           status=$?
           set -e
           if [ "$status" -ne 0 ]; then
