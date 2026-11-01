@@ -274,8 +274,16 @@ def main() -> None:
     for directory in [FINAL / "covers", FINAL / "captions", FINAL / "subtitles", REVIEW / "covers", REVIEW / "captions", REVIEW / "subtitles"]:
         directory.mkdir(parents=True, exist_ok=True)
     source_map = sources()
-    model = WhisperModel("small", device="cpu", compute_type="int8", cpu_threads=4)
-    cue_map = transcribe_parts(model, source_map)
+    override_dir = ROOT / "scripts/lhm-clips/subtitles"
+    if all((override_dir / f"{edit['slug']}.json").exists() for edit in EDITS):
+        cue_map = {
+            edit["slug"]: json.loads((override_dir / f"{edit['slug']}.json").read_text())
+            for edit in EDITS
+        }
+        print("Using reviewed, pinned subtitle cues for all seven clips.", flush=True)
+    else:
+        model = WhisperModel("small", device="cpu", compute_type="int8", cpu_threads=4)
+        cue_map = transcribe_parts(model, source_map)
     (WORK / "subtitles").mkdir(parents=True, exist_ok=True)
     manifest = []
     for edit in EDITS:
