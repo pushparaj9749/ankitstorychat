@@ -38,6 +38,7 @@ const SERIES = [
   'goa-ki-chingari',
   'khamoshi-ka-junoon',
   'meri-spy-girlfriend',
+  'meri-vampire-girlfriend',
 ];
 
 const ROOT = join(__dirname, '..', 'content');
@@ -423,5 +424,66 @@ describe('Meri Spy Girlfriend: bold romantic spy heroine, open hero', () => {
     expect(gallery).toHaveLength(9);
     const linked = gallery.map((g) => g.characterId).filter(Boolean);
     expect(new Set(linked)).toEqual(new Set(['saira']));
+  });
+});
+
+describe('Meri Vampire Girlfriend: bold romantic vampire, open hero', () => {
+  const id = 'meri-vampire-girlfriend';
+  const b = load(id);
+  const chars = b.characters as unknown as {
+    playerVisualDesign: string;
+    characters: { id: string; personality: string }[];
+  };
+  const world = b.world as unknown as { rules: string[] };
+  const HERO_TRAIT = /\b(shy|timid|nervous|soft-spoken|flustered|blush\w*|brave|bold|confident|gentle|weak|playboy|cheater|flirt\w*)\b/i;
+
+  test('the hero has no predefined personality, job or past', () => {
+    expect(b.story.userRole).toMatch(/Nothing about his personality is predefined/);
+    expect(b.story.userRole).toMatch(/his nature, temperament, job, past and feelings/);
+    expect(b.story.userRole).not.toMatch(HERO_TRAIT);
+    expect(chars.playerVisualDesign).not.toMatch(HERO_TRAIT);
+    expect(b.meta.tags).toContain('open-hero');
+    expect(b.story.description).toMatch(/Tum kaun ho, kaise ho/);
+  });
+
+  test('Adrija is bold, openly romantic and dangerous as Raat Ki Rani', () => {
+    const adrija = chars.characters.find((c) => c.id === 'adrija')!;
+    expect(adrija.personality).toMatch(/glamorous, bold, flirtatious/);
+    expect(adrija.personality).toMatch(/a LOT of romance/);
+    expect(adrija.personality).toMatch(/says clearly what she wants/);
+    expect(adrija.personality).toMatch(/As Raat Ki Rani she is calm, swift and dangerous/);
+    expect(b.meta.tags).toEqual(expect.arrayContaining(['dangerous-girlfriend', 'bold-heroine', 'flirty-heroine', 'vampire', 'supernatural']));
+  });
+
+  test('opening is a medium natural café invitation with no vampire dump', () => {
+    const opening = b.scenes.scenes[0];
+    const text = opening.narration.join('\n');
+    expect(opening.narration).toHaveLength(6);
+    expect(text.length).toBeGreaterThan(700);
+    expect(text.length).toBeLessThan(1800);
+    expect(text).toMatch(/Adrija tumhari girlfriend hai/);
+    expect(text).toMatch(/tumhara poora attention chahiye/);
+    expect(text).toMatch(/Tum chaho toh mere paas baith jao/);
+    expect(text).toMatch(/baaki tumhari marzi/);
+    expect(text).not.toMatch(/\bRaat Ki Rani\b|\bvampire\b|\bNishachar\b|\bKabir\b|supernatural|immortal/i);
+  });
+
+  test('vampire danger is never scheduled and never overrides consent', () => {
+    expect(world.rules.join(' ')).toMatch(/Do not automatically introduce Niladri/);
+    expect(world.rules.join(' ')).toMatch(/hidden identity remains in the background/);
+    const safety = (b.story.safetyNotes as unknown as string[]).join(' ');
+    expect(safety).toMatch(/never bites, feeds on, hypnotises/);
+    expect(safety).toMatch(/mind control/);
+    expect(safety).toMatch(/never turns him into a vampire/);
+    expect(safety).toMatch(/never manufactures danger/);
+    expect(b.scenes.scenes).toHaveLength(1);
+    expect(b.scenes.endings).toEqual([]);
+  });
+
+  test('ships a cover and eight Adrija gallery images', () => {
+    const gallery = (b.story as unknown as { media: { gallery: { characterId?: string }[] } }).media.gallery;
+    expect(gallery).toHaveLength(9);
+    const linked = gallery.map((g) => g.characterId).filter(Boolean);
+    expect(new Set(linked)).toEqual(new Set(['adrija']));
   });
 });

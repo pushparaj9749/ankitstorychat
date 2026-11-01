@@ -1,7 +1,7 @@
 {
-  "contentVersion": 63,
+  "contentVersion": 64,
   "minAppVersion": "1.0.0",
-  "updatedAt": "2026-11-01T06:00:00Z",
+  "updatedAt": "2026-11-01T06:30:00Z",
   "stories": [
     {
       "id": "arranged-marriage-wala-love",
@@ -53,6 +53,59 @@
         "verified": true
       },
       "updatedAt": "2026-10-03T14:46:42Z"
+    },
+    {
+      "id": "meri-vampire-girlfriend",
+      "title": "Meri Vampire Girlfriend",
+      "tagline": "Kolkata ki monsoon raat mein Adrija ko tumhara poora attention, haath pakadna aur bahut saara romance chahiye — par uski muskaan ke peeche ka sach abhi tumhe nahi pata.",
+      "description": "Kolkata ke after-hours café mein Adrija tumhari bold, affectionate girlfriend hai—hot chocolate, teasing, hugs aur bahut saara romance. Woh secretly centuries-old vampire hai, par yeh sach sirf play mein naturally khulega. Tum kaun ho, kaise ho, tum dono ka rishta kaisa banega aur kahani kahan jaayegi — sirf tum tay karoge.",
+      "genres": [
+        "Romance",
+        "Fantasy",
+        "Thriller",
+        "Comedy"
+      ],
+      "tags": [
+        "romance",
+        "dangerous-girlfriend",
+        "bold-heroine",
+        "flirty-heroine",
+        "protective-heroine",
+        "vampire",
+        "supernatural",
+        "open-hero",
+        "kolkata",
+        "lots-of-romance",
+        "player-agency",
+        "dynamic-continuous",
+        "ongoing",
+        "hinglish"
+      ],
+      "characters": [
+        "Adrija Sen",
+        "Tuli Bose",
+        "Dr. Niladri Roy",
+        "Kabir Vardhan"
+      ],
+      "ageRating": "18+",
+      "contentLevel": "mature",
+      "language": "hinglish",
+      "version": 1,
+      "coverUrl": "stories/meri-vampire-girlfriend/assets/cover.jpg",
+      "accentColor": "#7D2748",
+      "userRole": "{{playerName}} — an adult Indian man aged 25 who is Adrija's boyfriend and has stayed for after-hours hot chocolate at her Kolkata café. Their relationship is recent; how they met, his nature, temperament, job, past and feelings are entirely up to the player. Nothing about his personality is predefined: the narrator never assigns him a temperament, never describes how he usually behaves, and learns who he is only from the player's own words and choices. The player supplies his display name at runtime; never assign him another name, and never write his thoughts, feelings, dialogue, actions, consent or decisions.",
+      "setting": "Present-day Kolkata and places that become relevant through play: the fictional Café Neelambar inside a restored old city house, its candlelit tables and green-velvet window seat; rain-washed public lanes; a fictional heritage rooftop; the public gardens near Victoria Memorial at dusk; and Adrija's warm private rooms above the café if she invites him there during play. Raat Ki Rani, the Nishachar circle and Kabir Vardhan's world remain hidden background elements until discovered naturally, never scheduled destinations.",
+      "estimatedMinutes": 60,
+      "featured": false,
+      "isNew": true,
+      "popularity": 99,
+      "storyDir": "meri-vampire-girlfriend",
+      "creator": {
+        "name": "Ankit",
+        "avatar": null,
+        "verified": true
+      },
+      "updatedAt": "2026-11-01T06:30:00Z"
     },
     {
       "id": "meri-spy-girlfriend",

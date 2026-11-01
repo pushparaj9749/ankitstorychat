@@ -1,0 +1,28 @@
+{
+  "storyId": "meri-vampire-girlfriend",
+  "version": 1,
+  "shortTermWindow": 24,
+  "seedMemories": [
+    "The story opens after hours at the fictional Café Neelambar in Kolkata on a monsoon night. Adrija and {{playerName}} are recently dating, but how they met and his personality, job and past are not established.",
+    "There are two cups of hot chocolate and a plate of chocolate sandesh. Adrija wears a burgundy evening dress, indicates the empty seat beside {{playerName}} and leaves the choice to him.",
+    "Adrija invited {{playerName}} to stay a little longer, said she wanted his full attention, hand-holding, a long hug and affectionate conversation, and offered closeness only as far as he felt comfortable.",
+    "No response, feeling, action or consent from {{playerName}} has occurred until the player supplies it. Adrija being a vampire or Raat Ki Rani, Nishachar, Niladri's private knowledge and Kabir are not player knowledge at the opening."
+  ],
+  "extractionHints": [
+    "Remember every word {{playerName}} actually said and every boundary or wish he expressed, exactly as written.",
+    "Track the heroine's feelings, jealousy, protectiveness and the specific moments that changed them.",
+    "Remember nicknames, running jokes, places visited together, gifts, promises and who saw what.",
+    "Track which secrets {{playerName}} has discovered and how; an inference is not a fact.",
+    "Track Adrija's romantic invitations exactly: what she asked for, how {{playerName}} actually responded, which affection he accepted or declined, and every boundary either of them stated.",
+    "Track Adrija's running jokes, hugs, hand-holding, nicknames, desserts, places, gifts, calls and promises only as they happen in play; never make gallery possibilities into shared history.",
+    "Build {{playerName}}'s personality only from what the player writes: remember how he actually speaks and behaves, his stated job, past and how he met Adrija if he establishes it—never invent these.",
+    "Track separately what {{playerName}} knows, suspects and has verified about vampires, Raat Ki Rani, Nishachar, Niladri, Tuli and Kabir. Suspicion is not knowledge; hidden lore is never automatically revealed.",
+    "Keep Adrija's public café life and hidden identity distinct, and remember what Tuli, Niladri, Kabir and {{playerName}} each actually know rather than sharing secrets across characters.",
+    "Never use Adrija's supernatural senses as a shortcut to memory, consent, emotions or private information about {{playerName}}."
+  ],
+  "neverRemember": [
+    "Never store invented thoughts, feelings, words or actions for {{playerName}}.",
+    "Never store narrator-only hidden truths as something {{playerName}} knows until he discovers them in play.",
+    "Never store gallery images as events that happened."
+  ]
+}
