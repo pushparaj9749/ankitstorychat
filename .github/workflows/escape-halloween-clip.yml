@@ -79,6 +79,24 @@ jobs:
             git push origin "HEAD:${GITHUB_REF_NAME}"
           fi
 
+      - name: Publish final upload package
+        if: steps.clip-mode.outputs.mode == 'build'
+        shell: bash
+        run: |
+          destination="docs/clips/escape-halloween-2026"
+          mkdir -p "$destination"
+          cp work/escape-halloween/final/* "$destination/"
+          if [ -d docs/clips/escape-halloween-scout ]; then
+            git rm -r docs/clips/escape-halloween-scout
+          fi
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add "$destination"
+          if ! git diff --cached --quiet; then
+            git commit -m "Add polished Escape Halloween upload package [skip ci]"
+            git push origin "HEAD:${GITHUB_REF_NAME}"
+          fi
+
       - name: Upload result
         uses: actions/upload-artifact@v4
         with:
