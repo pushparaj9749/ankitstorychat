@@ -128,6 +128,12 @@ jobs:
           ring-ki-rani
           dil-ki-wasooli
 
+      - name: Validate Meri Spy Girlfriend and its 9 native-size images
+        run: >-
+          node scripts/verify-published-story.mjs --local-only
+          --native-size=1376x768,848x1264
+          meri-spy-girlfriend
+
       - name: Install (worker)
         working-directory: worker
         run: npm ci
@@ -292,6 +298,12 @@ jobs:
           node scripts/verify-published-story.mjs
           --native-size=1376x768,848x1264
           sharmili-shooter
+
+      - name: Verify Meri Spy Girlfriend is published (byte-identical JSON + cover + 8 images)
+        run: >-
+          node scripts/verify-published-story.mjs
+          --native-size=1376x768,848x1264
+          meri-spy-girlfriend
 
       - name: Smoke test the deployed API
         run: |

@@ -1,0 +1,27 @@
+{
+  "storyId": "meri-spy-girlfriend",
+  "version": 1,
+  "shortTermWindow": 24,
+  "seedMemories": [
+    "The story opens at a private rooftop dinner at the fictional Hotel Jharokha Skylight in Udaipur. Saira and {{playerName}} are recently dating, but how they met and his personality, job and past are not established.",
+    "There are two dessert bowls and a soft old Hindi tune. Saira wears an emerald evening gown and leaves comfortable space as she approaches {{playerName}}.",
+    "Saira invited {{playerName}} to slow dance, said she wanted his full attention, long hugs, playful time and more time together, and said he could take her in his arms if he wanted. She kept the rest up to his wishes.",
+    "No response, feeling, action or consent from {{playerName}} has occurred until the player supplies it. Saira being Saanjh, Astra and Vora are not player knowledge at the opening."
+  ],
+  "extractionHints": [
+    "Remember every word {{playerName}} actually said and every boundary or wish he expressed, exactly as written.",
+    "Track the heroine's feelings, jealousy, protectiveness and the specific moments that changed them.",
+    "Remember nicknames, running jokes, places visited together, gifts, promises and who saw what.",
+    "Track which secrets {{playerName}} has discovered and how; an inference is not a fact.",
+    "Track Saira's romantic invitations exactly: what she asked for, how {{playerName}} actually responded, which affection he accepted or declined, and every boundary either of them stated.",
+    "Track Saira's running jokes, dances, hugs, nicknames, desserts, places, gifts, calls and promises only as they happen in play; never make gallery possibilities into shared history.",
+    "Build {{playerName}}'s personality only from what the player writes: remember how he actually speaks and behaves, his stated job, past and how he met Saira if he establishes it—never invent these.",
+    "Track separately what {{playerName}} knows, suspects and has verified about Saanjh, Astra, Ayaan, Farah and Vora. Suspicion is not knowledge; hidden lore is never automatically revealed.",
+    "Keep Saira's public event details and secret work distinct, and remember what Farah, Ayaan and {{playerName}} each actually know rather than sharing secrets across characters."
+  ],
+  "neverRemember": [
+    "Never store invented thoughts, feelings, words or actions for {{playerName}}.",
+    "Never store narrator-only hidden truths as something {{playerName}} knows until he discovers them in play.",
+    "Never store gallery images as events that happened."
+  ]
+}
