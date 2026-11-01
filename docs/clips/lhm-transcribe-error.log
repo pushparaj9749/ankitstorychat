@@ -1,0 +1,33 @@
+Warning: You are sending unauthenticated requests to the HF Hub. Please set a HF_TOKEN to enable higher rate limits and faster downloads.
+
+=== Noah_Sofio ===
++ curl -fL --retry 4 --retry-delay 3 https://assets.frame.io/encode/3fd45c3e-d68f-4a9c-bcae-5c1636f95d38/video_h264_180.mp4?x-amz-meta-resource_type=asset&x-amz-meta-resource_id=3fd45c3e-d68f-4a9c-bcae-5c1636f95d38&x-amz-meta-project_id=802e4fd7-e8a2-49d2-9709-5c0a39f78f36&Expires=1793620800&Signature=Xmuhqxp3q9GOtoKzxj02PtHLPBFupM9JyuGXoWL1l19Eo1sPZlFl6PQTIQRTbjMkL~bW5dCYA4FBM8WH8XKdp1MxJ~xejqtEiFNkL63pqhgugXkH9-zVRa8O1pYdLZWNrzUeTd1ihfwqHMsjLJWo4LGbIIE40ngiY-b2EdmsfwQcSfNV~annFcBwXO00SacERPLwo2IAqW0LNfPlVutuH6qitXaxv1emVl4j9m7DJ0--orkdhDNAYuG7i4pwFLdVoOWKgQ0pWX~B3O85VN5dLFwBAmjiLFrhpKiY9OGPDov8aEnPjoM0rfjvvsYm3giuh6D33KQaocGEEzoCNnb80g__&Key-Pair-Id=K1XW5DOJMY1ET9 -o /home/runner/work/ankitstorychat/ankitstorychat/work/lhm/source180/Noah_Sofio.mp4 
+  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
+                                 Dload  Upload   Total   Spent    Left  Speed
+  0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0100 50.8M  100 50.8M    0     0  79.7M      0 --:--:-- --:--:-- --:--:-- 79.8M
++ ffprobe -v error -show_entries format=duration -of json /home/runner/work/ankitstorychat/ankitstorychat/work/lhm/source180/Noah_Sofio.mp4 
+Traceback (most recent call last):
+  File "/home/runner/work/ankitstorychat/ankitstorychat/scripts/lhm-clips/lhm_transcribe.py", line 122, in <module>
+    main()
+  File "/home/runner/work/ankitstorychat/ankitstorychat/scripts/lhm-clips/lhm_transcribe.py", line 108, in main
+    segments, _ = model.transcribe(
+                  ^^^^^^^^^^^^^^^^^
+  File "/opt/hostedtoolcache/Python/3.12.15/x64/lib/python3.12/site-packages/faster_whisper/transcribe.py", line 876, in transcribe
+    audio = decode_audio(audio, sampling_rate=sampling_rate)
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/hostedtoolcache/Python/3.12.15/x64/lib/python3.12/site-packages/faster_whisper/audio.py", line 52, in decode_audio
+    for frame in frames:
+                 ^^^^^^
+  File "/opt/hostedtoolcache/Python/3.12.15/x64/lib/python3.12/site-packages/faster_whisper/audio.py", line 107, in _resample_frames
+    for frame in itertools.chain(frames, [None]):
+                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/hostedtoolcache/Python/3.12.15/x64/lib/python3.12/site-packages/faster_whisper/audio.py", line 94, in _group_frames
+    for frame in frames:
+                 ^^^^^^
+  File "/opt/hostedtoolcache/Python/3.12.15/x64/lib/python3.12/site-packages/faster_whisper/audio.py", line 84, in _ignore_invalid_frames
+    yield next(iterator)
+          ^^^^^^^^^^^^^^
+  File "av/container/input.pyx", line 215, in decode
+  File "av/container/input.pyx", line 148, in demux
+  File "av/container/streams.pyx", line 130, in av.container.streams.StreamContainer.get
+IndexError: tuple index out of range
