@@ -1,0 +1,26 @@
+Build completed; artifact inventory:
+
+Build log tail:
++ curl -fL --retry 4 --retry-delay 3 --connect-timeout 30 ...
+  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
+                                 Dload  Upload   Total   Spent    Left  Speed
+  0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0  0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0100    17  100    17    0     0     15      0  0:00:01  0:00:01 --:--:--    15
+  0     0    0     0    0     0      0      0 --:--:--  0:00:01 --:--:--     0Warning: Failed to open the file 
+Warning: /home/runner/work/ankitstorychat/ankitstorychat/work/escape-halloween/
+Warning: source/excision-04.mp4: No such file or directory
+  0 50.1M    0     0    0     0      0      0 --:--:--  0:00:01 --:--:--     0
+curl: (23) Failure writing output to destination
+Traceback (most recent call last):
+  File "/home/runner/work/ankitstorychat/ankitstorychat/scripts/clips/escape_halloween_build.py", line 243, in <module>
+    main()
+  File "/home/runner/work/ankitstorychat/ankitstorychat/scripts/clips/escape_halloween_build.py", line 233, in main
+    paths = {source_id: download(sources[source_id]) for source_id in required}
+                        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/runner/work/ankitstorychat/ankitstorychat/scripts/clips/escape_halloween_scout.py", line 37, in download
+    run([
+  File "/home/runner/work/ankitstorychat/ankitstorychat/scripts/clips/escape_halloween_scout.py", line 29, in run
+    return subprocess.run(args, check=True, stdout=subprocess.PIPE if capture else None, stderr=subprocess.PIPE if capture else None)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/hostedtoolcache/Python/3.12.15/x64/lib/python3.12/subprocess.py", line 571, in run
+    raise CalledProcessError(retcode, process.args,
+subprocess.CalledProcessError: Command '['curl', '-fL', '--retry', '4', '--retry-delay', '3', '--connect-timeout', '30', '-A', 'Mozilla/5.0', 'https://www.dropbox.com/scl/fo/f0bnd1ifxe3n60hztbd8a/ALMm-lxLPea1Dy1bs6-Fdpc/Day%201%20%28Friday%20Oct%2030%29/Excision%20-%20Sewer%20District/EXCISION%20%284%29.mp4?rlkey=4ujg0um19yc7thrmmfday4r6t&dl=1', '-o', '/home/runner/work/ankitstorychat/ankitstorychat/work/escape-halloween/source/excision-04.mp4']' returned non-zero exit status 23.
