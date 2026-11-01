@@ -1,0 +1,102 @@
+name: Escape Halloween batch
+
+on:
+  push:
+    branches:
+      - arena/6cc276cc-ankitstorychat
+    paths:
+      - 'scripts/escape-batch/**'
+      - '.github/workflows/escape-halloween-batch.yml'
+
+permissions:
+  contents: write
+
+jobs:
+  batch:
+    runs-on: ubuntu-latest
+    timeout-minutes: 90
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Resolve mode
+        id: mode
+        shell: bash
+        run: |
+          mode="$(cat scripts/escape-batch/mode.txt)"
+          if [ "$mode" != "scout" ] && [ "$mode" != "build" ]; then
+            echo "Invalid mode: $mode" >&2
+            exit 1
+          fi
+          echo "mode=$mode" >> "$GITHUB_OUTPUT"
+
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+          cache: pip
+
+      - name: Install media tools
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y ffmpeg
+          python -m pip install numpy pillow
+
+      - name: Scout batch footage
+        if: steps.mode.outputs.mode == 'scout'
+        run: python scripts/escape-batch/scout.py
+
+      - name: Build seven clips
+        if: steps.mode.outputs.mode == 'build'
+        shell: bash
+        run: |
+          set -o pipefail
+          mkdir -p work/escape-batch
+          python scripts/escape-batch/build.py 2>&1 | tee work/escape-batch/build.log
+
+      - name: Publish scouting review
+        if: steps.mode.outputs.mode == 'scout'
+        shell: bash
+        run: |
+          destination="docs/clips/escape-batch-scout"
+          mkdir -p "$destination"
+          cp -a work/escape-batch/scout/. "$destination/"
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add "$destination"
+          if ! git diff --cached --quiet; then
+            git commit -m "Update Escape batch scouting [skip ci]"
+            git push origin "HEAD:${GITHUB_REF_NAME}"
+          fi
+
+      - name: Publish final review sheets
+        if: steps.mode.outputs.mode == 'build'
+        shell: bash
+        run: |
+          destination="docs/clips/escape-batch-review"
+          mkdir -p "$destination"
+          cp -a work/escape-batch/review/. "$destination/"
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add "$destination"
+          if ! git diff --cached --quiet; then
+            git commit -m "Update Escape batch review [skip ci]"
+            git push origin "HEAD:${GITHUB_REF_NAME}"
+          fi
+
+      - name: Upload scouting artifact
+        if: steps.mode.outputs.mode == 'scout'
+        uses: actions/upload-artifact@v4
+        with:
+          name: escape-batch-scouting
+          path: work/escape-batch/scout/**
+          retention-days: 7
+
+      - name: Upload seven-clip package
+        if: steps.mode.outputs.mode == 'build'
+        uses: actions/upload-artifact@v4
+        with:
+          name: Escape-Halloween-2026-7-Clip-Pack
+          path: work/escape-batch/final/Escape_Halloween_2026_7_Clip_Pack.zip
+          if-no-files-found: error
+          retention-days: 14
