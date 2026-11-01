@@ -62,7 +62,22 @@ jobs:
 
       - name: Build selected edit
         if: steps.clip-mode.outputs.mode == 'build'
-        run: python scripts/clips/escape_halloween_build.py
+        run: |
+          mkdir -p work/escape-halloween
+          python scripts/clips/escape_halloween_build.py 2>&1 | tee work/escape-halloween/build.log
+
+      - name: Publish build diagnostics on failure
+        if: failure() && steps.clip-mode.outputs.mode == 'build'
+        shell: bash
+        run: |
+          cp work/escape-halloween/build.log docs/clips/escape-halloween-build-log.txt
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add docs/clips/escape-halloween-build-log.txt
+          if ! git diff --cached --quiet; then
+            git commit -m "Relay Escape build diagnostics [skip ci]"
+            git push origin "HEAD:${GITHUB_REF_NAME}"
+          fi
 
       - name: Publish scouting previews
         if: steps.clip-mode.outputs.mode == 'scout'
@@ -88,6 +103,9 @@ jobs:
           cp work/escape-halloween/final/* "$destination/"
           if [ -d docs/clips/escape-halloween-scout ]; then
             git rm -r docs/clips/escape-halloween-scout
+          fi
+          if [ -f docs/clips/escape-halloween-build-log.txt ]; then
+            git rm docs/clips/escape-halloween-build-log.txt
           fi
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
