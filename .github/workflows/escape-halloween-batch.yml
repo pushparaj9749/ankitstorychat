@@ -54,6 +54,19 @@ jobs:
           mkdir -p work/escape-batch
           python scripts/escape-batch/build.py 2>&1 | tee work/escape-batch/build.log
 
+      - name: Publish build diagnostics on failure
+        if: failure() && steps.mode.outputs.mode == 'build'
+        shell: bash
+        run: |
+          cp work/escape-batch/build.log docs/clips/escape-batch-build-log.txt
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add docs/clips/escape-batch-build-log.txt
+          if ! git diff --cached --quiet; then
+            git commit -m "Relay Escape batch diagnostics [skip ci]"
+            git push origin "HEAD:${GITHUB_REF_NAME}"
+          fi
+
       - name: Publish scouting review
         if: steps.mode.outputs.mode == 'scout'
         shell: bash
@@ -76,6 +89,12 @@ jobs:
           destination="docs/clips/escape-batch-review"
           mkdir -p "$destination"
           cp -a work/escape-batch/review/. "$destination/"
+          if [ -d docs/clips/escape-batch-scout ]; then
+            git rm -r docs/clips/escape-batch-scout
+          fi
+          if [ -f docs/clips/escape-batch-build-log.txt ]; then
+            git rm docs/clips/escape-batch-build-log.txt
+          fi
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
           git add "$destination"

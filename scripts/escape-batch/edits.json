@@ -1,0 +1,82 @@
+[
+  {
+    "slug": "01_Benny_Benassi_Main_Stage",
+    "artist": "Benny Benassi",
+    "stage": "Main Stage",
+    "source": "benny-01",
+    "accent": "0xFFB35C",
+    "segments": [
+      { "start": 51.7, "duration": 9.2 },
+      { "start": 62.0, "duration": 12.4 }
+    ],
+    "hook": "Lasers, skeleton visuals and a crowd fully locked in."
+  },
+  {
+    "slug": "02_Dimitri_Vegas_Like_Mike_Main_Stage",
+    "artist": "Dimitri Vegas & Like Mike",
+    "stage": "Main Stage",
+    "source": "dimitri-iphone-1",
+    "accent": "0x72E7F2",
+    "segments": [
+      { "start": 30.4, "duration": 6.5 },
+      { "start": 40.0, "duration": 7.0 }
+    ],
+    "hook": "From dark to full-scale stage spectacle in seconds."
+  },
+  {
+    "slug": "03_GETTER_Sewer_District",
+    "artist": "GETTER",
+    "stage": "Sewer District",
+    "source": "getter-iphone-4",
+    "accent": "0xFF6B62",
+    "segments": [
+      { "start": 0.15, "duration": 24.8 }
+    ],
+    "hook": "Sewer District turned all the way up."
+  },
+  {
+    "slug": "04_JOYRYDE_Main_Stage",
+    "artist": "JOYRYDE",
+    "stage": "Main Stage",
+    "source": "joyryde-03",
+    "accent": "0x75F0D0",
+    "segments": [
+      { "start": 0.0, "duration": 21.9 }
+    ],
+    "hook": "That Main Stage production was unreal."
+  },
+  {
+    "slug": "05_TELYKAST_Main_Stage",
+    "artist": "TELYKAST",
+    "stage": "Main Stage",
+    "source": "telykast-01",
+    "accent": "0xFF8DB3",
+    "segments": [
+      { "start": 24.0, "duration": 9.0 },
+      { "start": 39.0, "duration": 19.4 }
+    ],
+    "hook": "Lights, crowd energy and back-to-back drops."
+  },
+  {
+    "slug": "06_NERVO_Main_Stage",
+    "artist": "NERVO",
+    "stage": "Main Stage",
+    "source": "nervo-iphone-03",
+    "accent": "0xFF9B78",
+    "segments": [
+      { "start": 0.0, "duration": 18.0 }
+    ],
+    "hook": "Main Stage energy from start to finish."
+  },
+  {
+    "slug": "07_Steve_Aoki_Main_Stage",
+    "artist": "Steve Aoki",
+    "stage": "Main Stage",
+    "source": "aoki-iphone-06",
+    "accent": "0x9BE878",
+    "segments": [
+      { "start": 9.9, "duration": 25.4 }
+    ],
+    "hook": "Green lasers and nonstop Main Stage energy."
+  }
+]
