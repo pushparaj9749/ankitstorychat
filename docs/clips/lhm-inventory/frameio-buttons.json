@@ -1,0 +1,47 @@
+[
+  {
+    "text": "Back",
+    "testId": "icon-back-button",
+    "ariaLabel": null
+  },
+  {
+    "text": "",
+    "testId": "share-header-login-button",
+    "ariaLabel": null
+  },
+  {
+    "text": "Download All",
+    "testId": null,
+    "ariaLabel": null
+  },
+  {
+    "text": "",
+    "testId": "details-panel-toggle-button",
+    "ariaLabel": "Show Asset Information"
+  },
+  {
+    "text": "",
+    "testId": null,
+    "ariaLabel": "Collapse 4 Assets"
+  },
+  {
+    "text": "",
+    "testId": null,
+    "ariaLabel": "Noah Sofio Full Episode.mov Download Asset"
+  },
+  {
+    "text": "",
+    "testId": null,
+    "ariaLabel": "Christian Hodges Full Episode.mov Download Asset"
+  },
+  {
+    "text": "",
+    "testId": null,
+    "ariaLabel": "Nick Madincea Full Episode.mov Download Asset"
+  },
+  {
+    "text": "",
+    "testId": null,
+    "ariaLabel": "Shahriq Khan Full Episode.mov Download Asset"
+  }
+]
