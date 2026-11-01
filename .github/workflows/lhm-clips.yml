@@ -38,6 +38,14 @@ jobs:
           mkdir -p work/lhm
           python scripts/lhm-clips/lhm_inventory.py 2>&1 | tee work/lhm/inventory.log
 
+      - name: Inspect public Frame.io library
+        shell: bash
+        run: |
+          mkdir -p work/lhm-browser
+          npm install --prefix work/lhm-browser playwright
+          cp scripts/lhm-clips/lhm_frameio.mjs work/lhm-browser/lhm_frameio.mjs
+          node work/lhm-browser/lhm_frameio.mjs
+
       - name: Publish inventory for review
         shell: bash
         run: |
