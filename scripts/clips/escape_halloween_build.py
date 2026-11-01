@@ -226,6 +226,7 @@ def main() -> None:
     if OUT.exists():
         shutil.rmtree(OUT)
     OUT.mkdir(parents=True, exist_ok=True)
+    (WORK / "source").mkdir(parents=True, exist_ok=True)
     source_list = json.loads(SOURCES_PATH.read_text())
     sources = {source["id"]: source for source in source_list}
     plan = json.loads(PLAN_PATH.read_text())
