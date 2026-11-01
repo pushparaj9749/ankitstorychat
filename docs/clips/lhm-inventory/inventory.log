@@ -1,0 +1,35 @@
++ yt-dlp --flat-playlist --dump-single-json --no-warnings https://www.youtube.com/@LetHimMansplain/videos
++ yt-dlp --dump-single-json --skip-download --no-playlist --no-warnings https://www.youtube.com/watch?v=bcsE6jvH_dI
++ yt-dlp --dump-single-json --skip-download --no-playlist --no-warnings https://www.youtube.com/watch?v=rsHLnm7HMG0
++ yt-dlp --dump-single-json --skip-download --no-playlist --no-warnings https://www.youtube.com/watch?v=Dsj7KkEUrb0
++ yt-dlp --dump-single-json --skip-download --no-playlist --no-warnings https://www.youtube.com/watch?v=zvlOnFpsDpY
++ yt-dlp --dump-single-json --skip-download --no-playlist --no-warnings https://www.youtube.com/watch?v=PsHFptSa1Hg
++ yt-dlp --dump-single-json --skip-download --no-playlist --no-warnings https://www.youtube.com/watch?v=31OALntO7sg
++ yt-dlp --dump-single-json --skip-download --no-playlist --no-warnings https://www.youtube.com/watch?v=wxrWtao-9ao
++ yt-dlp --dump-single-json --skip-download --no-playlist --no-warnings https://www.youtube.com/watch?v=BFJ82znIAZQ
++ yt-dlp --dump-single-json --skip-download --no-playlist --no-warnings https://www.youtube.com/watch?v=ZkYBJFG6lH4
++ yt-dlp --dump-single-json --skip-download --no-playlist --no-warnings https://www.youtube.com/watch?v=RxjtN3AOS2k
++ yt-dlp --dump-single-json --skip-download --no-playlist --no-warnings https://www.youtube.com/watch?v=KyWBRTnuyYA
++ yt-dlp --dump-single-json --skip-download --no-playlist --no-warnings https://www.youtube.com/watch?v=qaHIvJm93qU
++ yt-dlp --dump-single-json --skip-download --no-playlist --no-warnings https://www.youtube.com/watch?v=yfnqwcYb90g
++ yt-dlp --dump-single-json --skip-download --no-playlist --no-warnings https://www.youtube.com/watch?v=OCu2g5NMrPY
++ yt-dlp --dump-single-json --skip-download --no-playlist --no-warnings https://www.youtube.com/watch?v=ySrpCWamQ24
++ yt-dlp --dump-single-json --skip-download --no-playlist --no-warnings https://www.youtube.com/watch?v=ox0nWUVF7WU
++ yt-dlp --dump-single-json --skip-download --no-playlist --no-warnings https://www.youtube.com/watch?v=chGJwde5m6Q
++ yt-dlp --dump-single-json --skip-download --no-playlist --no-warnings https://www.youtube.com/watch?v=LgixIvSNmwY
++ yt-dlp --dump-single-json --skip-download --no-playlist --no-warnings https://www.youtube.com/watch?v=L_guA-fRvy0
++ yt-dlp --dump-single-json --skip-download --no-playlist --no-warnings https://www.youtube.com/watch?v=gu-0AEP-PNQ
++ yt-dlp --dump-single-json --skip-download --no-playlist --no-warnings https://www.youtube.com/watch?v=NHr5X_orkbw
++ yt-dlp --dump-single-json --skip-download --no-playlist --no-warnings https://www.youtube.com/watch?v=dSzUgHawOdk
++ yt-dlp --dump-single-json --skip-download --no-playlist --no-warnings https://www.youtube.com/watch?v=apd-rCnNkHc
++ yt-dlp --dump-single-json --skip-download --no-playlist --no-warnings https://www.youtube.com/watch?v=IfD7SXEZyd4
++ yt-dlp --dump-single-json --skip-download --no-playlist --no-warnings https://www.youtube.com/watch?v=QxCROoxEJ8c
++ yt-dlp --dump-single-json --skip-download --no-playlist --no-warnings https://www.youtube.com/watch?v=nYoHlReCK-w
++ yt-dlp --dump-single-json --skip-download --no-playlist --no-warnings https://www.youtube.com/watch?v=m8cAKhPunLM
++ yt-dlp --write-subs --write-auto-subs --sub-langs en.*,en --sub-format vtt --skip-download --no-playlist --no-warnings -o /home/runner/work/ankitstorychat/ankitstorychat/work/lhm/inventory/subs/%(id)s.%(ext)s https://www.youtube.com/watch?v=bcsE6jvH_dI
++ yt-dlp --write-subs --write-auto-subs --sub-langs en.*,en --sub-format vtt --skip-download --no-playlist --no-warnings -o /home/runner/work/ankitstorychat/ankitstorychat/work/lhm/inventory/subs/%(id)s.%(ext)s https://www.youtube.com/watch?v=rsHLnm7HMG0
++ yt-dlp --write-subs --write-auto-subs --sub-langs en.*,en --sub-format vtt --skip-download --no-playlist --no-warnings -o /home/runner/work/ankitstorychat/ankitstorychat/work/lhm/inventory/subs/%(id)s.%(ext)s https://www.youtube.com/watch?v=Dsj7KkEUrb0
+{
+  "episodes": 27,
+  "errors": 30
+}
