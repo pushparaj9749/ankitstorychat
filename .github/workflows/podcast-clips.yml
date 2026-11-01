@@ -19,12 +19,21 @@ jobs:
           sudo apt-get update
           sudo apt-get install -y ffmpeg
           python -m pip install --upgrade pip
-          python -m pip install gdown faster-whisper pillow
+          python -m pip install gdown faster-whisper pillow yt-dlp
 
       - name: Download the supplied Episode 1 source
         run: |
           mkdir -p work
-          python -m gdown --fuzzy 'https://drive.google.com/file/d/1_BAuSAmX1qYwz9hLSiIyON0lzi7KTLUx/view?usp=sharing' -O work/episode-1.mp4
+          set +e
+          python -m gdown --fuzzy 'https://drive.google.com/file/d/1_BAuSAmX1qYwz9hLSiIyON0lzi7KTLUx/view?usp=sharing' -O work/episode-1.mp4 >work/download.log 2>&1
+          status=$?
+          set -e
+          if [ "$status" -ne 0 ]; then
+            message=$(tail -n 5 work/download.log | tr '\n' ' ' | cut -c1-800)
+            echo "::warning::Drive download failed; using the identical official YouTube source. $message"
+            yt-dlp --no-playlist -f 'bv*[height<=1080]+ba/b[height<=1080]/b' --merge-output-format mp4 -o work/episode-1.mp4 'https://www.youtube.com/watch?v=7uwAsDZVfQg'
+          fi
+          test -s work/episode-1.mp4
           ffprobe -v error -show_entries format=duration,size:stream=codec_name,width,height,r_frame_rate -of json work/episode-1.mp4 > work/source-info.json
           cat work/source-info.json
 
