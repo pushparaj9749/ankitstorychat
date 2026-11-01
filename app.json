@@ -2,7 +2,7 @@
   "expo": {
     "name": "Kissa",
     "slug": "kissa-ai-story-chat",
-    "version": "2.12.0",
+    "version": "2.13.0",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
     "scheme": "kissa",
@@ -18,11 +18,11 @@
     "ios": {
       "supportsTablet": true,
       "bundleIdentifier": "com.kissa.storychat",
-      "buildNumber": "39"
+      "buildNumber": "40"
     },
     "android": {
       "package": "com.kissa.storychat",
-      "versionCode": 43,
+      "versionCode": 44,
       "adaptiveIcon": {
         "backgroundColor": "#0A0B10",
         "foregroundImage": "./assets/android-icon-foreground.png",

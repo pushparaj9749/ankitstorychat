@@ -42,6 +42,8 @@ import {
   detectEvents,
   knowledgeInvalidatedBy,
   detectRelationshipSignals,
+  evidenceSpeakerForQuery,
+  temporalIntentForQuery,
   keywordSet,
   pairKeysFor,
   trigramSimilarity,
@@ -410,11 +412,31 @@ export function createStoryMemoryEngine(store: StoryMemoryStore = createSqliteSt
       const eventIds = eventHits.map((h) => h.recordId);
       const knowledgeIds = knowledgeHits.map((h) => h.recordId);
       const messageIds = messageHits.map((h) => h.recordId);
-      const [indexedEvents, indexedKnowledge, indexedMessages] = await Promise.all([
+      const [indexedEvents, indexedKnowledge, initialIndexedMessages] = await Promise.all([
         eventIds.length ? store.getEvents(eventIds) : Promise.resolve([]),
         knowledgeIds.length ? store.getKnowledge(knowledgeIds) : Promise.resolve([]),
         messageIds.length ? store.rawMessages(messageIds) : Promise.resolve([]),
       ]);
+      const evidenceSpeaker = evidenceSpeakerForQuery(primaryQuery);
+      const temporalIntent = temporalIntentForQuery(primaryQuery);
+      let indexedMessages = initialIndexedMessages;
+      let usedSpeakerFallback = false;
+      if (evidenceSpeaker && !indexedMessages.some((message) => message.role === evidenceSpeaker)) {
+        // "tumne kya kaha?" contains almost only stopwords, and the assistant
+        // naturally wrote "maine", not "tumne". A tiny role/timeline lane keeps
+        // that question answerable without dumping or scanning the transcript.
+        const fallback = await store.listRawMessages(query.playthroughId, {
+          role: evidenceSpeaker,
+          limit: 3,
+          order: temporalIntent === 'earliest' ? 'asc' : 'desc',
+        });
+        const merged = new Map(indexedMessages.map((message) => [message.id, message]));
+        for (const message of fallback) {
+          if (!excludedMessageIds.has(message.id)) merged.set(message.id, message);
+        }
+        indexedMessages = [...merged.values()];
+        usedSpeakerFallback = fallback.length > 0;
+      }
       const eventMap = new Map<string, StoryEventRecord>();
       for (const e of [...structural.events, ...indexedEvents]) eventMap.set(e.id, e);
       const knowledgeMap = new Map<string, CharacterKnowledgeRecord>();
@@ -448,6 +470,8 @@ export function createStoryMemoryEngine(store: StoryMemoryStore = createSqliteSt
           importance: query.importance,
           relationshipPair: query.relationshipPair ?? null,
           currentSeq: query.currentSeq,
+          contextCharacters: query.characters,
+          primaryQuery,
         },
       );
 
@@ -466,14 +490,22 @@ export function createStoryMemoryEngine(store: StoryMemoryStore = createSqliteSt
       const messageTimeSpan = messageTimes.length ? Math.max(...messageTimes) - oldestMessageTime : 0;
       const scoreMessage = (message: (typeof indexedMessages)[number]) => {
         const timestamp = Date.parse(message.createdAt);
-        // Relevance remains dominant; a small chronology tie-breaker prefers
-        // the latest version when several turns repeat the same fact/topic.
-        const recency = messageTimeSpan > 0 && Number.isFinite(timestamp)
-          ? 0.35 * ((timestamp - oldestMessageTime) / messageTimeSpan)
+        const timelinePosition = messageTimeSpan > 0 && Number.isFinite(timestamp)
+          ? (timestamp - oldestMessageTime) / messageTimeSpan
           : 0;
-        return (messageWeight.get(message.id) ?? 0) + rawMessageQueryScore(message.text, primaryQuery) * 3 + recency;
+        // Exact "maine/tumne kaha" and first/last-turn intent are explicit
+        // evidence constraints, not merely another semantic keyword.
+        const chronology = temporalIntent
+          ? 6 * (temporalIntent === 'earliest' ? 1 - timelinePosition : timelinePosition)
+          : 0.35 * timelinePosition;
+        const speakerBoost = evidenceSpeaker && message.role === evidenceSpeaker ? 4 : 0;
+        return (messageWeight.get(message.id) ?? 0) + rawMessageQueryScore(message.text, primaryQuery) * 3 + chronology + speakerBoost;
       };
-      const directMessageIds = indexedMessages
+      const speakerMatches = evidenceSpeaker
+        ? indexedMessages.filter((message) => message.role === evidenceSpeaker)
+        : [];
+      const directMessagePool = speakerMatches.length ? speakerMatches : indexedMessages;
+      const directMessageIds = directMessagePool
         .slice()
         .sort((a, b) => scoreMessage(b) - scoreMessage(a))
         .slice(0, 3)
@@ -504,7 +536,7 @@ export function createStoryMemoryEngine(store: StoryMemoryStore = createSqliteSt
         timeline: chronological(ranked.events),
         evidence,
         currentSeq: query.currentSeq,
-        hops: [...ranked.hops, ...(directMessageIds.length ? ['raw-message'] : [])],
+        hops: [...ranked.hops, ...(directMessageIds.length ? ['raw-message'] : []), ...(usedSpeakerFallback ? ['speaker-timeline'] : [])],
         candidates: ranked.candidates,
       };
     },

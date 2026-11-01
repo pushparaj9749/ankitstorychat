@@ -50,6 +50,7 @@ beforeAll(async () => {
 });
 
 test('rollback restores memory + state and drops only the discarded reply', async () => {
+  await kvSet(`worldState:${PT}`, JSON.stringify({ logic: { causalBeats: [{ id: 'keep', turn: 1, cause: null, event: 'Pehli mulaqat', consequence: null }] } }));
   await saveTurnCheckpoint(PT, { kind: 'message', prompt: 'Payal de do', primaryUserText: 'Payal de do' });
 
   // --- the turn that will be regenerated writes all kinds of memory ---
@@ -58,6 +59,10 @@ test('rollback restores memory + state and drops only the discarded reply', asyn
   await putMemory(PT, 'story', 'Mahi ne apni payal Ankit ko de di', 8, { source: 'derived', confidence: 'high' });
   await setSummary(PT, 'Pehli mulaqat cafe mein hui. Phir payal Ankit ke paas aa gayi.');
   await kvSet(`memchap:${PT}`, JSON.stringify({ chapters: [{ title: 'X', text: 'y', atTurn: 4, sceneId: 'scene-1', createdAt: now() }] }));
+  await kvSet(`worldState:${PT}`, JSON.stringify({ logic: { causalBeats: [
+    { id: 'keep', turn: 1, cause: null, event: 'Pehli mulaqat', consequence: null },
+    { id: 'discard', turn: 2, cause: 'Payal maangi', event: 'Mahi ne payal de di', consequence: 'Payal Ankit ke paas hai' },
+  ] } }));
   await updatePlaythrough({ ...pt, messageCount: 4, currentSceneId: 'scene-2' });
 
   const ck = await getTurnCheckpoint(PT);
@@ -70,6 +75,7 @@ test('rollback restores memory + state and drops only the discarded reply', asyn
   expect(mems.some((t) => t.includes('payal'))).toBe(false);
   expect(await getSummary(PT)).toBe('Pehli mulaqat cafe mein hui.');
   expect(JSON.parse((await kvGet(`memchap:${PT}`))!).chapters).toHaveLength(0);
+  expect(JSON.parse((await kvGet(`worldState:${PT}`))!).logic.causalBeats.map((beat: { id: string }) => beat.id)).toEqual(['keep']);
   const back = await getPlaythrough(PT);
   expect(back?.messageCount).toBe(3);
   expect(back?.currentSceneId).toBe('scene-1');

@@ -14,7 +14,7 @@ import { FlatList, Image, KeyboardAvoidingView, Platform, Pressable, ScrollView,
 import { LinearGradient } from 'expo-linear-gradient';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import type { NativeStackScreenProps } from '@react-navigation/native-stack';
-import type { AIError, ChatMessage, ChoiceEffects, Playthrough, RootStackParamList, StoryBundle } from '../types';
+import type { AIError, ChatMessage, ChoiceEffects, Playthrough, RelationshipStateRecord, RootStackParamList, StoryBundle } from '../types';
 import { useApp } from '../state/AppContext';
 import { useChatParts } from '../ui/templates';
 import { GRADIENTS as CLASSIC_GRADIENTS } from '../ui/classic/theme';
@@ -331,6 +331,7 @@ export function Chat({ navigation, route }: Props) {
     // turn actually needs (events, relationship state, character knowledge,
     // verbatim evidence). Never the whole archive — a ranked, bounded slice.
     let storyMemoryBlock = '';
+    let recalledRelationships: RelationshipStateRecord[] = [];
     try {
       const sceneCharacters = (wsForPrompt?.presentCharacters ?? []).slice(0, 6);
       const mentioned = b.characters.characters
@@ -350,8 +351,10 @@ export function Chat({ navigation, route }: Props) {
         charBudget: recallIntent ? 7500 : 5000,
       });
       storyMemoryBlock = recall.block;
+      recalledRelationships = recall.result.relationships;
     } catch {
       storyMemoryBlock = '';
+      recalledRelationships = [];
     }
 
     const book = await getChapterBook(pt.id).catch(() => ({ chapters: [], saga: null, total: 0 }));
@@ -398,6 +401,17 @@ export function Chat({ navigation, route }: Props) {
       // chose it. "Naya mod" may skip time on purpose; "Choices" is not story text.
       clock: checkPresence
         ? { timeOfDay: wsForPrompt?.storyTime?.timeOfDay ?? null, readerText: [...recentReaderText, isAuthoredMessage ? request.prompt : ''].join(' ') }
+        : undefined,
+      // v2.13: high-confidence continuity issues use the same existing single
+      // rewrite pass — no additional pre-reply model call.
+      logic: request.kind !== 'choices'
+        ? {
+            recentAssistant: recentAssistant.map((m) => m.text),
+            relationships: recalledRelationships,
+            worldState: wsForPrompt,
+            readerName: profile.nickname,
+            readerText: [...recentReaderText, isAuthoredMessage ? request.prompt : ''].join(' '),
+          }
         : undefined,
     };
     const raw = await chatCompletion(activeProvider, apiKey, [{ role: 'system', content: ctx.system }, ...transcript]);

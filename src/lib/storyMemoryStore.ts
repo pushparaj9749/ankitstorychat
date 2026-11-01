@@ -107,6 +107,11 @@ export interface StoryMemoryStore {
   insertContradiction(c: MemoryContradiction): Promise<void>;
   listContradictions(playthroughId: string, limit?: number): Promise<MemoryContradiction[]>;
   rawMessages(ids: string[]): Promise<Pick<ChatMessage, 'id' | 'role' | 'speaker' | 'text' | 'createdAt'>[]>;
+  /** Bounded speaker/timeline fallback for pronoun-only recall ("tumne kya kaha?"). */
+  listRawMessages(
+    playthroughId: string,
+    opts: { role: 'user' | 'assistant'; limit?: number; order?: 'asc' | 'desc' },
+  ): Promise<Pick<ChatMessage, 'id' | 'role' | 'speaker' | 'text' | 'createdAt'>[]>;
   getMeta(playthroughId: string, key: string): Promise<string | null>;
   setMeta(playthroughId: string, key: string, value: string): Promise<void>;
   deleteForPlaythrough(playthroughId: string): Promise<void>;
@@ -692,6 +697,30 @@ export function createSqliteStoryMemoryStore(): StoryMemoryStore {
       return out;
     },
 
+    async listRawMessages(playthroughId, opts) {
+      const d = await db();
+      const limit = Math.max(1, Math.min(20, opts.limit ?? 3));
+      const direction = opts.order === 'asc' ? 'ASC' : 'DESC';
+      const rows = await d.getAllAsync<{
+        id: string;
+        role: string;
+        speaker: string | null;
+        text: string;
+        created_at: string;
+      }>(
+        `SELECT id, role, speaker, text, created_at FROM messages WHERE playthrough_id = ? AND role = ? ORDER BY created_at ${direction}, id ${direction} LIMIT ${limit}`,
+        playthroughId,
+        opts.role,
+      );
+      return rows.map((row) => ({
+        id: row.id,
+        role: row.role as ChatMessage['role'],
+        speaker: row.speaker,
+        text: row.text,
+        createdAt: row.created_at,
+      }));
+    },
+
     async getMeta(playthroughId, key) {
       const d = await db();
       const row = await d.getFirstAsync<{ value: string }>(
@@ -1035,6 +1064,16 @@ export function createInMemoryStoryMemoryStore(): InMemoryStoryMemoryStore {
     async rawMessages(ids) {
       const wanted = new Set(ids);
       return messages.filter((m) => wanted.has(m.id)).map(clone);
+    },
+
+    async listRawMessages(playthroughId, opts) {
+      const limit = Math.max(1, Math.min(20, opts.limit ?? 3));
+      const direction = opts.order === 'asc' ? 1 : -1;
+      return messages
+        .filter((message) => message.playthroughId === playthroughId && message.role === opts.role)
+        .sort((a, b) => direction * (a.createdAt.localeCompare(b.createdAt) || a.id.localeCompare(b.id)))
+        .slice(0, limit)
+        .map(clone);
     },
 
     async getMeta(playthroughId, key) {

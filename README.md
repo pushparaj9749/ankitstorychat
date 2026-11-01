@@ -56,6 +56,19 @@ moves the tale forward — with memory and relationships, and no script: no pred
 
 ## 🆕 Release notes
 
+### v2.13.0 — Context-perfect recall + cause-and-effect story logic
+
+The local archive now understands **which memory the current move is actually asking for**, and the reply checker catches several high-confidence continuity errors before they reach the reader.
+
+- **Pronoun/context recall.** “Tumne…”, “usne…” and similar lines use the current scene's characters when no name is explicit. The **current reader move** owns character, speaker and temporal intent; a character named only in older context cannot hijack it. Focused retrieval also penalises dramatic but unrelated-character events instead of letting importance alone outrank the exact memory.
+- **First/last timeline retrieval.** “Pehli baar” ranks the earliest matching event/evidence; “pichli baar” ranks the latest. Ordinary recall keeps the existing recency + semantic + relationship + multi-hop ranking.
+- **Speaker-aware raw evidence.** “Maine kya kaha?” prefers reader rows; “tumne/usne kya kaha?” prefers character/assistant rows. If a pronoun-only query has no useful index match, a bounded local fallback fetches at most **3 messages of the requested speaker**, earliest or latest as asked. It never dumps the transcript and remains isolated by `playthroughId`.
+- **Causal memory.** The existing silent post-reply record-keeper may save one clear `cause → event → consequence` beat per turn. At most 10 are retained and only the latest 3 enter private notes. Causes cannot be guessed and consequences are not future plot instructions. Old world-state JSON remains valid without the optional `logic` field, and regeneration snapshots/rewinds include it.
+- **Pre-display logic guards.** Long near-duplicate replies, an established relationship resetting to “we just met”, and an explicit important-object owner mismatch trigger the **same existing single silent rewrite pass**. Questions, negation, teasing/flashbacks, ambiguous multi-person wording and actual hand-overs are deliberately exempt.
+- **No new pre-reply AI call, no visible bookkeeping, no server memory.** Normal story generation remains one call per turn; all new retrieval and causal state stay on-device and invisible.
+
+Regression coverage: `__tests__/memoryLogicV213.test.ts`, plus the causal-state rewind assertion in `__tests__/regenerateRollback.test.ts`.
+
 ### v2.12.0 — Voluntary UPI donations ("Help the Developer")
 
 Owner request: replace the About screen's "Help the Developer — Coming Soon" card with a real, purely voluntary donation option.

@@ -21,7 +21,7 @@ const REPO = 'https://github.com/pushparaj9749/ankitstorychat';
 
 export function About({ navigation }: Props) {
   const { theme, settings, updateSettings } = useApp();
-  const version = Constants.expoConfig?.version ?? '2.12.0';
+  const version = Constants.expoConfig?.version ?? '2.13.0';
   const [checking, setChecking] = useState(false);
   const [result, setResult] = useState<UpdateStatus | 'error' | null>(null);
 
