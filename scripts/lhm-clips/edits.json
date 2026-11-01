@@ -15,6 +15,11 @@
     "caption": "Shahriq breaks down chemistry, character, and why chaos can feel familiar.",
     "youtube_title": "Chemistry Over Character?",
     "accent": "#8FE3CF",
+    "subtitle_replacements": {
+      "Moments of of like shock": "moments of, like, shock",
+      "behind it We're": "behind it, we're",
+      "like Shaking": "like shaking"
+    },
     "parts": [
       {"guest": "Shahriq_Khan", "start": 25.12, "duration": 53.24}
     ]
@@ -36,7 +41,7 @@
     "youtube_title": "How to Tell He Sees a Future",
     "accent": "#8FE3CF",
     "parts": [
-      {"guest": "Noah_Sofio", "start": 3966.62, "duration": 40.20}
+      {"guest": "Noah_Sofio", "start": 3966.62, "duration": 39.80}
     ]
   },
   {
@@ -45,6 +50,9 @@
     "caption": "Nick on the friend-related red flag he missed, then Shahriq on a quiet-life green flag.",
     "youtube_title": "Red Flag vs. Green Flag | Nick & Shahriq",
     "accent": "#FF9B85",
+    "subtitle_replacements": {
+      "Or even two, like": "Or even to, like"
+    },
     "parts": [
       {"guest": "Nick_Madincea", "start": 2824.94, "duration": 33.60},
       {"guest": "Shahriq_Khan", "start": 3104.54, "duration": 22.26}
@@ -56,6 +64,9 @@
     "caption": "Christian’s answer: be a husband, have kids, and eat steak every dinner.",
     "youtube_title": "Christian: Husband, Kids, and Steak",
     "accent": "#FFD166",
+    "subtitle_replacements": {
+      "And we want you to steak every": "Typically, we want to eat a steak every"
+    },
     "parts": [
       {"guest": "Christian_Hodges", "start": 1840.70, "duration": 20.84}
     ]
@@ -66,6 +77,11 @@
     "caption": "Shahriq’s three words: trust, mission, joy—with honesty before wasted time.",
     "youtube_title": "Trust, Mission, Joy",
     "accent": "#8FE3CF",
+    "subtitle_replacements": {
+      "one thing that I wrestled with": "one thing that I wrestle with",
+      "if We": "if we",
+      "God doesn't have you for me like I": "God doesn't have you for me, I"
+    },
     "parts": [
       {"guest": "Shahriq_Khan", "start": 3219.84, "duration": 39.88}
     ]

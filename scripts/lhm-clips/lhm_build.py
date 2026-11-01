@@ -6,6 +6,7 @@ import hashlib
 import json
 import os
 from pathlib import Path
+import re
 import subprocess
 import textwrap
 import zipfile
@@ -116,6 +117,8 @@ def words_to_cues(words: list[dict], offset: float) -> list[dict]:
         start = offset + max(0, cue[0]["start"] - 0.04)
         end = offset + cue[-1]["end"] + 0.08
         rows.append({"start": round(start, 3), "end": round(end, 3), "text": " ".join(w["word"].strip() for w in cue)})
+    for index in range(len(rows) - 1):
+        rows[index]["end"] = round(min(rows[index]["end"], rows[index + 1]["start"] - 0.02), 3)
     return rows
 
 
@@ -151,6 +154,9 @@ def transcribe_parts(model: WhisperModel, source_map: dict[str, dict]) -> dict[s
         for cue in cues:
             for old, new in replacements.items():
                 cue["text"] = cue["text"].replace(old, new)
+            cue["text"] = re.sub(r"\s+-(?=\w)", "-", cue["text"])
+            cue["text"] = re.sub(r"(\d) '(\d)\"", r"\1'\2\"", cue["text"])
+            cue["text"] = re.sub(r"(\d) %", r"\1%", cue["text"])
         all_cues[edit["slug"]] = cues
     return all_cues
 
