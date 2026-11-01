@@ -44,7 +44,8 @@ jobs:
 
       - name: Transcribe with word timings
         run: |
-          python - <<'PY'
+          set +e
+          python - >work/transcribe.log 2>&1 <<'PY'
           import json
           from faster_whisper import WhisperModel
 
@@ -83,6 +84,14 @@ jobs:
               json.dump({'language': info.language, 'duration': info.duration, 'segments': segments}, handle, indent=2)
           print(f'TRANSCRIBED_SEGMENTS={len(segments)}')
           PY
+          status=$?
+          set -e
+          if [ "$status" -ne 0 ]; then
+            message=$(tail -n 14 work/transcribe.log | tr '\n' ' ' | cut -c1-1400)
+            echo "::error::Transcription failed. $message"
+            exit "$status"
+          fi
+          cat work/transcribe.log
 
       - name: Create source overview frames
         run: |
