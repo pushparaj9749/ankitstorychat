@@ -139,6 +139,8 @@ export interface RawExtraction {
   promisesBroken?: string[];
   /** v2.11.0 character hearts */
   hearts?: Record<string, { feeling?: string; wants?: string; moment?: string }>;
+  /** v2.13.0 direct cause and current effect; no guessed future plot. */
+  logic?: { cause?: string; event: string; consequence?: string };
   importance?: number;
   confidence?: Confidence;
 }
@@ -287,6 +289,19 @@ export function validateExtraction(raw: unknown): RawExtraction | null {
     }
     if (Object.keys(hearts).length) out.hearts = hearts;
   }
+  if (o.logic && typeof o.logic === 'object' && !Array.isArray(o.logic)) {
+    const rawLogic = o.logic as Record<string, unknown>;
+    const event = typeof rawLogic.event === 'string' ? rawLogic.event.trim() : '';
+    const cause = typeof rawLogic.cause === 'string' ? rawLogic.cause.trim() : '';
+    const consequence = typeof rawLogic.consequence === 'string' ? rawLogic.consequence.trim() : '';
+    if (event.length >= 6 && event.length <= 240 && !looksTooPrivate(`${cause} ${event} ${consequence}`)) {
+      out.logic = {
+        event: sanitize(event, 180),
+        ...(cause.length >= 4 ? { cause: sanitize(cause, 160) } : {}),
+        ...(consequence.length >= 4 ? { consequence: sanitize(consequence, 180) } : {}),
+      };
+    }
+  }
   // Some providers emit one string instead of the documented `memory` array.
   // Accept both forms here so a slightly malformed response still contributes
   // durable facts; engine.ts remains responsible for hiding the block.
@@ -309,7 +324,7 @@ export function validateExtraction(raw: unknown): RawExtraction | null {
   }
 
   // If nothing meaningful, return null to skip update
-  const hasSomething = !!(out.location || out.activity || out.presentCharacters || out.playerAction || out.facts || out.threads || out.importantObjects || out.relationships || out.activeEvents || out.completedEvents || out.promises || out.promisesKept || out.promisesBroken || out.hearts);
+  const hasSomething = !!(out.location || out.activity || out.presentCharacters || out.playerAction || out.facts || out.threads || out.importantObjects || out.relationships || out.activeEvents || out.completedEvents || out.promises || out.promisesKept || out.promisesBroken || out.hearts || out.logic);
   if (!hasSomething) return null;
   return out;
 }
@@ -462,6 +477,7 @@ export function toStateUpdate(
     ];
   }
   if (extraction.hearts && Object.keys(extraction.hearts).length) update.heartsPatch = extraction.hearts;
+  if (extraction.logic) update.logicBeat = extraction.logic;
   // v2.12 story clock: without a reader-chosen skip, time moves at most one
   // step (evening → night → late-night) and never into the next morning/day.
   extraction = { ...extraction, storyTime: clampStoryTimePatch(currentWorld.storyTime, extraction.storyTime, allowTimeSkip) };

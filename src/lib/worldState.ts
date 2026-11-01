@@ -119,6 +119,22 @@ export interface CharacterHeart {
 
 export const MAX_HEART_MOMENTS = 6;
 
+/** v2.13.0 — a bounded chain of established causes and their current effects. */
+export interface CausalBeat {
+  id: string;
+  turn: number;
+  cause: string | null;
+  event: string;
+  consequence: string | null;
+}
+
+export interface StoryLogicState {
+  /** Oldest first; capped so the prompt never grows with story length. */
+  causalBeats: CausalBeat[];
+}
+
+export const MAX_CAUSAL_BEATS = 10;
+
 export const MAX_ACTIVE_PROMISES = 12;
 const MAX_CLOSED_PROMISES = 8;
 
@@ -181,6 +197,8 @@ export interface WorldState {
   promises?: PromiseRecord[];
   /** v2.11.0 — optional so older saved states stay valid. */
   hearts?: Record<string, CharacterHeart>;
+  /** v2.13.0 — optional so older saves, backups and checkpoints stay valid. */
+  logic?: StoryLogicState;
   // Meta
   episodeCount: number;
   lastTurnAt: string;
@@ -457,6 +475,8 @@ export interface StateUpdate {
   promisesAdd?: { by: string; to: string; text: string }[];
   promisesUpdate?: { text: string; status: 'kept' | 'broken' }[];
   heartsPatch?: Record<string, { feeling?: string; wants?: string; moment?: string }>;
+  /** One direct causal beat from the finished exchange; never a future plan. */
+  logicBeat?: { cause?: string | null; event: string; consequence?: string | null };
   confidence: Confidence;
   evidence?: string; // textual evidence of transition (e.g. "player walked to library")
 }
@@ -685,6 +705,27 @@ export function applyWorldStateUpdate(current: WorldState, update: StateUpdate):
     next.hearts = applyHeartChanges(next.hearts ?? {}, update.heartsPatch, next.episodeCount + 1, next.characterStates);
   }
 
+  // Causal memory (v2.13.0): established chronology only, never a future arc.
+  if (update.logicBeat?.event?.trim()) {
+    const turn = next.episodeCount + 1;
+    const event = update.logicBeat.event.trim().slice(0, 180);
+    const cause = update.logicBeat.cause?.trim().slice(0, 160) || null;
+    const consequence = update.logicBeat.consequence?.trim().slice(0, 180) || null;
+    const beats = [...(next.logic?.causalBeats ?? [])];
+    const causalText = `${cause ?? ''} ${event}`;
+    const numbersOf = (text: string) => (text.match(/\d+/g) ?? []).join('|');
+    const duplicate = beats.some((beat) => {
+      const previous = `${beat.cause ?? ''} ${beat.event}`;
+      // Turn 1 and turn 2 often share every other word; they are NOT the same
+      // beat. Near-duplicate retries must also preserve the same numbers.
+      return promiseSimilarity(previous, causalText) >= 0.9 && numbersOf(previous) === numbersOf(causalText);
+    });
+    if (!duplicate && event.length >= 6) {
+      beats.push({ id: `cause-${turn}-${beats.length + 1}`, turn, cause, event, consequence });
+      next.logic = { causalBeats: beats.slice(-MAX_CAUSAL_BEATS) };
+    }
+  }
+
   // Threads
   if (update.threadsAdd) {
     for (const t of update.threadsAdd) {
@@ -898,6 +939,20 @@ export function renderHearts(state: WorldState, max = 4): string[] {
   return lines.length > 1 ? lines : [];
 }
 
+/** Recent causal chain for the narrator; invisible record-keeping, not plot instructions. */
+export function renderCausalBeats(state: WorldState, max = 3): string[] {
+  const beats = (state.logic?.causalBeats ?? []).slice(-Math.max(1, Math.min(5, max)));
+  if (!beats.length) return [];
+  const lines = ['- Established cause → effect chain (oldest to newest; facts, not a future script):'];
+  for (const beat of beats) {
+    const cause = beat.cause ? `Because ${beat.cause}, ` : '';
+    const consequence = beat.consequence ? ` → Now: ${beat.consequence}` : '';
+    lines.push(`  * Turn ${beat.turn}: ${cause}${beat.event}${consequence}`);
+  }
+  lines.push('  Continue from consequences that are still true; never invent a cause or undo an effect without a new story event.');
+  return lines;
+}
+
 /**
  * Relationship as words, never raw numbers. Brand-new relationship records
  * start from generic defaults (affection 20 …) that say nothing about the
@@ -970,6 +1025,7 @@ export function renderWorldStateForPrompt(state: WorldState): string {
     }
   }
   lines.push(...renderHearts(state));
+  lines.push(...renderCausalBeats(state));
   const objs = Object.values(state.importantObjects);
   if (objs.length) {
     lines.push(`- Important objects: ${objs.slice(0, 6).map((o) => `${o.name}${o.holder ? ` (${o.holder})` : ''}${o.holderLog?.length ? ` [history: ${o.holderLog.slice(-2).join('; ')}]` : ''}`).join(', ')}`);

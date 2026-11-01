@@ -28,6 +28,12 @@ import type { TimeOfDay, WorldState } from './worldState';
 import { findUninvitedSpeakers, type PresenceCheckInput } from './scenePresence';
 import { findTimeJump, readerAskedForTimeSkip, RECORD_KEEPER_TIME_RULES, timeLawFor } from './storyClock';
 import { RECORD_KEEPER_EVENT_TYPES, RELATIONSHIP_END_STATES, RELATIONSHIP_LADDER } from './storyMemoryCore';
+import {
+  findObjectOwnerContradiction,
+  findRelationshipReset,
+  findRepeatedReply,
+  type LogicGuardInput,
+} from './storyLogic';
 
 /* ---------------- scene helpers ---------------- */
 
@@ -865,7 +871,7 @@ export interface PromptInput {
 export const LOGIC_CHECK = `BEFORE YOU WRITE — SILENT LOGIC CHECK (think it through in your head; never write this check or any of its answers):
 1. What exactly did the reader just say or do? Your reply must respond to THAT first — not to something earlier, not to something you wish they had said.
 2. Where are we, what time is it, who is physically present, what is everyone doing right now? Continue from exactly there. Characters who are not present cannot speak, act, call or message — they stay away unless the reader brings them in (SCENE PRESENCE LAW).
-3. Cause and effect: everything that happens must follow from what came before. No sudden events out of nowhere, no unexplained mood swings, no character forgetting what happened a moment ago.
+3. Cause and effect: everything that happens must follow from what came before. Respect the saved cause → effect chain and every consequence that is still true. Never invent a hidden cause, confuse correlation with causation, undo an effect without a new event, or use the chain as a future plot script. No sudden events out of nowhere, no unexplained mood swings, no character forgetting what happened a moment ago.
 4. Is each character acting like THEMSELF — their personality, speaking style, goals and only what THEY know? A character never knows something they did not see or were not told.
 5. Does anything in your draft contradict the story so far, the private notes or an earlier reply? If yes, fix it before writing.
 6. Did your last reply already say this? Never repeat the same line, reaction or hook — move the moment forward.
@@ -1191,6 +1197,8 @@ export function checkAssistantReply(
     presence?: Omit<PresenceCheckInput, 'text' | 'speaker' | 'castNames'>;
     /** v2.12: story-clock check — no jump to morning / next day unless the reader asked (omit to skip). */
     clock?: { timeOfDay: TimeOfDay; readerText: string };
+    /** v2.13: repetition, relationship and object continuity (omit to skip). */
+    logic?: LogicGuardInput;
   },
 ): ReplyCheck {
   const base = finalizeAssistantText(parsed, '');
@@ -1233,7 +1241,14 @@ export function checkAssistantReply(
     const jump = findTimeJump(text, opts.clock.timeOfDay);
     if (jump) reasons.push(`time-jump:${jump}`);
   }
-  const needsRewrite = reasons.some((r) => r === 'empty' || r === 'spoke-for-reader' || r === 'copied-note' || r.startsWith('label:') || r === 'tag-line' || r === 'state-marker' || r === 'html-comment' || r.startsWith('uninvited:') || r.startsWith('time-jump:'));
+  if (opts.logic) {
+    const reset = findRelationshipReset(text, opts.logic.relationships);
+    if (reset) reasons.push(`relationship-reset:${reset.status}`);
+    const wrongHolder = findObjectOwnerContradiction(text, opts.logic.worldState, opts.logic.readerName ?? opts.readerName, opts.logic.readerText);
+    if (wrongHolder) reasons.push(`object-owner:${wrongHolder.objectName}:${wrongHolder.expectedHolder}:${wrongHolder.claimedHolder}`);
+    if (findRepeatedReply(text, opts.logic.recentAssistant)) reasons.push('repeat-reply');
+  }
+  const needsRewrite = reasons.some((r) => r === 'empty' || r === 'spoke-for-reader' || r === 'copied-note' || r.startsWith('label:') || r === 'tag-line' || r === 'state-marker' || r === 'html-comment' || r.startsWith('uninvited:') || r.startsWith('time-jump:') || r.startsWith('relationship-reset:') || r.startsWith('object-owner:') || r === 'repeat-reply');
   return { text: text || '...', speaker, needsRewrite, reasons };
 }
 
@@ -1245,9 +1260,22 @@ export const REWRITE_INSTRUCTION =
 export function rewriteInstructionFor(reasons: string[]): string {
   const uninvited = [...new Set(reasons.filter((r) => r.startsWith('uninvited:')).map((r) => r.slice('uninvited:'.length)))];
   const jumps = [...new Set(reasons.filter((r) => r.startsWith('time-jump:')).map((r) => r.slice('time-jump:'.length)))];
-  const formatBroken = reasons.some((r) => !r.startsWith('uninvited:') && !r.startsWith('time-jump:'));
+  const relationshipReset = reasons.find((r) => r.startsWith('relationship-reset:'));
+  const wrongHolder = reasons.find((r) => r.startsWith('object-owner:'));
+  const repeated = reasons.includes('repeat-reply');
+  const formatBroken = reasons.some((r) => !r.startsWith('uninvited:') && !r.startsWith('time-jump:') && !r.startsWith('relationship-reset:') && !r.startsWith('object-owner:') && r !== 'repeat-reply');
   const parts: string[] = [];
   if (formatBroken) parts.push(REWRITE_INSTRUCTION);
+  if (relationshipReset) {
+    parts.push(`Your previous draft reset an established bond to a first meeting. The saved relationship is "${relationshipReset.slice('relationship-reset:'.length)}". Rewrite the SAME moment with that shared history intact. No stranger introduction, no "we just met" and no memory wipe. Never write the reader's lines.`);
+  }
+  if (wrongHolder) {
+    const [, objectName = 'object', expectedHolder = 'its saved holder', claimedHolder = 'another character'] = wrongHolder.split(':');
+    parts.push(`Your previous draft put ${objectName} with ${claimedHolder}, but its current holder is ${expectedHolder}. Rewrite the SAME moment without changing ownership; a hand-over is valid only when the current exchange actually performs it. Never write the reader's lines.`);
+  }
+  if (repeated) {
+    parts.push('Your previous draft substantially repeated a recent reply. Rewrite the SAME current beat with a fresh, direct response and a small new action or line of dialogue that follows from the reader\'s latest move. Do not invent a random event just to be different. Never write the reader\'s lines.');
+  }
   if (uninvited.length) {
     parts.push(
       `Your previous draft brought ${uninvited.join(', ')} into the scene, but ${uninvited.length > 1 ? 'they are' : 'is'} NOT here and the reader did not call for them. Rewrite the SAME moment with only the characters who are actually present — ${uninvited.join(', ')} must not appear, speak, call, message or interrupt. Do not replace them with another interruption. Never write the reader's lines.`,
@@ -1326,6 +1354,7 @@ SCHEMA (omit every key that did not change; {} when nothing changed):
   "decisions": ["a firm decision someone took, with names"],
   "secrets": ["a secret revealed or now being kept, with names and who knows it"],
   "hearts": {"characterId": {"feeling": "how they feel about the reader right now", "wants": "what they want from the reader / next", "moment": "an unforgettable moment with the reader from THIS exchange"}},
+  "logic": {"cause": "the specific earlier event that directly caused this beat", "event": "what happened in THIS exchange", "consequence": "the immediate effect that is true now"},
   "memory": ["short standalone fact, max 120 chars"]
 }
 
@@ -1344,6 +1373,10 @@ ARCHIVE RULES (this is the story's long-term memory — be precise):
 - "relationshipStatus": ONLY when the reader's relationship with someone clearly changed in this exchange (proposal accepted → engaged, breakup → broken_up). Never guess; the cast sheet already holds the starting bond.
 - "characterKnowledge": when a character LEARNS something they did not know before (saw it, was told, found out). Characters only know what they witnessed or were told.
 - "hearts": for the 1-3 characters most involved — their private feeling and want towards the reader after this exchange (short, specific, in plain words), plus "moment" ONLY when this exchange created a moment they will never forget. Omit unchanged hearts.
+
+CAUSAL LOGIC RULES:
+- "logic": at most ONE beat, only when a direct cause is clear from the story. "cause" is an earlier event, "event" happened in this exchange, and "consequence" is true immediately afterwards.
+- Never guess a cause, record a future intention as an effect, prescribe the next scene, or turn a coincidence into causation. Omit "logic" for small talk or when the link is unclear.
 
 MEMORY RULES:
 - Worth saving: ${saveHints}

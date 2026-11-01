@@ -831,13 +831,21 @@ export function validateTransition(
 /* 5. Retrieval: intent, ranking, multi-hop                            */
 /* ------------------------------------------------------------------ */
 
+export type TemporalRecallIntent = 'earliest' | 'latest' | null;
+export type EvidenceSpeakerIntent = 'user' | 'assistant' | null;
+
 export interface QueryProfileV2 {
   tokens: Set<string>;
   concepts: Set<string>;
+  /** Explicitly named characters. */
   characters: string[];
+  /** Present characters used only as softer pronoun/context evidence. */
+  contextCharacters: string[];
   pairs: string[];
   /** Question asks about the past ("pehle kya hua tha") → history intent. */
   historyIntent: boolean;
+  /** "pehli baar" and "pichli baar" search opposite ends of the timeline. */
+  temporalIntent: TemporalRecallIntent;
   /** Question names a character → perspective/pair focus. */
   focusCharacter?: string | null;
   eventTypes: StoryEventType[];
@@ -846,16 +854,34 @@ export interface QueryProfileV2 {
 
 const HISTORY_CUES = /\b(pehle|pahle|earlier|before|previously|yaad|remember|bhool|forgot|kya hua|kya hua tha|hua tha|histor|flashback|wapas|returned|baad|after)\b/i;
 const UNRESOLVED_CUES = /\b(promise|waada|pending|adhoo?a|unresolved|baaki|reh gaya|karna hai|kasam|secret|raaz)\b/i;
+const EARLIEST_CUES = /\b(pehli\s+baar|pahli\s+baar|pehla\s+waada|pahla\s+waada|pehli\s+mula(?:kaat|kat)|pahli\s+mula(?:kaat|kat)|first\s+time|first\s+meeting|first\s+promise|sabse\s+pehle|sabse\s+pahle|shuru(?:aat|uaat)\s+me)\b/i;
+const LATEST_CUES = /\b(pichli\s+baar|pichhli\s+baar|last\s+time|most\s+recent|latest|aakhri\s+baar|akhiri\s+baar|sabse\s+haal\s+me)\b/i;
+
+export function temporalIntentForQuery(query: string): TemporalRecallIntent {
+  if (EARLIEST_CUES.test(query)) return 'earliest';
+  if (LATEST_CUES.test(query)) return 'latest';
+  return null;
+}
+
+/** Prefer the correct side of the raw transcript for "maine/tumne kya kaha". */
+export function evidenceSpeakerForQuery(query: string): EvidenceSpeakerIntent {
+  if (/\b(main(?:e)?|mene|meri\s+taraf\s+se|mujhse|i\s+did|what\s+did\s+i)\b/i.test(query) && /\b(kaha|bola|likha|kiya|poocha|pucha|bataya|say|said|tell|told|ask|asked|do|did)\b/i.test(query)) return 'user';
+  if (/\b(tumne|tune|aapne|usne|unhone|what\s+did\s+(?:you|she|he|they))\b/i.test(query) && /\b(kaha|bola|likha|kiya|poocha|pucha|bataya|say|said|tell|told|ask|asked|do|did)\b/i.test(query)) return 'assistant';
+  return null;
+}
 
 export function buildQueryProfileV2(
   query: string,
   ctx: MemoryContextRef,
-  opts: { relationshipPair?: string | null; eventTypes?: StoryEventType[] } = {},
+  opts: { relationshipPair?: string | null; eventTypes?: StoryEventType[]; contextCharacters?: string[] } = {},
 ): QueryProfileV2 {
   const text = query || '';
   const tokens = new Set(tokenize(text));
   const concepts = new Set(conceptTokens(text));
   const characters = resolveParticipants(text, ctx);
+  const contextCharacters = [...new Set((opts.contextCharacters ?? [])
+    .filter((id) => !!id && id !== ctx.playerId && !characters.includes(id)))]
+    .slice(0, 6);
   const pairs = new Set<string>();
   for (const c of characters) if (c !== ctx.playerId) pairs.add(pairKeyOf(ctx.playerId, c));
   if (opts.relationshipPair) pairs.add(opts.relationshipPair);
@@ -867,9 +893,11 @@ export function buildQueryProfileV2(
     tokens,
     concepts,
     characters,
+    contextCharacters,
     pairs: [...pairs],
-    historyIntent: HISTORY_CUES.test(text),
-    focusCharacter: characters.find((c) => c !== ctx.playerId) ?? null,
+    historyIntent: HISTORY_CUES.test(text) || temporalIntentForQuery(text) !== null,
+    temporalIntent: temporalIntentForQuery(text),
+    focusCharacter: characters.find((c) => c !== ctx.playerId) ?? contextCharacters[0] ?? null,
     eventTypes: opts.eventTypes?.length ? opts.eventTypes : [],
     wantsUnresolved: UNRESOLVED_CUES.test(text),
   };
@@ -934,6 +962,16 @@ export function scoreEvent(
   if (query.characters.length) {
     for (const c of query.characters) if (e.participants.includes(c)) score += 3;
   }
+  if (query.contextCharacters.length) {
+    for (const c of query.contextCharacters) if (e.participants.includes(c)) score += 2.2;
+  }
+  // A named character (or, for pronouns, the current-scene character) is a
+  // relevance constraint. Otherwise a dramatic but unrelated milestone can
+  // outrank the exact "pichli baar" turn merely because it has importance 4.
+  const focus = query.characters.length ? query.characters : query.contextCharacters;
+  if (focus.length && e.participants.length && !focus.some((c) => e.participants.includes(c))) {
+    score -= query.characters.length ? 8 : 7;
+  }
   if (query.eventTypes.length && query.eventTypes.includes(e.type)) score += 3;
   score += e.importance * 2;
 
@@ -968,6 +1006,7 @@ export function scoreRelationship(
   let score = 0;
   if (query.pairs.includes(r.pairKey)) score += 12;
   for (const c of query.characters) if (r.a.id === c || r.b.id === c) score += 5;
+  for (const c of query.contextCharacters) if (r.a.id === c || r.b.id === c) score += 2.5;
   score += semanticOverlap(query, [], `${r.a.name} ${r.b.name} ${r.status}`) * 1.5;
   score += Math.max(0, r.tier) * 0.4;
   if (query.concepts.has('c:family') || query.concepts.has('c:wedding') || query.concepts.has('c:romance')) score += 2;
@@ -978,6 +1017,7 @@ export function scoreKnowledge(k: CharacterKnowledgeRecord, query: QueryProfileV
   if (k.status === 'invalidated') return -Infinity;
   let score = semanticOverlap(query, [], `${k.fact} ${k.characterName}`) * 1.2;
   for (const c of query.characters) if (k.characterId === c) score += 4;
+  for (const c of query.contextCharacters) if (k.characterId === c) score += 2;
   if (query.focusCharacter && k.characterId === query.focusCharacter) score += 3;
   if (query.concepts.has('c:secret') || query.concepts.has('c:revelation') || query.concepts.has('c:discovery')) score += 2.5;
   if (k.source === 'seed') score += 0.5;
@@ -1013,6 +1053,9 @@ export function planMultiHop(
   const knowledgeIds = new Set<string>();
   const extraPairs = new Set<string>();
   const evidenceMessageIds: string[] = [];
+  // With no explicit name, "tum/usne" follows the current scene's first two
+  // characters instead of searching the whole cast indiscriminately.
+  const hopCharacters = query.characters.length ? query.characters : query.contextCharacters.slice(0, 2);
 
   for (const k of archive.knowledge) {
     const score = scoreKnowledge(k, query);
@@ -1024,11 +1067,11 @@ export function planMultiHop(
       for (const c of archive.relationships) {
         if (c.a.id === k.characterId || c.b.id === k.characterId) extraPairs.add(c.pairKey);
       }
-      for (const c of query.characters) extraPairs.add(pairKeyOf(c, k.characterId));
+      for (const c of hopCharacters) extraPairs.add(pairKeyOf(c, k.characterId));
     }
   }
 
-  for (const c of query.characters) {
+  for (const c of hopCharacters) {
     for (const r of archive.relationships) {
       if (r.a.id === c || r.b.id === c) {
         extraPairs.add(r.pairKey);
@@ -1074,6 +1117,10 @@ export interface RetrieveOptions {
   relationshipPair?: string | null;
   nowMs?: number;
   currentSeq?: number;
+  /** Present/scene-mentioned characters; softer than an explicitly named one. */
+  contextCharacters?: string[];
+  /** Latest reader move: owns pronoun/speaker/time intent over older context. */
+  primaryQuery?: string;
 }
 
 export interface RankedArchive {
@@ -1098,7 +1145,25 @@ export function rankArchive(
   const profile = buildQueryProfileV2(query, ctx, {
     relationshipPair: opts.relationshipPair,
     eventTypes: opts.eventTypes,
+    contextCharacters: opts.contextCharacters,
   });
+  if (opts.primaryQuery?.trim()) {
+    // Recent history supplies semantic context, but the CURRENT move decides
+    // who "tum/usne" means and whether this is a first/last-turn question.
+    // Otherwise a name or "pehli baar" from the previous turn hijacks recall.
+    const current = buildQueryProfileV2(opts.primaryQuery, ctx, {
+      relationshipPair: opts.relationshipPair,
+      eventTypes: opts.eventTypes,
+      contextCharacters: opts.contextCharacters,
+    });
+    profile.characters = current.characters;
+    profile.contextCharacters = current.contextCharacters;
+    profile.pairs = current.pairs;
+    profile.focusCharacter = current.focusCharacter;
+    profile.historyIntent = current.historyIntent;
+    profile.temporalIntent = current.temporalIntent;
+    profile.wantsUnresolved = current.wantsUnresolved;
+  }
 
   // Archived rows remain eligible when found via the inverted index. Folding
   // is a prompt-size optimization, not permission to forget the source event.
@@ -1114,11 +1179,21 @@ export function rankArchive(
   }
   const plan = planMultiHop(profile, { events, knowledge: archive.knowledge, relationships: archive.relationships });
 
+  const positions = events.map((e) => e.turnSeq ?? e.seq).filter(Number.isFinite);
+  const minPosition = positions.length ? Math.min(...positions) : 0;
+  const maxPosition = positions.length ? Math.max(...positions) : 0;
+  const positionSpan = Math.max(1, maxPosition - minPosition);
   const scored: { e: StoryEventRecord; score: number }[] = [];
   for (const e of events) {
     let score = scoreEvent(e, profile, { nowMs: opts.nowMs, currentSeq: opts.currentSeq });
     if (plan.eventIds.has(e.id)) score += 5;
     if (opts.relationshipPair && e.pairKeys.includes(opts.relationshipPair)) score += 6;
+    if (profile.temporalIntent) {
+      const timelinePosition = ((e.turnSeq ?? e.seq) - minPosition) / positionSpan;
+      // A first-meeting question must not be answered from the newest mention;
+      // a "pichli baar" question needs the opposite weighting.
+      score += 8 * (profile.temporalIntent === 'earliest' ? 1 - timelinePosition : timelinePosition);
+    }
     if (score > 0.5) scored.push({ e, score });
   }
   scored.sort((a, b) => b.score - a.score || a.e.seq - b.e.seq);
