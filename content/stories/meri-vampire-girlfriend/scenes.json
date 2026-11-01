@@ -1,0 +1,79 @@
+{
+  "storyId": "meri-vampire-girlfriend",
+  "version": 1,
+  "scenes": [
+    {
+      "id": "ek_aur_cup",
+      "title": "Ek Aur Cup",
+      "narration": [
+        "*Kolkata ki monsoon raat. Café Neelambar ka closed sign laga hai, par Adrija ne tumhe after-hours hot chocolate ke liye rok liya hai. Adrija tumhari girlfriend hai; rishta abhi naya hai. Bahar rain-washed street lights hain, andar candle lamps, window seat ke paas do cups aur chocolate sandesh ka ek plate.*",
+        "*Adrija burgundy dress mein apni chair se uthti hai aur sandesh ka plate dono ke beech rakhti hai. Phir woh tumhare bagal wali seat ki taraf nazakat se ishara karti hai—udhar baithne ke liye, bina tumhe chhooe ya tumhari taraf se jawab assume kiye. Aankhon mein shararat hai, muskaan mein bold warmth.*",
+        "Adrija: *bagal wali seat par haath rakhte hue* \"Maine café isliye band nahi kiya ki tum turant chale jao. Ek aur cup, thodi baarish aur mera favourite person—bas. Aaj mujhe tumhara poora attention chahiye, aur thoda Adrija-special romance bhi. Thodi der rukoge?\"",
+        "*Woh apni line par khud hans padti hai, phir table par apna haath tumhari taraf palm-up rakh deti hai. Tumhara haath abhi usne nahi pakda. Candle ki halki roshni ruby earrings par chamakti hai; woh bas tumhare comfortable jawab ka intezaar kar rahi hai.*",
+        "Adrija: \"Aur sirf company nahi—mujhe haath pakadna, ek lambi hug aur bahut saari pyar bhari baatein chahiye. Tum chaho toh mere paas baith jao. Jitna comfortable lage utna romance, baaki tumhari marzi.\"",
+        "*Adrija ka haath ab bhi tumhari taraf khula hai aur bagal wali jagah bhi khaali hai. Usne apni wish bilkul saaf keh di hai, par paas baithna, haath pakadna ya kuch aur kehna—agla move tumhara hoga.*"
+      ],
+      "fallbackLines": [
+        "*Adrija tumhare jawab ko dhyaan se sunti hai, bina apni powers ya kisi guess se tumhari taraf ka meaning invent kiye. Uske baad woh apni muskaan thodi aur warm kar leti hai, lekin khula haath aur tumhare comfort ka space waise hi rakhti hai.*",
+        "Adrija: \"Main flirt zaroor karti hoon, par tumhari marzi guess nahi karti. Jo comfortable lage woh bolo—hot chocolate abhi bhi garam hai.\""
+      ],
+      "choices": [
+        {
+          "id": "stay_accept",
+          "text": "\"Main thodi der aur rukna chahta hoon, Adrija.\"",
+          "shortLabel": "Thodi der aur",
+          "keywords": [
+            "thodi",
+            "der",
+            "rukna",
+            "adrija",
+            "saath"
+          ],
+          "next": null,
+          "effects": {
+            "memory": [
+              "At Café Neelambar, {{playerName}} told Adrija that he wanted to stay a little longer."
+            ]
+          }
+        },
+        {
+          "id": "hand_consent",
+          "text": "\"Adrija, kya main tumhara haath pakad sakta hoon?\"",
+          "shortLabel": "Haath pakdun?",
+          "keywords": [
+            "adrija",
+            "haath",
+            "pakad",
+            "sakta",
+            "kya"
+          ],
+          "next": null,
+          "effects": {
+            "memory": [
+              "At Café Neelambar, {{playerName}} asked Adrija whether he could hold her hand."
+            ]
+          }
+        },
+        {
+          "id": "romance_list",
+          "text": "\"Aaj tumhe aur kaunsa romance chahiye, Adrija?\"",
+          "shortLabel": "Aur kya chahiye?",
+          "keywords": [
+            "romance",
+            "aur",
+            "kya",
+            "chahiye",
+            "adrija"
+          ],
+          "next": null,
+          "effects": {
+            "memory": [
+              "At Café Neelambar, {{playerName}} asked Adrija what other kind of romance she wanted that evening."
+            ]
+          }
+        }
+      ]
+    }
+  ],
+  "endings": []
+}
