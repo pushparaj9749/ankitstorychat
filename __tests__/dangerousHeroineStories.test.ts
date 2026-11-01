@@ -37,6 +37,7 @@ const SERIES = [
   'do-deewaniyan',
   'goa-ki-chingari',
   'khamoshi-ka-junoon',
+  'meri-spy-girlfriend',
 ];
 
 const ROOT = join(__dirname, '..', 'content');
@@ -363,5 +364,64 @@ describe('Khamoshi Ka Junoon: cute mast heroine, shy but clear, open hero', () =
     expect(gallery).toHaveLength(9);
     const linked = gallery.map((g) => g.characterId).filter(Boolean);
     expect(new Set(linked)).toEqual(new Set(['meher']));
+  });
+});
+
+describe('Meri Spy Girlfriend: bold romantic spy heroine, open hero', () => {
+  const id = 'meri-spy-girlfriend';
+  const b = load(id);
+  const chars = b.characters as unknown as {
+    playerVisualDesign: string;
+    characters: { id: string; personality: string }[];
+  };
+  const world = b.world as unknown as { rules: string[] };
+  const HERO_TRAIT = /\b(shy|timid|nervous|soft-spoken|flustered|blush\w*|brave|bold|confident|gentle|weak|playboy|cheater|flirt\w*)\b/i;
+
+  test('the hero has no predefined personality, job or past', () => {
+    expect(b.story.userRole).toMatch(/Nothing about his personality is predefined/);
+    expect(b.story.userRole).toMatch(/his nature, temperament, job, past and feelings/);
+    expect(b.story.userRole).not.toMatch(HERO_TRAIT);
+    expect(chars.playerVisualDesign).not.toMatch(HERO_TRAIT);
+    expect(b.meta.tags).toContain('open-hero');
+    expect(b.story.description).toMatch(/Tum kaun ho, kaise ho/);
+  });
+
+  test('Saira is bold, openly romantic and dangerous as Saanjh', () => {
+    const saira = chars.characters.find((c) => c.id === 'saira')!;
+    expect(saira.personality).toMatch(/glamorous, bold, flirtatious/);
+    expect(saira.personality).toMatch(/a LOT of romance/);
+    expect(saira.personality).toMatch(/says clearly what she wants/);
+    expect(saira.personality).toMatch(/As Saanjh she is calm, precise and dangerous/);
+    expect(b.meta.tags).toEqual(expect.arrayContaining(['dangerous-girlfriend', 'bold-heroine', 'flirty-heroine', 'spy', 'secret-agent']));
+  });
+
+  test('opening is a medium natural rooftop invitation with no spy dump', () => {
+    const opening = b.scenes.scenes[0];
+    const text = opening.narration.join('\n');
+    expect(opening.narration).toHaveLength(6);
+    expect(text.length).toBeGreaterThan(700);
+    expect(text.length).toBeLessThan(1800);
+    expect(text).toMatch(/Saira tumhari girlfriend hai/);
+    expect(text).toMatch(/pehle mere saath ek slow dance/);
+    expect(text).toMatch(/agar tum chaho/);
+    expect(text).toMatch(/baaki tumhari marzi/);
+    expect(text).not.toMatch(/\bSaanjh\b|\bAstra\b|\bVora\b|\bspy\b|\bmission\b/i);
+  });
+
+  test('spy danger is never scheduled and Saira never uses the hero', () => {
+    expect(world.rules.join(' ')).toMatch(/Do not automatically introduce Astra/);
+    expect(world.rules.join(' ')).toMatch(/hidden identity remains in the background/);
+    const safety = (b.story.safetyNotes as unknown as string[]).join(' ');
+    expect(safety).toMatch(/never uses \{\{playerName\}\} as bait/);
+    expect(safety).toMatch(/never manufactures danger/);
+    expect(b.scenes.scenes).toHaveLength(1);
+    expect(b.scenes.endings).toEqual([]);
+  });
+
+  test('ships a cover and eight Saira gallery images', () => {
+    const gallery = (b.story as unknown as { media: { gallery: { characterId?: string }[] } }).media.gallery;
+    expect(gallery).toHaveLength(9);
+    const linked = gallery.map((g) => g.characterId).filter(Boolean);
+    expect(new Set(linked)).toEqual(new Set(['saira']));
   });
 });

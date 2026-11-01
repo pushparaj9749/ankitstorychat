@@ -1,0 +1,79 @@
+{
+  "storyId": "meri-spy-girlfriend",
+  "version": 1,
+  "scenes": [
+    {
+      "id": "pehle_slow_dance",
+      "title": "Pehle Slow Dance",
+      "narration": [
+        "*Udaipur ke Hotel Jharokha Skylight ki private rooftop. Saira tumhari girlfriend hai; rishta abhi naya hai, aur uski event-designing ki travel wali job ke beech tum dono ko aaj ka dinner mila hai. Neeche lake ki lights hain, table par do dessert bowls aur background mein halki si purani Hindi dhun.*",
+        "*Saira emerald gown mein candle ko side mein karti hai aur apni chair se uthkar tumhare paas aati hai. Woh bilkul paas aakar ruk jaati hai—utna space chhodti hai ki tum apna comfort khud choose kar sako. Aankhon mein shararat hai, muskaan mein bold warmth.*",
+        "Saira: *haath badhate hue* \"Event meri taraf se done. Ab lights ko thodi der wait karna padega—pehle mere saath ek slow dance. Aur haan, aaj main romance mein bilkul reasonable nahi hoon; mujhe tumhara poora attention chahiye.\"",
+        "*Woh apni baat par khud hans padti hai, phir tumhari taraf ek chhota sa aur step karti hai. Uska haath ab bhi tumhari taraf hai. Muskaan mein koi confusion nahi, bas tumhare jawab ka clear intezaar.*",
+        "Saira: \"Aur agar tum chaho, mujhe apni baahon mein le lo. Aaj bas bahut saari hugs, thodi masti aur tumhare saath waqt chahiye—pehle dance, baaki tumhari marzi.\"",
+        "*Saira wahin tumhari taraf haath badhaye khadi hai. Usne apni wish bilkul saaf keh di hai, par agla move tumhara hoga; woh tumhari marzi ke bina distance kam nahi karti.*"
+      ],
+      "fallbackLines": [
+        "*Saira tumhare jawab ko dhyaan se sunti hai, bina tumhari taraf se koi meaning invent kiye. Uske baad woh apni muskaan thodi aur bright kar leti hai, lekin haath badhaye hue tumhare comfort ka space waise hi rakhti hai.*",
+        "Saira: \"Mujhe tumhari baat saaf samajhni hai—main flirt zaroor karti hoon, par tumhari marzi guess nahi karti. Aur haan, dance ka offer abhi bhi khula hai.\""
+      ],
+      "choices": [
+        {
+          "id": "dance_accept",
+          "text": "\"Mujhe bhi tumhare saath slow dance karna hai, Saira.\"",
+          "shortLabel": "Slow dance",
+          "keywords": [
+            "slow",
+            "dance",
+            "saira",
+            "saath",
+            "karna"
+          ],
+          "next": null,
+          "effects": {
+            "memory": [
+              "At the Udaipur rooftop, {{playerName}} told Saira that he also wanted to slow dance with her."
+            ]
+          }
+        },
+        {
+          "id": "hug_consent",
+          "text": "\"Saira, kya main tumhe apni baahon mein le sakta hoon?\"",
+          "shortLabel": "Baahon mein?",
+          "keywords": [
+            "saira",
+            "baahon",
+            "sakta",
+            "kya",
+            "hug"
+          ],
+          "next": null,
+          "effects": {
+            "memory": [
+              "At the Udaipur rooftop, {{playerName}} asked Saira whether he could take her in his arms."
+            ]
+          }
+        },
+        {
+          "id": "romance_list",
+          "text": "\"Aaj ke romance mein tumhe aur kya-kya chahiye, Saira?\"",
+          "shortLabel": "Aur kya chahiye?",
+          "keywords": [
+            "romance",
+            "aur",
+            "kya",
+            "chahiye",
+            "saira"
+          ],
+          "next": null,
+          "effects": {
+            "memory": [
+              "At the Udaipur rooftop, {{playerName}} asked Saira what else she wanted from their romantic evening."
+            ]
+          }
+        }
+      ]
+    }
+  ],
+  "endings": []
+}
