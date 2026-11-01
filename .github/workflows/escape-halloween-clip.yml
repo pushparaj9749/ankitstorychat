@@ -98,6 +98,20 @@ jobs:
         if: steps.clip-mode.outputs.mode == 'build'
         shell: bash
         run: |
+          report="docs/clips/escape-halloween-build-report.txt"
+          {
+            echo "Build completed; artifact inventory:"
+            find work/escape-halloween/final -maxdepth 1 -type f -printf '%f %s bytes\n' | sort
+            echo
+            echo "Build log tail:"
+            tail -60 work/escape-halloween/build.log
+          } > "$report"
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add "$report"
+          git commit -m "Report Escape build artifacts [skip ci]"
+          git push origin "HEAD:${GITHUB_REF_NAME}"
+
           destination="docs/clips/escape-halloween-2026"
           mkdir -p "$destination"
           cp work/escape-halloween/final/* "$destination/"
@@ -109,6 +123,7 @@ jobs:
           fi
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git rm "$report"
           git add "$destination"
           if ! git diff --cached --quiet; then
             git commit -m "Add polished Escape Halloween upload package [skip ci]"
