@@ -11,6 +11,12 @@ on:
         options:
           - scout
           - build
+  push:
+    branches:
+      - arena/6cc276cc-ankitstorychat
+    paths:
+      - 'scripts/clips/**'
+      - '.github/workflows/escape-halloween-clip.yml'
 
 permissions:
   contents: read
@@ -22,6 +28,21 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v4
+
+      - name: Resolve clip mode
+        id: clip-mode
+        shell: bash
+        run: |
+          if [ "${{ github.event_name }}" = "push" ]; then
+            mode="$(cat scripts/clips/escape_halloween_mode.txt)"
+          else
+            mode="${{ inputs.mode }}"
+          fi
+          if [ "$mode" != "scout" ] && [ "$mode" != "build" ]; then
+            echo "Invalid clip mode: $mode" >&2
+            exit 1
+          fi
+          echo "mode=$mode" >> "$GITHUB_OUTPUT"
 
       - name: Setup Python
         uses: actions/setup-python@v5
@@ -36,17 +57,17 @@ jobs:
           python -m pip install numpy pillow
 
       - name: Scout footage
-        if: inputs.mode == 'scout'
+        if: steps.clip-mode.outputs.mode == 'scout'
         run: python scripts/clips/escape_halloween_scout.py
 
       - name: Build selected edit
-        if: inputs.mode == 'build'
+        if: steps.clip-mode.outputs.mode == 'build'
         run: python scripts/clips/escape_halloween_build.py
 
       - name: Upload result
         uses: actions/upload-artifact@v4
         with:
-          name: escape-halloween-${{ inputs.mode }}
+          name: escape-halloween-${{ steps.clip-mode.outputs.mode }}
           path: |
             work/escape-halloween/scout/**
             work/escape-halloween/final/**
