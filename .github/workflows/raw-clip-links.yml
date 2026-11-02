@@ -1,0 +1,96 @@
+name: Publish raw clip links
+
+on:
+  push:
+    branches:
+      - arena/6cc276cc-ankitstorychat
+    paths:
+      - '.github/workflows/raw-clip-links.yml'
+
+permissions:
+  contents: write
+
+jobs:
+  raw-links:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Download Escape package artifact
+        uses: actions/download-artifact@v4
+        with:
+          name: Escape-Halloween-2026-7-Clip-Pack
+          run-id: 41342429764
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          path: work/raw-escape-artifact
+
+      - name: Download LHM package artifact
+        uses: actions/download-artifact@v4
+        with:
+          name: Let-Him-Mansplain-7-Clip-Pack
+          run-id: 41346664732
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          path: work/raw-lhm-artifact
+
+      - name: Extract packages and stage raw MP4s
+        shell: bash
+        run: |
+          set -euo pipefail
+          unzip -q work/raw-escape-artifact/Escape_Halloween_2026_7_Clip_Pack.zip -d work/escape-pack
+          unzip -q work/raw-lhm-artifact/Let_Him_Mansplain_7_Clip_Pack.zip -d work/lhm-pack
+          python3 - <<'PY'
+          import json
+          from pathlib import Path
+          import shutil
+
+          for campaign, pack in [("escape", "escape-pack"), ("lhm", "lhm-pack")]:
+              root = Path("work") / pack
+              manifest = json.loads((root / "manifest.json").read_text())
+              destination = Path("docs/clips/raw-media") / campaign
+              destination.mkdir(parents=True, exist_ok=True)
+              clips = manifest["clips"]
+              assert len(clips) == 7
+              for clip in clips:
+                  source = root / clip["file"]
+                  assert source.exists() and source.stat().st_size < 100_000_000
+                  shutil.copy2(source, destination / source.name)
+          assert len(list(Path("docs/clips/raw-media").rglob("*.mp4"))) == 14
+          PY
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add docs/clips/raw-media
+          git commit -m "Stage raw campaign MP4s"
+          git push origin "HEAD:${GITHUB_REF_NAME}"
+          echo "RAW_SHA=$(git rev-parse HEAD)" >> "$GITHUB_ENV"
+
+      - name: Publish permanent pinned raw links and clean branch tree
+        shell: bash
+        run: |
+          set -euo pipefail
+          python3 - <<'PY'
+          import json
+          import os
+          from pathlib import Path
+
+          sha = os.environ["RAW_SHA"]
+          base = f"https://raw.githubusercontent.com/pushparaj9749/ankitstorychat/{sha}/docs/clips/raw-media"
+          result = {"media_commit": sha, "escape": [], "lhm": []}
+          for campaign, pack in [("escape", "escape-pack"), ("lhm", "lhm-pack")]:
+              manifest = json.loads((Path("work") / pack / "manifest.json").read_text())
+              for clip in manifest["clips"]:
+                  filename = clip["file"]
+                  result[campaign].append({
+                      "file": filename,
+                      "raw_url": f"{base}/{campaign}/{filename}",
+                      "sha256": clip["sha256"],
+                  })
+          Path("docs/clips/raw-links.json").write_text(json.dumps(result, indent=2) + "\n")
+          PY
+          git rm -r docs/clips/raw-media
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add docs/clips/raw-links.json
+          git commit -m "Publish pinned raw clip links [skip ci]"
+          git push origin "HEAD:${GITHUB_REF_NAME}"
