@@ -1,0 +1,54 @@
+name: Publish raw ZIP links
+
+on:
+  push:
+    branches:
+      - arena/6cc276cc-ankitstorychat
+    paths:
+      - '.github/workflows/raw-zip-links.yml'
+
+permissions:
+  contents: write
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    env:
+      GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      TAG: clip-packs-2026-11-02
+    steps:
+      - name: Download Escape package artifact
+        uses: actions/download-artifact@v4
+        with:
+          name: Escape-Halloween-2026-7-Clip-Pack
+          run-id: 41342429764
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          path: work/escape
+
+      - name: Download LHM package artifact
+        uses: actions/download-artifact@v4
+        with:
+          name: Let-Him-Mansplain-7-Clip-Pack
+          run-id: 41346664732
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          path: work/lhm
+
+      - name: Publish direct public ZIP downloads
+        shell: bash
+        run: |
+          set -euo pipefail
+          escape="work/escape/Escape_Halloween_2026_7_Clip_Pack.zip"
+          lhm="work/lhm/Let_Him_Mansplain_7_Clip_Pack.zip"
+          test -f "$escape"
+          test -f "$lhm"
+          if gh release view "$TAG" --repo "$GITHUB_REPOSITORY" >/dev/null 2>&1; then
+            gh release upload "$TAG" "$escape" "$lhm" --repo "$GITHUB_REPOSITORY" --clobber
+          else
+            gh release create "$TAG" "$escape" "$lhm" \
+              --repo "$GITHUB_REPOSITORY" \
+              --target "$GITHUB_REF_NAME" \
+              --title "Raw Clip Packs — 14 Clips" \
+              --notes "Direct public ZIP downloads for 7 Escape Halloween and 7 Let Him Mansplain clips. Escape SHA-256: 9e153aa59d48c4f8028f64bd42f9f086448ddf1e171f94787679f144422f279d. LHM SHA-256: 1ed782014534b1ce4a3d6af449f6f4d7326d42bd0c57421b02ca2d008a9caf7a."
+          fi
+          gh release view "$TAG" --repo "$GITHUB_REPOSITORY" --json url,assets
