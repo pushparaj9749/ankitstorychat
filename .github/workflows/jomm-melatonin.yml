@@ -1,0 +1,164 @@
+name: Jomm Melatonin anime edits
+
+on:
+  push:
+    branches:
+      - arena/6cc276cc-ankitstorychat
+    paths:
+      - 'scripts/jomm-melatonin/**'
+      - '.github/workflows/jomm-melatonin.yml'
+
+permissions:
+  contents: write
+
+concurrency:
+  group: jomm-melatonin-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  clips:
+    runs-on: ubuntu-latest
+    timeout-minutes: 90
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Resolve mode
+        id: mode
+        shell: bash
+        run: |
+          set -euo pipefail
+          mode="$(cat scripts/jomm-melatonin/mode.txt)"
+          if [ "$mode" != "scout" ] && [ "$mode" != "build" ]; then
+            echo "Invalid mode: $mode" >&2
+            exit 1
+          fi
+          echo "mode=$mode" >> "$GITHUB_OUTPUT"
+
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+          cache: pip
+
+      - name: Install media tools
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y ffmpeg unzip
+          python -m pip install gdown yt-dlp pillow numpy librosa soundfile faster-whisper av==15.1.0
+
+      - name: Run Melatonin pipeline
+        shell: bash
+        run: |
+          set -o pipefail
+          mkdir -p work/jomm-melatonin
+          if [ "${{ steps.mode.outputs.mode }}" = "scout" ]; then
+            python scripts/jomm-melatonin/scout.py 2>&1 | tee work/jomm-melatonin/run.log
+          else
+            python scripts/jomm-melatonin/build.py 2>&1 | tee work/jomm-melatonin/run.log
+          fi
+
+      - name: Publish diagnostics on failure
+        if: failure()
+        shell: bash
+        run: |
+          set -euo pipefail
+          mkdir -p docs/clips/jomm-melatonin-diagnostics
+          if [ -f work/jomm-melatonin/run.log ]; then
+            cp work/jomm-melatonin/run.log docs/clips/jomm-melatonin-diagnostics/run.log
+          fi
+          if [ -d work/jomm-melatonin/scout ]; then
+            cp -a work/jomm-melatonin/scout/. docs/clips/jomm-melatonin-diagnostics/
+          fi
+          if [ -d work/jomm-melatonin/review ]; then
+            cp -a work/jomm-melatonin/review/. docs/clips/jomm-melatonin-diagnostics/
+          fi
+          if [ -d work/jomm-melatonin/final/covers ]; then
+            mkdir -p docs/clips/jomm-melatonin-diagnostics/covers
+            cp -a work/jomm-melatonin/final/covers/. docs/clips/jomm-melatonin-diagnostics/covers/
+          fi
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add docs/clips/jomm-melatonin-diagnostics
+          if ! git diff --cached --quiet; then
+            git commit -m "Relay Melatonin pipeline diagnostics [skip ci]"
+            git push origin "HEAD:${GITHUB_REF_NAME}"
+          fi
+
+      - name: Publish scouting review
+        if: steps.mode.outputs.mode == 'scout'
+        shell: bash
+        run: |
+          set -euo pipefail
+          destination="docs/clips/jomm-melatonin-scout"
+          mkdir -p "$destination"
+          cp -a work/jomm-melatonin/scout/. "$destination/"
+          if [ -d docs/clips/jomm-melatonin-diagnostics ]; then
+            git rm -r docs/clips/jomm-melatonin-diagnostics
+          fi
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add "$destination"
+          if ! git diff --cached --quiet; then
+            git commit -m "Update Melatonin source scouting [skip ci]"
+            git push origin "HEAD:${GITHUB_REF_NAME}"
+          fi
+
+      - name: Publish final review
+        if: steps.mode.outputs.mode == 'build'
+        shell: bash
+        run: |
+          set -euo pipefail
+          destination="docs/clips/jomm-melatonin-review"
+          mkdir -p "$destination"
+          cp -a work/jomm-melatonin/review/. "$destination/"
+          if [ -d docs/clips/jomm-melatonin-scout ]; then
+            git rm -r docs/clips/jomm-melatonin-scout
+          fi
+          if [ -d docs/clips/jomm-melatonin-diagnostics ]; then
+            git rm -r docs/clips/jomm-melatonin-diagnostics
+          fi
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add "$destination"
+          if ! git diff --cached --quiet; then
+            git commit -m "Update Melatonin final review [skip ci]"
+            git push origin "HEAD:${GITHUB_REF_NAME}"
+          fi
+
+      - name: Upload scouting artifact
+        if: steps.mode.outputs.mode == 'scout'
+        uses: actions/upload-artifact@v4
+        with:
+          name: jomm-melatonin-scouting
+          path: work/jomm-melatonin/scout/**
+          if-no-files-found: error
+          retention-days: 7
+
+      - name: Upload seven-clip Melatonin package
+        if: steps.mode.outputs.mode == 'build'
+        uses: actions/upload-artifact@v4
+        with:
+          name: Jomm-Melatonin-7-Anime-Clip-Pack
+          path: work/jomm-melatonin/final/Jomm_Melatonin_7_Anime_Clip_Pack.zip
+          if-no-files-found: error
+          retention-days: 14
+
+      - name: Publish direct ZIP release
+        if: steps.mode.outputs.mode == 'build'
+        shell: bash
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          set -euo pipefail
+          tag="jomm-melatonin-2026-11-04"
+          archive="work/jomm-melatonin/final/Jomm_Melatonin_7_Anime_Clip_Pack.zip"
+          checksum="work/jomm-melatonin/final/ZIP_SHA256.txt"
+          if gh release view "$tag" > /dev/null 2>&1; then
+            gh release upload "$tag" "$archive" "$checksum" --clobber
+          else
+            gh release create "$tag" "$archive" "$checksum" \
+              --target "${{ github.sha }}" \
+              --title "jomm — Melatonin | 7 Anime Edits" \
+              --notes "Seven 1080x1920 anime edits with covers, captions, source credits and QA. Before posting, select the exact official TikTok sound from the campaign brief and mute the embedded reference audio."
+          fi

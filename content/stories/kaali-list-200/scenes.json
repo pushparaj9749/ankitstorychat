@@ -1,0 +1,80 @@
+{
+  "storyId": "kaali-list-200",
+  "version": 1,
+  "scenes": [
+    {
+      "id": "console_par_aakhri_call",
+      "title": "Console Par Aakhri Call",
+      "narration": [
+        "*Devigarh mein 200 bachhe lapata hain. Alag police stations ki files ko jodkar IPS Avantika Rana ki SIT ne ek black case board banaya hai—jise ab Kaali List kaha jaata hai. Har photo ke neeche ek naam hai, aur har naam ke peeche ek intezaar.*",
+        "*Raat 1:43. Awaaz FM ke soundproof studio mein ON AIR ki red light ab bujhi hai. Tum late-night show ke host ho. Console mein us request-line call ki original uncut recording saved hai jo police copy se lambi hai; glass ke doosri taraf Rehan apni log sheet band kar raha hai.*",
+        "*Studio ka darwaza bina knock khulta hai. IPS Avantika Rana khaki uniform mein andar aati hai, apni cap console par rakhti hai aur tumhari taraf seedhi nazar karti hai. Cute face, long wavy hair swept over one shoulder—par ek eyebrow uthne aur proud half-smirk se koi bhi shy impression door rehta hai.*",
+        "Avantika: \"Main civilian sources ko apni SIT ke beech nahi laati. Tumhe isliye nahi ki tum ek famous RJ ho—tumhare paas woh cheez hai jo mere paas nahi.\"",
+        "*Woh apna phone console par rakhti hai aur shorter police export play karti hai. Ek bachche ki tooti aawaz, kuch metallic khat-khat, phir recording achanak khatam. Avantika ka jaw tight hota hai, lekin woh phone tumhari taraf slide karne ke bajay apni palm se dabaye rakhti hai.*",
+        "Avantika: \"Original recording chahiye—poori, bina edit. Aur uske baad tum mujhe woh bologe jo is copy mein missing hai. Main apni SIT ka time aur 200 families ka intezaar guesswork par nahi lagaungi.\"",
+        "*Avantika chair nahi leti. Dono haath console par rakhkar woh tumhare saamne khadi hai—madat maangne ke bawajood bilkul bhi request karne wali body language nahi. Uske direct gaze ke neeche original audio ki play button halki green light mein chamak raha hai.*"
+      ],
+      "fallbackLines": [
+        "*Avantika tumhare actual words ko apni file ke verified facts se milaati hai, bina tumhari taraf se koi theory ya feeling invent kiye. Console ka cursor usi uncut file par hai aur Rehan glass ke peeche se dono ko dekh raha hai.*",
+        "Avantika: \"Main jaldi mein hoon, par is case mein jaldi se zyada sahi hona zaroori hai. Jo actually suna aur recorded hua, pehle wahi.\""
+      ],
+      "choices": [
+        {
+          "id": "play_original",
+          "text": "\"Original uncut recording abhi sunte hain—bina kisi edit ke.\"",
+          "shortLabel": "Original sunao",
+          "keywords": [
+            "original",
+            "uncut",
+            "recording",
+            "play",
+            "audio"
+          ],
+          "next": null,
+          "effects": {
+            "memory": [
+              "At the Awaaz FM studio, {{playerName}} agreed to play the original uncut recording with Avantika."
+            ]
+          }
+        },
+        {
+          "id": "ask_case_connection",
+          "text": "\"Recording se pehle mujhe batao—200 alag cases ko tumne ek case mein kyun joda?\"",
+          "shortLabel": "Connection poochho",
+          "keywords": [
+            "200",
+            "cases",
+            "connection",
+            "kaali",
+            "list"
+          ],
+          "next": null,
+          "effects": {
+            "memory": [
+              "Before playing the recording, {{playerName}} asked Avantika why the SIT connected the 200 separate cases."
+            ]
+          }
+        },
+        {
+          "id": "set_boundary",
+          "text": "\"Help karunga, lekin investigation ke saath tumhara attitude bhi handle karna hoga, Avantika.\"",
+          "shortLabel": "Attitude check",
+          "keywords": [
+            "help",
+            "attitude",
+            "avantika",
+            "boundary",
+            "ego"
+          ],
+          "next": null,
+          "effects": {
+            "memory": [
+              "{{playerName}} offered help while directly challenging Avantika's commanding attitude."
+            ]
+          }
+        }
+      ]
+    }
+  ],
+  "endings": []
+}

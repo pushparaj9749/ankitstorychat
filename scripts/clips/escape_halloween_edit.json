@@ -1,0 +1,27 @@
+{
+  "title": "Escape Halloween '26 — Excision at Sewer District",
+  "artist": "Excision",
+  "stage": "Sewer District",
+  "duration": 22.35,
+  "audio": {
+    "source": "excision-07",
+    "start": 23.6,
+    "duration": 22.35,
+    "note": "Continuous original-location audio from the supplied Excision footage; no external music."
+  },
+  "segments": [
+    { "source": "excision-07", "start": 23.6, "duration": 1.8, "purpose": "Immediate wide-stage drop hook" },
+    { "source": "excision-05", "start": 17.2, "duration": 1.35, "purpose": "Crowd arms and energy" },
+    { "source": "excision-04", "start": 0.65, "duration": 1.45, "purpose": "Performer silhouette and Excision X" },
+    { "source": "excision-05", "start": 2.15, "duration": 1.45, "purpose": "Front-rail crowd reaction" },
+    { "source": "excision-04", "start": 14.05, "duration": 1.55, "purpose": "Performer close-up and production" },
+    { "source": "excision-07", "start": 31.85, "duration": 1.85, "purpose": "Wide crowd under warm production lighting" },
+    { "source": "excision-05", "start": 5.55, "duration": 1.45, "purpose": "Halloween witch-hat crowd moment" },
+    { "source": "excision-04", "start": 18.2, "duration": 1.55, "purpose": "Cool-toned performer and laser contrast" },
+    { "source": "excision-05", "start": 10.2, "duration": 1.6, "purpose": "Crowd reaction before main drop" },
+    { "source": "excision-07", "start": 37.65, "duration": 2.55, "purpose": "Main audio/visual drop, synchronized at 14.10s" },
+    { "source": "excision-05", "start": 16.55, "duration": 2.1, "purpose": "Crowd impact on second peak" },
+    { "source": "excision-04", "start": 20.25, "duration": 1.15, "purpose": "Performer hit on third peak" },
+    { "source": "excision-07", "start": 43.45, "duration": 2.5, "purpose": "Synchronized wide-stage finale" }
+  ]
+}

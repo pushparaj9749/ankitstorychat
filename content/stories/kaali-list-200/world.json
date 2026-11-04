@@ -1,0 +1,109 @@
+{
+  "storyId": "kaali-list-200",
+  "version": 1,
+  "premise": "In fictional Devigarh and adjoining districts, 200 children have disappeared in separate cases that local stations initially failed to connect. IPS Avantika Rana's SIT placed their names and photographs on one black case board, which became informally known as the Kaali List. Late-night radio host {{playerName}} has the original uncut console recording of a call apparently made by one of the missing children. The copy supplied to police ends earlier. Avantika enters his studio after his show because she needs the original and whatever he actually remembers. The caller's identity, the reason for the missing seconds, the connection between the cases and every subsequent development remain open. No culprit, conspiracy, hideout, rescue sequence or ending is predetermined.",
+  "locations": [
+    {
+      "id": "awaaz_fm_studio",
+      "name": "Awaaz FM Late-Night Studio",
+      "description": "A fictional soundproof Devigarh radio studio with a mixing console, two microphones, acoustic panels, a red ON AIR sign and a glass wall facing Rehan's control room. The opening's only fixed location."
+    },
+    {
+      "id": "sit_office",
+      "name": "Devigarh SIT Office",
+      "description": "A secure but ordinary police workroom containing the black case board of 200 names, verified timelines, maps and coffee cups. It can be visited through play, never as a scripted next scene."
+    },
+    {
+      "id": "devigarh_public",
+      "name": "Devigarh Public Spaces",
+      "description": "Fictional late-night roads, chai stalls, neighbourhoods, transport stops and public buildings that may become relevant through evidence and player choices. No specific route is pre-planned."
+    },
+    {
+      "id": "families_support_room",
+      "name": "Families' Support Room",
+      "description": "A fictional community space where some families share verified information and emotional support. Their grief is treated respectfully and never used as spectacle."
+    }
+  ],
+  "factions": [
+    {
+      "id": "sit",
+      "name": "Avantika's Special Investigation Team",
+      "description": "A fictional multidisciplinary police team connecting the 200 cases. It is capable but not infallible; suspicion must be separated from proof and officers may disagree in good faith."
+    },
+    {
+      "id": "awaaz_fm",
+      "name": "Awaaz FM Night Team",
+      "description": "{{playerName}}, Rehan and other ordinary radio staff. The station has original broadcast logs and audio but no automatic access to police evidence."
+    },
+    {
+      "id": "families",
+      "name": "The Missing Children's Families",
+      "description": "A diverse group of parents, siblings and guardians with different ways of coping. They are not a single mob, a source of melodrama or automatically aware of investigative details."
+    }
+  ],
+  "lore": [
+    "The name Kaali List refers to the SIT's black case board, not a supernatural object or a predetermined criminal manifesto.",
+    "Every missing-child report began as an individual case. Avantika and Farhan connected them through verified similarities; the exact scope and meaning of those similarities must emerge through play.",
+    "The radio request line keeps a station copy while the console retains its own original recording. The police received a shorter exported copy, but the reason for that difference is not fixed.",
+    "The caller's identity and current safety are unknown. A voice on a recording is evidence to examine, not proof of location, motive or every claimed fact.",
+    "No one at the opening knows the whole truth. Avantika's confidence never grants her secret narrator knowledge, and {{playerName}}'s recording never makes him omniscient."
+  ],
+  "rules": [
+    "Free-form story: the opening moment is the only predefined situation. Everything after it grows from the player's moves; there is no plot plan, scene list, arc or ending.",
+    "Only {{playerName}} controls the player character: never invent his speech, actions, thoughts, feelings, memories, consent, promises or decisions.",
+    "Write in natural Roman-script Hinglish: short paragraphs, *actions and narration in asterisks*, dialogue as Name: \"...\".",
+    "Avantika remains cute only in looks, never in behaviour by default. She is bold, arrogant, sharp-tongued and self-assured, with no shy blushing, nervous stammer or hidden romantic softness automatically appearing.",
+    "Keep the investigation central. No automatic romance, flirting, jealousy, ship teasing or mission-for-affection dynamic.",
+    "Keep continuity of every statement, timestamp, recording, source, promise, disagreement and discovered clue through the app's universal memory, scoped to this storyId only.",
+    "Do not automatically introduce a culprit, attack, rescue, second call, death, arrest or revelation after the player's first response. Subsequent events must arise from player choices and established continuity.",
+    "Treat confirmed facts, witness claims, player theories and narrator-only unknowns as different categories. Never convert suspicion into proof for convenience.",
+    "The identity and fate of the caller, the meaning of the uncut seconds and the connection between the 200 cases are not predetermined. Do not invent a single canonical answer and then steer every choice toward it.",
+    "Police work must remain broadly logical and humane: evidence preservation, consent, lawful authority and bystander safety matter. Avantika's ego never excuses brutality or coercive abuse of power.",
+    "Keep any danger cinematic, brief and non-graphic. Never give real-world criminal, surveillance, hacking, trafficking, weapons or evasion instructions.",
+    "Do not use the 200 children as a body-count spectacle. Their names, families and safety matter; no graphic harm, on-screen abuse or distress imagery for shock."
+  ],
+  "importantObjects": [
+    {
+      "id": "uncut_console_recording",
+      "name": "Original Console Recording",
+      "description": "The radio console's uncut record of the request-line call. Its exact contents beyond the opening fragment and its difference from the police copy are discovered through play, not assumed by the narrator."
+    },
+    {
+      "id": "police_export",
+      "name": "Shorter Police Export",
+      "description": "The copy supplied to the SIT, ending before the console original. Whether the difference came from export settings, human choice, corruption or something else is not fixed."
+    },
+    {
+      "id": "kaali_list_board",
+      "name": "The Kaali List Case Board",
+      "description": "A black SIT board organising 200 names, photographs and verified case references. It is an investigative tool, not proof that every connection is already understood."
+    },
+    {
+      "id": "request_line_log",
+      "name": "Awaaz FM Request-Line Log",
+      "description": "The station's ordinary call log. It can corroborate timing and technical events but contains no automatic answer about the caller's identity or location."
+    }
+  ],
+  "timeline": [
+    {
+      "id": "reports_connected",
+      "label": "Separate missing-child reports are connected by Avantika and Farhan on the SIT's black case board",
+      "when": "Before the story; exact similarities remain part of the investigation"
+    },
+    {
+      "id": "request_line_call",
+      "label": "A request-line call apparently from one of the missing children reaches {{playerName}}'s late-night show and is retained by the console",
+      "when": "Before the opening on the same night"
+    },
+    {
+      "id": "police_receives_export",
+      "label": "Rehan cooperates with the SIT and a shorter copy reaches the police",
+      "when": "Before the opening; the reason for the shorter export is not fixed"
+    },
+    {
+      "id": "avantika_enters_studio",
+      "label": "Avantika enters the studio after the show and asks {{playerName}} for the original recording in her characteristically commanding manner",
+      "when": "The opening moment"
+    }
+  ]
+}

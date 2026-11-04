@@ -1,0 +1,163 @@
+name: Let Him Mansplain clips
+
+on:
+  push:
+    branches:
+      - arena/6cc276cc-ankitstorychat
+    paths:
+      - 'scripts/lhm-clips/**'
+      - '.github/workflows/lhm-clips.yml'
+
+permissions:
+  contents: write
+
+jobs:
+  clips:
+    runs-on: ubuntu-latest
+    timeout-minutes: 90
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Resolve mode
+        id: mode
+        shell: bash
+        run: |
+          mode="$(cat scripts/lhm-clips/mode.txt)"
+          if [ "$mode" != "inventory" ] && [ "$mode" != "transcribe" ] && [ "$mode" != "build" ]; then
+            echo "Invalid mode: $mode" >&2
+            exit 1
+          fi
+          echo "mode=$mode" >> "$GITHUB_OUTPUT"
+
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+          cache: pip
+
+      - name: Install media tools
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y ffmpeg
+          python -m pip install yt-dlp faster-whisper av==15.1.0 pillow
+
+      - name: Inventory episodes and subtitles
+        if: steps.mode.outputs.mode == 'inventory'
+        shell: bash
+        run: |
+          set -o pipefail
+          mkdir -p work/lhm
+          python scripts/lhm-clips/lhm_inventory.py 2>&1 | tee work/lhm/inventory.log
+
+      - name: Inspect public Frame.io library
+        shell: bash
+        run: |
+          mkdir -p work/lhm-browser
+          npm install --prefix work/lhm-browser playwright
+          cp scripts/lhm-clips/lhm_frameio.mjs work/lhm-browser/lhm_frameio.mjs
+          node work/lhm-browser/lhm_frameio.mjs
+
+      - name: Transcribe episode proxies
+        if: steps.mode.outputs.mode == 'transcribe'
+        shell: bash
+        run: |
+          set -o pipefail
+          python scripts/lhm-clips/lhm_transcribe.py 2>&1 | tee work/lhm/transcribe.log
+
+      - name: Publish transcription diagnostics on failure
+        if: failure() && steps.mode.outputs.mode == 'transcribe'
+        shell: bash
+        run: |
+          cp work/lhm/transcribe.log docs/clips/lhm-transcribe-error.log
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add docs/clips/lhm-transcribe-error.log
+          if ! git diff --cached --quiet; then
+            git commit -m "Relay LHM transcription diagnostics [skip ci]"
+            git push origin "HEAD:${GITHUB_REF_NAME}"
+          fi
+
+      - name: Publish transcripts for review
+        if: steps.mode.outputs.mode == 'transcribe'
+        shell: bash
+        run: |
+          destination="docs/clips/lhm-transcripts"
+          mkdir -p "$destination"
+          cp -a work/lhm/transcripts/. "$destination/"
+          if [ -f docs/clips/lhm-transcribe-error.log ]; then
+            git rm docs/clips/lhm-transcribe-error.log
+          fi
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add "$destination"
+          if ! git diff --cached --quiet; then
+            git commit -m "Update LHM episode transcripts [skip ci]"
+            git push origin "HEAD:${GITHUB_REF_NAME}"
+          fi
+
+      - name: Build seven LHM clips
+        if: steps.mode.outputs.mode == 'build'
+        shell: bash
+        run: |
+          set -o pipefail
+          python scripts/lhm-clips/lhm_build.py 2>&1 | tee work/lhm/build.log
+
+      - name: Publish build diagnostics on failure
+        if: failure() && steps.mode.outputs.mode == 'build'
+        shell: bash
+        run: |
+          cp work/lhm/build.log docs/clips/lhm-build-error.log
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add docs/clips/lhm-build-error.log
+          if ! git diff --cached --quiet; then
+            git commit -m "Relay LHM build diagnostics [skip ci]"
+            git push origin "HEAD:${GITHUB_REF_NAME}"
+          fi
+
+      - name: Publish final LHM review
+        if: steps.mode.outputs.mode == 'build'
+        shell: bash
+        run: |
+          destination="docs/clips/lhm-review"
+          mkdir -p "$destination"
+          cp -a work/lhm/review/. "$destination/"
+          if [ -d docs/clips/lhm-inventory ]; then
+            git rm -r docs/clips/lhm-inventory
+          fi
+          if [ -f docs/clips/lhm-build-error.log ]; then
+            git rm docs/clips/lhm-build-error.log
+          fi
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add "$destination"
+          if ! git diff --cached --quiet; then
+            git commit -m "Update LHM final review [skip ci]"
+            git push origin "HEAD:${GITHUB_REF_NAME}"
+          fi
+
+      - name: Upload seven-clip LHM package
+        if: steps.mode.outputs.mode == 'build'
+        uses: actions/upload-artifact@v4
+        with:
+          name: Let-Him-Mansplain-7-Clip-Pack
+          path: work/lhm/final/Let_Him_Mansplain_7_Clip_Pack.zip
+          if-no-files-found: error
+          retention-days: 14
+
+      - name: Publish inventory for review
+        if: steps.mode.outputs.mode == 'inventory'
+        shell: bash
+        run: |
+          destination="docs/clips/lhm-inventory"
+          mkdir -p "$destination"
+          cp -a work/lhm/inventory/. "$destination/"
+          cp work/lhm/inventory.log "$destination/inventory.log"
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add "$destination"
+          if ! git diff --cached --quiet; then
+            git commit -m "Update LHM source inventory [skip ci]"
+            git push origin "HEAD:${GITHUB_REF_NAME}"
+          fi

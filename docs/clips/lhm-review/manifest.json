@@ -1,0 +1,182 @@
+{
+  "package": "Let Him Mansplain \u2014 7 original vertical clips",
+  "source": "Authorized public Frame.io episode library",
+  "external_music": false,
+  "upload_notes": [
+    "Keep every clip live for at least 30 days.",
+    "Account must be dedicated/approved; follow required warm-up process for new accounts.",
+    "Audience requirement: 40% USA.",
+    "Submit clip URL within 30 minutes of posting.",
+    "Submit analytics after the campaign minimum-view threshold; approval precedes payment."
+  ],
+  "clips": [
+    {
+      "file": "01_Nick_Height_Joke.mp4",
+      "duration_seconds": 18.4,
+      "size_bytes": 6932996,
+      "sha256": "c30651bb26fcc9f8535890fe8049ca8d7888afc32b4e27d82b9e1442c0a878ab",
+      "format": "1080x1920, 30fps, H.264/AAC, +faststart",
+      "hook": "Why are so many women single?",
+      "youtube_title": "Nick\u2019s Cowboy-Boots Height Joke",
+      "caption_first_line": "@lethimmansplain",
+      "parts": [
+        {
+          "guest": "Nick_Madincea",
+          "start": 0.0,
+          "duration": 18.36,
+          "asset_id": "a7e530d5-055c-468a-8cd3-0c25e7f86906",
+          "episode": "Nick Madincea Full Episode.mov"
+        }
+      ],
+      "cover": "covers/01_Nick_Height_Joke.jpg",
+      "captions": "captions/01_Nick_Height_Joke.txt",
+      "subtitles": "subtitles/01_Nick_Height_Joke.srt",
+      "qa": "01_Nick_Height_Joke-qa.jpg"
+    },
+    {
+      "file": "02_Shahriq_Chemistry_Character.mp4",
+      "duration_seconds": 53.3,
+      "size_bytes": 19417477,
+      "sha256": "850275dd345601fdd2acdc6f0964529519ec44adfb9f864488f696b55eb78734",
+      "format": "1080x1920, 30fps, H.264/AAC, +faststart",
+      "hook": "Chemistry over character?",
+      "youtube_title": "Chemistry Over Character?",
+      "caption_first_line": "@lethimmansplain",
+      "parts": [
+        {
+          "guest": "Shahriq_Khan",
+          "start": 25.12,
+          "duration": 53.24,
+          "asset_id": "9d23d666-9025-46dd-8af6-63f1cbfd6e2a",
+          "episode": "Shahriq Khan Full Episode.mov"
+        }
+      ],
+      "cover": "covers/02_Shahriq_Chemistry_Character.jpg",
+      "captions": "captions/02_Shahriq_Chemistry_Character.txt",
+      "subtitles": "subtitles/02_Shahriq_Chemistry_Character.srt",
+      "qa": "02_Shahriq_Chemistry_Character-qa.jpg"
+    },
+    {
+      "file": "03_Christian_Texting_Pursuit.mp4",
+      "duration_seconds": 36.9,
+      "size_bytes": 8237433,
+      "sha256": "1553f3e4e745bcb3117c8626cd364a252bf836d6362dc72e2e07fd8a4a18c22c",
+      "format": "1080x1920, 30fps, H.264/AAC, +faststart",
+      "hook": "Has texting made men passive?",
+      "youtube_title": "Has Texting Made Men Passive?",
+      "caption_first_line": "@lethimmansplain",
+      "parts": [
+        {
+          "guest": "Christian_Hodges",
+          "start": 82.16,
+          "duration": 36.86,
+          "asset_id": "e5eedc8b-069f-4958-a92b-af521ef33977",
+          "episode": "Christian Hodges Full Episode.mov"
+        }
+      ],
+      "cover": "covers/03_Christian_Texting_Pursuit.jpg",
+      "captions": "captions/03_Christian_Texting_Pursuit.txt",
+      "subtitles": "subtitles/03_Christian_Texting_Pursuit.srt",
+      "qa": "03_Christian_Texting_Pursuit-qa.jpg"
+    },
+    {
+      "file": "04_Noah_Interest_Future.mp4",
+      "duration_seconds": 39.833,
+      "size_bytes": 11317631,
+      "sha256": "ad56c9140e4ed9de77be13ef6bbc6e13de3b7e8e56fff22ebe6576a02c08b7a5",
+      "format": "1080x1920, 30fps, H.264/AAC, +faststart",
+      "hook": "How to tell he sees a future",
+      "youtube_title": "How to Tell He Sees a Future",
+      "caption_first_line": "@lethimmansplain",
+      "parts": [
+        {
+          "guest": "Noah_Sofio",
+          "start": 3966.62,
+          "duration": 39.8,
+          "asset_id": "3fd45c3e-d68f-4a9c-bcae-5c1636f95d38",
+          "episode": "Noah Sofio Full Episode.mov"
+        }
+      ],
+      "cover": "covers/04_Noah_Interest_Future.jpg",
+      "captions": "captions/04_Noah_Interest_Future.txt",
+      "subtitles": "subtitles/04_Noah_Interest_Future.srt",
+      "qa": "04_Noah_Interest_Future-qa.jpg"
+    },
+    {
+      "file": "05_Red_Green_Flags_Supercut.mp4",
+      "duration_seconds": 55.9,
+      "size_bytes": 21292044,
+      "sha256": "24b41f5409da1817ebeb882f668d2cbb5bbac91e3441da1c4d6b072281bae2fd",
+      "format": "1080x1920, 30fps, H.264/AAC, +faststart",
+      "hook": "Red flags, green flags & friends",
+      "youtube_title": "Red Flag vs. Green Flag | Nick & Shahriq",
+      "caption_first_line": "@lethimmansplain",
+      "parts": [
+        {
+          "guest": "Nick_Madincea",
+          "start": 2824.94,
+          "duration": 33.6,
+          "asset_id": "a7e530d5-055c-468a-8cd3-0c25e7f86906",
+          "episode": "Nick Madincea Full Episode.mov"
+        },
+        {
+          "guest": "Shahriq_Khan",
+          "start": 3104.54,
+          "duration": 22.26,
+          "asset_id": "9d23d666-9025-46dd-8af6-63f1cbfd6e2a",
+          "episode": "Shahriq Khan Full Episode.mov"
+        }
+      ],
+      "cover": "covers/05_Red_Green_Flags_Supercut.jpg",
+      "captions": "captions/05_Red_Green_Flags_Supercut.txt",
+      "subtitles": "subtitles/05_Red_Green_Flags_Supercut.srt",
+      "qa": "05_Red_Green_Flags_Supercut-qa.jpg"
+    },
+    {
+      "file": "06_Christian_What_Men_Want.mp4",
+      "duration_seconds": 20.9,
+      "size_bytes": 5453661,
+      "sha256": "f09f4a42d76060f19f2cbd8512ca3406a6dd1b11bb0f75f3924cad7183d9d5d2",
+      "format": "1080x1920, 30fps, H.264/AAC, +faststart",
+      "hook": "What men actually want",
+      "youtube_title": "Christian: Husband, Kids, and Steak",
+      "caption_first_line": "@lethimmansplain",
+      "parts": [
+        {
+          "guest": "Christian_Hodges",
+          "start": 1840.7,
+          "duration": 20.84,
+          "asset_id": "e5eedc8b-069f-4958-a92b-af521ef33977",
+          "episode": "Christian Hodges Full Episode.mov"
+        }
+      ],
+      "cover": "covers/06_Christian_What_Men_Want.jpg",
+      "captions": "captions/06_Christian_What_Men_Want.txt",
+      "subtitles": "subtitles/06_Christian_What_Men_Want.srt",
+      "qa": "06_Christian_What_Men_Want-qa.jpg"
+    },
+    {
+      "file": "07_Shahriq_Trust_Mission_Joy.mp4",
+      "duration_seconds": 39.9,
+      "size_bytes": 13699482,
+      "sha256": "beef596217bc3333033431d6a47d981c39433cb9ae0c366e181ef191f4ae964d",
+      "format": "1080x1920, 30fps, H.264/AAC, +faststart",
+      "hook": "His ideal relationship in 3 words",
+      "youtube_title": "Trust, Mission, Joy",
+      "caption_first_line": "@lethimmansplain",
+      "parts": [
+        {
+          "guest": "Shahriq_Khan",
+          "start": 3219.84,
+          "duration": 39.88,
+          "asset_id": "9d23d666-9025-46dd-8af6-63f1cbfd6e2a",
+          "episode": "Shahriq Khan Full Episode.mov"
+        }
+      ],
+      "cover": "covers/07_Shahriq_Trust_Mission_Joy.jpg",
+      "captions": "captions/07_Shahriq_Trust_Mission_Joy.txt",
+      "subtitles": "subtitles/07_Shahriq_Trust_Mission_Joy.srt",
+      "qa": "07_Shahriq_Trust_Mission_Joy-qa.jpg"
+    }
+  ]
+}
