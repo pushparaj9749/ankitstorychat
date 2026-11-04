@@ -2,7 +2,7 @@
   "clips": [
     {
       "file": "01_Madara_Uchiha.mp4",
-      "bytes": 19905653,
+      "bytes": 19883756,
       "duration": 21.5,
       "width": 1080,
       "height": 1920,
@@ -11,7 +11,7 @@
       "audioCodec": "aac",
       "sampleRate": 48000,
       "channels": 2,
-      "sha256": "73e67f385dc21bb0cdffaeafe291d48d0e579f71f5aceb7377f4e37e7f93159f",
+      "sha256": "f9dd323c68f0dd7522446b1314e708342a3a5793cee34162de4df5af676aa160",
       "checks": {
         "duration12To60": true,
         "portrait1080x1920": true,
@@ -97,7 +97,7 @@
     },
     {
       "file": "02_Gojo_Satoru.mp4",
-      "bytes": 22575700,
+      "bytes": 22559517,
       "duration": 20.6,
       "width": 1080,
       "height": 1920,
@@ -106,7 +106,7 @@
       "audioCodec": "aac",
       "sampleRate": 48000,
       "channels": 2,
-      "sha256": "4aadf50b0128e7b2d61a11c18946a142215b9454425e37684cb2f75664fa9160",
+      "sha256": "0e7d872fba69cd19eab966e5d725fa768bf38fd51b4a3aeb2b606d5c3d2d13b9",
       "checks": {
         "duration12To60": true,
         "portrait1080x1920": true,
@@ -217,7 +217,7 @@
     },
     {
       "file": "03_Naruto___Sasuke.mp4",
-      "bytes": 17790705,
+      "bytes": 17786718,
       "duration": 22.367,
       "width": 1080,
       "height": 1920,
@@ -226,7 +226,7 @@
       "audioCodec": "aac",
       "sampleRate": 48000,
       "channels": 2,
-      "sha256": "2b2fa0cf0d7859ce1bd426ed0ca6ad9b5b486ccf75450faa65af80bf0ae04d53",
+      "sha256": "5e35e41c33b6b241ff54883ab64fb9fef952cdb61d65aefa993c933dcec9aa39",
       "checks": {
         "duration12To60": true,
         "portrait1080x1920": true,
@@ -320,7 +320,7 @@
     },
     {
       "file": "04_Itachi___Sasuke.mp4",
-      "bytes": 13063955,
+      "bytes": 13055704,
       "duration": 19.7,
       "width": 1080,
       "height": 1920,
@@ -329,7 +329,7 @@
       "audioCodec": "aac",
       "sampleRate": 48000,
       "channels": 2,
-      "sha256": "6fd0bc8d804f45de22ea29c265d3c54120f91f798eaedcfa70c54f9ff4d3365c",
+      "sha256": "aa345ef7e12d615ce84f0eee67d6e4ad96e52e4ec3463a8ac68cb9fb4aa7d87f",
       "checks": {
         "duration12To60": true,
         "portrait1080x1920": true,
@@ -427,11 +427,11 @@
             "sourceEnd": 44.592
           },
           {
-            "sourceStart": 8.5,
+            "sourceStart": 9.2,
             "zoom": 1.14,
             "outputStart": 18.347,
             "outputEnd": 19.68,
-            "sourceEnd": 9.833
+            "sourceEnd": 10.533
           }
         ]
       },
@@ -439,7 +439,7 @@
     },
     {
       "file": "05_Levi_Ackerman.mp4",
-      "bytes": 20244667,
+      "bytes": 20225314,
       "duration": 21.5,
       "width": 1080,
       "height": 1920,
@@ -448,7 +448,7 @@
       "audioCodec": "aac",
       "sampleRate": 48000,
       "channels": 2,
-      "sha256": "ad8225a0234bdcb350575665aa135c30b4c0b10615e0b77192d60c6faa7264ce",
+      "sha256": "c23845b785b9e5314f27c1c90716736b3d0329815fec934079fd4a91f5b5058c",
       "checks": {
         "duration12To60": true,
         "portrait1080x1920": true,
@@ -534,7 +534,7 @@
     },
     {
       "file": "06_Tanjiro_Kamado.mp4",
-      "bytes": 26577776,
+      "bytes": 26507404,
       "duration": 23.267,
       "width": 1080,
       "height": 1920,
@@ -543,7 +543,7 @@
       "audioCodec": "aac",
       "sampleRate": 48000,
       "channels": 2,
-      "sha256": "8dcab44a14625f74330fff58b94128e1fda361d33d10ffcd84be0086a8dd58c8",
+      "sha256": "12d17bf06f020088a487fafbe3e6ddc41d57d4791a78aa81623f5d6d633f20fe",
       "checks": {
         "duration12To60": true,
         "portrait1080x1920": true,
@@ -629,6 +629,7 @@
           {
             "sourceStart": 250.5,
             "zoom": 1.13,
+            "centerX": 0.35,
             "outputStart": 21.472,
             "outputEnd": 23.264,
             "sourceEnd": 252.292
@@ -639,7 +640,7 @@
     },
     {
       "file": "07_Roronoa_Zoro.mp4",
-      "bytes": 29977557,
+      "bytes": 29970484,
       "duration": 20.6,
       "width": 1080,
       "height": 1920,
@@ -648,7 +649,7 @@
       "audioCodec": "aac",
       "sampleRate": 48000,
       "channels": 2,
-      "sha256": "ea5f9cc416ca31a404c0982151b46dae45f6e51427e300114a426519a1ab2afa",
+      "sha256": "86dfd2472f43e5a53fb1e08a7e193e7b69c4d174d69c2c402de3b10c2f0be5e5",
       "checks": {
         "duration12To60": true,
         "portrait1080x1920": true,
