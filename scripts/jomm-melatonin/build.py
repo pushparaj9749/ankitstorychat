@@ -221,9 +221,9 @@ def make_contact_sheet(clip: Path, entry: dict, number: int) -> Path:
         frames.append((Image.open(path).convert("RGB"), timestamp))
     sheet = Image.new("RGB", (900, 970), "#0d1017")
     draw = ImageDraw.Draw(sheet)
-    title = fit_text(draw, f"{number:02d}  {entry['title'].upper()}", BOLD, 34, 840)
+    title_font = fit_text(draw, f"{number:02d}  {entry['title'].upper()}", BOLD, 34, 840)
     small = ImageFont.truetype(str(REGULAR), 19)
-    draw.text((24, 20), title, font=title, fill=entry["accent"])
+    draw.text((24, 20), f"{number:02d}  {entry['title'].upper()}", font=title_font, fill=entry["accent"])
     draw.text((24, 63), f"FINAL 1080×1920  •  {duration:.3f}s  •  beat-cut review", font=small, fill="white")
     for index, (frame, timestamp) in enumerate(frames):
         x = 24 + (index % 4) * 216

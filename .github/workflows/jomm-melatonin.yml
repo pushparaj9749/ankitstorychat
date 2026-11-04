@@ -70,6 +70,13 @@ jobs:
           if [ -d work/jomm-melatonin/scout ]; then
             cp -a work/jomm-melatonin/scout/. docs/clips/jomm-melatonin-diagnostics/
           fi
+          if [ -d work/jomm-melatonin/review ]; then
+            cp -a work/jomm-melatonin/review/. docs/clips/jomm-melatonin-diagnostics/
+          fi
+          if [ -d work/jomm-melatonin/final/covers ]; then
+            mkdir -p docs/clips/jomm-melatonin-diagnostics/covers
+            cp -a work/jomm-melatonin/final/covers/. docs/clips/jomm-melatonin-diagnostics/covers/
+          fi
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
           git add docs/clips/jomm-melatonin-diagnostics
