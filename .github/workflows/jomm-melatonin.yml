@@ -136,3 +136,22 @@ jobs:
           path: work/jomm-melatonin/final/Jomm_Melatonin_7_Anime_Clip_Pack.zip
           if-no-files-found: error
           retention-days: 14
+
+      - name: Publish direct ZIP release
+        if: steps.mode.outputs.mode == 'build'
+        shell: bash
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          set -euo pipefail
+          tag="jomm-melatonin-2026-11-04"
+          archive="work/jomm-melatonin/final/Jomm_Melatonin_7_Anime_Clip_Pack.zip"
+          checksum="work/jomm-melatonin/final/ZIP_SHA256.txt"
+          if gh release view "$tag" > /dev/null 2>&1; then
+            gh release upload "$tag" "$archive" "$checksum" --clobber
+          else
+            gh release create "$tag" "$archive" "$checksum" \
+              --target "${{ github.sha }}" \
+              --title "jomm — Melatonin | 7 Anime Edits" \
+              --notes "Seven 1080x1920 anime edits with covers, captions, source credits and QA. Before posting, select the exact official TikTok sound from the campaign brief and mute the embedded reference audio."
+          fi

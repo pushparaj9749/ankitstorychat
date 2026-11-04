@@ -1,0 +1,145 @@
+{
+  "videos": [
+    {
+      "id": "madara",
+      "title": "Madara Uchiha",
+      "cutBeats": [5, 11, 17, 23, 29, 35, 41, 46],
+      "flashCuts": [1, 3, 5],
+      "coverTime": 9.0,
+      "caption": "jomm is peak 🌙 | clips: @PikaHZK / @Raikiro #jomm #melatonin #niche #indiemusic",
+      "grade": {"contrast": 1.08, "saturation": 1.12, "brightness": 0.005, "gamma": 1.02},
+      "segments": [
+        {"sourceStart": 0.0, "zoom": 1.10},
+        {"sourceStart": 8.0, "zoom": 1.15},
+        {"sourceStart": 11.0, "zoom": 1.08},
+        {"sourceStart": 13.7, "zoom": 1.14},
+        {"sourceStart": 18.2, "zoom": 1.10},
+        {"sourceStart": 21.2, "zoom": 1.16},
+        {"sourceStart": 23.9, "zoom": 1.12},
+        {"sourceStart": 26.7, "zoom": 1.09}
+      ]
+    },
+    {
+      "id": "gojo_intro",
+      "title": "Gojo Satoru",
+      "cutBeats": [3, 7, 11, 15, 19, 23, 27, 31, 35, 39, 44],
+      "flashCuts": [1, 4, 7],
+      "coverTime": 17.5,
+      "caption": "song is jomm - Melatonin ❄️ | clips: BoykaTwixtorS_AMV #jomm #melatonin #niche",
+      "grade": {"contrast": 1.06, "saturation": 1.10, "brightness": 0.008, "gamma": 1.02},
+      "segments": [
+        {"sourceStart": 17.6, "zoom": 1.14},
+        {"sourceStart": 0.0, "zoom": 1.08, "centerX": 0.46},
+        {"sourceStart": 4.8, "zoom": 1.12},
+        {"sourceStart": 9.2, "zoom": 1.09},
+        {"sourceStart": 21.8, "zoom": 1.15},
+        {"sourceStart": 25.8, "zoom": 1.10},
+        {"sourceStart": 28.0, "zoom": 1.13},
+        {"sourceStart": 38.8, "zoom": 1.09},
+        {"sourceStart": 43.8, "zoom": 1.12},
+        {"sourceStart": 47.5, "zoom": 1.16},
+        {"sourceStart": 48.4, "zoom": 1.10}
+      ]
+    },
+    {
+      "id": "naruto_sasuke_intro",
+      "title": "Naruto & Sasuke",
+      "cutBeats": [5, 11, 17, 23, 29, 35, 41, 44, 48],
+      "flashCuts": [1, 4, 6],
+      "coverTime": 20.9,
+      "caption": "jomm is the GOAT ⚡ | clips: BoykaTwixtorS_AMV #jomm #melatonin #niche #indiemusic",
+      "grade": {"contrast": 1.07, "saturation": 1.14, "brightness": 0.005, "gamma": 1.02},
+      "segments": [
+        {"sourceStart": 44.8, "zoom": 1.13},
+        {"sourceStart": 35.8, "zoom": 1.10},
+        {"sourceStart": 5.2, "zoom": 1.09},
+        {"sourceStart": 9.4, "zoom": 1.14},
+        {"sourceStart": 13.8, "zoom": 1.11},
+        {"sourceStart": 22.5, "zoom": 1.15},
+        {"sourceStart": 31.0, "zoom": 1.09},
+        {"sourceStart": 39.8, "zoom": 1.13},
+        {"sourceStart": 48.5, "zoom": 1.10}
+      ]
+    },
+    {
+      "id": "itachi_sasuke_intro",
+      "title": "Itachi & Sasuke",
+      "cutBeats": [3, 7, 11, 15, 19, 23, 27, 31, 35, 39, 42],
+      "flashCuts": [2, 5, 8],
+      "coverTime": 13.5,
+      "caption": "jomm is peak 🌙 | clips: BoykaTwixtorS_AMV #jomm #melatonin #niche",
+      "grade": {"contrast": 1.09, "saturation": 1.05, "brightness": 0.025, "gamma": 1.06},
+      "segments": [
+        {"sourceStart": 8.5, "zoom": 1.15},
+        {"sourceStart": 0.0, "zoom": 1.08},
+        {"sourceStart": 4.8, "zoom": 1.11},
+        {"sourceStart": 12.5, "zoom": 1.14},
+        {"sourceStart": 17.5, "zoom": 1.10},
+        {"sourceStart": 21.8, "zoom": 1.13},
+        {"sourceStart": 25.8, "zoom": 1.09},
+        {"sourceStart": 30.0, "zoom": 1.15},
+        {"sourceStart": 34.5, "zoom": 1.12},
+        {"sourceStart": 42.8, "zoom": 1.10},
+        {"sourceStart": 46.8, "zoom": 1.14}
+      ]
+    },
+    {
+      "id": "levi",
+      "title": "Levi Ackerman",
+      "cutBeats": [5, 11, 17, 23, 29, 35, 41, 46],
+      "flashCuts": [1, 4, 6],
+      "coverTime": 20.0,
+      "caption": "song is jomm - Melatonin 🌫️ | Levi clip source linked in credits #jomm #melatonin #niche",
+      "grade": {"contrast": 1.07, "saturation": 1.06, "brightness": 0.010, "gamma": 1.03},
+      "segments": [
+        {"sourceStart": 6.2, "zoom": 1.14},
+        {"sourceStart": 0.0, "zoom": 1.08},
+        {"sourceStart": 2.8, "zoom": 1.12},
+        {"sourceStart": 15.0, "zoom": 1.10},
+        {"sourceStart": 10.8, "zoom": 1.15},
+        {"sourceStart": 12.8, "zoom": 1.11},
+        {"sourceStart": 18.8, "zoom": 1.09},
+        {"sourceStart": 22.0, "zoom": 1.14}
+      ]
+    },
+    {
+      "id": "tanjiro",
+      "title": "Tanjiro Kamado",
+      "cutBeats": [5, 11, 17, 23, 29, 35, 41, 46, 50],
+      "flashCuts": [1, 4, 7],
+      "coverTime": 13.0,
+      "caption": "jomm is the GOAT 🔥 | clips: Saiyan Pride #jomm #melatonin #niche #indiemusic",
+      "grade": {"contrast": 1.08, "saturation": 1.16, "brightness": 0.003, "gamma": 1.02},
+      "segments": [
+        {"sourceStart": 5.8, "zoom": 1.10},
+        {"sourceStart": 30.0, "zoom": 1.14, "centerX": 0.62},
+        {"sourceStart": 54.5, "zoom": 1.12, "centerX": 0.64},
+        {"sourceStart": 78.8, "zoom": 1.09},
+        {"sourceStart": 103.0, "zoom": 1.15},
+        {"sourceStart": 128.0, "zoom": 1.11},
+        {"sourceStart": 176.8, "zoom": 1.14},
+        {"sourceStart": 225.5, "zoom": 1.10},
+        {"sourceStart": 250.5, "zoom": 1.13}
+      ]
+    },
+    {
+      "id": "zoro",
+      "title": "Roronoa Zoro",
+      "cutBeats": [5, 11, 17, 23, 29, 35, 39, 44],
+      "flashCuts": [1, 4, 6],
+      "coverTime": 18.9,
+      "caption": "jomm is peak ⚔️ | clips: RingWitDaHoodieTwixtor #jomm #melatonin #niche",
+      "grade": {"contrast": 1.07, "saturation": 1.12, "brightness": 0.004, "gamma": 1.02},
+      "segments": [
+        {"sourceStart": 0.0, "zoom": 1.14},
+        {"sourceStart": 7.0, "zoom": 1.09},
+        {"sourceStart": 9.8, "zoom": 1.12},
+        {"sourceStart": 12.0, "zoom": 1.15},
+        {"sourceStart": 15.0, "zoom": 1.10},
+        {"sourceStart": 17.2, "zoom": 1.14},
+        {"sourceStart": 20.0, "zoom": 1.09},
+        {"sourceStart": 24.5, "zoom": 1.13}
+      ]
+    }
+  ]
+}
