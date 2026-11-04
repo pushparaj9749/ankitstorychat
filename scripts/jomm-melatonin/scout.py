@@ -289,9 +289,10 @@ def make_waveform(mono: np.ndarray, sample_rate: int, beats: np.ndarray, duratio
         if len(section) == 0:
             continue
         chunks = np.array_split(section, bins)
-        for x, chunk in enumerate(chunks):
-            peak = float(np.max(np.abs(chunk))) if len(chunk) else 0.0
-            amplitude = min((bottom - top) * 0.48, peak * (bottom - top) * 1.7)
+        levels = [float(np.sqrt(np.mean(chunk ** 2))) if len(chunk) else 0.0 for chunk in chunks]
+        level_scale = max(0.01, float(np.percentile(levels, 95)))
+        for x, level in enumerate(levels):
+            amplitude = min((bottom - top) * 0.48, level / level_scale * (bottom - top) * 0.48)
             cy = (top + bottom) / 2
             draw.line((left + x, cy - amplitude, left + x, cy + amplitude), fill="#82c7e5", width=1)
         for beat in beats:
