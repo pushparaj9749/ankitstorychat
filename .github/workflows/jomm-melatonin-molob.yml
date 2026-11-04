@@ -1,0 +1,116 @@
+name: Jomm Melatonin fresh Molob-inspired edits
+
+on:
+  push:
+    branches:
+      - arena/6cc276cc-ankitstorychat
+    paths:
+      - 'scripts/jomm-melatonin-molob/**'
+      - '.github/workflows/jomm-melatonin-molob.yml'
+
+permissions:
+  contents: write
+
+concurrency:
+  group: jomm-melatonin-molob-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  clips:
+    runs-on: ubuntu-latest
+    timeout-minutes: 120
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+          cache: pip
+
+      - name: Install media tools
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y ffmpeg unzip fonts-dejavu-core
+          python -m pip install gdown yt-dlp pillow numpy librosa soundfile faster-whisper av==15.1.0 opencv-python-headless requests
+
+      - name: Render fresh seven-edit package
+        shell: bash
+        run: |
+          set -o pipefail
+          mkdir -p work/jomm-melatonin-molob
+          python scripts/jomm-melatonin-molob/build.py 2>&1 | tee work/jomm-melatonin-molob/run.log
+
+      - name: Publish diagnostics on failure
+        if: failure()
+        shell: bash
+        run: |
+          set -euo pipefail
+          destination="docs/clips/jomm-melatonin-molob-diagnostics"
+          mkdir -p "$destination"
+          if [ -f work/jomm-melatonin-molob/run.log ]; then
+            cp work/jomm-melatonin-molob/run.log "$destination/run.log"
+          fi
+          for log in work/jomm-melatonin-molob/render/*/encoder.log; do
+            if [ -f "$log" ]; then
+              identity="$(basename "$(dirname "$log")")"
+              cp "$log" "$destination/encoder-$identity.log"
+            fi
+          done
+          if [ -d work/jomm-melatonin-molob/review ]; then
+            cp -a work/jomm-melatonin-molob/review/. "$destination/"
+          fi
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add "$destination"
+          if ! git diff --cached --quiet; then
+            git commit -m "Relay fresh Melatonin render diagnostics [skip ci]"
+            git push origin "HEAD:${GITHUB_REF_NAME}"
+          fi
+
+      - name: Publish final review
+        if: success()
+        shell: bash
+        run: |
+          set -euo pipefail
+          destination="docs/clips/jomm-melatonin-molob-review"
+          mkdir -p "$destination"
+          cp -a work/jomm-melatonin-molob/review/. "$destination/"
+          if [ -d docs/clips/jomm-melatonin-molob-diagnostics ]; then
+            git rm -r docs/clips/jomm-melatonin-molob-diagnostics
+          fi
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add "$destination"
+          if ! git diff --cached --quiet; then
+            git commit -m "Update fresh Melatonin visual review [skip ci]"
+            git push origin "HEAD:${GITHUB_REF_NAME}"
+          fi
+
+      - name: Upload fresh seven-clip package
+        uses: actions/upload-artifact@v4
+        with:
+          name: Jomm-Melatonin-Molob-Inspired-7-Edits
+          path: work/jomm-melatonin-molob/final/Jomm_Melatonin_Molob_Inspired_7_Edits.zip
+          if-no-files-found: error
+          retention-days: 14
+
+      - name: Publish direct ZIP release asset
+        if: success()
+        shell: bash
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          set -euo pipefail
+          tag="jomm-melatonin-2026-11-04"
+          archive="work/jomm-melatonin-molob/final/Jomm_Melatonin_Molob_Inspired_7_Edits.zip"
+          checksum="work/jomm-melatonin-molob/final/MOLOB_ZIP_SHA256.txt"
+          if gh release view "$tag" > /dev/null 2>&1; then
+            gh release upload "$tag" "$archive" "$checksum" --clobber
+          else
+            gh release create "$tag" "$archive" "$checksum" \
+              --target "${{ github.sha }}" \
+              --title "jomm — Melatonin | Anime Edits" \
+              --notes "Fresh 1080x1920 anime edits with new camera choreography, CC, impact transitions, kinetic type, covers, captions and QA. Select the exact official TikTok sound and mute the embedded reference before posting."
+          fi
