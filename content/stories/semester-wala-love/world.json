@@ -1,0 +1,132 @@
+{
+  "storyId": "semester-wala-love",
+  "version": 1,
+  "premise": "Fictional Noor Girls' College in Pune plans to become co-ed from the next academic year. A transfer-system code intended for that future intake was accidentally applied to {{playerName}}'s confirmed application for the current monsoon semester. After the error was discovered, the college verified his acceptance and allowed him to complete this semester rather than disrupting his education. He is therefore the only male student on campus for now, with private off-campus accommodation arranged independently. The women around him are adults with bold social styles, and several can express open romantic interest through teasing, compliments and invitations. No girlfriend, mutual attraction, campus relationship, festival route or ending is predetermined beyond the opening's first small exchange.",
+  "locations": [
+    {
+      "id": "noor_lecture_hall",
+      "name": "Noor Lecture Hall",
+      "description": "A bright modern lecture hall inside Noor's old-stone academic block, with tall monsoon-facing windows, a wide teaching desk and paired student benches. The opening's only fixed location."
+    },
+    {
+      "id": "central_quad",
+      "name": "Noor Central Quad",
+      "description": "A green courtyard connecting the academic blocks, cultural society noticeboards and covered walkways. Students may gather, tease, argue or rehearse here when play naturally brings them."
+    },
+    {
+      "id": "cafeteria",
+      "name": "Monsoon Cafeteria",
+      "description": "A busy indoor-outdoor campus cafeteria with shared tables, a coffee counter and a covered rain-facing edge. It is a possible social space, not a scripted next scene."
+    },
+    {
+      "id": "amphitheatre_dance_studio",
+      "name": "Noor Amphitheatre and Dance Studio",
+      "description": "An open-air performance space and adjoining mirrored rehearsal room used by Kiara's cultural society and Zoya's dance club. No performance or invitation is assumed until established in play."
+    },
+    {
+      "id": "sports_courts",
+      "name": "Noor Sports Courts",
+      "description": "Basketball and multi-sport courts beside the athletics room, where Aisha trains her teams. A game, score or rematch exists only if it actually happens."
+    },
+    {
+      "id": "faculty_offices",
+      "name": "Faculty and Headmistress Offices",
+      "description": "Elegant but functional offices in the administration block. Devika's office contains academic files and a tea tray; Riya and Tara use shared faculty spaces. Official conversations remain separate from academic favouritism."
+    },
+    {
+      "id": "monsoon_veranda",
+      "name": "Covered Monsoon Veranda",
+      "description": "A long covered veranda overlooking rain-washed gardens, suitable for quiet conversations or playful interruptions if the player and another character choose to spend time there."
+    }
+  ],
+  "factions": [
+    {
+      "id": "students",
+      "name": "Noor's Adult Student Community",
+      "description": "A diverse community of women aged 22 and above in the named cast, with different academic interests, friendships, confidence levels and romantic preferences. Bold teasing is socially common, but nobody shares one mind or automatic claim on {{playerName}}."
+    },
+    {
+      "id": "cultural_society",
+      "name": "Cultural Society and Dance Club",
+      "description": "Kiara's event-focused society and Zoya's performance-driven dance club. They collaborate and compete without becoming interchangeable fan clubs for the new student."
+    },
+    {
+      "id": "athletics",
+      "name": "Noor Athletics Teams",
+      "description": "Aisha's disciplined basketball and athletics teams. Sport remains sport; no match, score or training result is invented for romantic momentum."
+    },
+    {
+      "id": "faculty_admin",
+      "name": "Young Faculty and Administration",
+      "description": "Riya, Tara, Devika and any later named faculty are adult women with distinct professional styles. They may be witty or personally appreciative, but marks, attendance, scholarships, admissions and discipline are never romantic bargaining tools."
+    }
+  ],
+  "lore": [
+    "Noor is fictional and is not based on a real Pune college, real students or real faculty.",
+    "The co-ed transition was already approved for the next academic year. The current-only-male situation resulted from a verified transfer-code error, not from {{playerName}} deceiving the college or deliberately invading a women-only space.",
+    "His enrolment is confirmed and allowed for this semester. Nobody may threaten to revoke it because he accepts, rejects or returns romantic attention.",
+    "The named faculty and campus leadership are adult women. If another teacher or administrator is introduced, she must also be an adult woman with an individual identity and role, not a generic admirer.",
+    "The campus has a playful, socially confident culture, but public teasing never cancels privacy, consent or personal boundaries. Boldness is not permission for forced touch or humiliation.",
+    "No character knows the whole campus's private conversations. Information spreads only through plausible observation, direct communication or established gossip with an identifiable source."
+  ],
+  "rules": [
+    "Free-form story: the opening lecture is the only predefined situation. Everything after it grows from the player's moves; there is no plot plan, scene list, semester arc, partner route or ending.",
+    "Only {{playerName}} controls the player character: never invent his speech, actions, thoughts, feelings, memories, attraction, consent, promises or decisions.",
+    "Write in natural Roman-script Hinglish: short paragraphs, *actions and narration in asterisks*, dialogue as Name: \"...\".",
+    "Keep the romantic comedy energetic and tease-rich. Use direct compliments, witty callbacks, playful competition, confident eye contact and distinct flirting styles rather than repetitive generic blushing or identical dialogue.",
+    "All named students are at least 22 and all named faculty or administrators are at least 29. Never introduce a schoolgirl, minor student or age-ambiguous romantic character.",
+    "A woman may clearly like or desire {{playerName}}'s company, but never declare his reciprocal attraction for him. Relationships, kisses, dates and commitments happen only through explicit player-led, consensual developments and remain non-explicit.",
+    "Never force physical contact for a joke or romantic beat. Zoya offers a dance hand rather than pulling; nobody grabs, corners, kisses or blocks him without a clearly established consensual context, and any no is respected immediately.",
+    "Faculty and administration never trade marks, attendance, discipline, recommendations, admissions or special treatment for romance. Devika's official decisions are never affected by his romantic answers.",
+    "Do not make the campus a hive mind. Track each named woman's own knowledge, interest, boundaries, friendships and goals. One woman's attraction or private exchange is not automatically known or shared by the others.",
+    "Do not humiliate {{playerName}} for being shy, bold, inexperienced, uninterested or selective. His personality is built only from the player's choices, and he may return teasing, set a boundary or change the subject without punishment.",
+    "Keep continuity of every invitation, answer, class, promise, joke, disagreement, boundary and relationship through the app's universal memory, scoped to this storyId only.",
+    "Do not automatically introduce a festival date, public confession, love triangle, jealous confrontation, kiss, girlfriend or breakup after the player's first response. Subsequent events must arise naturally from choices and established continuity.",
+    "Avoid explicit sexual description, voyeurism and coercive fantasies. Glamour comes from cinematic appearance and personality; romance remains playful, adult and consensual.",
+    "Gallery images are illustrative possibilities only and never establish events, attraction, relationships or shared history."
+  ],
+  "importantObjects": [
+    {
+      "id": "confirmed_transfer",
+      "name": "Confirmed Transfer Enrolment",
+      "description": "The legitimate acceptance that the college verified despite applying next year's co-ed transfer code one semester early. It protects him from arbitrary threats to his admission, not from ordinary fair academic rules."
+    },
+    {
+      "id": "admin_correction_note",
+      "name": "Administration's Continuation Note",
+      "description": "Devika's approved decision allowing him to complete the current semester with off-campus accommodation. It contains no romantic condition and no hidden requirement to socialise."
+    },
+    {
+      "id": "cultural_noticeboard",
+      "name": "Cultural Society Noticeboard",
+      "description": "A campus board for real rehearsal and society notices introduced through play. No specific festival, audition or sign-up by {{playerName}} is assumed."
+    },
+    {
+      "id": "kiara_pen",
+      "name": "Kiara's Silver Pen",
+      "description": "The pen Kiara turns once between her fingers during the opening before resting it on the shared bench. It has no secret message or symbolic commitment unless play later establishes one."
+    }
+  ],
+  "timeline": [
+    {
+      "id": "coed_transition_approved",
+      "label": "Noor approves a co-ed transition for the next academic year",
+      "when": "Before the story"
+    },
+    {
+      "id": "transfer_code_error",
+      "label": "The future-intake transfer code is accidentally applied to {{playerName}}'s confirmed current-semester application",
+      "when": "Before the story"
+    },
+    {
+      "id": "continuation_approved",
+      "label": "After verification, Devika's administration allows him to complete the current semester with independent off-campus accommodation",
+      "when": "Before the opening"
+    },
+    {
+      "id": "first_noor_lecture",
+      "label": "Kiara sits beside him and makes a direct visual compliment before Professor Riya answers with a witty remark",
+      "when": "The opening morning of the monsoon semester"
+    }
+  ]
+}
