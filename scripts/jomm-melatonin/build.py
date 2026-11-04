@@ -77,24 +77,55 @@ def make_title_overlay(entry: dict, number: int, path: Path) -> None:
     image.save(path)
 
 
-def segment_filter(index: int, segment: dict, start: float, duration: float, grade: dict) -> str:
+def segment_filter(index: int, segment: dict, duration: float, entry: dict) -> str:
+    grade = entry.get("grade", {})
     center_x = float(segment.get("centerX", 0.5))
     zoom = float(segment.get("zoom", 1.1))
+    speed = float(segment.get("speed", 1.0))
+    if not 0.65 <= speed <= 1.5:
+        raise ValueError(f"{entry['id']}: segment {index} has unsafe speed {speed}")
     phase = float(segment.get("phase", index * 0.83))
     scale_w = max(1080, int(round(1080 * zoom / 2) * 2))
     scale_h = int(round(scale_w * 16 / 9 / 2) * 2)
     source_start = float(segment["sourceStart"])
-    source_end = source_start + duration
+    source_end = source_start + duration * speed
     x_expr = f"(in_w-out_w)/2+(in_w-out_w)*0.28*sin(t*0.72+{phase:.3f})"
     y_expr = f"(in_h-out_h)/2+(in_h-out_h)*0.22*cos(t*0.57+{phase:.3f})"
+    balance = entry.get("balance", "")
+    balance_filter = f",colorbalance={balance}" if balance else ""
     return (
-        f"[vsrc{index}]trim=start={source_start:.3f}:end={source_end:.3f},setpts=PTS-STARTPTS,"
+        f"[vsrc{index}]trim=start={source_start:.3f}:end={source_end:.3f},setpts=(PTS-STARTPTS)/{speed:.4f},"
         f"fps=30,crop=w='trunc(ih*9/16/2)*2':h=ih:x='(iw-ow)*{center_x:.4f}':y=0,"
         f"scale={scale_w}:{scale_h}:flags=lanczos,"
         f"crop=1080:1920:x='{x_expr}':y='{y_expr}',"
-        f"eq=contrast={grade.get('contrast', 1.06):.3f}:saturation={grade.get('saturation', 1.1):.3f}:"
-        f"brightness={grade.get('brightness', 0.0):.3f}:gamma={grade.get('gamma', 1.0):.3f},"
-        f"setsar=1[v{index}]"
+        f"eq=contrast={grade.get('contrast', 1.14):.3f}:saturation={grade.get('saturation', 1.18):.3f}:"
+        f"brightness={grade.get('brightness', 0.0):.3f}:gamma={grade.get('gamma', 1.0):.3f}"
+        f"{balance_filter},"
+        f"zoompan=z='1.005+0.115*exp(-on/5)':x='iw/2-(iw/zoom/2)':y='ih/2-(ih/zoom/2)':"
+        f"d=1:s=1080x1920:fps=30,tmix=frames=3:weights='1 2 1',setsar=1[v{index}]"
+    )
+
+
+def hard_shake_filter(input_label: str, output_label: str, cut_times: list[float], strength: float) -> str:
+    x_terms = []
+    y_terms = []
+    for index, cut_time in enumerate(cut_times):
+        direction = 1 if index % 2 == 0 else -1
+        x_amplitude = 38 * strength * direction
+        y_amplitude = 58 * strength * direction
+        x_terms.append(
+            f"{x_amplitude:.2f}*sin(95*(t-{cut_time:.3f}))*exp(-18*(t-{cut_time:.3f}))*"
+            f"between(t,{cut_time:.3f},{cut_time + 0.22:.3f})"
+        )
+        y_terms.append(
+            f"{y_amplitude:.2f}*cos(83*(t-{cut_time:.3f}))*exp(-20*(t-{cut_time:.3f}))*"
+            f"between(t,{cut_time:.3f},{cut_time + 0.22:.3f})"
+        )
+    x_expr = "54" + ("+" + "+".join(x_terms) if x_terms else "")
+    y_expr = "96" + ("+" + "+".join(y_terms) if y_terms else "")
+    return (
+        f"[{input_label}]scale=1188:2112:flags=lanczos,"
+        f"crop=1080:1920:x='{x_expr}':y='{y_expr}'[{output_label}]"
     )
 
 
@@ -116,23 +147,46 @@ def render_clip(entry: dict, source: Path, audio: Path, beat_times: list[float],
     filters = [f"[0:v]split={len(cut_beats)}" + "".join(f"[vsrc{i}]" for i in range(len(cut_beats)))]
     for index, segment in enumerate(entry["segments"]):
         segment_duration = boundaries[index + 1] - boundaries[index]
-        filters.append(segment_filter(index, segment, boundaries[index], segment_duration, entry.get("grade", {})))
+        filters.append(segment_filter(index, segment, segment_duration, entry))
     filters.append("".join(f"[v{i}]" for i in range(len(cut_beats))) + f"concat=n={len(cut_beats)}:v=1:a=0[cut]")
+    bloom = float(entry.get("bloom", 0.14))
     filters.extend([
         "[cut]split=2[clean][glowsource]",
-        "[glowsource]gblur=sigma=16[glow]",
-        "[clean][glow]blend=all_mode=screen:all_opacity=0.075,unsharp=5:5:0.32:5:5:0.0[graded]",
+        "[glowsource]gblur=sigma=20[glow]",
+        f"[clean][glow]blend=all_mode=screen:all_opacity={bloom:.3f},unsharp=5:5:0.50:5:5:0.0[graded]",
     ])
-    previous = "graded"
+    filters.append(hard_shake_filter(
+        "graded", "shaken", boundaries[1:-1], float(entry.get("shakeStrength", 1.0))
+    ))
+    previous = "shaken"
     flash_cuts = set(entry.get("flashCuts", []))
-    for flash_number, cut_index in enumerate(sorted(flash_cuts)):
+    for impact_number, cut_index in enumerate(sorted(flash_cuts)):
         if not 0 <= cut_index < len(cut_beats) - 1:
             continue
         cut_time = boundaries[cut_index + 1]
-        output = f"flash{flash_number}"
+        rgb = f"rgb{impact_number}"
+        whip = f"whip{impact_number}"
+        output = f"flash{impact_number}"
         filters.append(
-            f"[{previous}]drawbox=x=0:y=0:w=iw:h=ih:color=white@0.48:t=fill:"
+            f"[{previous}]rgbashift=rh=10:bh=-10:"
+            f"enable='between(t,{max(0, cut_time - 0.067):.3f},{cut_time + 0.067:.3f})'[{rgb}]"
+        )
+        filters.append(
+            f"[{rgb}]boxblur=6:1:3:1:"
+            f"enable='between(t,{max(0, cut_time - 0.050):.3f},{cut_time + 0.050:.3f})'[{whip}]"
+        )
+        filters.append(
+            f"[{whip}]drawbox=x=0:y=0:w=iw:h=ih:color=white@0.55:t=fill:"
             f"enable='between(t,{max(0, cut_time - 0.034):.3f},{cut_time + 0.034:.3f})'[{output}]"
+        )
+        previous = output
+    for impact_number, cut_index in enumerate(entry.get("impactCuts", [])):
+        if not 0 <= cut_index < len(cut_beats) - 1:
+            continue
+        cut_time = boundaries[cut_index + 1]
+        output = f"negative{impact_number}"
+        filters.append(
+            f"[{previous}]negate=enable='between(t,{max(0, cut_time - 0.017):.3f},{cut_time + 0.017:.3f})'[{output}]"
         )
         previous = output
     filters.append(
@@ -162,12 +216,24 @@ def render_clip(entry: dict, source: Path, audio: Path, beat_times: list[float],
     return output, {
         "durationPlanned": round(duration, 3),
         "cutTimes": [round(value, 3) for value in boundaries[1:-1]],
+        "effects": {
+            "hardShakeCuts": len(boundaries[1:-1]),
+            "punchZoomPercent": 12,
+            "rgbWhipFlashCuts": sorted(entry.get("flashCuts", [])),
+            "negativeImpactCuts": entry.get("impactCuts", []),
+            "bloom": bloom,
+            "colorBalance": entry.get("balance", ""),
+        },
         "segments": [
             {
                 **segment,
                 "outputStart": round(boundaries[index], 3),
                 "outputEnd": round(boundaries[index + 1], 3),
-                "sourceEnd": round(float(segment["sourceStart"]) + boundaries[index + 1] - boundaries[index], 3),
+                "sourceEnd": round(
+                    float(segment["sourceStart"])
+                    + (boundaries[index + 1] - boundaries[index]) * float(segment.get("speed", 1.0)),
+                    3,
+                ),
             }
             for index, segment in enumerate(entry["segments"])
         ],
