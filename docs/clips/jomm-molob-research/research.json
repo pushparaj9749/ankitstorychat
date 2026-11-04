@@ -1,0 +1,54 @@
+[
+  {
+    "id": "itachi_maki",
+    "videoId": "wlOEeM7CDMQ",
+    "title": "This Itachi & Maki EDIT Took Me 10+ Hours",
+    "seconds": 20,
+    "status": "thumbnail_fallback",
+    "sheet": "itachi_maki-contact.jpg",
+    "downloadErrors": [
+      "Attempt 1 failed with exit 1: default client",
+      "Attempt 2 failed with exit 1: --extractor-args youtube:player_client=android,web_embedded",
+      "Attempt 3 failed with exit 1: --extractor-args youtube:player_client=ios,web_embedded"
+    ]
+  },
+  {
+    "id": "sukuna_now_or_never",
+    "videoId": "sKm9KqNu064",
+    "title": "Sukuna — Now Or Never",
+    "seconds": 32,
+    "status": "thumbnail_fallback",
+    "sheet": "sukuna_now_or_never-contact.jpg",
+    "downloadErrors": [
+      "Attempt 1 failed with exit 1: default client",
+      "Attempt 2 failed with exit 1: --extractor-args youtube:player_client=android,web_embedded",
+      "Attempt 3 failed with exit 1: --extractor-args youtube:player_client=ios,web_embedded"
+    ]
+  },
+  {
+    "id": "hashira_wannabe",
+    "videoId": "4sZP4zxl5Bg",
+    "title": "Hashira — Wannabe",
+    "seconds": 28,
+    "status": "thumbnail_fallback",
+    "sheet": "hashira_wannabe-contact.jpg",
+    "downloadErrors": [
+      "Attempt 1 failed with exit 1: default client",
+      "Attempt 2 failed with exit 1: --extractor-args youtube:player_client=android,web_embedded",
+      "Attempt 3 failed with exit 1: --extractor-args youtube:player_client=ios,web_embedded"
+    ]
+  },
+  {
+    "id": "sukuna_two",
+    "videoId": "ZbWoJXmX9mI",
+    "title": "Ryomen Sukuna — Two",
+    "seconds": 27,
+    "status": "thumbnail_fallback",
+    "sheet": "sukuna_two-contact.jpg",
+    "downloadErrors": [
+      "Attempt 1 failed with exit 1: default client",
+      "Attempt 2 failed with exit 1: --extractor-args youtube:player_client=android,web_embedded",
+      "Attempt 3 failed with exit 1: --extractor-args youtube:player_client=ios,web_embedded"
+    ]
+  }
+]

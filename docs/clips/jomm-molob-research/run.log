@@ -1,0 +1,125 @@
+
+=== Molob research: This Itachi & Maki EDIT Took Me 10+ Hours ===
++ yt-dlp --js-runtimes deno --no-playlist --retries 2 --socket-timeout 35 -f bv*[height<=1080]/b[height<=1080]/best -o /home/runner/work/ankitstorychat/ankitstorychat/work/jomm-molob-research/raw/itachi_maki.%(ext)s https://www.youtube.com/watch?v=wlOEeM7CDMQ
+[youtube] Extracting URL: https://www.youtube.com/watch?v=wlOEeM7CDMQ
+[youtube] wlOEeM7CDMQ: Downloading webpage
+[youtube] wlOEeM7CDMQ: Downloading tv samsung player API JSON
+[youtube] wlOEeM7CDMQ: Downloading visionos player API JSON
+WARNING: [youtube] No title found in player responses; falling back to title from initial data. Other metadata may also be missing
+ERROR: [youtube] wlOEeM7CDMQ: Sign in to confirm you’re not a bot. This helps protect our community. Use --cookies-from-browser or --cookies for the authentication. See  https://github.com/yt-dlp/yt-dlp/wiki/FAQ#how-do-i-pass-cookies-to-yt-dlp  for how to manually pass cookies. Also see  https://github.com/yt-dlp/yt-dlp/wiki/Extractors#exporting-youtube-cookies  for tips on effectively exporting YouTube cookies
+Attempt 1 failed with exit 1: default client
++ yt-dlp --js-runtimes deno --no-playlist --retries 2 --socket-timeout 35 -f bv*[height<=1080]/b[height<=1080]/best --extractor-args youtube:player_client=android,web_embedded -o /home/runner/work/ankitstorychat/ankitstorychat/work/jomm-molob-research/raw/itachi_maki.%(ext)s https://www.youtube.com/watch?v=wlOEeM7CDMQ
+[youtube] Extracting URL: https://www.youtube.com/watch?v=wlOEeM7CDMQ
+[youtube] wlOEeM7CDMQ: Downloading webpage
+[youtube] wlOEeM7CDMQ: Downloading android player API JSON
+[youtube] wlOEeM7CDMQ: Downloading web embedded client config
+[youtube] wlOEeM7CDMQ: Downloading player 4a1e575f-main
+[youtube] wlOEeM7CDMQ: Downloading web embedded player API JSON
+WARNING: [youtube] No title found in player responses; falling back to title from initial data. Other metadata may also be missing
+ERROR: [youtube] wlOEeM7CDMQ: Sign in to confirm you’re not a bot. Use --cookies-from-browser or --cookies for the authentication. See  https://github.com/yt-dlp/yt-dlp/wiki/FAQ#how-do-i-pass-cookies-to-yt-dlp  for how to manually pass cookies. Also see  https://github.com/yt-dlp/yt-dlp/wiki/Extractors#exporting-youtube-cookies  for tips on effectively exporting YouTube cookies
+Attempt 2 failed with exit 1: --extractor-args youtube:player_client=android,web_embedded
++ yt-dlp --js-runtimes deno --no-playlist --retries 2 --socket-timeout 35 -f bv*[height<=1080]/b[height<=1080]/best --extractor-args youtube:player_client=ios,web_embedded -o /home/runner/work/ankitstorychat/ankitstorychat/work/jomm-molob-research/raw/itachi_maki.%(ext)s https://www.youtube.com/watch?v=wlOEeM7CDMQ
+[youtube] Extracting URL: https://www.youtube.com/watch?v=wlOEeM7CDMQ
+[youtube] wlOEeM7CDMQ: Downloading webpage
+[youtube] wlOEeM7CDMQ: Downloading ios player API JSON
+[youtube] wlOEeM7CDMQ: Downloading web embedded client config
+[youtube] wlOEeM7CDMQ: Downloading player ef321720-main
+[youtube] wlOEeM7CDMQ: Downloading web embedded player API JSON
+WARNING: [youtube] No title found in player responses; falling back to title from initial data. Other metadata may also be missing
+ERROR: [youtube] wlOEeM7CDMQ: Sign in to confirm you’re not a bot. Use --cookies-from-browser or --cookies for the authentication. See  https://github.com/yt-dlp/yt-dlp/wiki/FAQ#how-do-i-pass-cookies-to-yt-dlp  for how to manually pass cookies. Also see  https://github.com/yt-dlp/yt-dlp/wiki/Extractors#exporting-youtube-cookies  for tips on effectively exporting YouTube cookies
+Attempt 3 failed with exit 1: --extractor-args youtube:player_client=ios,web_embedded
+Video download unavailable; using public YouTube frame thumbnails.
+
+=== Molob research: Sukuna — Now Or Never ===
++ yt-dlp --js-runtimes deno --no-playlist --retries 2 --socket-timeout 35 -f bv*[height<=1080]/b[height<=1080]/best -o /home/runner/work/ankitstorychat/ankitstorychat/work/jomm-molob-research/raw/sukuna_now_or_never.%(ext)s https://www.youtube.com/watch?v=sKm9KqNu064
+[youtube] Extracting URL: https://www.youtube.com/watch?v=sKm9KqNu064
+[youtube] sKm9KqNu064: Downloading webpage
+[youtube] sKm9KqNu064: Downloading tv samsung player API JSON
+[youtube] sKm9KqNu064: Downloading visionos player API JSON
+WARNING: [youtube] No title found in player responses; falling back to title from initial data. Other metadata may also be missing
+ERROR: [youtube] sKm9KqNu064: Sign in to confirm you’re not a bot. This helps protect our community. Use --cookies-from-browser or --cookies for the authentication. See  https://github.com/yt-dlp/yt-dlp/wiki/FAQ#how-do-i-pass-cookies-to-yt-dlp  for how to manually pass cookies. Also see  https://github.com/yt-dlp/yt-dlp/wiki/Extractors#exporting-youtube-cookies  for tips on effectively exporting YouTube cookies
+Attempt 1 failed with exit 1: default client
++ yt-dlp --js-runtimes deno --no-playlist --retries 2 --socket-timeout 35 -f bv*[height<=1080]/b[height<=1080]/best --extractor-args youtube:player_client=android,web_embedded -o /home/runner/work/ankitstorychat/ankitstorychat/work/jomm-molob-research/raw/sukuna_now_or_never.%(ext)s https://www.youtube.com/watch?v=sKm9KqNu064
+[youtube] Extracting URL: https://www.youtube.com/watch?v=sKm9KqNu064
+[youtube] sKm9KqNu064: Downloading webpage
+[youtube] sKm9KqNu064: Downloading android player API JSON
+[youtube] sKm9KqNu064: Downloading web embedded client config
+[youtube] sKm9KqNu064: Downloading player ef321720-main
+[youtube] sKm9KqNu064: Downloading web embedded player API JSON
+WARNING: [youtube] No title found in player responses; falling back to title from initial data. Other metadata may also be missing
+ERROR: [youtube] sKm9KqNu064: Sign in to confirm you’re not a bot. Use --cookies-from-browser or --cookies for the authentication. See  https://github.com/yt-dlp/yt-dlp/wiki/FAQ#how-do-i-pass-cookies-to-yt-dlp  for how to manually pass cookies. Also see  https://github.com/yt-dlp/yt-dlp/wiki/Extractors#exporting-youtube-cookies  for tips on effectively exporting YouTube cookies
+Attempt 2 failed with exit 1: --extractor-args youtube:player_client=android,web_embedded
++ yt-dlp --js-runtimes deno --no-playlist --retries 2 --socket-timeout 35 -f bv*[height<=1080]/b[height<=1080]/best --extractor-args youtube:player_client=ios,web_embedded -o /home/runner/work/ankitstorychat/ankitstorychat/work/jomm-molob-research/raw/sukuna_now_or_never.%(ext)s https://www.youtube.com/watch?v=sKm9KqNu064
+[youtube] Extracting URL: https://www.youtube.com/watch?v=sKm9KqNu064
+[youtube] sKm9KqNu064: Downloading webpage
+[youtube] sKm9KqNu064: Downloading ios player API JSON
+[youtube] sKm9KqNu064: Downloading web embedded client config
+[youtube] sKm9KqNu064: Downloading player 4a1e575f-main
+[youtube] sKm9KqNu064: Downloading web embedded player API JSON
+WARNING: [youtube] No title found in player responses; falling back to title from initial data. Other metadata may also be missing
+ERROR: [youtube] sKm9KqNu064: Sign in to confirm you’re not a bot. Use --cookies-from-browser or --cookies for the authentication. See  https://github.com/yt-dlp/yt-dlp/wiki/FAQ#how-do-i-pass-cookies-to-yt-dlp  for how to manually pass cookies. Also see  https://github.com/yt-dlp/yt-dlp/wiki/Extractors#exporting-youtube-cookies  for tips on effectively exporting YouTube cookies
+Attempt 3 failed with exit 1: --extractor-args youtube:player_client=ios,web_embedded
+Video download unavailable; using public YouTube frame thumbnails.
+
+=== Molob research: Hashira — Wannabe ===
++ yt-dlp --js-runtimes deno --no-playlist --retries 2 --socket-timeout 35 -f bv*[height<=1080]/b[height<=1080]/best -o /home/runner/work/ankitstorychat/ankitstorychat/work/jomm-molob-research/raw/hashira_wannabe.%(ext)s https://www.youtube.com/watch?v=4sZP4zxl5Bg
+[youtube] Extracting URL: https://www.youtube.com/watch?v=4sZP4zxl5Bg
+[youtube] 4sZP4zxl5Bg: Downloading webpage
+[youtube] 4sZP4zxl5Bg: Downloading tv samsung player API JSON
+[youtube] 4sZP4zxl5Bg: Downloading visionos player API JSON
+WARNING: [youtube] No title found in player responses; falling back to title from initial data. Other metadata may also be missing
+ERROR: [youtube] 4sZP4zxl5Bg: Sign in to confirm you’re not a bot. This helps protect our community. Use --cookies-from-browser or --cookies for the authentication. See  https://github.com/yt-dlp/yt-dlp/wiki/FAQ#how-do-i-pass-cookies-to-yt-dlp  for how to manually pass cookies. Also see  https://github.com/yt-dlp/yt-dlp/wiki/Extractors#exporting-youtube-cookies  for tips on effectively exporting YouTube cookies
+Attempt 1 failed with exit 1: default client
++ yt-dlp --js-runtimes deno --no-playlist --retries 2 --socket-timeout 35 -f bv*[height<=1080]/b[height<=1080]/best --extractor-args youtube:player_client=android,web_embedded -o /home/runner/work/ankitstorychat/ankitstorychat/work/jomm-molob-research/raw/hashira_wannabe.%(ext)s https://www.youtube.com/watch?v=4sZP4zxl5Bg
+[youtube] Extracting URL: https://www.youtube.com/watch?v=4sZP4zxl5Bg
+[youtube] 4sZP4zxl5Bg: Downloading webpage
+[youtube] 4sZP4zxl5Bg: Downloading android player API JSON
+[youtube] 4sZP4zxl5Bg: Downloading web embedded client config
+[youtube] 4sZP4zxl5Bg: Downloading player 4a1e575f-main
+[youtube] 4sZP4zxl5Bg: Downloading web embedded player API JSON
+WARNING: [youtube] No title found in player responses; falling back to title from initial data. Other metadata may also be missing
+ERROR: [youtube] 4sZP4zxl5Bg: Sign in to confirm you’re not a bot. Use --cookies-from-browser or --cookies for the authentication. See  https://github.com/yt-dlp/yt-dlp/wiki/FAQ#how-do-i-pass-cookies-to-yt-dlp  for how to manually pass cookies. Also see  https://github.com/yt-dlp/yt-dlp/wiki/Extractors#exporting-youtube-cookies  for tips on effectively exporting YouTube cookies
+Attempt 2 failed with exit 1: --extractor-args youtube:player_client=android,web_embedded
++ yt-dlp --js-runtimes deno --no-playlist --retries 2 --socket-timeout 35 -f bv*[height<=1080]/b[height<=1080]/best --extractor-args youtube:player_client=ios,web_embedded -o /home/runner/work/ankitstorychat/ankitstorychat/work/jomm-molob-research/raw/hashira_wannabe.%(ext)s https://www.youtube.com/watch?v=4sZP4zxl5Bg
+[youtube] Extracting URL: https://www.youtube.com/watch?v=4sZP4zxl5Bg
+[youtube] 4sZP4zxl5Bg: Downloading webpage
+[youtube] 4sZP4zxl5Bg: Downloading ios player API JSON
+[youtube] 4sZP4zxl5Bg: Downloading web embedded client config
+[youtube] 4sZP4zxl5Bg: Downloading player ef321720-main
+[youtube] 4sZP4zxl5Bg: Downloading web embedded player API JSON
+WARNING: [youtube] No title found in player responses; falling back to title from initial data. Other metadata may also be missing
+ERROR: [youtube] 4sZP4zxl5Bg: Sign in to confirm you’re not a bot. Use --cookies-from-browser or --cookies for the authentication. See  https://github.com/yt-dlp/yt-dlp/wiki/FAQ#how-do-i-pass-cookies-to-yt-dlp  for how to manually pass cookies. Also see  https://github.com/yt-dlp/yt-dlp/wiki/Extractors#exporting-youtube-cookies  for tips on effectively exporting YouTube cookies
+Attempt 3 failed with exit 1: --extractor-args youtube:player_client=ios,web_embedded
+Video download unavailable; using public YouTube frame thumbnails.
+
+=== Molob research: Ryomen Sukuna — Two ===
++ yt-dlp --js-runtimes deno --no-playlist --retries 2 --socket-timeout 35 -f bv*[height<=1080]/b[height<=1080]/best -o /home/runner/work/ankitstorychat/ankitstorychat/work/jomm-molob-research/raw/sukuna_two.%(ext)s https://www.youtube.com/watch?v=ZbWoJXmX9mI
+[youtube] Extracting URL: https://www.youtube.com/watch?v=ZbWoJXmX9mI
+[youtube] ZbWoJXmX9mI: Downloading webpage
+[youtube] ZbWoJXmX9mI: Downloading tv samsung player API JSON
+[youtube] ZbWoJXmX9mI: Downloading visionos player API JSON
+WARNING: [youtube] No title found in player responses; falling back to title from initial data. Other metadata may also be missing
+ERROR: [youtube] ZbWoJXmX9mI: Sign in to confirm you’re not a bot. This helps protect our community. Use --cookies-from-browser or --cookies for the authentication. See  https://github.com/yt-dlp/yt-dlp/wiki/FAQ#how-do-i-pass-cookies-to-yt-dlp  for how to manually pass cookies. Also see  https://github.com/yt-dlp/yt-dlp/wiki/Extractors#exporting-youtube-cookies  for tips on effectively exporting YouTube cookies
+Attempt 1 failed with exit 1: default client
++ yt-dlp --js-runtimes deno --no-playlist --retries 2 --socket-timeout 35 -f bv*[height<=1080]/b[height<=1080]/best --extractor-args youtube:player_client=android,web_embedded -o /home/runner/work/ankitstorychat/ankitstorychat/work/jomm-molob-research/raw/sukuna_two.%(ext)s https://www.youtube.com/watch?v=ZbWoJXmX9mI
+[youtube] Extracting URL: https://www.youtube.com/watch?v=ZbWoJXmX9mI
+[youtube] ZbWoJXmX9mI: Downloading webpage
+[youtube] ZbWoJXmX9mI: Downloading android player API JSON
+[youtube] ZbWoJXmX9mI: Downloading web embedded client config
+[youtube] ZbWoJXmX9mI: Downloading player ef321720-main
+[youtube] ZbWoJXmX9mI: Downloading web embedded player API JSON
+WARNING: [youtube] No title found in player responses; falling back to title from initial data. Other metadata may also be missing
+ERROR: [youtube] ZbWoJXmX9mI: Sign in to confirm you’re not a bot. Use --cookies-from-browser or --cookies for the authentication. See  https://github.com/yt-dlp/yt-dlp/wiki/FAQ#how-do-i-pass-cookies-to-yt-dlp  for how to manually pass cookies. Also see  https://github.com/yt-dlp/yt-dlp/wiki/Extractors#exporting-youtube-cookies  for tips on effectively exporting YouTube cookies
+Attempt 2 failed with exit 1: --extractor-args youtube:player_client=android,web_embedded
++ yt-dlp --js-runtimes deno --no-playlist --retries 2 --socket-timeout 35 -f bv*[height<=1080]/b[height<=1080]/best --extractor-args youtube:player_client=ios,web_embedded -o /home/runner/work/ankitstorychat/ankitstorychat/work/jomm-molob-research/raw/sukuna_two.%(ext)s https://www.youtube.com/watch?v=ZbWoJXmX9mI
+[youtube] Extracting URL: https://www.youtube.com/watch?v=ZbWoJXmX9mI
+[youtube] ZbWoJXmX9mI: Downloading webpage
+[youtube] ZbWoJXmX9mI: Downloading ios player API JSON
+[youtube] ZbWoJXmX9mI: Downloading web embedded client config
+[youtube] ZbWoJXmX9mI: Downloading player 4a1e575f-main
+[youtube] ZbWoJXmX9mI: Downloading web embedded player API JSON
+WARNING: [youtube] No title found in player responses; falling back to title from initial data. Other metadata may also be missing
+ERROR: [youtube] ZbWoJXmX9mI: Sign in to confirm you’re not a bot. Use --cookies-from-browser or --cookies for the authentication. See  https://github.com/yt-dlp/yt-dlp/wiki/FAQ#how-do-i-pass-cookies-to-yt-dlp  for how to manually pass cookies. Also see  https://github.com/yt-dlp/yt-dlp/wiki/Extractors#exporting-youtube-cookies  for tips on effectively exporting YouTube cookies
+Attempt 3 failed with exit 1: --extractor-args youtube:player_client=ios,web_embedded
+Video download unavailable; using public YouTube frame thumbnails.
+Research review ready: /home/runner/work/ankitstorychat/ankitstorychat/work/jomm-molob-research/review
