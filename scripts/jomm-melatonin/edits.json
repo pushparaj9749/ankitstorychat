@@ -24,7 +24,7 @@
       "title": "Gojo Satoru",
       "cutBeats": [3, 7, 11, 15, 19, 23, 27, 31, 35, 39, 44],
       "flashCuts": [1, 4, 7],
-      "coverTime": 17.5,
+      "coverTime": 17.0,
       "caption": "song is jomm - Melatonin ❄️ | clips: BoykaTwixtorS_AMV #jomm #melatonin #niche",
       "grade": {"contrast": 1.06, "saturation": 1.10, "brightness": 0.008, "gamma": 1.02},
       "segments": [
@@ -38,7 +38,7 @@
         {"sourceStart": 38.8, "zoom": 1.09},
         {"sourceStart": 43.8, "zoom": 1.12},
         {"sourceStart": 47.5, "zoom": 1.16},
-        {"sourceStart": 48.4, "zoom": 1.10}
+        {"sourceStart": 44.8, "zoom": 1.10}
       ]
     },
     {
@@ -66,7 +66,7 @@
       "title": "Itachi & Sasuke",
       "cutBeats": [3, 7, 11, 15, 19, 23, 27, 31, 35, 39, 42],
       "flashCuts": [2, 5, 8],
-      "coverTime": 13.5,
+      "coverTime": 5.9,
       "caption": "jomm is peak 🌙 | clips: BoykaTwixtorS_AMV #jomm #melatonin #niche",
       "grade": {"contrast": 1.09, "saturation": 1.05, "brightness": 0.025, "gamma": 1.06},
       "segments": [
@@ -80,7 +80,7 @@
         {"sourceStart": 30.0, "zoom": 1.15},
         {"sourceStart": 34.5, "zoom": 1.12},
         {"sourceStart": 42.8, "zoom": 1.10},
-        {"sourceStart": 46.8, "zoom": 1.14}
+        {"sourceStart": 8.5, "zoom": 1.14}
       ]
     },
     {
@@ -111,14 +111,14 @@
       "caption": "jomm is the GOAT 🔥 | clips: Saiyan Pride #jomm #melatonin #niche #indiemusic",
       "grade": {"contrast": 1.08, "saturation": 1.16, "brightness": 0.003, "gamma": 1.02},
       "segments": [
-        {"sourceStart": 5.8, "zoom": 1.10},
+        {"sourceStart": 7.0, "zoom": 1.10},
         {"sourceStart": 30.0, "zoom": 1.14, "centerX": 0.62},
         {"sourceStart": 54.5, "zoom": 1.12, "centerX": 0.64},
         {"sourceStart": 78.8, "zoom": 1.09},
         {"sourceStart": 103.0, "zoom": 1.15},
         {"sourceStart": 128.0, "zoom": 1.11},
         {"sourceStart": 176.8, "zoom": 1.14},
-        {"sourceStart": 225.5, "zoom": 1.10},
+        {"sourceStart": 201.5, "zoom": 1.10},
         {"sourceStart": 250.5, "zoom": 1.13}
       ]
     },
