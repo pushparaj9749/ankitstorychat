@@ -536,7 +536,7 @@
     },
     {
       "file": "06_Tanjiro_Kamado.mp4",
-      "bytes": 26507404,
+      "bytes": 27354591,
       "duration": 23.267,
       "width": 1080,
       "height": 1920,
@@ -545,7 +545,7 @@
       "audioCodec": "aac",
       "sampleRate": 48000,
       "channels": 2,
-      "sha256": "12d17bf06f020088a487fafbe3e6ddc41d57d4791a78aa81623f5d6d633f20fe",
+      "sha256": "24411e258ae7d0d3c06f10da15452cdf7164a69389b81ae532c11348c88cc391",
       "checks": {
         "duration12To60": true,
         "portrait1080x1920": true,
@@ -629,12 +629,11 @@
             "sourceEnd": 203.74
           },
           {
-            "sourceStart": 250.5,
+            "sourceStart": 7.0,
             "zoom": 1.13,
-            "centerX": 0.35,
             "outputStart": 21.472,
             "outputEnd": 23.264,
-            "sourceEnd": 252.292
+            "sourceEnd": 8.792
           }
         ]
       },
