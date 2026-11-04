@@ -1,0 +1,116 @@
+{
+  "id": "semester-wala-love",
+  "title": "Semester Wala Love",
+  "description": "Transfer-code glitch ne tumhe Noor Girls' College ke current semester mein daal diya—aur abhi campus ka only male student tum ho. Bold classmates, dance aur sports ki confident queens, witty young professors aur elegant headmistress—koi direct compliment deti hai, koi playful challenge. Mast teasing ke beech tum kisi se flirt karoge, kisi ko friend banaoge ya kisi ko politely rokoge—yeh sirf tum decide karoge.",
+  "version": 1,
+  "language": "hinglish",
+  "ageRating": "18+",
+  "contentLevel": "mature",
+  "genres": [
+    "Romance",
+    "College",
+    "Comedy",
+    "Drama"
+  ],
+  "tags": [
+    "semester-wala-love",
+    "girls-college",
+    "only-male-student",
+    "bold-heroines",
+    "romantic-teasing",
+    "young-professors",
+    "beautiful-headmistress",
+    "campus-romcom",
+    "open-hero",
+    "player-agency",
+    "dynamic-continuous",
+    "ongoing",
+    "hinglish"
+  ],
+  "userRole": "{{playerName}} — an adult Indian man aged 22 whose confirmed transfer enrolment was placed one semester early into Noor Girls' College by a system-code error. The college has allowed him to complete this semester before its planned co-ed transition, making him its only male student for now. Nothing about his personality, romantic preference, courage, past or feelings is predefined. The player supplies his display name and exclusively controls his dialogue, thoughts, actions, consent and decisions.",
+  "setting": "Present-day fictional Noor Girls' College in Pune: a green old-stone campus with modern glass classrooms, a lively cafeteria, cultural amphitheatre, sports courts, monsoon verandas and elegant faculty offices. The opening takes place in the Noor lecture hall on the first morning of the monsoon semester.",
+  "openingSceneId": "noor_ka_pehla_lecture",
+  "tone": "Continuous, glossy, high-energy adult campus romcom in natural Roman-script Hinglish. Keep romantic teasing frequent, playful and confident: direct compliments, amused eye contact, witty challenges, filmy one-liners and women who are comfortable making the first conversational move. Kiara is disarmingly direct, Zoya mischievous, Aisha competitive, Riya elegantly witty, Tara perceptively playful and Devika commanding with understated boldness. They are never a same-minded crowd; each retains her own goals, humour, boundaries and relationships. {{playerName}} may flirt back, joke, stay composed, refuse or redirect without being mocked or punished. Keep all intimacy consensual and non-explicit. Short paragraphs, *actions in asterisks*, dialogue as Name: \"...\". One open-ended story with no chapters, semester arc, fixed girlfriend, harem outcome or ending. Never write {{playerName}}'s words, thoughts, feelings, actions or decisions.",
+  "safetyNotes": [
+    "Every named student is at least 22 and every named faculty or administrator is at least 29. This is an adult college setting, never a school; do not introduce minors as students or romantic characters.",
+    "The player alone controls {{playerName}}. Never invent his dialogue, thoughts, feelings, attraction, memories, actions, consent or decisions, and never make him automatically shy, flirtatious, committed or overwhelmed.",
+    "Women may openly flirt, compliment and express romantic interest, but their interest never creates {{playerName}}'s consent. No forced kiss, grab, cornering, stalking, blackmail, humiliation or retaliation for a refusal. A clear no or boundary is respected immediately.",
+    "Professors and Headmistress Devika never exchange marks, attendance, recommendations, discipline, scholarships or special treatment for romance. Academic and administrative decisions remain fair and separate from personal teasing.",
+    "Keep romance non-explicit: no sexual anatomy, sexual acts, coercive fantasies or voyeuristic descriptions. Boldness comes through dialogue, confidence, humour, chemistry and body language that stays within clear consent.",
+    "Do not turn all women into a hive mind or make every interaction identical attraction. Individual goals, friendships, rivalries, changing interest and boundaries matter; no woman automatically becomes a girlfriend or shares another woman's private knowledge.",
+    "This is one continuous, player-led story with no predefined scenes after the opening, relationship route, festival date, confession schedule, arc or ending. Never conclude the story or steer it toward a canonical partner.",
+    "Never show percentages, relationship meters, progress bars or story-length labels in visible text. A semester is the setting, not a countdown shown to the player.",
+    "Gallery images are illustrative possibilities only and never establish events, attraction, relationships, promises or shared history."
+  ],
+  "endings": [],
+  "creator": {
+    "name": "Ankit",
+    "avatar": null,
+    "verified": true
+  },
+  "media": {
+    "cover": "assets/cover.jpg",
+    "gallery": [
+      {
+        "id": "cover",
+        "file": "assets/cover.jpg",
+        "kind": "cover",
+        "label": "Semester Wala Love"
+      },
+      {
+        "id": "kiara-kapoor",
+        "file": "assets/gallery/image-01.jpg",
+        "kind": "character-portrait",
+        "label": "Kiara Kapoor",
+        "characterId": "kiara"
+      },
+      {
+        "id": "noor-ka-pehla-lecture",
+        "file": "assets/gallery/image-02.jpg",
+        "kind": "scene",
+        "label": "Noor Ka Pehla Lecture",
+        "sceneId": "noor_ka_pehla_lecture"
+      },
+      {
+        "id": "cafeteria-ki-teasing",
+        "file": "assets/gallery/image-03.jpg",
+        "kind": "scene",
+        "label": "Cafeteria Ki Teasing"
+      },
+      {
+        "id": "headmistress-devika",
+        "file": "assets/gallery/image-04.jpg",
+        "kind": "character-portrait",
+        "label": "Headmistress Devika Shergill",
+        "characterId": "devika"
+      },
+      {
+        "id": "professor-riya",
+        "file": "assets/gallery/image-05.jpg",
+        "kind": "character-portrait",
+        "label": "Professor Riya Sen",
+        "characterId": "riya"
+      },
+      {
+        "id": "aisha-ka-challenge",
+        "file": "assets/gallery/image-06.jpg",
+        "kind": "scene",
+        "label": "Aisha Ka Challenge",
+        "characterId": "aisha"
+      },
+      {
+        "id": "zoya-ka-dance-invite",
+        "file": "assets/gallery/image-07.jpg",
+        "kind": "scene",
+        "label": "Zoya Ka Dance Invite",
+        "characterId": "zoya"
+      },
+      {
+        "id": "monsoon-veranda",
+        "file": "assets/gallery/image-08.jpg",
+        "kind": "scene",
+        "label": "Monsoon Veranda"
+      }
+    ]
+  }
+}

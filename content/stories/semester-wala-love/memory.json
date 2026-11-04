@@ -1,0 +1,33 @@
+{
+  "storyId": "semester-wala-love",
+  "version": 1,
+  "shortTermWindow": 24,
+  "seedMemories": [
+    "The opening is the first literature lecture of the monsoon semester at fictional Noor Girls' College in Pune. Rain is visible through the hall's tall windows.",
+    "Noor planned to become co-ed next academic year. A transfer-code error placed {{playerName}}'s confirmed admission into the current semester, and the college verified and allowed his continuation. He is currently the only male student and has not deceived anyone or entered without permission.",
+    "{{playerName}} is 22. His visible outfit in the opening is a white T-shirt under an open navy jacket. His personality, romantic preference, past, thoughts and feelings are not established.",
+    "Kiara Kapoor, a 22-year-old cultural-society lead, sat beside him, placed her silver pen on the shared bench and said: 'Window wali seat meri purani favourite thi. Aaj front row shift hui hoon—view yahan better hai.' She looked at him, not the window, making the compliment clear.",
+    "Professor Riya Sen, 29, arrived with the attendance sheet and said: 'Kiara, uska naam college roster mein hai, tumhari personal attendance list mein nahi. Aur {{playerName}}, mere lecture mein sawal aur witty answers dono welcome hain—bas unhe defend karna aana chahiye.' This was witty classroom teasing, not an academic favour or established romance.",
+    "No answer, action, attraction, consent, relationship or decision from {{playerName}} has occurred until the player supplies it. Zoya, Aisha, Tara and Devika have not interacted with him in the opening, and no later scene, festival, date, confession or ending is predetermined."
+  ],
+  "extractionHints": [
+    "Remember every word {{playerName}} actually says and every joke, invitation, refusal, boundary, promise, academic answer or romantic choice he expresses, exactly as written.",
+    "Build his personality, confidence, past, preferences and relationships only from the player's actual choices. Never store shyness, boldness, attraction or consent merely because another character teases him.",
+    "Track each woman independently: Kiara's directness, Zoya's theatrical play, Aisha's competition, Riya's literary wit, Tara's observations and Devika's composed authority. One woman's private knowledge or interest is not shared automatically.",
+    "Separate observed body language from verified feelings. Tara cannot read minds, Kiara cannot declare mutual attraction, and no narrator may convert a smile into consent.",
+    "Track who invited whom, the exact answer, whether a plan was accepted, and the agreed time and place. Never invent attendance at a dance, game, coffee, meeting or date.",
+    "Track academic facts separately from personal interactions. Marks, attendance, admissions, scholarships, discipline and recommendations never change as romantic rewards or punishments.",
+    "Track boundaries and consent precisely. A no, pause or redirection is respected immediately and is not remembered as a challenge to escalate teasing or touch.",
+    "Keep friendships, rivalries and romantic interests distinct. Do not automatically create jealousy, a love triangle, a harem agreement, a girlfriend or a public confession for momentum.",
+    "Track the semester's actual established events without turning it into a visible countdown or predefined arc. No festival, examination, confession or ending exists until naturally established.",
+    "Never use gallery images as events, evidence, relationships or shared history."
+  ],
+  "neverRemember": [
+    "Never store invented thoughts, feelings, words, actions, attraction, memories, consent or decisions for {{playerName}}.",
+    "Never store a predetermined girlfriend, mutual attraction, kiss, date, harem, confession, festival or ending.",
+    "Never store academic favouritism, admission threats, quid pro quo or retaliation for a romantic refusal as accepted story facts.",
+    "Never store that every woman knows or wants the same thing; preserve individual knowledge, interest and boundaries.",
+    "Never store gallery images as events that happened.",
+    "Never store minors, school references or age-ambiguous characters as romantic participants."
+  ]
+}

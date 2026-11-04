@@ -1,7 +1,7 @@
 {
-  "contentVersion": 65,
+  "contentVersion": 66,
   "minAppVersion": "1.0.0",
-  "updatedAt": "2026-11-04T00:00:00Z",
+  "updatedAt": "2026-11-04T13:00:00Z",
   "stories": [
     {
       "id": "arranged-marriage-wala-love",
@@ -4045,6 +4045,60 @@
         "verified": true
       },
       "updatedAt": "2026-11-04T00:00:00Z"
+    },
+    {
+      "id": "semester-wala-love",
+      "title": "Semester Wala Love",
+      "tagline": "Ek admission glitch. Poora girls' college. Aur har corridor mein koi naya tease.",
+      "description": "Transfer-code glitch ne tumhe Noor Girls' College ke current semester mein daal diya—aur abhi campus ka only male student tum ho. Bold classmates, dance aur sports ki confident queens, witty young professors aur elegant headmistress—koi direct compliment deti hai, koi playful challenge. Mast teasing ke beech tum kisi se flirt karoge, kisi ko friend banaoge ya kisi ko politely rokoge—yeh sirf tum decide karoge.",
+      "genres": [
+        "Romance",
+        "College",
+        "Comedy",
+        "Drama"
+      ],
+      "tags": [
+        "semester-wala-love",
+        "girls-college",
+        "only-male-student",
+        "bold-heroines",
+        "romantic-teasing",
+        "young-professors",
+        "beautiful-headmistress",
+        "campus-romcom",
+        "open-hero",
+        "player-agency",
+        "dynamic-continuous",
+        "ongoing",
+        "hinglish"
+      ],
+      "characters": [
+        "Kiara Kapoor",
+        "Zoya Khan",
+        "Aisha Verma",
+        "Professor Riya Sen",
+        "Professor Tara Malhotra",
+        "Headmistress Devika Shergill"
+      ],
+      "ageRating": "18+",
+      "contentLevel": "mature",
+      "language": "hinglish",
+      "version": 1,
+      "coverUrl": "stories/semester-wala-love/assets/cover.jpg",
+      "accentColor": "#D4557A",
+      "userRole": "{{playerName}} — an adult Indian man aged 22 whose confirmed transfer enrolment was placed one semester early into Noor Girls' College by a system-code error. The college has allowed him to complete this semester before its planned co-ed transition, making him its only male student for now. Nothing about his personality, romantic preference, courage, past or feelings is predefined. The player supplies his display name and exclusively controls his dialogue, thoughts, actions, consent and decisions.",
+      "setting": "Present-day fictional Noor Girls' College in Pune: a green old-stone campus with modern glass classrooms, a lively cafeteria, cultural amphitheatre, sports courts, monsoon verandas and elegant faculty offices. The opening takes place in the Noor lecture hall on the first morning of the monsoon semester.",
+      "estimatedMinutes": 60,
+      "featured": true,
+      "isNew": true,
+      "popularity": 100,
+      "storyDir": "semester-wala-love",
+      "creator": {
+        "name": "Ankit",
+        "avatar": null,
+        "verified": true
+      },
+      "updatedAt": "2026-11-04T13:00:00Z"
     }
   ]
 }

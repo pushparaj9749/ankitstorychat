@@ -1,0 +1,80 @@
+{
+  "storyId": "semester-wala-love",
+  "version": 1,
+  "scenes": [
+    {
+      "id": "noor_ka_pehla_lecture",
+      "title": "Noor Ka Pehla Lecture",
+      "narration": [
+        "*Noor Girls' College ko co-ed hona agle saal se tha. Ek transfer-code glitch ne tumhara confirmed admission monsoon semester mein daal diya, aur college ne verification ke baad tumhe yeh semester complete karne ki permission de di. Isliye abhi poori campus mein only male student tum ho.*",
+        "*Pehla literature lecture. Tall windows ke bahar monsoon ki halki barish hai aur Noor hall ki paired benches par adult students ki hansi-gupshup hai. Tum front ke beech wali bench par apni white T-shirt aur open navy jacket ke saath ho; bag abhi bench ke neeche rakha hai. Corridor se aati voices ek beat ke liye kam hoti hain jab log tumhe pehchante hain.*",
+        "*Kiara Kapoor cultural-society badge ke saath tumhare bagal wali seat leti hai. Very long chestnut-black wavy hair ko ek shoulder par girate hue woh seedha tumhari taraf dekhti hai—no nervous smile, bas ek confident half-smile. Apni silver pen ko fingers ke beech ek baar ghumakar woh shared bench ke centre par rakhti hai.*",
+        "Kiara: \"Window wali seat meri purani favourite thi. Aaj front row shift hui hoon—view yahan better hai.\"",
+        "*Usne window ki taraf nahi, tumhari taraf dekhte hue yeh kaha tha. Paas ki do students ki hansi nikalti hai. Tab Professor Riya Sen attendance sheet ke saath desk par pahunchti hai; long black wavy hair ek side par tucked hai aur uski composed nazar pehle Kiara par, phir tum par rukti hai.*",
+        "Riya: \"Kiara, uska naam college roster mein hai, tumhari personal attendance list mein nahi. Aur {{playerName}}, mere lecture mein sawal aur witty answers dono welcome hain—bas unhe defend karna aana chahiye.\"",
+        "*Riya sheet kholti hai aur Kiara apni pen ko bench ke centre se apni taraf kheenchkar ab bhi muskurati hai. Dono ne tumhe koi answer nahi diya; ab agli line, tone ya direction tumhari hai.*"
+      ],
+      "fallbackLines": [
+        "*Riya tumhare actual words ko lecture ke flow mein sunti hai bina tumhara confidence, shyness ya attraction assume kiye. Kiara ka half-smile ab bhi hai, lekin woh tumhare jawab ko apni taraf se interpret karke relationship declare nahi karti.*",
+        "*Barish windows par halki hai. Lecture abhi bas shuru hua hai aur kisi festival, date, confession ya relationship ka plan pehle se nahi bana.*"
+      ],
+      "choices": [
+        {
+          "id": "return_kiara_tease",
+          "text": "\"Tum direct ho, yeh toh clear hai. Ab yeh bhi batao—front row ka view sirf compliment tha ya cultural-society ka welcome offer?\"",
+          "shortLabel": "Flirt back",
+          "keywords": [
+            "kiara",
+            "view",
+            "compliment",
+            "welcome",
+            "flirt"
+          ],
+          "next": null,
+          "effects": {
+            "memory": [
+              "In the opening lecture, {{playerName}} returned Kiara's compliment with a playful question about whether it was also a cultural-society welcome."
+            ]
+          }
+        },
+        {
+          "id": "answer_riya_wit",
+          "text": "\"Riya ma'am, witty answer defend karne ke liye pehle itni attention ka syllabus mil sakta hai?\"",
+          "shortLabel": "Witty answer",
+          "keywords": [
+            "riya",
+            "professor",
+            "witty",
+            "attention",
+            "syllabus"
+          ],
+          "next": null,
+          "effects": {
+            "memory": [
+              "{{playerName}} answered Professor Riya with a joke about needing a syllabus for handling so much attention."
+            ]
+          }
+        },
+        {
+          "id": "keep_friendly_boundary",
+          "text": "\"Pehle normal introductions ho jayein—phir main bhi tum dono ke humour ke saath catch up karunga.\"",
+          "shortLabel": "Easy introduction",
+          "keywords": [
+            "introduction",
+            "friendly",
+            "boundary",
+            "kiara",
+            "riya"
+          ],
+          "next": null,
+          "effects": {
+            "memory": [
+              "{{playerName}} chose a relaxed introduction before joining Kiara and Riya's teasing, without agreeing to any romantic interpretation."
+            ]
+          }
+        }
+      ]
+    }
+  ],
+  "endings": []
+}
