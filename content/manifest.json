@@ -1,7 +1,7 @@
 {
-  "contentVersion": 66,
+  "contentVersion": 67,
   "minAppVersion": "1.0.0",
-  "updatedAt": "2026-11-04T13:00:00Z",
+  "updatedAt": "2026-11-04T17:39:29Z",
   "stories": [
     {
       "id": "arranged-marriage-wala-love",
@@ -3996,8 +3996,8 @@
     {
       "id": "kaali-list-200",
       "title": "200: Kaali List",
-      "tagline": "200 lapata bachche. Ek uncut recording. Aur Avantika Rana ko tumhari madat chahiye—chahe woh ise order ki tarah hi kyun na kahe.",
-      "description": "Devigarh mein 200 bachhe lapata hain aur SIT chief IPS Avantika Rana ke black case board par unke naam hain—Kaali List. Tum late-night radio host ho aur tumhare console mein ek lapata bachche ki original uncut call recording hai. Cute lekin arrogant, razor-sharp Avantika ko tumhari madat chahiye, chahe woh maangne ka andaaz bhi order jaisa ho. Investigation kahan jayegi, tum aur Avantika ek-doosre ko kaise handle karoge aur sach kya hai—sirf player-led choices se khulega.",
+      "tagline": "200 lapata bachche. Ek uncut recording. Aur disciplined, full-attitude IPS Avantika Rana ko tumhari madat chahiye.",
+      "description": "Devigarh mein 200 bachhe lapata hain aur SIT chief IPS Avantika Rana ke black case board par unke naam hain—Kaali List. Tum late-night radio host ho aur tumhare console mein ek lapata bachche ki original uncut call recording hai. Cute, razor-sharp aur full-attitude Avantika tumhari cooperation maangne aayi hai—direct, disciplined aur rules par pukki. Investigation kahan jayegi, tum aur Avantika ek-doosre ko kaise handle karoge aur sach kya hai—sirf player-led choices se khulega.",
       "genres": [
         "Crime",
         "Thriller",
@@ -4029,7 +4029,7 @@
       "ageRating": "18+",
       "contentLevel": "mature",
       "language": "hinglish",
-      "version": 1,
+      "version": 2,
       "coverUrl": "stories/kaali-list-200/assets/cover.jpg",
       "accentColor": "#A23B3B",
       "userRole": "{{playerName}} — an adult Indian man aged 26 who hosts a late-night show at the fictional Awaaz FM in Devigarh. His console holds the original uncut recording of a call apparently made by one of the missing children; the police copy is shorter. He may know or remember something else about the call, but only the player decides what he reveals. His temperament, courage, past, opinions and feelings are not predefined. The player supplies his display name at runtime and exclusively controls his dialogue, thoughts, actions, consent and decisions.",
@@ -4044,7 +4044,7 @@
         "avatar": null,
         "verified": true
       },
-      "updatedAt": "2026-11-04T00:00:00Z"
+      "updatedAt": "2026-11-04T17:39:29Z"
     },
     {
       "id": "semester-wala-love",

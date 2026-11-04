@@ -1,6 +1,6 @@
 {
   "storyId": "kaali-list-200",
-  "version": 1,
+  "version": 2,
   "scenes": [
     {
       "id": "console_par_aakhri_call",
@@ -8,11 +8,11 @@
       "narration": [
         "*Devigarh mein 200 bachhe lapata hain. Alag police stations ki files ko jodkar IPS Avantika Rana ki SIT ne ek black case board banaya hai—jise ab Kaali List kaha jaata hai. Har photo ke neeche ek naam hai, aur har naam ke peeche ek intezaar.*",
         "*Raat 1:43. Awaaz FM ke soundproof studio mein ON AIR ki red light ab bujhi hai. Tum late-night show ke host ho. Console mein us request-line call ki original uncut recording saved hai jo police copy se lambi hai; glass ke doosri taraf Rehan apni log sheet band kar raha hai.*",
-        "*Studio ka darwaza bina knock khulta hai. IPS Avantika Rana khaki uniform mein andar aati hai, apni cap console par rakhti hai aur tumhari taraf seedhi nazar karti hai. Cute face, long wavy hair swept over one shoulder—par ek eyebrow uthne aur proud half-smirk se koi bhi shy impression door rehta hai.*",
-        "Avantika: \"Main civilian sources ko apni SIT ke beech nahi laati. Tumhe isliye nahi ki tum ek famous RJ ho—tumhare paas woh cheez hai jo mere paas nahi.\"",
-        "*Woh apna phone console par rakhti hai aur shorter police export play karti hai. Ek bachche ki tooti aawaz, kuch metallic khat-khat, phir recording achanak khatam. Avantika ka jaw tight hota hai, lekin woh phone tumhari taraf slide karne ke bajay apni palm se dabaye rakhti hai.*",
-        "Avantika: \"Original recording chahiye—poori, bina edit. Aur uske baad tum mujhe woh bologe jo is copy mein missing hai. Main apni SIT ka time aur 200 families ka intezaar guesswork par nahi lagaungi.\"",
-        "*Avantika chair nahi leti. Dono haath console par rakhkar woh tumhare saamne khadi hai—madat maangne ke bawajood bilkul bhi request karne wali body language nahi. Uske direct gaze ke neeche original audio ki play button halki green light mein chamak raha hai.*"
+        "*Studio ke darwaze par ek crisp knock hota hai. Rehan ke saath IPS Avantika Rana khaki uniform mein andar aati hai, tumhe ek professional nod deti hai aur apni cap console se door side shelf par rakhti hai. Cute face, long wavy hair swept over one shoulder—par direct nazar aur composed half-smile mein officer ka confidence saaf hai.*",
+        "Avantika: \"Tumhare paas woh original recording hai jo police copy se lambi hai. Isliye main yahan hoon—tumhari cooperation investigation ke liye crucial ho sakti hai.\"",
+        "*Woh apne phone par shorter police export play karti hai. Ek bachche ki tooti aawaz, kuch metallic khat-khat, phir recording achanak khatam. Avantika ka jaw tight hota hai, lekin woh phone tumhari taraf slide karne ke bajay apni palm mein rakhti hai.*",
+        "Avantika: \"Kya tum original recording—poori, bina edit—mere saath review karoge? Pehle jo actually record hua hai woh samajhna hai; phir tumne jo suna, woh apni theory se alag batana. Main apni SIT ka time aur 200 families ka intezaar guesswork par nahi lagaungi.\"",
+        "*Avantika chair ke paas khadi hai, lekin tumhare bole bina usse use nahi karti. Urgency uski seedhi nazar mein hai, lekin posture measured aur professional hai. Original audio ki play button halki green light mein chamak raha hai; ab agla step tumhari cooperation par hai.*"
       ],
       "fallbackLines": [
         "*Avantika tumhare actual words ko apni file ke verified facts se milaati hai, bina tumhari taraf se koi theory ya feeling invent kiye. Console ka cursor usi uncut file par hai aur Rehan glass ke peeche se dono ko dekh raha hai.*",
@@ -57,19 +57,19 @@
         },
         {
           "id": "set_boundary",
-          "text": "\"Help karunga, lekin investigation ke saath tumhara attitude bhi handle karna hoga, Avantika.\"",
-          "shortLabel": "Attitude check",
+          "text": "\"Help karunga. Bas recording share karne aur investigation mein involve hone se pehle process clear kar dete hain.\"",
+          "shortLabel": "Process clear karo",
           "keywords": [
             "help",
-            "attitude",
-            "avantika",
-            "boundary",
-            "ego"
+            "process",
+            "consent",
+            "recording",
+            "cooperation"
           ],
           "next": null,
           "effects": {
             "memory": [
-              "{{playerName}} offered help while directly challenging Avantika's commanding attitude."
+              "{{playerName}} offered help while asking to clarify the evidence-sharing process and the scope of his involvement before proceeding."
             ]
           }
         }

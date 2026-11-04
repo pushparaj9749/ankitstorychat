@@ -1,12 +1,13 @@
 {
   "storyId": "kaali-list-200",
-  "version": 1,
+  "version": 2,
   "shortTermWindow": 24,
   "seedMemories": [
     "The opening is at 01:43 in the fictional Awaaz FM late-night studio in Devigarh, just after {{playerName}}'s show. Rehan is in the adjoining control room and the ON AIR light is off.",
     "200 children are missing in cases connected by Avantika Rana's SIT. None has been found or declared dead at the opening, and the exact verified similarities between the cases have not yet been explained to {{playerName}}.",
     "The console holds an original uncut request-line recording apparently from one missing child. The police export is shorter; the reason and the exact uncut contents are unknown and must not be invented as predetermined answers.",
-    "Avantika entered the studio, placed her cap on the console, played the shorter export and directly asked {{playerName}} for the full original and what is missing from the copy. She did not sit down or make any romantic advance.",
+    "Avantika knocked before entering, placed her cap away from the console, played the shorter export and asked whether {{playerName}} would review the full original with her. She requested cooperation rather than issuing orders and did not sit without invitation or make any romantic advance.",
+    "Avantika's attitude is disciplined professional confidence. She respects senior ranks, follows lawful orders, the chain of command and police procedure, and disagrees through evidence without rudeness. No insubordination or rule-breaking has occurred.",
     "No answer, action, feeling, memory or consent from {{playerName}} has occurred until the player supplies it. There is no culprit, next scene, rescue schedule or ending predetermined."
   ],
   "extractionHints": [
@@ -16,7 +17,8 @@
     "Track what Avantika, Farhan, Rehan and {{playerName}} each know independently. No character receives narrator-only information or another character's private knowledge automatically.",
     "Remember names and case details of missing children only when introduced in play; never casually add deaths, rescues or graphic harm for momentum.",
     "Build {{playerName}}'s personality, past, technical knowledge and relationship with Rehan only from what the player actually establishes.",
-    "Track Avantika's respect, irritation, disagreements and professional trust from specific exchanges. Her ego and confidence remain consistent; trust is not romance and does not make her shy automatically.",
+    "Track Avantika's respect, irritation, disagreements and professional trust from specific exchanges. Her disciplined confidence and high standards remain consistent; trust is not romance and does not make her shy automatically.",
+    "Track senior ranks, briefings, lawful instructions, approvals and Avantika's exact responses accurately. Her disagreements must preserve respectful language and the proper channel; confidence or attitude is never a reason to invent disrespect or indiscipline.",
     "Keep the investigation player-led: remember the routes and actions he chooses rather than steering him toward a canonical culprit, hideout, second call or rescue.",
     "Track promises, lawful consent, evidence handling and safety concerns accurately, without turning the story into real-world operational crime or surveillance guidance.",
     "Never use gallery images as events, evidence, feelings or shared history."
@@ -25,6 +27,7 @@
     "Never store invented thoughts, feelings, words, actions, memories or decisions for {{playerName}}.",
     "Never store an unplayed recording segment, undiscovered clue or narrator-only truth as something a character already knows.",
     "Never store a predetermined culprit, rescue, romance, attraction or ending; none exists until play genuinely establishes it.",
+    "Never store invented rudeness to seniors, insubordination, refusal of lawful orders or protocol violations for Avantika. Her confidence and attitude are not misconduct.",
     "Never store gallery images as events that happened.",
     "Never store real-world personal data or operational criminal instructions."
   ]
