@@ -80,7 +80,7 @@
         {"sourceStart": 30.0, "zoom": 1.15},
         {"sourceStart": 34.5, "zoom": 1.12},
         {"sourceStart": 42.8, "zoom": 1.10},
-        {"sourceStart": 8.5, "zoom": 1.14}
+        {"sourceStart": 9.2, "zoom": 1.14}
       ]
     },
     {
@@ -119,7 +119,7 @@
         {"sourceStart": 128.0, "zoom": 1.11},
         {"sourceStart": 176.8, "zoom": 1.14},
         {"sourceStart": 201.5, "zoom": 1.10},
-        {"sourceStart": 250.5, "zoom": 1.13}
+        {"sourceStart": 250.5, "zoom": 1.13, "centerX": 0.35}
       ]
     },
     {
