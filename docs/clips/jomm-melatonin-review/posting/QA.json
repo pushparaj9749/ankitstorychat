@@ -1,0 +1,743 @@
+{
+  "campaign": "jomm — Melatonin",
+  "requiredTikTokAudio": "https://www.tiktok.com/music/Melatonin-7673616407373334545",
+  "automatedChecks": [
+    {
+      "file": "01_Madara_Uchiha.mp4",
+      "bytes": 19883756,
+      "duration": 21.5,
+      "width": 1080,
+      "height": 1920,
+      "fps": 30.0,
+      "videoCodec": "h264",
+      "audioCodec": "aac",
+      "sampleRate": 48000,
+      "channels": 2,
+      "sha256": "f9dd323c68f0dd7522446b1314e708342a3a5793cee34162de4df5af676aa160",
+      "checks": {
+        "duration12To60": true,
+        "portrait1080x1920": true,
+        "fps30": true,
+        "h264": true,
+        "aac": true,
+        "stereo48k": true
+      },
+      "fullDecode": "passed",
+      "id": "madara",
+      "title": "Madara Uchiha",
+      "timing": {
+        "durationPlanned": 21.472,
+        "cutTimes": [
+          3.147,
+          5.835,
+          8.512,
+          11.189,
+          13.877,
+          16.555,
+          19.232
+        ],
+        "segments": [
+          {
+            "sourceStart": 0.0,
+            "zoom": 1.1,
+            "outputStart": 0.0,
+            "outputEnd": 3.147,
+            "sourceEnd": 3.147
+          },
+          {
+            "sourceStart": 8.0,
+            "zoom": 1.15,
+            "outputStart": 3.147,
+            "outputEnd": 5.835,
+            "sourceEnd": 10.688
+          },
+          {
+            "sourceStart": 11.0,
+            "zoom": 1.08,
+            "outputStart": 5.835,
+            "outputEnd": 8.512,
+            "sourceEnd": 13.677
+          },
+          {
+            "sourceStart": 13.7,
+            "zoom": 1.14,
+            "outputStart": 8.512,
+            "outputEnd": 11.189,
+            "sourceEnd": 16.377
+          },
+          {
+            "sourceStart": 18.2,
+            "zoom": 1.1,
+            "outputStart": 11.189,
+            "outputEnd": 13.877,
+            "sourceEnd": 20.888
+          },
+          {
+            "sourceStart": 21.2,
+            "zoom": 1.16,
+            "outputStart": 13.877,
+            "outputEnd": 16.555,
+            "sourceEnd": 23.878
+          },
+          {
+            "sourceStart": 23.9,
+            "zoom": 1.12,
+            "outputStart": 16.555,
+            "outputEnd": 19.232,
+            "sourceEnd": 26.577
+          },
+          {
+            "sourceStart": 26.7,
+            "zoom": 1.09,
+            "outputStart": 19.232,
+            "outputEnd": 21.472,
+            "sourceEnd": 28.94
+          }
+        ]
+      },
+      "sourceDuration": 30.009984
+    },
+    {
+      "file": "02_Gojo_Satoru.mp4",
+      "bytes": 22083475,
+      "duration": 20.6,
+      "width": 1080,
+      "height": 1920,
+      "fps": 30.0,
+      "videoCodec": "h264",
+      "audioCodec": "aac",
+      "sampleRate": 48000,
+      "channels": 2,
+      "sha256": "d92dd4908d96beb0040a887c8964e6a5fc4567716ec4fbce17c27229bfde718b",
+      "checks": {
+        "duration12To60": true,
+        "portrait1080x1920": true,
+        "fps30": true,
+        "h264": true,
+        "aac": true,
+        "stereo48k": true
+      },
+      "fullDecode": "passed",
+      "id": "gojo_intro",
+      "title": "Gojo Satoru",
+      "timing": {
+        "durationPlanned": 20.576,
+        "cutTimes": [
+          2.261,
+          4.053,
+          5.835,
+          7.616,
+          9.408,
+          11.189,
+          12.981,
+          14.763,
+          16.555,
+          18.347
+        ],
+        "segments": [
+          {
+            "sourceStart": 17.6,
+            "zoom": 1.14,
+            "outputStart": 0.0,
+            "outputEnd": 2.261,
+            "sourceEnd": 19.861
+          },
+          {
+            "sourceStart": 0.0,
+            "zoom": 1.08,
+            "centerX": 0.46,
+            "outputStart": 2.261,
+            "outputEnd": 4.053,
+            "sourceEnd": 1.792
+          },
+          {
+            "sourceStart": 4.8,
+            "zoom": 1.12,
+            "outputStart": 4.053,
+            "outputEnd": 5.835,
+            "sourceEnd": 6.582
+          },
+          {
+            "sourceStart": 9.2,
+            "zoom": 1.09,
+            "outputStart": 5.835,
+            "outputEnd": 7.616,
+            "sourceEnd": 10.981
+          },
+          {
+            "sourceStart": 21.8,
+            "zoom": 1.15,
+            "outputStart": 7.616,
+            "outputEnd": 9.408,
+            "sourceEnd": 23.592
+          },
+          {
+            "sourceStart": 25.8,
+            "zoom": 1.1,
+            "outputStart": 9.408,
+            "outputEnd": 11.189,
+            "sourceEnd": 27.581
+          },
+          {
+            "sourceStart": 28.0,
+            "zoom": 1.13,
+            "outputStart": 11.189,
+            "outputEnd": 12.981,
+            "sourceEnd": 29.792
+          },
+          {
+            "sourceStart": 38.8,
+            "zoom": 1.09,
+            "outputStart": 12.981,
+            "outputEnd": 14.763,
+            "sourceEnd": 40.582
+          },
+          {
+            "sourceStart": 43.8,
+            "zoom": 1.12,
+            "outputStart": 14.763,
+            "outputEnd": 16.555,
+            "sourceEnd": 45.592
+          },
+          {
+            "sourceStart": 47.5,
+            "zoom": 1.16,
+            "outputStart": 16.555,
+            "outputEnd": 18.347,
+            "sourceEnd": 49.292
+          },
+          {
+            "sourceStart": 48.4,
+            "zoom": 1.1,
+            "outputStart": 18.347,
+            "outputEnd": 20.576,
+            "sourceEnd": 50.629
+          }
+        ]
+      },
+      "sourceDuration": 50.833333
+    },
+    {
+      "file": "03_Naruto___Sasuke.mp4",
+      "bytes": 17786718,
+      "duration": 22.367,
+      "width": 1080,
+      "height": 1920,
+      "fps": 30.0,
+      "videoCodec": "h264",
+      "audioCodec": "aac",
+      "sampleRate": 48000,
+      "channels": 2,
+      "sha256": "5e35e41c33b6b241ff54883ab64fb9fef952cdb61d65aefa993c933dcec9aa39",
+      "checks": {
+        "duration12To60": true,
+        "portrait1080x1920": true,
+        "fps30": true,
+        "h264": true,
+        "aac": true,
+        "stereo48k": true
+      },
+      "fullDecode": "passed",
+      "id": "naruto_sasuke_intro",
+      "title": "Naruto & Sasuke",
+      "timing": {
+        "durationPlanned": 22.357,
+        "cutTimes": [
+          3.147,
+          5.835,
+          8.512,
+          11.189,
+          13.877,
+          16.555,
+          19.232,
+          20.576
+        ],
+        "segments": [
+          {
+            "sourceStart": 44.8,
+            "zoom": 1.13,
+            "outputStart": 0.0,
+            "outputEnd": 3.147,
+            "sourceEnd": 47.947
+          },
+          {
+            "sourceStart": 35.8,
+            "zoom": 1.1,
+            "outputStart": 3.147,
+            "outputEnd": 5.835,
+            "sourceEnd": 38.488
+          },
+          {
+            "sourceStart": 5.2,
+            "zoom": 1.09,
+            "outputStart": 5.835,
+            "outputEnd": 8.512,
+            "sourceEnd": 7.877
+          },
+          {
+            "sourceStart": 9.4,
+            "zoom": 1.14,
+            "outputStart": 8.512,
+            "outputEnd": 11.189,
+            "sourceEnd": 12.077
+          },
+          {
+            "sourceStart": 13.8,
+            "zoom": 1.11,
+            "outputStart": 11.189,
+            "outputEnd": 13.877,
+            "sourceEnd": 16.488
+          },
+          {
+            "sourceStart": 22.5,
+            "zoom": 1.15,
+            "outputStart": 13.877,
+            "outputEnd": 16.555,
+            "sourceEnd": 25.178
+          },
+          {
+            "sourceStart": 31.0,
+            "zoom": 1.09,
+            "outputStart": 16.555,
+            "outputEnd": 19.232,
+            "sourceEnd": 33.677
+          },
+          {
+            "sourceStart": 39.8,
+            "zoom": 1.13,
+            "outputStart": 19.232,
+            "outputEnd": 20.576,
+            "sourceEnd": 41.144
+          },
+          {
+            "sourceStart": 48.5,
+            "zoom": 1.1,
+            "outputStart": 20.576,
+            "outputEnd": 22.357,
+            "sourceEnd": 50.281
+          }
+        ]
+      },
+      "sourceDuration": 51.0
+    },
+    {
+      "file": "04_Itachi___Sasuke.mp4",
+      "bytes": 13241650,
+      "duration": 19.7,
+      "width": 1080,
+      "height": 1920,
+      "fps": 30.0,
+      "videoCodec": "h264",
+      "audioCodec": "aac",
+      "sampleRate": 48000,
+      "channels": 2,
+      "sha256": "db6c312d5158d14cadc0161d33dc570f043291ede941d459e581cc8abddc802c",
+      "checks": {
+        "duration12To60": true,
+        "portrait1080x1920": true,
+        "fps30": true,
+        "h264": true,
+        "aac": true,
+        "stereo48k": true
+      },
+      "fullDecode": "passed",
+      "id": "itachi_sasuke_intro",
+      "title": "Itachi & Sasuke",
+      "timing": {
+        "durationPlanned": 19.68,
+        "cutTimes": [
+          2.261,
+          4.053,
+          5.835,
+          7.616,
+          9.408,
+          11.189,
+          12.981,
+          14.763,
+          16.555,
+          18.347
+        ],
+        "segments": [
+          {
+            "sourceStart": 8.5,
+            "zoom": 1.15,
+            "outputStart": 0.0,
+            "outputEnd": 2.261,
+            "sourceEnd": 10.761
+          },
+          {
+            "sourceStart": 0.0,
+            "zoom": 1.08,
+            "outputStart": 2.261,
+            "outputEnd": 4.053,
+            "sourceEnd": 1.792
+          },
+          {
+            "sourceStart": 4.8,
+            "zoom": 1.11,
+            "outputStart": 4.053,
+            "outputEnd": 5.835,
+            "sourceEnd": 6.582
+          },
+          {
+            "sourceStart": 12.5,
+            "zoom": 1.14,
+            "outputStart": 5.835,
+            "outputEnd": 7.616,
+            "sourceEnd": 14.281
+          },
+          {
+            "sourceStart": 17.5,
+            "zoom": 1.1,
+            "outputStart": 7.616,
+            "outputEnd": 9.408,
+            "sourceEnd": 19.292
+          },
+          {
+            "sourceStart": 21.8,
+            "zoom": 1.13,
+            "outputStart": 9.408,
+            "outputEnd": 11.189,
+            "sourceEnd": 23.581
+          },
+          {
+            "sourceStart": 25.8,
+            "zoom": 1.09,
+            "outputStart": 11.189,
+            "outputEnd": 12.981,
+            "sourceEnd": 27.592
+          },
+          {
+            "sourceStart": 30.0,
+            "zoom": 1.15,
+            "outputStart": 12.981,
+            "outputEnd": 14.763,
+            "sourceEnd": 31.782
+          },
+          {
+            "sourceStart": 34.5,
+            "zoom": 1.12,
+            "outputStart": 14.763,
+            "outputEnd": 16.555,
+            "sourceEnd": 36.292
+          },
+          {
+            "sourceStart": 42.8,
+            "zoom": 1.1,
+            "outputStart": 16.555,
+            "outputEnd": 18.347,
+            "sourceEnd": 44.592
+          },
+          {
+            "sourceStart": 46.8,
+            "zoom": 1.14,
+            "outputStart": 18.347,
+            "outputEnd": 19.68,
+            "sourceEnd": 48.133
+          }
+        ]
+      },
+      "sourceDuration": 48.9
+    },
+    {
+      "file": "05_Levi_Ackerman.mp4",
+      "bytes": 20225314,
+      "duration": 21.5,
+      "width": 1080,
+      "height": 1920,
+      "fps": 30.0,
+      "videoCodec": "h264",
+      "audioCodec": "aac",
+      "sampleRate": 48000,
+      "channels": 2,
+      "sha256": "c23845b785b9e5314f27c1c90716736b3d0329815fec934079fd4a91f5b5058c",
+      "checks": {
+        "duration12To60": true,
+        "portrait1080x1920": true,
+        "fps30": true,
+        "h264": true,
+        "aac": true,
+        "stereo48k": true
+      },
+      "fullDecode": "passed",
+      "id": "levi",
+      "title": "Levi Ackerman",
+      "timing": {
+        "durationPlanned": 21.472,
+        "cutTimes": [
+          3.147,
+          5.835,
+          8.512,
+          11.189,
+          13.877,
+          16.555,
+          19.232
+        ],
+        "segments": [
+          {
+            "sourceStart": 6.2,
+            "zoom": 1.14,
+            "outputStart": 0.0,
+            "outputEnd": 3.147,
+            "sourceEnd": 9.347
+          },
+          {
+            "sourceStart": 0.0,
+            "zoom": 1.08,
+            "outputStart": 3.147,
+            "outputEnd": 5.835,
+            "sourceEnd": 2.688
+          },
+          {
+            "sourceStart": 2.8,
+            "zoom": 1.12,
+            "outputStart": 5.835,
+            "outputEnd": 8.512,
+            "sourceEnd": 5.477
+          },
+          {
+            "sourceStart": 15.0,
+            "zoom": 1.1,
+            "outputStart": 8.512,
+            "outputEnd": 11.189,
+            "sourceEnd": 17.677
+          },
+          {
+            "sourceStart": 10.8,
+            "zoom": 1.15,
+            "outputStart": 11.189,
+            "outputEnd": 13.877,
+            "sourceEnd": 13.488
+          },
+          {
+            "sourceStart": 12.8,
+            "zoom": 1.11,
+            "outputStart": 13.877,
+            "outputEnd": 16.555,
+            "sourceEnd": 15.478
+          },
+          {
+            "sourceStart": 18.8,
+            "zoom": 1.09,
+            "outputStart": 16.555,
+            "outputEnd": 19.232,
+            "sourceEnd": 21.477
+          },
+          {
+            "sourceStart": 22.0,
+            "zoom": 1.14,
+            "outputStart": 19.232,
+            "outputEnd": 21.472,
+            "sourceEnd": 24.24
+          }
+        ]
+      },
+      "sourceDuration": 24.839317
+    },
+    {
+      "file": "06_Tanjiro_Kamado.mp4",
+      "bytes": 25886130,
+      "duration": 23.267,
+      "width": 1080,
+      "height": 1920,
+      "fps": 30.0,
+      "videoCodec": "h264",
+      "audioCodec": "aac",
+      "sampleRate": 48000,
+      "channels": 2,
+      "sha256": "a3346ecc36e484003a4105e65d2ee7fa6c5225df13736ad89a6034386913f7e9",
+      "checks": {
+        "duration12To60": true,
+        "portrait1080x1920": true,
+        "fps30": true,
+        "h264": true,
+        "aac": true,
+        "stereo48k": true
+      },
+      "fullDecode": "passed",
+      "id": "tanjiro",
+      "title": "Tanjiro Kamado",
+      "timing": {
+        "durationPlanned": 23.264,
+        "cutTimes": [
+          3.147,
+          5.835,
+          8.512,
+          11.189,
+          13.877,
+          16.555,
+          19.232,
+          21.472
+        ],
+        "segments": [
+          {
+            "sourceStart": 5.8,
+            "zoom": 1.1,
+            "outputStart": 0.0,
+            "outputEnd": 3.147,
+            "sourceEnd": 8.947
+          },
+          {
+            "sourceStart": 30.0,
+            "zoom": 1.14,
+            "centerX": 0.62,
+            "outputStart": 3.147,
+            "outputEnd": 5.835,
+            "sourceEnd": 32.688
+          },
+          {
+            "sourceStart": 54.5,
+            "zoom": 1.12,
+            "centerX": 0.64,
+            "outputStart": 5.835,
+            "outputEnd": 8.512,
+            "sourceEnd": 57.177
+          },
+          {
+            "sourceStart": 78.8,
+            "zoom": 1.09,
+            "outputStart": 8.512,
+            "outputEnd": 11.189,
+            "sourceEnd": 81.477
+          },
+          {
+            "sourceStart": 103.0,
+            "zoom": 1.15,
+            "outputStart": 11.189,
+            "outputEnd": 13.877,
+            "sourceEnd": 105.688
+          },
+          {
+            "sourceStart": 128.0,
+            "zoom": 1.11,
+            "outputStart": 13.877,
+            "outputEnd": 16.555,
+            "sourceEnd": 130.678
+          },
+          {
+            "sourceStart": 176.8,
+            "zoom": 1.14,
+            "outputStart": 16.555,
+            "outputEnd": 19.232,
+            "sourceEnd": 179.477
+          },
+          {
+            "sourceStart": 225.5,
+            "zoom": 1.1,
+            "outputStart": 19.232,
+            "outputEnd": 21.472,
+            "sourceEnd": 227.74
+          },
+          {
+            "sourceStart": 250.5,
+            "zoom": 1.13,
+            "outputStart": 21.472,
+            "outputEnd": 23.264,
+            "sourceEnd": 252.292
+          }
+        ]
+      },
+      "sourceDuration": 282.82
+    },
+    {
+      "file": "07_Roronoa_Zoro.mp4",
+      "bytes": 29970484,
+      "duration": 20.6,
+      "width": 1080,
+      "height": 1920,
+      "fps": 30.0,
+      "videoCodec": "h264",
+      "audioCodec": "aac",
+      "sampleRate": 48000,
+      "channels": 2,
+      "sha256": "86dfd2472f43e5a53fb1e08a7e193e7b69c4d174d69c2c402de3b10c2f0be5e5",
+      "checks": {
+        "duration12To60": true,
+        "portrait1080x1920": true,
+        "fps30": true,
+        "h264": true,
+        "aac": true,
+        "stereo48k": true
+      },
+      "fullDecode": "passed",
+      "id": "zoro",
+      "title": "Roronoa Zoro",
+      "timing": {
+        "durationPlanned": 20.576,
+        "cutTimes": [
+          3.147,
+          5.835,
+          8.512,
+          11.189,
+          13.877,
+          16.555,
+          18.347
+        ],
+        "segments": [
+          {
+            "sourceStart": 0.0,
+            "zoom": 1.14,
+            "outputStart": 0.0,
+            "outputEnd": 3.147,
+            "sourceEnd": 3.147
+          },
+          {
+            "sourceStart": 7.0,
+            "zoom": 1.09,
+            "outputStart": 3.147,
+            "outputEnd": 5.835,
+            "sourceEnd": 9.688
+          },
+          {
+            "sourceStart": 9.8,
+            "zoom": 1.12,
+            "outputStart": 5.835,
+            "outputEnd": 8.512,
+            "sourceEnd": 12.477
+          },
+          {
+            "sourceStart": 12.0,
+            "zoom": 1.15,
+            "outputStart": 8.512,
+            "outputEnd": 11.189,
+            "sourceEnd": 14.677
+          },
+          {
+            "sourceStart": 15.0,
+            "zoom": 1.1,
+            "outputStart": 11.189,
+            "outputEnd": 13.877,
+            "sourceEnd": 17.688
+          },
+          {
+            "sourceStart": 17.2,
+            "zoom": 1.14,
+            "outputStart": 13.877,
+            "outputEnd": 16.555,
+            "sourceEnd": 19.878
+          },
+          {
+            "sourceStart": 20.0,
+            "zoom": 1.09,
+            "outputStart": 16.555,
+            "outputEnd": 18.347,
+            "sourceEnd": 21.792
+          },
+          {
+            "sourceStart": 24.5,
+            "zoom": 1.13,
+            "outputStart": 18.347,
+            "outputEnd": 20.576,
+            "sourceEnd": 26.729
+          }
+        ]
+      },
+      "sourceDuration": 28.433333
+    }
+  ],
+  "manualBeforePosting": [
+    "Select the exact official TikTok sound and mute the reference video audio.",
+    "Review every frame and caption for platform suitability.",
+    "Verify engagement and audience tiers from real video analytics; this package makes no performance claim."
+  ]
+}
