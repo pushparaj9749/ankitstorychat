@@ -2,7 +2,7 @@
   "clips": [
     {
       "file": "01_Madara_Uchiha.mp4",
-      "bytes": 19883756,
+      "bytes": 19905653,
       "duration": 21.5,
       "width": 1080,
       "height": 1920,
@@ -11,7 +11,7 @@
       "audioCodec": "aac",
       "sampleRate": 48000,
       "channels": 2,
-      "sha256": "f9dd323c68f0dd7522446b1314e708342a3a5793cee34162de4df5af676aa160",
+      "sha256": "73e67f385dc21bb0cdffaeafe291d48d0e579f71f5aceb7377f4e37e7f93159f",
       "checks": {
         "duration12To60": true,
         "portrait1080x1920": true,
@@ -97,7 +97,7 @@
     },
     {
       "file": "02_Gojo_Satoru.mp4",
-      "bytes": 22083475,
+      "bytes": 22575700,
       "duration": 20.6,
       "width": 1080,
       "height": 1920,
@@ -106,7 +106,7 @@
       "audioCodec": "aac",
       "sampleRate": 48000,
       "channels": 2,
-      "sha256": "d92dd4908d96beb0040a887c8964e6a5fc4567716ec4fbce17c27229bfde718b",
+      "sha256": "4aadf50b0128e7b2d61a11c18946a142215b9454425e37684cb2f75664fa9160",
       "checks": {
         "duration12To60": true,
         "portrait1080x1920": true,
@@ -205,11 +205,11 @@
             "sourceEnd": 49.292
           },
           {
-            "sourceStart": 48.4,
+            "sourceStart": 44.8,
             "zoom": 1.1,
             "outputStart": 18.347,
             "outputEnd": 20.576,
-            "sourceEnd": 50.629
+            "sourceEnd": 47.029
           }
         ]
       },
@@ -217,7 +217,7 @@
     },
     {
       "file": "03_Naruto___Sasuke.mp4",
-      "bytes": 17786718,
+      "bytes": 17790705,
       "duration": 22.367,
       "width": 1080,
       "height": 1920,
@@ -226,7 +226,7 @@
       "audioCodec": "aac",
       "sampleRate": 48000,
       "channels": 2,
-      "sha256": "5e35e41c33b6b241ff54883ab64fb9fef952cdb61d65aefa993c933dcec9aa39",
+      "sha256": "2b2fa0cf0d7859ce1bd426ed0ca6ad9b5b486ccf75450faa65af80bf0ae04d53",
       "checks": {
         "duration12To60": true,
         "portrait1080x1920": true,
@@ -320,7 +320,7 @@
     },
     {
       "file": "04_Itachi___Sasuke.mp4",
-      "bytes": 13241650,
+      "bytes": 13063955,
       "duration": 19.7,
       "width": 1080,
       "height": 1920,
@@ -329,7 +329,7 @@
       "audioCodec": "aac",
       "sampleRate": 48000,
       "channels": 2,
-      "sha256": "db6c312d5158d14cadc0161d33dc570f043291ede941d459e581cc8abddc802c",
+      "sha256": "6fd0bc8d804f45de22ea29c265d3c54120f91f798eaedcfa70c54f9ff4d3365c",
       "checks": {
         "duration12To60": true,
         "portrait1080x1920": true,
@@ -427,11 +427,11 @@
             "sourceEnd": 44.592
           },
           {
-            "sourceStart": 46.8,
+            "sourceStart": 8.5,
             "zoom": 1.14,
             "outputStart": 18.347,
             "outputEnd": 19.68,
-            "sourceEnd": 48.133
+            "sourceEnd": 9.833
           }
         ]
       },
@@ -439,7 +439,7 @@
     },
     {
       "file": "05_Levi_Ackerman.mp4",
-      "bytes": 20225314,
+      "bytes": 20244667,
       "duration": 21.5,
       "width": 1080,
       "height": 1920,
@@ -448,7 +448,7 @@
       "audioCodec": "aac",
       "sampleRate": 48000,
       "channels": 2,
-      "sha256": "c23845b785b9e5314f27c1c90716736b3d0329815fec934079fd4a91f5b5058c",
+      "sha256": "ad8225a0234bdcb350575665aa135c30b4c0b10615e0b77192d60c6faa7264ce",
       "checks": {
         "duration12To60": true,
         "portrait1080x1920": true,
@@ -534,7 +534,7 @@
     },
     {
       "file": "06_Tanjiro_Kamado.mp4",
-      "bytes": 25886130,
+      "bytes": 26577776,
       "duration": 23.267,
       "width": 1080,
       "height": 1920,
@@ -543,7 +543,7 @@
       "audioCodec": "aac",
       "sampleRate": 48000,
       "channels": 2,
-      "sha256": "a3346ecc36e484003a4105e65d2ee7fa6c5225df13736ad89a6034386913f7e9",
+      "sha256": "8dcab44a14625f74330fff58b94128e1fda361d33d10ffcd84be0086a8dd58c8",
       "checks": {
         "duration12To60": true,
         "portrait1080x1920": true,
@@ -569,11 +569,11 @@
         ],
         "segments": [
           {
-            "sourceStart": 5.8,
+            "sourceStart": 7.0,
             "zoom": 1.1,
             "outputStart": 0.0,
             "outputEnd": 3.147,
-            "sourceEnd": 8.947
+            "sourceEnd": 10.147
           },
           {
             "sourceStart": 30.0,
@@ -620,11 +620,11 @@
             "sourceEnd": 179.477
           },
           {
-            "sourceStart": 225.5,
+            "sourceStart": 201.5,
             "zoom": 1.1,
             "outputStart": 19.232,
             "outputEnd": 21.472,
-            "sourceEnd": 227.74
+            "sourceEnd": 203.74
           },
           {
             "sourceStart": 250.5,
@@ -639,7 +639,7 @@
     },
     {
       "file": "07_Roronoa_Zoro.mp4",
-      "bytes": 29970484,
+      "bytes": 29977557,
       "duration": 20.6,
       "width": 1080,
       "height": 1920,
@@ -648,7 +648,7 @@
       "audioCodec": "aac",
       "sampleRate": 48000,
       "channels": 2,
-      "sha256": "86dfd2472f43e5a53fb1e08a7e193e7b69c4d174d69c2c402de3b10c2f0be5e5",
+      "sha256": "ea5f9cc416ca31a404c0982151b46dae45f6e51427e300114a426519a1ab2afa",
       "checks": {
         "duration12To60": true,
         "portrait1080x1920": true,
