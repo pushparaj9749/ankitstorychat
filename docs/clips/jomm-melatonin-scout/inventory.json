@@ -198,5 +198,155 @@
         "bytes": 288763112
       }
     ]
+  },
+  {
+    "id": "levi",
+    "character": "Levi Ackerman",
+    "anime": "Attack on Titan",
+    "kind": "drive_file",
+    "driveId": "1Lei-ffenno3XQQSnyZhUxUUo2cRWSTxg",
+    "sourcePage": "https://www.youtube.com/watch?v=WmccZK9nKZk",
+    "sourceLabel": "Levi Ackerman Twixtor 4K NO CC + NO WARP",
+    "credit": "Original editor of linked source video (handle unavailable; retain source URL)",
+    "accent": "#A8B89A",
+    "selectedVideo": "levi/2.mp4",
+    "selectedBytes": 190923817,
+    "duration": 24.839317,
+    "probe": {
+      "programs": [],
+      "streams": [
+        {
+          "index": 0,
+          "codec_name": "h264",
+          "codec_type": "video",
+          "width": 3840,
+          "height": 2160,
+          "r_frame_rate": "60/1"
+        },
+        {
+          "index": 1,
+          "codec_name": "aac",
+          "codec_type": "audio",
+          "sample_rate": "48000",
+          "channels": 2,
+          "r_frame_rate": "0/0"
+        }
+      ],
+      "format": {
+        "format_name": "mov,mp4,m4a,3gp,3g2,mj2",
+        "duration": "24.839317",
+        "size": "190923817"
+      }
+    },
+    "review": [
+      "levi-scout.jpg",
+      "levi-vertical-crops.jpg"
+    ],
+    "allVideoCandidates": [
+      {
+        "file": "2.mp4",
+        "bytes": 190923817
+      }
+    ]
+  },
+  {
+    "id": "tanjiro",
+    "character": "Tanjiro Kamado",
+    "anime": "Demon Slayer",
+    "kind": "drive_file",
+    "driveId": "1L8F2-PrifhdOPwz0r5U_QIGkcAXr9ZCj",
+    "sourcePage": "https://www.youtube.com/watch?v=RO8tIW9ACyQ",
+    "sourceLabel": "Tanjiro Kamado Twixtor 4K",
+    "credit": "Saiyan Pride",
+    "accent": "#D97868",
+    "selectedVideo": "tanjiro/Tanjiro kamado 4k.mp4",
+    "selectedBytes": 509388311,
+    "duration": 282.82,
+    "probe": {
+      "programs": [],
+      "streams": [
+        {
+          "index": 0,
+          "codec_name": "h264",
+          "codec_type": "video",
+          "width": 1920,
+          "height": 1080,
+          "r_frame_rate": "60/1"
+        },
+        {
+          "index": 1,
+          "codec_name": "aac",
+          "codec_type": "audio",
+          "sample_rate": "44100",
+          "channels": 2,
+          "r_frame_rate": "0/0"
+        }
+      ],
+      "format": {
+        "format_name": "mov,mp4,m4a,3gp,3g2,mj2",
+        "duration": "282.820000",
+        "size": "509388311"
+      }
+    },
+    "review": [
+      "tanjiro-scout.jpg",
+      "tanjiro-vertical-crops.jpg"
+    ],
+    "allVideoCandidates": [
+      {
+        "file": "Tanjiro kamado 4k.mp4",
+        "bytes": 509388311
+      }
+    ]
+  },
+  {
+    "id": "zoro",
+    "character": "Roronoa Zoro",
+    "anime": "One Piece",
+    "kind": "drive_file",
+    "driveId": "1E2nXwpdYuRfEiayASUud-SuhUXJ9Nb70",
+    "sourcePage": "https://ringwitdatwixtor.com/roronoa-zoro-twixtor-clips-4k-one-piece/",
+    "sourceLabel": "Zoro 4K NO CC",
+    "credit": "RingWitDaHoodieTwixtor",
+    "accent": "#80B994",
+    "selectedVideo": "zoro/zoro no cc_scale_1x_prob-3.mp4",
+    "selectedBytes": 35398658,
+    "duration": 28.433333,
+    "probe": {
+      "programs": [],
+      "streams": [
+        {
+          "index": 0,
+          "codec_name": "h264",
+          "codec_type": "video",
+          "width": 1920,
+          "height": 1080,
+          "r_frame_rate": "30/1"
+        },
+        {
+          "index": 1,
+          "codec_name": "aac",
+          "codec_type": "audio",
+          "sample_rate": "48000",
+          "channels": 2,
+          "r_frame_rate": "0/0"
+        }
+      ],
+      "format": {
+        "format_name": "mov,mp4,m4a,3gp,3g2,mj2",
+        "duration": "28.433333",
+        "size": "35398658"
+      }
+    },
+    "review": [
+      "zoro-scout.jpg",
+      "zoro-vertical-crops.jpg"
+    ],
+    "allVideoCandidates": [
+      {
+        "file": "zoro no cc_scale_1x_prob-3.mp4",
+        "bytes": 35398658
+      }
+    ]
   }
 ]

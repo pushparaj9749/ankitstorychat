@@ -1,135 +1,0 @@
-
-=== Resolving official Apple Music preview: https://itunes.apple.com/lookup?id=6801192494&entity=song ===
-+ ffmpeg -hide_banner -loglevel error -y -i /home/runner/work/ankitstorychat/ankitstorychat/work/jomm-melatonin/audio/original-apple.m4a -map 0:a:0 -vn -ac 2 -ar 48000 ...
-+ ffprobe -v error -show_entries format=duration,size,format_name:stream=index,codec_name,codec_type,width,height,r_frame_rate,sample_rate,channels -of json /home/runner/work/ankitstorychat/ankitstorychat/work/jomm-melatonin/audio/melatonin-48k.wav 
-Audio ready: /home/runner/work/ankitstorychat/ankitstorychat/work/jomm-melatonin/audio/melatonin-48k.wav (5,755,378 bytes)
-
-=== Analysing tempo, beats and lyrics ===
-Warning: You are sending unauthenticated requests to the HF Hub. Please set a HF_TOKEN to enable higher rate limits and faster downloads.
-[0;93m2026-11-04 04:49:03.284104732 [W:onnxruntime:Default, device_discovery.cc:95 GetPciBusId] Skipping pci_bus_id for PCI path at "/sys/devices/LNXSYSTM:00/LNXSYBUS:00/ACPI0004:00/MSFT1000:00/5620e0c7-8062-4dce-aeb7-520c7ef76171" because filename "5620e0c7-8062-4dce-aeb7-520c7ef76171" did not match expected pattern of [0-9a-f]+:[0-9a-f]+:[0-9a-f]+[.][0-9a-f]+[m
-
-=== Downloading madara from https://animetwixtor.com/madara-uchiha-twixtor/ ===
-Downloading...
-From (original): https://drive.google.com/uc?id=1kl_U5PpYMxYf9vh_b2AM6cwvo6S33ENz
-From (redirected): https://drive.google.com/uc?id=1kl_U5PpYMxYf9vh_b2AM6cwvo6S33ENz&confirm=t&uuid=b7601ca6-dcf4-44c4-8e0e-79fc9a3130a1
-To: /home/runner/work/ankitstorychat/ankitstorychat/work/jomm-melatonin/source/madara/[animetwixtor.com] 4K NO CC Madara.mp4
-  0%|          | 0.00/365M [00:00<?, ?B/s]  0%|          | 524k/365M [00:00<01:13, 4.96MB/s]  1%|          | 2.62M/365M [00:00<00:27, 13.3MB/s]  3%|▎         | 9.44M/365M [00:00<00:09, 36.2MB/s]  4%|▎         | 13.1M/365M [00:00<00:10, 34.4MB/s]  5%|▌         | 18.9M/365M [00:00<00:08, 38.7MB/s]  6%|▋         | 23.6M/365M [00:00<00:08, 39.3MB/s]  8%|▊         | 29.4M/365M [00:00<00:07, 44.5MB/s]  9%|▉         | 34.1M/365M [00:00<00:08, 38.9MB/s] 11%|█▏        | 41.4M/365M [00:01<00:06, 48.1MB/s] 13%|█▎        | 47.2M/365M [00:01<00:06, 50.6MB/s] 15%|█▌        | 55.1M/365M [00:01<00:05, 58.2MB/s] 17%|█▋        | 61.3M/365M [00:01<00:05, 58.5MB/s] 19%|█▊        | 68.2M/365M [00:01<00:04, 60.0MB/s] 21%|██        | 76.5M/365M [00:01<00:04, 66.5MB/s] 23%|██▎       | 84.4M/365M [00:01<00:04, 68.7MB/s] 25%|██▌       | 91.8M/365M [00:01<00:04, 65.0MB/s] 27%|██▋       | 98.6M/365M [00:01<00:04, 57.9MB/s] 29%|██▉       | 106M/365M [00:02<00:04, 63.1MB/s]  31%|███▏      | 114M/365M [00:02<00:03, 67.1MB/s] 33%|███▎      | 122M/365M [00:02<00:03, 70.3MB/s] 36%|███▌      | 130M/365M [00:02<00:03, 72.5MB/s] 38%|███▊      | 138M/365M [00:02<00:03, 74.0MB/s] 40%|███▉      | 146M/365M [00:02<00:02, 75.1MB/s] 42%|████▏     | 154M/365M [00:02<00:02, 76.0MB/s] 44%|████▍     | 161M/365M [00:02<00:02, 74.9MB/s] 46%|████▋     | 169M/365M [00:02<00:03, 62.9MB/s] 48%|████▊     | 176M/365M [00:03<00:03, 58.7MB/s] 50%|█████     | 183M/365M [00:03<00:02, 60.9MB/s] 52%|█████▏    | 190M/365M [00:03<00:02, 62.4MB/s] 54%|█████▍    | 197M/365M [00:03<00:02, 63.7MB/s] 56%|█████▌    | 203M/365M [00:03<00:02, 64.5MB/s] 58%|█████▊    | 210M/365M [00:03<00:02, 58.8MB/s] 59%|█████▉    | 217M/365M [00:03<00:02, 61.0MB/s] 61%|██████▏   | 224M/365M [00:03<00:02, 62.7MB/s] 63%|██████▎   | 231M/365M [00:04<00:02, 49.2MB/s] 65%|██████▌   | 238M/365M [00:04<00:02, 53.4MB/s] 67%|██████▋   | 244M/365M [00:04<00:02, 56.8MB/s] 69%|██████▉   | 251M/365M [00:04<00:01, 59.5MB/s] 71%|███████   | 258M/365M [00:04<00:01, 61.1MB/s] 73%|███████▎  | 265M/365M [00:04<00:01, 62.9MB/s] 74%|███████▍  | 272M/365M [00:04<00:01, 63.7MB/s] 76%|███████▋  | 278M/365M [00:04<00:01, 64.9MB/s] 78%|███████▊  | 285M/365M [00:04<00:01, 65.3MB/s] 80%|████████  | 293M/365M [00:04<00:01, 68.2MB/s] 82%|████████▏ | 300M/365M [00:05<00:00, 66.8MB/s] 84%|████████▍ | 308M/365M [00:05<00:00, 69.6MB/s] 86%|████████▋ | 316M/365M [00:05<00:00, 70.3MB/s] 88%|████████▊ | 323M/365M [00:05<00:00, 63.7MB/s] 90%|█████████ | 330M/365M [00:05<00:00, 66.2MB/s] 93%|█████████▎| 338M/365M [00:05<00:00, 69.0MB/s] 95%|█████████▍| 346M/365M [00:05<00:00, 71.5MB/s] 97%|█████████▋| 354M/365M [00:05<00:00, 71.2MB/s] 99%|█████████▉| 362M/365M [00:05<00:00, 73.0MB/s]100%|██████████| 365M/365M [00:05<00:00, 61.2MB/s]
-gdown file result: /home/runner/work/ankitstorychat/ankitstorychat/work/jomm-melatonin/source/madara/[animetwixtor.com] 4K NO CC Madara.mp4
-Selected madara: [animetwixtor.com] 4K NO CC Madara.mp4 (364,992,548 bytes)
-
-=== Scouting madara: [animetwixtor.com] 4K NO CC Madara.mp4 ===
-+ ffprobe -v error -show_entries format=duration,size,format_name:stream=index,codec_name,codec_type,width,height,r_frame_rate,sample_rate,channels -of json /home/runner/work/ankitstorychat/ankitstorychat/work/jomm-melatonin/source/madara/[animetwixtor.com] 4K NO CC Madara.mp4 
-+ ffmpeg -hide_banner -loglevel error -y -ss 0.750 -i /home/runner/work/ankitstorychat/ankitstorychat/work/jomm-melatonin/source/madara/[animetwixtor.com] 4K NO CC Madara.mp4 -frames:v 1 -vf scale=1280:-2 -q:v ...
-+ ffmpeg -hide_banner -loglevel error -y -ss 3.342 -i /home/runner/work/ankitstorychat/ankitstorychat/work/jomm-melatonin/source/madara/[animetwixtor.com] 4K NO CC Madara.mp4 -frames:v 1 -vf scale=1280:-2 -q:v ...
-+ ffmpeg -hide_banner -loglevel error -y -ss 5.934 -i /home/runner/work/ankitstorychat/ankitstorychat/work/jomm-melatonin/source/madara/[animetwixtor.com] 4K NO CC Madara.mp4 -frames:v 1 -vf scale=1280:-2 -q:v ...
-+ ffmpeg -hide_banner -loglevel error -y -ss 8.526 -i /home/runner/work/ankitstorychat/ankitstorychat/work/jomm-melatonin/source/madara/[animetwixtor.com] 4K NO CC Madara.mp4 -frames:v 1 -vf scale=1280:-2 -q:v ...
-+ ffmpeg -hide_banner -loglevel error -y -ss 11.117 -i /home/runner/work/ankitstorychat/ankitstorychat/work/jomm-melatonin/source/madara/[animetwixtor.com] 4K NO CC Madara.mp4 -frames:v 1 -vf scale=1280:-2 -q:v ...
-+ ffmpeg -hide_banner -loglevel error -y -ss 13.709 -i /home/runner/work/ankitstorychat/ankitstorychat/work/jomm-melatonin/source/madara/[animetwixtor.com] 4K NO CC Madara.mp4 -frames:v 1 -vf scale=1280:-2 -q:v ...
-+ ffmpeg -hide_banner -loglevel error -y -ss 16.301 -i /home/runner/work/ankitstorychat/ankitstorychat/work/jomm-melatonin/source/madara/[animetwixtor.com] 4K NO CC Madara.mp4 -frames:v 1 -vf scale=1280:-2 -q:v ...
-+ ffmpeg -hide_banner -loglevel error -y -ss 18.893 -i /home/runner/work/ankitstorychat/ankitstorychat/work/jomm-melatonin/source/madara/[animetwixtor.com] 4K NO CC Madara.mp4 -frames:v 1 -vf scale=1280:-2 -q:v ...
-+ ffmpeg -hide_banner -loglevel error -y -ss 21.484 -i /home/runner/work/ankitstorychat/ankitstorychat/work/jomm-melatonin/source/madara/[animetwixtor.com] 4K NO CC Madara.mp4 -frames:v 1 -vf scale=1280:-2 -q:v ...
-+ ffmpeg -hide_banner -loglevel error -y -ss 24.076 -i /home/runner/work/ankitstorychat/ankitstorychat/work/jomm-melatonin/source/madara/[animetwixtor.com] 4K NO CC Madara.mp4 -frames:v 1 -vf scale=1280:-2 -q:v ...
-+ ffmpeg -hide_banner -loglevel error -y -ss 26.668 -i /home/runner/work/ankitstorychat/ankitstorychat/work/jomm-melatonin/source/madara/[animetwixtor.com] 4K NO CC Madara.mp4 -frames:v 1 -vf scale=1280:-2 -q:v ...
-+ ffmpeg -hide_banner -loglevel error -y -ss 29.260 -i /home/runner/work/ankitstorychat/ankitstorychat/work/jomm-melatonin/source/madara/[animetwixtor.com] 4K NO CC Madara.mp4 -frames:v 1 -vf scale=1280:-2 -q:v ...
-
-=== Downloading gojo_intro from https://animetwixtor.com/intro-twixtor-gojo-satoru-4k/ ===
-Retrieving folder contents
-Retrieving folder contents completed
-Building directory structure
-Building directory structure completed
-Downloading...
-From: https://drive.google.com/uc?id=1Vdf9UdsRTR_fijAzveDPG-T7sZw3_OY1
-To: /home/runner/work/ankitstorychat/ankitstorychat/work/jomm-melatonin/source/gojo_intro/Intro + twixtor gojo vs sukuna.mp4
-Processing file 1Vdf9UdsRTR_fijAzveDPG-T7sZw3_OY1 Intro + twixtor gojo vs sukuna.mp4
-Processing file 1GPD275TnH_KG6Lk3r4WrjBKcL-1dJLiY Intro gojo vs sukuna voice [vocals].mp3
-  0%|          | 0.00/58.8M [00:00<?, ?B/s]  1%|          | 524k/58.8M [00:00<00:13, 4.38MB/s] 15%|█▌        | 8.91M/58.8M [00:00<00:01, 27.1MB/s] 26%|██▌       | 15.2M/58.8M [00:00<00:01, 29.2MB/s] 37%|███▋      | 21.5M/58.8M [00:00<00:01, 29.6MB/s] 45%|████▌     | 26.7M/58.8M [00:00<00:01, 28.9MB/s] 58%|█████▊    | 34.1M/58.8M [00:01<00:00, 38.0MB/s] 66%|██████▌   | 38.8M/58.8M [00:01<00:00, 37.5MB/s] 74%|███████▍  | 43.5M/58.8M [00:01<00:00, 32.7MB/s] 88%|████████▊ | 51.9M/58.8M [00:01<00:00, 35.7MB/s]100%|██████████| 58.8M/58.8M [00:01<00:00, 36.2MB/s]
-Downloading...
-From: https://drive.google.com/uc?id=1GPD275TnH_KG6Lk3r4WrjBKcL-1dJLiY
-To: /home/runner/work/ankitstorychat/ankitstorychat/work/jomm-melatonin/source/gojo_intro/Intro gojo vs sukuna voice [vocals].mp3
-  0%|          | 0.00/446k [00:00<?, ?B/s]100%|██████████| 446k/446k [00:00<00:00, 3.83MB/s]100%|██████████| 446k/446k [00:00<00:00, 3.82MB/s]
-Download completed
-gdown folder result: ['/home/runner/work/ankitstorychat/ankitstorychat/work/jomm-melatonin/source/gojo_intro/Intro + twixtor gojo vs sukuna.mp4', '/home/runner/work/ankitstorychat/ankitstorychat/work/jomm-melatonin/source/gojo_intro/Intro gojo vs sukuna voice [vocals].mp3']
-Selected gojo_intro: Intro + twixtor gojo vs sukuna.mp4 (58,787,639 bytes)
-
-=== Scouting gojo_intro: Intro + twixtor gojo vs sukuna.mp4 ===
-+ ffprobe -v error -show_entries format=duration,size,format_name:stream=index,codec_name,codec_type,width,height,r_frame_rate,sample_rate,channels -of json /home/runner/work/ankitstorychat/ankitstorychat/work/jomm-melatonin/source/gojo_intro/Intro + twixtor gojo vs sukuna.mp4 
-+ ffmpeg -hide_banner -loglevel error -y -ss 1.271 -i /home/runner/work/ankitstorychat/ankitstorychat/work/jomm-melatonin/source/gojo_intro/Intro + twixtor gojo vs sukuna.mp4 -frames:v 1 -vf scale=1280:-2 -q:v ...
-+ ffmpeg -hide_banner -loglevel error -y -ss 5.661 -i /home/runner/work/ankitstorychat/ankitstorychat/work/jomm-melatonin/source/gojo_intro/Intro + twixtor gojo vs sukuna.mp4 -frames:v 1 -vf scale=1280:-2 -q:v ...
-+ ffmpeg -hide_banner -loglevel error -y -ss 10.051 -i /home/runner/work/ankitstorychat/ankitstorychat/work/jomm-melatonin/source/gojo_intro/Intro + twixtor gojo vs sukuna.mp4 -frames:v 1 -vf scale=1280:-2 -q:v ...
-+ ffmpeg -hide_banner -loglevel error -y -ss 14.441 -i /home/runner/work/ankitstorychat/ankitstorychat/work/jomm-melatonin/source/gojo_intro/Intro + twixtor gojo vs sukuna.mp4 -frames:v 1 -vf scale=1280:-2 -q:v ...
-+ ffmpeg -hide_banner -loglevel error -y -ss 18.831 -i /home/runner/work/ankitstorychat/ankitstorychat/work/jomm-melatonin/source/gojo_intro/Intro + twixtor gojo vs sukuna.mp4 -frames:v 1 -vf scale=1280:-2 -q:v ...
-+ ffmpeg -hide_banner -loglevel error -y -ss 23.222 -i /home/runner/work/ankitstorychat/ankitstorychat/work/jomm-melatonin/source/gojo_intro/Intro + twixtor gojo vs sukuna.mp4 -frames:v 1 -vf scale=1280:-2 -q:v ...
-+ ffmpeg -hide_banner -loglevel error -y -ss 27.612 -i /home/runner/work/ankitstorychat/ankitstorychat/work/jomm-melatonin/source/gojo_intro/Intro + twixtor gojo vs sukuna.mp4 -frames:v 1 -vf scale=1280:-2 -q:v ...
-+ ffmpeg -hide_banner -loglevel error -y -ss 32.002 -i /home/runner/work/ankitstorychat/ankitstorychat/work/jomm-melatonin/source/gojo_intro/Intro + twixtor gojo vs sukuna.mp4 -frames:v 1 -vf scale=1280:-2 -q:v ...
-+ ffmpeg -hide_banner -loglevel error -y -ss 36.392 -i /home/runner/work/ankitstorychat/ankitstorychat/work/jomm-melatonin/source/gojo_intro/Intro + twixtor gojo vs sukuna.mp4 -frames:v 1 -vf scale=1280:-2 -q:v ...
-+ ffmpeg -hide_banner -loglevel error -y -ss 40.782 -i /home/runner/work/ankitstorychat/ankitstorychat/work/jomm-melatonin/source/gojo_intro/Intro + twixtor gojo vs sukuna.mp4 -frames:v 1 -vf scale=1280:-2 -q:v ...
-+ ffmpeg -hide_banner -loglevel error -y -ss 45.172 -i /home/runner/work/ankitstorychat/ankitstorychat/work/jomm-melatonin/source/gojo_intro/Intro + twixtor gojo vs sukuna.mp4 -frames:v 1 -vf scale=1280:-2 -q:v ...
-+ ffmpeg -hide_banner -loglevel error -y -ss 49.562 -i /home/runner/work/ankitstorychat/ankitstorychat/work/jomm-melatonin/source/gojo_intro/Intro + twixtor gojo vs sukuna.mp4 -frames:v 1 -vf scale=1280:-2 -q:v ...
-
-=== Downloading naruto_sasuke_intro from https://animetwixtor.com/intro-twixtor-naruto-vs-sasuke-4k/ ===
-Downloading...
-From: https://drive.google.com/uc?id=11MHj_wfr5LbJHTBDGDXoha6CkKWEzggN
-To: /home/runner/work/ankitstorychat/ankitstorychat/work/jomm-melatonin/source/naruto_sasuke_intro/Naruto vs sasuke yt.mp4
-  0%|          | 0.00/65.3M [00:00<?, ?B/s]  1%|          | 524k/65.3M [00:00<00:15, 4.26MB/s]  4%|▍         | 2.62M/65.3M [00:00<00:05, 12.4MB/s] 14%|█▎        | 8.91M/65.3M [00:00<00:01, 33.4MB/s] 26%|██▌       | 16.8M/65.3M [00:00<00:00, 49.3MB/s] 38%|███▊      | 24.6M/65.3M [00:00<00:00, 59.2MB/s] 47%|████▋     | 30.9M/65.3M [00:00<00:00, 57.0MB/s] 59%|█████▊    | 38.3M/65.3M [00:00<00:00, 61.9MB/s] 71%|███████   | 46.1M/65.3M [00:00<00:00, 66.8MB/s] 83%|████████▎ | 54.0M/65.3M [00:00<00:00, 70.3MB/s] 94%|█████████▍| 61.3M/65.3M [00:01<00:00, 66.9MB/s]100%|██████████| 65.3M/65.3M [00:01<00:00, 57.6MB/s]
-gdown file result: /home/runner/work/ankitstorychat/ankitstorychat/work/jomm-melatonin/source/naruto_sasuke_intro/Naruto vs sasuke yt.mp4
-Selected naruto_sasuke_intro: Naruto vs sasuke yt.mp4 (65,267,923 bytes)
-
-=== Scouting naruto_sasuke_intro: Naruto vs sasuke yt.mp4 ===
-+ ffprobe -v error -show_entries format=duration,size,format_name:stream=index,codec_name,codec_type,width,height,r_frame_rate,sample_rate,channels -of json /home/runner/work/ankitstorychat/ankitstorychat/work/jomm-melatonin/source/naruto_sasuke_intro/Naruto vs sasuke yt.mp4 
-+ ffmpeg -hide_banner -loglevel error -y -ss 1.275 -i /home/runner/work/ankitstorychat/ankitstorychat/work/jomm-melatonin/source/naruto_sasuke_intro/Naruto vs sasuke yt.mp4 -frames:v 1 -vf scale=1280:-2 -q:v ...
-+ ffmpeg -hide_banner -loglevel error -y -ss 5.680 -i /home/runner/work/ankitstorychat/ankitstorychat/work/jomm-melatonin/source/naruto_sasuke_intro/Naruto vs sasuke yt.mp4 -frames:v 1 -vf scale=1280:-2 -q:v ...
-+ ffmpeg -hide_banner -loglevel error -y -ss 10.084 -i /home/runner/work/ankitstorychat/ankitstorychat/work/jomm-melatonin/source/naruto_sasuke_intro/Naruto vs sasuke yt.mp4 -frames:v 1 -vf scale=1280:-2 -q:v ...
-+ ffmpeg -hide_banner -loglevel error -y -ss 14.489 -i /home/runner/work/ankitstorychat/ankitstorychat/work/jomm-melatonin/source/naruto_sasuke_intro/Naruto vs sasuke yt.mp4 -frames:v 1 -vf scale=1280:-2 -q:v ...
-+ ffmpeg -hide_banner -loglevel error -y -ss 18.893 -i /home/runner/work/ankitstorychat/ankitstorychat/work/jomm-melatonin/source/naruto_sasuke_intro/Naruto vs sasuke yt.mp4 -frames:v 1 -vf scale=1280:-2 -q:v ...
-+ ffmpeg -hide_banner -loglevel error -y -ss 23.298 -i /home/runner/work/ankitstorychat/ankitstorychat/work/jomm-melatonin/source/naruto_sasuke_intro/Naruto vs sasuke yt.mp4 -frames:v 1 -vf scale=1280:-2 -q:v ...
-+ ffmpeg -hide_banner -loglevel error -y -ss 27.702 -i /home/runner/work/ankitstorychat/ankitstorychat/work/jomm-melatonin/source/naruto_sasuke_intro/Naruto vs sasuke yt.mp4 -frames:v 1 -vf scale=1280:-2 -q:v ...
-+ ffmpeg -hide_banner -loglevel error -y -ss 32.107 -i /home/runner/work/ankitstorychat/ankitstorychat/work/jomm-melatonin/source/naruto_sasuke_intro/Naruto vs sasuke yt.mp4 -frames:v 1 -vf scale=1280:-2 -q:v ...
-+ ffmpeg -hide_banner -loglevel error -y -ss 36.511 -i /home/runner/work/ankitstorychat/ankitstorychat/work/jomm-melatonin/source/naruto_sasuke_intro/Naruto vs sasuke yt.mp4 -frames:v 1 -vf scale=1280:-2 -q:v ...
-+ ffmpeg -hide_banner -loglevel error -y -ss 40.916 -i /home/runner/work/ankitstorychat/ankitstorychat/work/jomm-melatonin/source/naruto_sasuke_intro/Naruto vs sasuke yt.mp4 -frames:v 1 -vf scale=1280:-2 -q:v ...
-+ ffmpeg -hide_banner -loglevel error -y -ss 45.320 -i /home/runner/work/ankitstorychat/ankitstorychat/work/jomm-melatonin/source/naruto_sasuke_intro/Naruto vs sasuke yt.mp4 -frames:v 1 -vf scale=1280:-2 -q:v ...
-+ ffmpeg -hide_banner -loglevel error -y -ss 49.725 -i /home/runner/work/ankitstorychat/ankitstorychat/work/jomm-melatonin/source/naruto_sasuke_intro/Naruto vs sasuke yt.mp4 -frames:v 1 -vf scale=1280:-2 -q:v ...
-
-=== Downloading itachi_sasuke_intro from https://animetwixtor.com/itachi-vs-sasuke-naruto/ ===
-Downloading...
-From (original): https://drive.google.com/uc?id=1y-agucwG_4-wXxe-YhYPsoyjhzktw3v1
-From (redirected): https://drive.google.com/uc?id=1y-agucwG_4-wXxe-YhYPsoyjhzktw3v1&confirm=t&uuid=1c802daa-318c-479e-abcb-64a87912d265
-To: /home/runner/work/ankitstorychat/ankitstorychat/work/jomm-melatonin/source/itachi_sasuke_intro/full twixtor sasuke vs itachi part 1_3840x2160_prob-3.mp4
-  0%|          | 0.00/289M [00:00<?, ?B/s]  1%|          | 1.57M/289M [00:00<00:19, 14.8MB/s]  3%|▎         | 8.91M/289M [00:00<00:24, 11.5MB/s]  5%|▌         | 15.2M/289M [00:00<00:13, 19.7MB/s]  8%|▊         | 22.0M/289M [00:01<00:10, 25.6MB/s]  9%|▉         | 26.2M/289M [00:01<00:15, 17.4MB/s] 13%|█▎        | 36.2M/289M [00:01<00:09, 27.9MB/s] 14%|█▍        | 40.9M/289M [00:02<00:16, 15.2MB/s] 17%|█▋        | 49.3M/289M [00:02<00:10, 22.2MB/s] 19%|█▉        | 55.1M/289M [00:03<00:13, 16.9MB/s] 21%|██        | 61.3M/289M [00:03<00:10, 21.6MB/s] 23%|██▎       | 66.6M/289M [00:03<00:08, 25.1MB/s] 26%|██▋       | 76.0M/289M [00:03<00:09, 22.6MB/s] 30%|██▉       | 86.5M/289M [00:03<00:07, 28.1MB/s] 33%|███▎      | 96.5M/289M [00:04<00:07, 25.2MB/s] 36%|███▋      | 105M/289M [00:04<00:08, 22.6MB/s]  40%|███▉      | 115M/289M [00:04<00:05, 30.4MB/s] 42%|████▏     | 120M/289M [00:05<00:07, 21.1MB/s] 44%|████▍     | 127M/289M [00:05<00:06, 26.4MB/s] 47%|████▋     | 135M/289M [00:05<00:04, 32.6MB/s] 49%|████▉     | 141M/289M [00:05<00:04, 36.4MB/s] 51%|█████     | 147M/289M [00:06<00:05, 24.3MB/s] 53%|█████▎    | 153M/289M [00:06<00:04, 28.6MB/s] 56%|█████▋    | 163M/289M [00:06<00:03, 39.8MB/s] 58%|█████▊    | 169M/289M [00:07<00:04, 25.0MB/s] 60%|██████    | 174M/289M [00:07<00:04, 27.0MB/s] 64%|██████▍   | 186M/289M [00:07<00:04, 22.7MB/s] 69%|██████▉   | 200M/289M [00:07<00:02, 34.5MB/s] 72%|███████▏  | 207M/289M [00:08<00:02, 36.7MB/s] 76%|███████▌  | 219M/289M [00:08<00:01, 49.0MB/s] 78%|███████▊  | 226M/289M [00:08<00:01, 46.7MB/s] 83%|████████▎ | 241M/289M [00:08<00:00, 62.8MB/s] 86%|████████▋ | 250M/289M [00:08<00:00, 52.7MB/s] 91%|█████████ | 262M/289M [00:08<00:00, 65.0MB/s] 94%|█████████▎| 271M/289M [00:09<00:00, 55.0MB/s] 97%|█████████▋| 280M/289M [00:09<00:00, 63.2MB/s]100%|██████████| 289M/289M [00:09<00:00, 65.6MB/s]100%|██████████| 289M/289M [00:09<00:00, 31.2MB/s]
-gdown file result: /home/runner/work/ankitstorychat/ankitstorychat/work/jomm-melatonin/source/itachi_sasuke_intro/full twixtor sasuke vs itachi part 1_3840x2160_prob-3.mp4
-Selected itachi_sasuke_intro: full twixtor sasuke vs itachi part 1_3840x2160_prob-3.mp4 (288,763,112 bytes)
-
-=== Scouting itachi_sasuke_intro: full twixtor sasuke vs itachi part 1_3840x2160_prob-3.mp4 ===
-+ ffprobe -v error -show_entries format=duration,size,format_name:stream=index,codec_name,codec_type,width,height,r_frame_rate,sample_rate,channels -of json /home/runner/work/ankitstorychat/ankitstorychat/work/jomm-melatonin/source/itachi_sasuke_intro/full twixtor sasuke vs itachi part 1_3840x2160_prob-3.mp4 
-+ ffmpeg -hide_banner -loglevel error -y -ss 1.223 -i /home/runner/work/ankitstorychat/ankitstorychat/work/jomm-melatonin/source/itachi_sasuke_intro/full twixtor sasuke vs itachi part 1_3840x2160_prob-3.mp4 -frames:v 1 -vf scale=1280:-2 -q:v ...
-+ ffmpeg -hide_banner -loglevel error -y -ss 5.446 -i /home/runner/work/ankitstorychat/ankitstorychat/work/jomm-melatonin/source/itachi_sasuke_intro/full twixtor sasuke vs itachi part 1_3840x2160_prob-3.mp4 -frames:v 1 -vf scale=1280:-2 -q:v ...
-+ ffmpeg -hide_banner -loglevel error -y -ss 9.669 -i /home/runner/work/ankitstorychat/ankitstorychat/work/jomm-melatonin/source/itachi_sasuke_intro/full twixtor sasuke vs itachi part 1_3840x2160_prob-3.mp4 -frames:v 1 -vf scale=1280:-2 -q:v ...
-+ ffmpeg -hide_banner -loglevel error -y -ss 13.892 -i /home/runner/work/ankitstorychat/ankitstorychat/work/jomm-melatonin/source/itachi_sasuke_intro/full twixtor sasuke vs itachi part 1_3840x2160_prob-3.mp4 -frames:v 1 -vf scale=1280:-2 -q:v ...
-+ ffmpeg -hide_banner -loglevel error -y -ss 18.115 -i /home/runner/work/ankitstorychat/ankitstorychat/work/jomm-melatonin/source/itachi_sasuke_intro/full twixtor sasuke vs itachi part 1_3840x2160_prob-3.mp4 -frames:v 1 -vf scale=1280:-2 -q:v ...
-+ ffmpeg -hide_banner -loglevel error -y -ss 22.338 -i /home/runner/work/ankitstorychat/ankitstorychat/work/jomm-melatonin/source/itachi_sasuke_intro/full twixtor sasuke vs itachi part 1_3840x2160_prob-3.mp4 -frames:v 1 -vf scale=1280:-2 -q:v ...
-+ ffmpeg -hide_banner -loglevel error -y -ss 26.562 -i /home/runner/work/ankitstorychat/ankitstorychat/work/jomm-melatonin/source/itachi_sasuke_intro/full twixtor sasuke vs itachi part 1_3840x2160_prob-3.mp4 -frames:v 1 -vf scale=1280:-2 -q:v ...
-+ ffmpeg -hide_banner -loglevel error -y -ss 30.785 -i /home/runner/work/ankitstorychat/ankitstorychat/work/jomm-melatonin/source/itachi_sasuke_intro/full twixtor sasuke vs itachi part 1_3840x2160_prob-3.mp4 -frames:v 1 -vf scale=1280:-2 -q:v ...
-+ ffmpeg -hide_banner -loglevel error -y -ss 35.008 -i /home/runner/work/ankitstorychat/ankitstorychat/work/jomm-melatonin/source/itachi_sasuke_intro/full twixtor sasuke vs itachi part 1_3840x2160_prob-3.mp4 -frames:v 1 -vf scale=1280:-2 -q:v ...
-+ ffmpeg -hide_banner -loglevel error -y -ss 39.231 -i /home/runner/work/ankitstorychat/ankitstorychat/work/jomm-melatonin/source/itachi_sasuke_intro/full twixtor sasuke vs itachi part 1_3840x2160_prob-3.mp4 -frames:v 1 -vf scale=1280:-2 -q:v ...
-+ ffmpeg -hide_banner -loglevel error -y -ss 43.454 -i /home/runner/work/ankitstorychat/ankitstorychat/work/jomm-melatonin/source/itachi_sasuke_intro/full twixtor sasuke vs itachi part 1_3840x2160_prob-3.mp4 -frames:v 1 -vf scale=1280:-2 -q:v ...
-+ ffmpeg -hide_banner -loglevel error -y -ss 47.677 -i /home/runner/work/ankitstorychat/ankitstorychat/work/jomm-melatonin/source/itachi_sasuke_intro/full twixtor sasuke vs itachi part 1_3840x2160_prob-3.mp4 -frames:v 1 -vf scale=1280:-2 -q:v ...
-
-=== Downloading levi from https://www.youtube.com/watch?v=2JD_e9JDa-U ===
-Retrieving folder contents
-Traceback (most recent call last):
-  File "/home/runner/work/ankitstorychat/ankitstorychat/scripts/jomm-melatonin/scout.py", line 404, in <module>
-    main()
-  File "/home/runner/work/ankitstorychat/ankitstorychat/scripts/jomm-melatonin/scout.py", line 383, in main
-    video = ensure_source(entry)
-            ^^^^^^^^^^^^^^^^^^^^
-  File "/home/runner/work/ankitstorychat/ankitstorychat/scripts/jomm-melatonin/scout.py", line 80, in ensure_source
-    result = gdown.download_folder(
-             ^^^^^^^^^^^^^^^^^^^^^^
-  File "/opt/hostedtoolcache/Python/3.12.16/x64/lib/python3.12/site-packages/gdown/download_folder.py", line 173, in download_folder
-    gdrive_file = _download_and_parse_google_drive_link(
-                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "/opt/hostedtoolcache/Python/3.12.16/x64/lib/python3.12/site-packages/gdown/download_folder.py", line 354, in _download_and_parse_google_drive_link
-    folder_name, children = _parse_embedded_folder_view(
-                            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "/opt/hostedtoolcache/Python/3.12.16/x64/lib/python3.12/site-packages/gdown/download_folder.py", line 291, in _parse_embedded_folder_view
-    raise DownloadError(
-gdown.exceptions.DownloadError: Failed to retrieve folder contents for folder ID: 1pnzHnddFrTXHuM0PlzuJUkPJRg-Yrsem (status code 404). You may need to change the permission to 'Anyone with the link', or have had many accesses. Check FAQ in https://github.com/wkentaro/gdown?tab=readme-ov-file#faq.
