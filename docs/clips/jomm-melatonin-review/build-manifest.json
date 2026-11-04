@@ -2,7 +2,7 @@
   "clips": [
     {
       "file": "01_Madara_Uchiha.mp4",
-      "bytes": 19883756,
+      "bytes": 21011295,
       "duration": 21.5,
       "width": 1080,
       "height": 1920,
@@ -11,7 +11,7 @@
       "audioCodec": "aac",
       "sampleRate": 48000,
       "channels": 2,
-      "sha256": "f9dd323c68f0dd7522446b1314e708342a3a5793cee34162de4df5af676aa160",
+      "sha256": "d72e1feadbf8b038a9208572424f6eda2973409ad9b8bc595be9414d0f5e572e",
       "checks": {
         "duration12To60": true,
         "portrait1080x1920": true,
@@ -34,17 +34,33 @@
           16.555,
           19.232
         ],
+        "effects": {
+          "hardShakeCuts": 7,
+          "punchZoomPercent": 12,
+          "rgbWhipFlashCuts": [
+            1,
+            3,
+            5
+          ],
+          "negativeImpactCuts": [
+            4
+          ],
+          "bloom": 0.14,
+          "colorBalance": "rs=-0.02:bs=0.08:rm=0.02:bm=0.04"
+        },
         "segments": [
           {
             "sourceStart": 0.0,
             "zoom": 1.1,
+            "speed": 0.85,
             "outputStart": 0.0,
             "outputEnd": 3.147,
-            "sourceEnd": 3.147
+            "sourceEnd": 2.675
           },
           {
             "sourceStart": 8.0,
             "zoom": 1.15,
+            "speed": 1.0,
             "outputStart": 3.147,
             "outputEnd": 5.835,
             "sourceEnd": 10.688
@@ -52,44 +68,50 @@
           {
             "sourceStart": 11.0,
             "zoom": 1.08,
+            "speed": 0.9,
             "outputStart": 5.835,
             "outputEnd": 8.512,
-            "sourceEnd": 13.677
+            "sourceEnd": 13.409
           },
           {
             "sourceStart": 13.7,
             "zoom": 1.14,
+            "speed": 1.12,
             "outputStart": 8.512,
             "outputEnd": 11.189,
-            "sourceEnd": 16.377
+            "sourceEnd": 16.698
           },
           {
             "sourceStart": 18.2,
             "zoom": 1.1,
+            "speed": 0.85,
             "outputStart": 11.189,
             "outputEnd": 13.877,
-            "sourceEnd": 20.888
+            "sourceEnd": 20.485
           },
           {
             "sourceStart": 21.2,
             "zoom": 1.16,
+            "speed": 1.15,
             "outputStart": 13.877,
             "outputEnd": 16.555,
-            "sourceEnd": 23.878
+            "sourceEnd": 24.28
           },
           {
             "sourceStart": 23.9,
             "zoom": 1.12,
+            "speed": 0.9,
             "outputStart": 16.555,
             "outputEnd": 19.232,
-            "sourceEnd": 26.577
+            "sourceEnd": 26.309
           },
           {
             "sourceStart": 26.7,
             "zoom": 1.09,
+            "speed": 1.1,
             "outputStart": 19.232,
             "outputEnd": 21.472,
-            "sourceEnd": 28.94
+            "sourceEnd": 29.164
           }
         ]
       },
@@ -97,7 +119,7 @@
     },
     {
       "file": "02_Gojo_Satoru.mp4",
-      "bytes": 22559517,
+      "bytes": 24186291,
       "duration": 20.6,
       "width": 1080,
       "height": 1920,
@@ -106,7 +128,7 @@
       "audioCodec": "aac",
       "sampleRate": 48000,
       "channels": 2,
-      "sha256": "0e7d872fba69cd19eab966e5d725fa768bf38fd51b4a3aeb2b606d5c3d2d13b9",
+      "sha256": "3780bf4a97b7b8a30c01d1654091d318019986e94d7d65c2cc3bbcd8d711bd32",
       "checks": {
         "duration12To60": true,
         "portrait1080x1920": true,
@@ -132,18 +154,34 @@
           16.555,
           18.347
         ],
+        "effects": {
+          "hardShakeCuts": 10,
+          "punchZoomPercent": 12,
+          "rgbWhipFlashCuts": [
+            1,
+            4,
+            7
+          ],
+          "negativeImpactCuts": [
+            5
+          ],
+          "bloom": 0.18,
+          "colorBalance": "rs=-0.03:gs=0.02:bs=0.07:bm=0.04"
+        },
         "segments": [
           {
             "sourceStart": 17.6,
             "zoom": 1.14,
+            "speed": 0.85,
             "outputStart": 0.0,
             "outputEnd": 2.261,
-            "sourceEnd": 19.861
+            "sourceEnd": 19.522
           },
           {
             "sourceStart": 0.0,
             "zoom": 1.08,
             "centerX": 0.46,
+            "speed": 1.0,
             "outputStart": 2.261,
             "outputEnd": 4.053,
             "sourceEnd": 1.792
@@ -151,62 +189,71 @@
           {
             "sourceStart": 4.8,
             "zoom": 1.12,
+            "speed": 0.9,
             "outputStart": 4.053,
             "outputEnd": 5.835,
-            "sourceEnd": 6.582
+            "sourceEnd": 6.404
           },
           {
             "sourceStart": 9.2,
             "zoom": 1.09,
+            "speed": 1.1,
             "outputStart": 5.835,
             "outputEnd": 7.616,
-            "sourceEnd": 10.981
+            "sourceEnd": 11.159
           },
           {
             "sourceStart": 21.8,
             "zoom": 1.15,
+            "speed": 0.85,
             "outputStart": 7.616,
             "outputEnd": 9.408,
-            "sourceEnd": 23.592
+            "sourceEnd": 23.323
           },
           {
             "sourceStart": 25.8,
             "zoom": 1.1,
+            "speed": 1.12,
             "outputStart": 9.408,
             "outputEnd": 11.189,
-            "sourceEnd": 27.581
+            "sourceEnd": 27.795
           },
           {
             "sourceStart": 28.0,
             "zoom": 1.13,
+            "speed": 1.15,
             "outputStart": 11.189,
             "outputEnd": 12.981,
-            "sourceEnd": 29.792
+            "sourceEnd": 30.061
           },
           {
             "sourceStart": 38.8,
             "zoom": 1.09,
+            "speed": 1.1,
             "outputStart": 12.981,
             "outputEnd": 14.763,
-            "sourceEnd": 40.582
+            "sourceEnd": 40.76
           },
           {
             "sourceStart": 43.8,
             "zoom": 1.12,
+            "speed": 0.9,
             "outputStart": 14.763,
             "outputEnd": 16.555,
-            "sourceEnd": 45.592
+            "sourceEnd": 45.413
           },
           {
             "sourceStart": 47.5,
             "zoom": 1.16,
+            "speed": 0.85,
             "outputStart": 16.555,
             "outputEnd": 18.347,
-            "sourceEnd": 49.292
+            "sourceEnd": 49.023
           },
           {
             "sourceStart": 44.8,
             "zoom": 1.1,
+            "speed": 1.0,
             "outputStart": 18.347,
             "outputEnd": 20.576,
             "sourceEnd": 47.029
@@ -217,7 +264,7 @@
     },
     {
       "file": "03_Naruto___Sasuke.mp4",
-      "bytes": 17786718,
+      "bytes": 19351399,
       "duration": 22.367,
       "width": 1080,
       "height": 1920,
@@ -226,7 +273,7 @@
       "audioCodec": "aac",
       "sampleRate": 48000,
       "channels": 2,
-      "sha256": "5e35e41c33b6b241ff54883ab64fb9fef952cdb61d65aefa993c933dcec9aa39",
+      "sha256": "de5a60f408411ad6f59e34db9d705c6f5f82dd083a8c2019cf2d4af3a12c2751",
       "checks": {
         "duration12To60": true,
         "portrait1080x1920": true,
@@ -250,24 +297,41 @@
           19.232,
           20.576
         ],
+        "effects": {
+          "hardShakeCuts": 8,
+          "punchZoomPercent": 12,
+          "rgbWhipFlashCuts": [
+            1,
+            4,
+            6
+          ],
+          "negativeImpactCuts": [
+            3
+          ],
+          "bloom": 0.13,
+          "colorBalance": "rs=0.04:rm=0.03:bs=0.03:bm=-0.02"
+        },
         "segments": [
           {
             "sourceStart": 44.8,
             "zoom": 1.13,
+            "speed": 0.85,
             "outputStart": 0.0,
             "outputEnd": 3.147,
-            "sourceEnd": 47.947
+            "sourceEnd": 47.475
           },
           {
             "sourceStart": 35.8,
             "zoom": 1.1,
+            "speed": 1.12,
             "outputStart": 3.147,
             "outputEnd": 5.835,
-            "sourceEnd": 38.488
+            "sourceEnd": 38.811
           },
           {
             "sourceStart": 5.2,
             "zoom": 1.09,
+            "speed": 1.0,
             "outputStart": 5.835,
             "outputEnd": 8.512,
             "sourceEnd": 7.877
@@ -275,44 +339,50 @@
           {
             "sourceStart": 9.4,
             "zoom": 1.14,
+            "speed": 1.15,
             "outputStart": 8.512,
             "outputEnd": 11.189,
-            "sourceEnd": 12.077
+            "sourceEnd": 12.479
           },
           {
             "sourceStart": 13.8,
             "zoom": 1.11,
+            "speed": 1.1,
             "outputStart": 11.189,
             "outputEnd": 13.877,
-            "sourceEnd": 16.488
+            "sourceEnd": 16.757
           },
           {
             "sourceStart": 22.5,
             "zoom": 1.15,
+            "speed": 0.9,
             "outputStart": 13.877,
             "outputEnd": 16.555,
-            "sourceEnd": 25.178
+            "sourceEnd": 24.91
           },
           {
             "sourceStart": 31.0,
             "zoom": 1.09,
+            "speed": 1.12,
             "outputStart": 16.555,
             "outputEnd": 19.232,
-            "sourceEnd": 33.677
+            "sourceEnd": 33.998
           },
           {
             "sourceStart": 39.8,
             "zoom": 1.13,
+            "speed": 1.15,
             "outputStart": 19.232,
             "outputEnd": 20.576,
-            "sourceEnd": 41.144
+            "sourceEnd": 41.346
           },
           {
             "sourceStart": 48.5,
             "zoom": 1.1,
+            "speed": 0.85,
             "outputStart": 20.576,
             "outputEnd": 22.357,
-            "sourceEnd": 50.281
+            "sourceEnd": 50.014
           }
         ]
       },
@@ -320,7 +390,7 @@
     },
     {
       "file": "04_Itachi___Sasuke.mp4",
-      "bytes": 13055704,
+      "bytes": 14516395,
       "duration": 19.7,
       "width": 1080,
       "height": 1920,
@@ -329,7 +399,7 @@
       "audioCodec": "aac",
       "sampleRate": 48000,
       "channels": 2,
-      "sha256": "aa345ef7e12d615ce84f0eee67d6e4ad96e52e4ec3463a8ac68cb9fb4aa7d87f",
+      "sha256": "4607de44ec45381725b21868b025f3cee78cc1d93ab99ec7afabc7ad88fc79ad",
       "checks": {
         "duration12To60": true,
         "portrait1080x1920": true,
@@ -355,17 +425,33 @@
           16.555,
           18.347
         ],
+        "effects": {
+          "hardShakeCuts": 10,
+          "punchZoomPercent": 12,
+          "rgbWhipFlashCuts": [
+            2,
+            5,
+            8
+          ],
+          "negativeImpactCuts": [
+            4
+          ],
+          "bloom": 0.11,
+          "colorBalance": "rs=0.06:rm=0.04:bs=-0.02:bm=-0.02"
+        },
         "segments": [
           {
             "sourceStart": 8.5,
             "zoom": 1.15,
+            "speed": 0.85,
             "outputStart": 0.0,
             "outputEnd": 2.261,
-            "sourceEnd": 10.761
+            "sourceEnd": 10.422
           },
           {
             "sourceStart": 0.0,
             "zoom": 1.08,
+            "speed": 1.0,
             "outputStart": 2.261,
             "outputEnd": 4.053,
             "sourceEnd": 1.792
@@ -373,65 +459,74 @@
           {
             "sourceStart": 4.8,
             "zoom": 1.11,
+            "speed": 0.9,
             "outputStart": 4.053,
             "outputEnd": 5.835,
-            "sourceEnd": 6.582
+            "sourceEnd": 6.404
           },
           {
             "sourceStart": 12.5,
             "zoom": 1.14,
+            "speed": 0.85,
             "outputStart": 5.835,
             "outputEnd": 7.616,
-            "sourceEnd": 14.281
+            "sourceEnd": 14.014
           },
           {
             "sourceStart": 17.5,
             "zoom": 1.1,
+            "speed": 1.12,
             "outputStart": 7.616,
             "outputEnd": 9.408,
-            "sourceEnd": 19.292
+            "sourceEnd": 19.507
           },
           {
             "sourceStart": 21.8,
             "zoom": 1.13,
+            "speed": 1.15,
             "outputStart": 9.408,
             "outputEnd": 11.189,
-            "sourceEnd": 23.581
+            "sourceEnd": 23.848
           },
           {
             "sourceStart": 25.8,
             "zoom": 1.09,
+            "speed": 1.1,
             "outputStart": 11.189,
             "outputEnd": 12.981,
-            "sourceEnd": 27.592
+            "sourceEnd": 27.771
           },
           {
             "sourceStart": 30.0,
             "zoom": 1.15,
+            "speed": 0.9,
             "outputStart": 12.981,
             "outputEnd": 14.763,
-            "sourceEnd": 31.782
+            "sourceEnd": 31.604
           },
           {
             "sourceStart": 34.5,
             "zoom": 1.12,
+            "speed": 0.85,
             "outputStart": 14.763,
             "outputEnd": 16.555,
-            "sourceEnd": 36.292
+            "sourceEnd": 36.023
           },
           {
             "sourceStart": 42.8,
             "zoom": 1.1,
+            "speed": 1.12,
             "outputStart": 16.555,
             "outputEnd": 18.347,
-            "sourceEnd": 44.592
+            "sourceEnd": 44.807
           },
           {
             "sourceStart": 9.2,
             "zoom": 1.14,
+            "speed": 0.85,
             "outputStart": 18.347,
             "outputEnd": 19.68,
-            "sourceEnd": 10.533
+            "sourceEnd": 10.333
           }
         ]
       },
@@ -439,7 +534,7 @@
     },
     {
       "file": "05_Levi_Ackerman.mp4",
-      "bytes": 20225314,
+      "bytes": 20864120,
       "duration": 21.5,
       "width": 1080,
       "height": 1920,
@@ -448,7 +543,7 @@
       "audioCodec": "aac",
       "sampleRate": 48000,
       "channels": 2,
-      "sha256": "c23845b785b9e5314f27c1c90716736b3d0329815fec934079fd4a91f5b5058c",
+      "sha256": "85203bad588609e396786fcb526f84d65beb812db1f7b281a10f7a9b51f40e44",
       "checks": {
         "duration12To60": true,
         "portrait1080x1920": true,
@@ -471,17 +566,33 @@
           16.555,
           19.232
         ],
+        "effects": {
+          "hardShakeCuts": 7,
+          "punchZoomPercent": 12,
+          "rgbWhipFlashCuts": [
+            1,
+            4,
+            6
+          ],
+          "negativeImpactCuts": [
+            3
+          ],
+          "bloom": 0.12,
+          "colorBalance": "gs=0.04:gm=0.02:bs=0.02:rs=-0.02"
+        },
         "segments": [
           {
             "sourceStart": 6.2,
             "zoom": 1.14,
+            "speed": 0.85,
             "outputStart": 0.0,
             "outputEnd": 3.147,
-            "sourceEnd": 9.347
+            "sourceEnd": 8.875
           },
           {
             "sourceStart": 0.0,
             "zoom": 1.08,
+            "speed": 1.0,
             "outputStart": 3.147,
             "outputEnd": 5.835,
             "sourceEnd": 2.688
@@ -489,44 +600,50 @@
           {
             "sourceStart": 2.8,
             "zoom": 1.12,
+            "speed": 1.12,
             "outputStart": 5.835,
             "outputEnd": 8.512,
-            "sourceEnd": 5.477
+            "sourceEnd": 5.798
           },
           {
             "sourceStart": 15.0,
             "zoom": 1.1,
+            "speed": 1.1,
             "outputStart": 8.512,
             "outputEnd": 11.189,
-            "sourceEnd": 17.677
+            "sourceEnd": 17.945
           },
           {
             "sourceStart": 10.8,
             "zoom": 1.15,
+            "speed": 0.85,
             "outputStart": 11.189,
             "outputEnd": 13.877,
-            "sourceEnd": 13.488
+            "sourceEnd": 13.085
           },
           {
             "sourceStart": 12.8,
             "zoom": 1.11,
+            "speed": 0.9,
             "outputStart": 13.877,
             "outputEnd": 16.555,
-            "sourceEnd": 15.478
+            "sourceEnd": 15.21
           },
           {
             "sourceStart": 18.8,
             "zoom": 1.09,
+            "speed": 1.12,
             "outputStart": 16.555,
             "outputEnd": 19.232,
-            "sourceEnd": 21.477
+            "sourceEnd": 21.798
           },
           {
             "sourceStart": 22.0,
             "zoom": 1.14,
+            "speed": 0.9,
             "outputStart": 19.232,
             "outputEnd": 21.472,
-            "sourceEnd": 24.24
+            "sourceEnd": 24.016
           }
         ]
       },
@@ -534,7 +651,7 @@
     },
     {
       "file": "06_Tanjiro_Kamado.mp4",
-      "bytes": 27354591,
+      "bytes": 25633842,
       "duration": 23.267,
       "width": 1080,
       "height": 1920,
@@ -543,7 +660,7 @@
       "audioCodec": "aac",
       "sampleRate": 48000,
       "channels": 2,
-      "sha256": "24411e258ae7d0d3c06f10da15452cdf7164a69389b81ae532c11348c88cc391",
+      "sha256": "088618ee72ec4fd2cb76bf87d01f2867f66c267b2e7e70a164508470e9324506",
       "checks": {
         "duration12To60": true,
         "portrait1080x1920": true,
@@ -567,68 +684,91 @@
           19.232,
           21.472
         ],
+        "effects": {
+          "hardShakeCuts": 8,
+          "punchZoomPercent": 12,
+          "rgbWhipFlashCuts": [
+            1,
+            4,
+            7
+          ],
+          "negativeImpactCuts": [
+            3
+          ],
+          "bloom": 0.16,
+          "colorBalance": "rs=0.06:rm=0.03:bs=-0.02:bm=-0.02"
+        },
         "segments": [
           {
             "sourceStart": 7.0,
             "zoom": 1.1,
+            "speed": 1.1,
             "outputStart": 0.0,
             "outputEnd": 3.147,
-            "sourceEnd": 10.147
+            "sourceEnd": 10.462
           },
           {
             "sourceStart": 30.0,
             "zoom": 1.14,
             "centerX": 0.62,
+            "speed": 0.85,
             "outputStart": 3.147,
             "outputEnd": 5.835,
-            "sourceEnd": 32.688
+            "sourceEnd": 32.285
           },
           {
             "sourceStart": 54.5,
             "zoom": 1.12,
             "centerX": 0.64,
+            "speed": 1.12,
             "outputStart": 5.835,
             "outputEnd": 8.512,
-            "sourceEnd": 57.177
+            "sourceEnd": 57.498
           },
           {
             "sourceStart": 78.8,
             "zoom": 1.09,
+            "speed": 0.9,
             "outputStart": 8.512,
             "outputEnd": 11.189,
-            "sourceEnd": 81.477
+            "sourceEnd": 81.209
           },
           {
             "sourceStart": 103.0,
             "zoom": 1.15,
+            "speed": 1.15,
             "outputStart": 11.189,
             "outputEnd": 13.877,
-            "sourceEnd": 105.688
+            "sourceEnd": 106.091
           },
           {
             "sourceStart": 128.0,
             "zoom": 1.11,
+            "speed": 1.12,
             "outputStart": 13.877,
             "outputEnd": 16.555,
-            "sourceEnd": 130.678
+            "sourceEnd": 130.999
           },
           {
             "sourceStart": 176.8,
             "zoom": 1.14,
+            "speed": 0.85,
             "outputStart": 16.555,
             "outputEnd": 19.232,
-            "sourceEnd": 179.477
+            "sourceEnd": 179.075
           },
           {
             "sourceStart": 201.5,
             "zoom": 1.1,
+            "speed": 1.1,
             "outputStart": 19.232,
             "outputEnd": 21.472,
-            "sourceEnd": 203.74
+            "sourceEnd": 203.964
           },
           {
             "sourceStart": 7.0,
             "zoom": 1.13,
+            "speed": 1.0,
             "outputStart": 21.472,
             "outputEnd": 23.264,
             "sourceEnd": 8.792
@@ -639,7 +779,7 @@
     },
     {
       "file": "07_Roronoa_Zoro.mp4",
-      "bytes": 29970484,
+      "bytes": 29824031,
       "duration": 20.6,
       "width": 1080,
       "height": 1920,
@@ -648,7 +788,7 @@
       "audioCodec": "aac",
       "sampleRate": 48000,
       "channels": 2,
-      "sha256": "86dfd2472f43e5a53fb1e08a7e193e7b69c4d174d69c2c402de3b10c2f0be5e5",
+      "sha256": "950aee4419e01e0198a6f028c0fb25636c63d3d8eeb6f5e4775794bbf221fc4a",
       "checks": {
         "duration12To60": true,
         "portrait1080x1920": true,
@@ -671,17 +811,33 @@
           16.555,
           18.347
         ],
+        "effects": {
+          "hardShakeCuts": 7,
+          "punchZoomPercent": 12,
+          "rgbWhipFlashCuts": [
+            1,
+            4,
+            6
+          ],
+          "negativeImpactCuts": [
+            3
+          ],
+          "bloom": 0.14,
+          "colorBalance": "gs=0.04:bs=0.03:rs=0.02:bm=0.02"
+        },
         "segments": [
           {
             "sourceStart": 0.0,
             "zoom": 1.14,
+            "speed": 0.85,
             "outputStart": 0.0,
             "outputEnd": 3.147,
-            "sourceEnd": 3.147
+            "sourceEnd": 2.675
           },
           {
             "sourceStart": 7.0,
             "zoom": 1.09,
+            "speed": 1.0,
             "outputStart": 3.147,
             "outputEnd": 5.835,
             "sourceEnd": 9.688
@@ -689,34 +845,39 @@
           {
             "sourceStart": 9.8,
             "zoom": 1.12,
+            "speed": 0.9,
             "outputStart": 5.835,
             "outputEnd": 8.512,
-            "sourceEnd": 12.477
+            "sourceEnd": 12.209
           },
           {
             "sourceStart": 12.0,
             "zoom": 1.15,
+            "speed": 0.85,
             "outputStart": 8.512,
             "outputEnd": 11.189,
-            "sourceEnd": 14.677
+            "sourceEnd": 14.275
           },
           {
             "sourceStart": 15.0,
             "zoom": 1.1,
+            "speed": 1.12,
             "outputStart": 11.189,
             "outputEnd": 13.877,
-            "sourceEnd": 17.688
+            "sourceEnd": 18.011
           },
           {
             "sourceStart": 17.2,
             "zoom": 1.14,
+            "speed": 1.1,
             "outputStart": 13.877,
             "outputEnd": 16.555,
-            "sourceEnd": 19.878
+            "sourceEnd": 20.146
           },
           {
             "sourceStart": 20.0,
             "zoom": 1.09,
+            "speed": 1.0,
             "outputStart": 16.555,
             "outputEnd": 18.347,
             "sourceEnd": 21.792
@@ -724,9 +885,10 @@
           {
             "sourceStart": 24.5,
             "zoom": 1.13,
+            "speed": 1.15,
             "outputStart": 18.347,
             "outputEnd": 20.576,
-            "sourceEnd": 26.729
+            "sourceEnd": 27.063
           }
         ]
       },
