@@ -15,6 +15,8 @@
       "https://soundcloud.com/jomm-sc/melatonin"
     ],
     "expectedSeconds": 233,
+    "appleLookup": "https://itunes.apple.com/lookup?id=6801192494&entity=song",
+    "appleTrackId": 6801192494,
     "editReferenceStart": 43.0
   },
   "videos": [

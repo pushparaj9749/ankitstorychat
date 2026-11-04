@@ -94,18 +94,72 @@ def ensure_source(entry: dict) -> Path:
     return selected
 
 
+def convert_audio_source(original: Path, target: Path, metadata: dict) -> Path:
+    run([
+        "ffmpeg", "-hide_banner", "-loglevel", "error", "-y", "-i", original,
+        "-map", "0:a:0", "-vn", "-ac", "2", "-ar", "48000", "-c:a", "pcm_s16le", target,
+    ])
+    metadata = {**metadata, "convertedDuration": float(probe(target)["format"]["duration"])}
+    (AUDIO / "source-info.json").write_text(json.dumps(metadata, indent=2) + "\n")
+    print(f"Audio ready: {target} ({target.stat().st_size:,} bytes)", flush=True)
+    return target
+
+
+def ensure_apple_preview(target: Path) -> Path | None:
+    """Use the artist-identical, publicly served Apple Music preview (no login/DRM)."""
+    import requests
+
+    lookup = CONFIG["audio"]["appleLookup"]
+    print(f"\n=== Resolving official Apple Music preview: {lookup} ===", flush=True)
+    response = requests.get(lookup, timeout=45)
+    response.raise_for_status()
+    results = response.json().get("results", [])
+    track = next((item for item in results if item.get("trackId") == CONFIG["audio"]["appleTrackId"]), None)
+    if not track or track.get("trackName") != "Melatonin" or "jomm" not in track.get("artistName", ""):
+        raise RuntimeError("Apple lookup did not return the expected jomm Melatonin track")
+    preview_url = track.get("previewUrl")
+    if not preview_url:
+        print("Apple Music has no downloadable preview for this track.", flush=True)
+        return None
+    original = AUDIO / "original-apple.m4a"
+    with requests.get(preview_url, stream=True, timeout=60) as preview:
+        preview.raise_for_status()
+        with original.open("wb") as handle:
+            for chunk in preview.iter_content(1024 * 1024):
+                if chunk:
+                    handle.write(chunk)
+    if original.stat().st_size < 50_000:
+        raise RuntimeError("Apple preview download was unexpectedly small")
+    return convert_audio_source(original, target, {
+        "sourceType": "Apple Music official preview",
+        "trackId": track["trackId"],
+        "title": track["trackName"],
+        "artists": track["artistName"],
+        "trackViewUrl": track["trackViewUrl"],
+        "previewUrl": preview_url,
+        "fullTrackSeconds": track.get("trackTimeMillis", 0) / 1000,
+    })
+
+
 def ensure_audio() -> Path:
-    """Fetch the original song, preferring YouTube then SoundCloud, and make an edit WAV."""
+    """Fetch an official original-audio segment without requesting user credentials."""
     target = AUDIO / "melatonin-48k.wav"
     if target.exists() and target.stat().st_size > 100_000:
         return target
     AUDIO.mkdir(parents=True, exist_ok=True)
+    try:
+        preview = ensure_apple_preview(target)
+        if preview is not None:
+            return preview
+    except Exception as error:
+        print("Apple preview fallback triggered:", type(error).__name__, error, flush=True)
+
     from yt_dlp import YoutubeDL
 
     errors = []
     for url in CONFIG["audio"]["sources"]:
         print(f"\n=== Fetching original Melatonin audio: {url} ===", flush=True)
-        for partial in AUDIO.glob("original*"):
+        for partial in AUDIO.glob("original.*"):
             if partial.is_file():
                 partial.unlink()
         options = {
@@ -126,22 +180,16 @@ def ensure_audio() -> Path:
             ]
             if not originals:
                 raise RuntimeError("yt-dlp completed without an audio file")
-            run([
-                "ffmpeg", "-hide_banner", "-loglevel", "error", "-y", "-i", originals[0],
-                "-map", "0:a:0", "-vn", "-ac", "2", "-ar", "48000", "-c:a", "pcm_s16le", target,
-            ])
             metadata = {
                 key: info.get(key) for key in (
                     "id", "title", "webpage_url", "duration", "uploader", "channel", "extractor",
                 )
             }
-            (AUDIO / "source-info.json").write_text(json.dumps(metadata, indent=2) + "\n")
-            print(f"Audio ready: {target} ({target.stat().st_size:,} bytes)", flush=True)
-            return target
+            return convert_audio_source(originals[0], target, metadata)
         except Exception as error:  # try the second official source with full diagnostics
             errors.append(f"{url}: {type(error).__name__}: {error}")
             print(errors[-1], flush=True)
-    raise RuntimeError("Could not fetch either official audio source:\n" + "\n".join(errors))
+    raise RuntimeError("Could not fetch any official audio source:\n" + "\n".join(errors))
 
 
 def load_mono(path: Path) -> tuple[np.ndarray, int]:
@@ -164,12 +212,13 @@ def analyse_audio(path: Path) -> dict:
     rms = librosa.feature.rms(y=mono, hop_length=hop)[0]
     frame_times = librosa.frames_to_time(np.arange(len(rms)), sr=sample_rate, hop_length=hop)
     windows = []
-    for start in np.arange(25.0, min(100.0, duration - 20.0), 2.5):
-        mask = (frame_times >= start) & (frame_times < start + 20.0)
+    window_duration = min(20.0, max(5.0, duration - 1.0))
+    for start in np.arange(0.0, max(0.1, duration - window_duration), 2.5):
+        mask = (frame_times >= start) & (frame_times < start + window_duration)
         if np.any(mask):
             windows.append({
                 "start": round(float(start), 3),
-                "duration": 20.0,
+                "duration": window_duration,
                 "energy": round(float(np.mean(rms[mask])), 6),
                 "onsetStrength": round(float(np.mean(onset[mask])), 6),
             })
@@ -181,7 +230,7 @@ def analyse_audio(path: Path) -> dict:
         "beatTimes": [round(float(value), 3) for value in beat_times],
         "onsetTimes": [round(float(value), 3) for value in onset_times],
         "strongest20SecondWindows": windows[:12],
-        "editReferenceStart": CONFIG["audio"]["editReferenceStart"],
+        "editReferenceStart": CONFIG["audio"]["editReferenceStart"] if duration > 100 else 0.0,
     }
     (SCOUT / "audio-analysis.json").write_text(json.dumps(analysis, indent=2) + "\n")
     make_waveform(mono, sample_rate, beat_times, duration)
@@ -224,7 +273,12 @@ def make_waveform(mono: np.ndarray, sample_rate: int, beats: np.ndarray, duratio
     bold = ImageFont.truetype(BOLD, 30)
     small = ImageFont.truetype(FONT, 20)
     draw.text((28, 18), "jomm — Melatonin | waveform + detected beats", font=bold, fill="#f2d19b")
-    panels = [(0.0, duration, 78, 280, "FULL TRACK"), (30.0, min(95.0, duration), 340, 555, "25–95s EDIT REGION")]
+    edit_start = 30.0 if duration > 95 else 0.0
+    edit_end = min(95.0, duration)
+    panels = [
+        (0.0, duration, 78, 280, "FULL AVAILABLE AUDIO"),
+        (edit_start, edit_end, 340, 555, "EDIT REGION"),
+    ]
     for start, end, top, bottom, label in panels:
         left, right = 50, width - 40
         draw.text((left, top - 28), f"{label}  {start:.1f}–{end:.1f}s", font=small, fill="white")
