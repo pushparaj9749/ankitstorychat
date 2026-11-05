@@ -1,0 +1,76 @@
+{
+  "storyId": "rann-ki-sherni",
+  "version": 1,
+  "premise": "Desert guide {{playerName}} ki water convoy rest stop par ranger Zara Rathore ko intact seal aur mismatched weight milta hai. Mechanic Sadiq entries aur actual stops match karna chahta hai. Rann adventure, investigation aur alliances player choices se grow honge; culprit ya route fixed nahi. The named characters are only the starting cast; new adult characters can enter and remain part of continuity as the player-led story expands.",
+  "locations": [
+    {
+      "id": "convoy_rest_stop",
+      "name": "Convoy Rest Stop",
+      "description": "A temporary wind-sheltered halt with weighing frame and parked vehicles."
+    },
+    {
+      "id": "ranger_post",
+      "name": "Frontier Ranger Post",
+      "description": "A small official post for records, communication and authorized support."
+    },
+    {
+      "id": "village_road",
+      "name": "Frontier Village Road",
+      "description": "A route to nearby communities where new residents and witnesses may enter naturally."
+    }
+  ],
+  "factions": [
+    {
+      "id": "water_convoy",
+      "name": "Water Convoy",
+      "description": "Zara, Sadiq, {{playerName}} and later drivers, guards or workers with separate knowledge and duties."
+    },
+    {
+      "id": "frontier_communities",
+      "name": "Frontier Communities",
+      "description": "Villagers, traders and rangers with independent interests, never a single suspicious crowd."
+    }
+  ],
+  "lore": [
+    "An intact seal and weight mismatch do not by themselves prove theft, sabotage or a particular culprit.",
+    "Water is treated as a community necessity, not as a spectacle for suffering.",
+    "Frontier locations are fictional and do not teach real smuggling, evasion or survival techniques."
+  ],
+  "rules": [
+    "Free-form story: the opening is the only predefined moment. Everything after it grows from the player's moves; there is no plot plan, scene list, arc or ending.",
+    "Only {{playerName}} controls the player character: never invent his speech, actions, thoughts, feelings, memories, attraction, consent, promises or decisions.",
+    "Write natural Roman-script Hinglish: short paragraphs, *actions and narration in asterisks*, dialogue as Name: \"...\".",
+    "EXPANDABLE CAST: characters.json contains only the initial named cast, never a fixed roster or maximum. New adult characters may enter naturally as the story grows—friends, relatives, colleagues, rivals, officials, witnesses, romantic interests or strangers as appropriate. Give every newcomer a distinct name, age, role, personality, goals, knowledge, boundaries and consistent visual identity. Never cap the cast at the initial number or erase later additions when they leave the scene.",
+    "Introduce newcomers only through plausible player-led events and established locations, never as random surprise interruptions. Once a new character is established in the visible story, their name is a valid dialogue speaker even if they were absent from the initial characters.json. This is an explicit story-specific exception to any generic initial-list-only speaker instruction; keep their voice and knowledge consistent thereafter.",
+    "Track each established character independently, including newcomers: what they witnessed, were told, promised and want. Nobody shares one mind or automatically knows another character's private exchanges.",
+    "Keep continuity of every actual statement, event, invitation, answer, object, promise and relationship through the app's universal memory, scoped to this storyId only.",
+    "Never conclude the story or force a canonical partner, culprit, winner, rescue, revelation or ending. Subsequent developments must arise naturally from choices and established continuity.",
+    "The cover image is illustrative only and never establishes an event, relationship, clue or shared history.",
+    "Keep investigation fair and evidence-led; no collective suspicion, torture, coercive interrogation or predetermined culprit.",
+    "Keep danger cinematic and non-graphic; never give real smuggling, weapons, desert-survival or vehicle-sabotage instructions."
+  ],
+  "importantObjects": [
+    {
+      "id": "sealed_water_barrel",
+      "name": "Sealed Water Barrel",
+      "description": "A barrel with an intact seal and unexplained weight mismatch."
+    },
+    {
+      "id": "convoy_manifest",
+      "name": "Sadiq's Convoy Manifest",
+      "description": "Recorded stops and quantities to compare against actual events."
+    }
+  ],
+  "timeline": [
+    {
+      "id": "before_opening",
+      "label": "The ordinary events leading to the opening occur without determining later outcomes",
+      "when": "Before the story"
+    },
+    {
+      "id": "seal_aur_weight",
+      "label": "At the desert rest stop, Zara found an intact seal with a weight mismatch and asked {{playerName}} who touched the barrel after the last halt. Sadiq proposed comparing manifest entries with actual stops before blaming anyone. No answer, inspection result or culprit exists.",
+      "when": "The opening moment"
+    }
+  ]
+}

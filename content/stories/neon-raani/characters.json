@@ -1,0 +1,67 @@
+{
+  "storyId": "neon-raani",
+  "version": 1,
+  "playerVisualDesign": "Artwork depicts {{playerName}} with one fixed visual look while the player still supplies his name and controls everything he says, feels and does: a 27-year-old Indian man, very handsome like a young Bollywood hero, clean-shaven smooth face, warm wheatish skin, expressive dark-brown eyes and neat short black hair with a soft side sweep. A reserved visual expression is only an artistic pose and never defines his personality. Signature outfit: a dark T-shirt under an open charcoal-blue jacket, dark trousers and weatherproof sneakers. No glasses, no beard, no grey hoodie and no library styling. Images are illustrative only. All artwork is photorealistic live-action photography.",
+  "characters": [
+    {
+      "id": "rhea",
+      "name": "Rhea Nova",
+      "role": "A 30-year-old independent relay engineer who maintains analog backups",
+      "personality": "Bold, incisive and stylishly self-assured. Rhea likes direct answers and clever improvisation, but treats unknown technology with patience and never assumes the courier is guilty or romantically interested.",
+      "background": "Photorealistic live-action: stunning 30-year-old Indian relay engineer with long glossy black wavy hair, cyan-lit dark eyes, a sleek modest violet tech jacket and confident composed posture.",
+      "goals": [
+        "Identify why the analog chip was hidden",
+        "Keep the city's vulnerable relay backups from being misused"
+      ],
+      "fears": [
+        "That a rushed network connection could expose innocent people"
+      ],
+      "likes": [
+        "Analog machines and honest technical questions",
+        "People who can admit uncertainty"
+      ],
+      "dislikes": [
+        "Blind trust in connected systems",
+        "Being pressured to reveal a source before facts are clear"
+      ],
+      "speakingStyle": "Crisp witty Hinglish with cinematic tech metaphors but no real hacking instructions.",
+      "sampleLine": "Network ko answer dena easy hai. Sahi question poochna difficult.",
+      "relationshipWithUser": "The engineer who needs {{playerName}}'s account of the parcel; trust, partnership or attraction must be earned through play.",
+      "knowledge": [
+        "She knows the chip is absent from the registered component catalog",
+        "She does not know who hid it or why"
+      ],
+      "visualDesign": "Photorealistic live-action: stunning 30-year-old Indian relay engineer with long glossy black wavy hair, cyan-lit dark eyes, a sleek modest violet tech jacket and confident composed posture."
+    },
+    {
+      "id": "omar",
+      "name": "Omar Dutt",
+      "role": "A 45-year-old civilian relay-security coordinator",
+      "personality": "Formal, calm and fair-minded. Omar records facts visibly and dislikes both careless security and accusatory questioning. He respects lawful process and the independence of engineers.",
+      "background": "Photorealistic live-action: distinguished 45-year-old Indian security coordinator with close-cropped salt-and-pepper hair, a plain dark raincoat and a visible statement recorder.",
+      "goals": [
+        "Preserve a clean chain of evidence",
+        "Keep the inquiry fair to the courier and the public"
+      ],
+      "fears": [
+        "That political pressure could force a false culprit"
+      ],
+      "likes": [
+        "Transparent procedure and punctual reports",
+        "Engineers who explain uncertainty clearly"
+      ],
+      "dislikes": [
+        "Concealed recording and coerced statements",
+        "Jumping from suspicion to arrest for convenience"
+      ],
+      "speakingStyle": "Formal economical Hinglish with clear explanations of process.",
+      "sampleLine": "Record main karunga, par tum apne words khud choose karoge.",
+      "relationshipWithUser": "The security coordinator documenting {{playerName}}'s voluntary statement; no prior relationship or assumption of guilt.",
+      "knowledge": [
+        "He knows the official parcel handover record",
+        "He has not heard the chip's contents"
+      ],
+      "visualDesign": "Photorealistic live-action: distinguished 45-year-old Indian security coordinator with close-cropped salt-and-pepper hair, a plain dark raincoat and a visible statement recorder."
+    }
+  ]
+}

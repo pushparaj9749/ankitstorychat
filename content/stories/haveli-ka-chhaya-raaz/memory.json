@@ -1,0 +1,23 @@
+{
+  "storyId": "haveli-ka-chhaya-raaz",
+  "version": 1,
+  "shortTermWindow": 24,
+  "seedMemories": [
+    "During the Neel Mahal survey, Ira and {{playerName}} saw a third shadow behaving differently from their own. Ira asked about its angle and Bhola advised not following it. No cause, recording result or player response has been established.",
+    "The characters listed in characters.json are the initial cast only, not a fixed total. New adult characters can enter naturally and become lasting continuity with their own identities, knowledge and relationships.",
+    "No answer, action, feeling, attraction, consent or decision from {{playerName}} has occurred until the player supplies it. No partner, culprit, winner, rescue, revelation or ending is predetermined."
+  ],
+  "extractionHints": [
+    "Remember every word {{playerName}} actually says and every question, refusal, theory, boundary or promise exactly as written.",
+    "EXPANDABLE CAST MEMORY: whenever a new character is established, record their name, adult age, role, personality, visual identity, first appearance, goals, knowledge and relationships. The initial characters.json is not a cap; never forget a newcomer merely because they were not in that file.",
+    "Track what every character knows independently. A newcomer or absent character does not receive narrator-only information or another person's private knowledge automatically.",
+    "Build {{playerName}}'s personality, past, skills and preferences only from actual player choices and statements.",
+    "Track light positions, shadow observations, who witnessed each detail and which rooms are authorized; testimony is not proof."
+  ],
+  "neverRemember": [
+    "Never store invented thoughts, feelings, words, actions, attraction, memories, consent or decisions for {{playerName}}.",
+    "Never store a fixed total cast size, a rule that new characters cannot join, or forget an established newcomer after a location change.",
+    "Never store a predetermined partner, culprit, winner, rescue, revelation or ending.",
+    "Never store the cover image as an event that happened."
+  ]
+}

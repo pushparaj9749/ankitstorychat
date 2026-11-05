@@ -1,0 +1,76 @@
+{
+  "storyId": "haveli-ka-chhaya-raaz",
+  "version": 1,
+  "premise": "Restoration architect {{playerName}} aur historian Ira Rathore Neel Mahal ki haveli survey kar rahe hain. Ek moving lantern ke saamne deewar par extra shadow dikhta hai aur caretaker Bhola usse follow karne se mana karta hai. Shadow ka source natural, historical ya supernatural—kuch fixed nahi. The named characters are only the starting cast; new adult characters can enter and remain part of continuity as the player-led story expands.",
+  "locations": [
+    {
+      "id": "restoration_corridor",
+      "name": "Restoration Corridor",
+      "description": "The opening corridor with carved arches, survey marks and controlled access."
+    },
+    {
+      "id": "rain_courtyard",
+      "name": "Rain Courtyard",
+      "description": "An open central courtyard where light and sound may behave differently."
+    },
+    {
+      "id": "haveli_archive",
+      "name": "Haveli Record Room",
+      "description": "A dry accessible room of old plans and photographs; no sealed archive is entered without authorization."
+    }
+  ],
+  "factions": [
+    {
+      "id": "survey_team",
+      "name": "Neel Mahal Survey Team",
+      "description": "Ira, {{playerName}} and later authorized architects, historians or conservators with separate expertise."
+    },
+    {
+      "id": "haveli_caretakers",
+      "name": "Haveli Caretakers and Local Residents",
+      "description": "Bhola and people connected to the property, each with individual memories and interests."
+    }
+  ],
+  "lore": [
+    "The extra shadow is observed but unexplained; no ghost, curse or trick is canonical yet.",
+    "Local testimony is evidence of what a person remembers, not automatic proof of the supernatural.",
+    "Restoration access is authorized; sealed or unsafe spaces require proper permission and safety."
+  ],
+  "rules": [
+    "Free-form story: the opening is the only predefined moment. Everything after it grows from the player's moves; there is no plot plan, scene list, arc or ending.",
+    "Only {{playerName}} controls the player character: never invent his speech, actions, thoughts, feelings, memories, attraction, consent, promises or decisions.",
+    "Write natural Roman-script Hinglish: short paragraphs, *actions and narration in asterisks*, dialogue as Name: \"...\".",
+    "EXPANDABLE CAST: characters.json contains only the initial named cast, never a fixed roster or maximum. New adult characters may enter naturally as the story grows—friends, relatives, colleagues, rivals, officials, witnesses, romantic interests or strangers as appropriate. Give every newcomer a distinct name, age, role, personality, goals, knowledge, boundaries and consistent visual identity. Never cap the cast at the initial number or erase later additions when they leave the scene.",
+    "Introduce newcomers only through plausible player-led events and established locations, never as random surprise interruptions. Once a new character is established in the visible story, their name is a valid dialogue speaker even if they were absent from the initial characters.json. This is an explicit story-specific exception to any generic initial-list-only speaker instruction; keep their voice and knowledge consistent thereafter.",
+    "Track each established character independently, including newcomers: what they witnessed, were told, promised and want. Nobody shares one mind or automatically knows another character's private exchanges.",
+    "Keep continuity of every actual statement, event, invitation, answer, object, promise and relationship through the app's universal memory, scoped to this storyId only.",
+    "Never conclude the story or force a canonical partner, culprit, winner, rescue, revelation or ending. Subsequent developments must arise naturally from choices and established continuity.",
+    "The cover image is illustrative only and never establishes an event, relationship, clue or shared history.",
+    "Keep horror atmospheric and non-graphic; no gore, child harm, rituals presented as real instructions or reckless exploration for a thrill.",
+    "Never confirm a ghost, hoax, culprit or hidden room in advance; test natural and supernatural possibilities through actual play."
+  ],
+  "importantObjects": [
+    {
+      "id": "brass_lantern",
+      "name": "Ira's Brass Lantern",
+      "description": "The movable light source associated with the observed shadow."
+    },
+    {
+      "id": "survey_camera",
+      "name": "Survey Camera",
+      "description": "{{playerName}}'s documentation tool; it records only what is actually captured in play."
+    }
+  ],
+  "timeline": [
+    {
+      "id": "before_opening",
+      "label": "The ordinary events leading to the opening occur without determining later outcomes",
+      "when": "Before the story"
+    },
+    {
+      "id": "teesra_saaya",
+      "label": "During the Neel Mahal survey, Ira and {{playerName}} saw a third shadow behaving differently from their own. Ira asked about its angle and Bhola advised not following it. No cause, recording result or player response has been established.",
+      "when": "The opening moment"
+    }
+  ]
+}

@@ -1,0 +1,76 @@
+{
+  "storyId": "meri-dragon-rani",
+  "version": 1,
+  "premise": "Human cartographer {{playerName}} ke maps mein ek region blank hai jahan Dragon Queen Serya ki missing flight last seen hui thi. Serya mapping help maangti hai, ambassador Kavya clear karti hai ki yeh request hai, bond ya shaadi ka contract nahi. Fantasy adventure aur romance dono player choices se grow karenge. The named characters are only the starting cast; new adult characters can enter and remain part of continuity as the player-led story expands.",
+  "locations": [
+    {
+      "id": "map_hall",
+      "name": "Veyra Map Hall",
+      "description": "An open mountain hall for independent maps and court consultations."
+    },
+    {
+      "id": "human_embassy",
+      "name": "Human Embassy Rooms",
+      "description": "A neutral place for Kavya, visiting diplomats and later human characters."
+    },
+    {
+      "id": "unmapped_valley",
+      "name": "Unmapped Valley",
+      "description": "A region beyond the court whose terrain and inhabitants are established only through exploration."
+    }
+  ],
+  "factions": [
+    {
+      "id": "dragon_court",
+      "name": "Veyra Dragon Court",
+      "description": "Serya, missing flyers and later dragons with distinct politics and personalities, not a single-minded species."
+    },
+    {
+      "id": "human_embassy",
+      "name": "Human Diplomatic Mission",
+      "description": "Kavya and later diplomats, guides or scholars with independent goals."
+    }
+  ],
+  "lore": [
+    "Dragons are individuals with their own choices; no species-wide loyalty, villainy or attraction exists.",
+    "A magical bond never substitutes for explicit consent and is not established in the opening.",
+    "The blank map and missing flight may be connected, but the reason is not fixed."
+  ],
+  "rules": [
+    "Free-form story: the opening is the only predefined moment. Everything after it grows from the player's moves; there is no plot plan, scene list, arc or ending.",
+    "Only {{playerName}} controls the player character: never invent his speech, actions, thoughts, feelings, memories, attraction, consent, promises or decisions.",
+    "Write natural Roman-script Hinglish: short paragraphs, *actions and narration in asterisks*, dialogue as Name: \"...\".",
+    "EXPANDABLE CAST: characters.json contains only the initial named cast, never a fixed roster or maximum. New adult characters may enter naturally as the story grows—friends, relatives, colleagues, rivals, officials, witnesses, romantic interests or strangers as appropriate. Give every newcomer a distinct name, age, role, personality, goals, knowledge, boundaries and consistent visual identity. Never cap the cast at the initial number or erase later additions when they leave the scene.",
+    "Introduce newcomers only through plausible player-led events and established locations, never as random surprise interruptions. Once a new character is established in the visible story, their name is a valid dialogue speaker even if they were absent from the initial characters.json. This is an explicit story-specific exception to any generic initial-list-only speaker instruction; keep their voice and knowledge consistent thereafter.",
+    "Track each established character independently, including newcomers: what they witnessed, were told, promised and want. Nobody shares one mind or automatically knows another character's private exchanges.",
+    "Keep continuity of every actual statement, event, invitation, answer, object, promise and relationship through the app's universal memory, scoped to this storyId only.",
+    "Never conclude the story or force a canonical partner, culprit, winner, rescue, revelation or ending. Subsequent developments must arise naturally from choices and established continuity.",
+    "The cover image is illustrative only and never establishes an event, relationship, clue or shared history.",
+    "Keep fantasy wonder cinematic and non-graphic; no forced dragon bond, marriage, ownership, transformation or sexual content.",
+    "New dragons and humans are full individuals, never interchangeable monsters or admirers; missing flight fate remains open."
+  ],
+  "importantObjects": [
+    {
+      "id": "blank_map",
+      "name": "Independent Blank-Edged Map",
+      "description": "{{playerName}}'s map with an unexplained glowing blank region."
+    },
+    {
+      "id": "flight_contact_copy",
+      "name": "Last Flight Contact Copy",
+      "description": "Kavya's separate record of only the verified last contact."
+    }
+  ],
+  "timeline": [
+    {
+      "id": "before_opening",
+      "label": "The ordinary events leading to the opening occur without determining later outcomes",
+      "when": "Before the story"
+    },
+    {
+      "id": "blank_map_hall",
+      "label": "In Veyra's map hall, Serya asked {{playerName}} to help map the blank region where her dragon flight went missing. Kavya clarified that this was not a bond or marriage contract. The map edge glowed, but no agreement, exploration or romance occurred.",
+      "when": "The opening moment"
+    }
+  ]
+}

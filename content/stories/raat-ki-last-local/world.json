@@ -1,0 +1,76 @@
+{
+  "storyId": "raat-ki-last-local",
+  "version": 1,
+  "premise": "Nandgaon Terminus ki last local ke baad ek aisi announcement sunai deti hai jo timetable mein hai hi nahi. Railway announcer {{playerName}} ke paas original station log hai aur Inspector Naina Rao ko uski madat chahiye. Mystery railway procedural rahegi, supernatural ya technical explanation player-led investigation se khulegi. The named characters are only the starting cast; new adult characters can enter and remain part of continuity as the player-led story expands.",
+  "locations": [
+    {
+      "id": "announcement_room",
+      "name": "Announcement Room",
+      "description": "A compact room with the original console, platform speakers and preserved logs."
+    },
+    {
+      "id": "wet_platform",
+      "name": "Rain-Washed Terminus Platform",
+      "description": "The stationary local and amber-lit open doorway are visible here; nothing about its origin is fixed."
+    },
+    {
+      "id": "ticket_assignment_office",
+      "name": "Ticket and Assignment Office",
+      "description": "Imran's register, duty charts and ordinary station records can be compared here."
+    }
+  ],
+  "factions": [
+    {
+      "id": "station_staff",
+      "name": "Nandgaon Station Staff",
+      "description": "Announcers, clerks, guards and later railway workers with separate knowledge and duties; the initial staff list is not a cap."
+    },
+    {
+      "id": "railway_police",
+      "name": "Railway Police Team",
+      "description": "Naina and any later officers who join through lawful procedure and established events."
+    }
+  ],
+  "lore": [
+    "The unexplained announcement is real audio, not immediately proof of a ghost, conspiracy or technical fault.",
+    "The stationary local and the announcement may or may not be related; correlation is not a confirmed cause.",
+    "Nandgaon is fictional and its railway procedures are narrative, not an operational railway manual."
+  ],
+  "rules": [
+    "Free-form story: the opening is the only predefined moment. Everything after it grows from the player's moves; there is no plot plan, scene list, arc or ending.",
+    "Only {{playerName}} controls the player character: never invent his speech, actions, thoughts, feelings, memories, attraction, consent, promises or decisions.",
+    "Write natural Roman-script Hinglish: short paragraphs, *actions and narration in asterisks*, dialogue as Name: \"...\".",
+    "EXPANDABLE CAST: characters.json contains only the initial named cast, never a fixed roster or maximum. New adult characters may enter naturally as the story grows—friends, relatives, colleagues, rivals, officials, witnesses, romantic interests or strangers as appropriate. Give every newcomer a distinct name, age, role, personality, goals, knowledge, boundaries and consistent visual identity. Never cap the cast at the initial number or erase later additions when they leave the scene.",
+    "Introduce newcomers only through plausible player-led events and established locations, never as random surprise interruptions. Once a new character is established in the visible story, their name is a valid dialogue speaker even if they were absent from the initial characters.json. This is an explicit story-specific exception to any generic initial-list-only speaker instruction; keep their voice and knowledge consistent thereafter.",
+    "Track each established character independently, including newcomers: what they witnessed, were told, promised and want. Nobody shares one mind or automatically knows another character's private exchanges.",
+    "Keep continuity of every actual statement, event, invitation, answer, object, promise and relationship through the app's universal memory, scoped to this storyId only.",
+    "Never conclude the story or force a canonical partner, culprit, winner, rescue, revelation or ending. Subsequent developments must arise naturally from choices and established continuity.",
+    "The cover image is illustrative only and never establishes an event, relationship, clue or shared history.",
+    "Keep the investigation grounded in audio, logs, witness accounts and player choices; do not predetermine whether the explanation is technical, criminal or supernatural.",
+    "Railway and police work follows consent, authorization, chain of command and evidence preservation; no dangerous train-operation instructions."
+  ],
+  "importantObjects": [
+    {
+      "id": "original_announcement_log",
+      "name": "Original Announcement Log",
+      "description": "The console's preserved record; its unexplained entry is examined only through play."
+    },
+    {
+      "id": "assignment_register",
+      "name": "Imran's Assignment Register",
+      "description": "A paper record that may corroborate or contradict the console without being infallible."
+    }
+  ],
+  "timeline": [
+    {
+      "id": "before_opening",
+      "label": "The ordinary events leading to the opening occur without determining later outcomes",
+      "when": "Before the story"
+    },
+    {
+      "id": "aakhri_announcement",
+      "label": "The opening takes place after scheduled services at Nandgaon Terminus. Naina asked {{playerName}} to replay an announcement missing from the timetable, and Imran said the named platform duty was never assigned. No replay or answer from {{playerName}} has happened yet.",
+      "when": "The opening moment"
+    }
+  ]
+}

@@ -1,0 +1,76 @@
+{
+  "storyId": "chef-ki-jung",
+  "version": 1,
+  "premise": "Community food festival mein street-food chef {{playerName}} aur celebrity chef Maya Kapoor ko same mystery ingredient milta hai. Maya direct tease karti hai, critic Sana fair rules rakhti hai, aur counters ke beech mast culinary rivalry shuru hoti hai. Winner, romance aur next menu koi predetermined nahi hai. The named characters are only the starting cast; new adult characters can enter and remain part of continuity as the player-led story expands.",
+  "locations": [
+    {
+      "id": "festival_counters",
+      "name": "Festival Open Counters",
+      "description": "Adjoining cooking stations with shared power, separate utensils and room for playful competition."
+    },
+    {
+      "id": "tasting_tables",
+      "name": "Community Tasting Tables",
+      "description": "A casual space for Sana, festival visitors and later guests to sample dishes fairly."
+    },
+    {
+      "id": "ingredient_market",
+      "name": "Ingredient Market Lane",
+      "description": "Nearby stalls where new vendors and ingredients can enter naturally through play."
+    }
+  ],
+  "factions": [
+    {
+      "id": "festival_chefs",
+      "name": "Festival Chefs and Vendors",
+      "description": "Independent cooks with distinct styles and goals; new chefs and vendors can join beyond the starting cast."
+    },
+    {
+      "id": "festival_judges",
+      "name": "Festival Judging Team",
+      "description": "Sana and any later judges or critics, required to disclose conflicts and judge fairly."
+    }
+  ],
+  "lore": [
+    "The mystery ingredient is deliberately unrevealed until play establishes it.",
+    "A cooking rivalry does not imply romantic interest, and a loss does not humiliate anyone.",
+    "Recipes and techniques remain fictional and safe; no dangerous food practices are rewarded."
+  ],
+  "rules": [
+    "Free-form story: the opening is the only predefined moment. Everything after it grows from the player's moves; there is no plot plan, scene list, arc or ending.",
+    "Only {{playerName}} controls the player character: never invent his speech, actions, thoughts, feelings, memories, attraction, consent, promises or decisions.",
+    "Write natural Roman-script Hinglish: short paragraphs, *actions and narration in asterisks*, dialogue as Name: \"...\".",
+    "EXPANDABLE CAST: characters.json contains only the initial named cast, never a fixed roster or maximum. New adult characters may enter naturally as the story grows—friends, relatives, colleagues, rivals, officials, witnesses, romantic interests or strangers as appropriate. Give every newcomer a distinct name, age, role, personality, goals, knowledge, boundaries and consistent visual identity. Never cap the cast at the initial number or erase later additions when they leave the scene.",
+    "Introduce newcomers only through plausible player-led events and established locations, never as random surprise interruptions. Once a new character is established in the visible story, their name is a valid dialogue speaker even if they were absent from the initial characters.json. This is an explicit story-specific exception to any generic initial-list-only speaker instruction; keep their voice and knowledge consistent thereafter.",
+    "Track each established character independently, including newcomers: what they witnessed, were told, promised and want. Nobody shares one mind or automatically knows another character's private exchanges.",
+    "Keep continuity of every actual statement, event, invitation, answer, object, promise and relationship through the app's universal memory, scoped to this storyId only.",
+    "Never conclude the story or force a canonical partner, culprit, winner, rescue, revelation or ending. Subsequent developments must arise naturally from choices and established continuity.",
+    "The cover image is illustrative only and never establishes an event, relationship, clue or shared history.",
+    "Keep competition fair and food detail appetising; no sabotage, forced feeding, humiliation or predetermined winner.",
+    "Romantic teasing is welcome only when mutual in play; a cooking challenge is never a demand for a date."
+  ],
+  "importantObjects": [
+    {
+      "id": "mystery_bowl",
+      "name": "Covered Mystery Ingredient Bowl",
+      "description": "The shared ingredient is unknown until actually revealed in play."
+    },
+    {
+      "id": "tasting_spoons",
+      "name": "Separate Tasting Spoons",
+      "description": "Clean utensils used to keep the tasting fair and consensual."
+    }
+  ],
+  "timeline": [
+    {
+      "id": "before_opening",
+      "label": "The ordinary events leading to the opening occur without determining later outcomes",
+      "when": "Before the story"
+    },
+    {
+      "id": "mystery_ingredient",
+      "label": "At the community food festival, Maya teased {{playerName}} about tasting his chutney twice and offered a counter swap, while Sana insisted on a fair tasting. The mystery ingredient remains covered and {{playerName}} has not answered.",
+      "when": "The opening moment"
+    }
+  ]
+}

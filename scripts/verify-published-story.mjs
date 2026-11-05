@@ -14,7 +14,8 @@ const files = ['story', 'characters', 'world', 'scenes', 'memory'];
 // generated at other native sizes opts in explicitly with
 // --native-size=WIDTHxHEIGHT[,WIDTHxHEIGHT...]: every media file must then be
 // exactly one of the listed sizes. Every invocation without the flag keeps
-// exactly this single-size check.
+// this single-size gallery check; a media-expanding portrait cover has its own
+// explicit 848x1264 check below and never relaxes gallery-image dimensions.
 const expectedDynamicMediaDimensions = { width: 1376, height: 768 };
 const defaultNativeSizes = [expectedDynamicMediaDimensions];
 
@@ -84,8 +85,15 @@ function validateLocalEntry(entry, nativeSizes = defaultNativeSizes) {
   assert.equal(new Set(refs).size, refs.length, `${entry.id}: duplicate media references`);
   assert(refs.includes(media.cover), `${entry.id}: cover not registered in gallery`);
   if (entry.tags?.includes('dynamic-continuous')) {
-    // v2.12: one cover plus 7–49 gallery images (8–50 media items in total).
-    assert(refs.length >= 8 && refs.length <= 50, `${entry.id}: expected one cover plus 7–49 gallery images, got ${refs.length} items`);
+    const mediaExpanding = entry.tags?.includes('media-expanding');
+    // Existing launches keep one cover plus 7–49 gallery images. A package
+    // explicitly tagged media-expanding may launch with only its cover; later
+    // gallery additions still use every byte, uniqueness and native-size check.
+    if (mediaExpanding) {
+      assert(refs.length >= 1 && refs.length <= 50, `${entry.id}: media-expanding package expected 1–50 media items, got ${refs.length}`);
+    } else {
+      assert(refs.length >= 8 && refs.length <= 50, `${entry.id}: expected one cover plus 7–49 gallery images, got ${refs.length} items`);
+    }
     assert.equal(media.gallery.filter((item) => item.kind === 'cover' && item.file === media.cover).length, 1, `${entry.id}: expected exactly one cover metadata item`);
     assert.equal(refs.filter((file) => file !== media.cover).length, refs.length - 1, `${entry.id}: expected exactly one cover in the gallery`);
   }
@@ -93,8 +101,14 @@ function validateLocalEntry(entry, nativeSizes = defaultNativeSizes) {
     const localBytes = readFileSync(join(dir, file));
     const dimensions = jpegDimensions(localBytes, `${entry.id}/${file}`);
     if (entry.tags?.includes('dynamic-continuous')) {
-      const native = nativeSizes.some(({ width, height }) => dimensions.width === width && dimensions.height === height);
-      assert(native, `${entry.id}/${file}: expected native size ${formatSizes(nativeSizes)}, got ${dimensions.width}x${dimensions.height}`);
+      if (entry.tags?.includes('media-expanding') && file === media.cover) {
+        // Cover-first packages use the app's established 2:3 portrait cover.
+        // Additional gallery media never inherits this portrait exception.
+        assert(dimensions.width === 848 && dimensions.height === 1264, `${entry.id}/${file}: media-expanding cover must be 848x1264, got ${dimensions.width}x${dimensions.height}`);
+      } else {
+        const native = nativeSizes.some(({ width, height }) => dimensions.width === width && dimensions.height === height);
+        assert(native, `${entry.id}/${file}: expected native size ${formatSizes(nativeSizes)}, got ${dimensions.width}x${dimensions.height}`);
+      }
     }
     return { file, localBytes, dimensions };
   });

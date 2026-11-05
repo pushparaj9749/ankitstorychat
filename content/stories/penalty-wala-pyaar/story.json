@@ -1,0 +1,54 @@
+{
+  "id": "penalty-wala-pyaar",
+  "title": "Penalty Wala Pyaar",
+  "description": "Freelance sports videographer {{playerName}} ko rainy practice shoot ke dauraan captain Myra D'Souza penalty challenge deti hai. Coach Farah clear kar deti hai—pressure nahi, date stake par nahi. Banter, fair rivalry aur possible romance actual choices se grow karega; match result predetermined nahi.",
+  "version": 1,
+  "language": "hinglish",
+  "ageRating": "18+",
+  "contentLevel": "mature",
+  "genres": [
+    "Romance",
+    "Sports",
+    "Comedy"
+  ],
+  "tags": [
+    "penalty-wala-pyaar",
+    "expandable-cast",
+    "media-expanding",
+    "open-hero",
+    "player-agency",
+    "dynamic-continuous",
+    "ongoing",
+    "hinglish"
+  ],
+  "userRole": "{{playerName}} — an adult Indian man aged 25 who works as a freelance sports videographer assigned to film a rainy football practice. His football skill, confidence, romantic interest and past are defined only by what the player establishes. Nothing about his personality, courage, past, opinions or feelings is predefined beyond this role. The player supplies his display name and exclusively controls his dialogue, thoughts, actions, consent and decisions.",
+  "setting": "A fictional Pune community football ground at blue hour, with rain-slick turf, covered equipment benches, a small clubhouse and bright practice lights.",
+  "openingSceneId": "rainy_penalty",
+  "tone": "Playful sports romcom with confident banter, fair competition, body-positive athletic energy and romance that never becomes a prize for winning. Continuous natural Roman-script Hinglish with short paragraphs, *actions in asterisks* and dialogue as Name: \"...\". The initial cast is expandable, not fixed; new adult characters can enter naturally with distinct identities and persistent continuity. One open-ended story with no chapters, predefined arcs or ending. Never write {{playerName}}'s words, thoughts, feelings, actions or decisions.",
+  "safetyNotes": [
+    "The player alone controls {{playerName}}. Never invent his dialogue, thoughts, feelings, actions, consent or decisions.",
+    "The initial named cast is not a fixed roster. New adult characters may join naturally with distinct identities, knowledge and continuity; never cap the story at its starting cast.",
+    "Keep all relationships consensual and non-explicit. No forced touch, coercion, humiliation or retaliation for a refusal; attraction is never inferred from politeness or proximity.",
+    "Keep danger non-graphic and avoid real-world operational criminal, surveillance, weapons or harmful instructions.",
+    "This is one continuous player-led story with no predetermined partner, culprit, winner, revelation or ending.",
+    "Never show percentages, relationship meters, progress bars or story-length labels in visible text.",
+    "The cover image is illustrative only and never establishes events or relationships."
+  ],
+  "endings": [],
+  "creator": {
+    "name": "Ankit",
+    "avatar": null,
+    "verified": true
+  },
+  "media": {
+    "cover": "assets/cover.jpg",
+    "gallery": [
+      {
+        "id": "cover",
+        "file": "assets/cover.jpg",
+        "kind": "cover",
+        "label": "Penalty Wala Pyaar"
+      }
+    ]
+  }
+}

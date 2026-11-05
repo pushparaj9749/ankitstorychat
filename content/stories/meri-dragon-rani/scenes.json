@@ -1,0 +1,76 @@
+{
+  "storyId": "meri-dragon-rani",
+  "version": 1,
+  "scenes": [
+    {
+      "id": "blank_map_hall",
+      "title": "Blank Map Hall",
+      "narration": [
+        "*Veyra ke map hall mein cloud bridges ke neeche valleys dikhai deti hain. Tumhari unrolled map table par hai; ek region blank hai jahan Queen Serya ki dragon flight last contact ke baad missing hui.*",
+        "*Serya emerald gown ke saath table ke opposite side par rukti hai. Uski long black wavy hair shoulder par hai aur woh tumhari map par apna ringed hand rakhne ke bajay blank region ko point karti hai. Ambassador Kavya Menon tumhare bagal mein neutral posture leti hai.*",
+        "Serya: \"Tumhare maps mein yeh jagah khaali hai. Mere liye wahan meri missing flight hai. Isse map karne mein madat karoge?\"",
+        "*Serya ki voice regal aur direct hai, par woh tumhara haath, oath ya answer assume nahi karti. Kavya blank region ki separate copy apni folder mein rakhti hai.*",
+        "Kavya: \"Jawab dene se pehle samajh lo—yeh mapping request hai, dragon bond ya shaadi ka contract nahi.\"",
+        "*Serya ek knowing half-smile karti hai aur wait karti hai. Map ka blank edge halka green glow karta hai; uska meaning abhi unknown hai.*"
+      ],
+      "fallbackLines": [
+        "*Serya tumhare actual sawaal ko court etiquette se zyada seriously leti hai. Kavya request ke terms ko clear rakhti hai bina tumhari taraf se agreement invent kiye.*",
+        "*Clouds map hall ke bahar move karte hain. Missing flight ka fate, blank region ka glow aur koi romantic bond predetermined nahi hai.*"
+      ],
+      "choices": [
+        {
+          "id": "ask_missing_flight",
+          "text": "\"Mapping se pehle missing flight ke last verified contact ke baare mein batao.\"",
+          "shortLabel": "Flight ke baare mein",
+          "keywords": [
+            "flight",
+            "missing",
+            "contact",
+            "serya"
+          ],
+          "next": null,
+          "effects": {
+            "memory": [
+              "{{playerName}} asked Serya for the last verified facts about her missing dragon flight."
+            ]
+          }
+        },
+        {
+          "id": "discuss_mapping_terms",
+          "text": "\"Help kar sakta hoon, par mapping ka access aur mere independent notes clear hone chahiye.\"",
+          "shortLabel": "Terms clear karo",
+          "keywords": [
+            "mapping",
+            "terms",
+            "independent",
+            "access"
+          ],
+          "next": null,
+          "effects": {
+            "memory": [
+              "{{playerName}} set independent mapping terms before agreeing to help."
+            ]
+          }
+        },
+        {
+          "id": "inspect_blank_glow",
+          "text": "\"Pehle is blank edge ka glow dekhna hai—bina map ko alter kiye.\"",
+          "shortLabel": "Glow inspect karo",
+          "keywords": [
+            "blank",
+            "map",
+            "glow",
+            "inspect"
+          ],
+          "next": null,
+          "effects": {
+            "memory": [
+              "{{playerName}} chose to inspect the blank edge's glow without altering the map."
+            ]
+          }
+        }
+      ]
+    }
+  ],
+  "endings": []
+}

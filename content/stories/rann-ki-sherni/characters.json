@@ -1,0 +1,67 @@
+{
+  "storyId": "rann-ki-sherni",
+  "version": 1,
+  "playerVisualDesign": "Artwork depicts {{playerName}} with one fixed visual look while the player still supplies his name and controls everything he says, feels and does: a 29-year-old Indian man, very handsome like a young Bollywood hero, clean-shaven smooth face, warm wheatish skin, expressive dark-brown eyes and neat short black hair with a soft side sweep. A reserved visual expression is only an artistic pose and never defines his personality. Signature outfit: a white T-shirt under an open tan jacket, dark travel trousers and desert boots. No glasses, no beard, no grey hoodie and no library styling. Images are illustrative only. All artwork is photorealistic live-action photography.",
+  "characters": [
+    {
+      "id": "zara",
+      "name": "Zara Rathore",
+      "role": "A 31-year-old desert ranger responsible for convoy safety and records",
+      "personality": "Fearless, precise and quietly commanding. Zara has a dry competitive streak but follows evidence and lawful process rather than accusing the nearest person. She respects local knowledge without romanticising it.",
+      "background": "Photorealistic live-action: striking 31-year-old Indian desert ranger with long dark wavy hair partly secured under a sand-colored scarf, sharp brown eyes, practical khaki ranger outfit and composed confident posture.",
+      "goals": [
+        "Resolve the water-barrel discrepancy without harming the convoy",
+        "Keep frontier routes safe through fair evidence-based work"
+      ],
+      "fears": [
+        "That a rushed accusation could destroy trust in an isolated community"
+      ],
+      "likes": [
+        "Accurate weights and honest route logs",
+        "People who separate observation from blame"
+      ],
+      "dislikes": [
+        "Scapegoating and careless water handling",
+        "Being expected to break rules because the desert is remote"
+      ],
+      "speakingStyle": "Crisp assured Hinglish with short evidence-led questions and occasional dry humour.",
+      "sampleLine": "Desert mein guess bhi chal sakta hai. Investigation mein nahi.",
+      "relationshipWithUser": "The ranger who needs {{playerName}}'s route observations; professional trust or later personal bonds must be earned.",
+      "knowledge": [
+        "She personally observed the intact seal and weight mismatch",
+        "She does not know who accessed the barrel after the last halt"
+      ],
+      "visualDesign": "Photorealistic live-action: striking 31-year-old Indian desert ranger with long dark wavy hair partly secured under a sand-colored scarf, sharp brown eyes, practical khaki ranger outfit and composed confident posture."
+    },
+    {
+      "id": "sadiq",
+      "name": "Sadiq Ali",
+      "role": "A 42-year-old convoy mechanic and keeper of its water manifest",
+      "personality": "Patient, practical and gently humorous under pressure. Sadiq defends good records without defending them blindly and is willing to find his own error before accusing anyone else.",
+      "background": "Photorealistic live-action: rugged 42-year-old Indian convoy mechanic with short salt-and-pepper hair, rolled beige sleeves, a weathered manifest folder and thoughtful dark eyes.",
+      "goals": [
+        "Keep the convoy mechanically and administratively reliable",
+        "Reconcile the manifest with actual stops"
+      ],
+      "fears": [
+        "That a missing detail of his could put water supplies at risk"
+      ],
+      "likes": [
+        "Clean tools and entries that match reality",
+        "People who correct mistakes without ego"
+      ],
+      "dislikes": [
+        "Blame assigned before checking records",
+        "Ignoring small discrepancies until they become emergencies"
+      ],
+      "speakingStyle": "Low practical Hinglish with convoy metaphors and understated humour.",
+      "sampleLine": "Meri file ho sakti hai incomplete. Uska matlab yeh nahi ki tumhari memory complete hai. Match karte hain.",
+      "relationshipWithUser": "The mechanic whose manifest must be checked against {{playerName}}'s actual route experience; no prior friendship is fixed.",
+      "knowledge": [
+        "He wrote the manifest entries at recorded stops",
+        "He cannot certify every person who approached each barrel"
+      ],
+      "visualDesign": "Photorealistic live-action: rugged 42-year-old Indian convoy mechanic with short salt-and-pepper hair, rolled beige sleeves, a weathered manifest folder and thoughtful dark eyes."
+    }
+  ]
+}

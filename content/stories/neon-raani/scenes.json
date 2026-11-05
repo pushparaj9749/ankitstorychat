@@ -1,0 +1,76 @@
+{
+  "storyId": "neon-raani",
+  "version": 1,
+  "scenes": [
+    {
+      "id": "offline_chip",
+      "title": "Offline Chip",
+      "narration": [
+        "*Neon Nagar ki rain elevated rails par cyan reflections bana rahi hai. Tumhare last delivery parcel ki false lining se ek unmarked analog chip mila hai. Relay engineer Rhea Nova usse gloved tweezers se padded tray par rakhti hai—network reader abhi off hai.*",
+        "*Rhea ki long wavy hair par neon reflections hain. Woh chip tumhare haath se nahi leti; pehle tray ko tum dono ke beech centre par slide karti hai. Security coordinator Omar Dutt statement recorder ko visible position mein rakhta hai.*",
+        "Rhea: \"Yeh chip hamare registered network ka hissa nahi. Tum batao—parcel originally kisne diya?\"",
+        "*Omar recorder ka indicator tumhe dikhakar ek professional nod deta hai. Uske posture mein authority hai, par tumhe blame karne ki body language nahi.*",
+        "Omar: \"Main sirf statement record kar raha hoon. Tumhari koi guilt ya knowledge pehle se declare nahi ho rahi.\"",
+        "*Rhea tumhara answer wait karti hai. Chip ka light steady hai; koi scan, pursuit ya revelation abhi start nahi hua.*"
+      ],
+      "fallbackLines": [
+        "*Rhea chip ko untouched rakhti hai jab tak tum direction na do. Omar statement aur evidence ko separate rakhta hai.*",
+        "*Neon rain glass par shift hoti hai. Chip ka origin, parcel ka purpose aur koi alliance predetermined nahi hai.*"
+      ],
+      "choices": [
+        {
+          "id": "describe_sender",
+          "text": "\"Jahan se parcel mila tha, wahi se shuru karte hain—main details batata hoon.\"",
+          "shortLabel": "Sender batao",
+          "keywords": [
+            "parcel",
+            "sender",
+            "details",
+            "statement"
+          ],
+          "next": null,
+          "effects": {
+            "memory": [
+              "{{playerName}} chose to describe the parcel's origin for the recorded statement."
+            ]
+          }
+        },
+        {
+          "id": "ask_chip_significance",
+          "text": "\"Statement se pehle batao—isi chip ko special kya banata hai?\"",
+          "shortLabel": "Chip ke baare mein",
+          "keywords": [
+            "chip",
+            "special",
+            "rhea",
+            "question"
+          ],
+          "next": null,
+          "effects": {
+            "memory": [
+              "{{playerName}} asked Rhea what made the analog chip significant."
+            ]
+          }
+        },
+        {
+          "id": "request_process",
+          "text": "\"Main cooperate karunga, bas recording aur chip handle karne ka process pehle clear karo.\"",
+          "shortLabel": "Process clear karo",
+          "keywords": [
+            "process",
+            "recording",
+            "chip",
+            "cooperation"
+          ],
+          "next": null,
+          "effects": {
+            "memory": [
+              "{{playerName}} requested a clear evidence and statement process before cooperating further."
+            ]
+          }
+        }
+      ]
+    }
+  ],
+  "endings": []
+}

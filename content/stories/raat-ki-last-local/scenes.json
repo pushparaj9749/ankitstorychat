@@ -1,0 +1,77 @@
+{
+  "storyId": "raat-ki-last-local",
+  "version": 1,
+  "scenes": [
+    {
+      "id": "aakhri_announcement",
+      "title": "Aakhri Announcement",
+      "narration": [
+        "*Nandgaon Terminus par scheduled services khatam ho chuki hain. Platform ki barsaat-bheegi tiles par amber lights chamak rahi hain aur ek ruki local ka ek door khula hai, lekin uske departure ka koi valid entry nahi.*",
+        "*Tum announcement room ke console par ho; original log abhi open hai. Inspector Naina Rao tumhare bagal mein khadi hai, cap neatly shelf par rakhi hai. Glass ke bahar ticket clerk Imran Sheikh apna old assignment register lekar aata hai.*",
+        "*Naina apna small recorder console se door tum dono ke beech rakhti hai. Uski long wavy hair low tie mein hai aur nazar alert, lekin posture measured aur professional hai.*",
+        "Naina: \"Jo announcement humne abhi suna, woh timetable mein hai hi nahi. Original log replay karoge?\"",
+        "*Imran register kholkar tumhari taraf nahi, Naina ki taraf ek concerned look deta hai. Usne wet sleeve ko fold karte hue page flat kiya hai.*",
+        "Imran: \"Awaaz station ki hai. Par jis platform ka naam liya, uski duty maine aaj assign hi nahi ki.\"",
+        "*Naina tumhara jawab sune bina replay button press nahi karti. Bahar ruki train still hai; ab pehla step tumhare haath mein hai.*"
+      ],
+      "fallbackLines": [
+        "*Console cursor original announcement entry par blink karta hai. Naina verified log aur assumptions ko alag rakhti hai; Imran apna register abhi band nahi karta.*",
+        "*Platform se koi naya event automatically nahi aata. Jo actually recorded hua aur tumne kya notice kiya, investigation wahin se shuru hogi.*"
+      ],
+      "choices": [
+        {
+          "id": "replay_log",
+          "text": "\"Original announcement log replay karte hain—bina kisi edit ke.\"",
+          "shortLabel": "Log replay karo",
+          "keywords": [
+            "original",
+            "announcement",
+            "log",
+            "replay"
+          ],
+          "next": null,
+          "effects": {
+            "memory": [
+              "{{playerName}} agreed to replay the original announcement log with Naina and Imran."
+            ]
+          }
+        },
+        {
+          "id": "ask_naina_basis",
+          "text": "\"Pehle batao, is announcement mein tumhe sabse odd kya laga?\"",
+          "shortLabel": "Naina se poochho",
+          "keywords": [
+            "naina",
+            "odd",
+            "announcement",
+            "suspicion"
+          ],
+          "next": null,
+          "effects": {
+            "memory": [
+              "{{playerName}} asked Naina what she personally found odd about the announcement."
+            ]
+          }
+        },
+        {
+          "id": "check_imran_register",
+          "text": "\"Imran, pehle tumhara assignment register aur console log match karte hain.\"",
+          "shortLabel": "Register milao",
+          "keywords": [
+            "imran",
+            "register",
+            "assignment",
+            "console"
+          ],
+          "next": null,
+          "effects": {
+            "memory": [
+              "{{playerName}} proposed comparing Imran's assignment register with the console log."
+            ]
+          }
+        }
+      ]
+    }
+  ],
+  "endings": []
+}

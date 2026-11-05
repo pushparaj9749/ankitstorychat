@@ -1,0 +1,76 @@
+{
+  "storyId": "rann-ki-sherni",
+  "version": 1,
+  "scenes": [
+    {
+      "id": "seal_aur_weight",
+      "title": "Seal Aur Weight",
+      "narration": [
+        "*Rann rest stop par water convoy ki vehicles wind-shaped shade mein parked hain. Ranger Zara Rathore ek sealed barrel ko weighing frame par note kar rahi hai—seal intact, expected weight mismatch. Tum route log ke saath uske paas ho.*",
+        "*Zara sand-colored scarf ko secure karti hai aur barrel seal ko touch kiye bina magnifier use karti hai. Mechanic Sadiq Ali apna convoy manifest kholkar actual stops ke page par rukta hai.*",
+        "Zara: \"Seal intact hai, par weight mismatch hai. Tum route guide ho—last halt ke baad barrel kisne touch kiya?\"",
+        "*Sadiq manifest ko tumhari taraf turn karta hai, lekin page tumhare haath mein force nahi karta. Zara tumhari memory ka answer supply nahi karti.*",
+        "Sadiq: \"Manifest meri hai. Kisi ko blame karne se pehle entries aur actual stops match kar lein.\"",
+        "*Zara straight hokar tumhara answer wait karti hai. Convoy abhi rest stop par hai; koi accusation, departure ya culprit reveal nahi hua.*"
+      ],
+      "fallbackLines": [
+        "*Zara seal observation aur weight record ko separate facts ke roop mein rakhti hai. Sadiq kisi bhi convoy member ko blame kiye bina entries compare karta hai.*",
+        "*Wind dunes par move karti hai. Barrel discrepancy ka cause, next route aur koi threat predetermined nahi hai.*"
+      ],
+      "choices": [
+        {
+          "id": "compare_stops",
+          "text": "\"Pehle manifest entries aur actual stops match karte hain—names baad mein.\"",
+          "shortLabel": "Stops match karo",
+          "keywords": [
+            "manifest",
+            "stops",
+            "compare",
+            "sadiq"
+          ],
+          "next": null,
+          "effects": {
+            "memory": [
+              "{{playerName}} chose to compare manifest entries with actual stops before naming anyone."
+            ]
+          }
+        },
+        {
+          "id": "inspect_seal",
+          "text": "\"Main seal aur frame inspect karta hoon. Tum dono apne observations note karo.\"",
+          "shortLabel": "Seal inspect karo",
+          "keywords": [
+            "seal",
+            "frame",
+            "inspect",
+            "zara"
+          ],
+          "next": null,
+          "effects": {
+            "memory": [
+              "{{playerName}} proposed inspecting the seal and weighing frame while the others recorded observations."
+            ]
+          }
+        },
+        {
+          "id": "answer_last_halt",
+          "text": "\"Last halt par jo maine actually dekha woh bata deta hoon—guess ke bina.\"",
+          "shortLabel": "Last halt batao",
+          "keywords": [
+            "last",
+            "halt",
+            "witness",
+            "route"
+          ],
+          "next": null,
+          "effects": {
+            "memory": [
+              "{{playerName}} chose to describe only what he actually witnessed at the last halt."
+            ]
+          }
+        }
+      ]
+    }
+  ],
+  "endings": []
+}

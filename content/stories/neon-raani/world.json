@@ -1,0 +1,76 @@
+{
+  "storyId": "neon-raani",
+  "version": 1,
+  "premise": "Futuristic Neon Nagar mein drone courier {{playerName}} ke delivery parcel se ek unregistered analog chip milta hai. Relay engineer Rhea Nova usse network par scan nahi karna chahti aur security coordinator Omar tumhari statement lena chahta hai. Chip ka origin, conspiracy aur next alliance sab open hain. The named characters are only the starting cast; new adult characters can enter and remain part of continuity as the player-led story expands.",
+  "locations": [
+    {
+      "id": "analog_relay_shop",
+      "name": "Rhea's Analog Relay Shop",
+      "description": "A rain-facing repair studio with isolated readers and padded component trays."
+    },
+    {
+      "id": "neon_concourse",
+      "name": "Neon Public Concourse",
+      "description": "Elevated transit, food stalls and public terminals where new contacts can plausibly appear."
+    },
+    {
+      "id": "courier_depot",
+      "name": "Licensed Courier Depot",
+      "description": "Delivery logs and ordinary handover records can be checked through proper process."
+    }
+  ],
+  "factions": [
+    {
+      "id": "relay_engineers",
+      "name": "Independent Relay Engineers",
+      "description": "Rhea and other engineers who may join later with separate loyalties and expertise."
+    },
+    {
+      "id": "relay_security",
+      "name": "Relay Security Office",
+      "description": "Omar's civilian process team; later officers are not automatically allies or villains."
+    }
+  ],
+  "lore": [
+    "The chip is unregistered, but that alone proves neither its purpose nor anyone's guilt.",
+    "Neon technology is fictional; no real intrusion, surveillance or evasion instructions are part of the story.",
+    "New districts and groups may be established through play without changing the city's existing continuity."
+  ],
+  "rules": [
+    "Free-form story: the opening is the only predefined moment. Everything after it grows from the player's moves; there is no plot plan, scene list, arc or ending.",
+    "Only {{playerName}} controls the player character: never invent his speech, actions, thoughts, feelings, memories, attraction, consent, promises or decisions.",
+    "Write natural Roman-script Hinglish: short paragraphs, *actions and narration in asterisks*, dialogue as Name: \"...\".",
+    "EXPANDABLE CAST: characters.json contains only the initial named cast, never a fixed roster or maximum. New adult characters may enter naturally as the story grows—friends, relatives, colleagues, rivals, officials, witnesses, romantic interests or strangers as appropriate. Give every newcomer a distinct name, age, role, personality, goals, knowledge, boundaries and consistent visual identity. Never cap the cast at the initial number or erase later additions when they leave the scene.",
+    "Introduce newcomers only through plausible player-led events and established locations, never as random surprise interruptions. Once a new character is established in the visible story, their name is a valid dialogue speaker even if they were absent from the initial characters.json. This is an explicit story-specific exception to any generic initial-list-only speaker instruction; keep their voice and knowledge consistent thereafter.",
+    "Track each established character independently, including newcomers: what they witnessed, were told, promised and want. Nobody shares one mind or automatically knows another character's private exchanges.",
+    "Keep continuity of every actual statement, event, invitation, answer, object, promise and relationship through the app's universal memory, scoped to this storyId only.",
+    "Never conclude the story or force a canonical partner, culprit, winner, rescue, revelation or ending. Subsequent developments must arise naturally from choices and established continuity.",
+    "The cover image is illustrative only and never establishes an event, relationship, clue or shared history.",
+    "Keep technology cinematic and non-operational; never provide real hacking, surveillance, evasion or sabotage steps.",
+    "Do not predetermine a conspiracy, culprit, chase or alliance; suspicion remains separate from proof."
+  ],
+  "importantObjects": [
+    {
+      "id": "analog_chip",
+      "name": "Unregistered Analog Chip",
+      "description": "A physically preserved chip whose origin and contents remain unknown."
+    },
+    {
+      "id": "statement_recorder",
+      "name": "Visible Statement Recorder",
+      "description": "Omar's transparent record of what {{playerName}} actually chooses to say."
+    }
+  ],
+  "timeline": [
+    {
+      "id": "before_opening",
+      "label": "The ordinary events leading to the opening occur without determining later outcomes",
+      "when": "Before the story"
+    },
+    {
+      "id": "offline_chip",
+      "label": "In Rhea's relay shop, an unregistered analog chip from {{playerName}}'s parcel rests on a padded tray. Rhea asked who originally supplied the parcel and Omar visibly offered to record a statement without presuming guilt. No answer or scan has occurred.",
+      "when": "The opening moment"
+    }
+  ]
+}

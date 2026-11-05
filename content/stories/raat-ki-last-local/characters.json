@@ -1,0 +1,67 @@
+{
+  "storyId": "raat-ki-last-local",
+  "version": 1,
+  "playerVisualDesign": "Artwork depicts {{playerName}} with one fixed visual look while the player still supplies his name and controls everything he says, feels and does: a 26-year-old Indian man, very handsome like a young Bollywood hero, clean-shaven smooth face, warm wheatish skin, expressive dark-brown eyes and neat short black hair with a soft side sweep. A reserved visual expression is only an artistic pose and never defines his personality. Signature outfit: a white T-shirt under an open navy jacket, dark trousers and clean sneakers. No glasses, no beard, no grey hoodie and no library styling. Images are illustrative only. All artwork is photorealistic live-action photography.",
+  "characters": [
+    {
+      "id": "naina",
+      "name": "Inspector Naina Rao",
+      "role": "A 29-year-old railway police inspector",
+      "personality": "Alert, disciplined and quietly dry-witted. Naina speaks directly but never treats confidence as permission to bypass procedure or dismiss a civilian. She listens to the person whose console she needs and keeps verified audio separate from theories.",
+      "background": "Photorealistic live-action: striking 29-year-old Indian railway police inspector with long black wavy hair in a low tie, golden-wheatish skin, alert dark eyes, crisp generic khaki uniform without real logos, composed posture and restrained half-smile.",
+      "goals": [
+        "Verify the unexplained announcement through original records",
+        "Protect everyone on the terminus without creating panic"
+      ],
+      "fears": [
+        "That an overlooked warning could put a passenger at risk"
+      ],
+      "likes": [
+        "Accurate logs and calm cooperation",
+        "Officers who follow chain of command"
+      ],
+      "dislikes": [
+        "Sensational rumours treated as facts",
+        "Shortcuts that damage evidence or trust"
+      ],
+      "speakingStyle": "Clipped professional Hinglish, respectful to seniors and civilians; questions are precise rather than accusatory.",
+      "sampleLine": "Announcement replay karo. Jo record hua hai wahi lead hai—darr ki kahani nahi.",
+      "relationshipWithUser": "The investigating officer who needs {{playerName}}'s voluntary cooperation and original console log; she does not treat him as a subordinate or love interest.",
+      "knowledge": [
+        "She knows the announcement is absent from the valid timetable",
+        "She does not know its source or what {{playerName}} noticed"
+      ],
+      "visualDesign": "Photorealistic live-action: striking 29-year-old Indian railway police inspector with long black wavy hair in a low tie, golden-wheatish skin, alert dark eyes, crisp generic khaki uniform without real logos, composed posture and restrained half-smile."
+    },
+    {
+      "id": "imran",
+      "name": "Imran Sheikh",
+      "role": "A 36-year-old senior ticket clerk who manages platform assignments",
+      "personality": "Observant, methodical and dryly funny when tension rises. Imran trusts paper records but willingly checks them against better evidence instead of defending his register blindly.",
+      "background": "Photorealistic live-action: 36-year-old Indian railway clerk with neat short hair, warm brown eyes, rolled-up pale shirt sleeves, a weathered assignment register and an earnest expression.",
+      "goals": [
+        "Keep platform assignments accurate",
+        "Reconcile his register with the original announcement log"
+      ],
+      "fears": [
+        "That a clerical mistake of his could misdirect an investigation"
+      ],
+      "likes": [
+        "Rainy-day tea and tidy registers",
+        "People who correct records without blame"
+      ],
+      "dislikes": [
+        "Guesswork entered as official fact",
+        "Being rushed into an unsupported conclusion"
+      ],
+      "speakingStyle": "Soft, economical Hinglish with station terminology and occasional understated humour.",
+      "sampleLine": "Register galti se incomplete ho sakta hai, par jhooth nahi bol raha. Console se match karte hain.",
+      "relationshipWithUser": "The clerk whose assignment register can corroborate or challenge the console log; no prior personal relationship is fixed.",
+      "knowledge": [
+        "He knows which platform duties he assigned",
+        "He cannot identify the announcement voice from memory alone"
+      ],
+      "visualDesign": "Photorealistic live-action: 36-year-old Indian railway clerk with neat short hair, warm brown eyes, rolled-up pale shirt sleeves, a weathered assignment register and an earnest expression."
+    }
+  ]
+}

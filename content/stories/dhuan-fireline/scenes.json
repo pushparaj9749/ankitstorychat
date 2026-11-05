@@ -1,0 +1,76 @@
+{
+  "storyId": "dhuan-fireline",
+  "version": 1,
+  "scenes": [
+    {
+      "id": "naya_transfer_briefing",
+      "title": "Naya Transfer Briefing",
+      "narration": [
+        "*Devpur Central Fire Station ka equipment bay fluorescent light mein bright hai. Market district ka dispatch call abhi aaya hai; details incomplete hain. Tum naye transfer ho aur Station Officer Shreya Kaul assignment board ko visible wall par clip karti hai.*",
+        "*Shreya ki wavy hair secure low tie mein hai aur turnout collar properly fastened. Woh tumhe assess karti hai, par tone respectful hai. Rookie Rehan Menon engine ke side par inventory checklist hold karta hai.*",
+        "Shreya: \"Tum naye transfer ho, isliye pehle roles clear. Mere signal ke bina koi individual heroics nahi—team ke saath rahoge?\"",
+        "*Rehan checklist ka last unchecked item mark karke tumhari taraf dekhta hai. Shreya tumhara answer interrupt nahi karti; dispatch board par sirf verified details hain.*",
+        "Rehan: \"Main inventory check complete kar raha hoon. Tum apna status batao, tabhi roll call clear hoga.\"",
+        "*Shreya assignment marker tumhare naam ke paas hold karti hai, abhi role assign nahi karti. Engine ready hai, lekin next instruction tumhare response ke baad hogi.*"
+      ],
+      "fallbackLines": [
+        "*Shreya incomplete dispatch details aur verified information ko alag rakhti hai. Rehan checklist par focus karta hai; koi tumhare liye confidence ya fear assume nahi karta.*",
+        "*Station ki activity controlled hai. Rescue outcome, extra hazard aur future investigation predetermined nahi hain.*"
+      ],
+      "choices": [
+        {
+          "id": "confirm_team_role",
+          "text": "\"Team ke saath. Apna assignment aur communication clear kar do, main follow karunga.\"",
+          "shortLabel": "Role confirm karo",
+          "keywords": [
+            "team",
+            "role",
+            "shreya",
+            "follow"
+          ],
+          "next": null,
+          "effects": {
+            "memory": [
+              "{{playerName}} confirmed he would work within Shreya's team role and communication structure."
+            ]
+          }
+        },
+        {
+          "id": "ask_dispatch_facts",
+          "text": "\"Role accept karne se pehle dispatch mein verified details kya hain?\"",
+          "shortLabel": "Dispatch facts",
+          "keywords": [
+            "dispatch",
+            "verified",
+            "details",
+            "market"
+          ],
+          "next": null,
+          "effects": {
+            "memory": [
+              "{{playerName}} asked for the verified dispatch facts before proceeding."
+            ]
+          }
+        },
+        {
+          "id": "report_equipment_status",
+          "text": "\"Pehle mera equipment status check kar lete hain, phir assignment confirm karte hain.\"",
+          "shortLabel": "Equipment check",
+          "keywords": [
+            "equipment",
+            "status",
+            "rehan",
+            "check"
+          ],
+          "next": null,
+          "effects": {
+            "memory": [
+              "{{playerName}} proposed completing his equipment status check before assignment."
+            ]
+          }
+        }
+      ]
+    }
+  ],
+  "endings": []
+}

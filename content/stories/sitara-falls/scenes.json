@@ -1,0 +1,76 @@
+{
+  "storyId": "sitara-falls",
+  "version": 1,
+  "scenes": [
+    {
+      "id": "crackling_mic",
+      "title": "Crackling Mic",
+      "narration": [
+        "*Sitara Falls ke dhaba ki string lights rain-washed rails par chamak rahi hain. Open music corner ka old mic ek short crackle deta hai. Tum apna cable tester bag se nikaal rahe ho jab singer Sitara Naidu mic ko stand par hi rehne deti hai.*",
+        "*Sitara teal kurta aur denim jacket mein tumhare tester ko dekhti hai, phir mock-suspicious look ke saath ek eyebrow uthati hai. Banto Devi tray par chai lekar table ke paas rukti hai.*",
+        "Sitara: \"Mic ab bhi crackle kar raha hai. Tumne cable check kiya ya meri singing ka technical review de diya?\"",
+        "*Banto Sitara ki taraf affectionate head shake karti hai aur chai ko tum dono ke beech rakhti hai, tumhe cup pakadne ko force nahi karti.*",
+        "Banto: \"Review pehle chai ke saath lena. Yahan har musician ko ek warm-up aur ek second chance milta hai.\"",
+        "*Sitara halki hansi ke saath tumhara answer wait karti hai. Mic abhi silent hai; performance, repair result aur koi future gig fixed nahi.*"
+      ],
+      "fallbackLines": [
+        "*Sitara tumhare actual words ko banter ya sincerity se respond karti hai, bina tumhara skill ya romantic interest assume kiye. Banto chai aur space offer karti hai.*",
+        "*Waterfall road par rain halki hai. Koi performance, contract, relationship ya career decision pehle se nahi bana.*"
+      ],
+      "choices": [
+        {
+          "id": "check_cable",
+          "text": "\"Review baad mein. Pehle cable aur connection check karte hain.\"",
+          "shortLabel": "Cable check karo",
+          "keywords": [
+            "cable",
+            "check",
+            "mic",
+            "technical"
+          ],
+          "next": null,
+          "effects": {
+            "memory": [
+              "{{playerName}} chose to check the microphone cable and connection before anything else."
+            ]
+          }
+        },
+        {
+          "id": "ask_for_test",
+          "text": "\"Tum ek line test karo, main crackle ka source pakadta hoon.\"",
+          "shortLabel": "Test line suno",
+          "keywords": [
+            "sitara",
+            "test",
+            "mic",
+            "sing"
+          ],
+          "next": null,
+          "effects": {
+            "memory": [
+              "{{playerName}} asked Sitara to sing a test line while he located the crackle."
+            ]
+          }
+        },
+        {
+          "id": "take_chai_first",
+          "text": "\"Pehle chai aur Banto ji ka second-chance rule. Phir mic ko bhi second chance denge.\"",
+          "shortLabel": "Chai break",
+          "keywords": [
+            "chai",
+            "banto",
+            "break",
+            "mic"
+          ],
+          "next": null,
+          "effects": {
+            "memory": [
+              "{{playerName}} chose to share chai first and jokingly apply the second-chance rule to the mic."
+            ]
+          }
+        }
+      ]
+    }
+  ],
+  "endings": []
+}

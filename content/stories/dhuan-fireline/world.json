@@ -1,0 +1,77 @@
+{
+  "storyId": "dhuan-fireline",
+  "version": 1,
+  "premise": "Fire station mein naye transfer firefighter {{playerName}} ka pehla market-call briefing Station Officer Shreya Kaul lead karti hai. Uska rule clear hai: individual heroics nahi, team roles aur verified information. Rescue, investigation aur bonds naturally grow honge; no fixed disaster arc. The named characters are only the starting cast; new adult characters can enter and remain part of continuity as the player-led story expands.",
+  "locations": [
+    {
+      "id": "equipment_bay",
+      "name": "Station Equipment Bay",
+      "description": "The opening briefing area with visible assignment board and checked equipment."
+    },
+    {
+      "id": "dispatch_room",
+      "name": "Station Dispatch Room",
+      "description": "Verified calls, maps and updates are logged here without operational detail."
+    },
+    {
+      "id": "market_community_space",
+      "name": "Market Community Space",
+      "description": "A public area where later residents, shopkeepers or witnesses can enter naturally."
+    }
+  ],
+  "factions": [
+    {
+      "id": "station_team",
+      "name": "Devpur Fire Station Team",
+      "description": "Shreya, Rehan and later firefighters, officers or paramedics with separate roles and professional duties."
+    },
+    {
+      "id": "market_community",
+      "name": "Market District Community",
+      "description": "Residents and shopkeepers with independent experiences, never a faceless crowd."
+    }
+  ],
+  "lore": [
+    "The market call has incomplete information; no extra casualty, explosion or villain is predetermined.",
+    "Professional courage includes communication, consent where possible and command discipline.",
+    "The setting is fictional and avoids real emergency-response instructions."
+  ],
+  "rules": [
+    "Free-form story: the opening is the only predefined moment. Everything after it grows from the player's moves; there is no plot plan, scene list, arc or ending.",
+    "Only {{playerName}} controls the player character: never invent his speech, actions, thoughts, feelings, memories, attraction, consent, promises or decisions.",
+    "Write natural Roman-script Hinglish: short paragraphs, *actions and narration in asterisks*, dialogue as Name: \"...\".",
+    "EXPANDABLE CAST: characters.json contains only the initial named cast, never a fixed roster or maximum. New adult characters may enter naturally as the story grows—friends, relatives, colleagues, rivals, officials, witnesses, romantic interests or strangers as appropriate. Give every newcomer a distinct name, age, role, personality, goals, knowledge, boundaries and consistent visual identity. Never cap the cast at the initial number or erase later additions when they leave the scene.",
+    "Introduce newcomers only through plausible player-led events and established locations, never as random surprise interruptions. Once a new character is established in the visible story, their name is a valid dialogue speaker even if they were absent from the initial characters.json. This is an explicit story-specific exception to any generic initial-list-only speaker instruction; keep their voice and knowledge consistent thereafter.",
+    "Track each established character independently, including newcomers: what they witnessed, were told, promised and want. Nobody shares one mind or automatically knows another character's private exchanges.",
+    "Keep continuity of every actual statement, event, invitation, answer, object, promise and relationship through the app's universal memory, scoped to this storyId only.",
+    "Never conclude the story or force a canonical partner, culprit, winner, rescue, revelation or ending. Subsequent developments must arise naturally from choices and established continuity.",
+    "The cover image is illustrative only and never establishes an event, relationship, clue or shared history.",
+    "Keep rescues heroic but non-graphic and non-operational; never give real firefighting, evacuation or hazardous-material instructions.",
+    "Shreya and all officers respect rank, lawful orders and procedure; no reckless heroics, senior disrespect or rule-breaking for drama.",
+    "Do not invent casualties, fatalities or a larger disaster for momentum; establish every new development naturally."
+  ],
+  "importantObjects": [
+    {
+      "id": "assignment_board",
+      "name": "Visible Assignment Board",
+      "description": "Only verified dispatch details and roles actually assigned in play appear here."
+    },
+    {
+      "id": "inventory_checklist",
+      "name": "Rehan's Inventory Checklist",
+      "description": "A record of checked and unchecked station equipment."
+    }
+  ],
+  "timeline": [
+    {
+      "id": "before_opening",
+      "label": "The ordinary events leading to the opening occur without determining later outcomes",
+      "when": "Before the story"
+    },
+    {
+      "id": "naya_transfer_briefing",
+      "label": "At Devpur Fire Station, Shreya asked newly transferred {{playerName}} to work within team roles rather than individual heroics during an incomplete market call. Rehan requested his status for roll call. No assignment, departure or rescue outcome has occurred.",
+      "when": "The opening moment"
+    }
+  ]
+}

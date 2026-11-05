@@ -1,0 +1,76 @@
+{
+  "storyId": "penalty-wala-pyaar",
+  "version": 1,
+  "scenes": [
+    {
+      "id": "rainy_penalty",
+      "title": "Rainy Penalty",
+      "narration": [
+        "*Practice lights rain mein sparkle kar rahe hain. Tum apna camera tripod par secure kar chuke ho jab captain Myra D'Souza ek plain football ko tumhare tripod ke paas gently roll karti hai. Coach Farah Ali covered bench se clipboard uthakar paas aati hai.*",
+        "*Myra high wavy ponytail ko shoulder par adjust karti hai aur ball under one foot balance karti hai. Uski grin competitive hai; woh tumhara camera ya haath pakadkar challenge force nahi karti.*",
+        "Myra: \"Camera pause karke ek penalty loge? Promise, miss hua toh outtake sirf mere paas rahega.\"",
+        "*Farah ball aur tripod ke beech safe distance dekhkar whistle abhi blow nahi karti. Uske expression mein amusement hai, par voice clear hai.*",
+        "Farah: \"Pressure nahi. Pehle haan bolo, phir ball—aur koi date stake par nahi lagegi.\"",
+        "*Myra tumhare answer ka wait karti hai, ball abhi stationary hai. Penalty, score, outtake aur romance sab tumhare next move par depend karte hain.*"
+      ],
+      "fallbackLines": [
+        "*Myra tumhare answer ke hisaab se banter continue karti hai, bina tumhara skill ya interest assume kiye. Farah practice ko fair aur pressure-free rakhti hai.*",
+        "*Rain turf par halki hai. Koi penalty result, date, relationship ya match outcome pehle se decided nahi hai.*"
+      ],
+      "choices": [
+        {
+          "id": "accept_penalty",
+          "text": "\"Ek penalty. Outtake tumhare paas rahega—par commentary meri hogi.\"",
+          "shortLabel": "Penalty khelo",
+          "keywords": [
+            "penalty",
+            "accept",
+            "myra",
+            "play"
+          ],
+          "next": null,
+          "effects": {
+            "memory": [
+              "{{playerName}} accepted one pressure-free penalty and jokingly claimed the commentary."
+            ]
+          }
+        },
+        {
+          "id": "ask_friendly_rules",
+          "text": "\"Pehle rules batao—friendly challenge mein win ya miss ka kya matlab hoga?\"",
+          "shortLabel": "Rules poochho",
+          "keywords": [
+            "rules",
+            "friendly",
+            "penalty",
+            "stakes"
+          ],
+          "next": null,
+          "effects": {
+            "memory": [
+              "{{playerName}} asked what the friendly penalty challenge would mean before deciding."
+            ]
+          }
+        },
+        {
+          "id": "keep_filming",
+          "text": "\"Main camera ke peeche hi raha hoon. Tum apni penalty do, main angle pakadta hoon.\"",
+          "shortLabel": "Filming continue",
+          "keywords": [
+            "camera",
+            "filming",
+            "boundary",
+            "myra"
+          ],
+          "next": null,
+          "effects": {
+            "memory": [
+              "{{playerName}} chose to keep filming and invited Myra to take the penalty instead."
+            ]
+          }
+        }
+      ]
+    }
+  ],
+  "endings": []
+}

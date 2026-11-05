@@ -1,0 +1,76 @@
+{
+  "storyId": "penalty-wala-pyaar",
+  "version": 1,
+  "premise": "Freelance sports videographer {{playerName}} ko rainy practice shoot ke dauraan captain Myra D'Souza penalty challenge deti hai. Coach Farah clear kar deti hai—pressure nahi, date stake par nahi. Banter, fair rivalry aur possible romance actual choices se grow karega; match result predetermined nahi. The named characters are only the starting cast; new adult characters can enter and remain part of continuity as the player-led story expands.",
+  "locations": [
+    {
+      "id": "community_pitch",
+      "name": "Community Football Pitch",
+      "description": "A rain-slick practice ground with safe field-side camera space."
+    },
+    {
+      "id": "covered_bench",
+      "name": "Covered Team Bench",
+      "description": "Equipment, water and ordinary practice discussions happen here."
+    },
+    {
+      "id": "clubhouse",
+      "name": "Community Clubhouse",
+      "description": "A small indoor space where later players, staff or journalists may enter naturally."
+    }
+  ],
+  "factions": [
+    {
+      "id": "community_team",
+      "name": "Community Football Team",
+      "description": "Myra, Farah and later players or coaches with distinct roles and ambitions."
+    },
+    {
+      "id": "sports_media",
+      "name": "Local Sports Media Circle",
+      "description": "{{playerName}} and later videographers or journalists with independent assignments and ethics."
+    }
+  ],
+  "lore": [
+    "A penalty challenge is not proof of skill, attraction or a relationship.",
+    "The practice squad is fictional and has no real club logo or fixed league outcome.",
+    "Winning never earns a date; losing never causes humiliation."
+  ],
+  "rules": [
+    "Free-form story: the opening is the only predefined moment. Everything after it grows from the player's moves; there is no plot plan, scene list, arc or ending.",
+    "Only {{playerName}} controls the player character: never invent his speech, actions, thoughts, feelings, memories, attraction, consent, promises or decisions.",
+    "Write natural Roman-script Hinglish: short paragraphs, *actions and narration in asterisks*, dialogue as Name: \"...\".",
+    "EXPANDABLE CAST: characters.json contains only the initial named cast, never a fixed roster or maximum. New adult characters may enter naturally as the story grows—friends, relatives, colleagues, rivals, officials, witnesses, romantic interests or strangers as appropriate. Give every newcomer a distinct name, age, role, personality, goals, knowledge, boundaries and consistent visual identity. Never cap the cast at the initial number or erase later additions when they leave the scene.",
+    "Introduce newcomers only through plausible player-led events and established locations, never as random surprise interruptions. Once a new character is established in the visible story, their name is a valid dialogue speaker even if they were absent from the initial characters.json. This is an explicit story-specific exception to any generic initial-list-only speaker instruction; keep their voice and knowledge consistent thereafter.",
+    "Track each established character independently, including newcomers: what they witnessed, were told, promised and want. Nobody shares one mind or automatically knows another character's private exchanges.",
+    "Keep continuity of every actual statement, event, invitation, answer, object, promise and relationship through the app's universal memory, scoped to this storyId only.",
+    "Never conclude the story or force a canonical partner, culprit, winner, rescue, revelation or ending. Subsequent developments must arise naturally from choices and established continuity.",
+    "The cover image is illustrative only and never establishes an event, relationship, clue or shared history.",
+    "Keep sport fair, consensual and non-graphic; no dangerous training instructions, forced physical contact or dating stakes.",
+    "Romance must be player-led and separate from match results; do not predetermine a goal, miss, injury, girlfriend or tournament."
+  ],
+  "importantObjects": [
+    {
+      "id": "practice_football",
+      "name": "Plain Practice Football",
+      "description": "The ball Myra rolled toward the tripod; no penalty has occurred yet."
+    },
+    {
+      "id": "camera_tripod",
+      "name": "Secured Camera Tripod",
+      "description": "{{playerName}}'s filming setup, protected from the challenge unless he chooses otherwise."
+    }
+  ],
+  "timeline": [
+    {
+      "id": "before_opening",
+      "label": "The ordinary events leading to the opening occur without determining later outcomes",
+      "when": "Before the story"
+    },
+    {
+      "id": "rainy_penalty",
+      "label": "At rainy practice, Myra offered {{playerName}} one penalty and promised to keep a missed outtake private, while Farah clarified that participation was optional and no date was at stake. No answer, kick or romantic development has happened.",
+      "when": "The opening moment"
+    }
+  ]
+}
