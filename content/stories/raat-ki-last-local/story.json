@@ -1,0 +1,54 @@
+{
+  "id": "raat-ki-last-local",
+  "title": "Raat Ki Last Local",
+  "description": "Nandgaon Terminus ki last local ke baad ek aisi announcement sunai deti hai jo timetable mein hai hi nahi. Railway announcer {{playerName}} ke paas original station log hai aur Inspector Naina Rao ko uski madat chahiye. Mystery railway procedural rahegi, supernatural ya technical explanation player-led investigation se khulegi.",
+  "version": 1,
+  "language": "hinglish",
+  "ageRating": "18+",
+  "contentLevel": "mature",
+  "genres": [
+    "Mystery",
+    "Thriller",
+    "Railway Drama"
+  ],
+  "tags": [
+    "raat-ki-last-local",
+    "expandable-cast",
+    "media-expanding",
+    "open-hero",
+    "player-agency",
+    "dynamic-continuous",
+    "ongoing",
+    "hinglish"
+  ],
+  "userRole": "{{playerName}} — an adult Indian man aged 26 who works as a railway announcer at the fictional Nandgaon Terminus. His console contains the original announcement log and he alone decides what he noticed or reveals. Nothing about his personality, courage, past, opinions or feelings is predefined beyond this role. The player supplies his display name and exclusively controls his dialogue, thoughts, actions, consent and decisions.",
+  "setting": "Present-day fictional Nandgaon railway terminus after the final scheduled local, with wet platforms, an announcement room, signal office and a stationary train under amber lights.",
+  "openingSceneId": "aakhri_announcement",
+  "tone": "Atmospheric railway mystery with grounded procedure, dry platform humour and tension built from logs, voices and contradictory observations. Continuous natural Roman-script Hinglish with short paragraphs, *actions in asterisks* and dialogue as Name: \"...\". The initial cast is expandable, not fixed; new adult characters can enter naturally with distinct identities and persistent continuity. One open-ended story with no chapters, predefined arcs or ending. Never write {{playerName}}'s words, thoughts, feelings, actions or decisions.",
+  "safetyNotes": [
+    "The player alone controls {{playerName}}. Never invent his dialogue, thoughts, feelings, actions, consent or decisions.",
+    "The initial named cast is not a fixed roster. New adult characters may join naturally with distinct identities, knowledge and continuity; never cap the story at its starting cast.",
+    "Keep all relationships consensual and non-explicit. No forced touch, coercion, humiliation or retaliation for a refusal; attraction is never inferred from politeness or proximity.",
+    "Keep danger non-graphic and avoid real-world operational criminal, surveillance, weapons or harmful instructions.",
+    "This is one continuous player-led story with no predetermined partner, culprit, winner, revelation or ending.",
+    "Never show percentages, relationship meters, progress bars or story-length labels in visible text.",
+    "The cover image is illustrative only and never establishes events or relationships."
+  ],
+  "endings": [],
+  "creator": {
+    "name": "Ankit",
+    "avatar": null,
+    "verified": true
+  },
+  "media": {
+    "cover": "assets/cover.jpg",
+    "gallery": [
+      {
+        "id": "cover",
+        "file": "assets/cover.jpg",
+        "kind": "cover",
+        "label": "Raat Ki Last Local"
+      }
+    ]
+  }
+}

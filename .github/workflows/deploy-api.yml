@@ -152,6 +152,23 @@ jobs:
           --native-size=1376x768,848x1264
           semester-wala-love
 
+      - name: Validate 10 varied expandable-cast stories and their 10 portrait covers
+        # These packages intentionally launch cover-first with media-expanding.
+        # The verifier still enforces the exact portrait size, unique files and
+        # every existing package/byte check; future gallery images stay native-size checked.
+        run: >-
+          node scripts/verify-published-story.mjs --local-only
+          raat-ki-last-local
+          chef-ki-jung
+          neon-raani
+          haveli-ka-chhaya-raaz
+          meri-dragon-rani
+          penalty-wala-pyaar
+          dhuan-fireline
+          sitara-falls
+          time-ki-dukaan
+          rann-ki-sherni
+
       - name: Install (worker)
         working-directory: worker
         run: npm ci
@@ -340,6 +357,22 @@ jobs:
           node scripts/verify-published-story.mjs
           --native-size=1376x768,848x1264
           semester-wala-love
+
+      - name: Verify 10 varied expandable-cast stories are published (byte-identical JSON + 10 covers)
+        # Read-only propagation gate: two complete passes on BOTH production
+        # hostnames, including every five-file package and every cover image.
+        run: >-
+          node scripts/verify-published-story.mjs
+          raat-ki-last-local
+          chef-ki-jung
+          neon-raani
+          haveli-ka-chhaya-raaz
+          meri-dragon-rani
+          penalty-wala-pyaar
+          dhuan-fireline
+          sitara-falls
+          time-ki-dukaan
+          rann-ki-sherni
 
       - name: Smoke test the deployed API
         run: |

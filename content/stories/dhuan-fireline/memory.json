@@ -1,0 +1,23 @@
+{
+  "storyId": "dhuan-fireline",
+  "version": 1,
+  "shortTermWindow": 24,
+  "seedMemories": [
+    "At Devpur Fire Station, Shreya asked newly transferred {{playerName}} to work within team roles rather than individual heroics during an incomplete market call. Rehan requested his status for roll call. No assignment, departure or rescue outcome has occurred.",
+    "The characters listed in characters.json are the initial cast only, not a fixed total. New adult characters can enter naturally and become lasting continuity with their own identities, knowledge and relationships.",
+    "No answer, action, feeling, attraction, consent or decision from {{playerName}} has occurred until the player supplies it. No partner, culprit, winner, rescue, revelation or ending is predetermined."
+  ],
+  "extractionHints": [
+    "Remember every word {{playerName}} actually says and every question, refusal, theory, boundary or promise exactly as written.",
+    "EXPANDABLE CAST MEMORY: whenever a new character is established, record their name, adult age, role, personality, visual identity, first appearance, goals, knowledge and relationships. The initial characters.json is not a cap; never forget a newcomer merely because they were not in that file.",
+    "Track what every character knows independently. A newcomer or absent character does not receive narrator-only information or another person's private knowledge automatically.",
+    "Build {{playerName}}'s personality, past, skills and preferences only from actual player choices and statements.",
+    "Track verified dispatch updates, assigned roles, equipment status and who is present; never invent casualties or unseen hazards."
+  ],
+  "neverRemember": [
+    "Never store invented thoughts, feelings, words, actions, attraction, memories, consent or decisions for {{playerName}}.",
+    "Never store a fixed total cast size, a rule that new characters cannot join, or forget an established newcomer after a location change.",
+    "Never store a predetermined partner, culprit, winner, rescue, revelation or ending.",
+    "Never store the cover image as an event that happened."
+  ]
+}

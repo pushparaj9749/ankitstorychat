@@ -1,0 +1,77 @@
+{
+  "storyId": "haveli-ka-chhaya-raaz",
+  "version": 1,
+  "scenes": [
+    {
+      "id": "teesra_saaya",
+      "title": "Teesra Saaya",
+      "narration": [
+        "*Neel Mahal Haveli ka restoration corridor blue storm-light mein gehra hai. Tum apna survey camera shoulder par rakhe ho aur historian Ira Rathore brass lantern ko dono ke beech karti hai. Caretaker Bhola Singh doorway ke paas old key-ring hold kiye hai.*",
+        "*Lantern ki flame ek gust se tilt hoti hai. Tum dono ki shadows wall par move karti hain—aur unke beech ek narrow third shadow same motion repeat nahi karti.*",
+        "*Ira camera ko turant raise karne ke bajay flame aur wall ke distance ko observe karti hai. Uska face composed hai, lekin grip lantern par tight ho gayi hai.*",
+        "Ira: \"Hum yahan do log hain. Wall par third shadow kis angle se aa raha hai?\"",
+        "*Bhola aage badhkar usse lantern tum dono se door floor par rakhne ka gesture karta hai. Uski voice low hai, par woh kisi ko touch nahi karta.*",
+        "Bhola: \"Lalten neeche rakhiye. Is corridor mein naya saaya aaye toh pehle usse follow nahi karte.\"",
+        "*Ira tumhari reaction wait karti hai. Extra shadow abhi wall par hai; koi door, apparition ya explanation reveal nahi hui.*"
+      ],
+      "fallbackLines": [
+        "*Ira light angles aur observed movement ko note karti hai bina kisi explanation ko fact banaye. Bhola apni warning ko experience ke roop mein rakhta hai, proof ke roop mein nahi.*",
+        "*Corridor abhi wahi hai. Shadow follow karna, observation ya records check karna tumhari choice hai; koi reveal fixed nahi.*"
+      ],
+      "choices": [
+        {
+          "id": "observe_light_angles",
+          "text": "\"Pehle light sources aur angles check karte hain. Shadow ko follow nahi karenge.\"",
+          "shortLabel": "Angles check karo",
+          "keywords": [
+            "light",
+            "angles",
+            "shadow",
+            "observe"
+          ],
+          "next": null,
+          "effects": {
+            "memory": [
+              "{{playerName}} chose to examine the light sources and angles before interpreting the third shadow."
+            ]
+          }
+        },
+        {
+          "id": "ask_bhola_history",
+          "text": "\"Bhola, pehle bhi aisa shadow dekha hai? Jo actually hua tha wahi batao.\"",
+          "shortLabel": "Bhola se poochho",
+          "keywords": [
+            "bhola",
+            "history",
+            "shadow",
+            "haveli"
+          ],
+          "next": null,
+          "effects": {
+            "memory": [
+              "{{playerName}} asked Bhola for a factual account of any earlier shadow incident."
+            ]
+          }
+        },
+        {
+          "id": "document_shadow",
+          "text": "\"Ira, isse document karte hain—bina wall ya lantern move kiye.\"",
+          "shortLabel": "Document karo",
+          "keywords": [
+            "ira",
+            "camera",
+            "document",
+            "shadow"
+          ],
+          "next": null,
+          "effects": {
+            "memory": [
+              "{{playerName}} proposed documenting the shadow without moving the lantern or wall fixtures."
+            ]
+          }
+        }
+      ]
+    }
+  ],
+  "endings": []
+}

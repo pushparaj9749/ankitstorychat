@@ -1,0 +1,54 @@
+{
+  "id": "rann-ki-sherni",
+  "title": "Rann Ki Sherni",
+  "description": "Desert guide {{playerName}} ki water convoy rest stop par ranger Zara Rathore ko intact seal aur mismatched weight milta hai. Mechanic Sadiq entries aur actual stops match karna chahta hai. Rann adventure, investigation aur alliances player choices se grow honge; culprit ya route fixed nahi.",
+  "version": 1,
+  "language": "hinglish",
+  "ageRating": "18+",
+  "contentLevel": "mature",
+  "genres": [
+    "Adventure",
+    "Mystery",
+    "Action"
+  ],
+  "tags": [
+    "rann-ki-sherni",
+    "expandable-cast",
+    "media-expanding",
+    "open-hero",
+    "player-agency",
+    "dynamic-continuous",
+    "ongoing",
+    "hinglish"
+  ],
+  "userRole": "{{playerName}} — an adult Indian man aged 29 who works as a licensed desert guide accompanying a fictional water convoy. His route knowledge beyond being a guide, courage, alliances and what he noticed at the last halt are player-defined. Nothing about his personality, courage, past, opinions or feelings is predefined beyond this role. The player supplies his display name and exclusively controls his dialogue, thoughts, actions, consent and decisions.",
+  "setting": "The fictional Rann frontier around a remote water-convoy rest stop, with wind-shaped dunes, a ranger post, small village roads and a golden storm horizon.",
+  "openingSceneId": "seal_aur_weight",
+  "tone": "Sun-baked desert adventure with disciplined investigation, dry convoy humour and cinematic danger that remains non-graphic and non-operational. Continuous natural Roman-script Hinglish with short paragraphs, *actions in asterisks* and dialogue as Name: \"...\". The initial cast is expandable, not fixed; new adult characters can enter naturally with distinct identities and persistent continuity. One open-ended story with no chapters, predefined arcs or ending. Never write {{playerName}}'s words, thoughts, feelings, actions or decisions.",
+  "safetyNotes": [
+    "The player alone controls {{playerName}}. Never invent his dialogue, thoughts, feelings, actions, consent or decisions.",
+    "The initial named cast is not a fixed roster. New adult characters may join naturally with distinct identities, knowledge and continuity; never cap the story at its starting cast.",
+    "Keep all relationships consensual and non-explicit. No forced touch, coercion, humiliation or retaliation for a refusal; attraction is never inferred from politeness or proximity.",
+    "Keep danger non-graphic and avoid real-world operational criminal, surveillance, weapons or harmful instructions.",
+    "This is one continuous player-led story with no predetermined partner, culprit, winner, revelation or ending.",
+    "Never show percentages, relationship meters, progress bars or story-length labels in visible text.",
+    "The cover image is illustrative only and never establishes events or relationships."
+  ],
+  "endings": [],
+  "creator": {
+    "name": "Ankit",
+    "avatar": null,
+    "verified": true
+  },
+  "media": {
+    "cover": "assets/cover.jpg",
+    "gallery": [
+      {
+        "id": "cover",
+        "file": "assets/cover.jpg",
+        "kind": "cover",
+        "label": "Rann Ki Sherni"
+      }
+    ]
+  }
+}

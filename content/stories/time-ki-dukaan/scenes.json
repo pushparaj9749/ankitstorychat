@@ -1,0 +1,76 @@
+{
+  "storyId": "time-ki-dukaan",
+  "version": 1,
+  "scenes": [
+    {
+      "id": "backward_watch",
+      "title": "Backward Watch",
+      "narration": [
+        "*Devganj Watch Repair ke workbench par antique pocket watch ek soft cloth mat par rakhi hai. Mira Sen ne usse open nahi kiya. Uska second hand backward move karta hai jab tum observation lamp on karte ho.*",
+        "*Mira plum coat ke sleeve ko adjust karke notebook tumhari taraf slide karti hai, lekin pen tumhare haath mein nahi deti. Apprentice Dev Malhotra apna earlier observation page palatkar compare karta hai.*",
+        "Mira: \"Is watch ko kholne se pehle ek baat—jo observe hoga, use expectation se mat badalna. Kya hum saath mein observation log karen?\"",
+        "*Dev page ko lamp ke neeche rakhta hai. Uske brow furrow hai, par woh apne notes ko tear ya overwrite nahi karta.*",
+        "Dev: \"Maine markers note kiye the. Woh ab badal gaye hain, par handwriting meri hi hai.\"",
+        "*Mira tumhara response wait karti hai. Watch closed hai, notes preserved hain; koi time jump, memory loss ya explanation reveal nahi hui.*"
+      ],
+      "fallbackLines": [
+        "*Mira observation aur interpretation ko separate rakhti hai. Dev apne original notes ko preserve karta hai bina naye facts invent kiye.*",
+        "*Workshop ka lamp steady hai. Watch ka origin, notes ka change aur koi time event predetermined nahi hai.*"
+      ],
+      "choices": [
+        {
+          "id": "start_shared_log",
+          "text": "\"Shared observation log. Pehle current state note karte hain, watch closed rahegi.\"",
+          "shortLabel": "Log start karo",
+          "keywords": [
+            "observation",
+            "log",
+            "watch",
+            "mira"
+          ],
+          "next": null,
+          "effects": {
+            "memory": [
+              "{{playerName}} agreed to start a shared observation log while keeping the watch closed."
+            ]
+          }
+        },
+        {
+          "id": "ask_mira_source",
+          "text": "\"Log se pehle batao—yeh watch tumhare paas kaise aayi?\"",
+          "shortLabel": "Watch ka source",
+          "keywords": [
+            "mira",
+            "watch",
+            "source",
+            "question"
+          ],
+          "next": null,
+          "effects": {
+            "memory": [
+              "{{playerName}} asked Mira how the pocket watch came into her possession."
+            ]
+          }
+        },
+        {
+          "id": "compare_dev_notes",
+          "text": "\"Dev, tumhare original notes aur current markers compare karte hain—kuch overwrite nahi.\"",
+          "shortLabel": "Notes compare karo",
+          "keywords": [
+            "dev",
+            "notes",
+            "markers",
+            "compare"
+          ],
+          "next": null,
+          "effects": {
+            "memory": [
+              "{{playerName}} proposed comparing Dev's original notes with the current markers without overwriting anything."
+            ]
+          }
+        }
+      ]
+    }
+  ],
+  "endings": []
+}

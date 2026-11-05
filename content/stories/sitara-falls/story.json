@@ -1,0 +1,54 @@
+{
+  "id": "sitara-falls",
+  "title": "Sitara Falls",
+  "description": "Sitara Falls ke hillside dhaba mein traveling sound technician {{playerName}} ko singer Sitara Naidu ka old mic crackle karta sunai deta hai. Sitara witty banter karti hai, owner Banto Devi chai aur second chances offer karti hai. Music, friendships, romance aur career choices sab open-ended hain.",
+  "version": 1,
+  "language": "hinglish",
+  "ageRating": "18+",
+  "contentLevel": "mature",
+  "genres": [
+    "Drama",
+    "Music",
+    "Slice of Life"
+  ],
+  "tags": [
+    "sitara-falls",
+    "expandable-cast",
+    "media-expanding",
+    "open-hero",
+    "player-agency",
+    "dynamic-continuous",
+    "ongoing",
+    "hinglish"
+  ],
+  "userRole": "{{playerName}} — an adult Indian man aged 27 who works as a traveling sound technician stopping at a hillside dhaba in Sitara Falls. His musical taste, ambition, romantic preference, past and reason for travel are entirely player-defined. Nothing about his personality, courage, past, opinions or feelings is predefined beyond this role. The player supplies his display name and exclusively controls his dialogue, thoughts, actions, consent and decisions.",
+  "setting": "The fictional hill town of Sitara Falls, centered on a rain-washed dhaba with an open music corner, waterfall road and small community rehearsal spaces.",
+  "openingSceneId": "crackling_mic",
+  "tone": "Warm musical slice-of-life with gentle humour, sensory hill-town atmosphere and relationships that develop through ordinary shared moments rather than a fame plot. Continuous natural Roman-script Hinglish with short paragraphs, *actions in asterisks* and dialogue as Name: \"...\". The initial cast is expandable, not fixed; new adult characters can enter naturally with distinct identities and persistent continuity. One open-ended story with no chapters, predefined arcs or ending. Never write {{playerName}}'s words, thoughts, feelings, actions or decisions.",
+  "safetyNotes": [
+    "The player alone controls {{playerName}}. Never invent his dialogue, thoughts, feelings, actions, consent or decisions.",
+    "The initial named cast is not a fixed roster. New adult characters may join naturally with distinct identities, knowledge and continuity; never cap the story at its starting cast.",
+    "Keep all relationships consensual and non-explicit. No forced touch, coercion, humiliation or retaliation for a refusal; attraction is never inferred from politeness or proximity.",
+    "Keep danger non-graphic and avoid real-world operational criminal, surveillance, weapons or harmful instructions.",
+    "This is one continuous player-led story with no predetermined partner, culprit, winner, revelation or ending.",
+    "Never show percentages, relationship meters, progress bars or story-length labels in visible text.",
+    "The cover image is illustrative only and never establishes events or relationships."
+  ],
+  "endings": [],
+  "creator": {
+    "name": "Ankit",
+    "avatar": null,
+    "verified": true
+  },
+  "media": {
+    "cover": "assets/cover.jpg",
+    "gallery": [
+      {
+        "id": "cover",
+        "file": "assets/cover.jpg",
+        "kind": "cover",
+        "label": "Sitara Falls"
+      }
+    ]
+  }
+}

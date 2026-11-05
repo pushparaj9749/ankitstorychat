@@ -1,0 +1,54 @@
+{
+  "id": "neon-raani",
+  "title": "Neon Raani",
+  "description": "Futuristic Neon Nagar mein drone courier {{playerName}} ke delivery parcel se ek unregistered analog chip milta hai. Relay engineer Rhea Nova usse network par scan nahi karna chahti aur security coordinator Omar tumhari statement lena chahta hai. Chip ka origin, conspiracy aur next alliance sab open hain.",
+  "version": 1,
+  "language": "hinglish",
+  "ageRating": "18+",
+  "contentLevel": "mature",
+  "genres": [
+    "Sci-Fi",
+    "Cyberpunk",
+    "Adventure"
+  ],
+  "tags": [
+    "neon-raani",
+    "expandable-cast",
+    "media-expanding",
+    "open-hero",
+    "player-agency",
+    "dynamic-continuous",
+    "ongoing",
+    "hinglish"
+  ],
+  "userRole": "{{playerName}} — an adult Indian man aged 27 who works as a licensed drone courier in the futuristic Neon Nagar. His technical knowledge, courage, alliances and what he knows about the parcel are entirely player-defined. Nothing about his personality, courage, past, opinions or feelings is predefined beyond this role. The player supplies his display name and exclusively controls his dialogue, thoughts, actions, consent and decisions.",
+  "setting": "A fictional near-future Indian megacity of neon rain, elevated public transit, relay stations and analog repair shops. Technology is cinematic and non-operational.",
+  "openingSceneId": "offline_chip",
+  "tone": "Sleek cyberpunk adventure with witty confidence, neon atmosphere and mystery driven by physical evidence and trust rather than technical instructions. Continuous natural Roman-script Hinglish with short paragraphs, *actions in asterisks* and dialogue as Name: \"...\". The initial cast is expandable, not fixed; new adult characters can enter naturally with distinct identities and persistent continuity. One open-ended story with no chapters, predefined arcs or ending. Never write {{playerName}}'s words, thoughts, feelings, actions or decisions.",
+  "safetyNotes": [
+    "The player alone controls {{playerName}}. Never invent his dialogue, thoughts, feelings, actions, consent or decisions.",
+    "The initial named cast is not a fixed roster. New adult characters may join naturally with distinct identities, knowledge and continuity; never cap the story at its starting cast.",
+    "Keep all relationships consensual and non-explicit. No forced touch, coercion, humiliation or retaliation for a refusal; attraction is never inferred from politeness or proximity.",
+    "Keep danger non-graphic and avoid real-world operational criminal, surveillance, weapons or harmful instructions.",
+    "This is one continuous player-led story with no predetermined partner, culprit, winner, revelation or ending.",
+    "Never show percentages, relationship meters, progress bars or story-length labels in visible text.",
+    "The cover image is illustrative only and never establishes events or relationships."
+  ],
+  "endings": [],
+  "creator": {
+    "name": "Ankit",
+    "avatar": null,
+    "verified": true
+  },
+  "media": {
+    "cover": "assets/cover.jpg",
+    "gallery": [
+      {
+        "id": "cover",
+        "file": "assets/cover.jpg",
+        "kind": "cover",
+        "label": "Neon Raani"
+      }
+    ]
+  }
+}

@@ -1,0 +1,76 @@
+{
+  "storyId": "chef-ki-jung",
+  "version": 1,
+  "scenes": [
+    {
+      "id": "mystery_ingredient",
+      "title": "Mystery Ingredient",
+      "narration": [
+        "*Festival ke open counters par steam aur spice ki khushbu ghuli hai. Tumhare aur Chef Maya Kapoor ke counter ke beech ek covered bowl rakha hai—dono ka same mystery ingredient. Critic Sana Qureshi tasting spoon ko clean tray par rakhti hai.*",
+        "*Maya apron ka corner straight karti hai aur tumhari counter setup par ek assessing look daalti hai. Long wavy hair loosely tied hai; uski smile competitive hai, rude nahi.*",
+        "Maya: \"Tumhari chutney ne mujhe do baar taste karaya. Ab recipe maangna padega ya counter swap?\"",
+        "*Woh apna tasting spoon tumhari taraf offer karti hai, pakadne ke liye tumhare haath ko assume nahi karti. Sana dono spoons ko separate rakhkar ek amused eyebrow uthati hai.*",
+        "Sana: \"Pehle dono ka ek bite. Favourite baad mein—taste ke saath cheating nahi chalegi.\"",
+        "*Maya ab bhi tumhara response wait kar rahi hai. Covered bowl ke neeche ingredient abhi reveal nahi hua; next move tum decide karoge.*"
+      ],
+      "fallbackLines": [
+        "*Maya tumhari actual answer ko apni competitive style se match karti hai, bina tumhara skill ya attraction assume kiye. Sana tasting ko fair rakhti hai.*",
+        "*Steam counters ke beech rise hoti hai. Koi winner, menu, date ya relationship pehle se fixed nahi hai.*"
+      ],
+      "choices": [
+        {
+          "id": "accept_counter_swap",
+          "text": "\"Counter swap. Ab dekhte hain tum mere setup mein kya magic banati ho.\"",
+          "shortLabel": "Swap accept karo",
+          "keywords": [
+            "counter",
+            "swap",
+            "maya",
+            "challenge"
+          ],
+          "next": null,
+          "effects": {
+            "memory": [
+              "{{playerName}} accepted Maya's counter-swap challenge in a playful spirit."
+            ]
+          }
+        },
+        {
+          "id": "ask_judging_rules",
+          "text": "\"Swap se pehle Sana, judging rules clear kar do—taste ke saath fairness bhi honi chahiye.\"",
+          "shortLabel": "Rules clear karo",
+          "keywords": [
+            "sana",
+            "rules",
+            "judging",
+            "fair"
+          ],
+          "next": null,
+          "effects": {
+            "memory": [
+              "{{playerName}} asked Sana to clarify fair judging rules before any counter swap."
+            ]
+          }
+        },
+        {
+          "id": "offer_taste",
+          "text": "\"Recipe abhi secret hai. Pehle tum batao—do baar taste kyun kiya?\"",
+          "shortLabel": "Tease back",
+          "keywords": [
+            "recipe",
+            "taste",
+            "maya",
+            "tease"
+          ],
+          "next": null,
+          "effects": {
+            "memory": [
+              "{{playerName}} teased Maya back about tasting his chutney twice without sharing the recipe."
+            ]
+          }
+        }
+      ]
+    }
+  ],
+  "endings": []
+}

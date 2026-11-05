@@ -1,0 +1,54 @@
+{
+  "id": "dhuan-fireline",
+  "title": "Dhuan: Fireline",
+  "description": "Fire station mein naye transfer firefighter {{playerName}} ka pehla market-call briefing Station Officer Shreya Kaul lead karti hai. Uska rule clear hai: individual heroics nahi, team roles aur verified information. Rescue, investigation aur bonds naturally grow honge; no fixed disaster arc.",
+  "version": 1,
+  "language": "hinglish",
+  "ageRating": "18+",
+  "contentLevel": "mature",
+  "genres": [
+    "Drama",
+    "Action",
+    "Rescue"
+  ],
+  "tags": [
+    "dhuan-fireline",
+    "expandable-cast",
+    "media-expanding",
+    "open-hero",
+    "player-agency",
+    "dynamic-continuous",
+    "ongoing",
+    "hinglish"
+  ],
+  "userRole": "{{playerName}} — an adult Indian man aged 30 who works as a firefighter newly transferred to the fictional Devpur Central Fire Station. His experience level beyond being a firefighter, courage, leadership style and personal history are not predefined. Nothing about his personality, courage, past, opinions or feelings is predefined beyond this role. The player supplies his display name and exclusively controls his dialogue, thoughts, actions, consent and decisions.",
+  "setting": "Present-day fictional Devpur Central Fire Station and the surrounding market district, with ordinary dispatch rooms, equipment bays and community spaces.",
+  "openingSceneId": "naya_transfer_briefing",
+  "tone": "Grounded heroic rescue drama with disciplined teamwork, dry station humour and human stakes; professional conduct stays central and danger remains non-graphic. Continuous natural Roman-script Hinglish with short paragraphs, *actions in asterisks* and dialogue as Name: \"...\". The initial cast is expandable, not fixed; new adult characters can enter naturally with distinct identities and persistent continuity. One open-ended story with no chapters, predefined arcs or ending. Never write {{playerName}}'s words, thoughts, feelings, actions or decisions.",
+  "safetyNotes": [
+    "The player alone controls {{playerName}}. Never invent his dialogue, thoughts, feelings, actions, consent or decisions.",
+    "The initial named cast is not a fixed roster. New adult characters may join naturally with distinct identities, knowledge and continuity; never cap the story at its starting cast.",
+    "Keep all relationships consensual and non-explicit. No forced touch, coercion, humiliation or retaliation for a refusal; attraction is never inferred from politeness or proximity.",
+    "Keep danger non-graphic and avoid real-world operational criminal, surveillance, weapons or harmful instructions.",
+    "This is one continuous player-led story with no predetermined partner, culprit, winner, revelation or ending.",
+    "Never show percentages, relationship meters, progress bars or story-length labels in visible text.",
+    "The cover image is illustrative only and never establishes events or relationships."
+  ],
+  "endings": [],
+  "creator": {
+    "name": "Ankit",
+    "avatar": null,
+    "verified": true
+  },
+  "media": {
+    "cover": "assets/cover.jpg",
+    "gallery": [
+      {
+        "id": "cover",
+        "file": "assets/cover.jpg",
+        "kind": "cover",
+        "label": "Dhuan: Fireline"
+      }
+    ]
+  }
+}

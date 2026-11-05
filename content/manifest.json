@@ -1,7 +1,7 @@
 {
-  "contentVersion": 67,
+  "contentVersion": 68,
   "minAppVersion": "1.0.0",
-  "updatedAt": "2026-11-04T17:39:29Z",
+  "updatedAt": "2026-11-05T13:06:57Z",
   "stories": [
     {
       "id": "arranged-marriage-wala-love",
@@ -4099,6 +4099,446 @@
         "verified": true
       },
       "updatedAt": "2026-11-04T13:00:00Z"
+    },
+    {
+      "id": "raat-ki-last-local",
+      "title": "Raat Ki Last Local",
+      "tagline": "Ek unscheduled announcement. Ek ruki local. Aur platform par sirf recorded sach.",
+      "description": "Nandgaon Terminus ki last local ke baad ek aisi announcement sunai deti hai jo timetable mein hai hi nahi. Railway announcer {{playerName}} ke paas original station log hai aur Inspector Naina Rao ko uski madat chahiye. Mystery railway procedural rahegi, supernatural ya technical explanation player-led investigation se khulegi.",
+      "genres": [
+        "Mystery",
+        "Thriller",
+        "Railway Drama"
+      ],
+      "tags": [
+        "raat-ki-last-local",
+        "expandable-cast",
+        "media-expanding",
+        "open-hero",
+        "player-agency",
+        "dynamic-continuous",
+        "ongoing",
+        "hinglish"
+      ],
+      "characters": [
+        "Inspector Naina Rao",
+        "Imran Sheikh"
+      ],
+      "ageRating": "18+",
+      "contentLevel": "mature",
+      "language": "hinglish",
+      "version": 1,
+      "coverUrl": "stories/raat-ki-last-local/assets/cover.jpg",
+      "accentColor": "#D4A657",
+      "userRole": "{{playerName}} — an adult Indian man aged 26 who works as a railway announcer at the fictional Nandgaon Terminus. His console contains the original announcement log and he alone decides what he noticed or reveals. Nothing about his personality, courage, past, opinions or feelings is predefined beyond this role. The player supplies his display name and exclusively controls his dialogue, thoughts, actions, consent and decisions.",
+      "setting": "Present-day fictional Nandgaon railway terminus after the final scheduled local, with wet platforms, an announcement room, signal office and a stationary train under amber lights.",
+      "estimatedMinutes": 60,
+      "featured": true,
+      "isNew": true,
+      "popularity": 100,
+      "storyDir": "raat-ki-last-local",
+      "creator": {
+        "name": "Ankit",
+        "avatar": null,
+        "verified": true
+      },
+      "updatedAt": "2026-11-05T13:06:57Z"
+    },
+    {
+      "id": "chef-ki-jung",
+      "title": "Chef Ki Jung",
+      "tagline": "Same ingredient. Do counters. Aur ek rivalry jisme recipe se pehle attitude taste hoga.",
+      "description": "Community food festival mein street-food chef {{playerName}} aur celebrity chef Maya Kapoor ko same mystery ingredient milta hai. Maya direct tease karti hai, critic Sana fair rules rakhti hai, aur counters ke beech mast culinary rivalry shuru hoti hai. Winner, romance aur next menu koi predetermined nahi hai.",
+      "genres": [
+        "Romance",
+        "Comedy",
+        "Cooking"
+      ],
+      "tags": [
+        "chef-ki-jung",
+        "expandable-cast",
+        "media-expanding",
+        "open-hero",
+        "player-agency",
+        "dynamic-continuous",
+        "ongoing",
+        "hinglish"
+      ],
+      "characters": [
+        "Chef Maya Kapoor",
+        "Sana Qureshi"
+      ],
+      "ageRating": "18+",
+      "contentLevel": "mature",
+      "language": "hinglish",
+      "version": 1,
+      "coverUrl": "stories/chef-ki-jung/assets/cover.jpg",
+      "accentColor": "#E69B45",
+      "userRole": "{{playerName}} — an adult Indian man aged 28 who works as a independent street-food chef with a small festival counter. His cooking style, confidence, romantic interest and past experience are discovered only through play. Nothing about his personality, courage, past, opinions or feelings is predefined beyond this role. The player supplies his display name and exclusively controls his dialogue, thoughts, actions, consent and decisions.",
+      "setting": "A lively fictional Pune community food festival with adjoining open counters, shared tasting tables, ingredient stalls and warm monsoon-evening lights.",
+      "estimatedMinutes": 60,
+      "featured": true,
+      "isNew": true,
+      "popularity": 100,
+      "storyDir": "chef-ki-jung",
+      "creator": {
+        "name": "Ankit",
+        "avatar": null,
+        "verified": true
+      },
+      "updatedAt": "2026-11-05T13:06:57Z"
+    },
+    {
+      "id": "neon-raani",
+      "title": "Neon Raani",
+      "tagline": "Ek offline chip. Neon city ka hidden signal. Aur Rhea jo tumse jawab maang rahi hai.",
+      "description": "Futuristic Neon Nagar mein drone courier {{playerName}} ke delivery parcel se ek unregistered analog chip milta hai. Relay engineer Rhea Nova usse network par scan nahi karna chahti aur security coordinator Omar tumhari statement lena chahta hai. Chip ka origin, conspiracy aur next alliance sab open hain.",
+      "genres": [
+        "Sci-Fi",
+        "Cyberpunk",
+        "Adventure"
+      ],
+      "tags": [
+        "neon-raani",
+        "expandable-cast",
+        "media-expanding",
+        "open-hero",
+        "player-agency",
+        "dynamic-continuous",
+        "ongoing",
+        "hinglish"
+      ],
+      "characters": [
+        "Rhea Nova",
+        "Omar Dutt"
+      ],
+      "ageRating": "18+",
+      "contentLevel": "mature",
+      "language": "hinglish",
+      "version": 1,
+      "coverUrl": "stories/neon-raani/assets/cover.jpg",
+      "accentColor": "#32C5DE",
+      "userRole": "{{playerName}} — an adult Indian man aged 27 who works as a licensed drone courier in the futuristic Neon Nagar. His technical knowledge, courage, alliances and what he knows about the parcel are entirely player-defined. Nothing about his personality, courage, past, opinions or feelings is predefined beyond this role. The player supplies his display name and exclusively controls his dialogue, thoughts, actions, consent and decisions.",
+      "setting": "A fictional near-future Indian megacity of neon rain, elevated public transit, relay stations and analog repair shops. Technology is cinematic and non-operational.",
+      "estimatedMinutes": 60,
+      "featured": true,
+      "isNew": true,
+      "popularity": 100,
+      "storyDir": "neon-raani",
+      "creator": {
+        "name": "Ankit",
+        "avatar": null,
+        "verified": true
+      },
+      "updatedAt": "2026-11-05T13:06:57Z"
+    },
+    {
+      "id": "haveli-ka-chhaya-raaz",
+      "title": "Haveli Ka Chhaya Raaz",
+      "tagline": "Do log. Ek lantern. Aur deewar par ek teesra saaya.",
+      "description": "Restoration architect {{playerName}} aur historian Ira Rathore Neel Mahal ki haveli survey kar rahe hain. Ek moving lantern ke saamne deewar par extra shadow dikhta hai aur caretaker Bhola usse follow karne se mana karta hai. Shadow ka source natural, historical ya supernatural—kuch fixed nahi.",
+      "genres": [
+        "Mystery",
+        "Supernatural",
+        "Drama"
+      ],
+      "tags": [
+        "haveli-ka-chhaya-raaz",
+        "expandable-cast",
+        "media-expanding",
+        "open-hero",
+        "player-agency",
+        "dynamic-continuous",
+        "ongoing",
+        "hinglish"
+      ],
+      "characters": [
+        "Ira Rathore",
+        "Bhola Singh"
+      ],
+      "ageRating": "18+",
+      "contentLevel": "mature",
+      "language": "hinglish",
+      "version": 1,
+      "coverUrl": "stories/haveli-ka-chhaya-raaz/assets/cover.jpg",
+      "accentColor": "#7CA6D8",
+      "userRole": "{{playerName}} — an adult Indian man aged 28 who works as a restoration architect documenting the fictional Neel Mahal Haveli. His belief in the supernatural, courage, technical interpretation and past are not predefined. Nothing about his personality, courage, past, opinions or feelings is predefined beyond this role. The player supplies his display name and exclusively controls his dialogue, thoughts, actions, consent and decisions.",
+      "setting": "The fictional Neel Mahal Haveli outside Jaipur during a stormy blue evening: carved corridors, sealed restoration rooms, a rain courtyard and ordinary survey equipment.",
+      "estimatedMinutes": 60,
+      "featured": true,
+      "isNew": true,
+      "popularity": 100,
+      "storyDir": "haveli-ka-chhaya-raaz",
+      "creator": {
+        "name": "Ankit",
+        "avatar": null,
+        "verified": true
+      },
+      "updatedAt": "2026-11-05T13:06:57Z"
+    },
+    {
+      "id": "meri-dragon-rani",
+      "title": "Meri Dragon Rani",
+      "tagline": "Blank map. Missing dragon flight. Aur Queen Serya ka ek impossible request.",
+      "description": "Human cartographer {{playerName}} ke maps mein ek region blank hai jahan Dragon Queen Serya ki missing flight last seen hui thi. Serya mapping help maangti hai, ambassador Kavya clear karti hai ki yeh request hai, bond ya shaadi ka contract nahi. Fantasy adventure aur romance dono player choices se grow karenge.",
+      "genres": [
+        "Fantasy",
+        "Adventure",
+        "Romance"
+      ],
+      "tags": [
+        "meri-dragon-rani",
+        "expandable-cast",
+        "media-expanding",
+        "open-hero",
+        "player-agency",
+        "dynamic-continuous",
+        "ongoing",
+        "hinglish"
+      ],
+      "characters": [
+        "Dragon Queen Serya",
+        "Kavya Menon"
+      ],
+      "ageRating": "18+",
+      "contentLevel": "mature",
+      "language": "hinglish",
+      "version": 1,
+      "coverUrl": "stories/meri-dragon-rani/assets/cover.jpg",
+      "accentColor": "#5DBF83",
+      "userRole": "{{playerName}} — an adult Indian man aged 26 who works as a human cartographer invited to the dragon court for an independent mapping consultation. His cartography methods, courage, beliefs about dragons and romantic preferences are not predefined. Nothing about his personality, courage, past, opinions or feelings is predefined beyond this role. The player supplies his display name and exclusively controls his dialogue, thoughts, actions, consent and decisions.",
+      "setting": "The fictional mountain dragon court of Veyra, with an open map hall, cloud bridges, human embassy rooms and wild unmapped valleys beyond the palace.",
+      "estimatedMinutes": 60,
+      "featured": true,
+      "isNew": true,
+      "popularity": 100,
+      "storyDir": "meri-dragon-rani",
+      "creator": {
+        "name": "Ankit",
+        "avatar": null,
+        "verified": true
+      },
+      "updatedAt": "2026-11-05T13:06:57Z"
+    },
+    {
+      "id": "penalty-wala-pyaar",
+      "title": "Penalty Wala Pyaar",
+      "tagline": "Ek rainy penalty. Ek fearless captain. Aur camera ke peeche wale ko challenge.",
+      "description": "Freelance sports videographer {{playerName}} ko rainy practice shoot ke dauraan captain Myra D'Souza penalty challenge deti hai. Coach Farah clear kar deti hai—pressure nahi, date stake par nahi. Banter, fair rivalry aur possible romance actual choices se grow karega; match result predetermined nahi.",
+      "genres": [
+        "Romance",
+        "Sports",
+        "Comedy"
+      ],
+      "tags": [
+        "penalty-wala-pyaar",
+        "expandable-cast",
+        "media-expanding",
+        "open-hero",
+        "player-agency",
+        "dynamic-continuous",
+        "ongoing",
+        "hinglish"
+      ],
+      "characters": [
+        "Myra D'Souza",
+        "Farah Ali"
+      ],
+      "ageRating": "18+",
+      "contentLevel": "mature",
+      "language": "hinglish",
+      "version": 1,
+      "coverUrl": "stories/penalty-wala-pyaar/assets/cover.jpg",
+      "accentColor": "#E7B94C",
+      "userRole": "{{playerName}} — an adult Indian man aged 25 who works as a freelance sports videographer assigned to film a rainy football practice. His football skill, confidence, romantic interest and past are defined only by what the player establishes. Nothing about his personality, courage, past, opinions or feelings is predefined beyond this role. The player supplies his display name and exclusively controls his dialogue, thoughts, actions, consent and decisions.",
+      "setting": "A fictional Pune community football ground at blue hour, with rain-slick turf, covered equipment benches, a small clubhouse and bright practice lights.",
+      "estimatedMinutes": 60,
+      "featured": true,
+      "isNew": true,
+      "popularity": 100,
+      "storyDir": "penalty-wala-pyaar",
+      "creator": {
+        "name": "Ankit",
+        "avatar": null,
+        "verified": true
+      },
+      "updatedAt": "2026-11-05T13:06:57Z"
+    },
+    {
+      "id": "dhuan-fireline",
+      "title": "Dhuan: Fireline",
+      "tagline": "Nayi posting. Ek market call. Aur officer jo heroics se pehle teamwork maangti hai.",
+      "description": "Fire station mein naye transfer firefighter {{playerName}} ka pehla market-call briefing Station Officer Shreya Kaul lead karti hai. Uska rule clear hai: individual heroics nahi, team roles aur verified information. Rescue, investigation aur bonds naturally grow honge; no fixed disaster arc.",
+      "genres": [
+        "Drama",
+        "Action",
+        "Rescue"
+      ],
+      "tags": [
+        "dhuan-fireline",
+        "expandable-cast",
+        "media-expanding",
+        "open-hero",
+        "player-agency",
+        "dynamic-continuous",
+        "ongoing",
+        "hinglish"
+      ],
+      "characters": [
+        "Station Officer Shreya Kaul",
+        "Rehan Menon"
+      ],
+      "ageRating": "18+",
+      "contentLevel": "mature",
+      "language": "hinglish",
+      "version": 1,
+      "coverUrl": "stories/dhuan-fireline/assets/cover.jpg",
+      "accentColor": "#D98A45",
+      "userRole": "{{playerName}} — an adult Indian man aged 30 who works as a firefighter newly transferred to the fictional Devpur Central Fire Station. His experience level beyond being a firefighter, courage, leadership style and personal history are not predefined. Nothing about his personality, courage, past, opinions or feelings is predefined beyond this role. The player supplies his display name and exclusively controls his dialogue, thoughts, actions, consent and decisions.",
+      "setting": "Present-day fictional Devpur Central Fire Station and the surrounding market district, with ordinary dispatch rooms, equipment bays and community spaces.",
+      "estimatedMinutes": 60,
+      "featured": true,
+      "isNew": true,
+      "popularity": 100,
+      "storyDir": "dhuan-fireline",
+      "creator": {
+        "name": "Ankit",
+        "avatar": null,
+        "verified": true
+      },
+      "updatedAt": "2026-11-05T13:06:57Z"
+    },
+    {
+      "id": "sitara-falls",
+      "title": "Sitara Falls",
+      "tagline": "Ek crackling mic. Hillside dhaba. Aur singer jo tumhara technical review nahi maang rahi.",
+      "description": "Sitara Falls ke hillside dhaba mein traveling sound technician {{playerName}} ko singer Sitara Naidu ka old mic crackle karta sunai deta hai. Sitara witty banter karti hai, owner Banto Devi chai aur second chances offer karti hai. Music, friendships, romance aur career choices sab open-ended hain.",
+      "genres": [
+        "Drama",
+        "Music",
+        "Slice of Life"
+      ],
+      "tags": [
+        "sitara-falls",
+        "expandable-cast",
+        "media-expanding",
+        "open-hero",
+        "player-agency",
+        "dynamic-continuous",
+        "ongoing",
+        "hinglish"
+      ],
+      "characters": [
+        "Sitara Naidu",
+        "Banto Devi"
+      ],
+      "ageRating": "18+",
+      "contentLevel": "mature",
+      "language": "hinglish",
+      "version": 1,
+      "coverUrl": "stories/sitara-falls/assets/cover.jpg",
+      "accentColor": "#D9AE67",
+      "userRole": "{{playerName}} — an adult Indian man aged 27 who works as a traveling sound technician stopping at a hillside dhaba in Sitara Falls. His musical taste, ambition, romantic preference, past and reason for travel are entirely player-defined. Nothing about his personality, courage, past, opinions or feelings is predefined beyond this role. The player supplies his display name and exclusively controls his dialogue, thoughts, actions, consent and decisions.",
+      "setting": "The fictional hill town of Sitara Falls, centered on a rain-washed dhaba with an open music corner, waterfall road and small community rehearsal spaces.",
+      "estimatedMinutes": 60,
+      "featured": true,
+      "isNew": true,
+      "popularity": 100,
+      "storyDir": "sitara-falls",
+      "creator": {
+        "name": "Ankit",
+        "avatar": null,
+        "verified": true
+      },
+      "updatedAt": "2026-11-05T13:06:57Z"
+    },
+    {
+      "id": "time-ki-dukaan",
+      "title": "Time Ki Dukaan",
+      "tagline": "Ek backward pocket watch. Do observation notes. Aur time jo same nahi behave kar raha.",
+      "description": "Watch repairer {{playerName}} ke shop mein Mira Sen ek antique pocket watch observation ke liye laati hai. Apprentice Dev ke notes badal jaate hain jabki handwriting same rehti hai. Watch ka origin, time behaviour aur Mira ka purpose player-led observations se khulega.",
+      "genres": [
+        "Fantasy",
+        "Mystery",
+        "Magical Realism"
+      ],
+      "tags": [
+        "time-ki-dukaan",
+        "expandable-cast",
+        "media-expanding",
+        "open-hero",
+        "player-agency",
+        "dynamic-continuous",
+        "ongoing",
+        "hinglish"
+      ],
+      "characters": [
+        "Mira Sen",
+        "Dev Malhotra"
+      ],
+      "ageRating": "18+",
+      "contentLevel": "mature",
+      "language": "hinglish",
+      "version": 1,
+      "coverUrl": "stories/time-ki-dukaan/assets/cover.jpg",
+      "accentColor": "#A879C8",
+      "userRole": "{{playerName}} — an adult Indian man aged 28 who works as a watch repairer running a small independent shop in fictional Devganj. His beliefs, technical interpretations, courage and history with Mira are not predefined. Nothing about his personality, courage, past, opinions or feelings is predefined beyond this role. The player supplies his display name and exclusively controls his dialogue, thoughts, actions, consent and decisions.",
+      "setting": "A fictional old watch-repair shop in Devganj at blue hour, with blank-faced antique clocks, a workbench, customer counter and a quiet adjoining record room.",
+      "estimatedMinutes": 60,
+      "featured": true,
+      "isNew": true,
+      "popularity": 100,
+      "storyDir": "time-ki-dukaan",
+      "creator": {
+        "name": "Ankit",
+        "avatar": null,
+        "verified": true
+      },
+      "updatedAt": "2026-11-05T13:06:57Z"
+    },
+    {
+      "id": "rann-ki-sherni",
+      "title": "Rann Ki Sherni",
+      "tagline": "Seal intact. Weight mismatch. Aur desert convoy ka ek impossible water manifest.",
+      "description": "Desert guide {{playerName}} ki water convoy rest stop par ranger Zara Rathore ko intact seal aur mismatched weight milta hai. Mechanic Sadiq entries aur actual stops match karna chahta hai. Rann adventure, investigation aur alliances player choices se grow honge; culprit ya route fixed nahi.",
+      "genres": [
+        "Adventure",
+        "Mystery",
+        "Action"
+      ],
+      "tags": [
+        "rann-ki-sherni",
+        "expandable-cast",
+        "media-expanding",
+        "open-hero",
+        "player-agency",
+        "dynamic-continuous",
+        "ongoing",
+        "hinglish"
+      ],
+      "characters": [
+        "Zara Rathore",
+        "Sadiq Ali"
+      ],
+      "ageRating": "18+",
+      "contentLevel": "mature",
+      "language": "hinglish",
+      "version": 1,
+      "coverUrl": "stories/rann-ki-sherni/assets/cover.jpg",
+      "accentColor": "#D5A55D",
+      "userRole": "{{playerName}} — an adult Indian man aged 29 who works as a licensed desert guide accompanying a fictional water convoy. His route knowledge beyond being a guide, courage, alliances and what he noticed at the last halt are player-defined. Nothing about his personality, courage, past, opinions or feelings is predefined beyond this role. The player supplies his display name and exclusively controls his dialogue, thoughts, actions, consent and decisions.",
+      "setting": "The fictional Rann frontier around a remote water-convoy rest stop, with wind-shaped dunes, a ranger post, small village roads and a golden storm horizon.",
+      "estimatedMinutes": 60,
+      "featured": true,
+      "isNew": true,
+      "popularity": 100,
+      "storyDir": "rann-ki-sherni",
+      "creator": {
+        "name": "Ankit",
+        "avatar": null,
+        "verified": true
+      },
+      "updatedAt": "2026-11-05T13:06:57Z"
     }
   ]
 }
