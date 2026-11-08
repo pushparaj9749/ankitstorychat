@@ -55,5 +55,18 @@ Env knobs: `SCALE`, `CRF`, `PRESET`, `GRAIN`, `OUT`. Plates are read from
 `work/ramayan-promo/plates/` (kept out of git — regenerate any 9:16 stills into that
 folder to rebuild).
 
-`*.mp4` is gitignored here on purpose: the rendered file ships as a **GitHub Release
-asset**, so the repo stays light and the download link is stable.
+## Download (commit-pinned, stable)
+
+| File | Size | Use |
+|---|---|---|
+| `kissa_94_kahaniyan_9x16_1080x1920.mp4` | 21 MB | **upload this** — Reels / Shorts / TikTok native size |
+| `kissa_94_kahaniyan_9x16_1440x2560.mp4` | 59 MB | higher-res master (YouTube needs ≥1440 px short side for its 4K badge) |
+| `poster.jpg` | 140 KB | 1080×1920 cover frame |
+
+Raw links: `https://github.com/pushparaj9749/ankitstorychat/raw/main/docs/promo/ramayan-shorts/<file>`
+(or append `?raw=true` to the normal GitHub file page).
+
+`*.mp4` is gitignored in `docs/promo/` by default; these renders were force-added on
+purpose, following the existing `kissa_top10_heroines.mp4` / `kissa_tutorial_16x9.mp4`
+convention, because GitHub Release-asset uploads are not reachable from the build
+sandbox.
