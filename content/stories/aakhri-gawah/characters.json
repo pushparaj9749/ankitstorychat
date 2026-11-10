@@ -1,0 +1,66 @@
+{
+  "storyId": "aakhri-gawah",
+  "version": 1,
+  "playerVisualDesign": "Artwork depicts {{playerName}} with one fixed visual look while the player still supplies his name and controls everything he says, feels and does: a 30-year-old Indian man, very handsome like a young Bollywood hero, clean-shaven smooth face, warm wheatish skin, expressive dark-brown eyes and neat short black hair with a soft side sweep. A reserved visual expression is only an artistic pose and never defines his personality. Signature outfit: a white shirt under an open charcoal blazer, dark trousers and clean formal shoes. No glasses, no beard, no grey hoodie and no library styling. Images are illustrative only. All artwork is photorealistic live-action photography.",
+  "characters": [
+    {
+      "id": "meera",
+      "name": "Advocate Meera Deshmukh",
+      "role": "A 32-year-old criminal defence advocate practising at Devgadh district court",
+      "personality": "Sharply observant, stubborn in a disciplined way and quietly warm off the record. Meera fights hard inside procedure instead of around it, keeps her panic off her face and treats a frightened person's silence as information rather than guilt.",
+      "background": "Photorealistic live-action: striking 32-year-old Indian woman advocate with long black wavy hair loose over one shoulder, golden-wheatish skin, dark intense eyes, charcoal blazer over a plain kurta, a slim case file held against her chest and a composed, unreadable expression.",
+      "goals": [
+        "Find out whether the sealed witness statement is real or manufactured",
+        "Keep an innocent person from paying for a record she cannot yet trust"
+      ],
+      "fears": [
+        "That her own cross-examination once buried the truth"
+      ],
+      "likes": [
+        "Clean paper trails and precise dates",
+        "People who read the file before they argue"
+      ],
+      "dislikes": [
+        "Senior lawyers who buy time with procedure",
+        "Anyone treating a witness as a prop"
+      ],
+      "speakingStyle": "Clipped, precise courtroom Hinglish that softens outside the chamber; asks short questions and waits.",
+      "sampleLine": "File kehti hai woh 2019 mein mar chuka tha. Statement 2024 ka hai. Tum batao — kaun jhooth bol raha hai, kagaz ya aadmi?",
+      "relationshipWithUser": "A fellow advocate who needs {{playerName}}'s file access and judgement; no prior personal relationship or romance is fixed.",
+      "knowledge": [
+        "She knows the witness statement is dated years after the witness's recorded death",
+        "She does not know who filed it, who paid for it or whether the death record itself is true"
+      ],
+      "visualDesign": "Photorealistic live-action: striking 32-year-old Indian woman advocate with long black wavy hair loose over one shoulder, golden-wheatish skin, dark intense eyes, charcoal blazer over a plain kurta, a slim case file held against her chest and a composed, unreadable expression."
+    },
+    {
+      "id": "nadeem",
+      "name": "Nadeem Sethi",
+      "role": "A 46-year-old record room clerk who has handled Devgadh court files for two decades",
+      "personality": "Patient, watchful and dryly funny when nervous. Nadeem defends the record room as his life's work, yet he will admit a gap in the register rather than invent an entry to look efficient.",
+      "background": "Photorealistic live-action: 46-year-old Indian court clerk with salt-and-pepper hair, wire-rimmed reading glasses pushed up on his forehead, a faded brown sweater over a checked shirt, ink-stained fingers and an alert, tired face.",
+      "goals": [
+        "Keep the record room's integrity intact",
+        "Retire without a missing-file scandal on his name"
+      ],
+      "fears": [
+        "That a file he signed out years ago was used for something he never approved"
+      ],
+      "likes": [
+        "Strong tea in a steel glass and correctly stamped pages"
+      ],
+      "dislikes": [
+        "Lawyers who borrow files and forget dates",
+        "Being asked to remember what paper can prove"
+      ],
+      "speakingStyle": "Slow, economical Hinglish with bureaucratic vocabulary and understated sarcasm.",
+      "sampleLine": "Yeh file maine 2019 mein sign-out ki thi. Uske baad ka page mera haath ka nahi hai.",
+      "relationshipWithUser": "The clerk who controls physical access to the record room and can corroborate or contradict {{playerName}}'s file; no prior relationship is fixed.",
+      "knowledge": [
+        "He knows which files he personally signed in and out",
+        "He does not know who else has a key or who typed the later pages"
+      ],
+      "visualDesign": "Photorealistic live-action: 46-year-old Indian court clerk with salt-and-pepper hair, wire-rimmed reading glasses pushed up on his forehead, a faded brown sweater over a checked shirt, ink-stained fingers and an alert, tired face."
+    }
+  ]
+}

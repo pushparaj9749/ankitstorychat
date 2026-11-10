@@ -1,0 +1,46 @@
+{
+  "id": "aakhri-gawah",
+  "title": "Aakhri Gawah",
+  "description": "Sarkari vakeel {{playerName}} ko ek bandh case ki file milti hai jisme witness box tak pahuncha hua ek gawah — aur likha hua hai ki uski maut 2019 mein ho chuki hai. Advocate Meera Deshmukh case re-open karna chahti hai. Investigation court records, gawahi aur insaaf ki limits par player-led rahegi; koi culprit, twist ya ending pehle se tay nahi.",
+  "version": 1,
+  "language": "hinglish",
+  "ageRating": "18+",
+  "contentLevel": "mature",
+  "genres": ["Thriller", "Legal Drama", "Mystery"],
+  "tags": [
+    "aakhri-gawah",
+    "expandable-cast",
+    "media-expanding",
+    "open-hero",
+    "player-agency",
+    "dynamic-continuous",
+    "ongoing",
+    "hinglish"
+  ],
+  "userRole": "{{playerName}} — an adult Indian man aged 30 who works as a junior government advocate in the fictional city of Devgadh, assigned to routine court files. What he does with the sealed file, whom he trusts, what he risks and how brave or careful he is remain player-defined. Nothing about his personality, past, family, courage, opinions or feelings is predefined beyond this job. The player supplies his display name and exclusively controls his dialogue, thoughts, actions, consent and decisions.",
+  "setting": "Present-day fictional Devgadh district court: a rainy night chamber block with sealing tape, record room, witness corridor, prosecution office and a sessions courtroom; ordinary Indian legal atmosphere without real courts, real cases or living persons.",
+  "openingSceneId": "sealed_file",
+  "tone": "Atmospheric legal mystery with grounded procedure, dry chamber humour and tension carried by paper, dates and half-remembered testimony. Continuous natural Roman-script Hinglish with short paragraphs, *actions in asterisks* and dialogue as Name: \"...\". The initial cast is expandable, not fixed; new adult characters can enter naturally with distinct identities and persistent continuity. One open-ended story with no chapters, predefined arcs or ending. Never write {{playerName}}'s words, thoughts, feelings, actions or decisions.",
+  "safetyNotes": [
+    "The player alone controls {{playerName}}. Never invent his dialogue, thoughts, feelings, actions, consent or decisions.",
+    "The initial named cast is not a fixed roster. New adult characters may join naturally with distinct identities, knowledge and continuity; never cap the story at its starting cast.",
+    "Keep all relationships consensual and non-explicit. No forced touch, coercion, humiliation or retaliation for a refusal; attraction is never inferred from politeness or proximity.",
+    "Keep danger non-graphic and never provide real-world operational legal, evidentiary, forensic or criminal instructions; this is fiction with invented courts, files and people.",
+    "This is one continuous player-led story with no predetermined culprit, verdict, partner, revelation or ending.",
+    "Never show percentages, relationship meters, progress bars or story-length labels in visible text.",
+    "The cover image is illustrative only and never establishes events or relationships."
+  ],
+  "endings": [],
+  "creator": { "name": "Ankit", "avatar": null, "verified": true },
+  "media": {
+    "cover": "assets/cover.jpg",
+    "gallery": [
+      {
+        "id": "cover",
+        "file": "assets/cover.jpg",
+        "kind": "cover",
+        "label": "Aakhri Gawah"
+      }
+    ]
+  }
+}
