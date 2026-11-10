@@ -1,0 +1,74 @@
+{
+  "storyId": "aakhri-gawah",
+  "version": 1,
+  "scenes": [
+    {
+      "id": "sealed_file",
+      "title": "Sealed File",
+      "narration": [
+        "*Devgadh court ka chamber block raat ke baarish se sookha nahi hai. Corridor ki tube light beech-beech mein flicker karti hai, aur ek chamber ke darwaze par lagayi sealing tape abhi tak chipki hui hai.*",
+        "*Tum apni table par ho, aadhi khuli files aur ek thanda chai ka cup saamne. Advocate Meera Deshmukh darwaze par khadi hai — long wavy hair ek kandhe par, charcoal blazer par baarish ki boondein, haath mein ek slim case file dabaye hue.*",
+        "*Wo file tumhari table par rakhti hai, par haath hataati nahi. Uske andar 2019 ki closure file hai, aur usi ke beech mein ek statement — signed aur dated 2024.*",
+        "Meera: \"File kehti hai woh 2019 mein mar chuka tha. Statement 2024 ka hai. Tum batao — kaun jhooth bol raha hai, kagaz ya aadmi?\"",
+        "*Peeche record room ka clerk Nadeem Sethi chashma maathe par sarakta hua andar aata hai. Usne sign-out register khola hai aur page par ungli rakhi hai, jaise jawab wahin likha ho.*",
+        "Nadeem: \"Yeh page mera haath ka nahi hai. Maine jo file 2019 mein sign-out ki thi, usme yeh kabhi nahi tha.\"",
+        "*Meera tumhara jawab sune bina file wapas nahi kheenchti. Baarish khatam ho rahi hai; ab pehla step tumhare haath mein hai.*"
+      ],
+      "fallbackLines": [
+        "*File ki sealing tape table par halki chamakti hai. Meera apni position nahi badalti; Nadeem register band nahi karta, bas uske kinare ko seedha karta hai.*",
+        "*Koi naya document apne aap saamne nahi aata. Jo asli hai aur jo likha hua hai, farq wahin se shuru hoga — tumhare pehle sawaal se.*"
+      ],
+      "choices": [
+        {
+          "id": "open_file_now",
+          "text": "\"Pehle file poori kholte hain. Main har page ka date likhna chahta hoon.\"",
+          "shortLabel": "File kholo",
+          "keywords": ["file", "pages", "date", "open"],
+          "next": null,
+          "effects": {
+            "memory": [
+              "{{playerName}} proposed opening the full file and recording the date on every page before drawing conclusions."
+            ]
+          }
+        },
+        {
+          "id": "ask_kabir_register",
+          "text": "\"Nadeem, register dikhao — file kisne sign-out ki, kab, aur uske baad kaun aaya?\"",
+          "shortLabel": "Register poochho",
+          "keywords": ["kabir", "register", "signout", "record"],
+          "next": null,
+          "effects": {
+            "memory": [
+              "{{playerName}} asked Nadeem Sethi to show the sign-out register and account for who handled the file and when."
+            ]
+          }
+        },
+        {
+          "id": "ask_meera_why",
+          "text": "\"Meera, yeh file tumhe kaise mili — aur tum isko kyun re-open karna chahti ho?\"",
+          "shortLabel": "Meera se poochho",
+          "keywords": ["meera", "why", "found", "motive"],
+          "next": null,
+          "effects": {
+            "memory": [
+              "{{playerName}} asked Meera how she obtained the sealed file and why she wants the case reopened."
+            ]
+          }
+        },
+        {
+          "id": "witness_not_trust",
+          "text": "\"Statement pe sign karne wala aadmi zinda hai ya nahi — pehle wahi verify karna hoga.\"",
+          "shortLabel": "Gawah verify karo",
+          "keywords": ["witness", "alive", "verify", "death"],
+          "next": null,
+          "effects": {
+            "memory": [
+              "{{playerName}} insisted on verifying whether the person who signed the 2024 statement is alive before trusting any paper."
+            ]
+          }
+        }
+      ]
+    }
+  ],
+  "endings": []
+}

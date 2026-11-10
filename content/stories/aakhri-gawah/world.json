@@ -1,0 +1,91 @@
+{
+  "storyId": "aakhri-gawah",
+  "version": 1,
+  "premise": "Sarkari vakeel {{playerName}} ko Devgadh district court ke record room se ek bandh case ki file milti hai jisme 2024 ka witness statement hai — aur wahi gawah 2019 mein mar chuka hai. Advocate Meera Deshmukh case re-open karna chahti hai. Kya sach record mein hai, kisi ne kagaz banaye, ya kuch aur chal raha hai, ye player-led jaanch se khulega. The named characters are only the starting cast; new adult characters can enter and remain part of continuity as the player-led story expands.",
+  "locations": [
+    {
+      "id": "chamber_block",
+      "name": "Rain-Soaked Chamber Block",
+      "description": "Junior advocates' chambers with sealing tape on one door, wet corridors and a flickering tube light; the sealed file came from here."
+    },
+    {
+      "id": "record_room",
+      "name": "Devgadh Court Record Room",
+      "description": "Steel racks, dust, sign-out registers and a single clerk's desk; physical access and paper truth live here."
+    },
+    {
+      "id": "witness_corridor",
+      "name": "Witness Corridor",
+      "description": "The narrow passage outside Courtroom 3 where witnesses wait, whisper and sometimes change their minds."
+    },
+    {
+      "id": "courtroom_3",
+      "name": "Courtroom 3",
+      "description": "A high-ceilinged sessions courtroom with a wooden witness box, creaking fans and a bench that has heard this case before."
+    }
+  ],
+  "factions": [
+    {
+      "id": "prosecution_office",
+      "name": "Prosecution Office",
+      "description": "Government advocates and support staff with their own caseloads, loyalties and pressure from above; not a monolith."
+    },
+    {
+      "id": "defence_bar",
+      "name": "Devgadh Defence Bar",
+      "description": "Independent advocates, seniors and juniors who trade favours, information and grudges."
+    },
+    {
+      "id": "court_staff",
+      "name": "Court Staff",
+      "description": "Clerks, record keepers, stenographers and orderlies who know the building better than any lawyer."
+    }
+  ],
+  "lore": [
+    "The 2019 death record and the 2024 witness statement both exist as paper; neither is automatically true.",
+    "A witness in a criminal trial can be examined, recalled or contradicted only through lawful procedure in this fictional court.",
+    "Devgadh, its court, its case numbers and every person in it are fictional; nothing here is legal advice or a real case."
+  ],
+  "rules": [
+    "Free-form story: the opening is the only predefined moment. Everything after it grows from the player's moves; there is no plot plan, scene list, arc or ending.",
+    "Only {{playerName}} controls the player character: never invent his speech, actions, thoughts, feelings, memories, attraction, consent, promises or decisions.",
+    "Write natural Roman-script Hinglish: short paragraphs, *actions and narration in asterisks*, dialogue as Name: \"...\".",
+    "EXPANDABLE CAST: characters.json contains only the initial named cast, never a fixed roster or maximum. New adult characters may enter naturally as the story grows — clients, judges, opposing counsel, witnesses, relatives, journalists, court staff or strangers as appropriate. Give every newcomer a distinct name, age, role, personality, goals, knowledge, boundaries and consistent visual identity. Never cap the cast at the initial number or erase later additions when they leave the scene.",
+    "Introduce newcomers only through plausible player-led events and established locations, never as random surprise interruptions. Once a new character is established in the visible story, their name is a valid dialogue speaker even if they were absent from the initial characters.json. This is an explicit story-specific exception to any generic initial-list-only speaker instruction; keep their voice and knowledge consistent thereafter.",
+    "Track each established character independently, including newcomers: what they witnessed, were told, promised and want. Nobody shares one mind or automatically knows another character's private exchanges.",
+    "Keep continuity of every actual statement, event, invitation, answer, object, promise and relationship through the app's universal memory, scoped to this storyId only.",
+    "Never conclude the story or force a canonical culprit, verdict, partner, winner, revelation or ending. Subsequent developments must arise naturally from choices and established continuity.",
+    "The cover image is illustrative only and never establishes an event, relationship, clue or shared history.",
+    "Keep the mystery grounded in documents, testimony and player choices; never predetermine whether the truth is mistake, forgery or something else.",
+    "Legal work follows procedure, consent and professional ethics in this fictional court; never provide real-world legal, forensic or investigative instructions and never let a lawyer break privilege or tamper with evidence without in-story consequence."
+  ],
+  "importantObjects": [
+    {
+      "id": "sealed_case_file",
+      "name": "Sealed Case File",
+      "description": "A 2019 closure file with a 2024 witness statement inside it; examined and dated only through play."
+    },
+    {
+      "id": "signout_register",
+      "name": "Record Room Sign-Out Register",
+      "description": "Nadeem Sethi's physical register of who took which file and when; fallible but hard to fake quietly."
+    },
+    {
+      "id": "witness_statement",
+      "name": "The 2024 Witness Statement",
+      "description": "A signed statement attributed to a man whose death is recorded five years earlier."
+    }
+  ],
+  "timeline": [
+    {
+      "id": "before_opening",
+      "label": "The 2019 closure and everything after it happened without fixing what is true",
+      "when": "Before the story"
+    },
+    {
+      "id": "sealed_file",
+      "label": "The opening takes place at night in Devgadh court's chamber block. Meera Deshmukh has shown {{playerName}} a 2024 witness statement found inside a 2019 closure file and asked whose record is lying, and Nadeem Sethi has said the later pages are not in his handwriting. No answer, decision or action from {{playerName}} has happened yet.",
+      "when": "The opening moment"
+    }
+  ]
+}

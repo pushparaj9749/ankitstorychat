@@ -1,7 +1,7 @@
 {
-  "contentVersion": 68,
+  "contentVersion": 69,
   "minAppVersion": "1.0.0",
-  "updatedAt": "2026-11-05T13:06:57Z",
+  "updatedAt": "2026-11-08T12:30:00Z",
   "stories": [
     {
       "id": "arranged-marriage-wala-love",
@@ -4539,6 +4539,50 @@
         "verified": true
       },
       "updatedAt": "2026-11-05T13:06:57Z"
+    },
+    {
+      "id": "aakhri-gawah",
+      "title": "Aakhri Gawah",
+      "tagline": "Bandh file. Zinda statement. Aur ek gawah jo 2019 mein mar chuka tha.",
+      "description": "Sarkari vakeel {{playerName}} ko ek bandh case ki file milti hai jisme witness box tak pahuncha hua ek gawah — aur likha hua hai ki uski maut 2019 mein ho chuki hai. Advocate Meera Deshmukh case re-open karna chahti hai. Investigation court records, gawahi aur insaaf ki limits par player-led rahegi; koi culprit, twist ya ending pehle se tay nahi.",
+      "genres": [
+        "Thriller",
+        "Legal Drama",
+        "Mystery"
+      ],
+      "tags": [
+        "aakhri-gawah",
+        "expandable-cast",
+        "media-expanding",
+        "open-hero",
+        "player-agency",
+        "dynamic-continuous",
+        "ongoing",
+        "hinglish"
+      ],
+      "characters": [
+        "Advocate Meera Deshmukh",
+        "Nadeem Sethi"
+      ],
+      "ageRating": "18+",
+      "contentLevel": "mature",
+      "language": "hinglish",
+      "version": 1,
+      "coverUrl": "stories/aakhri-gawah/assets/cover.jpg",
+      "accentColor": "#C9A25A",
+      "userRole": "{{playerName}} — an adult Indian man aged 30 who works as a junior government advocate in the fictional city of Devgadh, assigned to routine court files. What he does with the sealed file, whom he trusts, what he risks and how brave or careful he is remain player-defined. Nothing about his personality, past, family, courage, opinions or feelings is predefined beyond this job. The player supplies his display name and exclusively controls his dialogue, thoughts, actions, consent and decisions.",
+      "setting": "Present-day fictional Devgadh district court: a rainy night chamber block with sealing tape, record room, witness corridor, prosecution office and a sessions courtroom; ordinary Indian legal atmosphere without real courts, real cases or living persons.",
+      "estimatedMinutes": 65,
+      "featured": true,
+      "isNew": true,
+      "popularity": 99,
+      "storyDir": "aakhri-gawah",
+      "creator": {
+        "name": "Ankit",
+        "avatar": null,
+        "verified": true
+      },
+      "updatedAt": "2026-11-08T12:30:00Z"
     }
   ]
 }
