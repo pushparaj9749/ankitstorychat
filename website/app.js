@@ -5,7 +5,18 @@
   'use strict';
   var OWNER = 'pushparaj9749';
   var REPO = 'ankitstorychat';
-  var RELEASES_PAGE = 'https://github.com/' + OWNER + '/' + REPO + '/releases/latest';
+  // Lists every release; the site picks the newest one that actually ships an
+  // APK. `/releases/latest` is GitHub's newest *published* release, which is
+  // not always an app release — a clip-pack or edit-pack release published
+  // later takes that slot and the Download button then opens a video pack.
+  var RELEASES_PAGE = 'https://github.com/' + OWNER + '/' + REPO + '/releases';
+  var RELEASES_API = 'https://api.github.com/repos/' + OWNER + '/' + REPO + '/releases?per_page=40';
+
+  // Unit tests load this file in Node, where there is no DOM and no `location`.
+  if (typeof module !== 'undefined' && module.exports) {
+    module.exports = { pickApkRelease: pickApkRelease };
+  }
+  if (typeof document === 'undefined' || typeof location === 'undefined') return;
 
   // Story content lives behind the Kissa story API (Cloudflare Worker) — the
   // GitHub repository is never read for content. Try same-origin first (when
@@ -30,20 +41,57 @@
     if (note2 && label) note2.textContent = label;
   }
 
-  // 1) Point DOWNLOAD buttons at the latest APK asset (fallback: releases page).
-  fetch('https://api.github.com/repos/' + OWNER + '/' + REPO + '/releases/latest')
-    .then(function (r) { return r.ok ? r.json() : null; })
-    .then(function (rel) {
-      if (!rel || !rel.assets) throw new Error('no release');
-      var apk = rel.assets.find(function (a) { return /\.apk$/i.test(a.name); });
-      if (apk) {
-        var mb = (apk.size / 1048576).toFixed(1);
-        setDownloads(apk.browser_download_url, 'Android 8.0+ • Free forever • ' + rel.tag_name + ' • ' + mb + ' MB');
-      } else {
-        setDownloads(RELEASES_PAGE, 'Android 8.0+ • Free forever • See releases page');
+  /** Is semver key `a` newer than `b`? Both are [major, minor, patch]. */
+  function newer(a, b) {
+    for (var i = 0; i < 3; i++) if (a[i] !== b[i]) return a[i] > b[i];
+    return false;
+  }
+
+  /**
+   * releases (GitHub API list) → { release, apk } for the newest app release
+   * that carries a downloadable .apk, or null.
+   *
+   * Rules: published only (no drafts/prereleases), app tags only (v2.13.0 —
+   * clip/edit/promo packs use names like `jomm-melatonin-2026-11-04`), a real
+   * .apk asset whose URL points at github.com, newest version wins.
+   */
+  function pickApkRelease(list) {
+    var best = null;
+    var bestKey = null;
+    (Array.isArray(list) ? list : []).forEach(function (rel) {
+      if (!rel || rel.draft || rel.prerelease) return;
+      var m = String(rel.tag_name || '').match(/^v?(\d+)\.(\d+)\.(\d+)$/);
+      if (!m) return;
+      var apk = null;
+      (rel.assets || []).forEach(function (a) {
+        if (apk || !a) return;
+        if (!/\.apk$/i.test(a.name || '')) return;
+        if (typeof a.browser_download_url !== 'string') return;
+        if (a.browser_download_url.indexOf('https://github.com/') !== 0) return;
+        apk = a;
+      });
+      if (!apk) return;
+      var key = [Number(m[1]), Number(m[2]), Number(m[3])];
+      if (!bestKey || newer(key, bestKey)) {
+        best = { release: rel, apk: apk };
+        bestKey = key;
       }
+    });
+    return best;
+  }
+
+  // 1) Point DOWNLOAD buttons at the newest release that really has an APK.
+  fetch(RELEASES_API, { headers: { Accept: 'application/vnd.github+json' } })
+    .then(function (r) { return r.ok ? r.json() : null; })
+    .then(function (list) {
+      var hit = pickApkRelease(list);
+      if (!hit) throw new Error('no apk release');
+      var mb = (hit.apk.size / 1048576).toFixed(1);
+      setDownloads(hit.apk.browser_download_url, 'Android 8.0+ • Free forever • ' + hit.release.tag_name + ' • ' + mb + ' MB');
     })
     .catch(function () {
+      // No API / rate-limited: the full releases list is always correct, since
+      // it never assumes the top release is the app.
       setDownloads(RELEASES_PAGE, 'Android 8.0+ • Free forever • See releases page');
     });
 
