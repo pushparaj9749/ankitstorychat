@@ -46,12 +46,12 @@ jobs:
     steps:
       - uses: actions/checkout@v4
         with:
-          ref: ${{ inputs.ref != '' && inputs.ref || github.ref_name }}
+          ref: ${{ inputs.ref || github.ref_name }}
           fetch-depth: 0
 
       - name: Install Obscura (render-enabled x86_64 Linux build)
         env:
-          VERSION: ${{ inputs.obscura_version }}
+          VERSION: ${{ inputs.obscura_version || 'v0.2.7' }}
         run: |
           set -euo pipefail
           name="obscura-x86_64-linux.tar.gz"
@@ -66,7 +66,7 @@ jobs:
 
       - name: Capture pages
         env:
-          BASE: ${{ inputs.url }}
+          BASE: ${{ inputs.url || 'https://beyondredeye.site/' }}
         run: |
           set -uo pipefail
           mkdir -p docs/verification/site
@@ -94,7 +94,7 @@ jobs:
           git config user.email "actions@users.noreply.github.com"
           git add docs/verification/site
           git commit -m "chore: obscura screenshots of $(date -u +%Y-%m-%dT%H:%MZ)"
-          git push origin "HEAD:${{ inputs.ref != '' && inputs.ref || github.ref_name }}"
+          git push origin "HEAD:${{ inputs.ref || github.ref_name }}"
 
       - uses: actions/upload-artifact@v4
         with:
