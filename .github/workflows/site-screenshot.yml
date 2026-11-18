@@ -1,0 +1,95 @@
+name: Site screenshots (Obscura)
+
+# Renders the live site with Obscura — the Rust headless browser — and commits
+# the PNGs, so the pages can be reviewed as they actually look in a browser
+# instead of being inferred from HTML.
+#
+# Why here and not locally: obscura's binaries are published as GitHub release
+# assets served from release-assets.githubusercontent.com, which the agent
+# sandbox cannot reach. GitHub-hosted runners have normal internet access, so
+# this workflow is where the browser actually runs.
+#
+# View: Actions → "Site screenshots (Obscura)" → artifact, or the PNGs under
+# docs/verification/site/ on the branch it pushes to.
+
+on:
+  workflow_dispatch:
+    inputs:
+      url:
+        description: 'Page to capture'
+        required: false
+        default: 'https://beyondredeye.site/'
+      ref:
+        description: 'Branch/ref to commit screenshots to (default: triggering ref)'
+        required: false
+        default: ''
+      obscura_version:
+        description: 'Obscura release tag'
+        required: false
+        default: 'v0.2.7'
+
+permissions:
+  contents: write
+
+jobs:
+  shoot:
+    name: Render pages with Obscura
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: ${{ inputs.ref != '' && inputs.ref || github.ref_name }}
+          fetch-depth: 0
+
+      - name: Install Obscura (render-enabled x86_64 Linux build)
+        env:
+          VERSION: ${{ inputs.obscura_version }}
+        run: |
+          set -euo pipefail
+          name="obscura-x86_64-linux.tar.gz"
+          url="https://github.com/h4ckf0r0day/obscura/releases/download/${VERSION}/${name}"
+          echo "downloading $url"
+          curl -fsSL --retry 3 --retry-delay 5 -o /tmp/obscura.tar.gz "$url"
+          mkdir -p /tmp/obscura && tar -xzf /tmp/obscura.tar.gz -C /tmp/obscura
+          bin=$(find /tmp/obscura -type f -name obscura -perm -u+x | head -n1)
+          [ -n "$bin" ] || { echo "::error title=Obscura binary not found::"; find /tmp/obscura | head -30; exit 1; }
+          install -m 0755 "$bin" /usr/local/bin/obscura
+          obscura --version
+
+      - name: Capture pages
+        env:
+          BASE: ${{ inputs.url }}
+        run: |
+          set -uo pipefail
+          mkdir -p docs/verification/site
+          shoot() {
+            local file="$1" url="$2" wait="${3:-4}"
+            echo "— $url → $file"
+            obscura fetch "$url" --screenshot "docs/verification/site/$file" --wait "$wait" --timeout 45 2>&1 | tail -5 || \
+              echo "::warning title=Obscura capture failed::$url"
+          }
+          base="${BASE%/}"
+          shoot home-desktop.png "$base/" 5
+          shoot home-mobile.png "$base/?mobile=1" 5
+          shoot downloads.png "$base/downloads.html" 5
+          shoot api-health.png "$base/api/health" 2
+          ls -la docs/verification/site
+
+      - name: Commit screenshots
+        run: |
+          set -euo pipefail
+          if git diff --quiet -- docs/verification/site; then
+            echo "no screenshot changes"
+            exit 0
+          fi
+          git config user.name "obscura-bot"
+          git config user.email "actions@users.noreply.github.com"
+          git add docs/verification/site
+          git commit -m "chore: obscura screenshots of $(date -u +%Y-%m-%dT%H:%MZ)"
+          git push origin "HEAD:${{ inputs.ref != '' && inputs.ref || github.ref_name }}"
+
+      - uses: actions/upload-artifact@v4
+        with:
+          name: obscura-screens
+          path: docs/verification/site/*.png
+          if-no-files-found: warn
