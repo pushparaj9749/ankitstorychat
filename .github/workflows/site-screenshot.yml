@@ -78,11 +78,15 @@ jobs:
           }
           # Ad-hoc mode: `.github/obscura-target` me ek public URL ho to bas wahi
           # page kholo (koi login/interaction nahi) aur host ke naam se save karo.
+          # File format:
+          #   line 1  -> public URL to open
+          #   line 2+ -> optional JavaScript expression to evaluate on the page
           target_file=".github/obscura-target"
+          adhoc=""
+          adhoc_eval=""
           if [ -f "$target_file" ]; then
-            adhoc=$(grep -m1 -v '^[[:space:]]*#' "$target_file" | tr -d '[:space:]')
-          else
-            adhoc=""
+            adhoc=$(sed -n '1p' "$target_file" | tr -d '[:space:]')
+            adhoc_eval=$(sed -n '2,$p' "$target_file" | grep -v '^[[:space:]]*#' || true)
           fi
           if [ -n "${adhoc:-}" ]; then
             mkdir -p docs/verification/obscura
@@ -91,6 +95,13 @@ jobs:
             obscura fetch "$adhoc" --screenshot "docs/verification/obscura/${host}.png" --wait 6 --timeout 60 2>&1 | tail -8 \
               || echo "::warning title=Obscura adhoc capture failed::$adhoc"
             obscura fetch "$adhoc" --dump text -q --wait 6 --timeout 60 > "docs/verification/obscura/${host}.txt" 2>/dev/null || true
+            if [ -n "${adhoc_eval:-}" ]; then
+              echo "evaluating: $adhoc_eval"
+              obscura fetch "$adhoc" --eval "$adhoc_eval" -q --wait 6 --timeout 60 \
+                > "docs/verification/obscura/${host}.eval.json" 2>"docs/verification/obscura/${host}.eval.err" \
+                || echo "::warning title=Obscura eval failed::see ${host}.eval.err"
+              head -c 2000 "docs/verification/obscura/${host}.eval.json" || true
+            fi
             ls -la docs/verification/obscura
             exit 0
           fi

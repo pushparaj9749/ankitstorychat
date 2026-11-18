@@ -1,0 +1,2 @@
+https://beyondredeye.site/api/health
+JSON.stringify({ok:(JSON.parse(document.body.innerText)).ok, cv:(JSON.parse(document.body.innerText)).contentVersion})
