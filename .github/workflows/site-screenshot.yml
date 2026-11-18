@@ -76,6 +76,25 @@ jobs:
             obscura fetch "$url" --screenshot "docs/verification/site/$file" --wait "$wait" --timeout 45 2>&1 | tail -5 || \
               echo "::warning title=Obscura capture failed::$url"
           }
+          # Ad-hoc mode: `.github/obscura-target` me ek public URL ho to bas wahi
+          # page kholo (koi login/interaction nahi) aur host ke naam se save karo.
+          target_file=".github/obscura-target"
+          if [ -f "$target_file" ]; then
+            adhoc=$(grep -m1 -v '^[[:space:]]*#' "$target_file" | tr -d '[:space:]')
+          else
+            adhoc=""
+          fi
+          if [ -n "${adhoc:-}" ]; then
+            mkdir -p docs/verification/obscura
+            host=$(printf '%s' "$adhoc" | sed -E 's|https?://([^/]+).*|\1|' | tr -c 'a-zA-Z0-9.-' '-' | sed 's/\.$//')
+            echo "adhoc target: $adhoc (host $host)"
+            obscura fetch "$adhoc" --screenshot "docs/verification/obscura/${host}.png" --wait 6 --timeout 60 2>&1 | tail -8 \
+              || echo "::warning title=Obscura adhoc capture failed::$adhoc"
+            obscura fetch "$adhoc" --dump text -q --wait 6 --timeout 60 > "docs/verification/obscura/${host}.txt" 2>/dev/null || true
+            ls -la docs/verification/obscura
+            exit 0
+          fi
+
           # Obscura renders a fixed 1280x720 viewport, so there is no separate
           # mobile shot to fake here — real device checks stay in the app tests.
           base="${BASE%/}"
@@ -94,7 +113,7 @@ jobs:
           set -euo pipefail
           git config user.name "obscura-bot"
           git config user.email "actions@users.noreply.github.com"
-          git add -A docs/verification/site
+          git add -A docs/verification
           # `git diff --quiet` ignores untracked files, so check the index after
           # staging — otherwise brand-new screenshots look like "no changes".
           if git diff --cached --quiet; then
@@ -107,5 +126,7 @@ jobs:
       - uses: actions/upload-artifact@v4
         with:
           name: obscura-screens
-          path: docs/verification/site/*.png
+          path: |
+            docs/verification/site/*.png
+            docs/verification/obscura/*
           if-no-files-found: warn
