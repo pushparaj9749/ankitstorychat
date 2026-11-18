@@ -56,6 +56,17 @@ moves the tale forward — with memory and relationships, and no script: no pred
 
 ## 🆕 Release notes
 
+### v2.13.1 — Update banner that actually appears, memory that never fails silently, and Tunnel 6
+
+Three reader-facing fixes plus a new story. No new pre-reply AI call, no server-side memory, nothing new collected.
+
+- **The update banner works again.** The app used to ask GitHub for `/releases/latest`. That endpoint returns the newest *published* release of any kind, so the clip/edit packs (`jomm-melatonin-…`, `clip-packs-…`) kept taking the slot; their tags are not versions, parsing failed, and readers on `v2.12.x` were never told that `v2.13.0` existed. It now reads the release **list** and picks the newest published `vX.Y.Z` release that actually ships a GitHub-hosted `.apk` — the same rule as the website download button and `scripts/check-live-apk.mjs`. Drafts, prereleases and media packs are skipped.
+- **A turn can no longer vanish from memory in silence.** The post-reply memory write was wrapped in `catch {}`, so a provider timeout recorded nothing and told nobody — long stories then "forgot" scenes that clearly happened. `writeTurnMemory` (`src/lib/memoryWriteQueue.ts`) now logs the failure (message only, never payloads or keys) and retries once after a short pause. Replays are safe: facts and episode lines dedupe on a content hash and world state is recomputed from what is stored. The reply is already on screen, so the reader is never held up and sees no new UI.
+- **Cover-only stories no longer show a hollow "Media Library (1)".** A story that shipped just its cover rendered the section header, one tile (the hero image again) and a "1 / 1" lightbox. The library now appears only when there is real extra art (portraits, moments, other); the cover stays in the hero and a quiet “Aur media jald aa raha hai” line sits where the library would be. Full galleries are unchanged.
+- **New story — Tunnel 6.** The last Line 6 local of the fictional Suryapur Metro stops inside a tunnel, the rear route collapses, and {{playerName}} is left on the maintenance walkway with five strangers: signal engineer **Rhea Kapadia**, retired motorman **Iqbal Sheikh**, junior doctor **Dr. Tara Menon**, delivery rider **Rehan Qureshi** and design student **Pihu Sharma**. One night, expandable cast, player-only agency, no predetermined death, rescue time or ending. Content version **70**, 96 stories.
+
+Regression coverage: `__tests__/updateCheck.test.ts`, `__tests__/memoryWriteQueue.test.ts`, `__tests__/otaStoryDetail.test.tsx`, `__tests__/tunnel6.test.ts`.
+
 ### v2.13.0 — Context-perfect recall + cause-and-effect story logic
 
 The local archive now understands **which memory the current move is actually asking for**, and the reply checker catches several high-confidence continuity errors before they reach the reader.

@@ -51,10 +51,10 @@ const packages = IDS.map((id) => {
   return { id, dir, meta, story, characters, world, scenes, memory, bundle };
 });
 
-test('exactly ten varied stories are registered as OTA content version 69', () => {
-  expect(manifest.contentVersion).toBe(69);
-  expect(manifest.stories).toHaveLength(95);
-  expect(new Set(manifest.stories.map((story) => story.id)).size).toBe(95);
+test('exactly ten varied stories are registered on the current OTA content version', () => {
+  expect(manifest.contentVersion).toBeGreaterThanOrEqual(70);
+  expect(manifest.stories).toHaveLength(96);
+  expect(new Set(manifest.stories.map((story) => story.id)).size).toBe(96);
   expect(packages).toHaveLength(10);
   expect(new Set(packages.map(({ story }) => story.title)).size).toBe(10);
   expect(new Set(packages.map(({ story }) => story.openingSceneId)).size).toBe(10);

@@ -18,6 +18,7 @@ import {
   onUpdateStatus,
   parseRelease,
   parseVersion,
+  pickLatestRelease,
 } from '../src/lib/updateCheck';
 
 const release = (tag: string, extra: Record<string, unknown> = {}) => ({
@@ -97,7 +98,9 @@ describe('checkForUpdate', () => {
     expect(f).toHaveBeenCalledTimes(1);
     const [url, init] = f.mock.calls[0];
     expect(url).toBe(RELEASES_API);
-    expect(url).toBe('https://api.github.com/repos/pushparaj9749/ankitstorychat/releases/latest');
+    // A list, not /releases/latest: the newest published release is not always the app.
+    expect(url).toBe('https://api.github.com/repos/pushparaj9749/ankitstorychat/releases?per_page=40');
+    expect(url).not.toMatch(/releases\/latest/);
     expect(init?.method).toBe('GET');
     expect(init?.body).toBeUndefined();
     expect(Object.keys((init?.headers ?? {}) as object)).toEqual(['Accept']);
@@ -181,5 +184,71 @@ describe('banner shows by itself (v2.9.5)', () => {
   it('is on Home in both templates', () => {
     expect(read('src/screens/Home.tsx')).toMatch(/<UpdateBanner \/>/);
     expect(read('src/ui/classic/Home.tsx')).toMatch(/<UpdateBanner \/>/);
+  });
+});
+
+describe('pickLatestRelease (list, not /releases/latest)', () => {
+  const media = (tag: string) => ({
+    tag_name: tag,
+    html_url: `https://github.com/pushparaj9749/ankitstorychat/releases/tag/${tag}`,
+    draft: false,
+    prerelease: false,
+    body: 'Clip pack',
+    assets: [{ name: 'MOLOB_ZIP.zip', browser_download_url: 'https://github.com/x/y/z.zip' }],
+  });
+
+  it('ignores a newer edit/clip-pack release and finds the real app release', () => {
+    const hit = pickLatestRelease([media('jomm-melatonin-2026-11-04'), release('v2.13.0')])!;
+    expect(hit.version).toBe('2.13.0');
+    expect(hit.downloadUrl).toMatch(/kissa-v2\.13\.0\.apk$/);
+  });
+
+  it('picks the newest app release regardless of list order', () => {
+    const hit = pickLatestRelease([
+      release('v2.11.0'),
+      media('clip-packs-2026-11-02'),
+      release('v2.13.0'),
+      release('v2.12.0'),
+    ])!;
+    expect(hit.version).toBe('2.13.0');
+  });
+
+  it('skips drafts, prereleases and non-version tags', () => {
+    const hit = pickLatestRelease([
+      release('v2.14.0', { draft: true }),
+      release('v2.15.0', { prerelease: true }),
+      media('some-media-pack'),
+      release('v2.13.0'),
+    ])!;
+    expect(hit.version).toBe('2.13.0');
+  });
+
+  it('prefers the newest release that can actually be installed', () => {
+    // A tag without an APK is not installable, so the banner points at the
+    // newest release that really carries one.
+    const hit = pickLatestRelease([release('v2.16.0', { assets: [] }), release('v2.13.0')])!;
+    expect(hit.version).toBe('2.13.0');
+    expect(hit.downloadUrl).toMatch(/\.apk$/);
+  });
+
+  it('still reports a version when no release ships an APK at all', () => {
+    const hit = pickLatestRelease([release('v2.16.0', { assets: [] }), release('v2.15.0', { assets: [] })])!;
+    expect(hit.version).toBe('2.16.0');
+    expect(hit.downloadUrl).toContain('/releases/tag/v2.16.0');
+  });
+
+  it('is defensive about junk input', () => {
+    expect(pickLatestRelease(null)).toBeNull();
+    expect(pickLatestRelease({ message: 'rate limited' })).toBeNull();
+    expect(pickLatestRelease([])).toBeNull();
+    expect(pickLatestRelease([media('jomm-melatonin-2026-11-04')])).toBeNull();
+  });
+
+  it('makes the banner appear even when a media pack is newest', async () => {
+    // The exact production shape that used to hide the banner completely.
+    const list = [media('jomm-melatonin-2026-11-04'), release('v2.13.0')];
+    const status = await checkForUpdate({ fetchImpl: okFetch(list) as unknown as typeof fetch, now: 1, force: true });
+    expect(status.latest?.version).toBe('2.13.0');
+    expect(status.available).toBe(true);
   });
 });

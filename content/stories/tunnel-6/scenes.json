@@ -1,0 +1,74 @@
+{
+  "storyId": "tunnel-6",
+  "version": 1,
+  "scenes": [
+    {
+      "id": "last_train",
+      "title": "Last Train",
+      "narration": [
+        "*Suryapur Metro ki Line 6 local 11:48 ki last service hai. Coach almost khaali hai — sirf chhah log, chip-chip karti AC, aur khaidki ke bahar wahi andhera jo tunnel mein hamesha hota hai.*",
+        "*Nehru Chowk chhootne ke baad train achanak brake maarti hai. Lights ek second ke liye bujhti hain, phir emergency lamp jal uthti hai — peeli, dheemi, jaise kisi ne bas itni hi roshni bachaayi ho. Peeche kisi deewar se aati hui gehri awaaz tunnel ki hawa tak pahunchti hai.*",
+        "*Driver ka cabin khaali hai. Darwaza khud khulta hai. Bahar ek patli maintenance walkway hai, aur uske aage wahi service spur jise purane staff 'Tunnel 6' kehte hain. Peeche, jahan se tum aaye ho, chhat ka hissa neeche gir chuka hai — dhool abhi bhi uth rahi hai.*",
+        "Rhea: \"Sab log yahin ruko. Yeh walkway live track ke saath hai — jo bhi bhaagega, wahi pehle girrega.\"",
+        "*Grey-haired aadmi walkway par pehle utar chuka hai. Wo ghutno par baith kar rails par kaan rakhta hai, phir seedha khada hota hai, jaise jawab sun kar hi aaya ho.*",
+        "Iqbal: \"Peeche ka raasta band hai. Aage ka darwaza bhi locked. Ab tum batao — radio pe zor lagayein, ya intezaar karein?\"",
+        "*Pihu ne apna phone nikala. Battery sirf ek line bachi hai aur signal nahi hai. Tara Rehan ke kandhe ke neeche dekhti hai, jahan hoodie par dhool aur ek gehra nishaan hai. Rhea ki nazar tum par hai. Raat abhi shuru hui hai.*"
+      ],
+      "fallbackLines": [
+        "*Emergency lamp dheemi hoti hai, phir wapas jal uthti hai. Dhool abhi bhi hawa mein latak rahi hai; koi naya raasta apne aap nahi khulta.*",
+        "*Pihu apna phone seene se lagaye rakhti hai. Iqbal rails ki taraf dekhta rehta hai, jaise agla faisla wahin likha ho — tumhare pehle shabd se pehle kuch nahi.*"
+      ],
+      "choices": [
+        {
+          "id": "radio_first",
+          "text": "\"Radio pehle. Control room ko saaf bolo — chhah log zinda hain, coach ke paas hain, peeche ka raasta band hai.\"",
+          "shortLabel": "Radio uthao",
+          "keywords": ["radio", "control", "rescue", "alive"],
+          "next": null,
+          "effects": {
+            "memory": [
+              "{{playerName}} chose to contact the control room first, reporting six survivors near the stalled coach with the rear route collapsed."
+            ]
+          }
+        },
+        {
+          "id": "ask_rhea_tunnel6",
+          "text": "\"Rhea, Tunnel 6 ka darwaza kahan khulta hai? Agar walkway band ho jaye to doosra raasta kya hai?\"",
+          "shortLabel": "Rhea se poochho",
+          "keywords": ["rhea", "tunnel 6", "door", "route"],
+          "next": null,
+          "effects": {
+            "memory": [
+              "{{playerName}} asked Rhea Kapadia where Tunnel 6's service door opens and what the alternate route is if the walkway fails."
+            ]
+          }
+        },
+        {
+          "id": "count_supplies",
+          "text": "\"Pihu, phone rakh. Pehle sabke paas jo hai gin lo — torch, paani, battery, dawai. Andhere mein guess nahi chalega.\"",
+          "shortLabel": "Saaman ginlo",
+          "keywords": ["supplies", "torch", "water", "count"],
+          "next": null,
+          "effects": {
+            "memory": [
+              "{{playerName}} asked the group to pool and count what they actually have — light, water, power and medicine — before deciding anything."
+            ]
+          }
+        },
+        {
+          "id": "listen_wall",
+          "text": "\"Chup. Pihu, tumne deewar ke peeche kuch suna tha — kya tha, theek se batao.\"",
+          "shortLabel": "Awaaz suno",
+          "keywords": ["sound", "wall", "pihu", "listen"],
+          "next": null,
+          "effects": {
+            "memory": [
+              "{{playerName}} asked Pihu to describe exactly what she heard behind the wall before the lights failed."
+            ]
+          }
+        }
+      ]
+    }
+  ],
+  "endings": []
+}

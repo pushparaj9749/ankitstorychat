@@ -81,8 +81,10 @@ describe('the app never talks to GitHub for content', () => {
 
   test('no GitHub API content URLs in app source', () => {
     // The ONLY allowed GitHub API call is the anonymous app-update check
-    // (latest release version), and only from lib/updateCheck.ts.
-    const RELEASE_CHECK = 'https://api.github.com/repos/pushparaj9749/ankitstorychat/releases/latest';
+    // (public release list, from lib/updateCheck.ts). `/releases/latest` was
+    // retired in v2.13.1: the newest published release is often a media pack,
+    // not the app, which silently hid the update banner.
+    const RELEASE_CHECK = 'https://api.github.com/repos/pushparaj9749/ankitstorychat/releases?per_page=40';
     for (const f of CLIENT) {
       if (f.path.startsWith('website/')) continue;
       const text = f.path.replace(/\\/g, '/').endsWith('src/lib/updateCheck.ts') ? f.text.split(RELEASE_CHECK).join('') : f.text;
@@ -90,9 +92,15 @@ describe('the app never talks to GitHub for content', () => {
     }
   });
 
-  test('the update check reads only the public latest-release endpoint', () => {
+  test('the update check reads only the public release-list endpoint', () => {
     const src = readFileSync(join(ROOT, 'src', 'lib', 'updateCheck.ts'), 'utf8');
-    expect(src.match(/api\.github\.com[^'"`\s]*/g)).toEqual(['api.github.com/repos/pushparaj9749/ankitstorychat/releases/latest']);
+    expect(src.match(/api\.github\.com[^'"`\s]*/g)).toEqual([
+      'api.github.com/repos/pushparaj9749/ankitstorychat/releases?per_page=40',
+    ]);
+    // No `/releases/latest` in actual code (the doc comment explains why it
+    // was retired): it can point at a clip pack instead of the app.
+    const code = src.replace(/\/\*[\s\S]*?\*\//g, '').replace(/\/\/[^\n]*/g, '');
+    expect(code).not.toMatch(/releases\/latest/);
     expect(src).not.toMatch(/method:\s*'(POST|PUT|PATCH|DELETE)'/);
     expect(src).not.toMatch(/Authorization/i);
   });

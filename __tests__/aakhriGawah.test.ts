@@ -31,8 +31,8 @@ const bundle: StoryBundle = {
   source: 'remote',
 };
 
-test('Aakhri Gawah is a valid OTA package at content version 69', () => {
-  expect(manifest.contentVersion).toBe(69);
+test('Aakhri Gawah is a valid OTA package on the current content version', () => {
+  expect(manifest.contentVersion).toBeGreaterThanOrEqual(70);
   expect(meta).toBeDefined();
   expect(meta.version).toBe(1);
   expect(meta.storyDir).toBe(ID);

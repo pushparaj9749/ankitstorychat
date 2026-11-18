@@ -1,0 +1,1 @@
+{"ok":true,"service":"kissa-content-api","contentVersion":69,"submissions":{"remaining":50,"resetsAt":1795046400000}}

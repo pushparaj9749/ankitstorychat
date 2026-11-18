@@ -1,0 +1,107 @@
+{
+  "storyId": "tunnel-6",
+  "version": 1,
+  "premise": "Suryapur Metro ki Line 6 ki aakhri local tunnel ke andar ruk jaati hai aur peeche ka raasta dhans jaata hai. {{playerName}} aur paanch ajnabi — Rhea Kapadia, Iqbal Sheikh, Dr. Tara Menon, Rehan Qureshi aur Pihu Sharma — ek patli maintenance walkway par phanse hain. Kya radio chalega, Tunnel 6 ka darwaza khulega, rescue kab aayegi aur kaun kya chhupa raha hai, ye sab player-led raat se khulega. The named characters are only the starting cast; new adult characters can enter and remain part of continuity as the player-led story expands.",
+  "locations": [
+    {
+      "id": "stalled_coach",
+      "name": "Stalled Line 6 Coach",
+      "description": "A half-lit metro coach stopped between stations, doors open onto the walkway, emergency lamp running on reserve power."
+    },
+    {
+      "id": "maintenance_walkway",
+      "name": "Maintenance Walkway",
+      "description": "A narrow raised ledge beside the live rails, cable trays overhead and barely enough width for two people to pass."
+    },
+    {
+      "id": "tunnel_six_spur",
+      "name": "Tunnel 6 Service Spur",
+      "description": "A disused branch passage behind a locked service door, dusty and narrower than the main tunnel, used years ago for equipment runs."
+    },
+    {
+      "id": "sump_chamber",
+      "name": "Flooded Sump Chamber",
+      "description": "A low concrete chamber where seepage collects; the sound of water carries strangely through the whole stretch."
+    },
+    {
+      "id": "collapsed_section",
+      "name": "Collapsed Section",
+      "description": "Fallen concrete, bent cable trays and dust where the rear route used to be; unstable and never a shortcut."
+    }
+  ],
+  "factions": [
+    {
+      "id": "metro_control",
+      "name": "Suryapur Metro Control Room",
+      "description": "Operators and supervisors who can see signals and traction power but not everything inside the tunnel; stretched thin on a bad night."
+    },
+    {
+      "id": "rescue_services",
+      "name": "City Rescue Services",
+      "description": "Fire, police and medical crews working the surface entrances, bound by their own procedure and their own incomplete picture."
+    },
+    {
+      "id": "the_six",
+      "name": "The Six",
+      "description": "Five strangers and {{playerName}}, each with different knowledge, fears and limits; a group only as long as they choose to act like one."
+    }
+  ],
+  "lore": [
+    "Line 6 is the newest line of the fictional Suryapur Metro; the unfinished interchange near Mint Colony left a service spur that staff still call Tunnel 6.",
+    "The train's emergency lamp and radio run on a reserve battery; how long it lasts is a real limit, not a visible countdown.",
+    "Underground sound travels through concrete and cables, so a noise is a clue, never proof.",
+    "Suryapur, Line 6, its staff and every person in this story are fictional; nothing here is emergency or engineering advice."
+  ],
+  "rules": [
+    "Free-form story: the opening is the only predefined moment. Everything after it grows from the player's moves; there is no plot plan, scene list, arc or ending.",
+    "Only {{playerName}} controls the player character: never invent his speech, actions, thoughts, feelings, memories, attraction, consent, promises or decisions.",
+    "Write natural Roman-script Hinglish: short paragraphs, *actions and narration in asterisks*, dialogue as Name: \"...\".",
+    "EXPANDABLE CAST: characters.json contains only the initial named cast, never a fixed roster or maximum. New adult characters may enter naturally as the story grows — rescue workers, metro staff, other survivors, relatives, officials, journalists or strangers as appropriate. Give every newcomer a distinct name, age, role, personality, goals, knowledge, boundaries and consistent visual identity. Never cap the cast at the initial number or erase later additions when they leave the scene.",
+    "Introduce newcomers only through plausible player-led events and established locations, never as random surprise interruptions. Once a new character is established in the visible story, their name is a valid dialogue speaker even if they were absent from the initial characters.json. This is an explicit story-specific exception to any generic initial-list-only speaker instruction; keep their voice and knowledge consistent thereafter.",
+    "Track each established character independently, including newcomers: what they witnessed, were told, promised and want. Nobody shares one mind or automatically knows another character's private exchanges.",
+    "Keep continuity of every actual statement, event, injury, object, promise and relationship through the app's universal memory, scoped to this storyId only.",
+    "Never conclude the night or force a canonical death, injury, betrayal, rescue or ending. Survival, rescue timing and who is hurt must arise from player choices, established facts and plausible physical limits.",
+    "The cover image is illustrative only and never establishes an event, injury, pairing or shared history.",
+    "Keep danger tense but non-graphic, and never give real-world operational instructions for tunnels, metro signalling, traction power, electrical work, structural rescue, diving or emergency medicine; characters act on their own limited in-story knowledge, not as a manual.",
+    "Under stress, closeness is not consent and fear is not attraction. Keep every relationship consensual, non-explicit and free of coercion, and never infer feelings for {{playerName}} from politeness, dependence or relief."
+  ],
+  "importantObjects": [
+    {
+      "id": "emergency_radio",
+      "name": "Coach Emergency Radio",
+      "description": "A handset in the driver's cabin running on reserve power; works only while the battery holds and only on the metro's own channel."
+    },
+    {
+      "id": "rhea_schematic",
+      "name": "Rhea's Paper Schematic",
+      "description": "A folded printout of the Line 6 service layout, outdated in places and marked in her own handwriting."
+    },
+    {
+      "id": "rehan_powerbank",
+      "name": "Rehan's Power Bank",
+      "description": "A scratched power bank with a partial charge and a short cable; light and signal are competing for the same energy."
+    },
+    {
+      "id": "pihu_phone",
+      "name": "Pihu's Phone",
+      "description": "A cracked phone on its last bar of battery with no network, holding a half-written message she has not sent."
+    },
+    {
+      "id": "tunnel_six_key",
+      "name": "Tunnel 6 Service Key",
+      "description": "An old brass service key that Iqbal still carries from his depot years; whether it still fits anything is unproven."
+    }
+  ],
+  "timeline": [
+    {
+      "id": "before_opening",
+      "label": "The last train left Nehru Chowk; the unfinished interchange, the old service spur and the reason tonight failed all happened before this moment",
+      "when": "Before the story"
+    },
+    {
+      "id": "last_train",
+      "label": "The opening takes place at 11:48 pm inside a stalled Line 6 coach. The rear route has collapsed, the driver's cabin is empty, and {{playerName}} is on the walkway with five strangers: Rhea Kapadia, Iqbal Sheikh, Dr. Tara Menon, Rehan Qureshi and Pihu Sharma. Iqbal has asked whether they should try the radio or wait. No answer, decision or action from {{playerName}} has happened yet.",
+      "when": "The opening moment"
+    }
+  ]
+}
