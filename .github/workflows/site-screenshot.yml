@@ -86,13 +86,15 @@ jobs:
       - name: Commit screenshots
         run: |
           set -euo pipefail
-          if git diff --quiet -- docs/verification/site; then
+          git config user.name "obscura-bot"
+          git config user.email "actions@users.noreply.github.com"
+          git add -A docs/verification/site
+          # `git diff --quiet` ignores untracked files, so check the index after
+          # staging — otherwise brand-new screenshots look like "no changes".
+          if git diff --cached --quiet; then
             echo "no screenshot changes"
             exit 0
           fi
-          git config user.name "obscura-bot"
-          git config user.email "actions@users.noreply.github.com"
-          git add docs/verification/site
           git commit -m "chore: obscura screenshots of $(date -u +%Y-%m-%dT%H:%MZ)"
           git push origin "HEAD:${{ inputs.ref || github.ref_name }}"
 
