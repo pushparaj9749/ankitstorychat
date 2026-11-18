@@ -180,6 +180,12 @@ export function StoryDetail({ navigation, route }: Props) {
 
   const activeSave = saves.find((s) => s.status === 'active');
   const gallery = bundle.story.media?.gallery ?? [];
+  // v2.13.1: a story that only ships a cover used to show "Media Library (1)"
+  // with a single tile that was just the hero image again (and a 1/1 lightbox).
+  // The cover stays in the hero; the library appears once there is real
+  // extra art (portraits / moments / other).
+  const hasExtraMedia = gallery.some((item) => item.kind !== 'cover');
+  const library = hasExtraMedia ? gallery : [];
   const cast = bundle.characters?.characters ?? [];
   const portraitOf = (characterId?: string | null) => {
     const item = gallery.find((g) => g.kind === 'character-portrait' && (!characterId || g.characterId === characterId));
@@ -351,15 +357,15 @@ export function StoryDetail({ navigation, route }: Props) {
             </>
           ) : null}
 
-          {gallery.length > 0 ? (
+          {library.length > 0 ? (
             <>
-              <SectionHeader title={`Media Library (${gallery.length})`} />
+              <SectionHeader title={`Media Library (${library.length})`} />
               {/* Even 2-column wall of fixed-height frames: each artwork is shown
                   whole (contain) on its own blurred backdrop, so rows line up and
                   no column ends early with an empty gap underneath. A lone last
                   tile spans the full width. */}
               <View style={styles.mediaGrid}>
-                {gallery.slice(0, mediaShown).map((item, index, shown) => {
+                {library.slice(0, mediaShown).map((item, index, shown) => {
                   const spanFull = index === shown.length - 1 && shown.length % 2 === 1;
                   return (
                     <View key={item.id} style={spanFull ? styles.mediaCellFull : styles.mediaCell}>
@@ -375,9 +381,9 @@ export function StoryDetail({ navigation, route }: Props) {
                   );
                 })}
               </View>
-              {gallery.length > mediaShown ? (
+              {library.length > mediaShown ? (
                 <Pressable
-                  onPress={() => setMediaShown((n) => nextGalleryCount(n, gallery.length))}
+                  onPress={() => setMediaShown((n) => nextGalleryCount(n, library.length))}
                   accessibilityRole="button"
                   accessibilityLabel="Aur images dekho"
                   testID="media-more"
@@ -388,11 +394,19 @@ export function StoryDetail({ navigation, route }: Props) {
                 >
                   <Icon name="image-outline" size={ICON_SIZE.sm} color={theme.accent} />
                   <Text style={[styles.mediaMoreText, { color: theme.text }]}>
-                    {`Aur images dekho (${gallery.length - mediaShown} aur)`}
+                    {`Aur images dekho (${library.length - mediaShown} aur)`}
                   </Text>
                 </Pressable>
               ) : null}
             </>
+          ) : gallery.length > 0 ? (
+            // Cover-only: keep the hero cover and just say more art is coming.
+            <View style={styles.mediaSoon} testID="media-soon">
+              <Icon name="image-outline" size={ICON_SIZE.sm} color={theme.textFaint} />
+              <Text style={[styles.mediaSoonText, { color: theme.textFaint }]}>
+                Aur media jald aa raha hai
+              </Text>
+            </View>
           ) : null}
 
           <CreatorBlock creator={bundle.creator} storyDir={bundle.meta.storyDir} />
@@ -460,7 +474,7 @@ export function StoryDetail({ navigation, route }: Props) {
         </View>
       </SafeAreaView>
 
-      {lightboxIndex !== null && gallery[lightboxIndex] ? (
+      {lightboxIndex !== null && library[lightboxIndex] ? (
         <Modal visible transparent animationType="fade" onRequestClose={() => setLightboxIndex(null)}>
           <View style={styles.lightbox}>
             <Pressable style={styles.lightboxClose} onPress={() => setLightboxIndex(null)} accessibilityLabel="Close">
@@ -471,14 +485,14 @@ export function StoryDetail({ navigation, route }: Props) {
                 <Icon name="chevron-back" size={22} color="#fff" />
               </Pressable>
             ) : null}
-            {lightboxIndex < gallery.length - 1 ? (
+            {lightboxIndex < library.length - 1 ? (
               <Pressable style={[styles.lightboxNav, { right: 16 }]} onPress={() => setLightboxIndex(lightboxIndex + 1)}>
                 <Icon name="chevron-forward" size={22} color="#fff" />
               </Pressable>
             ) : null}
-            <LightboxImage url={mediaApiUrl(apiBase, bundle.meta.storyDir, gallery[lightboxIndex].file)} accent={meta.accentColor} />
+            <LightboxImage url={mediaApiUrl(apiBase, bundle.meta.storyDir, library[lightboxIndex].file)} accent={meta.accentColor} />
             <Text style={styles.lightboxLabel}>
-              {lightboxIndex + 1} / {gallery.length}
+              {lightboxIndex + 1} / {library.length}
             </Text>
           </View>
         </Modal>
@@ -686,6 +700,8 @@ const styles = StyleSheet.create({
     marginTop: 12,
   },
   mediaMoreText: { fontSize: 14, fontWeight: '700' },
+  mediaSoon: { flexDirection: 'row', alignItems: 'center', gap: 6, paddingHorizontal: 20, marginTop: 18 },
+  mediaSoonText: { fontSize: 12.5, fontWeight: '600', letterSpacing: 0.2 },
   mediaGrid: { flexDirection: 'row', flexWrap: 'wrap', justifyContent: 'space-between', rowGap: 10, marginTop: 4 },
   mediaCell: { width: '48.5%' },
   mediaCellFull: { width: '100%' },

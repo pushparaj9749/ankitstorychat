@@ -339,6 +339,9 @@ describe('StoryDetail (V2: streamed playback, offline gate)', () => {
     await render();
     const text = renderText();
     expect(text).not.toContain('Media Library');
+    // No media block at all is different from a cover-only package: do not
+    // promise art that was never part of the story.
+    expect(text).not.toContain('Aur media jald aa raha hai');
     // The rest of the canonical layout is intact.
     expect(text).toContain('Story Creator');
     expect(text).toContain('Share karo');
@@ -381,5 +384,87 @@ describe('StoryDetail Media Library (v2.12: up to 50 images, revealed in steps)'
     await render();
     expect(tiles()).toHaveLength(8);
     expect(tree.root.findAll((n) => n.props.testID === 'media-more')).toHaveLength(0);
+  });
+});
+
+describe('StoryDetail Media Library (v2.13.1: cover-only stories)', () => {
+  function coverOnlyBundle() {
+    const b = validBundle();
+    return {
+      ...b,
+      story: {
+        ...b.story,
+        media: {
+          cover: 'assets/cover.jpg',
+          gallery: [{ id: 'cover', file: 'assets/cover.jpg', kind: 'cover', label: 'Cover' }],
+        },
+      },
+    };
+  }
+
+  test('does not show a hollow "Media Library (1)" for a cover-only story', async () => {
+    getBundle.mockResolvedValue(coverOnlyBundle());
+    await render();
+    const text = renderText();
+
+    // No library header, no 1 / 1 lightbox, no dead "more" button.
+    expect(text).not.toContain('Media Library');
+    expect(text).not.toContain('1 / 1');
+    expect(tree.root.findAll((n) => n.props.testID === 'media-more')).toHaveLength(0);
+
+    // The cover is still doing its job in the hero, and the layout is intact.
+    expect(text).toContain('https://example.test/cover.jpg');
+    expect(text).toContain('Start Story');
+    expect(text).toContain('Cast');
+  });
+
+  test('says extra media is coming, quietly, where the library would be', async () => {
+    getBundle.mockResolvedValue(coverOnlyBundle());
+    await render();
+    const text = renderText();
+    expect(text).toContain('Aur media jald aa raha hai');
+    // The hint sits after the cast and before Story Creator.
+    const order = ['Cast', 'Aur media jald aa raha hai', 'Story Creator'];
+    let last = -1;
+    for (const marker of order) {
+      const idx = text.indexOf(marker);
+      expect(idx).toBeGreaterThan(last);
+      last = idx;
+    }
+  });
+
+  test('a story with real extra art still gets the full library', async () => {
+    getBundle.mockResolvedValue({
+      ...validBundle(),
+      story: {
+        ...validBundle().story,
+        media: {
+          cover: 'assets/cover.jpg',
+          gallery: [
+            { id: 'cover', file: 'assets/cover.jpg', kind: 'cover', label: 'Cover' },
+            { id: 'p1', file: 'assets/gallery/aria.jpg', kind: 'character-portrait', characterId: 'aria' },
+          ],
+        },
+      },
+    });
+    await render();
+    const text = renderText();
+    expect(text).toContain('Media Library (2)');
+    expect(text).not.toContain('Aur media jald aa raha hai');
+  });
+
+  test('a story with only portraits (no cover item) still gets the library', async () => {
+    getBundle.mockResolvedValue({
+      ...validBundle(),
+      story: {
+        ...validBundle().story,
+        media: {
+          cover: 'assets/cover.jpg',
+          gallery: [{ id: 'p1', file: 'assets/gallery/aria.jpg', kind: 'character-portrait', characterId: 'aria' }],
+        },
+      },
+    });
+    await render();
+    expect(renderText()).toContain('Media Library (1)');
   });
 });

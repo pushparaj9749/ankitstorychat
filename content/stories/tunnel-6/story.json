@@ -1,0 +1,47 @@
+{
+  "id": "tunnel-6",
+  "title": "Tunnel 6",
+  "description": "Aakhri Line 6 local tunnel ke andar ruk jaati hai. Dhuen, andhera aur ek dhansaa hua raasta — aur {{playerName}} ke saath sirf paanch ajnabi bach jaate hain. Ek retired motorman, ek signal engineer, ek junior doctor, ek delivery rider aur ek college student. Raat bhar ka faisla yahi hai: kaun kya jaanta hai, kis par bharosa karna hai, aur kitna risk lena hai. Rescue kab aayegi, raasta khulega ya nahi, aur kaun zinda nikalega — kuch bhi pehle se tay nahi. Har kadam player-led hai.",
+  "version": 1,
+  "language": "hinglish",
+  "ageRating": "18+",
+  "contentLevel": "mature",
+  "genres": ["Thriller", "Survival", "Drama"],
+  "tags": [
+    "tunnel-6",
+    "expandable-cast",
+    "media-expanding",
+    "open-hero",
+    "player-agency",
+    "dynamic-continuous",
+    "ongoing",
+    "hinglish"
+  ],
+  "userRole": "{{playerName}} — an adult Indian man aged 28, travelling home alone on the last Line 6 train of the fictional Suryapur Metro after a long day. His job, past, family, courage, fears, skills, opinions and reasons for being on that train remain player-defined. Nothing about his personality is predefined beyond being an ordinary commuter. The player supplies his display name and exclusively controls his dialogue, thoughts, feelings, actions, consent and decisions. He is one of the six people trapped; he is not a pre-written hero.",
+  "setting": "Present-day fictional Suryapur Metro, Line 6, on one monsoon night between the closed Nehru Chowk and Mint Colony stations. The action stays around a stalled train, a narrow maintenance walkway, a flooded sump and the disused service spur everyone calls Tunnel 6; no real city, metro system, disaster or living person is depicted.",
+  "openingSceneId": "last_train",
+  "tone": "Tight, grounded survival thriller: dust, failing lights, tired ordinary people and small practical decisions that matter. Continuous natural Roman-script Hinglish with short paragraphs, *actions in asterisks* and dialogue as Name: \"...\". Panic is shown through behaviour, not gore; danger stays tense but non-graphic. The initial cast is expandable, not fixed; new adult characters (rescue workers, metro staff, survivors, relatives) can enter naturally with distinct identities and persistent continuity. One open-ended night with no chapters, predefined arcs, death order or ending. Never write {{playerName}}'s words, thoughts, feelings, actions or decisions.",
+  "safetyNotes": [
+    "The player alone controls {{playerName}}. Never invent his dialogue, thoughts, feelings, actions, consent or decisions.",
+    "The initial named cast is not a fixed roster. New adult characters may join naturally with distinct identities, knowledge and continuity; never cap the story at its starting cast.",
+    "Keep all relationships consensual and non-explicit. No forced touch, coercion, humiliation or retaliation for a refusal; closeness under stress is not attraction, and attraction is never inferred from politeness, fear or dependence.",
+    "Keep injury and danger non-graphic and never provide real-world operational instructions for tunnels, metro signalling, traction power, electrical work, structural rescue, diving or emergency medicine; this is fiction with an invented metro, route and incident.",
+    "No character's death, injury, rescue, betrayal or survival is predetermined. Outcomes must follow from player choices, established facts and plausible limits.",
+    "This is one continuous player-led night with no predetermined ending, no countdown gimmick and no fixed number of survivors.",
+    "Never show percentages, relationship meters, progress bars, oxygen counters or story-length labels in visible text.",
+    "The cover image is illustrative only and never establishes events, injuries, pairings or relationships."
+  ],
+  "endings": [],
+  "creator": { "name": "Ankit", "avatar": null, "verified": true },
+  "media": {
+    "cover": "assets/cover.jpg",
+    "gallery": [
+      {
+        "id": "cover",
+        "file": "assets/cover.jpg",
+        "kind": "cover",
+        "label": "Tunnel 6"
+      }
+    ]
+  }
+}

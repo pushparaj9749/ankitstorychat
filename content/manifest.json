@@ -1,7 +1,7 @@
 {
-  "contentVersion": 69,
+  "contentVersion": 70,
   "minAppVersion": "1.0.0",
-  "updatedAt": "2026-11-08T12:30:00Z",
+  "updatedAt": "2026-11-19T00:00:00Z",
   "stories": [
     {
       "id": "arranged-marriage-wala-love",
@@ -4583,6 +4583,53 @@
         "verified": true
       },
       "updatedAt": "2026-11-08T12:30:00Z"
+    },
+    {
+      "id": "tunnel-6",
+      "title": "Tunnel 6",
+      "tagline": "Aakhri local. Chhah ajnabi. Aur ek Tunnel jiska darwaza band hai.",
+      "description": "Aakhri Line 6 local tunnel ke andar ruk jaati hai. Dhuen, andhera aur ek dhansaa hua raasta — aur {{playerName}} ke saath sirf paanch ajnabi bach jaate hain. Ek retired motorman, ek signal engineer, ek junior doctor, ek delivery rider aur ek college student. Raat bhar ka faisla yahi hai: kaun kya jaanta hai, kis par bharosa karna hai, aur kitna risk lena hai. Rescue kab aayegi, raasta khulega ya nahi, aur kaun zinda nikalega — kuch bhi pehle se tay nahi. Har kadam player-led hai.",
+      "genres": [
+        "Thriller",
+        "Survival",
+        "Drama"
+      ],
+      "tags": [
+        "tunnel-6",
+        "expandable-cast",
+        "media-expanding",
+        "open-hero",
+        "player-agency",
+        "dynamic-continuous",
+        "ongoing",
+        "hinglish"
+      ],
+      "characters": [
+        "Rhea Kapadia",
+        "Iqbal Sheikh",
+        "Dr. Tara Menon",
+        "Rehan Qureshi",
+        "Pihu Sharma"
+      ],
+      "ageRating": "18+",
+      "contentLevel": "mature",
+      "language": "hinglish",
+      "version": 1,
+      "coverUrl": "stories/tunnel-6/assets/cover.jpg",
+      "accentColor": "#3FA9A0",
+      "userRole": "{{playerName}} — an adult Indian man aged 28, travelling home alone on the last Line 6 train of the fictional Suryapur Metro after a long day. His job, past, family, courage, fears, skills, opinions and reasons for being on that train remain player-defined. Nothing about his personality is predefined beyond being an ordinary commuter. The player supplies his display name and exclusively controls his dialogue, thoughts, feelings, actions, consent and decisions. He is one of the six people trapped; he is not a pre-written hero.",
+      "setting": "Present-day fictional Suryapur Metro, Line 6, on one monsoon night between the closed Nehru Chowk and Mint Colony stations. The action stays around a stalled train, a narrow maintenance walkway, a flooded sump and the disused service spur everyone calls Tunnel 6; no real city, metro system, disaster or living person is depicted.",
+      "estimatedMinutes": 60,
+      "featured": true,
+      "isNew": true,
+      "popularity": 98,
+      "storyDir": "tunnel-6",
+      "creator": {
+        "name": "Ankit",
+        "avatar": null,
+        "verified": true
+      },
+      "updatedAt": "2026-11-19T00:00:00Z"
     }
   ]
 }

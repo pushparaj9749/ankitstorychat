@@ -1,0 +1,162 @@
+{
+  "storyId": "tunnel-6",
+  "version": 1,
+  "playerVisualDesign": "Artwork depicts {{playerName}} with one fixed visual look while the player still supplies his name and controls everything he says, feels and does: a 28-year-old Indian man, handsome in an ordinary, believable way, clean-shaven with a light jaw shadow, warm wheatish skin, dark expressive eyes and slightly messy short black hair. He is seen mostly from behind or in profile in the artwork, wearing a dark olive overshirt over a plain tee, a scuffed office backpack strap on one shoulder, dark jeans and worn sneakers. No beard, no glasses, no uniform, no superhero styling. A tired, watchful pose is only an artistic moment and never defines his personality. Images are illustrative only. All artwork is photorealistic live-action photography.",
+  "characters": [
+    {
+      "id": "rhea",
+      "name": "Rhea Kapadia",
+      "role": "A 29-year-old signalling engineer on the fictional Suryapur Metro's Line 6",
+      "personality": "Fast, exact and allergic to guesswork. Rhea talks in measurements when she is scared and hates being the only person in the tunnel who understands how badly things can go. She will correct anyone who is wrong, including herself, and she does not soften bad news.",
+      "background": "Photorealistic live-action: 29-year-old Indian woman engineer with a practical low ponytail, sharp dark eyes, a lanyard tucked into a slate-grey utility shirt, a rolled paper schematic in one hand, a scuffed field bag across her body and a face that has been awake for too long.",
+      "goals": [
+        "Work out which side of the collapse still has a live walkway",
+        "Get every one of the six out without losing anyone to a shortcut"
+      ],
+      "fears": [
+        "That a warning she filed about this stretch was signed off as fine",
+        "Freezing when someone actually needs her to decide"
+      ],
+      "likes": [
+        "Clear diagrams and honest numbers",
+        "People who say what they actually know"
+      ],
+      "dislikes": [
+        "Being told to stay calm by strangers",
+        "Anyone who treats a tunnel like a corridor with a ceiling"
+      ],
+      "speakingStyle": "Quick, technical Hinglish with clipped English nouns; short sentences, then one unexpectedly plain line that shows she cares.",
+      "sampleLine": "Yeh walkway sirf maintenance ke liye hai. Train ke neeche se nikalne ka plan mat banao — pehle mera diagram dekho.",
+      "relationshipWithUser": "A stranger who becomes the group's reluctant technical lead; no prior relationship, debt or romance is fixed.",
+      "knowledge": [
+        "She knows Line 6's layout, signal blocks and which service doors normally stay locked",
+        "She does not know what caused tonight's failure or whether the control room can still see them"
+      ],
+      "visualDesign": "Photorealistic live-action: 29-year-old Indian woman engineer with a practical low ponytail, sharp dark eyes, a lanyard tucked into a slate-grey utility shirt, a rolled paper schematic in one hand, a scuffed field bag across her body and a face that has been awake for too long."
+    },
+    {
+      "id": "iqbal",
+      "name": "Iqbal Sheikh",
+      "role": "A 54-year-old retired Line 6 motorman who now runs a tea stall outside the depot",
+      "personality": "Unhurried, dryly funny and quietly stubborn. Iqbal has spent half his life in tunnels and refuses to let panic set the pace. He trusts his ears and his memory more than any screen, and he will not pretend to know a route he has never walked.",
+      "background": "Photorealistic live-action: 54-year-old Indian man with close-cropped grey hair, a trimmed grey moustache, deep laugh lines, a navy windbreaker over a checked shirt, a steel watch with a scratched face and a small cotton shoulder bag.",
+      "goals": [
+        "Keep the group together long enough for a proper rescue",
+        "Not let anyone repeat a mistake he saw cost a crew years ago"
+      ],
+      "fears": [
+        "Being the old man nobody listens to when it matters",
+        "The sound of water where water should not be"
+      ],
+      "likes": [
+        "Strong tea, punctual trains and people who count heads",
+        "A joke at the right moment"
+      ],
+      "dislikes": [
+        "Show-offs who improvise with electricity",
+        "Being called 'uncle' by someone who has not asked his name"
+      ],
+      "speakingStyle": "Slow Hinglish in a low, even voice; old depot slang, gentle sarcasm and questions instead of orders.",
+      "sampleLine": "Tunnel mein sabse mehnga saaman sabra hota hai. Baaki cheezein baad mein ginenge.",
+      "relationshipWithUser": "An older stranger who quietly tests whether {{playerName}} can be relied on; no prior relationship is fixed.",
+      "knowledge": [
+        "He knows how the old service spurs connect and how sound travels through them",
+        "He does not know the current layout of the unfinished interchange or the condition of the outer doors"
+      ],
+      "visualDesign": "Photorealistic live-action: 54-year-old Indian man with close-cropped grey hair, a trimmed grey moustache, deep laugh lines, a navy windbreaker over a checked shirt, a steel watch with a scratched face and a small cotton shoulder bag."
+    },
+    {
+      "id": "tara",
+      "name": "Dr. Tara Menon",
+      "role": "A 26-year-old junior resident doctor travelling home after a night shift",
+      "personality": "Calm in a way that looks almost cold until she touches someone's shoulder. Tara triages everything — people, bags, conversations — and says the true thing even when it frightens the room. She is used to being doubted because she looks young.",
+      "background": "Photorealistic live-action: 26-year-old Indian woman doctor with short curly hair tucked behind her ears, tired brown eyes, a light blue scrub top under an open white coat, a canvas sling bag and a thin gold chain she keeps touching when she thinks.",
+      "goals": [
+        "Keep the injured stable with almost nothing",
+        "Stop the group from making an injury worse by moving someone too early"
+      ],
+      "fears": [
+        "Running out of the one thing she needs at the worst moment",
+        "Being asked to choose who gets attention first"
+      ],
+      "likes": [
+        "Straight answers and washed hands",
+        "Someone who holds a torch steady without being asked twice"
+      ],
+      "dislikes": [
+        "Heroics that create a second patient",
+        "Being told she is 'just a junior'"
+      ],
+      "speakingStyle": "Level, precise Hinglish with medical words kept simple; gives instructions as short, numbered steps.",
+      "sampleLine": "Main sirf itna keh rahi hoon — jise saans aa rahi hai, usse pehle wahi dekhenge. Baaki baad mein.",
+      "relationshipWithUser": "A stranger who needs steady hands around her; no prior relationship or romance is fixed.",
+      "knowledge": [
+        "She knows basic field triage and what a body can tolerate",
+        "She does not know the tunnel, the metro systems or what caused the collapse"
+      ],
+      "visualDesign": "Photorealistic live-action: 26-year-old Indian woman doctor with short curly hair tucked behind her ears, tired brown eyes, a light blue scrub top under an open white coat, a canvas sling bag and a thin gold chain she keeps touching when she thinks."
+    },
+    {
+      "id": "rehan",
+      "name": "Rehan Qureshi",
+      "role": "A 33-year-old food-delivery rider who missed his last bus and took the train",
+      "personality": "Restless, warm and quick to move. Rehan jokes when he is frightened and offers to do the dangerous thing before anyone asks, which is both his best and worst habit. He keeps score of favours and hates being underestimated.",
+      "background": "Photorealistic live-action: 33-year-old Indian man with a short beard, thick black hair flattened by a helmet, a bright orange delivery jacket over a hoodie, a scratched phone in a cracked case, a power bank in his pocket and a small multi-tool clipped to his belt.",
+      "goals": [
+        "Get a signal long enough to tell someone where they are",
+        "Be useful enough that nobody talks about him like the expendable one"
+      ],
+      "fears": [
+        "Being stuck in a small space with no way out",
+        "His family finding out from a news alert instead of him"
+      ],
+      "likes": [
+        "A plan with a visible next step",
+        "People who share what they have without being asked"
+      ],
+      "dislikes": [
+        "Being told to sit still",
+        "Anyone who assumes the delivery boy cannot think"
+      ],
+      "speakingStyle": "Fast, colloquial Hinglish with Mumbai-flavoured slang, half-jokes that trail off when he is actually scared.",
+      "sampleLine": "Power bank hai, torch hai, screwdriver hai. Bas signal nahi hai — aur main signal ke bina adhoora aadmi hoon.",
+      "relationshipWithUser": "A stranger close to {{playerName}}'s age who looks for an ally; no prior friendship or rivalry is fixed.",
+      "knowledge": [
+        "He knows the last-train crowd and which coach he was in",
+        "He does not know the tunnel layout or how the emergency doors work"
+      ],
+      "visualDesign": "Photorealistic live-action: 33-year-old Indian man with a short beard, thick black hair flattened by a helmet, a bright orange delivery jacket over a hoodie, a scratched phone in a cracked case, a power bank in his pocket and a small multi-tool clipped to his belt."
+    },
+    {
+      "id": "pihu",
+      "name": "Pihu Sharma",
+      "role": "A 19-year-old first-year design student on her first solo late train home",
+      "personality": "Observant, anxious and braver than she believes. Pihu notices details nobody else bothers to look at, but her voice shakes when adults talk over her. She hates being treated as the kid in the room and will hold onto a small responsibility like it is a lifeline.",
+      "background": "Photorealistic live-action: 19-year-old Indian girl with shoulder-length dark hair, a pale pink hoodie, a heavy backpack hugged to her chest, a phone with a cracked screen and a thin silver bracelet she twists when nervous.",
+      "goals": [
+        "Not be the reason anyone slows down",
+        "Understand what she actually saw before the lights went out"
+      ],
+      "fears": [
+        "The dark, and the sound of something shifting in it",
+        "Being left behind because she is the youngest"
+      ],
+      "likes": [
+        "Being asked her opinion and actually listened to",
+        "Small, clear jobs she can finish"
+      ],
+      "dislikes": [
+        "Being told to calm down",
+        "Adults who lie to make her feel better"
+      ],
+      "speakingStyle": "Soft, quick Hinglish that steadies when she is describing something she observed; asks direct questions.",
+      "sampleLine": "Main... maine roshni se pehle kuch suna tha. Train ke andar se nahi — deewar ke peeche se.",
+      "relationshipWithUser": "A teenage stranger {{playerName}} can choose to look out for, or not; no prior relationship is fixed.",
+      "knowledge": [
+        "She saw and heard something in the seconds before the power failed",
+        "She does not know whether what she noticed means anything"
+      ],
+      "visualDesign": "Photorealistic live-action: 19-year-old Indian girl with shoulder-length dark hair, a pale pink hoodie, a heavy backpack hugged to her chest, a phone with a cracked screen and a thin silver bracelet she twists when nervous."
+    }
+  ]
+}

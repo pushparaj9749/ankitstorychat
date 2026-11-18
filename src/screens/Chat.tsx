@@ -28,7 +28,8 @@ import { applyEffects, buildContext, buildStateExtractionMessages, castSpeakersI
 import { chapterDue, closeChapter, getChapterBook, getChapters, searchChapterArchive } from '../lib/chapters';
 import { completeEpisode, consolidateMemories, putMemory, recallForTurn, rememberMany, rememberPreferences, episodeLine } from '../lib/memory';
 import { ensureWorldState, getWorldState } from '../lib/worldState';
-import { runMemoryWritePipeline, recallWithWorldState } from '../lib/memoryEngine';
+import { recallWithWorldState } from '../lib/memoryEngine';
+import { writeTurnMemory } from '../lib/memoryWriteQueue';
 import { listMemoryCandidates } from '../lib/db';
 import { attachReplyIds, checkpointCovers, getTurnCheckpoint, rollbackTurn, saveTurnCheckpoint } from '../lib/turnCheckpoint';
 import { countMessages, getPlaythrough, insertMessage, listMessages, listRecentMessagesAsc, updatePlaythrough, updateStats } from '../lib/db';
@@ -477,21 +478,22 @@ export function Chat({ navigation, route }: Props) {
       const rawStateJson = (source?.worldStateRaw ?? source?.rawStateJson ?? null) as any;
       const memoryNotes = source?.memoryNotes ?? [];
 
-      try {
-        await runMemoryWritePipeline({
-          playthrough: pt,
-          bundle: b,
-          userText,
-          // The first speaker was split off for the bubble; the pipeline needs
-          // it to know who actually spoke (= who is in the scene).
-          assistantText: speaker ? `${speaker}: ${displayText}` : displayText,
-          parsedExtractionRaw: rawStateJson,
-          allowTimeSkip: request.kind === 'scene' || readerAskedForTimeSkip(userText),
-          worldState: wsForPrompt,
-          skipEpisode: true,
-          playerName: profile.nickname,
-        });
-      } catch {}
+      // v2.13.1: never swallow this. A failed write used to leave the scene
+      // unrecorded with no trace at all; now it logs and retries once (the
+      // reply is already on screen, so the reader is never held up).
+      await writeTurnMemory({
+        playthrough: pt,
+        bundle: b,
+        userText,
+        // The first speaker was split off for the bubble; the pipeline needs
+        // it to know who actually spoke (= who is in the scene).
+        assistantText: speaker ? `${speaker}: ${displayText}` : displayText,
+        parsedExtractionRaw: rawStateJson,
+        allowTimeSkip: request.kind === 'scene' || readerAskedForTimeSkip(userText),
+        worldState: wsForPrompt,
+        skipEpisode: true,
+        playerName: profile.nickname,
+      });
 
       if (isAuthoredMessage) {
         await completeEpisode(pt.id, request.prompt, displayText).catch(() => undefined);

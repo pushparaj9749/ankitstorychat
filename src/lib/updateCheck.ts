@@ -1,10 +1,16 @@
 /**
  * "Naya version aaya hai" — new-app-version check.
  *
- * Privacy: this only READS the public "latest release" page of the Kissa
- * GitHub repository (version number + APK link). Nothing about the user, the
- * phone or the stories is sent — it's a plain anonymous GET, the same as
- * opening the releases page in a browser.
+ * Privacy: this only READS the public release list of the Kissa GitHub
+ * repository (version numbers + APK links). Nothing about the user, the phone
+ * or the stories is sent — it's a plain anonymous GET, the same as opening the
+ * releases page in a browser.
+ *
+ * v2.13.1: the app no longer trusts `/releases/latest`. That endpoint returns
+ * the newest *published* release of any kind, so an edit/clip-pack release
+ * published after the last APK takes the slot — its tag is not a version, so
+ * the banner silently never appeared. The list is read instead and the newest
+ * published `vX.Y.Z` release that actually ships an APK wins.
  *
  * v2.9.5: the banner shows up ON ITS OWN. The answer used to be cached for
  * 6 hours, so a release published inside that window never surfaced until
@@ -16,7 +22,8 @@
 import Constants from 'expo-constants';
 import { kvGet, kvSet } from './db';
 
-export const RELEASES_API = 'https://api.github.com/repos/pushparaj9749/ankitstorychat/releases/latest';
+export const RELEASES_API =
+  'https://api.github.com/repos/pushparaj9749/ankitstorychat/releases?per_page=40';
 import { RELEASES_PAGE } from './links';
 export { RELEASES_PAGE };
 
@@ -98,6 +105,42 @@ export function parseRelease(json: unknown): ReleaseInfo | null {
   };
 }
 
+/**
+ * Pick the release the update banner should talk about.
+ *
+ * Rules (same as the website's download button):
+ *  - published only: no drafts, no prereleases
+ *  - app tags only: `vX.Y.Z` (clip/edit packs use names like
+ *    `jomm-melatonin-2026-11-04`, which are not versions)
+ *  - prefer the newest one that actually carries a `.apk` asset; if none has
+ *    one, still report the newest version so the banner can link the page
+ *  - a `.apk` URL must point at github.com
+ */
+export function pickLatestRelease(list: unknown): ReleaseInfo | null {
+  if (!Array.isArray(list)) return null;
+  let bestWithApk: { info: ReleaseInfo; key: number[] } | null = null;
+  let bestAny: { info: ReleaseInfo; key: number[] } | null = null;
+  for (const raw of list) {
+    if (!raw || typeof raw !== 'object') continue;
+    const r = raw as Record<string, unknown>;
+    if (r.draft || r.prerelease) continue;
+    const tag = typeof r.tag_name === 'string' ? r.tag_name : '';
+    if (!/^v?\d+\.\d+\.\d+$/.test(tag)) continue;
+    const info = parseRelease(raw);
+    if (!info) continue;
+    const key = parseVersion(info.version);
+    if (!key) continue;
+    if (!bestAny || compareVersions(info.version, bestAny.info.version) > 0) {
+      bestAny = { info, key };
+    }
+    const apk = info.downloadUrl.toLowerCase().endsWith('.apk');
+    if (apk && (!bestWithApk || compareVersions(info.version, bestWithApk.info.version) > 0)) {
+      bestWithApk = { info, key };
+    }
+  }
+  return bestWithApk?.info ?? bestAny?.info ?? null;
+}
+
 export function currentAppVersion(): string {
   return Constants.expoConfig?.version ?? '0.0.0';
 }
@@ -113,7 +156,10 @@ async function fetchLatest(fetchImpl: typeof fetch = fetch): Promise<{ ok: boole
       signal: ctrl?.signal,
     });
     if (!res.ok) return { ok: false, info: null };
-    return { ok: true, info: parseRelease(await res.json()) };
+    const json: unknown = await res.json();
+    // A list when the request succeeded; parseRelease keeps single-release
+    // callers (older caches, tests) working.
+    return { ok: true, info: Array.isArray(json) ? pickLatestRelease(json) : parseRelease(json) };
   } catch {
     return { ok: false, info: null }; // offline / timeout
   } finally {

@@ -1,0 +1,26 @@
+{
+  "storyId": "tunnel-6",
+  "version": 1,
+  "shortTermWindow": 24,
+  "seedMemories": [
+    "The opening takes place at 11:48 pm on the last Line 6 train of the fictional Suryapur Metro. The train has stalled between Nehru Chowk and Mint Colony, the rear route has collapsed, the driver's cabin is empty, and {{playerName}} is on the maintenance walkway with five strangers: Rhea Kapadia, Iqbal Sheikh, Dr. Tara Menon, Rehan Qureshi and Pihu Sharma. Iqbal asked whether they should try the radio or wait. No answer, decision or action from {{playerName}} has happened yet.",
+    "The characters listed in characters.json are the initial cast only, not a fixed total. New adult characters can enter naturally and become lasting continuity with their own identities, knowledge and relationships.",
+    "No answer, action, feeling, attraction, consent or decision from {{playerName}} has occurred until the player supplies it. No death, injury, rescue time or ending is predetermined.",
+    "Suryapur, Line 6 and every person in this story are fictional; nothing here is emergency, engineering or medical advice."
+  ],
+  "extractionHints": [
+    "Remember every word {{playerName}} actually says and every question, refusal, plan, promise or boundary exactly as written.",
+    "EXPANDABLE CAST MEMORY: whenever a new character is established, record their name, adult age, role, personality, visual identity, first appearance, goals, knowledge and relationships. The initial characters.json is not a cap; never forget a newcomer merely because they were not in that file.",
+    "Track what every character knows independently. A newcomer or absent character does not receive narrator-only information or another person's private knowledge automatically.",
+    "Build {{playerName}}'s personality, past, skills and preferences only from actual player choices and statements.",
+    "Track the physical situation precisely: who is where, who is hurt and how, what is wet or unstable, how much battery and water remain, which doors have actually been tried, and exactly what was said on the radio in front of whom.",
+    "Record what each stranger reveals about their job and their reason for being on the last train, and notice when later statements do not match."
+  ],
+  "neverRemember": [
+    "Never store invented thoughts, feelings, words, actions, attraction, memories, consent or decisions for {{playerName}}.",
+    "Never store a fixed total cast size, a rule that new characters cannot join, or forget an established newcomer after a location change.",
+    "Never store a predetermined death, injury, rescue time, betrayal, survivor count or ending.",
+    "Never store the cover image as an event that happened.",
+    "Never record real-world emergency or engineering instructions as if the story had provided them."
+  ]
+}
