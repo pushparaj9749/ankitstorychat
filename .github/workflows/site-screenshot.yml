@@ -76,12 +76,18 @@ jobs:
             obscura fetch "$url" --screenshot "docs/verification/site/$file" --wait "$wait" --timeout 45 2>&1 | tail -5 || \
               echo "::warning title=Obscura capture failed::$url"
           }
+          # Obscura renders a fixed 1280x720 viewport, so there is no separate
+          # mobile shot to fake here — real device checks stay in the app tests.
           base="${BASE%/}"
           shoot home-desktop.png "$base/" 5
-          shoot home-mobile.png "$base/?mobile=1" 5
           shoot downloads.png "$base/downloads.html" 5
           shoot api-health.png "$base/api/health" 2
           ls -la docs/verification/site
+
+      - name: Check the Download button target is a real APK
+        env:
+          GITHUB_TOKEN: ${{ github.token }}
+        run: node scripts/check-live-apk.mjs
 
       - name: Commit screenshots
         run: |

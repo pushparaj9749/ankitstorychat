@@ -29,6 +29,13 @@ jobs:
       - name: Tests
         run: npm test
 
+      - name: Check the site's Download APK target is a real APK
+        # Regression guard: an edit/clip-pack release once took GitHub's
+        # /releases/latest slot, so "Download APK" opened video ZIPs.
+        env:
+          GITHUB_TOKEN: ${{ github.token }}
+        run: node scripts/check-live-apk.mjs
+
       - name: Validate story content
         run: npm run content:validate
 
