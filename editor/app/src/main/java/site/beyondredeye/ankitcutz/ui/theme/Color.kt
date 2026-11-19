@@ -1,6 +1,7 @@
 package site.beyondredeye.ankitcutz.ui.theme
 
 import androidx.compose.ui.graphics.Color
+import site.beyondredeye.ankitcutz.model.LayerType
 
 /**
  * AnkitCutz design tokens — see editor/design/DESIGN.md §1.
