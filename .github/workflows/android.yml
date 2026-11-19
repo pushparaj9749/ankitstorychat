@@ -20,6 +20,8 @@ on:
       - 'content/**'
       - 'README.md'
       - 'docs/**'
+      # The Android video editor lives in editor/ and is built by its own workflow.
+      - 'editor/**'
       - '__tests__/arrangedMarriageWalaLove.test.ts'
       - '__tests__/arrangedMarriageMemoryIsolation.test.ts'
       - 'docs/ARRANGED_MARRIAGE_WALA_LOVE_PUBLICATION.md'

@@ -1,0 +1,105 @@
+name: AnkitCutz editor APK
+
+# Week 1 onward: the video editor in editor/ is a standalone Gradle project.
+# It is deliberately NOT part of the Expo build, so it gets its own workflow.
+#
+# Runs unit tests first (effects stack, timeline math, project store — all pure JVM),
+# then builds an installable release APK and uploads it as an artifact.
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'editor/**'
+      - '.github/workflows/editor-apk.yml'
+  pull_request:
+    paths:
+      - 'editor/**'
+      - '.github/workflows/editor-apk.yml'
+  workflow_dispatch:
+
+concurrency:
+  group: editor-apk-${{ github.ref }}
+  cancel-in-progress: true
+
+permissions:
+  contents: read
+
+jobs:
+  build:
+    name: Test + assemble release APK
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    defaults:
+      run:
+        working-directory: editor
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up JDK 17
+        uses: actions/setup-java@v5
+        with:
+          distribution: temurin
+          java-version: '17'
+
+      # ubuntu-latest already carries the Android SDK (platforms, build-tools) with
+      # licences accepted; installing a second copy via setup-android proved fragile.
+      - name: Check Android SDK
+        run: |
+          echo "ANDROID_HOME=${ANDROID_HOME:-$ANDROID_SDK_ROOT}"
+          ls "${ANDROID_HOME:-$ANDROID_SDK_ROOT}/platforms" | tail -5
+
+      - name: Set up Gradle
+        uses: gradle/actions/setup-gradle@v4
+        with:
+          cache-read-only: ${{ github.ref != 'refs/heads/main' }}
+
+      # pipefail matters: without it `| tee` hides a failed Gradle exit code.
+      - name: Unit tests (effects stack)
+        run: |
+          set -o pipefail
+          ./gradlew --no-daemon --console=plain testDebugUnitTest 2>&1 | tee /tmp/gradle.log
+
+      - name: Assemble release APK
+        run: |
+          set -o pipefail
+          ./gradlew --no-daemon --console=plain assembleRelease 2>&1 | tee -a /tmp/gradle.log
+
+      - name: Surface build errors as annotations
+        if: always()
+        run: |
+          if grep -aqE "(^FAILURE:|^e: |error:)" /tmp/gradle.log 2>/dev/null; then
+            bash ci/annotate-log.sh /tmp/gradle.log
+          fi
+
+      - name: Report APK
+        if: always()
+        run: |
+          APK=$(ls app/build/outputs/apk/release/*.apk 2>/dev/null | head -1)
+          if [ -f "$APK" ]; then
+            ls -lh "$APK"
+          else
+            echo "::error::APK missing at $APK"
+            find . -name '*.apk' -print | head -10 | while IFS= read -r f; do echo "::error::found $f"; done
+            echo "::error::outputs tree:"; ls -R app/build/outputs 2>/dev/null | head -30 | while IFS= read -r l; do echo "::error::$l"; done
+          fi
+
+      - name: Upload APK
+        uses: actions/upload-artifact@v4
+        with:
+          name: ankitcutz-apk
+          path: editor/app/build/outputs/apk/release/*.apk
+          if-no-files-found: error
+          retention-days: 30
+
+      - name: Upload test report on failure
+        if: failure()
+        uses: actions/upload-artifact@v4
+        with:
+          name: ankitcutz-test-report
+          path: |
+            editor/app/build/reports/tests/**
+            editor/app/build/test-results/**
+          if-no-files-found: ignore
+          retention-days: 14

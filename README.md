@@ -54,6 +54,19 @@ moves the tale forward — with memory and relationships, and no script: no pred
 
 ---
 
+## 🎬 AnkitCutz — Android video editor
+
+A phone-first Android video editor (Kotlin + Compose + Media3) lives in [`editor/`](editor/).
+It is a separate Gradle project inside this monorepo and does **not** affect the Kissa app,
+its CI or its APK.
+
+- **v0.2.0**: projects, Photo-Picker import, real playback, split/trim timeline, undo/redo,
+  per-layer effect stack with schema-generated inspector, MP4 export (trim + H.264/AAC).
+- Build: `cd editor && ./gradlew assembleRelease` — or download the APK from
+  [Releases](https://github.com/pushparaj9749/ankitstorychat/releases?q=ankitcutz).
+- Docs: [`editor/PLAN.md`](editor/PLAN.md) (scope, effects, budget, licensing) and
+  [`editor/README.md`](editor/README.md) (build + status + honest gaps).
+
 ## 🆕 Release notes
 
 ### v2.13.1 — Update banner that actually appears, memory that never fails silently, and Tunnel 6

@@ -1,0 +1,95 @@
+name: AnkitCutz release
+
+# Publishes a GitHub Release with the APK when a tag like `ankitcutz-v0.2.0` is pushed.
+# The APK is signed with AGP's debug key: installable and reproducible, not a Play upload.
+# A real upload key is a later step (PLAN.md §8) and must never live in this repo.
+
+on:
+  push:
+    tags:
+      - 'ankitcutz-v*'
+  workflow_dispatch:
+    inputs:
+      tag:
+        description: 'Existing tag to publish (e.g. ankitcutz-v0.2.0)'
+        required: true
+
+permissions:
+  contents: write
+
+jobs:
+  release:
+    name: Build + publish APK
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    defaults:
+      run:
+        working-directory: editor
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Resolve tag
+        id: meta
+        run: |
+          if [ "${{ github.event_name }}" = "workflow_dispatch" ]; then
+            TAG="${{ inputs.tag }}"
+          else
+            TAG="${GITHUB_REF_NAME}"
+          fi
+          echo "tag=$TAG" >> "$GITHUB_OUTPUT"
+          echo "version=${TAG#ankitcutz-v}" >> "$GITHUB_OUTPUT"
+
+      - name: Set up JDK 17
+        uses: actions/setup-java@v5
+        with:
+          distribution: temurin
+          java-version: '17'
+
+      - name: Set up Gradle
+        uses: gradle/actions/setup-gradle@v4
+
+      - name: Unit tests
+        run: ./gradlew --no-daemon --console=plain testReleaseUnitTest
+
+      - name: Assemble signed release APK
+        run: ./gradlew --no-daemon --console=plain assembleRelease
+
+      - name: Name the APK after the tag
+        run: |
+          mkdir -p out
+          cp app/build/outputs/apk/release/*.apk "out/ankitcutz-${{ steps.meta.outputs.version }}.apk"
+          ls -lh out
+
+      - name: Publish release
+        uses: softprops/action-gh-release@v2
+        with:
+          tag_name: ${{ steps.meta.outputs.tag }}
+          name: AnkitCutz ${{ steps.meta.outputs.version }}
+          draft: false
+          prerelease: false
+          generate_release_notes: false
+          body: |
+            **AnkitCutz ${{ steps.meta.outputs.version }}** — Android video editor, phone-only.
+
+            ### Install
+            1. Download `ankitcutz-${{ steps.meta.outputs.version }}.apk` below.
+            2. Open it on your phone; allow "install unknown apps" for your browser/files app.
+            3. Android 8.0 (API 26) or newer. No permissions are requested.
+
+            ### In this build
+            - Projects list: create, open, delete. Saves autosave to app storage.
+            - Editor shell: preview, timeline, transport, split, undo/redo.
+            - Import video/photo via the system Photo Picker (no storage permission).
+            - Effects stack per layer: add, reorder, toggle, duplicate, remove, presets,
+              slider + numeric pill per parameter, keyframe diamonds.
+            - Export: trims the selected clip to H.264/AAC MP4 with Media3 Transformer,
+              then Share. Export uses the **source clip only** — the GPU effect renderer
+              arrives in a later milestone, and the app says so on the export sheet.
+
+            ### Known limits (honest)
+            - Effects are data + UI in v0.2; they are not baked into the export yet.
+            - Single video layer; audio layers and multi-track compositing come later.
+            - Signed with a debug key: sideload only, not a Play-ready build.
+          files: out/*.apk
+          fail_on_unmatched_files: true

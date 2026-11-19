@@ -39,3 +39,11 @@ kissa-backup*.json
 .DS_Store
 coverage/
 __pycache__/
+
+# AnkitCutz Android editor (editor/) — Gradle output, never commit
+/editor/.gradle/
+/editor/build/
+/editor/app/build/
+/editor/local.properties
+/editor/.idea/
+/editor/captures/
