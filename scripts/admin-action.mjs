@@ -10,6 +10,9 @@
  *     accept idea_mwnl6fmj_xgye2tof
  *     reject story_abc123_def456
  *
+ * Short form (`accept` / `reject`) infers idea vs story from the id prefix;
+ * `accept-idea`, `reject-story`, ... also work.
+ *
  * Usage
  *   ADMIN_TOKEN=... node scripts/admin-action.mjs [.github/admin/queue.txt]
  *   ADMIN_TOKEN=... node scripts/admin-action.mjs --dry-run
@@ -57,15 +60,18 @@ if (!token) {
 
 let failures = 0;
 for (const line of lines) {
-  const [action, id, ...rest] = line.split(/\s+/);
-  const route = ROUTES[action];
-  if (!route) {
-    console.error(`::warning title=Unknown action::"${action}" — expected ${Object.keys(ROUTES).join(' | ')}`);
+  const [rawAction, id, ...rest] = line.split(/\s+/);
+  if (!ID_RE.test(id ?? '')) {
+    console.error(`::warning title=Bad id::"${id}" does not look like a submission id`);
     failures++;
     continue;
   }
-  if (!ID_RE.test(id ?? '')) {
-    console.error(`::warning title=Bad id::"${id}" does not look like a submission id`);
+  // `accept` / `reject` infer the type from the submission id prefix.
+  const kind = id.startsWith('story_') ? 'story' : id.startsWith('idea_') ? 'idea' : '';
+  const action = ROUTES[rawAction] ? rawAction : kind ? `${rawAction}-${kind}` : '';
+  const route = ROUTES[action];
+  if (!route) {
+    console.error(`::warning title=Unknown action::"${rawAction}" — expected ${Object.keys(ROUTES).join(' | ')}`);
     failures++;
     continue;
   }
