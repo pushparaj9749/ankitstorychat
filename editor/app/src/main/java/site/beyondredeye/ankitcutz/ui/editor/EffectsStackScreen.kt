@@ -477,10 +477,10 @@ private fun Parameters(state: EditorState, effect: EffectSpec) {
                     value = value?.value ?: param.default,
                     min = param.min,
                     max = param.max,
-                    keyed = value?.keyframes?.any { it.timeUs == 0L } == true,
+                    keyed = value?.keyframes?.any { kotlin.math.abs(it.timeUs - state.playheadMs * 1000) < 16_000L } == true,
                     onValue = { state.updateParam(effect.id, param.key, it) },
                     onCommit = state::commitParamEdit,
-                    onKeyframe = { state.toggleKeyframe(effect.id, param.key, 0L) },
+                    onKeyframe = { state.toggleKeyframe(effect.id, param.key, state.playheadMs * 1000) },
                 )
 
                 ParamType.COLOUR -> ChoiceRow(

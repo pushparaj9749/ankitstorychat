@@ -1,5 +1,7 @@
 package site.beyondredeye.ankitcutz.model
 
+import kotlinx.serialization.Serializable
+
 /**
  * Effects are data, never code-with-a-UI (PLAN.md §6.6).
  *
@@ -63,6 +65,7 @@ val EffectSchema.passCost: Int
         else -> 1
     }
 
+@Serializable
 data class ParamValue(
     val value: Float = 0f,
     val text: String? = null,
@@ -76,10 +79,12 @@ data class ParamValue(
     }
 }
 
+@Serializable
 data class Keyframe(val timeUs: Long, val value: Float)
 
 private var effectSeq = 0
 
+@Serializable
 data class EffectSpec(
     val id: String = "fx-${++effectSeq}",
     val type: EffectType,

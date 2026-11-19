@@ -3,8 +3,8 @@ name: AnkitCutz editor APK
 # Week 1 onward: the video editor in editor/ is a standalone Gradle project.
 # It is deliberately NOT part of the Expo build, so it gets its own workflow.
 #
-# Runs unit tests first (the effects stack is pure Kotlin and fully testable),
-# then builds an installable debug APK and uploads it for the phone.
+# Runs unit tests first (effects stack, timeline math, project store — all pure JVM),
+# then builds an installable release APK and uploads it as an artifact.
 
 on:
   push:
@@ -27,7 +27,7 @@ permissions:
 
 jobs:
   build:
-    name: Test + assemble debug APK
+    name: Test + assemble release APK
     runs-on: ubuntu-latest
     timeout-minutes: 30
     defaults:
@@ -61,10 +61,10 @@ jobs:
           set -o pipefail
           ./gradlew --no-daemon --console=plain testDebugUnitTest 2>&1 | tee /tmp/gradle.log
 
-      - name: Assemble debug APK
+      - name: Assemble release APK
         run: |
           set -o pipefail
-          ./gradlew --no-daemon --console=plain assembleDebug 2>&1 | tee -a /tmp/gradle.log
+          ./gradlew --no-daemon --console=plain assembleRelease 2>&1 | tee -a /tmp/gradle.log
 
       - name: Surface build errors as annotations
         if: always()
@@ -76,7 +76,7 @@ jobs:
       - name: Report APK
         if: always()
         run: |
-          APK=app/build/outputs/apk/debug/app-debug.apk
+          APK=$(ls app/build/outputs/apk/release/*.apk 2>/dev/null | head -1)
           if [ -f "$APK" ]; then
             ls -lh "$APK"
           else
@@ -88,8 +88,8 @@ jobs:
       - name: Upload APK
         uses: actions/upload-artifact@v4
         with:
-          name: ankitcutz-debug-apk
-          path: editor/app/build/outputs/apk/**/*.apk
+          name: ankitcutz-apk
+          path: editor/app/build/outputs/apk/release/*.apk
           if-no-files-found: error
           retention-days: 30
 

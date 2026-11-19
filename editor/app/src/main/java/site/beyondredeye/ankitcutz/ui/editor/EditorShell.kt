@@ -1,5 +1,6 @@
 package site.beyondredeye.ankitcutz.ui.editor
 
+import androidx.compose.foundation.Canvas
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
@@ -17,21 +18,22 @@ import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.automirrored.filled.ArrowBack
 import androidx.compose.material.icons.filled.Add
 import androidx.compose.material.icons.filled.AutoAwesome
 import androidx.compose.material.icons.filled.Category
+import androidx.compose.material.icons.filled.ContentCut
 import androidx.compose.material.icons.filled.FitScreen
 import androidx.compose.material.icons.filled.Fullscreen
 import androidx.compose.material.icons.filled.Layers
 import androidx.compose.material.icons.filled.MusicNote
+import androidx.compose.material.icons.filled.Pause
 import androidx.compose.material.icons.filled.PhotoLibrary
 import androidx.compose.material.icons.filled.PlayArrow
 import androidx.compose.material.icons.filled.Redo
-import androidx.compose.material.icons.filled.Settings
 import androidx.compose.material.icons.filled.SkipNext
 import androidx.compose.material.icons.filled.SkipPrevious
 import androidx.compose.material.icons.filled.Undo
-import androidx.compose.material.icons.automirrored.filled.ArrowBack
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.Surface
@@ -40,30 +42,26 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.geometry.Offset
-import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.Path
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import site.beyondredeye.ankitcutz.model.Layer
+import site.beyondredeye.ankitcutz.model.Clip
 import site.beyondredeye.ankitcutz.model.LayerType
 import site.beyondredeye.ankitcutz.ui.theme.Sizes
 import site.beyondredeye.ankitcutz.ui.theme.Spacing
 import site.beyondredeye.ankitcutz.ui.theme.Tokens
-import androidx.compose.foundation.Canvas
-import androidx.compose.foundation.layout.BoxWithConstraints
 
 /**
  * The editor shell (DESIGN.md §6, screens 16–18).
  *
  * Two rules keep it calm:
- *  1. the panel never covers the preview — it is a fixed band under the ruler;
+ *  1. the panel never covers the preview — it is a fixed band under the timeline;
  *  2. the preview never shrinks while switching tools — the band's content changes,
  *     its height does not.
- *
- * Week 1 renders placeholder media (no decoder yet). Everything else — the shell,
- * the tab switching, the panel band, the effects entry point — is real and stateful.
  */
 enum class EditorTab(val label: String, val icon: ImageVector) {
     SHAPE("Shape", Icons.Filled.Category),
@@ -75,12 +73,9 @@ enum class EditorTab(val label: String, val icon: ImageVector) {
 
 @Composable
 fun EditorShell(
-    projectName: String,
-    layer: Layer,
-    selectedTab: EditorTab,
-    onTabSelected: (EditorTab) -> Unit,
+    state: EditorState,
     onBack: () -> Unit,
-    onOpenEffects: () -> Unit,
+    onImport: () -> Unit,
     onExport: () -> Unit,
 ) {
     Column(
@@ -88,26 +83,61 @@ fun EditorShell(
             .fillMaxSize()
             .background(Tokens.bg),
     ) {
-        TopBar(projectName, onBack, onExport)
-
-        // Preview: flexible, never pushed by the panel.
-        PreviewCanvas(Modifier.weight(1f))
-        ScrubBar()
-        TransportRow()
-        TimeRuler()
-
-        PanelBand(
-            layer = layer,
-            tab = selectedTab,
-            onOpenEffects = onOpenEffects,
+        TopBar(
+            projectName = state.project.name,
+            canUndo = state.canUndo,
+            canRedo = state.canRedo,
+            onBack = onBack,
+            onUndo = state::undo,
+            onRedo = state::redo,
+            onExport = onExport,
         )
 
-        BottomTabs(selected = selectedTab, onSelect = onTabSelected)
+        PreviewStage(
+            clip = state.selectedClip,
+            isPlaying = state.isPlaying,
+            seekNonce = state.seekNonce,
+            playheadMs = state.playheadMs,
+            onTick = state::onPlayerTick,
+            modifier = Modifier
+                .fillMaxWidth()
+                .weight(1f)
+                .padding(horizontal = Spacing.md.dp),
+        )
+
+        Spacer(Modifier.height(Spacing.sm.dp))
+        MiniTimeline(
+            clips = state.clips,
+            durationMs = state.durationMs,
+            playheadMs = state.playheadMs,
+            onSeek = state::seekTo,
+        )
+        TimecodeRow(playheadMs = state.playheadMs, durationMs = state.durationMs)
+
+        TransportRow(
+            isPlaying = state.isPlaying,
+            onTogglePlay = state::togglePlay,
+            onStart = { state.seekTo(0) },
+            onEnd = { state.seekTo(state.durationMs) },
+            onSplit = state::splitAtPlayhead,
+            canSplit = state.durationMs > 0,
+        )
+
+        PanelBand(state = state, onImport = onImport)
+        BottomTabs(selected = state.tab, onSelect = state::selectTab)
     }
 }
 
 @Composable
-private fun TopBar(projectName: String, onBack: () -> Unit, onExport: () -> Unit) {
+private fun TopBar(
+    projectName: String,
+    canUndo: Boolean,
+    canRedo: Boolean,
+    onBack: () -> Unit,
+    onUndo: () -> Unit,
+    onRedo: () -> Unit,
+    onExport: () -> Unit,
+) {
     Row(
         Modifier
             .fillMaxWidth()
@@ -116,17 +146,30 @@ private fun TopBar(projectName: String, onBack: () -> Unit, onExport: () -> Unit
         verticalAlignment = Alignment.CenterVertically,
     ) {
         IconButton(onClick = onBack) {
-            Icon(Icons.AutoMirrored.Filled.ArrowBack, contentDescription = "Back", tint = Tokens.text)
+            Icon(Icons.AutoMirrored.Filled.ArrowBack, contentDescription = "Projects", tint = Tokens.text)
         }
         Text(
             projectName,
             color = Tokens.text,
-            fontSize = 17.sp,
+            fontSize = 16.sp,
             fontWeight = FontWeight.SemiBold,
+            maxLines = 1,
+            overflow = TextOverflow.Ellipsis,
             modifier = Modifier.weight(1f),
         )
-        IconButton(onClick = {}) {
-            Icon(Icons.Filled.Settings, contentDescription = "Project settings", tint = Tokens.textDim)
+        IconButton(onClick = onUndo, enabled = canUndo) {
+            Icon(
+                Icons.Filled.Undo,
+                contentDescription = "Undo",
+                tint = if (canUndo) Tokens.text else Tokens.textFaint,
+            )
+        }
+        IconButton(onClick = onRedo, enabled = canRedo) {
+            Icon(
+                Icons.Filled.Redo,
+                contentDescription = "Redo",
+                tint = if (canRedo) Tokens.text else Tokens.textFaint,
+            )
         }
         ActionPill(label = "Export", onClick = onExport)
         Spacer(Modifier.width(Spacing.sm.dp))
@@ -140,83 +183,24 @@ fun ActionPill(label: String, onClick: () -> Unit, modifier: Modifier = Modifier
         color = Tokens.action,
         shape = RoundedCornerShape(percent = 50),
         modifier = modifier
-            .height(34.dp)
+            .height(32.dp)
             .clickable(onClick = onClick),
     ) {
-        Box(Modifier.padding(horizontal = 18.dp), contentAlignment = Alignment.Center) {
-            Text(label, color = Color.White, fontSize = 14.sp, fontWeight = FontWeight.Bold)
+        Box(Modifier.padding(horizontal = 16.dp), contentAlignment = Alignment.Center) {
+            Text(label, color = Color.White, fontSize = 13.sp, fontWeight = FontWeight.Bold)
         }
     }
 }
 
 @Composable
-private fun PreviewCanvas(modifier: Modifier = Modifier) {
-    BoxWithConstraints(modifier.fillMaxWidth().padding(horizontal = Spacing.md.dp)) {
-        Box(
-            Modifier
-                .fillMaxSize()
-                .background(
-                    Brush.linearGradient(
-                        listOf(Color(0xFF1A1030), Color(0xFF0E1A26), Tokens.bg),
-                    ),
-                ),
-            contentAlignment = Alignment.Center,
-        ) {
-            Column(horizontalAlignment = Alignment.CenterHorizontally) {
-                Text(
-                    "PREVIEW",
-                    color = Tokens.textFaint,
-                    fontSize = 11.sp,
-                    letterSpacing = 3.sp,
-                )
-                Spacer(Modifier.height(Spacing.sm.dp))
-                Text(
-                    "Media import — Week 2",
-                    color = Tokens.textDim,
-                    fontSize = 13.sp,
-                )
-            }
-            Text(
-                "FIT  ·  9:16",
-                color = Tokens.textFaint,
-                fontSize = 10.sp,
-                modifier = Modifier
-                    .align(Alignment.BottomEnd)
-                    .padding(Spacing.sm.dp),
-            )
-        }
-    }
-}
-
-@Composable
-private fun ScrubBar() {
-    Column(Modifier.padding(horizontal = Spacing.lg.dp, vertical = Spacing.sm.dp)) {
-        Box(
-            Modifier
-                .fillMaxWidth()
-                .height(Sizes.scrubTrack.dp)
-                .background(Tokens.surface3, RoundedCornerShape(percent = 50)),
-        ) {
-            Box(
-                Modifier
-                    .fillMaxWidth(0.35f)
-                    .height(Sizes.scrubTrack.dp)
-                    .background(Tokens.primary, RoundedCornerShape(percent = 50)),
-            )
-            Box(
-                Modifier
-                    .align(Alignment.CenterStart)
-                    .padding(start = 0.dp)
-                    .width(2.dp)
-                    .height(Sizes.scrubThumb.dp)
-                    .background(Tokens.primary),
-            )
-        }
-    }
-}
-
-@Composable
-private fun TransportRow() {
+private fun TransportRow(
+    isPlaying: Boolean,
+    onTogglePlay: () -> Unit,
+    onStart: () -> Unit,
+    onEnd: () -> Unit,
+    onSplit: () -> Unit,
+    canSplit: Boolean,
+) {
     Row(
         Modifier
             .fillMaxWidth()
@@ -225,124 +209,175 @@ private fun TransportRow() {
         horizontalArrangement = Arrangement.SpaceBetween,
         verticalAlignment = Alignment.CenterVertically,
     ) {
-        TransportIcon(Icons.Filled.Undo, "Undo")
-        TransportIcon(Icons.Filled.Redo, "Redo")
-        TransportIcon(Icons.Filled.SkipPrevious, "Jump to start")
-        TransportIcon(Icons.Filled.PlayArrow, "Play", tint = Tokens.text)
-        TransportIcon(Icons.Filled.SkipNext, "Jump to end")
-        TransportIcon(Icons.Filled.FitScreen, "Fit")
-        TransportIcon(Icons.Filled.Fullscreen, "Fullscreen")
+        TransportIcon(Icons.Filled.SkipPrevious, "Jump to start", onClick = onStart)
+        TransportIcon(Icons.Filled.ContentCut, "Split at playhead", tint = if (canSplit) Tokens.textDim else Tokens.textFaint, onClick = onSplit)
+        Box(
+            Modifier
+                .size(40.dp)
+                .background(Tokens.primaryDim, CircleShape)
+                .clickable(onClick = onTogglePlay),
+            contentAlignment = Alignment.Center,
+        ) {
+            Icon(
+                if (isPlaying) Icons.Filled.Pause else Icons.Filled.PlayArrow,
+                contentDescription = if (isPlaying) "Pause" else "Play",
+                tint = Tokens.primary,
+                modifier = Modifier.size(24.dp),
+            )
+        }
+        TransportIcon(Icons.Filled.SkipNext, "Jump to end", onClick = onEnd)
+        TransportIcon(Icons.Filled.FitScreen, "Fit", onClick = {})
+        TransportIcon(Icons.Filled.Fullscreen, "Fullscreen", onClick = {})
     }
 }
 
 @Composable
-private fun TransportIcon(icon: ImageVector, label: String, tint: Color = Tokens.textDim) {
-    IconButton(onClick = {}) {
+private fun TransportIcon(icon: ImageVector, label: String, tint: Color = Tokens.textDim, onClick: () -> Unit = {}) {
+    IconButton(onClick = onClick) {
         Icon(icon, contentDescription = label, tint = tint, modifier = Modifier.size(Sizes.transportIcon.dp))
     }
 }
 
-/** Tick ruler; the playhead pill sits on it (DESIGN.md §6.1). */
+/** The fixed panel band: switching tabs swaps only this content. */
 @Composable
-private fun TimeRuler() {
-    BoxWithConstraints(
-        Modifier
-            .fillMaxWidth()
-            .height(Sizes.ruler.dp)
-            .padding(horizontal = Spacing.md.dp),
-    ) {
-        val ticks = 41
-        Canvas(Modifier.fillMaxSize()) {
-            val step = size.width / (ticks - 1)
-            repeat(ticks) { i ->
-                val tall = i % 10 == 0
-                val h = if (tall) size.height * 0.55f else size.height * 0.28f
-                drawLine(
-                    color = if (tall) Tokens.textFaint else Tokens.hairline,
-                    start = Offset(i * step, 0f),
-                    end = Offset(i * step, h),
-                    strokeWidth = if (tall) 1.4f else 1f,
-                )
-            }
-        }
-        Surface(
-            color = Tokens.surface3,
-            shape = RoundedCornerShape(percent = 50),
-            modifier = Modifier.align(Alignment.Center).height(22.dp),
-        ) {
-            Box(Modifier.padding(horizontal = 12.dp), contentAlignment = Alignment.Center) {
-                Text("00:00:00", color = Tokens.text, fontSize = 12.sp)
-            }
-        }
-    }
-}
-
-/**
- * The fixed panel band. Switching tabs swaps ONLY this content — the preview above is
- * untouched, which is the whole point of the Alight-style layout.
- */
-@Composable
-private fun PanelBand(layer: Layer, tab: EditorTab, onOpenEffects: () -> Unit) {
+private fun PanelBand(state: EditorState, onImport: () -> Unit) {
     Column(
         Modifier
             .fillMaxWidth()
-            .height(330.dp)
+            .height(300.dp)
             .background(Tokens.surface),
     ) {
         Box(Modifier.fillMaxWidth().height(1.dp).background(Tokens.hairline))
-        when (tab) {
-            EditorTab.LAYERS -> LayersPanelContent(layer, onOpenEffects)
+        when (state.tab) {
+            EditorTab.LAYERS -> LayersPanelContent(state, onImport)
             EditorTab.SHAPE -> ShapePanelContent()
-            else -> PlaceholderPanel(tab)
+            EditorTab.MEDIA -> MediaPanelContent(state, onImport)
+            else -> PlaceholderPanel(state.tab)
         }
     }
 }
 
 @Composable
-private fun LayersPanelContent(layer: Layer, onOpenEffects: () -> Unit) {
+private fun LayersPanelContent(state: EditorState, onImport: () -> Unit) {
+    val layer = state.selectedLayer
     Column(Modifier.padding(Spacing.md.dp)) {
-        Text("LAYERS", color = Tokens.textFaint, fontSize = 10.sp, letterSpacing = 1.5.sp)
-        Spacer(Modifier.height(Spacing.sm.dp))
         Row(verticalAlignment = Alignment.CenterVertically) {
-            LayerRowBadge(layer)
-            Spacer(Modifier.width(Spacing.sm.dp))
-            Column(Modifier.weight(1f)) {
-                Text(layer.name, color = Tokens.text, fontSize = 14.sp, fontWeight = FontWeight.SemiBold)
-                Text(
-                    "${layer.type.label} · ${layer.effectCount} fx",
-                    color = Tokens.textFaint,
-                    fontSize = 11.sp,
-                )
-            }
-            Text("00:12", color = Tokens.textDim, fontSize = 11.sp)
+            Text("LAYERS", color = Tokens.textFaint, fontSize = 10.sp, letterSpacing = 1.5.sp, modifier = Modifier.weight(1f))
+            Text(
+                "＋ Add",
+                color = Tokens.primary,
+                fontSize = 11.sp,
+                modifier = Modifier
+                    .background(Tokens.primaryDim, RoundedCornerShape(percent = 50))
+                    .clickable(onClick = onImport)
+                    .padding(horizontal = 10.dp, vertical = 4.dp),
+            )
         }
-        Spacer(Modifier.height(Spacing.md.dp))
-        Text("SELECTED LAYER TOOLS", color = Tokens.textFaint, fontSize = 10.sp, letterSpacing = 1.5.sp)
+        Spacer(Modifier.height(Spacing.sm.dp))
+
+        layer.clips.forEach { clip ->
+            ClipRow(
+                clip = clip,
+                selected = clip.id == state.selectedClip?.id,
+                onClick = { state.selectClip(clip.id) },
+                onDelete = { state.removeClip(clip.id) },
+            )
+            Spacer(Modifier.height(Spacing.xs.dp))
+        }
+        if (layer.clips.isEmpty()) {
+            EmptyTrackHint(onImport = onImport)
+        }
+
+        Spacer(Modifier.height(Spacing.sm.dp))
+        Text("TOOLS", color = Tokens.textFaint, fontSize = 10.sp, letterSpacing = 1.5.sp)
         Spacer(Modifier.height(Spacing.sm.dp))
         Row(horizontalArrangement = Arrangement.spacedBy(Spacing.sm.dp)) {
-            ToolTile("Effects", Icons.Filled.AutoAwesome, onClick = onOpenEffects, highlighted = true)
-            ToolTile("Colour", Icons.Filled.Category, onClick = {})
-            ToolTile("Transform", Icons.Filled.FitScreen, onClick = {})
+            ToolTile(
+                label = "Effects · ${layer.effects.size}",
+                icon = Icons.Filled.AutoAwesome,
+                onClick = state::openEffects,
+                highlighted = true,
+            )
+            ToolTile(
+                label = "Split",
+                icon = Icons.Filled.ContentCut,
+                onClick = state::splitAtPlayhead,
+            )
+            ToolTile(
+                label = "Export",
+                icon = Icons.Filled.Fullscreen,
+                onClick = { state.exportOpen = true },
+            )
         }
-        Spacer(Modifier.height(Spacing.md.dp))
+    }
+}
+
+@Composable
+private fun ClipRow(clip: Clip, selected: Boolean, onClick: () -> Unit, onDelete: () -> Unit) {
+    Row(
+        Modifier
+            .fillMaxWidth()
+            .height(40.dp)
+            .background(if (selected) Tokens.surface3 else Tokens.surface2, RoundedCornerShape(8.dp))
+            .border(1.dp, if (selected) Tokens.primary else Tokens.hairline, RoundedCornerShape(8.dp))
+            .clickable(onClick = onClick)
+            .padding(horizontal = Spacing.sm.dp),
+        verticalAlignment = Alignment.CenterVertically,
+    ) {
+        Box(
+            Modifier
+                .size(width = 26.dp, height = 26.dp)
+                .background(if (selected) Tokens.primary else Tokens.primaryDim, RoundedCornerShape(6.dp)),
+            contentAlignment = Alignment.Center,
+        ) {
+            Text(if (clip.isVideo) "▶" else "▣", color = if (selected) Tokens.bg else Tokens.primary, fontSize = 10.sp)
+        }
+        Spacer(Modifier.width(Spacing.sm.dp))
+        Column(Modifier.weight(1f)) {
+            Text(clip.name, color = Tokens.text, fontSize = 12.sp, maxLines = 1, overflow = TextOverflow.Ellipsis)
+            Text(
+                "${timecode(clip.timelineStartMs)}  ·  ${fmtSeconds(clip.durationMs)}",
+                color = Tokens.textFaint,
+                fontSize = 9.sp,
+            )
+        }
         Text(
-            "Week 1: shell + effects stack are live. Media import, timeline gestures and export follow.",
+            "✕",
             color = Tokens.textFaint,
-            fontSize = 11.sp,
+            fontSize = 12.sp,
+            modifier = Modifier
+                .clickable(onClick = onDelete)
+                .padding(horizontal = 6.dp, vertical = 4.dp),
         )
     }
 }
 
+private fun fmtSeconds(ms: Long): String {
+    val s = ms / 1000.0
+    return if (s < 10) String.format("%.1fs", s) else "${ms / 1000}s"
+}
+
 @Composable
-private fun LayerRowBadge(layer: Layer) {
-    Box(
-        Modifier
-            .size(34.dp)
-            .background(Tokens.primaryDim, RoundedCornerShape(8.dp))
-            .border(1.dp, Tokens.hairline, RoundedCornerShape(8.dp)),
-        contentAlignment = Alignment.Center,
-    ) {
-        Text(layer.type.label.take(1), color = Tokens.accentFor(layer.type), fontSize = 14.sp)
+private fun MediaPanelContent(state: EditorState, onImport: () -> Unit) {
+    Column(Modifier.padding(Spacing.md.dp)) {
+        Text("MEDIA", color = Tokens.textFaint, fontSize = 10.sp, letterSpacing = 1.5.sp)
+        Spacer(Modifier.height(Spacing.sm.dp))
+        Text(
+            "Imported clips stay on your phone. Nothing is uploaded, ever.",
+            color = Tokens.textDim,
+            fontSize = 11.sp,
+        )
+        Spacer(Modifier.height(Spacing.md.dp))
+        Row(horizontalArrangement = Arrangement.spacedBy(Spacing.sm.dp)) {
+            ToolTile("Import video", Icons.Filled.PhotoLibrary, onClick = onImport, highlighted = true)
+            ToolTile("Add audio", Icons.Filled.MusicNote, onClick = {})
+        }
+        Spacer(Modifier.height(Spacing.md.dp))
+        Text(
+            "${state.project.clipCount} clip(s) · ${timecode(state.durationMs)} on the timeline",
+            color = Tokens.textFaint,
+            fontSize = 11.sp,
+        )
     }
 }
 
@@ -355,25 +390,20 @@ private fun ToolTile(
 ) {
     Column(
         Modifier
-            .width(88.dp)
-            .height(64.dp)
+            .width(92.dp)
+            .height(62.dp)
             .background(Tokens.surface2, RoundedCornerShape(12.dp))
-            .border(
-                1.dp,
-                if (highlighted) Tokens.primary else Tokens.hairline,
-                RoundedCornerShape(12.dp),
-            )
+            .border(1.dp, if (highlighted) Tokens.primary else Tokens.hairline, RoundedCornerShape(12.dp))
             .clickable(onClick = onClick),
         horizontalAlignment = Alignment.CenterHorizontally,
         verticalArrangement = Arrangement.Center,
     ) {
-        Icon(icon, contentDescription = label, tint = Tokens.primary, modifier = Modifier.size(20.dp))
+        Icon(icon, contentDescription = label, tint = if (highlighted) Tokens.primary else Tokens.textDim, modifier = Modifier.size(20.dp))
         Spacer(Modifier.height(4.dp))
-        Text(label, color = Tokens.text, fontSize = 11.sp)
+        Text(label, color = Tokens.text, fontSize = 10.sp, maxLines = 1)
     }
 }
 
-/** 20+ vector shapes, drawn with Canvas so no icon-font dependency is needed. */
 @Composable
 private fun ShapePanelContent() {
     Column(Modifier.padding(Spacing.md.dp)) {
@@ -402,7 +432,6 @@ private fun ShapePanelContent() {
 @Composable
 private fun ShapeGlyph(name: String) {
     Canvas(Modifier.size(28.dp)) {
-        val stroke = 2f
         when (name) {
             "Circle" -> drawCircle(Tokens.textDim, radius = size.minDimension / 2f)
             "Square" -> drawRect(Tokens.textDim, size = size * 0.92f)
@@ -411,64 +440,62 @@ private fun ShapeGlyph(name: String) {
                 drawRect(Tokens.textDim, size = androidx.compose.ui.geometry.Size(w * 0.9f, w * 0.22f), topLeft = Offset(w * 0.05f, w * 0.39f))
                 drawRect(Tokens.textDim, size = androidx.compose.ui.geometry.Size(w * 0.22f, w * 0.9f), topLeft = Offset(w * 0.39f, w * 0.05f))
             }
-            "Triangle" -> {
-                val path = androidx.compose.ui.graphics.Path().apply {
-                    moveTo(size.width / 2f, 0f)
-                    lineTo(size.width, size.height)
-                    lineTo(0f, size.height)
-                    close()
-                }
-                drawPath(path, Tokens.textDim)
-            }
-            "Diamond" -> {
-                val path = androidx.compose.ui.graphics.Path().apply {
-                    moveTo(size.width / 2f, 0f)
-                    lineTo(size.width, size.height / 2f)
-                    lineTo(size.width / 2f, size.height)
-                    lineTo(0f, size.height / 2f)
-                    close()
-                }
-                drawPath(path, Tokens.textDim)
-            }
-            "Star" -> {
-                val path = androidx.compose.ui.graphics.Path()
-                val cx = size.width / 2f
-                val cy = size.height / 2f
-                val outer = size.minDimension / 2f
-                val inner = outer * 0.45f
-                repeat(10) { i ->
-                    val angle = Math.toRadians((i * 36 - 90).toDouble())
-                    val r = if (i % 2 == 0) outer else inner
-                    val x = cx + (r * Math.cos(angle)).toFloat()
-                    val y = cy + (r * Math.sin(angle)).toFloat()
-                    if (i == 0) path.moveTo(x, y) else path.lineTo(x, y)
-                }
-                path.close()
-                drawPath(path, Tokens.textDim)
-            }
-            "Hexagon" -> {
-                val path = androidx.compose.ui.graphics.Path()
-                val cx = size.width / 2f
-                val cy = size.height / 2f
-                val r = size.minDimension / 2f
-                repeat(6) { i ->
-                    val angle = Math.toRadians((i * 60 - 90).toDouble())
-                    val x = cx + (r * Math.cos(angle)).toFloat()
-                    val y = cy + (r * Math.sin(angle)).toFloat()
-                    if (i == 0) path.moveTo(x, y) else path.lineTo(x, y)
-                }
-                path.close()
-                drawPath(path, Tokens.textDim)
-            }
-            else -> drawCircle(Tokens.textDim, radius = size.minDimension / 2f - stroke)
+            "Triangle" -> drawPath(
+                Path().apply {
+                    moveTo(size.width / 2f, 0f); lineTo(size.width, size.height); lineTo(0f, size.height); close()
+                },
+                Tokens.textDim,
+            )
+            "Diamond" -> drawPath(
+                Path().apply {
+                    moveTo(size.width / 2f, 0f); lineTo(size.width, size.height / 2f)
+                    lineTo(size.width / 2f, size.height); lineTo(0f, size.height / 2f); close()
+                },
+                Tokens.textDim,
+            )
+            "Star" -> drawPath(starPath(), Tokens.textDim)
+            "Hexagon" -> drawPath(polygonPath(6), Tokens.textDim)
+            else -> drawCircle(Tokens.textDim, radius = size.minDimension / 2f - 2f)
         }
     }
+}
+
+private fun androidx.compose.ui.graphics.drawscope.DrawScope.starPath(): Path {
+    val path = Path()
+    val cx = size.width / 2f
+    val cy = size.height / 2f
+    val outer = size.minDimension / 2f
+    val inner = outer * 0.45f
+    repeat(10) { i ->
+        val angle = Math.toRadians((i * 36 - 90).toDouble())
+        val r = if (i % 2 == 0) outer else inner
+        val x = cx + (r * Math.cos(angle)).toFloat()
+        val y = cy + (r * Math.sin(angle)).toFloat()
+        if (i == 0) path.moveTo(x, y) else path.lineTo(x, y)
+    }
+    path.close()
+    return path
+}
+
+private fun androidx.compose.ui.graphics.drawscope.DrawScope.polygonPath(sides: Int): Path {
+    val path = Path()
+    val cx = size.width / 2f
+    val cy = size.height / 2f
+    val r = size.minDimension / 2f
+    repeat(sides) { i ->
+        val angle = Math.toRadians((i * 360.0 / sides - 90).toDouble())
+        val x = cx + (r * Math.cos(angle)).toFloat()
+        val y = cy + (r * Math.sin(angle)).toFloat()
+        if (i == 0) path.moveTo(x, y) else path.lineTo(x, y)
+    }
+    path.close()
+    return path
 }
 
 @Composable
 private fun PlaceholderPanel(tab: EditorTab) {
     Box(Modifier.fillMaxSize(), contentAlignment = Alignment.Center) {
-        Text("${tab.label} — coming in a later week", color = Tokens.textFaint, fontSize = 12.sp)
+        Text("${tab.label} — later milestone", color = Tokens.textFaint, fontSize = 12.sp)
     }
 }
 
@@ -497,17 +524,12 @@ private fun BottomTabs(selected: EditorTab, onSelect: (EditorTab) -> Unit) {
                     modifier = Modifier.size(20.dp),
                 )
                 Spacer(Modifier.height(3.dp))
-                Text(
-                    tab.label,
-                    color = if (active) Tokens.primary else Tokens.textFaint,
-                    fontSize = 10.sp,
-                )
+                Text(tab.label, color = if (active) Tokens.primary else Tokens.textFaint, fontSize = 10.sp)
             }
         }
     }
 }
 
-/** Small floating add button used by panels that add layers. */
 @Composable
 fun AddFab(onClick: () -> Unit, modifier: Modifier = Modifier) {
     Surface(
@@ -521,5 +543,4 @@ fun AddFab(onClick: () -> Unit, modifier: Modifier = Modifier) {
     }
 }
 
-/** Shared layer accent helper for screens outside this file. */
 fun layerAccent(type: LayerType): Color = Tokens.accentFor(type)

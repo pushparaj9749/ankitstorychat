@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<paths>
+    <!-- Only our own exports are shareable; nothing else on the device is exposed. -->
+    <external-files-path name="exports" path="Movies/AnkitCutz/" />
+    <files-path name="internal_exports" path="exports/" />
+</paths>

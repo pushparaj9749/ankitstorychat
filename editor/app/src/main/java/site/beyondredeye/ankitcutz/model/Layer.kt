@@ -1,5 +1,6 @@
 package site.beyondredeye.ankitcutz.model
 
+import kotlinx.serialization.Serializable
 import java.util.UUID
 
 /**
@@ -22,6 +23,7 @@ enum class LayerType(val label: String) {
     GROUP("Group"),
 }
 
+@Serializable
 data class Layer(
     val id: String = newId(),
     val name: String,
@@ -30,6 +32,7 @@ data class Layer(
     val locked: Boolean = false,
     val muted: Boolean = false,
     val effects: List<EffectSpec> = emptyList(),
+    val clips: List<Clip> = emptyList(),
     val children: List<Layer> = emptyList(),
 ) {
     /** True when this layer (or any child) has at least one effect. */
