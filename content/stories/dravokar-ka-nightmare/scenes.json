@@ -1,0 +1,654 @@
+{
+  "storyId": "dravokar-ka-nightmare",
+  "version": 1,
+  "scenes": [
+    {
+      "id": "s1_throne",
+      "title": "Kaal Mahal Ka Bhaari Mukut",
+      "narration": [
+        "*Aankh khulti hai to pehli cheez dard hai — kisi aur jism ka bhaari dard, jaise {{playerName}} ne apna shareer nahi, ek pura pahaad pehna ho.*",
+        "*Saamne teen sau demon ghutnon par hain. Chhat se latakti kaali laalten dheere-dheere jhool rahi hain, aur har laalten ke neeche ek chehra hai jo upar dekhne ki himmat nahi kar raha.*",
+        "Niyati: \"Uth jao, Boss. Aaj tumhare paas do hi options hain — ya tum Dravokar ke naye demon king ho, ya tum ek bhaari kursi par baithe hue aadmi ho jo agle das minute mein khatam ho jaayega.\"",
+        "*Aankhon ke aage ek pili roshni phailti hai: chhota sa panel, ek health bar, aur ek quest jo sirf tum dekh sakte ho.*",
+        "Niyati: \"Daily quest: 'Apne naukar ka naam poochho.' Reward: bees exp aur ek kaam ka jawab. Penalty: poora court jaan jaayega ki naya raja kuch nahi jaanta.\"",
+        "Senapati Vajra: \"Maharaj... aadesh?\"",
+        "*Tumhare haath kaanp rahe hain. Mukut sar par itna bhaari hai ki gardan apne aap jhuk jaati hai. Is hall ka sabse naya, sabse anadi aur shayad sabse khatarnaak aadmi ab tum ho.*"
+      ],
+      "fallbackLines": [
+        "*Teen sau demon tumhe dekhte hain. Ek bhi shabd galat hua to ye hall ek afwah ban jaayega.*",
+        "Niyati: \"Boss, chhota sa time-out le lo. Par time-out bhi ek faisla hota hai.\"",
+        "Senapati Vajra: \"Maharaj, sena intezaar kar rahi hai.\""
+      ],
+      "choices": [
+        {
+          "id": "c_hide_tremble",
+          "text": "Haath chhupa kar seedha baithta hoon aur poochhta hoon: \"Senapati, aapka naam?\"",
+          "shortLabel": "Naam poochho",
+          "keywords": [
+            "naam",
+            "kaun",
+            "senapati",
+            "poochho",
+            "vajra",
+            "pehchan"
+          ],
+          "effects": {
+            "relationships": {
+              "vajra": 3
+            },
+            "location": "kaal-mahal",
+            "choicesRecord": {
+              "openingResponse": "asked-the-general-name"
+            },
+            "memory": [
+              "{{playerName}} ne pehle apne senapati ka naam poochha, taaj ki shaan dikhane ke bajaye."
+            ]
+          },
+          "next": "s2_court"
+        },
+        {
+          "id": "c_declare",
+          "text": "Khada ho kar bhaari awaaz mein kehta hoon: \"Main Dravokar ka raja hoon. Sab apna kaam karo.\"",
+          "shortLabel": "Raja ki awaaz",
+          "keywords": [
+            "raja",
+            "aadesh",
+            "main hoon",
+            "ghumao",
+            "dhamki",
+            "takht"
+          ],
+          "effects": {
+            "relationships": {
+              "vajra": -2,
+              "yamini": 1
+            },
+            "location": "kaal-mahal",
+            "choicesRecord": {
+              "openingResponse": "claimed-the-throne"
+            },
+            "memory": [
+              "{{playerName}} ne pehle hi kshan mein khud ko Dravokar ka raja ghoshit kar diya, kyunki darr chhupana zaroori tha."
+            ]
+          },
+          "next": "s2_court"
+        },
+        {
+          "id": "c_whisper_system",
+          "text": "Niyati se dheere se poochhta hoon: \"Main yahan kaise aaya, aur wapas kaise jaunga?\"",
+          "shortLabel": "System se poochho",
+          "keywords": [
+            "kaise",
+            "wapas",
+            "system",
+            "niyati",
+            "ghar",
+            "earth"
+          ],
+          "effects": {
+            "relationships": {
+              "niyati": 4
+            },
+            "location": "kaal-mahal",
+            "choicesRecord": {
+              "openingResponse": "asked-the-system"
+            },
+            "memory": [
+              "{{playerName}} ne sabse pehle ghar wapas jaane ka raasta poochha, taaj nahi."
+            ]
+          },
+          "next": "s3_palace"
+        }
+      ]
+    },
+    {
+      "id": "s2_court",
+      "title": "Teen Sau Ghutne, Ek Sawaal",
+      "narration": [
+        "*Kaal Mahal ka sabse bada hall. Chhat tak kaali laalten, farsh par kaala pathhar, aur do kinaron par nau-nau sardar khade hain — har aankh mein ek hi sawaal: naya raja kaisa niklega?*",
+        "Senapati Vajra: \"Maharaj, seema se sandesh aaya hai. Manav sena ne teen gaon jalaye hain. Sardar kehte hain humein wapas waar karna chahiye. Aapka aadesh?\"",
+        "Niyati: \"Trap question alert. 'Haan' bologe to tumhe barbaad raja samjhenge. 'Nahi' bologe to kamzor. Aur tum abhi tak mera tutorial bhi nahi padha, Boss.\"",
+        "*Hall ki hawa ruk gayi hai. Vajra tumhe dekh raha hai — aankhein jhuki hui nahi, seedhi, jaise woh jawab se pehle tumhari nabz naapna chahta ho.*",
+        "Niyati: \"Quest update: 'Aisa aadesh do jo tum sach mein samajhte ho.' Reward: chalees exp aur senapati ka aadha bharosa.\"",
+        "*Tumhare dimaag mein Earth ki woh raatein hain jinmein tum ek chhote se message se bhi darr jaate the. Aur yahan teen sau demon tumse ek pura yuddh maang rahe hain.*"
+      ],
+      "fallbackLines": [
+        "*Sardar aapas mein dheere-dheere baat kar rahe hain. Unme se ek muskuraya — aur woh muskaan kaam ki nahi hai.*",
+        "Niyati: \"Boss, chup rehna bhi ek aadesh hai. Bas thoda bura wala.\"",
+        "Senapati Vajra: \"Maharaj, sena aapke shabd ka intezaar kar rahi hai.\""
+      ],
+      "choices": [
+        {
+          "id": "c_ask_details",
+          "text": "Pehle poochhta hoon: \"Kaunse teen gaon, aur unmein kitne log the?\"",
+          "shortLabel": "Pehle jaankari",
+          "keywords": [
+            "kaunse gaon",
+            "kitne log",
+            "jaankari",
+            "detail",
+            "poochho",
+            "pehle"
+          ],
+          "effects": {
+            "relationships": {
+              "vajra": 4,
+              "chhaya": 1
+            },
+            "location": "kaal-mahal",
+            "memory": [
+              "{{playerName}} ne jung ka aadesh dene se pehle gaon aur logon ki ginti poochhi — court ko ye naya laga."
+            ]
+          },
+          "next": "s3_palace"
+        },
+        {
+          "id": "c_order_restraint",
+          "text": "Aadesh deta hoon: \"Koi waar nahi. Pehle main khud seema dekhunga.\"",
+          "shortLabel": "Pehle khud dekho",
+          "keywords": [
+            "khud jaunga",
+            "seema",
+            "no war",
+            "ruk jao",
+            "dekhta hoon",
+            "shanti"
+          ],
+          "effects": {
+            "relationships": {
+              "vajra": 2,
+              "kaalnemi": -3
+            },
+            "location": "asura-bazaar",
+            "memory": [
+              "{{playerName}} ne turant jung ka aadesh nahi diya; usne khud seema jaakar dekhne ka faisla liya."
+            ]
+          },
+          "next": "s4_bazaar"
+        },
+        {
+          "id": "c_admit_truth",
+          "text": "Sabke saamne kehta hoon: \"Main purana raja nahi hoon. Main kisi aur duniya se aaya hoon.\"",
+          "shortLabel": "Sach ugal do",
+          "keywords": [
+            "sach",
+            "main raja nahi",
+            "doosri duniya",
+            "iman",
+            "jhooth nahi",
+            "asli"
+          ],
+          "effects": {
+            "relationships": {
+              "vajra": 6,
+              "kaalnemi": -6,
+              "yamini": 3
+            },
+            "location": "kaal-mahal",
+            "memory": [
+              "{{playerName}} ne court ke saamne khud maana ki woh purana raja nahi hai — ek bahut bada aur bahut khatarnaak sach."
+            ]
+          },
+          "next": "s3_palace"
+        }
+      ]
+    },
+    {
+      "id": "s3_palace",
+      "title": "Yamini Ka Chhupa Test",
+      "narration": [
+        "*Raaste mein Yamini milti hai — kaali poshaak, chhoti si tilak, aur aankhon mein woh chamak jo sirf un logon ki hoti hai jinke paas chhupane layak kuch ho.*",
+        "Yamini: \"Maharaj ne aaj subah apna pasandeeda nashta nahi maanga. Na hi purana naam liya. Main saat saal se aapki chai banati hoon — aap bhool gaye, ya badal gaye?\"",
+        "*Woh jhukti hai, par uski nazar tumhare chehre se hatti nahi. Pehli baar kisi ne woh seedha poochh liya jo baaki sab sirf soch rahe hain.*",
+        "Niyati: \"Yamini Dravokar ki sabse purani naukar hai. Uske file mein 'loyal' likha hai, par loyalty ka matlab 'andha' nahi hota, Boss.\"",
+        "Yamini: \"Agar aap sach mein wahi raja ho jisne mujhe us raat bachaya tha, to aapko yaad hoga ki aapne mujhse kya kaha tha. Batao.\"",
+        "*Tumhare paas jawab nahi hai. Sirf ek pili roshni kaan ke paas dheere se gunjti hai.*",
+        "Niyati: \"Hint chahiye? Ek hint ka daam das exp hai. Tumhare paas bees hain. Toh... soch lo.\""
+      ],
+      "fallbackLines": [
+        "*Yamini ka sawaal hawa mein latak raha hai. Woh jaldi nahi kar rahi — aur yahi sabse darawni baat hai.*",
+        "Niyati: \"Boss, jhooth bolna free hai. Bas yaad rakhna, ye aurat jhooth ko sungh leti hai.\"",
+        "Yamini: \"Maharaj, main raat bhar intezaar kar sakti hoon. Sach nahi.\""
+      ],
+      "choices": [
+        {
+          "id": "c_buy_hint",
+          "text": "Niyati se hint kharidta hoon (das exp) aur yaad dilane ki koshish karta hoon.",
+          "shortLabel": "Hint kharido",
+          "keywords": [
+            "hint",
+            "khareed",
+            "exp",
+            "yaad",
+            "system",
+            "madad"
+          ],
+          "effects": {
+            "relationships": {
+              "niyati": 2,
+              "yamini": -1
+            },
+            "location": "kaal-mahal",
+            "memory": [
+              "{{playerName}} ne apna aadha exp ek hint par kharch kiya, taaki Yamini ke saamne jhooth na bole."
+            ]
+          },
+          "next": "s4_bazaar"
+        },
+        {
+          "id": "c_admit_forget",
+          "text": "Seedha maanta hoon: \"Mujhe yaad nahi. Main tumse jhooth nahi bolunga.\"",
+          "shortLabel": "Sach maano",
+          "keywords": [
+            "yaad nahi",
+            "sach",
+            "maanta hoon",
+            "jhooth nahi",
+            "bhool gaya",
+            "iman"
+          ],
+          "effects": {
+            "relationships": {
+              "yamini": 6
+            },
+            "location": "kaal-mahal",
+            "memory": [
+              "{{playerName}} ne Yamini ko seedha bola ki usse kuch yaad nahi — aur jhooth na bolne ka waada kiya."
+            ]
+          },
+          "next": "s4_bazaar"
+        },
+        {
+          "id": "c_reverse_test",
+          "text": "Palat kar poochhta hoon: \"Aur tum? Tumhe kaise pata chalega ki main asli hoon?\"",
+          "shortLabel": "Sawaal palto",
+          "keywords": [
+            "tum batao",
+            "kaise pata",
+            "palat",
+            "sawaal",
+            "tumhe kaise",
+            "test"
+          ],
+          "effects": {
+            "relationships": {
+              "yamini": 3,
+              "kaalnemi": -2
+            },
+            "location": "soch-kund",
+            "memory": [
+              "{{playerName}} ne Yamini ke test ko palat kar usse hi ek test diya — aur woh thodi der ke liye ruk gayi."
+            ]
+          },
+          "next": "s5_dream"
+        }
+      ]
+    },
+    {
+      "id": "s4_bazaar",
+      "title": "Asura Bazaar",
+      "narration": [
+        "*Kaal Mahal se neeche utarte hi hawa badal jaati hai — dhuen, garam masala, jalta hua loha aur unnis tarah ke jhooth.*",
+        "*Asura Bazaar mein har cheez bikti hai: talwaar, yaad aur naam. Chhaya apni chhoti si dukaan mein baithi hai, aadhi manav aur aadhi demon — aur poore bazaar ki sabse tez zubaan.*",
+        "Chhaya: \"Raja sahab, aap teen sau saal baad apne hi bazaar aaye. Ya to aap bahut himmat wale hain, ya bahut pareshaan. Dono mein mera rate same hai.\"",
+        "Niyati: \"Alert: ye ladki teen mahine se 'naya raja kab aayega' wali afwah bech rahi hai. Yani tum aane se pehle hi isne tumhari khabar pakad li thi.\"",
+        "Chhaya: \"Ek cheez muft: mahal mein koi hai jo nahi chahta ki aap poore jaagein. Aur ek cheez mehengi: summoning ritual ki copy, jismein likha hai ki ye jism kis liye banaya gaya tha.\"",
+        "*Woh ek purana kaagaz tumhari taraf sarakti hai. Uske kinare jal chuke hain, aur beech mein is jism ka naam hai — tumhara nahi.*"
+      ],
+      "fallbackLines": [
+        "*Bazaar ki bheed tumhe ghoorti hai. Ek raja jo bina sena ke yahan khada hai — ye khabar khud ek keemat hai.*",
+        "Chhaya: \"Raja sahab, aaj sab kuch bik raha hai. Aap kya khareedna chahte hain?\"",
+        "Niyati: \"Boss, yaad rakhna: is bazaar mein muft sirf dhuan hai.\""
+      ],
+      "choices": [
+        {
+          "id": "c_get_scroll",
+          "text": "Kaagaz kharidta hoon — paise ki jagah ek waada deta hoon.",
+          "shortLabel": "Kaagaz kharido",
+          "keywords": [
+            "kaagaz",
+            "khareed",
+            "sauda",
+            "ritual",
+            "copy",
+            "waada"
+          ],
+          "effects": {
+            "relationships": {
+              "chhaya": 5,
+              "kaalnemi": -3
+            },
+            "location": "asura-bazaar",
+            "memory": [
+              "{{playerName}} ne Chhaya se summoning ritual ki jali hui copy ek waade ke badle li."
+            ]
+          },
+          "next": "s5_dream"
+        },
+        {
+          "id": "c_ask_who",
+          "text": "Poochhta hoon: \"Mahal mein kaun hai jo mujhe poora jaagne nahi dena chahta?\"",
+          "shortLabel": "Naam poochho",
+          "keywords": [
+            "kaun",
+            "mahal mein",
+            "naam",
+            "jasoos",
+            "kaun hai",
+            "batao"
+          ],
+          "effects": {
+            "relationships": {
+              "chhaya": 4,
+              "kaalnemi": -4
+            },
+            "location": "asura-bazaar",
+            "memory": [
+              "{{playerName}} ne seedha poochha ki mahal mein kaun uski jagah lena chahta hai; Chhaya ne ek naam dheere se liya."
+            ]
+          },
+          "next": "s5_dream"
+        },
+        {
+          "id": "c_listen",
+          "text": "Kuch nahi kharidta — bazaar mein logon ki baatein sunta hoon.",
+          "shortLabel": "Bheed suno",
+          "keywords": [
+            "sunna",
+            "baatein",
+            "log",
+            "afwah",
+            "chup",
+            "bazaar"
+          ],
+          "effects": {
+            "relationships": {
+              "chhaya": 1,
+              "vajra": 2
+            },
+            "location": "asura-bazaar",
+            "memory": [
+              "{{playerName}} ne bazaar mein chup-chaap logon ki baatein suni aur andaza lagaya ki sena sach mein kya chahti hai."
+            ]
+          },
+          "next": "s6_border"
+        }
+      ]
+    },
+    {
+      "id": "s5_dream",
+      "title": "Purane Raja Ki Aankhein",
+      "narration": [
+        "*Us raat neend aati hai jaise koi darwaza band karke andar se chitka de.*",
+        "*Sapne mein tum Kaal Mahal ke usi hall mein khade ho, par sab ulta hai — laalten zameen se ug rahi hain, aur takht par koi baitha hai. Tumhara chehra. Sirf aankhein doosri hain.*",
+        "Purana Raja: \"Bachche, tum mere jism mein ho, meri taakat mein ho, meri sena mein ho. Bas ek cheez tumhari nahi hai — mera darr. Woh main le gaya hoon.\"",
+        "Niyati: \"Update: ye sapna nahi hai. Ye purane raja ki bachi hui ruh ka cache hai. Aur haan, woh tumse zyada bol sakta hai kyunki is jism ki yaadein uski hain.\"",
+        "Purana Raja: \"Tumhe lagta hai tum sabse kamzor ho. Sach ye hai ki teen sau saal mein pehli baar Dravokar ke takht par koi aisa baitha hai jo jaanwar nahi hai. Ye tumhari sabse badi taakat hai — aur tumhari sabse badi dikkat.\"",
+        "*Uska haath tumhare seene ki taraf uthta hai. Andar kuch hilta hai: ek chhoti si kaali dhadkan, jo tumhari nahi hai.*",
+        "Purana Raja: \"Ek din ye dhadkan mera naam legi. Us din tumhe chunna hoga — main, ya tum.\""
+      ],
+      "fallbackLines": [
+        "*Hall ki laalten jhoolti hain, par hawa nahi hai. Andar wali dhadkan dheere-dheere tez ho rahi hai.*",
+        "Purana Raja: \"Darr mat. Darr to main hoon.\"",
+        "Niyati: \"Boss, isse zyada mat suno. Woh sach bol raha hai — aur isi liye khatarnaak hai.\""
+      ],
+      "choices": [
+        {
+          "id": "c_ask_how",
+          "text": "Poochhta hoon: \"Tumhe wapas aana hai? Sach batao.\"",
+          "shortLabel": "Seedha poochho",
+          "keywords": [
+            "wapas",
+            "aana",
+            "sach",
+            "tumhe",
+            "kya chahiye",
+            "batao"
+          ],
+          "effects": {
+            "relationships": {
+              "niyati": 2
+            },
+            "location": "soch-kund",
+            "memory": [
+              "{{playerName}} ne purane raja se seedha poochha ki woh wapas aana chahta hai ya nahi."
+            ]
+          },
+          "next": "s6_border"
+        },
+        {
+          "id": "c_accept_weight",
+          "text": "Kehta hoon: \"Main tumhari jagah nahi lunga. Main sirf sambhalunga.\"",
+          "shortLabel": "Sambhalne ka waada",
+          "keywords": [
+            "sambhalunga",
+            "jagah nahi",
+            "waada",
+            "main",
+            "raja",
+            "zimmedari"
+          ],
+          "effects": {
+            "relationships": {
+              "vajra": 3,
+              "yamini": 2
+            },
+            "location": "kaal-mahal",
+            "memory": [
+              "{{playerName}} ne takht ko apni jagah nahi, apni zimmedari maan kar sambhalne ka faisla kiya."
+            ]
+          },
+          "next": "s6_border"
+        },
+        {
+          "id": "c_wake_force",
+          "text": "Zabardasti neend todta hoon aur Niyati se poochhta hoon ki ye dhadkan kya hai.",
+          "shortLabel": "Neend todo",
+          "keywords": [
+            "jaag",
+            "neend",
+            "dhadkan",
+            "kya hai",
+            "niyati",
+            "poochho"
+          ],
+          "effects": {
+            "relationships": {
+              "niyati": 3
+            },
+            "location": "kaal-mahal",
+            "memory": [
+              "{{playerName}} ne sapne se bhaag kar seedha Niyati se kaali dhadkan ke baare mein poochha."
+            ]
+          },
+          "next": "s7_system"
+        }
+      ]
+    },
+    {
+      "id": "s6_border",
+      "title": "Seema Par Ek Manav",
+      "narration": [
+        "*Seema tak pahunchne mein teen din lagte hain — teen din jismein {{playerName}} ko ghode par baithna, talwar uthana aur 'Maharaj' sunte rehna seekhna padta hai.*",
+        "*Jale hue gaon ke paas ek manav sipahi zakhmi pada hai. Uske haath mein ek bacha hua bachcha hai, jo darr se kaanp raha hai.*",
+        "Veer Bhan: \"Tum... tum wahi ho. Kaal Mahal ka raja. Meri poori sena tumhare naam se darti hai, aur tum yahan akele aaye ho.\"",
+        "*Woh apni talwar uthata hai, phir dekhta hai ki tumhare haath kaanp rahe hain — aur woh ruk jaata hai.*",
+        "Niyati: \"Quest almost complete. Par pehle ek sau-chauka: ye aadmi tumhe maar sakta hai. Aur agar tumne ise maar diya, to Dravokar tumhe sach mein raja maan lega. Dono raaste khule hain, Boss.\"",
+        "Veer Bhan: \"Mujhe maar do. Par bachche ko chhod do. Woh kisi ki sena mein nahi hai.\""
+      ],
+      "fallbackLines": [
+        "*Bachcha ro raha hai. Veer Bhan ki talwar abhi bhi uthi hui hai, par uski ungliyan kaanp rahi hain.*",
+        "Veer Bhan: \"Aaj raat ek hi sawaal hai. Tum raja ho, ya darr raha aadmi?\"",
+        "Niyati: \"Boss, jawab tumhara hai. Main sirf numbers gin sakti hoon.\""
+      ],
+      "choices": [
+        {
+          "id": "c_spare",
+          "text": "Talwar neeche karta hoon aur bachche ko uthata hoon: \"Koi maarne wala nahi hai.\"",
+          "shortLabel": "Bachche ko bachao",
+          "keywords": [
+            "bachcha",
+            "mat maro",
+            "chhod do",
+            "rehem",
+            "maafi",
+            "utha lo"
+          ],
+          "effects": {
+            "relationships": {
+              "veer-bhan": 8,
+              "vajra": -2
+            },
+            "location": "seema-gaon",
+            "memory": [
+              "{{playerName}} ne seema par zakhmi manav ko nahi maara aur bachche ko khud uthaya."
+            ]
+          },
+          "next": "s7_system"
+        },
+        {
+          "id": "c_ask_truce",
+          "text": "Talwar neeche karta hoon aur kehta hoon: \"Ek raat ka samjhauta. Bachcha aur tumhare log, meri seema par safe.\"",
+          "shortLabel": "Ek raat ka samjhauta",
+          "keywords": [
+            "samjhauta",
+            "truce",
+            "ek raat",
+            "safe",
+            "baat",
+            "shaanti"
+          ],
+          "effects": {
+            "relationships": {
+              "veer-bhan": 5,
+              "vajra": 2,
+              "kaalnemi": -3
+            },
+            "location": "seema-gaon",
+            "memory": [
+              "{{playerName}} ne dushman se ek raat ke samjhauta ki baat ki — Dravokar ke itihaas mein pehli baar."
+            ]
+          },
+          "next": "s7_system"
+        },
+        {
+          "id": "c_walk_away",
+          "text": "Kuch nahi kehta. Pallu ghumata hoon aur wapas mahal ki taraf chalta hoon.",
+          "shortLabel": "Chup-chaap lauto",
+          "keywords": [
+            "wapas",
+            "chup",
+            "lauto",
+            "kuch nahi",
+            "peeth",
+            "chala jao"
+          ],
+          "effects": {
+            "relationships": {
+              "veer-bhan": -2,
+              "vajra": -1
+            },
+            "location": "kaal-mahal",
+            "memory": [
+              "{{playerName}} ne seema par kuch nahi kaha aur chup-chaap mahal lauta — ek aisa jawab jo sab yaad rakhenge."
+            ]
+          },
+          "next": "s7_system"
+        }
+      ]
+    },
+    {
+      "id": "s7_system",
+      "title": "System Ka Asli Contract",
+      "narration": [
+        "*Raat ko Niyati pehli baar khud se baat karti hai — bina quest, bina reward, bina mazaak.*",
+        "Niyati: \"Boss, ab tum bharosemand ho. Toh sach: main kisi devi ki den nahi hoon. Main is jism ke saath bandhi ek contract hoon — jise Dravokar ne khud likha tha, apne bete ko zinda rakhne ke liye.\"",
+        "*Pili roshni dheemi pad jaati hai, jaise koi sach bolte hue sharma gaya ho.*",
+        "Niyati: \"Purana raja mara nahi. Woh is jism ke andar hai, aur har din thoda aur jaag raha hai. Ek din tumhe chunna hoga: usse poori tarah jaagane do, ya usse hamesha ke liye band kar do — aur uske saath woh taakat bhi jaayegi jo abhi tumhe bacha rahi hai.\"",
+        "Niyati: \"Aur haan — agla quest woh nahi jo main dun. Agla quest woh hai jo tum chunoge. Bolo, Boss: Dravokar se kya chahiye?\"",
+        "*Kaal Mahal ke jharokhe se poora shehar dikhta hai: teen lakh roshniyan, teen lakh zindagiyan, aur unke beech ek raja jo khud ko abhi bhi sabse kamzor samajhta hai.*"
+      ],
+      "fallbackLines": [
+        "*Shehar sota nahi. Neeche bazaar mein koi jalta hua loha peet raha hai, aur mahal ki laalten dheere-dheere bujh rahi hain.*",
+        "Niyati: \"Main tumhara rasta nahi chunungi. Main sirf saath chalungi.\"",
+        "*Andar wali kaali dhadkan ek baar phir hilti hai — jaise kisi ne neend mein karwat li ho.*"
+      ],
+      "choices": [
+        {
+          "id": "c_choose_protect",
+          "text": "Kehta hoon: \"Mujhe Dravokar ka raja nahi, iske logon ka rakhwala banna hai.\"",
+          "shortLabel": "Logon ka rakhwala",
+          "keywords": [
+            "bachana",
+            "log",
+            "rakhwala",
+            "raja nahi",
+            "shehar",
+            "zimmedari"
+          ],
+          "effects": {
+            "relationships": {
+              "niyati": 4,
+              "yamini": 3,
+              "vajra": 2
+            },
+            "location": "kaal-mahal",
+            "memory": [
+              "{{playerName}} ne apna asli maqsad chuna: Dravokar ka raja nahi, uske logon ka rakhwala banna."
+            ]
+          },
+          "next": null
+        },
+        {
+          "id": "c_choose_home",
+          "text": "Kehta hoon: \"Mujhe ghar jaana hai. Is duniya ka raja koi aur banega.\"",
+          "shortLabel": "Ghar wapas",
+          "keywords": [
+            "ghar",
+            "wapas",
+            "earth",
+            "jaana hai",
+            "chhod do",
+            "apna ghar"
+          ],
+          "effects": {
+            "relationships": {
+              "niyati": -2,
+              "yamini": 1
+            },
+            "location": "earth-chhat",
+            "memory": [
+              "{{playerName}} ne saaf kaha ki woh ghar wapas jaana chahta hai — chahe Dravokar uska intezaar kar raha ho."
+            ]
+          },
+          "next": null
+        },
+        {
+          "id": "c_choose_face",
+          "text": "Kehta hoon: \"Pehle main purane raja se aamna-saamna karunga. Aadha sach kaafi nahi hai.\"",
+          "shortLabel": "Raja se milo",
+          "keywords": [
+            "purana raja",
+            "aamna saamna",
+            "sach",
+            "milna",
+            "ruh",
+            "seedha"
+          ],
+          "effects": {
+            "relationships": {
+              "niyati": 2,
+              "kaalnemi": -2
+            },
+            "location": "soch-kund",
+            "memory": [
+              "{{playerName}} ne purane raja se seedha aamna-saamna karne ka faisla kiya, bina Niyati ki salah ke."
+            ]
+          },
+          "next": null
+        }
+      ]
+    }
+  ],
+  "endings": []
+}
