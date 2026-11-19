@@ -1,0 +1,64 @@
+name: Verify live story
+
+# Read-only gate: is a story package actually live on https://beyondredeye.site?
+#
+# The deploy workflow can only run on main, so a story that was just merged is
+# hard to confirm from a feature branch. This workflow asks the same question
+# from CI (which *can* reach production) and reports the answer as check-run
+# annotations — the run log itself is not always reachable.
+
+on:
+  workflow_dispatch:
+    inputs:
+      stories:
+        description: 'Space-separated story ids (default: newest in the manifest)'
+        required: false
+        default: ''
+  push:
+    paths:
+      - '.github/workflows/verify-live-story.yml'
+      - 'scripts/verify-published-story.mjs'
+
+permissions:
+  contents: read
+
+concurrency:
+  group: verify-live-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Verify the story is live (byte-identical JSON + media)
+        env:
+          STORIES: ${{ inputs.stories }}
+        run: |
+          set -uo pipefail
+          ids=${STORIES:-$(node -e "const m=require('./content/manifest.json');console.log(m.stories.at(-1).id)")}
+          echo "checking: $ids"
+          node scripts/verify-published-story.mjs $ids > out.log 2>&1
+          code=$?
+          tail -40 out.log
+          {
+            echo "## Live story check"
+            echo
+            printf '%s — exit code %s\n' "$ids" "$code"
+            echo
+            echo '```'
+            grep -v '^{"' out.log | tail -20
+            echo '```'
+          } >> "$GITHUB_STEP_SUMMARY"
+          if [ "$code" -eq 0 ]; then
+            echo "::notice title=Story is live::${ids} — every JSON file and media file is byte-identical on both hostnames."
+          else
+            echo "::error title=Story is NOT live::${ids} — the deploy did not publish this package (or it is still propagating)."
+            exit "$code"
+          fi
