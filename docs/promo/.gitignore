@@ -1,2 +1,5 @@
 # Rendered promo videos live in history (commit-pinned links); keep them out of the tree
 *.mp4
+
+# downloadable deliverable: Gemini key tutorial (21 MB, needs a public link)
+!gemini-key/kissa_gemini_api_key_9x16.mp4
