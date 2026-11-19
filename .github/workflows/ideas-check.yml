@@ -120,6 +120,11 @@ jobs:
         env:
           GH_TOKEN: ${{ github.token }}
         run: |
+          # Nothing pending? No point opening an issue every 12 hours.
+          if head -n 1 out/mail.txt 2>/dev/null | grep -q 'koi pending idea nahi'; then
+            echo "::notice title=No mail needed::Kuch pending nahi — issue fallback skip."
+            exit 0
+          fi
           body=$(cat out/mail.txt 2>/dev/null || echo "out/mail.txt could not be built — see the run summary.")
           { echo "Mail was not sent (no MAIL_USERNAME / MAIL_PASSWORD secret, or SMTP failed)."; echo; echo '```'; echo "$body"; echo '```'; } > out/issue.md
           gh issue create \
