@@ -60,6 +60,10 @@ Elevation: no shadows — surfaces separate by hairline + 1 shade lighter.
 | 17 | **Timeline + layer column** | edit clips | fixed eye/thumbnail column, clip blocks per row, playhead, drag handles, `+` FAB |
 | 18 | **Selected object tools** | work on a clip | bounding box on canvas, quick actions, 2×4 tool grid (colour, border, blend, transform, shape, presets, effects, masks) |
 
+| 19 | **Effects stack** | manage effects on a layer | rows with expand/power/eye/drag, reorder, live preview |
+| 20 | **Add effect** | pick an effect | search, categories, live thumbnails, one-tap add |
+| 21 | **Row expanded** | tune an effect inline | sliders + numeric pills + keyframes, preset chips, accordion |
+
 Still to design (later phases): masks, stickers, templates, settings, onboarding,
 export progress.
 
@@ -304,7 +308,91 @@ Screens 10–15 are **not wasted**: they remain the *detail* screens that open f
 | Trim handle | 24 dp visible, 32 dp hit area |
 | FAB | 56 dp |
 
-## 7. Name & web
+---
+
+## 7. Effects stack (screens 19–21) — the piece that makes effects feel real
+
+Your screenshot nailed it: in Alight Motion, tapping **Effects** does not open one effect's
+settings — it opens the **stack** of effects already on that layer, and `Add effect` is how you
+add another. Order matters (top applies last / outermost), each row can be disabled without
+being deleted, and tapping a row expands its parameters **inline** instead of pushing a new screen.
+
+### 7.1 The stack screen (screen 19)
+
+```
+←   Effects                                    +
+┌──────────────────────────────────────────────┐
+│                 PREVIEW                      │
+├──────────────────────────────────────────────┤
+│ ↶ ↷ ⏮ ▶ ⏭ FIT ⛶                             │
+│ · · · | · · 00:00:00 · · ·                   │
+├──────────────────────────────────────────────┤
+│ 👁   ‹ FreeFire_9.png ›                      │  layer pill
+├──────────────────────────────────────────────┤
+│ EFFECTS STACK                                │
+│ ▶ Fractal Ridges        [⏻] 👁 ☰            │
+│ ▶ Gaussian Blur         [⏻] 👁 ☰            │
+│ ▶ Copy Background       [⏻] 👁 ☰            │
+│ ▶ Hue Shift             [⏻] 👁 ☰            │
+│ ▶ Omni Glass            [⏻] 👁 ☰            │
+│ + Add effect                                 │
+└──────────────────────────────────────────────┘
+```
+
+Row anatomy: **expand triangle · name · power toggle · visibility eye · drag handle**.
+- **Power toggle** = effect on/off *without deleting it* (cyan ring = on). This is the single most
+  useful control while grading — A/B a heavy glow without losing its settings.
+- **Eye** = temporary preview hide (same visual result as power off, but not saved in the export
+  decision — power off is what ships).
+- **Drag handle** = reorder. Effects apply top → bottom; the order is written into the project file,
+  so undo/redo and export both see exactly the same stack.
+- Left rail (over the list): back · keyframe diamond (animate this layer) · mask · more.
+- **Empty state:** "Koi effect nahi hai" + a single `+ Add effect` button, so a new user is never
+  staring at an empty list with no next step.
+
+### 7.2 Add effect picker (screen 20)
+
+- **Search first** ("Effect dhundo…") — with ~185 effects, browsing alone is not enough.
+- Category chips: All · Glow · Blur · Colour · Distort · Glitch · Stylise · Mask.
+- Rows: **live preview thumbnail** (rendered from the user's own current frame, not a stock icon) ·
+  name · `category · N params` · a cyan **+**.
+- Sections: Popular (first 8), Recently used, then everything.
+- Tapping **+** adds the effect with sensible defaults, closes the picker and **scrolls to the new
+  row already expanded**, so the user can start tuning immediately. That one detail removes the
+  "I added it, now where is it?" moment.
+- The preview thumbnail uses the project's current frame at 64×64 — no extra render pass, it is
+  the same downsampled texture we already have.
+
+### 7.3 Inline expand (screen 21)
+
+Tapping a row expands the parameters **inside the card**:
+
+`Radius · Intensity · Threshold · Softness · Spread` — each with slider + numeric pill +
+**keyframe diamond**, then a preset chip strip (Soft · Dreamy · Neon · Trailer), then collapse.
+
+- Only one row is expanded at a time (accordion), so the stack never becomes a wall.
+- Long-press a row → menu: Reset, Copy effect, Paste effect, Duplicate, Move up, Move down, Remove.
+- Dragging the row's handle reorders it live with a slight lift animation and a haptic tick.
+- Changing a value updates the preview immediately (debounced ~80 ms) and writes one undo step per
+  gesture, not per pixel.
+
+### 7.4 How it fits the 4-pass budget
+
+Effects are listed in the user's order, but the **renderer merges** where physics allows
+(all colour adjustments into one pass, blur pairs into one separable pass). The stack shows a
+small chip when the renderer had to merge: `merged · 2 passes`. The user keeps full control of
+order and params; we keep the device alive. Deep glow (5 passes) is shown as a warning chip only
+on low-RAM devices, never silently dropped.
+
+### 7.5 Additions unique to us
+
+- **Copy stack to another layer** (one tap) — Alight makes you copy effects one at a time.
+- **Preset = saved stack**, not a single effect (Soft · Dreamy · Neon · Trailer are stacks).
+- **Stack summary** on the layer row in the timeline: `4 fx` badge, so you can see which clips are
+  heavy without opening them.
+- **Power toggle while exporting** is disabled (grey) to prevent a half-changed export.
+
+## 8. Name & web
 
 - App name: **AnkitCutz** (from you).
 - Download site: **`beyondredeye.site/ankitcutz`** — same Cloudflare site as Kissa, new page with
