@@ -36,10 +36,10 @@ Each phase ends with **something installable and usable**, not a half-feature.
 | **2 — Export** | Media3 Transformer, 1080p H.264, progress + cancel, background foreground-service export, share/save to Gallery | ~2 weeks | 60s project exports correctly in <2× realtime on your phone; export continues with screen off |
 | **3 — Text & overlays** | Text clips, fonts, colours, stroke/shadow, in/out animation, stickers (PNG/SVG), emoji | 3–4 weeks | Animated title renders identically in preview and export |
 | **4 — Audio** | Music track, waveform, trim, fade in/out, per-clip volume, voiceover recording, mute | 2–3 weeks | Waveform matches audio; music + voiceover mix correctly in export |
-| **5 — Speed & transitions** | Speed 0.25×–4×, speed curve (basic), crossfade/dip/blur/zoom transitions, freeze frame | 4–6 weeks | Transition renders frame-accurate; audio stays in sync at any speed |
-| **6 — Looks** | LUT filters, brightness/contrast/saturation/temperature, vignette, grain, chroma key | 3–4 weeks | LUT applied in preview = export; chroma key works on a clean background |
+| **5 — Speed & transitions** | Speed 0.1×–10×, ramps, **all 25 transitions**, freeze frame (§6.5) | 6 weeks | Transition renders frame-accurate; audio stays in sync at any speed |
+| **6 — Looks** | LUT filters, adjustments, blend modes, overlays, chroma key (full list in §6.5) | 3–4 weeks | LUT applied in preview = export; chroma key works on a clean background |
 | **7 — Captions & smart tools** | Auto-captions (Whisper tiny), editable caption track, silence removal, beat markers | 3–5 weeks | 60s Hinglish clip → captions in <60s on device, 80%+ usable after edits |
-| **8 — Keyframes & masks** | Keyframe editor for transform/opacity/filters, polygon mask with feather | 4–6 weeks | Smooth interpolation, no preview/export mismatch |
+| **8 — Keyframes & masks** | Full keyframe graph editor + 7 mask shapes with feather/keyframes (§6.5) | 6 weeks | Smooth interpolation, no preview/export mismatch |
 | **9 — Launch polish** | Onboarding, templates, settings, crash reporting, Play Store assets, privacy, ASO | 2–3 weeks | Internal → closed → production track; ANR-free on 4 GB device |
 
 **Realistic totals:** Phase 0–2 (real, usable editor) ≈ **6–8 weeks**. Phase 3–6 ≈ +12–16 weeks.
@@ -188,6 +188,84 @@ against a stored PNG (SSIM ≥ 0.98). This catches "effect silently stopped appl
 
 ---
 
+## 6.5 Effects — full scope, no compromise
+
+> **Decision (2026-11-18): scope par compromise nahi.** Har effect ship hoga.
+> Compromise sirf **order** par hai (timeline + export pehle, effects baad me) aur
+> **speed** par (4K + heavy effects = slow export, physics hai).
+> Total ~110 effects. Nothing below is "optional" or "nice to have".
+
+### A. Looks & colour (12)
+LUT `.cube` import (unlimited) + 20 built-in looks · brightness · contrast · saturation ·
+exposure · temperature · tint · highlights · shadows · sharpness · vignette · grain/fade.
+All adjustment sliders merge into **one** shader pass; LUT is a second pass (2 max).
+
+### B. Transitions (25+)
+Crossfade · dip to black · dip to white · slide L/R/U/D · zoom in · zoom out · blur dissolve ·
+whip pan · luma wipe ×6 (linear, radial, barn, iris, clock, split) · glitch · RGB split · spin ·
+3D cube · page turn · film burn · light leak · flash · shake.
+
+Each transition = deterministic `Transformation` over `presentationTimeUs` with an audio
+crossfade of the same length. Rendered identically in preview and export (single-renderer rule).
+
+### C. Motion & time (6)
+Speed 0.1×–10× · speed ramps/curves · reverse · freeze frame ·
+smooth slow-mo via optical flow (default **off**, warns on low-RAM devices) · speed keyframes.
+
+### D. Keyframes (every parameter)
+Position · scale · rotation · opacity · all colour/filter params · audio volume · mask shape.
+Interpolation: linear, ease-in/out, custom bezier, with a graph editor.
+Values live in the immutable `Project`, so undo/redo and preview/export parity are automatic.
+
+### E. Masks (7 shapes)
+Linear · mirror · circle · rectangle · polygon (free-draw) · heart · star.
+Feather, invert, mask-position keyframes. Implemented as one shader pass with a mask texture.
+
+### F. Compositing
+Chroma key + spill suppression + edge feather · 8 blend modes (normal, screen, overlay,
+multiply, add, soft light, hard light, difference) · 25 video overlays (dust, light leak,
+particles, bokeh, rain, snow, fire, ink, film scratches…) · animated stickers · GIF.
+
+### G. Text
+Font family/size/weight · fill, stroke, shadow, background box · alignment · letter spacing ·
+30+ animations (typewriter, bounce, pop, neon glow, shake, karaoke, slide, scale, rotate,
+fade, blur-in…). Text is a timeline clip, so keyframes and masks apply to it too.
+
+### H. AI / smart (the expensive five)
+| Feature | Cost | Honest limitation |
+|---|---|---|
+| AI background removal | 3–4 weeks | ~50 MB on-device model, 40–80 ms/frame, **hair edges are average** |
+| Motion tracking (point tracker) | 2–3 weeks | Drifts on fast motion; manual correction needed |
+| Auto-reframe 16:9 → 9:16 | 2 weeks | Subject detection, not magic; user can override |
+| Stabilisation (basic) | 1–2 weeks | Crops ~10–15% of frame; not gimbal-level |
+| Auto-captions + silence removal | 3–4 weeks | whisper.cpp tiny; **Hinglish code-switching ~80% usable**, always editable |
+
+### I. Audio effects
+Fade in/out · volume keyframes · denoise · voice enhance · reverb · 8D rotation · pitch shift.
+
+### Effect budget (why this is physically possible)
+Each effect = one GPU shader pass. At 1080p30 a pass costs ~2–4 ms.
+**Hard cap: 4 shader passes per clip.** Beyond that the editor merges passes where possible
+and otherwise warns (“is clip par effect limit”). Preview uses a 540p proxy; export is full-res.
+This cap is what keeps a 4 GB phone from dying — it is not a feature cut.
+
+### Preview = export
+One shader implementation per effect, used by both `CompositionPlayer` (preview) and
+`Transformer` (export). Golden-frame tests (SSIM ≥ 0.98 at fixed timestamps) guard every effect,
+because “the filter silently stopped applying” is the most common phone-editor regression.
+
+### Delivery order (scope unchanged, only sequence)
+| Stage | Effects | Cumulative |
+|---|---|---|
+| E1 | Looks + adjustments + blend modes | ~3 weeks |
+| E2 | Text + stickers + audio effects | ~4 weeks |
+| E3 | Speed + all 25 transitions + video overlays | ~6 weeks |
+| E4 | Keyframes (graph editor) + masks | ~6 weeks |
+| E5 | AI five (background removal, tracking, reframe, stabilise, captions) | ~10–14 weeks |
+
+Effects alone ≈ **5–6 months**; with the base editor and launch work, the full "no compromise"
+product is **~10–14 months**. Any claim of less is not credible.
+
 ## 7. Play Store & compliance checklist
 
 | Item | Status / note |
@@ -303,3 +381,5 @@ Dates are effort-based, not calendar promises; any week without device testing p
 | 2026-11-18 | Same repo, `editor/` folder for now | User decision; migrate to own repo before Play release |
 | 2026-11-18 | Phase-gated delivery | "All features at once" would ship nothing usable |
 | 2026-11-18 | Money model deferred | User decision; hooks left open |
+| 2026-11-18 | **Effects: no compromise** — all ~110 ship | User decision; see §6.5. Only *order* and *export speed* differ |
+| 2026-11-18 | 4-pass shader cap per clip | Physics: more passes kills 4 GB devices; merging keeps every effect available |
