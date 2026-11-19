@@ -34,7 +34,7 @@ Each phase ends with **something installable and usable**, not a half-feature.
 | **0 — Skeleton** | Compose app, media picker (Photo Picker), project model, project list screen, Room persistence, preview player | ~1 week | App installs, project create/save/reopen works, one clip plays in preview |
 | **1 — Timeline** | Multi-track UI, trim/split/delete/reorder, pinch-zoom, snapping, frame scrub, undo/redo, thumbnails | 3–4 weeks | 10 clips, 60s project, edit + undo 50 steps without lag; project survives app kill |
 | **2 — Export** | Media3 Transformer, 1080p H.264, progress + cancel, background foreground-service export, share/save to Gallery | ~2 weeks | 60s project exports correctly in <2× realtime on your phone; export continues with screen off |
-| **3 — Text & overlays** | Text clips (MSDF rasterised), fonts, stroke/shadow, animations, stickers, shapes, **universal layer model** | 4–5 weeks | Text runs through the same effect stack as video; one effect looks identical on text and footage |
+| **3 — Text & overlays** | Text clips (MSDF), **font import + variable axes + font manager (§6.9)**, stroke/shadow, animations, stickers, shapes, **universal layer model** | 5–6 weeks | Text runs through the same effect stack as video; imported fonts render identically in preview and export |
 | **4 — Audio** | Music track, waveform, trim, fade in/out, per-clip volume, voiceover recording, mute | 2–3 weeks | Waveform matches audio; music + voiceover mix correctly in export |
 | **5 — Speed & transitions** | Speed 0.1×–10×, ramps, **all 25 transitions**, freeze frame, **12 shake effects** (§6.5, §6.7) | 7 weeks | Transition renders frame-accurate; audio stays in sync at any speed; shake is deterministic |
 | **6 — Looks** | LUT, adjustments, blend modes, overlays, chroma key, **glow / deep glow / bloom**, blur, stylise, distort, **18 glitch effects**, presets (§6.5–6.7) | 8–9 weeks | Glow, shake and glitch work on text, photos and video with every parameter keyframeable |
@@ -557,6 +557,85 @@ This is the true cost of "sare shake aur glitch bhi, sab customisable" — state
 - **Performance tuning** on real devices — libraries ship generic defaults, not our budgets.
 - **Design/UX** — must be ours; copying another app's UI is both bad and risky.
 
+## 6.9 Fonts — user-imported, ours, and legally safe
+
+> **Decision (2026-11-18):** the user can import their own fonts. Bundled fonts are OFL only.
+> Imported fonts are the user's responsibility, and the app says so in one plain sentence.
+> Fonts feed the MSDF text pipeline (§6.6), so they get the full effect stack.
+
+### A. Import
+
+- **Source:** Photo Picker can't pick fonts, so use `ACTION_OPEN_DOCUMENT` filtered to
+  `font/ttf`, `font/otf`, `application/x-font-ttf`, `application/octet-stream` (some file
+  managers report the last one). Multi-select supported. Also `.ttc`/`.otc` collections.
+- **Validation on import:** parse with `android.graphics.Typeface` + a header sniff
+  (`sfnt`/`OTTO`/`true`/`ttcf`). Corrupt or DRM-wrapped font → clear error, never a crash.
+- **Preview before saving:** type the project name in three weights so the user sees the actual
+  glyphs before committing.
+- **Storage:** copied into app-private storage (`filesDir/fonts/<sha256>.ttf`), deduped by hash —
+  the same font imported twice costs one file.
+- **Font manager screen:** list (with preview line), rename display name, delete, "used in N
+  projects" guard before deletion, import from file, restore bundled defaults.
+- **Per-project or global:** importing adds to the library; each text layer picks from it. Font
+  choice is stored in the `Project` as `fontId` + optional variation axes, so a project still
+  renders correctly if the font is later deleted (falls back to the bundled default and marks the
+  layer with a one-time warning, never a silent wrong font).
+
+### B. Variable fonts (the part most editors get wrong)
+
+- Detect `fvar` table → expose **weight** and **width** sliders plus any custom axis
+  (e.g. optical size, slant) in the inspector.
+- MSDF generation honours the chosen instance, so a 300-weight and an 800-weight of the same
+  file don't share one blurry atlas.
+- `.ttc` collections: show the faces inside and import the selected one.
+
+### C. Rendering pipeline (why text stays sharp at any zoom)
+
+```
+.ttf/.otf → subset (used glyphs only) → MSDF atlas (per weight/size bucket)
+          → texture → effect stack → mask → blend
+```
+
+- Atlases are generated **on first use** of a glyph set, cached on disk, keyed by
+  `(fontHash, weight, axis, sizeBucket)`. No 50 MB prebake for a font nobody used.
+- Emoji: system emoji font covered via fallback chain; a **colour emoji** layer type is planned
+  in Phase 3 (COLR/CBDT support via bundled Noto Color Emoji, Apache-2.0/OFL).
+- Right-to-left and Devanagari shaping come from the platform shaper (HarfBuzz inside Skia);
+  **we test Hinglish, Hindi and English explicitly** — Hindi matras are the usual breakage point.
+- Fallback chain: chosen font → project fallback → bundled default → system. Missing glyphs are
+  never drawn as tofu boxes without a warning.
+
+### D. Legal guardrails (this is where people get sued)
+
+| Rule | Implementation |
+|---|---|
+| Bundled fonts must be OFL/Apache | Only Google Fonts (OFL-1.1), listed in `assets/ATTRIBUTION.md` |
+| Imported fonts are the user's call | One-time in-app note: "Tum apni font import kar rahe ho — uska licence tumhari zimmedari hai." |
+| **No redistribution** | Imported fonts stay on device; they are **never** uploaded, synced or shared inside exported presets |
+| Presets exclude fonts | A shared preset stores `fontId` + a visual fallback (rendered sample), not the font file |
+| Commercial fonts (e.g. paid foundry files) | Not bundled, not encouraged; if a user imports one, that is their licence to own — the app does not ship it |
+| Play Store safety | No font files in the APK except OFL ones; the licence gate (§6.8) also checks `assets/fonts/` |
+
+### E. What ships in the box
+
+- **12 OFL families** covering the styles reels actually use: a bold display face, a clean
+  geometric sans, a humanist sans, a condensed sans, a high-contrast serif, a slab, a rounded,
+  a handwritten script, a brush, a monospace, a stencil/graffiti, and one Devanagari family.
+  All with 4–6 weights each (subsetted to Latin + Devanagari) so APK growth stays ~4–6 MB.
+- Font size/weight/letter-spacing/line-height/align + stroke, shadow, background box.
+
+### F. Cost
+
+| Item | Time |
+|---|---|
+| Import + validation + font manager screen | 1 week |
+| Variable font axes + `.ttc` faces | 1 week |
+| MSDF atlas per weight/axis + disk cache | 1.5 weeks |
+| Devanagari/Hinglish shaping tests + fallback chain | 1 week |
+| Bundled OFL set (12 families, subsetting, attribution) | 3 days |
+
+**~4–5 weeks**, folded into Phase 3 (text & overlays). No other phase moves.
+
 ## 7. Play Store & compliance checklist
 
 | Item | Status / note |
@@ -641,8 +720,8 @@ how the estimate stays honest.
 | **M1** | Skeleton: create project, import clip, play | Week 1 |
 | **M2** | Timeline editing + undo, saved projects | Week 4–5 |
 | **M3** | **First real export** (trim + join, 1080p) — usable daily | Week 6–7 |
-| **M4** | Text, stickers, music, voiceover | Week 11–13 |
-| **M5** | Speed, transitions, filters, chroma key, **shake family** | Week 17–23 |
+| **M4** | Text (with font import), stickers, music, voiceover | Week 11–14 |
+| **M5** | Speed, transitions, filters, chroma key, **shake family** | Week 18–24 |
 | **M6** | Captions, silence removal, templates, **glitch family + trail** | Week 24–30 |
 | **M7** | Keyframes, masks, Play Store launch | Week 31–38 |
 
@@ -661,6 +740,8 @@ Dates are effort-based, not calendar promises; any week without device testing p
 6. **Minimum export** — is 1080p30 enough for v1, or is 4K needed at launch?
 7. **Open-source policy** — comfortable with the §6.8 split (Apache/MIT/BSD only, no GPL/AGPL)?
    If the editor itself is ever open-sourced, GPL becomes possible — but that is a one-way door.
+8. **Bundled font set** — happy with 12 OFL families (or do you want specific ones, e.g. a
+   particular display face for Kissa promos)? Any font you supply must come with its licence.
 
 ---
 
@@ -683,3 +764,4 @@ Dates are effort-based, not calendar promises; any week without device testing p
 | 2026-11-18 | Shake noise seeded by `(layerId, clipId, effectIndex, timeUs)` | Determinism: preview must equal export, and re-export must produce the same video |
 | 2026-11-18 | **Reuse open source (Apache/MIT/BSD only)** | User decision (§6.8). Avoids ~20–25 weeks of work; no GPL/AGPL in the APK |
 | 2026-11-18 | Licence gate in CI + `LICENCES.md` | A copyleft dependency must fail the build, not be discovered after launch |
+| 2026-11-18 | **User font import** (ttf/otf/ttc), variable-font axes, per-layer fonts | User decision (§6.9). Bundled fonts OFL only; imported fonts stay on device and never ship |
