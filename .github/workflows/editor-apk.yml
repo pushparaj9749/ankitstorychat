@@ -56,10 +56,14 @@ jobs:
           cache-read-only: ${{ github.ref != 'refs/heads/main' }}
 
       - name: Unit tests (effects stack)
-        run: ./gradlew --no-daemon --stacktrace testDebugUnitTest
+        run: ./gradlew --no-daemon --console=plain testDebugUnitTest 2>&1 | tee /tmp/gradle.log
 
       - name: Assemble debug APK
-        run: ./gradlew --no-daemon --stacktrace assembleDebug
+        run: ./gradlew --no-daemon --console=plain assembleDebug 2>&1 | tee -a /tmp/gradle.log
+
+      - name: Surface compiler errors as annotations
+        if: failure()
+        run: bash ci/annotate-log.sh /tmp/gradle.log
 
       - name: Report APK
         if: always()
