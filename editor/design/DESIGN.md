@@ -56,6 +56,10 @@ Elevation: no shadows — surfaces separate by hairline + 1 shade lighter.
 | 14 | **Add layer** | create a layer | Text/Image/Video/Audio/Sticker/Shape/Adjustment/Group/Solid/Gradient/Solid+mask, recents |
 | 15 | **Tap effect → detail** | judge + tune an effect | before/after split preview, on/off, sliders + keyframes, tint/quality, presets, apply |
 
+| 16 | **Shell + tools tab** | always-visible layout | top bar, preview, transport, ruler, persistent panel (shape grid), bottom tabs, right rail |
+| 17 | **Timeline + layer column** | edit clips | fixed eye/thumbnail column, clip blocks per row, playhead, drag handles, `+` FAB |
+| 18 | **Selected object tools** | work on a clip | bounding box on canvas, quick actions, 2×4 tool grid (colour, border, blend, transform, shape, presets, effects, masks) |
+
 Still to design (later phases): masks, stickers, templates, settings, onboarding,
 export progress.
 
@@ -191,7 +195,116 @@ Bottom: reset · favourite · copy · **Apply to layer**.
 **Double-tap** never does anything destructive; it only zooms the timeline. Everything that
 changes the project has a visible control — no hidden gestures for core actions.
 
-## 6. Name & web
+---
+
+## 6. Alight-style layout (screens 16–18) — the "user-friendly" pass
+
+The screenshots you sent made the real difference obvious: Alight Motion does **not** open a sheet
+for everything. It keeps a **persistent panel** at the bottom, a **fixed layer column** on the
+timeline, and a **fixed set of tool tiles** for the selected object. That is why it feels fast —
+the thumb never chases a sliding sheet. We adopt that layout with our own look.
+
+### 7.1 The shell (always the same)
+
+```
+┌─────────────────────────────────────────────┐
+│ ←   Reel 01                       ⚙   Export │  top bar (48 dp)
+├─────────────────────────────────────────────┤
+│                                             │
+│              PREVIEW CANVAS                 │  flexible (>= 38%)
+│                                             │
+├─────────────────────────────────────────────┤
+│  scrub bar                                  │
+│  ↶  ↷  ⏮  ▶  ⏭  FIT  ⛶                     │  transport (48 dp)
+├─────────────────────────────────────────────┤
+│  ·  ·  ·  |  ·  ·  ·   00:00:00   ·  ·  ·   │  ruler (28 dp)
+├─────────────────────────────────────────────┤
+│                                             │
+│            PANEL (context)                  │  fixed height band
+│                                             │
+├─────────────────────────────────────────────┤
+│  Shape  Media  Audio  Layers  Templates     │  bottom tabs (56 dp)
+└─────────────────────────────────────────────┘
+```
+
+Two rules that make it calm:
+
+1. **The panel never covers the preview.** It occupies one fixed band under the ruler, so the
+   canvas does not jump when switching tools.
+2. **The preview never shrinks while editing.** Timeline mode swaps what is *inside* the band
+   (layer rows + clip blocks) instead of pushing the canvas up.
+
+A right-side vertical rail (Draw · Vector · Text) sits over the panel, exactly like Alight,
+but only when the Shape/Text tabs are open — otherwise it stays hidden.
+
+### 7.2 Bottom tabs (screen 16)
+
+| Tab | Panel shows |
+|---|---|
+| **Shape** | a grid of 20+ vector shape glyphs (circle, square, plus, crescent, triangle, rounded square, diamond, pie, hexagon, star, arrow, line, parallelogram, speech bubble, heart…) |
+| **Media** | device media (Photo Picker), recent imports, "Import" tile |
+| **Audio** | music library, import, voiceover record |
+| **Layers** | the timeline + layer column + `+` FAB (screen 17) |
+| **Templates** | saved templates (empty in v1 with a "coming soon" state — or hidden, your call) |
+
+Additions (FX, Text, Keyframes) are **not** extra tabs; they open *from the selected object*
+(screen 18), which is how Alight keeps the tab bar at five.
+
+### 7.3 Timeline with a fixed layer column (screen 17)
+
+- **Left column (fixed, ~76 dp):** eye icon + tiny thumbnail per layer. It never scrolls
+  horizontally, so the user always knows which row is which.
+- **Right area:** clip blocks aligned to those rows, horizontal scroll + zoom.
+- Playhead is a thin cyan line across all rows; the timecode pill sits on the ruler.
+- Each row has a small drag handle at the far right (reorder).
+- `+` FAB (cyan, 56 dp) floats bottom-right of the panel to add a layer/clip.
+- Selected clip = cyan outline; drag = move; edges = trim (24 dp handles).
+
+### 7.4 Selected object → tool grid (screen 18)
+
+When something is selected, the panel becomes a **tool grid**, not a sheet:
+
+Row of quick actions (small): **Speed · Split · Duplicate · Mute** (disabled states are greyed).
+
+Then 2×4 large tiles, each with an icon + label:
+**Colour & fill · Border & shadow · Blending & opacity · Move & transform ·
+Edit shape · Presets · Effects · Masks**
+
+- Tapping a tile swaps the panel *in place* (still no sheet over the preview).
+- The selected object gets a thin cyan bounding box with 4 corner handles on the canvas, plus a
+  top bar with layer-order icon, delete, confirm ✓ and overflow — exactly the mental model in
+  your screenshots.
+- This is where our extra power lives: **Effects** opens the effect stack with before/after
+  (screen 15), **Masks** the 7 shapes, **Move & transform** the keyframe rows (screen 11).
+
+### 7.5 Why this is more "user friendly" than our earlier sheets
+
+| Earlier (screens 10–15) | Now (16–18) |
+|---|---|
+| sheet slides over preview | panel sits in a fixed band — **no canvas jump** |
+| one action at a time, back to close | tools stay visible, **one tap to switch** |
+| layer names only in a separate screen | **layer column always on the timeline** |
+| effects buried under a tab | **Effects tile on the selected object** |
+| 3 taps to change tool | **1 tap on the bottom tab** |
+
+Screens 10–15 are **not wasted**: they remain the *detail* screens that open from the panel
+(layer list for reordering groups, properties, effect detail, add-layer chooser).
+
+### 7.6 Layout targets (so it stays thumb-friendly)
+
+| Element | Size |
+|---|---|
+| Top bar | 48 dp |
+| Transport buttons | 48 dp targets, 22 dp icons |
+| Scrub bar | 6 dp track, 18 dp thumb |
+| Panel band | 34–42% of screen height (drag boundary to resize 30–55%) |
+| Bottom tabs | 56 dp + gesture inset |
+| Layer column | 76 dp fixed |
+| Clip row height | 44 dp (video), 36 dp (audio) |
+| Trim handle | 24 dp visible, 32 dp hit area |
+| FAB | 56 dp |
+
+## 7. Name & web
 
 - App name: **AnkitCutz** (from you).
 - Download site: **`beyondredeye.site/ankitcutz`** — same Cloudflare site as Kissa, new page with
