@@ -1,0 +1,79 @@
+name: Ideas check
+
+# Prints the pending Kissa story ideas / submissions from production.
+#
+# Admin endpoint needs a Bearer token, which cannot live in a URL or in git, so
+# this job reads it from the repo secret ADMIN_TOKEN and only shows the output.
+#
+# Run it manually:  Actions → "Ideas check" → Run workflow
+# The list also lands in the run summary and as a downloadable artifact.
+#
+# Why push: a workflow_dispatch trigger only shows up once the file is on the
+# default branch; the push trigger lets a feature branch run it immediately.
+
+on:
+  workflow_dispatch:
+    inputs:
+      base_url:
+        description: 'API base (default: production)'
+        required: false
+        default: 'https://beyondredeye.site'
+  push:
+    branches-ignore:
+      - main
+    paths:
+      - '.github/workflows/ideas-check.yml'
+
+permissions:
+  contents: read
+
+concurrency:
+  group: ideas-check-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  pending:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Check the secret exists
+        env:
+          ADMIN_TOKEN: ${{ secrets.ADMIN_TOKEN }}
+        run: |
+          if [ -z "${ADMIN_TOKEN:-}" ]; then
+            echo "::error title=ADMIN_TOKEN missing::Repo secret ADMIN_TOKEN is not set (Settings → Secrets and variables → Actions)."
+            exit 1
+          fi
+          echo "ADMIN_TOKEN present (${#ADMIN_TOKEN} chars)"
+
+      - name: Fetch pending ideas
+        id: fetch
+        env:
+          ADMIN_TOKEN: ${{ secrets.ADMIN_TOKEN }}
+          BASE: ${{ inputs.base_url || 'https://beyondredeye.site' }}
+        run: |
+          set -o pipefail
+          mkdir -p out
+          node scripts/admin-ideas.mjs --url "$BASE" | tee out/pending-ideas.txt
+          {
+            echo "## Kissa — pending ideas @ ${BASE}"
+            echo
+            echo '```'
+            cat out/pending-ideas.txt
+            echo '```'
+          } >> "$GITHUB_STEP_SUMMARY"
+
+      - name: Upload the list
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: pending-ideas
+          path: out/pending-ideas.txt
+          if-no-files-found: warn
+          retention-days: 14
