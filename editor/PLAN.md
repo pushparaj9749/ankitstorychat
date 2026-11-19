@@ -589,6 +589,38 @@ This is the true cost of "sare shake aur glitch bhi, sab customisable" — state
   file don't share one blurry atlas.
 - `.ttc` collections: show the faces inside and import the selected one.
 
+### B2. Font preview — har font apne akshar me dikhe (Alight Motion style)
+
+> **Decision (2026-11-18):** font picker me **sirf naam nahi**, har font ka asli specimen
+> render hoga — `ABCabc`. Naam padh ke andaza lagane wali problem khatam.
+
+**Specimen line:** `ABCabc` (6 akshar, exactly jaisa maanga) — plus digits `0123` chhote
+secondary line me, kyunki digits ka design fonts me sabse zyada alag hota hai (reels ke
+numbers/stat overlays ke liye zaroori).
+
+```
+┌─────────────────────────────────────────┐
+│  ABCabc                     Bebas Neue  │   ← 26 sp, usi font me, chosen weight par
+│  0123 · Display · OFL              24 ▲  │   ← 11 sp meta: digits, category, source, size
+└─────────────────────────────────────────┘
+```
+
+**Rendering rules (warna list scroll par lag karega):**
+
+| Cheez | Faisla |
+|---|---|
+| Specimen size | 26 sp (bada, par ek line me fit) |
+| Weight | List me **chosen weight** par render; variable font par weight slider ka live effect |
+| Cache | Har font ka specimen ek baar rasterise → memory LRU (max 40 entries) + disk cache |
+| Lazy | `LazyColumn` + `Typeface` cache; scroll par naya atlas generate **nahi** hoga |
+| Apply | Tap = apply + **live preview top bar** me project ka asli text us font me |
+| Long-press | Full-screen specimen: `ABCabc`, `0123`, `Aa Bb Cc`, ek Hinglish line ("Kal raat jo hua…") aur Hindi line (matra test) |
+| Offline | Sab local; koi network call nahi |
+
+**Kyun `ABCabc` hi:** capital (A, B, C) se display character pata chalta hai aur lowercase
+(a, b, c) se x-height aur terminals — 6 akshar me font ka 80% personality dikh jaata hai.
+Sirf `Aa` wale previews se bold/condensed fonts ek jaise lagte hain.
+
 ### C. Rendering pipeline (why text stays sharp at any zoom)
 
 ```
@@ -633,6 +665,7 @@ This is the true cost of "sare shake aur glitch bhi, sab customisable" — state
 | MSDF atlas per weight/axis + disk cache | 1.5 weeks |
 | Devanagari/Hinglish shaping tests + fallback chain | 1 week |
 | Bundled OFL set (12 families, subsetting, attribution) | 3 days |
+| Font picker with `ABCabc` specimens, LRU + disk cache, full-screen sampler | 4 days |
 
 **~4–5 weeks**, folded into Phase 3 (text & overlays). No other phase moves.
 
@@ -765,3 +798,4 @@ Dates are effort-based, not calendar promises; any week without device testing p
 | 2026-11-18 | **Reuse open source (Apache/MIT/BSD only)** | User decision (§6.8). Avoids ~20–25 weeks of work; no GPL/AGPL in the APK |
 | 2026-11-18 | Licence gate in CI + `LICENCES.md` | A copyleft dependency must fail the build, not be discovered after launch |
 | 2026-11-18 | **User font import** (ttf/otf/ttc), variable-font axes, per-layer fonts | User decision (§6.9). Bundled fonts OFL only; imported fonts stay on device and never ship |
+| 2026-11-18 | **Font picker shows a live `ABCabc` specimen** per font | User decision (§6.9 B2). Name-only lists make bold/condensed fonts look identical |
