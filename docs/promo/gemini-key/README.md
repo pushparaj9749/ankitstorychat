@@ -13,7 +13,7 @@ dynamic island) on the left showing the real screen and the actual tap, and on t
 the chapter, "KYA KARNA HAI" in three numbered steps, exact values, a 6-step marker and
 the subtitle. Same voice track and music bed as the full-bleed cut.
 
-Extras: `thumb_16x9_phone.jpg` / `thumb_16x9_voice.jpg` (YouTube thumbnails, 1280×720),
+Extras: `thumb_youtube.jpg` (YouTube thumbnail, 1280×720), `thumb_16x9_phone.jpg` (calm alt),
 `thumb_16x9.jpg` (silent-cut thumb), `cover_9x16.jpg` (Reels/Shorts cover),
 `contact-sheet-16x9-phone.jpg`, `contact-sheet-16x9.jpg`, `contact-sheet.jpg`.
 
@@ -86,7 +86,7 @@ wrong for this tutorial).
 ## Upload notes (16:9)
 
 - 16:9: title `Gemini API key kaise setup karein — Kissa AI Setup (free)`,
-  thumbnail = `thumb_16x9_phone.jpg` (phone format) or `thumb_16x9_voice.jpg`.
+  thumbnail = `thumb_youtube.jpg`.
 - Shorts/Reels (9:16): cover = `cover_9x16.jpg`, same description.
 - Add captions: the text is burned in, so no SRT needed; YouTube auto-captions will be
   rough — a manual SRT can be generated from the table above if wanted.
