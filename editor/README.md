@@ -1,73 +1,83 @@
 # AnkitCutz — Android video editor
 
-Phone-only video editor. Kotlin + Jetpack Compose, `minSdk 26`, portrait, no network.
+Phone-only video editor. Kotlin + Jetpack Compose + Media3, `minSdk 26`, portrait,
+**no permissions at all** (media comes in through the system Photo Picker, exports are
+shared explicitly).
 
 ```
 editor/
-  PLAN.md            product plan, effects catalogue, budget rules
+  PLAN.md            product plan, effect catalogue, budget rules, licensing
   design/            DESIGN.md + 21 approved screens (JPG/PNG)
-  app/               the Android app
-    src/main/java/site/beyondredeye/ankitcutz/
-      MainActivity.kt         single activity, edge-to-edge
-      ui/App.kt               shell <-> effects stack
-      ui/editor/              editor shell, effect stack, add-effect sheet, editor state
-      ui/theme/               tokens, dark Material3 scheme, type scale
-      model/                  Layer, Effect schema, EffectStack (pure, unit-tested)
-    src/test/java/.../model/  EffectStackTest
+  ci/                CI-only helpers (error annotations)
+  app/src/main/java/site/beyondredeye/ankitcutz/
+    MainActivity.kt        single activity, edge-to-edge
+    ui/App.kt              projects -> editor -> effects -> export
+    ui/projects/           project list
+    ui/editor/             shell, timeline, preview, effect stack, add-effect, export
+    ui/theme/              tokens, dark Material3 scheme, type scale
+    data/                  project store (JSON), media probing, Media3 exporter
+    model/                 Project, Layer, Clip, Effect schema, EffectStack, Timeline
+  app/src/test/java/...    effects stack (20), timeline (11), project store (10)
 ```
 
 ## Build
 
-Needs **JDK 17** and the **Android SDK** (`ANDROID_HOME`), plus Gradle wrapper
-(committed). Nothing else — no secrets, no backend, no keys.
+Needs **JDK 17** and the **Android SDK** (`ANDROID_HOME`). Nothing else — no secrets.
 
 ```bash
 cd editor
-./gradlew testDebugUnitTest     # effects stack, no emulator needed
-./gradlew assembleDebug         # app/build/outputs/apk/debug/app-debug.apk
-./gradlew installDebug          # to a connected phone
+./gradlew testReleaseUnitTest   # 41 JVM tests, no emulator
+./gradlew assembleRelease       # app/build/outputs/apk/release/app-release.apk
+./gradlew installRelease        # to a connected phone
 ```
 
-The debug APK installs and runs standalone; it does not need a dev server.
+The release variant is signed with AGP's debug key, so it installs standalone. Play
+upload needs a real key (PLAN.md §8) — never store it in this repo.
 
 ### CI
 
-`.github/workflows/editor-apk.yml` runs the tests, builds the debug APK and uploads
-`ankitcutz-debug-apk` on every push that touches `editor/`, on pull requests, and by
-manual dispatch. This is the canonical build — download the artifact and sideload it.
+| Workflow | When | What |
+|---|---|---|
+| `editor-apk.yml` | push/PR touching `editor/**`, manual | unit tests + release APK artifact |
+| `editor-release.yml` | tag `ankitcutz-v*` | unit tests, signed APK, GitHub Release with the APK |
 
-The Expo app in this repo (Kissa) ignores `editor/**`; the two never ship together.
+The Expo app (Kissa) ignores `editor/**`; the two never ship together.
 
-## Week 1 scope (done)
+## Status — v0.2.0 (M1 + M2 partial + first export)
 
-- Design tokens, dark-only Material3 theme, type scale — DESIGN.md §1.
-- Editor shell — top bar, preview, scrub, transport, ruler, fixed panel band, five
-  bottom tabs (screen 16–18). Panel switching never resizes the preview.
-- Effects stack — expandable rows, power toggle, drag handle, long-press menu
-  (reset / duplicate / move / remove), `N passes` budget chip (screen 19).
-- Add-effect sheet — search across name *and* category, category chips, recently used,
-  add-with-defaults then auto-expand (screen 20).
-- Schema-generated inspector — slider + numeric pill + keyframe diamond per numeric
-  param, choice rows for enums/colours, preset chips, one undo entry per drag
-  (screen 21).
-- Model — immutable `Layer`, `EffectSchema` with typed params and pass cost,
-  pure `EffectStack` (add/remove/duplicate/move/toggle/param/keyframe/preset/pass
-  budget) with 20 JUnit tests.
-- Undo/redo with slider-drag coalescing.
+**Works on a phone**
 
-## Not yet (honest list)
+- Projects: create, open, delete, duplicate-safe storage. Autosaves after every edit.
+- Import: system Photo Picker → video or photo. Duration probed once and stored, so a
+  trim can be reverted without touching the file again.
+- Preview: real ExoPlayer playback mapped to the clip's in/out points; stills decoded.
+  Playhead follows playback; seeking pauses nowhere it shouldn't.
+- Timeline: proportional blocks, drag to scrub, split at playhead, delete clip, reorder.
+- Undo/redo across every edit; slider drags collapse into one undo step.
+- Effects stack: add (search + categories + recent), reorder, toggle, duplicate, reset,
+  remove, presets, per-parameter slider + numeric pill + keyframe diamond.
+- Export: selected clip trimmed and transcoded to H.264/AAC MP4, progress, Share sheet.
 
-- No decoder and no renderer: the preview is a placeholder, so effects are data and UI
-  only. GLES pipeline lands in Week 2–4 (`PLAN.md` §6.6).
-- 12 of the ~185 planned effects have schemas; each shader is added with its schema so
-  nothing in the picker is decorative.
-- Media import, timeline gestures, text/fonts, export, projects — later weeks.
+**Tests** — 41 JVM tests: stack ops, timeline math (no gaps, min length, split edges),
+project round-trip, corrupt-file safety, newer-field tolerance, sort order.
+
+## Honest gaps (next milestones)
+
+1. **No GPU effect renderer yet.** The stack is data + UI; export currently trims the
+   source. The export sheet says this in the UI instead of pretending. This is the next
+   and biggest piece (PLAN.md §6.6).
+2. **Single video layer.** Audio lanes, text, shapes, groups exist in the model; their
+   renderers do not.
+3. **12 of ~185 effects** have schemas; each ships with its shader, never as a placeholder.
+4. **No project settings UI** (aspect, fps, resolution) — model fields exist, screen does not.
+5. **R8 off, debug key** — deliberate until an instrumented smoke test exists.
+6. **Photos export as 3 s video** only when the renderer lands; for now export needs a video.
 
 ## Rules we do not break
 
 1. Effects are universal: video, photo, text, sticker, shape, group, adjustment.
 2. Every parameter is customisable; the inspector is generated from the schema.
-3. Effects are never silently dropped — over budget, the preview proxy drops resolution,
-   not effects.
+3. Effects are never silently dropped — over budget, the preview proxy drops resolution.
 4. Order is render order, and the stack is saved in the project file.
 5. Permissive licences only (Apache-2.0 / MIT / BSD). No GPL/AGPL in the APK.
+6. Nothing leaves the phone unless the user taps Share.

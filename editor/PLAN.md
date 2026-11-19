@@ -799,3 +799,4 @@ Dates are effort-based, not calendar promises; any week without device testing p
 | 2026-11-18 | Licence gate in CI + `LICENCES.md` | A copyleft dependency must fail the build, not be discovered after launch |
 | 2026-11-18 | **User font import** (ttf/otf/ttc), variable-font axes, per-layer fonts | User decision (§6.9). Bundled fonts OFL only; imported fonts stay on device and never ship |
 | 2026-11-18 | **Font picker shows a live `ABCabc` specimen** per font | User decision (§6.9 B2). Name-only lists make bold/condensed fonts look identical |
+| 2026-11-19 | **v0.2.0 shipped**: Media3 Transformer export of the selected clip (trim only) before the GPU renderer | First real MP4 out of the app; effects deliberately not baked and labelled as such in the UI |
