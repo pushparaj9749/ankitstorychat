@@ -63,6 +63,69 @@
         "kind": "character-portrait",
         "label": "Senapati Vajra",
         "characterId": "vajra"
+      },
+      {
+        "id": "niyati-portrait",
+        "file": "assets/gallery/image-03.jpg",
+        "kind": "character-portrait",
+        "label": "Niyati",
+        "characterId": "niyati"
+      },
+      {
+        "id": "chhaya-portrait",
+        "file": "assets/gallery/image-04.jpg",
+        "kind": "character-portrait",
+        "label": "Chhaya",
+        "characterId": "chhaya"
+      },
+      {
+        "id": "kaalnemi-portrait",
+        "file": "assets/gallery/image-05.jpg",
+        "kind": "character-portrait",
+        "label": "Kaalnemi",
+        "characterId": "kaalnemi"
+      },
+      {
+        "id": "veer-bhan-portrait",
+        "file": "assets/gallery/image-06.jpg",
+        "kind": "character-portrait",
+        "label": "Veer Bhan",
+        "characterId": "veer-bhan"
+      },
+      {
+        "id": "scene-throne-hall",
+        "file": "assets/gallery/image-07.jpg",
+        "kind": "scene",
+        "label": "Kaal Mahal ka takht hall",
+        "sceneId": "s1_throne"
+      },
+      {
+        "id": "scene-asura-bazaar",
+        "file": "assets/gallery/image-08.jpg",
+        "kind": "scene",
+        "label": "Asura Bazaar",
+        "sceneId": "s4_bazaar"
+      },
+      {
+        "id": "scene-soch-kund",
+        "file": "assets/gallery/image-09.jpg",
+        "kind": "scene",
+        "label": "Soch-Kund",
+        "sceneId": "s5_dream"
+      },
+      {
+        "id": "scene-seema",
+        "file": "assets/gallery/image-10.jpg",
+        "kind": "scene",
+        "label": "Jale hue seema-gaon",
+        "sceneId": "s6_border"
+      },
+      {
+        "id": "scene-system",
+        "file": "assets/gallery/image-11.jpg",
+        "kind": "scene",
+        "label": "System ki pehli jhalak",
+        "sceneId": "s7_system"
       }
     ]
   }
