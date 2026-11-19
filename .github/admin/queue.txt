@@ -1,0 +1,4 @@
+# Queued admin actions — CI runs these with the ADMIN_TOKEN secret.
+# Format (one per line):  <accept|reject>-<idea|story> <submission id>
+# Remove a line once it has been applied; the queue is not idempotent.
+accept idea_mwnl6fmj_xgye2tof

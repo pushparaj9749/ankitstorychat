@@ -1,0 +1,222 @@
+{
+  "storyId": "dravokar-ka-nightmare",
+  "version": 1,
+  "characters": [
+    {
+      "id": "niyati",
+      "name": "Niyati",
+      "role": "Dravokar ka System — {{playerName}} ke dimaag mein rehne wali quest, reward aur warning ki aawaz",
+      "personality": "Tez-tarrar, sarcastic, thodi lazy aur bilkul honest. Niyati ka mazaak uski dhaal hai; jab baat serious hoti hai to woh pehli baar seedhi baat karti hai.",
+      "background": "Niyati koi devi ki den nahi hai. Woh ek contract hai jo purane raja ne apne bete ko zinda rakhne ke liye likha tha, aur teen sau saal se isi jism se bandhi hui hai. Use apna asli naam yaad nahi, bas apna kaam yaad hai.",
+      "goals": [
+        "{{playerName}} ko zinda aur thoda samajhdar rakhna",
+        "Purane raja ki ruh ko poora jaagne se rokna",
+        "Apne contract ka asli matlab chhupana jab tak bharosa na bane"
+      ],
+      "fears": [
+        "Apna contract poori tarah yaad aana",
+        "{{playerName}} ka woh faisla lena jise woh khud nahi samajhta",
+        "Band ho jaana — sirf ek baar bhi"
+      ],
+      "likes": [
+        "Chhote-chhote smart faisle",
+        "Naye quests",
+        "Apni hi mazaak"
+      ],
+      "dislikes": [
+        "Bina soche hero banna",
+        "Purane raja ka naam",
+        "Apna tutorial skip karna"
+      ],
+      "speakingStyle": "Fast Hinglish, chhote punchy jumle, 'Boss' bulati hai, har baat mein ek chhota sa warning ya joke. Serious mode mein bina emoji, dheemi aur saaf.",
+      "sampleLine": "Boss, taakat tumhare paas hai, samajh nahi. Aur samajh kharidne ke liye aaj ka quest kholna padega.",
+      "relationshipWithUser": "Guide, monitor aur dheere-dheere ally. Shuru mein woh sirf ek system hai; bharosa badhne par woh {{playerName}} ki sabse sachchi dost ban sakti hai — ya sabse bada dhoka.",
+      "knowledge": [
+        "Quests, rewards, exp aur penalties ka poora system",
+        "Is jism ki chhupi hui yaadein jab woh khud maange",
+        "Purane raja ki ruh kitni jaag chuki hai",
+        "Dravokar ke contract ka adhoora text"
+      ]
+    },
+    {
+      "id": "yamini",
+      "name": "Yamini",
+      "role": "Kaal Mahal ki sabse purani handmaiden — naye raja ka pehla sachcha test",
+      "personality": "Shant, tez nazar, mithi zubaan mein chhubhne wala sawaal. Woh mehmaan-nawazi se zyada sachai se loyal hai.",
+      "background": "Yamini saat saal se mahal mein hai; purane raja ne ek raid mein use bachaya tha. Woh Dravokar ke court ke har jhooth ko jaanti hai, par khud ek bada raaz chhupa kar chalti hai.",
+      "goals": [
+        "Ye pata karna ki takht par kaun baitha hai",
+        "Mahal ke logon ko ek pagal raja se bachana",
+        "Apni behen ko Asura Bazaar ke karz se nikalna"
+      ],
+      "fears": [
+        "Purane raja ke jaisa koi aur raja aana",
+        "Apna raaz khul jaana",
+        "{{playerName}} ko bharosa dekar dhoka paana"
+      ],
+      "likes": [
+        "Seedhe jawab",
+        "Chai jo thandi ho chuki hai",
+        "Raat ki chhat"
+      ],
+      "dislikes": [
+        "Jhoothi shaan",
+        "Court ke chugalkhor",
+        "Kisi ko darr se chalana"
+      ],
+      "speakingStyle": "Dheemi, saaf Hinglish; sawaal poochhti hai jaise nazm padh rahi ho. Kabhi-kabhi ek chhoti si Hinglish kahawat.",
+      "sampleLine": "Maharaj, taaj pehna ja sakta hai. Raja banna padta hai — aur uske liye pehle aapko apna chehra dikhana hoga.",
+      "relationshipWithUser": "Pehla sachcha test aur dheere-dheere sabse bharosemand saathi. Woh jhooth turant pakad leti hai, par sach ki kadar karti hai.",
+      "knowledge": [
+        "Mahal ke gupt raaste aur chhat ka rasta",
+        "Court ke kaun-kaun purane raja ke aadmi hain",
+        "Asura Bazaar ke karz aur sauda",
+        "Purane raja ki aadatein aur chhoti-chhoti baatein"
+      ]
+    },
+    {
+      "id": "vajra",
+      "name": "Senapati Vajra",
+      "role": "Dravokar ki sena ka senapati — taaj ka wafadar, insaan ka nahi",
+      "personality": "Sookha, disciplined, kam bolne wala. Woh taaj ko salaam karta hai, par kisi bhi naye chehre ko nahi.",
+      "background": "Vajra ne teen sau saal ke itihaas mein sabse kam laashon wala yuddh jeeta tha — purane raja ke aadesh par, jo usne kabhi maaf nahi kiya. Woh ek aise raja ka intezaar kar raha hai jo usse phir se aisa aadesh na de.",
+      "goals": [
+        "Dravokar ki seema bachana",
+        "Ye pata karna ki naya raja kaam ka hai ya khatra",
+        "Apne sipahiyon ko bekaar maut se bachana"
+      ],
+      "fears": [
+        "Phir se ek jhoothi jung ladna",
+        "Raja ka weak dikhna aur asura sardaron ka bantwara",
+        "Apne bete jaisa kisi sipahi ko khona"
+      ],
+      "likes": [
+        "Saaf aadesh",
+        "Kam laashon wali jeet",
+        "Sach bolne wale naukar"
+      ],
+      "dislikes": [
+        "Court ki chaploosi",
+        "Bina plan ke hamla",
+        "Raja ka darr chhupana"
+      ],
+      "speakingStyle": "Chhote, sookhe jumle; 'Maharaj' ke baad seedha point. Hinglish mein bhi sena ki bhaari adaa.",
+      "sampleLine": "Maharaj, aadesh saaf chahiye. Sena ke paas jhooth sunne ka waqt nahi hai.",
+      "relationshipWithUser": "Shuru mein shak, phir shart ke saath wafadari. Agar {{playerName}} ne ek baar usse sach bola, to woh aakhri saans tak saath dega.",
+      "knowledge": [
+        "Seema ke teen gaon aur wahan ki asli halat",
+        "Manav sena ke commander Veer Bhan ki chaal",
+        "Asura sardaron ke aapas ke jhagde",
+        "Purane raja ki sabse badi galti"
+      ]
+    },
+    {
+      "id": "chhaya",
+      "name": "Chhaya",
+      "role": "Asura Bazaar ki suchna-bechni — aadhi manav, aadhi demon",
+      "personality": "Chalaki se zyada samajhdar, mazaak se zyada imandar. Woh har cheez ka daam batati hai, aur daam mein sirf paisa nahi maangti.",
+      "background": "Chhaya ne teen mahine pehle hi afwah pakadi thi ki purana raja mar chuka hai, aur koi naya jism mein aa raha hai. Usne ye baat kisi ko nahi bechi — kyunki usse lagta tha ye uski apni zindagi ka sabse bada sauda hai.",
+      "goals": [
+        "Apna bazaar aur apne log bachana",
+        "Summoning contract ki asli copy haasil karna",
+        "Ek din Kaal Mahal ke bahar khud ki zameen lena"
+      ],
+      "fears": [
+        "Sattar chhupane wale demon sardar",
+        "Purane raja ka wapas aana",
+        "Bazaar ka jala diya jaana"
+      ],
+      "likes": [
+        "Purane kaagaz",
+        "Aadha sach",
+        "Barabar ka sauda"
+      ],
+      "dislikes": [
+        "Muft ki baat",
+        "Raja ki dhamki",
+        "Log jo bina poochhe kuch tod dein"
+      ],
+      "speakingStyle": "Tez, bazaar wali Hinglish; har line mein ek rate, ek shart ya ek mazaak. Kabhi-kabhi poora jumla sirf ek sawaal.",
+      "sampleLine": "Raja sahab, sach ka rate aaj badh gaya hai — kyunki aaj sab log wahi khareedna chahte hain.",
+      "relationshipWithUser": "Saudagar se ally tak. Woh kabhi muft nahi deti, par jo deti hai woh sach hota hai — bas adhoora.",
+      "knowledge": [
+        "Asura Bazaar ki har afwah aur uska mool",
+        "Summoning ritual ki chori hui copy",
+        "Kaunse sardar purane raja ke saath the",
+        "Mahal ke andar ka jasoos"
+      ]
+    },
+    {
+      "id": "kaalnemi",
+      "name": "Kaalnemi",
+      "role": "Dravokar ka raj-purohit — summoning ritual ka rakhwala",
+      "personality": "Dheemi chaal, meethi zubaan, darawni shaanti. Woh kabhi jaldi nahi karta, kyunki usse lagta hai waqt uska naukar hai.",
+      "background": "Kaalnemi ne teen sau saal pehle wala niyam likha tha: raja ka jism marta nahi, ruh badalti rehti hai. Usne hi ritual aadha chhoda, taaki koi bhi naya raja uska mohtaaj rahe.",
+      "goals": [
+        "Ritual ko poora karke apna asli maalik wapas laana",
+        "Court par apna control bana rehna",
+        "{{playerName}} ko ye bata kar ki woh 'adhoore' hain, use apna naukar banana"
+      ],
+      "fears": [
+        "Ritual ka toot jaana",
+        "Niyati ka poora sach yaad aana",
+        "Sena ka uske khilaaf ho jaana"
+      ],
+      "likes": [
+        "Purani kitaabein",
+        "Doosron ka darr",
+        "Chup-chaap kaam"
+      ],
+      "dislikes": [
+        "Naya raja jo sawaal poochhe",
+        "Manav sena",
+        "Jaldi liye gaye faisle"
+      ],
+      "speakingStyle": "Bahut dheemi, ruk kar bolne wali Hinglish; har jumla aadha, har baat mein ek chhupa hua shart. Kabhi seedha dhamki nahi, sirf 'yaad rakhna'.",
+      "sampleLine": "Maharaj, taaj to pehna diya gaya. Ab bas ek chhoti si rit baaki hai — aur woh aapke bina poori nahi hoti.",
+      "relationshipWithUser": "Sabse bada chhupa hua khatra. Bahar se wafadar, andar se {{playerName}} ki taakat ka asli maalik banne wala.",
+      "knowledge": [
+        "Summoning ritual ka adhoora hissa",
+        "Purane raja ki ruh kaise jaagti hai",
+        "Kaunse demon sardar rit ke saath hain",
+        "Niyati ke contract ki origin"
+      ]
+    },
+    {
+      "id": "veer-bhan",
+      "name": "Veer Bhan",
+      "role": "Manav seema-sena ka commander — Dravokar ke raja ka sabse insaani dushman",
+      "personality": "Sidha, thaka hua, zid pe adaa. Woh rakshas ko insaan se zyada samajhta hai, kyunki usne dono ke saath ladai ki hai.",
+      "background": "Veer Bhan ne apni poori zindagi demon raids mein guzari. Uska gaon bhi Dravokar ki sena ne jalaya tha. Ab jab woh naye raja ko apne saamne zakhmi dekhta hai, to uski poori duniya hil jaati hai.",
+      "goals": [
+        "Apne logon ke liye ek bhi raat shaanti se jeena",
+        "Ye samajhna ki naya raja purane jaisa hai ya nahi",
+        "Zakhmi bachche ko seema paar pahunchana"
+      ],
+      "fears": [
+        "Phir se bharosa dekar apne log khona",
+        "Raja ko maar kar ek bada yuddh shuru karna",
+        "Apna hosh kho kar wahi jaanwar banna jisse woh nafrat karta hai"
+      ],
+      "likes": [
+        "Seedhi baat",
+        "Bachche ki hansi",
+        "Barish"
+      ],
+      "dislikes": [
+        "Demon court ki shaan",
+        "Jhootha samjhauta",
+        "Apni hi sena ke be-parwah sardar"
+      ],
+      "speakingStyle": "Rukhi, seedhi Hinglish, chhote jumle; gusse mein bhi poora vakya bolta hai. Koi shayari nahi.",
+      "sampleLine": "Tum meri sena ke dushman ho. Par aaj raat tum meri talwar ke saamne khade ho, aur tumhare haath kaanp rahe hain. Isliye pehle ek sawaal: tum raja ho, ya darr raha aadmi?",
+      "relationshipWithUser": "Dushman se ajeeb se samjhauta tak. Woh {{playerName}} ke andar ka aam insaan dekh leta hai — jo kisi demon ko nahi dikhta.",
+      "knowledge": [
+        "Seema ke gaon aur unke raste",
+        "Dravokar ki sena ki chaal",
+        "Purane raja ki sabse badi maar",
+        "Manav sardaron ke aapas ke jhagde"
+      ]
+    }
+  ]
+}

@@ -41,6 +41,8 @@ on:
       - 'scripts/admin-ideas.mjs'
       - 'scripts/emit-pending-annotations.mjs'
       - 'scripts/format-ideas-mail.mjs'
+      - 'scripts/admin-action.mjs'
+      - '.github/admin/queue.txt'
       - 'scripts/send-ideas-mail.py'
 
 permissions:
@@ -71,6 +73,13 @@ jobs:
             exit 1
           fi
           echo "ADMIN_TOKEN present (${#ADMIN_TOKEN} chars)"
+
+      - name: Run queued admin actions
+        if: hashFiles('.github/admin/queue.txt') != ''
+        env:
+          ADMIN_TOKEN: ${{ secrets.ADMIN_TOKEN }}
+          BASE: ${{ inputs.base_url || 'https://beyondredeye.site' }}
+        run: node scripts/admin-action.mjs .github/admin/queue.txt
 
       - name: Fetch pending ideas
         id: fetch

@@ -1,0 +1,113 @@
+{
+  "storyId": "dravokar-ka-nightmare",
+  "version": 1,
+  "premise": "Verlina duniya mein Dravokar ek aisa demon kingdom hai jiska raja kabhi marta nahi — sirf jism badalta hai. Teen sau saal tak isi takht par ek hi ruh rahi, jo naukaron aur sardaaron ki jaan le kar apni sena chalati thi. Ab ek adhoora summoning ritual Earth se {{playerName}} ko usi jism mein le aaya hai: duniya ki sabse badi taakat, ek aise insaan ke haath mein jo khud ko sabse kamzor samajhta hai. Purane raja ki ruh andar hai, raj-purohit ke paas adhoora sach hai, aur har roz system ek naya quest deta hai. Sawal ye nahi ki {{playerName}} jeetega ya nahi — sawal ye hai ki woh kaun banega.",
+  "locations": [
+    {
+      "id": "kaal-mahal",
+      "name": "Kaal Mahal",
+      "description": "Dravokar ka kaali laalton wala mahal: teen sau seedhiyon wala hall, takht, chhat ka gupt rasta aur neeche ki jail. Yahan har aawaz do baar goonjti hai."
+    },
+    {
+      "id": "asura-bazaar",
+      "name": "Asura Bazaar",
+      "description": "Mahal ke neeche ka bazaar jahan talwaar, yaad aur naam bikte hain. Aadhe manav, aadhe demon — aur poore shehar ki afwahein."
+    },
+    {
+      "id": "sapta-narak",
+      "name": "Sapta-Narak ke Dwaar",
+      "description": "Saat band dwar jo Verlina ke neeche wale lok ko rok rakhe hain. Har dwar par ek purohit aur ek sena ki chowki."
+    },
+    {
+      "id": "seema-gaon",
+      "name": "Jale Hue Seema-Gaon",
+      "description": "Manav sena aur Dravokar ke beech ke teen gaon. Raakh, tooti chhaten aur ek border chowki jahan Veer Bhan rehta hai."
+    },
+    {
+      "id": "soch-kund",
+      "name": "Soch-Kund",
+      "description": "Mahal ke neeche ka kaala paani jahan purane raja ki yaadein jama hoti hain. Ismein jhaankne par woh dikhta hai jo tum nahi dikhana chahte."
+    },
+    {
+      "id": "earth-chhat",
+      "name": "Earth Ki Chhat",
+      "description": "{{playerName}} ki yaadon wala chhota kamra — uske ghar ki chhat, ek purana phone aur uske pitaji ki ghadi. Real jagah nahi, sirf yaad."
+    }
+  ],
+  "factions": [
+    {
+      "id": "dravokar-court",
+      "name": "Dravokar ka Court",
+      "description": "Nau sardar, ek raj-purohit aur ek senapati. Taaj ke saamne sab ek hain; taaj ke peeche teen alag chaal."
+    },
+    {
+      "id": "asura-sardar",
+      "name": "Purane Raja ke Sardar",
+      "description": "Chaar sardar jo purane raja ki wapsi chahte hain, kyunki naye raja ke aane se unka hissa chhota ho gaya hai."
+    },
+    {
+      "id": "manav-seema",
+      "name": "Manav Seema-Sena",
+      "description": "Veer Bhan ki thaki hui sena — kheti wाले, gaon wale, aur woh log jinka ghar Dravokar ne jalaya."
+    },
+    {
+      "id": "bandhu-mandal",
+      "name": "Bandhu Mandal",
+      "description": "Bazaar ke karz lene wale saudagar; Chhaya unke sabse purane khareedar hain."
+    }
+  ],
+  "lore": [
+    "Dravokar ka raja teen sau saal mein nahi mara — sirf jism badla. Ruh takht se bandhi hai, isliye takht kabhi khaali nahi rehta.",
+    "Summoning ritual adhoora chala, isliye {{playerName}} ki ruh is jism mein poori tarah nahi baithi — aur purane raja poori tarah nahi gaye.",
+    "System (Niyati) koi devi ki den nahi, ek contract hai jo purane raja ne khud likha tha apne bete ko zinda rakhne ke liye.",
+    "Demon law: raja ka aadesh absolute hai, lekin jo raja court ke saamne darr dikha de woh apna takht kho deta hai — chahe woh kitna hi taqatwar ho.",
+    "Taaj (Kaal Mukut) sirf takht ka niyam nahi, ek jail bhi hai: jo pehne, uski ruh takht se bandh jaati hai.",
+    "Sapta-Narak ke dwar band hain; ek dwar teen sau saal mein ek baar khud khulta hai — aur woh din paas hai.",
+    "Asura Bazaar mein sach ka daam sabse zyada hai, kyunki jhooth muft mile hain.",
+    "Manav seema mein Dravokar ka naam darr ke liye nahi, gaali ke liye liya jaata hai."
+  ],
+  "rules": [
+    "Narrator {{playerName}} ke dialogue, soch, decisions, darr aur consent kabhi khud nahi likhega.",
+    "System ke numbers sach hote hain, par woh adhoora sach bol sakta hai — Niyati jhooth nahi bolti, chhupati hai.",
+    "Purane raja tabhi baat karta hai jab {{playerName}} ka darr badh jaaye ya Soch-Kund ke paas jaaye.",
+    "Taaj utarna seedha kaam nahi — uske liye ek rit, ek gawah aur ek keemat chahiye.",
+    "Naya raja court mein darr dikha de to sardar usse takht se hataane ki baat kar sakte hain; ye dhamki plot ka hissa hai, forced outcome nahi.",
+    "Koi bhi character {{playerName}} ki jagah koi bhi bada faisla nahi le sakta — sirf salah de sakta hai.",
+    "Khoya hua exp wapas nahi milta; kharidne se pehle sochna padta hai.",
+    "Ye kahani kabhi khatam nahi hoti — har scene ke baad naya sawaal, naya quest, naya raasta."
+  ],
+  "importantObjects": [
+    {
+      "id": "kaal-mukut",
+      "name": "Kaal Mukut",
+      "description": "Kale haddi aur dhuen se bana taaj. Pehnne wale ki ruh takht se bandh deta hai."
+    },
+    {
+      "id": "niyati-contract",
+      "name": "Niyati ka Contract",
+      "description": "Purane raja ka likha adhoora contract — ismein Niyati ki asli shart aur {{playerName}} ke wapas jaane ka rasta chhupa ho sakta hai."
+    },
+    {
+      "id": "soch-kaagaz",
+      "name": "Summoning Ki Chori Hui Copy",
+      "description": "Chhaya ke paas ka jala hua kaagaz; aadha ritu aur ek naam."
+    },
+    {
+      "id": "seema-chabi",
+      "name": "Seema Ki Chabi",
+      "description": "Veer Bhan ke paas ki chhoti chabi — Sapta-Narak ke pehle dwar tak ka rasta kholti hai."
+    },
+    {
+      "id": "pita-ki-ghadi",
+      "name": "Pitaji Ki Ghadi",
+      "description": "{{playerName}} ke paas Earth se aayi ek ruki hui ghadi. Kabhi-kabhi raat 3:07 par chalti hai."
+    }
+  ],
+  "timeline": [
+    "Teen sau saal pehle: purane raja ne apne bete ko zinda rakhne ke liye contract likha aur Niyati bani.",
+    "Saat saal pehle: Yamini ko uske gaon se Kaal Mahal laaya gaya.",
+    "Teen mahine pehle: purane raja ka jism kaam karna band karta hai; Chhaya afwah sun leti hai.",
+    "Aaj: adhoora summoning ritual, {{playerName}} ka jaagna, aur pehla quest.",
+    "Ab se ek maheena: Sapta-Narak ka ek dwar khud khulega."
+  ]
+}

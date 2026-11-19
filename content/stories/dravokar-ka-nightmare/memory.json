@@ -1,0 +1,33 @@
+{
+  "storyId": "dravokar-ka-nightmare",
+  "version": 1,
+  "shortTermWindow": 14,
+  "seedMemories": [
+    "{{playerName}} Earth se hai aur ek adhoore summoning ritual se Dravokar ke demon king ke jism mein aaya hai.",
+    "Dravokar ka takht kabhi khaali nahi hota; raja ka jism badalta hai, ruh takht se bandhi rehti hai.",
+    "Niyati ek contract-bound System hai jo purane raja ne khud likha tha; woh jhooth nahi bolti, bas adhoora sach bolti hai.",
+    "Purane raja ki ruh abhi bhi is jism ke andar hai aur dheere-dheere jaag rahi hai.",
+    "Kaal Mukut pehnne wale ki ruh takht se bandh deta hai.",
+    "Yamini saat saal se mahal mein hai aur woh jhooth turant pakad leti hai.",
+    "Senapati Vajra taaj ka wafadar hai, kisi insaan ka nahi; woh kam laashon wali jeet chahta hai.",
+    "Chhaya Asura Bazaar ki suchna-bechni hai aur usne naye raja ki afwah teen mahine pehle hi sun li thi.",
+    "Kaalnemi raj-purohit hai, jisne summoning ritual aadha chhoda — woh chahta hai ki naya raja uspar nirbhar rahe.",
+    "Veer Bhan manav seema-sena ka commander hai; uska gaon bhi Dravokar ki sena ne jalaya tha.",
+    "Seema ke teen gaon jal chuke hain aur sena wapas waar ka aadesh maang rahi hai.",
+    "Sapta-Narak ka ek dwar ek maheene mein khud khulega."
+  ],
+  "extractionHints": [
+    "{{playerName}} ne apni asli identity ke baare mein kisko sach bataya.",
+    "Niyati ke saath bharosa badha ya ghata, aur kis faisle se.",
+    "Purane raja ne kab aur kya kaha.",
+    "Kaunse sardar naye raja ke khilaaf hain aur kyun.",
+    "Kya {{playerName}} ne koi exp hint par kharch kiya aur kaunsa.",
+    "Seema par liya gaya faisla aur Veer Bhan ki pratigya.",
+    "Taaj, mukut, kaagaz ya chabi jaise objects kahan hain."
+  ],
+  "neverRemember": [
+    "Real-world personal data",
+    "App ke bahar ki koi bhi jaankari",
+    "Player ka asli naam ya location jab tak woh khud na bole"
+  ]
+}

@@ -1,7 +1,7 @@
 {
-  "contentVersion": 70,
+  "contentVersion": 71,
   "minAppVersion": "1.0.0",
-  "updatedAt": "2026-11-19T00:00:00Z",
+  "updatedAt": "2026-11-19T14:30:00Z",
   "stories": [
     {
       "id": "arranged-marriage-wala-love",
@@ -4630,6 +4630,58 @@
         "verified": true
       },
       "updatedAt": "2026-11-19T00:00:00Z"
+    },
+    {
+      "id": "dravokar-ka-nightmare",
+      "title": "Dravokar Ka Nightmare",
+      "tagline": "Demon king ka jism, ek aam ladka, aur andar chhupi purane raja ki ruh.",
+      "description": "{{playerName}} Earth ka ek aam 21 saal ka ladka hai — na taakat, na magic, na koi khaas talent. Phir ek raat uske kamre ki jagah Dravokar ka Kaal Mahal hota hai: woh demon king ke jism mein jaagta hai, aur teen sau demon uske ek ishare par jaan dene ko tayyar hain. Dikkat sirf ek hai — woh khud ko duniya ka sabse kamzor insaan samajhta hai. Ek system hai jo roz quest deta hai, ek mukut hai jo utarna aasan nahi, aur ek purane raja ki ruh jo abhi bhi isi jism mein saans leti hai. Chahta hua bhi nahi, {{playerName}} ko Dravokar chalana hai — aur sabse pehle ye tay karna hai ki woh darr ke saath jeetega ya darr se bhaagega.",
+      "genres": [
+        "Dark Fantasy",
+        "Isekai",
+        "Action",
+        "Mystery",
+        "System"
+      ],
+      "tags": [
+        "ongoing",
+        "hinglish",
+        "system",
+        "isekai",
+        "demon-king",
+        "dark-fantasy",
+        "weakest-strongest",
+        "mystery",
+        "dravokar",
+        "player-agency"
+      ],
+      "characters": [
+        "Niyati",
+        "Yamini",
+        "Senapati Vajra",
+        "Chhaya",
+        "Kaalnemi",
+        "Veer Bhan"
+      ],
+      "ageRating": "18+",
+      "contentLevel": "mature",
+      "language": "hinglish",
+      "version": 1,
+      "coverUrl": "stories/dravokar-ka-nightmare/assets/cover.jpg",
+      "accentColor": "#6B3FA0",
+      "userRole": "{{playerName}} — Earth se aaya 21 saal ka aam ladka jo ek adhoora summoning ritual pakad kar Verlina duniya ke Dravokar ke takht par, demon king ke jism mein aa gaya hai. Uska asli chehra, family, fears, skills, opinions aur wapas jaane ki chahat poore player-defined hain. Jism sabse taqatwar hai par andar ka insaan khud ko sabse kamzor samajhta hai; uska dialogue, soch, feelings, consent aur decisions sirf player ke control mein hain. Woh koi pre-written hero nahi hai.",
+      "setting": "Verlina duniya: Dravokar ka kaali laalton wala Kaal Mahal, neeche ka Asura Bazaar, Sapta-Narak ke band dwaar, jale hue seema-gaon aur manav sena ki border chowki. Jism ke andar purane raja ki ruh aur ek contract-bound System. Koi asli desh, dharm ya zinda vyakti nahi dikhaya gaya.",
+      "estimatedMinutes": 45,
+      "featured": false,
+      "isNew": true,
+      "popularity": 62,
+      "storyDir": "dravokar-ka-nightmare",
+      "creator": {
+        "name": "Ankit 2.0",
+        "avatar": null,
+        "verified": true
+      },
+      "updatedAt": "2026-11-19T14:30:00Z"
     }
   ]
 }

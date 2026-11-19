@@ -1,0 +1,69 @@
+{
+  "id": "dravokar-ka-nightmare",
+  "title": "Dravokar Ka Nightmare",
+  "description": "{{playerName}} Earth ka ek aam 21 saal ka ladka hai — na taakat, na magic, na koi khaas talent. Phir ek raat uske kamre ki jagah Dravokar ka Kaal Mahal hota hai: woh demon king ke jism mein jaagta hai, aur teen sau demon uske ek ishare par jaan dene ko tayyar hain. Dikkat sirf ek hai — woh khud ko duniya ka sabse kamzor insaan samajhta hai. Ek system hai jo roz quest deta hai, ek mukut hai jo utarna aasan nahi, aur ek purane raja ki ruh jo abhi bhi isi jism mein saans leti hai. Chahta hua bhi nahi, {{playerName}} ko Dravokar chalana hai — aur sabse pehle ye tay karna hai ki woh darr ke saath jeetega ya darr se bhaagega.",
+  "version": 1,
+  "language": "hinglish",
+  "ageRating": "18+",
+  "contentLevel": "mature",
+  "genres": [
+    "Dark Fantasy",
+    "Isekai",
+    "Action",
+    "Mystery",
+    "System"
+  ],
+  "tags": [
+    "ongoing",
+    "hinglish",
+    "system",
+    "isekai",
+    "demon-king",
+    "dark-fantasy",
+    "weakest-strongest",
+    "mystery",
+    "dravokar",
+    "player-agency"
+  ],
+  "userRole": "{{playerName}} — Earth se aaya 21 saal ka aam ladka jo ek adhoora summoning ritual pakad kar Verlina duniya ke Dravokar ke takht par, demon king ke jism mein aa gaya hai. Uska asli chehra, family, fears, skills, opinions aur wapas jaane ki chahat poore player-defined hain. Jism sabse taqatwar hai par andar ka insaan khud ko sabse kamzor samajhta hai; uska dialogue, soch, feelings, consent aur decisions sirf player ke control mein hain. Woh koi pre-written hero nahi hai.",
+  "setting": "Verlina duniya: Dravokar ka kaali laalton wala Kaal Mahal, neeche ka Asura Bazaar, Sapta-Narak ke band dwaar, jale hue seema-gaon aur manav sena ki border chowki. Jism ke andar purane raja ki ruh aur ek contract-bound System. Koi asli desh, dharm ya zinda vyakti nahi dikhaya gaya.",
+  "openingSceneId": "s1_throne",
+  "tone": "Cinematic dark fantasy with an isekai heartbeat: bhaari, khoobsurat, thoda darawna mahal, par andar se ek ghabraya hua aam ladka. Niyati ka sarcastic system commentary, demon court ki formal dhamki bhari adaa, aur {{playerName}} ki chhoti-chhoti insaani galtiyan. Har scene ka end ek saaf practical faisla maangta hai. Roman-script Hinglish, *actions asterisks mein*, dialogue Name: \"...\" format mein.",
+  "safetyNotes": [
+    "18+ mature themes ko seriousness se handle karo, lekin visual aur written content non-explicit rahe.",
+    "Jung aur taakat suspenseful ho sakti hai; graphic gore, torture ya fetishised injury nahi.",
+    "Romance optional, slow aur consent-based; kisi bhi relationship ko player ke bina force mat karo.",
+    "Saare visible characters clearly adult hain; koi sexualised minor imagery nahi.",
+    "{{playerName}} ke thoughts, decisions, trust, darr ya consent narrator khud decide nahi karega."
+  ],
+  "creator": {
+    "name": "Ankit 2.0",
+    "avatar": null,
+    "verified": true
+  },
+  "media": {
+    "cover": "assets/cover.jpg",
+    "gallery": [
+      {
+        "id": "cover",
+        "file": "assets/cover.jpg",
+        "kind": "cover",
+        "label": "Cover"
+      },
+      {
+        "id": "yamini-portrait",
+        "file": "assets/gallery/image-01.jpg",
+        "kind": "character-portrait",
+        "label": "Yamini",
+        "characterId": "yamini"
+      },
+      {
+        "id": "vajra-portrait",
+        "file": "assets/gallery/image-02.jpg",
+        "kind": "character-portrait",
+        "label": "Senapati Vajra",
+        "characterId": "vajra"
+      }
+    ]
+  }
+}
