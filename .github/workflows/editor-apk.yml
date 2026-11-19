@@ -55,15 +55,23 @@ jobs:
         with:
           cache-read-only: ${{ github.ref != 'refs/heads/main' }}
 
+      # pipefail matters: without it `| tee` hides a failed Gradle exit code.
       - name: Unit tests (effects stack)
-        run: ./gradlew --no-daemon --console=plain testDebugUnitTest 2>&1 | tee /tmp/gradle.log
+        run: |
+          set -o pipefail
+          ./gradlew --no-daemon --console=plain testDebugUnitTest 2>&1 | tee /tmp/gradle.log
 
       - name: Assemble debug APK
-        run: ./gradlew --no-daemon --console=plain assembleDebug 2>&1 | tee -a /tmp/gradle.log
+        run: |
+          set -o pipefail
+          ./gradlew --no-daemon --console=plain assembleDebug 2>&1 | tee -a /tmp/gradle.log
 
-      - name: Surface compiler errors as annotations
-        if: failure()
-        run: bash ci/annotate-log.sh /tmp/gradle.log
+      - name: Surface build errors as annotations
+        if: always()
+        run: |
+          if grep -aqE "(^FAILURE:|^e: |error:)" /tmp/gradle.log 2>/dev/null; then
+            bash ci/annotate-log.sh /tmp/gradle.log
+          fi
 
       - name: Report APK
         if: always()
