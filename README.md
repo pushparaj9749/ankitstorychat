@@ -54,12 +54,19 @@ moves the tale forward — with memory and relationships, and no script: no pred
 
 ---
 
-## 🎬 Kissa Editor (planned)
+## 🎬 AnkitCutz — Android video editor
 
-A phone-first Android video editor (Kotlin + Compose + Media3) will live in [`editor/`](editor/).
+A phone-first Android video editor (Kotlin + Compose + Media3) lives in [`editor/`](editor/).
 It is a separate Gradle project inside this monorepo and does **not** affect the Kissa app,
-its CI or its APK. Planning document (scope, phases, architecture, licensing, Play checklist):
-[`editor/PLAN.md`](editor/PLAN.md). Code starts only after the plan is approved.
+its CI or its APK.
+
+- **Week 1 is code**: Compose shell, effects stack (accordion rows, pass-budget chip,
+  schema-generated inspector, keyframe diamonds, presets) and a pure unit-tested
+  `EffectStack`. [21 approved screens](editor/design/) predate the code.
+- Build: `cd editor && ./gradlew assembleDebug` — or grab the `ankitcutz-debug-apk`
+  artifact from the [AnkitCutz editor APK workflow](.github/workflows/editor-apk.yml).
+- Docs: [`editor/PLAN.md`](editor/PLAN.md) (scope, effects, budget, licensing, Play
+  checklist) and [`editor/README.md`](editor/README.md) (build + week-by-week status).
 
 ## 🆕 Release notes
 
