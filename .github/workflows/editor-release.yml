@@ -91,5 +91,6 @@ jobs:
             - Effects are data + UI in v0.2; they are not baked into the export yet.
             - Single video layer; audio layers and multi-track compositing come later.
             - Signed with a debug key: sideload only, not a Play-ready build.
-          files: out/*.apk
+          # Relative to the repo root, not the job's working-directory.
+          files: editor/out/*.apk
           fail_on_unmatched_files: true
