@@ -69,6 +69,20 @@ jobs:
             echo '```'
           } >> "$GITHUB_STEP_SUMMARY"
 
+      # Artifacts and logs are not reachable from every environment, but check
+      # annotations are readable through the API — so mirror the list there.
+      - name: Mirror the list into annotations
+        if: always()
+        run: node scripts/emit-pending-annotations.mjs out/pending-ideas.txt
+
+      - name: Fail if the token was rejected
+        if: always()
+        run: |
+          if grep -q 'HTTP 401\|HTTP 403' out/pending-ideas.txt 2>/dev/null; then
+            echo "::error title=Token rejected::The ADMIN_TOKEN secret does not match the worker."
+            exit 1
+          fi
+
       - name: Upload the list
         if: always()
         uses: actions/upload-artifact@v4
