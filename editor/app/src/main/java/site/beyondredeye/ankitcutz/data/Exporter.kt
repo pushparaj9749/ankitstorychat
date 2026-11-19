@@ -5,6 +5,7 @@ import android.net.Uri
 import android.os.Environment
 import android.os.Handler
 import android.os.Looper
+import androidx.media3.common.ClippingConfiguration
 import androidx.media3.common.MediaItem
 import androidx.media3.common.MimeTypes
 import androidx.media3.transformer.Composition
@@ -45,7 +46,7 @@ class Exporter(private val context: Context) {
 
         val item = EditedMediaItem.Builder(MediaItem.fromUri(Uri.parse(clip.uri)))
             .setClippingConfiguration(
-                androidx.media3.transformer.ClippingConfiguration.Builder()
+                ClippingConfiguration.Builder()
                     .setStartPositionMs(clip.sourceStartMs)
                     .setEndPositionMs(clip.sourceEndMs)
                     .build(),
