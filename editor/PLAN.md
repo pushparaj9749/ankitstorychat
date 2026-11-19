@@ -34,10 +34,10 @@ Each phase ends with **something installable and usable**, not a half-feature.
 | **0 — Skeleton** | Compose app, media picker (Photo Picker), project model, project list screen, Room persistence, preview player | ~1 week | App installs, project create/save/reopen works, one clip plays in preview |
 | **1 — Timeline** | Multi-track UI, trim/split/delete/reorder, pinch-zoom, snapping, frame scrub, undo/redo, thumbnails | 3–4 weeks | 10 clips, 60s project, edit + undo 50 steps without lag; project survives app kill |
 | **2 — Export** | Media3 Transformer, 1080p H.264, progress + cancel, background foreground-service export, share/save to Gallery | ~2 weeks | 60s project exports correctly in <2× realtime on your phone; export continues with screen off |
-| **3 — Text & overlays** | Text clips, fonts, colours, stroke/shadow, in/out animation, stickers (PNG/SVG), emoji | 3–4 weeks | Animated title renders identically in preview and export |
+| **3 — Text & overlays** | Text clips (MSDF rasterised), fonts, stroke/shadow, animations, stickers, shapes, **universal layer model** | 4–5 weeks | Text runs through the same effect stack as video; one effect looks identical on text and footage |
 | **4 — Audio** | Music track, waveform, trim, fade in/out, per-clip volume, voiceover recording, mute | 2–3 weeks | Waveform matches audio; music + voiceover mix correctly in export |
 | **5 — Speed & transitions** | Speed 0.1×–10×, ramps, **all 25 transitions**, freeze frame (§6.5) | 6 weeks | Transition renders frame-accurate; audio stays in sync at any speed |
-| **6 — Looks** | LUT filters, adjustments, blend modes, overlays, chroma key (full list in §6.5) | 3–4 weeks | LUT applied in preview = export; chroma key works on a clean background |
+| **6 — Looks** | LUT, adjustments, blend modes, overlays, chroma key, **glow / deep glow / bloom family**, blur, stylise, distort, glitch (§6.5–6.6) | 6–7 weeks | Glow and deep glow work on text, photos and video with every parameter keyframeable |
 | **7 — Captions & smart tools** | Auto-captions (Whisper tiny), editable caption track, silence removal, beat markers | 3–5 weeks | 60s Hinglish clip → captions in <60s on device, 80%+ usable after edits |
 | **8 — Keyframes & masks** | Full keyframe graph editor + 7 mask shapes with feather/keyframes (§6.5) | 6 weeks | Smooth interpolation, no preview/export mismatch |
 | **9 — Launch polish** | Onboarding, templates, settings, crash reporting, Play Store assets, privacy, ASO | 2–3 weeks | Internal → closed → production track; ANR-free on 4 GB device |
@@ -266,6 +266,125 @@ because “the filter silently stopped applying” is the most common phone-edit
 Effects alone ≈ **5–6 months**; with the base editor and launch work, the full "no compromise"
 product is **~10–14 months**. Any claim of less is not credible.
 
+## 6.6 Universal effect stack — Alight Motion model
+
+> **Decision (2026-11-18):** effects are **not** features of video clips. They are
+> properties of **every layer**: video, photo, text, sticker, shape, group and
+> adjustment layer. Every effect is fully parameterised (keyframeable, curve-able),
+> and the inspector UI is generated from each effect's schema so nothing is hardcoded.
+> No effect is "video-only". Glow / deep glow are first-class, not presets.
+
+### A. The layer model (what makes this possible)
+
+```
+Composition
+ └─ Layer (video | image | text | sticker | shape | group | adjustment)
+     ├─ Source        → decoded video frame | bitmap | rasterised text | vector
+     ├─ Transform     → position, scale, rotation, anchor, skew
+     ├─ EffectStack   → ordered list of effects, each with typed params
+     ├─ Mask          → 7 shapes, feather, invert, animated
+     └─ Blend         → 8 blend modes + opacity
+```
+
+Render order per layer, identically in preview and export:
+
+```
+source → transform → EFFECT STACK (in order) → mask → blend into parent
+```
+
+Two consequences that matter:
+
+1. **Text, stickers and shapes are rasterised to a texture first**, then pushed through the
+   *same* shader stack as video. So glow, blur, chromatic aberration, distortion — everything —
+   works on text exactly like on footage. This is the Alight Motion behaviour being copied.
+2. **Group / adjustment layers** apply an effect stack to *everything below them*, so one
+   colour grade can hit five layers at once.
+
+### B. Text rendering (why text gets real effects, not fake ones)
+
+- Text is rasterised on the GPU via a **distance-field (MSDF) atlas**: crisp at any scale,
+  cheap to animate, no per-frame bitmap re-upload.
+- Because it ends up as a texture, it inherits the full effect stack, masks, keyframes and
+  blend modes — identical code path as video, zero special cases.
+- Fonts embedded or user-imported (`.ttf`/`.otf`), subsetted at export resolution.
+
+### C. Effect catalogue — additions on top of §6.5
+
+| Group | Effects |
+|---|---|
+| **Glow family** | **Glow**, **Deep glow**, **Neon glow**, **Bloom**, **Outer glow**, **Inner glow**, **Light sweep**, **Halation** |
+| **Blur family** | Gaussian, box, motion (directional), radial, zoom, tilt-shift, bokeh/disc, **variable blur** (mask-driven) |
+| **Stylise** | Posterize, threshold, duotone, gradient map, halftone, dither, ASCII, pixelate/mosaic, emboss, edge detect, sketch, oil paint, cartoon, neon edge |
+| **Distort** | Wave, ripple, twirl, bulge/pinch, kaleidoscope, mirror, displacement, glass, refraction |
+| **Glitch / retro** | RGB split, scanlines, VHS, CRT, film burn, dust & scratches, datamosh (basic), glitch blocks |
+| **Colour (pro)** | Curves (RGB + luma), levels, colour balance, hue/sat/light, selective colour, split toning, LUT |
+| **Optical** | Chromatic aberration, lens distortion, vignette, lens flare, sharpen/unsharp, film grain |
+
+That takes the catalogue from ~110 to **~155 effects**, still nothing removed from §6.5.
+
+### D. "Everything is customisable" — how it is guaranteed
+
+Every effect declares a **schema**, not UI code:
+
+```kotlin
+@Immutable
+data class EffectSpec(
+  val type: EffectType,                 // GLOW, DEEP_GLOW, LUT, BLUR…
+  val params: Map<String, ParamValue>,  // typed: Float, Int, Bool, Color, Point, Curve
+  val enabled: Boolean = true,
+)
+
+val DEEP_GLOW = EffectSchema(
+  id = EffectType.DEEP_GLOW,
+  params = listOf(
+    Param.float("radius", 0f..200f, default = 40f, keyframeable = true),
+    Param.float("intensity", 0f..3f, default = 1.2f, keyframeable = true),
+    Param.color("tint", default = Color.White, keyframeable = true),
+    Param.float("threshold", 0f..1f, default = 0.35f, keyframeable = true),
+    Param.float("softness", 0f..1f, default = 0.5f, keyframeable = true),
+    Param.float("spread", 0f..2f, default = 1f, keyframeable = true),
+    Param.enum("quality", listOf("fast", "balanced", "high"), default = "balanced"),
+  ),
+)
+```
+
+- The **inspector is generated from the schema** → new effect = schema + shader, no UI work.
+- Every `keyframeable` param gets a keyframe diamond and a bezier curve editor automatically.
+- Effect order is drag-and-drop; each effect has enable/disable, copy, paste, remove, reset.
+- Presets = saved `EffectSpec` lists, so any combination can be saved and reused on any layer.
+
+### E. Shader pass budget (revised — no effect removed)
+
+Free versions of blur/glow cost multiple GPU passes, so the budget is now **weighted passes**,
+not a flat 4:
+
+| Effect | Passes |
+|---|---|
+| LUT / adjustments (merged) | 1 |
+| Glow (threshold + 2-pass blur + combine) | 3 |
+| Deep glow (multi-scale, 3 blur levels) | 5 |
+| Gaussian blur | 2 |
+| Chroma key, masks, blend | 1 each |
+
+**Device-adaptive cap:** 8 weighted passes on 8 GB+, 5 on 4–6 GB, 3 on low-end.
+Exceeding it does **not** disable effects — the editor (a) downsamples preview to a 540p proxy,
+(b) offers "render quality: fast" for that effect, and (c) warns only if preview drops below 24 fps.
+Export always renders everything at full quality, however slow it takes.
+
+### F. Cost of this architecture
+
+| Item | Extra time |
+|---|---|
+| Universal layer/effect-stack architecture (vs. clip-only effects) | 3–4 weeks |
+| MSDF text rasterisation + font pipeline | 2 weeks |
+| Glow family (7 effects, multi-scale blurs) | 2–3 weeks |
+| Blur + stylise + distort + glitch families | 4–5 weeks |
+| Schema-driven inspector + keyframe/curve reuse | 2–3 weeks |
+
+**Total effects work: ~6–7 months**, full product **~12–15 months**. The architecture is chosen
+deliberately: it is the only way "every effect on everything, fully customisable" is true
+instead of marketing copy.
+
 ## 7. Play Store & compliance checklist
 
 | Item | Status / note |
@@ -383,3 +502,6 @@ Dates are effort-based, not calendar promises; any week without device testing p
 | 2026-11-18 | Money model deferred | User decision; hooks left open |
 | 2026-11-18 | **Effects: no compromise** — all ~110 ship | User decision; see §6.5. Only *order* and *export speed* differ |
 | 2026-11-18 | 4-pass shader cap per clip | Physics: more passes kills 4 GB devices; merging keeps every effect available |
+| 2026-11-18 | **Universal effect stack** — effects on video, photo, text, stickers, shapes, groups | User decision (§6.6); text is rasterised via MSDF so the same shaders apply |
+| 2026-11-18 | **~155 effects, all fully parameterised** | User decision: glow/deep glow/bloom etc. included; schema-driven inspector, no effect video-only |
+| 2026-11-18 | Weighted, device-adaptive pass budget (3–8) | Replaces the flat cap so heavy effects like deep glow stay available on every device |
