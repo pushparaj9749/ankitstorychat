@@ -5,7 +5,6 @@ import android.net.Uri
 import android.os.Environment
 import android.os.Handler
 import android.os.Looper
-import androidx.media3.common.ClippingConfiguration
 import androidx.media3.common.MediaItem
 import androidx.media3.common.MimeTypes
 import androidx.media3.transformer.Composition
@@ -44,14 +43,18 @@ class Exporter(private val context: Context) {
         val dir = outputDir.also { if (!it.exists()) it.mkdirs() }
         val output = File(dir, "AnkitCutz_${System.currentTimeMillis()}.mp4")
 
-        val item = EditedMediaItem.Builder(MediaItem.fromUri(Uri.parse(clip.uri)))
+        // Clipping lives on the MediaItem (media3 1.5): trim happens before encoding,
+        // so the output genuinely starts at the in-point rather than being re-encoded whole.
+        val source = MediaItem.Builder()
+            .setUri(Uri.parse(clip.uri))
             .setClippingConfiguration(
-                ClippingConfiguration.Builder()
+                MediaItem.ClippingConfiguration.Builder()
                     .setStartPositionMs(clip.sourceStartMs)
                     .setEndPositionMs(clip.sourceEndMs)
                     .build(),
             )
             .build()
+        val item = EditedMediaItem.Builder(source).build()
 
         val built = Transformer.Builder(context)
             .setVideoMimeType(MimeTypes.VIDEO_H264)
