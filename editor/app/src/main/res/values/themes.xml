@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Only used before Compose draws; colours match ui/theme/Color.kt. -->
+    <style name="Theme.AnkitCutz" parent="android:Theme.Material.NoActionBar">
+        <item name="android:windowBackground">#0B0C10</item>
+        <item name="android:statusBarColor">#0B0C10</item>
+        <item name="android:navigationBarColor">#0B0C10</item>
+        <item name="android:windowLightStatusBar">false</item>
+    </style>
+    <color name="ic_launcher_background">#0B0C10</color>
+</resources>

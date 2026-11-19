@@ -1,0 +1,84 @@
+name: AnkitCutz editor APK
+
+# Week 1 onward: the video editor in editor/ is a standalone Gradle project.
+# It is deliberately NOT part of the Expo build, so it gets its own workflow.
+#
+# Runs unit tests first (the effects stack is pure Kotlin and fully testable),
+# then builds an installable debug APK and uploads it for the phone.
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'editor/**'
+      - '.github/workflows/editor-apk.yml'
+  pull_request:
+    paths:
+      - 'editor/**'
+      - '.github/workflows/editor-apk.yml'
+  workflow_dispatch:
+
+concurrency:
+  group: editor-apk-${{ github.ref }}
+  cancel-in-progress: true
+
+permissions:
+  contents: read
+
+jobs:
+  build:
+    name: Test + assemble debug APK
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    defaults:
+      run:
+        working-directory: editor
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up JDK 17
+        uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: '17'
+
+      - name: Set up Android SDK
+        uses: android-actions/setup-android@v3
+
+      - name: Set up Gradle
+        uses: gradle/actions/setup-gradle@v4
+        with:
+          cache-read-only: ${{ github.ref != 'refs/heads/main' }}
+
+      - name: Unit tests (effects stack)
+        run: ./gradlew --no-daemon --stacktrace testDebugUnitTest
+
+      - name: Assemble debug APK
+        run: ./gradlew --no-daemon --stacktrace assembleDebug
+
+      - name: Report APK
+        if: always()
+        run: |
+          if [ -f app/build/outputs/apk/debug/app-debug.apk ]; then
+            ls -lh app/build/outputs/apk/debug/app-debug.apk
+          fi
+
+      - name: Upload APK
+        uses: actions/upload-artifact@v4
+        with:
+          name: ankitcutz-debug-apk
+          path: editor/app/build/outputs/apk/debug/app-debug.apk
+          if-no-files-found: error
+          retention-days: 30
+
+      - name: Upload test report on failure
+        if: failure()
+        uses: actions/upload-artifact@v4
+        with:
+          name: ankitcutz-test-report
+          path: |
+            editor/app/build/reports/tests/**
+            editor/app/build/test-results/**
+          if-no-files-found: ignore
+          retention-days: 14
