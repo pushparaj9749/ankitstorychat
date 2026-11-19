@@ -1,7 +1,7 @@
 {
-  "contentVersion": 71,
+  "contentVersion": 72,
   "minAppVersion": "1.0.0",
-  "updatedAt": "2026-11-19T14:30:00Z",
+  "updatedAt": "2026-11-19T15:15:00Z",
   "stories": [
     {
       "id": "arranged-marriage-wala-love",
@@ -4681,7 +4681,7 @@
         "avatar": null,
         "verified": true
       },
-      "updatedAt": "2026-11-19T14:30:00Z"
+      "updatedAt": "2026-11-19T15:15:00Z"
     }
   ]
 }
