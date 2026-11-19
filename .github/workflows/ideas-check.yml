@@ -1,15 +1,20 @@
 name: Ideas check
 
-# Prints the pending Kissa story ideas / submissions from production.
+# Kissa — pending story ideas / submissions, twice a day.
 #
-# Admin endpoint needs a Bearer token, which cannot live in a URL or in git, so
-# this job reads it from the repo secret ADMIN_TOKEN and only shows the output.
+# 1. fetches the pending list from the production admin endpoint (needs ADMIN_TOKEN)
+# 2. prints it in the run summary + check annotations
+# 3. mails the list to the maintainer
 #
-# Run it manually:  Actions → "Ideas check" → Run workflow
-# The list also lands in the run summary and as a downloadable artifact.
+# Email needs two repo secrets (Settings → Secrets and variables → Actions):
+#   MAIL_USERNAME  the Gmail address that sends      e.g. ytdjbhai34@gmail.com
+#   MAIL_PASSWORD  a Gmail "app password" (16 chars) NOT the account password
+#   MAIL_TO        optional, defaults to MAIL_USERNAME
+# Without them the job still runs and opens a GitHub issue instead, which GitHub
+# mails to you — so the alert never silently disappears.
 #
-# Why push: a workflow_dispatch trigger only shows up once the file is on the
-# default branch; the push trigger lets a feature branch run it immediately.
+# Schedule (UTC): 00:30 = 06:00 IST, 12:30 = 18:00 IST.
+# Cron only fires from the default branch, so this file has to live on main.
 
 on:
   workflow_dispatch:
@@ -18,23 +23,36 @@ on:
         description: 'API base (default: production)'
         required: false
         default: 'https://beyondredeye.site'
+      force_mail:
+        description: 'Mail even when nothing is pending'
+        type: boolean
+        required: false
+        default: true
+  schedule:
+    - cron: '30 0 * * *'
+    - cron: '30 12 * * *'
   push:
     branches-ignore:
       - main
     paths:
       - '.github/workflows/ideas-check.yml'
+      - 'scripts/admin-ideas.mjs'
+      - 'scripts/emit-pending-annotations.mjs'
+      - 'scripts/format-ideas-mail.mjs'
+      - 'scripts/send-ideas-mail.py'
 
 permissions:
   contents: read
+  issues: write
 
 concurrency:
-  group: ideas-check-${{ github.ref }}
-  cancel-in-progress: true
+  group: ideas-check
+  cancel-in-progress: false
 
 jobs:
   pending:
     runs-on: ubuntu-latest
-    timeout-minutes: 5
+    timeout-minutes: 8
     steps:
       - uses: actions/checkout@v4
 
@@ -42,12 +60,12 @@ jobs:
         with:
           node-version: '20'
 
-      - name: Check the secret exists
+      - name: Check the admin secret exists
         env:
           ADMIN_TOKEN: ${{ secrets.ADMIN_TOKEN }}
         run: |
           if [ -z "${ADMIN_TOKEN:-}" ]; then
-            echo "::error title=ADMIN_TOKEN missing::Repo secret ADMIN_TOKEN is not set (Settings → Secrets and variables → Actions)."
+            echo "::error title=ADMIN_TOKEN missing::Repo secret ADMIN_TOKEN is not set."
             exit 1
           fi
           echo "ADMIN_TOKEN present (${#ADMIN_TOKEN} chars)"
@@ -69,8 +87,6 @@ jobs:
             echo '```'
           } >> "$GITHUB_STEP_SUMMARY"
 
-      # Artifacts and logs are not reachable from every environment, but check
-      # annotations are readable through the API — so mirror the list there.
       - name: Mirror the list into annotations
         if: always()
         run: node scripts/emit-pending-annotations.mjs out/pending-ideas.txt
@@ -83,11 +99,40 @@ jobs:
             exit 1
           fi
 
+      - name: Build the mail
+        id: mail
+        run: node scripts/format-ideas-mail.mjs out/pending-ideas.txt > out/mail.txt
+        env:
+          BASE: ${{ inputs.base_url || 'https://beyondredeye.site' }}
+
+      - name: Send the mail
+        id: send
+        continue-on-error: true
+        env:
+          MAIL_USERNAME: ${{ secrets.MAIL_USERNAME }}
+          MAIL_PASSWORD: ${{ secrets.MAIL_PASSWORD }}
+          MAIL_TO: ${{ secrets.MAIL_TO }}
+          FORCE: ${{ inputs.force_mail || github.event_name == 'schedule' }}
+        run: python3 scripts/send-ideas-mail.py out/mail.txt
+
+      - name: Fallback — open an issue if the mail could not be sent
+        if: steps.send.outcome != 'success' && github.event_name != 'push'
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          body=$(cat out/mail.txt 2>/dev/null || echo "out/mail.txt could not be built — see the run summary.")
+          { echo "Mail was not sent (no MAIL_USERNAME / MAIL_PASSWORD secret, or SMTP failed)."; echo; echo '```'; echo "$body"; echo '```'; } > out/issue.md
+          gh issue create \
+            --title "Kissa pending ideas — $(date -u +%Y-%m-%d\ %H:%M) UTC" \
+            --body-file out/issue.md || echo "::warning title=Issue not created::Check the issues permission."
+
       - name: Upload the list
         if: always()
         uses: actions/upload-artifact@v4
         with:
           name: pending-ideas
-          path: out/pending-ideas.txt
+          path: |
+            out/pending-ideas.txt
+            out/mail.txt
           if-no-files-found: warn
           retention-days: 14
