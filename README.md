@@ -54,6 +54,13 @@ moves the tale forward — with memory and relationships, and no script: no pred
 
 ---
 
+## 🎬 Kissa Editor (planned)
+
+A phone-first Android video editor (Kotlin + Compose + Media3) will live in [`editor/`](editor/).
+It is a separate Gradle project inside this monorepo and does **not** affect the Kissa app,
+its CI or its APK. Planning document (scope, phases, architecture, licensing, Play checklist):
+[`editor/PLAN.md`](editor/PLAN.md). Code starts only after the plan is approved.
+
 ## 🆕 Release notes
 
 ### v2.13.1 — Update banner that actually appears, memory that never fails silently, and Tunnel 6
