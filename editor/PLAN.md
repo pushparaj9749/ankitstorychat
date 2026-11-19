@@ -36,8 +36,8 @@ Each phase ends with **something installable and usable**, not a half-feature.
 | **2 — Export** | Media3 Transformer, 1080p H.264, progress + cancel, background foreground-service export, share/save to Gallery | ~2 weeks | 60s project exports correctly in <2× realtime on your phone; export continues with screen off |
 | **3 — Text & overlays** | Text clips (MSDF rasterised), fonts, stroke/shadow, animations, stickers, shapes, **universal layer model** | 4–5 weeks | Text runs through the same effect stack as video; one effect looks identical on text and footage |
 | **4 — Audio** | Music track, waveform, trim, fade in/out, per-clip volume, voiceover recording, mute | 2–3 weeks | Waveform matches audio; music + voiceover mix correctly in export |
-| **5 — Speed & transitions** | Speed 0.1×–10×, ramps, **all 25 transitions**, freeze frame (§6.5) | 6 weeks | Transition renders frame-accurate; audio stays in sync at any speed |
-| **6 — Looks** | LUT, adjustments, blend modes, overlays, chroma key, **glow / deep glow / bloom family**, blur, stylise, distort, glitch (§6.5–6.6) | 6–7 weeks | Glow and deep glow work on text, photos and video with every parameter keyframeable |
+| **5 — Speed & transitions** | Speed 0.1×–10×, ramps, **all 25 transitions**, freeze frame, **12 shake effects** (§6.5, §6.7) | 7 weeks | Transition renders frame-accurate; audio stays in sync at any speed; shake is deterministic |
+| **6 — Looks** | LUT, adjustments, blend modes, overlays, chroma key, **glow / deep glow / bloom**, blur, stylise, distort, **18 glitch effects**, presets (§6.5–6.7) | 8–9 weeks | Glow, shake and glitch work on text, photos and video with every parameter keyframeable |
 | **7 — Captions & smart tools** | Auto-captions (Whisper tiny), editable caption track, silence removal, beat markers | 3–5 weeks | 60s Hinglish clip → captions in <60s on device, 80%+ usable after edits |
 | **8 — Keyframes & masks** | Full keyframe graph editor + 7 mask shapes with feather/keyframes (§6.5) | 6 weeks | Smooth interpolation, no preview/export mismatch |
 | **9 — Launch polish** | Onboarding, templates, settings, crash reporting, Play Store assets, privacy, ASO | 2–3 weeks | Internal → closed → production track; ANR-free on 4 GB device |
@@ -259,12 +259,13 @@ because “the filter silently stopped applying” is the most common phone-edit
 |---|---|---|
 | E1 | Looks + adjustments + blend modes | ~3 weeks |
 | E2 | Text + stickers + audio effects | ~4 weeks |
-| E3 | Speed + all 25 transitions + video overlays | ~6 weeks |
+| E3 | Speed + all 25 transitions + video overlays + 12 shake effects | ~7 weeks |
 | E4 | Keyframes (graph editor) + masks | ~6 weeks |
 | E5 | AI five (background removal, tracking, reframe, stabilise, captions) | ~10–14 weeks |
+| E6 | 18 glitch effects + frame-history trail + preset system | ~6 weeks |
 
-Effects alone ≈ **5–6 months**; with the base editor and launch work, the full "no compromise"
-product is **~10–14 months**. Any claim of less is not credible.
+Effects alone ≈ **8–9 months** (see §6.7 for the shake/glitch addition); with the base editor
+and launch work, the full "no compromise" product is **~14–16 months**. Any claim of less is not credible.
 
 ## 6.6 Universal effect stack — Alight Motion model
 
@@ -385,6 +386,94 @@ Export always renders everything at full quality, however slow it takes.
 deliberately: it is the only way "every effect on everything, fully customisable" is true
 instead of marketing copy.
 
+## 6.7 Shake & glitch — complete family
+
+> **Decision (2026-11-18):** every shake and every glitch effect ships, on every layer type,
+> fully parameterised. Nothing here is a preset-only "effect card".
+
+### A. Shake family (12 — procedural, not pre-baked)
+
+Camera shake is **math, not footage**: a seeded noise function displaces the layer's transform
+each frame. That is why it works identically on video, photos, text and stickers, and why it
+costs almost nothing (no extra shader pass — it edits the transform matrix).
+
+| Effect | What it does | Key params |
+|---|---|---|
+| **Shake** | classic random position jitter | amplitude, frequency, axis, decay |
+| **Camera shake** | as above but on an adjustment layer → shakes the whole frame | amplitude, frequency, rotation |
+| **Handheld** | low-amplitude organic drift, adds realism | strength, speed, drift |
+| **Earthquake** | heavy low-frequency shake with vertical bias | magnitude, duration |
+| **Punch / impact** | sharp scale + position hit on a beat | force, duration, direction |
+| **Rumble** | continuous high-frequency micro-shake | intensity, roughness |
+| **Rotate shake** | angular wobble around a pivot | angle, speed, pivot |
+| **Zoom shake** | rhythmic in/out pulse | zoom amount, rate |
+| **Wave shake** | sine-based sway (left-right / up-down) | amplitude, wavelength, phase |
+| **Beat shake** | auto-syncs punches to the music's detected beats | sensitivity, strength |
+| **Wiggle** | smooth path-based wiggle between random points | distance, speed |
+| **Shake ramp** | intensity keyframed — builds from calm to violent | start, peak, curve |
+
+**Determinism rule (critical):** the noise is seeded from `(layerId, clipId, effectIndex)` and
+sampled by `presentationTimeUs` — *never* by `Random()` at render time. So the shake you see in
+preview is bit-for-bit the shake in export, and re-exporting the same project gives the same video.
+
+### B. Glitch family (18)
+
+| Effect | What it does |
+|---|---|
+| **RGB split / chromatic aberration** | channel offsets, animated |
+| **Glitch blocks** | macroblock displacement in random tiles |
+| **Datamosh (basic)** | block-shift based frame smearing |
+| **Digital glitch** | bit-crush + row displacement |
+| **Scanlines** | animated CRT lines, adjustable gap/opacity |
+| **CRT warp** | barrel distortion + scanlines + vignette |
+| **VHS** | tracking noise, colour bleed, tape wobble |
+| **Noise / static** | animated grain + snow |
+| **TV turn-off** | horizontal collapse to a line |
+| **Signal loss** | band dropout that scrolls |
+| **Pixel sort** | brightness-thresholded streak sorting |
+| **Displace glitch** | texture-driven UV displacement |
+| **Slice glitch** | horizontal slices offset by keyframed amount |
+| **Frame echo / trail** | previous frames blended in (motion trails) |
+| **Strobe** | rapid exposure flashes |
+| **Invert flicker** | keyframed negative flashes |
+| **Posterize glitch** | stepped colour with jitter |
+| **Chromatic pulse** | aberration that pulses (beat-syncable) |
+
+All are single-pass shaders except **frame echo / trail**, which needs a 2-frame history buffer
+(counted as 2 passes in the budget) — that is the only one that costs extra.
+
+### C. Where they apply
+
+Because of the universal layer model (§6.6):
+
+- On a **video/photo clip** → that layer shakes or glitches.
+- On a **text layer** → the title itself glitches (the classic "scary text" look), with the same
+  sliders.
+- On a **sticker/shape** → same.
+- On an **adjustment layer** placed at the top → the *entire composition* shakes or glitches,
+  which is how "camera shake" and "whole-screen glitch" work.
+- **Beat sync**: `Beat shake` and `Chromatic pulse` can read the audio's detected beat markers
+  (Phase 7), so punches land on the music instead of being hand-timed.
+
+### D. Presets (on top of the sliders)
+
+Every family ships named presets that are just saved `EffectSpec`s — e.g. **Impact**, **Boom**,
+**Handheld walk**, **Earthquake**, **Trailer hit**, **VHS 90s**, **Cyber glitch**, **Broken TV**,
+**Horror flicker**, **Data error**. Presets are editable, copyable between layers, and saveable
+as user presets — so a preset is never a dead end.
+
+### E. Cost
+
+| Item | Time |
+|---|---|
+| Shake family (12, procedural + beat sync hook) | 2 weeks |
+| Glitch family (18 shaders) | 4–5 weeks |
+| Frame-history buffer (trail/echo) | 1 week |
+| Preset system + user presets | 1 week |
+
+**Adds ~2 months.** Effects total moves from ~6–7 to **~8–9 months**; full product **~14–16 months**.
+This is the true cost of "sare shake aur glitch bhi, sab customisable" — stated once, honestly.
+
 ## 7. Play Store & compliance checklist
 
 | Item | Status / note |
@@ -470,9 +559,9 @@ how the estimate stays honest.
 | **M2** | Timeline editing + undo, saved projects | Week 4–5 |
 | **M3** | **First real export** (trim + join, 1080p) — usable daily | Week 6–7 |
 | **M4** | Text, stickers, music, voiceover | Week 11–13 |
-| **M5** | Speed, transitions, filters, chroma key | Week 17–22 |
-| **M6** | Captions, silence removal, templates | Week 23–26 |
-| **M7** | Keyframes, masks, Play Store launch | Week 30–36 |
+| **M5** | Speed, transitions, filters, chroma key, **shake family** | Week 17–23 |
+| **M6** | Captions, silence removal, templates, **glitch family + trail** | Week 24–30 |
+| **M7** | Keyframes, masks, Play Store launch | Week 31–38 |
 
 Dates are effort-based, not calendar promises; any week without device testing pushes them.
 
@@ -505,3 +594,5 @@ Dates are effort-based, not calendar promises; any week without device testing p
 | 2026-11-18 | **Universal effect stack** — effects on video, photo, text, stickers, shapes, groups | User decision (§6.6); text is rasterised via MSDF so the same shaders apply |
 | 2026-11-18 | **~155 effects, all fully parameterised** | User decision: glow/deep glow/bloom etc. included; schema-driven inspector, no effect video-only |
 | 2026-11-18 | Weighted, device-adaptive pass budget (3–8) | Replaces the flat cap so heavy effects like deep glow stay available on every device |
+| 2026-11-18 | **All 12 shake + 18 glitch effects ship** | User decision (§6.7). Shake is procedural transform noise, so it is nearly free and works on every layer |
+| 2026-11-18 | Shake noise seeded by `(layerId, clipId, effectIndex, timeUs)` | Determinism: preview must equal export, and re-export must produce the same video |
