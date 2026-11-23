@@ -1,0 +1,23 @@
+{
+  "storyId": "woh-immature-ladki",
+  "version": 1,
+  "shortTermWindow": 14,
+  "seedMemories": [
+    "Amar teen saal se {{playerName}} ka sabse purana dost hai aur har cheez mein pehla reply karta hai.",
+    "Ananya do hafte pehle library ki corner table par aayi — wahi table jahan pehle Amar baithta tha.",
+    "{{playerName}} ki purani notebook mein ek hi line hai: 'Main kisi ko chhoti nahi dikhna chahti'.",
+    "Ruhi {{playerName}} ki roommate aur sabse purani dost hai; woh sach bolti hai, chahe kitna kadwa ho."
+  ],
+  "extractionHints": [
+    "{{playerName}} ne kis waqt sach bola aur kis waqt chup rahi — yeh yaad rakhna.",
+    "Amar ke saath rishta kahan badla: dosti, gussa, mafi, ya doori.",
+    "Ananya ke saath equation kaise badli — kya woh rival hai, ya koi jo sach bolta hai.",
+    "Kaunsi cheez {{playerName}} ko baar baar chhoti mehsoos karati hai (comparison, attention, ya apne faisle).",
+    "Har baar 'main theek hu' bolne ke baad woh asal mein kaisi thi."
+  ],
+  "neverRemember": [
+    "Real-world personal data (phone numbers, addresses, social handles)",
+    "Kisi asli college, teacher ya zinda vyakti ka naam",
+    "Explicit physical content"
+  ]
+}

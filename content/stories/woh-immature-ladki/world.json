@@ -1,0 +1,97 @@
+{
+  "storyId": "woh-immature-ladki",
+  "version": 1,
+  "premise": "Devgaon ki ek private college mein {{playerName}} apni chhoti si duniya mein jeeti hai — apne kamre, apne earphones, aur Amar naam ke us ladke se, jo teen saal se bina kuch maange har din uska intezaar karta hai. Woh is intezaar ko dosti kehti hai kyunki dosti ke liye kuch return karna nahi padta. Ek shaam library ki corner table par Ananya aa kar baithti hai: badi, samajhdaar, bilkul bekar nahi. Amar usse baat karna shuru karta hai. {{playerName}} ke andar kuch toota sa lagta hai, par uska naam abhi uske paas nahi hai. Ye us shaam ki kahani hai jab attention ka matlab samajh aana shuru hota hai — aur sach kehne ki keemat pehli baar asli lagti hai.",
+  "locations": [
+    {
+      "id": "chai-thela",
+      "name": "Chai thela, campus gate",
+      "description": "College gate ke bahar ek chhota thela, plastic stools, ek purana radio. Shaam ko sabse zyada bheed. Yahan log aakar sach bolte hain kyunki yahan koi sunne wala nahi hota."
+    },
+    {
+      "id": "library-table",
+      "name": "Library ki corner table",
+      "description": "Doosri manzil, khidki ke paas, teen kursiyan. Yahan mobile chalana manna hai par sab chalate hain. Amar ki seat peeche ki taraf thi; ab Ananya wahi baithti hai."
+    },
+    {
+      "id": "flat",
+      "name": "{{playerName}} ka flat",
+      "description": "Do kamre, ek chhota kitchen, ek balkona jahan se campus dikhta hai. Uske kamre mein earphones, ek purani notebook aur deewar par lagayi hui ek polaroid."
+    },
+    {
+      "id": "college-gate",
+      "name": "College gate, barish",
+      "description": "Monsoon mein pani bhar jata hai, guards chhatri leke khade hote hain, aur ladke apni bikes dhoondte hain. Yahan sabse zyada log chhoot jate hain kyunki sab ek hi jagah rukte hain."
+    },
+    {
+      "id": "hostel-gate",
+      "name": "Girls hostel gate",
+      "description": "Shaam saat baje ke baad bahar se log andar nahi aa sakte. Ananya yahan rehti hai aur wahi ek chhoti si limit hai jo usne khud banayi hai."
+    }
+  ],
+  "factions": [
+    {
+      "id": "course-group",
+      "name": "Course group",
+      "description": "Aath logon ka ek WhatsApp group jisme project files, screenshots aur bahut saare jokes chalte hain. Yahan sabko sab kuch pata hai, par kisi ko kuch samajh nahi aata."
+    },
+    {
+      "id": "coding-club",
+      "name": "Coding Club",
+      "description": "Ananya ka club. Yahan log apne kaam ke liye aate hain, gossip ke liye nahi — isliye hi {{playerName}} ko wahan ajeeb lagta hai."
+    },
+    {
+      "id": "roommates",
+      "name": "Flat ke log",
+      "description": "{{playerName}}, Ruhi, aur ek bhookha bihaari bina paye rehne wala roommate. Yahan sach chhupana mushkil hai aur jhooth pakda jata hai."
+    }
+  ],
+  "lore": [
+    "Amar ne teen saal se {{playerName}} ke messages ka pehla reply hamesha khud kiya hai — kisi ko pata nahi, kyunki woh ise kabhi chhupa nahi sakta na dikha sakta hai.",
+    "Library ki corner table pehle Amar ki thi. Usne woh jagah kisi ko nahi di; Ananya ne khud baith kar le li, aur wahi sabse pehla mauka tha jab Amar ne kisi ko na nahi kaha.",
+    "{{playerName}} ki purani notebook mein sirf ek line likhi hai pichle saal se: 'Main kisi ko chhoti nahi dikhna chahti'."
+  ],
+  "rules": [
+    "Amar kisi ka pichha nahi karega aur kisi ko force nahi karega — uski boundary unbreakable hai.",
+    "Ananya ko villain mat banao. Woh kabhi kisi ka ghar nahi todi, aur uske apne dukh asli hain.",
+    "{{playerName}} ka growth dard se aata hai, magic se nahi. Ek raat mein woh badal nahi jayegi; ek faisla ek din badal sakta hai.",
+    "Pyaar ko prize mat banao. Koi bhi character kisi ko 'jeet' nahi sakta — sirf sach bolne ka haq hai.",
+    "Saare characters adults hain; college ki setting mein bhi koi minor reference nahi.",
+    "Narrator {{playerName}} ki feelings ya consent decide nahi karega."
+  ],
+  "importantObjects": [
+    {
+      "id": "earphones",
+      "name": "Purane wired earphones",
+      "description": "Ek kaan mein hamesha. Jab woh nervous hoti hai, doosra kaan bhi bhar leti hai — bachne ka sabse purana tareeka."
+    },
+    {
+      "id": "notebook",
+      "name": "Purani notebook",
+      "description": "Pehle padhai ke liye thi, ab usme ek line hai. Jab sach bolna hota hai aur zubaan nahi chalti, woh pehle likhti hai."
+    },
+    {
+      "id": "amar-ki-copy",
+      "name": "Amar ki notes ki copy",
+      "description": "Teen saal purani, pichle page par usne likha tha 'kal practical hai'. Woh copy aaj bhi {{playerName}} ke paas hai."
+    }
+  ],
+  "timeline": [
+    {
+      "when": "Teen saal pehle",
+      "what": "Amar ne pehli baar practical ke liye notes diye"
+    },
+    {
+      "when": "Pichla saal",
+      "what": "Uske birthday par Amar raat do baje tak wait karta raha"
+    },
+    {
+      "when": "Do hafte pehle",
+      "what": "Ananya library ki corner table par aa kar baithi"
+    },
+    {
+      "when": "Aaj shaam",
+      "what": "Chai thele par teen log ek hi table ke aas-paas — aur wahi se kahani shuru hoti hai"
+    }
+  ]
+}

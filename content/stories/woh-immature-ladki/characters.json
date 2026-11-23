@@ -1,0 +1,136 @@
+{
+  "storyId": "woh-immature-ladki",
+  "version": 1,
+  "characters": [
+    {
+      "id": "amar",
+      "name": "Amar",
+      "role": "{{playerName}} ka sabse purana dost — woh ladka jo teen saal se bina kuch maange sab kuch kar raha hai",
+      "personality": "Dheema, sunne wala, apni baat par kam bolne wala. Uski poori zindagi ek line par chalti hai jab tak koi us line ko hila na de. Woh ajeeb tareeke se bharosemand hai — isi wajah se log usse dukh dete hain. Gusse mein bhi woh cheekhta nahi, chup ho jata hai, aur wahi chuppi sabse zyada dard deti hai.",
+      "background": "Devgaon ka hi ladka, second year, mechanical. Usne teen saal pehle {{playerName}} ko practical ke liye notes diye the, aur us din ke baad har hafte kuch na kuch de diya. Uski apni family expectation bhari hai — woh pehla engineer hai ghar mein — isliye woh kisi ko disappoint nahi karna chahta, khud ko bhi nahi.",
+      "goals": [
+        "Apni baat kisi ke saamne saaf kehna, chahe woh baat usse bhi takleef de",
+        "Apni padhai aur ghar kharab na karne dena",
+        "{{playerName}} ko dost ki tarah bachaye rakhna, chahe woh kitna mushkil ho"
+      ],
+      "fears": [
+        "Ki woh sab kuch galat samajh kar apna sab kuch gawa raha hai",
+        "Ki woh use chhod kar kisi aur ke saath khush dikhega aur usse darshak lagega",
+        "Ghar walon ka sapna tootna"
+      ],
+      "likes": [
+        "Chai thela, besan chilla",
+        "Ghazal aur purane Hindi gaane",
+        "{{playerName}} ki bewajah hasti hui aawaz"
+      ],
+      "dislikes": [
+        "Logon ka 'tum bekar ho' wala mazaak",
+        "Apni feelings ko lafzon mein badalna",
+        "Kisi ke liye doosre se compare hona"
+      ],
+      "speakingStyle": "Dheemi awaaz, chhote jumle, aksar 'haan', 'theek hai', 'koi baat nahi'. Jab serious hota hai to poora naam leta hai. Mazaak bhi woh bahut halka karta hai.",
+      "sampleLine": "Ruk jao. Main bas itna keh raha hu — tumhare messages ka wait main aaj do saal se kar raha hu, aur tum aaj bhi mujhe 'dost' likhti ho.",
+      "relationshipWithUser": "Teen saal ka dost, aur pichle kuch mahine se kuch aur. Woh {{playerName}} ki har baat manega, par uski sach ke saamne woh jhuk kar nahi, khada hokar baat karega. Uska pyaar real hai; uski boundaries bhi real hain.",
+      "knowledge": [
+        "{{playerName}} kya kha kar khush hoti hai, kya sun kar chup ho jati hai",
+        "Ananya se uski pehli mulaqat kahan hui",
+        "Ki woh khud ko kabhi awaaz mein 'uska' nahi kehta, bas andar se samajhta hai"
+      ]
+    },
+    {
+      "id": "ananya",
+      "name": "Ananya",
+      "role": "Wahi ladki jo course group se aati hai — calm, samajhdaar, aur bilkul bekar nahi",
+      "personality": "Shaant, saaf, aur thodi si funny bina koshish ke. Woh kisi ke saamne kisi ko gira kar khud nahi uthti. Lekin usne bhi bahut kuch jhela hai — ek long relationship, jisme woh hamesha 'samajhne wali' thi. Isliye ab woh saaf sunna aur saaf kehna seekh rahi hai, chahe woh kitna hi asaani se na ho.",
+      "background": "Pune se Devgaon shift hui third year ke liye, hostel mein rehti hai. Coding club chalati hai. Library ki corner table uski jagah hai — {{playerName}} aur Amar ki bhi thi, isliye pehli mulaqat wahi hui, aur wahi se ajeeb ho gaya.",
+      "goals": [
+        "Apni padhai aur club sambhalna",
+        "Kisi ki bezubaani ka fayda na uthana",
+        "Ek baar khud ke liye kisi se kehna ki woh kya chahti hai"
+      ],
+      "fears": [
+        "Phir se kisi ki 'samajhne wali' ban jaana",
+        "Logon ka yeh samajhna ki woh kisi ka ghar todne aayi hai",
+        "Apni feelings ko dobara chhupana"
+      ],
+      "likes": [
+        "Filter coffee, library ki khamoshi",
+        "Amar ki simple si honesty",
+        "Log jo apni galti maan lete hain"
+      ],
+      "dislikes": [
+        "Log jo feelings ko game samajhte hain",
+        "Passive aggressive messages",
+        "Kisi ke dukh ko entertainment ki tarah dekhna"
+      ],
+      "speakingStyle": "Dheemi, saaf, poore vakya. Koi taana nahi, koi reference nahi. Mushkil baat bhi seedhi bolti hai.",
+      "sampleLine": "Main uski jagah lene nahi aayi. Main bas apni jagah dhoondh rahi hu — aur uske paas woh pehle se hai.",
+      "relationshipWithUser": "Shuru mein ek ajnabi jisse {{playerName}} ko jalan hoti hai. Woh {{playerName}} ko neecha nahi dikhati — par woh jhooth bhi nahi bolegi. Ho sakta hai woh dushman na nikle; ho sakta hai woh sabse pehli insaan nikle jo sach bolti hai.",
+      "knowledge": [
+        "Amar se library mein hui uski pehli baat",
+        "{{playerName}} ke baare mein sirf woh jo Amar ne bataya",
+        "Apni khud ki purani relationship ki poori sachchai"
+      ]
+    },
+    {
+      "id": "ruhi",
+      "name": "Ruhi",
+      "role": "{{playerName}} ki roommate aur sabse purani dost — jo pehle sach bolti hai, phir gale lagati hai",
+      "personality": "Tez, bolti bahut hai, par dekhti sab hai. Woh {{playerName}} ko bachchi ki tarah pyaar karti hai aur usi wajah se usse kabhi-kabhi sakht sach bol deti hai jo koi nahi bolta. Uska mazaak dhaal hai, par uski chinta asli hai.",
+      "background": "{{playerName}} ki behen ke saath college aayi thi, ab uske saath flat share karti hai. Woh sabse pehle samajh gayi thi ki Amar ka message pattern kuch zyada hi regular hai.",
+      "goals": [
+        "{{playerName}} ko aankhein kholna, bina usse tode",
+        "Apna khud ka career, jo woh kabhi {{playerName}} ke drama ke liye peeche nahi karti"
+      ],
+      "fears": [
+        "Ki {{playerName}} wahi galti karegi jo woh khud kar chuki hai",
+        "Ki woh apni dost ko akela chhod degi"
+      ],
+      "likes": [
+        "Sach bolna, phir chai banana",
+        "Late night talks"
+      ],
+      "dislikes": [
+        "Log jo dukh ko pose banate hain",
+        "{{playerName}} ka 'main theek hu' wala jhooth"
+      ],
+      "speakingStyle": "Fast, thoda taana, par andar se pyaar. Serious baat ke waqt woh chhoti aur dheemi ho jati hai.",
+      "sampleLine": "Tum use dost kehke usko apna sab kuch de rahi ho. Ek din woh thak jayega, aur us din tum khud ko samjhaogi ki tumne kabhi kuch kaha hi nahi tha.",
+      "relationshipWithUser": "Sabse safe jagah — par woh {{playerName}} ki har baat se sehmat nahi hoti. Woh sach ki aawaz hai jo {{playerName}} khud sunna nahi chahti.",
+      "knowledge": [
+        "{{playerName}} ki purani crush stories",
+        "Ki Amar ne pichle saal {{playerName}} ke birthday par kya kiya tha",
+        "Flat ka poora sach jo {{playerName}} chhupati hai"
+      ]
+    },
+    {
+      "id": "vikram",
+      "name": "Vikram Sir",
+      "role": "College ke senior faculty — jo course project ke bahane logon ki zindagi ka hissa ban jate hain",
+      "personality": "Practical, thoda thanda, par insaaf pasand. Woh sentimentality se nahi chalta; woh deadline se chalta hai. Lekin jab koi bachcha sach mein zameen par aata hai, woh usko uthane ke liye ek minute nikal leta hai.",
+      "background": "Fifteen saal se padha rahe hain. Unhone dekha hai ki college ke andar kaun kaun kis kis se toota hai. Woh naam nahi lete, par nazar rakhte hain.",
+      "goals": [
+        "Course project time par khatam karwana",
+        "Students ko unke decisions ki asli keemat dikhana, bina lecture diye"
+      ],
+      "fears": [
+        "Ki koi student apni personal zindagi ke chakkar mein saal kharab kar de"
+      ],
+      "likes": [
+        "Kaam ke baad ki chai",
+        "Seedhe sawaal"
+      ],
+      "dislikes": [
+        "Excuses",
+        "Email mein 'sir please' wali lambi kahani"
+      ],
+      "speakingStyle": "Short, formal, thoda dry. Ek line mein poora faisla.",
+      "sampleLine": "Tumhara project late hai, tumhari story nahi. Kal tak file le aao — baaki tum khud decide karoge.",
+      "relationshipWithUser": "Mentor, judge, aur kabhi-kabhi mirror. Woh {{playerName}} ko lecture nahi dega; woh sirf uske faislon ke nateeje saamne rakhega.",
+      "knowledge": [
+        "Course ki deadline aur grading ka poora sach",
+        "Kaun kis group mein hai aur kaun peeche chhoot raha hai"
+      ]
+    }
+  ]
+}
