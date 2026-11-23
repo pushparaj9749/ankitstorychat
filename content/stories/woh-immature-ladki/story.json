@@ -1,0 +1,105 @@
+{
+  "id": "woh-immature-ladki",
+  "title": "Woh Immature Ladki",
+  "description": "{{playerName}} ki duniya teen cheezon se banti hai — apna chhota kamra, apne cartoons wale earphones, aur woh ek ladka jo bina kuch maange roz uske messages ka jawab deta hai. Woh friendship ko baar-baar chaal se jeet leti hai, aur mujhe lagta hai ki sab theek hai. Phir ek polite si ladki un dono ke beech course group se aa kar baithti hai — badi, samajhdaar, bilkul bewaajah nahi. Us ek shaam {{playerName}} ko pehli baar samajh aata hai ki jo dost se zyada hai, woh dost ke bharose nahi chalta. Ab sabse mushkil sawaal ye nahi ki woh usse pyaar karta hai — sawaal ye hai ki {{playerName}} yahan jo hai, usse chhod paayegi ya nahi."
+  ,
+  "version": 1,
+  "language": "hinglish",
+  "ageRating": "18+",
+  "contentLevel": "mature",
+  "genres": [
+    "Romance",
+    "Drama",
+    "Slice of Life",
+    "Coming of Age"
+  ],
+  "tags": [
+    "hinglish",
+    "romance",
+    "drama",
+    "friendship-to-love",
+    "heartbreak",
+    "college",
+    "growth",
+    "player-agency"
+  ],
+  "userRole": "{{playerName}} — 19 saal ki adult college student jo apni beikhtiyaar, emotional aur apne tak seemit duniya mein rehti hai. Woh bholi hai, apne jokes par khud zyada hasti hai, aur usse abhi tak samajh nahi ki attention ko pyaar samajhna kitna aasan hai. Uska past, family, career ke kya plans hain, kisse dosti hai, kis waqt woh takleef mein hai aur kya seekhna chahti hai — sab player-defined. Uske dialogue, feelings, consent aur decisions sirf player ke control mein hain; woh koi pre-written sad heroine nahi hai.",
+  "setting": "Fictional city Devgaon ki ek private college, 2026. Ek chhota 2BHK flat jisme {{playerName}} apni behen ke saath rehti hai jahan se campus cycle se dus minute hai, ek chai thela jo har shaam bharti hai, aur library ki wo corner table jahan log padhai ke bahane baithte hain. Ding ki dhoop, monsoon ke bina woh bhaari bhaari shaam — realistic, filmy nahi.",
+  "openingSceneId": "s1_chai_pe_baat",
+  "tone": "Warm, funny, aur dheere se dard wala. Pahla half halka — jokes, chai thela, WhatsApp ke adhoore reply. Dusra half bhaari — pehli baar sach khamoshi mein sunai de. Narrator {{playerName}} ke andar se bolta hai, usko blame nahi karta, na usse 'heroine' banata hai. Roman-script Hinglish, *actions asterisks mein*, dialogue Name: \"...\" format mein. Koi scene ka script pehle se decide nahi. Emotional depth build hoti hai, ek din mein pyaar nahi hota.",
+  "safetyNotes": [
+    "Saare visible characters clearly adult hain (college age 19+, aur zyada umar wale adults).",
+    "Romance emotional aur consent-based rahe; koi physical content non-explicit aur non-graphic.",
+    "Kisi ko possessive, manipulative ya 'deserve' karne wale dukh ke liye glorify mat karo — usse hurt karne wala dard dikhao, dard ko shaan mat do.",
+    "{{playerName}} ke thoughts, feelings, decisions aur consent narrator khud decide nahi karega.",
+    "Amar ki feelings bhi real hain — woh sirf ek obstacle nahi hai. Uske apne reasons clear rahenge."
+  ],
+  "creator": {
+    "name": "Annie",
+    "avatar": null,
+    "verified": false
+  },
+  "media": {
+    "cover": "assets/cover.jpg",
+    "gallery": [
+      {
+        "id": "cover",
+        "file": "assets/cover.jpg",
+        "kind": "cover",
+        "label": "Cover"
+      },
+      {
+        "id": "ananya-portrait",
+        "file": "assets/gallery/image-01.jpg",
+        "kind": "character-portrait",
+        "label": "Ananya",
+        "characterId": "ananya"
+      },
+      {
+        "id": "amar-portrait",
+        "file": "assets/gallery/image-02.jpg",
+        "kind": "character-portrait",
+        "label": "Amar",
+        "characterId": "amar"
+      },
+      {
+        "id": "ruhi-portrait",
+        "file": "assets/gallery/image-03.jpg",
+        "kind": "character-portrait",
+        "label": "Ruhi",
+        "characterId": "ruhi"
+      },
+      {
+        "id": "scene-chai-thela",
+        "file": "assets/gallery/image-04.jpg",
+        "kind": "scene",
+        "label": "Chai thela, shaam",
+        "sceneId": "s1_chai_pe_baat"
+      },
+      {
+        "id": "scene-library-table",
+        "file": "assets/gallery/image-05.jpg",
+        "kind": "scene",
+        "label": "Library ki corner table"
+      },
+      {
+        "id": "scene-earphones-wallah-kamra",
+        "file": "assets/gallery/image-06.jpg",
+        "kind": "scene",
+        "label": "Uska kamra, earphones, raat"
+      },
+      {
+        "id": "scene-rain-walk",
+        "file": "assets/gallery/image-07.jpg",
+        "kind": "scene",
+        "label": "Monsoon barish aur college gate"
+      },
+      {
+        "id": "scene-notebook",
+        "file": "assets/gallery/image-08.jpg",
+        "kind": "other",
+        "label": "Purani notebook, kore page"
+      }
+    ]
+  }
+}

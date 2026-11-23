@@ -1,0 +1,45 @@
+{
+  "storyId": "woh-immature-ladki",
+  "version": 1,
+  "scenes": [
+    {
+      "id": "s1_chai_pe_baat",
+      "title": "Chai thele par teen kursiyan",
+      "narration": [
+        "*Shaam ke paanch baje chai thele par bheed hai. Tum apni cycle side mein khadi karke ek kaagaz wali chai ka intezaar kar rahi ho, ek kaan mein earphone, doosre se duniya ki awaaz aa rahi hai.*",
+        "*Do kursiyan aage ki taraf hain — ek par Amar baitha hai, apni usual tarah, ghutne hila raha hai. Doosri par ek ladki hai jise tumne library mein dekha hai: straight baal, sirf ek chhota sa jhumka, aur woh hansti hui sir hilati hai jaise Amar kuch bahut asli keh raha ho.*",
+        "*Woh tumhe dekhta hai. Ek second ke liye uska chehra badalta hai — jaise kisi ne raaste mein deewar khadi kar di ho. Phir woh normal ho jata hai, aur yeh normal hona hi sabse zyada ajeeb hai.*",
+        "Amar: \"Arre, aa gayi. Chai?\"",
+        "Ananya: \"Tum ho {{playerName}}? Amar ne tumhare baare mein bahut sunaya hai. Main Ananya hu, coding club se.\"",
+        "*Ek haath tumhari chai pakadne ke liye aage aata hai — Amar ka. Doosra haath tumhare bag ke strap par hai, apne aap. Chai garam hai. Saamne teen kursiyan hain, aur sirf do par log baithe hain.*",
+        "*Tumhare andar kuch chhota sa khatakta hai, jo tumhe naam dena nahi aata. Isse jalan kehte hain ya darr, abhi pata nahi. Par ek baat saaf hai — yeh woh shaam nahi hai jisme tum chup reh sakti ho.*"
+      ],
+      "fallbackLines": [
+        "*Chai thele par radio purana gaana baja raha hai. Amar tumhe dekhta hai aur kuch kehne se pehle chai ka cup apni taraf khiska leta hai.*",
+        "Amar: \"Ek minute. Main bas...\"",
+        "*Ananya ka phone bajta hai. Woh uth kar ek kadam door chali jati hai, jaise jaan bujh kar tum dono ko jagah de rahi ho.*"
+      ],
+      "choices": [
+        {
+          "id": "reply_1",
+          "text": "Main muskura kar Ananya ke paas baith jati hu: \"Haan, main {{playerName}}. Amar ne mujhe bhi tumhare baare mein kuch nahi bataya.\"",
+          "shortLabel": "Seedha baat karo",
+          "next": null
+        },
+        {
+          "id": "reply_2",
+          "text": "Main chai leti hu, Amar ko dekhti hu, aur dheere se kehti hu: \"Tumne kaha tha aaj sirf do log honge.\"",
+          "shortLabel": "Amar se poochho",
+          "next": null
+        },
+        {
+          "id": "reply_3",
+          "text": "Main dono kaan mein earphone lagati hu aur cycle ki taraf mud jati hu — jaise mujhe farq nahi padta.",
+          "shortLabel": "Bhaag jao",
+          "next": null
+        }
+      ]
+    }
+  ],
+  "endings": []
+}

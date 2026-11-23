@@ -1,7 +1,7 @@
 {
-  "contentVersion": 72,
+  "contentVersion": 73,
   "minAppVersion": "1.0.0",
-  "updatedAt": "2026-11-19T15:15:00Z",
+  "updatedAt": "2026-11-23T09:30:00.000Z",
   "stories": [
     {
       "id": "arranged-marriage-wala-love",
@@ -4682,6 +4682,53 @@
         "verified": true
       },
       "updatedAt": "2026-11-19T15:15:00Z"
+    },
+    {
+      "id": "woh-immature-ladki",
+      "title": "Woh Immature Ladki",
+      "tagline": "Teen saal ka intezaar, ek shaam ka sach — aur woh ladki jo apni duniya se bahar nahi nikli thi.",
+      "description": "{{playerName}} ki duniya teen cheezon se banti hai — apna chhota kamra, apne cartoons wale earphones, aur woh ek ladka jo bina kuch maange roz uske messages ka jawab deta hai. Woh friendship ko baar-baar chaal se jeet leti hai, aur mujhe lagta hai ki sab theek hai. Phir ek polite si ladki un dono ke beech course group se aa kar baithti hai — badi, samajhdaar, bilkul bewaajah nahi. Us ek shaam {{playerName}} ko pehli baar samajh aata hai ki jo dost se zyada hai, woh dost ke bharose nahi chalta. Ab sabse mushkil sawaal ye nahi ki woh usse pyaar karta hai — sawaal ye hai ki {{playerName}} yahan jo hai, usse chhod paayegi ya nahi.",
+      "genres": [
+        "Romance",
+        "Drama",
+        "Slice of Life",
+        "Coming of Age"
+      ],
+      "tags": [
+        "hinglish",
+        "romance",
+        "drama",
+        "friendship-to-love",
+        "heartbreak",
+        "college",
+        "growth",
+        "player-agency"
+      ],
+      "characters": [
+        "Amar",
+        "Ananya",
+        "Ruhi",
+        "Vikram Sir"
+      ],
+      "ageRating": "18+",
+      "contentLevel": "mature",
+      "language": "hinglish",
+      "version": 1,
+      "coverUrl": "stories/woh-immature-ladki/assets/cover.jpg",
+      "accentColor": "#C2708F",
+      "userRole": "{{playerName}} — 19 saal ki adult college student jo apni beikhtiyaar, emotional aur apne tak seemit duniya mein rehti hai. Woh bholi hai, apne jokes par khud zyada hasti hai, aur usse abhi tak samajh nahi ki attention ko pyaar samajhna kitna aasan hai. Uska past, family, career ke kya plans hain, kisse dosti hai, kis waqt woh takleef mein hai aur kya seekhna chahti hai — sab player-defined. Uske dialogue, feelings, consent aur decisions sirf player ke control mein hain; woh koi pre-written sad heroine nahi hai.",
+      "setting": "Fictional city Devgaon ki ek private college, 2026. Ek chhota 2BHK flat jisme {{playerName}} apni behen ke saath rehti hai jahan se campus cycle se dus minute hai, ek chai thela jo har shaam bharti hai, aur library ki wo corner table jahan log padhai ke bahane baithte hain. Ding ki dhoop, monsoon ke bina woh bhaari bhaari shaam — realistic, filmy nahi.",
+      "estimatedMinutes": 20,
+      "featured": false,
+      "isNew": true,
+      "popularity": 55,
+      "storyDir": "woh-immature-ladki",
+      "creator": {
+        "name": "Annie",
+        "avatar": null,
+        "verified": false
+      },
+      "updatedAt": "2026-11-23T09:30:00.000Z"
     }
   ]
 }
