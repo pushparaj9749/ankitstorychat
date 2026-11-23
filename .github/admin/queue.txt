@@ -3,3 +3,6 @@
 # Remove a line once it has been applied; the queue is not idempotent.
 
 # 2026-11-19  accept idea_mwnl6fmj_xgye2tof  -> done (HTTP 200), story dravokar-ka-nightmare bana
+
+# 2026-11-23  accept idea_mwsxynh4_3sl802xu  -> pending (story woh-immature-ladki shipped in #129)
+accept idea_mwsxynh4_3sl802xu
