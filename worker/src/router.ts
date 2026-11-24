@@ -925,6 +925,18 @@ async function handleApi(request: Request, env: Env, url: URL): Promise<Response
       return withCors(json({ ok: true, statuses }, 200, { 'Cache-Control': 'no-store' }), cors);
     }
     case 'submit-media': {
+      const mediaAccountId = await optionalAccountId(env, request);
+      if (!mediaAccountId) {
+        if (!request.headers.get('X-Kissa-Version'))
+          return withCors(
+            errorJson(426, 'update_required', 'Kissa ka naya version chahiye. Update karke login karo.'),
+            cors,
+          );
+        return withCors(
+          errorJson(401, 'login_required', 'Upload karne ke liye login karo.'),
+          cors,
+        );
+      }
       let body: unknown;
       try {
         body = await readJsonBody(request, MEDIA_UPLOAD_MAX);
@@ -939,6 +951,22 @@ async function handleApi(request: Request, env: Env, url: URL): Promise<Response
     }
     case 'submit-idea':
     case 'submit-story': {
+      // v2.14: submitting needs an account. An install that sends no version
+      // header at all (2.13.x) is told to update; a current install without a
+      // session is told to log in. This is the real block for old builds —
+      // the version gate alone cannot catch a client that omits the header.
+      const submitAccountId = await optionalAccountId(env, request);
+      if (!submitAccountId) {
+        if (!request.headers.get('X-Kissa-Version'))
+          return withCors(
+            errorJson(426, 'update_required', 'Kissa ka naya version chahiye. Update karke login karo.'),
+            cors,
+          );
+        return withCors(
+          errorJson(401, 'login_required', 'Submission bhejne ke liye login karo.'),
+          cors,
+        );
+      }
       let body: unknown;
       try {
         body = await readJsonBody(request);
@@ -949,11 +977,10 @@ async function handleApi(request: Request, env: Env, url: URL): Promise<Response
         return withCors(errorJson(400, 'invalid_json', 'Request body must be valid JSON.'), cors);
       }
       const client = request.headers.get('X-Kissa-Client') ?? undefined;
-      const accountId = await optionalAccountId(env, request);
       const res =
         route.kind === 'submit-idea'
-          ? await submitIdea(env, body as Record<string, unknown>, client, accountId)
-          : await submitStory(env, body as Record<string, unknown>, client, accountId);
+          ? await submitIdea(env, body as Record<string, unknown>, client, submitAccountId)
+          : await submitStory(env, body as Record<string, unknown>, client, submitAccountId);
       return withCors(res, cors);
     }
 

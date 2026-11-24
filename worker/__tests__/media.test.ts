@@ -14,6 +14,8 @@ import {
   type Env,
 } from '../src/submissions';
 import { resetContentIndexForTests } from '../src/router';
+import { resetMemD1ForTests } from '../src/accounts/store';
+import { resetLockoutsForTests, signup } from '../src/accounts/service';
 import {
   MAX_IMAGE_BYTES,
   MAX_GALLERY_IMAGES,
@@ -94,8 +96,16 @@ function fetchWith(path: string, init: RequestInit): Promise<Response> {
   if (!currentEnv) throw new Error('call makeEnv first');
   return worker.fetch(new Request(`https://beyondredeye.site${path}`, init), currentEnv, {} as never) as Promise<Response>;
 }
+// v2.14: uploads/submissions need an account; every test starts signed in.
+let accountToken = '';
+const SESSION_HEADERS = (): Record<string, string> =>
+  accountToken ? { Authorization: `Bearer ${accountToken}` } : {};
 function post(path: string, body: unknown, headers: Record<string, string> = {}): Promise<Response> {
-  return fetchWith(path, { method: 'POST', headers: { 'Content-Type': 'application/json', ...headers }, body: JSON.stringify(body) });
+  return fetchWith(path, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json', ...SESSION_HEADERS(), ...headers },
+    body: JSON.stringify(body),
+  });
 }
 function get(path: string): Promise<Response> {
   return fetchWith(path, { method: 'GET' });
@@ -138,9 +148,13 @@ async function storyPayload(coverRef: string, galleryRefs: string[] = [], storyO
   };
 }
 
-beforeEach(() => {
+beforeEach(async () => {
   resetContentIndexForTests();
-  makeEnv('secret');
+  resetMemD1ForTests();
+  resetLockoutsForTests();
+  const env = makeEnv('secret');
+  const created = await signup(env, { username: 'mediauser', password: 'kahani2026' });
+  accountToken = created.ok ? created.value.token : '';
 });
 
 /* ---------------- pure image validation ---------------- */

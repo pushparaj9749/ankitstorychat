@@ -363,3 +363,43 @@ describe('worker entry', () => {
     expect(res.status).toBe(200);
   });
 });
+
+describe('submissions require a signed-in account (v2.14)', () => {
+  const idea = { creatorName: 'Arjun', title: 'Test idea', concept: 'C', genre: 'Drama' };
+  // A version NEWER than the server minimum, so the version gate is not what
+  // rejects these requests — the missing session is.
+  const NEWER = { 'X-Kissa-Version': '99.0.0' };
+
+  test('an old install (no version header) is told to update', async () => {
+    const res = await call('POST', '/api/submit/idea', { body: idea });
+    expect(res.status).toBe(426);
+    expect(((await res.json()) as { error: string }).error).toBe('update_required');
+  });
+
+  test('a current install without a token must log in', async () => {
+    const res = await call('POST', '/api/submit/idea', { body: idea, headers: NEWER });
+    expect(res.status).toBe(401);
+    expect(((await res.json()) as { error: string }).error).toBe('login_required');
+  });
+
+  test('story submissions are blocked the same way', async () => {
+    expect((await call('POST', '/api/submit/story', { body: {} })).status).toBe(426);
+    expect((await call('POST', '/api/submit/story', { body: {}, headers: NEWER })).status).toBe(401);
+  });
+
+  test('media uploads are blocked the same way', async () => {
+    expect((await call('POST', '/api/submit/media', { body: {} })).status).toBe(426);
+    expect((await call('POST', '/api/submit/media', { body: {}, headers: NEWER })).status).toBe(401);
+  });
+
+  test('a signed-in install submits and the row belongs to the account', async () => {
+    const u = await signupUser('arjun');
+    const res = await call('POST', '/api/submit/idea', { body: idea, token: u.token, headers: NEWER });
+    expect(res.status).toBe(201);
+    const created = (await res.json()) as { id: string };
+    const list = await call('GET', '/api/me/submissions', { token: u.token });
+    const rows = (await list.json()) as { submissions: { id: string; status: string }[] };
+    expect(rows.submissions.map((s) => s.id)).toContain(created.id);
+    expect(rows.submissions.find((s) => s.id === created.id)?.status).toBe('pending');
+  });
+});

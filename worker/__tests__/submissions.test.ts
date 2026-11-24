@@ -16,6 +16,8 @@ import {
   memKv,
 } from '../src/submissions';
 import { resetContentIndexForTests } from '../src/router';
+import { resetMemD1ForTests } from '../src/accounts/store';
+import { resetLockoutsForTests, signup } from '../src/accounts/service';
 import type { Env } from '../src/submissions';
 
 let currentEnv: Env | null = null;
@@ -50,15 +52,24 @@ function fetchWith(path: string, init: RequestInit): Promise<Response> {
   ) as Promise<Response>;
 }
 
-beforeEach(() => {
+// v2.14: submissions belong to an account, so every test starts signed in.
+let accountToken = '';
+const SESSION_HEADERS = (): Record<string, string> =>
+  accountToken ? { Authorization: `Bearer ${accountToken}` } : {};
+
+beforeEach(async () => {
   resetContentIndexForTests();
-  makeEnv();
+  resetMemD1ForTests();
+  resetLockoutsForTests();
+  const env = makeEnv();
+  const created = await signup(env, { username: 'submitter', password: 'kahani2026' });
+  accountToken = created.ok ? created.value.token : '';
 });
 
 function post(path: string, body: unknown, headers: Record<string, string> = {}): Promise<Response> {
   return fetchWith(path, {
     method: 'POST',
-    headers: { 'Content-Type': 'application/json', ...headers },
+    headers: { 'Content-Type': 'application/json', ...SESSION_HEADERS(), ...headers },
     body: JSON.stringify(body),
   });
 }
@@ -240,7 +251,7 @@ describe('POST /api/submit/idea', () => {
     const res = await worker.fetch(
       new Request('https://beyondredeye.site/api/submit/idea', {
         method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
+        headers: { 'Content-Type': 'application/json', ...SESSION_HEADERS() },
         body: '{not-json',
       }),
       makeEnv(),

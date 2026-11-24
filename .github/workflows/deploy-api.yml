@@ -534,12 +534,17 @@ jobs:
           # 4) Path traversal blocked.
           check "traversal rejected" "404" "$(code --path-as-is "$base/stories/$STORY_DIR/%2e%2e/%2e%2e/content/manifest.json")"
 
-          # 5) Submission endpoints: public limit GET returns JSON, POST without
-          #    body returns 400 (not 500), admin without token returns 401 —
-          #    proving the submission Worker routes are live on the deployed URL.
+          # 5) Submission endpoints: public limit GET returns JSON, and
+          #    submissions now require an account (v2.14): an old install with
+          #    no X-Kissa-Version is told to update (426), a current install
+          #    without a session must log in (401). Admin without token -> 401.
+          #    Together these prove the routes are live AND correctly gated.
           case "$(body "$base/submit/limit")" in *remaining*) echo "✅ GET /api/submit/limit returns JSON"; pass=$((pass+1));;
             *) echo "❌ GET /api/submit/limit unexpected body"; fails=$((fails+1));; esac
-          check "POST idea without body -> 400" "400" "$(code -X POST -H 'Content-Type: application/json' -d '{}' "$base/submit/idea")"
+          check "POST idea without version/token -> 426" "426" "$(code -X POST -H 'Content-Type: application/json' -d '{}' "$base/submit/idea")"
+          check "POST idea with version, no token -> 401" "401" "$(code -X POST -H 'Content-Type: application/json' -H 'X-Kissa-Version: 99.0.0' -d '{}' "$base/submit/idea")"
+          check "POST story without version/token -> 426" "426" "$(code -X POST -H 'Content-Type: application/json' -d '{}' "$base/submit/story")"
+          check "POST media without version/token -> 426" "426" "$(code -X POST -H 'Content-Type: application/json' -d '{}' "$base/submit/media")"
           check "admin/pending without token -> 401" "401" "$(code "$base/admin/pending")"
 
           # 5b) Site analytics: the public stats GET answers with JSON, and the
