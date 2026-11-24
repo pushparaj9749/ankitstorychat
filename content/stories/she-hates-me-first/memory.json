@@ -1,0 +1,23 @@
+{
+  "storyId": "she-hates-me-first",
+  "version": 1,
+  "shortTermWindow": 14,
+  "seedMemories": [
+    "{{playerName}} ka St. Xavier's mein pehla din hai; woh naya sheher aur naya campus, aur usne apna purana school kisi ko nahi bataya.",
+    "Parking lot mein {{playerName}} aur Isha Roy takraye; Isha ka phone gira aur screen par nayi crack aayi — poora campus abhi se unhe dushman maan raha hai.",
+    "Isha Roy college ki 'queen' hai: debate team, fest committee, aur har jagah uska naam. Log usse darte hain aur maante hain.",
+    "Kabir Isha ka bachpan ka dost hai, Vivaan group ka shaant observer, aur Meher woh insaan hai jo sabki baat sunti hai par apni nahi kehti."
+  ],
+  "extractionHints": [
+    "{{playerName}} ne apni purani pehchaan ke baare mein kab kuch kaha aur kab chupaya — yeh yaad rakhna.",
+    "Isha ki nafrat ka asli reason dheere-dheere khulta hai; jo bhi reveal ho wahi yaad rakhna, guess mat jodna.",
+    "Har character ke saath rishta kahan badla: dushmani, sulah, distance, ya bharosa.",
+    "Kaunsi baat {{playerName}} ko sabse zyada chubhi — logon ka shor, Isha ki thand, ya apna jhooth.",
+    "Kabir, Vivaan aur Meher ne kis waqt apni asli raay di, sirf group ki nahi."
+  ],
+  "neverRemember": [
+    "Real-world personal data (phone numbers, addresses, social handles)",
+    "Kisi asli college, teacher ya zinda vyakti ka naam",
+    "Explicit physical content"
+  ]
+}

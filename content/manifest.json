@@ -1,5 +1,5 @@
 {
-  "contentVersion": 73,
+  "contentVersion": 74,
   "minAppVersion": "1.0.0",
   "updatedAt": "2026-11-23T09:30:00.000Z",
   "stories": [
@@ -4729,6 +4729,52 @@
         "verified": false
       },
       "updatedAt": "2026-11-23T09:30:00.000Z"
+    },
+    {
+      "id": "she-hates-me-first",
+      "title": "She Hates Me First",
+      "tagline": "Pehle din ek gira hua phone, aur poora college maan gaya ki hum dushman hain — par asli dushmani uske andar thi.",
+      "description": "St. Xavier's mein {{playerName}} ka pehla din hai — naya sheher, naya campus, aur ek purani pehchaan jo usne jaan bujh kar chhupa di hai. Parking lot mein ek takraav, Isha Roy ka gira hua phone, aur poora college ek hi kahani dohra raha hai: naya ladka aur queen dushman hain. Isha Roy jo kisi se nahi darti, jo kisi ko maafi nahi maangti, aur jo apne ghar ka sach kisi ko nahi batati. Nafrat aasan hai; sabse mushkil yeh hai ki {{playerName}} har din jeetne ke chakkar mein apne asli chehre se door ja raha hai — aur Isha ki nafrat usse roz wahi chehra dikhati hai.",
+      "genres": [
+        "Romance",
+        "Drama",
+        "Slice of Life"
+      ],
+      "tags": [
+        "hinglish",
+        "romance",
+        "college",
+        "enemies-to-lovers",
+        "rivalry",
+        "slow-burn",
+        "player-agency",
+        "secrets"
+      ],
+      "characters": [
+        "Isha Roy",
+        "Kabir",
+        "Vivaan",
+        "Meher"
+      ],
+      "ageRating": "18+",
+      "contentLevel": "mature",
+      "language": "hinglish",
+      "version": 1,
+      "coverUrl": "stories/she-hates-me-first/assets/cover.jpg",
+      "accentColor": "#8B2F4A",
+      "userRole": "{{playerName}} — 19 saal ka adult college student, pehle saal mein naya, padhai mein tez aur zubaan mein thoda tez-tarrar. Woh sheher badal kar aaya hai aur jaan bujh kar apni purani pehchaan chhupa raha hai; school ka topper hona usne kisi ko nahi bataya. Uska past, family, paise ki haalat, career ke plan, dosti, kaun usse pyaar karta hai aur kya seekhna chahta hai — sab player-defined. Uske dialogue, feelings, consent aur decisions sirf player ke control mein hain; woh koi pre-written arrogant hero nahi hai.",
+      "setting": "Fictional city Devgaon ka St. Xavier's College, 2026 — purana red-brick campus, ek bada quad jahan festivals hote hain, ek library jiske AC kabhi kaam nahi karte, canteen ki do rupaye ki chai, aur parking lot jahan har shaam gaadiyon ka mela lagta hai. College ke andar seniority ka apna hisaab hai, aur us hisaab ka sabse bada naam Isha Roy hai.",
+      "estimatedMinutes": 30,
+      "featured": false,
+      "isNew": true,
+      "popularity": 52,
+      "storyDir": "she-hates-me-first",
+      "creator": {
+        "name": "Arkoprabho",
+        "avatar": null,
+        "verified": false
+      },
+      "updatedAt": "2026-11-24T01:05:00.000Z"
     }
   ]
 }

@@ -1,0 +1,42 @@
+{
+  "storyId": "she-hates-me-first",
+  "version": 1,
+  "scenes": [
+    {
+      "id": "s1_collision",
+      "title": "Parking lot, pehla din",
+      "narration": [
+        "*Dhoop sar par hai aur campus ka gate aisa lag raha hai jaise kisi ne bahut pehle bana kar bhula diya ho. Tumhare haath mein ek admission slip hai, ek bag, aur us sheher ka pata jahan tumhe kal raat hi rehne ko mila tha.*",
+        "*Bike ki kataar ke beech se ek ladki nikal rahi hai — kaala kurta, chashma, aur chaal aisi jaise poori jagah uske naam par ho. Woh apne phone par kuch dekh rahi hai, tum apni slip par. Do kadam, aur phir kandha kandhe se takrata hai.*",
+        "*Phone haath se chhoot kar zameen par girta hai, screen pehle se tooti hui hai — par ab usme ek nayi lakeer aa gayi hai. Woh neeche dekhti hai, phir tumhe dekhti hai. Poora parking lot ruk jata hai.*",
+        "Isha: \"Ye tumne kiya.\"",
+        "Ladka (paas khada, hansi dabaye): \"Bhai, maafi maang le. Isha Roy se panga nahi lete.\""
+      ],
+      "fallbackLines": [
+        "*Phone zameen par pada hai aur koi uthta nahi. Peeche kisi ne dheere se kaha — 'dekh, naya hai' — aur wahi jumla tumhare kaan mein chipak jata hai.*",
+        "*Isha ki nazar tumhare chehre se neeche slip par jati hai, phir wapas tum par. Jaise woh tumhe padh rahi ho, galti nahi.*"
+      ],
+      "choices": [
+        {
+          "id": "reply_1",
+          "text": "Main jhuk kar phone uthata hu aur seedha uski aankhon mein dekh kar kehta hu: \"Sorry. Meri galti thi. Crack pehle se tha, par yeh nayi hai — main iski keemat dunga.\"",
+          "shortLabel": "Seedhi maafi",
+          "next": null
+        },
+        {
+          "id": "reply_2",
+          "text": "Main apni slip theek karta hu aur kehta hu: \"Tum bhi phone mein thi. Main sirf itna keh raha hu — dono ki galti hai, aur main ek galat baat par sorry nahi bolunga.\"",
+          "shortLabel": "Barabar ki baat",
+          "next": null
+        },
+        {
+          "id": "reply_3",
+          "text": "Main kuch nahi kehta, sirf uske haath se phone leta hu, screen dekhta hu, aur wapas uske haath mein rakh deta hu — jaise yeh koi badi baat hi nahi thi.",
+          "shortLabel": "Chup rehkar dikhao",
+          "next": null
+        }
+      ]
+    }
+  ],
+  "endings": []
+}

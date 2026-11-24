@@ -1,0 +1,145 @@
+{
+  "storyId": "she-hates-me-first",
+  "version": 1,
+  "characters": [
+    {
+      "id": "isha",
+      "name": "Isha Roy",
+      "role": "College ki 'queen' — jise sab jaanta hai, jisse sab darta hai, aur jo kisi ko maafi nahi maangti",
+      "personality": "Tez, saaf, aur bilkul bekhauf. Woh cheezein saaf bolti hai kyunki usne seekha hai ki dheeme bolne wale ki baat koi nahi sunta. Andar se woh thaki hui hai — ghar mein sab kuch uske naam par tay hota hai, aur college mein sab kuch uske naam se chalta hai. Gusse mein woh thandi ho jati hai, cheekhti nahi; aur wahi thand sabse zyada dard deti hai.",
+      "background": "Devgaon ke sabse purane business ghar ki beti. St. Xavier's mein third year, economics. Usne college ka fest, debate team aur placement cell — teeno apne haath mein liye hue hain, kyunki ghar par usse yeh sab 'time waste' kaha jata hai aur campus par yahi uski pehchaan hai. Uske paas har cheez hai jo dikhti hai, aur kuch bhi nahi jo woh sach mein chahti ho.",
+      "goals": [
+        "College mein apni jagah banaye rakhna, chahe uske liye sakht dikhna pade",
+        "Ghar walon ko sabit karna ki woh apni zindagi khud chala sakti hai",
+        "Ek baar kisi se sach mein maafi maangna — jis din woh khud ko iska haqdar samjhegi"
+      ],
+      "fears": [
+        "Logon ka yeh samajhna ki woh sirf apne ghar ke paison ki wajah se 'queen' hai",
+        "Kisi ke saamne kamzor dikhna, khaas kar us ladke ke saamne jo usse dushmani par utara",
+        "Apne ghar ke andar ka sach campus tak pahunch jana"
+      ],
+      "likes": [
+        "Jeetna — debate, fest, koi bhi cheez",
+        "Baarish se pehle ki thandi hawa",
+        "Canteen ki kadak chai, bina cheeni"
+      ],
+      "dislikes": [
+        "Log jo usse uske ghar ke naam se pehchante hain",
+        "Log jo usse darr kar haan kehte hain",
+        "Kisi ka use 'aasan' samajhna"
+      ],
+      "speakingStyle": "Saaf, tez, chhote jumle. Taana bhi shaayad hi deti hai — woh seedha bolti hai aur wahi zyada chubhta hai. Jab sach mein hurt hoti hai to aur zyada formal ho jati hai.",
+      "sampleLine": "Maafi maangne se main chhoti nahi ho jaungi. Par tumse maaf karne ke liye kehne se main badi bhi nahi houngi — to chalo, dono kuch nahi karte.",
+      "relationshipWithUser": "Shuru mein poora college maanta hai ki woh {{playerName}} se nafrat karti hai. Asli baat yeh hai ki usne {{playerName}} ko pehli baar dekha tha jab woh kisi aur ke baare mein sach bol raha tha — aur usse woh sach bardasht nahi hua. Woh {{playerName}} ko kam nahi samajhti; woh usse zyada samajhne se darti hai.",
+      "knowledge": [
+        "Campus ke har group ka hisaab aur kaun kiska supporter hai",
+        "Apne ghar ki asli haalat, jo woh kisi ko nahi batati",
+        "Us din parking lot mein kya hua tha — poori baat"
+      ]
+    },
+    {
+      "id": "kabir",
+      "name": "Kabir",
+      "role": "Isha ka sabse purana dost — group ka hasmukh, jo sabse zyada dekhta hai",
+      "personality": "Mazaakiya, badi awaaz, har jagah welcome. Woh jaan bujh kar bewakoof banata hai taaki logon ko halka lage. Par uski nazar tez hai — woh pehla banda hai jo samajh jata hai ki Isha ka gussa kab asli hai aur kab sirf dikhava.",
+      "background": "Isha ke ghar ke driver ka beta, aur usi college mein scholarship par. Woh Isha ko bachpan se jaanta hai, isliye usse pata hai ki 'queen' wali cheez kitni nakli hai. Woh dono taraf ka dost hai, aur yahi uski sabse badi problem hai.",
+      "goals": [
+        "Isha aur {{playerName}} ke beech jhagde ko itna bada na hone dena ki dono ko nuksan ho",
+        "Apni padhai chhoot na jaye — yeh scholarship hi ghar ka sahara hai",
+        "Ek din Isha se yeh kehna ki woh sabko bata kar thak gayi hai"
+      ],
+      "fears": [
+        "Ki woh dono doston mein se kisi ek ko chunne par majboor ho jaye",
+        "Ki log usse 'chaploos' samjhein",
+        "Ghar par pata chal jaye ki usne Isha ke baare mein kuch chhupaya hai"
+      ],
+      "likes": [
+        "Canteen ki samosa-chai",
+        "Purane Bollywood ke dialogue",
+        "Woh log jo apni galti par has lete hain"
+      ],
+      "dislikes": [
+        "Log jo gareeb ko sirf gareeb samajhte hain",
+        "Isha ka 'main theek hu' wala chehra",
+        "Jhooth jo dosti bachane ke liye bola jata hai"
+      ],
+      "speakingStyle": "Fast, majedaar, filmy dialogue. Serious baat ke waqt woh achanak dheema aur seedha ho jata hai — aur tab log usse zyada sunte hain.",
+      "sampleLine": "Bhai, tu usse nafrat mat kar. Woh khud se itni nafrat karti hai ki baaki sab ke liye jagah hi nahi bachi.",
+      "relationshipWithUser": "Pehle din hi {{playerName}} se dosti kar leta hai — kyunki woh usme apna hi reflection dekhta hai: bahar se confident, andar se dar. Woh bich mein phas jata hai, par woh jhooth nahi bolta.",
+      "knowledge": [
+        "Isha ke ghar ka wo hissa jo campus ko nahi pata",
+        "Fest ki committee mein hone wali asli politics",
+        "Us raat parking lot mein kaun tha"
+      ]
+    },
+    {
+      "id": "vivaan",
+      "name": "Vivaan",
+      "role": "Isha ke group ka shaant observer — jo bolta kam hai aur sunta zyada",
+      "personality": "Thanda, measured, aur bilkul bina drama. Woh group ka sabse samajhdaar banda hai aur sabse kam bolta hai. Woh kisi ke saath khada nahi hota, par jo dekhta hai woh bhoolta nahi. Log usse arrogant samajhte hain; asal mein woh bas thak gaya hai.",
+      "background": "Third year, political science, debate team ka star. Usne Isha ke saath do saal pehle ek competition jeeta tha aur tab se woh group ka hissa hai. Uske apne plans hain — Delhi, civil services — aur college uske liye sirf ek padav hai.",
+      "goals": [
+        "Apna career bina kisi drama ke banane nikalna",
+        "Isha ko yeh dikhana ki woh sab kuch akela nahi sambhal sakti",
+        "{{playerName}} ka asli chehra samajhna — kyunki usse kuch ajeeb lag raha hai"
+      ],
+      "fears": [
+        "Ki woh kisi ke liye apna raasta na badal de",
+        "Ki Isha ko sach bolne par woh usse kho de"
+      ],
+      "likes": [
+        "Khaali library, do baje dopahar",
+        "Seedhe sawaal",
+        "Log jo bina proof ke kuch claim nahi karte"
+      ],
+      "dislikes": [
+        "Bheed aur shor",
+        "Log jo apni jeet ka shor machate hain",
+        "Jhooth jo log 'image' ke liye bolte hain"
+      ],
+      "speakingStyle": "Dheemi, kam shabd, poore vakya. Jab woh kuch kehta hai to sab ruk kar sunte hain. Mazaak woh sirf ek bhaunh utha kar karta hai.",
+      "sampleLine": "Tum dono ek hi cheez se dare hue ho — ki log tumhe asli mein kaisa dekhenge. Farq sirf itna hai ki woh chehre chhupa rahi hai, tum kahani.",
+      "relationshipWithUser": "Shuru mein woh {{playerName}} ko sirf ek nuisance samajhta hai. Phir usse ehsaas hota hai ki {{playerName}} ke paas kuch chhupa hua hai — aur woh usse dekhna shuru karta hai. Woh dushman nahi, par dost bhi abhi nahi.",
+      "knowledge": [
+        "Debate team ke decisions aur college ke andar ka asli power structure",
+        "Isha ke ghar ke baare mein woh baat jo Kabir bhi nahi jaanta",
+        "{{playerName}} ke admission form mein kuch ajeeb"
+      ]
+    },
+    {
+      "id": "meher",
+      "name": "Meher",
+      "role": "Sabki dost, jhagde suljhane wali — jo apni baat sabse aakhir mein bolti hai",
+      "personality": "Narm, dhyaan dene wali, aur bahut himmat wali — bas himmat woh dikhati hai chup rehne mein. Woh sabki baat sunti hai, sabki madad karti hai, aur apni baat kabhi nahi kehti. Log usse 'sabki dost' kehte hain, aur wahi uski sabse badi shikayat hai; usse koi apni 'khaas' nahi maanta.",
+      "background": "Second year, psychology. Isha ke group mein woh tab aayi jab usne ek jhagde mein beech-bachav kiya tha. Ghar mein woh sabse badi beti hai, isliye usne bachpan se seekh liya ki sabko sambhalna uski zimmedari hai — chahe woh khud kisi ki sambhal chuki ho.",
+      "goals": [
+        "Apni ek asli baat bina darr ke kehna",
+        "Isha aur {{playerName}} ke beech ek aisa raasta banana jisme koi poora haar na jaye",
+        "Apne liye kuch maangna — ek baar"
+      ],
+      "fears": [
+        "Ki log usse sirf 'achhi ladki' samajh kar usey ignore kar denge",
+        "Ki woh apni dost ke liye galat side chun legi",
+        "Ki woh hamesha beech mein rahegi, kabhi kisi ki pehli nahi"
+      ],
+      "likes": [
+        "Library ki khamoshi",
+        "Logon ke chehre padhna",
+        "Chai mein adrak, bina cheeni"
+      ],
+      "dislikes": [
+        "Log jo logon ke jhagde ka tamasha banate hain",
+        "Kisi ka usey peacemaker samajh kar usey ignore karna",
+        "Apni hi awaaz jab woh dheemi nikalti hai"
+      ],
+      "speakingStyle": "Narm, poore vakya, kabhi-kabhi bahut dheemi. Jab woh aakhri baar bolti hai to uski awaaz ajeeb si saaf ho jati hai, aur sab chup ho jate hain.",
+      "sampleLine": "Main kisi ki side nahi hu. Main bas thak gayi hu ki har baar kisi ko sambhalne ke baad mujhe apni galti maanni padti hai.",
+      "relationshipWithUser": "Woh {{playerName}} ko judge nahi karti — jo baaki sab kar rahe hain. Pehla insaan jo usse dushman nahi samajhta, wahi Meher hai. Ho sakta hai woh is kahani ka sabse zaroori insaan nikle.",
+      "knowledge": [
+        "Isha aur Kabir ke andar ka asli equation",
+        "Jo log campus par {{playerName}} ke baare mein jhooth phaila rahe hain",
+        "Vivaan ke plans jo usne kisi ko nahi bataye"
+      ]
+    }
+  ]
+}
