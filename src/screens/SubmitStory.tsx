@@ -84,7 +84,7 @@ const GENRES = [
 ];
 
 export function SubmitStory({ navigation, route }: Props) {
-  const { theme, profile, settings } = useApp();
+  const { theme, profile, settings, markUpdateRequired } = useApp();
   const initialMode: Mode = route.params?.mode ?? 'idea';
   const [mode, setMode] = useState<Mode>(initialMode);
   const [storyMode, setStoryMode] = useState<StoryInputMode>('form');
@@ -268,6 +268,10 @@ export function SubmitStory({ navigation, route }: Props) {
       }
     } catch (e) {
       const err = e as SubmissionApiError;
+      if (err.updateRequired) {
+        markUpdateRequired();
+        return;
+      }
       Alert.alert('Could not submit', err.message || 'Something went wrong.');
     } finally {
       setLoading(false);
@@ -319,6 +323,10 @@ export function SubmitStory({ navigation, route }: Props) {
       }
     } catch (e) {
       const err = e as SubmissionApiError;
+      if (err.updateRequired) {
+        markUpdateRequired();
+        return;
+      }
       Alert.alert('Could not submit', err.message || 'Something went wrong.');
     } finally {
       setLoading(false);
@@ -420,6 +428,10 @@ export function SubmitStory({ navigation, route }: Props) {
       }
     } catch (e) {
       const err = e as SubmissionApiError;
+      if (err.updateRequired) {
+        markUpdateRequired();
+        return;
+      }
       Alert.alert('Could not submit', err.message || 'Something went wrong.');
     } finally {
       setLoading(false);

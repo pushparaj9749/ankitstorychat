@@ -32,7 +32,16 @@ GET  /api/admin/accounts | /api/admin/accounts/<id>
 POST /api/admin/accounts/<id>/notify
 GET  /api/admin/recovery | POST /api/admin/recovery/<id>/(approve|reject)
 POST /api/admin/version
+
+# story submissions (v2.14+: account required)
+POST /api/submit/idea | /api/submit/story | /api/submit/media
+GET  /api/submit/limit
 ```
+
+`POST /api/submit/*` needs `Authorization: Bearer <session>` **and**
+`X-Kissa-Version`. An install that sends no version header at all (the 2.13.x
+app) is answered `426 update_required`, so old builds hit their update wall; a
+current install without a session is answered `401 login_required`.
 
 Deploys create/migrate the D1 database (`scripts/ci-d1-setup.cjs`) and inject
 its id into `wrangler.jsonc`, exactly like the KV namespace — no ids are

@@ -38,6 +38,7 @@ import { BootSplash, SPLASH_INTRO_MS } from '../components/BootSplash';
 import {
   type AccountInfo,
   cachedAccount,
+  cachedUpdateRequired,
   claimLocalHistory,
   getToken,
   isUpdateRequired,
@@ -81,6 +82,8 @@ interface AppState {
   refreshRecent: () => Promise<void>;
   toggleFavorite: (storyId: string) => Promise<boolean>;
   reloadAll: () => Promise<void>;
+  /** A call was refused with 426: show the update wall right away. */
+  markUpdateRequired: () => void;
 }
 
 const Ctx = createContext<AppState | null>(null);
@@ -196,7 +199,8 @@ export function AppProvider({ children }: { children: React.ReactNode }) {
         if (cached) setAccountState(cached);
         const hasToken = !!(await getToken());
         // v2.14: an install older than the server minimum cannot use the app.
-        setUpdateRequired(await isUpdateRequired(apiBase));
+        // Server minimum (fresh) OR a 426 remembered from an earlier call.
+        setUpdateRequired((await isUpdateRequired(apiBase)) || (await cachedUpdateRequired()));
         if (hasToken) {
           const fresh = await refreshAccount(apiBase).catch(() => null);
           setAccountState(fresh?.account ?? null);
@@ -223,6 +227,8 @@ export function AppProvider({ children }: { children: React.ReactNode }) {
     },
     [refreshStories],
   );
+
+  const markUpdateRequired = useCallback(() => setUpdateRequired(true), []);
 
   const updateSettings = useCallback(async (patch: Partial<AppSettings>) => {
     const next = await dbUpdateSettings(patch);
@@ -271,6 +277,7 @@ export function AppProvider({ children }: { children: React.ReactNode }) {
       setAccount,
       refreshUnread: refreshUnreadBadge,
       updateSettings,
+      markUpdateRequired,
       refreshProviders,
       refreshStories,
       refreshRecent,

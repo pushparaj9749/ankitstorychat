@@ -1,11 +1,15 @@
 /**
  * Client for the Kissa submission API (Cloudflare Worker).
  *
- * Public endpoints (no auth):
+ * Endpoints (v2.14+ require a signed-in account):
  *   POST /api/submit/idea
  *   POST /api/submit/story
  *   POST /api/submit/media
  *   GET  /api/submit/limit
+ *
+ * The session token from `lib/account` is attached automatically, along with
+ * `X-Kissa-Version`, so the server can tell an out-of-date install (426) from
+ * a signed-out one (401).
  *
  * Admin endpoints (Bearer ADMIN_TOKEN):
  *   GET  /api/admin/pending
@@ -20,6 +24,7 @@
  */
 import * as SecureStore from 'expo-secure-store';
 import { contentApiUrl, effectiveContentApiBaseUrl } from './api';
+import { appVersion, getToken } from '../lib/account';
 import type {
   PendingListResponse,
   StorySubmission,
@@ -37,6 +42,8 @@ class SubmissionApiError extends Error {
   readonly issues?: { path: string; message: string }[];
   readonly limitReached?: boolean;
   readonly resetsAt?: number;
+  /** The server refused with 426: this install must be updated. */
+  readonly updateRequired?: boolean;
 
   constructor(init: {
     message: string;
@@ -45,6 +52,7 @@ class SubmissionApiError extends Error {
     issues?: { path: string; message: string }[];
     limitReached?: boolean;
     resetsAt?: number;
+    updateRequired?: boolean;
   }) {
     super(init.message);
     this.status = init.status;
@@ -52,6 +60,7 @@ class SubmissionApiError extends Error {
     this.issues = init.issues;
     this.limitReached = init.limitReached;
     this.resetsAt = init.resetsAt;
+    this.updateRequired = init.updateRequired;
   }
 }
 
@@ -65,7 +74,12 @@ async function request<T>(
   const headers = new Headers(init.headers ?? {});
   headers.set('Accept', JSON_TYPE);
   headers.set('X-Kissa-Client', 'kissa-app');
+  headers.set('X-Kissa-Version', appVersion());
   if (init.body && !headers.has('Content-Type')) headers.set('Content-Type', JSON_TYPE);
+  if (!opts.admin) {
+    const token = await getToken();
+    if (token) headers.set('Authorization', `Bearer ${token}`);
+  }
   if (opts.admin) {
     const token = await getAdminToken();
     if (!token) throw new SubmissionApiError({ message: 'Admin token not configured.', status: 401 });
@@ -82,7 +96,9 @@ async function request<T>(
     const b = body as Record<string, unknown> | null;
     const msg =
       (b && typeof b.message === 'string' && b.message) ||
-      (res.status === 429 ? "Today's submission limit has been reached. Please try again after the submission window resets." :
+      (res.status === 426 ? 'Kissa ka naya version chahiye. Update karke login karo.' :
+       res.status === 401 ? 'Login dobara karo.' :
+       res.status === 429 ? "Today's submission limit has been reached. Please try again after the submission window resets." :
        res.status === 413 ? 'Submission is too large.' :
        res.status === 401 ? 'Admin authorization required.' :
        res.status === 0 ? 'Network error.' : `Request failed (${res.status}).`);
@@ -91,6 +107,7 @@ async function request<T>(
       status: res.status,
       code: b && typeof b.error === 'string' ? b.error : undefined,
       issues: b && Array.isArray(b.issues) ? (b.issues as { path: string; message: string }[]) : undefined,
+      updateRequired: res.status === 426 && !!b && b.error === 'update_required',
       limitReached: !!(b && b.limitReached),
       resetsAt: b && typeof b.resetsAt === 'number' ? b.resetsAt : undefined,
     });

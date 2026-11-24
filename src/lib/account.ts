@@ -409,6 +409,11 @@ export async function notificationsFeed(
   return { unread: res.unread ?? 0, items: res.notifications ?? [] };
 }
 
+/** Was a 426 seen at some point? Survives a relaunch until an update lands. */
+export async function cachedUpdateRequired(): Promise<boolean> {
+  return (await kvGet('update.required')) === '1';
+}
+
 /**
  * Launch check: is this install older than the server's minimum?
  *
