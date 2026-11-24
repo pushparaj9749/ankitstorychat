@@ -18,13 +18,27 @@ const fs = require('node:fs');
 const path = require('node:path');
 
 const ACCOUNT_ID = process.env.CLOUDFLARE_ACCOUNT_ID;
-const API_TOKEN = process.env.CLOUDFLARE_API_TOKEN;
+// D1 needs the "D1: Edit" account permission. A dedicated token can be supplied
+// (repo secret CLOUDFLARE_D1_API_TOKEN) without touching the Workers token.
+const API_TOKEN = process.env.CLOUDFLARE_D1_API_TOKEN || process.env.CLOUDFLARE_API_TOKEN;
+const TOKEN_SOURCE = process.env.CLOUDFLARE_D1_API_TOKEN
+  ? 'CLOUDFLARE_D1_API_TOKEN'
+  : 'CLOUDFLARE_API_TOKEN';
 const DB_NAME = process.env.KISSA_DB_NAME || 'kissa-db';
 
 if (!ACCOUNT_ID || !API_TOKEN) {
   console.error('CLOUDFLARE_ACCOUNT_ID / CLOUDFLARE_API_TOKEN not set.');
   process.exit(1);
 }
+
+const D1_PERMISSION_HELP =
+  'The Cloudflare API token used by this workflow cannot manage D1 (HTTP 401/403).\n' +
+  'Fix (either one):\n' +
+  '  1. Cloudflare dashboard → My Profile → API Tokens → edit this token → add\n' +
+  '     Account · D1 · Edit  (Workers KV was already allowed, D1 was not), or\n' +
+  '  2. create a token with "Account → D1 → Edit" and save it as the repo secret\n' +
+  '     CLOUDFLARE_D1_API_TOKEN (Settings → Secrets and variables → Actions).\n' +
+  'No database ids need to be committed — CI injects them into wrangler.jsonc.';
 
 // wrangler is run with cwd=worker/.
 const Wrangler = path.resolve('wrangler.jsonc');
@@ -52,8 +66,12 @@ function cfApi(method, pathname, body) {
           try {
             const json = JSON.parse(buf);
             if (!json.success) {
+              const isAuth = res.statusCode === 401 || res.statusCode === 403;
+              const hint = isAuth ? `\n\n${D1_PERMISSION_HELP}\n(token source: ${TOKEN_SOURCE})` : '';
               return reject(
-                new Error(`Cloudflare API ${res.statusCode} ${pathname}: ${JSON.stringify(json.errors)}`),
+                new Error(
+                  `Cloudflare API ${res.statusCode} ${pathname}: ${JSON.stringify(json.errors)}${hint}`,
+                ),
               );
             }
             resolve(json.result);
