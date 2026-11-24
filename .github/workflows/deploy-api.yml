@@ -268,6 +268,24 @@ jobs:
             echo "::warning title=ADMIN_TOKEN not set::Add a repo secret ADMIN_TOKEN to enable admin routes. Public submission endpoints still work."
           fi
 
+      # The OTA manifest is signed with this key. CI is the only place it
+      # exists besides GitHub's secret store; the Worker needs it to sign, and
+      # never serves an unsigned manifest (503 instead).
+      - name: Put OTA_SIGNING_KEY secret when present
+        working-directory: worker
+        env:
+          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+          OTA_SIGNING_KEY: ${{ secrets.OTA_SIGNING_KEY }}
+        run: |
+          set -uo pipefail
+          if [ -n "${OTA_SIGNING_KEY:-}" ]; then
+            echo "Uploading OTA_SIGNING_KEY secret..."
+            printf '%s' "$OTA_SIGNING_KEY" | npx wrangler secret put OTA_SIGNING_KEY
+          else
+            echo "::warning title=OTA_SIGNING_KEY not set::OTA publishing will be refused (the app cannot verify an unsigned manifest). Add the repo secret to enable over-the-air fixes."
+          fi
+
       - name: Deploy (wrangler)
         working-directory: worker
         run: npx wrangler deploy

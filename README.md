@@ -79,11 +79,33 @@ its CI or its APK.
 | Naya native dependency, permission, SDK bump, icon/splash | **Naya APK** (tag `vX.Y.Z`) | normal build |
 
 - **OTA self-hosted hai** — bundle hamare hi Worker se aata hai (`/api/ota/manifest`), koi Expo/EAS account nahi, koi third-party token nahi.
-- **Signed updates only.** `assets/certificate.pem` app me pinned hai; unsigned ya tampered bundle app khud reject karti hai.
+- **Signed updates only.** `assets/certificate.pem` app me pinned hai; app **manifest body** ka signature verify karti hai (`expo-signature` header, `SHA256withRSA`, keyid `root`). Unsigned ya tampered update app khud reject karti hai — aur key na ho to Worker 503 deta hai, chupchaap unsigned update nahi bhejta.
 - **Runtime = app version** (`runtimeVersion.policy: appVersion`), isliye 2.15 build ko kabhi 2.14 ka bundle nahi milta.
 - **Native guard:** `scripts/ota-publish.mjs` publish hi nahi karta agar last APK tag ke baad `android/`, `ios/`, `package.json`, assets ya `app.json` native fields badle hon — us change ke liye APK chahiye.
 - **About → "Chhota update (OTA)"**: check karo, download ho to restart. Launch par bhi chupchaap check hota hai; slow server pe app nahi rukti (`fallbackToCacheTimeout: 0`).
 - **Login/Signup ek hi screen** — screen khulti hai "Naya account" par (username, password, password dobara), ek tap me account. Purane user tab se "Log in". Alag Signup screen hata di gayi.
+
+#### OTA ek baar set karna (one-time)
+
+Signing key private hai, isliye repo me nahi. Ek hi baar:
+
+```bash
+npx expo-updates codesigning:generate \
+  --key-output-directory keys --certificate-output-directory cert \
+  --certificate-validity-duration-years 10 --certificate-common-name "Kissa OTA Code Signing"
+```
+
+1. `cert/certificate.pem` → repo me `assets/certificate.pem` (public, commit hoti hai).
+2. `keys/private-key.pem` se PKCS#8 DER ka base64 → GitHub secret **`OTA_SIGNING_KEY`**:
+
+```bash
+openssl pkcs8 -topk8 -nocrypt -in keys/private-key.pem -outform DER \
+  | base64 | tr -d '\n' | pbcopy   # macOS; Linux par xclip -sel clip
+```
+
+3. Deploy workflow (`deploy-api.yml`) us secret ko Worker me `wrangler secret put` karta hai — Worker hi manifest sign karta hai, isliye CI runner ke paas key ki zaroorat nahi.
+
+`keys/` aur `cert/` ko repo me commit **nahi** karna.
 
 ### Purana — 2.14.x
 

@@ -64,7 +64,11 @@
       "checkAutomatically": "ON_LOAD",
       "fallbackToCacheTimeout": 0,
       "url": "https://beyondredeye.site/api/ota/manifest",
-      "codeSigningCertificate": "./assets/certificate.pem"
+      "codeSigningCertificate": "./assets/certificate.pem",
+      "codeSigningMetadata": {
+        "keyid": "root",
+        "alg": "rsa-v1_5-sha256"
+      }
     }
   }
 }

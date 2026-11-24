@@ -22,9 +22,9 @@ sent to this Worker.
 
 ```
 # OTA (JS-only updates, Expo Updates protocol)
-GET  /api/ota/manifest?platform=android&runtime-version=2.15.0
+GET  /api/ota/manifest?platform=android&runtime-version=2.15.0   (body signed: expo-signature header)
 GET  /api/ota/assets/<updateId>/<path>
-POST /api/ota/publish?platform=android&runtime=2.15.0   (Bearer ADMIN_TOKEN, signed)
+POST /api/ota/publish?platform=android&runtime=2.15.0   (Bearer ADMIN_TOKEN; body = the .js bundle)
 POST /api/ota/rollback?platform=android                (Bearer ADMIN_TOKEN)
 
 POST /api/auth/signup | /api/auth/login | /api/auth/logout
@@ -99,3 +99,25 @@ itself — a push always starts a fresh run.
 If the D1 step fails with `Cloudflare API 401`, the token lacks **Account · D1 ·
 Edit** (see `docs/DEPLOYMENT.md`); everything else in the pipeline is
 idempotent, so a retry is always safe.
+
+### OTA signing
+
+`GET /api/ota/manifest` signs the exact manifest body it returns and puts the
+result in the `expo-signature` response header:
+
+```
+expo-signature: sig="<base64 rsa-sha256>", keyid="root", alg="rsa-v1_5-sha256"
+```
+
+expo-updates verifies that header with the certificate pinned in
+`app.json → expo.updates.codeSigningCertificate`, so a changed byte anywhere in
+the body is rejected on device. The private key is the Worker secret
+`OTA_SIGNING_KEY` — base64 of the PKCS#8 DER, no PEM headers:
+
+```bash
+openssl pkcs8 -topk8 -nocrypt -in keys/private-key.pem -outform DER \
+  | base64 | tr -d '\n' | npx wrangler secret put OTA_SIGNING_KEY
+```
+
+Without the secret the endpoint answers `503 ota_signing_key_missing` rather
+than serving an update the app would have to reject.

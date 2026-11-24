@@ -126,6 +126,14 @@ export interface Env {
   KISSA_DB?: D1Database;
   /** Admin bearer token (secret). Any non-empty value enables admin routes. */
   ADMIN_TOKEN?: string;
+  /**
+   * OTA code-signing PRIVATE key: base64 of the PKCS#8 DER (an RSA-2048 key).
+   * Set with `wrangler secret put OTA_SIGNING_KEY`. The matching self-signed
+   * certificate is public and lives in assets/certificate.pem; the app refuses
+   * any manifest it cannot verify with it. When unset, /api/ota/manifest
+   * returns 503 instead of serving an unverifiable update.
+   */
+  OTA_SIGNING_KEY?: string;
 }
 
 export type SubmissionType = 'idea' | 'story';

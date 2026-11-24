@@ -36,13 +36,21 @@ export interface OtaRelease {
   createdAt: string;
   /** monotonic-ish counter the app uses to compare updates. */
   sequence: number;
-  /** sha256 of the JS bundle, for logging/diagnostics. */
+  /**
+   * base64url(SHA-256(bytes of the served launch asset)). expo-updates verifies
+   * every downloaded asset against this, so it MUST be base64url — a hex digest
+   * silently fails on device with "Asset hash mismatch".
+   */
   bundleHash: string;
   /** Size in bytes of the whole launch asset (zipped bundle). */
   launchAssetSize: number;
   /** Extra assets shipped with this update. */
   assets: { path: string; hash: string; size: number }[];
-  /** Signature over the manifest fields (base64). */
+  /**
+   * expo-signature header value covering the EXACT bytes of the manifest body
+   * served to the app (see `signManifest`). The app verifies the manifest, not
+   * the bundle: that is what makes an OTA safe to install.
+   */
   signature: string;
   /** Human note shown in the app's "what's new" list. */
   notes?: string;
@@ -123,28 +131,95 @@ export function buildManifest(rel: OtaRelease, base: string): Record<string, unk
     id: rel.id,
     createdAt: rel.createdAt,
     runtimeVersion: rel.runtimeVersion,
-    // Ordered newest-last; the app picks the last one it can apply.
+    // `metadata.notes` is what the About screen shows after a download.
     metadata: rel.notes ? { notes: rel.notes } : {},
     extra: {
-      // Signed payload the app verifies with the pinned certificate.
-      signature: rel.signature,
-      signatureFormat: 'rsa-sha256',
+      // Informational only — the signature that matters is the expo-signature
+      // header on the response body (the app never trusts fields inside the
+      // body it is supposed to be verifying).
+      signatureFormat: 'rsa-v1_5-sha256',
+      keyid: OTA_SIGNING_KEY_ID,
       sequence: rel.sequence,
       bundleHash: rel.bundleHash,
     },
     launchAsset: {
+      // expo-updates hands the served bytes to android.content.res.AssetManager
+      // directly. A .tgz (what CI used to upload) is NOT a JS bundle, so the app
+      // could never boot it — the artifact must be the exported JS file.
       hash: rel.bundleHash,
       key: 'bundle',
       contentType: 'application/javascript',
       url: assetUrl('bundle'),
-      fileExtension: '.bundle',
     },
     assets: rel.assets.map((a) => ({
       hash: a.hash,
       key: a.path,
       contentType: 'application/octet-stream',
       url: assetUrl(a.path),
-      fileExtension: a.path.includes('.') ? `.${a.path.split('.').pop()}` : undefined,
     })),
   };
+}
+
+/**
+ * Defaults that must match app.json's `updates.codeSigningMetadata`, otherwise
+ * the app rejects every manifest with "Key with keyid=… not found".
+ */
+export const OTA_SIGNING_KEY_ID = 'root';
+export const OTA_SIGNING_ALG = 'rsa-v1_5-sha256';
+
+/**
+ * Build the `expo-signature` header for a manifest body.
+ *
+ * The app verifies SHA256withRSA over the exact bytes of the body it received,
+ * so signing arbitrary `extra` fields is useless: the signature has to be over
+ * the serialized manifest itself. Any later change to the body invalidates it,
+ * which is exactly the point.
+ */
+export async function signManifest(body: string, privateKeyPkcs8Base64: string): Promise<string> {
+  const sig = await rsaSha256Sign(body, privateKeyPkcs8Base64);
+  return `sig="${sig}", keyid="${OTA_SIGNING_KEY_ID}", alg="${OTA_SIGNING_ALG}"`;
+}
+
+/** base64url(SHA-256(bytes)) — the only digest format expo-updates accepts. */
+export async function assetHash(bytes: ArrayBuffer): Promise<string> {
+  const digest = await crypto.subtle.digest('SHA-256', bytes);
+  return bytesToB64(new Uint8Array(digest)).replace(/\+/g, '-').replace(/\//g, '_').replace(/=+$/, '');
+}
+
+function bytesToB64(bytes: Uint8Array): string {
+  let s = '';
+  for (const b of bytes) s += String.fromCharCode(b);
+  return btoa(s);
+}
+
+function b64ToBytes(b64: string): Uint8Array {
+  const bin = atob(b64);
+  const out = new Uint8Array(bin.length);
+  for (let i = 0; i < bin.length; i += 1) out[i] = bin.charCodeAt(i);
+  return out;
+}
+
+/**
+ * RSA-SHA256 signature over `body`, base64 (standard alphabet — what the app's
+ * Base64.decode expects).
+ *
+ * WebCrypto cannot import a bare PEM, so the PKCS#8 DER is unwrapped here and
+ * imported as an `RSASSA-PKCS1-v1_5` key. The private key lives in a Worker
+ * secret / CI secret, never in the repo.
+ */
+async function rsaSha256Sign(body: string, privateKeyBase64: string): Promise<string> {
+  const der = b64ToBytes(
+    privateKeyBase64
+      .replace(/-----[^-]+-----/g, '')
+      .replace(/\s+/g, ''),
+  );
+  const key = await crypto.subtle.importKey(
+    'pkcs8',
+    der as unknown as ArrayBuffer,
+    { name: 'RSASSA-PKCS1-v1_5', hash: 'SHA-256' },
+    false,
+    ['sign'],
+  );
+  const sig = await crypto.subtle.sign('RSASSA-PKCS1-v1_5', key, new TextEncoder().encode(body));
+  return bytesToB64(new Uint8Array(sig));
 }

@@ -56,7 +56,14 @@ export async function checkForOtaUpdate(): Promise<OtaCheckResult> {
         ? ((res.manifest.metadata as { notes?: string } | undefined)?.notes ?? undefined)
         : undefined;
     return { state: fetched.isNew ? 'downloaded' : 'current', notes };
-  } catch {
+  } catch (err) {
+    // A signature/certificate failure is NOT "you are current": it means the
+    // server sent something this build cannot trust. Surface it so the About
+    // card can say so instead of silently pretending everything is fine.
+    const msg = err instanceof Error ? err.message : String(err);
+    if (/signature|certificate|code signing/i.test(msg)) {
+      return { state: 'blocked', notes: 'Update ka signature verify nahi hua — skip kar diya.' };
+    }
     return { state: 'current' };
   }
 }

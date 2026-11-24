@@ -2,8 +2,15 @@
  * OTA wiring (v2.15): small JS fixes ship without an APK, native changes do not.
  *
  * These tests pin the CONTRACT rather than the network: the app points at our
- * own Worker, every update is code-signed, the runtime is the app version, and
- * the publish script refuses to ship a JS bundle when native files changed.
+ * own Worker, every MANIFEST is code-signed (the signature the app actually
+ * verifies — see expo-updates CodeSigningConfiguration), the runtime is the app
+ * version, asset hashes are base64url, and the publish script refuses to ship a
+ * JS bundle when native files changed.
+ *
+ * The v2.15.0 build shipped a certificate that was really a bare public key, a
+ * signature over the bundle instead of the manifest body, and a .tgz as the
+ * launch asset — all three would have made expo-updates reject or fail every
+ * update. The last describe() block re-checks each of those facts directly.
  */
 import fs from 'fs';
 import path from 'path';
@@ -41,6 +48,16 @@ describe('app.json OTA configuration', () => {
     expect(read('assets/certificate.pem')).toContain('BEGIN CERTIFICATE');
   });
 
+  test('the signing metadata the Worker stamps matches app.json', () => {
+    // Mismatch => "Key with keyid=… not found in client configuration".
+    const meta = (appJson.expo.updates as { codeSigningMetadata?: { keyid: string; alg: string } })
+      .codeSigningMetadata;
+    expect(meta).toEqual({ keyid: 'root', alg: 'rsa-v1_5-sha256' });
+    const worker = read('worker/src/ota.ts');
+    expect(worker).toContain(`export const OTA_SIGNING_KEY_ID = '${meta!.keyid}'`);
+    expect(worker).toContain(`export const OTA_SIGNING_ALG = '${meta!.alg}'`);
+  });
+
   test('the first launch is not held hostage by a slow update server', () => {
     expect(appJson.expo.updates.fallbackToCacheTimeout).toBe(0);
   });
@@ -61,13 +78,27 @@ describe('the small-change / big-change split is enforced', () => {
     expect(script).toMatch(/needs a new APK, not an OTA/);
   });
 
-  test('an unsigned bundle is never published', () => {
-    expect(script).toMatch(/RSA-SHA256/);
-    expect(script).toMatch(/OTA_SIGNING_KEY is not set/);
+  test('the launch asset is the JS file, never a tarball or bytecode', () => {
+    // expo-updates writes these exact bytes to disk and runs them as the bundle.
+    expect(script).not.toMatch(/tar'?,\s*\['-czf'/);
+    // Bytecode can never be delivered over the air.
+    expect(script).toContain('--no-bytecode');
+    expect(script).toMatch(/OTA can only ship JavaScript/);
+    // The bundle path is read from expo's metadata.json, not guessed.
+    expect(script).toContain("meta?.fileMetadata?.android");
+    expect(script).toContain("endsWith('.js')");
   });
 
-  test('the worker refuses unsigned publishes too', () => {
-    expect(read('worker/src/otaAdmin.ts')).toMatch(/signature_required/);
+  test('CI never handles the private key — the Worker signs, not the script', () => {
+    // Keeping the key out of CI means a compromised runner cannot mint updates.
+    expect(script).not.toMatch(/createSign/);
+    expect(read('worker/src/ota.ts')).toMatch(/export async function signManifest/);
+  });
+
+  test('the worker refuses to serve a manifest it cannot sign', () => {
+    const router = read('worker/src/router.ts');
+    expect(router).toMatch(/ota_signing_key_missing/);
+    expect(router).toMatch(/'expo-signature': signature/);
   });
 });
 
@@ -82,5 +113,43 @@ describe('the app surfaces OTA instead of pretending', () => {
   test('the update wall and the OTA manifest stay reachable for old installs', () => {
     const router = read('worker/src/router.ts');
     expect(router).toMatch(/!route\.kind\.startsWith\('ota-'\)/);
+  });
+});
+
+describe('what expo-updates actually requires (regressions from v2.15.0)', () => {
+  test('the committed certificate is a real X.509 code-signing cert', () => {
+    // The old file was a raw PUBLIC KEY wrapped in CERTIFICATE headers; the app
+    // failed with "ASN.1 object is not an X509v3 Certificate". Parsing it with a
+    // real X.509 parser is the only honest check.
+    const pem = read('assets/certificate.pem');
+    // eslint-disable-next-line @typescript-eslint/no-var-requires
+    const { X509Certificate } = require('node:crypto') as typeof import('node:crypto');
+    const cert = new X509Certificate(pem);
+    expect(cert.subject).toContain('Kissa OTA Code Signing');
+    // Not expired — an expired pin bricks OTA for every install.
+    expect(new Date(cert.validTo).getTime()).toBeGreaterThan(Date.now());
+    // Code-signing extensions the app enforces (Java throws without them).
+    const der = Buffer.from(pem.replace(/-----[^-]+-----/g, '').replace(/\s+/g, ''), 'base64');
+    expect(der.includes(Buffer.from('2b06010505070303', 'hex'))).toBe(true); // Code Signing EKU
+    expect(der.includes(Buffer.from('551d0f', 'hex'))).toBe(true); // Key Usage
+  });
+
+  test('the manifest carries no launchAsset.hash it cannot honour', () => {
+    // Serving a hash that is not base64url(sha256(bundle)) makes the device
+    // abort with "Asset hash mismatch".
+    const worker = read('worker/src/ota.ts');
+    expect(worker).toMatch(/hash: rel\.bundleHash/);
+    expect(read('worker/src/otaAdmin.ts')).toMatch(/await assetHash\(buf\)/);
+  });
+
+  test('the signature is over the manifest body, with the app-readable header', () => {
+    const router = read('worker/src/router.ts');
+    expect(router).toMatch(/const body = JSON\.stringify\(buildManifest/);
+    expect(router).toMatch(/signManifest\(body, key\)/);
+    expect(router).toMatch(/Access-Control-Expose-Headers/);
+  });
+
+  test('OTA stays exempt from the version gate so a fix can reach old installs', () => {
+    expect(read('worker/src/router.ts')).toMatch(/!route\.kind\.startsWith\('ota-'\)/);
   });
 });

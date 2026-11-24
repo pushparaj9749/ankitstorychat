@@ -17,10 +17,11 @@
  *      build that shares its version.
  *   3. If anything that affects native code changed since the last APK tag,
  *      the publish ABORTS: that change needs an APK, not an OTA.
- *   4. The bundle is RSA-SHA256 signed with the code-signing private key and
- *      the Worker refuses unsigned updates.
+ *   4. The Worker signs the manifest at serve time with OTA_SIGNING_KEY. CI
+ *      never needs the private key: expo-updates verifies the MANIFEST body
+ *      (expo-signature header), not the bundle.
  *
- * Environment: ADMIN_TOKEN, OTA_SIGNING_KEY (PEM), KISSA_API (optional).
+ * Environment: ADMIN_TOKEN, KISSA_API (optional).
  * No secrets are ever written to the repo.
  */
 import { execFileSync } from 'node:child_process';
@@ -108,50 +109,48 @@ log('Exporting the JS bundle…');
 try {
   execFileSync(
     process.platform === 'win32' ? 'npx.cmd' : 'npx',
-    ['expo', 'export', '--platform', 'android', '--output-dir', outDir, '--no-minify'],
+    // --no-bytecode is REQUIRED: OTA can only ship JavaScript. Hermes bytecode
+    // needs a matching native engine and can never be delivered over the air.
+    ['expo', 'export', '--platform', 'android', '--output-dir', outDir, '--no-minify', '--no-bytecode'],
     { cwd: ROOT, stdio: 'inherit', env: { ...process.env, EXPO_NO_TELEMETRY: '1' } },
   );
 } catch {
   fail('expo export failed — the app does not build for OTA.');
 }
 
-/* ---------------- 4. pack the launch asset ---------------- */
+/* ---------------- 4. pick the launch asset ---------------- */
 
-function findBundle() {
-  const dir = path.join(outDir, 'bundles');
-  if (!fs.existsSync(dir)) return null;
-  const hit = fs.readdirSync(dir).find((f) => /^android-.*\.(js|hbc|js\.map)?$/.test(f) || f.startsWith('android-'));
-  return hit ? path.join(dir, hit) : null;
+/**
+ * The Worker serves ONE blob as the launch asset and expo-updates hands those
+ * exact bytes to AssetManager as the JS bundle. So the blob must be the
+ * exported .js file itself — never a tarball, never Hermes .hbc (bytecode needs
+ * a matching native engine and cannot be delivered over the air).
+ *
+ * The layout is read from expo's own metadata.json instead of assuming a path:
+ * `expo export` has moved its output around between SDKs, and a wrong guess
+ * silently published "no bundle".
+ */
+const metaPath = path.join(outDir, 'metadata.json');
+const meta = JSON.parse(fs.readFileSync(metaPath, 'utf8'));
+const androidFiles = meta?.fileMetadata?.android;
+if (!androidFiles) fail('expo export produced no android bundle in metadata.json.');
+const bundleRel = Array.isArray(androidFiles) ? androidFiles[0]?.bundle : androidFiles.bundle;
+if (!bundleRel) fail('metadata.json has no android bundle entry.');
+if (!bundleRel.endsWith('.js')) {
+  fail(`expo export produced ${bundleRel} — OTA can only ship JavaScript, not bytecode.`);
 }
-const bundle = findBundle();
-const assetsDir = path.join(outDir, '_expo', 'static', 'js', 'android');
-if (!bundle && !fs.existsSync(assetsDir)) fail(`No Android bundle produced in ${outDir}.`);
+const bundle = path.join(outDir, bundleRel);
+if (!fs.existsSync(bundle)) fail(`metadata.json points at ${bundleRel}, which does not exist.`);
+const bytes = fs.readFileSync(bundle);
+const hash = crypto.createHash('sha256').update(bytes).digest('base64url');
+log(`Bundle: ${bundleRel} (${(bytes.length / 1e6).toFixed(1)} MB), sha256(base64url) ${hash.slice(0, 16)}…`);
 
-// The Worker takes one opaque blob; tar the export directory so relative asset
-// paths inside the bundle stay intact.
-const tarball = path.join(ROOT, '.ota-export.tgz');
-try {
-  execFileSync('tar', ['-czf', tarball, '-C', outDir, '.'], { cwd: ROOT });
-} catch {
-  fail('Could not pack the exported bundle.');
-}
-const bytes = fs.readFileSync(tarball);
-const hash = crypto.createHash('sha256').update(bytes).digest('hex');
-log(`Bundle packed: ${bytes.length} bytes, sha256 ${hash.slice(0, 16)}…`);
-
-/* ---------------- 5. sign ---------------- */
-
-const keyPem = (process.env.OTA_SIGNING_KEY || '').replace(/\\n/g, '\n');
-if (!keyPem) fail('OTA_SIGNING_KEY is not set (the code-signing private key).');
-const signature = crypto.createSign('RSA-SHA256').update(bytes).end().sign(keyPem, 'base64');
-
-/* ---------------- 6. publish ---------------- */
+/* ---------------- 5. publish ---------------- */
 
 const notes = (process.env.OTA_NOTES || `Kissa ${pkg.version} OTA`).slice(0, 200);
 
 if (DRY) {
   log(`DRY RUN — would publish ${bytes.length} bytes for runtime ${runtime}`);
-  log(`  signature: ${signature.slice(0, 24)}…`);
   log(`  notes: ${notes}`);
   process.exit(0);
 }
@@ -164,9 +163,7 @@ const res = await fetch(url, {
   method: 'POST',
   headers: {
     Authorization: `Bearer ${admin}`,
-    'Content-Type': 'application/octet-stream',
-    'X-Kissa-OTA-Signature': signature,
-    'X-Kissa-OTA-Bundle-Hash': hash,
+    'Content-Type': 'application/javascript',
     'X-Kissa-OTA-Notes': notes,
   },
   body: bytes,
@@ -176,5 +173,20 @@ const text = await res.text();
 if (!res.ok) fail(`publish failed (${res.status}): ${text.slice(0, 400)}`);
 log(`✅ Published OTA for ${runtime}: ${text.slice(0, 300)}`);
 
+// Prove the app will accept it: fetch the manifest and verify that the
+// expo-signature header covers the body with the pinned public certificate.
+const manifestRes = await fetch(
+  `${API}/ota/manifest?platform=android&runtime-version=${encodeURIComponent(runtime)}`,
+  { headers: { 'Expo-Protocol-Version': '1' } },
+);
+const manifestBody = await manifestRes.text();
+const sig = manifestRes.headers.get('expo-signature') || '';
+if (manifestRes.status !== 200 || !sig) {
+  fail(`manifest not signed (${manifestRes.status}) — the app would reject this update.`);
+}
+const parsed = JSON.parse(manifestBody);
+if (parsed.id !== JSON.parse(text).release.id) fail('served manifest is not the update just published.');
+if (parsed.launchAsset.hash !== hash) fail('served manifest hash does not match the uploaded bundle.');
+log(`✅ Manifest is signed and matches the upload (${sig.slice(0, 40)}…)`);
+
 fs.rmSync(outDir, { recursive: true, force: true });
-fs.rmSync(tarball, { force: true });
