@@ -151,6 +151,14 @@ describe('"She Hates Me First" actually declares its meters', () => {
     expect(manifest.contentVersion).toBeGreaterThanOrEqual(75);
   });
 
+  test('story.json is bumped too, not just the manifest entry', () => {
+    // The package route serves the story file as-is. Shipping a manifest at v2
+    // with a story file at v1 means a client that re-downloads the package sees
+    // two different numbers for the same story.
+    const file = JSON.parse(read('content/stories/she-hates-me-first/story.json')) as { version: number };
+    expect(file.version).toBe(story.version);
+  });
+
   test('the chat header renders meters and does not lie when none exist', () => {
     const chat = read('src/screens/Chat.tsx');
     expect(chat).toContain('resolveMeters(');
