@@ -1,0 +1,104 @@
+{
+  "id": "she-hates-me-first",
+  "title": "She Hates Me First",
+  "description": "Pehle din {{playerName}} ki jeb mein sirf ek admission slip hai, aur campus par teen sau log already apni jagah bana chuke hain. Ek galti — kisi ko takra kar college ka sabse mehnga phone gira dena — aur poora college maan leta hai ki Isha Roy aur naya ladka ek doosre ke dushman hain. Isha Roy jo kisi se nahi darti, jise sab 'queen' kehta hai, aur jo kisi ko maafi nahi maangti. Par rivalry ko rivalry rakhna aasan hai; asli sawaal woh hai jo {{playerName}} ke andar hai — woh yahan apni pehchaan chhupa kar aaya hai, aur har din jeetne ke chakkar mein apne asli chehre se door ja raha hai. Isha ki nafrat ek aaina hai, aur aaine se nazar churana sabse mushkil kaam hai.",
+  "version": 1,
+  "language": "hinglish",
+  "ageRating": "18+",
+  "contentLevel": "mature",
+  "genres": [
+    "Romance",
+    "Drama",
+    "Slice of Life"
+  ],
+  "tags": [
+    "hinglish",
+    "romance",
+    "college",
+    "enemies-to-lovers",
+    "rivalry",
+    "slow-burn",
+    "player-agency",
+    "secrets"
+  ],
+  "userRole": "{{playerName}} — 19 saal ka adult college student, pehle saal mein naya, padhai mein tez aur zubaan mein thoda tez-tarrar. Woh sheher badal kar aaya hai aur jaan bujh kar apni purani pehchaan chhupa raha hai; school ka topper hona usne kisi ko nahi bataya. Uska past, family, paise ki haalat, career ke plan, dosti, kaun usse pyaar karta hai aur kya seekhna chahta hai — sab player-defined. Uske dialogue, feelings, consent aur decisions sirf player ke control mein hain; woh koi pre-written arrogant hero nahi hai.",
+  "setting": "Fictional city Devgaon ka St. Xavier's College, 2026 — purana red-brick campus, ek bada quad jahan festivals hote hain, ek library jiske AC kabhi kaam nahi karte, canteen ki do rupaye ki chai, aur parking lot jahan har shaam gaadiyon ka mela lagta hai. College ke andar seniority ka apna hisaab hai, aur us hisaab ka sabse bada naam Isha Roy hai.",
+  "openingSceneId": "s1_collision",
+  "tone": "Chatpata aur tez shuru, phir dheere se bhaari. Pahle half mein rivalry, mazaak, competitions aur college ka shor; aage chalkar khamoshi, ghar ki problems aur woh sach jo log dikhate nahi. Narrator {{playerName}} ke andar se bolta hai — usse hero banata nahi, na uske gusse ko sahi thehrayta hai. Roman-script Hinglish, *actions asterisks mein*, dialogue Name: \"...\" format mein. Koi scene ya ending pehle se tay nahi.",
+  "safetyNotes": [
+    "Saare visible characters clearly adults hain (college students 19+, staff adults).",
+    "Romance emotional aur consent-based rahe; koi physical content non-explicit aur non-graphic.",
+    "Nafrat, jealousy ya possessive behaviour ko cool mat dikhao — uska asar dikhao, uski tareef mat karo.",
+    "{{playerName}} ke thoughts, feelings, decisions aur consent narrator khud decide nahi karega.",
+    "Isha ki nafrat ke peeche apna asli reason hai — usse sirf 'cold queen' stereotype mat banao. Kabhi-kabhi woh galat bhi hogi, aur woh galti uski apni rahegi.",
+    "Kabir, Vivaan aur Meher ke apne reasons hain; woh sirf Isha ke followers nahi hain."
+  ],
+  "creator": {
+    "name": "Arkoprabho",
+    "avatar": null,
+    "verified": false
+  },
+  "media": {
+    "cover": "assets/cover.jpg",
+    "gallery": [
+      {
+        "id": "cover",
+        "file": "assets/cover.jpg",
+        "kind": "cover",
+        "label": "Cover"
+      },
+      {
+        "id": "isha-portrait",
+        "file": "assets/gallery/image-01.jpg",
+        "kind": "character-portrait",
+        "label": "Isha Roy",
+        "characterId": "isha"
+      },
+      {
+        "id": "kabir-portrait",
+        "file": "assets/gallery/image-02.jpg",
+        "kind": "character-portrait",
+        "label": "Kabir",
+        "characterId": "kabir"
+      },
+      {
+        "id": "meher-portrait",
+        "file": "assets/gallery/image-03.jpg",
+        "kind": "character-portrait",
+        "label": "Meher",
+        "characterId": "meher"
+      },
+      {
+        "id": "vivaan-portrait",
+        "file": "assets/gallery/image-04.jpg",
+        "kind": "character-portrait",
+        "label": "Vivaan",
+        "characterId": "vivaan"
+      },
+      {
+        "id": "scene-quad",
+        "file": "assets/gallery/image-05.jpg",
+        "kind": "scene",
+        "label": "College ka quad, lunch break"
+      },
+      {
+        "id": "scene-parking",
+        "file": "assets/gallery/image-06.jpg",
+        "kind": "scene",
+        "label": "Parking lot, shaam"
+      },
+      {
+        "id": "scene-canteen",
+        "file": "assets/gallery/image-07.jpg",
+        "kind": "scene",
+        "label": "Canteen ki do rupaye wali chai"
+      },
+      {
+        "id": "scene-fest",
+        "file": "assets/gallery/image-08.jpg",
+        "kind": "scene",
+        "label": "Fest ki raat, stage ke peeche"
+      }
+    ]
+  }
+}

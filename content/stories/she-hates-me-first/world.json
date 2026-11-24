@@ -1,0 +1,98 @@
+{
+  "storyId": "she-hates-me-first",
+  "version": 1,
+  "premise": "St. Xavier's College mein {{playerName}} ka pehla din hai — naya sheher, naya campus, aur ek purani pehchaan jo usne jaan bujh kar ghar par chhod di hai. Ek berang parking lot mein woh Isha Roy se takrata hai: college ki 'queen', jo kisi se nahi darti, aur jise koi maafi nahi maangta. Ek gira hua phone aur ek nahi maangi gayi maafi, aur poora campus ek hi kahani dohra raha hai — naya ladka aur Isha Roy dushman hain. Par asli dushmani aasan hai; sabse mushkil cheez yeh hai ki {{playerName}} apni pehchaan chhupa kar har din jeetne ke chakkar mein apne sach se door ja raha hai. Ye un hafton ki kahani hai jab nafrat sabse saaf aaina ban jati hai.",
+  "locations": [
+    {
+      "id": "parking-lot",
+      "name": "College ka parking lot",
+      "description": "Campus ke peeche, dhoop mein tapta hua, scooters ki kataarein aur ek toota hua gate. Yahan shaam ko log apni gaadi dhoondte hain aur anjaane mein ek doosre ke kandhe se takrate hain."
+    },
+    {
+      "id": "quad",
+      "name": "Bada quad",
+      "description": "College ka beech ka maidan, chaar taraf se corridors. Lunch break mein yahan poora campus ikattha hota hai — aur yahin sabse tezi se khabar failti hai."
+    },
+    {
+      "id": "library",
+      "name": "Library, doosri manzil",
+      "description": "AC kharab hai, khidkiyan khuli hain, aur do baje dopahar mein yahan sirf woh log aate hain jinka koi plan nahi hota. Sabse acha sunne ki jagah."
+    },
+    {
+      "id": "canteen",
+      "name": "Canteen",
+      "description": "Do rupaye ki chai, ek chalta hua pankha, aur deewar par purane noticeboard ke poster. Yahan log dosti karte hain aur jhagde bhi."
+    },
+    {
+      "id": "fest-stage",
+      "name": "Fest stage, backstage",
+      "description": "Saal ke sabse bade event ka backstage — taaron ke peeche, cables ke beech, jahan log apne asli chehre dikhate hain kyunki stage ki roshni wahan nahi pahunchti."
+    }
+  ],
+  "factions": [
+    {
+      "id": "isha-circle",
+      "name": "Isha ka circle",
+      "description": "Chaar log, ek table, aur poore campus par ek darr. Isha, Kabir, Vivaan aur Meher — bahar se perfect, andar se ek doosre se bahut door."
+    },
+    {
+      "id": "first-years",
+      "name": "First years",
+      "description": "Naye logon ka group jo seniority ke hisaab mein sabse neeche hai. Yahan sab doston ki talash mein hai aur sabse zyada galatfehmiyan bhi yahin hoti hain."
+    },
+    {
+      "id": "fest-committee",
+      "name": "Fest committee",
+      "description": "Saal ka sabse bada event chalane wali committee. Isha head hai, Vivaan planning mein, aur baaki log credit ke liye. Yahan har faisle ke peeche do maksad hote hain."
+    }
+  ],
+  "lore": [
+    "Isha Roy ne apne pehle saal mein hi debate final mein apne hi group ke ek senior ko haraya tha — us din se campus usse 'queen' kehta hai.",
+    "{{playerName}} ke admission form mein school ka naam aise likha gaya hai ki koi usse jod nahi sakta; woh khud chahta hai ki koi na jode.",
+    "Kabir aur Isha bachpan ke dost hain, par campus mein woh ek doosre ko kabhi 'purana dost' nahi kehte — Isha ka kehna hai ki log us baat ka galat matlab nikalte hain.",
+    "Fest ki raat do saal pehle kuch hua tha jiske baare mein sirf Isha, Kabir aur Vivaan jaante hain; us raat ke baad se Isha ne kisi ko apne ghar ke baare mein kuch nahi bataya."
+  ],
+  "rules": [
+    "Isha ki nafrat ke peeche ek asli wajah hai, aur woh wajah ek hurt hai, koi planning nahi — usse villain mat banao.",
+    "{{playerName}} ki chhupayi hui pehchaan ka raaz tabhi khule jab player khud khole; narrator usse reveal nahi karega.",
+    "Jeet ko prize mat banao. Koi bhi character kisi ko 'jeet' nahi sakta — sirf sach bolne ka haq hai.",
+    "Gusse ko correct mat dikhao, na usse glamorize karo; uska asar dikhao.",
+    "Saare characters adults hain; college setting mein bhi koi minor reference nahi.",
+    "Narrator {{playerName}} ki feelings, attraction ya consent decide nahi karega."
+  ],
+  "importantObjects": [
+    {
+      "id": "phone-screen",
+      "name": "Isha ka toota hua phone",
+      "description": "Screen par ek crack jo har baar naye tareeke se dikhta hai. Isha ne naya nahi liya — woh kehti hai 'abhi dikh raha hai na'."
+    },
+    {
+      "id": "admission-slip",
+      "name": "Admission slip",
+      "description": "{{playerName}} ki jeb mein mila hua ek chhota kaagaz, jisme sirf naam aur course likha hai. Purana school ka naam usme nahi hai — jaan bujh kar."
+    },
+    {
+      "id": "chai-glass",
+      "name": "Canteen ki chai ka glass",
+      "description": "Do rupaye, bina cheeni, hamesha aadha chhoota hua. Isha ise Isha Roy ke naam se nahi, apne asli naam se peeti hai — bas doosron ke saamne nahi."
+    }
+  ],
+  "timeline": [
+    {
+      "when": "Do saal pehle",
+      "what": "Isha ne debate final jeeta aur campus mein 'queen' ban gayi"
+    },
+    {
+      "when": "Pichle saal",
+      "what": "Fest ki raat kuch hua jiske baad Isha ne apne ghar ke baare mein baat karna band kar diya"
+    },
+    {
+      "when": "Aaj, pehla din",
+      "what": "{{playerName}} parking lot mein Isha se takraya aur phone giraa"
+    },
+    {
+      "when": "Is hafte",
+      "what": "Campus ne apni kahani chun li — naya ladka aur Isha Roy dushman hain"
+    }
+  ]
+}

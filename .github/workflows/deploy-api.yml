@@ -410,6 +410,18 @@ jobs:
         # three character portraits, four scene stills and one object shot (848x1264).
         run: node scripts/verify-published-story.mjs woh-immature-ladki --native-size=848x1264
 
+      - name: Validate She Hates Me First and its 9 native-size images
+        run: >-
+          node scripts/verify-published-story.mjs --local-only
+          --native-size=848x1264
+          she-hates-me-first
+
+      - name: Verify She Hates Me First is published (byte-identical JSON + cover + 8 images)
+        # Community idea → story (Arkoprabho): 18+ college enemies-to-lovers.
+        # Portrait cover plus four character portraits, three scene stills and
+        # one backstage object shot (848x1264).
+        run: node scripts/verify-published-story.mjs she-hates-me-first --native-size=848x1264
+
       - name: Smoke test the deployed API
         run: |
           # End-to-end verification of the live API, on BOTH hostnames.
