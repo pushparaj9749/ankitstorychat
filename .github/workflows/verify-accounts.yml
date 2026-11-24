@@ -39,8 +39,15 @@ jobs:
           V='X-Kissa-Version: 99.0.0'
           fails=0
           pass=0
-          ok()   { echo "✅ $1"; pass=$((pass+1)); }
-          bad()  { echo "❌ $1"; fails=$((fails+1)); }
+          SUMMARY="${GITHUB_STEP_SUMMARY:-/dev/null}"
+          {
+            echo "## Accounts probe"
+            echo ""
+            echo "\`POST /auth/signup\` · \`POST /auth/login\` · \`GET /me\` · 409/401 paths"
+            echo ""
+          } >> "$SUMMARY"
+          ok()   { echo "✅ $1"; pass=$((pass+1)); echo "- ✅ $1" >> "$SUMMARY"; }
+          bad()  { echo "❌ $1"; fails=$((fails+1)); echo "- ❌ $1" >> "$SUMMARY"; }
 
           USER="probe$(date +%s)$(od -An -N2 -tu2 < /dev/urandom | tr -d ' ')"
           USER="${USER:0:18}"
