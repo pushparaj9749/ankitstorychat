@@ -107,6 +107,11 @@ openssl pkcs8 -topk8 -nocrypt -in keys/private-key.pem -outform DER \
 
 `keys/` aur `cert/` ko repo me commit **nahi** karna.
 
+**Tag zaroori hai.** Native guard last `v2.*` tag se compare karta hai. Naya APK
+bina tag kiye chhod diya, to guard har `package.json`/`package-lock.json` change
+ko "native" ginega aur OTA kabhi publish nahi hoga. Isliye: **APK ship karo, phir
+`vX.Y.Z` tag karo**, uske baad ke chhote fixes OTA se jaate hain.
+
 ### Purana — 2.14.x
 
 
