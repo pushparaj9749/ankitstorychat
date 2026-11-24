@@ -18,6 +18,11 @@ name: OTA (JS update, no APK)
 # touches it — a compromised runner cannot mint an update.
 #
 # Run it after merging a small fix to main (or manually with a note).
+#
+# ORDERING: a merge that touches worker/** deploy the Worker first; OTA must not
+# race the deploy, or the new bundle is published against the OLD Worker (that is
+# exactly how the first run failed: the old Worker required X-Kissa-OTA-Signature,
+# the new script does not send it). Keep the publish job after `deploy-api`.
 
 on:
   workflow_dispatch:
@@ -39,7 +44,40 @@ concurrency:
   cancel-in-progress: false
 
 jobs:
+  # Wait for the Worker deploy to finish: a manifest format change must be live
+  # before a bundle signed for that format is published.
+  wait-for-deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Wait for the Cloudflare Worker deploy on this commit
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          set -uo pipefail
+          # The deploy workflow is triggered by the same push. Give GitHub a
+          # moment to register it, then wait for that run to finish.
+          sleep 20
+          for attempt in $(seq 1 60); do
+            runs=$(curl -s -H "Authorization: Bearer $GH_TOKEN" \
+              "https://api.github.com/repos/${{ github.repository }}/actions/runs?head_sha=${{ github.sha }}&per_page=50")
+            status=$(echo "$runs" | node -e "
+              let s='';process.stdin.on('data',d=>s+=d).on('end',()=>{
+                const runs=(JSON.parse(s).workflow_runs||[]).filter(r=>r.path==='.github/workflows/deploy-api.yml');
+                if(!runs.length){console.log('none');return}
+                const r=runs[0];
+                console.log(r.status==='completed'?(r.conclusion==='success'?'ok':'failed'):'running');
+              })")
+            case "$status" in
+              ok) echo "✅ Worker deploy finished"; exit 0 ;;
+              failed) echo "::error title=OTA skipped::the Worker deploy failed; not publishing against an older Worker."; exit 1 ;;
+              none) echo "no deploy-api run for this commit (Docs/JS-only change) — continuing" ; exit 0 ;;
+              *) echo "deploy: $status (attempt $attempt/60)"; sleep 20 ;;
+            esac
+          done
+          echo "::error title=OTA skipped::timed out waiting for the Worker deploy."; exit 1
+
   publish:
+    needs: wait-for-deploy
     name: Publish JS update
     runs-on: ubuntu-latest
     steps:
