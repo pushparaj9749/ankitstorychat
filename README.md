@@ -1,6 +1,6 @@
 # Kissa 📖 — Tumhari kahani, tumhare words
 
-**Local-first AI interactive story chat.** No backend. No accounts. No coins. No message limits.
+**Local-first AI interactive story chat.** Free account (username + password). No email. No coins. No message limits.
 
 Kissa is an original interactive-fiction app: you play the main character in cinematic
 Hinglish stories, chatting freely or picking choices while your own AI provider
@@ -13,7 +13,7 @@ moves the tale forward — with memory and relationships, and no script: no pred
 
 ## ✨ Highlights
 
-- **100% local-first** — profile, chats, memories, saves, favorites, settings on-device (SQLite + SecureStore). No login, no cloud user DB.
+- **Local-first, with a mandatory free account (v2.14)** — chats, memories, saves, favorites, playthroughs and AI keys stay on-device (SQLite + SecureStore); the Cloudflare D1 database holds only accounts, submissions, statuses, notifications and app config. No email is ever asked for.
 - **Original Hinglish stories** delivered over the air — each is a premise, characters, a world and one opening moment; after that the story is free-form and endless.
 - **New stories arrive without an app update** — new packs land in `content/manifest.json`
   (`contentVersion`), and existing installs pick them up automatically from the live story API.
