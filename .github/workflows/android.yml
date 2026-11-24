@@ -253,7 +253,9 @@ jobs:
           generate_release_notes: true
           body: |
             ## Kissa ${{ github.ref_name }} 📖
-            Local-first AI story chat. No accounts, no coins, no message limits.
+            Local-first AI story chat. Free accounts, no coins, no message limits.
+            Your chats and memories stay on your phone — the account only holds your
+            submissions and notifications. Older installs are asked to update.
             **[Download the APK below]** and install on Android 8.0+.
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
