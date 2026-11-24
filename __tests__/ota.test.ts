@@ -110,6 +110,12 @@ describe('the app surfaces OTA instead of pretending', () => {
     expect(about).toMatch(/native change/i);
   });
 
+  test('the card can tell whether a restart is actually worth offering', () => {
+    // A download applies on the next launch; the UI must not promise a reload
+    // that has nothing to apply.
+    expect(read('src/lib/ota.ts')).toMatch(/export async function hasPendingOtaUpdate/);
+  });
+
   test('the update wall and the OTA manifest stay reachable for old installs', () => {
     const router = read('worker/src/router.ts');
     expect(router).toMatch(/!route\.kind\.startsWith\('ota-'\)/);

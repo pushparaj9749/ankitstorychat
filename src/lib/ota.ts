@@ -68,6 +68,24 @@ export async function checkForOtaUpdate(): Promise<OtaCheckResult> {
   }
 }
 
+/**
+ * Is a downloaded update waiting for the next launch?
+ *
+ * `checkForOtaUpdate()` downloads but does not apply (the app must never reload
+ * while the user is mid-story), so the About card needs to know whether a
+ * restart is worth offering.
+ */
+export async function hasPendingOtaUpdate(): Promise<boolean> {
+  const u = await updates();
+  if (!u) return false;
+  try {
+    const res = await u.checkForUpdateAsync();
+    return res.isAvailable === true;
+  } catch {
+    return false;
+  }
+}
+
 /** Apply a downloaded update. Call it from a user action (it reloads the app). */
 export async function restartToApply(): Promise<void> {
   const u = await updates();
