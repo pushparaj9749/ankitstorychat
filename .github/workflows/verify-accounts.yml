@@ -1,0 +1,98 @@
+name: Verify accounts on production
+
+# Production probe for the account system.
+#
+# Runs on every push to main that can affect accounts, and on demand. It talks
+# to the DEPLOYED API only — no Cloudflare credentials needed — and proves the
+# whole password path works in the real Workers runtime:
+#
+#   signup (PBKDF2 hashing) -> login (PBKDF2 verify) -> /api/me (session)
+#   duplicate username -> 409, wrong password -> 401, unknown user -> 401
+#
+# Why it exists: Cloudflare Workers caps a single WebCrypto PBKDF2 call at
+# 100,000 iterations. Node (jest) and local `wrangler dev` DO NOT enforce that
+# cap, so a 210k work factor passed every local test and returned HTTP 500
+# "Unexpected error" on every signup in production. Only a real production
+# call can catch this class of bug, so it is checked on every deploy.
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'worker/src/accounts/**'
+      - 'worker/migrations/**'
+      - 'worker/src/router.ts'
+      - 'src/lib/account.ts'
+      - '.github/workflows/verify-accounts.yml'
+  workflow_dispatch:
+
+jobs:
+  probe:
+    name: Signup + login on the live API
+    runs-on: ubuntu-latest
+    steps:
+      - name: Probe production accounts API
+        shell: bash
+        run: |
+          set -uo pipefail
+          BASE="https://beyondredeye.site/api"
+          V='X-Kissa-Version: 99.0.0'
+          fails=0
+          pass=0
+          ok()   { echo "✅ $1"; pass=$((pass+1)); }
+          bad()  { echo "❌ $1"; fails=$((fails+1)); }
+
+          USER="probe$(date +%s)$(od -An -N2 -tu2 < /dev/urandom | tr -d ' ')"
+          USER="${USER:0:18}"
+          PASS='kahani2026'
+          JSON=$(printf '{"username":"%s","password":"%s"}' "$USER" "$PASS")
+
+          tmp=$(mktemp)
+          code=$(curl -s -o "$tmp" -w '%{http_code}' --max-time 45 -X POST \
+            -H 'Content-Type: application/json' -H "$V" -d "$JSON" "$BASE/auth/signup" || echo 000)
+          body=$(head -c 300 "$tmp")
+
+          if [ "$code" = "201" ]; then
+            ok "POST /auth/signup -> 201"
+          else
+            bad "POST /auth/signup -> $code :: $body"
+            dbg=$(curl -s -D - -o /dev/null --max-time 45 -X POST \
+              -H 'Content-Type: application/json' -H "$V" -d "$JSON" "$BASE/auth/signup" \
+              | tr -d '\r' | sed -n 's/^[Xx]-[Kk]issa-[Dd]ebug: //p')
+            [ -n "$dbg" ] && echo "   worker reason: $dbg"
+          fi
+
+          TOKEN=$(node -e "let d='';process.stdin.on('data',c=>d+=c).on('end',()=>{try{console.log(JSON.parse(d).token||'')}catch(e){console.log('')}})" < "$tmp")
+          [ -n "$TOKEN" ] && ok "signup returned a session token" || bad "signup returned no token"
+
+          code=$(curl -s -o "$tmp" -w '%{http_code}' --max-time 45 -X POST \
+            -H 'Content-Type: application/json' -H "$V" -d "$JSON" "$BASE/auth/login" || echo 000)
+          [ "$code" = "200" ] && ok "POST /auth/login -> 200 (PBKDF2 verify works)" \
+            || bad "POST /auth/login -> $code :: $(head -c 200 "$tmp")"
+
+          if [ -n "$TOKEN" ]; then
+            code=$(curl -s -o "$tmp" -w '%{http_code}' --max-time 30 -H "$V" -H "Authorization: Bearer $TOKEN" "$BASE/me" || echo 000)
+            got=$(node -e "let d='';process.stdin.on('data',c=>d+=c).on('end',()=>{try{const j=JSON.parse(d);console.log(j.account&&j.account.username?j.account.username:'')}catch(e){console.log('')}})" < "$tmp")
+            if [ "$code" = "200" ] && [ "$got" = "$USER" ]; then ok "GET /me -> 200 as $USER"; else bad "GET /me -> $code (username '$got')"; fi
+          fi
+
+          code=$(curl -s -o /dev/null -w '%{http_code}' --max-time 30 -X POST \
+            -H 'Content-Type: application/json' -H "$V" -d "$JSON" "$BASE/auth/signup" || echo 000)
+          [ "$code" = "409" ] && ok "duplicate username -> 409" || bad "duplicate username -> $code"
+
+          WRONG=$(printf '{"username":"%s","password":"galat2026"}' "$USER")
+          code=$(curl -s -o /dev/null -w '%{http_code}' --max-time 45 -X POST \
+            -H 'Content-Type: application/json' -H "$V" -d "$WRONG" "$BASE/auth/login" || echo 000)
+          [ "$code" = "401" ] && ok "wrong password -> 401 (not 500)" || bad "wrong password -> $code"
+
+          MISSING='{"username":"nobody_here_xx","password":"kahani2026"}'
+          code=$(curl -s -o /dev/null -w '%{http_code}' --max-time 45 -X POST \
+            -H 'Content-Type: application/json' -H "$V" -d "$MISSING" "$BASE/auth/login" || echo 000)
+          [ "$code" = "401" ] && ok "unknown user -> 401" || bad "unknown user -> $code"
+
+          rm -f "$tmp"
+          echo "---- $pass passed, $fails failed"
+          [ "$fails" -eq 0 ] || {
+            echo "::error title=Production accounts probe failed::$fails check(s) failed"
+            exit 1
+          }

@@ -69,6 +69,25 @@ its CI or its APK.
 
 ## 🆕 Release notes
 
+### v2.15.0 — OTA (chhote fixes bina APK) + ek hi login/signup screen
+
+**Do tarah ke update, saaf rule:**
+
+| Change | Kahan jaata hai | Kitna time |
+|---|---|---|
+| Copy, layout, ek screen ka bug, API usage, chhoti logic | **OTA** (JS bundle, signed) | seconds |
+| Naya native dependency, permission, SDK bump, icon/splash | **Naya APK** (tag `vX.Y.Z`) | normal build |
+
+- **OTA self-hosted hai** — bundle hamare hi Worker se aata hai (`/api/ota/manifest`), koi Expo/EAS account nahi, koi third-party token nahi.
+- **Signed updates only.** `assets/certificate.pem` app me pinned hai; unsigned ya tampered bundle app khud reject karti hai.
+- **Runtime = app version** (`runtimeVersion.policy: appVersion`), isliye 2.15 build ko kabhi 2.14 ka bundle nahi milta.
+- **Native guard:** `scripts/ota-publish.mjs` publish hi nahi karta agar last APK tag ke baad `android/`, `ios/`, `package.json`, assets ya `app.json` native fields badle hon — us change ke liye APK chahiye.
+- **About → "Chhota update (OTA)"**: check karo, download ho to restart. Launch par bhi chupchaap check hota hai; slow server pe app nahi rukti (`fallbackToCacheTimeout: 0`).
+- **Login/Signup ek hi screen** — screen khulti hai "Naya account" par (username, password, password dobara), ek tap me account. Purane user tab se "Log in". Alag Signup screen hata di gayi.
+
+### Purana — 2.14.x
+
+
 ### v2.14.0 — Accounts, submissions under your name, and a real block for old installs
 
 - **Mandatory accounts.** Username + password (no email), on Cloudflare D1. The whole app sits behind the gate: sign up / log in first, then the usual nickname and age check. Chats, memories, saves, favourites and playthroughs stay **on the device** and are untouched by signup — the DB only ever holds accounts, submissions, statuses, notifications and app config.

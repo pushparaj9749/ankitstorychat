@@ -547,6 +547,31 @@ jobs:
           check "POST media without version/token -> 426" "426" "$(code -X POST -H 'Content-Type: application/json' -d '{}' "$base/submit/media")"
           check "admin/pending without token -> 401" "401" "$(code "$base/admin/pending")"
 
+          # 5a) ACCOUNTS SMOKE — a REAL signup + login against production.
+          #     This is the only place the Cloudflare PBKDF2 ceiling (100k
+          #     iterations) can be exercised: local workerd and Node's WebCrypto
+          #     do not enforce it, which is exactly how a 210k work factor
+          #     shipped and made every signup return HTTP 500 "Unexpected error".
+          #     A fresh random username keeps the check idempotent.
+          ACCT_USER="ci$(date +%s)$(od -An -N2 -tu2 < /dev/urandom | tr -d ' ')"
+          ACCT_USER="${ACCT_USER:0:18}"
+          SIGNUP_JSON=$(printf '{"username":"%s","password":"kahani2026"}' "$ACCT_USER")
+          signup_body=$(mktemp)
+          signup_code=$(curl -s -o "$signup_body" -w '%{http_code}' --max-time 45 -X POST -H 'Content-Type: application/json' -H 'X-Kissa-Version: 99.0.0' -d "$SIGNUP_JSON" "$base/auth/signup" || echo 000)
+          if [ "$signup_code" = "201" ]; then
+            echo "✅ POST /api/auth/signup -> 201 (PBKDF2 inside the runtime cap)"; pass=$((pass+1))
+          else
+            echo "❌ POST /api/auth/signup -> $signup_code: $(head -c 200 "$signup_body")"; fails=$((fails+1))
+            # Surface the Worker's own reason (X-Kissa-Debug) so a 500 is
+            # diagnosable from this log without Cloudflare dashboard access.
+            DIAG_JSON=$(printf '{"username":"%s","password":"kahani2026"}' "ci_diag_${ACCT_USER: -6}")
+            dbg=$(curl -s -D - -o /dev/null --max-time 45 -X POST -H 'Content-Type: application/json' -H 'X-Kissa-Version: 99.0.0' -d "$DIAG_JSON" "$base/auth/signup" | tr -d '\r' | sed -n 's/^[Xx]-[Kk]issa-[Dd]ebug: //p')
+            if [ -n "$dbg" ]; then echo "   worker reason: $dbg"; fi
+          fi
+          login_code=$(code -X POST -H 'Content-Type: application/json' -H 'X-Kissa-Version: 99.0.0' -d "$SIGNUP_JSON" "$base/auth/login")
+          check "POST /api/auth/login -> 200 (same account)" "200" "$login_code"
+          rm -f "$signup_body"
+
           # 5b) Site analytics: the public stats GET answers with JSON, and the
           #     beacon refuses requests that do not come from the site (this
           #     check never writes a count).
