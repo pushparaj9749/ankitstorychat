@@ -209,7 +209,17 @@ jobs:
 
       - name: Rename APK
         run: |
+          # The installed app reports expo.version (app.json) to the version
+          # gate, while the release asset and the store listing come from the
+          # package version. A v2.14.0 build was once published as
+          # kissa-v2.13.1.apk because these two drifted — refuse to publish
+          # a mismatched pair instead of shipping a mislabelled APK.
           VERSION=$(node -p "require('./package.json').version")
+          EXPO_VERSION=$(node -p "require('./app.json').expo.version")
+          if [ "$VERSION" != "$EXPO_VERSION" ]; then
+            echo "::error title=Version mismatch::package.json is $VERSION but app.json is $EXPO_VERSION"
+            exit 1
+          fi
           mkdir -p dist-apk
           cp "$(ls -1 android/app/build/outputs/apk/release/*.apk | head -n1)" "dist-apk/kissa-v${VERSION}.apk"
           ls -la dist-apk/
