@@ -57,7 +57,10 @@ jobs:
           # The deploy workflow is triggered by the same push. Give GitHub a
           # moment to register it, then wait for that run to finish.
           sleep 20
-          for attempt in $(seq 1 60); do
+          # The deploy verifies every story byte-for-byte and routinely takes
+          # 35-45 minutes. Waiting only 20 minutes made this job fail while the
+          # deploy was still healthy (it did exactly that on 2026-11-24).
+          for attempt in $(seq 1 150); do
             runs=$(curl -s -H "Authorization: Bearer $GH_TOKEN" \
               "https://api.github.com/repos/${{ github.repository }}/actions/runs?head_sha=${{ github.sha }}&per_page=50")
             status=$(echo "$runs" | node -e "
@@ -71,7 +74,7 @@ jobs:
               ok) echo "✅ Worker deploy finished"; exit 0 ;;
               failed) echo "::error title=OTA skipped::the Worker deploy failed; not publishing against an older Worker."; exit 1 ;;
               none) echo "no deploy-api run for this commit (Docs/JS-only change) — continuing" ; exit 0 ;;
-              *) echo "deploy: $status (attempt $attempt/60)"; sleep 20 ;;
+              *) echo "deploy: $status (attempt $attempt/150, ~$((attempt * 20 / 60)) min)"; sleep 20 ;;
             esac
           done
           echo "::error title=OTA skipped::timed out waiting for the Worker deploy."; exit 1
