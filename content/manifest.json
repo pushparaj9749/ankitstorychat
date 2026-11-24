@@ -1,7 +1,7 @@
 {
-  "contentVersion": 74,
+  "contentVersion": 75,
   "minAppVersion": "1.0.0",
-  "updatedAt": "2026-11-23T09:30:00.000Z",
+  "updatedAt": "2026-11-24T14:30:00.000Z",
   "stories": [
     {
       "id": "arranged-marriage-wala-love",
@@ -4741,14 +4741,17 @@
         "Slice of Life"
       ],
       "tags": [
-        "hinglish",
-        "romance",
         "college",
         "enemies-to-lovers",
-        "rivalry",
-        "slow-burn",
+        "hate-meter",
+        "hinglish",
+        "love-meter",
+        "multiple-endings",
         "player-agency",
-        "secrets"
+        "rivalry",
+        "romance",
+        "secrets",
+        "slow-burn"
       ],
       "characters": [
         "Isha Roy",
@@ -4759,7 +4762,7 @@
       "ageRating": "18+",
       "contentLevel": "mature",
       "language": "hinglish",
-      "version": 1,
+      "version": 2,
       "coverUrl": "stories/she-hates-me-first/assets/cover.jpg",
       "accentColor": "#8B2F4A",
       "userRole": "{{playerName}} — 19 saal ka adult college student, pehle saal mein naya, padhai mein tez aur zubaan mein thoda tez-tarrar. Woh sheher badal kar aaya hai aur jaan bujh kar apni purani pehchaan chhupa raha hai; school ka topper hona usne kisi ko nahi bataya. Uska past, family, paise ki haalat, career ke plan, dosti, kaun usse pyaar karta hai aur kya seekhna chahta hai — sab player-defined. Uske dialogue, feelings, consent aur decisions sirf player ke control mein hain; woh koi pre-written arrogant hero nahi hai.",
@@ -4774,7 +4777,24 @@
         "avatar": null,
         "verified": false
       },
-      "updatedAt": "2026-11-24T01:05:00.000Z"
+      "updatedAt": "2026-11-24T14:30:00.000Z",
+      "meters": {
+        "characterId": "isha",
+        "meters": [
+          {
+            "id": "love",
+            "label": "Love",
+            "source": "affection",
+            "start": 0
+          },
+          {
+            "id": "hate",
+            "label": "Hate",
+            "source": "hate",
+            "start": 100
+          }
+        ]
+      }
     }
   ]
 }

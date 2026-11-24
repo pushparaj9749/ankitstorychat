@@ -69,6 +69,12 @@ its CI or its APK.
 
 ## 🆕 Release notes
 
+### v2.15.1 — OTA signing key rotate + pehla asli OTA build
+
+- **Naya code-signing keypair.** v2.15.0 ka certificate galti se ek raw public key tha (X.509 nahi), isliye koi bhi OTA manifest verify nahi ho sakta tha. Naya self-signed cert (`CN = Kissa OTA Code Signing`, codeSigning EKU, 2036 tak valid) repo me pin hai; private key sirf GitHub secret `OTA_SIGNING_KEY` + Worker secret me.
+- **`versionCode 48`.** Android app me pinned certificate compile hota hai, isliye cert badalne par naya APK zaroori hai — purana 2.15.0 install naye OTA ko reject karega (aur `runtimeVersion` badalne se use OTA milta bhi nahi).
+- Is build se aage ke chhote fixes **sach me** OTA se jaayenge: manifest serve-time par sign hota hai (`expo-signature` header), bundle `.js` hota hai, hash `base64url`.
+
 ### v2.15.0 — OTA (chhote fixes bina APK) + ek hi login/signup screen
 
 **Do tarah ke update, saaf rule:**

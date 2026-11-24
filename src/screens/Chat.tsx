@@ -28,6 +28,7 @@ import { applyEffects, buildContext, buildStateExtractionMessages, castSpeakersI
 import { chapterDue, closeChapter, getChapterBook, getChapters, searchChapterArchive } from '../lib/chapters';
 import { completeEpisode, consolidateMemories, putMemory, recallForTurn, rememberMany, rememberPreferences, episodeLine } from '../lib/memory';
 import { ensureWorldState, getWorldState } from '../lib/worldState';
+import { resolveMeters, type MeterView } from '../lib/storyMeters';
 import { recallWithWorldState } from '../lib/memoryEngine';
 import { writeTurnMemory } from '../lib/memoryWriteQueue';
 import { listMemoryCandidates } from '../lib/db';
@@ -107,8 +108,12 @@ export function Chat({ navigation, route }: Props) {
     setHasText(false);
   }, []);
   const [sending, setSending] = useState(false);
-  /** Lead character's bond (0–100) + mood, read from the stage-3 ledger (worldState). */
-  const [bond, setBond] = useState<{ name: string; value: number | null; mood: string | null } | null>(null);
+  /**
+   * Lead character's live state, read from the stage-3 ledger (worldState):
+   * mood plus the meters the AUTHOR configured for this story (e.g. Love/Hate).
+   * A story without meters keeps exactly today's behaviour.
+   */
+  const [bond, setBond] = useState<{ name: string; mood: string | null; meters: MeterView[] } | null>(null);
   const messageCount = messages.length;
   useEffect(() => {
     const lead = bundle?.characters?.characters?.[0];
@@ -116,11 +121,12 @@ export function Chat({ navigation, route }: Props) {
     let alive = true;
     getWorldState(playthrough.id)
       .then((ws) => {
-        if (!alive || !ws) return;
-        const rel = ws.relationships?.[lead.id];
-        const mood = ws.characterStates?.[lead.id]?.mood ?? null;
-        const value = rel ? Math.round(rel.affection * 0.6 + rel.trust * 0.4) : null;
-        setBond(value !== null || mood ? { name: lead.name.split(/\s+/)[0], value, mood } : null);
+        if (!alive) return;
+        const rel = ws?.relationships?.[lead.id];
+        const mood = ws?.characterStates?.[lead.id]?.mood ?? null;
+        const meters = resolveMeters(bundle?.meta?.meters, ws?.relationships, lead.id);
+        const name = lead.name.split(/\s+/)[0];
+        setBond(meters.length || mood ? { name, mood, meters } : null);
       })
       .catch(() => undefined);
     return () => {
@@ -747,6 +753,17 @@ export function Chat({ navigation, route }: Props) {
   const portrait = bundle.story.media?.gallery?.find((g) => g.kind === 'character-portrait');
   const faceSource: CoverSource | null = portrait ? { uri: mediaApiUrl(apiBase, bundle.meta.storyDir, portrait.file) } : getBundledCoverSource(bundle.meta, apiBase);
 
+
+/** Meters read at a glance: "hate"-ish labels stay red, "love"-ish go pink/gold. */
+function meterColor(id: string, label: string, theme: { primary: string; accent: string; gold: string; success: string }): string {
+  const key = `${id} ${label}`.toLowerCase();
+  if (/hate|nafrat|anger|gussa/.test(key)) return '#E9435E';
+  if (/tension|conflict/.test(key)) return theme.gold;
+  if (/trust|bharosa/.test(key)) return theme.success;
+  if (/love|pyaar|affection/.test(key)) return theme.primary;
+  return theme.accent;
+}
+
   function openStoryProfile() {
     navigation.navigate('StoryDetail', { storyId: playthrough!.storyId });
   }
@@ -782,9 +799,34 @@ export function Chat({ navigation, route }: Props) {
                   </Text>
                 </View>
               ) : null}
-              <Text style={[styles.headerScene, { color: classic ? theme.gold : theme.textFaint }]} numberOfLines={1}>
-                {placeLabel}
-              </Text>
+              {/* Author-configured meters (e.g. Love 0 / Hate 100). Values come
+                  from the world-state ledger, never from the narrator's prose,
+                  so the bar always matches the story. */}
+              {bond?.meters?.length ? (
+                <View style={styles.metersRow}>
+                  {bond.meters.map((m) => (
+                    <View
+                      key={m.id}
+                      style={styles.meter}
+                      accessibilityRole="progressbar"
+                      accessibilityLabel={`${m.label} ${m.value} out of 100`}
+                      accessibilityValue={{ min: 0, max: 100, now: m.value }}
+                    >
+                      <Text style={[styles.meterLabel, { color: theme.textFaint }]} numberOfLines={1}>
+                        {m.label}
+                      </Text>
+                      <View style={[styles.bondTrack, { backgroundColor: 'rgba(255,255,255,0.12)' }]}>
+                        <View style={[styles.bondFill, { width: `${m.fill}%`, backgroundColor: meterColor(m.id, m.label, theme) }]} />
+                      </View>
+                      <Text style={[styles.bondText, { color: theme.text }]}>{m.value}</Text>
+                    </View>
+                  ))}
+                </View>
+              ) : (
+                <Text style={[styles.headerScene, { color: classic ? theme.gold : theme.textFaint }]} numberOfLines={1}>
+                  {placeLabel}
+                </Text>
+              )}
             </View>
           </View>
         </Pressable>
@@ -1035,6 +1077,9 @@ const styles = StyleSheet.create({
   bondTrack: { width: 52, height: 4, borderRadius: 2, overflow: 'hidden' },
   bondFill: { height: 4, borderRadius: 2 },
   bondText: { fontSize: 11, fontWeight: '700', minWidth: 28 },
+  metersRow: { flexDirection: 'row', alignItems: 'center', gap: 10 },
+  meter: { flexDirection: 'row', alignItems: 'center', gap: 5 },
+  meterLabel: { fontSize: 10, fontWeight: '700', letterSpacing: 0.3 },
   presence: { flexDirection: 'row', alignItems: 'center' },
   presenceSlot: { alignItems: 'center', justifyContent: 'center' },
   presenceOverlap: { marginLeft: -7 },
