@@ -11,10 +11,11 @@ name: OTA (JS update, no APK)
 # does not have.
 #
 # Required repository secrets (Settings → Secrets and variables → Actions):
-#   OTA_SIGNING_KEY — the CodePush/Expo code-signing PRIVATE key (PEM).
-#                     Its public half is committed as assets/certificate.pem and
-#                     pinned in app.json; the app rejects anything else.
-#   ADMIN_TOKEN     — same admin bearer the deploy workflow uses.
+#   ADMIN_TOKEN — same admin bearer the deploy workflow uses.
+#
+# OTA_SIGNING_KEY is NOT needed here: the private key lives only in the Worker
+# (a wrangler secret), and the Worker signs the manifest at serve time. CI never
+# touches it — a compromised runner cannot mint an update.
 #
 # Run it after merging a small fix to main (or manually with a note).
 
@@ -56,10 +57,12 @@ jobs:
       - name: Install dependencies
         run: npm ci
 
-      - name: Export, sign & publish
+      # The script exports the JS bundle, uploads it, then re-fetches the
+      # manifest and proves the expo-signature header covers exactly the body
+      # the app will receive. A publish that the app cannot verify fails here.
+      - name: Export & publish
         env:
           ADMIN_TOKEN: ${{ secrets.ADMIN_TOKEN }}
-          OTA_SIGNING_KEY: ${{ secrets.OTA_SIGNING_KEY }}
           OTA_NOTES: ${{ inputs.notes }}
           KISSA_API: https://beyondredeye.site/api
         run: node scripts/ota-publish.mjs
@@ -72,7 +75,13 @@ jobs:
           out=$(curl -s -o /tmp/m.json -w '%{http_code}' --max-time 45 \
             "https://beyondredeye.site/api/ota/manifest?platform=android&runtime-version=$V")
           if [ "$out" = "200" ]; then
-            node -e "const m=require('/tmp/m.json');if(m.runtimeVersion!=='$V'){console.error('wrong runtime');process.exit(1)};console.log('✅ OTA live: runtime',m.runtimeVersion,'seq',m.extra&&m.extra.sequence)"
+            node -e "const m=require('/tmp/m.json');if(m.runtimeVersion!=='$V'){console.error('wrong runtime');process.exit(1)};if(!m.launchAsset||!/^[A-Za-z0-9_-]{43}\$/.test(m.launchAsset.hash||'')){console.error('launch asset hash is not base64url sha256');process.exit(1)};console.log('✅ OTA live: runtime',m.runtimeVersion,'seq',m.extra&&m.extra.sequence)"
+            # A manifest without expo-signature is an update the app must reject.
+            curl -sD /tmp/h.txt -o /dev/null "https://beyondredeye.site/api/ota/manifest?platform=android&runtime-version=$V"
+            if ! grep -qi '^expo-signature:' /tmp/h.txt; then
+              echo "::error title=OTA manifest unsigned::the app pins a certificate, so it would reject this update"; exit 1
+            fi
+            echo "✅ manifest signed: $(grep -i '^expo-signature:' /tmp/h.txt | cut -c1-60)…"
           else
             echo "::error title=OTA not live::manifest returned $out"; exit 1
           fi

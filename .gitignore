@@ -55,3 +55,12 @@ docs/promo/gemini-key/bed.wav
 # OTA build output (never committed)
 .ota-export/
 .ota-export.tgz
+
+# OTA code signing: the PRIVATE key never ships (GitHub secret OTA_SIGNING_KEY +
+# Worker secret). Only the public certificate is committed.
+keys/
+private-key.pem
+*.pk8
+# ...but the public certificate must be in the repo: app.json pins it and the
+# app refuses updates it cannot verify with it.
+!assets/certificate.pem

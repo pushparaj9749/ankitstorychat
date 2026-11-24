@@ -94,6 +94,7 @@ import { getMinVersion, isOlderVersion } from './accounts/service';
 import { handleOtaAdmin } from './otaAdmin';
 import {
   buildManifest,
+  signManifest,
   getLatestAnyRuntime,
   getOtaAsset,
   getOtaRelease,
@@ -781,10 +782,30 @@ async function handleApi(request: Request, env: Env, url: URL): Promise<Response
         );
       }
       const publicBase = `${url.origin}/api`;
+      // The app verifies SHA256withRSA over the exact bytes it receives, so the
+      // body is serialized ONCE and that string is both signed and served.
+      const body = JSON.stringify(buildManifest(rel, publicBase));
+      const key = (env.OTA_SIGNING_KEY ?? '').trim();
+      // NEVER serve an unsigned manifest to a build that pins a certificate:
+      // expo-updates would reject it anyway, and 503 says why honestly.
+      if (!key) {
+        return withCors(
+          errorJson(503, 'ota_signing_key_missing', 'OTA signing is not configured.'),
+          cors,
+        );
+      }
+      const signature = await signManifest(body, key);
       return withCors(
-        json(buildManifest(rel, publicBase), 200, {
-          'Cache-Control': 'no-store',
-          'Expo-Protocol-Version': '1',
+        new Response(body, {
+          status: 200,
+          headers: {
+            'Content-Type': JSON_TYPE,
+            'Cache-Control': 'no-store',
+            'Expo-Protocol-Version': '1',
+            // Headers the app must be able to read cross-origin.
+            'Access-Control-Expose-Headers': 'expo-signature, expo-protocol-version, expo-manifest-filters',
+            'expo-signature': signature,
+          },
         }),
         cors,
       );
