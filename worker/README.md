@@ -70,3 +70,17 @@ npm run deploy         # wrangler deploy (needs CLOUDFLARE_API_TOKEN/ACCOUNT_ID)
 ```
 
 One-time Cloudflare/DNS setup and required GitHub secrets: see `docs/DEPLOYMENT.md`.
+
+
+## Retrying a failed deploy
+
+`Re-run all jobs` is disabled for runs created before a workflow-file change
+(GitHub refuses with *"its workflow file may be broken"*). The workflow is
+`workflow_dispatch`-enabled, so either run it manually from **Actions → Deploy
+story API (Cloudflare Worker) → Run workflow**, or push any commit touching
+`worker/**`, `content/**`, `scripts/**`, `website/**` or the workflow file
+itself — a push always starts a fresh run.
+
+If the D1 step fails with `Cloudflare API 401`, the token lacks **Account · D1 ·
+Edit** (see `docs/DEPLOYMENT.md`); everything else in the pipeline is
+idempotent, so a retry is always safe.
