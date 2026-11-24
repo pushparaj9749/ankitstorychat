@@ -848,6 +848,14 @@ export interface StoryMemoryArchiveDump {
 
 export type RootStackParamList = {
   Splash: undefined;
+  /** Account gate (v2.14): the whole app lives behind these. */
+  Login: undefined;
+  Signup: undefined;
+  ForgotPassword: undefined;
+  Account: undefined;
+  Notifications: undefined;
+  /** Full-screen block: this install must be updated before anything works. */
+  UpdateRequired: undefined;
   OnboardingName: undefined;
   OnboardingAge: { nickname: string };
   Main: undefined;

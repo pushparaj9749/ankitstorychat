@@ -2,7 +2,7 @@
   "expo": {
     "name": "Kissa",
     "slug": "kissa-ai-story-chat",
-    "version": "2.13.1",
+    "version": "2.14.0",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
     "scheme": "kissa",
@@ -22,7 +22,7 @@
     },
     "android": {
       "package": "com.kissa.storychat",
-      "versionCode": 45,
+      "versionCode": 46,
       "adaptiveIcon": {
         "backgroundColor": "#0A0B10",
         "foregroundImage": "./assets/android-icon-foreground.png",
@@ -52,7 +52,7 @@
     ],
     "extra": {
       "KISSA_CONTENT_API_BASE_URL": "https://beyondredeye.site/api",
-      "supportEmail": "support@example.com"
+      "supportEmail": "ytdjbhai34@gmail.com"
     }
   }
 }

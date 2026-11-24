@@ -40,12 +40,19 @@ import {
   rejectStoryAdmin,
   saveAdminToken,
   SubmissionApiError,
+  decideRecoveryAdmin,
+  getAdminAccount,
+  listAdminAccounts,
+  listRecoveryRequestsAdmin,
+  notifyAccountAdmin,
+  type AdminAccountRow,
+  type AdminRecoveryRequest,
 } from '../content/submissions';
 import { effectiveContentApiBaseUrl } from '../content/api';
 
 type Props = NativeStackScreenProps<RootStackParamList, 'AdminPanel'>;
 
-type Tab = 'ideas' | 'stories';
+type Tab = 'ideas' | 'stories' | 'accounts' | 'recovery';
 
 export function AdminPanel({ navigation }: Props) {
   const { theme, settings } = useApp();
@@ -61,6 +68,12 @@ export function AdminPanel({ navigation }: Props) {
   const [loading, setLoading] = useState(false);
   const [refreshing, setRefreshing] = useState(false);
   const [viewing, setViewing] = useState<StorySubmission | null>(null);
+  const [accounts, setAccounts] = useState<AdminAccountRow[]>([]);
+  const [unclaimed, setUnclaimed] = useState(0);
+  const [recovery, setRecovery] = useState<AdminRecoveryRequest[]>([]);
+  const [notifyTarget, setNotifyTarget] = useState<AdminAccountRow | null>(null);
+  const [notifyTitle, setNotifyTitle] = useState('');
+  const [notifyBody, setNotifyBody] = useState('');
 
   const checkAuth = useCallback(async () => {
     setAuthed(await hasAdminToken());
@@ -77,6 +90,13 @@ export function AdminPanel({ navigation }: Props) {
       setStories(res.stories);
       setRemaining(res.remaining);
       setResetsAt(res.resetsAt);
+      const [acc, rec] = await Promise.all([
+        listAdminAccounts(apiBase).catch(() => ({ accounts: [], unclaimed: 0 })),
+        listRecoveryRequestsAdmin(apiBase).catch(() => []),
+      ]);
+      setAccounts(acc.accounts);
+      setUnclaimed(acc.unclaimed);
+      setRecovery(rec);
     } catch (e) {
       const err = e as SubmissionApiError;
       if (err.status === 401) {
@@ -212,7 +232,7 @@ export function AdminPanel({ navigation }: Props) {
     );
   }
 
-  const data = tab === 'ideas' ? ideas : stories;
+  const data: StorySubmission[] = tab === 'ideas' ? ideas : tab === 'stories' ? stories : [];
   const now = Date.now();
 
   return (
@@ -266,10 +286,178 @@ export function AdminPanel({ navigation }: Props) {
             </Text>
           </Pressable>
         </View>
+        <View style={[styles.tabRow, { marginTop: 8 }]}>
+          <Pressable
+            onPress={() => setTab('accounts')}
+            style={[styles.tab, { backgroundColor: tab === 'accounts' ? theme.primary : 'transparent', borderColor: theme.border }]}
+          >
+            <Text style={{ color: tab === 'accounts' ? '#fff' : theme.textDim, fontWeight: '700' }}>
+              Accounts ({accounts.length})
+            </Text>
+          </Pressable>
+          <Pressable
+            onPress={() => setTab('recovery')}
+            style={[styles.tab, { backgroundColor: tab === 'recovery' ? theme.primary : 'transparent', borderColor: theme.border }]}
+          >
+            <Text style={{ color: tab === 'recovery' ? '#fff' : theme.textDim, fontWeight: '700' }}>
+              Recovery ({recovery.length})
+            </Text>
+          </Pressable>
+        </View>
+
+        {tab === 'accounts' ? (
+          <View>
+            <Text style={{ color: theme.textDim, fontSize: SCALE.small, marginTop: 10 }}>
+              Kis username ne kitni submissions bheji — tap karke poori list dekho aur seedha message bhejo.
+              {unclaimed > 0 ? ` ${unclaimed} submissions kisi account se judi nahi hain (purane users).` : ''}
+            </Text>
+            {accounts.map((a) => (
+              <Pressable
+                key={a.id}
+                onPress={() => {
+                  void (async () => {
+                    const detail = await getAdminAccount(a.id, apiBase).catch(() => null);
+                    Alert.alert(
+                      `@${a.username}`,
+                      detail
+                        ? `Creator name: ${detail.account.displayName}\n` +
+                            `Joined: ${new Date(a.createdAt).toLocaleDateString()}\n\n` +
+                            (detail.submissions.length
+                              ? detail.submissions
+                                  .map((x) => `• [${x.status}] ${x.title} (${x.type}, ${new Date(x.submittedAt).toLocaleDateString()})`)
+                                  .join('\n')
+                              : 'Koi submission nahi.')
+                        : 'Detail load nahi hui.',
+                    );
+                  })();
+                }}
+                style={[styles.card, { backgroundColor: theme.surface, borderColor: theme.border }]}
+              >
+                <View style={{ flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center' }}>
+                  <Text style={{ color: theme.text, fontWeight: '800' }} numberOfLines={1}>
+                    @{a.username}
+                  </Text>
+                  <Text style={{ color: theme.accent, fontSize: SCALE.micro, fontWeight: '800' }}>
+                    {a.counts.total} submission{a.counts.total === 1 ? '' : 's'}
+                  </Text>
+                </View>
+                <Text style={{ color: theme.textDim, fontSize: SCALE.small, marginTop: 4 }}>
+                  {a.displayName} · pending {a.counts.pending} · accepted {a.counts.accepted} · rejected{' '}
+                  {a.counts.rejected}
+                </Text>
+                <Pressable
+                  onPress={() => {
+                    setNotifyTarget(a);
+                    setNotifyTitle('');
+                    setNotifyBody('');
+                  }}
+                  accessibilityRole="button"
+                  style={{ marginTop: 8 }}
+                >
+                  <Text style={{ color: theme.primary, fontWeight: '700', fontSize: SCALE.small }}>
+                    Message bhejo
+                  </Text>
+                </Pressable>
+              </Pressable>
+            ))}
+            {accounts.length === 0 ? (
+              <Text style={{ color: theme.textDim, marginTop: 10 }}>Abhi koi account nahi.</Text>
+            ) : null}
+          </View>
+        ) : null}
+
+        {tab === 'recovery' ? (
+          <View>
+            <Text style={{ color: theme.textDim, fontSize: SCALE.small, marginTop: 10 }}>
+              Email nahi hai, isliye locked-out users yahan request bhejte hain. Approve karne par ek one-time
+              code milta hai (24 ghante) jo aap user ko de sakte hain.
+            </Text>
+            {recovery.map((r) => (
+              <View key={r.id} style={[styles.card, { backgroundColor: theme.surface, borderColor: theme.border }]}>
+                <Text style={{ color: theme.text, fontWeight: '800' }}>@{r.username}</Text>
+                <Text style={{ color: theme.textDim, fontSize: SCALE.small, marginTop: 4 }}>
+                  Proof: {r.proofId} · {new Date(r.createdAt).toLocaleString()}
+                </Text>
+                <View style={{ flexDirection: 'row', gap: 10, marginTop: 10 }}>
+                  <Pressable
+                    onPress={() => {
+                      void (async () => {
+                        try {
+                          const res = await decideRecoveryAdmin(r.id, 'approve', apiBase);
+                          Alert.alert('Approved', res.recoveryCode ? `One-time code: ${res.recoveryCode}` : 'Done');
+                          await load();
+                        } catch (e) {
+                          Alert.alert('Approve failed', (e as Error).message);
+                        }
+                      })();
+                    }}
+                  >
+                    <Text style={{ color: theme.success, fontWeight: '800' }}>Approve</Text>
+                  </Pressable>
+                  <Pressable
+                    onPress={() => {
+                      void (async () => {
+                        await decideRecoveryAdmin(r.id, 'reject', apiBase).catch(() => null);
+                        await load();
+                      })();
+                    }}
+                  >
+                    <Text style={{ color: theme.danger, fontWeight: '800' }}>Reject</Text>
+                  </Pressable>
+                </View>
+              </View>
+            ))}
+            {recovery.length === 0 ? (
+              <Text style={{ color: theme.textDim, marginTop: 10 }}>Koi pending recovery request nahi.</Text>
+            ) : null}
+          </View>
+        ) : null}
+
+        {notifyTarget ? (
+          <View style={[styles.card, { backgroundColor: theme.surface, borderColor: theme.primary }]}>
+            <Text style={{ color: theme.text, fontWeight: '800' }}>Message → @{notifyTarget.username}</Text>
+            <TextInput
+              placeholder="Title"
+              placeholderTextColor={theme.textFaint}
+              value={notifyTitle}
+              onChangeText={setNotifyTitle}
+              style={{ color: theme.text, borderBottomColor: theme.border, borderBottomWidth: 1, paddingVertical: 8 }}
+            />
+            <TextInput
+              placeholder="Message (max 500)"
+              placeholderTextColor={theme.textFaint}
+              value={notifyBody}
+              onChangeText={setNotifyBody}
+              multiline
+              style={{ color: theme.text, paddingVertical: 8, minHeight: 60 }}
+            />
+            <View style={{ flexDirection: 'row', gap: 12 }}>
+              <Pressable
+                onPress={() => {
+                  void (async () => {
+                    if (!notifyTitle.trim() || !notifyBody.trim()) return;
+                    try {
+                      await notifyAccountAdmin(notifyTarget.id, notifyTitle.trim(), notifyBody.trim(), apiBase);
+                      Alert.alert('Bhej diya');
+                      setNotifyTarget(null);
+                    } catch (e) {
+                      Alert.alert('Send failed', (e as Error).message);
+                    }
+                  })();
+                }}
+              >
+                <Text style={{ color: theme.primary, fontWeight: '800' }}>Send</Text>
+              </Pressable>
+              <Pressable onPress={() => setNotifyTarget(null)}>
+                <Text style={{ color: theme.textDim, fontWeight: '700' }}>Cancel</Text>
+              </Pressable>
+            </View>
+          </View>
+        ) : null}
 
         {loading ? <ActivityIndicator color={theme.accent} style={{ marginTop: 20 }} /> : null}
 
-        {data.length === 0 && !loading ? (
+        {(tab === 'ideas' || tab === 'stories') && data.length === 0 && !loading ? (
           <View style={[styles.empty, { borderColor: theme.border }]}>
             <Text style={{ color: theme.textDim, textAlign: 'center' }}>
               No pending {tab === 'ideas' ? 'ideas' : 'stories'}.
@@ -277,7 +465,7 @@ export function AdminPanel({ navigation }: Props) {
           </View>
         ) : null}
 
-        {data.map((s) => {
+        {tab !== 'accounts' && tab !== 'recovery' && data.map((s) => {
           const exp = Math.max(0, new Date(s.expiresAt).getTime() - now);
           return (
             <Pressable

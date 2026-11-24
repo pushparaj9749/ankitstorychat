@@ -17,6 +17,7 @@ import { SectionHeader } from '../components/bits';
 import { Icon } from '../components/icons';
 import { RADIUS, SCALE, SHADOWS, SPACING, TYPE, withAlpha } from '../theme';
 import { fetchSubmissionStatuses, formatRemaining } from '../content/submissions';
+import { mySubmissions as fetchAccountSubmissions } from '../lib/account';
 import { kvGet, kvSet } from '../lib/db';
 import { applyServerStatuses, idsToCheck, pruneSubmissions } from '../lib/submissionStatus';
 
@@ -29,17 +30,40 @@ interface LocalSub {
   title: string;
   submittedAt: string;
   knownStatus: 'pending' | 'accepted' | 'rejected' | 'expired';
+  /** Server-side row (account history) — shown even on a new phone. */
+  fromAccount?: boolean;
+  genre?: string | null;
 }
 
 const LOCAL_KEY = 'my_submissions_v1';
 
 export function MySubmissions({ navigation }: Props) {
-  const { theme, settings } = useApp();
+  const { theme, settings, account } = useApp();
   const [subs, setSubs] = useState<LocalSub[]>([]);
   const [refreshing, setRefreshing] = useState(false);
   const apiBase = settings?.contentApiBaseUrl;
 
+  const loadAccount = useCallback(async (): Promise<LocalSub[]> => {
+    if (!account) return [];
+    try {
+      const rows = await fetchAccountSubmissions(apiBase);
+      return rows.map((r) => ({
+        id: r.id,
+        type: r.type,
+        creatorName: account.displayName,
+        title: r.title,
+        submittedAt: r.submittedAt,
+        knownStatus: r.status,
+        fromAccount: true,
+        genre: r.genre,
+      }));
+    } catch {
+      return []; // offline — the device list still shows
+    }
+  }, [account, apiBase]);
+
   const load = useCallback(async () => {
+    const accountRows = await loadAccount();
     const raw = await kvGet(LOCAL_KEY);
     if (!raw) {
       setSubs([]);
@@ -49,11 +73,24 @@ export function MySubmissions({ navigation }: Props) {
     try {
       list = JSON.parse(raw) as LocalSub[];
     } catch {
+      list = [];
+    }
+    const sortNewest = (l: LocalSub[]) => [...l].sort((a, b) => b.submittedAt.localeCompare(a.submittedAt));
+    // Merge: the account history (server truth) wins over the identical local
+    // row, so a reinstalled app still lists everything it ever submitted.
+    const byId = new Map<string, LocalSub>();
+    for (const row of accountRows) byId.set(row.id, row);
+    for (const row of list) if (!byId.has(row.id)) byId.set(row.id, row);
+    const pruned = pruneSubmissions([...byId.values()]);
+    if (accountRows.length > 0) {
+      setSubs(sortNewest(pruned));
+      await kvSet(LOCAL_KEY, JSON.stringify(pruned));
+      return;
+    }
+    if (list.length === 0) {
       setSubs([]);
       return;
     }
-    const sortNewest = (l: LocalSub[]) => [...l].sort((a, b) => b.submittedAt.localeCompare(a.submittedAt));
-    const pruned = pruneSubmissions(list);
     setSubs(sortNewest(pruned));
     let next = pruned;
     // Ask the server what happened to anything still pending.
@@ -69,7 +106,7 @@ export function MySubmissions({ navigation }: Props) {
       }
     }
     if (next !== list) await kvSet(LOCAL_KEY, JSON.stringify(next));
-  }, [apiBase]);
+  }, [apiBase, loadAccount]);
 
   useEffect(() => {
     void load();
@@ -111,7 +148,7 @@ export function MySubmissions({ navigation }: Props) {
         </View>
 
         <Text style={[styles.sub, { color: theme.textDim }]}>
-          Tracking the submissions you sent from this device. Pending items are reviewed within 24 hours — pull down to refresh their status.
+          Tracking your submissions. Account history server se aati hai, isliye naye phone par bhi sab dikhti hai. Pending items are reviewed within 24 hours — pull down to refresh their status.
         </Text>
 
         <View style={{ height: SPACING.md }} />

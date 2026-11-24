@@ -17,6 +17,12 @@ import { NavScrollProvider } from './NavScrollContext';
 
 import { OnboardingName } from '../screens/OnboardingName';
 import { OnboardingAge } from '../screens/OnboardingAge';
+import { Login } from '../screens/Login';
+import { Signup } from '../screens/Signup';
+import { ForgotPassword } from '../screens/ForgotPassword';
+import { Account } from '../screens/Account';
+import { Notifications } from '../screens/Notifications';
+import { UpdateRequired } from '../screens/UpdateRequired';
 import { Discover } from '../screens/Discover';
 import { Library } from '../screens/Library';
 import { Settings } from '../screens/Settings';
@@ -125,7 +131,7 @@ function BootEffects() {
 }
 
 export function RootNavigator() {
-  const { theme, profile } = useApp();
+  const { theme, profile, account, updateRequired } = useApp();
   // Memoised: a new theme object on every app-state change made
   // NavigationContainer re-render the ENTIRE navigation tree each time.
   const navTheme = useMemo<Theme>(
@@ -154,8 +160,18 @@ export function RootNavigator() {
       <NavigationContainer theme={navTheme}>
         <BootEffects />
         <Stack.Navigator screenOptions={STACK_OPTIONS}>
-          {!profile ? (
+          {updateRequired ? (
+            <Stack.Screen name="UpdateRequired" component={UpdateRequired} />
+          ) : !account ? (
             <>
+              {/* v2.14 account gate: nothing else is reachable without a session. */}
+              <Stack.Screen name="Login" component={Login} />
+              <Stack.Screen name="Signup" component={Signup} />
+              <Stack.Screen name="ForgotPassword" component={ForgotPassword} />
+            </>
+          ) : !profile ? (
+            <>
+              {/* Name + age/catalog gate — asked only AFTER the account exists. */}
               <Stack.Screen name="OnboardingName" component={OnboardingName} />
               <Stack.Screen name="OnboardingAge" component={OnboardingAge} />
             </>
@@ -179,6 +195,8 @@ export function RootNavigator() {
               <Stack.Screen name="SubmitStory" component={SubmitStory} />
               <Stack.Screen name="SubmissionSuccess" component={SubmissionSuccess} />
               <Stack.Screen name="MySubmissions" component={MySubmissions} />
+              <Stack.Screen name="Account" component={Account} />
+              <Stack.Screen name="Notifications" component={Notifications} />
               <Stack.Screen name="AdminPanel" component={AdminPanel} />
             </>
           )}

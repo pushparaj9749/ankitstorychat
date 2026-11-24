@@ -35,6 +35,15 @@ import { nowIso } from '../lib/utils';
 import { COLORS, Theme, ThemeName, UiTemplate } from '../theme';
 import { COLORS as CLASSIC_COLORS } from '../ui/classic/theme';
 import { BootSplash, SPLASH_INTRO_MS } from '../components/BootSplash';
+import {
+  type AccountInfo,
+  cachedAccount,
+  claimLocalHistory,
+  getToken,
+  isUpdateRequired,
+  refreshAccount,
+  refreshUnread as refreshUnreadCount,
+} from '../lib/account';
 import { StyleSheet, View } from 'react-native';
 
 interface AppState {
@@ -53,8 +62,18 @@ interface AppState {
   stories: StoryMeta[];
   favoriteIds: Set<string>;
   recentPlaythroughs: Playthrough[];
+  /** Signed-in account (mandatory from v2.14). Null = no session yet. */
+  account: AccountInfo | null;
+  /** Unread notification count for the Home bell icon. */
+  unread: number;
+  /** True once the launch session check finished (gate can decide). */
+  accountChecked: boolean;
+  /** True when the loaded install must be updated before anything works. */
+  updateRequired: boolean;
 
   saveProfile: (p: LocalProfile) => Promise<void>;
+  setAccount: (a: AccountInfo | null) => Promise<void>;
+  refreshUnread: () => Promise<void>;
   updateSettings: (patch: Partial<AppSettings>) => Promise<void>;
   refreshProviders: () => Promise<void>;
   refreshStories: () => Promise<void>;
@@ -80,6 +99,10 @@ export function AppProvider({ children }: { children: React.ReactNode }) {
   const [stories, setStories] = useState<StoryMeta[]>([]);
   const [favoriteIds, setFavoriteIds] = useState<Set<string>>(new Set());
   const [recentPlaythroughs, setRecentPlaythroughs] = useState<Playthrough[]>([]);
+  const [account, setAccountState] = useState<AccountInfo | null>(null);
+  const [unread, setUnread] = useState(0);
+  const [accountChecked, setAccountChecked] = useState(false);
+  const [updateRequired, setUpdateRequired] = useState(false);
 
   const refreshProviders = useCallback(async () => {
     const list = await listProviders();
@@ -115,6 +138,28 @@ export function AppProvider({ children }: { children: React.ReactNode }) {
     setRecentPlaythroughs(await listRecentPlaythroughs(1000));
   }, []);
 
+  const refreshUnreadBadge = useCallback(async () => {
+    if (!account) {
+      setUnread(0);
+      return;
+    }
+    setUnread(await refreshUnreadCount(settings?.contentApiBaseUrl));
+  }, [account, settings?.contentApiBaseUrl]);
+
+  const setAccount = useCallback(
+    async (a: AccountInfo | null) => {
+      setAccountState(a);
+      if (a) {
+        // First run after the update: attach this device's old submissions.
+        await claimLocalHistory(settings?.contentApiBaseUrl);
+        setUnread(await refreshUnreadCount(settings?.contentApiBaseUrl));
+      } else {
+        setUnread(0);
+      }
+    },
+    [settings?.contentApiBaseUrl],
+  );
+
   const reloadAll = useCallback(async () => {
     const [p, s] = await Promise.all([getProfile(), getSettings()]);
     setProfile(p);
@@ -141,6 +186,31 @@ export function AppProvider({ children }: { children: React.ReactNode }) {
         await reloadAll();
       } finally {
         setReady(true);
+      }
+      // Account check runs AFTER the local data is ready, so an offline launch
+      // still opens onto the login screen with everything intact.
+      try {
+        const local = await getSettings();
+        const apiBase = local?.contentApiBaseUrl;
+        const cached = await cachedAccount();
+        if (cached) setAccountState(cached);
+        const hasToken = !!(await getToken());
+        // v2.14: an install older than the server minimum cannot use the app.
+        setUpdateRequired(await isUpdateRequired(apiBase));
+        if (hasToken) {
+          const fresh = await refreshAccount(apiBase).catch(() => null);
+          setAccountState(fresh?.account ?? null);
+          // A brand-new signup (or an install that just updated) claims the
+          // pre-account submissions still stored on this device.
+          if (fresh) await claimLocalHistory(apiBase);
+          setUnread(fresh ? await refreshUnreadCount(apiBase) : 0);
+        } else {
+          setAccountState(null);
+        }
+      } catch {
+        // Network/CDN hiccup: keep whatever cache we have; the gate still works.
+      } finally {
+        setAccountChecked(true);
       }
     })();
   }, [reloadAll]);
@@ -193,7 +263,13 @@ export function AppProvider({ children }: { children: React.ReactNode }) {
       stories,
       favoriteIds,
       recentPlaythroughs,
+      account,
+      unread,
+      accountChecked,
+      updateRequired,
       saveProfile,
+      setAccount,
+      refreshUnread: refreshUnreadBadge,
       updateSettings,
       refreshProviders,
       refreshStories,
@@ -211,7 +287,13 @@ export function AppProvider({ children }: { children: React.ReactNode }) {
     stories,
     favoriteIds,
     recentPlaythroughs,
+    account,
+    unread,
+    accountChecked,
+    updateRequired,
     saveProfile,
+    setAccount,
+    refreshUnreadBadge,
     updateSettings,
     refreshProviders,
     refreshStories,

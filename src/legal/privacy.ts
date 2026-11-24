@@ -3,7 +3,7 @@
  * and on the website. Honest local-first disclosure.
  */
 
-export const PRIVACY_UPDATED = '27 October 2026';
+export const PRIVACY_UPDATED = '16 October 2026';
 
 export interface LegalSection {
   heading: string;
@@ -14,16 +14,17 @@ export const PRIVACY_SECTIONS: LegalSection[] = [
   {
     heading: 'The short version',
     body: [
-      'No account. No login. No cloud user database. Your nickname, age selection, chats, memories, progress, favorites, downloads, and settings live ONLY on your device.',
-      'Two exceptions: (1) public story files are downloaded from the Kissa story API (beyondredeye.site) when you ask for updates, and (2) if YOU configure a third-party AI provider, your chat requests go to THAT provider so it can reply.',
+      'Kissa needs an account (username + password, no email). Our database stores ONLY accounts, the ideas/stories you submit, and your notifications.',
+      'Everything else stays on your device: your nickname and age setting, chats, memories, progress, favorites, downloads and settings are never uploaded.',
+      'If YOU configure a third-party AI provider, your chat requests go to THAT provider so it can reply — never to us.',
     ],
   },
   {
     heading: '1. Data that stays on your device',
     body: [
-      'Local profile (nickname + age group), chats and messages, story/character/world memories, story state and saves, favorites, downloaded stories, statistics, settings, and AI configuration metadata are stored in a local on-device database.',
-      'Your API keys are stored in secure device storage (Android Keystore / iOS Keychain), never in the regular database.',
-      'We cannot see, access, or recover this data — there is no backend and no account system.',
+      'Local profile (nickname + age group), chats and messages, story/character/world memories, story state and saves, favorites, downloaded stories, statistics, settings, and AI configuration metadata are stored in a local on-device database. None of it is uploaded.',
+      'Your API keys are stored in secure device storage (Android Keystore / iOS Keychain), never in the regular database and never on a server.',
+      'We cannot see this data — it never leaves the phone.',
     ],
   },
   {
@@ -31,7 +32,10 @@ export const PRIVACY_SECTIONS: LegalSection[] = [
     body: [
       'Story content distribution: when you check for updates or download stories, the app fetches public story files (manifest + story JSON) from the configured Kissa story API. This is a plain file download — no personal data is sent.',
       'Your AI provider: ONLY if you configure one, the text needed for a reply (your message, recent conversation, story state, relevant memories) is sent to that provider over the network. This is how every cloud AI works — the model must read your words to answer.',
-      'We do NOT send your API key or chats to any Kissa-owned server, because no such server exists.',
+      'Account: to sign in we store your username, a salted PBKDF2 password hash, a hashed recovery code, and session-token hashes on our server. Your password and recovery code themselves are never stored.',
+      'Submissions: the idea or story you submit is stored on our server (title, genre, creator name, content and status) so it can be reviewed and published, and so it appears in My Submissions on any device.',
+      'Notifications: when your submission is accepted or rejected — or when the team sends you a message — a notification row (title, text, read/unread) is stored for your account.',
+      'We do NOT send your API key or chats to our server, because they are not part of any account feature.',
     ],
   },
   {
@@ -51,6 +55,7 @@ export const PRIVACY_SECTIONS: LegalSection[] = [
     heading: '5. Notifications',
     body: [
       'Reminders and update alerts are LOCAL notifications scheduled on your device. No push server, no push tokens, no registration with any service.',
+      'Account and submission notifications are the ONLY server-driven notifications. They are read by the app when it opens (or comes to the foreground) and cannot wake the app in the background.',
       'App update check: to show the "new version available" banner, Kissa reads the public "latest release" page of its GitHub repository (version number and download link only), at most every few hours. It is an anonymous read — no account, ID, story or chat data is sent. You can switch the banner off in About Kissa.',
       'App Lock: your PIN is never stored — only a salted hash, kept in the phone\'s secure storage (Android Keystore / iOS Keychain). Fingerprint / face checks are done by the phone itself; Kissa never receives your biometric data.',
     ],
@@ -66,13 +71,15 @@ export const PRIVACY_SECTIONS: LegalSection[] = [
     heading: '7. Children & teens',
     body: [
       'The 12–17 age setting restricts the catalog to teen-appropriate stories and blocks mature stories app-wide, including direct opens. AI chat remains open-ended, so guardian supervision is recommended for younger readers.',
-      'We collect no personal information from anyone — including children — because there is no account or server to send it to.',
+      'We collect no personal information from anyone — including children — beyond a username, a password hash, and the story content a user chooses to submit. No email address, phone number, or real name is ever requested.',
     ],
   },
   {
     heading: '8. Your control',
     body: [
       'View usage, clear cache, delete downloads, delete chats, or wipe everything in Settings → Storage. Uninstalling removes all on-device data.',
+      'Account: change your creator name, rotate your recovery code, log out, or delete the whole account in Settings → Account. Deleting the account removes the login, its sessions and its notifications from our server; submissions you already sent are kept as anonymous publishing history.',
+      'Recovery without email: the one-time recovery code shown at signup, a reset from a device that is already signed in, or a manual verification request reviewed by the team.',
     ],
   },
   {

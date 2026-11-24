@@ -76,7 +76,7 @@ const RankRail = memo(function RankRail({ data, onOpen }: { data: StoryMeta[]; o
 const GRID_PAGE = 12;
 
 export function Home({ navigation }: Props) {
-  const { theme, profile, stories, recentPlaythroughs, favoriteIds } = useApp();
+  const { theme, profile, stories, recentPlaythroughs, favoriteIds, unread } = useApp();
   const { handleScroll } = useNavScroll();
   const { width: windowW } = useWindowDimensions();
   const [selectedCategory, setSelectedCategory] = useState('For you');
@@ -229,6 +229,22 @@ export function Home({ navigation }: Props) {
               </Text>
             </View>
             <View style={styles.headerActions}>
+              {/* Personal notifications: story accepted / team messages. */}
+              <View style={styles.bell}>
+                <IconButton
+                  name="notifications-outline"
+                  accessibilityLabel={unread > 0 ? `Notifications, ${unread} unread` : 'Notifications'}
+                  onPress={() => (navigation as any).navigate('Notifications')}
+                />
+                {unread > 0 ? (
+                  <View
+                    style={[styles.bellBadge, { backgroundColor: theme.primary, borderColor: theme.bg }]}
+                    pointerEvents="none"
+                  >
+                    <Text style={styles.bellBadgeText}>{unread > 9 ? '9+' : String(unread)}</Text>
+                  </View>
+                ) : null}
+              </View>
               <IconButton name="search" accessibilityLabel="Search stories" onPress={() => navigation.navigate('Discover')} />
               <Pressable
                 onPress={() => navigation.navigate('Settings')}
@@ -436,6 +452,20 @@ const styles = StyleSheet.create({
   hello: { fontSize: 26, lineHeight: 32, fontWeight: '700', letterSpacing: -0.6 },
   subline: { fontSize: SCALE.small, marginTop: 2 },
   headerActions: { flexDirection: 'row', alignItems: 'center', gap: 10 },
+  bell: { position: 'relative' },
+  bellBadge: {
+    position: 'absolute',
+    top: -4,
+    right: -4,
+    minWidth: 16,
+    height: 16,
+    borderRadius: 8,
+    borderWidth: 1.5,
+    alignItems: 'center',
+    justifyContent: 'center',
+    paddingHorizontal: 3,
+  },
+  bellBadgeText: { color: '#FFFFFF', fontSize: 9, fontWeight: '800' },
   avatar: {
     width: TOUCH.sm + 2,
     height: TOUCH.sm + 2,

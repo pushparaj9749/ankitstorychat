@@ -71,6 +71,34 @@ import {
   uploadMedia,
 } from './submissions';
 import { MEDIA_ID_RE } from './media';
+import {
+  handleCheckUsername,
+  handleClaim,
+  handleDeleteMe,
+  handleDeviceReset,
+  handleLogin,
+  handleLogout,
+  handleMe,
+  handleMySubmissions,
+  handleNotificationRead,
+  handleNotifications,
+  handleNotificationsReadAll,
+  handleRecoveryReset,
+  handleRotateRecovery,
+  handleSignup,
+  handleUpdateProfile,
+  handleRecoveryRequest,
+  optionalAccountId,
+} from './accounts/routes';
+import { getMinVersion, isOlderVersion } from './accounts/service';
+import {
+  adminNotify as adminNotifyRoute,
+  adminSetVersion,
+  decideRecoveryRequest,
+  getAdminAccount,
+  listAdminAccounts,
+  listRecoveryRequests,
+} from './accounts/admin';
 import { getStats, looksLikeBot, parseHit, recordHit } from './stats';
 import type { Env } from './submissions';
 export type { Env } from './submissions';
@@ -225,6 +253,29 @@ export type ApiRoute =
   | { kind: 'admin-story-reject'; id: string }
   | { kind: 'stats' }
   | { kind: 'stats-hit' }
+  | { kind: 'app-version' }
+  | { kind: 'auth-signup' }
+  | { kind: 'auth-login' }
+  | { kind: 'auth-logout' }
+  | { kind: 'auth-me' }
+  | { kind: 'auth-username' }
+  | { kind: 'auth-recovery' }
+  | { kind: 'auth-device-reset' }
+  | { kind: 'auth-recovery-rotate' }
+  | { kind: 'auth-recover-request' }
+  | { kind: 'me-profile' }
+  | { kind: 'me-delete' }
+  | { kind: 'me-submissions' }
+  | { kind: 'me-claim' }
+  | { kind: 'me-notifications' }
+  | { kind: 'me-notification'; id: string }
+  | { kind: 'me-notifications-read' }
+  | { kind: 'admin-accounts' }
+  | { kind: 'admin-account'; id: string }
+  | { kind: 'admin-notify' }
+  | { kind: 'admin-recovery' }
+  | { kind: 'admin-recovery-decide'; id: string }
+  | { kind: 'admin-set-version' }
   | { kind: 'not-found' };
 
 /**
@@ -291,8 +342,62 @@ export function parseApiRoute(pathname: string): ApiRoute {
     return { kind: 'not-found' };
   }
 
+  if (first === 'app') {
+    if (second === 'version' && segments.length === 3) return { kind: 'app-version' };
+    return { kind: 'not-found' };
+  }
+
+  if (first === 'auth') {
+    if (second === 'signup' && segments.length === 3) return { kind: 'auth-signup' };
+    if (second === 'login' && segments.length === 3) return { kind: 'auth-login' };
+    if (second === 'logout' && segments.length === 3) return { kind: 'auth-logout' };
+    if (second === 'me' && segments.length === 3) return { kind: 'auth-me' };
+    if (second === 'username' && segments.length === 3) return { kind: 'auth-username' };
+    if (second === 'recovery' && segments.length === 3) return { kind: 'auth-recovery' };
+    if (second === 'recovery-rotate' && segments.length === 3) return { kind: 'auth-recovery-rotate' };
+    if (second === 'device-reset' && segments.length === 3) return { kind: 'auth-device-reset' };
+    return { kind: 'not-found' };
+  }
+
+  if (first === 'recover' && segments.length === 2) return { kind: 'auth-recover-request' };
+  if (first === 'me') {
+    if (segments.length === 2) return { kind: 'auth-me' };
+    if (second === 'profile' && segments.length === 3) return { kind: 'me-profile' };
+    if (second === 'submissions' && segments.length === 3) return { kind: 'me-submissions' };
+    if (second === 'claim' && segments.length === 3) return { kind: 'me-claim' };
+    if (second === 'notifications' && segments.length === 3) return { kind: 'me-notifications' };
+    if (second === 'notifications' && segments[3] === 'read' && segments.length === 4)
+      return { kind: 'me-notifications-read' };
+    // POST /api/me/notifications/<id> (and /read for symmetry)
+    if (
+      second === 'notifications' &&
+      segments[3] &&
+      (segments.length === 4 || (segments.length === 5 && segments[4] === 'read'))
+    ) {
+      if (!/^ntf_[A-Za-z0-9_-]{4,40}$/.test(segments[3])) return { kind: 'not-found' };
+      return { kind: 'me-notification', id: segments[3] };
+    }
+    return { kind: 'not-found' };
+  }
+
   if (first === 'admin') {
     if (second === 'pending' && segments.length === 3) return { kind: 'admin-pending' };
+    if (second === 'accounts' && segments.length === 3) return { kind: 'admin-accounts' };
+    if (second === 'accounts' && segments[3] && segments.length === 4) {
+      if (!/^acc_[A-Za-z0-9_-]{4,40}$/.test(segments[3])) return { kind: 'not-found' };
+      return { kind: 'admin-account', id: segments[3] };
+    }
+    if (second === 'accounts' && segments[3] && segments[4] === 'notify' && segments.length === 5) {
+      if (!/^acc_[A-Za-z0-9_-]{4,40}$/.test(segments[3])) return { kind: 'not-found' };
+      return { kind: 'admin-notify' };
+    }
+    if (second === 'recovery' && segments.length === 3) return { kind: 'admin-recovery' };
+    if (second === 'recovery' && segments[3] && segments.length === 5) {
+      if (!/^rec_[A-Za-z0-9_-]{4,40}$/.test(segments[3])) return { kind: 'not-found' };
+      if (segments[4] !== 'approve' && segments[4] !== 'reject') return { kind: 'not-found' };
+      return { kind: 'admin-recovery-decide', id: segments[3] };
+    }
+    if (second === 'version' && segments.length === 3) return { kind: 'admin-set-version' };
     // Admin media preview for pending submissions (Bearer-gated).
     if (second === 'media' && segments[3] && MEDIA_ID_RE.test(segments[3]) && segments.length === 4) {
       return { kind: 'admin-media', id: segments[3] };
@@ -497,6 +602,20 @@ const POST_ROUTES = new Set([
   'submit-idea',
   'submit-story',
   'submit-media',
+  'auth-signup',
+  'auth-login',
+  'auth-logout',
+  'auth-recovery',
+  'auth-device-reset',
+  'auth-recovery-rotate',
+  'me-profile',
+  'me-claim',
+  'me-notifications-read',
+  'me-notification',
+  'admin-notify',
+  'admin-recovery-decide',
+  'admin-set-version',
+  'auth-recover-request',
   'admin-idea-accept',
   'admin-idea-reject',
   'admin-story-accept',
@@ -528,6 +647,18 @@ function withCors(res: Response, cors: Record<string, string>): Response {
   return new Response(res.body, { status: res.status, headers: h });
 }
 
+/** /api/admin/recovery/<id>/(approve|reject) → the action. */
+export function recoveryAction(pathname: string): 'approve' | 'reject' {
+  const seg = pathname.split('/').filter(Boolean);
+  return seg[4] === 'reject' ? 'reject' : 'approve';
+}
+
+/** /api/admin/accounts/<id>/notify → <id> */
+export function notificationAccountId(pathname: string): string {
+  const seg = pathname.split('/').filter(Boolean);
+  return seg[3] ?? '';
+}
+
 async function handleApi(request: Request, env: Env, url: URL): Promise<Response> {
   const method = request.method;
   const origin = request.headers.get('Origin');
@@ -544,9 +675,14 @@ async function handleApi(request: Request, env: Env, url: URL): Promise<Response
     return withCors(errorJson(403, 'origin_not_allowed'), cors);
   }
 
-  if (method !== 'GET' && method !== 'HEAD' && method !== 'POST') {
-    return withCors(errorJson(405, 'method_not_allowed', 'Method not supported.'), cors);
+  if (method === 'DELETE' && route.kind === 'me-delete') {
+    return withCors(await handleDeleteMe(request, env), cors);
   }
+  if (method === 'PATCH' && route.kind === 'me-profile') {
+    return withCors(await handleUpdateProfile(request, env), cors);
+  }
+
+
   if (method === 'POST' && !isPostRoute) {
     return withCors(errorJson(405, 'method_not_allowed', 'Only GET/HEAD are supported here.'), cors);
   }
@@ -574,7 +710,85 @@ async function handleApi(request: Request, env: Env, url: URL): Promise<Response
     );
   }
 
+  // Version gate: an outdated install may not use the app at all. The public
+  // version route and the admin surface stay reachable.
+  if (
+    route.kind !== 'app-version' &&
+    route.kind !== 'health' &&
+    !route.kind.startsWith('admin-')
+  ) {
+    const clientVersion = request.headers.get('X-Kissa-Version');
+    const { minVersion, message } = await getMinVersion(env);
+    if (isOlderVersion(clientVersion, minVersion)) {
+      return withCors(
+        json(
+          { error: 'update_required', minVersion, message },
+          426,
+          { 'Cache-Control': 'no-store' },
+        ),
+        cors,
+      );
+    }
+  }
+
   switch (route.kind) {
+    case 'app-version': {
+      const { minVersion, message } = await getMinVersion(env);
+      return withCors(
+        json(
+          { ok: true, minVersion, message, updatedAt: new Date().toISOString() },
+          200,
+          { 'Cache-Control': 'public, max-age=60, s-maxage=120' },
+        ),
+        cors,
+      );
+    }
+    case 'auth-signup':
+      return withCors(await handleSignup(request, env), cors);
+    case 'auth-login':
+      return withCors(await handleLogin(request, env), cors);
+    case 'auth-logout':
+      return withCors(await handleLogout(request, env), cors);
+    case 'auth-me':
+    case 'me-profile':
+      return withCors(await handleMe(request, env), cors);
+    case 'auth-username':
+      return withCors(await handleCheckUsername(request, env, url), cors);
+    case 'auth-recovery':
+      return withCors(await handleRecoveryReset(request, env), cors);
+    case 'auth-device-reset':
+      return withCors(await handleDeviceReset(request, env), cors);
+    case 'auth-recovery-rotate':
+      return withCors(await handleRotateRecovery(request, env), cors);
+    case 'auth-recover-request':
+      return withCors(await handleRecoveryRequest(request, env), cors);
+    case 'me-delete':
+      return withCors(await handleDeleteMe(request, env), cors);
+    case 'me-submissions':
+      return withCors(await handleMySubmissions(request, env), cors);
+    case 'me-claim':
+      return withCors(await handleClaim(request, env), cors);
+    case 'me-notifications':
+      return withCors(await handleNotifications(request, env, url), cors);
+    case 'me-notification':
+      return withCors(await handleNotificationRead(request, env, route.id), cors);
+    case 'me-notifications-read':
+      return withCors(await handleNotificationsReadAll(request, env), cors);
+    case 'admin-accounts':
+      return withCors(await listAdminAccounts(env), cors);
+    case 'admin-account':
+      return withCors(await getAdminAccount(env, route.id), cors);
+    case 'admin-notify':
+      return withCors(await adminNotifyRoute(env, request, notificationAccountId(url.pathname)), cors);
+    case 'admin-recovery':
+      return withCors(await listRecoveryRequests(env), cors);
+    case 'admin-recovery-decide':
+      return withCors(
+        await decideRecoveryRequest(env, route.id, request, recoveryAction(url.pathname)),
+        cors,
+      );
+    case 'admin-set-version':
+      return withCors(await adminSetVersion(env, request), cors);
     case 'health': {
       const index = await getContentIndex(env);
       const lim = await getLimitStatus(kvFor(env));
@@ -735,10 +949,11 @@ async function handleApi(request: Request, env: Env, url: URL): Promise<Response
         return withCors(errorJson(400, 'invalid_json', 'Request body must be valid JSON.'), cors);
       }
       const client = request.headers.get('X-Kissa-Client') ?? undefined;
+      const accountId = await optionalAccountId(env, request);
       const res =
         route.kind === 'submit-idea'
-          ? await submitIdea(env, body as Record<string, unknown>, client)
-          : await submitStory(env, body as Record<string, unknown>, client);
+          ? await submitIdea(env, body as Record<string, unknown>, client, accountId)
+          : await submitStory(env, body as Record<string, unknown>, client, accountId);
       return withCors(res, cors);
     }
 
@@ -804,7 +1019,8 @@ export async function handleRequest(request: Request, env: Env): Promise<Respons
     // Everything else: the static website deployed with this Worker
     // (used when the whole domain is served by Cloudflare).
     return env.ASSETS.fetch(request);
-  } catch {
+  } catch (e) {
+    console.error('handleRequest failed', e);
     return errorJson(500, 'internal_error', 'Unexpected error.');
   }
 }

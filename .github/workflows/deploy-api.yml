@@ -238,6 +238,16 @@ jobs:
         # The script walks up to ../worker/wrangler.jsonc — keep cwd inside
         # worker/ so wrangler finds wrangler.jsonc for auth+account lookups.
 
+      # Accounts + submissions live in D1 (SQL). Created on first deploy and
+      # migrated on every deploy; the id is injected into wrangler.jsonc so no
+      # account-specific ids are ever committed.
+      - name: Create/migrate the Kissa D1 database (accounts + submissions)
+        working-directory: worker
+        env:
+          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+        run: node ../scripts/ci-d1-setup.cjs
+
       - name: Put ADMIN_TOKEN secret when present
         working-directory: worker
         env:

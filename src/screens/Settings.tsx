@@ -5,7 +5,8 @@
  * plus grouped cards (rows inside one surface, hairline-separated). That keeps
  * the whole screen scannable in one glance instead of six section headers.
  *
- * Everything here is local-only: no account, no monetization, no memory UI.
+ * Account, privacy and creator tools. Chats/memories stay local-only; the
+ * account only carries submissions + notifications.
  */
 import React from 'react';
 import { Pressable, ScrollView, StyleSheet, Text, View } from 'react-native';
@@ -14,6 +15,7 @@ import { LinearGradient } from 'expo-linear-gradient';
 import type { BottomTabScreenProps } from '@react-navigation/bottom-tabs';
 import type { MainTabParamList } from '../types';
 import { useApp } from '../state/AppContext';
+import { SUPPORT_EMAIL } from '../lib/account';
 import { useNavScroll } from '../navigation/NavScrollContext';
 import { Screen } from '../components/Screen';
 import { SectionHeader } from '../components/bits';
@@ -24,7 +26,7 @@ type Props = BottomTabScreenProps<MainTabParamList, 'Settings'>;
 type Target = { screen: string; params?: object };
 
 export function Settings({ navigation }: Props) {
-  const { theme, settings, profile, activeProvider, favoriteIds, recentPlaythroughs } = useApp();
+  const { theme, settings, profile, activeProvider, favoriteIds, recentPlaythroughs, account, unread } = useApp();
   const { handleScroll } = useNavScroll();
   const nav = navigation as unknown as { navigate: (s: string, o?: object) => void };
   const version = Constants.expoConfig?.version ?? '2.11.0';
@@ -147,6 +149,26 @@ export function Settings({ navigation }: Props) {
           </View>
         </Pressable>
 
+        <SectionHeader title="Account" kicker="Kissa login" />
+        {group(
+          <>
+            {row(
+              'person-outline',
+              account ? `@${account.username}` : 'Log in',
+              account ? `Creator name: ${account.displayName}` : 'Account zaroori hai',
+              'Account',
+              { first: true, tint: theme.primary },
+            )}
+            {row(
+              'notifications-outline',
+              'Notifications',
+              unread > 0 ? `${unread} naya update` : 'Story accept, team messages',
+              'Notifications',
+              { tint: theme.gold, badge: unread > 0 ? String(unread) : undefined },
+            )}
+          </>,
+        )}
+
         {/* AI engine — the one thing that gates playing */}
         <Pressable
           onPress={() => nav.navigate('AIAddons')}
@@ -222,7 +244,7 @@ export function Settings({ navigation }: Props) {
         )}
 
         <Text style={[styles.footer, { color: theme.textFaint }]}>
-          {KISSA.wordmark} v{version} · {KISSA.tagline} · no account, no coins, no message limits
+          {`${KISSA.wordmark} v${version} · ${KISSA.tagline} · no ads, no coins, no message limits\nHelp: ${SUPPORT_EMAIL}`}
         </Text>
 
         <View style={{ height: LAYOUT.navClearance }} />

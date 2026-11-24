@@ -14,6 +14,7 @@ import { GradientButton } from '../components/GradientButton';
 import { DonateCard } from '../components/DonateCard';
 import { RELEASES_PAGE, checkForUpdate, type UpdateStatus } from '../lib/updateCheck';
 import { LAYOUT, RADIUS, SCALE, SHADOWS, SPACING, TYPE, withAlpha } from '../theme';
+import { SUPPORT_EMAIL } from '../lib/account';
 
 type Props = NativeStackScreenProps<RootStackParamList, 'About'>;
 
@@ -51,7 +52,7 @@ export function About({ navigation }: Props) {
         <Text style={[styles.name, { color: theme.text }]}>Kissa</Text>
         <Text style={[styles.ver, { color: theme.accent }]}>v{version} • Cinematic Interactive Story Platform</Text>
         <Text style={[styles.desc, { color: theme.textDim }]}>
-          Tumhari kahani, tumhare words. Koi account nahi, koi coins nahi, koi message limits
+          Tumhari kahani, tumhare words. Koi ads nahi, koi coins nahi, koi message limits
           nahi — bas immersive kahaniyan. Sab kuch tumhare device par 100% private.
         </Text>
 
@@ -110,6 +111,14 @@ export function About({ navigation }: Props) {
         </View>
         <View style={styles.gap}>
           <GradientButton title="Privacy Policy" variant="ghost" onPress={() => navigation.navigate('Privacy')} />
+        </View>
+
+        <View style={styles.gap}>
+          <GradientButton
+            title={`Support: ${SUPPORT_EMAIL}`}
+            variant="ghost"
+            onPress={() => void Linking.openURL(`mailto:${SUPPORT_EMAIL}?subject=Kissa%20support`)}
+          />
         </View>
 
         <DonateCard repoUrl={REPO} />

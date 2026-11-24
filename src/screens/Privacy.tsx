@@ -8,7 +8,7 @@ export function Privacy() {
       title="Privacy Policy"
       updated={PRIVACY_UPDATED}
       sections={PRIVACY_SECTIONS}
-      footer="Questions about privacy? Open an issue on the GitHub repository linked in About."
+      footer="Privacy questions? Write to ytdjbhai34@gmail.com."
     />
   );
 }
