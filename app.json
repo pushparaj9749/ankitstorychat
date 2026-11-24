@@ -2,7 +2,7 @@
   "expo": {
     "name": "Kissa",
     "slug": "kissa-ai-story-chat",
-    "version": "2.14.0",
+    "version": "2.15.0",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
     "scheme": "kissa",
@@ -22,7 +22,7 @@
     },
     "android": {
       "package": "com.kissa.storychat",
-      "versionCode": 46,
+      "versionCode": 47,
       "adaptiveIcon": {
         "backgroundColor": "#0A0B10",
         "foregroundImage": "./assets/android-icon-foreground.png",
@@ -35,6 +35,7 @@
       "favicon": "./assets/favicon.png"
     },
     "plugins": [
+      "expo-updates",
       "expo-splash-screen",
       [
         "expo-notifications",
@@ -52,7 +53,18 @@
     ],
     "extra": {
       "KISSA_CONTENT_API_BASE_URL": "https://beyondredeye.site/api",
-      "supportEmail": "ytdjbhai34@gmail.com"
+      "supportEmail": "ytdjbhai34@gmail.com",
+      "KISSA_OTA_BASE_URL": "https://beyondredeye.site/api/ota"
+    },
+    "runtimeVersion": {
+      "policy": "appVersion"
+    },
+    "updates": {
+      "enabled": true,
+      "checkAutomatically": "ON_LOAD",
+      "fallbackToCacheTimeout": 0,
+      "url": "https://beyondredeye.site/api/ota/manifest",
+      "codeSigningCertificate": "./assets/certificate.pem"
     }
   }
 }

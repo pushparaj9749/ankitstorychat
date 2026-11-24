@@ -37,6 +37,8 @@ jest.mock('../src/lib/db', () => ({
 }));
 jest.mock('../src/content/loader', () => ({ listStories: jest.fn(async () => []) }));
 jest.mock('../src/lib/secureKeys', () => ({ hasApiKey: jest.fn(async () => false) }));
+// OTA is a launch-time background check; stub it so this render test stays offline.
+jest.mock('../src/lib/ota', () => ({ scheduleOtaCheck: jest.fn() }));
 
 // Account layer: no session, no network in this render test.
 jest.mock('../src/lib/account', () => ({

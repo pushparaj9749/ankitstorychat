@@ -1,0 +1,78 @@
+name: OTA (JS update, no APK)
+
+# Publishes a small JS/UI change to installed apps WITHOUT a new APK.
+#
+#   small change  -> this workflow (JS only, signed, instant)
+#   native change -> the APK workflow + a new tag (new runtimeVersion)
+#
+# It refuses to publish when anything native changed since the last APK tag
+# (scripts/ota-publish.mjs checks android/, ios/, package.json, assets, …), so a
+# JS-only channel can never ship a bundle that expects native code the install
+# does not have.
+#
+# Required repository secrets (Settings → Secrets and variables → Actions):
+#   OTA_SIGNING_KEY — the CodePush/Expo code-signing PRIVATE key (PEM).
+#                     Its public half is committed as assets/certificate.pem and
+#                     pinned in app.json; the app rejects anything else.
+#   ADMIN_TOKEN     — same admin bearer the deploy workflow uses.
+#
+# Run it after merging a small fix to main (or manually with a note).
+
+on:
+  workflow_dispatch:
+    inputs:
+      notes:
+        description: 'Ek line jo app ke "what''s new" me dikhegi'
+        required: false
+        default: ''
+  push:
+    branches: [main]
+    paths:
+      - 'src/**'
+      - 'assets/certificate.pem'
+      - '.github/workflows/ota.yml'
+      - 'scripts/ota-publish.mjs'
+
+concurrency:
+  group: ota-${{ github.ref }}
+  cancel-in-progress: false
+
+jobs:
+  publish:
+    name: Publish JS update
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0 # tags are needed for the native-change guard
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Export, sign & publish
+        env:
+          ADMIN_TOKEN: ${{ secrets.ADMIN_TOKEN }}
+          OTA_SIGNING_KEY: ${{ secrets.OTA_SIGNING_KEY }}
+          OTA_NOTES: ${{ inputs.notes }}
+          KISSA_API: https://beyondredeye.site/api
+        run: node scripts/ota-publish.mjs
+
+      - name: Verify the published manifest
+        shell: bash
+        run: |
+          set -uo pipefail
+          V=$(node -p "require('./app.json').expo.version")
+          out=$(curl -s -o /tmp/m.json -w '%{http_code}' --max-time 45 \
+            "https://beyondredeye.site/api/ota/manifest?platform=android&runtime-version=$V")
+          if [ "$out" = "200" ]; then
+            node -e "const m=require('/tmp/m.json');if(m.runtimeVersion!=='$V'){console.error('wrong runtime');process.exit(1)};console.log('✅ OTA live: runtime',m.runtimeVersion,'seq',m.extra&&m.extra.sequence)"
+          else
+            echo "::error title=OTA not live::manifest returned $out"; exit 1
+          fi

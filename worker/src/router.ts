@@ -91,6 +91,14 @@ import {
   optionalAccountId,
 } from './accounts/routes';
 import { getMinVersion, isOlderVersion } from './accounts/service';
+import { handleOtaAdmin } from './otaAdmin';
+import {
+  buildManifest,
+  getLatestAnyRuntime,
+  getOtaAsset,
+  getOtaRelease,
+  type OtaRelease,
+} from './ota';
 import {
   adminNotify as adminNotifyRoute,
   adminSetVersion,
@@ -254,6 +262,10 @@ export type ApiRoute =
   | { kind: 'stats' }
   | { kind: 'stats-hit' }
   | { kind: 'app-version' }
+  | { kind: 'ota-manifest' }
+  | { kind: 'ota-publish' }
+  | { kind: 'ota-rollback' }
+  | { kind: 'ota-asset'; id: string; path: string }
   | { kind: 'auth-signup' }
   | { kind: 'auth-login' }
   | { kind: 'auth-logout' }
@@ -344,6 +356,20 @@ export function parseApiRoute(pathname: string): ApiRoute {
 
   if (first === 'app') {
     if (second === 'version' && segments.length === 3) return { kind: 'app-version' };
+    return { kind: 'not-found' };
+  }
+
+  if (first === 'ota') {
+    if (second === 'manifest' && segments.length === 3) return { kind: 'ota-manifest' };
+    if (second === 'publish' && segments.length === 3) return { kind: 'ota-publish' };
+    if (second === 'rollback' && segments.length === 3) return { kind: 'ota-rollback' };
+    if (second === 'assets' && segments.length >= 5) {
+      return {
+        kind: 'ota-asset',
+        id: decodeURIComponent(segments[3]),
+        path: segments.slice(4).map((x) => decodeURIComponent(x)).join('/'),
+      };
+    }
     return { kind: 'not-found' };
   }
 
@@ -599,6 +625,8 @@ async function serveStoryPackage(
 /** Routes that accept POST (submissions + admin actions). */
 const POST_ROUTES = new Set([
   'stats-hit',
+  'ota-publish',
+  'ota-rollback',
   'submit-idea',
   'submit-story',
   'submit-media',
@@ -702,7 +730,10 @@ async function handleApi(request: Request, env: Env, url: URL): Promise<Response
   }
 
   const isAdminRoute =
-    route.kind === 'admin-pending' || route.kind.startsWith('admin-');
+    route.kind === 'admin-pending' ||
+    route.kind.startsWith('admin-') ||
+    route.kind === 'ota-publish' ||
+    route.kind === 'ota-rollback';
   if (isAdminRoute && !isAdmin(request, env)) {
     return withCors(
       errorJson(401, 'unauthorized', 'Admin authorization required.', { 'Cache-Control': 'no-store' }),
@@ -715,6 +746,7 @@ async function handleApi(request: Request, env: Env, url: URL): Promise<Response
   if (
     route.kind !== 'app-version' &&
     route.kind !== 'health' &&
+    !route.kind.startsWith('ota-') &&
     !route.kind.startsWith('admin-')
   ) {
     const clientVersion = request.headers.get('X-Kissa-Version');
@@ -732,6 +764,55 @@ async function handleApi(request: Request, env: Env, url: URL): Promise<Response
   }
 
   switch (route.kind) {
+    case 'ota-manifest': {
+      // Expo Updates protocol: the app sends ?platform=android&runtime-version=2.14.0
+      // and expects either a manifest or 204/404 (nothing to do).
+      const platform = (url.searchParams.get('platform') || 'android').toLowerCase();
+      const runtime =
+        url.searchParams.get('runtime-version') ||
+        url.searchParams.get('runtimeVersion') ||
+        '';
+      const rel = await getOtaRelease(env, platform, runtime);
+      if (!rel) {
+        // 204 tells expo-updates "you are current" (no update) without an error.
+        return withCors(
+          new Response(null, { status: 204, headers: { 'Cache-Control': 'no-store' } }),
+          cors,
+        );
+      }
+      const publicBase = `${url.origin}/api`;
+      return withCors(
+        json(buildManifest(rel, publicBase), 200, {
+          'Cache-Control': 'no-store',
+          'Expo-Protocol-Version': '1',
+        }),
+        cors,
+      );
+    }
+    case 'ota-asset': {
+      if (method === 'POST') return withCors(errorJson(405, 'method_not_allowed', 'Use GET.'), cors);
+      // Serve by update id, not "newest": an in-flight download of the previous
+      // release must finish even after a newer one is published.
+      const found = await getOtaAsset(env, route.id, route.path);
+      if (!found) return withCors(errorJson(404, 'not_found'), cors);
+      return withCors(
+        new Response(found.bytes as unknown as BodyInit, {
+          status: 200,
+          headers: {
+            'Content-Type': found.contentType,
+            'Content-Length': String(found.size),
+            'Cache-Control': 'public, max-age=31536000, immutable',
+            'X-Content-Type-Options': 'nosniff',
+          },
+        }),
+        cors,
+      );
+    }
+    case 'ota-publish':
+    case 'ota-rollback':
+      // Admin surface: CI publishes (Bearer ADMIN_TOKEN) and can roll back.
+      return withCors(await handleOtaAdmin(env, request, route.kind), cors);
+
     case 'app-version': {
       const { minVersion, message } = await getMinVersion(env);
       return withCors(
@@ -1029,8 +1110,10 @@ async function handleApi(request: Request, env: Env, url: URL): Promise<Response
 
 /** Worker fetch handler (invoked by src/index.ts). */
 export async function handleRequest(request: Request, env: Env): Promise<Response> {
+  let pathForLog = '/';
   try {
     const url = new URL(request.url);
+    pathForLog = url.pathname;
 
     // API surface.
     if (url.pathname === '/api' || url.pathname.startsWith('/api/')) {
@@ -1047,7 +1130,12 @@ export async function handleRequest(request: Request, env: Env): Promise<Respons
     // (used when the whole domain is served by Cloudflare).
     return env.ASSETS.fetch(request);
   } catch (e) {
-    console.error('handleRequest failed', e);
-    return errorJson(500, 'internal_error', 'Unexpected error.');
+    // Log the route and a short reason: without these a generic 500 in the app
+    // is impossible to trace back to a Worker statement (wrangler tail/CI).
+    const reason = e instanceof Error ? `${e.name}: ${e.message}` : String(e);
+    console.error('handleRequest failed', pathForLog, reason, e);
+    return errorJson(500, 'internal_error', 'Unexpected error.', {
+      'X-Kissa-Debug': reason.slice(0, 180),
+    });
   }
 }

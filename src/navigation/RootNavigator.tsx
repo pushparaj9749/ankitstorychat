@@ -18,7 +18,6 @@ import { NavScrollProvider } from './NavScrollContext';
 import { OnboardingName } from '../screens/OnboardingName';
 import { OnboardingAge } from '../screens/OnboardingAge';
 import { Login } from '../screens/Login';
-import { Signup } from '../screens/Signup';
 import { ForgotPassword } from '../screens/ForgotPassword';
 import { Account } from '../screens/Account';
 import { Notifications } from '../screens/Notifications';
@@ -166,7 +165,6 @@ export function RootNavigator() {
             <>
               {/* v2.14 account gate: nothing else is reachable without a session. */}
               <Stack.Screen name="Login" component={Login} />
-              <Stack.Screen name="Signup" component={Signup} />
               <Stack.Screen name="ForgotPassword" component={ForgotPassword} />
             </>
           ) : !profile ? (

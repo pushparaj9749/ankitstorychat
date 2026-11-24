@@ -717,6 +717,9 @@ export async function getMinVersion(env: Env): Promise<{ minVersion: string; mes
     .bind('minVersionMessage')
     .first<{ value: string }>();
   return {
+    // Minimum supported install. Bump this when a new APK must be forced;
+    // OTA (JS-only) updates do NOT raise it, so a small fix reaches everyone
+    // without locking anyone out.
     minVersion: v?.value ?? '2.14.0',
     message: m?.value ?? 'Kissa ka naya version zaroori hai. Update kar lo.',
   };

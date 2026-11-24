@@ -15,6 +15,7 @@ import { DonateCard } from '../components/DonateCard';
 import { RELEASES_PAGE, checkForUpdate, type UpdateStatus } from '../lib/updateCheck';
 import { LAYOUT, RADIUS, SCALE, SHADOWS, SPACING, TYPE, withAlpha } from '../theme';
 import { SUPPORT_EMAIL } from '../lib/account';
+import { checkForOtaUpdate, restartToApply } from '../lib/ota';
 
 type Props = NativeStackScreenProps<RootStackParamList, 'About'>;
 
@@ -25,6 +26,23 @@ export function About({ navigation }: Props) {
   const version = Constants.expoConfig?.version ?? '2.13.0';
   const [checking, setChecking] = useState(false);
   const [result, setResult] = useState<UpdateStatus | 'error' | null>(null);
+  const [ota, setOta] = useState<{ state: string; notes?: string } | null>(null);
+  const [otaBusy, setOtaBusy] = useState(false);
+
+  /**
+   * OTA: fetch a JS-only update. Small fixes (copy, layout, a broken screen)
+   * arrive this way without installing a new APK; a native change still needs
+   * the APK above.
+   */
+  async function checkOta() {
+    setOtaBusy(true);
+    try {
+      const r = await checkForOtaUpdate();
+      setOta(r);
+    } finally {
+      setOtaBusy(false);
+    }
+  }
 
   async function checkNow() {
     setChecking(true);
@@ -82,6 +100,44 @@ export function About({ navigation }: Props) {
                 <Text style={[styles.checkText, { color: theme.text }]}>{checking ? 'Check ho raha hai…' : 'Update check karo'}</Text>
               </Pressable>
             )}
+          </View>
+          <View style={[styles.updToggle, { borderTopColor: theme.border }]}>
+            <View style={{ flex: 1, paddingRight: 10 }}>
+              <Text style={[styles.updToggleLabel, { color: theme.text }]}>Chhota update (OTA)</Text>
+              <Text style={[styles.updToggleSub, { color: theme.textFaint }]}>
+                {ota
+                  ? ota.state === 'downloaded'
+                    ? `Naya update mil gaya — restart karke lag jayega.${ota.notes ? ` ${ota.notes}` : ''}`
+                    : ota.state === 'applied'
+                      ? 'Update lag gaya. Kholte hi naya version chalega.'
+                      : ota.state === 'blocked'
+                        ? 'Is change ke liye naya APK chahiye (native change).'
+                        : 'Sab latest hai — koi chhota update pending nahi.'
+                  : 'Bina APK install kiye chhote fixes. Native change ke liye APK.'}
+              </Text>
+              <View style={{ flexDirection: 'row', gap: 10, marginTop: 8 }}>
+                <Pressable
+                  onPress={() => void checkOta()}
+                  disabled={otaBusy}
+                  style={({ pressed }) => [styles.checkBtn, { borderColor: theme.border, opacity: pressed || otaBusy ? 0.7 : 1 }]}
+                  accessibilityRole="button"
+                >
+                  {otaBusy ? <ActivityIndicator size="small" color={theme.accent} /> : null}
+                  <Text style={[styles.checkText, { color: theme.text }]}>
+                    {otaBusy ? 'Dekh raha hoon…' : 'OTA check karo'}
+                  </Text>
+                </Pressable>
+                {ota?.state === 'downloaded' ? (
+                  <Pressable
+                    onPress={() => void restartToApply()}
+                    style={({ pressed }) => [styles.checkBtn, { borderColor: theme.accent, opacity: pressed ? 0.7 : 1 }]}
+                    accessibilityRole="button"
+                  >
+                    <Text style={[styles.checkText, { color: theme.accent }]}>Restart</Text>
+                  </Pressable>
+                ) : null}
+              </View>
+            </View>
           </View>
           <View style={[styles.updToggle, { borderTopColor: theme.border }]}>
             <View style={{ flex: 1, paddingRight: 10 }}>

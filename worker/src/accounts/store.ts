@@ -23,8 +23,17 @@ import type { Env } from '../submissions';
 export const USERNAME_RE = /^[a-z0-9_]{3,20}$/;
 export const PASSWORD_MIN = 8;
 export const PASSWORD_MAX = 128;
-/** PBKDF2 rounds for passwords (OWASP-ish for a single Worker request). */
-export const PBKDF2_ITERATIONS = 210_000;
+/**
+ * Cloudflare Workers (workerd) hard-caps a single WebCrypto PBKDF2 call at
+ * 100,000 iterations — anything above throws
+ *   NotSupportedError: Pbkdf2 failed: iteration counts above 100000 ...
+ * The local Node test runtime does NOT enforce that cap, which is exactly how
+ * 210,000 shipped and made every signup/login fail with a generic HTTP 500
+ * ("Unexpected error") in production. 100k is the platform maximum.
+ */
+export const PBKDF2_MAX_ITERATIONS = 100_000;
+/** PBKDF2 rounds for passwords — clamped to the Workers ceiling. */
+export const PBKDF2_ITERATIONS = PBKDF2_MAX_ITERATIONS;
 /** Recovery codes are high-entropy already; 100k rounds is plenty. */
 export const RECOVERY_ITERATIONS = 100_000;
 export const SESSION_TTL_DAYS = 90;
@@ -645,9 +654,13 @@ export async function pbkdf2(
   saltB64: string,
   iterations: number,
 ): Promise<string> {
+  // Never hand workerd more than its ceiling: an over-cap call throws before a
+  // single byte is derived, which is a 500 on every password path. Clamping
+  // keeps old records verifiable instead of bricking the account.
+  const rounds = Math.min(Math.max(1, Math.floor(iterations) || 1), PBKDF2_MAX_ITERATIONS);
   const key = await crypto.subtle.importKey('raw', enc.encode(secret), 'PBKDF2', false, ['deriveBits']);
   const bits = await crypto.subtle.deriveBits(
-    { name: 'PBKDF2', salt: unb64(saltB64), iterations, hash: 'SHA-256' },
+    { name: 'PBKDF2', salt: unb64(saltB64), iterations: rounds, hash: 'SHA-256' },
     key,
     256,
   );

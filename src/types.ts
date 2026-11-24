@@ -850,7 +850,6 @@ export type RootStackParamList = {
   Splash: undefined;
   /** Account gate (v2.14): the whole app lives behind these. */
   Login: undefined;
-  Signup: undefined;
   ForgotPassword: undefined;
   Account: undefined;
   Notifications: undefined;

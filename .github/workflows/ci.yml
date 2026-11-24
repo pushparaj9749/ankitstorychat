@@ -62,3 +62,33 @@ jobs:
       - name: Typecheck
         working-directory: worker
         run: npm run typecheck
+
+  # Per-suite matrix: the full-suite job reports 26 files that jest could not
+  # even load (e.g. an ESM-only package) as ONE opaque failure whose log this
+  # repo's tooling cannot always fetch. Splitting them makes the exact file and
+  # error show up as an annotation on the PR.
+  suites:
+    name: tests · ${{ matrix.suite }}
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        suite:
+          - ota.test.ts
+          - appSplashMount.test.tsx
+          - submissionStatus.test.ts
+          - security.test.ts
+          - noOfflineMode.test.ts
+          - uiRedesign.test.ts
+          - noLengthOrPercent.test.ts
+          - updateCheck.test.ts
+          - submitRequiresAccount.test.ts
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+      - run: npm ci
+      - name: Run ${{ matrix.suite }}
+        run: npx jest --coverage=false __tests__/${{ matrix.suite }}

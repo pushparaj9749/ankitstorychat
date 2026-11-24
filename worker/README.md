@@ -21,6 +21,12 @@ Chats, memories, saves, settings and AI keys are **device-only** and are never
 sent to this Worker.
 
 ```
+# OTA (JS-only updates, Expo Updates protocol)
+GET  /api/ota/manifest?platform=android&runtime-version=2.15.0
+GET  /api/ota/assets/<updateId>/<path>
+POST /api/ota/publish?platform=android&runtime=2.15.0   (Bearer ADMIN_TOKEN, signed)
+POST /api/ota/rollback?platform=android                (Bearer ADMIN_TOKEN)
+
 POST /api/auth/signup | /api/auth/login | /api/auth/logout
 GET  /api/auth/me | /api/auth/username?u=… | /api/me
 POST /api/auth/recovery | /api/auth/device-reset | /api/auth/recovery-rotate

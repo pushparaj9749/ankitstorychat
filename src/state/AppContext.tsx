@@ -46,6 +46,7 @@ import {
   refreshUnread as refreshUnreadCount,
 } from '../lib/account';
 import { StyleSheet, View } from 'react-native';
+import { scheduleOtaCheck } from '../lib/ota';
 
 interface AppState {
   ready: boolean;
@@ -190,6 +191,9 @@ export function AppProvider({ children }: { children: React.ReactNode }) {
       } finally {
         setReady(true);
       }
+      // A JS-only fix should reach an installed app without a new APK. The
+      // check is late, silent and never blocks the first paint.
+      scheduleOtaCheck();
       // Account check runs AFTER the local data is ready, so an offline launch
       // still opens onto the login screen with everything intact.
       try {

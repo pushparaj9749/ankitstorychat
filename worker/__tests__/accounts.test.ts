@@ -27,7 +27,15 @@ import {
   usernameAvailable,
   markNotificationRead,
 } from '../src/accounts/service';
-import { memD1, resetMemD1ForTests, sha256Hex } from '../src/accounts/store';
+import {
+  memD1,
+  PBKDF2_ITERATIONS,
+  PBKDF2_MAX_ITERATIONS,
+  RECOVERY_ITERATIONS,
+  pbkdf2,
+  resetMemD1ForTests,
+  sha256Hex,
+} from '../src/accounts/store';
 import type { Env } from '../src/submissions';
 
 function env(): Env {
@@ -295,5 +303,59 @@ describe('version gate', () => {
     expect(isOlderVersion('3.0', '2.14.0')).toBe(false);
     expect(isOlderVersion(null, '2.14.0')).toBe(false);
     expect(isOlderVersion('garbage', '2.14.0')).toBe(false);
+  });
+});
+
+/**
+ * Cloudflare Workers (workerd) refuses a single WebCrypto PBKDF2 call above
+ * 100,000 iterations, throwing `NotSupportedError: Pbkdf2 failed: iteration
+ * counts above 100000 are not supported`. Node's WebCrypto has no such
+ * ceiling, so a plain hash test cannot catch a regression here — these tests
+ * assert the REQUESTED iteration counts and simulate the platform cap.
+ */
+describe('PBKDF2 stays inside the Cloudflare runtime cap', () => {
+  test('the password work factor is at most 100k', () => {
+    expect(PBKDF2_ITERATIONS).toBeLessThanOrEqual(PBKDF2_MAX_ITERATIONS);
+    expect(PBKDF2_MAX_ITERATIONS).toBe(100_000);
+    expect(RECOVERY_ITERATIONS).toBeLessThanOrEqual(PBKDF2_MAX_ITERATIONS);
+  });
+
+  test('signup + login both derive with <= 100k iterations', async () => {
+    const seen: number[] = [];
+    const real = crypto.subtle.deriveBits.bind(crypto.subtle);
+    const spy = jest
+      .spyOn(crypto.subtle, 'deriveBits')
+      .mockImplementation(((algo: { name: string; iterations?: number }, ...rest: unknown[]) => {
+        if (algo && algo.name === 'PBKDF2') seen.push(Number(algo.iterations ?? 0));
+        // Emulate the production ceiling.
+        if (algo && Number(algo.iterations ?? 0) > 100_000) {
+          const err = new Error(
+            `Pbkdf2 failed: iteration counts above 100000 are not supported (requested ${algo.iterations}).`,
+          );
+          err.name = 'NotSupportedError';
+          return Promise.reject(err);
+        }
+        return (real as unknown as (...a: unknown[]) => Promise<ArrayBuffer>)(algo, ...rest);
+      }) as typeof crypto.subtle.deriveBits);
+
+    try {
+      const created = await signup(env(), { username: 'cap_user', password: 'kahani2026' });
+      expect(created.ok).toBe(true);
+      const signed = await login(env(), { username: 'cap_user', password: 'kahani2026' }, { ip: '7.7.7.7' });
+      expect(signed.ok).toBe(true);
+    } finally {
+      spy.mockRestore();
+    }
+
+    expect(seen.length).toBeGreaterThanOrEqual(3); // password hash + recovery + login verify
+    expect(Math.max(...seen)).toBeLessThanOrEqual(100_000);
+  });
+
+  test('pbkdf2() clamps an over-cap request instead of throwing', async () => {
+    // A record written by the broken 210k build must still verify one password
+    // later (as a 100k derivation), not explode with a 500.
+    const hash = await pbkdf2('kahani2026', 'c2FsdHNhbHRzYWx0c2E=', 210_000);
+    expect(typeof hash).toBe('string');
+    expect(hash.length).toBeGreaterThan(20);
   });
 });
