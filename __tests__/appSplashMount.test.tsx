@@ -38,6 +38,16 @@ jest.mock('../src/lib/db', () => ({
 jest.mock('../src/content/loader', () => ({ listStories: jest.fn(async () => []) }));
 jest.mock('../src/lib/secureKeys', () => ({ hasApiKey: jest.fn(async () => false) }));
 
+// Account layer: no session, no network in this render test.
+jest.mock('../src/lib/account', () => ({
+  cachedAccount: jest.fn(async () => null),
+  getToken: jest.fn(async () => null),
+  refreshAccount: jest.fn(async () => null),
+  claimLocalHistory: jest.fn(async () => undefined),
+  refreshUnread: jest.fn(async () => 0),
+  isUpdateRequired: jest.fn(async () => false),
+}));
+
 import { AppProvider } from '../src/state/AppContext';
 
 beforeEach(() => {

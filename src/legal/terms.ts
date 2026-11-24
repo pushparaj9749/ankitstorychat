@@ -5,7 +5,7 @@
  * review before production publication.
  */
 
-export const TERMS_UPDATED = '11 September 2026';
+export const TERMS_UPDATED = '16 October 2026';
 
 export interface LegalSection {
   heading: string;
@@ -17,14 +17,16 @@ export const TERMS_SECTIONS: LegalSection[] = [
     heading: '1. What Kissa is',
     body: [
       'Kissa ("the app") is a local-first interactive AI story/chat application. It lets you play story-driven conversations where you are the main character.',
-      'The app works WITHOUT accounts, WITHOUT login, and WITHOUT our own backend servers. Your profile, chats, memories, progress, and settings stay on your device.',
+      'From v2.14 the app requires an account (username + password, no email) and uses our story/submission API. Your profile, chats, memories, progress, and settings still stay on your device.',
     ],
   },
   {
-    heading: '2. No account, no cloud sync',
+    heading: '2. Accounts, sign-in and recovery',
     body: [
-      'There is no account creation, no login, no signup, and no mandatory cloud sync. If you uninstall the app or lose your device without an exported backup, your data cannot be recovered by us — because we never had it.',
-      'Use Settings → Storage → Export My Data to move your progress between devices.',
+      'An account is required to use Kissa. It is a username and a password only — we never ask for an email address, phone number, or real name.',
+      'Because there is no email, password recovery works through: (a) the one-time recovery code shown at signup, (b) a reset from a device that is already signed in, or (c) a manual request the Kissa team verifies against one of your submissions. Keep your recovery code safe — if all three are lost, the account cannot be restored.',
+      'Never share your password or recovery code. Anyone holding them can use your account.',
+      'Your chats, memories and saves are NOT cloud-synced; they stay on the device. Use Settings → Storage → Export My Data to move them between devices.',
     ],
   },
   {
@@ -97,7 +99,7 @@ export const TERMS_SECTIONS: LegalSection[] = [
   {
     heading: '12. Termination & deletion',
     body: [
-      'There is no account to terminate. You can stop using the app at any time. Settings → Storage → Delete All Local Data wipes your on-device data; uninstalling also removes it.',
+      'You can delete your account at any time in Settings → Account. That removes the login, its sessions and its notifications from our server. Settings → Storage → Delete All Local Data wipes your on-device data; uninstalling also removes it.',
     ],
   },
   {

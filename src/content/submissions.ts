@@ -304,3 +304,95 @@ export function formatRemaining(ms: number): string {
   if (h > 0) return `${h}h ${m}m`;
   return `${m}m`;
 }
+
+/* ---------------- admin: accounts, personal notifications, recovery ---------------- */
+
+export interface AdminAccountRow {
+  id: string;
+  username: string;
+  displayName: string;
+  status: string;
+  createdAt: string;
+  lastLoginAt: string | null;
+  counts: { total: number; pending: number; accepted: number; rejected: number };
+}
+
+export interface AdminAccountSubmission {
+  id: string;
+  type: 'idea' | 'story';
+  title: string;
+  genre: string | null;
+  status: 'pending' | 'accepted' | 'rejected' | 'expired';
+  submittedAt: string;
+  decidedAt: string | null;
+}
+
+/** Every account with how many (and which) submissions it made. */
+export async function listAdminAccounts(
+  apiBase?: string,
+): Promise<{ accounts: AdminAccountRow[]; unclaimed: number }> {
+  return request<{ accounts: AdminAccountRow[]; unclaimed: number }>('admin/accounts', {}, { apiBase, admin: true });
+}
+
+export async function getAdminAccount(
+  id: string,
+  apiBase?: string,
+): Promise<{ account: Omit<AdminAccountRow, 'counts'>; submissions: AdminAccountSubmission[] }> {
+  return request<{ account: Omit<AdminAccountRow, 'counts'>; submissions: AdminAccountSubmission[] }>(
+    `admin/accounts/${encodeURIComponent(id)}`,
+    {},
+    { apiBase, admin: true },
+  );
+}
+
+/** Send one account a personal message (shows up under the Home bell). */
+export async function notifyAccountAdmin(
+  id: string,
+  title: string,
+  body: string,
+  apiBase?: string,
+): Promise<{ ok: boolean; id: string }> {
+  return request<{ ok: boolean; id: string }>(
+    `admin/accounts/${encodeURIComponent(id)}/notify`,
+    { method: 'POST', body: JSON.stringify({ title, body }) },
+    { apiBase, admin: true },
+  );
+}
+
+export interface AdminRecoveryRequest {
+  id: string;
+  username: string;
+  proofId: string;
+  createdAt: string;
+}
+
+export async function listRecoveryRequestsAdmin(apiBase?: string): Promise<AdminRecoveryRequest[]> {
+  const res = await request<{ requests: AdminRecoveryRequest[] }>('admin/recovery', {}, { apiBase, admin: true });
+  return res.requests ?? [];
+}
+
+/** Approving returns the one-time code the admin hands to the user. */
+export async function decideRecoveryAdmin(
+  id: string,
+  action: 'approve' | 'reject',
+  apiBase?: string,
+): Promise<{ status: string; recoveryCode?: string }> {
+  return request<{ status: string; recoveryCode?: string }>(
+    `admin/recovery/${encodeURIComponent(id)}/${action}`,
+    { method: 'POST', body: '{}' },
+    { apiBase, admin: true },
+  );
+}
+
+/** Move the "minimum app version" switch that blocks older installs. */
+export async function setMinVersionAdmin(
+  minVersion: string,
+  message: string,
+  apiBase?: string,
+): Promise<{ ok: boolean; minVersion: string }> {
+  return request<{ ok: boolean; minVersion: string }>(
+    'admin/version',
+    { method: 'POST', body: JSON.stringify({ minVersion, message }) },
+    { apiBase, admin: true },
+  );
+}

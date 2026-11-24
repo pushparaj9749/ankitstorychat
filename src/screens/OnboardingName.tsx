@@ -50,8 +50,8 @@ export function OnboardingName({ navigation }: Props) {
 
           <Text style={[styles.title, { color: theme.text }]}>What should we call you?</Text>
           <Text style={[styles.sub, { color: theme.textDim }]}>
-            Yehi naam story ke characters use karenge. Koi account nahi, koi password nahi — bas tum aur
-            tumhari interactive kahaniyan.
+            Yehi naam story ke characters use karenge. Account ban chuka hai — ab bas apna naam aur
+            catalog choose karo.
           </Text>
 
           <View

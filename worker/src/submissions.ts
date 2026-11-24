@@ -37,6 +37,7 @@ import {
   bytesFromBase64,
 } from './media';
 import type { ImageMime, MediaKind } from './media';
+import { dbFor } from './accounts/store';
 
 export const SUBMISSION_TTL_SECONDS = 24 * 60 * 60; // 24h
 /** How long a rejection marker answers status checks. */
@@ -117,6 +118,12 @@ export interface Env {
   RATE_LIMITER?: { limit(input: { key: string }): Promise<{ success: boolean }> };
   /** KV namespace binding (configured in wrangler.jsonc). */
   KISSA_SUBMISSIONS?: KVNamespace;
+  /**
+   * D1 database binding for accounts + submissions (configured in
+   * wrangler.jsonc by CI). When absent, an in-memory shim is used for local
+   * dev/tests — production always has it.
+   */
+  KISSA_DB?: D1Database;
   /** Admin bearer token (secret). Any non-empty value enables admin routes. */
   ADMIN_TOKEN?: string;
 }
@@ -754,7 +761,12 @@ export function validateStorySubmission(input: StoryInput): {
   };
 }
 
-export async function submitIdea(env: Env, input: IdeaInput, client?: string): Promise<Response> {
+export async function submitIdea(
+  env: Env,
+  input: IdeaInput,
+  client?: string,
+  accountId?: string | null,
+): Promise<Response> {
   const v = validateIdea(input);
   if (!v.ok || !v.cleaned) return json({ ok: false, issues: v.issues }, 400);
 
@@ -793,11 +805,21 @@ export async function submitIdea(env: Env, input: IdeaInput, client?: string): P
   };
   await saveSubmission(kvFor(env), sub);
   await addToIndex(kvFor(env), 'idea', id);
+  // D1 mirror: the durable record that powers "My Submissions" and the admin
+  // account view. KV stays the pipeline storage — a failed mirror never fails
+  // the submission (the app keeps its local copy and `/api/me/submissions`
+  // simply lists nothing until the backfill runs).
+  await mirrorSubmission(env, sub, accountId ?? null);
 
   return json({ ok: true, id, type: 'idea', creatorName: v.cleaned.creatorName, resetsAt: limit.resetsAt, expiresAt }, 201);
 }
 
-export async function submitStory(env: Env, input: StoryInput, client?: string): Promise<Response> {
+export async function submitStory(
+  env: Env,
+  input: StoryInput,
+  client?: string,
+  accountId?: string | null,
+): Promise<Response> {
   if (rawSize(input) > 500_000) return err(413, 'payload_too_large', 'Submission is too large (max 500KB).');
 
   const v = validateStorySubmission(input);
@@ -851,8 +873,51 @@ export async function submitStory(env: Env, input: StoryInput, client?: string):
   };
   await saveSubmission(kvFor(env), sub);
   await addToIndex(kvFor(env), 'story', id);
+  await mirrorSubmission(env, sub, accountId ?? null);
 
   return json({ ok: true, id, type: 'story', creatorName: v.cleaned.creatorName, resetsAt: limit.resetsAt, expiresAt }, 201);
+}
+
+/**
+ * Write (or refresh) the D1 mirror row for a submission. Best-effort: the KV
+ * record remains the pipeline of record, so a D1 hiccup must never turn a
+ * successful submission into an error for the user.
+ */
+export async function mirrorSubmission(
+  env: Env,
+  sub: Submission,
+  accountId: string | null,
+): Promise<void> {
+  try {
+    await dbFor(env)
+      .prepare(
+        `INSERT INTO submissions
+         (id, account_id, type, status, title, genre, creator_name, payload,
+          submitted_at, expires_at, decided_at, client)
+         VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+         ON CONFLICT(id) DO UPDATE SET
+           account_id = COALESCE(submissions.account_id, excluded.account_id),
+           status = excluded.status,
+           decided_at = excluded.decided_at`,
+      )
+      .bind(
+        sub.id,
+        accountId,
+        sub.type,
+        sub.status,
+        sub.title,
+        sub.genre ?? null,
+        sub.creator.name,
+        JSON.stringify(sub.payload),
+        sub.submittedAt,
+        sub.expiresAt,
+        null,
+        sub.client ?? null,
+      )
+      .run();
+  } catch {
+    // D1 unavailable — never block the submission on the mirror.
+  }
 }
 
 function rawSize(o: unknown): number {
@@ -875,6 +940,44 @@ export function isAdmin(request: Request, env: Env): boolean {
   let diff = 0;
   for (let i = 0; i < auth.length; i++) diff |= auth.charCodeAt(i) ^ expected.charCodeAt(i);
   return diff === 0;
+}
+
+/** D1 mirror lookup: which account owns this submission (null = anonymous). */
+async function accountForSubmission(env: Env, id: string): Promise<string | null> {
+  try {
+    const row = await dbFor(env)
+      .prepare('SELECT account_id FROM submissions WHERE id = ?')
+      .bind(id)
+      .first<{ account_id: string | null }>();
+    return row?.account_id ?? null;
+  } catch {
+    return null;
+  }
+}
+
+/** D1 mirror status update + owner notification (best-effort, never throws). */
+async function recordDecision(
+  env: Env,
+  sub: Submission,
+  status: 'accepted' | 'rejected',
+): Promise<void> {
+  try {
+    const accountId = await accountForSubmission(env, sub.id);
+    const decidedAt = new Date().toISOString();
+    await dbFor(env)
+      .prepare('UPDATE submissions SET status = ?, decided_at = ? WHERE id = ?')
+      .bind(status, decidedAt, sub.id)
+      .run();
+    if (!accountId) return;
+    const { notifySubmissionAccepted, notifySubmissionRejected } = await import('./accounts/service');
+    if (status === 'accepted') {
+      await notifySubmissionAccepted(env, { accountId, submissionId: sub.id, title: sub.title });
+    } else {
+      await notifySubmissionRejected(env, { accountId, submissionId: sub.id, title: sub.title });
+    }
+  } catch {
+    // Notification/mirror failures must never break the admin action.
+  }
 }
 
 async function collectPending(kv: KVNamespace | undefined, type: SubmissionType): Promise<Submission[]> {
@@ -918,6 +1021,7 @@ export async function rejectSubmission(env: Env, id: string): Promise<Response> 
   await kvFor(env)?.put(rejKey(id), '1', { expirationTtl: REJECTED_MARKER_TTL_SECONDS });
   // Rejected stories never ship — their uploads must not linger in storage.
   await cleanupMediaForSubmission(kvFor(env), sub);
+  await recordDecision(env, sub, 'rejected');
   return json({ ok: true });
 }
 
@@ -959,6 +1063,7 @@ export async function acceptIdea(env: Env, id: string): Promise<Response> {
     await kvFor(env).put(accKey(id), JSON.stringify(sub));
   }
   await deleteSubmission(kvFor(env), id, 'idea');
+  await recordDecision(env, sub, 'accepted');
   return json({ ok: true, id });
 }
 
@@ -1195,6 +1300,8 @@ export async function acceptAndPublishStory(env: Env, id: string): Promise<Respo
   const ids = await readAcceptedIndex(kv);
   if (!ids.includes(id)) { ids.push(id); await writeAcceptedIndex(kv, ids); }
   await deleteSubmission(kv, id, 'story');
+  sub.title = typeof story.title === 'string' ? story.title : sub.title;
+  await recordDecision(env, sub, 'accepted');
   return json({ ok: true, id, storyDir: check.storyDir });
 }
 
