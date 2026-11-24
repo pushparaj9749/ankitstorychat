@@ -32,8 +32,31 @@ per-IP rate limiting):
 |---|---|
 | `CLOUDFLARE_API_TOKEN` | Cloudflare token with **Workers Scripts:Edit** (+ Account:Read). Create at dash.cloudflare.com/profile/api-tokens → "Edit Cloudflare Workers" template. |
 | `CLOUDFLARE_ACCOUNT_ID` | Cloudflare account id (Workers & Pages overview, right sidebar). |
+| `CLOUDFLARE_D1_API_TOKEN` *(optional but needed for accounts)* | Token with **Account → D1 → Edit**. The D1 database (`accounts` + `submissions`) is created/migrated by CI, and the "Edit Cloudflare Workers" template does **not** include D1. See below. |
 
 The deploy job **fails with these exact names** if they are missing — no insecure fallback.
+
+### Accounts database (D1) — one-time Cloudflare permission
+
+From v2.14 the Worker stores accounts, submissions, notifications and the
+minimum-app-version switch in Cloudflare D1 (KV keeps the review pipeline and
+published community stories). CI creates the `kissa-db` database, applies
+`worker/migrations/*.sql` and injects its id into `wrangler.jsonc` on every
+deploy — no ids are committed.
+
+If the deploy fails at **“Create/migrate the Kissa D1 database”** with
+`Cloudflare API 401 … Authentication error`, the token simply lacks D1 access.
+Pick either:
+
+1. **Edit the existing token** — dash.cloudflare.com/profile/api-tokens →
+   edit the token used by `CLOUDFLARE_API_TOKEN` → add
+   **Account · D1 · Edit** (keep the existing Workers permissions) → save.
+2. **Dedicated token** — create a token with just **Account · D1 · Edit** and
+   save it as the repo secret `CLOUDFLARE_D1_API_TOKEN`. CI prefers it over the
+   Workers token for D1 work.
+
+Then re-run *Deploy story API (Cloudflare Worker)*. Everything is idempotent, so
+a re-run is always safe.
 
 ## Manual Cloudflare steps (one-time; needs account access)
 
