@@ -150,11 +150,50 @@ export interface StoryMeta {
   popularity: number;
   /** Directory name under content/stories (and under the remote repo). */
   storyDir: string;
+  /**
+   * Optional story-level UI hints. A story can ask for a relationship meter the
+   * author described in the submission (e.g. "Love Meter + Hate Meter, start
+   * 0/100 and 100/100") instead of leaving the reader to see nothing.
+   * Omitted = today's behaviour (mood chip only).
+   */
+  meters?: StoryMeterConfig;
   /** Story creator (defaults to Ankit for owner-produced content). */
   creator?: StoryCreator;
   /** Community-submitted story accepted by admin (served from KV package). */
   community?: boolean;
   updatedAt: string;
+}
+
+/**
+ * One displayed meter for the story's lead relationship.
+ *
+ * The NUMBERS are never authored per-turn — they come from the same world-state
+ * ledger the narrator already maintains (affection / trust / tension), so the
+ * bar always agrees with the story. The author only says what to call it and
+ * how to read it.
+ */
+export interface StoryMeter {
+  /** Stable id; also the key the app uses to remember it. */
+  id: string;
+  /** Short label under the bar, e.g. "Love" or "Hate". */
+  label: string;
+  /**
+   * Where the value comes from in the relationship ledger:
+   *  - "affection": how much they like the reader
+   *  - "trust": how much they trust the reader
+   *  - "hate": 100 − (affection·0.6 + trust·0.4) — a real inverse, not a copy
+   *  - "tension": open conflict right now
+   */
+  source: 'affection' | 'trust' | 'hate' | 'tension';
+  /** Optional starting value (0-100) before the story records anything. */
+  start?: number;
+}
+
+export interface StoryMeterConfig {
+  /** Which character the meters describe. Defaults to the first character. */
+  characterId?: string;
+  /** 1-2 meters are shown; more would clutter the header. */
+  meters: StoryMeter[];
 }
 
 export interface ContentManifest {

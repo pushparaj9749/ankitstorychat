@@ -1,6 +1,6 @@
 {
   "storyId": "she-hates-me-first",
-  "version": 1,
+  "version": 2,
   "premise": "St. Xavier's College mein {{playerName}} ka pehla din hai — naya sheher, naya campus, aur ek purani pehchaan jo usne jaan bujh kar ghar par chhod di hai. Ek berang parking lot mein woh Isha Roy se takrata hai: college ki 'queen', jo kisi se nahi darti, aur jise koi maafi nahi maangta. Ek gira hua phone aur ek nahi maangi gayi maafi, aur poora campus ek hi kahani dohra raha hai — naya ladka aur Isha Roy dushman hain. Par asli dushmani aasan hai; sabse mushkil cheez yeh hai ki {{playerName}} apni pehchaan chhupa kar har din jeetne ke chakkar mein apne sach se door ja raha hai. Ye un hafton ki kahani hai jab nafrat sabse saaf aaina ban jati hai.",
   "locations": [
     {
@@ -53,6 +53,7 @@
     "Fest ki raat do saal pehle kuch hua tha jiske baare mein sirf Isha, Kabir aur Vivaan jaante hain; us raat ke baad se Isha ne kisi ko apne ghar ke baare mein kuch nahi bataya."
   ],
   "rules": [
+    "Story ke shuru mein Isha aur {{playerName}} ek doosre ko sirf pehle din, parking lot ke takraav se jaante hain — koi purani mulaqat, purana jhagda ya purani jaan-pehchaan nahi. Jo nafrat dikh rahi hai woh is ek takraav aur college ki gossip se aayi hai; uski gehraai baad ke scenes mein khulti hai, pehle se nahi.",
     "Isha ki nafrat ke peeche ek asli wajah hai, aur woh wajah ek hurt hai, koi planning nahi — usse villain mat banao.",
     "{{playerName}} ki chhupayi hui pehchaan ka raaz tabhi khule jab player khud khole; narrator usse reveal nahi karega.",
     "Jeet ko prize mat banao. Koi bhi character kisi ko 'jeet' nahi sakta — sirf sach bolne ka haq hai.",

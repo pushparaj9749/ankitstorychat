@@ -21,6 +21,7 @@ import { createInitialState } from '../types';
 import { teenSafetyGuidance } from './ageGate';
 import { isFullyFadedLine, matchSpeakerPrefix } from './markup';
 import { MAX_MEMORY_NOTES, renderMemoryLine } from './memoryCore';
+import { meterPromptLine } from './storyMeters';
 import { interpolatePlayerName } from './playerName';
 import { guardVisibleText, sanitizeStoredText, type GuardResult } from './leakGuard';
 import { clamp, norm, tokens } from './utils';
@@ -1000,6 +1001,7 @@ export function buildPrivateNotes(input: PromptInput): string {
   const knows = knowledgeLines(bundle);
   const lore = bundle.world.lore?.length ? bundle.world.lore.join(' | ') : '';
   const baseline = relationshipBaselineLines(bundle);
+  const meters = meterPromptLine(bundle.meta?.meters);
   const roster = sceneRosterLine(bundle, input.worldState ?? null);
 
   const stateBlock = worldBlock
@@ -1015,7 +1017,7 @@ export function buildPrivateNotes(input: PromptInput): string {
 ${stage1}${recallRule}STAGE 3 — KEY FACTS (established canon; act on them silently, never announce them)
 ${stateBlock}
 
-${roster ? `${roster}\n\n` : ''}${baseline ? `RELATIONSHIP WITH THE READER (the character sheet — where each bond STARTED; only events in the story move it):\n${baseline}\n\n` : ''}${knows ? `CHARACTER KNOWLEDGE (who knows what — a character may act only on their own line):\n${knows}\n\n` : ''}${lore ? `LORE (background canon; any hidden truth here is revealed only through story events, never stated):\n${lore}\n\n` : ''}${storyMemoryBlock}WHAT YOU REMEMBER ABOUT THIS READER'S JOURNEY (most relevant first — this is ALREADY known, so never repeat it back, just act on it):
+${roster ? `${roster}\n\n` : ''}${baseline ? `RELATIONSHIP WITH THE READER (the character sheet — where each bond STARTED; only events in the story move it):\n${baseline}\n\n` : ''}${meters ? `${meters}\n\n` : ''}${knows ? `CHARACTER KNOWLEDGE (who knows what — a character may act only on their own line):\n${knows}\n\n` : ''}${lore ? `LORE (background canon; any hidden truth here is revealed only through story events, never stated):\n${lore}\n\n` : ''}${storyMemoryBlock}WHAT YOU REMEMBER ABOUT THIS READER'S JOURNEY (most relevant first — this is ALREADY known, so never repeat it back, just act on it):
 ${memLines}
 
 ${immediateBlock}${PRIVATE_NOTES_CLOSE}`;
