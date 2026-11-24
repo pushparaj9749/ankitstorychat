@@ -64,3 +64,4 @@ private-key.pem
 # ...but the public certificate must be in the repo: app.json pins it and the
 # app refuses updates it cannot verify with it.
 !assets/certificate.pem
+OTA_SIGNING_KEY.txt
