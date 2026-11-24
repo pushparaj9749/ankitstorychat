@@ -80,6 +80,18 @@ async function findOrCreateDatabase() {
   return { id: created.uuid || created.id, created: true };
 }
 
+/** Strip `--` comment lines (keeping quoted text intact) and split on `;`. */
+function splitStatements(sql) {
+  const withoutComments = sql
+    .split('\n')
+    .filter((line) => !/^\s*--/.test(line))
+    .join('\n');
+  return withoutComments
+    .split(';')
+    .map((s) => s.trim())
+    .filter((s) => s.length > 0);
+}
+
 async function runMigrations(dbId) {
   const files = fs
     .readdirSync(MigrationsDir)
@@ -87,14 +99,15 @@ async function runMigrations(dbId) {
     .sort();
   for (const f of files) {
     const sql = fs.readFileSync(path.join(MigrationsDir, f), 'utf8');
-    // D1's HTTP API accepts one statement per request; split on semicolons at
-    // end-of-line (our migrations never contain semicolons inside literals).
-    const statements = sql
-      .split(/;\s*\n/)
-      .map((s) => s.trim())
-      .filter((s) => s && !s.startsWith('--'));
+    const statements = splitStatements(sql);
+    // Every statement is idempotent (CREATE … IF NOT EXISTS / INSERT OR IGNORE),
+    // so re-running the migration on each deploy is safe.
     for (const statement of statements) {
-      await cfApi('POST', `/d1/database/${dbId}/query`, { sql: statement });
+      try {
+        await cfApi('POST', `/d1/database/${dbId}/query`, { sql: statement });
+      } catch (e) {
+        throw new Error(`migration ${f} failed on statement:\n${statement.slice(0, 200)}\n\n${e.message}`);
+      }
     }
     console.log(`Applied migration ${f} (${statements.length} statements)`);
   }
@@ -118,6 +131,22 @@ function injectId(file, id) {
   fs.writeFileSync(file, s);
 }
 
+/** Failure path: leave a readable GitHub annotation (logs may be inaccessible). */
+function fail(message) {
+  const clean = String(message || 'unknown error').replace(/\r?\n/g, ' ').slice(0, 900);
+  console.error(clean);
+  console.log(`::error title=D1 setup failed::${clean}`);
+  const summary = process.env.GITHUB_STEP_SUMMARY;
+  if (summary) {
+    try {
+      fs.appendFileSync(summary, `### D1 setup failed\n\n\`\`\`\n${clean}\n\`\`\`\n`);
+    } catch {
+      /* ignore */
+    }
+  }
+  process.exit(1);
+}
+
 (async () => {
   console.log('Checking/creating Kissa D1 database via Cloudflare API...');
   const { id, created } = await findOrCreateDatabase();
@@ -125,7 +154,4 @@ function injectId(file, id) {
   await runMigrations(id);
   injectId(Wrangler, id);
   console.log('Injected D1 id into', path.relative(process.cwd(), Wrangler));
-})().catch((e) => {
-  console.error(e && e.stack ? e.stack : e);
-  process.exit(1);
-});
+})().catch((e) => fail(e && e.stack ? e.stack : e));
