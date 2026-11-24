@@ -69,6 +69,15 @@ its CI or its APK.
 
 ## 🆕 Release notes
 
+### v2.14.0 — Accounts, submissions under your name, and a real block for old installs
+
+- **Mandatory accounts.** Username + password (no email), on Cloudflare D1. The whole app sits behind the gate: sign up / log in first, then the usual nickname and age check. Chats, memories, saves, favourites and playthroughs stay **on the device** and are untouched by signup — the DB only ever holds accounts, submissions, statuses, notifications and app config.
+- **Submissions belong to you.** `POST /api/submit/*` now requires a session. Ideas and stories already submitted from this device are auto-claimed into the new account on signup, and **My Submissions** reads statuses from the server.
+- **Old builds are blocked for real.** An install that sends no `X-Kissa-Version` (2.13.x and earlier) gets `426 update_required` on every submission, so it is pushed to the update wall instead of half-working.
+- **Notifications bell in the Home corner** with an unread badge; when an idea is accepted the reader hears it, along with the "3 ghante me live" promise.
+- **Recovery without email** — a single-use, rotating recovery code shown at signup, same-device reset, and admin-assisted recovery.
+- **Support:** `ytdjbhai34@gmail.com`.
+
 ### v2.13.1 — Update banner that actually appears, memory that never fails silently, and Tunnel 6
 
 Three reader-facing fixes plus a new story. No new pre-reply AI call, no server-side memory, nothing new collected.

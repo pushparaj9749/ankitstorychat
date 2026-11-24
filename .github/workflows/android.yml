@@ -16,6 +16,9 @@ on:
     tags: ['v*']
     # Remote story publication and its tests/docs do not change APK contents.
     # Tags and manual dispatch still build; app/runtime changes still build.
+    # This workflow file is deliberately NOT ignored: a fix to the build or
+    # release step must be able to produce a new APK. Version files are never
+    # ignored either — a version bump has to rebuild and republish.
     paths-ignore:
       - 'content/**'
       - 'README.md'
@@ -56,7 +59,6 @@ on:
       - 'docs/COVER_GUIDE.md'
       - 'docs/ANGEL_NEXT_DOOR_PUBLICATION.md'
       - 'worker/__tests__/ota-catalog.test.ts'
-      - '.github/workflows/android.yml'
       - '.github/workflows/deploy-api.yml'
       - 'scripts/verify-published-story.mjs'
   pull_request:
@@ -99,7 +101,6 @@ on:
       - 'docs/COVER_GUIDE.md'
       - 'docs/ANGEL_NEXT_DOOR_PUBLICATION.md'
       - 'worker/__tests__/ota-catalog.test.ts'
-      - '.github/workflows/android.yml'
       - '.github/workflows/deploy-api.yml'
       - 'scripts/verify-published-story.mjs'
   workflow_dispatch:
@@ -209,7 +210,17 @@ jobs:
 
       - name: Rename APK
         run: |
+          # The installed app reports expo.version (app.json) to the version
+          # gate, while the release asset and the store listing come from the
+          # package version. A v2.14.0 build was once published as
+          # kissa-v2.13.1.apk because these two drifted — refuse to publish
+          # a mismatched pair instead of shipping a mislabelled APK.
           VERSION=$(node -p "require('./package.json').version")
+          EXPO_VERSION=$(node -p "require('./app.json').expo.version")
+          if [ "$VERSION" != "$EXPO_VERSION" ]; then
+            echo "::error title=Version mismatch::package.json is $VERSION but app.json is $EXPO_VERSION"
+            exit 1
+          fi
           mkdir -p dist-apk
           cp "$(ls -1 android/app/build/outputs/apk/release/*.apk | head -n1)" "dist-apk/kissa-v${VERSION}.apk"
           ls -la dist-apk/

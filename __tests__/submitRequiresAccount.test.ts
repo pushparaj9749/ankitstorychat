@@ -60,3 +60,18 @@ describe('worker blocks submissions without an account', () => {
     expect(submitBlock).toMatch(/submitStory\(env, body as Record<string, unknown>, client, submitAccountId\)/);
   });
 });
+
+describe('release identity', () => {
+  it('package.json and app.json agree, so the APK is not published under an old version', () => {
+    const pkg = JSON.parse(read('package.json')) as { version: string };
+    const app = JSON.parse(read('app.json')) as { expo: { version: string; android: { versionCode: number } } };
+    // The Android workflow names the APK from package.json but the install's
+    // on-device version (sent as X-Kissa-Version) comes from app.json. If the
+    // two drift, the release ships labelled with the previous version and the
+    // version gate can never recognise the new build.
+    expect(pkg.version).toBe(app.expo.version);
+    expect(app.expo.version).toMatch(/^\d+\.\d+\.\d+$/);
+    // versionCode must move with the version, or Android refuses the upgrade.
+    expect(app.expo.android.versionCode).toBeGreaterThanOrEqual(46);
+  });
+});
