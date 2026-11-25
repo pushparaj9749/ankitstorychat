@@ -415,28 +415,61 @@ export async function cachedUpdateRequired(): Promise<boolean> {
 }
 
 /**
+ * Forget the remembered 426.
+ *
+ * The cached flag is a FALLBACK for "we could not reach the server", never a
+ * verdict. It used to be write-only: one 426 (from any build, any day) pinned
+ * the update wall forever, even after the server's minimum went back below the
+ * installed version — users stayed locked out of a perfectly current app.
+ */
+export async function clearUpdateRequired(): Promise<void> {
+  await kvSet('update.required', '');
+}
+
+/**
  * Launch check: is this install older than the server's minimum?
  *
  * The server also blocks older installs (426) on every account route, so this
  * is the friendly, offline-tolerant version of the same rule: unknown/offline
  * answers never block the app.
  */
-export async function isUpdateRequired(apiBase?: string | null): Promise<boolean> {
+export async function isUpdateRequired(
+  apiBase?: string | null,
+): Promise<{ required: boolean; minVersion: string | null; currentVersion: string }> {
+  const currentVersion = appVersion();
   try {
     const { minVersion } = await fetchMinVersion(apiBase);
     const parse = (v: string): number[] | null => {
       const m = String(v).trim().match(/^v?(\d+)(?:\.(\d+))?(?:\.(\d+))?/);
       return m ? [Number(m[1]), Number(m[2] ?? 0), Number(m[3] ?? 0)] : null;
     };
-    const cur = parse(appVersion());
+    const cur = parse(currentVersion);
     const min = parse(minVersion);
-    if (!cur || !min) return false;
-    for (let i = 0; i < 3; i++) {
-      if (cur[i] < min[i]) return true;
-      if (cur[i] > min[i]) return false;
+    if (!cur || !min) {
+      // Unparseable answer: do not block, and do not trust the old flag either.
+      await clearUpdateRequired();
+      return { required: false, minVersion: null, currentVersion };
     }
-    return false;
+    let required = false;
+    for (let i = 0; i < 3; i++) {
+      if (cur[i] < min[i]) {
+        required = true;
+        break;
+      }
+      if (cur[i] > min[i]) break;
+    }
+    // The server just answered: THAT is the truth. A stale 426 from an earlier
+    // build must never outvote a fresh "you are fine".
+    if (required) await kvSet('update.required', '1');
+    else await clearUpdateRequired();
+    return { required, minVersion, currentVersion };
   } catch {
-    return false;
+    // Offline / server unreachable: this is the only case where the remembered
+    // flag may still block, so a known-outdated install does not sneak in.
+    return {
+      required: await cachedUpdateRequired().catch(() => false),
+      minVersion: null,
+      currentVersion,
+    };
   }
 }

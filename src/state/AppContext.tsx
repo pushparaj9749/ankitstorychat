@@ -72,6 +72,10 @@ interface AppState {
   accountChecked: boolean;
   /** True when the loaded install must be updated before anything works. */
   updateRequired: boolean;
+  /** Server minimum this build was judged against (null when unknown). */
+  minVersion: string | null;
+  /** Re-ask the server whether this install is still blocked. */
+  recheckUpdateGate: () => Promise<boolean>;
 
   saveProfile: (p: LocalProfile) => Promise<void>;
   setAccount: (a: AccountInfo | null) => Promise<void>;
@@ -107,6 +111,7 @@ export function AppProvider({ children }: { children: React.ReactNode }) {
   const [unread, setUnread] = useState(0);
   const [accountChecked, setAccountChecked] = useState(false);
   const [updateRequired, setUpdateRequired] = useState(false);
+  const [minVersion, setMinVersion] = useState<string | null>(null);
 
   const refreshProviders = useCallback(async () => {
     const list = await listProviders();
@@ -164,6 +169,20 @@ export function AppProvider({ children }: { children: React.ReactNode }) {
     [settings?.contentApiBaseUrl],
   );
 
+  /**
+   * Ask the server again and close/keep the wall from ITS answer.
+   *
+   * The wall must never be a one-way door: a stale 426 used to keep it up even
+   * after the server's minimum dropped below the installed version. Returns
+   * whether the update is (still) required.
+   */
+  const recheckUpdateGate = useCallback(async () => {
+    const gate = await isUpdateRequired(settings?.contentApiBaseUrl);
+    setUpdateRequired(gate.required);
+    setMinVersion(gate.minVersion);
+    return gate.required;
+  }, [settings?.contentApiBaseUrl]);
+
   const reloadAll = useCallback(async () => {
     const [p, s] = await Promise.all([getProfile(), getSettings()]);
     setProfile(p);
@@ -203,8 +222,12 @@ export function AppProvider({ children }: { children: React.ReactNode }) {
         if (cached) setAccountState(cached);
         const hasToken = !!(await getToken());
         // v2.14: an install older than the server minimum cannot use the app.
-        // Server minimum (fresh) OR a 426 remembered from an earlier call.
-        setUpdateRequired((await isUpdateRequired(apiBase)) || (await cachedUpdateRequired()));
+        // The SERVER's answer decides; the remembered 426 is only an offline
+        // fallback. Chaining it with || here pinned the wall forever after a
+        // single old 426 (users locked out of a current, working app).
+        const gate = await isUpdateRequired(apiBase);
+        setUpdateRequired(gate.required);
+        setMinVersion(gate.minVersion);
         if (hasToken) {
           const fresh = await refreshAccount(apiBase).catch(() => null);
           setAccountState(fresh?.account ?? null);
@@ -277,6 +300,8 @@ export function AppProvider({ children }: { children: React.ReactNode }) {
       unread,
       accountChecked,
       updateRequired,
+      minVersion,
+      recheckUpdateGate,
       saveProfile,
       setAccount,
       refreshUnread: refreshUnreadBadge,
@@ -302,6 +327,8 @@ export function AppProvider({ children }: { children: React.ReactNode }) {
     unread,
     accountChecked,
     updateRequired,
+    minVersion,
+    recheckUpdateGate,
     saveProfile,
     setAccount,
     refreshUnreadBadge,
