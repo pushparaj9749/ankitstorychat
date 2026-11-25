@@ -22,6 +22,8 @@ import { useApp } from '../../state/AppContext';
 import { FADED_TEXT_OPACITY, GRADIENTS, RADIUS, SCALE, SHADOWS, SPACING, TOUCH, withAlpha, FONTS, TEXT_SIZE_MULTIPLIER } from './theme';
 import { parseStoryMarkup, stripStoryMarkup } from '../../lib/markup';
 import { sanitizeStoredText } from '../../lib/leakGuard';
+import { parseMeterLine } from '../../lib/storyMeters';
+import { MeterLine, type MeterProps } from '../../components/chat';
 import { Avatar } from '../../components/bits';
 import { Icon, ICON_SIZE } from '../../components/icons';
 
@@ -80,7 +82,7 @@ function NarratorMark() {
   );
 }
 
-function ChatBubbleImpl({ message: stored }: { message: ChatMessage }) {
+function ChatBubbleImpl({ message: stored, meterValues, meterLabels }: { message: ChatMessage } & MeterProps) {
   const { theme, settings } = useApp();
   // v2.7.0: messages saved by older versions may carry leaked notes — clean
   // them on render (reader text is never touched).
@@ -89,6 +91,18 @@ function ChatBubbleImpl({ message: stored }: { message: ChatMessage }) {
     const clean = sanitizeStoredText(stored.text);
     return clean && clean !== stored.text ? { ...stored, text: clean } : stored;
   }, [stored]);
+  // v2.16.1: the narrator puts "❤️ 12/100 · 💔 88/100" on the first line of a
+  // metered story's reply; lift it above the bubble instead of inside the prose.
+  const parsedMeters = useMemo(
+    () => (stored.role === 'assistant' || stored.role === 'narration' ? parseMeterLine(message.text) : null),
+    [message.text, stored.role],
+  );
+  const bodyText = parsedMeters?.rest ?? message.text;
+  const showMeters =
+    (stored.role === 'assistant' || stored.role === 'narration') &&
+    !!meterLabels?.length &&
+    (parsedMeters?.values?.length ?? meterValues?.length ?? 0) > 0;
+  const shownValues = parsedMeters?.values?.length ? parsedMeters.values : meterValues;
   const scale = TEXT_SIZE_MULTIPLIER[settings.textSize];
   const bodySize = FONTS.body * scale;
   const smallBody = 14.5 * scale;
@@ -108,7 +122,9 @@ function ChatBubbleImpl({ message: stored }: { message: ChatMessage }) {
 
     // Narration — same layout shape as dialogue (see file header).
     return (
-      <View style={[styles.row, styles.rowLeft]}>
+      <View style={styles.meterStack}>
+        {showMeters ? <MeterLine labels={meterLabels} values={shownValues} icons={parsedMeters?.icons} /> : null}
+        <View style={[styles.row, styles.rowLeft]}>
         {message.speaker ? <Avatar id={message.speaker} name={message.speaker} size={30} /> : <NarratorMark />}
         <View
           style={[
@@ -120,13 +136,14 @@ function ChatBubbleImpl({ message: stored }: { message: ChatMessage }) {
           <LinearGradient colors={['rgba(255,79,139,0.05)', 'transparent']} style={styles.bubbleGlow} pointerEvents="none" />
           <View style={[styles.accentEdge, { backgroundColor: 'transparent' }]} pointerEvents="none" />
           <StoryText
-            text={message.text}
+            text={bodyText}
             color={theme.textDim}
             fadedColor={withAlpha(theme.textDim, FADED_TEXT_OPACITY)}
             fontSize={smallBody}
             lineHeight={22 * scale}
             faded
           />
+        </View>
         </View>
       </View>
     );
@@ -159,9 +176,11 @@ function ChatBubbleImpl({ message: stored }: { message: ChatMessage }) {
   // field; lift that name into the label/avatar instead of repeating it inline.
   const inferred = message.speaker ? null : inferSpeaker(message.text);
   const speaker = message.speaker ?? inferred?.name ?? null;
-  const text = inferred ? inferred.rest : message.text;
+  const text = inferred ? inferred.rest : bodyText;
   return (
-    <View style={[styles.row, styles.rowLeft]}>
+    <View style={styles.meterStack}>
+      {showMeters ? <MeterLine labels={meterLabels} values={shownValues} icons={parsedMeters?.icons} /> : null}
+      <View style={[styles.row, styles.rowLeft]}>
       {speaker ? <Avatar id={speaker} name={speaker} size={30} /> : <NarratorMark />}
       <View
         style={[
@@ -180,6 +199,7 @@ function ChatBubbleImpl({ message: stored }: { message: ChatMessage }) {
         ) : null}
         <StoryText text={text} color={'#fff'} fadedColor={withAlpha(theme.textDim, FADED_TEXT_OPACITY)} fontSize={bodySize} lineHeight={23 * scale} />
       </View>
+      </View>
     </View>
   );
 }
@@ -191,12 +211,20 @@ function ChatBubbleImpl({ message: stored }: { message: ChatMessage }) {
 export const ChatBubble = memo(
   ChatBubbleImpl,
   (a, b) =>
-    a.message === b.message ||
-    (a.message.id === b.message.id &&
-      a.message.text === b.message.text &&
-      a.message.speaker === b.message.speaker &&
-      a.message.role === b.message.role),
+    sameNumbers(a.meterValues, b.meterValues) &&
+    (a.meterLabels?.join('|') ?? '') === (b.meterLabels?.join('|') ?? '') &&
+    (a.message === b.message ||
+      (a.message.id === b.message.id &&
+        a.message.text === b.message.text &&
+        a.message.speaker === b.message.speaker &&
+        a.message.role === b.message.role)),
 );
+
+function sameNumbers(a?: number[], b?: number[]): boolean {
+  if (a === b) return true;
+  if (!a || !b || a.length !== b.length) return false;
+  return a.every((n, i) => n === b[i]);
+}
 
 export function TypingIndicator({ label = 'Story continues…' }: { label?: string }) {
   const { theme } = useApp();
@@ -282,6 +310,7 @@ export function ChoiceChips({
 }
 
 const styles = StyleSheet.create({
+  meterStack: { gap: 4 },
   sceneWrap: {
     flexDirection: 'row',
     alignItems: 'center',
