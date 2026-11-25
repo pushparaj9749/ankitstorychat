@@ -772,12 +772,27 @@ async function handleApi(request: Request, env: Env, url: URL): Promise<Response
 
   switch (route.kind) {
     case 'ota-manifest': {
-      // Expo Updates protocol: the app sends ?platform=android&runtime-version=2.14.0
-      // and expects either a manifest or 204/404 (nothing to do).
-      const platform = (url.searchParams.get('platform') || 'android').toLowerCase();
+      // Expo Updates protocol v1: the app GETs app.json's update url AS-IS and
+      // sends the runtime in a HEADER — it does not add query params
+      // (FileDownloader.createRequestForRemoteUpdate in expo-updates):
+      //
+      //   GET /api/ota/manifest
+      //   Expo-Platform: android
+      //   Expo-Runtime-Version: 2.15.1
+      //
+      // Reading only `?runtime-version` matched nothing, returned 204, and the
+      // app said "already up to date" forever — three OTA releases shipped dead
+      // that way. Accept BOTH (query for curl/manual checks, headers for the app).
+      const headerPlatform = request.headers.get('Expo-Platform');
+      const platform = (
+        url.searchParams.get('platform') ||
+        headerPlatform ||
+        'android'
+      ).toLowerCase();
       const runtime =
         url.searchParams.get('runtime-version') ||
         url.searchParams.get('runtimeVersion') ||
+        request.headers.get('Expo-Runtime-Version') ||
         '';
       const rel = await getOtaRelease(env, platform, runtime);
       if (!rel) {

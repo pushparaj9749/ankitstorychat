@@ -192,3 +192,38 @@ describe('OTA ids must be UUIDs (expo-updates parses them as UUIDs)', () => {
     expect(UUID_RE.test(crypto.randomUUID())).toBe(true);
   });
 });
+
+/**
+ * The second half of the same outage: expo-updates asks with HEADERS, never
+ * query params. Every check we had used ?runtime-version=…, so it passed while
+ * the app got 204 ("already up to date") on every launch.
+ */
+describe('OTA is checked the way the app actually asks', () => {
+  test('the Worker reads Expo-Runtime-Version, not just the query string', () => {
+    const router = read('worker/src/router.ts');
+    expect(router).toContain("request.headers.get('Expo-Runtime-Version')");
+    expect(router).toContain("request.headers.get('Expo-Platform')");
+  });
+
+  test('the publish gate asks with headers (the app request), not query params', () => {
+    const publish = read('scripts/ota-publish.mjs');
+    expect(publish).toContain("'Expo-Runtime-Version': runtime");
+    expect(publish).toContain("'Expo-Platform': 'android'");
+    // The old blind check fetched the query-param URL.
+    expect(publish).not.toMatch(/ota\/manifest\?platform=android&runtime-version=\$\{/);
+  });
+
+  test('the workflow verify step asks with headers too', () => {
+    const wf = read('.github/workflows/ota.yml');
+    expect(wf).toContain('-H "Expo-Runtime-Version: $V"');
+    expect(wf).toContain("-H 'Expo-Platform: android'");
+  });
+
+  test('About shows the runtime and the served update id', () => {
+    const ota = read('src/lib/ota.ts');
+    const about = read('src/screens/About.tsx');
+    expect(ota).toContain('runtime?: string');
+    expect(ota).toContain('id?: string');
+    expect(about).toMatch(/runtime \$\{ota\.runtime/);
+  });
+});
