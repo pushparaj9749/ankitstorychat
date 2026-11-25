@@ -80,7 +80,11 @@ describe('GET /api/ota/manifest', () => {
       extra: { sequence: number; keyid: string; signatureFormat: string };
     };
     expect(m.runtimeVersion).toBe('2.14.0');
-    expect(m.launchAsset.url).toMatch(/^https:\/\/beyondredeye\.site\/api\/ota\/assets\/ota_/);
+    // The id in the path is a UUID now — expo-updates requires it (see the
+    // "manifest id is a real UUID" test for why).
+    expect(m.launchAsset.url).toMatch(
+      /^https:\/\/beyondredeye\.site\/api\/ota\/assets\/[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}\/bundle$/i,
+    );
     expect(m.launchAsset.contentType).toBe('application/javascript');
     // The app runs these bytes as JS, so the hash it checks must be base64url.
     expect(m.launchAsset.hash).toMatch(/^[A-Za-z0-9_-]{43}$/);
@@ -193,6 +197,36 @@ describe('artifacts + rollback', () => {
     const res = await call('GET', `/api/ota/assets/${created.release.id}/bundle`);
     expect(res.status).toBe(200);
     expect(await res.text()).toBe('HELLO-OTA');
+  });
+
+  // expo-updates (Android) does `UUID.fromString(manifest.getID())` — see
+  // ExpoUpdatesUpdate.kt. Anything that is not 8-4-4-4-12 throws, the whole
+  // manifest is discarded, and the app silently reports "already up to date".
+  // That is exactly what shipped twice (ota_FCR4NmqEqoCK0A / ota_agtgeXcMzQlI3Q).
+  test('the manifest id is a real UUID', async () => {
+    const created = (await (await publish()).json()) as { release: { id: string } };
+    expect(created.release.id).toMatch(/^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i);
+  });
+
+  test('a UUID id still serves its bundle (dashes must not break the path)', async () => {
+    const created = (await (await publish('UUID-BYTES')).json()) as { release: { id: string } };
+    const m = (await (await call('GET', '/api/ota/manifest?platform=android&runtime-version=2.14.0')).json()) as {
+      launchAsset: { url: string };
+    };
+    const path = new URL(m.launchAsset.url).pathname;
+    const res = await call('GET', path);
+    expect(res.status).toBe(200);
+    expect(await res.text()).toBe('UUID-BYTES');
+    expect(path).toContain(created.release.id);
+  });
+
+  test('legacy ota_ ids already in KV keep serving after the switch', async () => {
+    // Release records published before this fix must not 404 mid-flight.
+    const { otaKeyFor } = await import('../src/ota');
+    await (env.KISSA_SUBMISSIONS as unknown as KVNamespace).put(otaKeyFor('ota_legacy123', 'bundle'), 'OLD-BYTES');
+    const res = await call('GET', '/api/ota/assets/ota_legacy123/bundle');
+    expect(res.status).toBe(200);
+    expect(await res.text()).toBe('OLD-BYTES');
   });
 
   test('unknown asset ids are 404', async () => {

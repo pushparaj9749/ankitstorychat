@@ -159,3 +159,36 @@ describe('what expo-updates actually requires (regressions from v2.15.0)', () =>
     expect(read('worker/src/router.ts')).toMatch(/!route\.kind\.startsWith\('ota-'\)/);
   });
 });
+
+/**
+ * The failure that wasted a release: expo-updates parses the manifest id with
+ * `UUID.fromString(...)`. A non-UUID throws, the manifest is discarded, and the
+ * app keeps saying "already up to date" — with a perfectly valid signature.
+ */
+describe('OTA ids must be UUIDs (expo-updates parses them as UUIDs)', () => {
+  const UUID_RE = /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i;
+
+  test('the Worker mints a real UUID, not an "ota_..." token', () => {
+    const src = read('worker/src/otaAdmin.ts');
+    expect(src).toContain('crypto.randomUUID()');
+    // The old opaque id is what broke it; it must not come back.
+    expect(src).not.toMatch(/ota_\$\{randomToken/);
+  });
+
+  test('the publish script refuses a manifest whose id is not a UUID', () => {
+    const publish = read('scripts/ota-publish.mjs');
+    expect(publish).toContain('UUID_RE');
+    expect(publish).toMatch(/not a UUID/);
+  });
+
+  test('the app never reports "current" after an update was rejected', () => {
+    const ota = read('src/lib/ota.ts');
+    // A throw means the bundle did NOT apply. Saying "sab latest hai" hides
+    // exactly this class of bug — it must surface as an error instead.
+    expect(ota).toContain("state: 'error'");
+    const catchBlock = ota.slice(ota.indexOf('} catch (err) {'));
+    expect(catchBlock.slice(0, 900)).not.toMatch(/return \{ state: 'current' \}/);
+    expect(UUID_RE.test('ota_agtgeXcMzQlI3Q')).toBe(false);
+    expect(UUID_RE.test(crypto.randomUUID())).toBe(true);
+  });
+});

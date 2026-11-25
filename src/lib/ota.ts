@@ -16,7 +16,10 @@
 import Constants from 'expo-constants';
 
 /** Shape shared with the About screen. */
-export type OtaCheckResult = { state: 'idle' | 'applied' | 'downloaded' | 'current' | 'blocked'; notes?: string };
+export type OtaCheckResult = {
+  state: 'idle' | 'applied' | 'downloaded' | 'current' | 'blocked' | 'error';
+  notes?: string;
+};
 
 /**
  * expo-updates is loaded lazily: in Expo Go / a dev client the native module is
@@ -57,14 +60,15 @@ export async function checkForOtaUpdate(): Promise<OtaCheckResult> {
         : undefined;
     return { state: fetched.isNew ? 'downloaded' : 'current', notes };
   } catch (err) {
-    // A signature/certificate failure is NOT "you are current": it means the
-    // server sent something this build cannot trust. Surface it so the About
-    // card can say so instead of silently pretending everything is fine.
+    // NEVER report "you are current" from a failure. A throw here means the
+    // update was rejected (signature, a malformed manifest, a network fault) —
+    // the app is still on the old bundle, and saying "sab latest hai" hides the
+    // bug. That is exactly how two broken OTA releases looked fine for hours.
     const msg = err instanceof Error ? err.message : String(err);
     if (/signature|certificate|code signing/i.test(msg)) {
       return { state: 'blocked', notes: 'Update ka signature verify nahi hua — skip kar diya.' };
     }
-    return { state: 'current' };
+    return { state: 'error', notes: msg.slice(0, 160) };
   }
 }
 
