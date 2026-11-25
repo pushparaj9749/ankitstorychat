@@ -7,6 +7,9 @@ on:
     paths:
       - '.github/workflows/check-submissions.yml'
 
+permissions:
+  contents: write
+
 jobs:
   check:
     name: Check pending submissions
@@ -81,22 +84,55 @@ jobs:
             const pending=rows("/tmp/pending.json");
             const counts=rows("/tmp/counts.json");
             const recent=rows("/tmp/recent.json");
-            console.log("\n=== SUMMARY ===");
-            console.log("Pending total:", pending.length);
-            const ideas=pending.filter(r=>r.type==="idea");
-            const stories=pending.filter(r=>r.type==="story");
-            console.log("Pending ideas/suggestions:", ideas.length);
-            console.log("Pending story submissions:", stories.length);
+            const lines=[];
+            lines.push("# Submissions check");
+            lines.push("");
+            lines.push("Generated: " + new Date().toISOString());
+            lines.push("");
+            lines.push("## Pending");
+            lines.push("");
+            lines.push("- Pending total: " + pending.length);
+            lines.push("- Pending ideas/suggestions: " + pending.filter(r=>r.type==="idea").length);
+            lines.push("- Pending story submissions: " + pending.filter(r=>r.type==="story").length);
+            lines.push("");
             if(pending.length){
-              console.log("\nPending items:");
+              lines.push("| type | title | creator | submitted_at | id |");
+              lines.push("|---|---|---|---|---|");
               for(const r of pending){
-                console.log(`- [${r.type}] ${r.title} | by ${r.creator_name} | ${r.submitted_at} | id=${r.id}`);
+                lines.push(`| ${r.type} | ${(r.title||"").replace(/\|/g,"/")} | ${(r.creator_name||"").replace(/\|/g,"/")} | ${r.submitted_at||""} | ${r.id||""} |`);
               }
             } else {
-              console.log("No pending story suggestion/submission.");
+              lines.push("No pending story suggestion/submission.");
             }
-            console.log("\nCounts by type/status:");
-            for(const r of counts){ console.log(`- ${r.type} / ${r.status}: ${r.count}`); }
-            console.log("\nRecent 15:");
-            for(const r of recent){ console.log(`- [${r.type}/${r.status}] ${r.title} | ${r.creator_name} | ${r.submitted_at}`); }
+            lines.push("");
+            lines.push("## Counts by type/status");
+            lines.push("");
+            lines.push("| type | status | count |");
+            lines.push("|---|---:|---:|");
+            for(const r of counts){ lines.push(`| ${r.type} | ${r.status} | ${r.count} |`); }
+            lines.push("");
+            lines.push("## Recent 15");
+            lines.push("");
+            lines.push("| type | status | title | creator | submitted_at |");
+            lines.push("|---|---|---|---|---|");
+            for(const r of recent){
+              lines.push(`| ${r.type} | ${r.status} | ${(r.title||"").replace(/\|/g,"/")} | ${(r.creator_name||"").replace(/\|/g,"/")} | ${r.submitted_at||""} |`);
+            }
+            const out = lines.join("\n") + "\n";
+            fs.writeFileSync("/tmp/summary.md", out);
+            console.log(out);
           '
+
+      - name: Publish result to branch
+        run: |
+          set -euo pipefail
+          cp /tmp/summary.md check-submissions-result.md
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add check-submissions-result.md
+          if git diff --cached --quiet; then
+            echo "No changes to commit"
+            exit 0
+          fi
+          git commit -m "chore: update submissions check result [skip ci]"
+          git push origin HEAD:${GITHUB_REF_NAME}
