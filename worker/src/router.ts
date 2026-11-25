@@ -858,11 +858,31 @@ async function handleApi(request: Request, env: Env, url: URL): Promise<Response
 
     case 'app-version': {
       const { minVersion, message } = await getMinVersion(env);
+      /**
+       * The server states the verdict instead of leaving the phone to guess.
+       *
+       * The client used to compare its own version with `minVersion` and show a
+       * full-screen wall by itself. A version glitch on the device ('0.0.0'
+       * after an OTA, a remembered 426) then locked people out of a current
+       * build — before the app could mount, so OTA could never repair it.
+       *
+       * `updateRequired` is computed for the caller from X-Kissa-Version, using
+       * the same gate every other route uses. No header / unreadable version ->
+       * false: an unrecognised install is never blocked on a guess.
+       */
+      const clientVersion = versionForGate(request.headers.get('X-Kissa-Version'));
       return withCors(
         json(
-          { ok: true, minVersion, message, updatedAt: new Date().toISOString() },
+          {
+            ok: true,
+            minVersion,
+            message,
+            updateRequired: isOlderVersion(clientVersion, minVersion),
+            updatedAt: new Date().toISOString(),
+          },
           200,
-          { 'Cache-Control': 'public, max-age=60, s-maxage=120' },
+          // Per-client answer (depends on the header) — never cache it publicly.
+          { 'Cache-Control': 'no-store', Vary: 'X-Kissa-Version' },
         ),
         cors,
       );

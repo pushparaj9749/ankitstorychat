@@ -38,11 +38,15 @@ describe('update wall survives a relaunch', () => {
     expect(context).toMatch(/setUpdateRequired\(gate\.required\)/);
   });
 
-  it('a fresh server answer CLEARS a stale 426', () => {
-    // "you are current" must win over a remembered block.
+  it('the SERVER decides — the phone never blocks itself on a version guess', () => {
+    // '0.0.0 < 2.14.0' on the device locked people out of a current build, and
+    // the wall blocked mount, so OTA could never repair it. The verdict now
+    // comes from the server; only an explicit updateRequired === true blocks.
     expect(account).toMatch(/export async function clearUpdateRequired/);
-    expect(account).toMatch(/if \(required\) await kvSet\('update\.required', '1'\);/);
-    expect(account).toMatch(/else await clearUpdateRequired\(\);/);
+    expect(account).toMatch(/answer\.updateRequired === true/);
+    expect(account).toMatch(/await clearUpdateRequired\(\)/);
+    // No local semver comparison may come back into the launch path.
+    expect(account).not.toMatch(/cur\[i\] < min\[i\]/);
     // Offline is the only path that may fall back to the cache.
     expect(account).toMatch(/required: await cachedUpdateRequired\(\)\.catch\(\(\) => false\)/);
   });

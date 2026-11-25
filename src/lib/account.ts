@@ -357,8 +357,14 @@ export async function markAllNotificationsRead(apiBase?: string | null): Promise
 }
 
 /** Public version switch (does not need a session). */
-export async function fetchMinVersion(apiBase?: string | null): Promise<{ minVersion: string; message: string }> {
-  return request<{ minVersion: string; message: string }>('app/version', {}, { apiBase, auth: false });
+export async function fetchMinVersion(
+  apiBase?: string | null,
+): Promise<{ minVersion: string; message: string; updateRequired?: boolean }> {
+  return request<{ minVersion: string; message: string; updateRequired?: boolean }>(
+    'app/version',
+    {},
+    { apiBase, auth: false },
+  );
 }
 
 /* ---------------- one-time migration of pre-account history ---------------- */
@@ -430,40 +436,47 @@ export async function clearUpdateRequired(): Promise<void> {
 /**
  * Launch check: is this install older than the server's minimum?
  *
- * The server also blocks older installs (426) on every account route, so this
- * is the friendly, offline-tolerant version of the same rule: unknown/offline
- * answers never block the app.
+ * THE RULE (v2.16.1): the SERVER is the only authority that can block the app.
+ *
+ * Why the local comparison had to go: the client used to compare its own
+ * version with the server's minimum and show the full-screen wall itself. Any
+ * glitch in that version — and there were two (a remembered 426, then
+ * `expoConfig` being null after an OTA, which read as '0.0.0') — compared
+ * against `minVersion: 2.14.0`, so `0.0.0 < 2.14.0` was true, the wall went up
+ * BEFORE the app mounted, OTA could never run, and the reader was locked out of
+ * a build that was perfectly current. That is the deadlock that produced a full
+ * day of support mails.
+ *
+ * So this function no longer decides. It asks the server version route, and:
+ *   - server says { updateRequired: true }  -> wall (explicit verdict)
+ *   - server says anything else             -> NO wall, and the remembered
+ *                                              426 is cleared
+ *   - server unreachable                    -> remembered 426 may still block,
+ *                                              so a genuinely outdated install
+ *                                              does not slip through offline
+ *
+ * A truly outdated install still gets blocked: every account / submission call
+ * answers 426 from the server, and the app shows the wall on that error
+ * (`markUpdateRequired`). The difference is that the block now comes with the
+ * server's verdict instead of a guess made on the phone.
  */
 export async function isUpdateRequired(
   apiBase?: string | null,
 ): Promise<{ required: boolean; minVersion: string | null; currentVersion: string }> {
   const currentVersion = appVersion();
   try {
-    const { minVersion } = await fetchMinVersion(apiBase);
-    const parse = (v: string): number[] | null => {
-      const m = String(v).trim().match(/^v?(\d+)(?:\.(\d+))?(?:\.(\d+))?/);
-      return m ? [Number(m[1]), Number(m[2] ?? 0), Number(m[3] ?? 0)] : null;
-    };
-    const cur = parse(currentVersion);
-    const min = parse(minVersion);
-    if (!cur || !min) {
-      // Unparseable answer: do not block, and do not trust the old flag either.
-      await clearUpdateRequired();
-      return { required: false, minVersion: null, currentVersion };
+    const answer = await fetchMinVersion(apiBase);
+    const minVersion = answer.minVersion ?? null;
+    // The server may state the verdict outright. That wins over everything.
+    if (answer.updateRequired === true) {
+      await kvSet('update.required', '1');
+      return { required: true, minVersion, currentVersion };
     }
-    let required = false;
-    for (let i = 0; i < 3; i++) {
-      if (cur[i] < min[i]) {
-        required = true;
-        break;
-      }
-      if (cur[i] > min[i]) break;
-    }
-    // The server just answered: THAT is the truth. A stale 426 from an earlier
-    // build must never outvote a fresh "you are fine".
-    if (required) await kvSet('update.required', '1');
-    else await clearUpdateRequired();
-    return { required, minVersion, currentVersion };
+    // A known-bad version string can never be the reason to lock someone out:
+    // '0.0.0' and '' mean "we could not read the install", not "it is ancient".
+    // The server's 426 on real calls still protects genuinely old builds.
+    await clearUpdateRequired();
+    return { required: false, minVersion, currentVersion };
   } catch {
     // Offline / server unreachable: this is the only case where the remembered
     // flag may still block, so a known-outdated install does not sneak in.
