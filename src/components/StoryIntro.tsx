@@ -1,40 +1,35 @@
 /**
  * Story intro block that sits ABOVE the first story message in Chat.
  *
- * Why it exists: the Love/Hate meters used to live in the chat header, next to
- * the story title. On a phone that squeezed the title and the numbers looked
- * like status-bar noise instead of story state. Readers asked for them to be
- * part of the story, so they moved here — inside the scroll, above the opening
- * beat — followed by the media the author shipped, and a Play guide.
+ * Why it exists: it is the "cover" of the story at the point where the chat
+ * starts. Order, as the reader asked:
  *
- * Order (as requested):
- *   1. meters          — Love 0/100, Hate 100/100
- *   2. media carousel  — the author's gallery, swipeable
- *   3. play guide      — how the stage works
- *   4. intro           — title, tagline, who you are, what you decide
+ *   1. media carousel  — the author's gallery, swipeable
+ *   2. play guide      — how the stage works
+ *   3. intro           — title, tagline, who you are, what you decide
  *
- * A story without meters keeps working: the block simply starts at the media.
+ * v2.16.1: the Love/Hate meters used to open this block as a bar card. They are
+ * gone from here — the narrator now writes one line ("❤️ 12/100 · 💔 88/100") at
+ * the top of every reply and the bubble renders it just above itself (see
+ * components/chat.tsx). So the images the author shipped are the first thing the
+ * reader meets, and there is no second meter UI.
  */
 import React, { useState } from 'react';
 import { Dimensions, Image, Pressable, ScrollView, StyleSheet, Text, View } from 'react-native';
 import { LinearGradient } from 'expo-linear-gradient';
 import type { StoryBundle } from '../types';
-import type { MeterView } from '../lib/storyMeters';
 import { ArtBackdrop } from './ArtBackdrop';
 import { Icon, ICON_SIZE } from './icons';
 import { withAlpha } from '../theme';
 
 export type StoryIntroProps = {
   bundle: StoryBundle;
-  meters: MeterView[];
   /** Resolved media URI for a gallery item (already handles bundled vs remote). */
   imageUri: (file: string) => string | null;
   /** Player-facing text: player name interpolated, never the raw {{playerName}}. */
   forPlayer: (text: string) => string;
   /** Who the reader is in this story (story.userRole, already shortened). */
   roleText: string;
-  /** Meter bar colour, same rule the header used. */
-  meterColor: (id: string, label: string) => string;
   theme: { text: string; textDim: string; textFaint: string; accent: string; primary: string; border: string; surface: string; gold: string };
   accentColor: string;
   onOpenMedia?: (file: string) => void;
@@ -42,7 +37,7 @@ export type StoryIntroProps = {
 
 const ASPECT = 0.72; // 4:3-ish portrait carousel card
 
-export function StoryIntro({ bundle, meters, imageUri, forPlayer, roleText, meterColor, theme, accentColor, onOpenMedia }: StoryIntroProps) {
+export function StoryIntro({ bundle, imageUri, forPlayer, roleText, theme, accentColor, onOpenMedia }: StoryIntroProps) {
   // Module-level Dimensions (not a hook): the chat screen is already rendered
   // by suites that stub react-native with a minimal surface, so fall back.
   const width = Dimensions?.get?.('window')?.width ?? 390;
@@ -60,33 +55,7 @@ export function StoryIntro({ bundle, meters, imageUri, forPlayer, roleText, mete
 
   return (
     <View style={styles.wrap} testID="story-intro">
-      {/* ------------------------------------------------ 1. meters */}
-      {meters.length > 0 ? (
-        <View style={[styles.meterCard, { backgroundColor: theme.surface, borderColor: theme.border }]} testID="story-meters">
-          {meters.map((m) => (
-            <View
-              key={m.id}
-              style={styles.meterRow}
-              accessibilityRole="progressbar"
-              accessibilityLabel={`${m.label} ${m.value} out of 100`}
-              accessibilityValue={{ min: 0, max: 100, now: m.value }}
-            >
-              <Text style={[styles.meterLabel, { color: theme.textDim }]} numberOfLines={1}>
-                {m.label}
-              </Text>
-              <View style={[styles.meterTrack, { backgroundColor: withAlpha(theme.text, 0.12) }]}>
-                <View style={[styles.meterFill, { width: `${m.fill}%`, backgroundColor: meterColor(m.id, m.label) }]} />
-              </View>
-              <Text style={[styles.meterValue, { color: theme.text }]}>{m.value}/100</Text>
-            </View>
-          ))}
-          <Text style={[styles.meterHint, { color: theme.textFaint }]}>
-            Ye numbers aapke choices se badalte hain.
-          </Text>
-        </View>
-      ) : null}
-
-      {/* ------------------------------------------------ 2. media carousel */}
+      {/* ------------------------------------------------ 1. media carousel */}
       {gallery.length > 0 ? (
         <View style={styles.mediaBlock} testID="story-media">
           <ScrollView
@@ -143,7 +112,7 @@ export function StoryIntro({ bundle, meters, imageUri, forPlayer, roleText, mete
         </View>
       ) : null}
 
-      {/* ------------------------------------------------ 3. play guide */}
+      {/* ------------------------------------------------ 2. play guide */}
       <View style={[styles.guideCard, { backgroundColor: theme.surface, borderColor: theme.border }]} testID="story-guide">
         <View style={styles.guideHead}>
           <View style={[styles.guideIcon, { backgroundColor: withAlpha(theme.primary, 0.16) }]}>
@@ -190,20 +159,6 @@ export function StoryIntro({ bundle, meters, imageUri, forPlayer, roleText, mete
 
 const styles = StyleSheet.create({
   wrap: { paddingHorizontal: 14, paddingTop: 14, paddingBottom: 2 },
-  meterCard: {
-    borderWidth: StyleSheet.hairlineWidth,
-    borderRadius: 14,
-    paddingHorizontal: 12,
-    paddingVertical: 10,
-    gap: 7,
-    marginBottom: 14,
-  },
-  meterRow: { flexDirection: 'row', alignItems: 'center', gap: 10 },
-  meterLabel: { width: 46, fontSize: 12, fontWeight: '700' },
-  meterTrack: { flex: 1, height: 6, borderRadius: 3, overflow: 'hidden' },
-  meterFill: { height: 6, borderRadius: 3 },
-  meterValue: { minWidth: 54, textAlign: 'right', fontSize: 12, fontWeight: '700' },
-  meterHint: { fontSize: 10.5, letterSpacing: 0.2 },
   mediaBlock: { marginBottom: 14 },
   mediaRow: { gap: 10, paddingRight: 4 },
   mediaCard: { borderRadius: 16, overflow: 'hidden', borderWidth: StyleSheet.hairlineWidth, justifyContent: 'center' },

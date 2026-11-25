@@ -82,7 +82,6 @@ export function Chat({ navigation, route }: Props) {
   const { theme, profile, activeProvider, providersWithKeys, settings, uiTemplate } = useApp();
   const classic = uiTemplate === 'classic';
   const { ChatBubble, TypingIndicator } = useChatParts();
-  const renderBubble = useCallback(({ item }: { item: ChatMessage }) => <ChatBubble message={item} />, [ChatBubble]);
 
   const [playthrough, setPlaythrough] = useState<Playthrough | null>(null);
   const [bundle, setBundle] = useState<StoryBundle | null>(null);
@@ -134,6 +133,28 @@ export function Chat({ navigation, route }: Props) {
       alive = false;
     };
   }, [playthrough?.id, bundle, sending, messageCount]);
+  /**
+   * v2.16.1: meters are a single line ABOVE the reply bubble, not a bar card.
+   * Only stories whose author configured meters get it — `meterLabels` stays
+   * empty for every other story, and then the bubble renders exactly as before.
+   * "Love", "Hate" come from the story's own meter config.
+   */
+  const meterLabels = useMemo(
+    () => (bundle?.meta?.meters?.meters ?? []).slice(0, 2).map((m) => m.label),
+    [bundle],
+  );
+  /** Ledger values, used when a reply does not carry its own line yet. */
+  const meterValues = useMemo(() => bond?.meters.map((m) => m.value) ?? [], [bond]);
+  const renderBubble = useCallback(
+    ({ item }: { item: ChatMessage }) => (
+      <ChatBubble
+        message={item}
+        meterValues={item.role === 'user' ? undefined : meterValues}
+        meterLabels={meterLabels}
+      />
+    ),
+    [ChatBubble, meterValues, meterLabels],
+  );
   const [actionsOpen, setActionsOpen] = useState(false);
   const [typingLabel, setTypingLabel] = useState('Continuing…');
   const [aiError, setAiError] = useState<AIError | null>(null);
@@ -860,22 +881,9 @@ function meterColor(id: string, label: string, theme: { primary: string; accent:
           removeClippedSubviews={false}
           ListHeaderComponent={
             <>
-              {/* The intro belongs above the FIRST story beat. The list is
-                  inverted, so that means the header — shown only once the
-                  reader has scrolled to the very beginning. */}
-              {!hasMore && messages.length > 0 && bundle ? (
-                <StoryIntro
-                  bundle={bundle}
-                  meters={bond?.meters ?? []}
-                  imageUri={(file) => mediaApiUrl(apiBase, bundle.meta.storyDir, file)}
-                  forPlayer={(t) => makePlayerTextFn(bundle.meta, profile?.nickname)(t)}
-                  roleText={makePlayerTextFn(bundle.meta, profile?.nickname)(readerRoleText(bundle.story.userRole))}
-                  meterColor={(id, label) => meterColor(id, label, theme)}
-                  theme={theme}
-                  accentColor={bundle.meta.accentColor}
-                  onOpenMedia={() => navigation.navigate('StoryDetail', { storyId: bundle.meta.id })}
-                />
-              ) : null}
+              {/* Sending / errors render at the visual TOP of the story: the
+                  list is inverted, so index 0 is the bottom edge — which is
+                  exactly where the next story beat appears. */}
               {sending ? <TypingIndicator label={typingLabel} /> : null}
               {aiError ? (
                 <View style={[styles.errCard, { backgroundColor: theme.surface, borderColor: withAlpha(theme.danger, 0.3) }]}>
@@ -895,7 +903,29 @@ function meterColor(id: string, label: string, theme: { primary: string; accent:
               ) : null}
             </>
           }
-          ListFooterComponent={loadingMore ? <Text style={[styles.more, { color: theme.textFaint }]}>Loading older…</Text> : null}
+          /**
+           * v2.16.1: the intro (media carousel → play guide → story intro) is the
+           * TOP of the story, and in an inverted list the top is the FOOTER end.
+           * It was in ListHeaderComponent, which inverted renders at the BOTTOM
+           * edge — that is why the images and the guide looked like they were
+           * sitting under the latest message.
+           */
+          ListFooterComponent={
+            <View>
+              {loadingMore ? <Text style={[styles.more, { color: theme.textFaint }]}>Loading older…</Text> : null}
+              {!hasMore && messages.length > 0 && bundle ? (
+                <StoryIntro
+                  bundle={bundle}
+                  imageUri={(file) => mediaApiUrl(apiBase, bundle.meta.storyDir, file)}
+                  forPlayer={(t) => makePlayerTextFn(bundle.meta, profile?.nickname)(t)}
+                  roleText={makePlayerTextFn(bundle.meta, profile?.nickname)(readerRoleText(bundle.story.userRole))}
+                  theme={theme}
+                  accentColor={bundle.meta.accentColor}
+                  onOpenMedia={() => navigation.navigate('StoryDetail', { storyId: bundle.meta.id })}
+                />
+              ) : null}
+            </View>
+          }
           renderItem={renderBubble}
         />
 

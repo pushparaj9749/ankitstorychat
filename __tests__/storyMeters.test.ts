@@ -13,7 +13,7 @@
  */
 import fs from 'fs';
 import path from 'path';
-import { meterPromptLine, meterValue, resolveMeters } from '../src/lib/storyMeters';
+import { formatMeterLine, meterPromptLine, meterValue, meterViewsForReply, parseMeterLine, resolveMeters } from '../src/lib/storyMeters';
 
 const ROOT = path.join(__dirname, '..');
 const read = (p: string): string => fs.readFileSync(path.join(ROOT, p), 'utf8');
@@ -159,21 +159,52 @@ describe('"She Hates Me First" actually declares its meters', () => {
     expect(file.version).toBe(story.version);
   });
 
-  test('the meters live in the story intro, not the chat header', () => {
-    // v2.16: readers asked for the bars to move out of the header — they
-    // squeezed the title and read like status-bar noise. They now sit inside
-    // the scroll, above the opening beat, in <StoryIntro/>.
+  test('meters are ONE line above the reply bubble — no bars, no card', () => {
+    // v2.16.1: the reader asked for the numbers as a line of text above each
+    // reply ("har jawab me upar ❤️ 0/100 aur 💔 100/100"), not a bar card and
+    // not a second meter UI anywhere.
     const chat = read('src/screens/Chat.tsx');
     const intro = read('src/components/StoryIntro.tsx');
+    const bubble = read('src/components/chat.tsx');
 
+    // the bubble owns the line, the intro owns nothing meter-shaped
+    expect(bubble).toContain('testID="story-meter-line"');
+    expect(bubble).toContain('meterLabels');
+    expect(intro).not.toContain('story-meters');
+    expect(intro).not.toContain('accessibilityRole="progressbar"');
+    expect(intro).not.toContain('meterTrack');
+
+    // the chat screen feeds the bubble, and keeps the ledger fallback
     expect(chat).toContain('resolveMeters(');
     expect(chat).toContain('<StoryIntro');
-    expect(chat).toContain('meters={bond?.meters ?? []}');
-    expect(chat).not.toContain('styles.metersRow'); // the old header row is gone
+    expect(chat).toContain('meterLabels={meterLabels}');
+    expect(chat).toContain('meterValues={');
+  });
 
-    expect(intro).toContain('accessibilityRole="progressbar"');
-    expect(intro).toContain("testID=\"story-meters\"");
-    expect(intro).toContain('{m.value}/100');
+  test('the meter line is above the bubble, in the story text itself', () => {
+    // The line is written by the narrator as the first line of the reply, then
+    // lifted out of the body so it renders as its own row above the bubble.
+    const bubble = read('src/components/chat.tsx');
+    const lineAt = bubble.indexOf('<MeterLine');
+    const bodyAt = bubble.indexOf('<StoryText');
+    expect(lineAt).toBeGreaterThan(0);
+    expect(bodyAt).toBeGreaterThan(lineAt);
+  });
+
+  test('the narrator is told to write the line on every reply — only here', () => {
+    const prompt = meterPromptLine({
+      characterId: 'isha',
+      meters: [
+        { id: 'love', label: 'Love', source: 'affection', start: 0 },
+        { id: 'hate', label: 'Hate', source: 'hate', start: 100 },
+      ],
+    });
+    expect(prompt).toContain('❤️ {value}/100');
+    expect(prompt).toContain('💔 {value}/100');
+    expect(prompt).toContain('Line 1 of the reply');
+    // A story without meters must get nothing at all.
+    expect(meterPromptLine(undefined)).toBe('');
+    expect(meterPromptLine({ meters: [] })).toBe('');
   });
 
   test('the intro block also carries media, play guide and the intro text', () => {
@@ -212,5 +243,57 @@ describe('opening-scene canon has no contradiction', () => {
   test('the world says plainly that they meet for the first time', () => {
     const world = JSON.parse(read('content/stories/she-hates-me-first/world.json')) as { rules: string[] };
     expect(world.rules.join(' ')).toMatch(/pehle din, parking lot ke takraav se jaante hain/);
+  });
+});
+
+describe('the meter line the narrator writes (v2.16.1)', () => {
+  test('parses the line and hands back the story body untouched', () => {
+    const raw = '❤️ 12/100 · 💔 88/100\n\n*Isha nazar chura leti hai.*\nIsha: "Kya dekh rahe ho?"';
+    const parsed = parseMeterLine(raw);
+    expect(parsed).not.toBeNull();
+    expect(parsed!.values).toEqual([12, 88]);
+    expect(parsed!.icons).toEqual(['❤️', '💔']);
+    expect(parsed!.rest.startsWith('*Isha nazar chura leti hai.*')).toBe(true);
+    expect(parsed!.rest).not.toContain('100');
+  });
+
+  test('accepts a single meter and tolerates spaces the model adds', () => {
+    const parsed = parseMeterLine('❤️ 0 / 100\nIsha: "Chalo."');
+    expect(parsed!.values).toEqual([0]);
+    expect(parsed!.rest).toBe('Isha: "Chalo."');
+  });
+
+  test('leaves prose alone when the numbers are not a standalone line', () => {
+    // A story sentence that happens to mention the numbers must never be eaten.
+    expect(parseMeterLine('*Uska mood 100/100 par tha.*')).toBeNull();
+    expect(parseMeterLine('Isha: "Main 0/100 wali feeling me hoon."')).toBeNull();
+    expect(parseMeterLine('❤️ 12/100 par woh phir bhi hasi.')).toBeNull();
+  });
+
+  test('clamps impossible numbers instead of rendering them', () => {
+    const parsed = parseMeterLine('❤️ 250/100 · 💔 -5/100\nHi');
+    expect(parsed!.values).toEqual([100, 0]);
+  });
+
+  test('formatMeterLine is the exact shape the prompt asks for', () => {
+    expect(formatMeterLine([{ source: 'affection', label: 'Love' }, { source: 'hate', label: 'Hate' }], [0, 100]))
+      .toBe('❤️ 0/100 · 💔 100/100');
+  });
+
+  test('a parsed line wins over the ledger, and the ledger covers old turns', () => {
+    const config = { characterId: 'isha', meters: [{ id: 'love', label: 'Love', source: 'affection' as const }, { id: 'hate', label: 'Hate', source: 'hate' as const }] };
+    const rels = { isha: { affection: 30, trust: 20 } };
+    // old turn: no line in the text -> ledger wins (hate = 100 - (30*.6 + 20*.4) = 74)
+    const fromLedger = resolveMeters(config, rels, 'isha').map((m) => m.value);
+    expect(fromLedger).toEqual([30, 74]);
+    // new turn: the narrator's line is authoritative
+    const parsed = parseMeterLine('❤️ 41/100 · 💔 59/100\n*beat*');
+    const merged = meterViewsForReply(config, rels, 'isha', parsed!.values).map((m) => m.value);
+    expect(merged).toEqual([41, 59]);
+  });
+
+  test('stories without meters render nothing, even if a reply has numbers', () => {
+    expect(meterViewsForReply(undefined, undefined, 'isha', [10, 90])).toEqual([]);
+    expect(meterViewsForReply({ meters: [] }, undefined, 'isha', [10, 90])).toEqual([]);
   });
 });

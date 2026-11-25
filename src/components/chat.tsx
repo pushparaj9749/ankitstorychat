@@ -21,6 +21,7 @@ import { useApp } from '../state/AppContext';
 import { FADED_TEXT_OPACITY, GRADIENTS, RADIUS, SCALE, SPACING, TOUCH, withAlpha, FONTS, TEXT_SIZE_MULTIPLIER } from '../theme';
 import { parseStoryMarkup, stripStoryMarkup } from '../lib/markup';
 import { sanitizeStoredText } from '../lib/leakGuard';
+import { meterIconForLabel, parseMeterLine } from '../lib/storyMeters';
 import { Avatar } from './bits';
 import { Icon, ICON_SIZE } from './icons';
 
@@ -79,7 +80,37 @@ function NarratorMark() {
   );
 }
 
-function ChatBubbleImpl({ message: stored }: { message: ChatMessage }) {
+/** Props a story with meters passes down; stories without meters pass nothing. */
+export interface MeterProps {
+  /** Ledger values, used when the reply carries no meter line (older turns). */
+  meterValues?: number[];
+  /** Author labels, e.g. ["Love", "Hate"]. Empty/undefined => no meter line. */
+  meterLabels?: string[];
+}
+
+/** One line of numbers above a reply: `❤️ 12/100 · 💔 88/100`. No bars, no card. */
+export function MeterLine({ labels, values, icons }: { labels?: string[]; values?: number[]; icons?: string[] }) {
+  const { theme } = useApp();
+  if (!labels?.length || !values?.length) return null;
+  return (
+    <View style={styles.meterLineWrap} testID="story-meter-line" pointerEvents="none">
+      <Text style={[styles.meterLine, { color: theme.textDim }]} numberOfLines={1}>
+        {labels.slice(0, 2).map((label, i) => {
+          const icon = icons?.[i] ?? meterIconForLabel(label);
+          const value = Math.round(Math.max(0, Math.min(100, values[i] ?? 0)));
+          return (
+            <React.Fragment key={label + i}>
+              {i > 0 ? '  ·  ' : ''}
+              {`${icon} ${value}/100`}
+            </React.Fragment>
+          );
+        })}
+      </Text>
+    </View>
+  );
+}
+
+function ChatBubbleImpl({ message: stored, meterValues, meterLabels }: { message: ChatMessage } & MeterProps) {
   const { theme, settings } = useApp();
   // v2.7.0: messages saved by older versions may carry leaked notes — clean
   // them on render (reader text is never touched).
@@ -88,6 +119,24 @@ function ChatBubbleImpl({ message: stored }: { message: ChatMessage }) {
     const clean = sanitizeStoredText(stored.text);
     return clean && clean !== stored.text ? { ...stored, text: clean } : stored;
   }, [stored]);
+
+  /**
+   * The narrator writes "❤️ 12/100 · 💔 88/100" as the first line of every reply
+   * in a metered story. Lift it out of the body so it can sit ABOVE the bubble
+   * as its own quiet line instead of inside the prose. `rest` is what remains —
+   * the line is the only thing removed, so the story text is never touched.
+   */
+  const parsedMeters = useMemo(
+    () => (stored.role === 'assistant' || stored.role === 'narration' ? parseMeterLine(message.text) : null),
+    [message.text, stored.role],
+  );
+  const bodyText = parsedMeters?.rest ?? message.text;
+  // A story without meters passes no labels => nothing is rendered, ever.
+  const showMeters =
+    (stored.role === 'assistant' || stored.role === 'narration') &&
+    !!meterLabels?.length &&
+    (parsedMeters?.values?.length ?? meterValues?.length ?? 0) > 0;
+  const shownValues = parsedMeters?.values?.length ? parsedMeters.values : meterValues;
   const scale = TEXT_SIZE_MULTIPLIER[settings.textSize];
   const bodySize = FONTS.body * scale;
   const smallBody = 14.5 * scale;
@@ -106,8 +155,12 @@ function ChatBubbleImpl({ message: stored }: { message: ChatMessage }) {
     }
 
     // Narration — same layout shape as dialogue (see file header).
+    // The meter line sits ABOVE the bubble, on its own, so it reads as the
+    // state of the scene rather than part of what the character said.
     return (
-      <View style={[styles.row, styles.rowLeft]}>
+      <View style={styles.meterStack}>
+        {showMeters ? <MeterLine labels={meterLabels} values={shownValues} icons={parsedMeters?.icons} /> : null}
+        <View style={[styles.row, styles.rowLeft]}>
         {message.speaker ? <Avatar id={message.speaker} name={message.speaker} size={30} /> : <NarratorMark />}
         <View
           style={[
@@ -119,13 +172,14 @@ function ChatBubbleImpl({ message: stored }: { message: ChatMessage }) {
           <LinearGradient colors={['rgba(255,255,255,0.025)', 'transparent']} style={styles.bubbleGlow} pointerEvents="none" />
           <View style={[styles.accentEdge, { backgroundColor: 'transparent' }]} pointerEvents="none" />
           <StoryText
-            text={message.text}
+            text={bodyText}
             color={theme.textDim}
             fadedColor={withAlpha(theme.textDim, FADED_TEXT_OPACITY)}
             fontSize={smallBody}
             lineHeight={22 * scale}
             faded
           />
+        </View>
         </View>
       </View>
     );
@@ -158,9 +212,11 @@ function ChatBubbleImpl({ message: stored }: { message: ChatMessage }) {
   // field; lift that name into the label/avatar instead of repeating it inline.
   const inferred = message.speaker ? null : inferSpeaker(message.text);
   const speaker = message.speaker ?? inferred?.name ?? null;
-  const text = inferred ? inferred.rest : message.text;
+  const text = inferred ? inferred.rest : bodyText;
   return (
-    <View style={[styles.row, styles.rowLeft]}>
+    <View style={styles.meterStack}>
+      {showMeters ? <MeterLine labels={meterLabels} values={shownValues} icons={parsedMeters?.icons} /> : null}
+      <View style={[styles.row, styles.rowLeft]}>
       {speaker ? <Avatar id={speaker} name={speaker} size={30} /> : <NarratorMark />}
       <View
         style={[
@@ -178,6 +234,7 @@ function ChatBubbleImpl({ message: stored }: { message: ChatMessage }) {
         ) : null}
         <StoryText text={text} color={'#fff'} fadedColor={withAlpha(theme.textDim, FADED_TEXT_OPACITY)} fontSize={bodySize} lineHeight={23 * scale} />
       </View>
+      </View>
     </View>
   );
 }
@@ -189,12 +246,22 @@ function ChatBubbleImpl({ message: stored }: { message: ChatMessage }) {
 export const ChatBubble = memo(
   ChatBubbleImpl,
   (a, b) =>
-    a.message === b.message ||
-    (a.message.id === b.message.id &&
-      a.message.text === b.message.text &&
-      a.message.speaker === b.message.speaker &&
-      a.message.role === b.message.role),
+    // Meter values change every turn, so they are part of equality: otherwise
+    // the ledger fallback would freeze on the first render's numbers.
+    sameNumbers(a.meterValues, b.meterValues) &&
+    (a.meterLabels?.join('|') ?? '') === (b.meterLabels?.join('|') ?? '') &&
+    (a.message === b.message ||
+      (a.message.id === b.message.id &&
+        a.message.text === b.message.text &&
+        a.message.speaker === b.message.speaker &&
+        a.message.role === b.message.role)),
 );
+
+function sameNumbers(a?: number[], b?: number[]): boolean {
+  if (a === b) return true;
+  if (!a || !b || a.length !== b.length) return false;
+  return a.every((n, i) => n === b[i]);
+}
 
 export function TypingIndicator({ label = 'Story continues…' }: { label?: string }) {
   const { theme } = useApp();
@@ -279,6 +346,10 @@ export function ChoiceChips({
 }
 
 const styles = StyleSheet.create({
+  /** Meter line + bubble share one stack so the line hugs its own reply. */
+  meterStack: { gap: 4 },
+  meterLineWrap: { paddingLeft: 40, paddingBottom: 1 },
+  meterLine: { fontSize: 12, fontWeight: '700', letterSpacing: 0.2 },
   sceneWrap: {
     flexDirection: 'row',
     alignItems: 'center',
