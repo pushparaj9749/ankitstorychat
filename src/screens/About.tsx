@@ -15,7 +15,7 @@ import { DonateCard } from '../components/DonateCard';
 import { RELEASES_PAGE, checkForUpdate, type UpdateStatus } from '../lib/updateCheck';
 import { LAYOUT, RADIUS, SCALE, SHADOWS, SPACING, TYPE, withAlpha } from '../theme';
 import { SUPPORT_EMAIL } from '../lib/account';
-import { checkForOtaUpdate, restartToApply } from '../lib/ota';
+import { checkForOtaUpdate, restartToApply, type OtaCheckResult } from '../lib/ota';
 
 type Props = NativeStackScreenProps<RootStackParamList, 'About'>;
 
@@ -26,7 +26,7 @@ export function About({ navigation }: Props) {
   const version = Constants.expoConfig?.version ?? '2.13.0';
   const [checking, setChecking] = useState(false);
   const [result, setResult] = useState<UpdateStatus | 'error' | null>(null);
-  const [ota, setOta] = useState<{ state: string; notes?: string } | null>(null);
+  const [ota, setOta] = useState<OtaCheckResult | null>(null);
   const [otaBusy, setOtaBusy] = useState(false);
 
   /**
@@ -114,9 +114,16 @@ export function About({ navigation }: Props) {
                         ? 'Update ka signature verify nahi hua — is build par yeh update nahi lagega.'
                         : ota.state === 'error'
                           ? `Update check fail hua — dobara try karo.${ota.notes ? ` (${ota.notes})` : ''}`
-                          : 'Sab latest hai — koi chhota update pending nahi.'
+                          : `Sab latest hai — koi chhota update pending nahi${
+                              ota.id ? ` (id ${ota.id.slice(0, 8)}…)` : ''
+                            }.`
                   : 'Bina APK install kiye chhote fixes. Native change ke liye APK.'}
               </Text>
+              {ota?.runtime ? (
+                <Text style={[styles.updToggleSub, { color: theme.textFaint, marginTop: 2 }]}>
+                  {`runtime ${ota.runtime}${ota.id ? ` · update ${ota.id.slice(0, 8)}…` : ''}`}
+                </Text>
+              ) : null}
               <View style={{ flexDirection: 'row', gap: 10, marginTop: 8 }}>
                 <Pressable
                   onPress={() => void checkOta()}

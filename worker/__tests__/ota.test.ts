@@ -150,6 +150,41 @@ describe('GET /api/ota/manifest', () => {
 });
 
 describe('POST /api/ota/publish', () => {
+  // THE bug that made three releases invisible. expo-updates does NOT append
+  // query params: it GETs app.json's update url as-is and sends the runtime as
+  // a HEADER (FileDownloader.createRequestForRemoteUpdate):
+  //     url  = https://beyondredeye.site/api/ota/manifest
+  //     hdrs = Expo-Platform: android, Expo-Runtime-Version: 2.15.1
+  // The Worker only read ?runtime-version, so runtime was '' -> no match ->
+  // 204 -> the app reported "already up to date" forever.
+  test('serves the manifest to the request the APK actually makes (headers, no query)', async () => {
+    expect((await publish('APK-STYLE', 'platform=android&runtime=2.14.0')).status).toBe(201);
+    const res = await call('GET', '/api/ota/manifest', {
+      headers: {
+        Accept: 'multipart/mixed,application/expo+json,application/json',
+        'Expo-Platform': 'android',
+        'Expo-Runtime-Version': '2.14.0',
+        'Expo-Protocol-Version': '1',
+        'Expo-Updates-Environment': 'BARE',
+      },
+    });
+    // 204 here is the silent "you are current" that hid the bug.
+    expect(res.status).toBe(200);
+    const m = (await res.json()) as { runtimeVersion: string; id: string };
+    expect(m.runtimeVersion).toBe('2.14.0');
+    expect(m.id).toMatch(/^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i);
+    // Still signed: the app verifies this header over the body.
+    expect(res.headers.get('expo-signature')).toMatch(/^sig="[^"]+", ?keyid="root", ?alg="rsa-v1_5-sha256"$/);
+  });
+
+  test('a header runtime that has no release is still 204, not someone else\'s bundle', async () => {
+    expect((await publish('ONLY-2-14', 'platform=android&runtime=2.14.0')).status).toBe(201);
+    const res = await call('GET', '/api/ota/manifest', {
+      headers: { 'Expo-Platform': 'android', 'Expo-Runtime-Version': '9.9.9' },
+    });
+    expect(res.status).toBe(204);
+  });
+
   test('requires the admin token', async () => {
     const res = await call('POST', '/api/ota/publish?platform=android&runtime=2.14.0', {
       method: 'POST',

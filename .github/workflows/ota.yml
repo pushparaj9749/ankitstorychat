@@ -113,12 +113,21 @@ jobs:
         run: |
           set -uo pipefail
           V=$(node -p "require('./app.json').expo.version")
+          # Ask the way the APP asks: no query params, runtime in a header
+          # (expo-updates FileDownloader). Query-param-only checks passed while
+          # every device got 204 "already up to date" — three releases died there.
           out=$(curl -s -o /tmp/m.json -w '%{http_code}' --max-time 45 \
-            "https://beyondredeye.site/api/ota/manifest?platform=android&runtime-version=$V")
+            -H 'Expo-Protocol-Version: 1' \
+            -H 'Expo-Platform: android' \
+            -H "Expo-Runtime-Version: $V" \
+            -H 'Expo-Updates-Environment: BARE' \
+            "https://beyondredeye.site/api/ota/manifest")
           if [ "$out" = "200" ]; then
             node -e "const m=require('/tmp/m.json');if(m.runtimeVersion!=='$V'){console.error('wrong runtime');process.exit(1)};if(!m.launchAsset||!/^[A-Za-z0-9_-]{43}\$/.test(m.launchAsset.hash||'')){console.error('launch asset hash is not base64url sha256');process.exit(1)};console.log('✅ OTA live: runtime',m.runtimeVersion,'seq',m.extra&&m.extra.sequence)"
             # A manifest without expo-signature is an update the app must reject.
-            curl -sD /tmp/h.txt -o /dev/null "https://beyondredeye.site/api/ota/manifest?platform=android&runtime-version=$V"
+            curl -sD /tmp/h.txt -o /dev/null \
+              -H 'Expo-Protocol-Version: 1' -H 'Expo-Platform: android' -H "Expo-Runtime-Version: $V" \
+              "https://beyondredeye.site/api/ota/manifest"
             if ! grep -qi '^expo-signature:' /tmp/h.txt; then
               echo "::error title=OTA manifest unsigned::the app pins a certificate, so it would reject this update"; exit 1
             fi

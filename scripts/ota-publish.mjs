@@ -173,16 +173,33 @@ const text = await res.text();
 if (!res.ok) fail(`publish failed (${res.status}): ${text.slice(0, 400)}`);
 log(`✅ Published OTA for ${runtime}: ${text.slice(0, 300)}`);
 
-// Prove the app will accept it: fetch the manifest and verify that the
-// expo-signature header covers the body with the pinned public certificate.
-const manifestRes = await fetch(
-  `${API}/ota/manifest?platform=android&runtime-version=${encodeURIComponent(runtime)}`,
-  { headers: { 'Expo-Protocol-Version': '1' } },
-);
+// Prove the app will accept it — by asking EXACTLY the way the app asks.
+//
+// expo-updates does not append query params: it GETs the update url unchanged
+// and sends the runtime as a header (FileDownloader.createRequestForRemoteUpdate):
+//   GET  <app.json expo.updates.url>
+//   Expo-Platform: android
+//   Expo-Runtime-Version: <runtime>
+//
+// This check used to use ?runtime-version=…, which the app never sends — so it
+// passed while every real device got 204 ("already up to date"). Never again:
+// the header request below is the one that gates the publish.
+const manifestRes = await fetch(`${API}/ota/manifest`, {
+  headers: {
+    Accept: 'multipart/mixed,application/expo+json,application/json',
+    'Expo-Protocol-Version': '1',
+    'Expo-Platform': 'android',
+    'Expo-Runtime-Version': runtime,
+    'Expo-Updates-Environment': 'BARE',
+  },
+});
 const manifestBody = await manifestRes.text();
 const sig = manifestRes.headers.get('expo-signature') || '';
 if (manifestRes.status !== 200 || !sig) {
-  fail(`manifest not signed (${manifestRes.status}) — the app would reject this update.`);
+  fail(
+    `the app's own request (headers, no query params) got ${manifestRes.status} instead of 200 — ` +
+      'the update would never reach a device.',
+  );
 }
 const parsed = JSON.parse(manifestBody);
 if (parsed.id !== JSON.parse(text).release.id) fail('served manifest is not the update just published.');

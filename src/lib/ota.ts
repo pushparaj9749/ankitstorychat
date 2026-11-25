@@ -19,6 +19,10 @@ import Constants from 'expo-constants';
 export type OtaCheckResult = {
   state: 'idle' | 'applied' | 'downloaded' | 'current' | 'blocked' | 'error';
   notes?: string;
+  /** Update id the server served (UUID), when it served one. Shown in About. */
+  id?: string;
+  /** Runtime this install asks for — matches app.json version. */
+  runtime?: string;
 };
 
 /**
@@ -49,16 +53,21 @@ export function otaEnabled(): boolean {
 export async function checkForOtaUpdate(): Promise<OtaCheckResult> {
   const u = await updates();
   if (!u) return { state: 'blocked' };
+  const runtime = (Constants.expoConfig?.version as string | undefined) ?? undefined;
   try {
     const res = await u.checkForUpdateAsync();
-    if (!res.isAvailable) return { state: 'current' };
+    if (!res.isAvailable) return { state: 'current', runtime };
     const fetched = await u.fetchUpdateAsync();
     // `metadata` carries the one-line note CI published with the update.
     const notes =
       res.manifest && typeof res.manifest === 'object' && 'metadata' in res.manifest
         ? ((res.manifest.metadata as { notes?: string } | undefined)?.notes ?? undefined)
         : undefined;
-    return { state: fetched.isNew ? 'downloaded' : 'current', notes };
+    const id =
+      res.manifest && typeof res.manifest === 'object' && 'id' in res.manifest
+        ? String((res.manifest as { id?: unknown }).id ?? '') || undefined
+        : undefined;
+    return { state: fetched.isNew ? 'downloaded' : 'current', notes, id, runtime };
   } catch (err) {
     // NEVER report "you are current" from a failure. A throw here means the
     // update was rejected (signature, a malformed manifest, a network fault) —
@@ -66,9 +75,9 @@ export async function checkForOtaUpdate(): Promise<OtaCheckResult> {
     // bug. That is exactly how two broken OTA releases looked fine for hours.
     const msg = err instanceof Error ? err.message : String(err);
     if (/signature|certificate|code signing/i.test(msg)) {
-      return { state: 'blocked', notes: 'Update ka signature verify nahi hua — skip kar diya.' };
+      return { state: 'blocked', runtime, notes: 'Update ka signature verify nahi hua — skip kar diya.' };
     }
-    return { state: 'error', notes: msg.slice(0, 160) };
+    return { state: 'error', runtime, notes: msg.slice(0, 160) };
   }
 }
 
