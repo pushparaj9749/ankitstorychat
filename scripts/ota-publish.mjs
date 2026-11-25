@@ -187,6 +187,19 @@ if (manifestRes.status !== 200 || !sig) {
 const parsed = JSON.parse(manifestBody);
 if (parsed.id !== JSON.parse(text).release.id) fail('served manifest is not the update just published.');
 if (parsed.launchAsset.hash !== hash) fail('served manifest hash does not match the uploaded bundle.');
-log(`✅ Manifest is signed and matches the upload (${sig.slice(0, 40)}…)`);
+// expo-updates (Android) parses the manifest id with UUID.fromString(). A
+// non-UUID throws, the app silently discards the update and keeps reporting
+// "already up to date" — two releases shipped dead exactly like that
+// (ota_FCR4NmqEqoCK0A, ota_agtgeXcMzQlI3Q). Signature + hash checks below do
+// NOT catch it, so assert the shape here: this is the only place that sees a
+// real served manifest before users do.
+const UUID_RE = /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i;
+if (typeof parsed.id !== 'string' || !UUID_RE.test(parsed.id)) {
+  fail(`manifest id is not a UUID ("${parsed.id}") — expo-updates would reject this update silently.`);
+}
+if (!parsed.launchAsset?.url?.includes(parsed.id)) {
+  fail('launchAsset url does not contain the manifest id — the app could not fetch the bundle.');
+}
+log(`✅ Manifest is signed, id is a UUID, and matches the upload (${sig.slice(0, 40)}…)`);
 
 fs.rmSync(outDir, { recursive: true, force: true });

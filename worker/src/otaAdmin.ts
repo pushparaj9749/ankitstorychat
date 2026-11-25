@@ -21,7 +21,17 @@
  */
 import type { Env } from './submissions';
 import { assetHash, otaKeyFor, type OtaRelease } from './ota';
-import { randomToken } from './accounts/store';
+/**
+ * Update ids MUST be UUIDs, not opaque tokens.
+ *
+ * expo-updates (Android) does `UUID.fromString(manifest.getID())` when it parses
+ * a manifest (ExpoUpdatesUpdate.kt). A non-UUID throws, the manifest is thrown
+ * away, and the app reports "already up to date" forever — two OTA releases
+ * (`ota_FCR4NmqEqoCK0A`, `ota_agtgeXcMzQlI3Q`) shipped dead that way.
+ */
+function newUpdateId(): string {
+  return crypto.randomUUID();
+}
 
 const KV_KEY = (platform: string) => `ota:latest:${platform}`;
 const MAX_BUNDLE_BYTES = 24 * 1024 * 1024; // a JS bundle + assets, zipped
@@ -79,7 +89,7 @@ export async function handleOtaAdmin(
     }
   }
 
-  const id = `ota_${randomToken(10)}`;
+  const id = newUpdateId();
   await kv.put(otaKeyFor(id, 'bundle'), buf);
 
   // `signature` is filled in at serve time: the signed payload is the manifest

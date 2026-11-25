@@ -111,8 +111,10 @@ export function About({ navigation }: Props) {
                     : ota.state === 'applied'
                       ? 'Update lag gaya. Kholte hi naya version chalega.'
                       : ota.state === 'blocked'
-                        ? 'Is change ke liye naya APK chahiye (native change).'
-                        : 'Sab latest hai — koi chhota update pending nahi.'
+                        ? 'Update ka signature verify nahi hua — is build par yeh update nahi lagega.'
+                        : ota.state === 'error'
+                          ? `Update check fail hua — dobara try karo.${ota.notes ? ` (${ota.notes})` : ''}`
+                          : 'Sab latest hai — koi chhota update pending nahi.'
                   : 'Bina APK install kiye chhote fixes. Native change ke liye APK.'}
               </Text>
               <View style={{ flexDirection: 'row', gap: 10, marginTop: 8 }}>

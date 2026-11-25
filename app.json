@@ -61,7 +61,7 @@
     },
     "updates": {
       "enabled": true,
-      "checkAutomatically": "ON_LOAD",
+      "checkAutomatically": "ALWAYS",
       "fallbackToCacheTimeout": 0,
       "url": "https://beyondredeye.site/api/ota/manifest",
       "codeSigningCertificate": "./assets/certificate.pem",

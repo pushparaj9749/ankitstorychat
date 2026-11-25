@@ -365,9 +365,15 @@ export function parseApiRoute(pathname: string): ApiRoute {
     if (second === 'publish' && segments.length === 3) return { kind: 'ota-publish' };
     if (second === 'rollback' && segments.length === 3) return { kind: 'ota-rollback' };
     if (second === 'assets' && segments.length >= 5) {
+      // The update id is a UUID, and its dashes survive URL parsing fine — but
+      // an id must never swallow the asset path. Split at the FIRST slash after
+      // `assets/` and keep everything else as the path, so `.../bundle` and
+      // future nested asset keys both resolve. (Legacy `ota_…` ids keep working
+      // for releases already in KV.)
+      const id = decodeURIComponent(segments[3]);
       return {
         kind: 'ota-asset',
-        id: decodeURIComponent(segments[3]),
+        id,
         path: segments.slice(4).map((x) => decodeURIComponent(x)).join('/'),
       };
     }
