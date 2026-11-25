@@ -47,6 +47,12 @@ export interface OtaRelease {
   /** Extra assets shipped with this update. */
   assets: { path: string; hash: string; size: number }[];
   /**
+   * Optional project config published with the update. The Worker always fills
+   * `version`/`runtimeVersion` from `runtimeVersion`; anything stored here is
+   * merged first, so a future field (e.g. a real `extra`) can ride along.
+   */
+  expoClient?: Record<string, unknown>;
+  /**
    * expo-signature header value covering the EXACT bytes of the manifest body
    * served to the app (see `signManifest`). The app verifies the manifest, not
    * the bundle: that is what makes an OTA safe to install.
@@ -134,6 +140,32 @@ export function buildManifest(rel: OtaRelease, base: string): Record<string, unk
     // `metadata.notes` is what the About screen shows after a download.
     metadata: rel.notes ? { notes: rel.notes } : {},
     extra: {
+      /**
+       * THE PROJECT CONFIG OF THIS UPDATE — expo-constants reads `expoConfig`
+       * from HERE once the app is running an OTA bundle, and it returns null
+       * when this object is missing (expo-constants/build/Constants.js:
+       * `return maybeManifest.extra?.expoClient ?? null`).
+       *
+       * A null expoConfig meant `Constants.expoConfig.version` fell back to
+       * '0.0.0' on every OTA launch. That version goes out as
+       * `X-Kissa-Version`, the server compared 0.0.0 with minVersion, answered
+       * 426 — and the reader got the full-screen "ye update purana ho gaya hai"
+       * wall RIGHT AFTER a successful update, every single time.
+       *
+       * Shipping the config with the manifest fixes the app for everyone whose
+       * installed bundle still reads its version from expoConfig — including
+       * readers who are currently stuck on the wall, because the value lives in
+       * the HTTP response and not in the JS bundle they cannot update yet.
+       *
+       * `version` is the update's runtime (= the APK version this update was
+       * built for), never the JS release date: the version gate compares it with
+       * the server's minVersion, so it must describe the INSTALL.
+       */
+      expoClient: {
+        ...(rel.expoClient ?? {}),
+        version: rel.runtimeVersion,
+        runtimeVersion: rel.runtimeVersion,
+      },
       // Informational only — the signature that matters is the expo-signature
       // header on the response body (the app never trusts fields inside the
       // body it is supposed to be verifying).
