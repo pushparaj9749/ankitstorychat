@@ -17,7 +17,7 @@
  */
 import React, { useEffect, useMemo, useState } from 'react';
 import { GALLERY_FIRST, nextGalleryCount } from '../lib/galleryReveal';
-import { ActivityIndicator, Alert, Modal, Pressable, ScrollView, Share, StyleSheet, Text, View } from 'react-native';
+import { ActivityIndicator, Alert, Dimensions, Image, Modal, Pressable, ScrollView, Share, StyleSheet, Text, View } from 'react-native';
 import { LinearGradient } from 'expo-linear-gradient';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import type { NativeStackScreenProps } from '@react-navigation/native-stack';
@@ -33,7 +33,7 @@ import { NaturalImage } from '../components/NaturalImage';
 import { CreatorAvatar } from '../components/CreatorAvatar';
 import { AgeBadge, GenreChip, SectionHeader } from '../components/bits';
 import { ErrorState, LoadingState, OfflineState } from '../components/states';
-import { getBundledCoverSource, getBundle, mediaApiUrl, effectiveContentApiBaseUrl, StoryContentError } from '../content/loader';
+import { getBundledCoverSource, getBundle, mediaApiUrl, coverApiUrl, effectiveContentApiBaseUrl, StoryContentError } from '../content/loader';
 import { interpolatePlayerName, makePlayerTextFn, readerRoleText } from '../lib/playerName';
 import { AgeRestrictedError } from '../lib/ageGate';
 import { listPlaythroughsForStory, updateStats, insertMessage } from '../lib/db';
@@ -54,6 +54,11 @@ const HERO = 540;
 export function StoryDetail({ navigation, route }: Props) {
   const { storyId } = route.params;
   const { theme, profile, settings, stories, favoriteIds, toggleFavorite, activeProvider, providersWithKeys, refreshRecent } = useApp();
+  // Module-level Dimensions (not a hook) keeps this screen renderable in the
+  // react-test-renderer suites, which stub react-native with a small surface.
+  // The optional chain covers that stub; a real device always has it.
+  const width = Dimensions?.get?.('window')?.width ?? 0;
+  const [slide, setSlide] = useState(0);
 
   const [bundle, setBundle] = useState<StoryBundle | null>(null);
   const [error, setError] = useState<string | null>(null);
@@ -70,6 +75,8 @@ export function StoryDetail({ navigation, route }: Props) {
   const isFav = favoriteIds.has(storyId);
   const apiBase = effectiveContentApiBaseUrl(settings.contentApiBaseUrl);
   const cover = meta ? getBundledCoverSource(meta, apiBase) : null;
+  /** Absolute URL of the cover — the carousel needs a plain uri, not a require(). */
+  const coverUri = meta?.coverUrl ? coverApiUrl(apiBase, meta.coverUrl) : null;
   const forPlayer = makePlayerTextFn(meta, profile?.nickname);
 
   useEffect(() => {
@@ -193,6 +200,11 @@ export function StoryDetail({ navigation, route }: Props) {
   };
 
   const ongoing = meta.tags?.includes('ongoing') ?? false;
+  // The hero is a swipeable, full-bleed carousel (cover first, then the
+  // author's art). One slide = one screen width, with a thumbnail strip under
+  // it so the reader can see how much art there is without swiping blind.
+  const carousel = gallery.length > 0 ? gallery : [{ id: 'cover', file: '', kind: 'cover' as const, label: 'Cover' }];
+  const slideWidth = Math.min(width, 720);
 
   return (
     <Screen padded={false}>
@@ -200,15 +212,35 @@ export function StoryDetail({ navigation, route }: Props) {
         {/* ------------------------------------------------ immersive hero */}
         <View style={[styles.hero, { height: HERO, backgroundColor: withAlpha(meta.accentColor, 0.16) }]}>
           <ArtBackdrop source={cover} accentColor={meta.accentColor} />
-          <CoverImage
-            source={cover}
-            accentColor={meta.accentColor}
-            fallbackLetter={meta.title}
-            style={styles.heroArt}
-            maxHeight={HERO}
-            placeholderMinHeight={HERO * 0.7}
-            tint="transparent"
-          />
+          {/* Swipeable media: cover + the author's portraits and scenes. */}
+          <ScrollView
+            horizontal
+            pagingEnabled
+            showsHorizontalScrollIndicator={false}
+            onMomentumScrollEnd={(e) => {
+              const next = Math.round(e.nativeEvent.contentOffset.x / slideWidth);
+              setSlide(Math.max(0, Math.min(carousel.length - 1, next)));
+            }}
+            style={styles.heroCarousel}
+            testID="story-carousel"
+          >
+            {carousel.map((item, i) => {
+              const uri = i === 0 ? coverUri : mediaApiUrl(apiBase, bundle.meta.storyDir, item.file);
+              return (
+                <View key={item.id} style={[styles.heroSlide, { width: slideWidth }]}>
+                  <CoverImage
+                    source={uri ? { uri } : null}
+                    accentColor={meta.accentColor}
+                    fallbackLetter={meta.title}
+                    style={styles.heroArt}
+                    maxHeight={HERO}
+                    placeholderMinHeight={HERO * 0.7}
+                    tint="transparent"
+                  />
+                </View>
+              );
+            })}
+          </ScrollView>
           <LinearGradient
             colors={['rgba(10,11,16,0.55)', 'transparent', withAlpha(theme.bg, 0.55), withAlpha(theme.bg, 0.97), theme.bg]}
             locations={[0, 0.2, 0.52, 0.84, 1]}
@@ -245,6 +277,23 @@ export function StoryDetail({ navigation, route }: Props) {
             </View>
           </View>
 
+          {/* dots: where you are in the gallery, without stealing height */}
+          {carousel.length > 1 ? (
+            <View style={styles.heroDots} pointerEvents="none" testID="story-carousel-dots">
+              {carousel.map((item, i) => (
+                <View
+                  key={item.id}
+                  style={[
+                    styles.heroDot,
+                    i === slide
+                      ? { backgroundColor: '#FFFFFF', width: 16 }
+                      : { backgroundColor: 'rgba(255,255,255,0.34)' },
+                  ]}
+                />
+              ))}
+            </View>
+          ) : null}
+
           <View style={styles.heroNav}>
             <Pressable
               onPress={() => navigation.goBack()}
@@ -276,8 +325,76 @@ export function StoryDetail({ navigation, route }: Props) {
           </View>
         </View>
 
+        {/* --------------------------------- thumbnails + play (above intro) */}
+        <View style={styles.playBlock} testID="story-play-block">
+          {carousel.length > 1 ? (
+            <ScrollView
+              horizontal
+              showsHorizontalScrollIndicator={false}
+              contentContainerStyle={styles.thumbRow}
+              testID="story-thumbs"
+            >
+              {carousel.map((item, i) => {
+                const uri = i === 0 ? coverUri : mediaApiUrl(apiBase, bundle.meta.storyDir, item.file);
+                return (
+                  <Pressable
+                    key={item.id}
+                    onPress={() => setSlide(i)}
+                    accessibilityRole="imagebutton"
+                    accessibilityLabel={item.label || `Artwork ${i + 1}`}
+                    style={[
+                      styles.thumb,
+                      {
+                        borderColor: i === slide ? theme.primary : theme.border,
+                        backgroundColor: withAlpha(meta.accentColor, 0.14),
+                      },
+                    ]}
+                  >
+                    {uri ? (
+                      <Image source={{ uri }} style={styles.thumbImg} resizeMode="contain" accessibilityIgnoresInvertColors />
+                    ) : null}
+                  </Pressable>
+                );
+              })}
+            </ScrollView>
+          ) : null}
+
+          <View style={{ paddingHorizontal: SPACING.page }}>
+            <GradientButton
+              title={activeSave ? 'Continue khelo' : 'Story khelo'}
+              loading={starting}
+              onPress={() => {
+                if (activeSave) navigation.navigate('Chat', { playthroughId: activeSave.id });
+                else void startNew();
+              }}
+            />
+            {saves.length > 0 ? (
+              <Pressable
+                onPress={() => navigation.navigate('Saves', { storyId })}
+                accessibilityRole="button"
+                accessibilityLabel={`Saves, ${saves.length}`}
+                style={({ pressed }) => [styles.playSecondary, { borderColor: theme.border, opacity: pressed ? 0.7 : 1 }]}
+              >
+                <Icon name="albums-outline" size={ICON_SIZE.sm} color={theme.textDim} />
+                <Text style={[styles.playSecondaryText, { color: theme.textDim }]}>
+                  {`${saves.length} save${saves.length > 1 ? 's' : ''} — koi bhi kholo`}
+                </Text>
+              </Pressable>
+            ) : null}
+          </View>
+        </View>
+
         {/* ------------------------------------------------ overlapping sheet */}
         <View style={[styles.sheet, { backgroundColor: theme.bg, borderColor: theme.borderSoft }]}>
+          {/* intro — title/tagline already sit on the art, so this is the
+              short "what this is" beat right under the play button. */}
+          <View style={styles.introHead} testID="story-intro">
+            <Text style={[styles.introKicker, { color: theme.accent }]}>STORY SHURU</Text>
+            <Text style={[styles.introLine, { color: theme.textDim }]} numberOfLines={2}>
+              {forPlayer(meta.tagline)}
+            </Text>
+          </View>
+
           {/* at a glance — never a length, duration or count of endings */}
           <View style={[styles.statRow, { borderColor: theme.border, backgroundColor: theme.surface }]}>
             {[
@@ -642,6 +759,35 @@ function SimilarStoriesBlock({ storyId, navigation }: { storyId: string; navigat
 const styles = StyleSheet.create({
   scroll: { paddingBottom: 16 },
   hero: { width: '100%', alignItems: 'center', justifyContent: 'center', overflow: 'hidden' },
+  heroCarousel: { position: 'absolute', top: 0, left: 0, right: 0, bottom: 0 },
+  heroSlide: { alignItems: 'center', justifyContent: 'center' },
+  heroDots: {
+    position: 'absolute',
+    bottom: 96,
+    alignSelf: 'center',
+    flexDirection: 'row',
+    gap: 5,
+    alignItems: 'center',
+  },
+  heroDot: { height: 5, width: 5, borderRadius: 2.5 },
+  playBlock: { marginTop: -18, marginBottom: 8, gap: 10 },
+  thumbRow: { gap: 8, paddingHorizontal: SPACING.page, paddingBottom: 4 },
+  thumb: { width: 54, height: 54, borderRadius: 11, overflow: 'hidden', borderWidth: 1.5 },
+  thumbImg: { width: '100%', height: '100%' },
+  playSecondary: {
+    marginTop: 8,
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'center',
+    gap: 6,
+    borderWidth: StyleSheet.hairlineWidth,
+    borderRadius: RADIUS.pill,
+    paddingVertical: 8,
+  },
+  playSecondaryText: { fontSize: SCALE.caption, fontWeight: '600' },
+  introHead: { gap: 4, marginBottom: 12 },
+  introKicker: { fontSize: 9.5, fontWeight: '800', letterSpacing: 1.6 },
+  introLine: { fontSize: 13.5, lineHeight: 19, fontStyle: 'italic' },
   sheet: {
     paddingHorizontal: SPACING.page,
     paddingTop: 4,
