@@ -1,0 +1,62 @@
+name: Check account count
+
+on:
+  workflow_dispatch:
+
+jobs:
+  count:
+    name: Count accounts
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - name: Install wrangler
+        run: npm install -g wrangler@4
+
+      - name: Resolve D1 database
+        id: db
+        env:
+          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+        run: |
+          set -euo pipefail
+          # Try to find the Kissa/KISSA_DB database by listing D1 databases.
+          npx wrangler d1 list --json > /tmp/d1.json
+          node -e '
+            const fs=require("fs");
+            const dbs=JSON.parse(fs.readFileSync("/tmp/d1.json","utf8"));
+            const pick=dbs.find(d=>/kissa/i.test(d.name||d.uuid||"")) || dbs.find(d=>/account/i.test(d.name||"")) || dbs[0];
+            if(!pick){ console.error("No D1 database found"); process.exit(1); }
+            console.log("DB_NAME="+pick.name);
+            console.log("DB_UUID="+pick.uuid);
+          ' | tee -a "$GITHUB_OUTPUT"
+
+      - name: Count accounts
+        env:
+          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+          DB_NAME: ${{ steps.db.outputs.DB_NAME }}
+        run: |
+          set -euo pipefail
+          echo "Querying D1 database: $DB_NAME"
+          npx wrangler d1 execute "$DB_NAME" --remote --command "SELECT COUNT(*) AS total_accounts, SUM(CASE WHEN status='active' THEN 1 ELSE 0 END) AS active_accounts, SUM(CASE WHEN status!='active' THEN 1 ELSE 0 END) AS other_accounts FROM accounts;" --json > /tmp/count.json
+          cat /tmp/count.json
+          node -e '
+            const fs=require("fs");
+            const raw=JSON.parse(fs.readFileSync("/tmp/count.json","utf8"));
+            // wrangler --json returns an array of result objects
+            const results = Array.isArray(raw) ? raw : (raw.result || []);
+            const first = Array.isArray(results) ? results[0] : results;
+            const rows = first?.results || first?.rows || [];
+            const row = rows[0] || {};
+            console.log("=== ACCOUNT COUNT ===");
+            console.log("Total:", row.total_accounts ?? row.total ?? row["COUNT(*)"] ?? JSON.stringify(row));
+            console.log("Active:", row.active_accounts ?? "n/a");
+            console.log("Other:", row.other_accounts ?? "n/a");
+          '
