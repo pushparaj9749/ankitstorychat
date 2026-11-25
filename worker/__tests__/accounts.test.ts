@@ -13,6 +13,7 @@ import {
   deleteAccount,
   isOlderVersion,
   listNotifications,
+  versionForGate,
   login,
   markAllNotificationsRead,
   mySubmissions,
@@ -303,6 +304,29 @@ describe('version gate', () => {
     expect(isOlderVersion('3.0', '2.14.0')).toBe(false);
     expect(isOlderVersion(null, '2.14.0')).toBe(false);
     expect(isOlderVersion('garbage', '2.14.0')).toBe(false);
+  });
+
+  test('an OTA-manifest version is compared as its APK version, never raw', () => {
+    // THE RECURRING WALL: after an OTA, the running manifest (not the APK)
+    // supplied the version. "2.16.0-ota" is never older than 2.14.0 once the
+    // suffix is dropped — and it must never be read as "2.16.0" > "2.17.0"
+    // style garbage either.
+    expect(versionForGate('2.16.0-ota')).toBe('2.16.0');
+    expect(versionForGate('2.16.0-ota.3')).toBe('2.16.0');
+    expect(versionForGate('v2.16.0-OTA-1')).toBe('2.16.0');
+    expect(versionForGate('2.16.0')).toBe('2.16.0');
+    expect(versionForGate('')).toBeNull();
+    expect(versionForGate(null)).toBeNull();
+    // The gate itself stays conservative on the normalised value.
+    expect(isOlderVersion(versionForGate('2.16.0-ota'), '2.14.0')).toBe(false);
+    expect(isOlderVersion(versionForGate('2.13.0-ota'), '2.14.0')).toBe(true);
+  });
+
+  test('no OTA build is ever blocked by its own OTA suffix', () => {
+    // Every version we could publish an OTA for, with the current minVersion.
+    for (const v of ['2.14.0', '2.15.0', '2.15.1', '2.16.0']) {
+      expect(isOlderVersion(versionForGate(`${v}-ota`), '2.14.0')).toBe(false);
+    }
   });
 });
 

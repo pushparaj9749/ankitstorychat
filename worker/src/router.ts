@@ -90,7 +90,7 @@ import {
   handleRecoveryRequest,
   optionalAccountId,
 } from './accounts/routes';
-import { getMinVersion, isOlderVersion } from './accounts/service';
+import { getMinVersion, isOlderVersion, versionForGate } from './accounts/service';
 import { handleOtaAdmin } from './otaAdmin';
 import {
   buildManifest,
@@ -756,7 +756,8 @@ async function handleApi(request: Request, env: Env, url: URL): Promise<Response
     !route.kind.startsWith('ota-') &&
     !route.kind.startsWith('admin-')
   ) {
-    const clientVersion = request.headers.get('X-Kissa-Version');
+    // Never compare an OTA-manifest version against an APK minimum.
+    const clientVersion = versionForGate(request.headers.get('X-Kissa-Version'));
     const { minVersion, message } = await getMinVersion(env);
     if (isOlderVersion(clientVersion, minVersion)) {
       return withCors(

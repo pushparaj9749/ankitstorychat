@@ -737,6 +737,32 @@ export async function setMinVersion(env: Env, minVersion: string, message?: stri
 }
 
 /** "2.13.10" vs "2.14.0" — true when `installed` is older than `min`. */
+/**
+ * Server-side safety net for the version gate.
+ *
+ * THE BUG THIS PREVENTS: on a bare (non-managed) build, `Constants.expoConfig`
+ * comes from the manifest that is currently RUNNING. After an OTA update that is
+ * the Worker's manifest, so the app reported the JS bundle's version as
+ * `X-Kissa-Version` — and the gate 426'd an install whose APK was perfectly
+ * current. That is why "update purana ho gaya" came back after almost every OTA.
+ *
+ * The client now sends the native APK version, but old bundles still send the
+ * OTA one, and a bad value must never block a reader:
+ *   - an OTA-manifest version looks like "<apk>-ota" (see scripts/ota-publish.mjs
+ *     and the version file check) — the APK part is the truth, so compare that;
+ *   - anything else that is not a plain x.y.z is refused for the comparison,
+ *     because `isOlderVersion` already treats unparseable versions as "never
+ *     block by accident".
+ */
+export function versionForGate(header: string | null | undefined): string | null {
+  const raw = String(header ?? '').trim();
+  if (!raw) return null;
+  // 2.16.0-ota / 2.16.0-ota.2 -> 2.16.0
+  const ota = raw.match(/^v?(\d+\.\d+\.\d+)-ota(?:[.\-].*)?$/i);
+  if (ota) return ota[1];
+  return raw;
+}
+
 export function isOlderVersion(installed: string | null | undefined, min: string): boolean {
   const parse = (v: string | null | undefined): number[] | null => {
     const m = String(v ?? '').trim().match(/^v?(\d+)(?:\.(\d+))?(?:\.(\d+))?/);

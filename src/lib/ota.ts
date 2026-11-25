@@ -14,6 +14,7 @@
  * This module never throws: OTA is an optimisation, not a requirement.
  */
 import Constants from 'expo-constants';
+import { installedAppVersion } from './appVersion';
 
 /** Shape shared with the About screen. */
 export type OtaCheckResult = {
@@ -53,7 +54,10 @@ export function otaEnabled(): boolean {
 export async function checkForOtaUpdate(): Promise<OtaCheckResult> {
   const u = await updates();
   if (!u) return { state: 'blocked' };
-  const runtime = (Constants.expoConfig?.version as string | undefined) ?? undefined;
+  // The runtime a build belongs to is its NATIVE version (app.json version at
+  // build time). After an OTA, expoConfig.version is the served manifest's
+  // version, so reading it here would drift. See appVersion() in account.ts.
+  const runtime = installedAppVersion();
   try {
     const res = await u.checkForUpdateAsync();
     if (!res.isAvailable) return { state: 'current', runtime };

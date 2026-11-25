@@ -96,3 +96,60 @@ describe('release identity', () => {
     expect(app.expo.android.versionCode).toBeGreaterThanOrEqual(46);
   });
 });
+
+describe('the version sent to the server is the APK, not the OTA bundle', () => {
+  const account = read('src/lib/appVersion.ts');
+
+  it('reads the native app version first and only falls back to expoConfig', () => {
+    // expo-constants resolves expoConfig from the RUNNING manifest. After an OTA
+    // that is the served bundle, so trusting it made every fresh OTA look like
+    // an outdated install ("ye update purana ho gaya hai") on the next launch.
+    expect(account).toContain('expo-application');
+    expect(account).toContain('nativeApplicationVersion');
+    const nativeAt = account.indexOf('nativeApplicationVersion');
+    const configAt = account.indexOf('Constants.expoConfig?.version', nativeAt);
+    expect(nativeAt).toBeGreaterThan(0);
+    expect(configAt).toBeGreaterThan(nativeAt); // fallback comes second
+  });
+
+  it('the native read is not skipped by an early return', () => {
+    const body = account.slice(account.indexOf('export function installedAppVersion'));
+    const fn = body.slice(0, body.indexOf('\n}\n') + 3);
+    expect(fn).not.toContain('executionEnvironment');
+    expect(fn.indexOf('nativeApplicationVersion')).toBeLessThan(fn.indexOf('return fromConfig'));
+  });
+
+  it('account.ts uses that single source, not its own copy', () => {
+    const src = read('src/lib/account.ts');
+    expect(src).toContain('installedAppVersion');
+    expect(src).not.toContain('nativeApplicationVersion');
+  });
+
+  it('OTA + update-check do not read the version from the running manifest', () => {
+    const ota = read('src/lib/ota.ts');
+    const check = read('src/lib/updateCheck.ts');
+    // ota.ts used to do: (Constants.expoConfig?.version) ?? undefined
+    expect(ota).not.toContain('Constants.expoConfig?.version');
+    expect(ota).toContain('installedAppVersion');
+    expect(check).toContain('installedAppVersion');
+    expect(check).not.toContain("return Constants.expoConfig?.version");
+  });
+});
+
+describe('the update wall is never a dead end', () => {
+  const wall = read('src/screens/UpdateRequired.tsx');
+
+  it('re-asks the server on its own: mount, foreground, and every minute', () => {
+    // A stale 426 must not require the reader to find a button — the wall
+    // retries and closes itself as soon as the server says the install is fine.
+    expect(wall).toContain('AppState.addEventListener');
+    expect(wall).toContain("state === 'active'");
+    expect(wall).toContain('setInterval');
+    expect(wall).toContain('recheckUpdateGate');
+  });
+
+  it('still offers the manual recheck and the version line', () => {
+    expect(wall).toContain('Dobara check karo');
+    expect(wall).toContain('server ko ${minVersion} chahiye');
+  });
+});
