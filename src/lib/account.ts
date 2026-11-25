@@ -14,6 +14,7 @@ import * as SecureStore from 'expo-secure-store';
 import Constants from 'expo-constants';
 import { contentApiUrl, effectiveContentApiBaseUrl } from '../content/api';
 import { kvGet, kvSet } from './db';
+import { installedAppVersion } from './appVersion';
 
 const TOKEN_KEY = 'kissa_account_token';
 const ACCOUNT_KEY = 'kissa_account';
@@ -43,9 +44,9 @@ export interface NotificationItem {
   readAt: string | null;
 }
 
-/** The installed app version (sent to the API for the version gate). */
+/** The installed APK version (sent to the API for the version gate). */
 export function appVersion(): string {
-  return Constants.expoConfig?.version ?? '0.0.0';
+  return installedAppVersion();
 }
 
 export class AccountError extends Error {

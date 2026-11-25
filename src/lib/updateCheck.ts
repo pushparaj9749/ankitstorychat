@@ -20,6 +20,7 @@
  * manual — is broadcast to the Home banner straight away.
  */
 import Constants from 'expo-constants';
+import { installedAppVersion } from './appVersion';
 import { kvGet, kvSet } from './db';
 
 export const RELEASES_API =
@@ -142,7 +143,8 @@ export function pickLatestRelease(list: unknown): ReleaseInfo | null {
 }
 
 export function currentAppVersion(): string {
-  return Constants.expoConfig?.version ?? '0.0.0';
+  // Native APK version, not the running OTA manifest's version.
+  return installedAppVersion();
 }
 
 /** `ok: false` = GitHub unreachable / rate-limited (don't cache that). */

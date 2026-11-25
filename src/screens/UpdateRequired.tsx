@@ -5,14 +5,13 @@
  * Nothing else is mounted while this is showing: the account system, the API
  * and the story sync all expect the current app.
  */
-import React, { useState } from 'react';
-import { Image, Linking, Pressable, StyleSheet, Text, View } from 'react-native';
+import React, { useEffect, useRef, useState } from 'react';
+import { ActivityIndicator, AppState, Image, Linking, Pressable, StyleSheet, Text, View } from 'react-native';
 import type { NativeStackScreenProps } from '@react-navigation/native-stack';
 import type { RootStackParamList } from '../types';
 import { useApp } from '../state/AppContext';
 import { Screen } from '../components/Screen';
 import { GradientButton } from '../components/GradientButton';
-import { ActivityIndicator } from 'react-native';
 import { KISSA_LOGO } from '../components/brand';
 import { RELEASES_PAGE } from '../lib/links';
 import { SPACING, TYPE } from '../theme';
@@ -40,6 +39,38 @@ export function UpdateRequired(_props: Props) {
       setChecking(false);
     }
   }
+
+  /**
+   * The wall re-asks the server by itself.
+   *
+   * A 426 can arrive from a single unlucky request (an OTA restart that reported
+   * the bundle's version, a proxy hiccup, an old bundle still running). Making
+   * the reader find a button to get out is how users end up stuck for days — so
+   * the wall retries quietly on mount, on every app foreground, and once a
+   * minute while it is up. It closes itself the moment the server says the
+   * install is current.
+   */
+  const recheckRef = useRef(recheck);
+  recheckRef.current = recheck;
+  useEffect(() => {
+    let alive = true;
+    const tick = () => {
+      if (alive) void recheckRef.current();
+    };
+    // 1) right away — the launch check may have raced a stale flag,
+    // 2) whenever the reader comes back to the app,
+    // 3) once a minute for a wall that is left open.
+    tick();
+    const sub = AppState.addEventListener('change', (state) => {
+      if (state === 'active') tick();
+    });
+    const timer = setInterval(tick, 60_000);
+    return () => {
+      alive = false;
+      clearInterval(timer);
+      sub.remove();
+    };
+  }, []);
 
   return (
     <Screen>
