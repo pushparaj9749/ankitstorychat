@@ -345,6 +345,25 @@ describe('version gate', () => {
     expect((await call('GET', '/api/manifest')).status).toBe(200);
   });
 
+  test('the version route states the verdict, so the phone does not guess', async () => {
+    const body = async (v?: string) =>
+      (await (
+        await call('GET', '/api/app/version', v ? { headers: { 'X-Kissa-Version': v } } : {})
+      ).json()) as { minVersion: string; updateRequired: boolean };
+
+    // An old install is told by the server — not by its own semver comparison.
+    expect((await body('1.0.0')).updateRequired).toBe(true);
+    // Current, and a version we could not read ('0.0.0' after a bad OTA
+    // launch): never blocked on a guess.
+    expect((await body('2.16.0')).updateRequired).toBe(false);
+    expect((await body('0.0.0')).updateRequired).toBe(false);
+    expect((await body()).updateRequired).toBe(false);
+    // The answer depends on a request header, so it must never be cached.
+    const res = await call('GET', '/api/app/version', { headers: { 'X-Kissa-Version': '2.16.0' } });
+    expect(res.headers.get('cache-control')).toBe('no-store');
+    expect(res.headers.get('vary')).toContain('X-Kissa-Version');
+  });
+
   test('admin can move the switch', async () => {
     const res = await call('POST', '/api/admin/version', {
       headers: { Authorization: 'Bearer test-admin' },

@@ -317,6 +317,11 @@ describe('version gate', () => {
     expect(versionForGate('2.16.0')).toBe('2.16.0');
     expect(versionForGate('')).toBeNull();
     expect(versionForGate(null)).toBeNull();
+    // The app's own "could not read my version" placeholder is UNKNOWN, not
+    // ancient — this is the value a bad OTA launch reported, and treating it as
+    // ancient locked readers out of a perfectly current build.
+    expect(versionForGate('0.0.0')).toBeNull();
+    expect(versionForGate('0.0')).toBeNull();
     // The gate itself stays conservative on the normalised value.
     expect(isOlderVersion(versionForGate('2.16.0-ota'), '2.14.0')).toBe(false);
     expect(isOlderVersion(versionForGate('2.13.0-ota'), '2.14.0')).toBe(true);

@@ -760,6 +760,15 @@ export function versionForGate(header: string | null | undefined): string | null
   // 2.16.0-ota / 2.16.0-ota.2 -> 2.16.0
   const ota = raw.match(/^v?(\d+\.\d+\.\d+)-ota(?:[.\-].*)?$/i);
   if (ota) return ota[1];
+  /**
+   * 0.0.0 / 0.0 / 0 are the app's "I could not read my own version" placeholder
+   * (see src/lib/appVersion.ts). That is UNKNOWN, not ancient: it happens after
+   * an OTA launch whose manifest carried no expoClient. Treating it as ancient
+   * is precisely what locked readers out of a current build, so it is treated
+   * like a missing header — no verdict, and the real 426 on API calls still
+   * protects genuinely old installs.
+   */
+  if (/^v?0\.0(?:\.0)?$/.test(raw)) return null;
   return raw;
 }
 
