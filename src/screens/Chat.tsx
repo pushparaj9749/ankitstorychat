@@ -39,6 +39,7 @@ import { interpolatePlayerName, makePlayerTextFn, readerRoleText } from '../lib/
 import { AMOLED, GRADIENTS, RADIUS, SCALE, TOUCH, withAlpha } from '../theme';
 import { Icon, ICON_SIZE } from '../components/icons';
 import { ArtBackdrop } from '../components/ArtBackdrop';
+import { StoryIntro } from '../components/StoryIntro';
 import { nowIso, uid } from '../lib/utils';
 import { playReceive, playSend } from '../lib/sound';
 import { lightBuzz, successBuzz } from '../lib/haptics';
@@ -799,34 +800,12 @@ function meterColor(id: string, label: string, theme: { primary: string; accent:
                   </Text>
                 </View>
               ) : null}
-              {/* Author-configured meters (e.g. Love 0 / Hate 100). Values come
-                  from the world-state ledger, never from the narrator's prose,
-                  so the bar always matches the story. */}
-              {bond?.meters?.length ? (
-                <View style={styles.metersRow}>
-                  {bond.meters.map((m) => (
-                    <View
-                      key={m.id}
-                      style={styles.meter}
-                      accessibilityRole="progressbar"
-                      accessibilityLabel={`${m.label} ${m.value} out of 100`}
-                      accessibilityValue={{ min: 0, max: 100, now: m.value }}
-                    >
-                      <Text style={[styles.meterLabel, { color: theme.textFaint }]} numberOfLines={1}>
-                        {m.label}
-                      </Text>
-                      <View style={[styles.bondTrack, { backgroundColor: 'rgba(255,255,255,0.12)' }]}>
-                        <View style={[styles.bondFill, { width: `${m.fill}%`, backgroundColor: meterColor(m.id, m.label, theme) }]} />
-                      </View>
-                      <Text style={[styles.bondText, { color: theme.text }]}>{m.value}</Text>
-                    </View>
-                  ))}
-                </View>
-              ) : (
-                <Text style={[styles.headerScene, { color: classic ? theme.gold : theme.textFaint }]} numberOfLines={1}>
-                  {placeLabel}
-                </Text>
-              )}
+              {/* Scene, not meters: the Love/Hate bars squeezed the title in
+                  the header and read like status-bar noise. They now live in
+                  the story intro above the opening beat (StoryIntro). */}
+              <Text style={[styles.headerScene, { color: classic ? theme.gold : theme.textFaint }]} numberOfLines={1}>
+                {placeLabel}
+              </Text>
             </View>
           </View>
         </Pressable>
@@ -881,6 +860,22 @@ function meterColor(id: string, label: string, theme: { primary: string; accent:
           removeClippedSubviews={false}
           ListHeaderComponent={
             <>
+              {/* The intro belongs above the FIRST story beat. The list is
+                  inverted, so that means the header — shown only once the
+                  reader has scrolled to the very beginning. */}
+              {!hasMore && messages.length > 0 && bundle ? (
+                <StoryIntro
+                  bundle={bundle}
+                  meters={bond?.meters ?? []}
+                  imageUri={(file) => mediaApiUrl(apiBase, bundle.meta.storyDir, file)}
+                  forPlayer={(t) => makePlayerTextFn(bundle.meta, profile?.nickname)(t)}
+                  roleText={makePlayerTextFn(bundle.meta, profile?.nickname)(readerRoleText(bundle.story.userRole))}
+                  meterColor={(id, label) => meterColor(id, label, theme)}
+                  theme={theme}
+                  accentColor={bundle.meta.accentColor}
+                  onOpenMedia={() => navigation.navigate('StoryDetail', { storyId: bundle.meta.id })}
+                />
+              ) : null}
               {sending ? <TypingIndicator label={typingLabel} /> : null}
               {aiError ? (
                 <View style={[styles.errCard, { backgroundColor: theme.surface, borderColor: withAlpha(theme.danger, 0.3) }]}>
@@ -1073,13 +1068,6 @@ const styles = StyleSheet.create({
   headerScene: { fontSize: SCALE.caption, letterSpacing: 0.1, fontWeight: '500', flexShrink: 1 },
   moodChip: { paddingHorizontal: 7, paddingVertical: 2, borderRadius: 6, maxWidth: 110 },
   moodText: { fontSize: 11, fontWeight: '600' },
-  bond: { flexDirection: 'row', alignItems: 'center', gap: 6 },
-  bondTrack: { width: 52, height: 4, borderRadius: 2, overflow: 'hidden' },
-  bondFill: { height: 4, borderRadius: 2 },
-  bondText: { fontSize: 11, fontWeight: '700', minWidth: 28 },
-  metersRow: { flexDirection: 'row', alignItems: 'center', gap: 10 },
-  meter: { flexDirection: 'row', alignItems: 'center', gap: 5 },
-  meterLabel: { fontSize: 10, fontWeight: '700', letterSpacing: 0.3 },
   presence: { flexDirection: 'row', alignItems: 'center' },
   presenceSlot: { alignItems: 'center', justifyContent: 'center' },
   presenceOverlap: { marginLeft: -7 },

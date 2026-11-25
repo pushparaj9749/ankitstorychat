@@ -159,12 +159,40 @@ describe('"She Hates Me First" actually declares its meters', () => {
     expect(file.version).toBe(story.version);
   });
 
-  test('the chat header renders meters and does not lie when none exist', () => {
+  test('the meters live in the story intro, not the chat header', () => {
+    // v2.16: readers asked for the bars to move out of the header — they
+    // squeezed the title and read like status-bar noise. They now sit inside
+    // the scroll, above the opening beat, in <StoryIntro/>.
     const chat = read('src/screens/Chat.tsx');
+    const intro = read('src/components/StoryIntro.tsx');
+
     expect(chat).toContain('resolveMeters(');
-    expect(chat).toContain('accessibilityRole="progressbar"');
-    // Old dead styles meant the bond was computed but never drawn.
-    expect(chat).toContain('styles.metersRow');
+    expect(chat).toContain('<StoryIntro');
+    expect(chat).toContain('meters={bond?.meters ?? []}');
+    expect(chat).not.toContain('styles.metersRow'); // the old header row is gone
+
+    expect(intro).toContain('accessibilityRole="progressbar"');
+    expect(intro).toContain("testID=\"story-meters\"");
+    expect(intro).toContain('{m.value}/100');
+  });
+
+  test('the intro block also carries media, play guide and the intro text', () => {
+    const intro = read('src/components/StoryIntro.tsx');
+    const detail = read('src/screens/StoryDetail.tsx');
+    // chat-side intro
+    expect(intro).toContain('testID="story-media"');
+    expect(intro).toContain('testID="story-guide"');
+    expect(intro).toContain('testID="story-intro-text"');
+    expect(intro).toContain('horizontal');
+    // story-detail side: carousel -> thumbnails -> play -> intro
+    expect(detail).toContain('testID="story-carousel"');
+    expect(detail).toContain('testID="story-thumbs"');
+    expect(detail).toContain('testID="story-play-block"');
+    expect(detail).toContain('testID="story-intro"');
+    const playCta = detail.indexOf('testID="story-play-block"');
+    const introText = detail.indexOf('testID="story-intro"');
+    expect(playCta).toBeGreaterThan(0);
+    expect(introText).toBeGreaterThan(playCta);
   });
 });
 

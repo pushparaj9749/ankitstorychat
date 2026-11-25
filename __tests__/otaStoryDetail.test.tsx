@@ -86,6 +86,9 @@ jest.mock('../src/content/loader', () => ({
   effectiveContentApiBaseUrl: () => 'https://example.test/api',
   mediaApiUrl: (base: string, storyDir: string, file: string) =>
     `${String(base).replace(/\/+$/, '')}/stories/${storyDir}/${file}`,
+  // The hero carousel resolves the manifest coverUrl through this helper.
+  coverApiUrl: (base: string, coverUrl: string) =>
+    `${String(base).replace(/\/+$/, '')}/${String(coverUrl).replace(/^\/+/, '')}`,
   getBundle: (...a: unknown[]) => getBundle(...(a as [])),
   downloadStory: (...a: unknown[]) => downloadStory(...(a as [])),
   isStoryOnDevice: (...a: unknown[]) => isStoryOnDevice(...(a as [])),
