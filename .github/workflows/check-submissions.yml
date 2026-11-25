@@ -1,0 +1,102 @@
+name: Check submissions
+
+on:
+  workflow_dispatch:
+  push:
+    branches: ['arena/16ff8a5c-ankitstorychat']
+    paths:
+      - '.github/workflows/check-submissions.yml'
+
+jobs:
+  check:
+    name: Check pending submissions
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - name: Install wrangler
+        run: npm install -g wrangler@4
+
+      - name: Resolve D1 database
+        id: db
+        env:
+          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+        run: |
+          set -euo pipefail
+          npx wrangler d1 list --json > /tmp/d1.json
+          node -e '
+            const fs=require("fs");
+            const dbs=JSON.parse(fs.readFileSync("/tmp/d1.json","utf8"));
+            const pick=dbs.find(d=>/kissa/i.test(String(d.name||""))) || dbs.find(d=>/account|submission|content/i.test(String(d.name||""))) || dbs[0];
+            if(!pick){ console.error("No D1 database found"); process.exit(1); }
+            console.log("DB_NAME="+pick.name);
+          ' | tee -a "$GITHUB_OUTPUT"
+
+      - name: Query submissions
+        env:
+          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+          DB_NAME: ${{ steps.db.outputs.DB_NAME }}
+        run: |
+          set -euo pipefail
+          echo "DB: $DB_NAME"
+
+          run_query() {
+            local label="$1"
+            local sql="$2"
+            local out="$3"
+            echo ""
+            echo "===== $label ====="
+            npx wrangler d1 execute "$DB_NAME" --remote --command "$sql" --json > "$out"
+            cat "$out"
+          }
+
+          run_query "PENDING_SUBMISSIONS" \
+            "SELECT id, type, status, title, genre, creator_name, submitted_at, expires_at FROM submissions WHERE status='pending' ORDER BY submitted_at DESC LIMIT 50;" \
+            /tmp/pending.json
+
+          run_query "SUBMISSION_COUNTS" \
+            "SELECT type, status, COUNT(*) AS count FROM submissions GROUP BY type, status ORDER BY type, status;" \
+            /tmp/counts.json
+
+          run_query "RECENT_SUBMISSIONS" \
+            "SELECT id, type, status, title, creator_name, submitted_at, decided_at FROM submissions ORDER BY submitted_at DESC LIMIT 15;" \
+            /tmp/recent.json
+
+          node -e '
+            const fs=require("fs");
+            function rows(file){
+              const raw=JSON.parse(fs.readFileSync(file,"utf8"));
+              const arr=Array.isArray(raw)?raw:(raw.result||[]);
+              const first=Array.isArray(arr)?arr[0]:arr;
+              return first?.results || first?.rows || [];
+            }
+            const pending=rows("/tmp/pending.json");
+            const counts=rows("/tmp/counts.json");
+            const recent=rows("/tmp/recent.json");
+            console.log("\n=== SUMMARY ===");
+            console.log("Pending total:", pending.length);
+            const ideas=pending.filter(r=>r.type==="idea");
+            const stories=pending.filter(r=>r.type==="story");
+            console.log("Pending ideas/suggestions:", ideas.length);
+            console.log("Pending story submissions:", stories.length);
+            if(pending.length){
+              console.log("\nPending items:");
+              for(const r of pending){
+                console.log(`- [${r.type}] ${r.title} | by ${r.creator_name} | ${r.submitted_at} | id=${r.id}`);
+              }
+            } else {
+              console.log("No pending story suggestion/submission.");
+            }
+            console.log("\nCounts by type/status:");
+            for(const r of counts){ console.log(`- ${r.type} / ${r.status}: ${r.count}`); }
+            console.log("\nRecent 15:");
+            for(const r of recent){ console.log(`- [${r.type}/${r.status}] ${r.title} | ${r.creator_name} | ${r.submitted_at}`); }
+          '
