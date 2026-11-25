@@ -8,6 +8,7 @@
  * unsigned-manifest refusal, and rollback.
  */
 import { handleRequest } from '../src/router';
+import { buildManifest } from '../src/ota';
 import { memKv, resetMemKvForTests, type Env } from '../src/submissions';
 
 /** A throwaway RSA keypair per run — no key material lives in the repo. */
@@ -77,7 +78,12 @@ describe('GET /api/ota/manifest', () => {
       runtimeVersion: string;
       launchAsset: { url: string; hash: string; contentType: string };
       assets: unknown[];
-      extra: { sequence: number; keyid: string; signatureFormat: string };
+      extra: {
+        sequence: number;
+        keyid: string;
+        signatureFormat: string;
+        expoClient: { version: string; runtimeVersion: string };
+      };
     };
     expect(m.runtimeVersion).toBe('2.14.0');
     // The id in the path is a UUID now — expo-updates requires it (see the
@@ -91,6 +97,11 @@ describe('GET /api/ota/manifest', () => {
     expect(m.assets).toEqual([]);
     expect(m.extra.keyid).toBe('root');
     expect(m.extra.sequence).toBe(1);
+    // expo-constants resolves `expoConfig` from HERE once an OTA bundle runs.
+    // Without it every OTA launch reported version 0.0.0 → 426 → the update
+    // wall, right after a successful update.
+    expect(m.extra.expoClient.version).toBe('2.14.0');
+    expect(m.extra.expoClient.runtimeVersion).toBe('2.14.0');
     // The signature is a response HEADER over the body, never a body field.
     expect(res.headers.get('expo-signature')).toMatch(/^sig="[^"]+", ?keyid="root", ?alg="rsa-v1_5-sha256"$/);
     expect(res.headers.get('Expo-Protocol-Version')).toBe('1');
@@ -294,5 +305,39 @@ describe('signing contract', () => {
       new TextEncoder().encode(body),
     );
     expect(ok).toBe(true);
+  });
+});
+
+describe('the manifest tells expo-constants which app it is running in', () => {
+  const release = {
+    id: '0f0e0d0c-0b0a-4999-8877-665544332211',
+    platform: 'android',
+    runtimeVersion: '2.16.0',
+    createdAt: '2026-01-01T00:00:00.000Z',
+    sequence: 9,
+    bundleHash: 'x'.repeat(43),
+    launchAssetSize: 10,
+    assets: [],
+    notes: 'Copy fix',
+    signature: '',
+  };
+
+  test('extra.expoClient.version is the APK runtime, never 0.0.0-ish', () => {
+    const m = buildManifest(release as never, 'https://example.test/api') as {
+      extra: { expoClient: Record<string, unknown> };
+    };
+    expect(m.extra.expoClient).toBeDefined();
+    expect(m.extra.expoClient.version).toBe('2.16.0');
+    expect(m.extra.expoClient.runtimeVersion).toBe('2.16.0');
+  });
+
+  test('a stored expoClient cannot override the version', () => {
+    // The gate compares this with minVersion, so a stale config must never win.
+    const m = buildManifest(
+      { ...release, expoClient: { version: '0.0.0', name: 'Kissa' } } as never,
+      'https://example.test/api',
+    ) as { extra: { expoClient: Record<string, unknown> } };
+    expect(m.extra.expoClient.version).toBe('2.16.0');
+    expect(m.extra.expoClient.name).toBe('Kissa'); // other keys pass through
   });
 });
