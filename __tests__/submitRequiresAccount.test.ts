@@ -29,9 +29,30 @@ describe('update wall survives a relaunch', () => {
   const account = read('src/lib/account.ts');
   const context = read('src/state/AppContext.tsx');
 
-  it('remembers a 426 and re-checks it on launch', () => {
+  it('remembers a 426 as an OFFLINE fallback only', () => {
     expect(account).toMatch(/export async function cachedUpdateRequired/);
-    expect(context).toMatch(/isUpdateRequired\(apiBase\)\) \|\| \(await cachedUpdateRequired\(\)\)/);
+    // The old launch check OR-ed the cache into the verdict, which pinned the
+    // wall forever after a single stale 426 — users locked out of a current app.
+    expect(context).not.toMatch(/\|\| \(await cachedUpdateRequired\(\)\)/);
+    expect(context).toMatch(/const gate = await isUpdateRequired\(apiBase\);/);
+    expect(context).toMatch(/setUpdateRequired\(gate\.required\)/);
+  });
+
+  it('a fresh server answer CLEARS a stale 426', () => {
+    // "you are current" must win over a remembered block.
+    expect(account).toMatch(/export async function clearUpdateRequired/);
+    expect(account).toMatch(/if \(required\) await kvSet\('update\.required', '1'\);/);
+    expect(account).toMatch(/else await clearUpdateRequired\(\);/);
+    // Offline is the only path that may fall back to the cache.
+    expect(account).toMatch(/required: await cachedUpdateRequired\(\)\.catch\(\(\) => false\)/);
+  });
+
+  it('the wall offers a re-check instead of trapping the user', () => {
+    const wall = read('src/screens/UpdateRequired.tsx');
+    expect(wall).toMatch(/recheckUpdateGate/);
+    expect(wall).toMatch(/Dobara check karo/);
+    // And it says which versions are being compared.
+    expect(wall).toMatch(/server ko \$\{minVersion\} chahiye/);
   });
 
   it('a 426 on submit opens the wall immediately', () => {
