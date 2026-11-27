@@ -3,7 +3,6 @@
  */
 import React, { useState } from 'react';
 import { ActivityIndicator, Image, Linking, Pressable, ScrollView, StyleSheet, Switch, Text, View } from 'react-native';
-import Constants from 'expo-constants';
 import { KISSA_LOGO } from '../components/brand';
 import { Icon, ICON_SIZE } from '../components/icons';
 import type { NativeStackScreenProps } from '@react-navigation/native-stack';
@@ -15,6 +14,7 @@ import { DonateCard } from '../components/DonateCard';
 import { RELEASES_PAGE, checkForUpdate, type UpdateStatus } from '../lib/updateCheck';
 import { LAYOUT, RADIUS, SCALE, SHADOWS, SPACING, TYPE, withAlpha } from '../theme';
 import { SUPPORT_EMAIL } from '../lib/account';
+import { buildStamp } from '../lib/appVersion';
 import { checkForOtaUpdate, restartToApply, type OtaCheckResult } from '../lib/ota';
 
 type Props = NativeStackScreenProps<RootStackParamList, 'About'>;
@@ -23,7 +23,7 @@ const REPO = 'https://github.com/pushparaj9749/ankitstorychat';
 
 export function About({ navigation }: Props) {
   const { theme, settings, updateSettings } = useApp();
-  const version = Constants.expoConfig?.version ?? '2.13.0';
+  const version = buildStamp();
   const [checking, setChecking] = useState(false);
   const [result, setResult] = useState<UpdateStatus | 'error' | null>(null);
   const [ota, setOta] = useState<OtaCheckResult | null>(null);
@@ -68,7 +68,7 @@ export function About({ navigation }: Props) {
       <ScrollView showsVerticalScrollIndicator={false} contentContainerStyle={[styles.wrap, styles.page]}>
         <Image source={KISSA_LOGO} style={[styles.logo, SHADOWS.glowRose]} resizeMode="contain" accessibilityLabel="Kissa" />
         <Text style={[styles.name, { color: theme.text }]}>Kissa</Text>
-        <Text style={[styles.ver, { color: theme.accent }]}>v{version} • Cinematic Interactive Story Platform</Text>
+        <Text style={[styles.ver, { color: theme.accent }]}>{version} • Cinematic Interactive Story Platform</Text>
         <Text style={[styles.desc, { color: theme.textDim }]}>
           Tumhari kahani, tumhare words. Koi ads nahi, koi coins nahi, koi message limits
           nahi — bas immersive kahaniyan. Sab kuch tumhare device par 100% private.

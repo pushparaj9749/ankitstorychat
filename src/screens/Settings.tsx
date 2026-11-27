@@ -10,12 +10,12 @@
  */
 import React from 'react';
 import { Pressable, ScrollView, StyleSheet, Text, View } from 'react-native';
-import Constants from 'expo-constants';
 import { LinearGradient } from 'expo-linear-gradient';
 import type { BottomTabScreenProps } from '@react-navigation/bottom-tabs';
 import type { MainTabParamList } from '../types';
 import { useApp } from '../state/AppContext';
 import { SUPPORT_EMAIL } from '../lib/account';
+import { buildStamp } from '../lib/appVersion';
 import { useNavScroll } from '../navigation/NavScrollContext';
 import { Screen } from '../components/Screen';
 import { SectionHeader } from '../components/bits';
@@ -29,7 +29,9 @@ export function Settings({ navigation }: Props) {
   const { theme, settings, profile, activeProvider, favoriteIds, recentPlaythroughs, account, unread } = useApp();
   const { handleScroll } = useNavScroll();
   const nav = navigation as unknown as { navigate: (s: string, o?: object) => void };
-  const version = Constants.expoConfig?.version ?? '2.11.0';
+  // installedAppVersion() (native fact), not expoConfig — after an OTA the
+  // config reports the SERVED bundle version, which is not what is installed.
+  const version = buildStamp();
 
   /* One row inside a grouped card. */
   function row(
@@ -237,14 +239,14 @@ export function Settings({ navigation }: Props) {
         <SectionHeader title="About" kicker="Kissa" />
         {group(
           <>
-            {row('information-circle-outline', 'About Kissa', `Version ${version} · ${KISSA.tagline}`, 'About', { first: true, tint: theme.violet })}
+            {row('information-circle-outline', 'About Kissa', `${version} · ${KISSA.tagline}`, 'About', { first: true, tint: theme.violet })}
             {row('document-text-outline', 'Terms', 'App rules', 'Terms', { tint: theme.textDim })}
             {row('lock-closed-outline', 'Privacy', 'Local-only data', 'Privacy', { tint: theme.success })}
           </>,
         )}
 
         <Text style={[styles.footer, { color: theme.textFaint }]}>
-          {`${KISSA.wordmark} v${version} · ${KISSA.tagline} · no ads, no coins, no message limits\nHelp: ${SUPPORT_EMAIL}`}
+          {`${KISSA.wordmark} ${version} · ${KISSA.tagline} · no ads, no coins, no message limits\nHelp: ${SUPPORT_EMAIL}`}
         </Text>
 
         <View style={{ height: LAYOUT.navClearance }} />

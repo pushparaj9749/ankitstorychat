@@ -44,6 +44,13 @@ async function updates(): Promise<typeof import('expo-updates') | null> {
   }
 }
 
+/** Last check result, so UI can react without asking the server again. */
+let lastCheck: OtaCheckResult | null = null;
+
+export function lastOtaCheck(): OtaCheckResult | null {
+  return lastCheck;
+}
+
 export function otaEnabled(): boolean {
   // Synchronous best-effort flag for UI copy.
   const extra = (Constants.expoConfig?.extra ?? {}) as Record<string, unknown>;
@@ -52,6 +59,12 @@ export function otaEnabled(): boolean {
 
 /** Check for a JS update and download it. Safe to call on launch. */
 export async function checkForOtaUpdate(): Promise<OtaCheckResult> {
+  const result = await runOtaCheck();
+  lastCheck = result;
+  return result;
+}
+
+async function runOtaCheck(): Promise<OtaCheckResult> {
   const u = await updates();
   if (!u) return { state: 'blocked' };
   // The runtime a build belongs to is its NATIVE version (app.json version at
@@ -115,11 +128,17 @@ export async function restartToApply(): Promise<void> {
 }
 
 /**
- * Quiet launch-time check. Never blocks the first paint and never surfaces an
- * error: with `fallbackToCacheTimeout: 0` the app boots from the bundle it
- * already has and the new one is applied on the next cold start.
+ * Quiet launch-time check. Never blocks the first paint: with
+ * `fallbackToCacheTimeout: 0` the app boots from the bundle it already has and
+ * the new one is applied on the next cold start.
+ *
+ * The delay used to be 20s, which — on top of expo-updates' own launch check —
+ * meant a fix could take three opens to appear, indistinguishable from "the
+ * OTA never arrived". It is now 2s: long enough for the first screen to be
+ * painted, short enough that a reader who opens the app and closes it still
+ * downloads in the same session.
  */
-export function scheduleOtaCheck(delayMs = 20_000): void {
+export function scheduleOtaCheck(delayMs = 2_000): void {
   if (!otaEnabled()) return;
   setTimeout(() => {
     void checkForOtaUpdate();
