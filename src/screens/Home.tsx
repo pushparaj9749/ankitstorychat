@@ -453,19 +453,25 @@ const styles = StyleSheet.create({
   subline: { fontSize: SCALE.small, marginTop: 2 },
   headerActions: { flexDirection: 'row', alignItems: 'center', gap: 10 },
   bell: { position: 'relative' },
+  /**
+   * The unread count. The old badge was 16px with a 9px glyph — at arm's length
+   * on a phone it read as a smudge next to the bell, which is exactly the
+   * complaint ("side me ek do likha nahi hota"). 18px + a 10px bold glyph and a
+   * 2px ring in the page colour keeps it legible over artwork.
+   */
   bellBadge: {
     position: 'absolute',
-    top: -4,
-    right: -4,
-    minWidth: 16,
-    height: 16,
-    borderRadius: 8,
-    borderWidth: 1.5,
+    top: -5,
+    right: -5,
+    minWidth: 18,
+    height: 18,
+    borderRadius: 9,
+    borderWidth: 2,
     alignItems: 'center',
     justifyContent: 'center',
-    paddingHorizontal: 3,
+    paddingHorizontal: 4,
   },
-  bellBadgeText: { color: '#FFFFFF', fontSize: 9, fontWeight: '800' },
+  bellBadgeText: { color: '#FFFFFF', fontSize: 10, fontWeight: '800', lineHeight: 13, letterSpacing: 0.1 },
   avatar: {
     width: TOUCH.sm + 2,
     height: TOUCH.sm + 2,

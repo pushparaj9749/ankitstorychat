@@ -14,3 +14,7 @@
 #             notify applied: HTTP 200, ntf_Yu8xH10wqKk5 — line commented out
 #             kyunki queue idempotent nahi hai; dobara chalti to wahi apology
 #             dubara chali jaati.
+
+# 2026-11-27  Profile pic offer (user request).
+#             notify acc_G6BkqIC2VGyI4s5- -> done (HTTP 200, ntf_3qq5LtSPiguH).
+#             Commented out for the same reason: the queue re-runs on every cron.
