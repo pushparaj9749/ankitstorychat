@@ -210,7 +210,10 @@ describe('admin queue actions', () => {
   const queue = readFileSync(join(__dirname, '..', '.github', 'admin', 'queue.txt'), 'utf8');
 
   test('notify posts to the account route with a title and a body', () => {
-    expect(script).toContain("notify: (id) => `/api/admin/notify/${id}`");
+    // The Worker's notify route lives under /admin/accounts/:id/notify
+    // (/admin/notify/:id is 405 "Only GET/HEAD" — that shipped a failed run).
+    expect(script).toContain('notify: (id) => `/api/admin/accounts/${id}/notify`');
+    expect(script).not.toContain('/api/admin/notify/');
     expect(script).toContain('ACC_ID_RE');
     expect(script).toContain("body: JSON.stringify({ title, body })");
     expect(script).toContain('Content-Type');

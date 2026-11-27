@@ -40,7 +40,7 @@ const ROUTES = {
   'reject-idea': (id) => `/api/admin/idea/${id}/reject`,
   'accept-story': (id) => `/api/admin/story/${id}/accept`,
   'reject-story': (id) => `/api/admin/story/${id}/reject`,
-  notify: (id) => `/api/admin/notify/${id}`,
+  notify: (id) => `/api/admin/accounts/${id}/notify`,
 };
 
 /** Submission ids are server-generated: idea_/story_ + lowercase alnum runs. */
