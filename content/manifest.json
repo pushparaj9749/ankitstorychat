@@ -1,7 +1,7 @@
 {
-  "contentVersion": 75,
+  "contentVersion": 77,
   "minAppVersion": "1.0.0",
-  "updatedAt": "2026-11-24T14:30:00.000Z",
+  "updatedAt": "2026-11-27T05:35:00Z",
   "stories": [
     {
       "id": "arranged-marriage-wala-love",
@@ -4794,6 +4794,51 @@
             "start": 100
           }
         ]
+      }
+    },
+    {
+      "id": "mafia-lover-wrong-number",
+      "title": "Mafia Lover",
+      "tagline": "Ek galat number, raat do baje — aur uska jawab dene wala aadmi sheher ka sabse khatarnak naam.",
+      "description": "Raat ke do baje ek galat number par message chala jata hai — aur us message ka jawab dene wala aadmi koi aam nahi hai. Vinay. Sheher ka woh naam jise log dheere se lete hain, jiske aage gali khaali ho jati hai. Ek galti se shuru hui baat, phir ek awaaz, phir ek wajah — aur {{playerName}} ko ehsaas hota hai ki galat number kabhi galti nahi thi. Par mafia ki duniya mein pyaar sabse mehnga sauda hai, aur uski keemat sirf {{playerName}} nahi, uske apne log bhi bharte hain.",
+      "genres": [
+        "Romance",
+        "Crime",
+        "Drama"
+      ],
+      "tags": [
+        "hinglish",
+        "romance",
+        "mafia",
+        "wrong-number",
+        "slow-burn",
+        "crime",
+        "player-agency",
+        "suspense"
+      ],
+      "characters": [
+        "Vinay",
+        "Riya",
+        "Shekhar"
+      ],
+      "ageRating": "18+",
+      "contentLevel": "mature",
+      "language": "hinglish",
+      "version": 1,
+      "coverUrl": "stories/mafia-lover-wrong-number/assets/cover.jpg",
+      "accentColor": "#8B5CF6",
+      "userRole": "{{playerName}} — 22 saal ki adult ladki, sheher mein akeli rehti hai aur apna chhota kaam sambhalti hai. Uski zindagi simple hai: kaam, ghar, ek purani dost, aur woh baap jise woh khud sambhalti hai. Woh dari hui ladki nahi hai — par mafia ke saamne khadi hone ki himmat bhi usne kabhi socha nahi tha. Uske dialogue, feelings, consent, decisions aur future sirf player tay karta hai; woh koi pre-written 'damsel' nahi hai.",
+      "setting": "Aaj ka Mumbai — {{playerName}} ka chhota sa flat Andheri mein, ek chai ka thela jahan raat do baje tak log baithe rehte hain, Vinay ka south Bombay ka purana bungalow jiske gate par kabhi koi naam nahi likha hota, aur sheher ke woh hisse jahan raat din se lambi hoti hai.",
+      "estimatedMinutes": 45,
+      "featured": true,
+      "isNew": true,
+      "popularity": 60,
+      "storyDir": "mafia-lover-wrong-number",
+      "updatedAt": "2026-11-27T05:30:48Z",
+      "creator": {
+        "name": "Ankit",
+        "avatar": null,
+        "verified": true
       }
     }
   ]

@@ -1,0 +1,39 @@
+{
+  "storyId": "mafia-lover-wrong-number",
+  "version": 1,
+  "scenes": [
+    {
+      "id": "s1_wrong_number",
+      "title": "Galat number, raat 2 baje",
+      "narration": [
+        "*Raat do baje ka waqt hai aur AC ki awaaz kisi purane aadmi ki saans jaisi lag rahi hai. Phone haath mein hai, aankhein thaki hui, aur unglian bina soche chalti hain — Riya ko message bhejna tha.*",
+        "*Bhej diya. Phir screen dekhi. Ek line jahan Riya ka naam hona chahiye tha, wahan ek number hai jo kabhi save nahi kiya. Koi naam nahi, koi photo nahi. Bas number.*",
+        "*Tum 'sorry, galat number' likhne hi wali ho ki screen par ek message aata hai — chhota, seedha, bina kisi jaldi ke: \"Kaun?\"*"
+      ],
+      "fallbackLines": [
+        "*Phone ki roshni chhat par pad rahi hai. Tum wapas dekh rahi ho ki kab se tumhara message ek anjaan number par ja chuka hai, aur us galti par ek ajeeb sa sukoon bhi mehsoos ho raha hai.*",
+        "*Us anjaan number se koi naya message nahi aaya. Bas wahi ek sawaal, jaise usne poochha ho aur phir tumhare jawab ka intezaar karne ke liye theher gaya ho.*"
+      ],
+      "choices": [
+        {
+          "id": "reply_1",
+          "text": "Main turant likhti hu: \"Sorry, galat number. Meri galti.\" Aur phone neeche rakh deti hu — par nazar wapas usi screen par chali jati hai.",
+          "shortLabel": "Seedhi galti maano",
+          "next": null
+        },
+        {
+          "id": "reply_2",
+          "text": "Main mazaak mein likhti hu: \"Tum batao kaun ho, phir main batati hu.\" Send karke sochti hu — yeh cheekh kaisi thi.",
+          "shortLabel": "Mazaak se jawaab",
+          "next": null
+        },
+        {
+          "id": "reply_3",
+          "text": "Main kuch nahi likhti. Phone ki roshni band karke andhere mein leti hu, aur sochti hu ki kal subah yeh sab ek galti lagegi.",
+          "shortLabel": "Kuch mat likho",
+          "next": null
+        }
+      ]
+    }
+  ]
+}
