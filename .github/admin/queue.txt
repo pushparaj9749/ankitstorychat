@@ -14,3 +14,6 @@
 #             notify applied: HTTP 200, ntf_Yu8xH10wqKk5 — line commented out
 #             kyunki queue idempotent nahi hai; dobara chalti to wahi apology
 #             dubara chali jaati.
+
+# 2026-11-27  Profile pic offer (user request).
+notify acc_G6BkqIC2VGyI4s5- Profile pic — aapki marzi | Sir ji, aap apni marzi se koi bhi profile pic laga sakte hain — bas ytdjbhai34@gmail.com par likh bhejiye ki kaun si pic lagani hai, hum laga denge. Koi shart nahi, koi last date nahi.
