@@ -9,9 +9,16 @@
  *   .github/admin/queue.txt
  *     accept idea_mwnl6fmj_xgye2tof
  *     reject story_abc123_def456
+ *     notify acc_PTkNzBAmuWugxzTx Ek chhoti si galti — sorry! | Maam, hamse galti ho gayi…
  *
  * Short form (`accept` / `reject`) infers idea vs story from the id prefix;
  * `accept-idea`, `reject-story`, ... also work.
+ *
+ * NOTIFY — direct message to one account:
+ *     notify <acc_id> <title> | <body>
+ * The part before the first `|` is the title, after it the body. Titles are
+ * capped at 80 chars and bodies at 500 by the Worker, so keep it short. Use it
+ * for apologies/corrections that are not tied to an accept/reject decision.
  *
  * Usage
  *   ADMIN_TOKEN=... node scripts/admin-action.mjs [.github/admin/queue.txt]
@@ -33,10 +40,13 @@ const ROUTES = {
   'reject-idea': (id) => `/api/admin/idea/${id}/reject`,
   'accept-story': (id) => `/api/admin/story/${id}/accept`,
   'reject-story': (id) => `/api/admin/story/${id}/reject`,
+  notify: (id) => `/api/admin/accounts/${id}/notify`,
 };
 
 /** Submission ids are server-generated: idea_/story_ + lowercase alnum runs. */
 const ID_RE = /^[a-z]+_[a-z0-9]{4,32}_[a-z0-9]{4,32}$/;
+/** Account ids: acc_ + 16 base64url chars (store.ts randomToken(12)). */
+const ACC_ID_RE = /^acc_[A-Za-z0-9_-]{8,32}$/;
 
 if (!existsSync(file)) {
   console.log(`${file} not found — nothing queued.`);
@@ -61,6 +71,52 @@ if (!token) {
 let failures = 0;
 for (const line of lines) {
   const [rawAction, id, ...rest] = line.split(/\s+/);
+
+  /* ---- notify: "notify <acc_id> <title> | <body>" ---- */
+  if (rawAction === 'notify') {
+    if (!ACC_ID_RE.test(id ?? '')) {
+      console.error(`::warning title=Bad account id::"${id}" does not look like an account id`);
+      failures++;
+      continue;
+    }
+    const message = rest.join(' ').trim();
+    const bar = message.indexOf('|');
+    if (bar < 0) {
+      console.error(`::warning title=Bad notify line::expected "notify <acc_id> <title> | <body>"`);
+      failures++;
+      continue;
+    }
+    const title = message.slice(0, bar).trim();
+    const body = message.slice(bar + 1).trim();
+    if (!title || !body) {
+      console.error(`::warning title=Bad notify line::title and body are both required`);
+      failures++;
+      continue;
+    }
+    const url = `${base}${ROUTES.notify(id)}`;
+    if (dryRun) {
+      console.log(`[dry-run] POST ${url} :: ${title}`);
+      continue;
+    }
+    const res = await fetch(url, {
+      method: 'POST',
+      headers: {
+        Authorization: `Bearer ${token}`,
+        Accept: 'application/json',
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({ title, body }),
+    });
+    const text = (await res.text()).slice(0, 300);
+    if (res.ok) {
+      console.log(`::notice title=Notification sent::${id} → HTTP ${res.status} ${text}`);
+    } else {
+      console.error(`::error title=Notification failed::${id} → HTTP ${res.status} ${text}`);
+      failures++;
+    }
+    continue;
+  }
+
   if (!ID_RE.test(id ?? '')) {
     console.error(`::warning title=Bad id::"${id}" does not look like a submission id`);
     failures++;

@@ -159,3 +159,77 @@ describe('no orphan story dirs', () => {
     for (const d of dirs) expect(listed.has(d)).toBe(true);
   });
 });
+
+/**
+ * Owner's rule (Nov 2026): a story made from a reader's submission/idea carries
+ * the SUBMITTER's name as creator; only a story made without a submission
+ * carries the owner's. The scaffold used to default to `Ankit`, which silently
+ * credited the owner for a reader's story (Mafia Lover shipped that way).
+ */
+describe('creator attribution', () => {
+  const scaffold = readFileSync(join(__dirname, '..', 'scripts', 'new-story.mjs'), 'utf8');
+
+  test('the scaffold refuses to guess a creator', () => {
+    expect(scaffold).toContain("arg('creator')");
+    expect(scaffold).toContain('Missing --creator');
+    // No silent default may come back.
+    expect(scaffold).not.toContain("creator: { name: 'Ankit'");
+    expect(scaffold).toContain('name: creatorName');
+  });
+
+  test('reader-idea stories credit the reader, not the owner', () => {
+    // Story bani idea_mwxqgpiz_u3l8286j (Aarohi) se.
+    const story = readJson(join(CONTENT, 'stories', 'mafia-lover-wrong-number', 'story.json')) as {
+      creator?: { name: string; verified?: boolean };
+    };
+    expect(story.creator?.name).toBe('Aarohi');
+    expect(story.creator?.verified).toBe(false);
+    const manifest = readJson(join(CONTENT, 'manifest.json')) as {
+      stories: { id: string; creator?: { name: string } }[];
+    };
+    const entry = manifest.stories.find((x) => x.id === 'mafia-lover-wrong-number');
+    expect(entry?.creator?.name).toBe('Aarohi');
+  });
+
+  test('every story has a credited creator', () => {
+    const manifest = readJson(join(CONTENT, 'manifest.json')) as {
+      stories: { id: string; creator?: { name?: string } }[];
+    };
+    const missing = manifest.stories.filter((x) => !x.creator?.name?.trim()).map((x) => x.id);
+    expect(missing).toEqual([]);
+  });
+});
+
+/**
+ * The queue file is the ONLY way the owner can push an admin action (the token
+ * lives in CI). `notify` had to exist so an apology/correction could reach one
+ * account without inventing a submission id.
+ */
+describe('admin queue actions', () => {
+  const script = readFileSync(join(__dirname, '..', 'scripts', 'admin-action.mjs'), 'utf8');
+  const queue = readFileSync(join(__dirname, '..', '.github', 'admin', 'queue.txt'), 'utf8');
+
+  test('notify posts to the account route with a title and a body', () => {
+    // The Worker's notify route lives under /admin/accounts/:id/notify
+    // (/admin/notify/:id is 405 "Only GET/HEAD" — that shipped a failed run).
+    expect(script).toContain('notify: (id) => `/api/admin/accounts/${id}/notify`');
+    expect(script).not.toContain('/api/admin/notify/');
+    expect(script).toContain('ACC_ID_RE');
+    expect(script).toContain("body: JSON.stringify({ title, body })");
+    expect(script).toContain('Content-Type');
+  });
+
+  test('account ids are validated before any request is made', () => {
+    // acc_ + base64url; a typo must fail loudly instead of hitting a 404 in prod.
+    expect(script).toMatch(/ACC_ID_RE = \/\^acc_/);
+    expect(script).toContain('Bad account id');
+  });
+
+  test('Aarohi gets the correction notification', () => {
+    const line = queue.split('\n').find((l) => l.trim().startsWith('notify '));
+    expect(line).toBeTruthy();
+    expect(line).toContain('acc_PTkNzBAmuWugxzTx');
+    expect(line).toContain('galti');
+    expect(line).toContain('|'); // title | body
+  });
+});
