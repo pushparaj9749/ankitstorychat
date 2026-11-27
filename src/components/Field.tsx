@@ -126,7 +126,7 @@ export function Field({
             accessibilityLabel={secret.shown ? 'Password chhupao' : 'Password dikhao'}
             style={styles.eye}
           >
-            <Icon name={secret.shown ? 'lock-closed' : 'shield'} size={19} color={focused ? theme.textDim : theme.textFaint} />
+            <Icon name={secret.shown ? 'eye-off' : 'eye'} size={19} color={focused ? theme.textDim : theme.textFaint} />
           </Pressable>
         ) : null}
       </View>
