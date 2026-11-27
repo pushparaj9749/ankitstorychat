@@ -1,7 +1,7 @@
 {
-  "contentVersion": 77,
+  "contentVersion": 78,
   "minAppVersion": "1.0.0",
-  "updatedAt": "2026-11-27T05:35:00Z",
+  "updatedAt": "2026-11-27T07:05:00Z",
   "stories": [
     {
       "id": "arranged-marriage-wala-love",
@@ -4836,9 +4836,9 @@
       "storyDir": "mafia-lover-wrong-number",
       "updatedAt": "2026-11-27T05:30:48Z",
       "creator": {
-        "name": "Ankit",
+        "name": "Aarohi",
         "avatar": null,
-        "verified": true
+        "verified": false
       }
     }
   ]

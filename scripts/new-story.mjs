@@ -1,7 +1,16 @@
 /**
  * Scaffold a new story package (no app code changes needed).
  * Usage:
- *   node scripts/new-story.mjs --id my-story --title "My Story" --age 12-17 --genre Mystery
+ *   node scripts/new-story.mjs --id my-story --title "My Story" --age 12-17 --genre Mystery \\
+ *     --creator "Aarohi"            # story bani kisi reader ke idea se
+ *   node scripts/new-story.mjs ... --creator "Ankit" --verified
+ *
+ * CREATOR RULE (owner's decision, Nov 2026):
+ *   - story bani kisi ke SUBMISSION/IDEA se -> creator = us submitter ka naam
+ *   - story apni (bina submission) -> creator = owner ka naam
+ * There is no default any more: the old `'Ankit'` default silently credited the
+ * owner for a reader's story (Mafia Lover shipped that way), so `--creator` is
+ * now REQUIRED and `--verified` is opt-in.
  *
  * Creates content/stories/<id>/{story,characters,world,scenes,memory}.json
  * + assets/ + manifest.json entry. Then run `npm run content:validate`.
@@ -22,9 +31,24 @@ const id = arg('id');
 const title = arg('title', 'Untitled Story');
 const age = arg('age', '12-17');
 const genre = arg('genre', 'Adventure');
+const creatorName = arg('creator').trim();
+const creatorVerified = process.argv.includes('--verified');
 
 if (!id || !/^[a-z0-9-]+$/.test(id)) {
-  console.error('Usage: node scripts/new-story.mjs --id my-story-id [--title "..."] [--age 12-17|18+] [--genre ...]');
+  console.error('Usage: node scripts/new-story.mjs --id my-story-id --creator "Name" [--verified] [--title "..."] [--age 12-17|18+] [--genre ...]');
+  process.exit(1);
+}
+if (!creatorName) {
+  // The rule has to be impossible to forget: no silent default.
+  console.error(
+    'Missing --creator.\n' +
+      '  Story kisi submission/idea se bani  -> --creator "<submitter ka naam>"\n' +
+      '  Story apni (bina submission) bani   -> --creator "Ankit" --verified',
+  );
+  process.exit(1);
+}
+if (creatorName.length > 40) {
+  console.error('--creator must be 40 characters or fewer.');
   process.exit(1);
 }
 if (!['12-17', '18+'].includes(age)) {
@@ -39,9 +63,10 @@ if (existsSync(dir)) {
 }
 mkdirSync(join(dir, 'assets'), { recursive: true });
 
-// Every story created by the Kissa owner is attributed to Ankit (verified).
 // Creator attribution is content metadata — it is NOT the player name
-// ({{playerName}} is a completely separate system).
+// ({{playerName}} is a completely separate system). The name comes from
+// --creator for the reason documented at the top: a reader's story carries the
+// READER's name, only an original story carries the owner's.
 const story = {
   id,
   title,
@@ -57,7 +82,7 @@ const story = {
   openingSceneId: 's1_start',
   tone: 'TODO: tone guidance for the narrator',
   safetyNotes: age === '12-17' ? ['Teen-safe: no gore, hopeful overall.'] : ['Mature themes handled with gravity.'],
-  creator: { name: 'Ankit', avatar: null, verified: true },
+  creator: { name: creatorName, avatar: null, verified: creatorVerified },
   // Media Library: the cover is referenced by its safe in-package path.
   // Add character-portrait / scene entries to `gallery` as artwork exists.
   media: {
