@@ -1,0 +1,63 @@
+{
+  "storyId": "mafia-lover-wrong-number",
+  "version": 1,
+  "premise": "Raat ke do baje {{playerName}} ka ek message galat number par chala jata hai — uski dost ko bhejna tha, aur uske paas jawab aata hai: 'Kaun?' Us raat se ek ajeeb si baat shuru hoti hai. Woh aadmi Vinay hai: sheher ka woh naam jise log dheere se lete hain, jiske aage gali khaali ho jati hai. {{playerName}} usse sirf messages se jaanti hai — aur wahi usse sabse zyada darawna bhi lagta hai. Par jab uske ghar par asli khatra aata hai, toh madad wahi se aati hai jisse woh sabse door rehna chahti thi. Ye un hafton ki kahani hai jab do log — ek jo apni zindagi bacha raha hai, ek jo apni zindagi badalna chahti hai — ek galat number se shuru hokar us jagah pahunchte hain jahan se wapas jaana dono ke liye mushkil hai.",
+  "locations": [
+    {
+      "id": "flat",
+      "name": "{{playerName}} ka flat, Andheri",
+      "description": "Ek BHK, do khidkiyan, ek purana AC jo sirf raat mein chalta hai. Darwaze ke peeche ek kursi hai jo hamesha wahi rehti hai — kyunki {{playerName}} ko pata hai ki darwaza todne wale ko kuch tokna chahiye."
+    },
+    {
+      "id": "thela",
+      "name": "Chai ka thela, Andheri station ke paas",
+      "description": "Raat do baje tak chalta hai. Yahan rickshaw wale, taxi wale aur woh log aate hain jinka ghar door hai. Yahan koi kisi se sawaal nahi poochhta, isliye yahan sabse zyada sach bol diye jate hain."
+    },
+    {
+      "id": "bungalow",
+      "name": "South Bombay ka purana bungalow",
+      "description": "Gate par koi naam nahi. Andar ka aangan bada hai, farsh thanda, aur deewar par ek purani ghadi jo kabhi sahi waqt nahi dikhati. Ghar ke andar awaaz dheemi rehti hai, jaise deewarein sun rahi hon."
+    },
+    {
+      "id": "dock",
+      "name": "Bunder, subah se pehle",
+      "description": "Machhli ki badbu, khaali crate, aur door se aati hui laal batti. Yahan kaam raat mein hota hai, aur yahan aane wale log subah kisi ko nahi milte."
+    },
+    {
+      "id": "hospital",
+      "name": "Sion hospital ka corridor",
+      "description": "Peeli roshni, dawa ki badbu, aur plastic ki kursiyan. Yahan log apne sabse sachche chehre dikhate hain kyunki yahan koi dikhava kaam nahi aata."
+    }
+  ],
+  "factions": [
+    {
+      "id": "vinay-house",
+      "name": "Vinay ka gharana",
+      "description": "Purane log, purane hisaab. Vinay naam par chalta hai, par asli taqat us hisaab mein hai jo uske pitaji ne chhoda tha — aur kuch log usse abhi bhi apna maante hain, Vinay ko nahi."
+    },
+    {
+      "id": "sood",
+      "name": "Sood ka group",
+      "description": "Naye log jo purane hisaab ka hissa nahi hain. Unhe sirf paisa chahiye, izzat nahi. Woh Vinay se nahi darte, aur yahi unhe khatarnak banata hai."
+    },
+    {
+      "id": "thela-circle",
+      "name": "Thele wale log",
+      "description": "Chai wala, rickshaw wale, dukandaar — sheher ke woh log jo sab dekhte hain aur kahin nahi bolte. Inhe koi ginti mein nahi rakhta, aur isi wajah se inke paas sabse zyada khabar hoti hai."
+    }
+  ],
+  "lore": [
+    "Solah saal pehle Vinay ke pitaji ki maut hui thi. Kaha gaya ki accident tha; do log jaante hain ki nahi tha, aur unme se ek Shekhar hai.",
+    "{{playerName}} ka number Vinay ke purane phone mein pehle se tha — ek aisa number jise usne kabhi delete nahi kiya, kyunki us raat woh ek message bhejna chahta tha jo kabhi nahi bheja.",
+    "Chai wala Prakash dono duniya ka hissa hai — woh Vinay ke logon ko chai pilata hai aur {{playerName}} ko uske baare mein kuch nahi batata, kyunki usne kabhi poochha nahi.",
+    "Sood ka group us hisaab ko todna chahta hai jo Vinay ke pitaji ne banaya tha; unhe sirf ek wajah chahiye, aur woh wajah {{playerName}} ban sakti hai."
+  ],
+  "rules": [
+    "Shuru mein Vinay aur {{playerName}} ek doosre ko sirf messages se jaante hain — koi purani mulaqat nahi. Jo kuch bhi hai, woh is ek galat number se shuru hua hai.",
+    "Vinay khatarnak hai, par woh {{playerName}} ko kabhi zabardasti nahi rokega. Uska darr uske kaam mein hai, uske vyavhaar mein nahi. Koi possessive ya controlling behaviour cool mat dikhao — uska asar dikhao.",
+    "Mafia ki duniya ko glamorize mat karo: log ismein phaste hain, marte hain, aur bachne ke liye jhooth bolte hain. Koi gore, graphic ya detailed violence nahi.",
+    "{{playerName}} ke thoughts, feelings, decisions aur consent narrator kabhi tay nahi karega.",
+    "Sood ka khatra asli hai aur usse chhota mat dikhao; par uska darr {{playerName}} ke faisle se badalna chahiye, narrator ki marzi se nahi.",
+    "Koi real gang, real criminal ya real Mumbai case ka reference nahi — sab fictional."
+  ]
+}

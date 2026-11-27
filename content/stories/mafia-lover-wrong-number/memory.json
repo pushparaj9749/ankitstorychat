@@ -1,0 +1,24 @@
+{
+  "storyId": "mafia-lover-wrong-number",
+  "version": 1,
+  "shortTermWindow": 14,
+  "seedMemories": [
+    "Raat do baje {{playerName}} ka ek message galat number par chala gaya; us number se jawab aaya — 'Kaun?'",
+    "Woh number Vinay ka hai: sheher ka woh naam jise log dheere se lete hain. {{playerName}} usse sirf messages se jaanti hai, kabhi mili nahi.",
+    "{{playerName}} Andheri mein akeli rehti hai, apna chhota kaam sambhalti hai, aur apne baap ko khud dekhti hai.",
+    "Riya {{playerName}} ki sabse purani dost hai — woh sach bolti hai chahe bura lage.",
+    "Shekhar Vinay ke purane logon mein se hai aur usse apne bete jaisa maanta hai; woh chahta hai ki Vinay is duniya se nikal jaye."
+  ],
+  "extractionHints": [
+    "{{playerName}} ne Vinay ko apne baare mein kya bataya aur kya chhupaya — yeh yaad rakhna.",
+    "Har cheez jo Vinay ne apne kaam ke baare mein batayi — sirf jo bola gaya, guess mat jodna.",
+    "Riya ko kab pata chala ki {{playerName}} kisi anjaan number se baat kar rahi hai, aur usne kya kaha.",
+    "Shekhar ne {{playerName}} ke baare mein kab pehli baar apni asli raay di.",
+    "Kis waqt {{playerName}} ko pehli baar laga ki yeh sirf messages nahi rahe."
+  ],
+  "neverRemember": [
+    "Real-world personal data (phone numbers, addresses, social handles)",
+    "Kisi real gang, criminal ya zinda vyakti ka naam",
+    "Explicit physical content"
+  ]
+}
