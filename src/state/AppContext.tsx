@@ -45,7 +45,8 @@ import {
   refreshAccount,
   refreshUnread as refreshUnreadCount,
 } from '../lib/account';
-import { StyleSheet, View } from 'react-native';
+// Aliased: this file already has its own `AppState` (the context shape).
+import { AppState as RNAppState, StyleSheet, View } from 'react-native';
 import { scheduleOtaCheck } from '../lib/ota';
 
 interface AppState {
@@ -154,6 +155,31 @@ export function AppProvider({ children }: { children: React.ReactNode }) {
     }
     setUnread(await refreshUnreadCount(settings?.contentApiBaseUrl));
   }, [account, settings?.contentApiBaseUrl]);
+
+  /**
+   * Keep the bell badge honest.
+   *
+   * Before this, `unread` was fetched exactly once — during boot (and on login).
+   * A notification that arrived while the app was already open (an accepted
+   * story, a team message) never lit the badge: the reader saw a plain bell
+   * with no count, and the only way to discover the message was to open the
+   * screen by accident. The badge is the whole point of the bell, so it now
+   * refreshes
+   *   - when the app comes back to the foreground, and
+   *   - on a slow timer while it stays open (60s — cheap: one small GET).
+   * Both are no-ops while signed out (`refreshUnreadBadge` sets 0 and returns).
+   */
+  useEffect(() => {
+    if (!account) return;
+    const sub = RNAppState.addEventListener('change', (next) => {
+      if (next === 'active') void refreshUnreadBadge();
+    });
+    const timer = setInterval(() => void refreshUnreadBadge(), 60_000);
+    return () => {
+      sub.remove();
+      clearInterval(timer);
+    };
+  }, [account, refreshUnreadBadge]);
 
   const setAccount = useCallback(
     async (a: AccountInfo | null) => {
