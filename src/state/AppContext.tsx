@@ -47,7 +47,7 @@ import {
 } from '../lib/account';
 // Aliased: this file already has its own `AppState` (the context shape).
 import { AppState as RNAppState, StyleSheet, View } from 'react-native';
-import { scheduleOtaCheck } from '../lib/ota';
+import { lastOtaCheck, restartToApply, scheduleOtaCheck } from '../lib/ota';
 
 interface AppState {
   ready: boolean;
@@ -69,6 +69,16 @@ interface AppState {
   account: AccountInfo | null;
   /** Unread notification count for the Home bell icon. */
   unread: number;
+  /**
+   * A JS update has been downloaded and is waiting for a restart.
+   *
+   * Before this the only way to apply an OTA was to cold-start the app twice
+   * or dig into About → Restart. A reader who never did that kept seeing the
+   * old screen and reported "the update never came" — which was true from their
+   * side. Home now offers the restart in place.
+   */
+  otaReady: boolean;
+  applyOtaUpdate: () => void;
   /** True once the launch session check finished (gate can decide). */
   accountChecked: boolean;
   /** True when the loaded install must be updated before anything works. */
@@ -110,6 +120,7 @@ export function AppProvider({ children }: { children: React.ReactNode }) {
   const [recentPlaythroughs, setRecentPlaythroughs] = useState<Playthrough[]>([]);
   const [account, setAccountState] = useState<AccountInfo | null>(null);
   const [unread, setUnread] = useState(0);
+  const [otaReady, setOtaReady] = useState(false);
   const [accountChecked, setAccountChecked] = useState(false);
   const [updateRequired, setUpdateRequired] = useState(false);
   const [minVersion, setMinVersion] = useState<string | null>(null);
@@ -155,6 +166,25 @@ export function AppProvider({ children }: { children: React.ReactNode }) {
     }
     setUnread(await refreshUnreadCount(settings?.contentApiBaseUrl));
   }, [account, settings?.contentApiBaseUrl]);
+
+  /**
+   * Surface a downloaded OTA. The launch check writes its result into
+   * `lastOtaCheck()`; a short interval mirrors it into state so the banner can
+   * appear while the reader is on Home (the check runs a couple of seconds
+   * after first paint).
+   */
+  useEffect(() => {
+    const tick = () => {
+      const res = lastOtaCheck();
+      if (res?.state === 'downloaded') setOtaReady(true);
+    };
+    const timer = setInterval(tick, 4_000);
+    return () => clearInterval(timer);
+  }, []);
+
+  const applyOtaUpdate = useCallback(() => {
+    void restartToApply();
+  }, []);
 
   /**
    * Keep the bell badge honest.
@@ -324,6 +354,8 @@ export function AppProvider({ children }: { children: React.ReactNode }) {
       recentPlaythroughs,
       account,
       unread,
+      otaReady,
+      applyOtaUpdate,
       accountChecked,
       updateRequired,
       minVersion,
@@ -351,6 +383,8 @@ export function AppProvider({ children }: { children: React.ReactNode }) {
     recentPlaythroughs,
     account,
     unread,
+    otaReady,
+    applyOtaUpdate,
     accountChecked,
     updateRequired,
     minVersion,

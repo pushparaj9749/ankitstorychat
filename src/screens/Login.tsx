@@ -52,6 +52,7 @@ import {
   validateUsername,
   SUPPORT_EMAIL,
 } from '../lib/account';
+import { buildStamp } from '../lib/appVersion';
 import { lightBuzz } from '../lib/haptics';
 
 type Props = NativeStackScreenProps<RootStackParamList, 'Login'>;
@@ -61,6 +62,8 @@ export function Login({ navigation }: Props) {
   const { theme, settings, setAccount, profile, refreshStories } = useApp();
   // Screen() does not claim the bottom edge, and the CTA bar is pinned there.
   const insets = useSafeAreaInsets();
+  // Printed on screen so a screenshot says exactly which build drew it.
+  const stamp = buildStamp();
   const [mode, setMode] = useState<Mode>('signup');
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
@@ -363,6 +366,8 @@ export function Login({ navigation }: Props) {
           <Text style={[styles.footer, { color: theme.textFaint }]}>
             Sab kuch isi phone par safe hai · koi email, koi OTP nahi
             {'\n'}Help: {SUPPORT_EMAIL}
+            {'\n'}
+            <Text style={{ color: theme.textMuted }}>{stamp}</Text>
           </Text>
         </View>
       </KeyboardAvoidingView>

@@ -208,6 +208,20 @@ jobs:
           unzip -l "$apk" | grep "assets/index.android.bundle"
           echo "✅ APK is self-contained and signed"
 
+      # OTA can only work if the INSTALLED APK knows where to look. On
+      # 2026-11-27 a redesigned screen was published over OTA for hours and no
+      # device showed it: the server side was verified, the APK side never was.
+      # scripts/verify-apk-ota.mjs reads the wiring back out of the built bundle
+      # and refuses to ship a build whose OTA config disagrees with app.json.
+      - name: Verify OTA wiring inside the APK
+        run: |
+          set -euo pipefail
+          apk=$(ls -1 android/app/build/outputs/apk/release/*.apk | head -n1)
+          work="$RUNNER_TEMP/apkcheck"
+          rm -rf "$work" && mkdir -p "$work"
+          unzip -o -q "$apk" 'assets/index.android.bundle' -d "$work"
+          node scripts/verify-apk-ota.mjs "$work/assets/index.android.bundle"
+
       - name: Rename APK
         run: |
           # The installed app reports expo.version (app.json) to the version

@@ -37,3 +37,28 @@ export function installedAppVersion(): string {
   const fromConfig = String(Constants.expoConfig?.version ?? '').trim();
   return fromConfig || '0.0.0';
 }
+
+/**
+ * Human-readable build stamp, e.g. `v2.16.2 (51)`.
+ *
+ * WHY: on 2026-11-27 a redesigned screen was reported as "still the same" four
+ * times. Every reply was a guess, because the screenshot did not say WHICH
+ * build produced it — the APK could have been 2.16.1 while the OTA was 2.16.2,
+ * or an old APK that never had the fix at all. This stamp exists so a
+ * screenshot answers that question immediately, without any guessing.
+ *
+ * `installedAppVersion()` is the APK's own version (native fact), so the stamp
+ * keeps telling the truth even after an OTA replaced the JS bundle.
+ */
+export function buildStamp(): string {
+  const version = installedAppVersion();
+  let code = '';
+  try {
+    // Same native module, no new dependency.
+    const app = require('expo-application') as { nativeBuildVersion?: string | null };
+    code = String(app?.nativeBuildVersion ?? '').trim();
+  } catch {
+    /* jest / web / Expo Go: version alone is still useful */
+  }
+  return code ? `v${version} (${code})` : `v${version}`;
+}

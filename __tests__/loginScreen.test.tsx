@@ -77,6 +77,9 @@ jest.mock('../src/components/GradientButton', () => ({
 }));
 jest.mock('../src/components/brand', () => ({ KISSA_LOGO: 1 }));
 jest.mock('../src/lib/ota', () => ({ scheduleOtaCheck: jest.fn() }));
+// The build stamp reads a native module (ESM in this jest setup); the screen
+// only prints the string, so a mock keeps this test about layout + behaviour.
+jest.mock('../src/lib/appVersion', () => ({ buildStamp: () => 'v2.16.2 (51)' }));
 jest.mock('../src/lib/haptics', () => ({ lightBuzz: jest.fn() }));
 jest.mock('../src/lib/account', () => ({
   SUPPORT_EMAIL: 'ytdjbhai34@gmail.com',

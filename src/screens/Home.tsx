@@ -36,7 +36,7 @@ import { IconButton, SectionHeader, SelectableChip } from '../components/bits';
 import { EmptyState } from '../components/states';
 import { UpdateBanner } from '../components/UpdateBanner';
 import { Icon, ICON_SIZE } from '../components/icons';
-import { LAYOUT, RADIUS, SCALE, SPACING, TOUCH, withAlpha } from '../theme';
+import { LAYOUT, RADIUS, SCALE, SPACING, TOUCH, TYPE, withAlpha } from '../theme';
 import { timeAgo } from '../lib/utils';
 
 type Props = BottomTabScreenProps<MainTabParamList, 'Home'>;
@@ -76,7 +76,7 @@ const RankRail = memo(function RankRail({ data, onOpen }: { data: StoryMeta[]; o
 const GRID_PAGE = 12;
 
 export function Home({ navigation }: Props) {
-  const { theme, profile, stories, recentPlaythroughs, favoriteIds, unread } = useApp();
+  const { theme, profile, stories, recentPlaythroughs, favoriteIds, unread, otaReady, applyOtaUpdate } = useApp();
   const { handleScroll } = useNavScroll();
   const { width: windowW } = useWindowDimensions();
   const [selectedCategory, setSelectedCategory] = useState('For you');
@@ -218,6 +218,28 @@ export function Home({ navigation }: Props) {
     <Screen padded={false}>
       <ScrollView onScroll={onScroll} scrollEventThrottle={16} contentContainerStyle={styles.scroll} showsVerticalScrollIndicator={false}>
         <View style={styles.content}>
+          {/*
+            A downloaded update used to be invisible: it applied on the NEXT cold
+            start, and a reader who never restarted kept seeing the old screen —
+            then correctly reported "the update never came". One tap here applies
+            it, so a fix reaches the person who reported it in the same session.
+          */}
+          {otaReady ? (
+            <Pressable
+              onPress={applyOtaUpdate}
+              accessibilityRole="button"
+              accessibilityLabel="Naya update ready — restart karo"
+              style={({ pressed }) => [
+                styles.otaBanner,
+                { backgroundColor: withAlpha(theme.primary, 0.14), borderColor: withAlpha(theme.primary, 0.45), opacity: pressed ? 0.85 : 1 },
+              ]}
+            >
+              <Icon name="refresh" size={15} color={theme.accent} />
+              <Text style={[styles.otaText, { color: theme.text }]}>Naya update ready hai</Text>
+              <Text style={[styles.otaCta, { color: theme.accent }]}>Restart</Text>
+            </Pressable>
+          ) : null}
+
           {/* Header */}
           <View style={styles.topBar}>
             <View style={{ flex: 1, minWidth: 0 }}>
@@ -449,6 +471,19 @@ const styles = StyleSheet.create({
   scroll: { paddingBottom: 8 },
   content: { width: '100%', maxWidth: CONTENT_MAX, alignSelf: 'center' },
   topBar: { flexDirection: 'row', alignItems: 'center', gap: 12, paddingHorizontal: SPACING.page, paddingTop: 10 },
+  otaBanner: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: 8,
+    marginHorizontal: SPACING.page,
+    marginTop: 8,
+    paddingVertical: 10,
+    paddingHorizontal: 14,
+    borderWidth: 1,
+    borderRadius: RADIUS.pill,
+  },
+  otaText: { ...TYPE.caption, flex: 1, fontWeight: '700' },
+  otaCta: { ...TYPE.caption, fontWeight: '800', letterSpacing: 0.3 },
   hello: { fontSize: 26, lineHeight: 32, fontWeight: '700', letterSpacing: -0.6 },
   subline: { fontSize: SCALE.small, marginTop: 2 },
   headerActions: { flexDirection: 'row', alignItems: 'center', gap: 10 },
