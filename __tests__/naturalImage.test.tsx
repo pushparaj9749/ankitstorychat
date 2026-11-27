@@ -273,9 +273,19 @@ describe('policy: no fixed artwork ratios anywhere in the app source', () => {
   });
 
   test('no story/media image is rendered with a cover-cropping resizeMode', () => {
-    const offenders = appTsxFiles.filter((f) =>
-      /resizeMode\s*[:=]\s*["']cover["']/.test(fs.readFileSync(f, 'utf8')),
-    );
+    // Story + media artwork must never be cropped: a cover is the reader's way
+    // of recognising a story, so it is contained (see NaturalImage).
+    //
+    // The ONE documented exception is a full-bleed decorative BACKGROUND (the
+    // v2.17.0 front-door poster). A background has no "natural" size to protect
+    // and must fill the screen edge to edge; a file opts in explicitly with a
+    // `poster-cover-exempt` marker so this stays a deliberate decision, not a
+    // quiet loophole.
+    const offenders = appTsxFiles.filter((f) => {
+      const src = fs.readFileSync(f, 'utf8');
+      if (src.includes('poster-cover-exempt')) return false;
+      return /resizeMode\s*[:=]\s*["']cover["']/.test(src);
+    });
     expect(offenders).toEqual([]);
   });
 
