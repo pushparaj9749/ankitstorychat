@@ -1,17 +1,28 @@
 /**
- * Welcome — ONE screen for both login and signup (v2.15).
+ * Welcome — the front door (redesigned in this OTA).
  *
- * Before this, a new reader landed on a Login screen that said "Log in", had to
- * find the small "Naya account? Account banao" link, and then retype everything
- * on a second screen. Most people bounced, and it read like a corporate login
- * wall on a story app.
+ * v2.15 made login + signup one screen; the layout that came with it was
+ * cramped and, worse, BROKEN: every input was `height: SCALE.h2` (22px), so the
+ * username and password a user typed were clipped out of view. This rewrite
+ * fixes that at the root (see components/Field) and rebuilds the screen around
+ * one idea: a story app's front door should feel like a cinema ticket, not an
+ * HR portal.
  *
- * Now the screen opens on "Naya account" with three fields (username, password,
- * password again) and a single tap. Existing readers switch the tab to "Log in"
- * (two fields). The backend, recovery flow and everything after signup are
+ * What changed
+ *   - Segmented control → a two-tab pill with a rose glow on the active tab.
+ *   - No more boxed card inside a boxed screen: inputs are separated by
+ *     hairlines with labels above them, and the CTA sits on the thumb line.
+ *   - Inputs are 56px legs with a focus ring, a real caret colour and a
+ *     reveal toggle on the password.
+ *   - Inline, single-line rules that turn red in place (no error wall).
+ *   - The CTA is pinned to the bottom of the screen, so the tab switch does not
+ *     make the button jump.
+ *   - Recovery-code step restyled to match: one card, one checked commitment.
+ *
+ * Backend, validation, recovery codes and everything after signup are
  * unchanged — this is only the front door.
  */
-import React, { useMemo, useState } from 'react';
+import React, { useMemo, useRef, useState } from 'react';
 import {
   Image,
   KeyboardAvoidingView,
@@ -20,17 +31,19 @@ import {
   ScrollView,
   StyleSheet,
   Text,
-  TextInput,
   View,
+  type TextInput,
 } from 'react-native';
+import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import type { NativeStackScreenProps } from '@react-navigation/native-stack';
 import type { RootStackParamList } from '../types';
 import { useApp } from '../state/AppContext';
 import { Screen } from '../components/Screen';
 import { GradientButton } from '../components/GradientButton';
+import { Field } from '../components/Field';
 import { Icon } from '../components/icons';
 import { KISSA_LOGO } from '../components/brand';
-import { LAYOUT, RADIUS, SCALE, SHADOWS, SPACING, TYPE, withAlpha, KISSA } from '../theme';
+import { KISSA, LAYOUT, RADIUS, SPACING, TYPE, withAlpha } from '../theme';
 import {
   AccountError,
   login,
@@ -44,10 +57,10 @@ import { lightBuzz } from '../lib/haptics';
 type Props = NativeStackScreenProps<RootStackParamList, 'Login'>;
 type Mode = 'signup' | 'login';
 
-const KEEP_SIGNED_IN_NOTE = 'Tumhari purani kahaniyan, chats aur saves isi phone par safe hain.';
-
 export function Login({ navigation }: Props) {
   const { theme, settings, setAccount, profile, refreshStories } = useApp();
+  // Screen() does not claim the bottom edge, and the CTA bar is pinned there.
+  const insets = useSafeAreaInsets();
   const [mode, setMode] = useState<Mode>('signup');
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
@@ -58,6 +71,9 @@ export function Login({ navigation }: Props) {
   const [recoveryCode, setRecoveryCode] = useState('');
   const [saved, setSaved] = useState(false);
   const [copied, setCopied] = useState(false);
+
+  const passRef = useRef<TextInput>(null);
+  const confirmRef = useRef<TextInput>(null);
 
   const cleanUser = username.trim().toLowerCase();
   const userError = useMemo(
@@ -139,21 +155,32 @@ export function Login({ navigation }: Props) {
   if (recoveryCode) {
     return (
       <Screen>
-        <ScrollView contentContainerStyle={[styles.page, { paddingBottom: LAYOUT.navClearance }]}>
+        <ScrollView contentContainerStyle={[styles.page, { paddingBottom: LAYOUT.navClearance }]} showsVerticalScrollIndicator={false}>
+          <View style={styles.brandRow}>
+            <Image source={KISSA_LOGO} style={styles.logo} resizeMode="contain" accessibilityLabel="Kissa" />
+            <Text style={[styles.wordmark, { color: theme.textFaint }]}>{KISSA.wordmark} · {KISSA.tagline}</Text>
+          </View>
+
           <Text style={[styles.kicker, { color: theme.gold }]}>EK AAKHRI CHEEZ</Text>
           <Text style={[styles.title, { color: theme.text }]}>Apna recovery code sambhalo</Text>
           <Text style={[styles.sub, { color: theme.textDim }]}>
-            Kissa me koi email nahi hota, isliye password bhoolne par yahi code tumhara account wapas
-            dilata hai. Ye sirf ab dikh raha hai — hum ise dobara nahi dikha sakte.
+            Kissa me koi email nahi hota, isliye password bhoolne par yahi code tumhara account wapas dilata hai.
+            Ye sirf ab dikh raha hai — hum ise dobara nahi dikha sakte.
           </Text>
 
-          <View style={[styles.codeCard, { backgroundColor: withAlpha(theme.gold, 0.08), borderColor: withAlpha(theme.gold, 0.4) }]}>
+          <View style={[styles.codeCard, { backgroundColor: withAlpha(theme.gold, 0.07), borderColor: withAlpha(theme.gold, 0.32) }]}>
+            <Text style={[styles.codeCaption, { color: theme.textFaint }]}>RECOVERY CODE</Text>
             <Text style={[styles.code, { color: theme.text }]} selectable accessibilityLabel="Recovery code">
               {recoveryCode}
             </Text>
-            <Pressable onPress={() => void copyCode()} accessibilityRole="button" style={styles.copyRow}>
-              <Icon name={copied ? 'checkmark-circle-outline' : 'document-text-outline'} size={16} color={theme.accent} />
-              <Text style={[styles.copyText, { color: theme.accent }]}>{copied ? 'Copy ho gaya' : 'Copy karo'}</Text>
+            <Pressable
+              onPress={() => void copyCode()}
+              accessibilityRole="button"
+              accessibilityLabel="Copy recovery code"
+              style={[styles.copyBtn, { backgroundColor: withAlpha(theme.gold, 0.14), borderColor: withAlpha(theme.gold, 0.3) }]}
+            >
+              <Icon name={copied ? 'checkmark-circle' : 'document-text'} size={16} color={theme.gold} />
+              <Text style={[styles.copyText, { color: theme.gold }]}>{copied ? 'Copy ho gaya' : 'Copy karo'}</Text>
             </Pressable>
           </View>
 
@@ -170,14 +197,14 @@ export function Login({ navigation }: Props) {
             }}
             accessibilityRole="checkbox"
             accessibilityState={{ checked: saved }}
-            style={styles.checkRow}
+            style={[styles.checkRow, { borderColor: saved ? withAlpha(theme.success, 0.4) : theme.border }, saved && { backgroundColor: withAlpha(theme.success, 0.07) }]}
           >
             <View
               style={[
                 styles.checkbox,
                 {
-                  borderColor: saved ? theme.success : theme.border,
-                  backgroundColor: saved ? withAlpha(theme.success, 0.18) : 'transparent',
+                  borderColor: saved ? theme.success : theme.textFaint,
+                  backgroundColor: saved ? withAlpha(theme.success, 0.2) : 'transparent',
                 },
               ]}
             >
@@ -186,12 +213,7 @@ export function Login({ navigation }: Props) {
             <Text style={[styles.checkText, { color: theme.text }]}>Maine code save kar liya hai</Text>
           </Pressable>
 
-          <GradientButton
-            title="Shuru karo"
-            onPress={() => void finish()}
-            disabled={!saved}
-            accessibilityLabel="Finish signup"
-          />
+          <GradientButton title="Shuru karo" onPress={() => void finish()} disabled={!saved} accessibilityLabel="Finish signup" />
         </ScrollView>
       </Screen>
     );
@@ -200,19 +222,20 @@ export function Login({ navigation }: Props) {
   /* ---------- the front door ---------- */
   const isSignup = mode === 'signup';
   return (
-    <Screen>
+    <Screen padded={false}>
       <KeyboardAvoidingView behavior={Platform.OS === 'ios' ? 'padding' : undefined} style={styles.flex}>
         <ScrollView
-          contentContainerStyle={[styles.page, { paddingBottom: LAYOUT.navClearance }]}
+          style={styles.flex}
+          contentContainerStyle={[styles.page, { paddingBottom: SPACING.lg }]}
           showsVerticalScrollIndicator={false}
           keyboardShouldPersistTaps="handled"
         >
-          <View style={styles.brand}>
+          <View style={styles.brandRow}>
             <Image source={KISSA_LOGO} style={styles.logo} resizeMode="contain" accessibilityLabel="Kissa" />
-            <Text style={[styles.wordmark, { color: theme.textFaint }]}>
-              {KISSA.wordmark} · {KISSA.tagline}
-            </Text>
           </View>
+          <Text style={[styles.wordmark, { color: theme.textFaint, textAlign: 'center' }]}>
+            {KISSA.wordmark} · {KISSA.tagline}
+          </Text>
 
           <Text style={[styles.title, { color: theme.text }]}>
             {isSignup ? 'Apni kahani shuru karo' : 'Wapas aa gaye'}
@@ -223,7 +246,8 @@ export function Login({ navigation }: Props) {
               : 'Username aur password daalo — sab kuch wahin milega jahan chhoda tha.'}
           </Text>
 
-          <View style={[styles.tabs, { backgroundColor: theme.surface2, borderColor: theme.border }]}>
+          {/* Segmented tabs: the active one carries the rose wash + a top hairline. */}
+          <View style={[styles.tabs, { backgroundColor: withAlpha(theme.surface2, 0.85), borderColor: theme.border }]}>
             {(['signup', 'login'] as const).map((m) => {
               const active = mode === m;
               return (
@@ -232,9 +256,13 @@ export function Login({ navigation }: Props) {
                   onPress={() => switchMode(m)}
                   accessibilityRole="tab"
                   accessibilityState={{ selected: active }}
+                  accessibilityLabel={m === 'signup' ? 'Naya account' : 'Log in'}
                   style={[
                     styles.tab,
-                    active && { backgroundColor: withAlpha(theme.primary, 0.16), borderColor: withAlpha(theme.primary, 0.5) },
+                    active && {
+                      backgroundColor: withAlpha(theme.primary, 0.18),
+                      borderColor: withAlpha(theme.primary, 0.45),
+                    },
                   ]}
                 >
                   <Text style={[styles.tabText, { color: active ? theme.text : theme.textDim }]}>
@@ -245,116 +273,98 @@ export function Login({ navigation }: Props) {
             })}
           </View>
 
-          <View style={[styles.card, { backgroundColor: withAlpha(theme.surface, 0.9), borderColor: theme.border }, SHADOWS.soft]}>
-            <Text style={[styles.label, { color: theme.textFaint }]}>USERNAME</Text>
-            <View style={[styles.inputRow, { borderColor: userError ? theme.danger : theme.border, backgroundColor: theme.surface2 }]}>
-              <Text style={[styles.at, { color: theme.textFaint }]}>@</Text>
-              <TextInput
-                value={username}
-                onChangeText={(t) => {
-                  setUsername(t.toLowerCase().replace(/[^a-z0-9_]/g, ''));
-                  setError(null);
-                }}
-                autoCapitalize="none"
-                autoCorrect={false}
-                autoComplete="username"
-                maxLength={20}
-                placeholder={isSignup ? 'arjun_07' : 'tumhara username'}
-                placeholderTextColor={theme.textFaint}
-                style={[styles.input, { color: theme.text }]}
-                accessibilityLabel="Username"
-                returnKeyType="next"
-              />
-            </View>
-            {isSignup ? (
-              <Text style={[styles.hint, { color: userError ? theme.danger : theme.textFaint }]}>
-                {userError ?? '3-20 characters, sirf a-z, 0-9 aur _'}
-              </Text>
-            ) : null}
+          <View style={styles.fields}>
+            <Field
+              label="Username"
+              value={username}
+              onChangeText={(t) => {
+                setUsername(t.toLowerCase().replace(/[^a-z0-9_]/g, ''));
+                setError(null);
+              }}
+              placeholder={isSignup ? 'arjun_07' : 'tumhara username'}
+              prefix="@"
+              error={isSignup ? userError : null}
+              hint={isSignup ? '3-20 characters · a-z, 0-9, _' : undefined}
+              inputRef={passRef}
+              inputProps={{
+                autoComplete: 'username',
+                maxLength: 20,
+                returnKeyType: 'next',
+                onSubmitEditing: () => passRef.current?.focus(),
+                submitBehavior: 'submit',
+              }}
+            />
 
-            <Text style={[styles.label, { color: theme.textFaint, marginTop: SPACING.md }]}>PASSWORD</Text>
-            <View style={[styles.inputRow, { borderColor: passError ? theme.danger : theme.border, backgroundColor: theme.surface2 }]}>
-              <TextInput
-                value={password}
-                onChangeText={(t) => {
-                  setPassword(t);
-                  setError(null);
-                }}
-                secureTextEntry={!show}
-                autoCapitalize="none"
-                autoCorrect={false}
-                autoComplete={isSignup ? 'new-password' : 'current-password'}
-                placeholder={isSignup ? 'kam se kam 8 characters' : 'tumhara password'}
-                placeholderTextColor={theme.textFaint}
-                style={[styles.input, { color: theme.text }]}
-                accessibilityLabel="Password"
-                onSubmitEditing={() => (isSignup ? undefined : void go())}
+            <Field
+              label="Password"
+              value={password}
+              onChangeText={(t) => {
+                setPassword(t);
+                setError(null);
+              }}
+              placeholder={isSignup ? 'kam se kam 8 characters' : 'tumhara password'}
+              secret={{ shown: show, onToggle: () => setShow((v) => !v) }}
+              error={isSignup ? passError : null}
+              hint={isSignup ? 'Ek letter aur ek number zaroori hai' : undefined}
+              inputRef={isSignup ? confirmRef : undefined}
+              inputProps={{
+                autoComplete: isSignup ? 'new-password' : 'current-password',
+                returnKeyType: isSignup ? 'next' : 'go',
+                onSubmitEditing: () => (isSignup ? confirmRef.current?.focus() : void go()),
+                submitBehavior: 'submit',
+              }}
+            />
+            {isSignup ? (
+              <Field
+                label="Password dobara"
+                value={confirm}
+                onChangeText={setConfirm}
+                placeholder="wahi password, ek baar aur"
+                secret={{ shown: show, onToggle: () => setShow((v) => !v) }}
+                error={confirmError}
+                inputProps={{ autoComplete: 'new-password', returnKeyType: 'go', onSubmitEditing: () => void go() }}
               />
-              <Pressable
-                onPress={() => setShow((v) => !v)}
-                hitSlop={10}
-                accessibilityRole="button"
-                accessibilityLabel={show ? 'Hide password' : 'Show password'}
-              >
-                <Icon name={show ? 'lock-closed' : 'lock-closed-outline'} size={18} color={theme.textDim} />
-              </Pressable>
-            </View>
-            {isSignup ? (
-              <Text style={[styles.hint, { color: passError ? theme.danger : theme.textFaint }]}>
-                {passError ?? 'Ek letter aur ek number zaroori hai'}
-              </Text>
-            ) : null}
-
-            {isSignup ? (
-              <>
-                <Text style={[styles.label, { color: theme.textFaint, marginTop: SPACING.md }]}>PASSWORD DOBARA</Text>
-                <View style={[styles.inputRow, { borderColor: confirmError ? theme.danger : theme.border, backgroundColor: theme.surface2 }]}>
-                  <TextInput
-                    value={confirm}
-                    onChangeText={setConfirm}
-                    secureTextEntry={!show}
-                    autoCapitalize="none"
-                    autoCorrect={false}
-                    style={[styles.input, { color: theme.text }]}
-                    accessibilityLabel="Confirm password"
-                  />
-                </View>
-                {confirmError ? <Text style={[styles.hint, { color: theme.danger }]}>{confirmError}</Text> : null}
-              </>
             ) : null}
 
             {error ? (
-              <Text style={[styles.error, { color: theme.danger }]} accessibilityLiveRegion="polite">
-                {error}
-              </Text>
+              <View style={[styles.errorRow, { backgroundColor: withAlpha(theme.danger, 0.1), borderColor: withAlpha(theme.danger, 0.35) }]}>
+                <Icon name="alert-circle" size={16} color={theme.danger} />
+                <Text style={[styles.errorText, { color: theme.danger }]} accessibilityLiveRegion="polite">
+                  {error}
+                </Text>
+              </View>
             ) : null}
-
-            <View style={{ marginTop: SPACING.md }}>
-              <GradientButton
-                title={isSignup ? 'Account banao' : 'Log in'}
-                onPress={() => void go()}
-                disabled={!valid}
-                loading={busy}
-                accessibilityLabel={isSignup ? 'Create account' : 'Log in'}
-              />
-            </View>
           </View>
 
           {!isSignup ? (
-            <Pressable
-              onPress={() => navigation.navigate('ForgotPassword')}
-              accessibilityRole="button"
-              style={styles.linkRow}
-            >
+            <Pressable onPress={() => navigation.navigate('ForgotPassword')} accessibilityRole="button" style={styles.linkRow}>
               <Text style={[styles.linkStrong, { color: theme.accent }]}>Password bhool gaye?</Text>
             </Pressable>
           ) : null}
-
-          <Text style={[styles.footer, { color: theme.textFaint }]}>
-            {KEEP_SIGNED_IN_NOTE}
-            {'\n'}Koi email nahi, koi OTP nahi. Help: {SUPPORT_EMAIL}
-          </Text>
         </ScrollView>
+
+        <View
+          style={[
+            styles.footerBar,
+            {
+              borderTopColor: theme.borderSoft,
+              backgroundColor: withAlpha(theme.bg, 0.96),
+              paddingBottom: Math.max(insets.bottom, 12) + SPACING.sm,
+            },
+          ]}
+        >
+          <GradientButton
+            title={isSignup ? 'Account banao' : 'Log in'}
+            onPress={() => void go()}
+            disabled={!valid}
+            loading={busy}
+            accessibilityLabel={isSignup ? 'Create account' : 'Log in'}
+          />
+          <Text style={[styles.footer, { color: theme.textFaint }]}>
+            Sab kuch isi phone par safe hai · koi email, koi OTP nahi
+            {'\n'}Help: {SUPPORT_EMAIL}
+          </Text>
+        </View>
       </KeyboardAvoidingView>
     </Screen>
   );
@@ -362,47 +372,67 @@ export function Login({ navigation }: Props) {
 
 const styles = StyleSheet.create({
   flex: { flex: 1 },
-  page: { paddingHorizontal: SPACING.page, paddingTop: SPACING.xxl },
-  kicker: { ...TYPE.caption, letterSpacing: 1.6, textTransform: 'uppercase', marginBottom: 6 },
-  brand: { alignItems: 'center', gap: 8, marginBottom: SPACING.lg },
-  logo: { width: 60, height: 60 },
-  wordmark: { ...TYPE.caption, letterSpacing: 1.5, textTransform: 'uppercase' },
-  title: { ...TYPE.display, marginBottom: 8 },
-  sub: { ...TYPE.body, lineHeight: 22, marginBottom: SPACING.md },
+  page: { paddingHorizontal: SPACING.page, paddingTop: SPACING.xl },
+  brandRow: { alignItems: 'center', marginBottom: 10 },
+  logo: { width: 56, height: 56 },
+  wordmark: { ...TYPE.overline, fontSize: 10.5, letterSpacing: 1.8, marginBottom: SPACING.xl },
+  kicker: { ...TYPE.overline, letterSpacing: 1.6, marginBottom: 8 },
+  title: { ...TYPE.display, fontSize: 30, lineHeight: 36, letterSpacing: -0.8, marginBottom: 8 },
+  sub: { ...TYPE.body, fontSize: 14.5, lineHeight: 21, marginBottom: SPACING.xl },
   tabs: {
     flexDirection: 'row',
     borderWidth: 1,
-    borderRadius: RADIUS.md,
+    borderRadius: RADIUS.pill,
     padding: 4,
     gap: 4,
-    marginBottom: SPACING.md,
+    marginBottom: SPACING.xl,
   },
-  tab: { flex: 1, alignItems: 'center', paddingVertical: 10, borderRadius: RADIUS.sm, borderWidth: 1, borderColor: 'transparent' },
-  tabText: { ...TYPE.body, fontWeight: '700' },
-  card: { borderWidth: 1, borderRadius: RADIUS.lg, padding: SPACING.lg, gap: SPACING.xs },
-  label: { ...TYPE.caption, letterSpacing: 1.4 },
-  inputRow: {
+  tab: {
+    flex: 1,
+    alignItems: 'center',
+    justifyContent: 'center',
+    minHeight: 42,
+    borderRadius: RADIUS.pill,
+    borderWidth: 1,
+    borderColor: 'transparent',
+  },
+  tabText: { ...TYPE.body, fontSize: 14, fontWeight: '700', letterSpacing: 0.1 },
+  fields: { gap: SPACING.lg },
+  errorRow: {
     flexDirection: 'row',
     alignItems: 'center',
+    gap: 8,
+    borderWidth: 1,
+    borderRadius: RADIUS.sm,
+    paddingHorizontal: 12,
+    paddingVertical: 10,
+  },
+  errorText: { ...TYPE.caption, fontSize: 12, lineHeight: 17, flex: 1, letterSpacing: 0.1 },
+  linkRow: { alignItems: 'center', paddingVertical: SPACING.lg },
+  linkStrong: { ...TYPE.small, fontWeight: '700', letterSpacing: 0.1 },
+  footerBar: {
+    borderTopWidth: 1,
+    paddingHorizontal: SPACING.page,
+    paddingTop: SPACING.md,
+    gap: 10,
+  },
+  footer: { ...TYPE.caption, fontSize: 10.5, lineHeight: 15, textAlign: 'center', letterSpacing: 0.2 },
+  codeCard: { borderWidth: 1, borderRadius: RADIUS.lg, padding: SPACING.lg, alignItems: 'center', gap: 12, marginBottom: SPACING.lg },
+  codeCaption: { ...TYPE.overline, fontSize: 10, letterSpacing: 1.5 },
+  code: { ...TYPE.title, fontSize: 24, letterSpacing: 3, fontWeight: '700' },
+  copyBtn: { flexDirection: 'row', alignItems: 'center', gap: 7, borderWidth: 1, borderRadius: RADIUS.pill, paddingVertical: 8, paddingHorizontal: 16 },
+  copyText: { ...TYPE.caption, fontWeight: '700' },
+  bullets: { ...TYPE.caption, fontSize: 12, lineHeight: 20, marginBottom: SPACING.lg },
+  checkRow: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: 11,
     borderWidth: 1,
     borderRadius: RADIUS.md,
     paddingHorizontal: 14,
-    height: SCALE.h2,
-    gap: 10,
+    paddingVertical: 13,
+    marginBottom: SPACING.lg,
   },
-  at: { ...TYPE.body, fontWeight: '700' },
-  input: { flex: 1, ...TYPE.body },
-  hint: { ...TYPE.caption, marginTop: 2 },
-  error: { ...TYPE.caption, marginTop: SPACING.sm },
-  linkRow: { flexDirection: 'row', justifyContent: 'center', marginTop: SPACING.md },
-  linkStrong: { ...TYPE.body, fontWeight: '700' },
-  footer: { ...TYPE.caption, textAlign: 'center', marginTop: SPACING.xl, lineHeight: 18 },
-  codeCard: { borderWidth: 1, borderRadius: RADIUS.lg, padding: SPACING.lg, alignItems: 'center', gap: 10, marginVertical: SPACING.md },
-  code: { ...TYPE.title, letterSpacing: 2 },
-  copyRow: { flexDirection: 'row', alignItems: 'center', gap: 6 },
-  copyText: { ...TYPE.caption, fontWeight: '700' },
-  bullets: { ...TYPE.caption, lineHeight: 20 },
-  checkRow: { flexDirection: 'row', alignItems: 'center', gap: 10, marginVertical: SPACING.lg },
-  checkbox: { width: 22, height: 22, borderRadius: 6, borderWidth: 1, alignItems: 'center', justifyContent: 'center' },
-  checkText: { ...TYPE.body },
+  checkbox: { width: 22, height: 22, borderRadius: 7, borderWidth: 1, alignItems: 'center', justifyContent: 'center' },
+  checkText: { ...TYPE.body, fontSize: 14 },
 });
