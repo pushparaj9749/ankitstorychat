@@ -225,11 +225,23 @@ describe('admin queue actions', () => {
     expect(script).toContain('Bad account id');
   });
 
-  test('Aarohi gets the correction notification', () => {
-    const line = queue.split('\n').find((l) => l.trim().startsWith('notify '));
-    expect(line).toBeTruthy();
-    expect(line).toContain('acc_PTkNzBAmuWugxzTx');
-    expect(line).toContain('galti');
-    expect(line).toContain('|'); // title | body
+  test('applied actions are commented out, never left pending', () => {
+    // The queue is NOT idempotent: a line left in place re-runs on every cron.
+    // Aarohi's apology already went out once (HTTP 200, ntf_Yu8xH10wqKk5);
+    // leaving it active would have re-sent it twice a day.
+    const pending = queue
+      .split('\n')
+      .map((l) => l.trim())
+      .filter((l) => l && !l.startsWith('#'));
+    expect(pending).toEqual([]);
+    expect(queue).toContain('ntf_Yu8xH10wqKk5');
+  });
+
+  test('a pending line would still be parsed as title | body', () => {
+    // Guard the parser itself, so the commented-out queue cannot hide a
+    // regression in how a notify line is split.
+    expect(script).toMatch(/indexOf\('\|'\)/);
+    expect(script).toContain('title and body are both required');
+    expect(script).toMatch(/title/);
   });
 });

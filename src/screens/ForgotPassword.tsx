@@ -13,7 +13,7 @@ import type { RootStackParamList } from '../types';
 import { useApp } from '../state/AppContext';
 import { Screen } from '../components/Screen';
 import { GradientButton } from '../components/GradientButton';
-import { LAYOUT, RADIUS, SCALE, SPACING, TYPE, withAlpha } from '../theme';
+import { LAYOUT, RADIUS, SPACING, TYPE, withAlpha } from '../theme';
 import {
   AccountError,
   SUPPORT_EMAIL,
@@ -177,6 +177,7 @@ export function ForgotPassword({ navigation }: Props) {
                 placeholder="arjun_07"
                 placeholderTextColor={theme.textFaint}
                 style={[styles.input, { color: theme.text, borderColor: theme.border, backgroundColor: theme.surface2 }]}
+                textAlignVertical="center"
                 accessibilityLabel="Username"
               />
             </>
@@ -297,7 +298,19 @@ const styles = StyleSheet.create({
   tab: { flex: 1, borderWidth: 1, borderRadius: RADIUS.pill, paddingVertical: 9, alignItems: 'center' },
   tabText: { ...TYPE.caption, fontWeight: '700' },
   label: { ...TYPE.caption, letterSpacing: 1.4, marginBottom: 6 },
-  input: { borderWidth: 1, borderRadius: RADIUS.md, paddingHorizontal: 14, height: SCALE.h2, ...TYPE.body },
+  // height must be a TOUCH target, never a type token: SCALE.h2 is 22 (a font
+  // size) and made every field 22px tall, clipping the value out of view.
+  input: {
+    borderWidth: 1,
+    borderRadius: RADIUS.md,
+    paddingHorizontal: 14,
+    paddingVertical: 14,
+    minHeight: 56,
+    ...TYPE.body,
+    fontSize: 16,
+    lineHeight: 21,
+    textAlignVertical: 'center',
+  },
   code: { letterSpacing: 2, fontWeight: '700' },
   hint: { ...TYPE.caption, marginTop: 5, lineHeight: 16 },
   error: { ...TYPE.caption, marginTop: SPACING.md },
