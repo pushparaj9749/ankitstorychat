@@ -17,17 +17,25 @@ const code = (p: string) =>
     .replace(/^\s*\/\/.*$/gm, '');
 
 describe('the APK is checked for OTA wiring before it ships', () => {
-  test('CI runs the verifier on the built bundle', () => {
+  test('CI runs the verifier on the APK manifest, before the artifact uploads', () => {
     const wf = read('.github/workflows/android.yml');
     expect(wf).toContain('Verify OTA wiring inside the APK');
+    // The config is native meta-data, NOT in assets/index.android.bundle — a
+    // first version of this gate looked in the bundle and failed the real APK.
+    expect(wf).toMatch(/unzip -o -q "\$apk" 'AndroidManifest\.xml'/);
     expect(wf).toMatch(/node scripts\/verify-apk-ota\.mjs/);
-    // it must run BEFORE the artifact is uploaded, or a broken APK ships
     expect(wf.indexOf('verify-apk-ota.mjs')).toBeLessThan(wf.indexOf('Upload APK artifact'));
   });
 
-  test('the verifier fails when the OTA url is missing from the bundle', () => {
-    const tmp = path.join(__dirname, '.tmp-bundle.js');
-    fs.writeFileSync(tmp, 'var x = 1; // nothing about OTA here');
+  /** Write bytes the way a binary AXML string pool stores them (UTF-16LE). */
+  const writeManifest = (body: string) => {
+    const tmp = path.join(__dirname, `.tmp-manifest-${Math.random().toString(36).slice(2)}.xml`);
+    fs.writeFileSync(tmp, Buffer.from(body, 'utf16le'));
+    return tmp;
+  };
+
+  test('fails when the OTA config is absent', () => {
+    const tmp = writeManifest('<manifest><application/></manifest>');
     let failed = false;
     try {
       execFileSync('node', ['scripts/verify-apk-ota.mjs', tmp], { stdio: 'pipe' });
@@ -38,13 +46,28 @@ describe('the APK is checked for OTA wiring before it ships', () => {
     expect(failed).toBe(true);
   });
 
-  test('the verifier passes for a bundle that carries the app.json wiring', () => {
+  test('fails when the url is missing even though the module is wired', () => {
     const appJson = JSON.parse(read('app.json')).expo;
-    const tmp = path.join(__dirname, '.tmp-bundle-ok.js');
-    fs.writeFileSync(
-      tmp,
-      `var cfg = ${JSON.stringify({ updates: { url: appJson.updates.url, codeSigningCertificate: true } })};` +
-        ` var v = "${appJson.version}";`,
+    const tmp = writeManifest(
+      `<meta-data android:name="expo.modules.updates.EXUpdatesUrlAndHeaders" android:value="other"/>` +
+        `<meta-data android:name="expo.modules.updates.EXUpdatesRuntimeVersion" android:value="${appJson.version}"/>`,
+    );
+    let failed = false;
+    try {
+      execFileSync('node', ['scripts/verify-apk-ota.mjs', tmp], { stdio: 'pipe' });
+    } catch {
+      failed = true;
+    }
+    fs.unlinkSync(tmp);
+    expect(failed).toBe(true);
+  });
+
+  test('passes for a manifest that matches app.json', () => {
+    const appJson = JSON.parse(read('app.json')).expo;
+    const tmp = writeManifest(
+      `<meta-data android:name="expo.modules.updates.EXUpdatesUrlAndHeaders" android:value="${appJson.updates.url}"/>` +
+        `<meta-data android:name="expo.modules.updates.EXUpdatesRuntimeVersion" android:value="${appJson.version}"/>` +
+        `<meta-data android:name="expo.modules.updates.EXUpdatesCodeSigningCertificate" android:value="asset://certificate.pem"/>`,
     );
     expect(() =>
       execFileSync('node', ['scripts/verify-apk-ota.mjs', tmp], { stdio: 'pipe' }),
