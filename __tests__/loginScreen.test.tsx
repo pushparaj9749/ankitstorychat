@@ -24,6 +24,7 @@ jest.mock('react-native', () => {
     Animated: { View: el('Animated.View'), spring: () => ({ start: () => {} }), Value: class { constructor(public v: number) {} } },
     ActivityIndicator: el('ActivityIndicator'),
     Image: el('Image'),
+    ImageBackground: el('ImageBackground'),
     KeyboardAvoidingView: el('KeyboardAvoidingView'),
     Pressable: el('Pressable'),
     ScrollView: el('ScrollView'),

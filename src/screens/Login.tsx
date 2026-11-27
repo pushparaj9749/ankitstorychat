@@ -1,5 +1,5 @@
 /**
- * Welcome — the front door (redesigned in this OTA).
+ * Welcome — the front door.
  *
  * v2.15 made login + signup one screen; the layout that came with it was
  * cramped and, worse, BROKEN: every input was `height: SCALE.h2` (22px), so the
@@ -8,16 +8,20 @@
  * one idea: a story app's front door should feel like a cinema ticket, not an
  * HR portal.
  *
- * What changed
- *   - Segmented control → a two-tab pill with a rose glow on the active tab.
- *   - No more boxed card inside a boxed screen: inputs are separated by
- *     hairlines with labels above them, and the CTA sits on the thumb line.
- *   - Inputs are 56px legs with a focus ring, a real caret colour and a
- *     reveal toggle on the password.
- *   - Inline, single-line rules that turn red in place (no error wall).
- *   - The CTA is pinned to the bottom of the screen, so the tab switch does not
- *     make the button jump.
- *   - Recovery-code step restyled to match: one card, one checked commitment.
+ * v2.17.0 — poster front door.
+ *
+ * The form was readable but plain: a dark card on a dark screen, indistinguishable
+ * from any account wall. This is a story app, so the front door now opens on the
+ * street the stories happen in — a bundled poster (assets/login-poster.jpg,
+ * Mumbai lane at 2 AM) with the form docked on it as one frosted-glass panel.
+ *
+ * Kept intact on purpose:
+ *   - `components/Field` is still the only input implementation. It exists
+ *     because inputs sized from a TYPE token (`height: SCALE.h2` = 22) clipped
+ *     the value out of view; that regression must never return.
+ *   - the CTA stays pinned above the keyboard (safe-area aware),
+ *   - inline single-line validation, no error wall,
+ *   - the build stamp at the bottom, so a screenshot identifies the build.
  *
  * Backend, validation, recovery codes and everything after signup are
  * unchanged — this is only the front door.
@@ -25,6 +29,7 @@
 import React, { useMemo, useRef, useState } from 'react';
 import {
   Image,
+  ImageBackground,
   KeyboardAvoidingView,
   Platform,
   Pressable,
@@ -42,7 +47,7 @@ import { Screen } from '../components/Screen';
 import { GradientButton } from '../components/GradientButton';
 import { Field } from '../components/Field';
 import { Icon } from '../components/icons';
-import { KISSA_LOGO } from '../components/brand';
+import { KISSA_LOGO, LOGIN_POSTER } from '../components/brand';
 import { KISSA, LAYOUT, RADIUS, SPACING, TYPE, withAlpha } from '../theme';
 import {
   AccountError,
@@ -57,6 +62,21 @@ import { lightBuzz } from '../lib/haptics';
 
 type Props = NativeStackScreenProps<RootStackParamList, 'Login'>;
 type Mode = 'signup' | 'login';
+
+/**
+ * The poster is photographic and always dark, so this screen does not follow the
+ * theme's light/dark switch — every value here is chosen against the poster.
+ */
+const GLASS = {
+  panel: 'rgba(10, 11, 16, 0.82)',
+  panelEdge: 'rgba(255, 255, 255, 0.14)',
+  tabIdle: 'rgba(255, 255, 255, 0.06)',
+  text: '#F7F8FB',
+  textDim: '#C3C7D2',
+  textFaint: '#8A8F9E',
+  accent: '#F58AA5',
+  rose: '#F0567E',
+} as const;
 
 export function Login({ navigation }: Props) {
   const { theme, settings, setAccount, profile, refreshStories } = useApp();
@@ -224,33 +244,53 @@ export function Login({ navigation }: Props) {
 
   /* ---------- the front door ---------- */
   const isSignup = mode === 'signup';
+  const heroTitle = isSignup ? 'Apni kahani' : 'Wapas aa gaye';
+
   return (
-    <Screen padded={false}>
-      <KeyboardAvoidingView behavior={Platform.OS === 'ios' ? 'padding' : undefined} style={styles.flex}>
+    // poster-cover-exempt: decorative full-bleed background, not story artwork.
+    // A background must fill the screen; NaturalImage's contain rule protects
+    // covers the reader recognises, which this is not.
+    <ImageBackground source={LOGIN_POSTER} style={styles.flex} resizeMode="cover">
+      {/* Scrim: the poster stays the star, the text stays readable. */}
+      <View pointerEvents="none" style={StyleSheet.absoluteFill}>
+        <View style={styles.scrimTop} />
+        <View style={styles.scrimBottom} />
+      </View>
+
+      <KeyboardAvoidingView
+        behavior={Platform.OS === 'ios' ? 'padding' : undefined}
+        style={[styles.flex, { paddingTop: insets.top + 10 }]}
+      >
         <ScrollView
           style={styles.flex}
-          contentContainerStyle={[styles.page, { paddingBottom: SPACING.lg }]}
+          contentContainerStyle={styles.page}
           showsVerticalScrollIndicator={false}
           keyboardShouldPersistTaps="handled"
         >
+          {/* Wordmark floats on the artwork, no logo tile — the poster is the brand story. */}
           <View style={styles.brandRow}>
-            <Image source={KISSA_LOGO} style={styles.logo} resizeMode="contain" accessibilityLabel="Kissa" />
+            <Text style={styles.wordmark}>KISSA</Text>
+            <View style={styles.wordmarkRule} />
+            <Text style={styles.tagline}>{KISSA.tagline}</Text>
           </View>
-          <Text style={[styles.wordmark, { color: theme.textFaint, textAlign: 'center' }]}>
-            {KISSA.wordmark} · {KISSA.tagline}
-          </Text>
 
-          <Text style={[styles.title, { color: theme.text }]}>
-            {isSignup ? 'Apni kahani shuru karo' : 'Wapas aa gaye'}
+          <Text style={styles.hero} accessibilityRole="header">
+            {heroTitle}
+            {'\n'}
+            <Text style={styles.heroAccent}>{isSignup ? 'shuru karo' : ''}</Text>
           </Text>
-          <Text style={[styles.sub, { color: theme.textDim }]}>
+          <Text style={styles.heroSub}>
             {isSignup
-              ? 'Bas ek username aur password. Koi email, koi OTP nahi.'
+              ? 'Bas username aur password. Koi email, koi OTP nahi.'
               : 'Username aur password daalo — sab kuch wahin milega jahan chhoda tha.'}
           </Text>
+        </ScrollView>
 
-          {/* Segmented tabs: the active one carries the rose wash + a top hairline. */}
-          <View style={[styles.tabs, { backgroundColor: withAlpha(theme.surface2, 0.85), borderColor: theme.border }]}>
+        {/* ---- the glass panel: docked to the bottom, rounded top only ---- */}
+        <View style={[styles.panel, { paddingBottom: Math.max(insets.bottom, 10) + 10 }]}>
+          <View style={styles.grabber} />
+
+          <View style={styles.tabs}>
             {(['signup', 'login'] as const).map((m) => {
               const active = mode === m;
               return (
@@ -260,15 +300,9 @@ export function Login({ navigation }: Props) {
                   accessibilityRole="tab"
                   accessibilityState={{ selected: active }}
                   accessibilityLabel={m === 'signup' ? 'Naya account' : 'Log in'}
-                  style={[
-                    styles.tab,
-                    active && {
-                      backgroundColor: withAlpha(theme.primary, 0.18),
-                      borderColor: withAlpha(theme.primary, 0.45),
-                    },
-                  ]}
+                  style={[styles.tab, active && styles.tabActive]}
                 >
-                  <Text style={[styles.tabText, { color: active ? theme.text : theme.textDim }]}>
+                  <Text style={[styles.tabText, active ? styles.tabTextActive : null]}>
                     {m === 'signup' ? 'Naya account' : 'Log in'}
                   </Text>
                 </Pressable>
@@ -276,7 +310,12 @@ export function Login({ navigation }: Props) {
             })}
           </View>
 
-          <View style={styles.fields}>
+          <ScrollView
+            style={styles.formScroll}
+            contentContainerStyle={styles.form}
+            keyboardShouldPersistTaps="handled"
+            showsVerticalScrollIndicator={false}
+          >
             <Field
               label="Username"
               value={username}
@@ -317,6 +356,7 @@ export function Login({ navigation }: Props) {
                 submitBehavior: 'submit',
               }}
             />
+
             {isSignup ? (
               <Field
                 label="Password dobara"
@@ -330,32 +370,21 @@ export function Login({ navigation }: Props) {
             ) : null}
 
             {error ? (
-              <View style={[styles.errorRow, { backgroundColor: withAlpha(theme.danger, 0.1), borderColor: withAlpha(theme.danger, 0.35) }]}>
-                <Icon name="alert-circle" size={16} color={theme.danger} />
-                <Text style={[styles.errorText, { color: theme.danger }]} accessibilityLiveRegion="polite">
+              <View style={styles.errorRow}>
+                <Icon name="alert-circle" size={16} color={GLASS.accent} />
+                <Text style={styles.errorText} accessibilityLiveRegion="polite">
                   {error}
                 </Text>
               </View>
             ) : null}
-          </View>
 
-          {!isSignup ? (
-            <Pressable onPress={() => navigation.navigate('ForgotPassword')} accessibilityRole="button" style={styles.linkRow}>
-              <Text style={[styles.linkStrong, { color: theme.accent }]}>Password bhool gaye?</Text>
-            </Pressable>
-          ) : null}
-        </ScrollView>
+            {!isSignup ? (
+              <Pressable onPress={() => navigation.navigate('ForgotPassword')} accessibilityRole="button" style={styles.linkRow}>
+                <Text style={styles.link}>Password bhool gaye?</Text>
+              </Pressable>
+            ) : null}
+          </ScrollView>
 
-        <View
-          style={[
-            styles.footerBar,
-            {
-              borderTopColor: theme.borderSoft,
-              backgroundColor: withAlpha(theme.bg, 0.96),
-              paddingBottom: Math.max(insets.bottom, 12) + SPACING.sm,
-            },
-          ]}
-        >
           <GradientButton
             title={isSignup ? 'Account banao' : 'Log in'}
             onPress={() => void go()}
@@ -363,65 +392,112 @@ export function Login({ navigation }: Props) {
             loading={busy}
             accessibilityLabel={isSignup ? 'Create account' : 'Log in'}
           />
-          <Text style={[styles.footer, { color: theme.textFaint }]}>
+
+          <Text style={styles.footer}>
             Sab kuch isi phone par safe hai · koi email, koi OTP nahi
-            {'\n'}Help: {SUPPORT_EMAIL}
             {'\n'}
-            <Text style={{ color: theme.textMuted }}>{stamp}</Text>
+            <Text style={styles.footerFaint}>
+              Help: {SUPPORT_EMAIL} · {stamp}
+            </Text>
           </Text>
         </View>
       </KeyboardAvoidingView>
-    </Screen>
+    </ImageBackground>
   );
 }
 
 const styles = StyleSheet.create({
   flex: { flex: 1 },
-  page: { paddingHorizontal: SPACING.page, paddingTop: SPACING.xl },
-  brandRow: { alignItems: 'center', marginBottom: 10 },
-  logo: { width: 56, height: 56 },
-  wordmark: { ...TYPE.overline, fontSize: 10.5, letterSpacing: 1.8, marginBottom: SPACING.xl },
-  kicker: { ...TYPE.overline, letterSpacing: 1.6, marginBottom: 8 },
-  title: { ...TYPE.display, fontSize: 30, lineHeight: 36, letterSpacing: -0.8, marginBottom: 8 },
-  sub: { ...TYPE.body, fontSize: 14.5, lineHeight: 21, marginBottom: SPACING.xl },
+  page: { paddingHorizontal: SPACING.page, paddingTop: 14, paddingBottom: SPACING.xxl },
+
+  /* Poster scrims: darken top (headline) and bottom (panel), keep the middle neon. */
+  scrimTop: {
+    position: 'absolute',
+    left: 0,
+    right: 0,
+    top: 0,
+    height: '60%',
+    backgroundColor: 'rgba(6,7,10,0.55)',
+  },
+  scrimBottom: {
+    position: 'absolute',
+    left: 0,
+    right: 0,
+    bottom: 0,
+    height: '52%',
+    backgroundColor: 'rgba(6,7,10,0.72)',
+  },
+
+  brandRow: { flexDirection: 'row', alignItems: 'center', gap: 10, marginBottom: 26 },
+  wordmark: { color: '#FFFFFF', fontSize: 15, fontWeight: '800', letterSpacing: 4.2 },
+  wordmarkRule: { width: 26, height: 1, backgroundColor: GLASS.accent, opacity: 0.8 },
+  tagline: { color: GLASS.textFaint, fontSize: 10, letterSpacing: 1.7, fontWeight: '700' },
+
+  hero: { color: '#FFFFFF', fontSize: 40, lineHeight: 45, fontWeight: '800', letterSpacing: -1.4 },
+  heroAccent: { color: GLASS.accent, fontSize: 40, lineHeight: 45, fontWeight: '800', letterSpacing: -1.4 },
+  heroSub: { color: GLASS.textDim, fontSize: 14, lineHeight: 21, marginTop: 12, maxWidth: 320 },
+
+  /* ---- glass panel ---- */
+  panel: {
+    backgroundColor: GLASS.panel,
+    borderTopLeftRadius: 30,
+    borderTopRightRadius: 30,
+    borderTopWidth: 1,
+    borderColor: GLASS.panelEdge,
+    paddingHorizontal: SPACING.page,
+    paddingTop: 10,
+    gap: 13,
+  },
+  grabber: { alignSelf: 'center', width: 38, height: 4, borderRadius: 2, backgroundColor: 'rgba(255,255,255,0.22)' },
+
   tabs: {
     flexDirection: 'row',
-    borderWidth: 1,
+    backgroundColor: GLASS.tabIdle,
     borderRadius: RADIUS.pill,
     padding: 4,
     gap: 4,
-    marginBottom: SPACING.xl,
   },
   tab: {
     flex: 1,
+    minHeight: 40,
     alignItems: 'center',
     justifyContent: 'center',
-    minHeight: 42,
     borderRadius: RADIUS.pill,
     borderWidth: 1,
     borderColor: 'transparent',
   },
-  tabText: { ...TYPE.body, fontSize: 14, fontWeight: '700', letterSpacing: 0.1 },
-  fields: { gap: SPACING.lg },
+  tabActive: { backgroundColor: 'rgba(240, 86, 126, 0.22)', borderColor: 'rgba(245, 138, 165, 0.55)' },
+  tabText: { color: GLASS.textFaint, fontSize: 12.5, fontWeight: '800', letterSpacing: 0.7, textTransform: 'uppercase' },
+  tabTextActive: { color: '#FFFFFF' },
+
+  formScroll: { maxHeight: 320 },
+  form: { gap: 12, paddingTop: 2 },
+
   errorRow: {
     flexDirection: 'row',
     alignItems: 'center',
     gap: 8,
     borderWidth: 1,
+    borderColor: 'rgba(245, 138, 165, 0.45)',
+    backgroundColor: 'rgba(240, 86, 126, 0.14)',
     borderRadius: RADIUS.sm,
     paddingHorizontal: 12,
     paddingVertical: 10,
   },
-  errorText: { ...TYPE.caption, fontSize: 12, lineHeight: 17, flex: 1, letterSpacing: 0.1 },
-  linkRow: { alignItems: 'center', paddingVertical: SPACING.lg },
-  linkStrong: { ...TYPE.small, fontWeight: '700', letterSpacing: 0.1 },
-  footerBar: {
-    borderTopWidth: 1,
-    paddingHorizontal: SPACING.page,
-    paddingTop: SPACING.md,
-    gap: 10,
-  },
-  footer: { ...TYPE.caption, fontSize: 10.5, lineHeight: 15, textAlign: 'center', letterSpacing: 0.2 },
+  errorText: { ...TYPE.caption, color: '#FFD9E2', fontSize: 12, lineHeight: 17, flex: 1 },
+  linkRow: { alignItems: 'center', paddingVertical: 6 },
+  link: { color: GLASS.accent, fontSize: 13, fontWeight: '700' },
+
+  footer: { color: GLASS.textFaint, fontSize: 10.5, lineHeight: 16, textAlign: 'center', letterSpacing: 0.2 },
+  footerFaint: { color: 'rgba(255,255,255,0.34)' },
+
+  /* ---- recovery-code step (same poster, one card) ---- */
+  brandRowPlain: { flexDirection: 'row', alignItems: 'center', gap: 8, marginBottom: SPACING.lg },
+  logo: { width: 54, height: 54 },
+  logoWordmark: { ...TYPE.overline, fontSize: 10.5, letterSpacing: 1.8 },
+  kicker: { ...TYPE.overline, letterSpacing: 1.6, marginBottom: 8 },
+  title: { ...TYPE.display, fontSize: 28, lineHeight: 34, letterSpacing: -0.8, marginBottom: 8 },
+  sub: { ...TYPE.body, fontSize: 14.5, lineHeight: 21, marginBottom: SPACING.lg },
   codeCard: { borderWidth: 1, borderRadius: RADIUS.lg, padding: SPACING.lg, alignItems: 'center', gap: 12, marginBottom: SPACING.lg },
   codeCaption: { ...TYPE.overline, fontSize: 10, letterSpacing: 1.5 },
   code: { ...TYPE.title, fontSize: 24, letterSpacing: 3, fontWeight: '700' },
