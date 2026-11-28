@@ -77,11 +77,15 @@ describe('the APK is checked for OTA wiring before it ships', () => {
 });
 
 describe('a downloaded update is visible and one tap away', () => {
-  test('Home shows a restart banner', () => {
+  // Chhote (JS) updates OTA se aate hain aur in-app Restart se lagte hain.
+  // Bade VERSION updates (naya APK) website par jaate hain — ye alag raaste
+  // hain aur dono kaam karte rehte hain (user ka instruction, v2.17.1).
+  test('Home shows a restart banner for small OTA updates', () => {
     const home = code('src/screens/Home.tsx');
     expect(home).toMatch(/otaReady \?/);
     expect(home).toMatch(/applyOtaUpdate/);
     expect(home).toMatch(/otaBanner/);
+    expect(home).toMatch(/Restart/);
   });
 
   test('context exposes otaReady + applyOtaUpdate and mirrors the launch check', () => {
@@ -90,6 +94,14 @@ describe('a downloaded update is visible and one tap away', () => {
     expect(ctx).toMatch(/applyOtaUpdate/);
     expect(ctx).toMatch(/lastOtaCheck\(\)/);
     expect(ctx).toMatch(/restartToApply/);
+  });
+
+  test('version (APK) updates point at the website, not GitHub', () => {
+    const links = code('src/lib/links.ts');
+    expect(links).toMatch(/RELEASES_PAGE = 'https:\/\/beyondredeye\.site'/);
+    const about = code('src/screens/About.tsx');
+    expect(about).toMatch(/Linking\.openURL\(RELEASES_PAGE\)/);
+    expect(about).not.toMatch(/downloadUrl/);
   });
 
   test('the launch check no longer waits 20s', () => {

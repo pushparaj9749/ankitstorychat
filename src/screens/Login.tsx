@@ -258,7 +258,8 @@ export function Login({ navigation }: Props) {
       </View>
 
       <KeyboardAvoidingView
-        behavior={Platform.OS === 'ios' ? 'padding' : undefined}
+        behavior="padding"
+        keyboardVerticalOffset={0}
         style={[styles.flex, { paddingTop: insets.top + 10 }]}
       >
         <ScrollView
@@ -310,12 +311,10 @@ export function Login({ navigation }: Props) {
             })}
           </View>
 
-          <ScrollView
-            style={styles.formScroll}
-            contentContainerStyle={styles.form}
-            keyboardShouldPersistTaps="handled"
-            showsVerticalScrollIndicator={false}
-          >
+          {/* Plain View, NOT a ScrollView: Android ka ScrollView TextInput ka
+              touch kha jaata hai aur keyboard khulta hi nahi (v2.17.0 bug).
+              Fields yahan seedhe hain, isliye tap focus hota hai. */}
+          <View style={styles.form}>
             <Field
               label="Username"
               value={username}
@@ -383,7 +382,7 @@ export function Login({ navigation }: Props) {
                 <Text style={styles.link}>Password bhool gaye?</Text>
               </Pressable>
             ) : null}
-          </ScrollView>
+          </View>
 
           <GradientButton
             title={isSignup ? 'Account banao' : 'Log in'}
@@ -470,7 +469,6 @@ const styles = StyleSheet.create({
   tabText: { color: GLASS.textFaint, fontSize: 12.5, fontWeight: '800', letterSpacing: 0.7, textTransform: 'uppercase' },
   tabTextActive: { color: '#FFFFFF' },
 
-  formScroll: { maxHeight: 320 },
   form: { gap: 12, paddingTop: 2 },
 
   errorRow: {
