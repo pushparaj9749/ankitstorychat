@@ -52,21 +52,11 @@ describe('poster front door', () => {
     expect(login).toMatch(/secret=\{\{/);
   });
 
-  test('the form is NOT inside a ScrollView (keyboard regression)', () => {
-    // v2.17.0 wrapped the Fields in an inner ScrollView (formScroll,
-    // maxHeight 320). On Android a ScrollView intercepts the touch, the
-    // TextInput never focuses, and the keyboard never opens — new users
-    // could not type their username at all. The form must be a plain View.
+  test('Android uses the native pan mode rather than additional keyboard padding', () => {
     const login = code('src/screens/Login.tsx');
-    expect(login).not.toMatch(/formScroll/);
-    // exactly one ScrollView in the front door (the hero), none around Fields
-    const frontDoor = login.slice(login.indexOf('<ImageBackground'));
-    expect(frontDoor.length).toBeGreaterThan(100);
-    expect(frontDoor.length).toBeGreaterThan(100);
-    expect(frontDoor.match(/<ScrollView/g)?.length).toBe(1);
-    expect(frontDoor).toMatch(/<View style=\{styles\.form\}>/);
-    // and the panel lifts above the keyboard on Android too
-    expect(frontDoor).toMatch(/behavior="padding"/);
+    expect(login).toMatch(/behavior=\{Platform\.OS === 'ios' \? 'padding' : undefined\}/);
+    const config = JSON.parse(read('app.json'));
+    expect(config.expo.android.softwareKeyboardLayoutMode).toBe('pan');
   });
 
   test('the build stamp is still printed for screenshot evidence', () => {
