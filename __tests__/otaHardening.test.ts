@@ -77,28 +77,26 @@ describe('the APK is checked for OTA wiring before it ships', () => {
 });
 
 describe('a downloaded update is visible and one tap away', () => {
-  // v2.17.1: the update action goes to the website, not an in-app restart.
-  // The user asked for it explicitly — "update wala sidha hamare website pe
-  // redirect karna" — so the banner opens beyondredeye.site.
-  test('Home shows a website banner (no in-app restart)', () => {
+  // Chhote (JS) updates OTA se aate hain aur in-app Restart se lagte hain.
+  // Bade VERSION updates (naya APK) website par jaate hain — ye alag raaste
+  // hain aur dono kaam karte rehte hain (user ka instruction, v2.17.1).
+  test('Home shows a restart banner for small OTA updates', () => {
     const home = code('src/screens/Home.tsx');
     expect(home).toMatch(/otaReady \?/);
+    expect(home).toMatch(/applyOtaUpdate/);
     expect(home).toMatch(/otaBanner/);
-    expect(home).toMatch(/Linking\.openURL\(RELEASES_PAGE\)/);
-    expect(home).toMatch(/Download karo/);
-    expect(home).not.toMatch(/applyOtaUpdate/);
-    expect(home).not.toMatch(/Restart/);
+    expect(home).toMatch(/Restart/);
   });
 
-  test('context exposes otaReady and mirrors the launch check', () => {
+  test('context exposes otaReady + applyOtaUpdate and mirrors the launch check', () => {
     const ctx = code('src/state/AppContext.tsx');
     expect(ctx).toMatch(/otaReady/);
+    expect(ctx).toMatch(/applyOtaUpdate/);
     expect(ctx).toMatch(/lastOtaCheck\(\)/);
-    // the restart path is gone — updates go to the website now
-    expect(ctx).not.toMatch(/applyOtaUpdate/);
+    expect(ctx).toMatch(/restartToApply/);
   });
 
-  test('every update action points at the website', () => {
+  test('version (APK) updates point at the website, not GitHub', () => {
     const links = code('src/lib/links.ts');
     expect(links).toMatch(/RELEASES_PAGE = 'https:\/\/beyondredeye\.site'/);
     const about = code('src/screens/About.tsx');
