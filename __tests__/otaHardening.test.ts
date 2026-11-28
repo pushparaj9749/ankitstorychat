@@ -77,19 +77,33 @@ describe('the APK is checked for OTA wiring before it ships', () => {
 });
 
 describe('a downloaded update is visible and one tap away', () => {
-  test('Home shows a restart banner', () => {
+  // v2.17.1: the update action goes to the website, not an in-app restart.
+  // The user asked for it explicitly — "update wala sidha hamare website pe
+  // redirect karna" — so the banner opens beyondredeye.site.
+  test('Home shows a website banner (no in-app restart)', () => {
     const home = code('src/screens/Home.tsx');
     expect(home).toMatch(/otaReady \?/);
-    expect(home).toMatch(/applyOtaUpdate/);
     expect(home).toMatch(/otaBanner/);
+    expect(home).toMatch(/Linking\.openURL\(RELEASES_PAGE\)/);
+    expect(home).toMatch(/Download karo/);
+    expect(home).not.toMatch(/applyOtaUpdate/);
+    expect(home).not.toMatch(/Restart/);
   });
 
-  test('context exposes otaReady + applyOtaUpdate and mirrors the launch check', () => {
+  test('context exposes otaReady and mirrors the launch check', () => {
     const ctx = code('src/state/AppContext.tsx');
     expect(ctx).toMatch(/otaReady/);
-    expect(ctx).toMatch(/applyOtaUpdate/);
     expect(ctx).toMatch(/lastOtaCheck\(\)/);
-    expect(ctx).toMatch(/restartToApply/);
+    // the restart path is gone — updates go to the website now
+    expect(ctx).not.toMatch(/applyOtaUpdate/);
+  });
+
+  test('every update action points at the website', () => {
+    const links = code('src/lib/links.ts');
+    expect(links).toMatch(/RELEASES_PAGE = 'https:\/\/beyondredeye\.site'/);
+    const about = code('src/screens/About.tsx');
+    expect(about).toMatch(/Linking\.openURL\(RELEASES_PAGE\)/);
+    expect(about).not.toMatch(/downloadUrl/);
   });
 
   test('the launch check no longer waits 20s', () => {

@@ -55,6 +55,6 @@ test('the share card really shares (no dead "Refer Kissa" card)', () => {
   const msg = shareStoryMessage('Madam Sarkar', 'Poora desh uske aage jhukta hai');
   expect(msg).toContain('"Madam Sarkar"');
   expect(msg).toContain('Poora desh uske aage jhukta hai');
-  expect(msg).toContain('https://github.com/pushparaj9749/ankitstorychat/releases/latest');
+  expect(msg).toContain('https://beyondredeye.site');
   expect(shareStoryMessage('X', '')).not.toMatch(/""/);
 });

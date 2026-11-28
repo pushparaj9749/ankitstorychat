@@ -16,6 +16,7 @@
 import React, { memo, useCallback, useEffect, useMemo, useState } from 'react';
 import {
   FlatList,
+  Linking,
   Platform,
   Pressable,
   ScrollView,
@@ -29,6 +30,7 @@ import {
 import type { BottomTabScreenProps } from '@react-navigation/bottom-tabs';
 import type { MainTabParamList, StoryMeta } from '../types';
 import { useApp } from '../state/AppContext';
+import { RELEASES_PAGE } from '../lib/links';
 import { useNavScroll } from '../navigation/NavScrollContext';
 import { Screen } from '../components/Screen';
 import { ContinueCard, GridCard, HeroCard, PosterGrid, RankCard, StoryBubble } from '../components/StoryCard';
@@ -76,7 +78,7 @@ const RankRail = memo(function RankRail({ data, onOpen }: { data: StoryMeta[]; o
 const GRID_PAGE = 12;
 
 export function Home({ navigation }: Props) {
-  const { theme, profile, stories, recentPlaythroughs, favoriteIds, unread, otaReady, applyOtaUpdate } = useApp();
+  const { theme, profile, stories, recentPlaythroughs, favoriteIds, unread, otaReady } = useApp();
   const { handleScroll } = useNavScroll();
   const { width: windowW } = useWindowDimensions();
   const [selectedCategory, setSelectedCategory] = useState('For you');
@@ -226,17 +228,17 @@ export function Home({ navigation }: Props) {
           */}
           {otaReady ? (
             <Pressable
-              onPress={applyOtaUpdate}
+              onPress={() => void Linking.openURL(RELEASES_PAGE)}
               accessibilityRole="button"
-              accessibilityLabel="Naya update ready — restart karo"
+              accessibilityLabel="Naya version available — website par download karo"
               style={({ pressed }) => [
                 styles.otaBanner,
                 { backgroundColor: withAlpha(theme.primary, 0.14), borderColor: withAlpha(theme.primary, 0.45), opacity: pressed ? 0.85 : 1 },
               ]}
             >
-              <Icon name="refresh" size={15} color={theme.accent} />
-              <Text style={[styles.otaText, { color: theme.text }]}>Naya update ready hai</Text>
-              <Text style={[styles.otaCta, { color: theme.accent }]}>Restart</Text>
+              <Icon name="download" size={15} color={theme.accent} />
+              <Text style={[styles.otaText, { color: theme.text }]}>Naya version available hai</Text>
+              <Text style={[styles.otaCta, { color: theme.accent }]}>Download karo</Text>
             </Pressable>
           ) : null}
 

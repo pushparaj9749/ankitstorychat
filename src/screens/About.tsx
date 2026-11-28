@@ -88,7 +88,7 @@ export function About({ navigation }: Props) {
           </Text>
           <View style={styles.updActions}>
             {result && result !== 'error' && result.available && result.latest ? (
-              <GradientButton title={`Download v${result.latest.version}`} onPress={() => void Linking.openURL(result.latest!.downloadUrl)} />
+              <GradientButton title={`Download v${result.latest.version}`} onPress={() => void Linking.openURL(RELEASES_PAGE)} />
             ) : (
               <Pressable
                 onPress={() => void checkNow()}

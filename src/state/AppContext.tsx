@@ -47,7 +47,7 @@ import {
 } from '../lib/account';
 // Aliased: this file already has its own `AppState` (the context shape).
 import { AppState as RNAppState, StyleSheet, View } from 'react-native';
-import { lastOtaCheck, restartToApply, scheduleOtaCheck } from '../lib/ota';
+import { lastOtaCheck, scheduleOtaCheck } from '../lib/ota';
 
 interface AppState {
   ready: boolean;
@@ -78,7 +78,6 @@ interface AppState {
    * side. Home now offers the restart in place.
    */
   otaReady: boolean;
-  applyOtaUpdate: () => void;
   /** True once the launch session check finished (gate can decide). */
   accountChecked: boolean;
   /** True when the loaded install must be updated before anything works. */
@@ -180,10 +179,6 @@ export function AppProvider({ children }: { children: React.ReactNode }) {
     };
     const timer = setInterval(tick, 4_000);
     return () => clearInterval(timer);
-  }, []);
-
-  const applyOtaUpdate = useCallback(() => {
-    void restartToApply();
   }, []);
 
   /**
@@ -355,7 +350,6 @@ export function AppProvider({ children }: { children: React.ReactNode }) {
       account,
       unread,
       otaReady,
-      applyOtaUpdate,
       accountChecked,
       updateRequired,
       minVersion,
@@ -384,7 +378,6 @@ export function AppProvider({ children }: { children: React.ReactNode }) {
     account,
     unread,
     otaReady,
-    applyOtaUpdate,
     accountChecked,
     updateRequired,
     minVersion,
