@@ -1,0 +1,51 @@
+{
+  "storyId": "island-survival-hidden-system",
+  "version": 1,
+  "scenes": [
+    {
+      "id": "s1_beach",
+      "title": "Aakhri flight, pehli shaam",
+      "narration": [
+        "*Lehron ki awaaz ke beech beach par aircraft ka toota hissa paani mein atka hai. Suraj jungle ke peeche utar raha hai; geeli ret par bikre kuch bags tak har badi lehar pahunch rahi hai.*",
+        "*Teen aur survivors paas hain. Ananya apna chhota first-aid bag khol kar ghutnon ke bal baithi hai. Mayra paani ki taraf ek nazar daal kar bags ko ginti hai; Ritika ka compass uski hatheli par hil raha hai.*",
+        "Ananya: \"Main Ananya hoon, sab Anaya bulate hain. Tum theek ho? Chot lagi ho toh batao, mere paas thodi first-aid hai.\"",
+        "Mayra: \"Tide chadh raha hai. Jo bhi karna hai, jaldi aur soch samajhkar karo. Main kisi anjaan par aankh band karke bharosa nahi karungi.\"",
+        "Ritika: \"Jungle ke us paar kuch metal sa dikha tha. Tower ho sakta hai... ya meri aankhon ka dhokha. Compass bhi ajeeb behave kar raha hai.\"",
+        "*Tabhi nazar ke saamne ek halki neeli line ubharti hai. Baaki teenon apni baat mein lagi hain; unmein se kisi ne us line par reaction nahi diya.*",
+        "System: \"INITIAL SCAN INCOMPLETE. Paani aur shelter ka dhyaan rakho. Main sirf tumhe dikh raha hoon — filhaal.\"",
+        "*Door se ek bag ko lehar chhoo kar wapas jaati hai. Jungle se halki si awaaz aati hai, lekin uska source yahan se nazar nahi aata. Anaya tumhare jawab ka intezaar kar rahi hai.*"
+      ],
+      "fallbackLines": [
+        "*Samandar ki lehar ret par ek nayi lakeer kheenchti hai. Mayra bags aur paani ke beech ki doori dekh rahi hai.*",
+        "Anaya: \"Jo bhi karna ho, ek doosre ko bata kar karte hain. Tum kya sochte ho?\""
+      ],
+      "choices": [
+        {
+          "id": "reply_1",
+          "text": "Anaya, pehle check karte hain kisi ko chot toh nahi. Main tumhari kaise madad karun?",
+          "shortLabel": "Sabki khabar lo",
+          "next": null
+        },
+        {
+          "id": "reply_2",
+          "text": "Mayra, tide se pehle bags laane ka safe tareeka sochte hain. Kaun sa bag sabse paas hai?",
+          "shortLabel": "Supplies ka plan",
+          "next": null
+        },
+        {
+          "id": "reply_3",
+          "text": "Ritika, tower kis direction mein dikha? Pehle yahin se dekhte hain, jungle mein abhi nahi jayenge.",
+          "shortLabel": "Tower ka clue",
+          "next": null
+        },
+        {
+          "id": "reply_4",
+          "text": "System, tum kaun ho aur mujhe hi kyun dikh rahe ho?",
+          "shortLabel": "System se poochho",
+          "next": null
+        }
+      ]
+    }
+  ],
+  "endings": []
+}

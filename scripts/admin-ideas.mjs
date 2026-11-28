@@ -13,6 +13,8 @@
  *   ADMIN_TOKEN=... node scripts/admin-ideas.mjs --json      # raw JSON
  *   ADMIN_TOKEN=... node scripts/admin-ideas.mjs --url https://staging.example
  *
+ * This report is a point-in-time snapshot of pending items; it does not include
+ * submissions that were already processed or expired.
  * The token is read from the environment only. It is never written to disk and
  * never echoed in output.
  */

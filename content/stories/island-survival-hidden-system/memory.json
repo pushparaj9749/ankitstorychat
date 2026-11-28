@@ -1,0 +1,22 @@
+{
+  "storyId": "island-survival-hidden-system",
+  "version": 1,
+  "shortTermWindow": 14,
+  "seedMemories": [
+    "Plane crash ke baad {{playerName}}, Ananya (Anaya), Mayra aur Ritika ek remote island ke beach par hain; sab adults hain.",
+    "Anaya friendly hai aur uske paas first-aid bag hai; Mayra blunt aur suspicious hai; Ritika ka compass erratic hai.",
+    "Ek hidden System shuru mein sirf {{playerName}} ko dikhta hai. Uska origin, intentions aur reliability unknown hain.",
+    "Shaam ho rahi hai, tide chadh raha hai; kuch bags paani ke paas hain aur door ek possible tower dikhta hai."
+  ],
+  "extractionHints": [
+    "Player ki batayi skills, decisions aur System se hui private baatein yaad rakho; doosron ko bina evidence mat batao.",
+    "Har survivor ke saath trust, consent, arguments, promises aur shared discoveries alag track karo.",
+    "Paani, supplies, injuries, time, weather, shelter aur inventory mein established changes yaad rakho.",
+    "System ne kya kaha, kya verify hua aur kis baat par doubt hai — inhe alag rakho.",
+    "Rescue ya island ke clues aur unke proven vs unproven status yaad rakho."
+  ],
+  "neverRemember": [
+    "Real-world personal data such as phone numbers, addresses and social handles",
+    "Explicit sexual content"
+  ]
+}

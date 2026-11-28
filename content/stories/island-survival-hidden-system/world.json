@@ -1,0 +1,79 @@
+{
+  "storyId": "island-survival-hidden-system",
+  "version": 1,
+  "premise": "Flight ke crash ke baad {{playerName}}, Ananya (Anaya), Mayra aur Ritika ek remote island ke shore par bachte hain. Rescue, shelter aur peene ka paani priority hain. {{playerName}} ko ek private interface dikhta hai jo clues aur limited options deta hai, par uske origin, motives aur reliability anjaan hain. Survival aur relationships player ke actions ke saath organically badhenge.",
+  "locations": [
+    {
+      "id": "beach",
+      "name": "Crash Beach",
+      "description": "Plane ka damaged hissa low tide par dikhta hai; high tide se luggage aur wreck tak jaana risky ho sakta hai."
+    },
+    {
+      "id": "jungle",
+      "name": "Ghane jungle ka kinaara",
+      "description": "Beach se shuru hoti ghani hari patti; andar ki jagah abhi map nahi hui."
+    },
+    {
+      "id": "tower",
+      "name": "Door ka purana signal tower",
+      "description": "Pedon ke upar door ek dhundhla metal structure dikhta hai; uski haalat aur wahan pahunchne ka raasta abhi unknown hai."
+    },
+    {
+      "id": "stream",
+      "name": "Paani ki sambhavit jagah",
+      "description": "Jungle se kabhi halki paani ki awaaz sunai deti hai; safe drinking water ki maujoodgi abhi confirm nahi."
+    }
+  ],
+  "factions": [
+    {
+      "id": "survivors",
+      "name": "Crash survivors",
+      "description": "Chaar adults jo shuru mein ek doosre ko mushkil se jaante hain; sabki apni priorities aur decisions hain."
+    }
+  ],
+  "lore": [
+    "Player ko dikha interface shuru mein sirf ek short diagnostic dikhata hai; system ka source aur reliability abhi unknown hai.",
+    "Compass kabhi-kabhi unstable dikhta hai; wajah aur extent abhi kisi ko maloom nahi.",
+    "Plane crash ka asli reason establish nahi hua; investigation se hi clues mil sakte hain."
+  ],
+  "rules": [
+    "Only {{playerName}} initially sees the System; no one reads its text or knows it exists unless player shares it or evidence credibly emerges.",
+    "System useful clues ya limited choices de sakta hai, lekin resources create nahi karta, consent control nahi karta, aur rescue ya success guarantee nahi karta.",
+    "Paani, shelter, waqt, mausam aur choton ke consequences consistent rakhna; skills ya inventory bina establish kiye mat dena.",
+    "Anaya friendly hai, Mayra initially blunt aur suspicious, Ritika observant; har ek independently decide karti hai aur koi player ki property nahi.",
+    "Romance optional, adults only, gradual aur mutual consent ke saath; no fixed love interest.",
+    "Narrator player ke action, dialogue, feeling, consent ya choice assume nahi karega.",
+    "Koi scripted quest, fixed arc, predefined scene transition ya ending nahi; rescue bhi possible rahe, par earned aur credible ho."
+  ],
+  "importantObjects": [
+    {
+      "id": "compass",
+      "name": "Ritika ka compass",
+      "description": "Needle kabhi stable, kabhi erratic; exact cause unknown."
+    },
+    {
+      "id": "first-aid",
+      "name": "First-aid satchel",
+      "description": "Anaya ka chhota bag; contents ko milne aur istemal ke hisaab se track karo."
+    },
+    {
+      "id": "wreck",
+      "name": "Plane wreck",
+      "description": "High tide aur damage ki wajah se paani aur metal parts ke paas jaana risky."
+    }
+  ],
+  "timeline": [
+    {
+      "when": "Flight se pehle",
+      "what": "Chaar adults ek hi passenger flight par the; exact backgrounds player ke decisions aur dialogue se develop honge."
+    },
+    {
+      "when": "Kuch der pehle",
+      "what": "Plane crash hua; survivors beach tak pahuche. Crash ki wajah unknown hai."
+    },
+    {
+      "when": "Abhi",
+      "what": "Shaam dhal rahi hai; first-aid aur high tide par discussion ke beech player ko private system message dikhta hai."
+    }
+  ]
+}
