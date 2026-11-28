@@ -1,0 +1,79 @@
+{
+  "id": "island-survival-hidden-system",
+  "title": "Island Survival Hidden System",
+  "description": "Ek plane crash ke baad {{playerName}} samandar ke beech ek anjaan island par phansa hai. Saath hain Ananya (Anaya), khulkar madad karne wali; Mayra, jo kisi par jaldi bharosa nahi karti; aur Ritika, jo har cheez mein ek clue dhoondhti hai. Paani, panaah aur rescue ki chinta ke beech sirf tumhe ek chhupa hua System dikhai deta hai. Woh kya jaanta hai, aur uski baat maan-ni chahiye ya nahi? Har kadam tumhara — rishton, zinda bachne aur island ke raaz ka koi tay raasta nahi.",
+  "version": 1,
+  "language": "hinglish",
+  "ageRating": "18+",
+  "contentLevel": "mature",
+  "genres": [
+    "Romance",
+    "Adventure",
+    "Mystery"
+  ],
+  "tags": [
+    "hinglish",
+    "survival",
+    "island",
+    "hidden-system",
+    "plane-crash",
+    "slow-burn",
+    "player-agency",
+    "mystery"
+  ],
+  "userRole": "{{playerName}} — ek adult male passenger aur crash survivor. Uska naam player ka hai; uski skills, background, dialogues, decisions, feelings aur boundaries player tay karta hai. Woh akela ladka hai, lekin team ke har member ki apni agency aur skills hain.",
+  "setting": "Aaj ka waqt; ek remote tropical island ka beach, samundar mein aadha dooba plane, ghana jungle aur ek anjaan purana signal tower. Rescue ki umeed hai, par uska waqt kisi ko pata nahi.",
+  "openingSceneId": "s1_beach",
+  "tone": "Cinematic survival aur layered mystery, beech-beech mein halki dosti aur slow-burn romance. Roman Hinglish mein *actions* aur Name: \"dialogue\" likho. Situation urgent ho, par characters ko bolne aur choice karne ki jagah mile. Sirf starting moment fixed hai; baad ka har incident player aur established facts se nikle.",
+  "safetyNotes": [
+    "Sabhi characters 21+ adults hain. Romance optional, dheema aur consent-based hai; kisi ko reward ya possession mat banao.",
+    "Crash aur survival mein danger ho sakta hai, lekin graphic gore ya sexual violence nahi.",
+    "Player ke thoughts, consent, decisions, skills ya actions kabhi invent mat karo.",
+    "System private hai; kisi doosre character ko tabhi pata chale jab player bataye ya story mein credible evidence mile.",
+    "Hidden System na guaranteed rescue hai na unlimited power; abilities aur costs ko consistency ke saath dheere reveal karo."
+  ],
+  "creator": {
+    "name": "Aaditya",
+    "avatar": null,
+    "verified": false
+  },
+  "media": {
+    "cover": "assets/cover.jpg",
+    "gallery": [
+      {
+        "id": "cover",
+        "file": "assets/cover.jpg",
+        "kind": "cover",
+        "label": "Cover"
+      },
+      {
+        "id": "anaya",
+        "file": "assets/gallery/image-01.jpg",
+        "kind": "character-portrait",
+        "label": "Ananya (Anaya)",
+        "characterId": "anaya"
+      },
+      {
+        "id": "mayra",
+        "file": "assets/gallery/image-02.jpg",
+        "kind": "character-portrait",
+        "label": "Mayra",
+        "characterId": "mayra"
+      },
+      {
+        "id": "ritika",
+        "file": "assets/gallery/image-03.jpg",
+        "kind": "character-portrait",
+        "label": "Ritika",
+        "characterId": "ritika"
+      },
+      {
+        "id": "beach",
+        "file": "assets/gallery/image-04.jpg",
+        "kind": "scene",
+        "label": "Crash ke baad ka beach",
+        "sceneId": "s1_beach"
+      }
+    ]
+  }
+}

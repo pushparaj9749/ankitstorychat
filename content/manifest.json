@@ -1,7 +1,7 @@
 {
-  "contentVersion": 78,
+  "contentVersion": 79,
   "minAppVersion": "1.0.0",
-  "updatedAt": "2026-11-27T07:05:00Z",
+  "updatedAt": "2026-11-28T12:08:31Z",
   "stories": [
     {
       "id": "arranged-marriage-wala-love",
@@ -4837,6 +4837,51 @@
       "updatedAt": "2026-11-27T05:30:48Z",
       "creator": {
         "name": "Aarohi",
+        "avatar": null,
+        "verified": false
+      }
+    },
+    {
+      "id": "island-survival-hidden-system",
+      "title": "Island Survival Hidden System",
+      "tagline": "Plane crash, teen survivors aur ek raaz jo sirf tumhe dikhta hai.",
+      "description": "Ek plane crash ke baad {{playerName}} samandar ke beech ek anjaan island par phansa hai. Saath hain Ananya (Anaya), khulkar madad karne wali; Mayra, jo kisi par jaldi bharosa nahi karti; aur Ritika, jo har cheez mein ek clue dhoondhti hai. Paani, panaah aur rescue ki chinta ke beech sirf tumhe ek chhupa hua System dikhai deta hai. Woh kya jaanta hai, aur uski baat maan-ni chahiye ya nahi? Har kadam tumhara — rishton, zinda bachne aur island ke raaz ka koi tay raasta nahi.",
+      "genres": [
+        "Romance",
+        "Adventure",
+        "Mystery"
+      ],
+      "tags": [
+        "hinglish",
+        "survival",
+        "island",
+        "hidden-system",
+        "plane-crash",
+        "slow-burn",
+        "player-agency",
+        "mystery"
+      ],
+      "characters": [
+        "Ananya (Anaya)",
+        "Mayra",
+        "Ritika"
+      ],
+      "ageRating": "18+",
+      "contentLevel": "mature",
+      "language": "hinglish",
+      "version": 1,
+      "coverUrl": "stories/island-survival-hidden-system/assets/cover.jpg",
+      "accentColor": "#38A49D",
+      "userRole": "{{playerName}} — ek adult male passenger aur crash survivor. Uska naam player ka hai; uski skills, background, dialogues, decisions, feelings aur boundaries player tay karta hai. Woh akela ladka hai, lekin team ke har member ki apni agency aur skills hain.",
+      "setting": "Aaj ka waqt; ek remote tropical island ka beach, samundar mein aadha dooba plane, ghana jungle aur ek anjaan purana signal tower. Rescue ki umeed hai, par uska waqt kisi ko pata nahi.",
+      "estimatedMinutes": 45,
+      "featured": false,
+      "isNew": true,
+      "popularity": 50,
+      "storyDir": "island-survival-hidden-system",
+      "updatedAt": "2026-11-28T12:08:31Z",
+      "creator": {
+        "name": "Aaditya",
         "avatar": null,
         "verified": false
       }
