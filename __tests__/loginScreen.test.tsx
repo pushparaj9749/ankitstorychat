@@ -96,10 +96,12 @@ jest.mock('../src/lib/account', () => ({
 
 import { Login } from '../src/screens/Login';
 
-function render() {
+function render(inputMocks?: Record<string, { focus: jest.Mock }>) {
   let tree: any;
   act(() => {
-    tree = renderer.create(<Login navigation={{ navigate: jest.fn() } as any} route={{} as any} />);
+    tree = renderer.create(<Login navigation={{ navigate: jest.fn() } as any} route={{} as any} />, {
+      createNodeMock: (element: any) => element.type === 'TextInput' ? inputMocks?.[element.props.accessibilityLabel] ?? null : null,
+    });
   });
   return tree as renderer.ReactTestRenderer;
 }
@@ -166,4 +168,38 @@ test('the CTA is disabled until the form is filled', () => {
   act(() => byLabel(tree, 'Password').props.onChangeText('kissa1234'));
   act(() => byLabel(tree, 'Password dobara').props.onChangeText('kissa1234'));
   expect(cta().props.disabled).toBe(false);
+});
+
+test('focusing each credential field never adds shadow or elevation to its input wrapper', () => {
+  const tree = render();
+  for (const label of ['Username', 'Password', 'Password dobara']) {
+    const input = byLabel(tree, label);
+    let box = input.parent;
+    while (box && flatStyle(box).minHeight !== 56) box = box.parent;
+    expect(box).toBeTruthy();
+    const before = flatStyle(box);
+    act(() => input.props.onFocus());
+    expect(byLabel(tree, label)).toBe(input);
+    const after = flatStyle(box);
+    // React Native Fabric can immediately blur an input when these wrapper
+    // styles change on focus: https://github.com/facebook/react-native/issues/45798
+    for (const key of ['elevation', 'shadowColor', 'shadowOpacity', 'shadowRadius', 'shadowOffset']) {
+      expect(after[key]).toEqual(before[key]);
+    }
+    act(() => input.props.onBlur());
+  }
+});
+
+test('keyboard Next moves from username to password to confirmation', () => {
+  const mocks = {
+    Username: { focus: jest.fn() },
+    Password: { focus: jest.fn() },
+    'Password dobara': { focus: jest.fn() },
+  };
+  const tree = render(mocks);
+  act(() => byLabel(tree, 'Username').props.onSubmitEditing());
+  expect(mocks.Password.focus).toHaveBeenCalledTimes(1);
+  expect(mocks.Username.focus).not.toHaveBeenCalled();
+  act(() => byLabel(tree, 'Password').props.onSubmitEditing());
+  expect(mocks['Password dobara'].focus).toHaveBeenCalledTimes(1);
 });

@@ -258,8 +258,7 @@ export function Login({ navigation }: Props) {
       </View>
 
       <KeyboardAvoidingView
-        behavior="padding"
-        keyboardVerticalOffset={0}
+        behavior={Platform.OS === 'ios' ? 'padding' : undefined}
         style={[styles.flex, { paddingTop: insets.top + 10 }]}
       >
         <ScrollView
@@ -311,9 +310,6 @@ export function Login({ navigation }: Props) {
             })}
           </View>
 
-          {/* Plain View, NOT a ScrollView: Android ka ScrollView TextInput ka
-              touch kha jaata hai aur keyboard khulta hi nahi (v2.17.0 bug).
-              Fields yahan seedhe hain, isliye tap focus hota hai. */}
           <View style={styles.form}>
             <Field
               label="Username"
@@ -326,7 +322,6 @@ export function Login({ navigation }: Props) {
               prefix="@"
               error={isSignup ? userError : null}
               hint={isSignup ? '3-20 characters · a-z, 0-9, _' : undefined}
-              inputRef={passRef}
               inputProps={{
                 autoComplete: 'username',
                 maxLength: 20,
@@ -347,7 +342,7 @@ export function Login({ navigation }: Props) {
               secret={{ shown: show, onToggle: () => setShow((v) => !v) }}
               error={isSignup ? passError : null}
               hint={isSignup ? 'Ek letter aur ek number zaroori hai' : undefined}
-              inputRef={isSignup ? confirmRef : undefined}
+              inputRef={passRef}
               inputProps={{
                 autoComplete: isSignup ? 'new-password' : 'current-password',
                 returnKeyType: isSignup ? 'next' : 'go',
@@ -364,6 +359,7 @@ export function Login({ navigation }: Props) {
                 placeholder="wahi password, ek baar aur"
                 secret={{ shown: show, onToggle: () => setShow((v) => !v) }}
                 error={confirmError}
+                inputRef={confirmRef}
                 inputProps={{ autoComplete: 'new-password', returnKeyType: 'go', onSubmitEditing: () => void go() }}
               />
             ) : null}

@@ -86,7 +86,9 @@ export function Field({
             borderColor: accent,
             backgroundColor: withAlpha(theme.surface2, focused ? 1 : 0.72),
           },
-          focused && { borderWidth: 1.5, shadowColor: theme.primary, shadowOpacity: 0.28, shadowRadius: 12, elevation: 3 },
+          // Do not add/remove elevation or shadow on focus: Fabric can remount
+          // the native input and immediately dismiss the keyboard (RN #45798).
+          focused && { borderWidth: 1.5 },
         ]}
       >
         {prefix ? <Text style={[styles.prefix, { color: focused ? theme.textDim : theme.textFaint }]}>{prefix}</Text> : null}
